@@ -1,0 +1,80 @@
+{
+  "schema": "paper1-14b-revised-predictor-family-freeze-v1",
+  "status": "FROZEN_BEFORE_14B_MEASUREMENT_AND_RL",
+  "scientific_role": "Second prospective same-family scale test after the preserved 8B forecast miss",
+  "uses_14b_measurement_outcomes": false,
+  "uses_14b_rl_outcomes": false,
+  "selection": {
+    "model": "cost_adm_saturating",
+    "reason": "Smallest candidate with the best three-scale LOEO and LOSO RMSE and no loss of held-scale rank accuracy or allocation regret; flexible scale terms were rejected.",
+    "candidate_family_size": 5,
+    "post_8b_selection_acknowledged": true
+  },
+  "formula": {
+    "utility_fraction": "b0 + bN*x_scale + bS*s_budget + bT*s_budget*z_log_mean_tokens + bA*s_budget*z_p_admissible",
+    "x_scale": "log(model_parameters_billions/1.7) / log(4.0/1.7)",
+    "x_scale_14b": 2.4640792170802004,
+    "s_budget": "generated_action_tokens / (generated_action_tokens + budget_reference_tokens)",
+    "budget_reference_tokens": 14366510.0,
+    "standardizers": {
+      "log_mean_tokens": {"mean": 9.035141884917243, "sd": 0.14703705388984328},
+      "p_admissible": {"mean": 0.4552408854166667, "sd": 0.13544170441610254}
+    },
+    "columns": [
+      "intercept",
+      "x_scale",
+      "saturating_budget",
+      "saturating_budget_x_log_cost",
+      "saturating_budget_x_admissibility"
+    ],
+    "coefficients": [
+      -0.011578520351811186,
+      -0.0033067893742992883,
+      0.02575348444303801,
+      0.05667004910954148,
+      0.03202414012160054
+    ]
+  },
+  "forecast_grid_generated_action_tokens": [8000000, 16000000, 24000000],
+  "primary_uncertainty": {
+    "method": "leave-one-scale-out curve-level absolute-residual conformal envelope",
+    "nominal_coverage": 0.9,
+    "finite_sample_quantile_method": "higher",
+    "half_width_pp": 5.693917763187742,
+    "calibration_units": 12,
+    "curves_fully_covered": "11/12",
+    "points_covered": "47/48",
+    "target": "future two-seed environment-cell mean curve",
+    "interpretation": "Includes model misspecification and two-seed mean variability; does not identify cell-specific seed variance."
+  },
+  "prospective_scoring": {
+    "primary": [
+      "curve_rmse_pp",
+      "curve_mae_pp",
+      "pairwise_rank_accuracy",
+      "predicted_best_wins",
+      "mean_allocation_regret_pp",
+      "max_allocation_regret_pp",
+      "curve_interval_coverage"
+    ],
+    "unit": "14B environment-cell mean over the two frozen RL seeds",
+    "checkpoints_are_repeated_budget_observations": true,
+    "environment_cells_are_design_units": true
+  },
+  "hard_boundaries": [
+    "Do not revise formula, coefficients, standardizers, forecast budgets, or uncertainty after any 14B measurement or RL outcome.",
+    "Do not instantiate numerical cell predictions until untouched 14B Stage D passes.",
+    "Do not launch 14B RL until numerical curves, rankings, pairwise differences, predicted-best cell, and artifact hash are frozen.",
+    "Additional 8B seeds are optional robustness and may not replace original trajectories or modify this freeze."
+  ],
+  "sources": {
+    "three_scale_post8b_analysis": {
+      "path": "work/8b_v4_postmortem/results/post8b_analysis.json",
+      "sha256": "25ab684a79932b41ca35af428283d7fa759ec038340bbe5f41afa9bfe2b3fa23"
+    },
+    "preserved_8b_prospective_score": {
+      "path": "work/8b_v4_results/raw/prospective_score_v1/frozen_forecast_score.json",
+      "sha256": "f2eb4fc6c592350d759fdafb56f8adccb5d8e709c10634eea78070cdfceffc99"
+    }
+  }
+}

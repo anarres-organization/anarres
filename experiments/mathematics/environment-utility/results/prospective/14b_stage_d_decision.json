@@ -1,0 +1,73 @@
+{
+  "admissibility_main_effect": 0.236572265625,
+  "admissibility_one_sided_90_bounds": [
+    0.21044921875,
+    0.262451171875
+  ],
+  "balance_pass": true,
+  "cells": [
+    {
+      "admissibility": 0.57958984375,
+      "cell": "high_mixed_high_adm",
+      "integrity_pass": true,
+      "mean_tokens": 8561.53125,
+      "q_mixed": 0.8203125,
+      "source": {
+        "path": "${ARTIFACT_ROOT}/results/paper1_14b_v4_prospective/stage_d/scored/high_mixed_high_adm.json",
+        "sha256": "df3a168dc39f6397073926592a861abf41d21ffc78ca173f34c32a656daee3c8"
+      },
+      "success": 0.33056640625,
+      "verifier_infrastructure_errors": 0
+    },
+    {
+      "admissibility": 0.349609375,
+      "cell": "high_mixed_low_adm",
+      "integrity_pass": true,
+      "mean_tokens": 10443.37451171875,
+      "q_mixed": 0.8515625,
+      "source": {
+        "path": "${ARTIFACT_ROOT}/results/paper1_14b_v4_prospective/stage_d/scored/high_mixed_low_adm.json",
+        "sha256": "a10f1fc404afa6fdd3b1b5730498ad3b43487bf9731ac8d5be6881c336a2f01e"
+      },
+      "success": 0.31640625,
+      "verifier_infrastructure_errors": 0
+    },
+    {
+      "admissibility": 0.58154296875,
+      "cell": "low_mixed_high_adm",
+      "integrity_pass": true,
+      "mean_tokens": 7766.90966796875,
+      "q_mixed": 0.21875,
+      "source": {
+        "path": "${ARTIFACT_ROOT}/results/paper1_14b_v4_prospective/stage_d/scored/low_mixed_high_adm.json",
+        "sha256": "ab65198a131e9a7a585e5503745a361da8f52fca423d949ac89b54fa7bcdc57f"
+      },
+      "success": 0.30908203125,
+      "verifier_infrastructure_errors": 0
+    },
+    {
+      "admissibility": 0.33837890625,
+      "cell": "low_mixed_low_adm",
+      "integrity_pass": true,
+      "mean_tokens": 9305.65625,
+      "q_mixed": 0.1640625,
+      "source": {
+        "path": "${ARTIFACT_ROOT}/results/paper1_14b_v4_prospective/stage_d/scored/low_mixed_low_adm.json",
+        "sha256": "a679df7b2c1a87ffb2dfa8099daa0aee8d562844bbd97dfa247e035c088a31c1"
+      },
+      "success": 0.31640625,
+      "verifier_infrastructure_errors": 0
+    }
+  ],
+  "integrity_pass": true,
+  "manifest": {
+    "path": "${ARTIFACT_ROOT}/results/paper1_14b_v4_prospective/stage_d/stage_d_manifest.json",
+    "sha256": "042ac13de71b800419f7249555a01cd73c33b097f011ee1f23e56cab24245449"
+  },
+  "max_binary_success_smd": 0.04607567293926216,
+  "max_success_spread": 0.021484375,
+  "mixed_main_effect": 0.64453125,
+  "rl_launch_permitted": true,
+  "schema": "paper1-v4-14b-stage-d-decision-v1",
+  "status": "PROMOTE"
+}

@@ -1,0 +1,11 @@
+{
+  "license": "CC0-1.0",
+  "name": "Anarres synthetic mathematics fixture",
+  "tasks": [
+    {"task_id": "math-demo-001", "prompt": "Compute 1 + 1.", "reference_answer": "2"},
+    {"task_id": "math-demo-002", "prompt": "Compute 2 + 2.", "reference_answer": "4"},
+    {"task_id": "math-demo-003", "prompt": "Compute 3 + 3.", "reference_answer": "6"},
+    {"task_id": "math-demo-004", "prompt": "Compute 4 + 4.", "reference_answer": "8"},
+    {"task_id": "math-demo-005", "prompt": "Compute 5 + 5.", "reference_answer": "10"}
+  ]
+}

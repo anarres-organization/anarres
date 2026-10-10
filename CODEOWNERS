@@ -1,0 +1,9 @@
+# Replace individual ownership with organization teams as the maintainer base grows.
+* @madanva
+
+/schemas/ @madanva
+/packages/core/ @madanva
+/packages/environments/ @madanva
+/packages/evaluation/ @madanva
+/data/ @madanva
+/experiments/ @madanva

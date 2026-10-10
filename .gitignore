@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.venv/
+.uv-cache/
+dist/
+build/
+*.egg-info/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets/
+
+# Large and generated research artifacts
+.anarres/
+/artifacts/
+/checkpoints/
+/outputs/
+/results/
+/rollouts/
+/traces/
+/wandb/
+/mlruns/
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.onnx
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
+*~
+*.swp
+
+# Rust
+target/

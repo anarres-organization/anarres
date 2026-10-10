@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anarres.science/schemas/environments/probe-input.v1.schema.json",
+  "title": "Anarres policy probe input v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "environment_id",
+    "policy_id",
+    "policy_revision",
+    "source_license",
+    "source_revision",
+    "source_uri",
+    "probe_contract",
+    "groups"
+  ],
+  "properties": {
+    "environment_id": {"type": "string", "minLength": 1},
+    "policy_id": {"type": "string", "minLength": 1},
+    "policy_revision": {"type": "string", "minLength": 1},
+    "source_license": {"type": "string", "minLength": 1},
+    "source_revision": {"type": "string", "minLength": 1},
+    "source_uri": {"type": "string", "minLength": 1},
+    "probe_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["group_size", "views", "temperature", "max_new_tokens"],
+      "properties": {
+        "group_size": {"type": "integer", "minimum": 2},
+        "views": {"type": "integer", "minimum": 1},
+        "temperature": {"type": "number", "minimum": 0},
+        "max_new_tokens": {"type": "integer", "minimum": 1}
+      }
+    },
+    "groups": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "task_id",
+          "oracle_passed",
+          "noop_passed",
+          "infrastructure_valid",
+          "rewards",
+          "admitted_advantage_mass",
+          "generated_action_tokens"
+        ],
+        "properties": {
+          "task_id": {"type": "string", "minLength": 1},
+          "oracle_passed": {"type": "boolean"},
+          "noop_passed": {"type": "boolean"},
+          "infrastructure_valid": {"type": "boolean"},
+          "rewards": {"type": "array", "items": {"type": "number"}},
+          "admitted_advantage_mass": {"type": "number", "minimum": 0},
+          "generated_action_tokens": {"type": "integer", "minimum": 1}
+        }
+      }
+    }
+  }
+}

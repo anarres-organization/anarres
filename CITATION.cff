@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use Anarres, please cite the software using these metadata."
+title: "Anarres: Open Infrastructure and Research for Predictable Post-Training"
+type: software
+authors:
+  - name: Anarres contributors
+license: Apache-2.0
+repository-code: "https://github.com/anarres-organization/anarres"
+abstract: "Open infrastructure and research for making post-training more predictable."

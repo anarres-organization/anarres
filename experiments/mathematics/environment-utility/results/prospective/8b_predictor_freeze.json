@@ -1,0 +1,189 @@
+{
+  "8b_prerl_contract": {
+    "forecast_timing": "after Stage-D promotion and before any 8B V4 RL outcome",
+    "prior_8b_outcome_exposed_prompt_count": 512,
+    "selected_stage_a_counts": {
+      "HH": 640,
+      "HL": 640,
+      "LH": 566,
+      "LL": 640
+    },
+    "selection": "frozen V4 A+B+C selector, 256 prompts per cell",
+    "stage_a_rule": {
+      "bands": {
+        "admissibility_overlap_is_intentional": true,
+        "high_admissibility": "non_capped_A >= 3/8",
+        "low_admissibility": "non_capped_A <= 4/8",
+        "mixed": "0 < K_A < 8",
+        "non_mixed": "K_A in {0,8}"
+      },
+      "hash_cap_per_provisional_cell": 640,
+      "selection_namespace": "paper1-v4-8b-stageA-shortlist-v1"
+    },
+    "stage_a_unique_union": 2280,
+    "stage_b_and_c": "fresh independent G=8 measurements on frozen Stage-A union",
+    "stage_d": "one untouched independent G=8 confirmation; no rematching"
+  },
+  "forecast_grid": {
+    "also_score_at_realized_checkpoint_budgets": [
+      16,
+      32,
+      48,
+      64,
+      96,
+      128
+    ],
+    "no_extrapolation_beyond_realized_8b_common_support_in_primary_scores": true,
+    "primary_generated_action_token_budgets": [
+      8000000,
+      16000000,
+      24000000
+    ]
+  },
+  "formula": {
+    "budget_reference_tokens": 13644849.5,
+    "coefficient_cluster_bootstrap_90pct": {
+      "intercept": [
+        -0.03153923626178799,
+        -0.019247212436560312
+      ],
+      "scale_4b": [
+        0.005222590938175969,
+        0.01881610862940619
+      ],
+      "z_budget": [
+        0.03384299294806191,
+        0.08426452452903135
+      ],
+      "z_budget_sq": [
+        -0.05170770804743855,
+        -0.02255399084356268
+      ],
+      "z_budget_x_log_mean_tokens": [
+        0.019234141754302474,
+        0.053030451865873296
+      ],
+      "z_budget_x_p_admissible": [
+        0.0022404541736154937,
+        0.028894161410552267
+      ]
+    },
+    "coefficients": [
+      -0.026055131620810953,
+      0.012032700680603864,
+      0.06408069512194897,
+      -0.040604299868123916,
+      0.03677596980181475,
+      0.015622318458298352
+    ],
+    "columns": [
+      "intercept",
+      "scale_4b",
+      "z_budget",
+      "z_budget_sq",
+      "z_budget_x_log_mean_tokens",
+      "z_budget_x_p_admissible"
+    ],
+    "equation": "b0 + bN*xN + bC*zC + bC2*zC^2 + zC*(bT*z(log_mean_tokens) + bA*z(p_admissible))",
+    "parameter_uncertainty_note": "The recorded run-cluster coefficient intervals are descriptive and coarse with two seeds; no post-outcome interval retuning is allowed.",
+    "scale_coordinate": "log(N_billions/1.7) / log(4.0/1.7)",
+    "scale_coordinate_8b": 1.8100673526887583,
+    "standardizers": {
+      "log_mean_tokens": {
+        "mean": 9.034242417997289,
+        "sd": 0.15637736938738858
+      },
+      "p_admissible": {
+        "mean": 0.4466552734375,
+        "sd": 0.1444662308717752
+      }
+    },
+    "utility_units": "absolute heldout pass@1 fraction relative to scale-matched pi0",
+    "z_budget": "log1p(generated_action_tokens / budget_reference_tokens)"
+  },
+  "frozen_at_utc": "2026-09-07T02:53:41.214787+00:00",
+  "prospective_scores": {
+    "aggregation": "Seeds are replicates; checkpoints are repeated budget observations; the four 8B environment cells are independent design units.",
+    "baselines": [
+      "budget_scale_only",
+      "baseline_success",
+      "raw_q_mixed",
+      "simple_cost_admissibility_heuristic"
+    ],
+    "before_refit": [
+      "curve_rmse",
+      "curve_mae",
+      "pairwise_rank_accuracy",
+      "predicted_best_wins",
+      "allocation_regret",
+      "interval_coverage"
+    ]
+  },
+  "rl_contract": {
+    "adaptive_stopping": false,
+    "cells": [
+      "HH",
+      "HL",
+      "LH",
+      "LL"
+    ],
+    "checkpoint_steps": [
+      16,
+      32,
+      48,
+      64,
+      96,
+      128
+    ],
+    "comparison_axis": "actual generated action tokens",
+    "group_size": 8,
+    "passes": 2,
+    "prompts_per_cell": 256,
+    "steps": 128,
+    "trainer": "frozen native NeMo RL corrected-GRPO contract used at 1.7B/4B"
+  },
+  "schema": "paper1-v4-8b-prospective-predictor-freeze-v1",
+  "scientific_roles": {
+    "8b": "prospective intervention-level validation: formula, coefficients, scoring and candidate universe freeze before 8B V4 RL",
+    "caveat": "Prior 8B High/Low outcomes were inspected. V4 cells and outcomes are new, but 8B is not the first-ever inspected scale; a later 14B or external-family/domain test remains the strongest pristine validation.",
+    "fit": "retrospective 1.7B+4B fit set; immutable from this point"
+  },
+  "selection_rule": {
+    "no_further_feature_or_model_search_before_8b_scoring": true,
+    "reason": "Best prespecified LOEO RMSE and allocation regret among the frozen 1.7B/4B candidates; chosen without 8B V4 RL outcomes.",
+    "selected_model": "cost_admissibility"
+  },
+  "source_artifacts": {
+    "8b_stage_a_audit": {
+      "bytes": 5625,
+      "path": "${ANALYSIS_ROOT}/work/8b_v4_prospective/stage_a/stage_a_shortlist_audit.json",
+      "sha256": "3eb7e38cb6cd395891172adcce8db4d6faef84a9502d7447fc6013253285865d"
+    },
+    "8b_stage_a_union": {
+      "bytes": 1736990,
+      "path": "${ANALYSIS_ROOT}/work/8b_v4_prospective/stage_a/8b_stage_bc_unique_union.jsonl",
+      "sha256": "b09067b1c6b558d1b45f7dbe525420c6c5b972df878d1ccc3de8cc384410da64"
+    },
+    "prerl_coordinates": {
+      "bytes": 6075,
+      "path": "${ANALYSIS_ROOT}/work/g1_v4_audit/paper1_v4_prerl_coordinates.json",
+      "sha256": "061ae337235680c927834e3c625574f8644409d2f04cf619528d8f97072b82ac"
+    },
+    "retrospective_fit": {
+      "bytes": 57429,
+      "path": "${ANALYSIS_ROOT}/work/g1_v4_audit/paper1_v4_utility_fit.json",
+      "sha256": "d93dc88c1b1cc55105df48c1612dd3ca3dfd1c4c0e345450a71d04a22e6efd9d"
+    },
+    "retrospective_rows": {
+      "bytes": 27839,
+      "path": "${ANALYSIS_ROOT}/work/g1_v4_audit/paper1_v4_utility_rows.csv",
+      "sha256": "c6ca5473d64e6f70f16afb3cb63b858536ef9329832078cec13bd0c26fe671c4"
+    },
+    "weighting_audit": {
+      "bytes": 5371308,
+      "path": "${ANALYSIS_ROOT}/work/g1_v4_audit/paper1_v4_prompt_weighting_audit.json",
+      "sha256": "e9c54fb42547979989ecf36da04ad1c70fae40de461ce9d09af47a612b8d91de"
+    }
+  },
+  "status": "FORMULA_FROZEN_AWAITING_CONFIRMED_8B_COVARIATES"
+}

@@ -1,0 +1,361 @@
+{
+  "forecast_vs_observed": [
+    {
+      "cell": "HH",
+      "curve_envelope_contains_observed": true,
+      "curve_envelope_high_pp": 3.618359962032658,
+      "curve_envelope_low_pp": -6.11234835553423,
+      "error_observed_minus_predicted_pp": 1.0147243863089788,
+      "generated_action_tokens": 8000000,
+      "observed_utility_pp": -0.23226981044180747,
+      "predicted_utility_pp": -1.2469941967507863
+    },
+    {
+      "cell": "HL",
+      "curve_envelope_contains_observed": true,
+      "curve_envelope_high_pp": 5.2489214180547625,
+      "curve_envelope_low_pp": -4.481786899512126,
+      "error_observed_minus_predicted_pp": 2.223269326825307,
+      "generated_action_tokens": 8000000,
+      "observed_utility_pp": 2.6068365860966254,
+      "predicted_utility_pp": 0.38356725927131824
+    },
+    {
+      "cell": "LH",
+      "curve_envelope_contains_observed": true,
+      "curve_envelope_high_pp": 1.995565670293768,
+      "curve_envelope_low_pp": -7.73514264727312,
+      "error_observed_minus_predicted_pp": 1.7048040156999147,
+      "generated_action_tokens": 8000000,
+      "observed_utility_pp": -1.1649844727897614,
+      "predicted_utility_pp": -2.869788488489676
+    },
+    {
+      "cell": "LL",
+      "curve_envelope_contains_observed": true,
+      "curve_envelope_high_pp": 3.2310293612745973,
+      "curve_envelope_low_pp": -6.499678956292291,
+      "error_observed_minus_predicted_pp": 3.915929597889047,
+      "generated_action_tokens": 8000000,
+      "observed_utility_pp": 2.2816048003802005,
+      "predicted_utility_pp": -1.6343247975088466
+    },
+    {
+      "cell": "HH",
+      "curve_envelope_contains_observed": true,
+      "curve_envelope_high_pp": 4.26980743171055,
+      "curve_envelope_low_pp": -5.460900885856338,
+      "error_observed_minus_predicted_pp": -2.4160885006011243,
+      "generated_action_tokens": 16000000,
+      "observed_utility_pp": -3.011635227674018,
+      "predicted_utility_pp": -0.5955467270728938
+    },
+    {
+      "cell": "HL",
+      "curve_envelope_contains_observed": true,
+      "curve_envelope_high_pp": 6.671793640315554,
+      "curve_envelope_low_pp": -3.0589146772513343,
+      "error_observed_minus_predicted_pp": 1.1139902052532111,
+      "generated_action_tokens": 16000000,
+      "observed_utility_pp": 2.920429686785321,
+      "predicted_utility_pp": 1.8064394815321099
+    },
+    {
+      "cell": "LH",
+      "curve_envelope_contains_observed": true,
+      "curve_envelope_high_pp": 1.879263062000578,
+      "curve_envelope_low_pp": -7.85144525556631,
+      "error_observed_minus_predicted_pp": 2.425572550433336,
+      "generated_action_tokens": 16000000,
+      "observed_utility_pp": -0.5605185463495304,
+      "predicted_utility_pp": -2.986091096782866
+    },
+    {
+      "cell": "LL",
+      "curve_envelope_contains_observed": false,
+      "curve_envelope_high_pp": 3.6992292681243395,
+      "curve_envelope_low_pp": -6.031479049442549,
+      "error_observed_minus_predicted_pp": 4.949464227661223,
+      "generated_action_tokens": 16000000,
+      "observed_utility_pp": 3.783339337002119,
+      "predicted_utility_pp": -1.1661248906591044
+    },
+    {
+      "cell": "HH",
+      "curve_envelope_contains_observed": true,
+      "curve_envelope_high_pp": 4.649581519711394,
+      "curve_envelope_low_pp": -5.081126797855494,
+      "error_observed_minus_predicted_pp": 0.10653608941433562,
+      "generated_action_tokens": 24000000,
+      "observed_utility_pp": -0.10923654965771401,
+      "predicted_utility_pp": -0.21577263907204963
+    },
+    {
+      "cell": "HL",
+      "curve_envelope_contains_observed": true,
+      "curve_envelope_high_pp": 7.5012849281058225,
+      "curve_envelope_low_pp": -2.2294233894610658,
+      "error_observed_minus_predicted_pp": 0.8980616055761566,
+      "generated_action_tokens": 24000000,
+      "observed_utility_pp": 3.533992374898535,
+      "predicted_utility_pp": 2.6359307693223784
+    },
+    {
+      "cell": "LH",
+      "curve_envelope_contains_observed": true,
+      "curve_envelope_high_pp": 1.8114621738974983,
+      "curve_envelope_low_pp": -7.91924614366939,
+      "error_observed_minus_predicted_pp": 0.28911286461326435,
+      "generated_action_tokens": 24000000,
+      "observed_utility_pp": -2.7647791202726815,
+      "predicted_utility_pp": -3.053891984885946
+    },
+    {
+      "cell": "LL",
+      "curve_envelope_contains_observed": true,
+      "curve_envelope_high_pp": 3.9721755928891884,
+      "curve_envelope_low_pp": -5.7585327246777,
+      "error_observed_minus_predicted_pp": 0.6786713223208919,
+      "generated_action_tokens": 24000000,
+      "observed_utility_pp": -0.2145072435733639,
+      "predicted_utility_pp": -0.8931785658942558
+    }
+  ],
+  "interpretation_lock": "This corrected Stage-D forecast was scored before any post-14B model refit. No older forecast artifact was overwritten.",
+  "observed_seed_trajectories": [
+    {
+      "cell": "HH",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": -0.018094882194364108,
+      "seed": 9001
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": -0.031817488492417695,
+      "seed": 9001
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": 0.0026233717507581616,
+      "seed": 9001
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": 0.013449485985527958,
+      "seed": 9002
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": -0.02841521606106266,
+      "seed": 9002
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": -0.004808102743912442,
+      "seed": 9002
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": 0.0048501678373587135,
+      "seed": 9001
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": 0.034699803376143444,
+      "seed": 9001
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": 0.061539923675003314,
+      "seed": 9001
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": 0.04728656388457379,
+      "seed": 9002
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": 0.02370879035956298,
+      "seed": 9002
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": 0.009139923822967378,
+      "seed": 9002
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": 0.008213532546369163,
+      "seed": 9001
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": -0.007989274487547214,
+      "seed": 9001
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": -0.03262203228292343,
+      "seed": 9001
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": -0.03151322200216439,
+      "seed": 9002
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": -0.0032210964394433937,
+      "seed": 9002
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": -0.022673550122530195,
+      "seed": 9002
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": 0.01713705733233594,
+      "seed": 9001
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": 0.017629227371681093,
+      "seed": 9001
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": -0.01833993838990914,
+      "seed": 9001
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": 0.028495038675268067,
+      "seed": 9002
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": 0.05803755936836128,
+      "seed": 9002
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": 0.014049793518441862,
+      "seed": 9002
+    }
+  ],
+  "pi0_pass_at_1": 0.577,
+  "primary_compute_axis": "actual_generated_action_tokens",
+  "schema": "paper1-14b-stage-d-prospective-forecast-score-v1",
+  "selected_predictor": "joint_signal_density_coverage",
+  "selected_predictor_label": "newer Stage-D scale-symmetric experience-conversion forecast",
+  "selected_predictor_score": {
+    "absolute_utility_curve_mae_pp": 1.8113520577163995,
+    "absolute_utility_curve_rmse_pp": 2.291916141277437,
+    "curve_envelope_coverage": 0.9166666666666666,
+    "curve_envelope_hits": 11,
+    "curve_envelope_trials": 12,
+    "max_allocation_regret_pp": 0.8629096502167977,
+    "mean_allocation_regret_pp": 0.28763655007226585,
+    "pairwise_environment_contrast_rmse_pp": 2.717129804923895,
+    "pairwise_rank_accuracy": 0.7777777777777778,
+    "per_budget_decisions": [
+      {
+        "allocation_regret_pp": 0.0,
+        "generated_action_tokens": 8000000,
+        "observed_best": "HL",
+        "observed_order": [
+          "HL",
+          "LL",
+          "HH",
+          "LH"
+        ],
+        "predicted_best": "HL",
+        "predicted_order": [
+          "HL",
+          "HH",
+          "LL",
+          "LH"
+        ]
+      },
+      {
+        "allocation_regret_pp": 0.8629096502167977,
+        "generated_action_tokens": 16000000,
+        "observed_best": "LL",
+        "observed_order": [
+          "LL",
+          "HL",
+          "LH",
+          "HH"
+        ],
+        "predicted_best": "HL",
+        "predicted_order": [
+          "HL",
+          "HH",
+          "LL",
+          "LH"
+        ]
+      },
+      {
+        "allocation_regret_pp": 0.0,
+        "generated_action_tokens": 24000000,
+        "observed_best": "HL",
+        "observed_order": [
+          "HL",
+          "HH",
+          "LL",
+          "LH"
+        ],
+        "predicted_best": "HL",
+        "predicted_order": [
+          "HL",
+          "HH",
+          "LL",
+          "LH"
+        ]
+      }
+    ],
+    "predicted_best_trials": 3,
+    "predicted_best_wins": 2,
+    "within_budget_environment_effect_rmse_pp": 1.6638953967428847
+  },
+  "sources": {
+    "forecast": {
+      "path": "work/environment_utility_law_v2/14b_experience_conversion_forecast_stage_d.json",
+      "sha256": "7fad0619ecae2a767adb5abd4a404a4c4cba7ced3432927d1997be239c9ef357"
+    },
+    "policy_summary": {
+      "path": "work/14b_v4_results/raw/openr1_g1_v1/policy_summary.csv",
+      "sha256": "b04bf6134025afbfe6e560bcbd2dfa692750a434978e961ab33f09ff2472965e"
+    },
+    "training_audit": {
+      "path": "work/14b_v4_results/raw/pre_eval_v1/training_audit.json",
+      "sha256": "5f9ca9f5ac04cbd0049498bc4a809eaf4ed4d5fd5d047f2a71a398fe187afa0a"
+    }
+  },
+  "status": "SCORED_BEFORE_ANY_POST_14B_REFIT"
+}

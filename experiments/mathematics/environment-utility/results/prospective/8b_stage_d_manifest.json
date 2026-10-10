@@ -1,0 +1,52 @@
+{
+  "base_seed": 26090614,
+  "decision": {
+    "admissibility_one_sided_level": 0.9,
+    "binary_success_smd_max": 0.1,
+    "bootstrap_resamples": 100000,
+    "bootstrap_seed": 2609061501,
+    "minimum_useful_admissibility_effect": 0.15,
+    "mixed_main_effect_min": 0.3,
+    "success_spread_max": 0.03
+  },
+  "no_rematching_or_threshold_tuning_after_confirmation": true,
+  "rl_launch_permitted": false,
+  "sampling": {
+    "group_size": 8,
+    "max_model_len": 16384,
+    "response_budget": 12288,
+    "temperature": 0.6,
+    "top_k": 20,
+    "top_p": 0.95
+  },
+  "schema": "paper1-v4-8b-stage-d-freeze-v1",
+  "scientific_role": "single untouched G=8 confirmation before 8B V4 RL",
+  "seed_namespace": "paper1-v4-8b-stageD-g8-v1",
+  "selected_files": {
+    "high_mixed_high_adm": {
+      "path": "${ARTIFACT_ROOT}/results/paper1_8b_v4_prospective/selection/8b_high_mixed_high_adm_stage_d_panel.jsonl",
+      "rows": 256,
+      "sha256": "1cd0fac403b200c4afbc2d51e2fa8229006d2b543107684ea0a4800c639cccbb"
+    },
+    "high_mixed_low_adm": {
+      "path": "${ARTIFACT_ROOT}/results/paper1_8b_v4_prospective/selection/8b_high_mixed_low_adm_stage_d_panel.jsonl",
+      "rows": 256,
+      "sha256": "a89f33fdfc584f38671d8e6575d7f70a5e17b315ad8d6dbc9971d41f0e20bac7"
+    },
+    "low_mixed_high_adm": {
+      "path": "${ARTIFACT_ROOT}/results/paper1_8b_v4_prospective/selection/8b_low_mixed_high_adm_stage_d_panel.jsonl",
+      "rows": 256,
+      "sha256": "f3eefe80090aae0d25478ce2630d7e2e982a44d1236483e390dc507506ac3e96"
+    },
+    "low_mixed_low_adm": {
+      "path": "${ARTIFACT_ROOT}/results/paper1_8b_v4_prospective/selection/8b_low_mixed_low_adm_stage_d_panel.jsonl",
+      "rows": 256,
+      "sha256": "651c4d22e18a3d0fe2ff3dd7d6bf3a0fc06501abb0165ec5175d3c45c5ad4c07"
+    }
+  },
+  "selection": {
+    "path": "${ARTIFACT_ROOT}/results/paper1_8b_v4_prospective/selection/abc_selection_audit.json",
+    "sha256": "52679df45793c7a4f8ec97bcb66742a72ae9215d77b72812d12d761ddafa5a93"
+  },
+  "status": "FROZEN_BEFORE_STAGE_D"
+}

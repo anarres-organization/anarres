@@ -1,0 +1,27 @@
+name: Experiment proposal
+description: Propose a durable Anarres research direction
+title: "[Experiment]: "
+labels: [proposal]
+body:
+  - type: textarea
+    attributes:
+      label: Research objective
+      description: What important question or capability would this experiment address?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Users and outputs
+      description: Who benefits, and what maintained outputs would the work produce?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Existing components
+      description: Which packages, data systems, schemas, or experiments would it use?
+  - type: textarea
+    attributes:
+      label: Non-goals and maintenance
+      description: What is out of scope, and who can maintain the work?
+    validations:
+      required: true
