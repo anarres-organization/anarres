@@ -1,0 +1,139 @@
+{
+  "coordinate_correlations": {
+    "baseline_success__q_mixed": 0.09963360301676218,
+    "baseline_success__p_admissible": 0.29838309455213696,
+    "baseline_success__mean_generated_tokens": -0.09676321608062508,
+    "baseline_success__rho": 0.11355689925414199,
+    "baseline_success__H": 0.10884914204331922,
+    "q_mixed__p_admissible": 0.09824109071117651,
+    "q_mixed__mean_generated_tokens": 0.28106593638526495,
+    "q_mixed__rho": 0.9145853503349378,
+    "q_mixed__H": 0.9992188679503285,
+    "p_admissible__mean_generated_tokens": -0.8914836477864997,
+    "p_admissible__rho": 0.3777678866303747,
+    "p_admissible__H": 0.07667004560307165,
+    "mean_generated_tokens__rho": -0.042556152468108885,
+    "mean_generated_tokens__H": 0.30445602197782834,
+    "rho__H": 0.9026415441392291
+  },
+  "near_duplicate_audit": {
+    "metric": "maximum word-5-gram Jaccard similarity from each held-out prompt to any unique training prompt",
+    "unique_training_prompts_across_scales": 3553,
+    "heldout_prompts": 1000,
+    "exact_normalized_hash_matches": 0,
+    "maximum_similarity": 0.9444444444444444,
+    "p95_similarity": 0.3375871908687379,
+    "counts_at_or_above": {
+      "0.5": 32,
+      "0.7": 14,
+      "0.8": 9,
+      "0.9": 3
+    },
+    "training_source_counts": {
+      "aops_forum": 496,
+      "cn_contest": 377,
+      "olympiads": 2616,
+      "inequalities": 51,
+      "number_theory": 13
+    },
+    "heldout_source_counts": {
+      "olympiads": 739,
+      "aops_forum": 144,
+      "cn_contest": 106,
+      "inequalities": 9,
+      "number_theory": 2
+    },
+    "flagged_prompt_ids_at_or_above_0.7": [
+      {
+        "prompt_id": "openr1:62b509b2-fbe5-5cc7-a17d-083717c98a64:e0c98e8aa8feb48e",
+        "normalized_prompt_sha256": "e0c98e8aa8feb48e7632b0ca3f2632987caa68fbf7180ac5889829ca913d029c",
+        "maximum_word5_jaccard": 0.80625
+      },
+      {
+        "prompt_id": "openr1:fc6433a0-9390-54e8-913b-6d827e7ff722:8a68a5c3b0944697",
+        "normalized_prompt_sha256": "8a68a5c3b0944697b7e07d6fefd22df4825d2c678280268c0cfc826c5883519b",
+        "maximum_word5_jaccard": 0.7096774193548387
+      },
+      {
+        "prompt_id": "openr1:9041276a-8238-5929-96fd-21a756c1d826:421e070ae7776e59",
+        "normalized_prompt_sha256": "421e070ae7776e596f1228ec33aec4da1d092194c56133a909143f042804f3bf",
+        "maximum_word5_jaccard": 0.7543859649122807
+      },
+      {
+        "prompt_id": "openr1:c927fdc8-4b96-55c0-ad3c-f9b8311717cf:a0a4fc15ade11b42",
+        "normalized_prompt_sha256": "a0a4fc15ade11b427900f9700127d3aa52c857305ade0fcf42d32baaee70a750",
+        "maximum_word5_jaccard": 0.8947368421052632
+      },
+      {
+        "prompt_id": "openr1:6f3eb9b3-5104-5eba-ad5d-22cbc19378b6:1852eea617080a5f",
+        "normalized_prompt_sha256": "1852eea617080a5f74a6093c46356b01ed30722160e48854f38bdd77cb5eca6c",
+        "maximum_word5_jaccard": 0.8888888888888888
+      },
+      {
+        "prompt_id": "openr1:04171648-4f41-5217-b1db-c828adc68246:364af4e3be94a4e1",
+        "normalized_prompt_sha256": "364af4e3be94a4e1e04715c3dfbac979588dcf62ba35d725beef72c4ddc85de6",
+        "maximum_word5_jaccard": 0.8266666666666667
+      },
+      {
+        "prompt_id": "openr1:426d3fe8-5103-5269-9d66-8832cccaa2c6:81c8720ec691f22b",
+        "normalized_prompt_sha256": "81c8720ec691f22bfeaa48e9aeecd0687ab721064b3f53fe1393e947cf29616f",
+        "maximum_word5_jaccard": 0.8823529411764706
+      },
+      {
+        "prompt_id": "openr1:a730d8d4-34df-5ccb-aa37-a844d908c3b2:363ad27be1998874",
+        "normalized_prompt_sha256": "363ad27be1998874dba55a70846e8740660a1d74b32027fffc9ae3c86a6dde04",
+        "maximum_word5_jaccard": 0.9052631578947369
+      },
+      {
+        "prompt_id": "openr1:d9a4cb27-fff4-5c1d-bdaa-07fede53d4a5:a28d936dd35cbcca",
+        "normalized_prompt_sha256": "a28d936dd35cbcca3c5b3100ff22cc8a90aeec28da5e3f0de8d653e7a6c0a847",
+        "maximum_word5_jaccard": 0.7710843373493976
+      },
+      {
+        "prompt_id": "openr1:0350841c-3699-5b7f-b1a2-5154092fea1d:6ff9e16a80702156",
+        "normalized_prompt_sha256": "6ff9e16a80702156e213faf6717057db3150bcdc66c5e4a0442bf21c22e81f61",
+        "maximum_word5_jaccard": 0.75
+      },
+      {
+        "prompt_id": "openr1:c0818a3b-5d60-5b26-89f3-77d439f1b5d5:7fbe27c93e291c30",
+        "normalized_prompt_sha256": "7fbe27c93e291c30c75d7ea3138cb1aba3dfd434d5d59ad59ba2584ebd8610ac",
+        "maximum_word5_jaccard": 0.9444444444444444
+      },
+      {
+        "prompt_id": "openr1:14c64679-1def-5dab-af20-9e7299342fce:6fe5226a81e77244",
+        "normalized_prompt_sha256": "6fe5226a81e77244bde6aaf03292ee0d299afc3a549db6573ef4a92af8254467",
+        "maximum_word5_jaccard": 0.9032258064516129
+      },
+      {
+        "prompt_id": "openr1:47708e49-d6a2-5255-bbfd-5359f9bd9c55:800a3d9768bf369e",
+        "normalized_prompt_sha256": "800a3d9768bf369eb358d6c05a7611de02cd64a8c2d39c457eea86c2bd26b968",
+        "maximum_word5_jaccard": 0.7808219178082192
+      },
+      {
+        "prompt_id": "openr1:1c5e54fc-d81d-5cca-a013-8391b03f37a8:cf5f5e21b776569c",
+        "normalized_prompt_sha256": "cf5f5e21b776569cf7e94b9abb665f52fcdcca30159830ec508b9dfd1c49dae4",
+        "maximum_word5_jaccard": 0.8936170212765957
+      }
+    ],
+    "interpretation": "This is a lexical near-duplicate screen, not a proof of semantic independence. Training and evaluation intentionally remain within the same OpenR1 source family."
+  },
+  "probe_cost": {
+    "1p7": {
+      "responses_and_verifier_calls": 8192,
+      "generated_tokens": 70834341.0
+    },
+    "4b": {
+      "responses_and_verifier_calls": 8192,
+      "generated_tokens": 68366486.0
+    },
+    "8b": {
+      "responses_and_verifier_calls": 8192,
+      "generated_tokens": 69424945.0
+    },
+    "14b": {
+      "responses_and_verifier_calls": 8192,
+      "generated_tokens": 73886662.0
+    },
+    "14b_fraction_of_eight_claim_bearing_trajectories": 0.29964606506427954
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "budget_reference_tokens": 14366510.0,
+  "coefficients": [
+    -0.002098273055169698,
+    -0.003304928411157396,
+    0.011871729991934787,
+    -0.07962095691732954,
+    0.09294889544864064
+  ],
+  "formula": "b0 + bN*x_scale + bC*s(C) + bR*s(C)*z(log(rho)) + bH*s(C)*z(H)",
+  "interpretation": "No post-uniform-RL refit is permitted before scoring this forecast.",
+  "model": "joint_signal_density_coverage",
+  "predictions": [
+    {
+      "cell": "HH",
+      "generated_action_tokens": 8000000,
+      "predicted_utility_fraction": -0.0037008239051748992,
+      "predicted_utility_pp": -0.3700823905174899,
+      "two_seed_mean_curve_envelope_pp": [
+        -5.127650123592726,
+        4.387485342557747
+      ]
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 8000000,
+      "predicted_utility_fraction": 0.01320753668586084,
+      "predicted_utility_pp": 1.320753668586084,
+      "two_seed_mean_curve_envelope_pp": [
+        -3.4368140644891527,
+        6.078321401661321
+      ]
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 8000000,
+      "predicted_utility_fraction": -0.01674598560151408,
+      "predicted_utility_pp": -1.674598560151408,
+      "two_seed_mean_curve_envelope_pp": [
+        -6.432166293226645,
+        3.082969172923829
+      ]
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 8000000,
+      "predicted_utility_fraction": -0.003512946016125097,
+      "predicted_utility_pp": -0.3512946016125097,
+      "two_seed_mean_curve_envelope_pp": [
+        -5.108862334687746,
+        4.4062731314627275
+      ]
+    },
+    {
+      "cell": "UNIFORM",
+      "generated_action_tokens": 8000000,
+      "predicted_utility_fraction": -0.018220988788453088,
+      "predicted_utility_pp": -1.8220988788453087,
+      "two_seed_mean_curve_envelope_pp": [
+        -6.579666611920546,
+        2.935468854229928
+      ]
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 16000000,
+      "predicted_utility_fraction": -0.0006062264103166431,
+      "predicted_utility_pp": -0.060622641031664315,
+      "two_seed_mean_curve_envelope_pp": [
+        -4.818190374106901,
+        4.696945092043572
+      ]
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 16000000,
+      "predicted_utility_fraction": 0.024301543118878943,
+      "predicted_utility_pp": 2.430154311887894,
+      "two_seed_mean_curve_envelope_pp": [
+        -2.3274134211873427,
+        7.187722044963131
+      ]
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 16000000,
+      "predicted_utility_fraction": -0.019823103129622693,
+      "predicted_utility_pp": -1.9823103129622692,
+      "two_seed_mean_curve_envelope_pp": [
+        -6.739878046037506,
+        2.7752574201129674
+      ]
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 16000000,
+      "predicted_utility_fraction": -0.0003294627859020266,
+      "predicted_utility_pp": -0.03294627859020266,
+      "two_seed_mean_curve_envelope_pp": [
+        -4.790514011665439,
+        4.7246214544850345
+      ]
+    },
+    {
+      "cell": "UNIFORM",
+      "generated_action_tokens": 16000000,
+      "predicted_utility_fraction": -0.02199593586744493,
+      "predicted_utility_pp": -2.199593586744493,
+      "two_seed_mean_curve_envelope_pp": [
+        -6.95716131981973,
+        2.5579741463307437
+      ]
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 24000000,
+      "predicted_utility_fraction": 0.0011978299350408686,
+      "predicted_utility_pp": 0.11978299350408686,
+      "two_seed_mean_curve_envelope_pp": [
+        -4.63778473957115,
+        4.877350726579324
+      ]
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 24000000,
+      "predicted_utility_fraction": 0.030769011904133697,
+      "predicted_utility_pp": 3.07690119041337,
+      "two_seed_mean_curve_envelope_pp": [
+        -1.680666542661867,
+        7.834468923488607
+      ]
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 24000000,
+      "predicted_utility_fraction": -0.02161696918529512,
+      "predicted_utility_pp": -2.161696918529512,
+      "two_seed_mean_curve_envelope_pp": [
+        -6.919264651604749,
+        2.5958708145457248
+      ]
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 24000000,
+      "predicted_utility_fraction": 0.001526411243391132,
+      "predicted_utility_pp": 0.1526411243391132,
+      "two_seed_mean_curve_envelope_pp": [
+        -4.604926608736124,
+        4.91020885741435
+      ]
+    },
+    {
+      "cell": "UNIFORM",
+      "generated_action_tokens": 24000000,
+      "predicted_utility_fraction": -0.024196615355668954,
+      "predicted_utility_pp": -2.4196615355668953,
+      "two_seed_mean_curve_envelope_pp": [
+        -7.177229268642132,
+        2.3379061975083415
+      ]
+    }
+  ],
+  "rankings": [
+    {
+      "best_to_worst": [
+        "HL",
+        "LL",
+        "HH",
+        "LH",
+        "UNIFORM"
+      ],
+      "generated_action_tokens": 8000000,
+      "predicted_best": "HL"
+    },
+    {
+      "best_to_worst": [
+        "HL",
+        "LL",
+        "HH",
+        "LH",
+        "UNIFORM"
+      ],
+      "generated_action_tokens": 16000000,
+      "predicted_best": "HL"
+    },
+    {
+      "best_to_worst": [
+        "HL",
+        "LL",
+        "HH",
+        "LH",
+        "UNIFORM"
+      ],
+      "generated_action_tokens": 24000000,
+      "predicted_best": "HL"
+    }
+  ],
+  "schema": "paper1-14b-uniform-allocation-forecast-v1",
+  "scientific_role": "prospective new-environment prediction at an already-observed scale",
+  "source_law": {
+    "path": "${ANALYSIS_ROOT}/environment_utility_law_post14b/four_scale_candidate_comparison.json",
+    "sha256": "819eb5a64ed4979462115a7c4829572a8cc41f99b1925d6453f25858c86c46db"
+  },
+  "standardizers": {
+    "log_joint_signal_density": {
+      "mean": 2.2748176670952693,
+      "sd": 0.9640167940583848
+    },
+    "signal_coverage": {
+      "mean": 0.4381431579181124,
+      "sd": 0.29243914130397064
+    }
+  },
+  "status": "FROZEN_BEFORE_UNIFORM_RL",
+  "uncertainty": {
+    "calibration_units": 16,
+    "curves_covered": 15,
+    "curves_total": 16,
+    "finite_sample_quantile_method": "higher",
+    "half_width_pp": 4.757567733075237,
+    "method": "leave-one-scale-out curve-level empirical absolute-residual envelope",
+    "nominal_quantile": 0.9
+  },
+  "uniform_measurement": {
+    "path": "${ANALYSIS_ROOT}/14b_uniform_allocation/frozen/forecast/uniform_prerl_measurement.json",
+    "sha256": "04b60baf4dd8eb7f952424706e5bf78110dc4fde333a7013399df049e767ec19"
+  },
+  "uses_uniform_rl_or_heldout_outcomes": false,
+  "x_scale_14b": 2.4640792170802004
+}

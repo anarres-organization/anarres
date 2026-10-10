@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anarres.science/schemas/common/artifact-reference.v1.schema.json",
+  "title": "Anarres artifact reference v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["uri", "sha256", "media_type", "size_bytes", "license"],
+  "properties": {
+    "uri": {"type": "string", "minLength": 1},
+    "sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "media_type": {"type": "string", "minLength": 1},
+    "size_bytes": {"type": "integer", "minimum": 0},
+    "license": {"type": "string", "minLength": 1},
+    "producing_run": {"type": ["string", "null"]}
+  }
+}

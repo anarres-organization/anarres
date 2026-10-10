@@ -1,0 +1,64 @@
+{
+  "admission_signal_retention": 0.6097134870719776,
+  "admitted_abs_advantage_mass": 249.28571428571428,
+  "admitted_advantage_neff_fraction": 0.4177218228709394,
+  "baseline_success": 0.31396484375,
+  "filtered_input": {
+    "path": "${ANALYSIS_ROOT}/14b_uniform_allocation/frozen/forecast/uniform_stage_d_selected_scored.json",
+    "sha256": "a292558acc6bb4c965673dd16b050a6960c20ff459f24bc9228ea4d70f42d35d"
+  },
+  "group_size": 8,
+  "heaviest_10pct_token_weighted_advantage_share": 0.33800717846698564,
+  "interpretation_limits": [
+    "These are frozen-policy measurements, not RL outcomes.",
+    "Advantage mass uses the frozen unnormalized leave-one-out estimator and is a scalar coefficient proxy, not a parameter-gradient norm.",
+    "The joint admitted mass is preferred to q_mixed * p_admissible because admission and reward can be dependent within a group.",
+    "Cross-domain use requires a domain-specific reward and admission contract while preserving these high-level coordinates."
+  ],
+  "mean_generated_tokens_per_response": 8950.1494140625,
+  "measured_prompt_groups_total": 256,
+  "measurement_code": {
+    "path": "${ANALYSIS_ROOT}/environment_utility_law_v2/measure_prerl_experience_conversion.py",
+    "sha256": "14b424d7ec0cc6212c1d5ff80ed4a78108e8528786b3e42dcdc6cee8a2f9b4d5"
+  },
+  "measurement_replicates": 1,
+  "missing_groups": 0,
+  "p_admissible": 0.46337890625,
+  "prompt_groups_per_replicate": 256,
+  "q_mixed": 0.47265625,
+  "raw_abs_advantage_mass": 408.8571428571429,
+  "raw_advantage_neff_fraction": 0.4374660326086957,
+  "responses": 2048,
+  "schema": "paper1-prerl-experience-conversion-v1",
+  "scientific_role": "pre-RL policy-relative environment measurement",
+  "selected_source_scored": [
+    {
+      "cell": "HH",
+      "path": "${ANALYSIS_ROOT}/14b_uniform_allocation/source/stage_d_scored/high_mixed_high_adm.json",
+      "sha256": "df3a168dc39f6397073926592a861abf41d21ffc78ca173f34c32a656daee3c8"
+    },
+    {
+      "cell": "HL",
+      "path": "${ANALYSIS_ROOT}/14b_uniform_allocation/source/stage_d_scored/high_mixed_low_adm.json",
+      "sha256": "a10f1fc404afa6fdd3b1b5730498ad3b43487bf9731ac8d5be6881c336a2f01e"
+    },
+    {
+      "cell": "LH",
+      "path": "${ANALYSIS_ROOT}/14b_uniform_allocation/source/stage_d_scored/low_mixed_high_adm.json",
+      "sha256": "ab65198a131e9a7a585e5503745a361da8f52fca423d949ac89b54fa7bcdc57f"
+    },
+    {
+      "cell": "LL",
+      "path": "${ANALYSIS_ROOT}/14b_uniform_allocation/source/stage_d_scored/low_mixed_low_adm.json",
+      "sha256": "a679df7b2c1a87ffb2dfa8099daa0aee8d562844bbd97dfa247e035c088a31c1"
+    }
+  ],
+  "sources": [
+    "${ANALYSIS_ROOT}/14b_uniform_allocation/frozen/forecast/uniform_stage_d_selected_scored.json"
+  ],
+  "token_weighted_advantage_mass_per_1m_generated_tokens": 91437.69126335322,
+  "token_weighted_advantage_neff_fraction": 0.40618939743297133,
+  "usable_advantage_mass_per_1m_generated_tokens": 13.599945045310886,
+  "uses_uniform_rl_or_heldout_outcomes": false,
+  "verifier_infrastructure_errors": 0
+}

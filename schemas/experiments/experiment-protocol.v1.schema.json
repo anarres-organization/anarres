@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anarres.science/schemas/experiments/experiment-protocol.v1.schema.json",
+  "title": "Anarres experiment protocol v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experiment_id",
+    "version",
+    "status",
+    "primary_estimand",
+    "experimental_units",
+    "development_partition",
+    "prospective_partition",
+    "artifacts"
+  ],
+  "properties": {
+    "experiment_id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "minLength": 1},
+    "status": {"enum": ["draft", "frozen", "unblinded", "complete", "superseded"]},
+    "primary_estimand": {"type": "string", "minLength": 1},
+    "experimental_units": {"type": "string", "minLength": 1},
+    "development_partition": {"type": "array", "items": {"type": "string"}},
+    "prospective_partition": {"type": "array", "items": {"type": "string"}},
+    "artifacts": {
+      "type": "array",
+      "items": {"$ref": "../common/artifact-reference.v1.schema.json"}
+    }
+  }
+}

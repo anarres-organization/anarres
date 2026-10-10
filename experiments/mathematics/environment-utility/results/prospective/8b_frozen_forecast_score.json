@@ -1,0 +1,276 @@
+{
+  "baseline_scores": {
+    "budget_scale_null": {
+      "curve_mae_pp": 2.652861443210834,
+      "curve_rmse_pp": 3.088717755300062,
+      "max_allocation_regret_pp": 2.593921694126818,
+      "mean_allocation_regret_pp": 1.012654908595147,
+      "pairwise_rank_accuracy": 0.5,
+      "predicted_best_trials": 3,
+      "predicted_best_wins": 1
+    },
+    "raw_mixed": {
+      "curve_mae_pp": 2.564665742330599,
+      "curve_rmse_pp": 2.88891277145888,
+      "max_allocation_regret_pp": 2.092549136722534,
+      "mean_allocation_regret_pp": 0.6975163789075114,
+      "pairwise_rank_accuracy": 0.6111111111111112,
+      "predicted_best_trials": 3,
+      "predicted_best_wins": 2
+    },
+    "simple_cost_admissibility_heuristic": {
+      "max_allocation_regret_pp": 4.591735890227685,
+      "mean_allocation_regret_pp": 3.784766956609737,
+      "pairwise_rank_accuracy": 0.3333333333333333,
+      "predicted_best_trials": 3,
+      "predicted_best_wins": 0
+    },
+    "success": {
+      "curve_mae_pp": 3.745817091755836,
+      "curve_rmse_pp": 4.070719769866055,
+      "max_allocation_regret_pp": 2.593921694126818,
+      "mean_allocation_regret_pp": 1.012654908595147,
+      "pairwise_rank_accuracy": 0.5555555555555556,
+      "predicted_best_trials": 3,
+      "predicted_best_wins": 1
+    }
+  },
+  "interpretation_lock": "This file must exist before any 1.7B+4B+8B refit is run.",
+  "observed_cell_means": [
+    {
+      "cell": "HH",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": -0.018095204837638466
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": -0.004517849463411179
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": -0.025975288909088318
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": 0.0028302865295868744
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": 0.015011972759412856
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": 0.01034773920614935
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": -0.023808101597927227
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": -0.010927244181855325
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": 0.006280004711190535
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": -0.0006728795027934852
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": -0.03963735419108631
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": 0.001839574394604306
+    }
+  ],
+  "observed_seed_trajectories": [
+    {
+      "cell": "HH",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": -0.025302237474173272,
+      "seed": 9001
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": 0.01923080286342889,
+      "seed": 9001
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": -0.0002851237219666583,
+      "seed": 9001
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": -0.010888172201103661,
+      "seed": 9002
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": 0.010793142655396822,
+      "seed": 9002
+    },
+    {
+      "cell": "HH",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": 0.012845133144347728,
+      "seed": 9002
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": 0.0008528675749732064,
+      "seed": 9001
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": -0.007687189996390181,
+      "seed": 9001
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": 0.0003569705970772538,
+      "seed": 9001
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": -0.009888566501795565,
+      "seed": 9002
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": 0.02838266840868888,
+      "seed": 9002
+    },
+    {
+      "cell": "HL",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": -0.0017027296026642241,
+      "seed": 9002
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": -0.02602706314920399,
+      "seed": 9001
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": -0.056590926661764886,
+      "seed": 9001
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": -0.07132976753047165,
+      "seed": 9001
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": -0.02592351466897265,
+      "seed": 9002
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": 0.008974723465910436,
+      "seed": 9002
+    },
+    {
+      "cell": "LH",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": -0.007944940851700968,
+      "seed": 9002
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": 0.005189040716588514,
+      "seed": 9001
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": 0.00011730911882080856,
+      "seed": 9001
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": -0.013462832738108253,
+      "seed": 9001
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 8000000,
+      "observed_utility_fraction": 0.0004715323425852347,
+      "seed": 9002
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 16000000,
+      "observed_utility_fraction": -0.02197179748253146,
+      "seed": 9002
+    },
+    {
+      "cell": "LL",
+      "generated_action_tokens": 24000000,
+      "observed_utility_fraction": 0.017141981527316864,
+      "seed": 9002
+    }
+  ],
+  "pi0_pass_at_1": 0.468,
+  "primary_compute_axis": "actual_generated_action_tokens",
+  "schema": "paper1-v4-8b-prospective-forecast-score-v1",
+  "selected_predictor": "cost_admissibility",
+  "selected_predictor_score": {
+    "bootstrap_interval_coverage": 0.0,
+    "curve_mae_pp": 2.8706524144709853,
+    "curve_rmse_pp": 3.063473149656267,
+    "max_allocation_regret_pp": 0.7348135992998054,
+    "mean_allocation_regret_pp": 0.6321751253415193,
+    "pairwise_rank_accuracy": 0.7222222222222222,
+    "predicted_best_trials": 3,
+    "predicted_best_wins": 0
+  },
+  "sources": {
+    "forecast": {
+      "path": "${ARTIFACT_ROOT}/results/paper1_8b_v4_prospective/freeze/numerical_8b_forecast.json",
+      "sha256": "747c1c905966442ad4762eed1b360c7816744e1082bcf1e27a8900f722a04f4a"
+    },
+    "policy_summary": {
+      "path": "${ARTIFACT_ROOT}/results/paper1_8b_v4_rl_v1/audits/openr1_g1_v1/policy_summary.csv",
+      "sha256": "04e8b4a65fee779feb4d599db2b4b6a33c4b9892898057bda50d8af65af9a986"
+    },
+    "training_audit": {
+      "path": "${ARTIFACT_ROOT}/results/paper1_8b_v4_rl_v1/audits/pre_eval_v1/training_audit.json",
+      "sha256": "5af6950304a1e6275a3542feb5cfa0d207682112eef3f9dfb2c8662cb450ba2a"
+    }
+  },
+  "status": "SCORED_BEFORE_THREE_SCALE_REFIT"
+}

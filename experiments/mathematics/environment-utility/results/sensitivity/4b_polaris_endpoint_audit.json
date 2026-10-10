@@ -1,0 +1,43 @@
+{
+  "contract": "paper1-v4-4b-polaris-endpoint-v1",
+  "panel": {
+    "name": "Polaris mathematical continuity panel",
+    "prompt_count": 1000,
+    "shards": 2,
+    "responses_per_policy": 1000,
+    "source_sha256": "b42a63087cf3a68f128b9550e7dc1648116c79329f82ed51f3cfcd607b4d23b2"
+  },
+  "evaluation": {
+    "group_size": 1,
+    "engine_seed": 20260902,
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "max_new_tokens": 12288,
+    "max_model_len": 16384,
+    "verifier": "hf_math_verify"
+  },
+  "integrity": {
+    "policies": 9,
+    "shards": 18,
+    "responses": 9000,
+    "all_tasks_complete": true
+  },
+  "results": {
+    "warm_start_pass1": 0.178,
+    "cell_mean_pass1": {
+      "HH": 0.182,
+      "HL": 0.206,
+      "LH": 0.146,
+      "LL": 0.1985
+    },
+    "cell_delta_from_warm_start_pp": {
+      "HH": 0.4,
+      "HL": 2.8,
+      "LH": -3.2,
+      "LL": 2.05
+    },
+    "correlation_with_openr1_cell_effects": 0.990906267519114
+  },
+  "scope": "Endpoint robustness on a second mathematical evaluation distribution; excluded from the OpenR1 utility fit and not a cross-domain test."
+}

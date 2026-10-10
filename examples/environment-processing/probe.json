@@ -1,0 +1,61 @@
+{
+  "environment_id": "math-reference-demo-v1",
+  "policy_id": "synthetic-policy-v1",
+  "policy_revision": "synthetic-reference-only",
+  "source_license": "CC0-1.0",
+  "source_revision": "sha256:4adff28b22239a0cff63c223bbbd99afbfd97c1bc6a960735ffd678583e79845",
+  "source_uri": "examples/environment-processing/source.json",
+  "probe_contract": {
+    "group_size": 4,
+    "views": 2,
+    "temperature": 1.0,
+    "max_new_tokens": 512
+  },
+  "groups": [
+    {
+      "task_id": "math-demo-001",
+      "oracle_passed": true,
+      "noop_passed": false,
+      "infrastructure_valid": true,
+      "rewards": [1, 0, 1, 0],
+      "admitted_advantage_mass": 2.0,
+      "generated_action_tokens": 1600
+    },
+    {
+      "task_id": "math-demo-002",
+      "oracle_passed": true,
+      "noop_passed": false,
+      "infrastructure_valid": true,
+      "rewards": [1, 1, 1, 0],
+      "admitted_advantage_mass": 1.5,
+      "generated_action_tokens": 1400
+    },
+    {
+      "task_id": "math-demo-003",
+      "oracle_passed": true,
+      "noop_passed": false,
+      "infrastructure_valid": true,
+      "rewards": [1, 1, 1, 1],
+      "admitted_advantage_mass": 0.0,
+      "generated_action_tokens": 1200
+    },
+    {
+      "task_id": "math-demo-004",
+      "oracle_passed": true,
+      "noop_passed": true,
+      "infrastructure_valid": true,
+      "rewards": [1, 1, 1, 1],
+      "admitted_advantage_mass": 0.0,
+      "generated_action_tokens": 800
+    },
+    {
+      "task_id": "math-demo-005",
+      "oracle_passed": true,
+      "noop_passed": false,
+      "infrastructure_valid": false,
+      "rewards": [],
+      "admitted_advantage_mass": 0.0,
+      "generated_action_tokens": 400
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+# Replace individual ownership with organization teams as the maintainer base grows.
+* @varunmadan
+
+/schemas/ @varunmadan
+/packages/core/ @varunmadan
+/packages/environments/ @varunmadan
+/packages/evaluation/ @varunmadan
+/data/ @varunmadan
+/experiments/ @varunmadan

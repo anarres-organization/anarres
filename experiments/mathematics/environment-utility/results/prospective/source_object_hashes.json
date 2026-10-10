@@ -1,0 +1,5 @@
+{
+  "14b_final_frozen_forecast_sha256": "7fad0619ecae2a767adb5abd4a404a4c4cba7ced3432927d1997be239c9ef357",
+  "14b_final_frozen_forecast_score_sha256": "8d755d276f08206bd7ca340ee6ca749ff6d01a9bde0974be017069b47718fd91",
+  "note": "These hashes identify the exact frozen forecast and score source objects. MANIFEST.sha256 authenticates the released bytes."
+}

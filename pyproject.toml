@@ -1,0 +1,34 @@
+[project]
+name = "anarres-workspace"
+version = "0.1.0"
+description = "Research infrastructure for predictable post-training"
+requires-python = ">=3.11"
+
+[dependency-groups]
+dev = [
+  "jsonschema>=4.23",
+  "ruff>=0.9",
+]
+
+[tool.uv.workspace]
+members = [
+  "packages/core",
+  "packages/environments",
+  "packages/evaluation",
+]
+
+[tool.uv.sources]
+anarres-core = { workspace = true }
+anarres-environments = { workspace = true }
+anarres-evaluation = { workspace = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = [
+  ".anarres",
+  "experiments/mathematics/environment-utility",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

@@ -1,0 +1,203 @@
+{
+  "budget_reference_tokens": 14366510.0,
+  "coefficients": [
+    -0.006221046057232776,
+    -0.008124149992977319,
+    0.023488672467811403,
+    -0.07667300256161114,
+    0.09331392028687116
+  ],
+  "formula": "b0 + bN*x_scale + bC*s(C) + bR*s(C)*z(log joint signal density) + bH*s(C)*z(signal coverage)",
+  "label": "newer Stage-D scale-symmetric experience-conversion forecast",
+  "measurement_convention": "one independent Stage-D G=8 measurement per prompt at every scale",
+  "model": "joint_signal_density_coverage",
+  "predictions": [
+    {
+      "cell": "HH",
+      "curve_envelope_pp": [
+        -6.11234835553423,
+        3.618359962032658
+      ],
+      "generated_action_tokens": 8000000,
+      "predicted_utility_fraction": -0.012469941967507864,
+      "predicted_utility_pp": -1.2469941967507863
+    },
+    {
+      "cell": "HL",
+      "curve_envelope_pp": [
+        -4.481786899512126,
+        5.2489214180547625
+      ],
+      "generated_action_tokens": 8000000,
+      "predicted_utility_fraction": 0.0038356725927131824,
+      "predicted_utility_pp": 0.38356725927131824
+    },
+    {
+      "cell": "LH",
+      "curve_envelope_pp": [
+        -7.73514264727312,
+        1.995565670293768
+      ],
+      "generated_action_tokens": 8000000,
+      "predicted_utility_fraction": -0.02869788488489676,
+      "predicted_utility_pp": -2.869788488489676
+    },
+    {
+      "cell": "LL",
+      "curve_envelope_pp": [
+        -6.499678956292291,
+        3.2310293612745973
+      ],
+      "generated_action_tokens": 8000000,
+      "predicted_utility_fraction": -0.016343247975088467,
+      "predicted_utility_pp": -1.6343247975088466
+    },
+    {
+      "cell": "HH",
+      "curve_envelope_pp": [
+        -5.460900885856338,
+        4.26980743171055
+      ],
+      "generated_action_tokens": 16000000,
+      "predicted_utility_fraction": -0.005955467270728938,
+      "predicted_utility_pp": -0.5955467270728938
+    },
+    {
+      "cell": "HL",
+      "curve_envelope_pp": [
+        -3.0589146772513343,
+        6.671793640315554
+      ],
+      "generated_action_tokens": 16000000,
+      "predicted_utility_fraction": 0.0180643948153211,
+      "predicted_utility_pp": 1.8064394815321099
+    },
+    {
+      "cell": "LH",
+      "curve_envelope_pp": [
+        -7.85144525556631,
+        1.879263062000578
+      ],
+      "generated_action_tokens": 16000000,
+      "predicted_utility_fraction": -0.029860910967828662,
+      "predicted_utility_pp": -2.986091096782866
+    },
+    {
+      "cell": "LL",
+      "curve_envelope_pp": [
+        -6.031479049442549,
+        3.6992292681243395
+      ],
+      "generated_action_tokens": 16000000,
+      "predicted_utility_fraction": -0.011661248906591044,
+      "predicted_utility_pp": -1.1661248906591044
+    },
+    {
+      "cell": "HH",
+      "curve_envelope_pp": [
+        -5.081126797855494,
+        4.649581519711394
+      ],
+      "generated_action_tokens": 24000000,
+      "predicted_utility_fraction": -0.0021577263907204963,
+      "predicted_utility_pp": -0.21577263907204963
+    },
+    {
+      "cell": "HL",
+      "curve_envelope_pp": [
+        -2.2294233894610658,
+        7.5012849281058225
+      ],
+      "generated_action_tokens": 24000000,
+      "predicted_utility_fraction": 0.026359307693223782,
+      "predicted_utility_pp": 2.6359307693223784
+    },
+    {
+      "cell": "LH",
+      "curve_envelope_pp": [
+        -7.91924614366939,
+        1.8114621738974983
+      ],
+      "generated_action_tokens": 24000000,
+      "predicted_utility_fraction": -0.03053891984885946,
+      "predicted_utility_pp": -3.053891984885946
+    },
+    {
+      "cell": "LL",
+      "curve_envelope_pp": [
+        -5.7585327246777,
+        3.9721755928891884
+      ],
+      "generated_action_tokens": 24000000,
+      "predicted_utility_fraction": -0.008931785658942558,
+      "predicted_utility_pp": -0.8931785658942558
+    }
+  ],
+  "rankings": [
+    {
+      "best_to_worst": [
+        "HL",
+        "HH",
+        "LL",
+        "LH"
+      ],
+      "generated_action_tokens": 8000000,
+      "predicted_best": "HL"
+    },
+    {
+      "best_to_worst": [
+        "HL",
+        "HH",
+        "LL",
+        "LH"
+      ],
+      "generated_action_tokens": 16000000,
+      "predicted_best": "HL"
+    },
+    {
+      "best_to_worst": [
+        "HL",
+        "HH",
+        "LL",
+        "LH"
+      ],
+      "generated_action_tokens": 24000000,
+      "predicted_best": "HL"
+    }
+  ],
+  "schema": "paper1-14b-experience-conversion-forecast-stage-d-v1",
+  "scoring": [
+    "absolute utility-curve RMSE and MAE",
+    "within-budget environment-effect RMSE",
+    "pairwise environment-contrast RMSE",
+    "pairwise rank accuracy",
+    "allocation regret",
+    "curve-envelope coverage"
+  ],
+  "source_comparison": {
+    "path": "${ANALYSIS_ROOT}/work/environment_utility_law_v2/candidate_law_comparison_stage_d.json",
+    "sha256": "945b7851e3ab0ad6c7eeed830482c0565e6339e8d727819e375320720f5a166e"
+  },
+  "standardizers": {
+    "log_joint_signal_density": {
+      "mean": 2.280466502020188,
+      "sd": 0.9759341849671563
+    },
+    "signal_coverage": {
+      "mean": 0.42991292694589905,
+      "sd": 0.29034172976953354
+    }
+  },
+  "status": "RECORDED_BEFORE_14B_HELDOUT_EVALUATION",
+  "uncertainty": {
+    "calibration_units": 12,
+    "curves_covered": 11,
+    "curves_total": 12,
+    "finite_sample_quantile_method": "higher",
+    "half_width_pp": 4.865354158783444,
+    "method": "leave-one-scale-out curve-level empirical absolute-residual envelope",
+    "nominal_quantile": 0.9
+  },
+  "uses_14b_rl_or_heldout_evaluation": false,
+  "x_scale_14b": 2.4640792170802004
+}

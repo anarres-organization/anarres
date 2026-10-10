@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anarres.science/schemas/environments/environment-manifest.v1.schema.json",
+  "title": "Anarres environment manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "environment_id",
+    "policy_id",
+    "policy_revision",
+    "source_license",
+    "source_revision",
+    "source_uri",
+    "probe_contract",
+    "status_counts",
+    "coordinates",
+    "groups",
+    "input_digest",
+    "manifest_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "anarres.environment-manifest.v1"},
+    "environment_id": {"type": "string", "minLength": 1},
+    "policy_id": {"type": "string", "minLength": 1},
+    "policy_revision": {"type": "string", "minLength": 1},
+    "source_license": {"type": "string", "minLength": 1},
+    "source_revision": {"type": "string", "minLength": 1},
+    "source_uri": {"type": "string", "minLength": 1},
+    "probe_contract": {"type": "object"},
+    "status_counts": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "coordinates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rho_per_million_tokens",
+        "effective_coverage",
+        "total_admitted_advantage_mass",
+        "generated_action_tokens",
+        "prompt_count"
+      ],
+      "properties": {
+        "rho_per_million_tokens": {"type": "number", "minimum": 0},
+        "effective_coverage": {"type": "number", "minimum": 0, "maximum": 1},
+        "total_admitted_advantage_mass": {"type": "number", "minimum": 0},
+        "generated_action_tokens": {"type": "integer", "minimum": 1},
+        "prompt_count": {"type": "integer", "minimum": 1}
+      }
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["task_id", "status", "reason"],
+        "properties": {
+          "task_id": {"type": "string", "minLength": 1},
+          "status": {"enum": ["admitted", "reserve", "repair", "quarantine"]},
+          "reason": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "input_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "manifest_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

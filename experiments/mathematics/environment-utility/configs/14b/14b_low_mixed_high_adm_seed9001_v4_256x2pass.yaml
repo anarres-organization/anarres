@@ -1,0 +1,132 @@
+defaults: ${ARTIFACT_ROOT}/vendor/nemo_rl_v060_official/examples/configs/grpo_math_1B.yaml
+grpo:
+  num_prompts_per_step: 4
+  num_generations_per_prompt: 8
+  max_num_steps: 128
+  max_num_epochs: 2
+  val_period: -1
+  val_at_start: false
+  val_at_end: false
+  normalize_rewards: false
+  use_leave_one_out_baseline: true
+  use_dynamic_sampling: false
+  overlong_filtering: true
+  async_grpo:
+    enabled: false
+  seed: 9001
+loss_fn:
+  reference_policy_kl_penalty: 0.0
+  ratio_clip_min: 0.2
+  ratio_clip_max: 0.2
+  ratio_clip_c: null
+  use_on_policy_kl_approximation: false
+  use_importance_sampling_correction: true
+  truncated_importance_sampling_type: tis
+  truncated_importance_sampling_ratio: 2.0
+  truncated_importance_sampling_ratio_min: 0.0
+  sequence_level_importance_ratios: false
+  token_level_loss: true
+  force_on_policy_ratio: false
+checkpointing:
+  enabled: true
+  checkpoint_dir: ${ARTIFACT_ROOT}/results/paper1_14b_v4_rl_v1/runs/14b_low_mixed_high_adm_seed9001_v4_256x2pass/checkpoints
+  keep_top_k: 6
+  save_period: 16
+  model_save_format: safetensors
+  save_consolidated: false
+  save_optimizer: false
+policy:
+  model_name: ${ARTIFACT_ROOT}/results/paper1_phase1c_checkpoint_audit_v1/hf_exports/14b_step512
+  tokenizer:
+    name: ${policy.model_name}
+    chat_template_kwargs: null
+  train_global_batch_size: 32
+  train_micro_batch_size: 1
+  logprob_batch_size: 1
+  max_total_sequence_length: 16384
+  precision: bfloat16
+  dtensor_cfg:
+    activation_checkpointing: true
+    env_vars:
+      PYTORCH_CUDA_ALLOC_CONF: max_split_size_mb:64
+  dynamic_batching:
+    enabled: false
+  sequence_packing:
+    enabled: true
+    train_mb_tokens: 16384
+    logprob_mb_tokens: 16384
+    algorithm: modified_first_fit_decreasing
+    sequence_length_round: 64
+  optimizer:
+    name: torch.optim.AdamW
+    kwargs:
+      lr: 2.0e-06
+      weight_decay: 0.01
+      betas:
+      - 0.9
+      - 0.999
+      eps: 1.0e-08
+      foreach: false
+      fused: false
+  generation:
+    backend: vllm
+    max_new_tokens: 12288
+    temperature: 0.6
+    top_p: 0.95
+    top_k: 20
+    vllm_cfg:
+      async_engine: false
+      precision: bfloat16
+      kv_cache_dtype: auto
+      tensor_parallel_size: 1
+      pipeline_parallel_size: 1
+      expert_parallel_size: 1
+      gpu_memory_utilization: 0.6
+      max_model_len: 16384
+      enforce_eager: false
+      enable_vllm_metrics_logger: true
+    vllm_kwargs: {}
+    colocated:
+      enabled: true
+data:
+  max_input_seq_length: 16384
+  shuffle: true
+  num_workers: 1
+  use_multiple_dataloader: false
+  train:
+    dataset_name: ResponseDataset
+    data_path: ${ARTIFACT_ROOT}/results/paper1_14b_v4_rl_v1/data/14b_low_mixed_high_adm_v4_256.jsonl
+    input_key: prompt
+    output_key: answer
+    split_validation_size: 0
+    seed: 9001
+  validation: null
+  default:
+    dataset_name: ResponseDataset
+    input_key: prompt
+    output_key: answer
+    prompt_file: examples/prompts/cot.txt
+    system_prompt_file: null
+    processor: math_hf_data_processor
+    env_name: math
+env:
+  math:
+    num_workers: 8
+    math_verify_impl: hf_math_verify
+logger:
+  log_dir: ${ARTIFACT_ROOT}/results/paper1_14b_v4_rl_v1/runs/14b_low_mixed_high_adm_seed9001_v4_256x2pass/logs
+  num_val_samples_to_print: 0
+  wandb_enabled: true
+  tensorboard_enabled: false
+  mlflow_enabled: false
+  swanlab_enabled: false
+  monitor_gpus: true
+  wandb:
+    project: rl-env-scaling-laws
+    name: paper1-nemo-v4-14b_low_mixed_high_adm_seed9001_v4_256x2pass
+  gpu_monitoring:
+    collection_interval: 10
+    flush_interval: 10
+cluster:
+  gpus_per_node: 1
+  num_nodes: 1

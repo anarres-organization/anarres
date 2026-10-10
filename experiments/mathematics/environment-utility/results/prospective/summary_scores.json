@@ -1,0 +1,23 @@
+{
+  "schema": "study-summary-prospective-scores-v1",
+  "units": "percentage points unless otherwise noted",
+  "eight_b": {
+    "curve_rmse": 3.06,
+    "pairwise_rank_accuracy_percent": 72.2,
+    "best_cell_wins": "0/3",
+    "mean_allocation_regret": 0.63,
+    "cell_budget_coverage": "0/12"
+  },
+  "fourteen_b": {
+    "curve_rmse": 2.29,
+    "pairwise_rank_accuracy_percent": 77.8,
+    "best_cell_wins": "2/3",
+    "mean_allocation_regret": 0.29,
+    "cell_budget_coverage": "11/12"
+  },
+  "four_scale_leave_one_scale_out": {
+    "curve_rmse": 2.09,
+    "pairwise_rank_accuracy_percent": 74.0,
+    "mean_allocation_regret": 0.48
+  }
+}

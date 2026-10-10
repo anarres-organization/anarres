@@ -1,0 +1,92 @@
+{
+  "config_sha256": {
+    "9001": "b4076b55a2aafd8dfde3bb0feb82c231e3304651c696b2b075313b9ea95b2ddd",
+    "9002": "45405bc84b89c635ddbdeab44b1fb0d585349c2556dffbaafe999cb666415bd9"
+  },
+  "counts": {
+    "HH": 64,
+    "HL": 64,
+    "LH": 64,
+    "LL": 64
+  },
+  "forecast_sha256": "066c240fa8dd75639fa1541664a8a5fa015e48bcc6244192a7572c7ea70c2eb6",
+  "launch_packet_sha256": "493574275549eb1359a2680beca44486c78456929d79a39b4cae018c77f15278",
+  "measurement": {
+    "admitted_advantage_neff_fraction": 0.4177218228709394,
+    "baseline_success": 0.31396484375,
+    "mean_generated_tokens_per_response": 8950.1494140625,
+    "p_admissible": 0.46337890625,
+    "q_mixed": 0.47265625,
+    "usable_advantage_mass_per_1m_generated_tokens": 13.599945045310886
+  },
+  "measurement_sha256": "04b60baf4dd8eb7f952424706e5bf78110dc4fde333a7013399df049e767ec19",
+  "panel_manifest_sha256": "8100f55df7f6237718e3604ec60e108ea13cf6a46c7b649ad14bdebe33636857",
+  "panel_sha256": "73bf2b0e47454e9889f691021a7896e042922f33601e2cf94b2984c57bf289de",
+  "rankings": [
+    {
+      "best_to_worst": [
+        "HL",
+        "LL",
+        "HH",
+        "LH",
+        "UNIFORM"
+      ],
+      "generated_action_tokens": 8000000,
+      "predicted_best": "HL"
+    },
+    {
+      "best_to_worst": [
+        "HL",
+        "LL",
+        "HH",
+        "LH",
+        "UNIFORM"
+      ],
+      "generated_action_tokens": 16000000,
+      "predicted_best": "HL"
+    },
+    {
+      "best_to_worst": [
+        "HL",
+        "LL",
+        "HH",
+        "LH",
+        "UNIFORM"
+      ],
+      "generated_action_tokens": 24000000,
+      "predicted_best": "HL"
+    }
+  ],
+  "uniform_predictions": [
+    {
+      "cell": "UNIFORM",
+      "generated_action_tokens": 8000000,
+      "predicted_utility_fraction": -0.018220988788453088,
+      "predicted_utility_pp": -1.8220988788453087,
+      "two_seed_mean_curve_envelope_pp": [
+        -6.579666611920546,
+        2.935468854229928
+      ]
+    },
+    {
+      "cell": "UNIFORM",
+      "generated_action_tokens": 16000000,
+      "predicted_utility_fraction": -0.02199593586744493,
+      "predicted_utility_pp": -2.199593586744493,
+      "two_seed_mean_curve_envelope_pp": [
+        -6.95716131981973,
+        2.5579741463307437
+      ]
+    },
+    {
+      "cell": "UNIFORM",
+      "generated_action_tokens": 24000000,
+      "predicted_utility_fraction": -0.024196615355668954,
+      "predicted_utility_pp": -2.4196615355668953,
+      "two_seed_mean_curve_envelope_pp": [
+        -7.177229268642132,
+        2.3379061975083415
+      ]
+    }
+  ]
+}
