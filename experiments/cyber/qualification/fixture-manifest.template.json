@@ -1,0 +1,44 @@
+{
+  "schema_version": "anarres.cyber-fixture-manifest.v1",
+  "status": "pending_materialization",
+  "note": "Template. Populated at Phase-B materialization; no fixture has been run. Results are null until the oracle/no-op/reset and containment checks execute. Infrastructure and containment failures are typed and never recorded as scientific reward zero.",
+  "family": "cybergym",
+  "code_revision": "c6fe2027d39471375920b92cf1025e23a99ffda5",
+  "candidate_order_artifact_sha256": null,
+  "partition": "probe",
+  "gate_thresholds": {
+    "oracle_pass_rate": 1.0,
+    "noop_rejection_rate": 1.0,
+    "repeated_reset_agreement": 1.0,
+    "maximum_infrastructure_failure_fraction": 0.05
+  },
+  "status_counts": {
+    "ADMITTED": null,
+    "RESERVE": null,
+    "QUARANTINE": null,
+    "REPAIR": null
+  },
+  "fixtures": [
+    {
+      "task_id": "<family:id from the frozen probe subset>",
+      "input_digest": null,
+      "oracle_passed": null,
+      "noop_rejected": null,
+      "reset_1_input_digest": null,
+      "reset_2_input_digest": null,
+      "repeated_reset_agreement": null,
+      "containment": {
+        "egress_denied": null,
+        "submission_service_local_only": null,
+        "fixed_build_agent_visible": null,
+        "reference_solution_agent_visible": null,
+        "secrets_absent_from_sandbox": null,
+        "grader_agent_readable": null,
+        "action_log_recorded": null
+      },
+      "infrastructure_failure": null,
+      "failure_type": null,
+      "qualification_state": null
+    }
+  ]
+}

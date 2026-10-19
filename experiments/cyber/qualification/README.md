@@ -11,7 +11,13 @@
 > [`reliability_oc.json`](reliability_oc.json)) sets the rollout budget and
 > abstention rule without changing any threshold. The conditional path to a
 > decision is in [`DECISION_TREE.md`](DECISION_TREE.md) and the external evidence
-> context is in [`EXTERNAL_LANDSCAPE_AUDIT.md`](EXTERNAL_LANDSCAPE_AUDIT.md). The
+> context is in [`EXTERNAL_LANDSCAPE_AUDIT.md`](EXTERNAL_LANDSCAPE_AUDIT.md).
+> Phase B (GPU-free): `freeze_development_candidates.py` now emits a mutually
+> exclusive probe/target partition from one frozen ordering (tests in
+> [`test_freeze_development_candidates.py`](test_freeze_development_candidates.py));
+> the containment and fixture gates are specified in
+> [`CONTAINMENT_SPEC.md`](CONTAINMENT_SPEC.md) with the per-fixture record in
+> [`fixture-manifest.template.json`](fixture-manifest.template.json). The
 > sections below describe the original v1 bakeoff and are retained for history.
 
 ## Decision to make
