@@ -1,5 +1,19 @@
 # Cyber benchmark qualification
 
+> **Superseded by protocol v2 (2026-10-19).** The current frozen protocol is
+> [`qualification-protocol.v2.json`](qualification-protocol.v2.json); see
+> [`PROTOCOL_V2_RATIONALE.md`](PROTOCOL_V2_RATIONALE.md) for what changed and why.
+> In v2, CyberGym supplies **both** the training pool and the isolated target
+> (split by a disjoint-identity standard), SEC-Bench Pro is rejected as the
+> target on capacity (~207 < 246), the warm start is the agentic Nemotron-8B at a
+> single scale, and an a-priori reliability simulation
+> ([`reliability_oc_sim.py`](reliability_oc_sim.py) /
+> [`reliability_oc.json`](reliability_oc.json)) sets the rollout budget and
+> abstention rule without changing any threshold. The conditional path to a
+> decision is in [`DECISION_TREE.md`](DECISION_TREE.md) and the external evidence
+> context is in [`EXTERNAL_LANDSCAPE_AUDIT.md`](EXTERNAL_LANDSCAPE_AUDIT.md). The
+> sections below describe the original v1 bakeoff and are retained for history.
+
 ## Decision to make
 
 Select at most one primary family for the first cyber utility pilot. The

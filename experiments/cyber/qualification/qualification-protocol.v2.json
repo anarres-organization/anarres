@@ -1,0 +1,180 @@
+{
+  "schema_version": "anarres.cyber-qualification-protocol.v2",
+  "protocol_id": "cyber-primary-family-bakeoff-v2",
+  "supersedes": "cyber-primary-family-bakeoff-v1",
+  "protocol_rules_frozen": true,
+  "execution_authorized": false,
+  "frozen_at": "2026-10-19",
+  "change_class": "scientific_design_change_not_outcome_tuning",
+  "declared_changes_from_v1": [
+    "Primary family restructured: CyberGym now supplies BOTH the training pool and the isolated target, split by a disjoint-identity standard. The 4-6 pilot environments are constructed within the CyberGym training pool, so training distribution E and target D are same-domain and the contrast is interpretable.",
+    "SEC-Bench Pro (V8+SpiderMonkey, ~207 verified cases) is formally rejected as the isolated target because it fails the target-capacity gate (207 < 246). It is retained only as an optional external transfer target.",
+    "CTF-style families (CTF-Dojo, Random-Crypto, InterCode-CTF) are demoted to OPTIONAL cross-domain challenger environments. They are not the primary contrast and their license/containment audit is deferred with them.",
+    "Starting policy pinned to the agentic warm start (nvidia/Nemotron-Terminal-8B) at a SINGLE 8B scale for the pilot. The multi-scale ladder needed for the fit-through-8B / predict-larger extrapolation is deferred to the powered study as a separately budgeted project.",
+    "Reliability gate thresholds are UNCHANGED. An a-priori operating-characteristic simulation (reliability_oc_sim.py / reliability_oc.json), frozen before any cyber rollout and NOT assuming the starting policy's success rate, sets the rollout budget and an explicit UNMEASURABLE abstention verdict.",
+    "Pilot scientific claim narrowed and stated explicitly (see narrowed_claim).",
+    "Capacity and disjointness gates are checked at project / patch-equivalence-class granularity, not raw task count."
+  ],
+  "authorization_blockers": [
+    "record the exact local warm-start artifact digest and verify it matches the agentic warm start",
+    "complete the disjoint-identity standard audit and report distinct-project and distinct-patch-class counts",
+    "verify the target-capacity gate holds at project granularity (>= 246 target tasks from disjoint projects, training pool still able to yield 4-6 distinct environments)",
+    "complete task-data license review",
+    "complete static containment review and fixture oracle/no-op/reset checks on the frozen 48-task subset"
+  ],
+  "candidate_families": {
+    "primary": {
+      "id": "cybergym",
+      "role": "in_domain_training_pool_and_isolated_target",
+      "code_revision": "c6fe2027d39471375920b92cf1025e23a99ffda5"
+    },
+    "rejected_as_target": {
+      "id": "sec_bench_pro_v8_spidermonkey",
+      "reason": "fails target_capacity_gate: ~207 verified cases < 246 minimum",
+      "retained_role": "optional_external_transfer_target"
+    },
+    "optional_cross_domain_challengers": [
+      "ctf_dojo",
+      "random_crypto",
+      "intercode_ctf"
+    ]
+  },
+  "starting_policy": {
+    "source_id": "nvidia/Nemotron-Terminal-8B",
+    "source_revision": "bb1413579351dfada0c203699ea32d2d08f0942c",
+    "local_artifact_digest": null,
+    "require_exact_match_to_agentic_warm_start": true,
+    "scales_in_pilot": ["8B"],
+    "multi_scale_ladder": "deferred_to_powered_study_as_separate_budgeted_project"
+  },
+  "disjointness_standard": {
+    "description": "Training pool and isolated target must be disjoint across ALL of the following, not merely exact task or CVE.",
+    "dimensions": [
+      "exact_task_id",
+      "upstream_project_and_fork_lineage",
+      "cve_and_patch_root_cause_equivalence_class",
+      "code_near_duplicate",
+      "vulnerability_class_and_sanitizer_signature",
+      "shared_fuzz_harness_source",
+      "arvo_oss_fuzz_provenance_dedup"
+    ],
+    "target_memorization_temporal_audit": {
+      "required": true,
+      "rule": "audit the target partition for CVEs disclosed before the Nemotron-8B knowledge cutoff; such tasks may leak through the base model and contaminate the target independent of training"
+    },
+    "shared_instrument_not_a_confound": "shared verifier mechanism and submission service are the measurement instrument and do not require disjointness"
+  },
+  "target_capacity_gate": {
+    "minimum_independent_target_tasks": 246,
+    "granularity": "distinct_project_and_patch_equivalence_class",
+    "planning_project_count_published": 188,
+    "count_computed_at": "phase_b_materialization",
+    "must_also_leave_training_pool_for_environments": "4_to_6_genuinely_distinct_distributions",
+    "note": "raw CyberGym task count (1507) is NOT the capacity measure; the gate is evaluated after the disjointness standard is applied"
+  },
+  "subset_selection": {
+    "single_frozen_salted_ordering": true,
+    "salt": "anarres-cyber-qualification-v1",
+    "method": "ascending_sha256_of_family_canonical_task_id_and_salt",
+    "candidate_order_generator": "freeze_development_candidates.py",
+    "generator_modification_required": "extend to emit the >=246-task disjoint target partition alongside the 48-task probe subset from the SAME frozen ordering",
+    "probe_subset_size": 48,
+    "probe_and_target_mutually_exclusive": true,
+    "probe_tasks_excluded_from_target": true,
+    "outcome_blind": true,
+    "replacement_after_measurement": false,
+    "preserve_by_content_hash_before_measurement": true
+  },
+  "static_fixture_gates": {
+    "oracle_pass_rate": 1.0,
+    "noop_rejection_rate": 1.0,
+    "repeated_reset_agreement": 1.0,
+    "unresolved_contamination_count": 0,
+    "unresolved_containment_failure_count": 0,
+    "fixed_or_patched_build_agent_visible": false,
+    "reference_solution_agent_visible": false,
+    "direct_network_egress": false
+  },
+  "warm_start_probe": {
+    "group_size": 16,
+    "independent_views": 2,
+    "rollouts_per_view": 8,
+    "unique_tasks_per_family": 48,
+    "maximum_rollouts_per_family": 768,
+    "scientific_retry_count": 0,
+    "maximum_infrastructure_retries": 1,
+    "maximum_infrastructure_failure_fraction": 0.05,
+    "minimum_mixed_valid_groups": 8,
+    "minimum_mixed_valid_group_fraction": 0.2,
+    "strict_success_headroom_interval": [0.05, 0.8],
+    "view_reliability": {
+      "maximum_rho_symmetric_relative_difference": 0.2,
+      "maximum_H_absolute_difference": 0.1,
+      "maximum_mixed_fraction_absolute_difference": 0.1,
+      "operating_characteristic_artifact": "reliability_oc.json",
+      "abstention_rule": "if the frozen OC simulation shows the observed success regime below the reliably-measurable floor, increase rollouts or return UNMEASURABLE; never lower the thresholds"
+    }
+  },
+  "narrowed_claim": {
+    "statement": "The pilot tests which CONTROL-VARIED environment (constructed within the CyberGym training pool) best improves the isolated CyberGym target at a fixed generated-token budget. It does NOT claim to rank whole benchmark families.",
+    "construction_control_gate": {
+      "controls_must_be_target_agnostic": true,
+      "audit_controls_against_target_partition": true,
+      "rule": "construction controls (prerequisite exposure, starting state, feedback granularity, task mixture) must not inject target-relevant information or weaken the frozen target evaluation",
+      "fallback_if_controls_not_distinct": "define environments by disjoint source strata or difficulty bands"
+    }
+  },
+  "feasibility_budget": {
+    "maximum_total_warm_start_rollouts": 1536,
+    "maximum_unique_fixture_materializations": 96,
+    "maximum_retained_storage_bytes": 1099511627776,
+    "maximum_engineering_days": 5,
+    "maximum_elapsed_days": 7,
+    "new_general_purpose_orchestration_allowed": false,
+    "phase_b_containment_build_checkpoint": "stop and report if the containment build overruns the engineering/elapsed/storage budget rather than silently consuming pilot budget"
+  },
+  "pilot_design_resolution": {
+    "alpha_two_sided": 0.05,
+    "power": 0.8,
+    "paired_binary_discordance_assumption": 0.2,
+    "pilot_target_effect": 0.08,
+    "effect_rule_pinned_to_v1": true,
+    "minimum_independent_target_tasks": 246,
+    "preferred_target_tasks": 256,
+    "approximate_detectable_effect_at_256_tasks": 0.078307,
+    "larger_study_target_effect": 0.06,
+    "independent_tasks_required_for_larger_study_target": 437
+  },
+  "pilot_expansion_rule": {
+    "minimum_environments": 4,
+    "maximum_environments": 6,
+    "training_seeds": 2,
+    "target_effect_is_true_effect": true,
+    "evidence_rule": "paired_task_cluster_interval_excludes_zero",
+    "require_same_contrast_sign_in_both_seeds": true,
+    "minimum_absolute_environment_contrast": 0.08,
+    "require_contrast_at_least_twice_median_within_environment_seed_gap": true,
+    "require_all_static_fixture_gates": true,
+    "require_measurement_reliability_gates": true,
+    "require_feasibility_budget": true,
+    "failure_action": "stop_or_revise_before_claim_bearing_expansion"
+  },
+  "selection_rule": {
+    "hard_gates_cannot_be_offset": true,
+    "primary_criterion": "expected_decision_relevant_information_per_measured_pilot_cost",
+    "tie_breaker": "lower_new_infrastructure_burden",
+    "if_neither_passes": "do_not_launch_cyber_rl"
+  },
+  "decision_output_semantics": {
+    "phase_c_output_is_not_rl_authorization": true,
+    "possible_outcomes": [
+      "proceed_to_frozen_qualification_and_pilot",
+      "floor_too_low_cybergym_external_target_only_reconsider_in_domain_training_source",
+      "unmeasurable_increase_rollouts_or_abstain"
+    ]
+  },
+  "shared_metadata_contracts": [
+    "anarres.environment-manifest.v1",
+    "anarres.experiment-protocol.v1"
+  ]
+}

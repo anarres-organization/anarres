@@ -1,0 +1,187 @@
+{
+  "schema_version": "anarres.cyber-reliability-oc.v1",
+  "frozen_before_any_cyber_rollout": true,
+  "assumes_starting_policy_success_rate": false,
+  "design": {
+    "tasks": 48,
+    "per_view_group_size": 8,
+    "independent_views": 2,
+    "trials": 20000,
+    "seed": 20261019
+  },
+  "frozen_thresholds": {
+    "rho_symmetric_relative_difference": 0.2,
+    "H_absolute_difference": 0.1,
+    "mixed_fraction_absolute_difference": 0.1
+  },
+  "abstention_rule": {
+    "declare_measurable_when_p_all_gates_at_least": 0.8,
+    "lowest_mean_success_reliably_measurable": 0.3,
+    "below_this_rate_action": "increase rollouts or return UNMEASURABLE; never lower thresholds"
+  },
+  "normal_z_sum_alpha05_power80": 2.801585218112968,
+  "sweep": [
+    {
+      "mean_success": 0.02,
+      "concentration": 1.0,
+      "p_rho_gate": 0.33945,
+      "p_h_gate": 0.9999,
+      "p_mixed_gate": 0.99945,
+      "p_all_reliability_gates": 0.33945,
+      "median_pooled_mixed_fraction": 0.0625
+    },
+    {
+      "mean_success": 0.02,
+      "concentration": 4.0,
+      "p_rho_gate": 0.3625,
+      "p_h_gate": 0.9937,
+      "p_mixed_gate": 0.9821,
+      "p_all_reliability_gates": 0.3625,
+      "median_pooled_mixed_fraction": 0.125
+    },
+    {
+      "mean_success": 0.03,
+      "concentration": 1.0,
+      "p_rho_gate": 0.4066,
+      "p_h_gate": 0.99945,
+      "p_mixed_gate": 0.9976,
+      "p_all_reliability_gates": 0.4066,
+      "median_pooled_mixed_fraction": 0.08333333333333333
+    },
+    {
+      "mean_success": 0.03,
+      "concentration": 4.0,
+      "p_rho_gate": 0.429,
+      "p_h_gate": 0.9804,
+      "p_mixed_gate": 0.95265,
+      "p_all_reliability_gates": 0.4286,
+      "median_pooled_mixed_fraction": 0.1875
+    },
+    {
+      "mean_success": 0.05,
+      "concentration": 1.0,
+      "p_rho_gate": 0.5073,
+      "p_h_gate": 0.99665,
+      "p_mixed_gate": 0.98815,
+      "p_all_reliability_gates": 0.5071,
+      "median_pooled_mixed_fraction": 0.14583333333333334
+    },
+    {
+      "mean_success": 0.05,
+      "concentration": 4.0,
+      "p_rho_gate": 0.5518,
+      "p_h_gate": 0.94835,
+      "p_mixed_gate": 0.90235,
+      "p_all_reliability_gates": 0.5474,
+      "median_pooled_mixed_fraction": 0.2916666666666667
+    },
+    {
+      "mean_success": 0.08,
+      "concentration": 1.0,
+      "p_rho_gate": 0.6174,
+      "p_h_gate": 0.9886,
+      "p_mixed_gate": 0.96755,
+      "p_all_reliability_gates": 0.61575,
+      "median_pooled_mixed_fraction": 0.22916666666666666
+    },
+    {
+      "mean_success": 0.08,
+      "concentration": 4.0,
+      "p_rho_gate": 0.6722,
+      "p_h_gate": 0.9074,
+      "p_mixed_gate": 0.83935,
+      "p_all_reliability_gates": 0.6462,
+      "median_pooled_mixed_fraction": 0.4375
+    },
+    {
+      "mean_success": 0.1,
+      "concentration": 1.0,
+      "p_rho_gate": 0.661,
+      "p_h_gate": 0.9781,
+      "p_mixed_gate": 0.94365,
+      "p_all_reliability_gates": 0.65615,
+      "median_pooled_mixed_fraction": 0.2916666666666667
+    },
+    {
+      "mean_success": 0.1,
+      "concentration": 4.0,
+      "p_rho_gate": 0.733,
+      "p_h_gate": 0.8926,
+      "p_mixed_gate": 0.8207,
+      "p_all_reliability_gates": 0.6867,
+      "median_pooled_mixed_fraction": 0.5
+    },
+    {
+      "mean_success": 0.15,
+      "concentration": 1.0,
+      "p_rho_gate": 0.75165,
+      "p_h_gate": 0.95915,
+      "p_mixed_gate": 0.90855,
+      "p_all_reliability_gates": 0.7335,
+      "median_pooled_mixed_fraction": 0.3958333333333333
+    },
+    {
+      "mean_success": 0.15,
+      "concentration": 4.0,
+      "p_rho_gate": 0.847,
+      "p_h_gate": 0.87445,
+      "p_mixed_gate": 0.80175,
+      "p_all_reliability_gates": 0.74915,
+      "median_pooled_mixed_fraction": 0.6666666666666666
+    },
+    {
+      "mean_success": 0.2,
+      "concentration": 1.0,
+      "p_rho_gate": 0.8211,
+      "p_h_gate": 0.93855,
+      "p_mixed_gate": 0.88225,
+      "p_all_reliability_gates": 0.78165,
+      "median_pooled_mixed_fraction": 0.4791666666666667
+    },
+    {
+      "mean_success": 0.2,
+      "concentration": 4.0,
+      "p_rho_gate": 0.908,
+      "p_h_gate": 0.87305,
+      "p_mixed_gate": 0.79835,
+      "p_all_reliability_gates": 0.7753,
+      "median_pooled_mixed_fraction": 0.7708333333333334
+    },
+    {
+      "mean_success": 0.3,
+      "concentration": 1.0,
+      "p_rho_gate": 0.88365,
+      "p_h_gate": 0.91695,
+      "p_mixed_gate": 0.84965,
+      "p_all_reliability_gates": 0.80185,
+      "median_pooled_mixed_fraction": 0.625
+    },
+    {
+      "mean_success": 0.3,
+      "concentration": 4.0,
+      "p_rho_gate": 0.97165,
+      "p_h_gate": 0.90285,
+      "p_mixed_gate": 0.83935,
+      "p_all_reliability_gates": 0.8327,
+      "median_pooled_mixed_fraction": 0.8958333333333334
+    },
+    {
+      "mean_success": 0.4,
+      "concentration": 1.0,
+      "p_rho_gate": 0.90915,
+      "p_h_gate": 0.8995,
+      "p_mixed_gate": 0.8309,
+      "p_all_reliability_gates": 0.8038,
+      "median_pooled_mixed_fraction": 0.7083333333333334
+    },
+    {
+      "mean_success": 0.4,
+      "concentration": 4.0,
+      "p_rho_gate": 0.98905,
+      "p_h_gate": 0.9321,
+      "p_mixed_gate": 0.8894,
+      "p_all_reliability_gates": 0.883,
+      "median_pooled_mixed_fraction": 0.9583333333333334
+    }
+  ]
+}
