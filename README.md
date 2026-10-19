@@ -93,6 +93,7 @@ Large model weights and checkpoints are distributed through versioned artifact s
 ## Documentation
 
 - [Environment-processing design](data/environment-processing/DESIGN.md)
+- [Environment-processing implementation plan](data/environment-processing/ROADMAP.md)
 - [Repository architecture](docs/architecture/repository.md)
 - [Reproducibility standard](docs/standards/reproducibility.md)
 - [Artifact standard](docs/standards/artifacts.md)

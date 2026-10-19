@@ -46,7 +46,7 @@ Final scientific selection remains explicit. The processor prepares environments
 
 ## Design
 
-The [design document](DESIGN.md) specifies the concrete filtering example, measurement contract, implementation strategy, initial milestones, and success criteria. The original [project proposal](project-proposal.pdf) is also included.
+The [design document](DESIGN.md) defines the qualification and measurement contracts. The [implementation plan](ROADMAP.md) records the public workstreams, exit criteria, and validation sequence.
 
 ## Current implementation
 
