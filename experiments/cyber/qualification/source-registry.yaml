@@ -1,0 +1,100 @@
+schema_version: 1
+frozen_at: null
+status: preliminary
+
+sources:
+  - id: cybergym
+    role: primary_family_candidate
+    repository: https://github.com/sunblaze-ucb/cybergym
+    revision: c6fe2027d39471375920b92cf1025e23a99ffda5
+    code_license: Apache-2.0
+    task_data_license_audit: pending
+    official_documents:
+      - https://github.com/sunblaze-ucb/cybergym/blob/main/README.md
+      - https://github.com/sunblaze-ucb/cybergym/blob/main/FAQ.md
+      - https://github.com/sunblaze-ucb/cybergym/blob/main/SUBMISSION.md
+    qualification_status: static_audit_complete_execution_pending
+    unresolved_checks:
+      - Pin the exact task-data revision independently of the code repository.
+      - Audit upstream licenses for every proposed fixture.
+      - Audit task identity against training data, the target, and SEC-Bench Pro.
+      - Measure local storage and reset cost for the proposed development subset.
+
+  - id: sec_bench_pro
+    role: primary_family_candidate
+    repository: https://github.com/SEC-bench/SEC-bench-Pro
+    revision: da80928ee20dc417ca6a068a1213e1d9d279df20
+    code_license: MIT
+    task_data_license_audit: pending
+    official_documents:
+      - https://github.com/SEC-bench/SEC-bench-Pro/blob/main/README.md
+      - https://github.com/SEC-bench/SEC-bench-Pro/blob/main/harness/README.md
+    qualification_status: static_audit_complete_execution_pending
+    unresolved_checks:
+      - Audit upstream licenses for every proposed fixture.
+      - Begin with V8 or SpiderMonkey and treat Linux KVM support as a later path.
+      - Audit task identity against training data, the target, and CyberGym.
+      - Measure image, grading, reset, and judge cost for the development subset.
+
+  - id: exploitbench
+    role: graded_headroom_diagnostic
+    repository: https://exploitbench.ai/
+    revision: pending
+    code_license: pending
+    task_data_license_audit: pending
+    qualification_status: documentation_audit_pending
+    unresolved_checks:
+      - Identify the authoritative artifact and immutable revision.
+      - Confirm which capability levels can be computed deterministically.
+      - Keep this source outside the first primary-family integration decision.
+
+  - id: exploitgym
+    role: priority_external_frontier_transfer_target
+    repository: https://github.com/sunblaze-ucb/exploitgym
+    revision: 8a2422082fb40d1eebcbab13373d11e7e286efdb
+    code_license: Apache-2.0
+    task_data_license_audit: pending
+    official_documents:
+      - https://github.com/sunblaze-ucb/exploitgym/blob/main/README.md
+      - https://www.anthropic.com/research/exploit-evals
+      - https://deploymentsafety.openai.com/gpt-6-astra/vision
+    qualification_status: external_target_investigation_pending
+    unresolved_checks:
+      - Pin the exact v1 task-data artifact separately from the code revision.
+      - Reproduce the offline and intended-vulnerability grading contract.
+      - Audit upstream licenses, task identity, mitigations, and storage cost.
+      - Measure exact-warm-start floor behavior on a development-only subset.
+      - Keep every prospective external task out of probing and training.
+
+  - id: cybergym_e2e
+    role: end_to_end_defensive_transfer_investigation
+    repository: https://github.com/sunblaze-ucb/cybergym-e2e
+    revision: d0ae0f02e76ebc084389bf21e755f4b41ac9765a
+    code_license: pending_audit
+    task_data_license_audit: pending
+    official_documents:
+      - https://www.cybergym.io/cybergym-e2e/
+      - https://github.com/sunblaze-ucb/cybergym-e2e/blob/main/README.md
+    qualification_status: bounded_investigation_pending
+    unresolved_checks:
+      - Audit code and task licenses at the pinned revision.
+      - Verify immutable access to the 920-task release and all four graders.
+      - Measure fixture reset, storage, stage occupancy, and infrastructure cost.
+      - Audit overlap with CyberGym, the training family, and external targets.
+      - Do not add this integration to the initial bakeoff critical path.
+
+  - id: recent_sequestered_vulnerability_panel
+    role: future_independent_external_target
+    repository: null
+    revision: not_constructed
+    code_license: not_applicable
+    task_data_license_audit: pending
+    official_documents:
+      - https://openai.com/index/gpt-6-astra/
+      - https://deploymentsafety.openai.com/gpt-6-astra/vision
+    qualification_status: protocol_design_pending
+    unresolved_checks:
+      - Define authorized sources and a disclosure-date acquisition window.
+      - Freeze task identities and timestamps before any model evaluation.
+      - Exclude exact and near-duplicate tasks from probing and training.
+      - Keep the unavailable OpenAI internal task set out of reproducibility claims.

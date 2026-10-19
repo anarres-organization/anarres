@@ -1,0 +1,110 @@
+{
+  "schema_version": "anarres.cyber-qualification-protocol.v1",
+  "protocol_id": "cyber-primary-family-bakeoff-v1",
+  "protocol_rules_frozen": true,
+  "execution_authorized": false,
+  "authorization_blockers": [
+    "record the exact local warm-start artifact digest",
+    "resolve pre-measurement eligibility and materialize the first 24 passing tasks in each frozen stratum",
+    "complete task-data license review",
+    "complete static containment review"
+  ],
+  "candidate_families": [
+    "cybergym",
+    "sec_bench_pro_v8_spidermonkey"
+  ],
+  "starting_policy": {
+    "source_id": "nvidia/Nemotron-Terminal-8B",
+    "source_revision": "bb1413579351dfada0c203699ea32d2d08f0942c",
+    "local_artifact_digest": null,
+    "require_exact_match_to_agentic_warm_start": true
+  },
+  "subset_selection": {
+    "eligible_task_count_per_family": 48,
+    "method": "ascending_sha256_of_family_canonical_task_id_and_salt",
+    "salt": "anarres-cyber-qualification-v1",
+    "outcome_blind": true,
+    "stratification": "CyberGym: 24 ARVO plus 24 OSS-Fuzz; SEC-Bench Pro: 24 V8 plus 24 SpiderMonkey",
+    "candidate_order_generator": "freeze_development_candidates.py",
+    "candidate_order_artifact_policy": "generate from pinned sources before execution and preserve by content hash outside Git",
+    "eligibility_application": "take the first 24 passing tasks within each stratum",
+    "replacement_after_measurement": false
+  },
+  "static_fixture_gates": {
+    "oracle_pass_rate": 1.0,
+    "noop_rejection_rate": 1.0,
+    "repeated_reset_agreement": 1.0,
+    "unresolved_contamination_count": 0,
+    "unresolved_containment_failure_count": 0,
+    "fixed_or_patched_build_agent_visible": false,
+    "reference_solution_agent_visible": false,
+    "direct_network_egress": false
+  },
+  "warm_start_probe": {
+    "group_size": 16,
+    "independent_views": 2,
+    "rollouts_per_view": 8,
+    "unique_tasks_per_family": 48,
+    "maximum_rollouts_per_family": 768,
+    "scientific_retry_count": 0,
+    "maximum_infrastructure_retries": 1,
+    "maximum_infrastructure_failure_fraction": 0.05,
+    "minimum_mixed_valid_groups": 8,
+    "minimum_mixed_valid_group_fraction": 0.2,
+    "strict_success_headroom_interval": [
+      0.05,
+      0.8
+    ],
+    "graded_headroom_alternative": {
+      "minimum_non_extreme_fraction": 0.2,
+      "minimum_distinct_deterministic_levels": 3
+    },
+    "view_reliability": {
+      "maximum_rho_symmetric_relative_difference": 0.2,
+      "maximum_H_absolute_difference": 0.1,
+      "maximum_mixed_fraction_absolute_difference": 0.1
+    }
+  },
+  "feasibility_budget": {
+    "maximum_total_warm_start_rollouts": 1536,
+    "maximum_unique_fixture_materializations": 96,
+    "maximum_retained_storage_bytes": 1099511627776,
+    "maximum_engineering_days": 5,
+    "maximum_elapsed_days": 7,
+    "new_general_purpose_orchestration_allowed": false
+  },
+  "pilot_design_resolution": {
+    "alpha_two_sided": 0.05,
+    "power": 0.8,
+    "paired_binary_discordance_assumption": 0.2,
+    "pilot_target_effect": 0.08,
+    "minimum_independent_target_tasks": 246,
+    "preferred_target_tasks": 256,
+    "approximate_detectable_effect_at_256_tasks": 0.078307,
+    "larger_study_target_effect": 0.06,
+    "independent_tasks_required_for_larger_study_target": 437
+  },
+  "pilot_expansion_rule": {
+    "minimum_environments": 4,
+    "maximum_environments": 6,
+    "training_seeds": 2,
+    "require_same_contrast_sign_in_both_seeds": true,
+    "require_paired_task_cluster_interval_excludes_zero": true,
+    "minimum_absolute_environment_contrast": 0.08,
+    "require_contrast_at_least_twice_median_within_environment_seed_gap": true,
+    "require_all_static_fixture_gates": true,
+    "require_measurement_reliability_gates": true,
+    "require_feasibility_budget": true,
+    "failure_action": "stop_or_revise_before_claim_bearing_expansion"
+  },
+  "selection_rule": {
+    "hard_gates_cannot_be_offset": true,
+    "primary_criterion": "expected_decision_relevant_information_per_measured_pilot_cost",
+    "tie_breaker": "lower_new_infrastructure_burden",
+    "if_neither_passes": "do_not_launch_cyber_rl"
+  },
+  "shared_metadata_contracts": [
+    "anarres.environment-manifest.v1",
+    "anarres.experiment-protocol.v1"
+  ]
+}
