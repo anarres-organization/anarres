@@ -45,7 +45,23 @@
     "local_artifact_digest": null,
     "require_exact_match_to_agentic_warm_start": true,
     "scales_in_pilot": ["8B"],
-    "multi_scale_ladder": "deferred_to_powered_study_as_separate_budgeted_project"
+    "multi_scale_ladder": "deferred_to_powered_study_as_separate_budgeted_project",
+    "source_artifact_verification": {
+      "verified_on": "2026-10-19",
+      "huggingface_repo": "nvidia/Nemotron-Terminal-8B",
+      "revision_resolves": true,
+      "gated": false,
+      "architecture": "qwen3",
+      "total_safetensors_bytes": 16381516824,
+      "shard_sha256": {
+        "model-00001-of-00004.safetensors": "c985abeb57f93a07",
+        "model-00002-of-00004.safetensors": "03dfb9976b0d7bd3",
+        "model-00003-of-00004.safetensors": "1f0f1121c550f32c",
+        "model-00004-of-00004.safetensors": "3f40e289630e15e6"
+      },
+      "shard_sha256_note": "truncated LFS oids for provenance; full oids in WARM_START_PROVENANCE.md",
+      "local_artifact_digest_status": "pending_download_on_container_capable_host"
+    }
   },
   "disjointness_standard": {
     "description": "Training pool and isolated target must be disjoint across ALL of the following, not merely exact task or CVE.",
