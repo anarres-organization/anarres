@@ -72,6 +72,47 @@ class PartitionTest(unittest.TestCase):
         self.assertEqual(probe_projects & target_projects, set())
         self.assertTrue(part["audit"]["target_meets_minimum"])
 
+    def test_shared_project_excluded_despite_other_axes_differing(self) -> None:
+        # Regression for the conjunctive-key bug: tasks share the probe's PROJECT
+        # but differ on vulnerability_class. Per-axis OR must still exclude them;
+        # the old all-axes-must-match key would have leaked them into the target.
+        identity = {
+            t: {"project": f"proj{i % 10}", "vulnerability_class": f"cwe{i}"}
+            for i, t in enumerate(self.tasks)
+        }
+        part = fdc.partition_probe_and_target(
+            self.ordering, probe_size=48, target_size=256, identity=identity
+        )
+        probe_projects = {identity[t]["project"] for t in part["probe"]}
+        target_projects = {identity[t]["project"] for t in part["target"]}
+        self.assertEqual(probe_projects & target_projects, set())
+
+    def test_provenance_is_not_an_excluding_axis(self) -> None:
+        # Every task shares provenance; if it excluded, the target would be empty.
+        # Distinct projects keep the target fillable, proving provenance is
+        # audit-only.
+        identity = {
+            t: {"project": f"proj{i}", "provenance": "arvo"} for i, t in enumerate(self.tasks)
+        }
+        part = fdc.partition_probe_and_target(
+            self.ordering, probe_size=48, target_size=256, identity=identity
+        )
+        self.assertTrue(part["audit"]["target_meets_minimum"])
+
+    def test_shared_patch_class_excludes(self) -> None:
+        # Sharing only the patch-equivalence class (distinct projects) is still a
+        # collision under per-axis OR.
+        identity = {
+            t: {"project": f"proj{i}", "patch_equivalence_class": f"patch{i % 10}"}
+            for i, t in enumerate(self.tasks)
+        }
+        part = fdc.partition_probe_and_target(
+            self.ordering, probe_size=48, target_size=256, identity=identity
+        )
+        probe_patches = {identity[t]["patch_equivalence_class"] for t in part["probe"]}
+        target_patches = {identity[t]["patch_equivalence_class"] for t in part["target"]}
+        self.assertEqual(probe_patches & target_patches, set())
+
 
 if __name__ == "__main__":
     unittest.main()

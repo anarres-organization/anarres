@@ -8,10 +8,13 @@ No replacement is allowed after warm-start measurements begin.
 Protocol v2 also requires a single frozen ordering to yield two mutually
 exclusive partitions: the 48-task warm-start probe subset and a target panel of
 at least 246 tasks that is disjoint from the probe by exact task and, when an
-identity map is supplied, by identity key (upstream project / fork lineage,
-patch-equivalence class, vulnerability class / sanitizer signature, fuzz-harness
-source, and ARVO/OSS-Fuzz provenance). Without an identity map, only exact-task
-disjointness is enforced and the identity audit is reported UNRESOLVED.
+identity map is supplied, by sharing any single excluding identity axis (upstream
+project / fork lineage, patch-equivalence class, vulnerability class / sanitizer
+signature, or fuzz-harness source). Disjointness is per-axis OR, not a
+conjunction: sharing the project alone is enough to be non-disjoint. ARVO/OSS-Fuzz
+provenance is recorded for audit but is not an excluding axis, since every task
+shares it. Without an identity map, only exact-task disjointness is enforced and
+the identity audit is reported UNRESOLVED.
 """
 
 from __future__ import annotations
@@ -63,24 +66,36 @@ def cybergym_global_ordering(mask_map_path: Path) -> list[dict[str, str | int]]:
 
 IdentityMap = dict[str, dict[str, str]]
 
+# A target task is non-disjoint from the probe if it shares the probe on ANY of
+# these axes (per-axis OR), not only when every axis matches at once. Sharing an
+# upstream project / fork lineage alone is enough to leak a codebase between the
+# training pool and the target, which is exactly what protocol v2 forbids.
+# `provenance` (ARVO vs OSS-Fuzz) is deliberately excluded: every task shares it,
+# so using it to exclude would empty the target. It stays in the record for audit
+# only. See docs/decisions/0003-cyber-identity-disjointness-per-axis.md.
+EXCLUDING_AXES = (
+    "project",
+    "patch_equivalence_class",
+    "vulnerability_class",
+    "fuzz_harness",
+)
 
-def _identity_key(task_id: str, identity: IdentityMap | None) -> tuple[str | None, ...] | None:
-    """Collision key used for probe/target disjointness.
 
-    Returns None when identity is unknown for this task, so only exact-task
-    disjointness can be enforced and the identity audit stays unresolved.
+def _identity_tokens(task_id: str, identity: IdentityMap | None) -> frozenset[tuple[str, str]]:
+    """Per-axis collision tokens used for probe/target disjointness.
+
+    Returns one ``(axis, value)`` token per populated excluding axis. Two tasks
+    are non-disjoint iff their token sets intersect (share a value on any axis).
+    An empty set means identity is unknown (or carries no excluding axis), so only
+    exact-task disjointness can be enforced for that task.
     """
     if not identity:
-        return None
+        return frozenset()
     record = identity.get(task_id)
     if not record:
-        return None
-    return (
-        record.get("project"),
-        record.get("patch_equivalence_class"),
-        record.get("vulnerability_class"),
-        record.get("fuzz_harness"),
-        record.get("provenance"),
+        return frozenset()
+    return frozenset(
+        (axis, record[axis]) for axis in EXCLUDING_AXES if record.get(axis) is not None
     )
 
 
@@ -96,14 +111,16 @@ def partition_probe_and_target(
 
     The probe subset is the first ``probe_size`` tasks by frozen rank. The target
     panel takes subsequent tasks that collide with the probe neither by exact
-    task id nor, when an identity map is supplied, by identity key. The two
-    partitions are mutually exclusive by construction and the probe is excluded
-    from the target.
+    task id nor, when an identity map is supplied, by sharing any excluding
+    identity axis (project / fork lineage, patch-equivalence class, vulnerability
+    class, fuzz harness). The two partitions are mutually exclusive by
+    construction and the probe is excluded from the target.
     """
     probe = [str(row["task_id"]) for row in ordering[:probe_size]]
     probe_ids = set(probe)
-    probe_identities = {_identity_key(task_id, identity) for task_id in probe}
-    probe_identities.discard(None)
+    probe_tokens: set[tuple[str, str]] = set()
+    for task_id in probe:
+        probe_tokens |= _identity_tokens(task_id, identity)
 
     target: list[str] = []
     excluded_exact: list[str] = []
@@ -113,8 +130,7 @@ def partition_probe_and_target(
         if task_id in probe_ids:
             excluded_exact.append(task_id)
             continue
-        key = _identity_key(task_id, identity)
-        if key is not None and key in probe_identities:
+        if _identity_tokens(task_id, identity) & probe_tokens:
             excluded_identity.append(task_id)
             continue
         target.append(task_id)
@@ -131,7 +147,8 @@ def partition_probe_and_target(
         "excluded_for_exact_collision": len(excluded_exact),
         "excluded_for_identity_collision": len(excluded_identity),
         "disjointness": (
-            "exact-task and identity-key (project/patch-class/vuln-class/harness/provenance)"
+            "exact-task and per-axis identity (shares any of "
+            "project/patch-class/vuln-class/harness; provenance audit-only)"
             if identity_resolved
             else "exact-task only; identity-key disjointness UNRESOLVED, audit at materialization"
         ),
