@@ -50,13 +50,39 @@ to exercise the gate's rejections, the frozen probe was not.
   reference input, so under the benchmark rule (vul crashes AND fix does not) it
   does not discriminate vulnerable from fixed. Quarantined.
 
-## Consequence for the probe
+## Backfill to 48 (done)
 
-46 of 48 fixtures are clean; the frozen two-view G=8 design assumes 48. Before
-Phase C, backfill the 2 quarantined slots with the next eligible tasks from the
-same frozen ordering (positions beyond the current probe) and gate them through
-this same harness — this is permitted because it is pre-measurement. Do not
-proceed to the floor probe on 46 without either backfilling to 48 or recording
-the reduced count against the reliability operating curve. Containment
-(egress / grader-hidden / secrets) must also be run per admitted fixture before
-the probe is final.
+The 2 quarantined slots were backfilled with the next tasks in frozen rank order
+(positions 49+), gated through the same harness. The 6 candidates at ranks 49–54
+(`arvo:10252, 44659, 56726, 12195, 40683, 64529`) all ADMITTED; the first two in
+rank order were taken:
+
+- **arvo:10252** (rank 49) — replaces arvo:27651
+- **arvo:44659** (rank 50) — replaces arvo:41235
+
+This is permitted because it is pre-measurement (no warm-start rollouts have run).
+
+### Final probe (48, all admitted)
+
+The final probe = the 46 original admits ∪ {arvo:10252, arvo:44659}, minus the 2
+quarantined. Composition: 45 ARVO + 3 OSS-Fuzz.
+
+| quantity | value |
+| --- | ---: |
+| fixtures | 48 |
+| ADMITTED | 48 |
+| oracle / no-op / reset | 1.000 / 1.000 / 1.000 |
+| infrastructure failures | 0 |
+
+| artifact | sha256 |
+| --- | --- |
+| `fixture-manifest.probe.final.json` (48 admitted) | `942e7dbf7ee4e65db0c03cf95d98a53cb55754abf4554bcc3cd4a3ef002ddf42` |
+
+## Still owed before Phase C
+
+Per-fixture **containment** (egress-denied / submission-service-local-only /
+fixed-build-and-reference-hidden / secrets-absent / grader-readable /
+action-log) must be run on each of the 48 admitted fixtures and recorded in the
+manifest's containment block (null today). Containment was shown *enforceable* at
+the harness level (egress denied under `--network none`, HARNESS_VALIDATION.md),
+but has not been re-verified per probe fixture.
