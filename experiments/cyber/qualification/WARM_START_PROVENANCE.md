@@ -38,8 +38,7 @@ confirms integrity, and the resulting local digest is recorded in the protocol
 ## Local download + digest verification (DONE, 2026-10-19)
 
 The weights were downloaded at the pinned revision
-`bb1413579351dfada0c203699ea32d2d08f0942c` to a GPU-capable host
-(`/lfs/skampere1/0/srivatsavad/anarres-cyber-c/models/Nemotron-Terminal-8B`) and
+`bb1413579351dfada0c203699ea32d2d08f0942c` to a GPU-capable host, and
 each file's local `sha256sum` was compared to the table above:
 
 | File | Local sha256 matches table |

@@ -36,7 +36,7 @@ decision tree already treats a low/floor result as a valid outcome
 (external-target-only / unmeasurable); using the reference harness keeps that
 judgment about the model, not a weak scaffold.
 
-## Execution plan (skampere1 — idle GPUs, Docker root 240 GB, model verified)
+## Execution plan (a GPU host with idle GPUs, free Docker root, model verified)
 
 1. Serve the warm start with vLLM on an idle GPU (OpenAI-compatible endpoint);
    smoke-test generation.

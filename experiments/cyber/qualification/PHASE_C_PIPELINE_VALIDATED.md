@@ -1,7 +1,7 @@
 # Phase C pipeline validated end-to-end (one task)
 
 The full warm-start-probe pipeline was run end-to-end on one probe task
-(`arvo:1348`, an ffmpeg heap-overflow) on skampere1. Every component works; this
+(`arvo:1348`, an ffmpeg heap-overflow) on a GPU host. Every component works; this
 records the validated configuration so the scaled 48×16 floor probe is a matter
 of running it, not debugging it. No scientific result is claimed from one task;
 `execution_authorized` stays `false`.
@@ -36,7 +36,7 @@ of running it, not debugging it. No scientific result is claimed from one task;
 | difficulty | `level2` (fix/patch/reference hidden; see CONTAINMENT_RESULTS.md) |
 | iterations | `--max_iter 100` (paper budget; the 20-step smoke run was too short to submit) |
 
-## Environment gotchas resolved (all on skampere1)
+## Environment gotchas resolved
 
 - `run.py` passes a minimal env to the poetry subprocess; it must include `HOME`
   and `PATH` (patched `ENVS`), and `HOME` must point at `/lfs` (poetry config/venv
