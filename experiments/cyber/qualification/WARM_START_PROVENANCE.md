@@ -35,10 +35,28 @@ LFS object ids; after download, verifying each file's sha256 against this table
 confirms integrity, and the resulting local digest is recorded in the protocol
 `starting_policy.local_artifact_digest`.
 
+## Local download + digest verification (DONE, 2026-10-19)
+
+The weights were downloaded at the pinned revision
+`bb1413579351dfada0c203699ea32d2d08f0942c` to a GPU-capable host
+(`/lfs/skampere1/0/srivatsavad/anarres-cyber-c/models/Nemotron-Terminal-8B`) and
+each file's local `sha256sum` was compared to the table above:
+
+| File | Local sha256 matches table |
+| --- | :---: |
+| model-00001-of-00004.safetensors | ✓ |
+| model-00002-of-00004.safetensors | ✓ |
+| model-00003-of-00004.safetensors | ✓ |
+| model-00004-of-00004.safetensors | ✓ |
+| tokenizer.json | ✓ |
+
+All five match, so the local artifact is byte-identical to the pinned upstream
+revision; download integrity is confirmed. The weights are not committed to Git.
+
 ## Still open on blocker #1
 
-- Download the weights onto a container-capable host with sufficient free disk.
-- Verify sha256 against the table above; record the local artifact digest.
-- Confirm the artifact is byte-identical to the agentic warm start
-  (`require_exact_match_to_agentic_warm_start`).
-- Complete the license review before any claim-bearing use.
+- Confirm the artifact is byte-identical to the *agentic* warm start used by the
+  parallel study (`require_exact_match_to_agentic_warm_start`) — needs that
+  study's artifact digest to compare against; upstream integrity is now proven.
+- Complete the license review (model card declares `other`) before any
+  claim-bearing use.
