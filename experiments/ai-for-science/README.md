@@ -10,11 +10,17 @@ uncertainty, provenance, and experimental validity. These properties remain
 explicit parts of the training and evaluation contract.
 
 AI for Science is an umbrella rather than a single experimental domain. The
-first planned study is [molecular design](molecular-design/README.md), where the
-policy constructs molecular graphs through valid reaction actions and the
-target objective is measured on a frozen protein-target evaluation. Later
-studies may examine scientific tool use, biological sequence models, or other
-scientific systems under separate domain-specific contracts.
+planned studies currently cover:
+
+- [molecular design](molecular-design/README.md), where a policy constructs
+  molecular graphs through valid reaction actions and the target objective is
+  measured on a frozen protein-target evaluation;
+- [materials science](materials-science/README.md), where atomistic training
+  distributions are measured before fine-tuning and utility is evaluated on a
+  frozen physical target.
+
+Later studies may examine scientific tool use, biological sequence models, or
+other scientific systems under separate domain-specific contracts.
 
 The shared utility object is
 

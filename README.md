@@ -36,7 +36,7 @@ The project provides:
 | [Agentic systems](experiments/agentic/README.md) | Which measurements transfer to terminal, coding, and tool-using agents? | Active research |
 | [Environment processing](data/environment-processing/README.md) | How can heterogeneous task collections become reliable RL environment banks? | In development |
 | [Cyber](experiments/cyber/README.md) | How should utility be measured under executable security tasks and containment constraints? | Qualification underway |
-| [AI for Science](experiments/ai-for-science/README.md) | Which training environments improve scientific models for a specified target and compute budget? | Molecular-design protocol drafted |
+| [AI for Science](experiments/ai-for-science/README.md) | Which training environments improve scientific models for a specified target and compute budget? | Molecular-design and materials-science protocols drafted |
 | [Robotics](experiments/robotics/README.md) | Which environments help robots improve across diverse embodied tasks? | Planning |
 
 ## Get started
