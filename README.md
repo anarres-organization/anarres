@@ -30,13 +30,16 @@ The project provides:
 
 ## Research program
 
+[AI for Science](experiments/ai-for-science/README.md) provides the shared utility framework for molecular design and materials science, while each study retains its own model, environment, and evaluation contract.
+
 | Area | Question | Status |
 | --- | --- | --- |
 | [Mathematics](experiments/mathematics/README.md) | Can starting-policy measurements predict finite-budget RL utility across model scale? | Study assets available |
 | [Agentic systems](experiments/agentic/README.md) | Which measurements transfer to terminal, coding, and tool-using agents? | Active research |
 | [Environment processing](data/environment-processing/README.md) | How can heterogeneous task collections become reliable RL environment banks? | In development |
 | [Cyber](experiments/cyber/README.md) | How should utility be measured under executable security tasks and containment constraints? | Qualification underway |
-| [AI for Science](experiments/ai-for-science/README.md) | Which training environments improve scientific models for a specified target and compute budget? | Molecular-design and materials-science protocols drafted |
+| [Molecular design](experiments/ai-for-science/molecular-design/README.md) | Which reaction-based environments improve a molecular graph policy for a specified protein target and compute budget? | Protocol drafted |
+| [Materials science](experiments/ai-for-science/materials-science/README.md) | Which atomistic training distributions improve a materials model for a specified physical target and compute budget? | Protocol drafted |
 | [Robotics](experiments/robotics/README.md) | Which environments help robots improve across diverse embodied tasks? | Planning |
 
 ## Get started
