@@ -15,13 +15,13 @@ efficacy or experimental validation.
 
 The scientific object remains
 
-\[
+$$
 U(E,\pi_0,C,D)=P(\pi_{E,C};D)-P(\pi_0;D),
-\]
+$$
 
-where \(E\) is a distribution over building blocks and reaction actions,
-\(\pi_0\) is a common molecular graph policy, \(C\) is a matched oracle or
-generation budget, and \(D\) is a frozen protein-target evaluation. The aim is
+where $E$ is a distribution over building blocks and reaction actions,
+$\pi_0$ is a common molecular graph policy, $C$ is a matched oracle or
+generation budget, and $D$ is a frozen protein-target evaluation. The aim is
 not to find one universally optimal chemical environment. It is to test whether
 environment utility can be forecast for a named model, target, and budget.
 

@@ -15,13 +15,13 @@ quantum calculations.
 
 The scientific object remains
 
-\[
+$$
 U(E,\pi_0,C,D)=P(\pi_{E,C};D)-P(\pi_0;D),
-\]
+$$
 
-where (E) is a distribution over atomistic configurations, (pi_0) is a
-common pretrained potential, (C) is a matched training or reference-label
-budget, and (D) is a frozen physical target. The aim is not to identify one
+where $E$ is a distribution over atomistic configurations, $\pi_0$ is a
+common pretrained potential, $C$ is a matched training or reference-label
+budget, and $D$ is a frozen physical target. The aim is not to identify one
 universally optimal materials dataset. It is to test whether environment utility
 can be forecast for a named model, target, and budget.
 
@@ -177,23 +177,23 @@ must pass independent-view reliability and collinearity checks.
 
 ### Primary operational coordinates
 
-- **Admitted supervision density \(\rho\):** usable energy, force, and stress
+- **Admitted supervision density $\rho$:** usable energy, force, and stress
   gradient mass per atom and per unit of acquisition or training cost.
-- **Effective coverage \(H\):** concentration-adjusted support over frozen local
+- **Effective coverage $H$:** concentration-adjusted support over frozen local
   atomic-environment embeddings, elements, chemical systems, prototypes, and
   force regimes.
-- **Reliability \(R\):** agreement of the coordinates across independent views
+- **Reliability $R$:** agreement of the coordinates across independent views
   of the same candidate distribution.
-- **Cost \(K\):** processed atoms, neighbor edges, wall time, memory, and
+- **Cost $K$:** processed atoms, neighbor edges, wall time, memory, and
   equivalent reference-label cost.
 
 ### Nested challengers
 
-- **Target affinity \(\alpha_D\):** similarity between candidate-environment
+- **Target affinity $\alpha_D$:** similarity between candidate-environment
   gradient or representation sketches and the target calibration split.
-- **Curvature coverage \(\kappa\):** support across displacement magnitude,
+- **Curvature coverage $\kappa$:** support across displacement magnitude,
   force norm, strain, and prespecified local-curvature proxies.
-- **Epistemic disagreement \(Q\):** disagreement among a pinned ensemble of
+- **Epistemic disagreement $Q$:** disagreement among a pinned ensemble of
   frozen potentials.
 
 Curvature coverage is motivated by a documented potential-energy-surface
