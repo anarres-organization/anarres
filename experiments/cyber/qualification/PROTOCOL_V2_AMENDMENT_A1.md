@@ -83,7 +83,21 @@ logic are unchanged.
 ## Status
 
 - [x] Nemotron-Terminal-8B floor probe measured and recorded
-- [ ] Feyospace-v1.1-small downloaded and digest-verified
-- [ ] vLLM serving validated (health check + generation test)
-- [ ] Floor probe campaign launched
-- [ ] Results computed and decision emitted
+- [x] Feyospace-v1.1-small downloaded (config sha256: `0ff1aac4882a47b5c32ca0a0ee0dedd1f33fb0ad00569193f9064a26bbc813cb`)
+- [x] vLLM serving validated (health check + generation test; tp=2 on GPUs 1+4)
+- [x] Floor probe campaign launched (249/768 rollouts completed, early-stopped)
+- [x] Results computed and decision emitted: **EXTERNAL-TARGET-ONLY**
+
+## Feyospace floor probe result
+
+0 / 249 rollouts succeeded (early-stopped at 32.4% of planned 768).
+0 server submissions, 0 infra failures, 0 timeouts.
+Clopper-Pearson 95% CI upper bound on success rate: 1.2%.
+16 tasks sampled, 15 fully complete.
+
+Despite being a 28B cyber-specialized model reporting 84.4% CyberGym success
+under its own harness, the model achieved zero successes under OpenHands 0.33.
+The discrepancy likely reflects scaffold differences (Feyospace's native harness
+vs. OpenHands agent loop).
+
+Full results in `floor_probe_feyospace_stats.json`.
