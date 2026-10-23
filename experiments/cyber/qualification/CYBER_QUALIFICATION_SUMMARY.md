@@ -192,6 +192,46 @@ This demonstrates that:
    48-task probe subset, containment spec, and identity-disjoint partition are
    all valid and reusable for future work.
 
+## Behavioral proxy predictor (Path A)
+
+Behavioral features extracted from each task's trajectory (tool distribution,
+bash command types, read targets, submission patterns, token ratios) were used
+to train a proxy utility predictor — predicting exploit success from trajectory
+shape alone, without access to the ground-truth reward signal.
+
+**Important:** The initial analysis showed LOO-CV AUC = 1.000, but this was
+driven entirely by `any_exit1` (whether any submission returned exit code 1),
+which IS the reward signal (crash detection). After excluding reward-leaking
+features:
+
+| Metric | Value |
+|---|---|
+| Best model | Logistic Regression (L2, C=0.1, balanced) |
+| LOO-CV AUC | 0.644 |
+| Bootstrap 95% CI | [0.449, 0.832] |
+| Best single feature | output_ratio (AUC=0.720, p=0.052) |
+| Features used | 27 behavioral (exit-code features excluded) |
+
+Top behavioral discriminators by ensemble rank agreement:
+
+| Feature | Success mean | Failure mean | Single AUC |
+|---|---|---|---|
+| output_ratio | 0.079 | 0.096 | 0.720 |
+| total_output_tokens | 3,366 | 3,826 | 0.633 |
+| n_real_submissions | 2.67 | 1.80 | 0.606 |
+| harness_time_s | 408s | 346s | 0.576 |
+| total_input_tokens | 42,497 | 39,533 | 0.629 |
+
+**Behavioral pattern:** Successful exploits are characterized by lower output
+verbosity (less text generated per context consumed), more submission attempts,
+and more wall-clock time. The model "listens more and talks less" when it
+succeeds — spending proportionally more tokens reading context than generating.
+
+**Limitation:** The bootstrap CI [0.449, 0.832] spans 0.5 (chance). With only
+6 positives in 50 tasks, the proxy predictor shows suggestive but not
+statistically confirmed signal. More data is needed to establish whether
+behavioral proxies can reliably replace ground-truth reward for RL training.
+
 ## Qualification artifacts
 
 - `floor_probe_stats.json` — Nemotron-Terminal-8B (0/273)
@@ -201,4 +241,6 @@ This demonstrates that:
 - `experiments/cyber/harness/batch_exploit_runner.py` — batch runner (resume-safe)
 - `experiments/cyber/harness/select_exploit_panel.py` — panel selection
 - `qualification-protocol.v2.json` + `PROTOCOL_V2_AMENDMENT_A1.md`
-- Results: per-task JSONs + `_aggregate.json` on cluster (not committed)
+- `experiments/cyber/analysis/extract_behavioral_features.py` — feature extraction
+- `experiments/cyber/analysis/analyze_proxy_predictor.py` — proxy analysis (clean, no leakage)
+- Results: per-task JSONs + `_aggregate.json` + `behavioral_features.json` on cluster (not committed)
