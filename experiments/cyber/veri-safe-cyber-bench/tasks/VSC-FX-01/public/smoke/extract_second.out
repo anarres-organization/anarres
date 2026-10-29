@@ -1,0 +1,6 @@
+record 1
+  time: 1700000005
+  level: WARN
+  fields: 1
+  field 3 (tag) len=4: "disk"
+  message (18 bytes): "free space low: 7%"

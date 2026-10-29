@@ -1,0 +1,9 @@
+{
+  "id": "VSC-FX-03",
+  "split": "val",
+  "language": "python3.12",
+  "bug_class": "incomplete directory containment check (path resolution, aliases, nested commands, expansion)",
+  "summary": "docvault document-store CLI: the check that keeps a request inside the user's folder is done on unresolved path text in some commands, treats aliases and nested commands inconsistently, and one archive-export path does not re-check after expansion.",
+  "K": 3,
+  "time_cap_min": 45
+}

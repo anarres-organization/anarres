@@ -1,0 +1,9 @@
+image a 2 2 1
+rle 1 2 3 4
+end
+image b 3 1 1
+rle 3*5
+end
+scale a2 a 3 2
+concat h a2 b h
+concat v a b v

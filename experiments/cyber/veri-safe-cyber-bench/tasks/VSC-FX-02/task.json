@@ -1,0 +1,9 @@
+{
+  "id": "VSC-FX-02",
+  "split": "train",
+  "language": "C",
+  "bug_class": "integer-overflow-in-buffer-size-arithmetic",
+  "summary": "tilekit tile-sheet toolkit: 32-bit size products wrap at three allocation sites (image load, scale output, concat output) while loop bounds use unwrapped values; documented safe behaviour is 'error: image too large', exit 3, above 1<<24 bytes.",
+  "K": 3,
+  "time_cap_min": 45
+}

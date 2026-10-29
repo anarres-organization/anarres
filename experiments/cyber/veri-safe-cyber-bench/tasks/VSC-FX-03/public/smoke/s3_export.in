@@ -1,0 +1,7 @@
+#! file vault/users/alice/notes.txt | first line\nsecond line
+#! file vault/users/alice/docs/a.txt | hello a
+#! file vault/users/alice/docs/sub/b.txt | hello b
+USER alice
+EXPORT bundle docs notes.txt
+TOC bundle
+LIST exports

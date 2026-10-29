@@ -1,0 +1,10 @@
+records: 3
+levels: DEBUG=0 INFO=1 WARN=1 ERROR=1 FATAL=0
+min_ts: 1700000000
+max_ts: 1700000042
+span_seconds: 42
+fields_total: 3
+message_bytes: 45
+largest_record_body: 36
+archive_bytes: 99
+trailing_bytes: 0

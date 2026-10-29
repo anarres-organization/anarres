@@ -1,0 +1,8 @@
+add-item A100 fasteners 40 25 10 Hex bolt M5
+add-item A101 fasteners 15 40 22 Hex nut M5
+add-item B200 tools 3 1250 900 Claw hammer
+add-item B201 tools 8 399 450 Tape measure 5m
+add-item C300 paint 12 899 600 Matt white 1L
+apply-discount 10 tools
+report tools
+export-csv

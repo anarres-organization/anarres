@@ -1,0 +1,9 @@
+{
+  "id": "VSC-FX-04",
+  "split": "test",
+  "language": "c",
+  "bug_class": "object lifetime handling: double release / use after removal (refcounted cache with LRU list)",
+  "summary": "A toy session cache driven by a text command script releases or reuses entries after they have been removed in three separate code paths; fix the lifetime handling, keep documented replies, and write regression tests.",
+  "K": 3,
+  "time_cap_min": 45
+}

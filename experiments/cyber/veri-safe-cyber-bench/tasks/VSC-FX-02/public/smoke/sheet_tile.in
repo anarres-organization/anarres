@@ -1,0 +1,8 @@
+image sheet 8 4 1 tile 4 4
+rle 4*1 4*2 4*1 4*2
+rle 16*7
+end
+tile t0 sheet 0
+tile t1 sheet 1
+concat both t0 t1 v
+info both

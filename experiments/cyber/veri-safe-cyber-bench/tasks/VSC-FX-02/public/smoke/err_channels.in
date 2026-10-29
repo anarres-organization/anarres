@@ -1,0 +1,8 @@
+image a 2 2 3
+rle 12*1
+end
+image b 2 2 1
+rle 4*1
+end
+concat c a b h
+info a

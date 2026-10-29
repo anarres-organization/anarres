@@ -1,0 +1,5 @@
+image strip 16777216 1 1
+rle 16777216*9
+end
+crop head strip 0 0 5 1
+scale s2 head 4 1

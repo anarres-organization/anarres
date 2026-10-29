@@ -1,0 +1,11 @@
+ok opened web1 size=32
+ok reopened web1 refs=2
+ok reopened web1 refs=3
+ok released web1 refs=2
+ok released web1 refs=1
+dump: 1 sessions
+  web1 refs=1 pins=0 size=32 sum=4400 idle=3
+ok closed web1
+error: no such session
+stats: sessions=0 pinned=0 pinned_bytes=0 pool=0/8192
+stats: opened=1 reopened=2 closed=1 evicted=0 expired=0 open_failed=0 pinned_skips=0 errors=1

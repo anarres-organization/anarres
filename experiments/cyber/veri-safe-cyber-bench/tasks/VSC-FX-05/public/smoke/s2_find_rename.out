@@ -1,0 +1,15 @@
+OK added A100
+OK added A101
+OK added B200
+OK added B201
+OK added C300
+A100 | Hex bolt M5 | qty=40
+A101 | Hex nut M5 | qty=15
+matches: 2
+A100 | Hex bolt M5 | qty=40
+A101 | Hex nut M5 | qty=15
+matches: 2
+OK renamed A100
+A100 | Hex bolt M5 zinc | qty=40
+matches: 1
+matches: 0

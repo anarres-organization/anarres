@@ -1,0 +1,10 @@
+# pins and the idle sweep
+open a 10
+open b 20
+open c 30
+touch b pin
+touch b unpin
+touch c
+expire 3
+dump
+stats

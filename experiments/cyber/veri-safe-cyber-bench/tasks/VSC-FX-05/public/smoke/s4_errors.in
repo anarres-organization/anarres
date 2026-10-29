@@ -1,0 +1,12 @@
+# comment line
+
+add-item A1 misc 1 100 50 Widget
+add-item A1 misc 2 100 50 Widget again
+add-item bad$sku misc 1 1 1 Thing
+add-item A2 misc x 1 1 Thing
+rename Z9 Something
+apply-discount 150 misc
+apply-discount 5 nope
+report nope
+frobnicate now
+find widget

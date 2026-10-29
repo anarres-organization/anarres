@@ -1,0 +1,9 @@
+#! file vault/users/alice/docs/a.txt | hello a
+#! file vault/users/alice/docs/sub/b.txt | hello b
+USER alice
+ALIAS d docs
+READ @d/a.txt
+LIST @d
+ALIAS s @d/sub
+READ @s/b.txt
+ALIASES

@@ -1,0 +1,7 @@
+# a 4x2 RGB image, then a crop
+image px 4 2 3
+rle 12*10
+rle 3*200 3*0 6*255
+end
+info px
+crop mid px 1 0 2 2

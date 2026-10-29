@@ -1,0 +1,9 @@
+{
+  "id": "VSC-FX-05",
+  "split": "test",
+  "language": "python3.12",
+  "bug_class": "query and export text built by string formatting instead of bound parameters / documented escaping",
+  "summary": "stockdesk, a toy inventory/order command-line tool over in-memory sqlite: several statements interpolate item names and categories into SQL text and the CSV export writes names unescaped, so names containing quotes, semicolons, commas or percent signs are stored, searched or exported incorrectly.",
+  "K": 3,
+  "time_cap_min": 45
+}

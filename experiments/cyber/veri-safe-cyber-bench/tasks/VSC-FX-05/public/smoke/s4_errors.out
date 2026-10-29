@@ -1,0 +1,11 @@
+OK added A1
+ERROR duplicate-sku: A1
+ERROR bad-sku: bad$sku
+ERROR bad-number: qty
+ERROR unknown-sku: Z9
+ERROR bad-percent: 150
+ERROR unknown-category: nope
+ERROR unknown-category: nope
+ERROR unknown-command: frobnicate
+A1 | Widget | qty=1
+matches: 1

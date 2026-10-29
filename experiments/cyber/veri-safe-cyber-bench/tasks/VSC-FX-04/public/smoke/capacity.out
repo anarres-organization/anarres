@@ -1,0 +1,18 @@
+ok opened s1 size=16
+ok opened s2 size=16
+ok opened s3 size=16
+ok opened s4 size=16
+ok opened s5 size=16
+ok opened s6 size=16
+ok touched s1
+note: evicted s2 (capacity)
+ok opened s7 size=16
+dump: 6 sessions
+  s7 refs=1 pins=0 size=16 sum=1416 idle=1
+  s1 refs=1 pins=0 size=16 sum=1320 idle=2
+  s6 refs=1 pins=0 size=16 sum=1400 idle=3
+  s5 refs=1 pins=0 size=16 sum=1384 idle=4
+  s4 refs=1 pins=0 size=16 sum=1368 idle=5
+  s3 refs=1 pins=0 size=16 sum=1352 idle=6
+stats: sessions=6 pinned=0 pinned_bytes=0 pool=96/8192
+stats: opened=7 reopened=0 closed=0 evicted=1 expired=0 open_failed=0 pinned_skips=0 errors=0

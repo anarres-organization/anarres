@@ -1,0 +1,7 @@
+# open two sessions, look at them, close one
+open alpha 64
+open beta
+dump
+close alpha
+dump
+stats

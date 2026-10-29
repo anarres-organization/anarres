@@ -1,0 +1,11 @@
+# the seventh open pushes out the least recently used session
+open s1
+open s2
+open s3
+open s4
+open s5
+open s6
+touch s1
+open s7
+dump
+stats

@@ -1,0 +1,7 @@
+#! file vault/users/alice/notes.txt | first line\nsecond line
+#! file vault/users/alice/setup.cmd | ECHO running setup\nREAD notes.txt\nLIST
+#! file vault/users/bob/todo.txt | bob's list
+USER alice
+RUN setup.cmd
+READ docs/../notes.txt
+ECHO still running

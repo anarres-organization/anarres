@@ -1,0 +1,12 @@
+#! file vault/users/alice/notes.txt | first line\nsecond line
+#! file vault/users/alice/docs/a.txt | hello a
+#! file vault/users/alice/docs/sub/b.txt | hello b
+#! file vault/users/bob/todo.txt | bob's list
+USER alice
+READ notes.txt
+LIST
+LIST docs
+READ docs/sub/b.txt
+USER bob
+LIST
+READ todo.txt

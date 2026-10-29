@@ -1,0 +1,9 @@
+{
+  "id": "VSC-FX-01",
+  "split": "train",
+  "language": "C",
+  "bug_class": "incomplete bounds validation of declared lengths (container parsing)",
+  "summary": "logpack, a toy log-record archive tool: declared record count, record length and nested field length are not all checked against the bytes actually present, so malformed archives are read past the end of the buffer instead of being rejected with 'error: truncated archive' (exit 2).",
+  "K": 3,
+  "time_cap_min": 45
+}

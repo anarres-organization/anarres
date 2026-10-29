@@ -1,0 +1,10 @@
+ok opened alpha size=64
+ok opened beta size=16
+dump: 2 sessions
+  beta refs=1 pins=0 size=16 sum=1352 idle=1
+  alpha refs=1 pins=0 size=64 sum=8864 idle=2
+ok closed alpha
+dump: 1 sessions
+  beta refs=1 pins=0 size=16 sum=1352 idle=3
+stats: sessions=1 pinned=0 pinned_bytes=0 pool=16/8192
+stats: opened=2 reopened=0 closed=1 evicted=0 expired=0 open_failed=0 pinned_skips=0 errors=0

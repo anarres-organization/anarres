@@ -1,0 +1,10 @@
+# shared opens need matching closes
+open web1 32
+open web1
+open web1
+close web1
+close web1
+dump
+close web1
+close web1
+stats
