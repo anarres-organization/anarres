@@ -40,8 +40,7 @@ class Session:
     def child(self):
         """A nested session for RUN: starts as a copy of this one."""
         tables = {name: table.copy() for name, table in self.tables.items()}
-        return Session(self.vault_root, self.depth + 1, self.user,
-                       self.user_root, tables)
+        return Session(self.vault_root, self.depth + 1, self.user, self.user_root, tables)
 
     def execute(self, line):
         text = line.strip()
@@ -93,8 +92,11 @@ class Session:
             raise CommandError("bad user name")
         users_dir = os.path.realpath(os.path.join(self.vault_root, "users"))
         candidate = os.path.realpath(os.path.join(users_dir, name))
-        if (candidate == users_dir or not vpaths.within_real(users_dir, candidate)
-                or not os.path.isdir(candidate)):
+        if (
+            candidate == users_dir
+            or not vpaths.within_real(users_dir, candidate)
+            or not os.path.isdir(candidate)
+        ):
             raise CommandError("no such user")
         self.user = name
         self.user_root = candidate
@@ -183,8 +185,7 @@ class Session:
         if not ARCHIVE_NAME.match(args[0]):
             raise CommandError("bad archive name")
         user_root = self._need_user()
-        real = vpaths.resolve_real(
-            user_root, archive.EXPORT_DIR + "/" + args[0] + ".tar")
+        real = vpaths.resolve_real(user_root, archive.EXPORT_DIR + "/" + args[0] + ".tar")
         if not os.path.isfile(real):
             raise CommandError("no such archive")
         members = archive.table_of_contents(guard.read_bytes(real, user_root))

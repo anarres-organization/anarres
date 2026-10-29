@@ -1,0 +1,6 @@
+# Cyber benchmark tasks hold deliberately planted bugs and one-off tools: keep the
+# repo format check, but skip style lint rules that would rewrite task code.
+extend = "../../pyproject.toml"
+
+[lint]
+ignore = ["B904", "E401", "E501", "F401", "I001", "SIM115", "UP031"]

@@ -15,6 +15,7 @@ INVARIANT_EXIT = 86
 
 def _violation(action):
     import sys
+
     sys.stdout.flush()
     sys.stderr.write("INVARIANT: " + action + " outside user root\n")
     sys.stderr.flush()

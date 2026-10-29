@@ -26,9 +26,7 @@ def open_store():
 
 
 def schema_snapshot(conn):
-    rows = conn.execute(
-        "SELECT type, name, sql FROM sqlite_master ORDER BY type, name"
-    ).fetchall()
+    rows = conn.execute("SELECT type, name, sql FROM sqlite_master ORDER BY type, name").fetchall()
     return tuple(rows)
 
 
@@ -53,31 +51,22 @@ def get_name(conn, sku):
 def add_item(conn, sku, category, qty, price, cost, name):
     conn.execute(
         "INSERT INTO items (sku, category, qty, price_cents, cost_cents, name)"
-        " VALUES ('%s', '%s', %d, %d, %d, '%s')"
-        % (sku, category, qty, price, cost, name)
+        " VALUES ('%s', '%s', %d, %d, %d, '%s')" % (sku, category, qty, price, cost, name)
     )
-    conn.execute(
-        "INSERT INTO audit_log (sku, action) VALUES (?, 'add')", (sku,)
-    )
+    conn.execute("INSERT INTO audit_log (sku, action) VALUES (?, 'add')", (sku,))
 
 
 def find_items(conn, text):
     """Case-insensitive (ASCII) literal substring search on item names.
     Returns [(sku, name, qty)] ordered by sku."""
-    query = (
-        "SELECT sku, name, qty FROM items"
-        " WHERE name LIKE '%%%s%%' ORDER BY sku" % text
-    )
+    query = "SELECT sku, name, qty FROM items WHERE name LIKE '%%%s%%' ORDER BY sku" % text
     return conn.execute(query).fetchall()
 
 
 def category_totals(conn, category=None):
     """Return [(category, items, units, value_cents)] ordered by category,
     optionally restricted to one category."""
-    sql = (
-        "SELECT category, COUNT(*), SUM(qty), SUM(qty * price_cents)"
-        " FROM items"
-    )
+    sql = "SELECT category, COUNT(*), SUM(qty), SUM(qty * price_cents) FROM items"
     if category is not None:
         sql += " WHERE category = '%s'" % category
     sql += " GROUP BY category ORDER BY category"
@@ -91,11 +80,8 @@ def _clean(text):
 
 def rename_item(conn, sku, new_name):
     clean = _clean(new_name)
-    conn.execute(
-        "UPDATE items SET name = '%s' WHERE sku = '%s'" % (clean, sku))
-    conn.execute(
-        "INSERT INTO audit_log (sku, action) VALUES (?, 'rename')", (sku,)
-    )
+    conn.execute("UPDATE items SET name = '%s' WHERE sku = '%s'" % (clean, sku))
+    conn.execute("INSERT INTO audit_log (sku, action) VALUES (?, 'rename')", (sku,))
 
 
 def discount_category(conn, pct, category):

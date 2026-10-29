@@ -66,13 +66,11 @@ def cmd_report(sess, rest):
         return
     total_items = total_units = total_value = 0
     for cat, items, units, value in rows:
-        sess.say("category %s: items=%d units=%d value_cents=%d"
-                 % (cat, items, units, value))
+        sess.say("category %s: items=%d units=%d value_cents=%d" % (cat, items, units, value))
         total_items += items
         total_units += units
         total_value += value
-    sess.say("total: items=%d units=%d value_cents=%d"
-             % (total_items, total_units, total_value))
+    sess.say("total: items=%d units=%d value_cents=%d" % (total_items, total_units, total_value))
 
 
 def cmd_rename(sess, rest):

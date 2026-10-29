@@ -33,12 +33,10 @@ def check(conn, expect):
         raise InvariantError("database schema changed")
     items = store.count_items(conn)
     if items != expect.items:
-        raise InvariantError(
-            "items row count %d, expected %d" % (items, expect.items))
+        raise InvariantError("items row count %d, expected %d" % (items, expect.items))
     audit = store.count_audit(conn)
     if audit != expect.audit:
-        raise InvariantError(
-            "audit_log row count %d, expected %d" % (audit, expect.audit))
+        raise InvariantError("audit_log row count %d, expected %d" % (audit, expect.audit))
     if expect.renamed is not None:
         sku, name = expect.renamed
         if store.get_name(conn, sku) != name:
