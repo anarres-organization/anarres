@@ -101,12 +101,12 @@ one-token trajectory and not an optimizer step.
 
 ## Scientific object
 
-For environment distribution \(E\), starting policy \(\pi_0\), fixed budget
-\(C\), and target vector \(D\), define
+For environment distribution $E$, starting policy $\pi_0$, fixed budget
+$C$, and target vector $D$, define
 
-\[
+$$
 U(E,\pi_0,C,D)=P(\pi_{E,C};D)-P(\pi_0;D).
-\]
+$$
 
 The target vector keeps distinct:
 

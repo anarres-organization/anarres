@@ -10,12 +10,12 @@ terminal work.
 
 The scientific object remains
 
-\[
+$$
 U(E,\pi_0,C,D)=P(\pi_{E,C};D)-P(\pi_0;D),
-\]
+$$
 
-where \(E\) is a training-environment distribution, \(\pi_0\) is the starting policy,
-\(C\) is generated-action-token or equivalent interaction compute, and \(D\)
+where $E$ is a training-environment distribution, $\pi_0$ is the starting policy,
+$C$ is generated-action-token or equivalent interaction compute, and $D$
 is an explicitly named target distribution. The aim is not to find one
 universally optimal cyber environment. It is to predict which candidate
 environment best serves a specified model, target, and budget.
@@ -285,11 +285,11 @@ must not silently weaken the frozen target evaluation.
 The first measurement layer preserves quantities with evidence from mathematics
 and terminal work:
 
-- admitted signal density \(\rho\);
-- effective coverage \(H\);
+- admitted signal density $\rho$;
+- effective coverage $H$;
 - generated action or interaction cost;
 - verifier validity and infrastructure reliability;
-- target affinity \(\alpha\), retained as a challenger until it demonstrates
+- target affinity $\alpha$, retained as a challenger until it demonstrates
   incremental value.
 
 Cyber-specific candidates are recorded before being admitted to a predictor:
@@ -356,7 +356,7 @@ decision quality.
 Difficulty and learning utility remain separate quantities. A hard
 vulnerability may supply little usable learning signal, while a less difficult
 task may produce dense but redundant updates. Starting success, capability
-depth, \(\rho\), \(H\), cost, and reliability are therefore recorded separately.
+depth, $\rho$, $H$, cost, and reliability are therefore recorded separately.
 
 ### Prespecified pilot-expansion gate
 
