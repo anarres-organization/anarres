@@ -1,0 +1,55 @@
+{
+  "artifact": "retrospective_robotics_three_source_bridge_v1",
+  "design": "leave_one_context_out",
+  "status": "no_incremental_fitted_model_value_on_current_support",
+  "support": {
+    "sources": 3,
+    "contexts": 8,
+    "panels": 31,
+    "candidate_arms": 111
+  },
+  "sources": [
+    {
+      "name": "Calibra",
+      "repository": "https://github.com/Calibra-Robotics/Calibra",
+      "revision": "5c60af73f3b86241c0b71b5d759c51dbde4fb616",
+      "license": "Apache-2.0"
+    },
+    {
+      "name": "CuraEval",
+      "repository": "https://github.com/jiuyixu25/CuraEval",
+      "revision": "bd94bbbd435c1ef55edfe244894e5468f3a5df2b",
+      "license": "MIT"
+    },
+    {
+      "name": "Mulligan",
+      "repository": "https://github.com/ankile/mulligan",
+      "revision": "bc42da1fe42274e41b59e6d5c84d4fceb7ad5ef8",
+      "license": "MIT"
+    }
+  ],
+  "held_out_context_metrics": {
+    "uninformed_tie": {
+      "pairwise_ordering": 0.5,
+      "mean_normalized_regret": 0.467030961269,
+      "top_choice_credit": 0.363425925926
+    },
+    "practical_measurement_rule": {
+      "pairwise_ordering": 0.653577828981,
+      "mean_normalized_regret": 0.271602029302,
+      "top_choice_credit": 0.583333333333
+    },
+    "measurement_ridge": {
+      "pairwise_ordering": 0.598726318484,
+      "mean_normalized_regret": 0.323679558458,
+      "top_choice_credit": 0.4375
+    }
+  },
+  "boundaries": [
+    "retrospective_public_outcomes",
+    "within_panel_normalization_only",
+    "incomplete_curaeval_seed_level_uncertainty",
+    "no_prospective_or_general_selector_claim",
+    "no_neural_model_authorization"
+  ]
+}

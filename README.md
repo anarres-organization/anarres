@@ -40,7 +40,7 @@ The project provides:
 | [Cyber](experiments/cyber/README.md) | How should utility be measured under executable security tasks and containment constraints? | Qualification underway |
 | [Molecular design](experiments/ai-for-science/molecular-design/README.md) | Which reaction-based environments improve a molecular graph policy for a specified protein target and compute budget? | Protocol drafted |
 | [Materials science](experiments/ai-for-science/materials-science/README.md) | Which atomistic training distributions improve a materials model for a specified physical target and compute budget? | Protocol drafted |
-| [Robotics](experiments/robotics/README.md) | Which environments help robots improve across diverse embodied tasks? | Planning |
+| [Robotics](experiments/robotics/README.md) | Which environments help robots improve across diverse embodied tasks? | First evidence release available |
 
 ## Get started
 

@@ -1,0 +1,18 @@
+{
+  "sources": [
+    {
+      "name": "Calibra",
+      "uri": "https://github.com/Calibra-Robotics/Calibra",
+      "revision": "5c60af73f3b86241c0b71b5d759c51dbde4fb616",
+      "license": "Apache-2.0",
+      "role": "selection primitives and closed-loop evaluation harness"
+    },
+    {
+      "name": "LeRobot PushT dataset",
+      "uri": "https://huggingface.co/datasets/lerobot/pusht",
+      "revision": "7628202a2180972f291ba1bc6723834921e72c19",
+      "license": "MIT",
+      "role": "candidate episode pool"
+    }
+  ]
+}

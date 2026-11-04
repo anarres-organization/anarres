@@ -1,0 +1,41 @@
+{
+  "artifact": "prospective_pusht_environment_selection_v1",
+  "producing_run": "calibra_prospective_matched_episode_v1",
+  "chronology": {
+    "decision_frozen_before_outcomes": true,
+    "frozen_action": "abstain_between_diversity_and_quality_diversity",
+    "frozen_candidate_set": [
+      "diversity_only_retain_25",
+      "calibra_retain_25"
+    ]
+  },
+  "frozen_inputs": {
+    "pool_sha256": "b59f88e64878834ca0a480a5b5bb9eb5b1d7636548c9dee3a3aa63aae10ec925",
+    "selections_sha256": "36ff3e50eec24e43af520a34bc9024d4b0f362ba3d14de3e153975950b9e2889",
+    "overlap_sha256": "0a01d98ece8c54e65370c1ba617c398ee1b01ef8747564cb5dfdb898c46419e6",
+    "membership_manifest_sha256": "895b4c4c2dda7b1a0ab343614ea26206747943d828dc2841f60e1f17d8346264"
+  },
+  "contract": {
+    "candidate_pool_episodes": 206,
+    "episodes_per_arm": 52,
+    "training_steps": 175000,
+    "batch_size": 64,
+    "training_seeds": [0, 1, 2],
+    "evaluation_episodes_per_arm_seed": 500,
+    "evaluation_seed_start": 100000,
+    "primary_endpoint": "closed_loop_success_percent",
+    "independent_unit": "paired_training_seed",
+    "sesoi_percentage_points": 5.0
+  },
+  "records": [
+    {"arm": "random_full_retain_25", "seed": 0, "success_percent": 21.8},
+    {"arm": "random_full_retain_25", "seed": 1, "success_percent": 27.2},
+    {"arm": "random_full_retain_25", "seed": 2, "success_percent": 25.6},
+    {"arm": "diversity_only_retain_25", "seed": 0, "success_percent": 33.6},
+    {"arm": "diversity_only_retain_25", "seed": 1, "success_percent": 27.6},
+    {"arm": "diversity_only_retain_25", "seed": 2, "success_percent": 25.0},
+    {"arm": "calibra_retain_25", "seed": 0, "success_percent": 27.4},
+    {"arm": "calibra_retain_25", "seed": 1, "success_percent": 24.4},
+    {"arm": "calibra_retain_25", "seed": 2, "success_percent": 26.2}
+  ]
+}
