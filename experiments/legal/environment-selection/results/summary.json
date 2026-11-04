@@ -1,0 +1,38 @@
+{
+  "allocation_regret_pp": {
+    "frozen_policy_response_allocation": 0.0,
+    "published_depth_weighted_control": 0.37037,
+    "uniform_14_task_control": 0.444444
+  },
+  "artifact": "prospective_syllogym_environment_selection_summary_v1",
+  "contrasts": {
+    "policy_response_minus_published": {
+      "deltas": [2.0, -0.888889, 0.0],
+      "mean": 0.37037,
+      "positive_seeds": 1,
+      "sd": 1.479628,
+      "t95": [-3.305231, 4.045971]
+    },
+    "policy_response_minus_uniform": {
+      "deltas": [2.222222, 0.333333, -1.222222],
+      "mean": 0.444444,
+      "positive_seeds": 2,
+      "sd": 1.724908,
+      "t95": [-3.840465, 4.729354]
+    }
+  },
+  "decision": "abstain",
+  "frozen_selection": "frozen_policy_response_allocation",
+  "frozen_selection_regret_pp": 0.0,
+  "independent_training_seeds": 3,
+  "means_pp": {
+    "frozen_policy_response_allocation": 77.518519,
+    "published_depth_weighted_control": 77.148148,
+    "uniform_14_task_control": 77.074074
+  },
+  "minimum_family_guardrail_delta_pp": -2.5,
+  "no_material_family_regression": true,
+  "observed_best": "frozen_policy_response_allocation",
+  "sesoi_pp": 4.0,
+  "warm_start_task_macro_pp": 77.555556
+}

@@ -1,0 +1,75 @@
+{
+  "artifact": "syllogym_prospective_decision_freeze_v1",
+  "chronology": {
+    "evaluation_rows_frozen": "2026-11-02T21:02:05-08:00",
+    "selector_weights_frozen": "2026-11-03T09:32:43-08:00",
+    "realized_exposure_manifests_frozen": "2026-11-03T11:00:18-08:00",
+    "training_launch": "2026-11-03T11:23:51-08:00",
+    "sesoi_and_interpretation": "frozen after training launch but before target evaluation or outcome opening",
+    "candidate_outcomes_read_before_selector_freeze": false
+  },
+  "immutable_input_sha256": {
+    "selector_freeze": "14c187e006bfb3fedb2a00614bb06a249b7d2f640dc3385046a0bc712f3794bc",
+    "realized_exposure_summary": "0efca9d63c88a4a39785dee4f5ec72b05172a04fa45b8302468d5fdb4981ed5f",
+    "evaluation_rows": "8d01c3070a028c029b18c02c5cf51faae22c74791f76d39b8c30c31f8f9b6ef2"
+  },
+  "candidate_arms": {
+    "published_depth_weighted_control": {
+      "role": "competent practical control",
+      "weights": {
+        "adverse_possession_4": 0.074305555556,
+        "adverse_possession_5": 0.092361111111,
+        "consideration_2": 0.036805555556,
+        "consideration_3": 0.055555555556,
+        "consideration_4": 0.074305555556,
+        "diversity_4": 0.074305555556,
+        "diversity_5": 0.092361111111,
+        "hearsay_3": 0.055555555556,
+        "hearsay_4": 0.074305555556,
+        "miranda_4": 0.073611111111,
+        "miranda_5": 0.092361111111,
+        "sof_4": 0.074305555556,
+        "terry_3": 0.055555555556,
+        "terry_4": 0.074305555556
+      }
+    },
+    "uniform_14_task_control": {
+      "role": "dose and coverage control",
+      "weights": "equal over fourteen generators with integer-allocation rounding"
+    },
+    "frozen_policy_response_allocation": {
+      "role": "outcome-blind policy-response allocation",
+      "measurement_block": [
+        "readiness",
+        "eligible_response_availability",
+        "reward_discrimination",
+        "token_cost",
+        "truncation",
+        "reliability",
+        "missingness"
+      ],
+      "coverage_floor_mass": 0.25,
+      "weights": {
+        "adverse_possession_4": 0.025,
+        "adverse_possession_5": 0.032142857143,
+        "consideration_2": 0.040476190476,
+        "consideration_3": 0.083333333333,
+        "consideration_4": 0.047619047619,
+        "diversity_4": 0.067857142857,
+        "diversity_5": 0.096428571429,
+        "hearsay_3": 0.110714285714,
+        "hearsay_4": 0.075,
+        "miranda_4": 0.103571428571,
+        "miranda_5": 0.060714285714,
+        "sof_4": 0.135714285714,
+        "terry_3": 0.039285714286,
+        "terry_4": 0.082142857143
+      }
+    }
+  },
+  "decision_thresholds": {
+    "sesoi_percentage_points": 4.0,
+    "material_family_regression_percentage_points": -5.0,
+    "independent_unit": "paired_training_seed"
+  }
+}

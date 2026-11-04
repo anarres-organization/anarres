@@ -1,0 +1,19 @@
+{
+  "sources": [
+    {
+      "name": "SylloGym",
+      "uri": "https://github.com/eliot-gtn/syllogym",
+      "revision": "87b0427fa0b98bef8ee62568169bcc218d3eef7c",
+      "license": "Apache-2.0",
+      "role": "environment generators, verifiers, prompts, rewards, and trainer basis"
+    },
+    {
+      "name": "Qwen3-4B Unsloth 4-bit",
+      "uri": "https://huggingface.co/unsloth/Qwen3-4B-unsloth-bnb-4bit",
+      "revision": "bbe12ebf9362b3bcbf44e826e4c98910f2c02e72",
+      "weight_sha256": "c2059ddbe07963f57b58953c6c4799b53b544b05fa63b8306ec0818ce312a8c3",
+      "license": "Apache-2.0",
+      "role": "common starting policy for all candidate arms"
+    }
+  ]
+}

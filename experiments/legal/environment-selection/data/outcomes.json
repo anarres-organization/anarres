@@ -1,0 +1,65 @@
+{
+  "artifact": "syllogym_prospective_outcomes_v1",
+  "canonical_score_sha256": "b11bedc107f6380641403d4548f1fc0013a0b657201dd1c96781f09b3affea14",
+  "contract": {
+    "checkpoint": 180,
+    "optimizer_updates": 180,
+    "generations_per_prompt": 8,
+    "training_seeds": [42, 43, 44],
+    "evaluation_task_generators": 45,
+    "evaluation_episodes_per_arm_seed": 900,
+    "primary_endpoint": "equal_task_macro_all_turn_completion_percent",
+    "independent_unit": "paired_training_seed",
+    "sesoi_percentage_points": 4.0,
+    "material_family_regression_percentage_points": -5.0
+  },
+  "warm_start_task_macro_percent": 77.555555555556,
+  "records": [
+    {"arm": "published_depth_weighted_control", "seed": 42, "completion_percent": 76.444444444444},
+    {"arm": "published_depth_weighted_control", "seed": 43, "completion_percent": 77.888888888889},
+    {"arm": "published_depth_weighted_control", "seed": 44, "completion_percent": 77.111111111111},
+    {"arm": "uniform_14_task_control", "seed": 42, "completion_percent": 76.222222222222},
+    {"arm": "uniform_14_task_control", "seed": 43, "completion_percent": 76.666666666667},
+    {"arm": "uniform_14_task_control", "seed": 44, "completion_percent": 78.333333333333},
+    {"arm": "frozen_policy_response_allocation", "seed": 42, "completion_percent": 78.444444444444},
+    {"arm": "frozen_policy_response_allocation", "seed": 43, "completion_percent": 77.0},
+    {"arm": "frozen_policy_response_allocation", "seed": 44, "completion_percent": 77.111111111111}
+  ],
+  "family_guardrail_deltas_pp": {
+    "versus_published": {
+      "adverse_possession": -1.25,
+      "consideration": 0.0,
+      "diversity": -1.25,
+      "hearsay": -2.222222222222,
+      "mens_rea": -0.555555555556,
+      "miranda": 0.0,
+      "qc": 2.222222222222,
+      "qr": 1.666666666667,
+      "sara_s7703": 0.555555555556,
+      "sof": -0.555555555556,
+      "terry": 5.833333333333,
+      "tsr": 0.555555555556,
+      "ucc": -0.555555555556
+    },
+    "versus_uniform": {
+      "adverse_possession": -1.25,
+      "consideration": -2.5,
+      "diversity": 0.416666666667,
+      "hearsay": 1.666666666667,
+      "mens_rea": 2.777777777778,
+      "miranda": -1.0,
+      "qc": 0.555555555556,
+      "qr": 1.111111111111,
+      "sara_s7703": 2.222222222222,
+      "sof": 1.111111111111,
+      "terry": 1.666666666667,
+      "tsr": 1.111111111111,
+      "ucc": 0.0
+    }
+  },
+  "aggregate_compute_receipts": {
+    "training_gpu_hours": 63.180248361111,
+    "evaluation_gpu_hours": 18.694434691903,
+    "evaluation_completion_tokens": 6006160
+  }
+}
