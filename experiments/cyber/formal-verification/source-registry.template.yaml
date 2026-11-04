@@ -1,0 +1,118 @@
+# Planning registry only. An entry with `pin_required` or `unknown` is not an
+# admitted experiment input. Copy this template into a versioned registry only
+# after every required field is resolved and the referenced bytes are hashed.
+schema_version: 1
+audit_date: "2026-11-03"
+
+required_artifact_fields:
+  - uri
+  - immutable_revision
+  - sha256_or_manifest
+  - media_type
+  - size_bytes
+  - license
+  - producing_run_or_upstream_release
+
+sources:
+  - source_id: veribench
+    uri: https://ehersch.github.io/veribench-blog/
+    code_uri: null
+    immutable_revision: null
+    revision_status: pin_required
+    license: unknown
+    proposed_role: held_out_autoformalization_target
+    admission: blocked
+    blockers:
+      - public_repository_link_returns_404
+      - evaluator_not_pinned
+      - task_license_not_recovered
+      - task_manifest_not_recovered
+
+  - source_id: vcvio
+    uri: https://github.com/Verified-zkEVM/VCVio
+    immutable_revision: cc6ae6cc39c1cca024d292262f90880b551fb2b3
+    revision_status: audited_revision
+    license: Apache-2.0
+    proposed_role: cryptographic_lean_environment_candidate
+    admission: source_qualified_task_builder_required
+    blockers:
+      - chronology_correct_gold_tasks_not_materialized
+      - future_lemma_leakage_audit_not_run
+      - harness_integrity_tests_not_run
+
+  - source_id: dalek_lean_bench
+    uri: https://github.com/Beneficial-AI-Foundation/dalek-lean-bench
+    immutable_revision: null
+    revision_status: pin_required
+    license: Apache-2.0_AND_MIT_components
+    proposed_role: cryptographic_historical_target_and_candidate
+    admission: blocked
+    blockers:
+      - immutable_revision_not_recorded
+      - task_manifest_and_harness_not_independently_reproduced
+
+  - source_id: verisoftbench
+    uri: https://utopia-group.github.io/VeriSoftBench/
+    immutable_revision: null
+    revision_status: pin_required
+    license: unknown
+    proposed_role: repository_scale_external_target
+    admission: blocked
+    blockers:
+      - code_data_and_license_not_pinned
+      - repository_group_split_not_frozen
+
+  - source_id: vero
+    uri: https://vero.verina.io/
+    immutable_revision: null
+    revision_status: pin_required
+    license: unknown
+    proposed_role: repository_construction_external_target
+    admission: blocked
+    blockers:
+      - task_release_harness_and_license_not_pinned
+
+  - source_id: fvspec
+    uri: https://fvspec.galois.com/
+    immutable_revision: null
+    revision_status: pin_required
+    license: unknown
+    proposed_role: real_code_lean_candidate
+    admission: blocked
+    blockers:
+      - source_and_derived_task_licenses_not_audited
+      - translation_validity_not_audited
+      - repository_group_split_not_frozen
+
+  - source_id: oss_verify_proofs
+    uri: https://github.com/theorem-labs/oss-verify-proofs
+    immutable_revision: null
+    revision_status: pin_required
+    license: MIT
+    proposed_role: primary_frontier_reference_bounded_source_and_external_target
+    admission: source_qualification_pending_pin
+    blockers:
+      - immutable_release_and_artifact_manifest_not_recorded
+      - bounded_task_cost_and_reset_contract_not_qualified
+      - cross_proof_assistant_bridge_not_defined
+
+  - source_id: crypformbench
+    uri: https://arxiv.org/abs/2606.25561
+    immutable_revision: null
+    revision_status: pin_required
+    license: unknown
+    proposed_role: cryptography_landscape_and_multitool_diagnostic
+    admission: diagnostic_only
+    blockers:
+      - heterogeneous_verifier_contracts
+      - executable_artifact_and_license_audit_not_complete
+
+  - source_id: cryptoformaleval
+    uri: https://arxiv.org/abs/2411.13627
+    immutable_revision: null
+    revision_status: pin_required
+    license: unknown
+    proposed_role: symbolic_protocol_diagnostic
+    admission: diagnostic_only
+    blockers:
+      - tamarin_outcome_not_comparable_to_lean_repository_utility

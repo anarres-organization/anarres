@@ -36,6 +36,12 @@ relevance audit, power analysis, and qualification protocol are complete.
 Fixture execution and warm-start qualification remain pending, and cyber RL is
 not yet authorized.
 
+The separate [formal-verification workstream](formal-verification/README.md)
+studies executable proof and verified-code environments, including a
+repository-scale cryptographic domain. It shares the environment-utility
+methodology but does not pool proof-assistant rewards with vulnerability-
+exploitation outcomes.
+
 The executable qualification checklist and preliminary source registry live in
 [`qualification/`](qualification/README.md).
 
