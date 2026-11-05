@@ -27,6 +27,13 @@ Together, these checks support policy-responsive data qualification while
 showing that one offline score is insufficient. Physical evaluation remains
 the final authority.
 
+The decision pattern is consistent across the positive checks. Measurements
+that expose how the current policy interacts with a task are more useful than
+dataset size or semantic similarity alone. The failed reward-model check also
+shows why qualification needs explicit exploitation and false-completion
+tests. These results narrow which offline measurements are credible enough to
+inform robot-data and reward selection before another training run.
+
 ## GUILD: positive temporal external evidence
 
 The governing rule predates GUILD and favors policy-relative target transfer
@@ -57,7 +64,7 @@ the candidate with the highest task-macro trajectory correlation. On the exact
 candidate overlap, this selected RoboReward. SOLE-R1 was the downstream winner.
 
 A lower-false-completion control did select SOLE-R1. The failure changes the
-measurement contract: offline trajectory correlation is not sufficient when a
+evaluation protocol. Offline trajectory correlation is insufficient when a
 reward model can be exploited during optimization. Future qualification must
 also measure false-completion suppression, success/failure separation,
 policy-relative progress, safety, recovery, reliability, and cost.

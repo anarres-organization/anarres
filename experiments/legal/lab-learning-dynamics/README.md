@@ -16,11 +16,18 @@ percentage points. Task and workflow structure predicted regression risk in
 held-out practice areas with 0.648 ROC AUC, compared with 0.425 from
 starting-policy behavior alone.
 
+The practical implication is that a legal post-training run can improve in the
+aggregate while becoming worse on specific workflows. In this study, task and
+workflow information available before continued training identified 37.0% of
+the later regressions in the highest-risk 20% of tasks. This supports two
+concrete uses: selecting a checkpoint before aggregate performance declines
+and prioritizing workflows for regression testing.
+
 This is evidence from one continuing-training intervention. It supports
 learning-dynamics and regression-risk analysis, but it does not establish
 causal effects for individual training tasks or a new trainer.
 
-## Evidence contract
+## Study design
 
 The intervention starts from `deepseek-ai/DeepSeek-V4-Flash-0731`, uses the
 Harvey Legal Agent Benchmark agent loop, and reports the same 180 evaluation
