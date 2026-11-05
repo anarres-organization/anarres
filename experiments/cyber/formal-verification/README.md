@@ -50,7 +50,7 @@ scientific problem and must remain explicit.
 
 ## One program, multiple environment families
 
-The north star is the production workflow demonstrated by Anthropic and
+The reference is the production workflow demonstrated by Anthropic and
 Theorem: start from real software, construct an executable formal claim, use an
 agent inside a full proof-development environment, and obtain a
 machine-checkable guarantee whose assumptions and trusted components are
@@ -80,18 +80,18 @@ target improvement, and allocation regret.
 
 ## What counts as an environment
 
-An environment is not merely a collection of theorem statements. A claim-bearing
-environment record must freeze:
+A claim-bearing environment includes more than a collection of theorem
+statements. Its record must freeze:
 
-1. task identities and source revision;
-2. initial repository state and dependency closure;
-3. agent-visible files and tools;
-4. action and observation interface;
-5. build, proof-check, and timeout contract;
-6. reward components and invalid-output rules;
-7. reset and sandbox behavior;
-8. sampling or mixture weights;
-9. starting policy and decoding contract;
+1. task identities and source revision
+2. initial repository state and dependency closure
+3. agent-visible files and tools
+4. action and observation interface
+5. build, proof-check, and timeout contract
+6. reward components and invalid-output rules
+7. reset and sandbox behavior
+8. sampling or mixture weights
+9. starting policy and decoding contract
 10. generated-token or equivalent interaction budget.
 
 The transition function includes file edits, tool calls, compiler or proof-state
@@ -110,11 +110,11 @@ $$
 
 The target vector keeps distinct:
 
-- machine-checked completion;
-- specification or theorem coverage;
-- absence of `sorry`, unapproved axioms, and vacuous claims;
-- transfer to disjoint repositories or domains;
-- retained performance on protected capabilities;
+- machine-checked completion
+- specification or theorem coverage
+- absence of `sorry`, unapproved axioms, and vacuous claims
+- transfer to disjoint repositories or domains
+- retained performance on protected capabilities
 - generated tokens, wall time, and verifier cost.
 
 The primary decision metric is allocation regret relative to the best admissible

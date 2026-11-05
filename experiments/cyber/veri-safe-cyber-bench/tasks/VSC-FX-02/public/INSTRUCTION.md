@@ -44,8 +44,8 @@ may use sizes up to the documented limit; keep each test fast (well under 10 sec
 
 A run of a test fails if any of these holds:
 
-* the program exits non-zero with an AddressSanitizer or UBSan message on stderr, or it hangs (10 s limit);
-* stdout differs from the expected output;
+* the program exits non-zero with an AddressSanitizer or UBSan message on stderr, or it hangs (10 s limit)
+* stdout differs from the expected output
 * the exit status differs from the documented one for the last output line
   (0 normally; 1 for `error: syntax` and `error: unterminated image`; 3 for
   `error: image too large`; 2 for every other `error:` line).

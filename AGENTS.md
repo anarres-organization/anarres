@@ -20,10 +20,11 @@ Anarres supports research on predictable post-training. Preserve the distinction
 - Put reusable behavior in a package. Put source processing in `data/`. Put study-specific work in the relevant domain under `experiments/`.
 - Do not copy an implementation between experiments when it can be shared through a maintained interface.
 - Prefer clear medium-length prose. Avoid inflated claims and unexplained internal terminology.
+- Follow `docs/standards/writing.md` for public prose. Use one defined term per concept and preserve standard terminology within each research field.
 
 ## Change discipline
 
-An RFC is required for a breaking public API change, a shared-schema change, a new maintained package, or a change to an organization-wide scientific invariant. It is not required for ordinary bug fixes, documentation, tests, or experiment-local analysis.
+An RFC is required for a breaking public API change, a shared-schema change, a new maintained package, or a change to an organization-wide scientific invariant. Ordinary bug fixes, documentation, tests, and experiment-local analyses do not require an RFC.
 
 Before finishing a change, run:
 

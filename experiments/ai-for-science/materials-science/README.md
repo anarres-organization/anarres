@@ -109,9 +109,9 @@ without training a universal potential from scratch.
 
 Qualification must compare at least:
 
-- one pinned MACE-MP checkpoint as the common fine-tuning start;
-- the same checkpoint without post-training;
-- M3GNet as a frozen historical baseline where compatible;
+- one pinned MACE-MP checkpoint as the common fine-tuning start
+- the same checkpoint without post-training
+- M3GNet as a frozen historical baseline where compatible
 - one pinned UMA checkpoint as a later external comparator.
 
 UMA is not the default first fine-tuning backbone because its model access,
@@ -150,12 +150,12 @@ is internally disjoint.
 Candidate environments are equal-budget mixtures drawn from one frozen source
 reservoir. They may vary:
 
-- early, middle, and converged relaxation frames;
-- equilibrium, lightly displaced, and strongly off-equilibrium structures;
-- unstrained and cell-strained configurations;
-- low-force and high-force regimes within frozen validity bounds;
-- broad and target-neighbor chemical systems;
-- broad and target-neighbor structural prototypes;
+- early, middle, and converged relaxation frames
+- equilibrium, lightly displaced, and strongly off-equilibrium structures
+- unstrained and cell-strained configurations
+- low-force and high-force regimes within frozen validity bounds
+- broad and target-neighbor chemical systems
+- broad and target-neighbor structural prototypes
 - random, diversity-selected, uncertainty-selected, and
   target-affinity-selected acquisition;
 - the balance of energy, force, and stress-bearing configurations.
@@ -207,11 +207,11 @@ prediction, and change at least one prespecified decision.
 The initial experiment uses 12 development and four prospective environments,
 two training seeds, and three matched budgets. Every run uses:
 
-- the same starting checkpoint;
-- one pinned energy-force-stress loss and observable weighting;
-- the same trainable parameter groups;
-- the same optimizer, precision, batching, and checkpoint schedule;
-- matched processed-atom and optimizer-update budgets;
+- the same starting checkpoint
+- one pinned energy-force-stress loss and observable weighting
+- the same trainable parameter groups
+- the same optimizer, precision, batching, and checkpoint schedule
+- matched processed-atom and optimizer-update budgets
 - the same disjoint physical evaluation panel.
 
 A third seed is reserved for decision-critical near ties or anomalous variance;
@@ -225,10 +225,10 @@ Regularization and model selection remain inside each development fold.
 
 The primary downstream outcomes are physical task metrics:
 
-- phonon-frequency error on valid modes;
-- dynamical-stability classification and imaginary-mode rate;
-- phonon density-of-states distance;
-- geometry-relaxation success and structural error;
+- phonon-frequency error on valid modes
+- dynamical-stability classification and imaginary-mode rate
+- phonon density-of-states distance
+- geometry-relaxation success and structural error
 - catastrophic relaxation or molecular-dynamics failure rate.
 
 Energy, force, and stress error remain supporting diagnostics. They cannot
@@ -236,12 +236,12 @@ replace the target metric.
 
 Prediction and decision quality are reported separately:
 
-- whole-curve RMSE, MAE, bias, and interval coverage on held-out environments;
-- improvement-sign and budget-dependent pairwise ranking;
-- correct best-environment decisions at prespecified budgets;
+- whole-curve RMSE, MAE, bias, and interval coverage on held-out environments
+- improvement-sign and budget-dependent pairwise ranking
+- correct best-environment decisions at prespecified budgets
 - allocation regret against random, source-only, difficulty-only,
   target-similarity-only, uncertainty-only, and fixed-environment baselines;
-- risk-coverage behavior when predicted differences are small;
+- risk-coverage behavior when predicted differences are small
 - environment, target-structure, and training-seed uncertainty as distinct
   quantities.
 
@@ -312,8 +312,8 @@ spot checks, and explicit audits for sparse-hull exploitation, single-element
 repacking, invalid relaxation, displacement exploits, and mode collapse.
 
 [CrystalGym](https://github.com/chandar-lab/crystal-gym) may provide a bounded
-direct-DFT qualification environment. It is not the default full-panel backend
-until its reset path, throughput, and reproducibility pass the same gates.
+direct-DFT qualification environment. Full-panel use requires its reset path,
+throughput, and reproducibility to pass the same gates.
 
 ## Pathway replication
 
@@ -352,13 +352,13 @@ compute range.
 
 The immediate deliverables are:
 
-- a source, version, license, and level-of-theory registry;
-- a content-addressed partition and contamination report;
-- a starting-model and target qualification report;
-- at least 40 measured candidate-environment specifications;
-- a frozen 12-development/4-prospective panel;
-- matched fine-tuning and physical-evaluation contracts;
-- compact prediction, decision, uncertainty, and cost results;
+- a source, version, license, and level-of-theory registry
+- a content-addressed partition and contamination report
+- a starting-model and target qualification report
+- at least 40 measured candidate-environment specifications
+- a frozen 12-development/4-prospective panel
+- matched fine-tuning and physical-evaluation contracts
+- compact prediction, decision, uncertainty, and cost results
 - a prospective score record that preserves the chronology of every freeze.
 
 The public claim remains proportional to the evidence. The study either shows

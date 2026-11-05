@@ -4,7 +4,7 @@ UV_CACHE_DIR ?= .uv-cache
 export PYTHONPATH
 export UV_CACHE_DIR
 
-.PHONY: setup format lint test schemas hygiene check example clean
+.PHONY: setup format lint test schemas hygiene prose check example clean
 
 setup:
 	uv sync --all-packages --dev
@@ -29,7 +29,10 @@ schemas:
 hygiene:
 	$(PYTHON) tools/check_repo_hygiene.py
 
-check: lint test schemas hygiene
+prose:
+	$(PYTHON) tools/check_prose_style.py
+
+check: lint test schemas hygiene prose
 
 example:
 	mkdir -p .anarres/example

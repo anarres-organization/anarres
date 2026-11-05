@@ -101,6 +101,7 @@ Large model weights and checkpoints are distributed through versioned artifact s
 - [Repository architecture](docs/architecture/repository.md)
 - [Reproducibility standard](docs/standards/reproducibility.md)
 - [Artifact standard](docs/standards/artifacts.md)
+- [Writing standard](docs/standards/writing.md)
 - [Contribution guide](CONTRIBUTING.md)
 - [Governance](GOVERNANCE.md)
 - [Security policy](SECURITY.md)

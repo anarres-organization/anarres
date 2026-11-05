@@ -38,7 +38,7 @@ judgment about the model, not a weak scaffold.
 
 ## Execution plan (a GPU host with idle GPUs, free Docker root, model verified)
 
-1. Serve the warm start with vLLM on an idle GPU (OpenAI-compatible endpoint);
+1. Serve the warm start with vLLM on an idle GPU (OpenAI-compatible endpoint)
    smoke-test generation.
 2. Set up the OpenHands harness from the submodule; pull its runtime image.
 3. Materialize the 48 admitted probe task bundles as the OpenHands `data_dir`,
@@ -46,7 +46,7 @@ judgment about the model, not a weak scaffold.
 4. Smoke-test **one** probe task end-to-end (agent → PoC → graded) before
    scaling.
 5. Run the frozen two-view G=8 probe: 48 tasks × 16 rollouts, difficulty ≤2.
-6. Compute strict success, rho, H, mixed-group fraction, two-view agreement;
+6. Compute strict success, rho, H, mixed-group fraction, two-view agreement
    consult `reliability_oc.json` for the abstention rule.
 7. Emit one of proceed / external-target-only / unmeasurable per
    `DECISION_TREE.md`. This is never an RL authorization.

@@ -1,7 +1,7 @@
-# Cyber domain qualification — final summary
+# Cyber domain qualification: final summary
 
 **Date:** 2026-10-23
-**Outcome:** QUALIFIED — CyberGym is a viable training environment for Anarres
+**Outcome:** QUALIFIED: CyberGym is a viable training environment for Anarres
 **Protocol:** `qualification-protocol.v2.json` + Amendment A1 + scaffold
 re-evaluation + expanded 50-task panel
 
@@ -9,9 +9,9 @@ re-evaluation + expanded 50-task panel
 
 The CyberGym floor probes returned 0% under OpenHands 0.33 for both models
 (8B Nemotron-Terminal and 28B Feyospace). This originally led to an
-EXTERNAL-TARGET-ONLY designation. However, a scaffold re-evaluation revealed
-that Feyospace's 0% was a **scaffold mismatch**, not a capability floor: the
-model is fine-tuned on a specific `<tool_call>` XML format and collapses under
+EXTERNAL-TARGET-ONLY designation. A scaffold re-evaluation showed that the 0%
+result reflected a **scaffold mismatch**. Feyospace is fine-tuned on a specific
+`<tool_call>` XML format and collapses under
 OpenHands' different interface.
 
 Under a custom lightweight harness (~400 lines) that speaks Feyospace's native
@@ -123,7 +123,7 @@ Per-project results:
 opensc, upx, serenity) where the model crafts valid trigger inputs via Python
 struct-packing or hex manipulation.
 
-**Failure pattern:** complex parsers (ghostscript, wireshark, harfbuzz) — the
+**Failure pattern:** complex parsers (ghostscript, wireshark, harfbuzz): the
 model enters analysis paralysis, reading source extensively but never
 transitioning to PoC construction.
 
@@ -196,8 +196,8 @@ This demonstrates that:
 
 Behavioral features extracted from each task's trajectory (tool distribution,
 bash command types, read targets, submission patterns, token ratios) were used
-to train a proxy utility predictor — predicting exploit success from trajectory
-shape alone, without access to the ground-truth reward signal.
+to train a proxy utility predictor: predicting exploit success from trajectory
+response profile alone, without access to the ground-truth reward signal.
 
 **Important:** The initial analysis showed LOO-CV AUC = 1.000, but this was
 driven entirely by `any_exit1` (whether any submission returned exit code 1),
@@ -225,7 +225,7 @@ Top behavioral discriminators by ensemble rank agreement:
 **Behavioral pattern:** Successful exploits are characterized by lower output
 verbosity (less text generated per context consumed), more submission attempts,
 and more wall-clock time. The model "listens more and talks less" when it
-succeeds — spending proportionally more tokens reading context than generating.
+succeeds: spending proportionally more tokens reading context than generating.
 
 **Limitation:** The bootstrap CI [0.449, 0.832] spans 0.5 (chance). With only
 6 positives in 50 tasks, the proxy predictor shows suggestive but not
@@ -242,12 +242,12 @@ G=8 independent rollouts per task (400 total) to measure usable signal density
 | Metric | Value | 95% Bootstrap CI |
 |---|---|---|
 | ρ (per M output tokens) | 22.42 | [12.28, 33.85] |
-| ρ (per M total tokens) | 1.65 | — |
+| ρ (per M total tokens) | 1.65 | N/A |
 | H (effective coverage) | 0.2518 | [0.1400, 0.3712] |
-| n_E (groups) | 50 | — |
-| Σ A_g (total advantage) | 27.43 | — |
-| Σ ℓ (total output tokens) | 1,223,456 | — |
-| Overall success rate | 14/400 = 3.5% | — |
+| n_E (groups) | 50 | N/A |
+| Σ A_g (total advantage) | 27.43 | N/A |
+| Σ ℓ (total output tokens) | 1,223,456 | N/A |
+| Overall success rate | 14/400 = 3.5% | N/A |
 
 ### k distribution
 
@@ -283,7 +283,7 @@ signal groups had k=1/8 (A_raw=2.00).
 ### Interpretation
 
 - **ρ = 22.42 per M output tokens** means ~22 units of advantage mass per
-  million tokens generated. This is sparse but nonzero — RL training is
+  million tokens generated. This is sparse but nonzero: RL training is
   feasible but token-inefficient.
 - **H = 0.25** means the effective number of contributing tasks is ~12.5
   (25% of 50). Signal is moderately spread rather than concentrated in one
@@ -303,16 +303,16 @@ signal groups had k=1/8 (A_raw=2.00).
 
 ## Qualification artifacts
 
-- `floor_probe_stats.json` — Nemotron-Terminal-8B (0/273)
-- `floor_probe_feyospace_stats.json` — Feyospace OpenHands (0/249)
-- `SCAFFOLD_REEVAL_RESULTS.md` — analysis + initial exploit probe results
-- `experiments/cyber/harness/cyber_exploit_harness.py` — exploit harness (~400 lines)
-- `experiments/cyber/harness/batch_exploit_runner.py` — batch runner (resume-safe)
-- `experiments/cyber/harness/select_exploit_panel.py` — panel selection
+- `floor_probe_stats.json`: Nemotron-Terminal-8B (0/273)
+- `floor_probe_feyospace_stats.json`: Feyospace OpenHands (0/249)
+- `SCAFFOLD_REEVAL_RESULTS.md`: analysis + initial exploit probe results
+- `experiments/cyber/harness/cyber_exploit_harness.py`: exploit harness (~400 lines)
+- `experiments/cyber/harness/batch_exploit_runner.py`: batch runner (resume-safe)
+- `experiments/cyber/harness/select_exploit_panel.py`: panel selection
 - `qualification-protocol.v2.json` + `PROTOCOL_V2_AMENDMENT_A1.md`
-- `experiments/cyber/analysis/extract_behavioral_features.py` — feature extraction
-- `experiments/cyber/analysis/analyze_proxy_predictor.py` — proxy analysis (clean, no leakage)
-- `experiments/cyber/harness/batch_g8_runner.py` — G-rollout batch runner (resume-safe)
-- `experiments/cyber/analysis/compute_rho_h.py` — ρ/H computation with bootstrap CIs
+- `experiments/cyber/analysis/extract_behavioral_features.py`: feature extraction
+- `experiments/cyber/analysis/analyze_proxy_predictor.py`: proxy analysis (clean, no leakage)
+- `experiments/cyber/harness/batch_g8_runner.py`: G-rollout batch runner (resume-safe)
+- `experiments/cyber/analysis/compute_rho_h.py`: ρ/H computation with bootstrap CIs
 - Results: per-task JSONs + `_aggregate.json` + `behavioral_features.json` on cluster (not committed)
 - G=8 rollout results: 400 per-rollout JSONs on cluster `/tmp/srivatsavad_cyber_g8_results/rollouts/` (copied locally)

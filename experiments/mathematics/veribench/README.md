@@ -15,7 +15,7 @@ It extends the [controlled environment-utility study](../environment-utility/REA
 | Reward evidence | Mathematical equivalence under one deterministic verifier | Compilation, nontrivial formal content, and coverage of the intended specification |
 | Held-out target | Pass@1 on a disjoint OpenR1-Math panel | Performance on held-out VeriBench tasks |
 
-These differences can change which experience is available, how much survives the training contract, and what counts as useful downstream improvement. The VeriBench study therefore remeasures every candidate environment under its own starting policy and tests the predictive representation again. The original four cells and fitted coefficients remain specific to the controlled scale study.
+These differences can change which experience is available, how much survives the training contract, and what counts as useful downstream improvement. The VeriBench study therefore remeasures every candidate environment under its own starting policy and tests the predictive representation again. The original four quadrants and fitted coefficients remain specific to the controlled scale study.
 
 ## Planned protocol
 

@@ -57,7 +57,7 @@ evaluation.
   unavailable as a reproducible target. A later sequestered panel needs a
   prospective timestamp and independent identity audit.
 - CyberGym-E2E warrants a bounded investigation as an end-to-end defensive
-  target. It is not silently added to the first integration workload.
+  target. The first integration workload excludes it.
 
 The benchmark decision therefore remains evidence-driven: relevance is a hard
 eligibility gate, while containment, verifier fidelity, measurable signal,
@@ -69,13 +69,13 @@ learnability gate as a training source.
 
 Before every target freeze, record:
 
-- source and report date;
-- model and access regime;
-- benchmark and task revision;
-- harness, tool, context, token, time, and mitigation contract;
-- primary metric and score;
-- historical-exposure or recency status;
-- proposed role: training candidate, internal target, or external transfer;
+- source and report date
+- model and access regime
+- benchmark and task revision
+- harness, tool, context, token, time, and mitigation contract
+- primary metric and score
+- historical-exposure or recency status
+- proposed role: training candidate, internal target, or external transfer
 - local warm-start floor and feasibility status when measured.
 
 The registry is re-audited before a new protocol version and at least quarterly

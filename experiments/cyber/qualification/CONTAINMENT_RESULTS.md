@@ -2,14 +2,14 @@
 
 Per-fixture verification of the CONTAINMENT_SPEC controls on the final 48-task
 probe, with no model and no GPU. Together with the oracle/no-op/reset gate
-(PROBE_FIXTURE_GATE.md) this closes the Phase-B static exit criterion. It is not
-a model measurement; `execution_authorized` stays `false`.
+(PROBE_FIXTURE_GATE.md) this closes the Phase-B static exit criterion. No model
+is measured, and `execution_authorized` stays `false`.
 
 ## How each control was verified
 
 Two classes of control, verified without running the agent:
 
-**Per-fixture, data-dependent** — read from `tasks.json` per task, at the served
+**Per-fixture, data-dependent**: read from `tasks.json` per task, at the served
 difficulty level:
 
 - *Fixed/patched build not agent-visible* and *reference solution not
@@ -20,7 +20,7 @@ difficulty level:
   level. Verified per task at **level 2** (the most context that still hides the
   fix).
 
-**Mechanism-level, identical for every fixture** — verified once from the harness
+**Mechanism-level, identical for every fixture**: verified once from the harness
 code/config and recorded with that basis (not re-run per fixture, since the
 mechanism is image-independent):
 
@@ -53,10 +53,10 @@ Reset determinism was already recorded per fixture by the gate (agreement 1.000)
 | `containment-report.probe.json` | `7fcf613a18a4a86a140c11e2fa8e6514ad844f6218cf3ac93f1e911f725df8df` |
 
 All 48 admitted fixtures pass every containment control at difficulty level 2.
-**Level 3 must not be served** — it exposes the fixed build and patch to the
+**Level 3 must not be served**: it exposes the fixed build and patch to the
 agent and fails `fixed_or_patched_build_agent_visible: false`.
 
-## Phase-B static exit criterion — met
+## Phase-B static exit criterion: met
 
 | gate | required | measured |
 | --- | --- | --- |

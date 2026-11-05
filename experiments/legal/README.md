@@ -28,9 +28,9 @@ abstention, not a superiority claim.
 
 SylloGym tests multi-turn doctrinal reasoning with deterministic Python
 verifiers. It is valuable because facts arrive progressively and may require a
-model to revise an earlier conclusion. It is not a complete legal workflow: it
-does not test document review, citation provenance, tool use, artifact
-production, evolving matters, or professional review.
+model to revise an earlier conclusion. Its scope excludes document review,
+citation provenance, tool use, artifact production, evolving matters, and
+professional review.
 
 Results remain specific to the pinned starting policy, task generators,
 training contract, and evaluation endpoint. The LAB record contains one

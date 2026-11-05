@@ -8,7 +8,7 @@ choice between robot-learning datasets.
 | Record | Design | Main result | Appropriate conclusion |
 | --- | --- | --- | --- |
 | [Prospective PushT panel](prospective-pusht/README.md) | Three equal-episode subsets, three training seeds, fixed closed-loop evaluation | The frozen abstention set contained the observed best arm | The uncertainty-aware decision was safe in this panel |
-| [Three-source bridge](retrospective-bridge/README.md) | 31 retrospective panels, 111 candidate arms, eight task contexts | Practical rule: 65.4% pair ordering and 0.272 normalized regret | Interpretable measurements are promising; the fitted model is not yet incrementally useful |
+| [Retrospective cross-source analysis](retrospective-bridge/README.md) | 31 retrospective panels, 111 candidate arms, eight task contexts | Practical rule: 65.4% pair ordering and 0.272 normalized regret | Interpretable measurements are promising; the fitted model is not yet incrementally useful |
 | [External checks](external-checks/README.md) | GUILD real-robot temporal check and SOLE-R1 outcome-blind public shadow test | Policy-responsive collection transfers; trajectory correlation alone fails | Positive and negative transport evidence must be reported together |
 
 ## Decision workflow

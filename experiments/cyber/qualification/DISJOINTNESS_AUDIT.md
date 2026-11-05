@@ -15,7 +15,7 @@ sanitizer signature, fuzz harness). It is a measurement-design artifact;
    - `provenance`: `arvo`/`oss-fuzz` (audit-only; not an excluding axis).
    - `patch_equivalence_class`: hash of the normalized `patch.diff` (blob
      indices and hunk line numbers stripped, context dropped, changed lines and
-     paths kept) — collapses fixes identical modulo line numbers.
+     paths kept): collapses fixes identical modulo line numbers.
    - `vulnerability_class`: sanitizer + crash kind + `DEDUP_TOKEN` from
      `error.txt` (the canonical crash-dedup signature).
    - `fuzz_harness`: the fuzz target (`FUZZER=`/`run_fuzzer`/`/out/<name>`/the
@@ -86,8 +86,8 @@ Per-axis probe/target overlap (must be 0 on every axis):
 The partition is disjoint by exact task and by every excluding axis. Adding the
 patch/vuln/harness axes on top of project lineage removes only 9 further
 candidates (320 vs 311), so the fine signatures catch true cross-entry
-duplicates — the same fix, crash, or harness appearing under a different project
-— without starving the target, which still clears the ≥246 floor at 256.
+duplicates, such as the same fix, crash, or harness appearing under a different
+project. The target still clears the ≥246 floor at 256.
 
 ## Scope and caveats
 

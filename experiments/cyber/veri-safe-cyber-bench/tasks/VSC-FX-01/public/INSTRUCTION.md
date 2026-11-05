@@ -17,7 +17,7 @@ Your job:
 
 1. Find the root cause(s) by reading the code. The same kind of gap may exist
    in more than one place, so review every place that consumes a length read
-   from the archive, not only the first one you find.
+   from the archive.
 2. Fix the program so malformed archives get the documented safe behaviour.
    Valid archives must keep producing exactly the same output as before
    (the README is the specification, including the rules for empty

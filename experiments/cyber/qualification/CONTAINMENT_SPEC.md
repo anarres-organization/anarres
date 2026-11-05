@@ -40,7 +40,7 @@ become scientific reward zero. This mirrors the four-state machine in
 `packages/environments/src/anarres/environments/qualification.py`
 (REPAIR / QUARANTINE / RESERVE / ADMITTED): an infra-invalid fixture is REPAIR,
 an oracle failure or a passing no-op is QUARANTINE, and a zero-variance-but-valid
-fixture is RESERVE — none of these is a scientific zero.
+fixture is RESERVE: none of these is a scientific zero.
 
 ## Budget checkpoint
 

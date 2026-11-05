@@ -18,7 +18,7 @@ built a single collision *key* as the tuple of all five axes, so a target task
 was excluded only when it matched a probe task on **every** axis at once. Two
 different bugs in the same upstream project (e.g. two `libxml2` tasks) have
 different vulnerability classes, so their tuples differed and the target task was
-admitted — placing the same codebase on both sides of the split. That is the
+admitted: placing the same codebase on both sides of the split. That is the
 train/test-by-project leak protocol v2 was written to eliminate. The existing
 unit tests only populated the `project` field, so the conjunction degenerated to
 a project-only key and the defect was not exercised.
@@ -49,8 +49,8 @@ The partition is now stricter whenever an identity map carries more than the
 project axis, so more target candidates are excluded. Coarse axes
 (`vulnerability_class`, `fuzz_harness`) can over-prune and push the target below
 246; the partitioner already reports `target_meets_minimum`, and materialization
-must treat an unmet minimum as an honest failure — add candidates, use a finer
-sanitizer signature in place of a coarse class, or reconsider the target — never
+must treat an unmet minimum as an honest failure: add candidates, use a finer
+sanitizer signature in place of a coarse class, or reconsider the target: never
 loosen the axes to pass. The identity map must populate the axes it intends to
 enforce; absent axes simply do not exclude, and a task with no excluding axes
 falls back to exact-task disjointness only.

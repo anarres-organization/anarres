@@ -1,4 +1,4 @@
-# Protocol v2 Amendment A1 — warm-start model replacement
+# Protocol v2 Amendment A1: warm-start model replacement
 
 **Amends:** `qualification-protocol.v2.json` (frozen 2026-10-19)  
 **Amendment date:** 2026-10-21  
@@ -77,7 +77,7 @@ The protocol's decision tree explicitly handles the floor case: "success < 0.05
 → CyberGym becomes EXTERNAL-TARGET-ONLY; reconsider in-domain training source."
 The amendment reconsiders the training source (a different starting policy) while
 preserving every other frozen element. This is a model substitution driven by a
-measured outcome, not outcome tuning — the probe tasks, thresholds, and decision
+measured outcome, not outcome tuning: the probe tasks, thresholds, and decision
 logic are unchanged.
 
 ## Status

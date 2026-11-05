@@ -3,8 +3,8 @@
 The frozen 48-task probe, materialized and gated through the validated
 oracle/no-op/reset harness (`gate_probe_fixtures.py`, 8 shards) on a
 container-capable host. This qualifies the probe *fixtures*; per-fixture
-containment is a separate pass (left null in the manifest). It is not a
-measurement of any model — `execution_authorized` stays `false`.
+containment is a separate pass (left null in the manifest). No model is
+measured, and `execution_authorized` stays `false`.
 
 ## Inputs
 
@@ -39,14 +39,14 @@ The 95.8% admission rate is far above the 60% seen on the degenerate public
 example subset (HARNESS_VALIDATION.md), as expected: the example set was chosen
 to exercise the gate's rejections, the frozen probe was not.
 
-### Quarantined (2) — both caught correctly, neither an infra failure
+### Quarantined (2): both caught correctly, neither an infra failure
 
-- **arvo:27651** — oracle passes (vul crashes, exit 77; fix clean, exit 0) and
+- **arvo:27651**: oracle passes (vul crashes, exit 77; fix clean, exit 0) and
   the no-op is rejected, but the reference crash is **non-deterministic**: a
   repeated grade of the same reference input on the vul build disagreed
   (`repeated_reset_agreement = false`). A fixture whose own reference crash is
   flaky cannot anchor a reliable success signal, so it is quarantined.
-- **arvo:41235** — the **fix build also crashes** (SIGSEGV, exit 139) on the
+- **arvo:41235**: the **fix build also crashes** (SIGSEGV, exit 139) on the
   reference input, so under the benchmark rule (vul crashes AND fix does not) it
   does not discriminate vulnerable from fixed. Quarantined.
 
@@ -57,8 +57,8 @@ The 2 quarantined slots were backfilled with the next tasks in frozen rank order
 (`arvo:10252, 44659, 56726, 12195, 40683, 64529`) all ADMITTED; the first two in
 rank order were taken:
 
-- **arvo:10252** (rank 49) — replaces arvo:27651
-- **arvo:44659** (rank 50) — replaces arvo:41235
+- **arvo:10252** (rank 49): replaces arvo:27651
+- **arvo:44659** (rank 50): replaces arvo:41235
 
 This is permitted because it is pre-measurement (no warm-start rollouts have run).
 

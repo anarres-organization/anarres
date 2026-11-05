@@ -83,7 +83,7 @@ starting model + target objective + compute budget
 ## Frontier relevance
 
 Benchmark choice is anchored in capabilities evaluated by current frontier
-model developers, not only in datasets that are convenient to run. The dated
+model developers and accounts for more than execution convenience. The dated
 official-source record and its re-audit rule are in
 [`qualification/FRONTIER_RELEVANCE_AUDIT.md`](qualification/FRONTIER_RELEVANCE_AUDIT.md).
 
@@ -194,9 +194,8 @@ freeze an authorized panel by disclosure and acquisition timestamp, preserve
 upstream identities and patches, exclude every panel task and near duplicate
 from probing and training, and publish the selection rule before evaluation.
 
-This panel is a later independent endpoint. It is not created by sampling tasks
-after model outcomes are known, and it does not delay the first feasibility
-bakeoff.
+This later independent endpoint uses a task panel frozen before model outcomes
+are known. Its construction does not delay the first feasibility bakeoff.
 
 ### CTF and stateful range tasks: coverage and later transfer
 
@@ -221,8 +220,8 @@ effects.
 ## Scope and feasibility budget
 
 The first milestone is one qualified, authorized benchmark family, one isolated
-target, and one complete measurement-to-training-to-utility loop. It is not a
-general cyber platform.
+target, and one complete measurement-to-training-to-utility loop. A general
+cyber platform lies outside this milestone.
 
 Before qualification begins, freeze a feasibility budget covering engineering
 time, storage, image construction, reset latency, sandbox concurrency, and total
@@ -233,10 +232,10 @@ external test.
 
 Infrastructure work is limited to what the scientific contract requires:
 
-- one adapter for the selected primary family;
-- deterministic fixture reset and oracle/no-op checks;
-- failure typing that separates infrastructure errors from scientific reward;
-- the existing isolated agent, rollout, training, and evaluation interfaces;
+- one adapter for the selected primary family
+- deterministic fixture reset and oracle/no-op checks
+- failure typing that separates infrastructure errors from scientific reward
+- the existing isolated agent, rollout, training, and evaluation interfaces
 - immutable manifests sufficient to reproduce the experiment.
 
 The pilot does not build adapters for every benchmark, a shared cyber range, a
@@ -285,21 +284,21 @@ must not silently weaken the frozen target evaluation.
 The first measurement layer preserves quantities with evidence from mathematics
 and terminal work:
 
-- admitted signal density $\rho$;
-- effective coverage $H$;
-- generated action or interaction cost;
-- verifier validity and infrastructure reliability;
+- admitted signal density $\rho$
+- effective coverage $H$
+- generated action or interaction cost
+- verifier validity and infrastructure reliability
 - target affinity $\alpha$, retained as a challenger until it demonstrates
   incremental value.
 
 Cyber-specific candidates are recorded before being admitted to a predictor:
 
-- prerequisite or reachability depth;
-- fraction of valid episodes reaching meaningful intermediate capabilities;
-- feedback density and delay;
-- reset determinism and infrastructure-failure rate;
-- verifier family and reward granularity;
-- exploit, proof-of-concept, or flag validity;
+- prerequisite or reachability depth
+- fraction of valid episodes reaching meaningful intermediate capabilities
+- feedback density and delay
+- reset determinism and infrastructure-failure rate
+- verifier family and reward granularity
+- exploit, proof-of-concept, or flag validity
 - target-family and skill coverage.
 
 Each new coordinate requires a definition computable before claim-bearing RL, a
@@ -389,12 +388,12 @@ stop before claim-bearing expansion.
 
 The cyber study reports prediction and selection separately:
 
-- whole-curve RMSE, MAE, bias, and interval coverage on held-out environments;
-- improvement-sign and budget-dependent ranking accuracy;
-- correct best-environment decisions at prespecified budgets;
+- whole-curve RMSE, MAE, bias, and interval coverage on held-out environments
+- improvement-sign and budget-dependent ranking accuracy
+- correct best-environment decisions at prespecified budgets
 - allocation regret against compute-only, fixed-environment, difficulty,
   pass-rate, cost, and source/verifier baselines;
-- risk-coverage behavior and abstention when predicted margins are small;
+- risk-coverage behavior and abstention when predicted margins are small
 - seed-level variation, infrastructure-failure rates, and target-task bootstrap
   uncertainty as distinct quantities;
 - transfer to the external frontier benchmark.
@@ -454,15 +453,15 @@ boundary.
 
 Before the first cyber RL launch, this directory should contain:
 
-- a source and license registry with immutable revisions;
-- a threat model and containment specification;
-- benchmark qualification criteria and power analysis frozen before probing;
-- warm-start qualification results for the candidate families;
-- development, prospective, and external-transfer partitions;
-- fixture oracle/no-op and reset manifests;
-- contamination and near-duplicate audit results;
-- a compute and storage budget;
-- a frozen pilot training and evaluation contract;
+- a source and license registry with immutable revisions
+- a threat model and containment specification
+- benchmark qualification criteria and power analysis frozen before probing
+- warm-start qualification results for the candidate families
+- development, prospective, and external-transfer partitions
+- fixture oracle/no-op and reset manifests
+- contamination and near-duplicate audit results
+- a compute and storage budget
+- a frozen pilot training and evaluation contract
 - compact baseline forecasts and uncertainty rules.
 
 The launch packet must also record the frozen feasibility budget, the rejected

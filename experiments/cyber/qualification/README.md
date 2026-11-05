@@ -70,8 +70,8 @@ external target tasks to probing or training.
 | First-pilot concern | Recent public contamination and cross-benchmark-overlap reports require an independent identity audit | Linux adds privileged KVM and nested-virtualization complexity; begin qualification with V8 or SpiderMonkey |
 | Qualification status | Static audit complete; fixture execution pending | Static audit complete; fixture execution pending |
 
-The table records repository claims and risks to test. It is not a benchmark
-selection result.
+The table records repository claims and risks to test. Benchmark selection
+occurs in the decision table below.
 
 ## Decision table
 
@@ -103,23 +103,23 @@ modified into the primary pilot target.
 
 ## Explicit non-goals
 
-- supporting every cyber benchmark;
-- building a shared cyber range or new scheduler;
-- maximizing leaderboard performance;
-- treating public benchmark difficulty as training utility;
-- fitting a general cyber forecasting law from the four-to-six-environment pilot;
+- supporting every cyber benchmark
+- building a shared cyber range or new scheduler
+- maximizing leaderboard performance
+- treating public benchmark difficulty as training utility
+- fitting a general cyber forecasting law from the four-to-six-environment pilot
 - running exploit code outside authorized, isolated benchmark fixtures.
 
 ## Outputs
 
 Qualification produces only the following artifacts:
 
-- completed source and license registry;
-- frontier-relevance audit and frozen development-candidate ordering;
-- frozen feasibility budget and numerical gates;
-- fixture and contamination manifests;
-- oracle, no-op, reset, and containment results;
-- warm-start measurement and cost summary;
+- completed source and license registry
+- frontier-relevance audit and frozen development-candidate ordering
+- frozen feasibility budget and numerical gates
+- fixture and contamination manifests
+- oracle, no-op, reset, and containment results
+- warm-start measurement and cost summary
 - one signed selection or stop decision.
 
 No additional benchmark integration is on the critical path.

@@ -55,7 +55,7 @@ revision; download integrity is confirmed. The weights are not committed to Git.
 ## Still open on blocker #1
 
 - Confirm the artifact is byte-identical to the *agentic* warm start used by the
-  parallel study (`require_exact_match_to_agentic_warm_start`) — needs that
+  parallel study (`require_exact_match_to_agentic_warm_start`): needs that
   study's artifact digest to compare against; upstream integrity is now proven.
 - Complete the license review (model card declares `other`) before any
   claim-bearing use.

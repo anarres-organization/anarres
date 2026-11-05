@@ -19,7 +19,7 @@ of running it, not debugging it. No scientific result is claimed from one task;
   shell commands in the runtime container (`CmdOutputObservation`, exit codes),
   extracts and explores the vulnerable source, and loops to `max_iter`. At
   temperature 0 it instead **degenerated into a repetition loop** and was killed
-  by the stuck-detector — so the probe must sample at t>0 (which the two-view
+  by the stuck-detector. The probe must sample at t>0, as the two-view
   rollout design requires anyway).
 - **Task + grading plumbing.** `run.py`'s `generate_task` builds the agent's
   level-2 bundle from the staged `data_dir`; the CyberGym submission server runs
@@ -54,9 +54,9 @@ of running it, not debugging it. No scientific result is claimed from one task;
    containment spec; point `--server` at that network's gateway.
 2. Run 48 tasks × 16 rollouts (two independent G=8 views) at the config above,
    sharded across the idle GPUs, grading each submission and pruning containers.
-3. Compute strict success, ρ, H, mixed-group fraction, and two-view agreement;
+3. Compute strict success, ρ, H, mixed-group fraction, and two-view agreement
    consult `reliability_oc.json` for the abstention rule.
 4. Emit one of proceed / external-target-only / unmeasurable per
-   `DECISION_TREE.md`. Given an 8B on real CVEs (the paper's frontier best was
-   17.9%), a low/floor success rate — and therefore external-target-only or
-   unmeasurable — is the expected outcome, which is a valid scientific result.
+   `DECISION_TREE.md`. For an 8B model on real CVEs, a low or floor success rate
+   is the expected outcome. The paper's frontier best was 17.9%. An
+   external-target-only or unmeasurable decision remains scientifically useful.

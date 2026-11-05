@@ -1,8 +1,8 @@
-# Retrospective three-source robotics bridge
+# Retrospective three-source robotics analysis
 
 **Status:** retrospective evidence; not a prospective forecast.
 
-This bridge normalizes candidate-decision panels from three open robotics
+This analysis normalizes candidate-decision panels from three open robotics
 projects:
 
 - [Calibra](https://github.com/Calibra-Robotics/Calibra), dataset observability

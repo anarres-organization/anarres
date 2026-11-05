@@ -42,9 +42,9 @@ The public launch draft treats autoformalization as more than compilation. It
 separates executable behavior, preconditions, property theorems, bundled
 correctness, and implementation equivalence. Its evaluation combines:
 
-- successful Lean compilation;
-- nontrivial formal content;
-- absence of unresolved proof placeholders;
+- successful Lean compilation
+- nontrivial formal content
+- absence of unresolved proof placeholders
 - semantic coverage of a human-curated gold specification.
 
 That is a useful held-out target because an agent can produce compiling Lean
@@ -68,11 +68,11 @@ VCVio was inspected at commit
 Its repository exposes a much richer environment than isolated theorem
 completion:
 
-- monadic oracle computations and probabilistic semantics;
-- relational and unary program logics;
-- reductions and query-bound reasoning;
-- signatures, encryption, Sigma protocols, Fiat--Shamir, and Fischlin;
-- ML-DSA, ML-KEM, Falcon, and SLH-DSA developments;
+- monadic oracle computations and probabilistic semantics
+- relational and unary program logics
+- reductions and query-bound reasoning
+- signatures, encryption, Sigma protocols, Fiat--Shamir, and Fischlin
+- ML-DSA, ML-KEM, Falcon, and SLH-DSA developments
 - examples, test libraries, CI, axiom accounting, and agent-facing proof guides.
 
 VCVio is suitable for environment research because it supplies repository
@@ -80,20 +80,20 @@ context, reusable lemmas, machine checking, multiple cryptographic mechanisms,
 and realistic proof-maintenance workflows. It is **not** immediately suitable
 for claim-bearing RL by simply replacing arbitrary proofs with `sorry`:
 
-- randomly masked theorems can leak through later lemmas;
-- source files include intentional unresolved definitions or proofs;
-- compilation alone can reward vacuous statements or forbidden axioms;
-- neighboring tests and examples can reveal target structure;
+- randomly masked theorems can leak through later lemmas
+- source files include intentional unresolved definitions or proofs
+- compilation alone can reward vacuous statements or forbidden axioms
+- neighboring tests and examples can reveal target structure
 - dependency and proof-reuse structure is central to the task.
 
 The preferred task construction is historical replay:
 
-1. identify a commit that introduces or completes a theorem;
-2. reconstruct the repository state immediately before the proof;
-3. preserve only definitions and lemmas available at that time;
-4. remove the target proof while freezing its statement;
-5. store the later accepted proof as hidden gold evidence;
-6. verify that the task builds with the gold proof and fails the no-op;
+1. identify a commit that introduces or completes a theorem
+2. reconstruct the repository state immediately before the proof
+3. preserve only definitions and lemmas available at that time
+4. remove the target proof while freezing its statement
+5. store the later accepted proof as hidden gold evidence
+6. verify that the task builds with the gold proof and fails the no-op
 7. group tasks by originating change and dependency component.
 
 Existing unresolved holes may become open research tasks, but cannot provide a
@@ -109,9 +109,9 @@ its broader effort. The public `theorem-labs/oss-verify-proofs` repository is a
 smaller released subset and should be described by its own manifest. At the
 time of this audit, the public repository reports:
 
-- 61 entry points in 26 libraries with published proofs;
-- 2,148 fuzz-target statement groups from 427 buildable projects;
-- 337 proved statements and a much larger open statement set;
+- 61 entry points in 26 libraries with published proofs
+- 2,148 fuzz-target statement groups from 427 buildable projects
+- 337 proved statements and a much larger open statement set
 - exact RISC-V binaries, build provenance, hashes, Rocq checker versions, and
   Linux-process semantics.
 

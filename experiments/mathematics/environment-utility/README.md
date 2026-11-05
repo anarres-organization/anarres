@@ -14,14 +14,14 @@ We test this question with 32 controlled Qwen3 Base trajectories from 1.7B to 14
 
 ## Environment intervention
 
-Here, an environment is a fixed prompt distribution under one rollout, verifier, and optimization contract. Each model scale begins with 4,000 candidate prompts measured under its own starting policy. The study selects four disjoint 256-prompt cells by crossing two controlled factors:
+Here, an environment is a fixed prompt distribution under one rollout, verifier, and optimization contract. Each model scale begins with 4,000 candidate prompts measured under its own starting policy. The study selects four disjoint 256-prompt quadrants by crossing two controlled factors:
 
 - **Group-signal availability:** whether repeated responses to a prompt are likely to produce reward variation and therefore a nonzero group-relative advantage.
 - **Admission and response cost:** whether that signal is likely to survive the loss contract and how many generated tokens are required to obtain it.
 
-The resulting HH, HL, LH, and LL cells are balanced on starting success, prompt length, source, problem type, parseability, and verifier validity. The cells are reconstructed at every model scale because the same prompt can be solved, unreachable, or informative for different starting policies.
+The resulting HH, HL, LH, and LL quadrants are balanced on starting success, prompt length, source, problem type, parseability, and verifier validity. The quadrants are reconstructed at every model scale because the same prompt can be solved, unreachable, or informative for different starting policies.
 
-Training then changes only the prompt distribution. Every cell at a given scale shares the warm start, optimizer, group size, decoding contract, verifier, horizon, and held-out panel. This isolates the effect of environment choice while the continuous measurements below replace the cell labels for prediction.
+Training then changes only the prompt distribution. Every quadrant at a given scale shares the warm start, optimizer, group size, decoding contract, verifier, horizon, and held-out panel. This isolates the effect of environment choice while the continuous measurements below replace the quadrant labels for prediction.
 
 ## What the study shows
 
@@ -50,7 +50,7 @@ H(E) = effective number of prompts carrying admitted mass / prompt count
 | --- | --- |
 | Models | Qwen3 Base at 1.7B, 4B, 8B, and 14B parameters |
 | Environments | Four controlled, policy-relative prompt distributions per scale |
-| Training | Two trajectories per scale-by-environment cell under one fixed NeMo GRPO contract |
+| Training | Two trajectories per scale and environment quadrant under one fixed NeMo GRPO contract |
 | Compute axis | Cumulative generated action tokens |
 | Evaluation | One fixed, disjoint 1,000-prompt OpenR1-Math panel |
 | Prospective tests | A recorded 8B miss, a recalibrated 14B forecast, and a frozen uniform-mixture stress test |
