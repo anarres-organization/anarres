@@ -1,0 +1,40 @@
+{
+  "artifact": "greenball_initiation_probe_compact_record_v1",
+  "chronology": {
+    "outcomes_read_during_measurement": false,
+    "chronologically_prospective": false,
+    "measurement_join": "physical start rates joined after checkpoint measurements completed"
+  },
+  "contract": {
+    "policy_family": "Diffusion Policy",
+    "runtime": "huggingface/lerobot@8352ca62d88ab4464001d427267a6a0758e6cb99",
+    "held_out_episodes_per_checkpoint": 25,
+    "opening_window_seconds": 1,
+    "primary_threshold": "maximum absolute displacement of any joint is at least 20 degrees",
+    "independent_unit": "trained checkpoint; held-out episodes and physical rollouts are nested observations"
+  },
+  "datasets": {
+    "untrimmed": "fysical/greenball_pool_225_v1@caef9392bdcdc71df61c880838d2feb94439015f",
+    "trimmed": "fysical/greenball_pool_225_v1_trimmed@e81b69369960fe7a72093ec04297e91f6675212b"
+  },
+  "checkpoint_panel_sha256": "f8938dbabf59e4ae71eb7c0dbf4bcb182f7acc5d28b367ea487873e2366c4fc4",
+  "checkpoint_count": 20,
+  "cells": [
+    {"recipe": "untrimmed", "budget": 12, "checkpoints": 2, "offline_start_rate": 0.20, "physical_start_rate": 0.00},
+    {"recipe": "untrimmed", "budget": 25, "checkpoints": 2, "offline_start_rate": 0.14, "physical_start_rate": 0.05},
+    {"recipe": "untrimmed", "budget": 50, "checkpoints": 2, "offline_start_rate": 0.16, "physical_start_rate": 0.00},
+    {"recipe": "untrimmed", "budget": 100, "checkpoints": 2, "offline_start_rate": 0.14, "physical_start_rate": 0.03333333333333333},
+    {"recipe": "untrimmed", "budget": 200, "checkpoints": 2, "offline_start_rate": 0.14, "physical_start_rate": 0.10},
+    {"recipe": "trimmed", "budget": 12, "checkpoints": 2, "offline_start_rate": 0.60, "physical_start_rate": 0.55},
+    {"recipe": "trimmed", "budget": 25, "checkpoints": 2, "offline_start_rate": 0.70, "physical_start_rate": 0.95},
+    {"recipe": "trimmed", "budget": 50, "checkpoints": 2, "offline_start_rate": 0.68, "physical_start_rate": 0.92},
+    {"recipe": "trimmed", "budget": 100, "checkpoints": 2, "offline_start_rate": 0.68, "physical_start_rate": 1.00},
+    {"recipe": "trimmed", "budget": 200, "checkpoints": 2, "offline_start_rate": 0.72, "physical_start_rate": 0.9666666666666667}
+  ],
+  "claim_boundary": [
+    "the five budgets form one nested scaling study rather than five independent studies",
+    "physical outcomes are pooled by recipe and budget rather than reported for every checkpoint",
+    "the result supports an initiation-risk measurement within one policy family",
+    "real-robot evaluation remains required for deployment decisions"
+  ]
+}

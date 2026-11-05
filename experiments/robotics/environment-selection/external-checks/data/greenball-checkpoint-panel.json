@@ -1,0 +1,86 @@
+{
+  "artifact": "GREENBALL_DIFFUSION_EXPANSION_PANEL_V1",
+  "outcomes_read": false,
+  "models": [
+    {
+      "model_id": "fysical/so101ball_diffusion_S012_seed0",
+      "revision": "bd83bf3b5e11a6f081eb909351e3b3eca5c35768"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_S012_seed3",
+      "revision": "c77c369263d19b6e0c35abd30e93a1f21c4c8889"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_S025_seed0",
+      "revision": "f1109b7273f2c1d330be9cbb51027f707dc15021"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_S025_seed2",
+      "revision": "782419152d0cd5a0dfd0c7d71e444c66b4fc60b1"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_S050_seed0",
+      "revision": "4abe6bc6101898f4e8a769860e782b4d849cec68"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_S050_seed1",
+      "revision": "429d6414387bf3bde46871684326799daf24395e"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_S100_seed1",
+      "revision": "40ab6197cf9cb83c00054f93ccd8ab1f57735c77"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_S100_seed2",
+      "revision": "0c825bf5debc5ae1f41526f1a8562991ff58e465"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_S200_seed2",
+      "revision": "1431f5a7ba7146f2ab63861ad750e4ef896d1082"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_S200_seed3",
+      "revision": "50e52023d1c733f730d2dfd110b7e18a051a8150"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_trimmed_S012_seed1",
+      "revision": "c7bd790c60c27415670ed6de0c6840bb96ed8a82"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_trimmed_S012_seed3",
+      "revision": "8d87f44b60478ec0bbff5adf193228f60b2e80b7"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_trimmed_S025_seed1",
+      "revision": "25cd9035dcaca3b6129025891e3abbc8c8da8143"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_trimmed_S025_seed3",
+      "revision": "2fe9f9e3d99d2dfd28bd61d9aaae6f784d1e17be"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_trimmed_S050_seed1",
+      "revision": "dd1620991cc08611aa959605c0ca7b1163ac44f7"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_trimmed_S050_seed3",
+      "revision": "e8cab08a637ea88b4b18101783df27a705c39632"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_trimmed_S100_seed1",
+      "revision": "772777f07532eda829616f06539021626a3cf377"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_trimmed_S100_seed3",
+      "revision": "81f6dbabeb5fcaecc49ceee7f0b0229db0cb1108"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_trimmed_S200_seed1",
+      "revision": "19bae1b946ac97c769845d2c93af23a2df914108"
+    },
+    {
+      "model_id": "fysical/so101ball_diffusion_trimmed_S200_seed3",
+      "revision": "68d6c7d2d2c9b481ca64fbe52113f891e8eb5630"
+    }
+  ]
+}

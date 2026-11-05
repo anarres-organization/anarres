@@ -21,6 +21,7 @@ class ExternalChecksTest(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.guild = json.loads((ROOT / "data" / "guild.json").read_text())
         cls.sole = json.loads((ROOT / "data" / "sole-r1.json").read_text())
+        cls.greenball = json.loads((ROOT / "data" / "greenball-initiation.json").read_text())
 
     def test_guild_score(self) -> None:
         score = MODULE.guild_score(self.guild)
@@ -32,6 +33,7 @@ class ExternalChecksTest(unittest.TestCase):
     def test_released_summary_is_reproduced(self) -> None:
         expected = json.loads((ROOT / "results" / "summary.json").read_text())
         observed = {
+            "greenball_initiation": MODULE.greenball_score(self.greenball),
             "guild": MODULE.guild_score(self.guild),
             "sole_r1": MODULE.sole_score(self.sole),
         }
@@ -47,6 +49,26 @@ class ExternalChecksTest(unittest.TestCase):
         self.assertFalse(score["top_choice_correct"])
         self.assertTrue(score["false_completion_control_correct"])
         self.assertFalse(score["outcomes_read_for_selection"])
+
+    def test_greenball_initiation_probe(self) -> None:
+        score = MODULE.greenball_score(self.greenball)
+        self.assertEqual(score["matched_budget_wins"], 5)
+        self.assertEqual(score["matched_budget_total"], 5)
+        self.assertAlmostEqual(score["spearman_offline_vs_physical_start"], 0.746970507466252)
+        self.assertFalse(score["demonstration_count_can_choose_recipe"])
+        self.assertFalse(score["outcomes_read_during_measurement"])
+
+    def test_greenball_claim_boundary(self) -> None:
+        boundary = " ".join(self.greenball["claim_boundary"]).lower()
+        self.assertIn("one nested scaling study", boundary)
+        self.assertIn("real-robot evaluation remains required", boundary)
+
+    def test_greenball_checkpoint_panel_is_pinned(self) -> None:
+        panel = json.loads((ROOT / "data" / "greenball-checkpoint-panel.json").read_text())
+        self.assertFalse(panel["outcomes_read"])
+        self.assertEqual(len(panel["models"]), 20)
+        self.assertEqual(len({row["model_id"] for row in panel["models"]}), 20)
+        self.assertTrue(all(len(row["revision"]) == 40 for row in panel["models"]))
 
     def test_claim_boundaries(self) -> None:
         boundary = " ".join(self.sole["claim_boundary"]).lower()

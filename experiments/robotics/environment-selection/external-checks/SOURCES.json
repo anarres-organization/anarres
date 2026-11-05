@@ -5,7 +5,7 @@
       "uri": "https://arxiv.org/abs/2611.05368v1",
       "release_date": "2026-11-03",
       "role": "matched-budget real-robot data-collection comparison",
-      "redistribution": "no paper assets redistributed; compact numeric facts only"
+      "redistribution": "no paper assets redistributed. This release contains compact numeric facts only"
     },
     {
       "name": "SOLE-R1",
@@ -13,12 +13,51 @@
       "project": "https://philip-mit.github.io/sole-r1/",
       "code": "https://github.com/Philip-MIT/sole-r1-model",
       "role": "public reward-model measurements and downstream robot-policy comparison",
-      "redistribution": "no videos, model outputs, or paper assets redistributed; compact decision facts only"
+      "redistribution": "no videos, model outputs, or paper assets redistributed. This release contains compact decision facts only"
+    },
+    {
+      "name": "GreenBall scaling study",
+      "uri": "https://arxiv.org/abs/2610.37170v1",
+      "media_type": "application/pdf",
+      "reported_size_bytes": 159744,
+      "license": "arXiv distribution license",
+      "producing_run": "physical SO-101 evaluation over 1,340 scored episodes",
+      "role": "pooled physical start rates and matched demonstration-budget outcomes",
+      "redistribution": "no paper assets redistributed. This release contains compact numeric facts only"
+    },
+    {
+      "name": "GreenBall validation study",
+      "uri": "https://arxiv.org/abs/2611.00283v1",
+      "media_type": "application/pdf",
+      "reported_size_bytes": 396288,
+      "license": "arXiv distribution license",
+      "producing_run": "82 final checkpoints, 700 intermediate checkpoints, and 930 physical rollouts",
+      "role": "source-defined initiation failure and offline-probe motivation",
+      "redistribution": "no paper assets redistributed. This release contains compact method facts only"
+    },
+    {
+      "name": "GreenBall demonstrations",
+      "uri": "https://huggingface.co/datasets/fysical/greenball_pool_225_v1/tree/caef9392bdcdc71df61c880838d2feb94439015f",
+      "media_type": "application/x-parquet+video",
+      "reported_data_files_size_bytes": 104857600,
+      "license": "Apache-2.0",
+      "producing_run": "225 teleoperated SO-101 episodes at 30 frames per second",
+      "role": "frozen held-out observations and untrimmed training identity"
+    },
+    {
+      "name": "GreenBall idle-trimmed demonstrations",
+      "uri": "https://huggingface.co/datasets/fysical/greenball_pool_225_v1_trimmed/tree/e81b69369960fe7a72093ec04297e91f6675212b",
+      "media_type": "application/x-parquet+video",
+      "reported_data_files_size_bytes": 104857600,
+      "license": "Apache-2.0",
+      "producing_run": "225 SO-101 episodes after removal of the idle lead-in",
+      "role": "trimmed training identity and outcome-blind movement-threshold reference"
     }
   ],
   "source_hashes": {
     "guild_official_figure": "fbb84a77062b5a2f64c6fc86335844674bca11dd911d90adc416783df823aad9",
     "sole_r1_downstream_figure": "3fc4031b9c89a0e24c5a36892571a2f139e03cc4e0b41e1861282df89760e59b",
-    "sole_r1_measurement_protocol": "c04ef7ea6f96a83620a0b72e57825e35bb91ba0c047607f2dbf1e4c833ef1c2e"
+    "sole_r1_measurement_protocol": "c04ef7ea6f96a83620a0b72e57825e35bb91ba0c047607f2dbf1e4c833ef1c2e",
+    "greenball_checkpoint_panel": "f8938dbabf59e4ae71eb7c0dbf4bcb182f7acc5d28b367ea487873e2366c4fc4"
   }
 }

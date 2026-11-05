@@ -50,12 +50,25 @@ a manipulation-task completion rate remain different endpoints. Cross-source
 analysis uses within-panel ordering and normalized regret only after candidate
 identities, budgets, policies, and evaluation contracts have been checked.
 
+## External mechanism evidence
+
+The external-checks record now includes an opening-state initiation probe over
+20 released Diffusion Policy checkpoints. In five budget-matched comparisons,
+the probe selected the idle-trimmed data recipe that had the higher physical
+start rate. The offline score and pooled physical start rate had rank
+correlation 0.747 across ten recipe-by-budget conditions.
+
+The result is specific to one policy family and one task. It shows why
+policy-specific failure measurements can matter more than data volume or
+ordinary held-out action error.
+
 ## Scope
 
-The current evidence comes from one simulated PushT setting. Transfer across
-embodiments, locations, long-horizon tasks, real hardware, or
-simulation-to-reality shifts requires new outcome-blind panels and renewed
-measurement under their own starting policies.
+The prospective evidence comes from one simulated PushT setting. External
+records now include physical robot outcomes, but they remain retrospective or
+temporally external. Transfer across embodiments, locations, long-horizon
+tasks, or simulation-to-reality shifts requires new outcome-blind panels and
+renewed measurement under their own starting policies.
 
 Robotics studies share Anarres's identity, measurement, and evaluation
 contracts while retaining domain-specific safety, simulator, and hardware

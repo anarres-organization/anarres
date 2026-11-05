@@ -1,4 +1,11 @@
 {
+  "greenball_initiation": {
+    "demonstration_count_can_choose_recipe": false,
+    "matched_budget_total": 5,
+    "matched_budget_wins": 5,
+    "outcomes_read_during_measurement": false,
+    "spearman_offline_vs_physical_start": 0.746970507466252
+  },
   "guild": {
     "advantage_over_expert_1_pp": 15,
     "advantage_over_expert_2_pp": 20,

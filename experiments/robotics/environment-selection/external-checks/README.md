@@ -1,16 +1,19 @@
 # External checks for robot-data and reward selection
 
-These records test two pre-training hypotheses against downstream robot-policy
+These records test three pre-training hypotheses against downstream robot-policy
 outcomes:
 
-1. policy-responsive data collection should outperform semantic relevance
-   alone; and
-2. offline trajectory correlation should identify the most useful reward
+1. Policy-responsive data collection should outperform semantic relevance
+   alone.
+2. Offline trajectory correlation should identify the most useful reward
    model.
+3. An opening-state action probe should identify policies at risk of never
+   initiating the task.
 
 The first hypothesis receives positive temporal external evidence from GUILD.
-The second fails an outcome-blind public shadow test on SOLE-R1. Both results
-are retained.
+The second fails an outcome-blind public shadow test on SOLE-R1. The third
+receives positive retrospective evidence from released GreenBall checkpoints.
+All three results are retained.
 
 ## GUILD: positive temporal external evidence
 
@@ -51,6 +54,34 @@ This was outcome-blind to the detailed table, but not chronologically
 prospective. Baseline checkpoint revisions are only partially identified, and
 the real-world policy result has one training seed.
 
+## GreenBall: initiation failure from an opening-state probe
+
+The GreenBall validation study reports that ordinary held-out action error can
+miss a dominant physical failure: a policy may never leave its rest pose. We
+applied the source-specified opening-state probe to 20 released Diffusion Policy
+checkpoints. The panel contains two checkpoints for each combination of five
+demonstration budgets and two preprocessing recipes.
+
+The offline measurement uses 25 held-out opening observations per checkpoint.
+It records whether any predicted joint moves at least 20 degrees during the
+first second. Physical start rates were joined only after these measurements
+completed.
+
+| Metric | Result |
+| --- | ---: |
+| Matched budgets where the probe selected idle trimming | 5/5 |
+| Rank correlation with pooled physical start rate | 0.747 |
+| Released checkpoints | 20 |
+
+Demonstration count cannot choose between the two recipes because every
+comparison is budget matched. The probe recovers a task-initiation failure that
+the data-volume baseline cannot represent.
+
+This is one nested scaling study. Physical outcomes are pooled by recipe and
+budget, and only two checkpoints are available in each condition. The result
+supports an initiation-risk measurement within this policy family. It does not
+replace real-robot evaluation or establish a general cross-architecture selector.
+
 ## Reproduce
 
 ```bash
@@ -59,13 +90,18 @@ python scripts/reproduce.py
 python -m unittest test_reproduce.py
 ```
 
-The script reconstructs GUILD's selection metrics and verifies that the frozen
-SOLE-R1 rule failed without rewriting the prediction.
+The script reconstructs GUILD's selection metrics, verifies that the frozen
+SOLE-R1 rule failed without rewriting the prediction, and recomputes the
+GreenBall matched-budget decisions and rank correlation.
 
 ## Files
 
 - [`data/guild.json`](data/guild.json): four matched real-robot task decisions.
 - [`data/sole-r1.json`](data/sole-r1.json): frozen selection and public outcome facts.
+- [`data/greenball-initiation.json`](data/greenball-initiation.json): compact
+  offline initiation measurements and pooled physical start rates.
+- [`data/greenball-checkpoint-panel.json`](data/greenball-checkpoint-panel.json):
+  exact model identities and revisions for the 20 measured checkpoints.
 - [`results/summary.json`](results/summary.json): released reproduced summary.
 - [`SOURCES.json`](SOURCES.json): official source identities and hashes.
 - [`scripts/reproduce.py`](scripts/reproduce.py): deterministic scoring.

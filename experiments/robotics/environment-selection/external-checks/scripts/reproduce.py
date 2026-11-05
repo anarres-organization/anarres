@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import math
 import statistics
 from pathlib import Path
 
@@ -49,10 +50,63 @@ def sole_score(data: dict[str, object]) -> dict[str, object]:
     }
 
 
+def average_ranks(values: list[float]) -> list[float]:
+    order = sorted(range(len(values)), key=values.__getitem__)
+    ranks = [0.0] * len(values)
+    start = 0
+    while start < len(order):
+        end = start
+        while end + 1 < len(order) and values[order[end + 1]] == values[order[start]]:
+            end += 1
+        rank = (start + end) / 2
+        for index in order[start : end + 1]:
+            ranks[index] = rank
+        start = end + 1
+    return ranks
+
+
+def correlation(x: list[float], y: list[float]) -> float:
+    x_mean = statistics.mean(x)
+    y_mean = statistics.mean(y)
+    numerator = sum((a - x_mean) * (b - y_mean) for a, b in zip(x, y, strict=True))
+    x_norm = math.sqrt(sum((a - x_mean) ** 2 for a in x))
+    y_norm = math.sqrt(sum((b - y_mean) ** 2 for b in y))
+    return numerator / (x_norm * y_norm)
+
+
+def greenball_score(data: dict[str, object]) -> dict[str, object]:
+    cells = data["cells"]
+    budgets = sorted({row["budget"] for row in cells})
+    selected = 0
+    for budget in budgets:
+        untrimmed = next(
+            row for row in cells if row["budget"] == budget and row["recipe"] == "untrimmed"
+        )
+        trimmed = next(
+            row for row in cells if row["budget"] == budget and row["recipe"] == "trimmed"
+        )
+        selected += trimmed["offline_start_rate"] > untrimmed["offline_start_rate"]
+    return {
+        "matched_budget_wins": selected,
+        "matched_budget_total": len(budgets),
+        "spearman_offline_vs_physical_start": correlation(
+            average_ranks([row["offline_start_rate"] for row in cells]),
+            average_ranks([row["physical_start_rate"] for row in cells]),
+        ),
+        "demonstration_count_can_choose_recipe": False,
+        "outcomes_read_during_measurement": data["chronology"]["outcomes_read_during_measurement"],
+    }
+
+
 if __name__ == "__main__":
     guild = json.loads((ROOT / "data" / "guild.json").read_text())
     sole = json.loads((ROOT / "data" / "sole-r1.json").read_text())
-    observed = {"guild": guild_score(guild), "sole_r1": sole_score(sole)}
+    greenball = json.loads((ROOT / "data" / "greenball-initiation.json").read_text())
+    observed = {
+        "greenball_initiation": greenball_score(greenball),
+        "guild": guild_score(guild),
+        "sole_r1": sole_score(sole),
+    }
     expected = json.loads((ROOT / "results" / "summary.json").read_text())
     if observed != expected:
         raise SystemExit("recomputed robotics summary does not match the released result")
