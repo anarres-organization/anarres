@@ -8,13 +8,25 @@ agent intervention:
 2. Can task information available before continued training flag later
    regressions in a practice area excluded from model fitting?
 
+## Result at a glance
+
+The best aggregate criterion-pass checkpoint occurred before the final
+checkpoint. Twenty-seven of 180 tasks later regressed by more than two
+percentage points. Task and workflow structure predicted regression risk in
+held-out practice areas with 0.648 ROC AUC, compared with 0.425 from
+starting-policy behavior alone.
+
+This is evidence from one continuing-training intervention. It supports
+learning-dynamics and regression-risk analysis, but it does not establish
+causal effects for individual training tasks or a new trainer.
+
 ## Evidence contract
 
 The intervention starts from `deepseek-ai/DeepSeek-V4-Flash-0731`, uses the
 Harvey Legal Agent Benchmark agent loop, and reports the same 180 evaluation
 tasks at 15 checkpoints. The tasks span 34 practice areas. Tasks, checkpoints,
 criteria, and judge passes are nested observations under one trained
-intervention; they are not independent training runs.
+intervention. They are not independent training runs.
 
 The regression endpoint is a task-level criterion-pass decrease greater than
 two percentage points between the starting policy and step 70. There are 27

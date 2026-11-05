@@ -1,6 +1,6 @@
 # External checks for robot-data and reward selection
 
-These records test three pre-training hypotheses against downstream robot-policy
+These records test three qualification hypotheses against downstream robot-policy
 outcomes:
 
 1. Policy-responsive data collection should outperform semantic relevance
@@ -14,6 +14,18 @@ The first hypothesis receives positive temporal external evidence from GUILD.
 The second fails an outcome-blind public shadow test on SOLE-R1. The third
 receives positive retrospective evidence from released GreenBall checkpoints.
 All three results are retained.
+
+## Results at a glance
+
+| Check | Result | Evidence status |
+| --- | --- | --- |
+| GreenBall initiation | Selected the better data-processing recipe at all five matched budgets. Rank correlation with physical initiation success was 0.747. | Retrospective, 20 released checkpoints |
+| GUILD data collection | Ordered 11 of 12 comparisons correctly with 1.25 percentage points of allocation regret. | Temporal external evidence |
+| SOLE-R1 reward selection | The frozen primary rule failed. A false-completion control selected the observed winner. | Retrospective falsification |
+
+Together, these checks support policy-responsive data qualification while
+showing that one offline score is insufficient. Physical evaluation remains
+the final authority.
 
 ## GUILD: positive temporal external evidence
 
