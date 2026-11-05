@@ -8,7 +8,7 @@
     "severe_regressions": 27,
     "independent_generalization_unit": "practice_area"
   },
-  "endpoint": "step70 criterion-pass delta < -2.0 percentage points",
+  "endpoint": "step70 criterion pass rate delta < -2.0 percentage points",
   "validation": "leave-one-practice-area-out with grouped inner validation",
   "feature_timing": "step-zero behavior and outcome-blind task structure only",
   "metrics": {

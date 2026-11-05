@@ -10,7 +10,7 @@ agent intervention:
 
 ## Result at a glance
 
-The best aggregate criterion-pass checkpoint occurred before the final
+The best mean criterion pass rate occurred before the final
 checkpoint. Twenty-seven of 180 tasks later regressed by more than two
 percentage points. Task and workflow structure predicted regression risk in
 held-out practice areas with 0.648 ROC AUC, compared with 0.425 from
@@ -35,7 +35,7 @@ tasks at 15 checkpoints. The tasks span 34 practice areas. Tasks, checkpoints,
 criteria, and judge passes are nested observations under one trained
 intervention. They are not independent training runs.
 
-The regression endpoint is a task-level criterion-pass decrease greater than
+The regression endpoint is a task-level criterion pass rate decrease greater than
 two percentage points between the starting policy and step 70. There are 27
 such tasks.
 
@@ -53,7 +53,7 @@ use post-step-zero model responses, rewards, or trajectories.
 | 65 | 91.48% | +9.06 pp | 15.56% | 95.56% |
 | 70 | 89.73% | +7.32 pp | 16.67% | 95.00% |
 
-The best aggregate criterion-pass checkpoint occurs before the final
+The best mean criterion pass rate occurs before the final
 checkpoint. Overall improvement therefore coexists with non-monotonic learning
 and task-level regressions.
 
