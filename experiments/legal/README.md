@@ -14,6 +14,11 @@ It compares three mixtures over the same fourteen procedural task generators,
 with the starting weights, trainer, reward code, update count, training seeds,
 and evaluation panel held fixed.
 
+A second record studies [LAB learning dynamics and regression
+risk](lab-learning-dynamics/README.md) across 15 checkpoints, 180 tasks, and 34
+practice areas. It asks whether outcome-blind workflow structure flags later
+regressions when the complete target practice area is held out from fitting.
+
 The frozen policy-response mixture had the highest observed mean, but its
 advantage over the two controls was less than half a percentage point and the
 training-seed intervals crossed zero. The evidence therefore supports
@@ -28,5 +33,7 @@ does not test document review, citation provenance, tool use, artifact
 production, evolving matters, or professional review.
 
 Results remain specific to the pinned starting policy, task generators,
-training contract, and evaluation endpoint. A new legal workflow requires a
-new outcome-blind panel and its own guardrails.
+training contract, and evaluation endpoint. The LAB record contains one
+continuing-RL intervention, so its task-level predictions are associations, not
+causal task effects. A new legal workflow requires a new outcome-blind panel
+and its own guardrails.

@@ -1,0 +1,27 @@
+{
+  "artifact": "sole_r1_outcome_blind_shadow_compact_record_v1",
+  "measurement_support": {
+    "source_tasks": 9,
+    "ground_truth_trajectories": 145,
+    "exact_name_overlap": ["SOLE-R1", "RoboReward", "Robometer", "TOPReward"]
+  },
+  "chronology": {
+    "outcomes_read_for_selection": false,
+    "chronologically_prospective": false
+  },
+  "frozen_rule": "highest task-macro trajectory correlation",
+  "frozen_exact_overlap_selection": "RoboReward",
+  "downstream_observed_top_choice": "SOLE-R1",
+  "lower_false_completion_selection": "SOLE-R1",
+  "downstream_tasks": 40,
+  "sole_r1_tasks_at_or_above_50pct_success": 24,
+  "identity": {
+    "baseline_checkpoint_revisions": "partial",
+    "excluded_composite": "best-of Gemini-3-Pro and Gemini Robotics-ER 1.5"
+  },
+  "claim_boundary": [
+    "outcome-blind to the detailed table but not chronologically prospective",
+    "one real-world training seed does not identify intervention variance",
+    "the excluded Gemini composite is not part of the exact-name overlap score"
+  ]
+}

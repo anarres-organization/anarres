@@ -1,0 +1,15 @@
+{
+  "base_criterion_pass_percent": 82.412667,
+  "base_step": 0,
+  "behavior_auc": 0.425078673445,
+  "best_criterion_pass_percent": 92.267278,
+  "best_step": 40,
+  "checkpoint_count": 15,
+  "combined_auc": 0.653836843379,
+  "final_criterion_pass_percent": 89.731241,
+  "final_step": 70,
+  "severe_regressions": 27,
+  "static_auc": 0.648027112079,
+  "static_beats_random_ap": true,
+  "static_beats_shuffled_ap": true
+}

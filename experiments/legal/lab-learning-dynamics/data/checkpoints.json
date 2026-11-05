@@ -1,0 +1,17 @@
+[
+  {"step": 0, "criterion_pass_rate": 0.824126666667, "all_pass_rate": 0.072222222222, "ending_ok_fraction": 0.777777777778},
+  {"step": 5, "criterion_pass_rate": 0.813917592593, "all_pass_rate": 0.122222222222, "ending_ok_fraction": 0.833333333333},
+  {"step": 10, "criterion_pass_rate": 0.846932407407, "all_pass_rate": 0.088888888889, "ending_ok_fraction": 0.888888888889},
+  {"step": 15, "criterion_pass_rate": 0.843603518519, "all_pass_rate": 0.116666666667, "ending_ok_fraction": 0.894444444444},
+  {"step": 20, "criterion_pass_rate": 0.879635185185, "all_pass_rate": 0.105555555556, "ending_ok_fraction": 0.911111111111},
+  {"step": 25, "criterion_pass_rate": 0.879771296296, "all_pass_rate": 0.088888888889, "ending_ok_fraction": 0.933333333333},
+  {"step": 30, "criterion_pass_rate": 0.883861851852, "all_pass_rate": 0.122222222222, "ending_ok_fraction": 0.938888888889},
+  {"step": 35, "criterion_pass_rate": 0.907178888889, "all_pass_rate": 0.127777777778, "ending_ok_fraction": 0.972222222222},
+  {"step": 40, "criterion_pass_rate": 0.922672777778, "all_pass_rate": 0.122222222222, "ending_ok_fraction": 0.983333333333},
+  {"step": 45, "criterion_pass_rate": 0.879251111111, "all_pass_rate": 0.127777777778, "ending_ok_fraction": 0.944444444444},
+  {"step": 50, "criterion_pass_rate": 0.895225185185, "all_pass_rate": 0.127777777778, "ending_ok_fraction": 0.961111111111},
+  {"step": 55, "criterion_pass_rate": 0.889782592593, "all_pass_rate": 0.133333333333, "ending_ok_fraction": 0.938888888889},
+  {"step": 60, "criterion_pass_rate": 0.900137222222, "all_pass_rate": 0.111111111111, "ending_ok_fraction": 0.95},
+  {"step": 65, "criterion_pass_rate": 0.914765740741, "all_pass_rate": 0.155555555556, "ending_ok_fraction": 0.955555555556},
+  {"step": 70, "criterion_pass_rate": 0.897312407407, "all_pass_rate": 0.166666666667, "ending_ok_fraction": 0.95}
+]

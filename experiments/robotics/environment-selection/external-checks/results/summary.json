@@ -1,0 +1,19 @@
+{
+  "guild": {
+    "advantage_over_expert_1_pp": 15,
+    "advantage_over_expert_2_pp": 20,
+    "advantage_over_semantic_only_pp": 23.75,
+    "mean_allocation_regret_pp": 1.25,
+    "pairwise_correct": 11,
+    "pairwise_total": 12,
+    "top_choice_correct": 3,
+    "top_choice_total": 4
+  },
+  "sole_r1": {
+    "false_completion_control_correct": true,
+    "observed": "SOLE-R1",
+    "outcomes_read_for_selection": false,
+    "predicted": "RoboReward",
+    "top_choice_correct": false
+  }
+}

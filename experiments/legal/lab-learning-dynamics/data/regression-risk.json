@@ -1,0 +1,31 @@
+{
+  "artifact": "lab_regression_risk_compact_record_v1",
+  "support": {
+    "trained_interventions": 1,
+    "checkpoints_including_base": 15,
+    "tasks": 180,
+    "practice_areas": 34,
+    "severe_regressions": 27,
+    "independent_generalization_unit": "practice_area"
+  },
+  "endpoint": "step70 criterion-pass delta < -2.0 percentage points",
+  "validation": "leave-one-practice-area-out with grouped inner validation",
+  "feature_timing": "step-zero behavior and outcome-blind task structure only",
+  "metrics": {
+    "behavior": {"roc_auc": 0.425078673445, "average_precision": 0.125503966387, "brier": 0.130005290957, "top_20pct_recall": 0.037037037037},
+    "static": {"roc_auc": 0.648027112079, "average_precision": 0.273033218992, "brier": 0.122823589839, "top_20pct_recall": 0.37037037037},
+    "combined": {"roc_auc": 0.653836843379, "average_precision": 0.260649850706, "brier": 0.123262289832, "top_20pct_recall": 0.296296296296},
+    "random_fingerprint": {"roc_auc": 0.504236262406, "average_precision": 0.15120304827, "brier": 0.152289486654, "top_20pct_recall": 0.148148148148},
+    "shuffled_static_pairing": {"roc_auc": 0.321955942871, "average_precision": 0.108575261716, "brier": 0.13516100769, "top_20pct_recall": 0.037037037037}
+  },
+  "clustered_bootstrap_combined_minus_behavior": {
+    "roc_auc_ci95": [0.13051760016, 0.361872401289],
+    "average_precision_ci95": [0.053137244015, 0.290265168258],
+    "brier_ci95": [-0.016360711385, 0.001091509561]
+  },
+  "claim_boundary": [
+    "association within one public intervention, not causal task effects",
+    "not calibrated for a new trainer, model family, or distribution",
+    "checkpoints and tasks are nested observations, not independent interventions"
+  ]
+}

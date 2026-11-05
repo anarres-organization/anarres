@@ -1,0 +1,24 @@
+{
+  "sources": [
+    {
+      "name": "GUILD",
+      "uri": "https://arxiv.org/abs/2611.05368v1",
+      "release_date": "2026-11-03",
+      "role": "matched-budget real-robot data-collection comparison",
+      "redistribution": "no paper assets redistributed; compact numeric facts only"
+    },
+    {
+      "name": "SOLE-R1",
+      "uri": "https://arxiv.org/abs/2603.28730v2",
+      "project": "https://philip-mit.github.io/sole-r1/",
+      "code": "https://github.com/Philip-MIT/sole-r1-model",
+      "role": "public reward-model measurements and downstream robot-policy comparison",
+      "redistribution": "no videos, model outputs, or paper assets redistributed; compact decision facts only"
+    }
+  ],
+  "source_hashes": {
+    "guild_official_figure": "fbb84a77062b5a2f64c6fc86335844674bca11dd911d90adc416783df823aad9",
+    "sole_r1_downstream_figure": "3fc4031b9c89a0e24c5a36892571a2f139e03cc4e0b41e1861282df89760e59b",
+    "sole_r1_measurement_protocol": "c04ef7ea6f96a83620a0b72e57825e35bb91ba0c047607f2dbf1e4c833ef1c2e"
+  }
+}

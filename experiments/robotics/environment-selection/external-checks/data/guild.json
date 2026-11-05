@@ -1,0 +1,21 @@
+{
+  "artifact": "guild_temporal_transport_compact_record_v1",
+  "provenance": {
+    "governing_rule_predates_source": true,
+    "source_specific_outcome_blind_freeze": false,
+    "reason_not_prospective": "the abstract exposed the winning direction before the source-specific record"
+  },
+  "contract": {
+    "starting_policy": "Octo-Small official pretrained checkpoint",
+    "training": "25000 gradient steps; 50/50 target and collected-data mixture",
+    "evaluation": "20 paired initial object configurations per method and task",
+    "training_seed_count": "not reported for the real-world experiment"
+  },
+  "selected_method": "guild_policy_responsive",
+  "tasks": [
+    {"task": "pink-cup-sink", "guild_policy_responsive": 50, "vlm_uniform_semantic_only": 40, "expert_1": 30, "expert_2": 55},
+    {"task": "towel-drawer-close", "guild_policy_responsive": 70, "vlm_uniform_semantic_only": 50, "expert_1": 55, "expert_2": 50},
+    {"task": "bowl-pour", "guild_policy_responsive": 80, "vlm_uniform_semantic_only": 55, "expert_1": 70, "expert_2": 40},
+    {"task": "lemon-drawer-close", "guild_policy_responsive": 80, "vlm_uniform_semantic_only": 40, "expert_1": 65, "expert_2": 55}
+  ]
+}

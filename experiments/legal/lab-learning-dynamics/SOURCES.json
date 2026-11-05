@@ -1,0 +1,31 @@
+{
+  "sources": [
+    {
+      "name": "Harvey Legal Agent Benchmark",
+      "uri": "https://github.com/harveyai/harvey-labs",
+      "revision": "a2b429eb6c9683c4fdeced3bc6b3af36edf239a6",
+      "license": "Apache-2.0",
+      "role": "evaluation tasks, agent harness, and task structure"
+    },
+    {
+      "name": "Ivo Sage training artifacts",
+      "uri": "https://github.com/ivo-ai-labs/ivo-sage-training-artifacts",
+      "revision": "5a49594085dcabe34a381c2964d65577063b2d68",
+      "license": "MIT with third-party notices",
+      "role": "released training and checkpoint-evaluation trajectory"
+    },
+    {
+      "name": "Ivo Sage model",
+      "uri": "https://huggingface.co/ivo-ai-labs/Ivo-Sage",
+      "revision": "cadc1cce01470cb90e2673ba3e4962cd7f09a83d",
+      "license": "see upstream model card",
+      "role": "released final adapter identity"
+    }
+  ],
+  "source_hashes": {
+    "training_manifest": "609dfdf1fec67b089cf9c24067486f0f60c2e3d4191bc0913e1c6faef05e96f6",
+    "validation_tasks": "aa237e284c0d6be63f99b070416f1e25275a934785b5388f5a9559b4b3e8e380",
+    "validation_panels": "4e8b4314ad350737464fd082cafc6d2a898fc6ff5044ebb11beb624ffafcd3ec",
+    "training_steps": "02070bc0298cf32e1dec2367208cbe8ae2d0320b81db8acc990ef3d2e0c9751e"
+  }
+}
