@@ -7,8 +7,8 @@ outcomes:
    alone.
 2. Offline trajectory correlation should identify the most useful reward
    model.
-3. An opening-state action probe should identify policies at risk of never
-   initiating the task.
+3. Actions predicted at the start of an episode should identify policies that
+   may remain at rest instead of beginning the task.
 
 The first hypothesis receives positive temporal external evidence from GUILD.
 The second fails an outcome-blind public shadow test on SOLE-R1. The third
@@ -19,7 +19,7 @@ All three results are retained.
 
 | Check | Result | Evidence status |
 | --- | --- | --- |
-| GreenBall initiation | Selected the better data-processing recipe at all five matched budgets. Rank correlation with physical initiation success was 0.747. | Retrospective, 20 released checkpoints |
+| GreenBall task start | Chose the training data with idle actions removed at all five matched demonstration counts. Rank correlation with the real-robot task-start rate was 0.747. | Retrospective, 20 released checkpoints |
 | GUILD data collection | Ordered 11 of 12 comparisons correctly with 1.25 percentage points of allocation regret. | Temporal external evidence |
 | SOLE-R1 reward selection | The frozen primary rule failed. A false-completion control selected the observed winner. | Retrospective falsification |
 
@@ -73,32 +73,35 @@ This was outcome-blind to the detailed table, but not chronologically
 prospective. Baseline checkpoint revisions are only partially identified, and
 the real-world policy result has one training seed.
 
-## GreenBall: initiation failure from an opening-state probe
+<a id="greenball-initiation-failure-from-an-opening-state-probe"></a>
+
+## GreenBall: predicting whether the robot begins the task
 
 The GreenBall validation study reports that ordinary held-out action error can
-miss a dominant physical failure: a policy may never leave its rest pose. We
-applied the source-specified opening-state probe to 20 released Diffusion Policy
-checkpoints. The panel contains two checkpoints for each combination of five
-demonstration budgets and two preprocessing recipes.
+miss a consequential real-world failure: a policy may remain at rest instead
+of beginning the task. We applied the study's start-of-task measurement to 20
+released Diffusion Policy checkpoints. The panel contains two checkpoints for
+each combination of five demonstration counts and two preprocessing choices.
 
-The offline measurement uses 25 held-out opening observations per checkpoint.
-It records whether any predicted joint moves at least 20 degrees during the
-first second. Physical start rates were joined only after these measurements
-completed.
+The offline measurement uses 25 held-out observations from the start of each
+episode. It records whether any predicted joint moves at least 20 degrees
+during the first second. The real-robot results were joined only after these
+measurements completed.
 
 | Metric | Result |
 | --- | ---: |
-| Matched budgets where the probe selected idle trimming | 5/5 |
-| Rank correlation with pooled physical start rate | 0.747 |
+| Matched demonstration counts where the measurement selected data with idle actions removed | 5/5 |
+| Rank correlation with pooled real-robot task-start rate | 0.747 |
 | Released checkpoints | 20 |
 
-Demonstration count cannot choose between the two recipes because every
-comparison is budget matched. The probe recovers a task-initiation failure that
-the data-volume baseline cannot represent.
+Demonstration count cannot choose between the two preprocessing choices because
+every comparison uses the same amount of data. The measurement detects a
+failure to begin the task that data volume alone cannot represent.
 
-This is one nested scaling study. Physical outcomes are pooled by recipe and
-budget, and only two checkpoints are available in each condition. The result
-supports an initiation-risk measurement within this policy family. It does not
+This is one nested scaling study. Real-robot outcomes are pooled by
+preprocessing choice and demonstration count, and only two checkpoints are
+available in each condition. The result
+supports this start-of-task measurement within one policy family. It does not
 replace real-robot evaluation or establish a general cross-architecture selector.
 
 ## Reproduce
@@ -118,7 +121,7 @@ GreenBall matched-budget decisions and rank correlation.
 - [`data/guild.json`](data/guild.json): four matched real-robot task decisions.
 - [`data/sole-r1.json`](data/sole-r1.json): frozen selection and public outcome facts.
 - [`data/greenball-initiation.json`](data/greenball-initiation.json): compact
-  offline initiation measurements and pooled physical start rates.
+  offline task-start measurements and pooled real-robot task-start rates.
 - [`data/greenball-checkpoint-panel.json`](data/greenball-checkpoint-panel.json):
   exact model identities and revisions for the 20 measured checkpoints.
 - [`results/summary.json`](results/summary.json): released reproduced summary.
