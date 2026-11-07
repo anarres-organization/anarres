@@ -73,6 +73,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--runtime-lock", type=Path, required=True)
     parser.add_argument("--controller-lock", type=Path, required=True)
     parser.add_argument("--inference-contract", type=Path, required=True)
+    parser.add_argument("--repetition-design", type=Path, required=True)
+    parser.add_argument("--measurement-analysis", type=Path, required=True)
     parser.add_argument("--vibe", type=Path, required=True)
     parser.add_argument("--image", required=True)
     parser.add_argument("--docker", default="docker")
@@ -83,6 +85,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--attempt-runner", type=Path, required=True)
     parser.add_argument("--attempt-validator", type=Path, required=True)
     parser.add_argument("--grader", type=Path, required=True)
+    parser.add_argument("--protocol-validator", type=Path, required=True)
     return parser.parse_args()
 
 
@@ -99,12 +102,15 @@ def main() -> None:
         args.runtime_lock,
         args.controller_lock,
         args.inference_contract,
+        args.repetition_design,
+        args.measurement_analysis,
         args.vibe,
         args.sandbox_server,
         args.materializer,
         args.attempt_runner,
         args.attempt_validator,
         args.grader,
+        args.protocol_validator,
     )
     for path in required:
         if not path.exists():
@@ -138,6 +144,31 @@ def main() -> None:
     }
 
     commands = [
+        (
+            "validate-contracts",
+            [
+                sys.executable,
+                str(args.protocol_validator),
+                "--protocol",
+                str(args.protocol),
+                "--panel",
+                str(args.panel),
+                "--split",
+                str(args.split),
+                "--containment",
+                str(args.containment),
+                "--runtime-lock",
+                str(args.runtime_lock),
+                "--controller-lock",
+                str(args.controller_lock),
+                "--inference-contract",
+                str(args.inference_contract),
+                "--repetition-design",
+                str(args.repetition_design),
+                "--measurement-analysis",
+                str(args.measurement_analysis),
+            ],
+        ),
         (
             "materialize",
             [
