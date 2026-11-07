@@ -105,6 +105,14 @@ clean-reset, manifest-marker, and timeout controls. The frozen split must remain
 unchanged while starting-policy support and model-facing resource use are
 measured.
 
+[`materialize_probe_task.py`](materialize_probe_task.py) creates one fresh,
+Lean-only agent workspace from a repository admitted to the frozen development
+panel. It rejects leaked manifests, agent configuration, reference sidecars,
+and symlinks outside the task, then records the exact visible tree and
+instruction hashes. [`agent-prompt.txt`](agent-prompt.txt) supplies the fixed
+Vibe user message; the repository-specific `INSTRUCTION.md` remains the task
+contract.
+
 The next measurement contract is frozen in
 [`policy-probe-protocol.v1.json`](policy-probe-protocol.v1.json). It selects an
 open-weight Lean starting policy and records the development-only attempt and
@@ -117,7 +125,8 @@ python data/formal-verification/vero/validate_policy_probe_protocol.py \
   --protocol data/formal-verification/vero/policy-probe-protocol.v1.json \
   --panel data/formal-verification/vero/development-lifecycle-panel-v2.json \
   --split data/formal-verification/vero/repository-split.json \
-  --containment data/formal-verification/vero/containment-contract.v1.json
+  --containment data/formal-verification/vero/containment-contract.v1.json \
+  --runtime-lock data/formal-verification/vero/runtime/runtime-lock.v1.json
 ```
 
 [`containment-contract.v1.json`](containment-contract.v1.json) freezes the
@@ -134,6 +143,9 @@ The bounded agent-socket server is
 Docker container from an immutable image digest, binds only the freshly
 materialized task, disables network access, drops Linux capabilities, applies
 resource limits, and removes the container when the attempt ends.
+The [runtime definition](runtime/README.md) pins the image inputs and exact Lean
+toolchain while leaving the built-image digest pending for deployment-host
+qualification.
 
 ```bash
 python data/formal-verification/vero/serve_vibe_sandbox.py \

@@ -26,7 +26,11 @@ def validate(
     panel_path: Path,
     split_path: Path,
     containment_path: Path,
+    runtime_lock_path: Path,
 ) -> None:
+    prompt_path = panel_path.parent / protocol["starting_policy"]["user_prompt"]
+    if digest(prompt_path) != protocol["starting_policy"]["user_prompt_sha256"]:
+        raise ProtocolError("the user-prompt hash disagrees with the protocol")
     source = protocol["source"]
     if digest(panel_path) != source["development_panel_sha256"]:
         raise ProtocolError("the development panel hash disagrees with the protocol")
@@ -72,6 +76,11 @@ def validate(
         raise ProtocolError("the containment contract name disagrees with the protocol")
     if digest(containment_path) != interface["containment_contract_sha256"]:
         raise ProtocolError("the containment contract hash disagrees with the protocol")
+    if not runtime_lock_path.as_posix().endswith(interface["runtime_lock"]):
+        raise ProtocolError("the runtime-lock path disagrees with the protocol")
+    runtime_lock = json.loads(runtime_lock_path.read_text(encoding="utf-8"))
+    if runtime_lock["dockerfile_sha256"] != interface["runtime_dockerfile_sha256"]:
+        raise ProtocolError("the runtime Dockerfile hash disagrees with the protocol")
 
 
 def main() -> None:
@@ -80,6 +89,7 @@ def main() -> None:
     parser.add_argument("--panel", type=Path, required=True)
     parser.add_argument("--split", type=Path, required=True)
     parser.add_argument("--containment", type=Path, required=True)
+    parser.add_argument("--runtime-lock", type=Path, required=True)
     args = parser.parse_args()
     protocol = json.loads(args.protocol.read_text(encoding="utf-8"))
     validate(
@@ -89,6 +99,7 @@ def main() -> None:
         panel_path=args.panel,
         split_path=args.split,
         containment_path=args.containment,
+        runtime_lock_path=args.runtime_lock,
     )
     print("validated frozen Vero development policy-probe protocol")
 

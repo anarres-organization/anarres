@@ -22,6 +22,8 @@
     "agent_scaffold_revision": "c96a6dbb34d34f8a868b3f67b279ecabbf1aa616",
     "agent_profile": "lean",
     "system_prompt_sha256": "bc6896006db187401719dcb4a45b150fc6753db31d07bfee8a26531314d8dd21",
+    "user_prompt": "agent-prompt.txt",
+    "user_prompt_sha256": "dc3f17baa2cb72c8d003580d747a85094a9001d2a9495c6cd37a3a7a5ab1ae27",
     "temperature": 1.0,
     "reasoning_effort": "high"
   },
@@ -39,7 +41,9 @@
     "sandbox_workspace": "one freshly materialized Vero task",
     "sandbox_lifetime": "one scientific attempt",
     "containment_contract": "containment-contract.v1.json",
-    "containment_contract_sha256": "54ef60f6d4b9003d2665f120219dfdb280c7caae502f78719277552e7bc72f06"
+    "containment_contract_sha256": "54ef60f6d4b9003d2665f120219dfdb280c7caae502f78719277552e7bc72f06",
+    "runtime_lock": "runtime/runtime-lock.v1.json",
+    "runtime_dockerfile_sha256": "a4689080b12d0260cdd6e5423f83a24d42cd76a9f9420eb010f542e612d86035"
   },
   "probe_design": {
     "repositories": 4,

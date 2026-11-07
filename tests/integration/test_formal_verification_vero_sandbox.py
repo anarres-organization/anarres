@@ -11,6 +11,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "data" / "formal-verification" / "vero" / "serve_vibe_sandbox.py"
 RECEIPT_SOURCE = ROOT / "data" / "formal-verification" / "vero" / "validate_sandbox_receipt.py"
+RUNTIME_ROOT = ROOT / "data" / "formal-verification" / "vero" / "runtime"
+RUNTIME_SOURCE = RUNTIME_ROOT / "validate_runtime_lock.py"
+MATERIALIZER_SOURCE = ROOT / "data" / "formal-verification" / "vero" / "materialize_probe_task.py"
 SPEC = importlib.util.spec_from_file_location("vero_serve_vibe_sandbox", SOURCE)
 if SPEC is None or SPEC.loader is None:
     raise RuntimeError(f"could not load {SOURCE}")
@@ -25,8 +28,34 @@ if RECEIPT_SPEC is None or RECEIPT_SPEC.loader is None:
 RECEIPT = importlib.util.module_from_spec(RECEIPT_SPEC)
 sys.modules[RECEIPT_SPEC.name] = RECEIPT
 RECEIPT_SPEC.loader.exec_module(RECEIPT)
+RUNTIME_SPEC = importlib.util.spec_from_file_location("vero_validate_runtime_lock", RUNTIME_SOURCE)
+if RUNTIME_SPEC is None or RUNTIME_SPEC.loader is None:
+    raise RuntimeError(f"could not load {RUNTIME_SOURCE}")
+RUNTIME = importlib.util.module_from_spec(RUNTIME_SPEC)
+sys.modules[RUNTIME_SPEC.name] = RUNTIME
+RUNTIME_SPEC.loader.exec_module(RUNTIME)
+MATERIALIZER_SPEC = importlib.util.spec_from_file_location(
+    "vero_materialize_probe_task", MATERIALIZER_SOURCE
+)
+if MATERIALIZER_SPEC is None or MATERIALIZER_SPEC.loader is None:
+    raise RuntimeError(f"could not load {MATERIALIZER_SOURCE}")
+MATERIALIZER = importlib.util.module_from_spec(MATERIALIZER_SPEC)
+sys.modules[MATERIALIZER_SPEC.name] = MATERIALIZER
+MATERIALIZER_SPEC.loader.exec_module(MATERIALIZER)
 PROTOCOL = json.loads(
     (ROOT / "data" / "formal-verification" / "vero" / "policy-probe-protocol.v1.json").read_text(
+        encoding="utf-8"
+    )
+)
+RUNTIME_LOCK_PATH = RUNTIME_ROOT / "runtime-lock.v1.json"
+RUNTIME_LOCK = json.loads(RUNTIME_LOCK_PATH.read_text(encoding="utf-8"))
+PANEL = json.loads(
+    (
+        ROOT / "data" / "formal-verification" / "vero" / "development-lifecycle-panel-v2.json"
+    ).read_text(encoding="utf-8")
+)
+SPLIT = json.loads(
+    (ROOT / "data" / "formal-verification" / "vero" / "repository-split.json").read_text(
         encoding="utf-8"
     )
 )
@@ -159,6 +188,57 @@ class VeroSandboxReceiptTest(unittest.TestCase):
         receipt["container_removed"] = False
         with self.assertRaises(RECEIPT.ReceiptError):
             RECEIPT.validate(receipt, PROTOCOL)
+
+
+class VeroRuntimeLockTest(unittest.TestCase):
+    PANEL_PATH = (
+        ROOT / "data" / "formal-verification" / "vero" / "development-lifecycle-panel-v2.json"
+    )
+    SOURCE_PIN_PATH = ROOT / "data" / "formal-verification" / "vero" / "source-pin.json"
+
+    def test_pre_build_runtime_lock_matches_the_qualified_source(self) -> None:
+        RUNTIME.validate(
+            RUNTIME_LOCK,
+            lock_path=RUNTIME_LOCK_PATH,
+            panel_path=self.PANEL_PATH,
+            source_pin_path=self.SOURCE_PIN_PATH,
+        )
+
+    def test_qualified_runtime_requires_a_receipt(self) -> None:
+        lock = json.loads(RUNTIME_LOCK_PATH.read_text(encoding="utf-8"))
+        lock["status"] = "qualified"
+        lock["built_image_digest"] = "sha256:" + "a" * 64
+        with self.assertRaises(RUNTIME.RuntimeLockError):
+            RUNTIME.validate(
+                lock,
+                lock_path=RUNTIME_LOCK_PATH,
+                panel_path=self.PANEL_PATH,
+                source_pin_path=self.SOURCE_PIN_PATH,
+            )
+
+
+class VeroTaskMaterializationTest(unittest.TestCase):
+    def test_visible_tree_accepts_a_self_contained_task(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "INSTRUCTION.md").write_text("task\n", encoding="utf-8")
+            (root / "Main.lean").write_text("example : True := by trivial\n", encoding="utf-8")
+            counts = MATERIALIZER.validate_visible_tree(root)
+        self.assertEqual(counts, {"files": 2, "symlinks": 0})
+
+    def test_visible_tree_rejects_a_symlink_escape(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "INSTRUCTION.md").write_text("task\n", encoding="utf-8")
+            (root / "escape").symlink_to("/private/host/secret")
+            with self.assertRaises(MATERIALIZER.MaterializationError):
+                MATERIALIZER.validate_visible_tree(root)
+
+    def test_only_the_frozen_development_panel_is_selectable(self) -> None:
+        selected = MATERIALIZER.selected_repository(PANEL, SPLIT, "piggybank-v2")
+        self.assertEqual(selected["source_language"], "coq")
+        with self.assertRaises(MATERIALIZER.MaterializationError):
+            MATERIALIZER.selected_repository(PANEL, SPLIT, "unicode-v2")
 
 
 if __name__ == "__main__":
