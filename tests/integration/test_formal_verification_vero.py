@@ -4,6 +4,7 @@ import hashlib
 import importlib.util
 import json
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -383,6 +384,139 @@ class VeroProbeQueueTest(unittest.TestCase):
                 queue,
                 protocol_path=PROBE_PROTOCOL_PATH,
                 panel_path=ADAPTER / "development-lifecycle-panel-v2.json",
+            )
+
+    def test_queue_worker_runs_every_stage_before_emitting_a_grade(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            protocol = root / "protocol.json"
+            panel = root / "panel.json"
+            protocol.write_text("{}\n", encoding="utf-8")
+            panel.write_text("{}\n", encoding="utf-8")
+            queue = {
+                "queue_id": "fixture",
+                "status": "frozen_before_model_attempts",
+                "protocol_sha256": hashlib.sha256(protocol.read_bytes()).hexdigest(),
+                "panel_sha256": hashlib.sha256(panel.read_bytes()).hexdigest(),
+                "attempts": [
+                    {
+                        "attempt_id": "repo-proof-r01",
+                        "benchmark_id": "repo",
+                        "mode": "proof",
+                        "task_id": "repo:proof",
+                        "queue_position": 1,
+                    }
+                ],
+            }
+            queue_path = root / "queue.json"
+            queue_path.write_text(json.dumps(queue), encoding="utf-8")
+            materializer = root / "materializer.py"
+            materializer.write_text(
+                """import argparse, json
+p=argparse.ArgumentParser()
+for x in ('source','pin','split','panel','benchmark-id','mode','output','receipt'):
+ p.add_argument('--'+x, required=True)
+a=p.parse_args()
+from pathlib import Path
+Path(a.output).mkdir()
+Path(a.receipt).write_text(json.dumps({'ok': True}))
+""",
+                encoding="utf-8",
+            )
+            attempt_runner = root / "attempt.py"
+            attempt_runner.write_text(
+                """import argparse
+from pathlib import Path
+p=argparse.ArgumentParser()
+fields=('attempt-id','task','materialization-receipt','output','work-root','vibe','image')
+fields+=('docker','protocol','containment','runtime-lock','controller-lock')
+fields+=('inference-contract','sandbox-server')
+for x in fields:
+ p.add_argument('--'+x, required=True)
+a=p.parse_args(); Path(a.output).mkdir()
+""",
+                encoding="utf-8",
+            )
+            grader = root / "grader.py"
+            grader.write_text(
+                """import argparse, json
+from pathlib import Path
+p=argparse.ArgumentParser()
+fields=('source','source-pin','panel','split','benchmark-id','mode','task')
+fields+=('attempt-receipt','sandbox-receipt','vibe-export','output')
+for x in fields:
+ p.add_argument('--'+x, required=True)
+a=p.parse_args(); Path(a.output).mkdir()
+(Path(a.output)/'grade-receipt.json').write_text(json.dumps({'ok': True}))
+""",
+                encoding="utf-8",
+            )
+            no_op = root / "no-op.py"
+            no_op.write_text("raise SystemExit(0)\n", encoding="utf-8")
+            source = root / "source"
+            work = root / "work"
+            output = root / "output"
+            source.mkdir()
+            work.mkdir()
+            output.mkdir()
+            required_files = {}
+            for name in (
+                "source-pin",
+                "split",
+                "containment",
+                "runtime-lock",
+                "controller-lock",
+                "inference-contract",
+                "repetition-design",
+                "measurement-analysis",
+                "vibe",
+                "sandbox-server",
+            ):
+                path = root / name
+                path.write_text("{}\n", encoding="utf-8")
+                required_files[name] = path
+            command = [
+                sys.executable,
+                str(ADAPTER / "run_probe_queue_item.py"),
+                "--queue",
+                str(queue_path),
+                "--attempt-id",
+                "repo-proof-r01",
+                "--source",
+                str(source),
+                "--panel",
+                str(panel),
+                "--protocol",
+                str(protocol),
+                "--work-root",
+                str(work),
+                "--output-root",
+                str(output),
+                "--image",
+                "fixture@sha256:" + "a" * 64,
+                "--docker",
+                "docker",
+                "--materializer",
+                str(materializer),
+                "--attempt-runner",
+                str(attempt_runner),
+                "--attempt-validator",
+                str(no_op),
+                "--grader",
+                str(grader),
+                "--protocol-validator",
+                str(no_op),
+            ]
+            for name, path in required_files.items():
+                command.extend([f"--{name}", str(path)])
+            subprocess.run(command, check=True, capture_output=True, text=True)
+            receipt = json.loads(
+                (output / "repo-proof-r01" / "queue-item-receipt.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(receipt["status"], "graded")
+            self.assertEqual(
+                [stage["stage"] for stage in receipt["stages"]],
+                ["validate-contracts", "materialize", "attempt", "validate", "grade"],
             )
 
 
