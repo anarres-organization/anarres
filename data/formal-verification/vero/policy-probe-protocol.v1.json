@@ -39,7 +39,7 @@
     "sandbox_workspace": "one freshly materialized Vero task",
     "sandbox_lifetime": "one scientific attempt",
     "containment_contract": "containment-contract.v1.json",
-    "containment_contract_sha256": "46a359f72df02fe4f6130f2df914eac19c39fbcfff60bed927c82615298f1b58"
+    "containment_contract_sha256": "54ef60f6d4b9003d2665f120219dfdb280c7caae502f78719277552e7bc72f06"
   },
   "probe_design": {
     "repositories": 4,

@@ -18,7 +18,11 @@
     "controller": {
       "model_facing_shell_or_file_access": false,
       "allowed_network": "pinned local inference endpoint only",
-      "host_credentials_forwarded_to_sandbox": false
+      "host_credentials_forwarded_to_sandbox": false,
+      "user_global_configuration_loaded": false,
+      "mcp_servers_enabled": false,
+      "hooks_enabled": false,
+      "project_plugins_enabled": false
     },
     "task_sandbox": {
       "lifetime": "one scientific attempt",
@@ -58,6 +62,11 @@
     {
       "id": "credential_and_environment_visibility",
       "criterion": "host credentials and undeclared host environment variables are absent",
+      "status": "pending"
+    },
+    {
+      "id": "controller_configuration_isolation",
+      "criterion": "only the pinned Lean profile and declared built-in tools influence the controller",
       "status": "pending"
     },
     {

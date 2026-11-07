@@ -47,7 +47,10 @@ the probe runs, negative tests must exercise path and symlink escape, hidden-fil
 visibility, network egress, process cleanup after timeout, process and memory
 limits, and fresh-task reset. Each attempt receives a new sandbox, and the
 resulting receipt records the runtime and image digests together with every
-test outcome.
+test outcome. The bounded
+[`serve_vibe_sandbox.py`](../../../data/formal-verification/vero/serve_vibe_sandbox.py)
+adapter implements the pinned interface and container boundary; its deployment
+still requires qualification under the exact task image.
 
 Execution remains blocked until the local model digest, inference runtime,
 serving configuration, containment controls, and resource-limit receipts are

@@ -128,3 +128,35 @@ does not claim that the pending tests have passed. Validate its structure with:
 python data/formal-verification/vero/validate_containment_contract.py \
   --contract data/formal-verification/vero/containment-contract.v1.json
 ```
+
+The bounded agent-socket server is
+[`serve_vibe_sandbox.py`](serve_vibe_sandbox.py). It starts one ephemeral
+Docker container from an immutable image digest, binds only the freshly
+materialized task, disables network access, drops Linux capabilities, applies
+resource limits, and removes the container when the attempt ends.
+
+```bash
+python data/formal-verification/vero/serve_vibe_sandbox.py \
+  --socket /tmp/anarres-vero-attempt/agent.sock \
+  --image registry.example/anarres-vero@sha256:<digest> \
+  --workspace /path/to/fresh/task \
+  --attempt-id <attempt-id> \
+  --task-id <task-id> \
+  --model-artifact-digest sha256:<digest> \
+  --inference-config-digest sha256:<digest> \
+  --receipt /path/to/attempt/runtime-receipt.json
+```
+
+Vibe then receives the socket through its pinned `--agent-socket` interface.
+The runtime receipt records container identity, method counts, timeouts, output
+truncation, infrastructure errors, and cleanup. Qualification additionally
+requires every negative test in the containment contract to pass under the same
+image and runtime.
+
+After one attempt completes, validate its raw runtime receipt with:
+
+```bash
+python data/formal-verification/vero/validate_sandbox_receipt.py \
+  --receipt /path/to/attempt/runtime-receipt.json \
+  --protocol data/formal-verification/vero/policy-probe-protocol.v1.json
+```

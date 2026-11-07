@@ -17,6 +17,7 @@ EXPECTED_TESTS = {
     "workspace_allowlist",
     "path_and_symlink_escape",
     "credential_and_environment_visibility",
+    "controller_configuration_isolation",
     "external_network_egress",
     "local_inference_separation",
     "process_tree_cleanup",
@@ -36,6 +37,14 @@ def validate(contract: dict[str, Any]) -> None:
     boundaries = contract["execution_boundaries"]
     if boundaries["controller"]["model_facing_shell_or_file_access"]:
         raise ContractError("model-facing tools cannot execute on the controller")
+    for field in (
+        "user_global_configuration_loaded",
+        "mcp_servers_enabled",
+        "hooks_enabled",
+        "project_plugins_enabled",
+    ):
+        if boundaries["controller"][field]:
+            raise ContractError(f"controller setting must remain disabled: {field}")
     if boundaries["task_sandbox"]["external_network_egress"]:
         raise ContractError("the task sandbox cannot have external network egress")
 
