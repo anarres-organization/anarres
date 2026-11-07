@@ -1,0 +1,6 @@
+default_agent = "lean"
+enable_telemetry = false
+enable_background_processes = false
+enable_auto_update = false
+enable_notifications = false
+strict_config = true

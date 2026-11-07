@@ -13,11 +13,14 @@ from typing import Any
 
 MODES = {"proof", "codeproof"}
 FORBIDDEN_NAMES = {
+    ".agents",
     ".claude",
     ".codex",
     ".env",
     ".git",
+    ".mcp.json",
     ".vibe",
+    "AGENTS.md",
     "auth.json",
     "manifest.json",
     "upstream_source",

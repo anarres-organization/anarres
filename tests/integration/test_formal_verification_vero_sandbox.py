@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import importlib.util
 import json
+import shutil
 import sys
 import tempfile
 import unittest
@@ -13,6 +14,8 @@ SOURCE = ROOT / "data" / "formal-verification" / "vero" / "serve_vibe_sandbox.py
 RECEIPT_SOURCE = ROOT / "data" / "formal-verification" / "vero" / "validate_sandbox_receipt.py"
 RUNTIME_ROOT = ROOT / "data" / "formal-verification" / "vero" / "runtime"
 RUNTIME_SOURCE = RUNTIME_ROOT / "validate_runtime_lock.py"
+CONTROLLER_ROOT = ROOT / "data" / "formal-verification" / "vero" / "controller"
+CONTROLLER_SOURCE = CONTROLLER_ROOT / "validate_controller_lock.py"
 MATERIALIZER_SOURCE = ROOT / "data" / "formal-verification" / "vero" / "materialize_probe_task.py"
 SPEC = importlib.util.spec_from_file_location("vero_serve_vibe_sandbox", SOURCE)
 if SPEC is None or SPEC.loader is None:
@@ -34,6 +37,14 @@ if RUNTIME_SPEC is None or RUNTIME_SPEC.loader is None:
 RUNTIME = importlib.util.module_from_spec(RUNTIME_SPEC)
 sys.modules[RUNTIME_SPEC.name] = RUNTIME
 RUNTIME_SPEC.loader.exec_module(RUNTIME)
+CONTROLLER_SPEC = importlib.util.spec_from_file_location(
+    "vero_validate_controller_lock", CONTROLLER_SOURCE
+)
+if CONTROLLER_SPEC is None or CONTROLLER_SPEC.loader is None:
+    raise RuntimeError(f"could not load {CONTROLLER_SOURCE}")
+CONTROLLER = importlib.util.module_from_spec(CONTROLLER_SPEC)
+sys.modules[CONTROLLER_SPEC.name] = CONTROLLER
+CONTROLLER_SPEC.loader.exec_module(CONTROLLER)
 MATERIALIZER_SPEC = importlib.util.spec_from_file_location(
     "vero_materialize_probe_task", MATERIALIZER_SOURCE
 )
@@ -49,6 +60,9 @@ PROTOCOL = json.loads(
 )
 RUNTIME_LOCK_PATH = RUNTIME_ROOT / "runtime-lock.v1.json"
 RUNTIME_LOCK = json.loads(RUNTIME_LOCK_PATH.read_text(encoding="utf-8"))
+CONTROLLER_LOCK_PATH = CONTROLLER_ROOT / "controller-lock.v1.json"
+CONTROLLER_LOCK = json.loads(CONTROLLER_LOCK_PATH.read_text(encoding="utf-8"))
+PROTOCOL_PATH = ROOT / "data" / "formal-verification" / "vero" / "policy-probe-protocol.v1.json"
 PANEL = json.loads(
     (
         ROOT / "data" / "formal-verification" / "vero" / "development-lifecycle-panel-v2.json"
@@ -215,6 +229,37 @@ class VeroRuntimeLockTest(unittest.TestCase):
                 panel_path=self.PANEL_PATH,
                 source_pin_path=self.SOURCE_PIN_PATH,
             )
+
+
+class VeroControllerLockTest(unittest.TestCase):
+    def test_isolated_controller_matches_the_probe_protocol(self) -> None:
+        CONTROLLER.validate(
+            CONTROLLER_LOCK,
+            lock_path=CONTROLLER_LOCK_PATH,
+            protocol_path=PROTOCOL_PATH,
+        )
+
+    def test_controller_rejects_a_nonlocal_inference_endpoint(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            shutil.copytree(CONTROLLER_ROOT, root / "controller")
+            copied_root = root / "controller"
+            agent_path = copied_root / "agents" / "lean.toml"
+            agent_path.write_text(
+                agent_path.read_text(encoding="utf-8").replace(
+                    "http://127.0.0.1:8000/v1", "https://example.invalid/v1"
+                ),
+                encoding="utf-8",
+            )
+            lock = json.loads((copied_root / "controller-lock.v1.json").read_text(encoding="utf-8"))
+            lock["api_base"] = "https://example.invalid/v1"
+            lock["agent_sha256"] = CONTROLLER.digest(agent_path)
+            with self.assertRaises(CONTROLLER.ControllerLockError):
+                CONTROLLER.validate(
+                    lock,
+                    lock_path=copied_root / "controller-lock.v1.json",
+                    protocol_path=PROTOCOL_PATH,
+                )
 
 
 class VeroTaskMaterializationTest(unittest.TestCase):

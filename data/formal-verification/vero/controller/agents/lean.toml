@@ -1,0 +1,24 @@
+display_name = "Lean (local vLLM)"
+description = "Lean 4 mode using the frozen local Leanstral endpoint"
+safety = "neutral"
+
+system_prompt_id = "lean"
+active_model = "leanstral"
+
+[[providers]]
+name = "vllm"
+api_base = "http://127.0.0.1:8000/v1"
+api_key_env_var = ""
+backend = "generic"
+reasoning_field_name = "reasoning_content"
+
+[[models]]
+name = "mistralai/Leanstral-1.5-119B-A6B"
+provider = "vllm"
+alias = "leanstral"
+thinking = "high"
+temperature = 1.0
+auto_compact_threshold = 168000
+
+[tools.bash]
+default_timeout = 1200

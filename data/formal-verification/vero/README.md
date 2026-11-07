@@ -126,7 +126,8 @@ python data/formal-verification/vero/validate_policy_probe_protocol.py \
   --panel data/formal-verification/vero/development-lifecycle-panel-v2.json \
   --split data/formal-verification/vero/repository-split.json \
   --containment data/formal-verification/vero/containment-contract.v1.json \
-  --runtime-lock data/formal-verification/vero/runtime/runtime-lock.v1.json
+  --runtime-lock data/formal-verification/vero/runtime/runtime-lock.v1.json \
+  --controller-lock data/formal-verification/vero/controller/controller-lock.v1.json
 ```
 
 [`containment-contract.v1.json`](containment-contract.v1.json) freezes the
@@ -146,6 +147,10 @@ resource limits, and removes the container when the attempt ends.
 The [runtime definition](runtime/README.md) pins the image inputs and exact Lean
 toolchain while leaving the built-image digest pending for deployment-host
 qualification.
+The [controller definition](controller/README.md) pins an isolated Vibe home,
+the local Leanstral provider, the tool allowlist, and all scientific attempt
+limits. It prevents personal configuration and host-side extensions from
+entering a run.
 
 ```bash
 python data/formal-verification/vero/serve_vibe_sandbox.py \
