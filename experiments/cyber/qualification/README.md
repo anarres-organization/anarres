@@ -1,125 +1,42 @@
-# Cyber benchmark qualification
+# Vulnerability-exploitation qualification
 
-> **Superseded by protocol v2 (2026-10-19).** The current frozen protocol is
-> [`qualification-protocol.v2.json`](qualification-protocol.v2.json); see
-> [`PROTOCOL_V2_RATIONALE.md`](PROTOCOL_V2_RATIONALE.md) for what changed and why.
-> In v2, CyberGym supplies **both** the training pool and the isolated target
-> (split by a disjoint-identity standard), SEC-Bench Pro is rejected as the
-> target on capacity (~207 < 246), the warm start is the agentic Nemotron-8B at a
-> single scale, and an a-priori reliability simulation
-> ([`reliability_oc_sim.py`](reliability_oc_sim.py) /
-> [`reliability_oc.json`](reliability_oc.json)) sets the rollout budget and
-> abstention rule without changing any threshold. The conditional path to a
-> decision is in [`DECISION_TREE.md`](DECISION_TREE.md) and the external evidence
-> context is in [`EXTERNAL_LANDSCAPE_AUDIT.md`](EXTERNAL_LANDSCAPE_AUDIT.md).
-> Phase B (GPU-free): `freeze_development_candidates.py` now emits a mutually
-> exclusive probe/target partition from one frozen ordering (tests in
-> [`test_freeze_development_candidates.py`](test_freeze_development_candidates.py));
-> the containment and fixture gates are specified in
-> [`CONTAINMENT_SPEC.md`](CONTAINMENT_SPEC.md) with the per-fixture record in
-> [`fixture-manifest.template.json`](fixture-manifest.template.json). The
-> sections below describe the original v1 bakeoff and are retained for history.
+This study asks whether CyberGym can support a controlled comparison of
+training environments for an agentic starting policy. The current
+[v2 protocol](qualification-protocol.v2.json) defines CyberGym as both the
+candidate training pool and the source of an isolated target, separated by the
+[task-identity standard](DISJOINTNESS_AUDIT.md). It fixes the starting policy,
+probe design, reliability gates, and abstention rule before downstream RL.
+The [decision tree](DECISION_TREE.md) states the conditional path to a pilot.
 
-## Decision to make
+## Current evidence and next gate
 
-Select at most one primary family for the first cyber utility pilot. The
-qualification comparison is CyberGym versus SEC-Bench Pro. ExploitBench is a
-graded-headroom diagnostic, not a third integration candidate.
+The frozen 48-task development probe passed oracle, no-op, and repeated-reset
+checks after two fixtures were quarantined and replaced in frozen order.
+[Fixture results](PROBE_FIXTURE_GATE.md) and
+[containment results](CONTAINMENT_RESULTS.md) record the completed static gate.
+A one-task [pipeline check](PHASE_C_PIPELINE_VALIDATED.md) exercised model
+serving, agent tools, and grading end to end. It is a harness check, not a
+measurement of the full candidate pool.
 
-This decision is intentionally separate from external-target selection.
-ExploitGym is the priority public frontier-transfer target; CyberGym-E2E and a
-recent or sequestered vulnerability panel remain bounded investigations. None is
-added to the initial bakeoff workload.
+The next scientific gate is the frozen-policy probe: two independent
+$G=8$ views of the 48 admitted tasks with the pinned starting model. It must
+establish strict success, mixed-group support, measurement reliability,
+infrastructure validity, and cost before a training pilot can be approved.
+The [reliability analysis](POWER_ANALYSIS.md) and
+[operating-characteristic simulation](reliability_oc.json) set this decision
+in advance. No claim-bearing cyber RL result is recorded here.
 
-Qualification is development-only. It cannot inspect RL outcomes, redesign the
-candidate panel after seeing downstream performance, or authorize cyber RL by
-itself.
+## Development record
 
-## Frozen order of work
+Earlier [CyberGym measurements](CYBER_QUALIFICATION_SUMMARY.md) showed that
+the same model's observed exploit success changed with the agent scaffold.
+Its repeated-rollout sweep also found sparse but nonzero reward variation.
+These measurements were made with a different starting model and do not
+substitute for the current protocol's warm-start probe. The
+[v1 bakeoff](HISTORICAL_V1_BAKEOFF.md) and the
+[earlier research plan](../HISTORICAL_VULNERABILITY_PLAN.md) remain available
+as design records.
 
-1. Pin the upstream repositories and task-data revisions in
-   `source-registry.yaml`.
-2. Confirm current open-weight frontier relevance using
-   `FRONTIER_RELEVANCE_AUDIT.md`.
-3. Audit code and task-data licenses separately.
-4. Generate the outcome-blind candidate ordering from the pinned sources with
-   `freeze_development_candidates.py`, record its content hash in the execution
-   manifest, and materialize the development subset from that frozen artifact.
-5. Verify containment, agent-visible files, network policy, reset behavior, and
-   grader isolation without running a model.
-6. Run oracle, no-op, and repeated-reset checks on every candidate fixture.
-7. Run the same warm-start agent contract on both families and record success,
-   graded progress where available, cost, latency, and infrastructure failures.
-8. Estimate the minimum detectable downstream utility effect and the cost of a
-   four-to-six-environment, two-seed pilot.
-9. Apply the frozen decision table and either select one family or stop.
-
-After a family passes, run a separate external-target feasibility check. That
-check cannot change the primary-family qualification outcomes and cannot expose
-external target tasks to probing or training.
-
-## Preliminary official-source audit
-
-| Criterion | CyberGym | SEC-Bench Pro |
-| --- | --- | --- |
-| Public code license | Apache-2.0 | MIT |
-| Task structure | Real vulnerable projects with vulnerable/fixed verification | Verified V8, SpiderMonkey, and Linux cases with reproduction and grading artifacts |
-| Primary outcome | One designated final PoC succeeds on the vulnerable build and fails on the fixed build | Strict verified outcome; grader and infrastructure errors remain distinct |
-| Initial storage signal | Approximately 240 GB for benchmark data; dynamic server data can be substantially larger | Per-project images and artifacts; Linux additionally requires KVM-capable infrastructure |
-| Isolation requirement | Local-only submission service, restricted egress, fixed build hidden from the agent | Network-restricted agent; trusted grading outside the agent sandbox |
-| First-pilot concern | Recent public contamination and cross-benchmark-overlap reports require an independent identity audit | Linux adds privileged KVM and nested-virtualization complexity; begin qualification with V8 or SpiderMonkey |
-| Qualification status | Static audit complete; fixture execution pending | Static audit complete; fixture execution pending |
-
-The table records repository claims and risks to test. Benchmark selection
-occurs in the decision table below.
-
-## Decision table
-
-The values below are frozen in `qualification-protocol.v1.json`. They may be
-changed only by issuing a new protocol version before any warm-start outcome is
-examined.
-
-| Gate | Frozen statistic | Threshold | Required |
-| --- | --- | --- | --- |
-| Warm-start headroom | Strict success or deterministic graded progress | Strict success in [5%, 80%], or at least 20% non-extreme groups over at least 3 deterministic levels | Yes |
-| Mixed-group availability | Complete valid groups with nonzero variation | At least 8 groups and at least 20% | Yes |
-| Probe reliability | Agreement across two independent \(G=8\) views | \(\rho\) symmetric relative difference at most 20%; \(H\) and mixed fraction absolute difference at most 0.10 | Yes |
-| Fixture validity | Oracle pass, no-op rejection, repeated-reset agreement | 100% admitted fixtures | Yes |
-| Infrastructure reliability | Typed infrastructure-failure fraction | At most 5% | Yes |
-| Contamination | Exact and near-duplicate overlap with training and target partitions | No unresolved overlap | Yes |
-| Containment | Egress, grader visibility, fixed-build visibility, and secret checks | No unresolved failure | Yes |
-| Pilot feasibility | Projected wall time, storage, and valid-rollout cost | At most 1,536 warm-start rollouts, 96 fixtures, 1 TiB retained storage, 5 engineering days, and 7 elapsed days | Yes |
-
-## Selection rule
-
-Select the family that passes every required gate and offers the higher expected
-information about environment-dependent utility per unit of measured pilot cost.
-If both pass with practically indistinguishable information and cost, prefer the
-family requiring less new infrastructure. If neither passes, do not launch RL.
-
-The selection record must preserve failed fixtures and rejection reasons. A
-failed family may remain an external benchmark, but it cannot be silently
-modified into the primary pilot target.
-
-## Explicit non-goals
-
-- supporting every cyber benchmark
-- building a shared cyber range or new scheduler
-- maximizing leaderboard performance
-- treating public benchmark difficulty as training utility
-- fitting a general cyber forecasting law from the four-to-six-environment pilot
-- running exploit code outside authorized, isolated benchmark fixtures.
-
-## Outputs
-
-Qualification produces only the following artifacts:
-
-- completed source and license registry
-- frontier-relevance audit and frozen development-candidate ordering
-- frozen feasibility budget and numerical gates
-- fixture and contamination manifests
-- oracle, no-op, reset, and containment results
-- warm-start measurement and cost summary
-- one signed selection or stop decision.
-
-No additional benchmark integration is on the critical path.
+Formal-verification environments have a separate
+[plan and source qualification path](../formal-verification/README.md). Their
+proof-checker results are not pooled with exploit-verifier outcomes.
