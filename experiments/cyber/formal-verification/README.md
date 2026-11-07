@@ -1,7 +1,10 @@
 # Predictable utility of formal-verification environments
 
-**Status:** public research plan; source qualification has begun; no claim-bearing
-reinforcement-learning run is authorized.
+**Status:** the OSS Verify release indexes and checker bootstrap are qualified.
+Vero's source structure, pinned Lean runtime, reference build, bounded grader
+controls, and repository-disjoint split are also qualified. OSS Verify proof
+replay and both sources' model-facing policy qualification remain pending. No
+claim-bearing reinforcement-learning run is authorized.
 
 This workstream asks a narrower question than benchmark construction:
 
@@ -19,7 +22,12 @@ The detailed protocol is in [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md). The dated
 source assessment and role of each public artifact are in
 [SOURCE_LANDSCAPE.md](SOURCE_LANDSCAPE.md). The fields required before a source
 can be admitted are listed in
-[source-registry.template.yaml](source-registry.template.yaml).
+[source-registry.template.yaml](source-registry.template.yaml). The first
+completed source-index audit is recorded in
+[SOURCE_QUALIFICATION.md](SOURCE_QUALIFICATION.md), with its reproducible
+[adapter](../../../data/formal-verification/oss-verify/README.md). The
+repository-level Vero audit is recorded separately in
+[VERO_SOURCE_QUALIFICATION.md](VERO_SOURCE_QUALIFICATION.md).
 
 ## Why this workstream is timely
 
@@ -32,6 +40,9 @@ software workflows:
 - [VeriSoftBench](https://utopia-group.github.io/VeriSoftBench/) and
   [Vero](https://vero.verina.io/) emphasize repository context rather than
   isolated theorem statements.
+- [VeriContest](https://github.com/HIPREL-Group/VeriContest) separates
+  specification, implementation, proof, and end-to-end generation in native
+  Verus and Dafny environments.
 - [FVSpec](https://fvspec.galois.com/) turns real property-based tests into
   Lean challenges drawn from hundreds of open-source repositories.
 - Anthropic and Theorem's
@@ -67,6 +78,9 @@ program:
   specification quality and theorem coverage can be measured directly.
 - VeriSoftBench, Vero, and FVSpec supply repository context and real-code proof
   obligations at a more tractable scale.
+- VeriContest supplies a later cross-tool target for verified Rust and Dafny
+  generation, with positive and mutated-negative tests for specification
+  completeness.
 - VCVio and the historical curve25519-dalek corpus supply a high-assurance
   cryptographic environment family, where the software properties involve
   implementations, games, protocols, reductions, and probabilistic reasoning.
@@ -138,20 +152,28 @@ calibration, risk--coverage, and cost are supporting metrics.
 
 ## Immediate deliverables
 
-1. Pin every admitted source and record its license and content manifest.
+1. Pin every admitted source and record its license and content manifest. The
+   OSS Verify `v2026.11.1` index and checker metadata are complete. Vero's
+   source structure, bounded runtime qualification, and repository split are
+   complete.
 2. Recover chronology-correct historical tasks from VCVio and validate the
    existing dalek-lean-bench construction.
 3. Obtain and pin a public VeriBench release before creating any benchmark split.
 4. Implement a common environment record without erasing native verifier
-   semantics.
+   semantics. The OSS Verify source adapter now preserves statement status,
+   revision, fingerprint, entry-point grouping, and checker identity. The Vero
+   adapter preserves repository, module, API, specification, source revision,
+   trusted-axiom, and license boundaries.
 5. Run oracle, no-op, statement-mutation, `sorry`, axiom, reset, and containment
-   tests.
+   tests. The bounded OSS Verify and Vero controls are complete; selected
+   production-task replay and model-facing controls remain.
 6. Perform a bounded frozen-policy qualification pass.
 7. Freeze candidate environments, predictions, uncertainty, and an a-priori
    power/cost decision before any downstream training outcome is opened.
 
-Until those deliverables are complete, the Anthropic/Theorem workflow is the
-frontier reference, its public release is a candidate source pending bounded
-harness qualification, VCVio is a promising high-assurance source candidate,
-and VeriBench is a narrower target candidate. None is yet a validated RL
-environment in this workstream.
+Until those deliverables are complete, the Anthropic/Theorem workflow remains
+the frontier reference, its public release is a source-qualified candidate
+pending proof replay and selected-harness qualification, Vero is a
+runtime-qualified repository candidate pending policy measurement, VCVio is a
+promising high-assurance source candidate, and VeriBench is a narrower target
+candidate. None is yet a validated RL environment in this workstream.

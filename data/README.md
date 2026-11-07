@@ -13,3 +13,9 @@ defines the scientific contracts for qualification and policy-relative
 measurement. Its [implementation plan](environment-processing/ROADMAP.md)
 tracks the path from the current reference implementation to independently
 confirmed candidate environments and downstream RL validation.
+
+Domain adapters preserve native task and verifier contracts before producing
+shared environment records. The
+[formal-verification adapters](formal-verification/README.md) begin with pinned
+OSS Verify and Vero sources. They keep native checker semantics, artifact
+identity, and repository or statement grouping explicit.

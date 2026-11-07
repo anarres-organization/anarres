@@ -1,0 +1,113 @@
+{
+  "schema_version": "anarres.formal-verification-source-pin.v1",
+  "source_id": "theorem-labs/oss-verify-proofs@v2026.11.1",
+  "repository": "https://github.com/theorem-labs/oss-verify-proofs",
+  "release": "2026.11.1",
+  "tag": "v2026.11.1",
+  "commit": "6d15d8457aeecc77db61395ec8bcb3879b1d0f8b",
+  "release_date": "2026-11-05",
+  "license": "MIT with per-proof and upstream component licenses",
+  "rocq": {
+    "package": "rocq-core",
+    "version": "9.2.0"
+  },
+  "semantics": {
+    "repository": "https://github.com/theorem-labs/rocq-linux-process-semantics",
+    "commit": "f1006fe8178338a499b5e5c41be83006c4edd058",
+    "license": "MIT"
+  },
+  "images": {
+    "checker": "ghcr.io/theorem-labs/oss-fuzz-theorems-checker@sha256:063f93261f11ba449f1c3825884fadc65cf1fc836d4a3ee534633211abbdc3eb",
+    "runner": "ghcr.io/theorem-labs/oss-fuzz-theorems-runner@sha256:2eb5afc7b37095cbab0e290966b991cda8bdedbefe8fdb4ce44f56d0c30834c0"
+  },
+  "artifacts": [
+    {
+      "path": "release.yaml",
+      "uri": "https://raw.githubusercontent.com/theorem-labs/oss-verify-proofs/6d15d8457aeecc77db61395ec8bcb3879b1d0f8b/release.yaml",
+      "bytes": 11062,
+      "sha256": "c19bd1ae8093922ee049b37429fbb4c7a0555a1e7490ddc880865bf9780f5c3b",
+      "media_type": "application/yaml",
+      "license": "MIT",
+      "producing_run_or_upstream_release": "v2026.11.1"
+    },
+    {
+      "path": "index/projects.tsv",
+      "uri": "https://raw.githubusercontent.com/theorem-labs/oss-verify-proofs/6d15d8457aeecc77db61395ec8bcb3879b1d0f8b/index/projects.tsv",
+      "bytes": 82574,
+      "sha256": "282c07b8f0330b739e59ddb38b4910cad9c2fcdd9d8e68cdfef9c84e5e8be23e",
+      "media_type": "text/tab-separated-values",
+      "license": "MIT",
+      "producing_run_or_upstream_release": "v2026.11.1"
+    },
+    {
+      "path": "index/harnesses.tsv",
+      "uri": "https://raw.githubusercontent.com/theorem-labs/oss-verify-proofs/6d15d8457aeecc77db61395ec8bcb3879b1d0f8b/index/harnesses.tsv",
+      "bytes": 181172,
+      "sha256": "e8e45398a7e17fd5d47a9f7283b960c7b8b066b58f33b0f7fd21b1da1c1ecfd0",
+      "media_type": "text/tab-separated-values",
+      "license": "MIT",
+      "producing_run_or_upstream_release": "v2026.11.1"
+    },
+    {
+      "path": "index/binaries.tsv",
+      "uri": "https://raw.githubusercontent.com/theorem-labs/oss-verify-proofs/6d15d8457aeecc77db61395ec8bcb3879b1d0f8b/index/binaries.tsv",
+      "bytes": 1403638,
+      "sha256": "163c60b7d95565af7e44dd2e3718bc28b69e692705b8976ecde689105b48fb57",
+      "media_type": "text/tab-separated-values",
+      "license": "MIT",
+      "producing_run_or_upstream_release": "v2026.11.1"
+    },
+    {
+      "path": "index/statements.tsv",
+      "uri": "https://raw.githubusercontent.com/theorem-labs/oss-verify-proofs/6d15d8457aeecc77db61395ec8bcb3879b1d0f8b/index/statements.tsv",
+      "bytes": 3161216,
+      "sha256": "5e8eeabcbb461d6b74b0f04c4a2c07b55f5bf00e7566e6bbf39ba97ce87698d8",
+      "media_type": "text/tab-separated-values",
+      "license": "MIT",
+      "producing_run_or_upstream_release": "v2026.11.1"
+    },
+    {
+      "path": "index/proofs.tsv",
+      "uri": "https://raw.githubusercontent.com/theorem-labs/oss-verify-proofs/6d15d8457aeecc77db61395ec8bcb3879b1d0f8b/index/proofs.tsv",
+      "bytes": 180786,
+      "sha256": "5f4c07f2c7fc2c35f61bdf6a830770bc39f7e140eeb429513c7b97680d1de15e",
+      "media_type": "text/tab-separated-values",
+      "license": "MIT",
+      "producing_run_or_upstream_release": "v2026.11.1"
+    },
+    {
+      "path": "toolchain/allowed-axioms.txt",
+      "uri": "https://raw.githubusercontent.com/theorem-labs/oss-verify-proofs/6d15d8457aeecc77db61395ec8bcb3879b1d0f8b/toolchain/allowed-axioms.txt",
+      "bytes": 4409,
+      "sha256": "8820b8fc82c03184f5822c52932531be058ca95d352195a68c530004616d5380",
+      "media_type": "text/plain",
+      "license": "MIT",
+      "producing_run_or_upstream_release": "v2026.11.1"
+    },
+    {
+      "path": "toolchain/checker.Dockerfile",
+      "uri": "https://raw.githubusercontent.com/theorem-labs/oss-verify-proofs/6d15d8457aeecc77db61395ec8bcb3879b1d0f8b/toolchain/checker.Dockerfile",
+      "bytes": 9770,
+      "sha256": "5a8ff3c8dfbcdd71e31bcdc5b823c884733c9c905762952f9936e061511c855a",
+      "media_type": "text/plain",
+      "license": "MIT",
+      "producing_run_or_upstream_release": "v2026.11.1"
+    }
+  ],
+  "expected_counts": {
+    "projects": 1388,
+    "entry_points": 2183,
+    "binaries": 8718,
+    "statements": 20421,
+    "proofs": 526,
+    "proved_entry_points": 90,
+    "proved_libraries": 32,
+    "statement_statuses": {
+      "open": 19656,
+      "proved": 526,
+      "witnessed-false": 7,
+      "suspected-false": 3,
+      "model-gap": 229
+    }
+  }
+}

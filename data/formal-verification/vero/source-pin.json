@@ -1,0 +1,80 @@
+{
+  "schema_version": "anarres.formal-verification-source-pin.v1",
+  "source_id": "sunblaze-ucb/vero@0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+  "repository": "https://github.com/sunblaze-ucb/vero",
+  "commit": "0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+  "audit_date": "2026-11-07",
+  "license": "Apache-2.0 with benchmark-specific upstream licenses",
+  "benchmark_tree_git_oid": "21f18407dc780b2500f4a81be93261c8b4426bfb",
+  "lean_version": "4.29.1",
+  "modes_supported": [
+    "proof",
+    "codeproof"
+  ],
+  "artifacts": [
+    {
+      "path": "LICENSE",
+      "uri": "https://raw.githubusercontent.com/sunblaze-ucb/vero/0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09/LICENSE",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "media_type": "text/plain",
+      "license": "Apache-2.0",
+      "producing_run_or_upstream_release": "Git commit 0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09"
+    },
+    {
+      "path": "README.md",
+      "uri": "https://raw.githubusercontent.com/sunblaze-ucb/vero/0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09/README.md",
+      "bytes": 18928,
+      "sha256": "eea5eea8dcde67fae620ed0adf5afbbefbb18677a07999599e765cb769097ac8",
+      "media_type": "text/markdown",
+      "license": "Apache-2.0",
+      "producing_run_or_upstream_release": "Git commit 0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09"
+    },
+    {
+      "path": "pyproject.toml",
+      "uri": "https://raw.githubusercontent.com/sunblaze-ucb/vero/0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09/pyproject.toml",
+      "bytes": 1263,
+      "sha256": "eca04744ebc4d2292977e080241db895d857acfe3a401e09e732a2f146d47f7c",
+      "media_type": "application/toml",
+      "license": "Apache-2.0",
+      "producing_run_or_upstream_release": "Git commit 0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09"
+    },
+    {
+      "path": "uv.lock",
+      "uri": "https://raw.githubusercontent.com/sunblaze-ucb/vero/0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09/uv.lock",
+      "bytes": 609902,
+      "sha256": "69be7758a9831d6e92be6a09c3d0ee1f6628676404174a85ff3e054078db3bec",
+      "media_type": "application/toml",
+      "license": "Apache-2.0",
+      "producing_run_or_upstream_release": "Git commit 0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09"
+    },
+    {
+      "path": "docs/pipeline-schema.md",
+      "uri": "https://raw.githubusercontent.com/sunblaze-ucb/vero/0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09/docs/pipeline-schema.md",
+      "bytes": 24765,
+      "sha256": "980c0874a09bc55a1270f3b70ff7a52ea9e7a7a716fe178f79e223bceff8899b",
+      "media_type": "text/markdown",
+      "license": "Apache-2.0",
+      "producing_run_or_upstream_release": "Git commit 0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09"
+    }
+  ],
+  "expected_counts": {
+    "benchmarks": 43,
+    "modules": 237,
+    "apis": 743,
+    "specs": 2705,
+    "trusted_axiom_benchmarks": 5,
+    "trusted_axioms": 81,
+    "source_languages": {
+      "coq": 4,
+      "dafny": 5,
+      "python": 30,
+      "verus": 4
+    }
+  },
+  "license_exceptions": {
+    "Flocq": "LGPL-3.0-or-later",
+    "Huffman": "LGPL-2.1-or-later",
+    "portion": "LGPL-3.0-or-later"
+  }
+}

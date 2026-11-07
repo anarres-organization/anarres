@@ -366,8 +366,8 @@ selection principles transfer to:
 - binary-level semantics
 - properties whose validity is conditional on a large trusted model.
 
-The broader internal results described in the report are not public task data.
-Only the released statements, proofs, semantics, binaries, and manifests may be
+The broader results described in the report are not released task data. Only
+the published statements, proofs, semantics, binaries, and manifests may be
 used.
 
 Converting arbitrary terminal-agent tasks into formal-verification tasks is not

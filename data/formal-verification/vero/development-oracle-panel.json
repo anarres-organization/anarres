@@ -1,0 +1,32 @@
+{
+  "schema_version": "anarres.formal-verification-oracle-panel.v1",
+  "source_id": "sunblaze-ucb/vero@0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+  "selection_status": "frozen_before_policy_measurement",
+  "selection_rule": "minimum specification count within each source language in the development split",
+  "repositories": [
+    {
+      "benchmark_id": "piggybank-v2",
+      "directory": "piggybank",
+      "source_language": "coq",
+      "specifications": 23
+    },
+    {
+      "benchmark_id": "unicode-v2",
+      "directory": "Unicode",
+      "source_language": "dafny",
+      "specifications": 46
+    },
+    {
+      "benchmark_id": "primepy",
+      "directory": "primepy",
+      "source_language": "python",
+      "specifications": 9
+    },
+    {
+      "benchmark_id": "verified_ironkv",
+      "directory": "VerifiedIronkv",
+      "source_language": "verus",
+      "specifications": 22
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 # admitted experiment input. Copy this template into a versioned registry only
 # after every required field is resolved and the referenced bytes are hashed.
 schema_version: 1
-audit_date: "2026-11-03"
+audit_date: "2026-11-07"
 
 required_artifact_fields:
   - uri
@@ -63,14 +63,19 @@ sources:
       - repository_group_split_not_frozen
 
   - source_id: vero
-    uri: https://vero.verina.io/
-    immutable_revision: null
-    revision_status: pin_required
-    license: unknown
+    uri: https://github.com/sunblaze-ucb/vero
+    project_uri: https://vero.verina.io/
+    immutable_revision: 0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09
+    benchmark_tree: 21f18407dc780b2500f4a81be93261c8b4426bfb
+    revision_status: source_and_runtime_qualified
+    license: Apache-2.0_with_benchmark_specific_upstream_licenses
+    source_pin: ../../../data/formal-verification/vero/source-pin.json
     proposed_role: repository_construction_external_target
-    admission: blocked
+    admission: runtime_qualified_policy_measurement_pending
     blockers:
-      - task_release_harness_and_license_not_pinned
+      - model_facing_timeout_and_cost_tests_not_run
+      - starting_policy_support_not_measured
+    frozen_split: ../../../data/formal-verification/vero/repository-split.json
 
   - source_id: fvspec
     uri: https://fvspec.galois.com/
@@ -84,16 +89,36 @@ sources:
       - translation_validity_not_audited
       - repository_group_split_not_frozen
 
+  - source_id: vericontest
+    uri: https://github.com/HIPREL-Group/VeriContest
+    immutable_revision: null
+    release: null
+    revision_status: pin_required
+    license: Apache-2.0_with_dataset_and_source_specific_terms_to_audit
+    proposed_role: cross_tool_verified_programming_target
+    admission: blocked
+    blockers:
+      - versioned_release_and_problem_list_not_pinned
+      - large_test_artifacts_not_hashed
+      - verus_and_dafny_toolchains_not_qualified
+      - per_source_licenses_not_audited
+
   - source_id: oss_verify_proofs
     uri: https://github.com/theorem-labs/oss-verify-proofs
-    immutable_revision: null
-    revision_status: pin_required
-    license: MIT
+    release: v2026.11.1
+    immutable_revision: 6d15d8457aeecc77db61395ec8bcb3879b1d0f8b
+    revision_status: source_indexes_and_checker_bootstrap_qualified
+    license: MIT_with_per_proof_and_upstream_component_licenses
+    semantics_uri: https://github.com/theorem-labs/rocq-linux-process-semantics
+    semantics_revision: f1006fe8178338a499b5e5c41be83006c4edd058
+    source_pin: ../../../data/formal-verification/oss-verify/source-pin.json
     proposed_role: primary_frontier_reference_bounded_source_and_external_target
-    admission: source_qualification_pending_pin
+    admission: source_qualified_harness_pending
     blockers:
-      - immutable_release_and_artifact_manifest_not_recorded
-      - bounded_task_cost_and_reset_contract_not_qualified
+      - remaining_selected_panel_release_assets_not_materialized
+      - pinned_checker_replay_not_run
+      - selected_harness_binary_and_reset_tests_not_run
+      - bounded_task_cost_not_measured
       - cross_proof_assistant_bridge_not_defined
 
   - source_id: crypformbench

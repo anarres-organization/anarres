@@ -6,7 +6,7 @@ two workstreams with different tasks, verifiers, and outcomes.
 
 | Workstream | Training experience and target | Current stage |
 | --- | --- | --- |
-| [Formal verification](formal-verification/README.md) | Executable proof development and verified software, with machine-checked outcomes and held-out proof or specification targets | Source and harness qualification |
+| [Formal verification](formal-verification/README.md) | Executable proof development and verified software, with machine-checked outcomes and held-out proof or specification targets | Source and runtime qualification |
 | [Vulnerability exploitation](qualification/README.md) | Authorized exploit-generation tasks, with strict proof-of-concept verification on isolated targets | Benchmark and warm-start qualification |
 
 Both workstreams measure candidate environments under a fixed starting policy,
@@ -25,7 +25,13 @@ software slice and uses production-scale verification as a frontier reference.
 Source pinning, chronology-correct tasks, checker-integrity tests, and a
 frozen-policy measurement pass precede any downstream training. The
 [source landscape](formal-verification/SOURCE_LANDSCAPE.md) records each public
-artifact's proposed role and remaining qualification work.
+artifact's proposed role and remaining qualification work. The
+[OSS Verify qualification record](formal-verification/SOURCE_QUALIFICATION.md)
+and [source adapter](../../data/formal-verification/oss-verify/README.md) pin the
+first assembly-level release and define the remaining executable gates. The
+[Vero qualification record](formal-verification/VERO_SOURCE_QUALIFICATION.md)
+and [adapter](../../data/formal-verification/vero/README.md) do the same for a
+repository-level Lean suite.
 
 ## Vulnerability exploitation
 
