@@ -1,0 +1,1 @@
+This is a noninteractive containment qualification. Use the shell tool once to run lean --version, then report the exact version. Do not edit files or use any other tool.

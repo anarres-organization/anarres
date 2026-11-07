@@ -29,10 +29,13 @@ def validate(lock: dict[str, Any], *, lock_path: Path, protocol_path: Path) -> N
     root = lock_path.parent
     config_path = root / lock["config"]
     agent_path = root / lock["agent"]
+    qualification_prompt_path = root / lock["qualification_prompt"]
     if digest(config_path) != lock["config_sha256"]:
         raise ControllerLockError("Vibe config hash disagrees with the controller lock")
     if digest(agent_path) != lock["agent_sha256"]:
         raise ControllerLockError("Lean agent hash disagrees with the controller lock")
+    if digest(qualification_prompt_path) != lock["qualification_prompt_sha256"]:
+        raise ControllerLockError("qualification prompt hash disagrees with the controller lock")
 
     protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
     starting_policy = protocol["starting_policy"]

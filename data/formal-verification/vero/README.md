@@ -170,6 +170,15 @@ and every frozen contract as one linked evidence bundle. Configuration,
 infrastructure, and aborted outcomes are rejected as unscorable rather than
 silently entering the scientific aggregate.
 
+Before the first attempt, [`qualify_containment.py`](qualify_containment.py)
+runs every negative test named by the containment contract against the exact
+image and deployment. It verifies mount and credential isolation, path and
+network boundaries, local-inference separation, resource limits, process
+cleanup, fresh task reset, controller configuration, and Vibe export coverage.
+The harness requires two independently materialized copies of one development
+task and a live loopback-only Leanstral endpoint. It never opens a qualification
+or prospective repository.
+
 ```bash
 python data/formal-verification/vero/serve_vibe_sandbox.py \
   --socket /tmp/anarres-vero-attempt/agent.sock \

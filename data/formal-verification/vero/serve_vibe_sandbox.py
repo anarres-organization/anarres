@@ -484,6 +484,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--image", required=True)
     parser.add_argument("--workspace", type=Path, required=True)
     parser.add_argument("--receipt", type=Path, required=True)
+    parser.add_argument("--container-name-file", type=Path)
     parser.add_argument("--attempt-id", required=True)
     parser.add_argument("--task-id", required=True)
     parser.add_argument("--model-artifact-digest", required=True)
@@ -550,6 +551,12 @@ def main() -> None:
     sandbox = DockerSandbox(config, receipt)
     try:
         sandbox.start()
+        if args.container_name_file is not None:
+            if args.container_name_file.exists():
+                raise SandboxError("--container-name-file must not exist")
+            args.container_name_file.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+            args.container_name_file.write_text(name + "\n", encoding="utf-8")
+            args.container_name_file.chmod(0o600)
         asyncio.run(serve(args.socket, sandbox))
     except Exception as error:
         receipt.infrastructure_errors.append(f"{type(error).__name__}: {error}")

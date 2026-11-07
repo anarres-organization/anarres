@@ -12,6 +12,9 @@ automatic updates are disabled, and strict configuration validation is enabled.
 The launch command additionally restricts Vibe's built-in tools to shell, read,
 write, edit, and grep operations. File and shell operations are served through
 the isolated agent socket and execute inside the one-attempt container.
+The fixed qualification prompt requests one `lean --version` tool call so the
+same controller path can be checked before scientific execution without
+modifying a benchmark task.
 
 [`controller-lock.v1.json`](controller-lock.v1.json) pins these inputs. Validate
 them before an attempt:
