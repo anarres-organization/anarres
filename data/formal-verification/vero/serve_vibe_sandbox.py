@@ -71,6 +71,7 @@ class Receipt:
     methods: dict[str, int] = field(default_factory=dict)
     command_timeouts: int = 0
     output_truncations: int = 0
+    peak_memory_bytes: int | None = None
     infrastructure_errors: list[str] = field(default_factory=list)
     ended_at: str | None = None
     workspace_post_sha256: str | None = None
@@ -244,6 +245,21 @@ class DockerSandbox:
             raise SandboxError("sandbox image must provide python3 and GNU timeout")
 
     def stop(self) -> None:
+        peak = self._run(
+            [
+                self.config.docker,
+                "exec",
+                self.name,
+                "/bin/sh",
+                "-lc",
+                "cat /sys/fs/cgroup/memory.peak 2>/dev/null || "
+                "cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes 2>/dev/null",
+            ]
+        )
+        if peak.returncode == 0 and peak.stdout.strip().isdigit():
+            self.receipt.peak_memory_bytes = int(peak.stdout.strip())
+        else:
+            self.receipt.infrastructure_errors.append("container peak-memory reading failed")
         result = self._run([self.config.docker, "rm", "--force", self.name])
         self.receipt.container_removed = result.returncode == 0
         if result.returncode != 0:

@@ -45,6 +45,8 @@ def validate(receipt: dict[str, Any], protocol: dict[str, Any]) -> None:
         raise ReceiptError("container runtime version is missing")
     if not receipt.get("container_removed"):
         raise ReceiptError("attempt container was not removed")
+    if not isinstance(receipt.get("peak_memory_bytes"), int) or receipt["peak_memory_bytes"] <= 0:
+        raise ReceiptError("container peak memory is missing")
     if receipt.get("infrastructure_errors"):
         raise ReceiptError("attempt contains an infrastructure error")
 

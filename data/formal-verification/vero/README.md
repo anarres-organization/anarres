@@ -120,6 +120,12 @@ resource budgets. Execution remains blocked until the model artifact, inference
 runtime, and process-containment gates are qualified. Validate the frozen
 contract with:
 
+[`repetition-reliability.v1.json`](repetition-reliability.v1.json) supplies the
+outcome-blind repetition and cost calculation. Four attempts per repository and
+mode are the smallest candidate design with at least 95% probability of
+detecting eight mixed specification groups at the preregistered 1% strict-
+success floor.
+
 ```bash
 python data/formal-verification/vero/validate_policy_probe_protocol.py \
   --protocol data/formal-verification/vero/policy-probe-protocol.v1.json \
@@ -128,7 +134,8 @@ python data/formal-verification/vero/validate_policy_probe_protocol.py \
   --containment data/formal-verification/vero/containment-contract.v1.json \
   --runtime-lock data/formal-verification/vero/runtime/runtime-lock.v1.json \
   --controller-lock data/formal-verification/vero/controller/controller-lock.v1.json \
-  --inference-contract data/formal-verification/vero/inference/inference-contract.v1.json
+  --inference-contract data/formal-verification/vero/inference/inference-contract.v1.json \
+  --repetition-design data/formal-verification/vero/repetition-reliability.v1.json
 ```
 
 [`containment-contract.v1.json`](containment-contract.v1.json) freezes the
@@ -178,6 +185,12 @@ cleanup, fresh task reset, controller configuration, and Vibe export coverage.
 The harness requires two independently materialized copies of one development
 task and a live loopback-only Leanstral endpoint. It never opens a qualification
 or prospective repository.
+
+[`grade_probe_attempt.py`](grade_probe_attempt.py) extracts only the expected
+editable slots from a completed task, rerenders them against the pinned source
+benchmark, and invokes Vero's fresh build, axiom, hygiene, and joint-claim
+checks. Its compact receipt retains specification-level strict rewards and
+resource use while replacing machine paths with stable logical identities.
 
 ```bash
 python data/formal-verification/vero/serve_vibe_sandbox.py \

@@ -210,6 +210,7 @@ class VeroSandboxReceiptTest(unittest.TestCase):
             "methods": {"agent/initialize": 1, "sandbox/execute": 3},
             "command_timeouts": 0,
             "output_truncations": 0,
+            "peak_memory_bytes": 1024 * 1024,
             "infrastructure_errors": [],
             "container_removed": True,
         }
@@ -220,6 +221,12 @@ class VeroSandboxReceiptTest(unittest.TestCase):
     def test_receipt_rejects_failed_cleanup(self) -> None:
         receipt = self.valid_receipt()
         receipt["container_removed"] = False
+        with self.assertRaises(RECEIPT.ReceiptError):
+            RECEIPT.validate(receipt, PROTOCOL)
+
+    def test_receipt_requires_positive_peak_memory(self) -> None:
+        receipt = self.valid_receipt()
+        receipt["peak_memory_bytes"] = None
         with self.assertRaises(RECEIPT.ReceiptError):
             RECEIPT.validate(receipt, PROTOCOL)
 

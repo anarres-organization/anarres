@@ -55,8 +55,10 @@
       "proof",
       "codeproof"
     ],
-    "independent_attempts_per_repository_mode": 2,
-    "total_attempts": 16,
+    "independent_attempts_per_repository_mode": 4,
+    "total_attempts": 32,
+    "repetition_design": "repetition-reliability.v1.json",
+    "repetition_design_sha256": "a9287840858306ac22139811e4531289f7fccd482f730436c562e8a0abc0c033",
     "maximum_cumulative_model_tokens_per_attempt": 50000,
     "maximum_wall_seconds_per_attempt": 1800,
     "maximum_agent_turns_per_attempt": 50,
@@ -92,6 +94,7 @@
     "required_before_execution": [
       "record the exact local model artifact digest",
       "pin the inference runtime and serving configuration",
+      "validate the frozen prospective repetition and cost design",
       "qualify the pinned Vibe agent-socket interface against the containment contract",
       "qualify process containment with only one freshly materialized task visible",
       "reject direct network egress from the agent runtime",
@@ -106,12 +109,12 @@
       "at least two repositories have nonzero verified specification coverage",
       "at least eight specification groups have mixed outcomes across attempts",
       "pooled strict specification success lies between 0.01 and 0.80",
-      "a reliability simulation supports the repetition count used for qualification"
+      "repository-cluster sensitivity supports the precision claimed for qualification"
     ]
   },
   "unsupported_claims": [
     "the development probe ranks training environments",
-    "two attempts estimate a stable variance distribution",
+    "four attempts estimate a detailed variance distribution",
     "specification observations are independent of their repositories",
     "proof and codeproof rewards are interchangeable",
     "development results authorize reinforcement learning"

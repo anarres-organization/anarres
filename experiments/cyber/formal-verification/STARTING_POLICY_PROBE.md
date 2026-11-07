@@ -22,9 +22,12 @@ unqualified until those tests run under the exact deployment runtime.
 
 ## What the probe measures
 
-Each repository is attempted twice in proof and code-and-proof mode. Fresh Vero
-grading retains specification-level success, build validity, approved-axiom
-status, and unfilled or failed obligations. Vibe's run export supplies model
+Each repository is attempted four times in proof and code-and-proof mode. This
+is the smallest prespecified candidate count giving at least 95% fixed-panel
+probability of observing eight mixed specification groups at the protocol's 1%
+success floor. Fresh Vero grading retains specification-level success, build
+validity, approved-axiom status, and unfilled or failed obligations. Vibe's run
+export supplies model
 tokens, tool use, wall time, and stop reason. System measurement adds peak
 memory. The first pass asks whether the policy produces nonzero, non-saturated,
 mixed verified outcomes at a tractable cost. It does not rank environments or

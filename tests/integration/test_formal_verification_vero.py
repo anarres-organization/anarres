@@ -25,6 +25,9 @@ AUDIT = load_module("vero_audit_source", ADAPTER / "audit_source.py")
 RUNTIME = load_module("vero_audit_runtime", ADAPTER / "audit_runtime.py")
 LIFECYCLE = load_module("vero_audit_task_lifecycle", ADAPTER / "audit_task_lifecycle.py")
 PROBE = load_module("vero_validate_policy_probe", ADAPTER / "validate_policy_probe_protocol.py")
+REPETITION = load_module(
+    "vero_validate_repetition_design", ADAPTER / "validate_repetition_design.py"
+)
 CONTAINMENT = load_module("vero_validate_containment", ADAPTER / "validate_containment_contract.py")
 SPLIT = json.loads((ADAPTER / "repository-split.json").read_text(encoding="utf-8"))
 ORACLES = json.loads((ADAPTER / "development-oracle-panel.json").read_text(encoding="utf-8"))
@@ -33,6 +36,8 @@ LIFECYCLE_PANEL = json.loads(
 )
 PROBE_PROTOCOL_PATH = ADAPTER / "policy-probe-protocol.v1.json"
 PROBE_PROTOCOL = json.loads(PROBE_PROTOCOL_PATH.read_text(encoding="utf-8"))
+REPETITION_DESIGN_PATH = ADAPTER / "repetition-reliability.v1.json"
+REPETITION_DESIGN = json.loads(REPETITION_DESIGN_PATH.read_text(encoding="utf-8"))
 CONTAINMENT_PATH = ADAPTER / "containment-contract.v1.json"
 CONTAINMENT_CONTRACT = json.loads(CONTAINMENT_PATH.read_text(encoding="utf-8"))
 
@@ -276,6 +281,7 @@ class VeroPolicyProbeProtocolTest(unittest.TestCase):
             runtime_lock_path=ADAPTER / "runtime" / "runtime-lock.v1.json",
             controller_lock_path=ADAPTER / "controller" / "controller-lock.v1.json",
             inference_contract_path=ADAPTER / "inference" / "inference-contract.v1.json",
+            repetition_design_path=ADAPTER / "repetition-reliability.v1.json",
         )
 
     def test_probe_remains_blocked_while_pre_run_gates_are_open(self) -> None:
@@ -292,6 +298,7 @@ class VeroPolicyProbeProtocolTest(unittest.TestCase):
                 runtime_lock_path=ADAPTER / "runtime" / "runtime-lock.v1.json",
                 controller_lock_path=ADAPTER / "controller" / "controller-lock.v1.json",
                 inference_contract_path=ADAPTER / "inference" / "inference-contract.v1.json",
+                repetition_design_path=ADAPTER / "repetition-reliability.v1.json",
             )
 
     def test_probe_rejects_controller_host_tool_execution(self) -> None:
@@ -308,6 +315,7 @@ class VeroPolicyProbeProtocolTest(unittest.TestCase):
                 runtime_lock_path=ADAPTER / "runtime" / "runtime-lock.v1.json",
                 controller_lock_path=ADAPTER / "controller" / "controller-lock.v1.json",
                 inference_contract_path=ADAPTER / "inference" / "inference-contract.v1.json",
+                repetition_design_path=ADAPTER / "repetition-reliability.v1.json",
             )
 
     def test_probe_pins_the_frozen_containment_contract(self) -> None:
@@ -316,6 +324,19 @@ class VeroPolicyProbeProtocolTest(unittest.TestCase):
             hashlib.sha256(CONTAINMENT_PATH.read_bytes()).hexdigest(),
             interface["containment_contract_sha256"],
         )
+
+
+class VeroRepetitionDesignTest(unittest.TestCase):
+    def test_frozen_design_selects_four_attempts(self) -> None:
+        REPETITION.validate(REPETITION_DESIGN, LIFECYCLE_PANEL)
+        self.assertEqual(REPETITION_DESIGN["selected_attempts_per_repository_mode"], 4)
+        self.assertEqual(REPETITION_DESIGN["total_attempts"], 32)
+
+    def test_design_rejects_a_different_selected_count(self) -> None:
+        design = json.loads(REPETITION_DESIGN_PATH.read_text(encoding="utf-8"))
+        design["selected_attempts_per_repository_mode"] = 3
+        with self.assertRaises(REPETITION.RepetitionDesignError):
+            REPETITION.validate(design, LIFECYCLE_PANEL)
 
 
 class VeroContainmentContractTest(unittest.TestCase):

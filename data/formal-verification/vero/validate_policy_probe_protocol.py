@@ -29,6 +29,7 @@ def validate(
     runtime_lock_path: Path,
     controller_lock_path: Path,
     inference_contract_path: Path,
+    repetition_design_path: Path,
 ) -> None:
     prompt_path = panel_path.parent / protocol["starting_policy"]["user_prompt"]
     if digest(prompt_path) != protocol["starting_policy"]["user_prompt_sha256"]:
@@ -61,6 +62,17 @@ def validate(
     )
     if design["total_attempts"] != expected:
         raise ProtocolError("the protocol has an incorrect total attempt count")
+    if not repetition_design_path.as_posix().endswith(design["repetition_design"]):
+        raise ProtocolError("the repetition-design path disagrees with the protocol")
+    if digest(repetition_design_path) != design["repetition_design_sha256"]:
+        raise ProtocolError("the repetition-design hash disagrees with the protocol")
+    repetition = json.loads(repetition_design_path.read_text(encoding="utf-8"))
+    if (
+        repetition["selected_attempts_per_repository_mode"]
+        != design["independent_attempts_per_repository_mode"]
+        or repetition["total_attempts"] != design["total_attempts"]
+    ):
+        raise ProtocolError("the repetition design and probe design disagree")
     if (
         protocol["execution_authorized"]
         and protocol["admission_gates"]["required_before_execution"]
@@ -102,6 +114,7 @@ def main() -> None:
     parser.add_argument("--runtime-lock", type=Path, required=True)
     parser.add_argument("--controller-lock", type=Path, required=True)
     parser.add_argument("--inference-contract", type=Path, required=True)
+    parser.add_argument("--repetition-design", type=Path, required=True)
     args = parser.parse_args()
     protocol = json.loads(args.protocol.read_text(encoding="utf-8"))
     validate(
@@ -114,6 +127,7 @@ def main() -> None:
         runtime_lock_path=args.runtime_lock,
         controller_lock_path=args.controller_lock,
         inference_contract_path=args.inference_contract,
+        repetition_design_path=args.repetition_design,
     )
     print("validated frozen Vero development policy-probe protocol")
 

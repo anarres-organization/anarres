@@ -1,0 +1,50 @@
+{
+  "schema_version": "anarres.formal-verification-repetition-reliability.v1",
+  "design_id": "vero-development-repetition-v1",
+  "status": "frozen_before_model_attempts",
+  "panel": "development-lifecycle-panel-v2.json",
+  "specifications_per_mode": 347,
+  "modes": 2,
+  "repositories": 4,
+  "reference_strict_success_probability": 0.01,
+  "minimum_mixed_specification_groups": 8,
+  "minimum_detection_probability": 0.95,
+  "candidate_attempt_counts": [
+    2,
+    3,
+    4,
+    8
+  ],
+  "candidate_results": [
+    {
+      "attempts": 2,
+      "mixed_probability_per_specification": 0.01980000000000004,
+      "expected_mixed_specifications": 6.870600000000014,
+      "probability_at_least_eight_mixed": 0.3818143733142103
+    },
+    {
+      "attempts": 3,
+      "mixed_probability_per_specification": 0.02969999999999995,
+      "expected_mixed_specifications": 10.305899999999982,
+      "probability_at_least_eight_mixed": 0.8101532607390488
+    },
+    {
+      "attempts": 4,
+      "mixed_probability_per_specification": 0.039403980000000005,
+      "expected_mixed_specifications": 13.673181060000001,
+      "probability_at_least_eight_mixed": 0.9648836426566183
+    },
+    {
+      "attempts": 8,
+      "mixed_probability_per_specification": 0.07725530557207982,
+      "expected_mixed_specifications": 26.8075910335117,
+      "probability_at_least_eight_mixed": 0.9999967424287264
+    }
+  ],
+  "selection_rule": "smallest candidate attempt count whose fixed-panel probability of observing at least eight mixed specification groups is at least 0.95 at the preregistered 0.01 success floor",
+  "selected_attempts_per_repository_mode": 4,
+  "total_attempts": 32,
+  "maximum_model_tokens": 1600000,
+  "maximum_serial_wall_hours": 16.0,
+  "scope": "prospective fixed-panel support calculation; repository-cluster sensitivity remains required after measurement"
+}
