@@ -1,0 +1,43 @@
+{
+  "schema_version": "anarres.formal-verification-lifecycle-panel.v2",
+  "source_id": "sunblaze-ucb/vero@0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+  "selection_status": "frozen_before_policy_measurement",
+  "selection_rule": "one development repository per source language after build, manifest-marker, and hermetic-reset qualification",
+  "supersedes_for_lifecycle_testing": "development-oracle-panel.json",
+  "preserved_exclusions": [
+    {
+      "benchmark_id": "unicode-v2",
+      "reason": "pristine proof and codeproof sandboxes expose six marker slots absent from the manifest"
+    },
+    {
+      "benchmark_id": "verified_ironkv",
+      "reason": "fresh sandbox reset attempts a user-level or network mathlib cache lookup"
+    }
+  ],
+  "repositories": [
+    {
+      "benchmark_id": "piggybank-v2",
+      "directory": "piggybank",
+      "source_language": "coq",
+      "specifications": 23
+    },
+    {
+      "benchmark_id": "verified-bitmasks",
+      "directory": "VerifiedBitmasks",
+      "source_language": "dafny",
+      "specifications": 124
+    },
+    {
+      "benchmark_id": "primepy",
+      "directory": "primepy",
+      "source_language": "python",
+      "specifications": 9
+    },
+    {
+      "benchmark_id": "arithmetic-v2",
+      "directory": "Arithmetic",
+      "source_language": "verus",
+      "specifications": 191
+    }
+  ]
+}

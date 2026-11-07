@@ -98,9 +98,37 @@ This confirms that all four source-language families contain at least one
 executable development oracle. It does not measure no-op rejection, model
 success, mixed outcomes, or task cost.
 
+## Model-facing lifecycle qualification
+
+The initial no-op pass identified two source-specific admission failures before
+any policy ran. Unicode exposes six marker slots that are absent from its
+manifest. In code-and-proof mode, fresh grading would restore the corresponding
+reference helper implementations instead of accepting agent versions.
+VerifiedIronkv grades correctly, but its fresh sandbox attempts a user-level or
+network mathlib cache lookup, so its reset is not hermetic.
+
+Both findings remain recorded in the
+[versioned lifecycle panel](../../../data/formal-verification/vero/development-lifecycle-panel-v2.json).
+The replacement panel uses piggybank-v2, verified-bitmasks, primepy, and
+arithmetic-v2. It retains one development repository from each source language.
+
+The [lifecycle audit](../../../data/formal-verification/vero/audit_task_lifecycle.py)
+ran proof and code-and-proof modes twice for every replacement repository. All
+16 evaluations rebuilt a fresh grading project, reported zero unexpected
+markers, and classified every unchanged specification as `unfilled`. No no-op
+submission passed or became a scientific failure. The two clean replays agreed
+for every repository and mode. Native grading took approximately one to six
+seconds per replay with a warm local dependency cache. The upstream
+agent-timeout control also passed.
+
+These results qualify task materialization, no-op behavior, reset agreement, and
+timeout enforcement on the development panel. They do not establish starting-
+policy support or the token, tool-call, memory, and wall-time cost of a model
+attempt.
+
 ## Remaining gates
 
-The next gate is model-facing qualification under the frozen split. The task
-interface must measure oracle and no-op behavior, timeout handling,
-repeated-reset agreement, wall time, memory, tool calls, generated tokens, and
-starting-policy support.
+The next gate is a bounded starting-policy probe on the qualified development
+panel. It must measure strict success, mixed outcomes, infrastructure validity,
+wall time, memory, tool calls, and generated tokens before any qualification or
+prospective repository is opened.

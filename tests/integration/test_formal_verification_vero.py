@@ -23,8 +23,12 @@ def load_module(name: str, source: Path):
 
 AUDIT = load_module("vero_audit_source", ADAPTER / "audit_source.py")
 RUNTIME = load_module("vero_audit_runtime", ADAPTER / "audit_runtime.py")
+LIFECYCLE = load_module("vero_audit_task_lifecycle", ADAPTER / "audit_task_lifecycle.py")
 SPLIT = json.loads((ADAPTER / "repository-split.json").read_text(encoding="utf-8"))
 ORACLES = json.loads((ADAPTER / "development-oracle-panel.json").read_text(encoding="utf-8"))
+LIFECYCLE_PANEL = json.loads(
+    (ADAPTER / "development-lifecycle-panel-v2.json").read_text(encoding="utf-8")
+)
 
 
 def write_fixture(root: Path) -> dict:
@@ -214,6 +218,44 @@ class VeroRepositorySplitTest(unittest.TestCase):
                 if candidate["split"] == "development" and candidate["source_language"] == language
             )
             self.assertEqual(record["specifications"], minimum)
+
+    def test_lifecycle_panel_preserves_exclusions_and_uses_development_only(self) -> None:
+        by_id = {record["benchmark_id"]: record for record in SPLIT["repositories"]}
+        selected = LIFECYCLE_PANEL["repositories"]
+        self.assertEqual(
+            {record["source_language"] for record in selected},
+            {"coq", "dafny", "python", "verus"},
+        )
+        self.assertEqual(
+            {record["benchmark_id"] for record in LIFECYCLE_PANEL["preserved_exclusions"]},
+            {"unicode-v2", "verified_ironkv"},
+        )
+        for record in selected:
+            self.assertEqual(by_id[record["benchmark_id"]]["split"], "development")
+
+
+class VeroTaskLifecycleTest(unittest.TestCase):
+    @staticmethod
+    def noop_result(extras: int = 0) -> dict:
+        return {
+            "artifact_extras": extras,
+            "build_ok": True,
+            "summary": {
+                "total_specs": 3,
+                "passed_specs": 0,
+                "unfilled_specs": 3,
+                "failed_specs": 0,
+                "overfilled_specs": 0,
+            },
+            "spec_statuses": {"unfilled": 3},
+        }
+
+    def test_validate_noop_separates_unfilled_from_failure(self) -> None:
+        LIFECYCLE.validate_noop(self.noop_result(), expected_specs=3)
+
+    def test_validate_noop_rejects_manifest_marker_drift(self) -> None:
+        with self.assertRaises(LIFECYCLE.AuditError):
+            LIFECYCLE.validate_noop(self.noop_result(extras=2), expected_specs=3)
 
 
 if __name__ == "__main__":

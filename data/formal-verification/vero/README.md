@@ -71,6 +71,26 @@ smallest development repository from each source language for initial
 model-facing harness qualification. All four reference projects build under the
 pinned toolchain.
 
+The first lifecycle pass preserved two admission findings. Unicode contains six
+marker slots that are absent from its manifest, and VerifiedIronkv's fresh
+sandbox attempts to use an external mathlib cache. The versioned
+[lifecycle panel](development-lifecycle-panel-v2.json) replaces those
+repositories without changing the original oracle record.
+
+Run the proof and code-and-proof no-op and reset audit with Vero's lockfile-pinned
+Python environment:
+
+```bash
+/path/to/vero/.venv/bin/python \
+  data/formal-verification/vero/audit_task_lifecycle.py \
+  --source /path/to/vero \
+  --pin data/formal-verification/vero/source-pin.json \
+  --split data/formal-verification/vero/repository-split.json \
+  --panel data/formal-verification/vero/development-lifecycle-panel-v2.json \
+  --output /tmp/vero-lifecycle-audit.json \
+  --repetitions 2
+```
+
 ## Role in Anarres
 
 Vero contributes a repository-level environment family rather than a universal
@@ -80,6 +100,7 @@ and axiom auditing. Candidate construction must preserve repository grouping,
 source provenance, trusted-axiom declarations, and benchmark-specific licenses.
 
 The pinned Lean toolchain, reference build, and bounded grader controls are
-qualified. Before frozen-policy measurement, the remaining task interface must
-pass timeout and cost tests. The frozen split must remain unchanged while
-policy support is measured.
+qualified. The versioned development lifecycle panel also passes no-op,
+clean-reset, manifest-marker, and timeout controls. The frozen split must remain
+unchanged while starting-policy support and model-facing resource use are
+measured.

@@ -81,9 +81,10 @@ success label.
 
 **Admission decision:** runtime-qualified repository-level candidate. The
 pinned Lean runtime, bounded grader controls, clean reference builds, and
-repository-disjoint split are qualified. Model-facing timeout, cost, reset, and
-starting-policy support measurements remain required before it can enter a
-claim-bearing environment comparison.
+repository-disjoint split are qualified. A four-language development panel also
+passes no-op, clean-reset, manifest-marker, and timeout controls. Starting-
+policy support and model-facing resource measurements remain required before it
+can enter a claim-bearing environment comparison.
 
 ## VCVio
 
