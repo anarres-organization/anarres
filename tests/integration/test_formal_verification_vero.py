@@ -275,6 +275,7 @@ class VeroPolicyProbeProtocolTest(unittest.TestCase):
             containment_path=CONTAINMENT_PATH,
             runtime_lock_path=ADAPTER / "runtime" / "runtime-lock.v1.json",
             controller_lock_path=ADAPTER / "controller" / "controller-lock.v1.json",
+            inference_contract_path=ADAPTER / "inference" / "inference-contract.v1.json",
         )
 
     def test_probe_remains_blocked_while_pre_run_gates_are_open(self) -> None:
@@ -290,6 +291,7 @@ class VeroPolicyProbeProtocolTest(unittest.TestCase):
                 containment_path=CONTAINMENT_PATH,
                 runtime_lock_path=ADAPTER / "runtime" / "runtime-lock.v1.json",
                 controller_lock_path=ADAPTER / "controller" / "controller-lock.v1.json",
+                inference_contract_path=ADAPTER / "inference" / "inference-contract.v1.json",
             )
 
     def test_probe_rejects_controller_host_tool_execution(self) -> None:
@@ -305,6 +307,7 @@ class VeroPolicyProbeProtocolTest(unittest.TestCase):
                 containment_path=CONTAINMENT_PATH,
                 runtime_lock_path=ADAPTER / "runtime" / "runtime-lock.v1.json",
                 controller_lock_path=ADAPTER / "controller" / "controller-lock.v1.json",
+                inference_contract_path=ADAPTER / "inference" / "inference-contract.v1.json",
             )
 
     def test_probe_pins_the_frozen_containment_contract(self) -> None:

@@ -28,6 +28,7 @@ def validate(
     containment_path: Path,
     runtime_lock_path: Path,
     controller_lock_path: Path,
+    inference_contract_path: Path,
 ) -> None:
     prompt_path = panel_path.parent / protocol["starting_policy"]["user_prompt"]
     if digest(prompt_path) != protocol["starting_policy"]["user_prompt_sha256"]:
@@ -86,6 +87,10 @@ def validate(
         raise ProtocolError("the controller-lock path disagrees with the protocol")
     if digest(controller_lock_path) != interface["controller_lock_sha256"]:
         raise ProtocolError("the controller-lock hash disagrees with the protocol")
+    if not inference_contract_path.as_posix().endswith(interface["inference_contract"]):
+        raise ProtocolError("the inference-contract path disagrees with the protocol")
+    if digest(inference_contract_path) != interface["inference_contract_sha256"]:
+        raise ProtocolError("the inference-contract hash disagrees with the protocol")
 
 
 def main() -> None:
@@ -96,6 +101,7 @@ def main() -> None:
     parser.add_argument("--containment", type=Path, required=True)
     parser.add_argument("--runtime-lock", type=Path, required=True)
     parser.add_argument("--controller-lock", type=Path, required=True)
+    parser.add_argument("--inference-contract", type=Path, required=True)
     args = parser.parse_args()
     protocol = json.loads(args.protocol.read_text(encoding="utf-8"))
     validate(
@@ -107,6 +113,7 @@ def main() -> None:
         containment_path=args.containment,
         runtime_lock_path=args.runtime_lock,
         controller_lock_path=args.controller_lock,
+        inference_contract_path=args.inference_contract,
     )
     print("validated frozen Vero development policy-probe protocol")
 

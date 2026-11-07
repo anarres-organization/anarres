@@ -1,0 +1,43 @@
+{
+  "schema_version": "anarres.formal-verification-inference-contract.v1",
+  "inference_id": "leanstral-vllm-local-v1",
+  "status": "deployment_pending",
+  "model": {
+    "id": "mistralai/Leanstral-1.5-119B-A6B",
+    "revision": "81592da95d94ab0439bfce16df1d55b402e598b6",
+    "local_artifact_digest": null
+  },
+  "runtime": {
+    "name": "vllm",
+    "minimum_version": "0.24.0",
+    "exact_version": null,
+    "installation_digest": null
+  },
+  "endpoint": {
+    "host": "127.0.0.1",
+    "port": 8000,
+    "api_base": "http://127.0.0.1:8000/v1",
+    "external_network_exposure": false
+  },
+  "required_launch_configuration": {
+    "max_model_len": 200000,
+    "tensor_parallel_size": 4,
+    "attention_backend": "FLASH_ATTN_MLA",
+    "tool_call_parser": "mistral",
+    "enable_auto_tool_choice": true,
+    "reasoning_parser": "mistral",
+    "served_model_name": "mistralai/Leanstral-1.5-119B-A6B",
+    "model_source_offline_after_resolution": true
+  },
+  "deployment_configuration": {
+    "replicas": null,
+    "maximum_concurrent_attempts_per_replica": null,
+    "gpu_memory_utilization": null,
+    "max_num_seqs": null,
+    "dtype": null
+  },
+  "qualification": {
+    "runtime_receipt": null,
+    "readiness_receipt": null
+  }
+}

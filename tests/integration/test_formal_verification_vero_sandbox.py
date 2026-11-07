@@ -16,6 +16,8 @@ RUNTIME_ROOT = ROOT / "data" / "formal-verification" / "vero" / "runtime"
 RUNTIME_SOURCE = RUNTIME_ROOT / "validate_runtime_lock.py"
 CONTROLLER_ROOT = ROOT / "data" / "formal-verification" / "vero" / "controller"
 CONTROLLER_SOURCE = CONTROLLER_ROOT / "validate_controller_lock.py"
+INFERENCE_ROOT = ROOT / "data" / "formal-verification" / "vero" / "inference"
+INFERENCE_SOURCE = INFERENCE_ROOT / "validate_inference_contract.py"
 MATERIALIZER_SOURCE = ROOT / "data" / "formal-verification" / "vero" / "materialize_probe_task.py"
 SPEC = importlib.util.spec_from_file_location("vero_serve_vibe_sandbox", SOURCE)
 if SPEC is None or SPEC.loader is None:
@@ -45,6 +47,14 @@ if CONTROLLER_SPEC is None or CONTROLLER_SPEC.loader is None:
 CONTROLLER = importlib.util.module_from_spec(CONTROLLER_SPEC)
 sys.modules[CONTROLLER_SPEC.name] = CONTROLLER
 CONTROLLER_SPEC.loader.exec_module(CONTROLLER)
+INFERENCE_SPEC = importlib.util.spec_from_file_location(
+    "vero_validate_inference_contract", INFERENCE_SOURCE
+)
+if INFERENCE_SPEC is None or INFERENCE_SPEC.loader is None:
+    raise RuntimeError(f"could not load {INFERENCE_SOURCE}")
+INFERENCE = importlib.util.module_from_spec(INFERENCE_SPEC)
+sys.modules[INFERENCE_SPEC.name] = INFERENCE
+INFERENCE_SPEC.loader.exec_module(INFERENCE)
 MATERIALIZER_SPEC = importlib.util.spec_from_file_location(
     "vero_materialize_probe_task", MATERIALIZER_SOURCE
 )
@@ -62,6 +72,8 @@ RUNTIME_LOCK_PATH = RUNTIME_ROOT / "runtime-lock.v1.json"
 RUNTIME_LOCK = json.loads(RUNTIME_LOCK_PATH.read_text(encoding="utf-8"))
 CONTROLLER_LOCK_PATH = CONTROLLER_ROOT / "controller-lock.v1.json"
 CONTROLLER_LOCK = json.loads(CONTROLLER_LOCK_PATH.read_text(encoding="utf-8"))
+INFERENCE_CONTRACT_PATH = INFERENCE_ROOT / "inference-contract.v1.json"
+INFERENCE_CONTRACT = json.loads(INFERENCE_CONTRACT_PATH.read_text(encoding="utf-8"))
 PROTOCOL_PATH = ROOT / "data" / "formal-verification" / "vero" / "policy-probe-protocol.v1.json"
 PANEL = json.loads(
     (
@@ -260,6 +272,25 @@ class VeroControllerLockTest(unittest.TestCase):
                     lock_path=copied_root / "controller-lock.v1.json",
                     protocol_path=PROTOCOL_PATH,
                 )
+
+
+class VeroInferenceContractTest(unittest.TestCase):
+    def test_pre_deployment_inference_contract_matches_the_probe(self) -> None:
+        INFERENCE.validate(
+            INFERENCE_CONTRACT,
+            protocol_path=PROTOCOL_PATH,
+            controller_lock_path=CONTROLLER_LOCK_PATH,
+        )
+
+    def test_qualified_inference_requires_complete_deployment_evidence(self) -> None:
+        contract = json.loads(INFERENCE_CONTRACT_PATH.read_text(encoding="utf-8"))
+        contract["status"] = "qualified"
+        with self.assertRaises(INFERENCE.InferenceContractError):
+            INFERENCE.validate(
+                contract,
+                protocol_path=PROTOCOL_PATH,
+                controller_lock_path=CONTROLLER_LOCK_PATH,
+            )
 
 
 class VeroTaskMaterializationTest(unittest.TestCase):
