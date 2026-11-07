@@ -34,7 +34,6 @@ The project provides:
 | --- | --- | --- |
 | [Mathematics](experiments/mathematics/README.md) | Can starting-policy measurements predict finite-budget RL utility across model scale? | Study assets available |
 | [Agentic systems](experiments/agentic/README.md) | Which measurements transfer to terminal, coding, and tool-using agents? | Active research |
-| [Environment processing](data/environment-processing/README.md) | How can heterogeneous task collections become reliable RL environment banks? | In development |
 | [Cyber: formal verification](experiments/cyber/formal-verification/README.md) | Which executable proof environments improve held-out verification under a fixed policy and budget? | Source and harness qualification |
 | [Cyber: vulnerability exploitation](experiments/cyber/qualification/README.md) | Which authorized exploit-generation environments provide measurable signal and held-out improvement? | Benchmark and warm-start qualification |
 | [Molecular design](experiments/ai-for-science/molecular-design/README.md) | Which reaction-based environments improve a molecular graph policy for a specified protein target and compute budget? | Protocol drafted |
