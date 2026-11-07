@@ -1,0 +1,105 @@
+{
+  "schema_version": "anarres.formal-verification-containment-contract.v1",
+  "contract_id": "vero-vibe-agent-socket-containment-v1",
+  "status": "frozen_unqualified",
+  "qualified": false,
+  "interface": {
+    "agent_scaffold": "mistralai/mistral-vibe@v3.1.0",
+    "agent_scaffold_revision": "c96a6dbb34d34f8a868b3f67b279ecabbf1aa616",
+    "agent_socket_protocol_version": 2,
+    "sandbox_methods": [
+      "sandbox/execute",
+      "sandbox/readFile"
+    ],
+    "socket_directory_mode": "0700",
+    "socket_mode": "0600"
+  },
+  "execution_boundaries": {
+    "controller": {
+      "model_facing_shell_or_file_access": false,
+      "allowed_network": "pinned local inference endpoint only",
+      "host_credentials_forwarded_to_sandbox": false
+    },
+    "task_sandbox": {
+      "lifetime": "one scientific attempt",
+      "external_network_egress": false,
+      "writable_mounts": [
+        "one freshly materialized Vero task",
+        "one attempt-local cache",
+        "one attempt-local temporary directory"
+      ],
+      "read_only_mounts": [
+        "pinned Lean toolchain",
+        "pinned task dependencies"
+      ],
+      "forbidden_inputs": [
+        "reference solutions",
+        "Vero source benchmark tree",
+        "qualification repositories",
+        "prospective repositories",
+        "host home directory",
+        "host credentials",
+        "global agent configuration",
+        "other attempt workspaces"
+      ]
+    }
+  },
+  "required_tests": [
+    {
+      "id": "workspace_allowlist",
+      "criterion": "only declared writable and read-only paths are visible",
+      "status": "pending"
+    },
+    {
+      "id": "path_and_symlink_escape",
+      "criterion": "absolute paths, parent traversal, and symlinks cannot expose forbidden inputs",
+      "status": "pending"
+    },
+    {
+      "id": "credential_and_environment_visibility",
+      "criterion": "host credentials and undeclared host environment variables are absent",
+      "status": "pending"
+    },
+    {
+      "id": "external_network_egress",
+      "criterion": "DNS, public IP, metadata-service, and arbitrary TCP probes fail from the task sandbox",
+      "status": "pending"
+    },
+    {
+      "id": "local_inference_separation",
+      "criterion": "the controller reaches the pinned inference endpoint while the task sandbox cannot address it directly",
+      "status": "pending"
+    },
+    {
+      "id": "process_tree_cleanup",
+      "criterion": "timeout and termination remove the complete attempt process tree",
+      "status": "pending"
+    },
+    {
+      "id": "resource_limits",
+      "criterion": "wall-time, process, memory, and file-size limits are enforced and recorded",
+      "status": "pending"
+    },
+    {
+      "id": "fresh_task_reset",
+      "criterion": "pre-attempt task hashes agree and no state survives between attempts",
+      "status": "pending"
+    },
+    {
+      "id": "vibe_export_completeness",
+      "criterion": "the export records usage, tool calls, stop reason, outcome, and infrastructure failures",
+      "status": "pending"
+    }
+  ],
+  "receipt_requirements": [
+    "containment runtime name and immutable revision",
+    "runtime image digest",
+    "inference runtime and configuration digest",
+    "local model artifact digest",
+    "task identity and pre-attempt hash",
+    "resource-limit values",
+    "one result for every required test",
+    "attempt-start and attempt-end timestamps"
+  ],
+  "qualification_rule": "qualified may become true only when every required test passes under the exact runtime and image recorded by the receipt"
+}

@@ -27,7 +27,9 @@ completed source-index audit is recorded in
 [SOURCE_QUALIFICATION.md](SOURCE_QUALIFICATION.md), with its reproducible
 [adapter](../../../data/formal-verification/oss-verify/README.md). The
 repository-level Vero audit is recorded separately in
-[VERO_SOURCE_QUALIFICATION.md](VERO_SOURCE_QUALIFICATION.md).
+[VERO_SOURCE_QUALIFICATION.md](VERO_SOURCE_QUALIFICATION.md). The frozen
+development measurement and its remaining containment gates are recorded in
+[STARTING_POLICY_PROBE.md](STARTING_POLICY_PROBE.md).
 
 ## Why this workstream is timely
 

@@ -104,3 +104,27 @@ qualified. The versioned development lifecycle panel also passes no-op,
 clean-reset, manifest-marker, and timeout controls. The frozen split must remain
 unchanged while starting-policy support and model-facing resource use are
 measured.
+
+The next measurement contract is frozen in
+[`policy-probe-protocol.v1.json`](policy-probe-protocol.v1.json). It selects an
+open-weight Lean starting policy and records the development-only attempt and
+resource budgets. Execution remains blocked until the model artifact, inference
+runtime, and process-containment gates are qualified. Validate the frozen
+contract with:
+
+```bash
+python data/formal-verification/vero/validate_policy_probe_protocol.py \
+  --protocol data/formal-verification/vero/policy-probe-protocol.v1.json \
+  --panel data/formal-verification/vero/development-lifecycle-panel-v2.json \
+  --split data/formal-verification/vero/repository-split.json \
+  --containment data/formal-verification/vero/containment-contract.v1.json
+```
+
+[`containment-contract.v1.json`](containment-contract.v1.json) freezes the
+external sandbox boundary and the negative tests required before execution. It
+does not claim that the pending tests have passed. Validate its structure with:
+
+```bash
+python data/formal-verification/vero/validate_containment_contract.py \
+  --contract data/formal-verification/vero/containment-contract.v1.json
+```

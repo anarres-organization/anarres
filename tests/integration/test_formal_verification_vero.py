@@ -24,11 +24,17 @@ def load_module(name: str, source: Path):
 AUDIT = load_module("vero_audit_source", ADAPTER / "audit_source.py")
 RUNTIME = load_module("vero_audit_runtime", ADAPTER / "audit_runtime.py")
 LIFECYCLE = load_module("vero_audit_task_lifecycle", ADAPTER / "audit_task_lifecycle.py")
+PROBE = load_module("vero_validate_policy_probe", ADAPTER / "validate_policy_probe_protocol.py")
+CONTAINMENT = load_module("vero_validate_containment", ADAPTER / "validate_containment_contract.py")
 SPLIT = json.loads((ADAPTER / "repository-split.json").read_text(encoding="utf-8"))
 ORACLES = json.loads((ADAPTER / "development-oracle-panel.json").read_text(encoding="utf-8"))
 LIFECYCLE_PANEL = json.loads(
     (ADAPTER / "development-lifecycle-panel-v2.json").read_text(encoding="utf-8")
 )
+PROBE_PROTOCOL_PATH = ADAPTER / "policy-probe-protocol.v1.json"
+PROBE_PROTOCOL = json.loads(PROBE_PROTOCOL_PATH.read_text(encoding="utf-8"))
+CONTAINMENT_PATH = ADAPTER / "containment-contract.v1.json"
+CONTAINMENT_CONTRACT = json.loads(CONTAINMENT_PATH.read_text(encoding="utf-8"))
 
 
 def write_fixture(root: Path) -> dict:
@@ -256,6 +262,64 @@ class VeroTaskLifecycleTest(unittest.TestCase):
     def test_validate_noop_rejects_manifest_marker_drift(self) -> None:
         with self.assertRaises(LIFECYCLE.AuditError):
             LIFECYCLE.validate_noop(self.noop_result(extras=2), expected_specs=3)
+
+
+class VeroPolicyProbeProtocolTest(unittest.TestCase):
+    def test_frozen_probe_uses_only_the_development_panel(self) -> None:
+        PROBE.validate(
+            PROBE_PROTOCOL,
+            LIFECYCLE_PANEL,
+            SPLIT,
+            panel_path=ADAPTER / "development-lifecycle-panel-v2.json",
+            split_path=ADAPTER / "repository-split.json",
+            containment_path=CONTAINMENT_PATH,
+        )
+
+    def test_probe_remains_blocked_while_pre_run_gates_are_open(self) -> None:
+        protocol = json.loads(PROBE_PROTOCOL_PATH.read_text(encoding="utf-8"))
+        protocol["execution_authorized"] = True
+        with self.assertRaises(PROBE.ProtocolError):
+            PROBE.validate(
+                protocol,
+                LIFECYCLE_PANEL,
+                SPLIT,
+                panel_path=ADAPTER / "development-lifecycle-panel-v2.json",
+                split_path=ADAPTER / "repository-split.json",
+                containment_path=CONTAINMENT_PATH,
+            )
+
+    def test_probe_rejects_controller_host_tool_execution(self) -> None:
+        protocol = json.loads(PROBE_PROTOCOL_PATH.read_text(encoding="utf-8"))
+        protocol["execution_interface"]["model_facing_tools_execute_on_controller_host"] = True
+        with self.assertRaises(PROBE.ProtocolError):
+            PROBE.validate(
+                protocol,
+                LIFECYCLE_PANEL,
+                SPLIT,
+                panel_path=ADAPTER / "development-lifecycle-panel-v2.json",
+                split_path=ADAPTER / "repository-split.json",
+                containment_path=CONTAINMENT_PATH,
+            )
+
+    def test_probe_pins_the_frozen_containment_contract(self) -> None:
+        interface = PROBE_PROTOCOL["execution_interface"]
+        self.assertEqual(
+            hashlib.sha256(CONTAINMENT_PATH.read_bytes()).hexdigest(),
+            interface["containment_contract_sha256"],
+        )
+
+
+class VeroContainmentContractTest(unittest.TestCase):
+    def test_frozen_contract_is_complete_and_unqualified(self) -> None:
+        CONTAINMENT.validate(CONTAINMENT_CONTRACT)
+        self.assertFalse(CONTAINMENT_CONTRACT["qualified"])
+
+    def test_contract_cannot_qualify_with_pending_tests(self) -> None:
+        contract = json.loads(CONTAINMENT_PATH.read_text(encoding="utf-8"))
+        contract["qualified"] = True
+        contract["status"] = "qualified"
+        with self.assertRaises(CONTAINMENT.ContractError):
+            CONTAINMENT.validate(contract)
 
 
 if __name__ == "__main__":

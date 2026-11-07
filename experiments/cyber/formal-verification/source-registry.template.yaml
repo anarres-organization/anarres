@@ -73,6 +73,7 @@ sources:
     proposed_role: repository_construction_external_target
     admission: runtime_qualified_policy_measurement_pending
     blockers:
+      - model_facing_process_containment_not_qualified
       - starting_policy_probe_and_resource_accounting_not_run
     frozen_split: ../../../data/formal-verification/vero/repository-split.json
     qualified_lifecycle_panel: ../../../data/formal-verification/vero/development-lifecycle-panel-v2.json

@@ -83,8 +83,8 @@ success label.
 pinned Lean runtime, bounded grader controls, clean reference builds, and
 repository-disjoint split are qualified. A four-language development panel also
 passes no-op, clean-reset, manifest-marker, and timeout controls. Starting-
-policy support and model-facing resource measurements remain required before it
-can enter a claim-bearing environment comparison.
+policy support, model-facing process containment, and resource measurements
+remain required before it can enter a claim-bearing environment comparison.
 
 ## VCVio
 

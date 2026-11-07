@@ -131,4 +131,7 @@ attempt.
 The next gate is a bounded starting-policy probe on the qualified development
 panel. It must measure strict success, mixed outcomes, infrastructure validity,
 wall time, memory, tool calls, and generated tokens before any qualification or
-prospective repository is opened.
+prospective repository is opened. The probe uses Vibe's pinned agent-socket
+interface, but execution remains blocked until the external task sandbox passes
+mount, symlink, credential, network-egress, process-cleanup, resource-limit, and
+fresh-reset tests.
