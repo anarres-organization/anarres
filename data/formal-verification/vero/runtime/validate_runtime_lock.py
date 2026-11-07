@@ -49,14 +49,21 @@ def validate(
     if not lock["required_binaries"]:
         raise RuntimeLockError("runtime declares no required binaries")
 
-    built = lock["built_image_digest"]
+    reference = lock["built_image_reference"]
+    image_id = lock["built_image_id"]
     receipt = lock["qualification_receipt"]
     if lock["status"] == "build_and_qualification_pending":
-        if built is not None or receipt is not None:
+        if reference is not None or image_id is not None or receipt is not None:
             raise RuntimeLockError("pending runtime cannot contain qualified build artifacts")
     elif lock["status"] == "qualified":
-        if not isinstance(built, str) or not built.startswith("sha256:") or receipt is None:
-            raise RuntimeLockError("qualified runtime lacks its image digest or receipt")
+        valid_reference = (
+            isinstance(reference, str)
+            and "@sha256:" in reference
+            and len(reference.rsplit("@sha256:", 1)[1]) == 64
+        )
+        valid_image_id = isinstance(image_id, str) and image_id.startswith("sha256:")
+        if not valid_reference or not valid_image_id or receipt is None:
+            raise RuntimeLockError("qualified runtime lacks its image identity or receipt")
     else:
         raise RuntimeLockError("unknown runtime-lock status")
 

@@ -257,7 +257,8 @@ class VeroRuntimeLockTest(unittest.TestCase):
     def test_qualified_runtime_requires_a_receipt(self) -> None:
         lock = json.loads(RUNTIME_LOCK_PATH.read_text(encoding="utf-8"))
         lock["status"] = "qualified"
-        lock["built_image_digest"] = "sha256:" + "a" * 64
+        lock["built_image_reference"] = "example.test/vero@sha256:" + "a" * 64
+        lock["built_image_id"] = "sha256:" + "b" * 64
         with self.assertRaises(RUNTIME.RuntimeLockError):
             RUNTIME.validate(
                 lock,
@@ -265,6 +266,19 @@ class VeroRuntimeLockTest(unittest.TestCase):
                 panel_path=self.PANEL_PATH,
                 source_pin_path=self.SOURCE_PIN_PATH,
             )
+
+    def test_qualified_runtime_accepts_separate_reference_and_image_id(self) -> None:
+        lock = json.loads(RUNTIME_LOCK_PATH.read_text(encoding="utf-8"))
+        lock["status"] = "qualified"
+        lock["built_image_reference"] = "example.test/vero@sha256:" + "a" * 64
+        lock["built_image_id"] = "sha256:" + "b" * 64
+        lock["qualification_receipt"] = "qualification-receipt.json"
+        RUNTIME.validate(
+            lock,
+            lock_path=RUNTIME_LOCK_PATH,
+            panel_path=self.PANEL_PATH,
+            source_pin_path=self.SOURCE_PIN_PATH,
+        )
 
 
 class VeroControllerLockTest(unittest.TestCase):
@@ -416,6 +430,43 @@ class VeroAttemptLauncherTest(unittest.TestCase):
                     task=task,
                     image="sha256:" + "a" * 64,
                 )
+
+    def test_ready_launcher_matches_the_full_immutable_image_reference(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            task = Path(directory)
+            (task / "INSTRUCTION.md").write_text("task\n", encoding="utf-8")
+            model_digest = "sha256:" + "c" * 64
+            image = "example.test/vero@sha256:" + "a" * 64
+            protocol = json.loads(PROTOCOL_PATH.read_text(encoding="utf-8"))
+            protocol["status"] = "frozen_ready"
+            protocol["execution_authorized"] = True
+            protocol["starting_policy"]["local_artifact_digest"] = model_digest
+            containment = json.loads(
+                (VERO_ROOT / "containment-contract.v1.json").read_text(encoding="utf-8")
+            )
+            containment["status"] = "qualified"
+            containment["qualified"] = True
+            runtime = json.loads(RUNTIME_LOCK_PATH.read_text(encoding="utf-8"))
+            runtime["status"] = "qualified"
+            runtime["built_image_reference"] = image
+            inference = json.loads(INFERENCE_CONTRACT_PATH.read_text(encoding="utf-8"))
+            inference["status"] = "qualified"
+            inference["model"]["local_artifact_digest"] = model_digest
+            materialization = {
+                "source_id": protocol["source"]["vero_id"],
+                "mode": "proof",
+                "task_tree_sha256": MATERIALIZER.tree_digest(task),
+            }
+            RUNNER.validate_ready(
+                protocol=protocol,
+                containment=containment,
+                runtime=runtime,
+                controller=CONTROLLER_LOCK,
+                inference=inference,
+                materialization=materialization,
+                task=task,
+                image=image,
+            )
 
     def test_vibe_command_contains_only_the_frozen_tool_allowlist(self) -> None:
         command = RUNNER.build_vibe_command(

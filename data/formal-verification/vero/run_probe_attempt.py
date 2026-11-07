@@ -61,7 +61,7 @@ def validate_ready(
         raise AttemptLaunchError("probe protocol is not authorized for execution")
     if not containment["qualified"] or containment["status"] != "qualified":
         raise AttemptLaunchError("containment contract has not qualified")
-    if runtime["status"] != "qualified" or runtime["built_image_digest"] != image:
+    if runtime["status"] != "qualified" or runtime["built_image_reference"] != image:
         raise AttemptLaunchError("runtime image is not the qualified image")
     if controller["status"] != "frozen":
         raise AttemptLaunchError("controller deployment has not been frozen")

@@ -28,6 +28,7 @@
   ],
   "dockerfile": "Dockerfile",
   "dockerfile_sha256": "a4689080b12d0260cdd6e5423f83a24d42cd76a9f9420eb010f542e612d86035",
-  "built_image_digest": null,
+  "built_image_reference": null,
+  "built_image_id": null,
   "qualification_receipt": null
 }
