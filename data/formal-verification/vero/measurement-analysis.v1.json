@@ -1,0 +1,27 @@
+{
+  "schema_version": "anarres.formal-verification-measurement-analysis.v1",
+  "analysis_id": "vero-development-policy-measurement-v1",
+  "status": "frozen_before_model_attempts",
+  "reward_unit": "strict fresh-graded specification success",
+  "grouping_unit": "specification nested within repository",
+  "attempts_per_group": 4,
+  "mode_handling": "proof and codeproof are analyzed separately",
+  "advantage_mass": "for k successes in G attempts, 2*k*(G-k)/(G-1)",
+  "rho": "one million times total leave-one-out absolute advantage mass divided by total model tokens",
+  "H": "squared total advantage mass divided by the product of specification count and summed squared mass",
+  "zero_signal_rule": "H equals zero when total advantage mass is zero",
+  "cluster_unit": "repository",
+  "cluster_sensitivity": {
+    "leave_one_repository_out": true,
+    "whole_repository_bootstrap_replicates": 10000,
+    "whole_repository_bootstrap_seed": 2026110701,
+    "central_interval": 0.90,
+    "interpretation": "descriptive fixed-panel sensitivity, not an independent-specification confidence interval"
+  },
+  "admission_summary": {
+    "minimum_repositories_with_nonzero_verified_coverage": 2,
+    "minimum_mixed_specification_groups": 8,
+    "minimum_pooled_strict_success": 0.01,
+    "maximum_pooled_strict_success": 0.80
+  }
+}

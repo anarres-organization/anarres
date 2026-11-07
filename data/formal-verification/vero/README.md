@@ -135,7 +135,8 @@ python data/formal-verification/vero/validate_policy_probe_protocol.py \
   --runtime-lock data/formal-verification/vero/runtime/runtime-lock.v1.json \
   --controller-lock data/formal-verification/vero/controller/controller-lock.v1.json \
   --inference-contract data/formal-verification/vero/inference/inference-contract.v1.json \
-  --repetition-design data/formal-verification/vero/repetition-reliability.v1.json
+  --repetition-design data/formal-verification/vero/repetition-reliability.v1.json \
+  --measurement-analysis data/formal-verification/vero/measurement-analysis.v1.json
 ```
 
 [`containment-contract.v1.json`](containment-contract.v1.json) freezes the
@@ -191,6 +192,14 @@ editable slots from a completed task, rerenders them against the pinned source
 benchmark, and invokes Vero's fresh build, axiom, hygiene, and joint-claim
 checks. Its compact receipt retains specification-level strict rewards and
 resource use while replacing machine paths with stable logical identities.
+
+[`probe-queue.v1.json`](probe-queue.v1.json) fixes the 32 attempt identities in
+an outcome-blind hash order. [`measurement-analysis.v1.json`](measurement-analysis.v1.json)
+fixes the mode-specific $\rho$ and $H$ estimands, leave-one-repository-out
+checks, and whole-repository bootstrap before model attempts. Rebuild or verify
+the queue with [`build_probe_queue.py`](build_probe_queue.py), then use
+[`aggregate_probe_measurements.py`](aggregate_probe_measurements.py) only after
+all fresh grade receipts are present.
 
 ```bash
 python data/formal-verification/vero/serve_vibe_sandbox.py \

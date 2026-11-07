@@ -83,6 +83,8 @@
     "peak_memory_bytes"
   ],
   "measurement": {
+    "analysis_contract": "measurement-analysis.v1.json",
+    "analysis_contract_sha256": "d5542105075b9f55bb4aa0b3f0581236f45a282078641a774da6aaa88ec333c0",
     "grouping_unit": "specification nested within repository",
     "strict_reward": "one only when a specification passes fresh Vero grading with approved axioms",
     "rho": "unnormalized leave-one-out absolute reward-advantage mass per million model tokens",

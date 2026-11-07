@@ -28,6 +28,10 @@ PROBE = load_module("vero_validate_policy_probe", ADAPTER / "validate_policy_pro
 REPETITION = load_module(
     "vero_validate_repetition_design", ADAPTER / "validate_repetition_design.py"
 )
+QUEUE = load_module("vero_build_probe_queue", ADAPTER / "build_probe_queue.py")
+AGGREGATE = load_module(
+    "vero_aggregate_probe_measurements", ADAPTER / "aggregate_probe_measurements.py"
+)
 CONTAINMENT = load_module("vero_validate_containment", ADAPTER / "validate_containment_contract.py")
 SPLIT = json.loads((ADAPTER / "repository-split.json").read_text(encoding="utf-8"))
 ORACLES = json.loads((ADAPTER / "development-oracle-panel.json").read_text(encoding="utf-8"))
@@ -38,6 +42,8 @@ PROBE_PROTOCOL_PATH = ADAPTER / "policy-probe-protocol.v1.json"
 PROBE_PROTOCOL = json.loads(PROBE_PROTOCOL_PATH.read_text(encoding="utf-8"))
 REPETITION_DESIGN_PATH = ADAPTER / "repetition-reliability.v1.json"
 REPETITION_DESIGN = json.loads(REPETITION_DESIGN_PATH.read_text(encoding="utf-8"))
+PROBE_QUEUE_PATH = ADAPTER / "probe-queue.v1.json"
+PROBE_QUEUE = json.loads(PROBE_QUEUE_PATH.read_text(encoding="utf-8"))
 CONTAINMENT_PATH = ADAPTER / "containment-contract.v1.json"
 CONTAINMENT_CONTRACT = json.loads(CONTAINMENT_PATH.read_text(encoding="utf-8"))
 
@@ -282,6 +288,7 @@ class VeroPolicyProbeProtocolTest(unittest.TestCase):
             controller_lock_path=ADAPTER / "controller" / "controller-lock.v1.json",
             inference_contract_path=ADAPTER / "inference" / "inference-contract.v1.json",
             repetition_design_path=ADAPTER / "repetition-reliability.v1.json",
+            measurement_analysis_path=ADAPTER / "measurement-analysis.v1.json",
         )
 
     def test_probe_remains_blocked_while_pre_run_gates_are_open(self) -> None:
@@ -299,6 +306,7 @@ class VeroPolicyProbeProtocolTest(unittest.TestCase):
                 controller_lock_path=ADAPTER / "controller" / "controller-lock.v1.json",
                 inference_contract_path=ADAPTER / "inference" / "inference-contract.v1.json",
                 repetition_design_path=ADAPTER / "repetition-reliability.v1.json",
+                measurement_analysis_path=ADAPTER / "measurement-analysis.v1.json",
             )
 
     def test_probe_rejects_controller_host_tool_execution(self) -> None:
@@ -316,6 +324,7 @@ class VeroPolicyProbeProtocolTest(unittest.TestCase):
                 controller_lock_path=ADAPTER / "controller" / "controller-lock.v1.json",
                 inference_contract_path=ADAPTER / "inference" / "inference-contract.v1.json",
                 repetition_design_path=ADAPTER / "repetition-reliability.v1.json",
+                measurement_analysis_path=ADAPTER / "measurement-analysis.v1.json",
             )
 
     def test_probe_pins_the_frozen_containment_contract(self) -> None:
@@ -337,6 +346,104 @@ class VeroRepetitionDesignTest(unittest.TestCase):
         design["selected_attempts_per_repository_mode"] = 3
         with self.assertRaises(REPETITION.RepetitionDesignError):
             REPETITION.validate(design, LIFECYCLE_PANEL)
+
+
+class VeroProbeQueueTest(unittest.TestCase):
+    def test_frozen_queue_matches_the_protocol_and_panel(self) -> None:
+        expected = QUEUE.build_queue(
+            PROBE_PROTOCOL,
+            LIFECYCLE_PANEL,
+            protocol_sha256=hashlib.sha256(PROBE_PROTOCOL_PATH.read_bytes()).hexdigest(),
+            panel_sha256=hashlib.sha256(
+                (ADAPTER / "development-lifecycle-panel-v2.json").read_bytes()
+            ).hexdigest(),
+        )
+        self.assertEqual(PROBE_QUEUE, expected)
+        self.assertEqual(len(PROBE_QUEUE["attempts"]), 32)
+        self.assertEqual(
+            [record["queue_position"] for record in PROBE_QUEUE["attempts"]],
+            list(range(1, 33)),
+        )
+
+
+class VeroProbeAggregationTest(unittest.TestCase):
+    def test_advantage_mass_matches_unnormalized_leave_one_out(self) -> None:
+        self.assertEqual(AGGREGATE.advantage_mass(0, 4), 0.0)
+        self.assertEqual(AGGREGATE.advantage_mass(1, 4), 2.0)
+        self.assertEqual(AGGREGATE.advantage_mass(2, 4), 8 / 3)
+        self.assertEqual(AGGREGATE.advantage_mass(4, 4), 0.0)
+
+    def test_aggregate_keeps_repository_clusters_and_mode_coordinates(self) -> None:
+        attempts = []
+        receipts = {}
+        reward_patterns = {
+            "repo-a": ([1, 0, 0, 0], [0, 0, 0, 0]),
+            "repo-b": ([1, 1, 0, 0], [1, 1, 1, 1]),
+        }
+        for repository, patterns in reward_patterns.items():
+            for replicate in range(1, 5):
+                attempt_id = f"{repository}-proof-r{replicate:02d}"
+                attempts.append(
+                    {
+                        "attempt_id": attempt_id,
+                        "benchmark_id": repository,
+                        "mode": "proof",
+                        "task_id": f"{repository}:proof",
+                        "replicate": replicate,
+                        "expected_specifications": 2,
+                        "maximum_model_tokens": 50000,
+                    }
+                )
+                rewards = [pattern[replicate - 1] for pattern in patterns]
+                receipts[attempt_id] = {
+                    "attempt_id": attempt_id,
+                    "benchmark_id": repository,
+                    "mode": "proof",
+                    "task_id": f"{repository}:proof",
+                    "infrastructure_valid": True,
+                    "specifications_total": 2,
+                    "model_tokens": 100,
+                    "peak_memory_bytes": 1024,
+                    "per_specification": [
+                        {
+                            "module": "M",
+                            "specification": f"s{index}",
+                            "strict_reward": reward,
+                        }
+                        for index, reward in enumerate(rewards)
+                    ],
+                }
+        analysis = {
+            "analysis_id": "fixture",
+            "attempts_per_group": 4,
+            "cluster_sensitivity": {
+                "whole_repository_bootstrap_replicates": 20,
+                "whole_repository_bootstrap_seed": 7,
+                "central_interval": 0.90,
+                "interpretation": "fixture",
+            },
+            "admission_summary": {
+                "minimum_repositories_with_nonzero_verified_coverage": 2,
+                "minimum_mixed_specification_groups": 2,
+                "minimum_pooled_strict_success": 0.01,
+                "maximum_pooled_strict_success": 0.80,
+            },
+        }
+        result = AGGREGATE.aggregate(
+            {"queue_id": "fixture", "attempts": attempts}, analysis, receipts
+        )
+        measurement = result["measurements_by_mode"]["proof"]["coordinates"]
+        self.assertEqual(measurement["mixed_specification_groups"], 2)
+        self.assertAlmostEqual(measurement["total_advantage_mass"], 14 / 3)
+        self.assertEqual(
+            set(
+                result["measurements_by_mode"]["proof"]["cluster_sensitivity"][
+                    "leave_one_repository_out"
+                ]
+            ),
+            {"repo-a", "repo-b"},
+        )
+        self.assertTrue(result["admission_summary"]["passes_measurement_support_gate"])
 
 
 class VeroContainmentContractTest(unittest.TestCase):

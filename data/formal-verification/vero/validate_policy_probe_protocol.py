@@ -30,6 +30,7 @@ def validate(
     controller_lock_path: Path,
     inference_contract_path: Path,
     repetition_design_path: Path,
+    measurement_analysis_path: Path,
 ) -> None:
     prompt_path = panel_path.parent / protocol["starting_policy"]["user_prompt"]
     if digest(prompt_path) != protocol["starting_policy"]["user_prompt_sha256"]:
@@ -73,6 +74,11 @@ def validate(
         or repetition["total_attempts"] != design["total_attempts"]
     ):
         raise ProtocolError("the repetition design and probe design disagree")
+    measurement = protocol["measurement"]
+    if not measurement_analysis_path.as_posix().endswith(measurement["analysis_contract"]):
+        raise ProtocolError("the measurement-analysis path disagrees with the protocol")
+    if digest(measurement_analysis_path) != measurement["analysis_contract_sha256"]:
+        raise ProtocolError("the measurement-analysis hash disagrees with the protocol")
     if (
         protocol["execution_authorized"]
         and protocol["admission_gates"]["required_before_execution"]
@@ -115,6 +121,7 @@ def main() -> None:
     parser.add_argument("--controller-lock", type=Path, required=True)
     parser.add_argument("--inference-contract", type=Path, required=True)
     parser.add_argument("--repetition-design", type=Path, required=True)
+    parser.add_argument("--measurement-analysis", type=Path, required=True)
     args = parser.parse_args()
     protocol = json.loads(args.protocol.read_text(encoding="utf-8"))
     validate(
@@ -128,6 +135,7 @@ def main() -> None:
         controller_lock_path=args.controller_lock,
         inference_contract_path=args.inference_contract,
         repetition_design_path=args.repetition_design,
+        measurement_analysis_path=args.measurement_analysis,
     )
     print("validated frozen Vero development policy-probe protocol")
 
