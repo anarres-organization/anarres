@@ -201,6 +201,11 @@ the queue with [`build_probe_queue.py`](build_probe_queue.py), then use
 [`aggregate_probe_measurements.py`](aggregate_probe_measurements.py) only after
 all fresh grade receipts are present.
 
+[`run_probe_queue_item.py`](run_probe_queue_item.py) turns one frozen queue
+identity into a fresh task, isolated attempt, linked validation, and fresh
+grade. An existing output is never overwritten. A failed stage remains
+unclassified and cannot enter the aggregate through a grade receipt.
+
 ```bash
 python data/formal-verification/vero/serve_vibe_sandbox.py \
   --socket /tmp/anarres-vero-attempt/agent.sock \

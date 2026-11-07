@@ -32,6 +32,7 @@ QUEUE = load_module("vero_build_probe_queue", ADAPTER / "build_probe_queue.py")
 AGGREGATE = load_module(
     "vero_aggregate_probe_measurements", ADAPTER / "aggregate_probe_measurements.py"
 )
+QUEUE_ITEM = load_module("vero_run_probe_queue_item", ADAPTER / "run_probe_queue_item.py")
 CONTAINMENT = load_module("vero_validate_containment", ADAPTER / "validate_containment_contract.py")
 SPLIT = json.loads((ADAPTER / "repository-split.json").read_text(encoding="utf-8"))
 ORACLES = json.loads((ADAPTER / "development-oracle-panel.json").read_text(encoding="utf-8"))
@@ -364,6 +365,25 @@ class VeroProbeQueueTest(unittest.TestCase):
             [record["queue_position"] for record in PROBE_QUEUE["attempts"]],
             list(range(1, 33)),
         )
+
+    def test_queue_item_is_unique_and_contract_linked(self) -> None:
+        selected = QUEUE_ITEM.select_entry(PROBE_QUEUE, PROBE_QUEUE["attempts"][0]["attempt_id"])
+        self.assertEqual(selected["queue_position"], 1)
+        QUEUE_ITEM.validate_queue_contract(
+            PROBE_QUEUE,
+            protocol_path=PROBE_PROTOCOL_PATH,
+            panel_path=ADAPTER / "development-lifecycle-panel-v2.json",
+        )
+
+    def test_queue_item_rejects_protocol_drift(self) -> None:
+        queue = json.loads(PROBE_QUEUE_PATH.read_text(encoding="utf-8"))
+        queue["protocol_sha256"] = "0" * 64
+        with self.assertRaises(QUEUE_ITEM.QueueItemError):
+            QUEUE_ITEM.validate_queue_contract(
+                queue,
+                protocol_path=PROBE_PROTOCOL_PATH,
+                panel_path=ADAPTER / "development-lifecycle-panel-v2.json",
+            )
 
 
 class VeroProbeAggregationTest(unittest.TestCase):
