@@ -203,9 +203,10 @@ all fresh grade receipts are present.
 
 [`run_probe_queue_item.py`](run_probe_queue_item.py) turns one frozen queue
 identity into a fresh task, isolated attempt, linked validation, and fresh
-grade. It revalidates every linked contract before materialization. An existing
-output is never overwritten. A failed stage remains unclassified and cannot
-enter the aggregate through a grade receipt.
+grade. It checks both cross-file hashes and each contract's semantic validator
+before materialization. An existing output is never overwritten. A failed
+stage remains unclassified and cannot enter the aggregate through a grade
+receipt.
 
 ```bash
 python data/formal-verification/vero/serve_vibe_sandbox.py \

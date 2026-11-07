@@ -506,6 +506,14 @@ a=p.parse_args(); Path(a.output).mkdir()
                 str(grader),
                 "--protocol-validator",
                 str(no_op),
+                "--containment-validator",
+                str(no_op),
+                "--runtime-validator",
+                str(no_op),
+                "--controller-validator",
+                str(no_op),
+                "--inference-validator",
+                str(no_op),
             ]
             for name, path in required_files.items():
                 command.extend([f"--{name}", str(path)])
@@ -516,7 +524,17 @@ a=p.parse_args(); Path(a.output).mkdir()
             self.assertEqual(receipt["status"], "graded")
             self.assertEqual(
                 [stage["stage"] for stage in receipt["stages"]],
-                ["validate-contracts", "materialize", "attempt", "validate", "grade"],
+                [
+                    "validate-protocol",
+                    "validate-containment",
+                    "validate-runtime",
+                    "validate-controller",
+                    "validate-inference",
+                    "materialize",
+                    "attempt",
+                    "validate",
+                    "grade",
+                ],
             )
 
 

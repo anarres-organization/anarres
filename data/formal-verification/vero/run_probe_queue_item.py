@@ -86,6 +86,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--attempt-validator", type=Path, required=True)
     parser.add_argument("--grader", type=Path, required=True)
     parser.add_argument("--protocol-validator", type=Path, required=True)
+    parser.add_argument("--containment-validator", type=Path, required=True)
+    parser.add_argument("--runtime-validator", type=Path, required=True)
+    parser.add_argument("--controller-validator", type=Path, required=True)
+    parser.add_argument("--inference-validator", type=Path, required=True)
     return parser.parse_args()
 
 
@@ -111,6 +115,10 @@ def main() -> None:
         args.attempt_validator,
         args.grader,
         args.protocol_validator,
+        args.containment_validator,
+        args.runtime_validator,
+        args.controller_validator,
+        args.inference_validator,
     )
     for path in required:
         if not path.exists():
@@ -145,7 +153,7 @@ def main() -> None:
 
     commands = [
         (
-            "validate-contracts",
+            "validate-protocol",
             [
                 sys.executable,
                 str(args.protocol_validator),
@@ -167,6 +175,52 @@ def main() -> None:
                 str(args.repetition_design),
                 "--measurement-analysis",
                 str(args.measurement_analysis),
+            ],
+        ),
+        (
+            "validate-containment",
+            [
+                sys.executable,
+                str(args.containment_validator),
+                "--contract",
+                str(args.containment),
+            ],
+        ),
+        (
+            "validate-runtime",
+            [
+                sys.executable,
+                str(args.runtime_validator),
+                "--lock",
+                str(args.runtime_lock),
+                "--panel",
+                str(args.panel),
+                "--source-pin",
+                str(args.source_pin),
+            ],
+        ),
+        (
+            "validate-controller",
+            [
+                sys.executable,
+                str(args.controller_validator),
+                "--lock",
+                str(args.controller_lock),
+                "--protocol",
+                str(args.protocol),
+            ],
+        ),
+        (
+            "validate-inference",
+            [
+                sys.executable,
+                str(args.inference_validator),
+                "--contract",
+                str(args.inference_contract),
+                "--protocol",
+                str(args.protocol),
+                "--controller-lock",
+                str(args.controller_lock),
             ],
         ),
         (
