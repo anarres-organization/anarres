@@ -156,6 +156,20 @@ The [inference definition](inference/README.md) pins the official Leanstral
 serving requirements and leaves exact deployment capacity and runtime artifacts
 pending host qualification.
 
+[`run_probe_attempt.py`](run_probe_attempt.py) is the fail-closed entry point
+for one scientific attempt. It refuses to start until the probe, containment,
+runtime, controller, inference, and materialized-task records agree. It creates
+a private controller home, exposes only the frozen environment and tool
+allowlists, starts one ephemeral sandbox, applies the 50-turn, 50,000-token,
+and 1,800-second limits, and preserves the Vibe export and runtime receipts.
+Scientific retries remain disabled; infrastructure retry handling belongs to
+the outer frozen queue.
+After completion, [`validate_probe_attempt.py`](validate_probe_attempt.py)
+checks the launcher receipt, sandbox receipt, Vibe export, task materialization,
+and every frozen contract as one linked evidence bundle. Configuration,
+infrastructure, and aborted outcomes are rejected as unscorable rather than
+silently entering the scientific aggregate.
+
 ```bash
 python data/formal-verification/vero/serve_vibe_sandbox.py \
   --socket /tmp/anarres-vero-attempt/agent.sock \

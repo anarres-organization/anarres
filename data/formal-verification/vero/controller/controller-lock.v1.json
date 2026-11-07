@@ -1,7 +1,7 @@
 {
   "schema_version": "anarres.formal-verification-controller-lock.v1",
   "controller_id": "mistral-vibe-leanstral-local-v1",
-  "status": "frozen_deployment_pending",
+  "status": "frozen",
   "agent_scaffold": "mistralai/mistral-vibe@v3.1.0",
   "agent_scaffold_revision": "c96a6dbb34d34f8a868b3f67b279ecabbf1aa616",
   "config": "config.toml",

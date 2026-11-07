@@ -10,9 +10,13 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = ROOT / "data" / "formal-verification" / "vero" / "serve_vibe_sandbox.py"
-RECEIPT_SOURCE = ROOT / "data" / "formal-verification" / "vero" / "validate_sandbox_receipt.py"
-RUNTIME_ROOT = ROOT / "data" / "formal-verification" / "vero" / "runtime"
+VERO_ROOT = ROOT / "data" / "formal-verification" / "vero"
+if str(VERO_ROOT) not in sys.path:
+    sys.path.insert(0, str(VERO_ROOT))
+SOURCE = VERO_ROOT / "serve_vibe_sandbox.py"
+RECEIPT_SOURCE = VERO_ROOT / "validate_sandbox_receipt.py"
+RUNNER_SOURCE = VERO_ROOT / "run_probe_attempt.py"
+RUNTIME_ROOT = VERO_ROOT / "runtime"
 RUNTIME_SOURCE = RUNTIME_ROOT / "validate_runtime_lock.py"
 CONTROLLER_ROOT = ROOT / "data" / "formal-verification" / "vero" / "controller"
 CONTROLLER_SOURCE = CONTROLLER_ROOT / "validate_controller_lock.py"
@@ -63,6 +67,12 @@ if MATERIALIZER_SPEC is None or MATERIALIZER_SPEC.loader is None:
 MATERIALIZER = importlib.util.module_from_spec(MATERIALIZER_SPEC)
 sys.modules[MATERIALIZER_SPEC.name] = MATERIALIZER
 MATERIALIZER_SPEC.loader.exec_module(MATERIALIZER)
+RUNNER_SPEC = importlib.util.spec_from_file_location("vero_run_probe_attempt", RUNNER_SOURCE)
+if RUNNER_SPEC is None or RUNNER_SPEC.loader is None:
+    raise RuntimeError(f"could not load {RUNNER_SOURCE}")
+RUNNER = importlib.util.module_from_spec(RUNNER_SPEC)
+sys.modules[RUNNER_SPEC.name] = RUNNER
+RUNNER_SPEC.loader.exec_module(RUNNER)
 PROTOCOL = json.loads(
     (ROOT / "data" / "formal-verification" / "vero" / "policy-probe-protocol.v1.json").read_text(
         encoding="utf-8"
@@ -143,7 +153,6 @@ class VeroSandboxProtocolTest(unittest.TestCase):
                 image_reference=config.image,
                 model_artifact_digest="sha256:" + "b" * 64,
                 inference_config_digest="sha256:" + "c" * 64,
-                workspace=directory,
                 container_name="attempt",
                 resource_limits={},
                 workspace_pre_sha256="d" * 64,
@@ -184,7 +193,6 @@ class VeroSandboxReceiptTest(unittest.TestCase):
             "image_reference": "example.test/vero@sha256:" + "a" * 64,
             "model_artifact_digest": "sha256:" + "b" * 64,
             "inference_config_digest": "sha256:" + "c" * 64,
-            "workspace": "/runtime/task",
             "container_name": "attempt",
             "container_id": "container-id",
             "image_id": "sha256:" + "a" * 64,
@@ -315,6 +323,52 @@ class VeroTaskMaterializationTest(unittest.TestCase):
         self.assertEqual(selected["source_language"], "coq")
         with self.assertRaises(MATERIALIZER.MaterializationError):
             MATERIALIZER.selected_repository(PANEL, SPLIT, "unicode-v2")
+
+
+class VeroAttemptLauncherTest(unittest.TestCase):
+    def test_pending_protocol_cannot_launch(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            task = Path(directory)
+            (task / "INSTRUCTION.md").write_text("task\n", encoding="utf-8")
+            materialization = {
+                "source_id": PROTOCOL["source"]["vero_id"],
+                "mode": "proof",
+                "task_tree_sha256": MATERIALIZER.tree_digest(task),
+            }
+            with self.assertRaises(RUNNER.AttemptLaunchError):
+                RUNNER.validate_ready(
+                    protocol=PROTOCOL,
+                    containment=json.loads(
+                        (VERO_ROOT / "containment-contract.v1.json").read_text(encoding="utf-8")
+                    ),
+                    runtime=RUNTIME_LOCK,
+                    controller=CONTROLLER_LOCK,
+                    inference=INFERENCE_CONTRACT,
+                    materialization=materialization,
+                    task=task,
+                    image="sha256:" + "a" * 64,
+                )
+
+    def test_vibe_command_contains_only_the_frozen_tool_allowlist(self) -> None:
+        command = RUNNER.build_vibe_command(
+            vibe=Path("/runtime/vibe"),
+            prompt=Path("/runtime/prompt.txt"),
+            socket=Path("/runtime/agent.sock"),
+            output=Path("/runtime/output"),
+            lock=CONTROLLER_LOCK,
+        )
+        enabled = [
+            command[index + 1] for index, value in enumerate(command) if value == "--enabled-tools"
+        ]
+        self.assertEqual(enabled, CONTROLLER_LOCK["tool_allowlist"])
+        self.assertNotIn("web_search", enabled)
+        self.assertNotIn("task", enabled)
+
+    def test_launcher_environment_matches_the_frozen_allowlist(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            environment = RUNNER.isolated_environment(root, Path("/runtime/bin/vibe"))
+        self.assertEqual(sorted(environment), sorted(CONTROLLER_LOCK["environment_allowlist"]))
 
 
 if __name__ == "__main__":

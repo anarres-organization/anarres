@@ -62,7 +62,6 @@ class Receipt:
     image_reference: str
     model_artifact_digest: str
     inference_config_digest: str
-    workspace: str
     container_name: str
     resource_limits: dict[str, Any]
     workspace_pre_sha256: str
@@ -537,7 +536,6 @@ def main() -> None:
         image_reference=args.image,
         model_artifact_digest=args.model_artifact_digest,
         inference_config_digest=args.inference_config_digest,
-        workspace=str(workspace),
         container_name=name,
         resource_limits={
             "memory": args.memory,

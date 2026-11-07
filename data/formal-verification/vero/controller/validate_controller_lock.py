@@ -117,7 +117,19 @@ def validate(lock: dict[str, Any], *, lock_path: Path, protocol_path: Path) -> N
         raise ControllerLockError("inference endpoint must be loopback-only HTTP")
     if lock["tool_allowlist"] != ["bash", "edit", "grep", "read_file", "write_file"]:
         raise ControllerLockError("controller tool allowlist is not frozen")
-    if lock["status"] != "frozen_deployment_pending":
+    if lock["environment_allowlist"] != [
+        "HOME",
+        "LANG",
+        "NO_PROXY",
+        "PATH",
+        "TMPDIR",
+        "VIBE_HOME",
+        "VIBE_STRICT_CONFIG",
+        "XDG_CACHE_HOME",
+        "no_proxy",
+    ]:
+        raise ControllerLockError("controller environment allowlist is not frozen")
+    if lock["status"] != "frozen":
         raise ControllerLockError("unexpected controller-lock status")
 
 
