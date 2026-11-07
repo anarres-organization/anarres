@@ -22,6 +22,7 @@ CONTROLLER_ROOT = ROOT / "data" / "formal-verification" / "vero" / "controller"
 CONTROLLER_SOURCE = CONTROLLER_ROOT / "validate_controller_lock.py"
 INFERENCE_ROOT = ROOT / "data" / "formal-verification" / "vero" / "inference"
 INFERENCE_SOURCE = INFERENCE_ROOT / "validate_inference_contract.py"
+INFERENCE_QUALIFICATION_SOURCE = INFERENCE_ROOT / "qualify_inference_deployment.py"
 MATERIALIZER_SOURCE = ROOT / "data" / "formal-verification" / "vero" / "materialize_probe_task.py"
 SPEC = importlib.util.spec_from_file_location("vero_serve_vibe_sandbox", SOURCE)
 if SPEC is None or SPEC.loader is None:
@@ -59,6 +60,14 @@ if INFERENCE_SPEC is None or INFERENCE_SPEC.loader is None:
 INFERENCE = importlib.util.module_from_spec(INFERENCE_SPEC)
 sys.modules[INFERENCE_SPEC.name] = INFERENCE
 INFERENCE_SPEC.loader.exec_module(INFERENCE)
+INFERENCE_QUALIFICATION_SPEC = importlib.util.spec_from_file_location(
+    "vero_qualify_inference_deployment", INFERENCE_QUALIFICATION_SOURCE
+)
+if INFERENCE_QUALIFICATION_SPEC is None or INFERENCE_QUALIFICATION_SPEC.loader is None:
+    raise RuntimeError(f"could not load {INFERENCE_QUALIFICATION_SOURCE}")
+INFERENCE_QUALIFICATION = importlib.util.module_from_spec(INFERENCE_QUALIFICATION_SPEC)
+sys.modules[INFERENCE_QUALIFICATION_SPEC.name] = INFERENCE_QUALIFICATION
+INFERENCE_QUALIFICATION_SPEC.loader.exec_module(INFERENCE_QUALIFICATION)
 MATERIALIZER_SPEC = importlib.util.spec_from_file_location(
     "vero_materialize_probe_task", MATERIALIZER_SOURCE
 )
@@ -306,6 +315,58 @@ class VeroInferenceContractTest(unittest.TestCase):
                 protocol_path=PROTOCOL_PATH,
                 controller_lock_path=CONTROLLER_LOCK_PATH,
             )
+
+    def test_live_command_must_match_every_frozen_serving_flag(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            model = Path(directory).resolve()
+            command = [
+                "vllm",
+                "serve",
+                str(model),
+                "--host",
+                "127.0.0.1",
+                "--port",
+                "8000",
+                "--max-model-len",
+                "200000",
+                "--tensor-parallel-size",
+                "4",
+                "--attention-backend",
+                "FLASH_ATTN_MLA",
+                "--tool-call-parser",
+                "mistral",
+                "--reasoning-parser",
+                "mistral",
+                "--served-model-name",
+                "mistralai/Leanstral-1.5-119B-A6B",
+                "--enable-auto-tool-choice",
+                "--gpu-memory-utilization",
+                "0.92",
+                "--max-num-seqs",
+                "8",
+                "--dtype",
+                "bfloat16",
+            ]
+            observed = INFERENCE_QUALIFICATION.validate_live_command(
+                command, INFERENCE_CONTRACT, model
+            )
+        self.assertEqual(observed["gpu_memory_utilization"], 0.92)
+        self.assertEqual(observed["max_num_seqs"], 8)
+
+    def test_model_artifact_manifest_is_content_addressed(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "config.json").write_text("{}\n", encoding="utf-8")
+            first = INFERENCE_QUALIFICATION.artifact_manifest(root)
+            (root / "config.json").write_text('{"changed":true}\n', encoding="utf-8")
+            second = INFERENCE_QUALIFICATION.artifact_manifest(root)
+        self.assertNotEqual(first["root_sha256"], second["root_sha256"])
+
+    def test_vllm_version_gate_uses_semantic_components(self) -> None:
+        self.assertGreaterEqual(
+            INFERENCE_QUALIFICATION.version_tuple("0.24.1+cu128"),
+            INFERENCE_QUALIFICATION.version_tuple("0.24.0"),
+        )
 
 
 class VeroTaskMaterializationTest(unittest.TestCase):

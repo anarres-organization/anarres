@@ -14,6 +14,12 @@ capacity settings, and readiness receipt. Model resolution may use the network
 only before the artifact is sealed; scientific attempts use the resolved local
 artifact without external model downloads.
 
+[`qualify_inference_deployment.py`](qualify_inference_deployment.py) verifies
+the live process against the frozen flags, checks the loopback endpoint, hashes
+the local model artifact, verifies the installed vLLM wheel against its RECORD,
+and emits the evidence needed for that transition. It does not edit or qualify
+the contract by itself.
+
 Validate the pre-deployment contract with:
 
 ```bash
