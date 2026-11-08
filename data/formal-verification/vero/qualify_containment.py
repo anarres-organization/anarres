@@ -453,12 +453,47 @@ def main() -> None:
             export_path = vibe_output / "export.json"
             exported = read_json(export_path) if export_path.is_file() else {}
             effective = exported.get("config") or {}
+            active_model = (effective.get("models") or {}).get(controller["model_alias"]) or {}
+            local_provider = next(
+                (
+                    provider
+                    for provider in effective.get("providers") or []
+                    if provider.get("name") == "vllm"
+                ),
+                {},
+            )
+            remote_features_disabled = (
+                all(
+                    effective.get(key) is False
+                    for key in (
+                        "enable_auto_update",
+                        "enable_background_processes",
+                        "enable_connectors",
+                        "enable_mcp",
+                        "enable_notifications",
+                        "enable_subagents",
+                        "enable_telemetry",
+                        "enable_update_checks",
+                    )
+                )
+                and (effective.get("experiments") or {}).get("enable") is False
+            )
+            local_model_locked = (
+                effective.get("active_model") == controller["model_alias"]
+                and active_model.get("name") == inference["model"]["id"]
+                and active_model.get("provider") == "vllm"
+                and effective.get("allowed_models") == [inference["model"]["id"]]
+                and local_provider.get("api_base") == controller["api_base"]
+            )
             controller_passed = (
                 version.returncode == 0
                 and "3.1.0" in version_text
+                and local_model_locked
+                and remote_features_disabled
                 and effective.get("enabled_tools") == controller["tool_allowlist"]
                 and effective.get("bypass_tool_permissions") is True
                 and not effective.get("mcp_servers")
+                and not effective.get("connectors")
                 and not exported.get("warnings")
             )
             results.append(
@@ -467,6 +502,8 @@ def main() -> None:
                     controller_passed,
                     {
                         "vibe_version": version_text,
+                        "local_model_locked": local_model_locked,
+                        "remote_features_disabled": remote_features_disabled,
                         "tool_allowlist_matched": effective.get("enabled_tools")
                         == controller["tool_allowlist"],
                         "warnings": len(exported.get("warnings") or []),

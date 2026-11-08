@@ -4,6 +4,7 @@ safety = "neutral"
 
 system_prompt_id = "lean"
 active_model = "leanstral"
+allowed_models = ["mistralai/Leanstral-1.5-119B-A6B"]
 
 [[providers]]
 name = "vllm"

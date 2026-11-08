@@ -66,9 +66,14 @@ def validate(lock: dict[str, Any], *, lock_path: Path, protocol_path: Path) -> N
             "installed_agents": ["lean"],
             "enable_telemetry": False,
             "enable_background_processes": False,
+            "enable_subagents": False,
+            "enable_connectors": False,
+            "enable_mcp": False,
+            "enable_update_checks": False,
             "enable_auto_update": False,
             "enable_notifications": False,
             "strict_config": True,
+            "experiments": {"enable": False},
         },
         "isolated Vibe config",
     )
@@ -85,6 +90,7 @@ def validate(lock: dict[str, Any], *, lock_path: Path, protocol_path: Path) -> N
             "safety": "neutral",
             "system_prompt_id": "lean",
             "active_model": lock["model_alias"],
+            "allowed_models": [starting_policy["model_id"]],
         },
         "Lean agent header",
     )

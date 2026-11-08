@@ -10,7 +10,9 @@ The Lean agent follows Mistral's published local Leanstral configuration. Its
 paired 1,200-second shell timeouts match the built-in Lean profile in the pinned
 Vibe 3.1.0 revision and satisfy that revision's strict configuration schema. Its
 provider is bound to a loopback-only OpenAI-compatible endpoint, telemetry and
-automatic updates are disabled, and strict configuration validation is enabled.
+update checks, automatic updates, experiments, connectors, MCP, and subagents
+are disabled, and strict configuration validation is enabled. The model
+allowlist contains only the frozen Leanstral artifact.
 The launch command additionally restricts Vibe's built-in tools to shell, read,
 write, edit, and grep operations. File and shell operations are served through
 the isolated agent socket and execute inside the one-attempt container.
