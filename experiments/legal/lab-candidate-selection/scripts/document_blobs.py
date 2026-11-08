@@ -58,6 +58,49 @@ def screen_exact_titles(
     }
 
 
+def audit_instruction_overlap(
+    repo: Path, eligible: list[dict], probe: set[str], target: set[str]
+) -> dict:
+    """Count close instruction templates without reporting protected task identities."""
+
+    def grams(task_id: str) -> set[tuple[str, ...]]:
+        task = json.loads((repo / "tasks" / task_id / "task.json").read_text())
+        instructions = task.get("instructions")
+        if not isinstance(instructions, str):
+            raise ValueError("source task has no instructions")
+        words = re.findall(r"[a-z0-9]+", unicodedata.normalize("NFKC", instructions).casefold())
+        return {tuple(words[i : i + 4]) for i in range(max(0, len(words) - 3))}
+
+    candidate_grams = {row["task_id"]: grams(row["task_id"]) for row in eligible}
+    result = {}
+    for name, protected in (("probe", probe), ("target", target)):
+        protected_grams = {task_id: grams(task_id) for task_id in protected}
+        index: dict[tuple[str, ...], set[str]] = defaultdict(set)
+        for task_id, features in protected_grams.items():
+            for feature in features:
+                index[feature].add(task_id)
+        best_scores = []
+        for features in candidate_grams.values():
+            related = set().union(*(index[feature] for feature in features)) if features else set()
+            best_scores.append(
+                max(
+                    (
+                        len(features & protected_grams[task_id])
+                        / len(features | protected_grams[task_id])
+                        for task_id in related
+                    ),
+                    default=0.0,
+                )
+            )
+        result[name] = {
+            "maximum_instruction_4gram_jaccard": max(best_scores, default=0.0),
+            "candidate_tasks_at_or_above_0_5": sum(score >= 0.5 for score in best_scores),
+            "candidate_tasks_at_or_above_0_7": sum(score >= 0.7 for score in best_scores),
+        }
+    result["outcomes_read"] = False
+    return result
+
+
 def screen_document_blobs(
     repo: Path,
     eligible: list[dict],
@@ -80,7 +123,11 @@ def screen_document_blobs(
     if len(groups) != len(eligible_ids) + len(probe) + len(target):
         raise ValueError("candidate and protected task identities overlap")
 
-    raw = git_output(repo, "ls-tree", "-r", "-z", revision, "tasks")
+    raw = subprocess.check_output(
+        ["git", "ls-tree", "-r", "-z", revision, "tasks"],
+        cwd=repo,
+        stderr=subprocess.PIPE,
+    )
     document_tasks: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
     task_json_ids: set[str] = set()
     document_count = 0

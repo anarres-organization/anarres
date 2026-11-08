@@ -17,6 +17,7 @@ SPEC.loader.exec_module(MODULE)
 sys.path.insert(0, str(SCRIPT.parent))
 from build_candidate_bank import bank  # noqa: E402
 from document_blobs import (  # noqa: E402
+    audit_instruction_overlap,
     screen_document_blobs,
     screen_exact_titles,
     verify_task_hashes,
@@ -207,15 +208,17 @@ class SourcePoolAuditTest(unittest.TestCase):
 
     def test_exact_title_screen_excludes_candidate_reuse(self) -> None:
         repo = self.root / "source"
-        for task_id, title in (
-            ("area/probe", "Probe task"),
-            ("area/target", "Review merger agreement"),
-            ("area/same-title", "  review  merger agreement  "),
-            ("area/unique", "Draft a notice"),
+        for task_id, title, instructions in (
+            ("area/probe", "Probe task", "Review a separate matter and finish"),
+            ("area/target", "Review merger agreement", "Find the key merger terms"),
+            ("area/same-title", "  review  merger agreement  ", "Find the key merger terms"),
+            ("area/unique", "Draft a notice", "Write a notice based on evidence"),
         ):
             task = repo / "tasks" / task_id
             task.mkdir(parents=True)
-            (task / "task.json").write_text(json.dumps({"title": title}), encoding="utf-8")
+            (task / "task.json").write_text(
+                json.dumps({"title": title, "instructions": instructions}), encoding="utf-8"
+            )
         remaining, summary = screen_exact_titles(
             repo,
             [{"task_id": "area/same-title"}, {"task_id": "area/unique"}],
@@ -225,6 +228,14 @@ class SourcePoolAuditTest(unittest.TestCase):
         self.assertEqual([row["task_id"] for row in remaining], ["area/unique"])
         self.assertEqual(summary["exact_title_matches_with_target"], 1)
         self.assertNotIn("area/target", json.dumps(summary))
+        overlap = audit_instruction_overlap(
+            repo,
+            [{"task_id": "area/same-title"}, {"task_id": "area/unique"}],
+            {"area/probe"},
+            {"area/target"},
+        )
+        self.assertEqual(overlap["target"]["candidate_tasks_at_or_above_0_7"], 1)
+        self.assertEqual(overlap["probe"]["candidate_tasks_at_or_above_0_7"], 0)
 
 
 if __name__ == "__main__":

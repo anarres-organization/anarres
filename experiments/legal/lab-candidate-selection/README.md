@@ -41,8 +41,10 @@ normalized titles match target tasks. The screened bank therefore contains
 1,452 tasks. The document check compares Git blob identities, and the title
 check uses task metadata. Neither opens target outcomes or reports target task
 IDs. All 2,010 inventory task hashes also match `task.json` at the pinned
-revision. Template reuse and semantically similar matters still require review
-before candidate training.
+revision. A four-word-gram screen of task instructions finds no candidate with
+Jaccard similarity at or above 0.7 to either protected panel. This lexical
+screen does not establish semantic independence, so similar matters and rubric
+templates still require review before candidate training.
 
 The preflight constructs three sampling distributions on this same 1,452-task
 support:
@@ -106,7 +108,7 @@ intervention.
    are recorded. Score allocation regret, guardrail regressions, and net
    decision value.
 
-The [official LAB tutorial](https://github.com/harveyai/harvey-labs/blob/main/docs/tutorial.md)
+The [pinned LAB tutorial](https://github.com/harveyai/harvey-labs/blob/9e9fa7fe126103de1fceb2227b7c70bf59b67f73/docs/tutorial.md)
 uses a task sandbox and two model judges for standard evaluation. A local
 diagnostic scorer cannot silently replace that contract. This page records the
 scientific path and source check. It does not authorize an unqualified trainer,

@@ -10,7 +10,12 @@ from collections import Counter
 from pathlib import Path
 
 from audit_pool import audit, load_inventory, load_panel, screened_pool
-from document_blobs import screen_document_blobs, screen_exact_titles, verify_task_hashes
+from document_blobs import (
+    audit_instruction_overlap,
+    screen_document_blobs,
+    screen_exact_titles,
+    verify_task_hashes,
+)
 
 
 def bank(rows: list[dict]) -> dict:
@@ -94,10 +99,12 @@ def main() -> None:
     target = load_panel(args.target_panel, inventory)
     rows, document_audit = screen_document_blobs(args.source_repo, rows, probe, target)
     rows, title_audit = screen_exact_titles(args.source_repo, rows, probe, target)
+    instruction_audit = audit_instruction_overlap(args.source_repo, rows, probe, target)
     result = bank(rows)
     result["source_audit"] = source_audit
     result["document_audit"] = document_audit
     result["title_audit"] = title_audit
+    result["instruction_audit"] = instruction_audit
     result["verified_source_task_hashes"] = verified_task_count
     payload = json.dumps(result, indent=2, sort_keys=True) + "\n"
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -111,6 +118,7 @@ def main() -> None:
                 "total_variation": result["total_variation"],
                 "document_audit": document_audit,
                 "title_audit": title_audit,
+                "instruction_audit": instruction_audit,
                 "verified_source_task_hashes": verified_task_count,
                 "outcomes_read": False,
             },
