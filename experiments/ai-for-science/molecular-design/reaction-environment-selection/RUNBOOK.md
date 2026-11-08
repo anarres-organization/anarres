@@ -41,6 +41,15 @@ eligible target passes file-integrity and oracle-input checks. Serialize the
 eligible target IDs, selection hash, selected identity, and all exclusion
 reasons.
 
+Create an outcome-free qualification file using only the fields accepted by
+`freeze_target.py`, then freeze the identity:
+
+```bash
+python scripts/freeze_target.py \
+  --qualification /path/to/TARGET_QUALIFICATION.json \
+  --out /path/to/TARGET_FREEZE.json
+```
+
 ## 3. Qualify the target reward
 
 Implement one adapter that maps an RxnFlow terminal molecule to the frozen
