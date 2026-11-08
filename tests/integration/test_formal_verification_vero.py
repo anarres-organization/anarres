@@ -46,6 +46,10 @@ PROBE_PROTOCOL_V2_PATH = ADAPTER / "policy-probe-protocol.v2.json"
 PROBE_PROTOCOL_V2 = json.loads(PROBE_PROTOCOL_V2_PATH.read_text(encoding="utf-8"))
 PROBE_PROTOCOL_V3_PATH = ADAPTER / "policy-probe-protocol.v3.json"
 PROBE_PROTOCOL_V3 = json.loads(PROBE_PROTOCOL_V3_PATH.read_text(encoding="utf-8"))
+PROBE_PROTOCOL_V4_PATH = ADAPTER / "policy-probe-protocol.v4.json"
+PROBE_PROTOCOL_V4 = json.loads(PROBE_PROTOCOL_V4_PATH.read_text(encoding="utf-8"))
+PROBE_PROTOCOL_V5_PATH = ADAPTER / "policy-probe-protocol.v5.json"
+PROBE_PROTOCOL_V5 = json.loads(PROBE_PROTOCOL_V5_PATH.read_text(encoding="utf-8"))
 REPETITION_DESIGN_PATH = ADAPTER / "repetition-reliability.v1.json"
 REPETITION_DESIGN = json.loads(REPETITION_DESIGN_PATH.read_text(encoding="utf-8"))
 PROBE_QUEUE_PATH = ADAPTER / "probe-queue.v1.json"
@@ -54,6 +58,10 @@ PROBE_QUEUE_V2_PATH = ADAPTER / "probe-queue.v2.json"
 PROBE_QUEUE_V2 = json.loads(PROBE_QUEUE_V2_PATH.read_text(encoding="utf-8"))
 PROBE_QUEUE_V3_PATH = ADAPTER / "probe-queue.v3.json"
 PROBE_QUEUE_V3 = json.loads(PROBE_QUEUE_V3_PATH.read_text(encoding="utf-8"))
+PROBE_QUEUE_V4_PATH = ADAPTER / "probe-queue.v4.json"
+PROBE_QUEUE_V4 = json.loads(PROBE_QUEUE_V4_PATH.read_text(encoding="utf-8"))
+PROBE_QUEUE_V5_PATH = ADAPTER / "probe-queue.v5.json"
+PROBE_QUEUE_V5 = json.loads(PROBE_QUEUE_V5_PATH.read_text(encoding="utf-8"))
 CONTAINMENT_PATH = ADAPTER / "containment-contract.v1.json"
 CONTAINMENT_CONTRACT = json.loads(CONTAINMENT_PATH.read_text(encoding="utf-8"))
 
@@ -425,6 +433,40 @@ class VeroProbeQueueTest(unittest.TestCase):
             all("-claim-v3-r" in record["attempt_id"] for record in PROBE_QUEUE_V3["attempts"])
         )
         self.assertEqual(len(PROBE_PROTOCOL_V3["chronology"]["excluded_pre_inference_launches"]), 2)
+
+    def test_concurrency_requalification_uses_a_fresh_claim_namespace(self) -> None:
+        expected = QUEUE.build_queue(
+            PROBE_PROTOCOL_V4,
+            LIFECYCLE_PANEL,
+            protocol_sha256=hashlib.sha256(PROBE_PROTOCOL_V4_PATH.read_bytes()).hexdigest(),
+            panel_sha256=hashlib.sha256(
+                (ADAPTER / "development-lifecycle-panel-v2.json").read_bytes()
+            ).hexdigest(),
+        )
+        self.assertEqual(PROBE_QUEUE_V4, expected)
+        self.assertTrue(
+            all("-claim-v4-r" in record["attempt_id"] for record in PROBE_QUEUE_V4["attempts"])
+        )
+        excluded = PROBE_PROTOCOL_V4["chronology"]["excluded_v3_deployment_attempts"]
+        self.assertEqual(len(excluded), 3)
+        self.assertTrue(all(record["excluded_from_v4_claim_aggregate"] for record in excluded))
+
+    def test_final_worker_preflight_uses_a_fresh_claim_namespace(self) -> None:
+        expected = QUEUE.build_queue(
+            PROBE_PROTOCOL_V5,
+            LIFECYCLE_PANEL,
+            protocol_sha256=hashlib.sha256(PROBE_PROTOCOL_V5_PATH.read_bytes()).hexdigest(),
+            panel_sha256=hashlib.sha256(
+                (ADAPTER / "development-lifecycle-panel-v2.json").read_bytes()
+            ).hexdigest(),
+        )
+        self.assertEqual(PROBE_QUEUE_V5, expected)
+        self.assertTrue(
+            all("-claim-v5-r" in record["attempt_id"] for record in PROBE_QUEUE_V5["attempts"])
+        )
+        excluded = PROBE_PROTOCOL_V5["chronology"]["excluded_v4_pre_inference_launches"]
+        self.assertEqual(len(excluded), 2)
+        self.assertTrue(all(record["model_request_started"] is False for record in excluded))
 
     def test_queue_item_is_unique_and_contract_linked(self) -> None:
         selected = QUEUE_ITEM.select_entry(PROBE_QUEUE, PROBE_QUEUE["attempts"][0]["attempt_id"])

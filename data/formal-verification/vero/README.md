@@ -114,7 +114,7 @@ Vibe user message; the repository-specific `INSTRUCTION.md` remains the task
 contract.
 
 The claim-bearing measurement contract is frozen in
-[`policy-probe-protocol.v3.json`](policy-probe-protocol.v3.json). It selects an
+[`policy-probe-protocol.v5.json`](policy-probe-protocol.v5.json). It selects an
 open-weight Lean starting policy and records the development-only attempt and
 resource budgets. Execution remains blocked until the model artifact, inference
 runtime, and process-containment gates are qualified. Validate the frozen
@@ -129,11 +129,15 @@ aggregate. Vibe checks its 50,000-token controller threshold between model
 calls, and the corrected contract charges all actual exported input and output
 tokens, including the final call that may cross that threshold.
 Two v2 launches ended before inference while qualifying the host socket path.
-The v3 queue records both exclusions and uses a new claim namespace.
+The later deployment record preserves one completed single-sequence calibration
+attempt, excludes overlapping launches made before concurrency qualification,
+and records the pre-inference worker failures that informed the final launch
+path. The v5 queue uses a fresh namespace under the qualified two-sequence
+deployment.
 
 ```bash
 python data/formal-verification/vero/validate_policy_probe_protocol.py \
-  --protocol data/formal-verification/vero/policy-probe-protocol.v3.json \
+  --protocol data/formal-verification/vero/policy-probe-protocol.v5.json \
   --panel data/formal-verification/vero/development-lifecycle-panel-v2.json \
   --split data/formal-verification/vero/repository-split.json \
   --containment data/formal-verification/vero/containment-contract.v1.json \
@@ -202,8 +206,8 @@ this directory remain unchanged.
 
 ```bash
 python data/formal-verification/vero/promote_probe_deployment.py \
-  --protocol data/formal-verification/vero/policy-probe-protocol.v3.json \
-  --queue data/formal-verification/vero/probe-queue.v3.json \
+  --protocol data/formal-verification/vero/policy-probe-protocol.v5.json \
+  --queue data/formal-verification/vero/probe-queue.v5.json \
   --panel data/formal-verification/vero/development-lifecycle-panel-v2.json \
   --containment data/formal-verification/vero/containment-contract.v1.json \
   --runtime-lock data/formal-verification/vero/runtime/runtime-lock.v1.json \
@@ -221,7 +225,7 @@ benchmark, and invokes Vero's fresh build, axiom, hygiene, and joint-claim
 checks. Its compact receipt retains specification-level strict rewards and
 resource use while replacing machine paths with stable logical identities.
 
-[`probe-queue.v3.json`](probe-queue.v3.json) fixes the 32 claim-attempt
+[`probe-queue.v5.json`](probe-queue.v5.json) fixes the 32 claim-attempt
 identities in an outcome-blind hash order.
 [`measurement-analysis.v2.json`](measurement-analysis.v2.json)
 fixes the mode-specific $\rho$ and $H$ estimands, leave-one-repository-out
@@ -263,5 +267,5 @@ After one attempt completes, validate its raw runtime receipt with:
 ```bash
 python data/formal-verification/vero/validate_sandbox_receipt.py \
   --receipt /path/to/attempt/runtime-receipt.json \
-  --protocol data/formal-verification/vero/policy-probe-protocol.v3.json
+  --protocol data/formal-verification/vero/policy-probe-protocol.v5.json
 ```
