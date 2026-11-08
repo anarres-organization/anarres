@@ -187,6 +187,27 @@ The harness requires two independently materialized copies of one development
 task and a live loopback-only Leanstral endpoint. It never opens a qualification
 or prospective repository.
 
+[`promote_probe_deployment.py`](promote_probe_deployment.py) combines the exact
+inference and containment receipts with the frozen source contracts. It writes
+a separate qualified execution bundle, preserves all 32 attempt identities,
+and refuses to overwrite an existing output. The preregistration records in
+this directory remain unchanged.
+
+```bash
+python data/formal-verification/vero/promote_probe_deployment.py \
+  --protocol data/formal-verification/vero/policy-probe-protocol.v1.json \
+  --queue data/formal-verification/vero/probe-queue.v1.json \
+  --panel data/formal-verification/vero/development-lifecycle-panel-v2.json \
+  --containment data/formal-verification/vero/containment-contract.v1.json \
+  --runtime-lock data/formal-verification/vero/runtime/runtime-lock.v1.json \
+  --controller-lock data/formal-verification/vero/controller/controller-lock.v1.json \
+  --inference-contract data/formal-verification/vero/inference/inference-contract.v1.json \
+  --containment-receipt /path/to/qualification-receipt.json \
+  --inference-receipt /path/to/inference-qualification-receipt.json \
+  --runtime-image sha256:<digest> \
+  --output /path/to/new/qualified-bundle
+```
+
 [`grade_probe_attempt.py`](grade_probe_attempt.py) extracts only the expected
 editable slots from a completed task, rerenders them against the pinned source
 benchmark, and invokes Vero's fresh build, axiom, hygiene, and joint-claim

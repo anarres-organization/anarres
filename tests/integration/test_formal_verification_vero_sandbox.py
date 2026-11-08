@@ -24,6 +24,7 @@ INFERENCE_ROOT = ROOT / "data" / "formal-verification" / "vero" / "inference"
 INFERENCE_SOURCE = INFERENCE_ROOT / "validate_inference_contract.py"
 INFERENCE_QUALIFICATION_SOURCE = INFERENCE_ROOT / "qualify_inference_deployment.py"
 MATERIALIZER_SOURCE = ROOT / "data" / "formal-verification" / "vero" / "materialize_probe_task.py"
+PROMOTION_SOURCE = VERO_ROOT / "promote_probe_deployment.py"
 SPEC = importlib.util.spec_from_file_location("vero_serve_vibe_sandbox", SOURCE)
 if SPEC is None or SPEC.loader is None:
     raise RuntimeError(f"could not load {SOURCE}")
@@ -82,6 +83,14 @@ if RUNNER_SPEC is None or RUNNER_SPEC.loader is None:
 RUNNER = importlib.util.module_from_spec(RUNNER_SPEC)
 sys.modules[RUNNER_SPEC.name] = RUNNER
 RUNNER_SPEC.loader.exec_module(RUNNER)
+PROMOTION_SPEC = importlib.util.spec_from_file_location(
+    "vero_promote_probe_deployment", PROMOTION_SOURCE
+)
+if PROMOTION_SPEC is None or PROMOTION_SPEC.loader is None:
+    raise RuntimeError(f"could not load {PROMOTION_SOURCE}")
+PROMOTION = importlib.util.module_from_spec(PROMOTION_SPEC)
+sys.modules[PROMOTION_SPEC.name] = PROMOTION
+PROMOTION_SPEC.loader.exec_module(PROMOTION)
 PROTOCOL = json.loads(
     (ROOT / "data" / "formal-verification" / "vero" / "policy-probe-protocol.v1.json").read_text(
         encoding="utf-8"
@@ -282,6 +291,126 @@ class VeroRuntimeLockTest(unittest.TestCase):
             panel_path=self.PANEL_PATH,
             source_pin_path=self.SOURCE_PIN_PATH,
         )
+
+    def test_qualified_runtime_accepts_a_local_immutable_image_id(self) -> None:
+        lock = json.loads(RUNTIME_LOCK_PATH.read_text(encoding="utf-8"))
+        image_id = "sha256:" + "a" * 64
+        lock["status"] = "qualified"
+        lock["built_image_reference"] = image_id
+        lock["built_image_id"] = image_id
+        lock["qualification_receipt"] = "sha256:" + "b" * 64
+        RUNTIME.validate(
+            lock,
+            lock_path=RUNTIME_LOCK_PATH,
+            panel_path=self.PANEL_PATH,
+            source_pin_path=self.SOURCE_PIN_PATH,
+        )
+
+
+class VeroDeploymentPromotionTest(unittest.TestCase):
+    QUEUE = json.loads((VERO_ROOT / "probe-queue.v1.json").read_text(encoding="utf-8"))
+    PANEL_PATH = VERO_ROOT / "development-lifecycle-panel-v2.json"
+    CONTAINMENT = json.loads(
+        (VERO_ROOT / "containment-contract.v1.json").read_text(encoding="utf-8")
+    )
+
+    @staticmethod
+    def receipts() -> tuple[dict, dict]:
+        image_id = "sha256:" + "a" * 64
+        model_digest = "sha256:" + "b" * 64
+        containment_receipt = {
+            "qualified": True,
+            "contract_id": VeroDeploymentPromotionTest.CONTAINMENT["contract_id"],
+            "runtime_image": image_id,
+            "runtime_image_id": image_id,
+            "model_artifact_digest": model_digest,
+            "inference_contract_sha256": PROMOTION.digest(INFERENCE_CONTRACT_PATH),
+            "controller_lock_sha256": PROMOTION.digest(CONTROLLER_LOCK_PATH),
+            "vibe_source_revision": VeroDeploymentPromotionTest.CONTAINMENT["interface"][
+                "agent_scaffold_revision"
+            ],
+            "task_pre_sha256": "c" * 64,
+            "task_post_sha256": "c" * 64,
+            "tests": [
+                {"id": record["id"], "passed": True}
+                for record in VeroDeploymentPromotionTest.CONTAINMENT["required_tests"]
+            ],
+        }
+        inference_receipt = {
+            "qualified": True,
+            "inference_id": INFERENCE_CONTRACT["inference_id"],
+            "model": {
+                "id": INFERENCE_CONTRACT["model"]["id"],
+                "revision": INFERENCE_CONTRACT["model"]["revision"],
+                "local_artifact_digest": model_digest,
+            },
+            "runtime": {
+                "exact_version": "0.28.0",
+                "package_versions": INFERENCE_CONTRACT["runtime"]["required_versions"],
+                "container": {"image_digest": INFERENCE_CONTRACT["runtime"]["image_digest"]},
+            },
+            "deployment_configuration": {
+                "replicas": 1,
+                "maximum_concurrent_attempts_per_replica": 2,
+                "gpu_memory_utilization": 0.92,
+                "max_num_seqs": 8,
+                "dtype": "bfloat16",
+            },
+            "endpoint": {
+                "api_base": INFERENCE_CONTRACT["endpoint"]["api_base"],
+                "chat_completion_smoke": "pass",
+                "tool_call_parser_smoke": "pass",
+            },
+        }
+        return containment_receipt, inference_receipt
+
+    def promote(self) -> dict[str, dict]:
+        containment_receipt, inference_receipt = self.receipts()
+        return PROMOTION.promote(
+            protocol=PROTOCOL,
+            queue=self.QUEUE,
+            panel=PANEL,
+            containment=self.CONTAINMENT,
+            runtime=RUNTIME_LOCK,
+            controller=CONTROLLER_LOCK,
+            inference=INFERENCE_CONTRACT,
+            containment_receipt=containment_receipt,
+            inference_receipt=inference_receipt,
+            containment_receipt_sha256="d" * 64,
+            inference_receipt_sha256="e" * 64,
+            controller_sha256=PROMOTION.digest(CONTROLLER_LOCK_PATH),
+            pending_inference_sha256=PROMOTION.digest(INFERENCE_CONTRACT_PATH),
+            panel_sha256=PROMOTION.digest(self.PANEL_PATH),
+            runtime_image="sha256:" + "a" * 64,
+        )
+
+    def test_promotion_preserves_every_frozen_attempt(self) -> None:
+        promoted = self.promote()
+        self.assertTrue(promoted["protocol"]["execution_authorized"])
+        self.assertEqual(promoted["queue"]["attempts"], self.QUEUE["attempts"])
+        self.assertEqual(len(promoted["queue"]["attempts"]), 32)
+
+    def test_promotion_rejects_a_failed_containment_test(self) -> None:
+        containment_receipt, inference_receipt = self.receipts()
+        containment_receipt["tests"][0]["passed"] = False
+        with self.assertRaises(PROMOTION.PromotionError):
+            PROMOTION.promote(
+                protocol=PROTOCOL,
+                queue=self.QUEUE,
+                panel=PANEL,
+                containment=self.CONTAINMENT,
+                runtime=RUNTIME_LOCK,
+                controller=CONTROLLER_LOCK,
+                inference=INFERENCE_CONTRACT,
+                containment_receipt=containment_receipt,
+                inference_receipt=inference_receipt,
+                containment_receipt_sha256="d" * 64,
+                inference_receipt_sha256="e" * 64,
+                controller_sha256=PROMOTION.digest(CONTROLLER_LOCK_PATH),
+                pending_inference_sha256=PROMOTION.digest(INFERENCE_CONTRACT_PATH),
+                panel_sha256=PROMOTION.digest(self.PANEL_PATH),
+                runtime_image="sha256:" + "a" * 64,
+            )
 
 
 class VeroControllerLockTest(unittest.TestCase):

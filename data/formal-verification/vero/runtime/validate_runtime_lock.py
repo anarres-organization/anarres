@@ -18,6 +18,10 @@ def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def is_sha256(value: str) -> bool:
+    return len(value) == 64 and all(character in "0123456789abcdef" for character in value)
+
+
 def validate(
     lock: dict[str, Any],
     *,
@@ -56,12 +60,15 @@ def validate(
         if reference is not None or image_id is not None or receipt is not None:
             raise RuntimeLockError("pending runtime cannot contain qualified build artifacts")
     elif lock["status"] == "qualified":
-        valid_reference = (
-            isinstance(reference, str)
-            and "@sha256:" in reference
-            and len(reference.rsplit("@sha256:", 1)[1]) == 64
+        valid_image_id = (
+            isinstance(image_id, str)
+            and image_id.startswith("sha256:")
+            and is_sha256(image_id.removeprefix("sha256:"))
         )
-        valid_image_id = isinstance(image_id, str) and image_id.startswith("sha256:")
+        valid_reference = isinstance(reference, str) and (
+            reference == image_id
+            or ("@sha256:" in reference and is_sha256(reference.rsplit("@sha256:", 1)[1]))
+        )
         if not valid_reference or not valid_image_id or receipt is None:
             raise RuntimeLockError("qualified runtime lacks its image identity or receipt")
     else:
