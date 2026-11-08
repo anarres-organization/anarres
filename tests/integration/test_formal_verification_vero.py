@@ -390,7 +390,7 @@ class VeroPolicyProbeProtocolTest(unittest.TestCase):
             panel_path=CALIBRATION_PANEL_PATH,
             split_path=ADAPTER / "repository-split.json",
             containment_path=CONTAINMENT_PATH,
-            runtime_lock_path=ADAPTER / "runtime" / "runtime-lock.v1.json",
+            runtime_lock_path=ADAPTER / "runtime" / "runtime-lock.200k.v1.json",
             controller_lock_path=ADAPTER / "controller" / "controller-lock.200k.v1.json",
             inference_contract_path=ADAPTER / "inference" / "inference-contract.v1.json",
             repetition_design_path=ADAPTER / "repetition-calibration.200k.v1.json",

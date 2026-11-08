@@ -1,0 +1,34 @@
+{
+  "schema_version": "anarres.formal-verification-runtime-lock.v1",
+  "runtime_id": "vero-lean-4.29.1-development-calibration-200k-v1",
+  "status": "build_and_qualification_pending",
+  "platform": "linux/amd64",
+  "base_image": {
+    "reference": "docker.io/library/ubuntu:24.04",
+    "manifest_digest": "sha256:78d4744ead1f5b19b04d0df558ab182a5300903900755e515b2ca4d10eb2044d"
+  },
+  "elan": {
+    "version": "4.2.3",
+    "asset": "elan-x86_64-unknown-linux-gnu.tar.gz",
+    "uri": "https://github.com/leanprover/elan/releases/download/v4.2.3/elan-x86_64-unknown-linux-gnu.tar.gz",
+    "sha256": "df0b2b3a439961ffcbb3985214365ffe40f49bc871df04dff268c7d8e21ca8b2"
+  },
+  "lean_toolchain": "leanprover/lean4:v4.29.1",
+  "vero_source_id": "sunblaze-ucb/vero@0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+  "development_panel": "../development-budget-calibration-panel.v1.json",
+  "development_panel_sha256": "3a495a9c6ffa19bcbc364f8413a113eff22c6df41a13994f49bfd6305acf10d1",
+  "required_binaries": [
+    "bash",
+    "git",
+    "lake",
+    "lean",
+    "python3",
+    "rg",
+    "timeout"
+  ],
+  "dockerfile": "Dockerfile",
+  "dockerfile_sha256": "a4689080b12d0260cdd6e5423f83a24d42cd76a9f9420eb010f542e612d86035",
+  "built_image_reference": null,
+  "built_image_id": null,
+  "qualification_receipt": null
+}

@@ -251,6 +251,10 @@ repetition record, analysis boundary, queue, and
 development-only. The attempt cannot estimate $\rho$, $H$, reliability, or
 environment utility.
 
+The matching [`runtime lock`](runtime/runtime-lock.200k.v1.json) binds the
+same immutable Lean image to the one-attempt calibration panel. This keeps the
+task runtime unchanged while making the panel hash explicit at preflight.
+
 [`run_probe_queue_item.py`](run_probe_queue_item.py) turns one frozen queue
 identity into a fresh task, isolated attempt, linked validation, and fresh
 grade. It checks both cross-file hashes and each contract's semantic validator

@@ -81,7 +81,7 @@
     "sandbox_lifetime": "one calibration attempt",
     "containment_contract": "containment-contract.v1.json",
     "containment_contract_sha256": "54ef60f6d4b9003d2665f120219dfdb280c7caae502f78719277552e7bc72f06",
-    "runtime_lock": "runtime/runtime-lock.v1.json",
+    "runtime_lock": "runtime/runtime-lock.200k.v1.json",
     "runtime_dockerfile_sha256": "a4689080b12d0260cdd6e5423f83a24d42cd76a9f9420eb010f542e612d86035",
     "controller_lock": "controller/controller-lock.200k.v1.json",
     "controller_lock_sha256": "5a35cb9c82c43deb1de492fb53cd0ef8bf2d67ea84f56ab750e77d79abf4543c",

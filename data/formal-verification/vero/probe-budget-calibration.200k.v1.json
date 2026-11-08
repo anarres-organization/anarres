@@ -18,7 +18,7 @@
   "ordering": "ascending SHA-256 of queue ID, benchmark ID, mode, and replicate",
   "panel_sha256": "3a495a9c6ffa19bcbc364f8413a113eff22c6df41a13994f49bfd6305acf10d1",
   "protocol_id": "vero-leanstral-development-budget-calibration-200k-v1",
-  "protocol_sha256": "74a1847b78a7acc74fa1c12d5a9adba650aeafaa576c1370643108c5266d4dad",
+  "protocol_sha256": "1a316e21b13c194097f21137e1150c507eec161a0061d4fa6c7e42e7c6b42b91",
   "queue_id": "vero-leanstral-development-budget-calibration-200k-v1-queue",
   "schema_version": "anarres.formal-verification-probe-queue.v1",
   "status": "frozen_before_model_attempts"
