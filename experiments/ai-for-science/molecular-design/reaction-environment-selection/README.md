@@ -179,6 +179,15 @@ python scripts/audit_source.py \
   --out /tmp/reaction_source_audit.json
 ```
 
+After downloading the Version4 archive, qualify its bytes and target-fixture
+inventory without extracting or opening result contents:
+
+```bash
+python scripts/audit_molgenbench_archive.py \
+  --archive /path/to/MolGenBench_Version4.zip \
+  --out /tmp/MOLGENBENCH_ARCHIVE_AUDIT.json
+```
+
 Validate the protocol:
 
 ```bash

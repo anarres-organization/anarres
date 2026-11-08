@@ -28,6 +28,14 @@ only the code-independent fixture metadata needed to enumerate candidate
 targets. Do not inspect reference-active performance or published model-result
 directories.
 
+Audit the archive without extracting or opening result contents:
+
+```bash
+python scripts/audit_molgenbench_archive.py \
+  --archive /path/to/MolGenBench_Version4.zip \
+  --out /tmp/MOLGENBENCH_ARCHIVE_AUDIT.json
+```
+
 Select one target by the outcome-blind hash rule in `PROTOCOL.json` after every
 eligible target passes file-integrity and oracle-input checks. Serialize the
 eligible target IDs, selection hash, selected identity, and all exclusion
