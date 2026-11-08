@@ -365,7 +365,8 @@ class VeroInferenceContractTest(unittest.TestCase):
                 "--enforce-eager",
                 "--language-model-only",
                 "--kernel-config",
-                '{"enable_flashinfer_autotune": false, "enable_cutedsl_warmup": false, "enable_jit_warmup": false}',
+                '{"enable_flashinfer_autotune": false, '
+                '"enable_cutedsl_warmup": false, "enable_jit_warmup": false}',
                 "--gpu-memory-utilization",
                 "0.92",
                 "--max-num-seqs",

@@ -47,7 +47,7 @@
     "controller_lock": "controller/controller-lock.v1.json",
     "controller_lock_sha256": "0f99b9f4bea1402a5ea5c831fceb4a3426c909c3fed093ef49a3d5547a7f7fe8",
     "inference_contract": "inference/inference-contract.v1.json",
-    "inference_contract_sha256": "b165b7e5c4fa69ef59ce5a0c256f4f283e4e186f5338382ffeb89fce5b539620"
+    "inference_contract_sha256": "d645d41773ef8d88c9186290dec9d30fb96379476d40d7aeadd8ff01c49d93df"
   },
   "probe_design": {
     "repositories": 4,
