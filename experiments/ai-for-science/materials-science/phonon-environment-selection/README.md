@@ -155,3 +155,18 @@ Validate the measurement protocol with:
 ```bash
 python scripts/validate_protocol.py
 ```
+
+After installing the pinned upstream environment, measure a smoke subset or the
+complete eligible pool with:
+
+```bash
+python scripts/measure_starting_model.py \
+  --upstream-repo /path/to/PhononScore \
+  --data-root /path/to/phononscore_data_20261104 \
+  --out /path/to/starting_model_measurements.jsonl \
+  --device cuda
+```
+
+The runner verifies the frozen checkpoint and manifest digests before inference.
+It writes one derived record per eligible training structure and never reads an
+external evaluation directory.
