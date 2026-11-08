@@ -55,7 +55,12 @@ def model_argument(command: list[str]) -> str:
 def artifact_manifest(root: Path) -> dict[str, Any]:
     records = []
     total_bytes = 0
-    for path in sorted(candidate for candidate in root.rglob("*") if candidate.is_file()):
+    paths = (
+        candidate
+        for candidate in root.rglob("*")
+        if candidate.is_file() and candidate.relative_to(root).parts[0] != ".cache"
+    )
+    for path in sorted(paths):
         file_hash = hashlib.sha256()
         size = 0
         with path.open("rb") as handle:
@@ -82,6 +87,7 @@ def artifact_manifest(root: Path) -> dict[str, Any]:
         "root_sha256": identity.hexdigest(),
         "files": len(records),
         "bytes": total_bytes,
+        "excluded_roots": [".cache"],
         "artifacts": records,
     }
 

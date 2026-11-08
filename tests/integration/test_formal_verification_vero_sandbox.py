@@ -404,6 +404,21 @@ class VeroInferenceContractTest(unittest.TestCase):
             second = INFERENCE_QUALIFICATION.artifact_manifest(root)
         self.assertNotEqual(first["root_sha256"], second["root_sha256"])
 
+    def test_model_artifact_manifest_excludes_hugging_face_cache(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "config.json").write_text("{}\n", encoding="utf-8")
+            cache = root / ".cache" / "huggingface" / "trees"
+            cache.mkdir(parents=True)
+            metadata = cache / "revision.json"
+            metadata.write_text('{"revision":"first"}\n', encoding="utf-8")
+            first = INFERENCE_QUALIFICATION.artifact_manifest(root)
+            metadata.write_text('{"revision":"second"}\n', encoding="utf-8")
+            second = INFERENCE_QUALIFICATION.artifact_manifest(root)
+        self.assertEqual(first["root_sha256"], second["root_sha256"])
+        self.assertEqual(first["excluded_roots"], [".cache"])
+        self.assertEqual([record["path"] for record in first["artifacts"]], ["config.json"])
+
     def test_container_qualification_binds_the_frozen_image_and_model(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             model = Path(directory).resolve()

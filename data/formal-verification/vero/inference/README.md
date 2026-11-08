@@ -27,8 +27,10 @@ attempts use the resolved local artifact without external model downloads.
 [`qualify_inference_deployment.py`](qualify_inference_deployment.py) verifies
 the live container against the frozen image, source revision, package metadata,
 serving flags, GPU assignment, read-only model mount, and loopback endpoint. It
-hashes the local model artifact and emits the evidence needed for that
-transition. It does not edit or qualify the contract by itself.
+hashes the files in the served model artifact and emits the evidence needed for
+that transition. Hugging Face's local `.cache` download bookkeeping is excluded
+because it is not part of the mounted model configuration or weights. The script
+does not edit or qualify the contract by itself.
 
 Validate the pre-deployment contract with:
 
