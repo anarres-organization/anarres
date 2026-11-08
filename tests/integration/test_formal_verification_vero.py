@@ -50,6 +50,12 @@ PROBE_PROTOCOL_V4_PATH = ADAPTER / "policy-probe-protocol.v4.json"
 PROBE_PROTOCOL_V4 = json.loads(PROBE_PROTOCOL_V4_PATH.read_text(encoding="utf-8"))
 PROBE_PROTOCOL_V5_PATH = ADAPTER / "policy-probe-protocol.v5.json"
 PROBE_PROTOCOL_V5 = json.loads(PROBE_PROTOCOL_V5_PATH.read_text(encoding="utf-8"))
+CALIBRATION_PROTOCOL_PATH = ADAPTER / "policy-budget-calibration.200k.v1.json"
+CALIBRATION_PROTOCOL = json.loads(CALIBRATION_PROTOCOL_PATH.read_text(encoding="utf-8"))
+CALIBRATION_PANEL_PATH = ADAPTER / "development-budget-calibration-panel.v1.json"
+CALIBRATION_PANEL = json.loads(CALIBRATION_PANEL_PATH.read_text(encoding="utf-8"))
+CALIBRATION_QUEUE_PATH = ADAPTER / "probe-budget-calibration.200k.v1.json"
+CALIBRATION_QUEUE = json.loads(CALIBRATION_QUEUE_PATH.read_text(encoding="utf-8"))
 REPETITION_DESIGN_PATH = ADAPTER / "repetition-reliability.v1.json"
 REPETITION_DESIGN = json.loads(REPETITION_DESIGN_PATH.read_text(encoding="utf-8"))
 PROBE_QUEUE_PATH = ADAPTER / "probe-queue.v1.json"
@@ -376,6 +382,25 @@ class VeroPolicyProbeProtocolTest(unittest.TestCase):
             interface["containment_contract_sha256"],
         )
 
+    def test_budget_calibration_is_development_only_and_fails_closed(self) -> None:
+        PROBE.validate(
+            CALIBRATION_PROTOCOL,
+            CALIBRATION_PANEL,
+            SPLIT,
+            panel_path=CALIBRATION_PANEL_PATH,
+            split_path=ADAPTER / "repository-split.json",
+            containment_path=CONTAINMENT_PATH,
+            runtime_lock_path=ADAPTER / "runtime" / "runtime-lock.v1.json",
+            controller_lock_path=ADAPTER / "controller" / "controller-lock.200k.v1.json",
+            inference_contract_path=ADAPTER / "inference" / "inference-contract.v1.json",
+            repetition_design_path=ADAPTER / "repetition-calibration.200k.v1.json",
+            measurement_analysis_path=ADAPTER / "measurement-calibration.200k.v1.json",
+        )
+        self.assertFalse(CALIBRATION_PROTOCOL["execution_authorized"])
+        self.assertFalse(
+            CALIBRATION_PROTOCOL["measurement"]["qualification_and_prospective_repositories_opened"]
+        )
+
 
 class VeroRepetitionDesignTest(unittest.TestCase):
     def test_frozen_design_selects_four_attempts(self) -> None:
@@ -425,6 +450,19 @@ class VeroProbeQueueTest(unittest.TestCase):
         self.assertEqual(
             [record["queue_position"] for record in PROBE_QUEUE["attempts"]],
             list(range(1, 33)),
+        )
+
+    def test_budget_calibration_queue_has_one_excluded_development_identity(self) -> None:
+        expected = QUEUE.build_queue(
+            CALIBRATION_PROTOCOL,
+            CALIBRATION_PANEL,
+            protocol_sha256=hashlib.sha256(CALIBRATION_PROTOCOL_PATH.read_bytes()).hexdigest(),
+            panel_sha256=hashlib.sha256(CALIBRATION_PANEL_PATH.read_bytes()).hexdigest(),
+        )
+        self.assertEqual(CALIBRATION_QUEUE, expected)
+        self.assertEqual(
+            CALIBRATION_QUEUE["attempts"][0]["attempt_id"],
+            "primepy-proof-calibration-v1-200k-r01",
         )
 
     def test_corrected_queue_is_namespaced_and_charges_actual_tokens(self) -> None:

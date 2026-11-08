@@ -70,6 +70,7 @@ def promote(
             "frozen_after_excluded_deployment_pilot_before_claim_attempts",
             "frozen_after_excluded_pre_inference_launches_before_claim_attempts",
             "frozen_after_excluded_deployment_attempts_before_claim_attempts",
+            "frozen_development_calibration_before_attempt",
         }
         or protocol["execution_authorized"]
     ):

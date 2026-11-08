@@ -1,0 +1,16 @@
+{
+  "schema_version": "anarres.formal-verification-lifecycle-panel.v2",
+  "source_id": "sunblaze-ucb/vero@0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+  "selection_status": "frozen_after_v5_before_budget_calibration",
+  "selection_rule": "smallest specification count in the frozen development lifecycle panel",
+  "supersedes_for_lifecycle_testing": null,
+  "preserved_exclusions": [],
+  "repositories": [
+    {
+      "benchmark_id": "primepy",
+      "directory": "primepy",
+      "source_language": "python",
+      "specifications": 9
+    }
+  ]
+}

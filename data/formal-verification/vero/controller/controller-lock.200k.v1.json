@@ -1,0 +1,41 @@
+{
+  "schema_version": "anarres.formal-verification-controller-lock.v1",
+  "controller_id": "mistral-vibe-leanstral-local-200k-v1",
+  "status": "frozen",
+  "agent_scaffold": "mistralai/mistral-vibe@v3.1.0",
+  "agent_scaffold_revision": "c96a6dbb34d34f8a868b3f67b279ecabbf1aa616",
+  "config": "config.toml",
+  "config_sha256": "20da68380893b34f72af076af05817d93583cc1e3b55368b013765513dfd53b3",
+  "agent": "agents/lean.toml",
+  "agent_sha256": "f855d7a4c8bfb0f38d5289b084cf7663beb9d1d0c03320bae2c928e206a08d7c",
+  "qualification_prompt": "qualification-prompt.txt",
+  "qualification_prompt_sha256": "ac3c4468842f6d2e526a26956ad093407f4c7656a1c9fa5801bf9dc2e2d2e0c4",
+  "system_prompt_sha256": "bc6896006db187401719dcb4a45b150fc6753db31d07bfee8a26531314d8dd21",
+  "api_base": "http://127.0.0.1:8010/v1",
+  "model_alias": "leanstral",
+  "tool_allowlist": [
+    "bash",
+    "edit",
+    "grep",
+    "read_file",
+    "write_file"
+  ],
+  "limits": {
+    "maximum_turns": 100,
+    "maximum_cumulative_model_tokens": 200000,
+    "wall_time_seconds": 5400
+  },
+  "environment_allowlist": [
+    "HOME",
+    "LANG",
+    "NO_PROXY",
+    "PATH",
+    "TMPDIR",
+    "VIBE_HOME",
+    "VIBE_STRICT_CONFIG",
+    "XDG_CACHE_HOME",
+    "no_proxy"
+  ],
+  "output_format": "json",
+  "automatic_approval": true
+}

@@ -242,6 +242,15 @@ so the result blocks candidate ranking and downstream training under this
 starting-policy contract. Qualification and prospective repositories remain
 unopened.
 
+[`policy-budget-calibration.200k.v1.json`](policy-budget-calibration.200k.v1.json)
+freezes the first requalification stage after that result. It selects the
+smallest development repository, one proof-mode attempt, a 200,000-token
+controller threshold, and a 90-minute wall limit. The matching panel,
+repetition record, analysis boundary, queue, and
+[`controller lock`](controller/controller-lock.200k.v1.json) remain
+development-only. The attempt cannot estimate $\rho$, $H$, reliability, or
+environment utility.
+
 [`run_probe_queue_item.py`](run_probe_queue_item.py) turns one frozen queue
 identity into a fresh task, isolated attempt, linked validation, and fresh
 grade. It checks both cross-file hashes and each contract's semantic validator

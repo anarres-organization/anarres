@@ -65,8 +65,14 @@ def validate(
         raise ProtocolError("the protocol has an incorrect total attempt count")
     if "controller_token_stop_threshold_per_attempt" in design:
         namespace = design.get("attempt_namespace")
-        if not isinstance(namespace, str) or not namespace.startswith("claim-v"):
-            raise ProtocolError("the corrected claim queue must use a versioned namespace")
+        claim_namespace = isinstance(namespace, str) and namespace.startswith("claim-v")
+        calibration_namespace = (
+            isinstance(namespace, str)
+            and namespace.startswith("calibration-v")
+            and "calibration" in protocol.get("scientific_role", "")
+        )
+        if not claim_namespace and not calibration_namespace:
+            raise ProtocolError("the corrected queue must use a versioned namespace")
         if design.get("token_accounting") != (
             "charge actual exported input and output tokens; the controller evaluates "
             "its stop threshold between model calls"
