@@ -5,8 +5,10 @@ contract are not yet frozen.
 
 This study will test whether policy-relative measurements can choose among
 finance training distributions before trained-policy outcomes are available.
-The initial task family is stateful accounting operations with executable
-checks and explicit control policies.
+The first generator-qualified task family is stateful accounting operations
+with executable checks and explicit control policies. Reconciliation and
+post-trade exception handling are the primary domain target, but their public
+construction source remains under qualification.
 
 ## Qualified construction source
 
@@ -96,6 +98,11 @@ construction sources.
 These sources will test transfer only after their licenses, task identities,
 and evaluation contracts pass the relevant gate. Native outcomes remain
 separate across accounting operations, research, and artifact production.
+
+FINOS Common Domain Model is being audited as a representation layer for a
+future post-trade panel. RecBench is a relevant reconciliation dataset, but its
+public snapshot does not include the generator and evaluator described by its
+dataset card. Neither source is admitted to prospective construction yet.
 
 ## Reproduce the source audit
 

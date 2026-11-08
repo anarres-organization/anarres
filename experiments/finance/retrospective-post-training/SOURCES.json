@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "oda_fin",
+      "title": "Unlocking Data Value in Finance: A Study on Distillation and Difficulty-Aware Training",
+      "authors": ["Chuxue Cao", "Honglin Lin", "Zhanping Zhong", "Xin Gao", "Mengzhang Cai", "Conghui He", "Sirui Han", "Lijun Wu"],
+      "url": "https://arxiv.org/abs/2603.07223v1",
+      "version": "arXiv:2603.07223v1",
+      "license": "CC BY 4.0",
+      "evidence": ["Table 2", "Table 3"],
+      "audit_note": "Official aggregate ablations; raw training seeds are not reported."
+    },
+    {
+      "id": "fino1",
+      "title": "Fino1: On the Transferability of Reasoning-Enhanced LLMs and Reinforcement Learning to Finance",
+      "authors": ["Lingfei Qian", "Weipeng Zhou", "Yan Wang", "Xueqing Peng", "Han Yi", "Yilun Zhao", "Jimin Huang", "Qianqian Xie", "Jian-yun Nie"],
+      "url": "https://arxiv.org/abs/2502.08127v3",
+      "version": "arXiv:2502.08127v3",
+      "license": "CC BY 4.0",
+      "evidence": ["Table 4"],
+      "audit_note": "Official aggregate ablations across four evaluation targets."
+    },
+    {
+      "id": "data_centric_finance",
+      "title": "Data-Centric Post-Training for Financial Reasoning: Mining, Distillation, and Verifiable Learning",
+      "authors": ["Zhirayr Hayrapetyan", "Andrei Kalmykov", "Denis Kokosinskii", "Dmitry Stanishevskii", "Dmitry Zmitrovich"],
+      "url": "https://arxiv.org/abs/2609.10113v1",
+      "version": "arXiv:2609.10113v1",
+      "license": "CC BY 4.0",
+      "evidence": ["Table 3"],
+      "audit_note": "Selected experiment chains on one fixed 778-question FINESSE-Bench subset."
+    },
+    {
+      "id": "quanteval",
+      "title": "QuantEval: A Benchmark for Financial Quantitative Tasks in Large Language Models",
+      "authors": ["Zhaolu Kang", "Junhao Gong", "Wenqing Hu", "Yingjie He", "Kehan Jiang", "Leqi Zheng", "Shuo Yin", "Zhicheng Fang", "Chunlei Meng", "Eric Hanchen Jiang", "Yunfei Feng", "Yitong Leng", "Junfan Zhu", "Xiaoyou Chen", "Xi Yang", "Richeng Xuan"],
+      "url": "https://arxiv.org/abs/2601.08689v3",
+      "version": "arXiv:2601.08689v3",
+      "license": "arXiv non-exclusive distribution license",
+      "evidence": ["Table 23"],
+      "audit_note": "Data-scale and GRPO progression; reasoning and knowledge outcomes remain separate panels."
+    }
+  ]
+}

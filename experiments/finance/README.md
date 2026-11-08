@@ -12,15 +12,18 @@ This program asks:
 > distribution that improves held-out work at a fixed training budget while
 > preserving material controls?
 
-The first study focuses on accounting and finance operations. This setting
-supports generated scenarios with planted truth, executable checks, stateful
-tools, and explicit authorization rules. It also creates a real allocation
-decision between candidate training mixtures rather than a retrospective
-comparison of benchmark scores.
+The first studies focus on control-heavy finance operations. Reconciliation,
+settlement exceptions, collateral disputes, payment controls, and close
+workflows have planted truth, executable checks, stateful tools, and explicit
+authorization rules. They also create real allocation decisions between
+candidate training mixtures rather than retrospective comparisons of benchmark
+scores.
 
 ## Research path
 
-The [environment-selection study](environment-selection/README.md) begins with
+The [domain-priority audit](DOMAIN_PRIORITIES.md) identifies reconciliation and
+exception handling as the primary operational target. The
+[environment-selection study](environment-selection/README.md) begins with
 source qualification. Four stateful Business Bench workflows passed strict
 reference, null-agent, negative-control, handbook, and state-determinism checks
 across five generated seeds each. This establishes that the generators can
@@ -38,7 +41,13 @@ The planned experiment will:
 5. train every arm under the same optimization contract
 6. open the held-out outcomes only after completeness and identity checks pass.
 
-The primary outcome is held-out executable task completion. Allocation regret
+The [retrospective post-training audit](retrospective-post-training/README.md)
+separately normalizes published finance interventions. It asks which recurring
+properties of training data and reward design predict improvement across prior
+studies. Because those outcomes are already public, this analysis can motivate
+measurements and baselines but cannot validate the prospective selector.
+
+The primary prospective outcome is held-out executable task completion. Allocation regret
 measures the cost of choosing a candidate other than the observed best arm.
 Ledger integrity, authorization violations, evidence provenance, and
 unauthorized state changes remain separate guardrails. A high aggregate score
@@ -65,8 +74,10 @@ distinct endpoints.
 
 ## Scope
 
-The first panel covers generated accounting workflows under one agent harness,
-starting policy, and training contract. It will not establish a universal
-finance-task selector. Investment research, underwriting, market analysis,
-spreadsheet modeling, and money movement require separate candidate panels and
-evaluation contracts. Actions with financial authority remain approval-gated.
+The generator-qualified panel covers accounting workflows under one agent
+harness, starting policy, and training contract. A post-trade panel will require
+its own lifecycle model, discrepancy generator, and precision-first evaluation.
+Neither panel can establish a universal finance-task selector. Investment
+research, underwriting, market analysis, spreadsheet modeling, and money
+movement require separate candidate panels and evaluation contracts. Actions
+with financial authority remain approval-gated.

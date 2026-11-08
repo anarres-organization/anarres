@@ -14,6 +14,9 @@ ALLOWED_ROLES = {
     "external_research_evaluation",
     "external_accounting_check",
     "external_design_target",
+    "post_trade_representation_candidate",
+    "external_reconciliation_design_target",
+    "domain_priority_evidence",
 }
 
 
@@ -43,6 +46,7 @@ def validate_sources(payload: dict) -> None:
         if source["role"] != "construction_candidate" and source["outcome_use"] not in {
             "external only",
             "no construction use",
+            "none",
         }:
             raise ValueError(f"external source {source['id']} has unsafe outcome_use")
 

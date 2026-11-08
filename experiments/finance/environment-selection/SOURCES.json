@@ -77,6 +77,94 @@
       "role": "external_design_target",
       "status": "documentation_audited",
       "outcome_use": "no construction use"
+    },
+    {
+      "id": "finos_common_domain_model",
+      "name": "FINOS Common Domain Model",
+      "url": "https://github.com/finos/common-domain-model",
+      "revision": "3865246388d045f96dfa7a8ce1c0672efe6fa8cf",
+      "license": "Community Specification License 1.0",
+      "access": "public repository",
+      "role": "post_trade_representation_candidate",
+      "status": "representation_audited_generator_not_qualified",
+      "outcome_use": "none"
+    },
+    {
+      "id": "recbench",
+      "name": "RecBench",
+      "url": "https://huggingface.co/datasets/end-close/recbench",
+      "revision": "8cf65de21434a480cb3a499e3c39246c9e8b744a",
+      "license": "CC BY 4.0 dataset",
+      "access": "public dataset repository",
+      "role": "external_reconciliation_design_target",
+      "status": "dataset_audited_generator_and_evaluator_absent_from_snapshot",
+      "outcome_use": "external only"
+    },
+    {
+      "id": "boe_fca_ai_survey_2026",
+      "name": "Artificial intelligence in UK financial services 2026",
+      "url": "https://www.bankofengland.co.uk/report/2026/artificial-intelligence-in-uk-financial-services-2026",
+      "revision": null,
+      "license": "public report; Bank of England terms apply",
+      "access": "public report",
+      "role": "domain_priority_evidence",
+      "status": "documentation_audited",
+      "outcome_use": "none"
+    },
+    {
+      "id": "dtcc_accelerated_settlement",
+      "name": "DTCC accelerated settlement resources",
+      "url": "https://www.dtcc.com/initiatives/accelerated-settlement/faqs-and-resources",
+      "revision": null,
+      "license": "public documentation; DTCC terms apply",
+      "access": "public documentation",
+      "role": "domain_priority_evidence",
+      "status": "documentation_audited",
+      "outcome_use": "none"
+    },
+    {
+      "id": "isda_collateral_management_sop",
+      "name": "ISDA Collateral Management Suggested Operational Practices",
+      "url": "https://www.isda.org/collateral-management-sop/",
+      "revision": null,
+      "license": "public documentation; ISDA terms apply",
+      "access": "public documentation",
+      "role": "domain_priority_evidence",
+      "status": "documentation_audited",
+      "outcome_use": "none"
+    },
+    {
+      "id": "bis_ai_cash_management",
+      "name": "AI agents for cash management in payment systems",
+      "url": "https://www.bis.org/publications/working-paper-1310-ai-agents-cash-management-payment-systems",
+      "revision": "2025-11-26",
+      "license": "public working paper; BIS terms apply",
+      "access": "public working paper",
+      "role": "domain_priority_evidence",
+      "status": "documentation_audited",
+      "outcome_use": "none"
+    },
+    {
+      "id": "tradeopssim_agentenv",
+      "name": "TradeOpsSim AgentEnv",
+      "url": "https://huggingface.co/datasets/AlexSchwartzman/TradeOpsSim-AgentEnv",
+      "revision": "c1c6f00303590f146a20bec690b5b648d19e3824",
+      "license": "Apache-2.0",
+      "access": "public dataset repository with executable bundles",
+      "role": "external_reconciliation_design_target",
+      "status": "source_audited_authored_fixtures_not_heldout_benchmark",
+      "outcome_use": "external only"
+    },
+    {
+      "id": "finrca_bench",
+      "name": "FinRCA-Bench",
+      "url": "https://arxiv.org/abs/2608.18534",
+      "revision": "arXiv:2608.18534v1",
+      "license": "public paper; reusable benchmark repository not identified",
+      "access": "public paper",
+      "role": "external_reconciliation_design_target",
+      "status": "documentation_audited_code_release_not_identified",
+      "outcome_use": "external only"
     }
   ]
 }
