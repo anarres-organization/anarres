@@ -142,7 +142,12 @@ def build_vibe_command(
         "--max-turns",
         str(limits["maximum_turns"]),
         "--max-tokens",
-        str(limits["maximum_cumulative_model_tokens"]),
+        str(
+            limits.get(
+                "controller_token_stop_threshold",
+                limits.get("maximum_cumulative_model_tokens"),
+            )
+        ),
         "--time-limit",
         str(limits["wall_time_seconds"]),
         "--output",

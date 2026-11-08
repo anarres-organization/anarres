@@ -65,9 +65,21 @@ def validate(design: dict[str, Any], panel: dict[str, Any]) -> None:
     )
     if design["total_attempts"] != expected_total:
         raise RepetitionDesignError("total attempt count is inconsistent")
-    if design["maximum_model_tokens"] != expected_total * 50000:
-        raise RepetitionDesignError("maximum token cost is inconsistent")
-    if design["status"] != "frozen_before_model_attempts":
+    if "maximum_model_tokens" in design:
+        if design["maximum_model_tokens"] != expected_total * 50000:
+            raise RepetitionDesignError("maximum token cost is inconsistent")
+    else:
+        threshold = design.get("controller_token_stop_threshold_per_attempt")
+        if threshold != 50000:
+            raise RepetitionDesignError("controller token stop threshold is inconsistent")
+        if design.get("sum_controller_token_stop_thresholds") != expected_total * threshold:
+            raise RepetitionDesignError("summed controller thresholds are inconsistent")
+        if design.get("token_accounting") != "charge actual exported input and output tokens":
+            raise RepetitionDesignError("actual token accounting is not frozen")
+    if design["status"] not in {
+        "frozen_before_model_attempts",
+        "frozen_after_excluded_deployment_pilot_before_claim_attempts",
+    }:
         raise RepetitionDesignError("repetition design is not frozen")
 
 

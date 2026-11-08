@@ -63,7 +63,14 @@ def promote(
     panel_sha256: str,
     runtime_image: str,
 ) -> dict[str, dict[str, Any]]:
-    if protocol["status"] != "frozen_before_model_attempts" or protocol["execution_authorized"]:
+    if (
+        protocol["status"]
+        not in {
+            "frozen_before_model_attempts",
+            "frozen_after_excluded_deployment_pilot_before_claim_attempts",
+        }
+        or protocol["execution_authorized"]
+    ):
         raise PromotionError("promotion requires the frozen, unauthorized probe")
     if queue["status"] != "frozen_before_model_attempts":
         raise PromotionError("promotion requires the frozen queue")

@@ -123,8 +123,18 @@ def validate_attempt(entry: dict[str, Any], receipt: dict[str, Any]) -> None:
     if receipt.get("specifications_total") != entry["expected_specifications"]:
         raise AggregateError(f"{entry['attempt_id']} has an unexpected specification count")
     tokens = receipt.get("model_tokens")
-    if not isinstance(tokens, int) or not 0 < tokens <= entry["maximum_model_tokens"]:
+    if not isinstance(tokens, int) or tokens <= 0:
         raise AggregateError(f"{entry['attempt_id']} has invalid model-token usage")
+    if "maximum_model_tokens" in entry and tokens > entry["maximum_model_tokens"]:
+        raise AggregateError(f"{entry['attempt_id']} exceeded its v1 hard token bound")
+    threshold = entry.get("controller_token_stop_threshold")
+    if threshold is not None:
+        if not isinstance(threshold, int) or threshold <= 0:
+            raise AggregateError(f"{entry['attempt_id']} has an invalid controller threshold")
+        if receipt.get("outcome") == "token_limit" and tokens < threshold:
+            raise AggregateError(
+                f"{entry['attempt_id']} stopped for tokens before reaching its threshold"
+            )
     if not isinstance(receipt.get("peak_memory_bytes"), int) or receipt["peak_memory_bytes"] <= 0:
         raise AggregateError(f"{entry['attempt_id']} is missing peak memory")
 

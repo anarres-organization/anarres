@@ -8,12 +8,19 @@ proof engineering. Its published training and evaluation interface includes
 filesystem edits, compiler feedback, and repository-scale proof work, which
 matches Vero more closely than a whole-proof text generator.
 
-The exact pre-execution contract is frozen in
-[`policy-probe-protocol.v1.json`](../../../data/formal-verification/vero/policy-probe-protocol.v1.json).
+The claim-bearing pre-execution contract is frozen in
+[`policy-probe-protocol.v2.json`](../../../data/formal-verification/vero/policy-probe-protocol.v2.json).
 It pins the model, agent scaffold, prompt, Vero revision, development panel,
 sampling settings, resource limits, native outcomes, and stop rules. The probe
 uses only the four repositories in the versioned development panel. The ten
 qualification and ten prospective repositories remain unopened.
+
+One deployment-calibration pilot ran under the preserved v1 contract and is
+excluded from the claim aggregate. It showed that Vibe evaluates its token stop
+threshold between model calls, so the final call can raise actual usage above
+the threshold. The v2 contract retains the same 32-attempt design in a new
+namespace and charges every exported input and output token. It was frozen
+before any claim-bearing attempt.
 
 The companion
 [`containment-contract.v1.json`](../../../data/formal-verification/vero/containment-contract.v1.json)
@@ -27,8 +34,8 @@ is the smallest prespecified candidate count giving at least 95% fixed-panel
 probability of observing eight mixed specification groups at the protocol's 1%
 success floor. Fresh Vero grading retains specification-level success, build
 validity, approved-axiom status, and unfilled or failed obligations. Vibe's run
-export supplies model
-tokens, tool use, wall time, and stop reason. System measurement adds peak
+export supplies actual model tokens, tool use, wall time, and stop reason.
+System measurement adds peak
 memory. The first pass asks whether the policy produces nonzero, non-saturated,
 mixed verified outcomes at a tractable cost. It does not rank environments or
 authorize training.

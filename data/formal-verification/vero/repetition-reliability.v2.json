@@ -1,0 +1,59 @@
+{
+  "schema_version": "anarres.formal-verification-repetition-reliability.v2",
+  "design_id": "vero-development-repetition-v2",
+  "status": "frozen_after_excluded_deployment_pilot_before_claim_attempts",
+  "panel": "development-lifecycle-panel-v2.json",
+  "specifications_per_mode": 347,
+  "modes": 2,
+  "repositories": 4,
+  "reference_strict_success_probability": 0.01,
+  "minimum_mixed_specification_groups": 8,
+  "minimum_detection_probability": 0.95,
+  "candidate_attempt_counts": [
+    2,
+    3,
+    4,
+    8
+  ],
+  "candidate_results": [
+    {
+      "attempts": 2,
+      "mixed_probability_per_specification": 0.01980000000000004,
+      "expected_mixed_specifications": 6.870600000000014,
+      "probability_at_least_eight_mixed": 0.3818143733142103
+    },
+    {
+      "attempts": 3,
+      "mixed_probability_per_specification": 0.02969999999999995,
+      "expected_mixed_specifications": 10.305899999999982,
+      "probability_at_least_eight_mixed": 0.8101532607390488
+    },
+    {
+      "attempts": 4,
+      "mixed_probability_per_specification": 0.039403980000000005,
+      "expected_mixed_specifications": 13.673181060000001,
+      "probability_at_least_eight_mixed": 0.9648836426566183
+    },
+    {
+      "attempts": 8,
+      "mixed_probability_per_specification": 0.07725530557207982,
+      "expected_mixed_specifications": 26.8075910335117,
+      "probability_at_least_eight_mixed": 0.9999967424287264
+    }
+  ],
+  "selection_rule": "smallest candidate attempt count whose fixed-panel probability of observing at least eight mixed specification groups is at least 0.95 at the preregistered 0.01 success floor",
+  "selected_attempts_per_repository_mode": 4,
+  "total_attempts": 32,
+  "maximum_serial_wall_hours": 16.0,
+  "scope": "prospective fixed-panel support calculation; repository-cluster sensitivity remains required after measurement",
+  "controller_token_stop_threshold_per_attempt": 50000,
+  "sum_controller_token_stop_thresholds": 1600000,
+  "token_accounting": "charge actual exported input and output tokens",
+  "controller_threshold_semantics": "Vibe evaluates the threshold between model calls, so the final call may raise actual usage above 50,000 tokens",
+  "excluded_deployment_pilots": [
+    {
+      "attempt_id": "verified-bitmasks-codeproof-r04",
+      "reason": "excluded before claim aggregation because the v1 contract treated a between-call controller threshold as a hard cumulative token cap"
+    }
+  ]
+}

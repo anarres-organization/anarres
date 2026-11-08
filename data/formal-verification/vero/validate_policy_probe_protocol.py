@@ -63,6 +63,18 @@ def validate(
     )
     if design["total_attempts"] != expected:
         raise ProtocolError("the protocol has an incorrect total attempt count")
+    if "controller_token_stop_threshold_per_attempt" in design:
+        if design.get("attempt_namespace") != "claim-v2":
+            raise ProtocolError("the corrected claim queue must use its v2 namespace")
+        if design.get("token_accounting") != (
+            "charge actual exported input and output tokens; the controller evaluates "
+            "its stop threshold between model calls"
+        ):
+            raise ProtocolError("the corrected token-accounting rule is not frozen")
+        chronology = protocol.get("chronology", {})
+        excluded = chronology.get("excluded_deployment_pilot", {})
+        if not excluded.get("excluded_from_claim_aggregate"):
+            raise ProtocolError("the pre-freeze deployment pilot is not excluded")
     if not repetition_design_path.as_posix().endswith(design["repetition_design"]):
         raise ProtocolError("the repetition-design path disagrees with the protocol")
     if digest(repetition_design_path) != design["repetition_design_sha256"]:

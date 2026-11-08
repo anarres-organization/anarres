@@ -40,6 +40,12 @@ def validate(lock: dict[str, Any], *, lock_path: Path, protocol_path: Path) -> N
     protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
     starting_policy = protocol["starting_policy"]
     design = protocol["probe_design"]
+    token_limit = design.get(
+        "controller_token_stop_threshold_per_attempt",
+        design.get("maximum_cumulative_model_tokens_per_attempt"),
+    )
+    if token_limit is None:
+        raise ControllerLockError("probe protocol does not define the controller token threshold")
     if lock["agent_scaffold"] != starting_policy["agent_scaffold"]:
         raise ControllerLockError("agent scaffold disagrees with the probe protocol")
     if lock["agent_scaffold_revision"] != starting_policy["agent_scaffold_revision"]:
@@ -50,9 +56,7 @@ def validate(lock: dict[str, Any], *, lock_path: Path, protocol_path: Path) -> N
         lock["limits"],
         {
             "maximum_turns": design["maximum_agent_turns_per_attempt"],
-            "maximum_cumulative_model_tokens": design[
-                "maximum_cumulative_model_tokens_per_attempt"
-            ],
+            "maximum_cumulative_model_tokens": token_limit,
             "wall_time_seconds": design["maximum_wall_seconds_per_attempt"],
         },
         "attempt limits",

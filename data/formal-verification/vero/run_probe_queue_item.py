@@ -55,6 +55,7 @@ def run_stage(
     root: Path,
     *,
     environment: dict[str, str] | None = None,
+    cwd: Path | None = None,
 ) -> dict[str, Any]:
     log_path = root / f"{name}.log"
     started = datetime.now(UTC).isoformat()
@@ -65,6 +66,7 @@ def run_stage(
             stdout=log,
             stderr=subprocess.STDOUT,
             env=environment,
+            cwd=cwd,
         )
     return {
         "stage": name,
@@ -137,6 +139,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--attempt-runner", type=Path, required=True)
     parser.add_argument("--attempt-validator", type=Path, required=True)
     parser.add_argument("--grader", type=Path, required=True)
+    parser.add_argument("--grader-runtime-validator", type=Path, required=True)
     parser.add_argument("--protocol-validator", type=Path, required=True)
     parser.add_argument("--containment-validator", type=Path, required=True)
     parser.add_argument("--runtime-validator", type=Path, required=True)
@@ -167,6 +170,7 @@ def main() -> None:
         args.attempt_runner,
         args.attempt_validator,
         args.grader,
+        args.grader_runtime_validator,
         args.protocol_validator,
         args.containment_validator,
         args.runtime_validator,
@@ -302,6 +306,15 @@ def main() -> None:
             ],
         ),
         (
+            "validate-grader-runtime",
+            [
+                sys.executable,
+                str(args.grader_runtime_validator),
+                "--output",
+                str(root / "grader-runtime-receipt.json"),
+            ],
+        ),
+        (
             "attempt",
             [
                 sys.executable,
@@ -403,12 +416,19 @@ def main() -> None:
                 name,
                 command,
                 root,
-                environment=grader_environment if name == "grade" else None,
+                environment=(
+                    grader_environment if name in {"validate-grader-runtime", "grade"} else None
+                ),
+                cwd=task if name == "validate-grader-runtime" else None,
             )
             receipt["stages"].append(stage)
             if stage["return_code"] != 0:
                 receipt["status"] = "failed_unclassified"
                 raise QueueItemError(f"{name} failed; inspect {stage['log']}")
+            if name == "validate-grader-runtime":
+                receipt["grader_runtime_receipt_sha256"] = digest(
+                    root / "grader-runtime-receipt.json"
+                )
         receipt["status"] = "graded"
         receipt["grade_receipt_sha256"] = digest(grade_output / "grade-receipt.json")
     except Exception:

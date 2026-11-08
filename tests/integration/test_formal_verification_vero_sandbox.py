@@ -96,6 +96,11 @@ PROTOCOL = json.loads(
         encoding="utf-8"
     )
 )
+PROTOCOL_V2 = json.loads(
+    (ROOT / "data" / "formal-verification" / "vero" / "policy-probe-protocol.v2.json").read_text(
+        encoding="utf-8"
+    )
+)
 RUNTIME_LOCK_PATH = RUNTIME_ROOT / "runtime-lock.v1.json"
 RUNTIME_LOCK = json.loads(RUNTIME_LOCK_PATH.read_text(encoding="utf-8"))
 CONTROLLER_LOCK_PATH = CONTROLLER_ROOT / "controller-lock.v1.json"
@@ -309,6 +314,7 @@ class VeroRuntimeLockTest(unittest.TestCase):
 
 class VeroDeploymentPromotionTest(unittest.TestCase):
     QUEUE = json.loads((VERO_ROOT / "probe-queue.v1.json").read_text(encoding="utf-8"))
+    QUEUE_V2 = json.loads((VERO_ROOT / "probe-queue.v2.json").read_text(encoding="utf-8"))
     PANEL_PATH = VERO_ROOT / "development-lifecycle-panel-v2.json"
     CONTAINMENT = json.loads(
         (VERO_ROOT / "containment-contract.v1.json").read_text(encoding="utf-8")
@@ -389,6 +395,28 @@ class VeroDeploymentPromotionTest(unittest.TestCase):
         self.assertTrue(promoted["protocol"]["execution_authorized"])
         self.assertEqual(promoted["queue"]["attempts"], self.QUEUE["attempts"])
         self.assertEqual(len(promoted["queue"]["attempts"]), 32)
+
+    def test_promotion_accepts_the_corrected_claim_contract(self) -> None:
+        containment_receipt, inference_receipt = self.receipts()
+        promoted = PROMOTION.promote(
+            protocol=PROTOCOL_V2,
+            queue=self.QUEUE_V2,
+            panel=PANEL,
+            containment=self.CONTAINMENT,
+            runtime=RUNTIME_LOCK,
+            controller=CONTROLLER_LOCK,
+            inference=INFERENCE_CONTRACT,
+            containment_receipt=containment_receipt,
+            inference_receipt=inference_receipt,
+            containment_receipt_sha256="d" * 64,
+            inference_receipt_sha256="e" * 64,
+            controller_sha256=PROMOTION.digest(CONTROLLER_LOCK_PATH),
+            pending_inference_sha256=PROMOTION.digest(INFERENCE_CONTRACT_PATH),
+            panel_sha256=PROMOTION.digest(self.PANEL_PATH),
+            runtime_image="sha256:" + "a" * 64,
+        )
+        self.assertTrue(promoted["protocol"]["execution_authorized"])
+        self.assertEqual(promoted["queue"]["attempts"], self.QUEUE_V2["attempts"])
 
     def test_promotion_rejects_a_failed_containment_test(self) -> None:
         containment_receipt, inference_receipt = self.receipts()

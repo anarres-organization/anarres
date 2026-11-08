@@ -42,10 +42,14 @@ LIFECYCLE_PANEL = json.loads(
 )
 PROBE_PROTOCOL_PATH = ADAPTER / "policy-probe-protocol.v1.json"
 PROBE_PROTOCOL = json.loads(PROBE_PROTOCOL_PATH.read_text(encoding="utf-8"))
+PROBE_PROTOCOL_V2_PATH = ADAPTER / "policy-probe-protocol.v2.json"
+PROBE_PROTOCOL_V2 = json.loads(PROBE_PROTOCOL_V2_PATH.read_text(encoding="utf-8"))
 REPETITION_DESIGN_PATH = ADAPTER / "repetition-reliability.v1.json"
 REPETITION_DESIGN = json.loads(REPETITION_DESIGN_PATH.read_text(encoding="utf-8"))
 PROBE_QUEUE_PATH = ADAPTER / "probe-queue.v1.json"
 PROBE_QUEUE = json.loads(PROBE_QUEUE_PATH.read_text(encoding="utf-8"))
+PROBE_QUEUE_V2_PATH = ADAPTER / "probe-queue.v2.json"
+PROBE_QUEUE_V2 = json.loads(PROBE_QUEUE_V2_PATH.read_text(encoding="utf-8"))
 CONTAINMENT_PATH = ADAPTER / "containment-contract.v1.json"
 CONTAINMENT_CONTRACT = json.loads(CONTAINMENT_PATH.read_text(encoding="utf-8"))
 
@@ -387,6 +391,22 @@ class VeroProbeQueueTest(unittest.TestCase):
             list(range(1, 33)),
         )
 
+    def test_corrected_queue_is_namespaced_and_charges_actual_tokens(self) -> None:
+        expected = QUEUE.build_queue(
+            PROBE_PROTOCOL_V2,
+            LIFECYCLE_PANEL,
+            protocol_sha256=hashlib.sha256(PROBE_PROTOCOL_V2_PATH.read_bytes()).hexdigest(),
+            panel_sha256=hashlib.sha256(
+                (ADAPTER / "development-lifecycle-panel-v2.json").read_bytes()
+            ).hexdigest(),
+        )
+        self.assertEqual(PROBE_QUEUE_V2, expected)
+        self.assertEqual(len(PROBE_QUEUE_V2["attempts"]), 32)
+        for record in PROBE_QUEUE_V2["attempts"]:
+            self.assertIn("-claim-v2-r", record["attempt_id"])
+            self.assertEqual(record["controller_token_stop_threshold"], 50000)
+            self.assertNotIn("maximum_model_tokens", record)
+
     def test_queue_item_is_unique_and_contract_linked(self) -> None:
         selected = QUEUE_ITEM.select_entry(PROBE_QUEUE, PROBE_QUEUE["attempts"][0]["attempt_id"])
         self.assertEqual(selected["queue_position"], 1)
@@ -473,6 +493,15 @@ a=p.parse_args(); Path(a.output).mkdir()
             )
             no_op = root / "no-op.py"
             no_op.write_text("raise SystemExit(0)\n", encoding="utf-8")
+            grader_runtime_validator = root / "grader-runtime-validator.py"
+            grader_runtime_validator.write_text(
+                """import argparse
+from pathlib import Path
+p=argparse.ArgumentParser(); p.add_argument('--output', required=True)
+a=p.parse_args(); Path(a.output).write_text('{}')
+""",
+                encoding="utf-8",
+            )
             source = root / "source"
             work = root / "work"
             output = root / "output"
@@ -529,6 +558,8 @@ a=p.parse_args(); Path(a.output).mkdir()
                 str(no_op),
                 "--grader",
                 str(grader),
+                "--grader-runtime-validator",
+                str(grader_runtime_validator),
                 "--protocol-validator",
                 str(no_op),
                 "--containment-validator",
@@ -556,6 +587,7 @@ a=p.parse_args(); Path(a.output).mkdir()
                     "validate-controller",
                     "validate-inference",
                     "materialize",
+                    "validate-grader-runtime",
                     "attempt",
                     "validate",
                     "grade",
@@ -641,6 +673,32 @@ class VeroProbeAggregationTest(unittest.TestCase):
             {"repo-a", "repo-b"},
         )
         self.assertTrue(result["admission_summary"]["passes_measurement_support_gate"])
+
+    def test_corrected_accounting_accepts_final_call_threshold_overshoot(self) -> None:
+        entry = {
+            "attempt_id": "repo-proof-claim-v2-r01",
+            "benchmark_id": "repo",
+            "mode": "proof",
+            "task_id": "repo:proof",
+            "expected_specifications": 1,
+            "controller_token_stop_threshold": 50000,
+        }
+        receipt = {
+            "attempt_id": entry["attempt_id"],
+            "benchmark_id": "repo",
+            "mode": "proof",
+            "task_id": "repo:proof",
+            "infrastructure_valid": True,
+            "specifications_total": 1,
+            "model_tokens": 57208,
+            "peak_memory_bytes": 1024,
+            "outcome": "token_limit",
+        }
+        AGGREGATE.validate_attempt(entry, receipt)
+
+        receipt["model_tokens"] = 49999
+        with self.assertRaises(AGGREGATE.AggregateError):
+            AGGREGATE.validate_attempt(entry, receipt)
 
 
 class VeroContainmentContractTest(unittest.TestCase):

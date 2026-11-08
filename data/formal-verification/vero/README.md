@@ -113,30 +113,33 @@ instruction hashes. [`agent-prompt.txt`](agent-prompt.txt) supplies the fixed
 Vibe user message; the repository-specific `INSTRUCTION.md` remains the task
 contract.
 
-The next measurement contract is frozen in
-[`policy-probe-protocol.v1.json`](policy-probe-protocol.v1.json). It selects an
+The claim-bearing measurement contract is frozen in
+[`policy-probe-protocol.v2.json`](policy-probe-protocol.v2.json). It selects an
 open-weight Lean starting policy and records the development-only attempt and
 resource budgets. Execution remains blocked until the model artifact, inference
 runtime, and process-containment gates are qualified. Validate the frozen
 contract with:
 
-[`repetition-reliability.v1.json`](repetition-reliability.v1.json) supplies the
+[`repetition-reliability.v2.json`](repetition-reliability.v2.json) supplies the
 outcome-blind repetition and cost calculation. Four attempts per repository and
 mode are the smallest candidate design with at least 95% probability of
 detecting eight mixed specification groups at the preregistered 1% strict-
-success floor.
+success floor. A preserved v1 deployment pilot is excluded from the claim
+aggregate. Vibe checks its 50,000-token controller threshold between model
+calls, and v2 charges all actual exported input and output tokens, including
+the final call that may cross that threshold.
 
 ```bash
 python data/formal-verification/vero/validate_policy_probe_protocol.py \
-  --protocol data/formal-verification/vero/policy-probe-protocol.v1.json \
+  --protocol data/formal-verification/vero/policy-probe-protocol.v2.json \
   --panel data/formal-verification/vero/development-lifecycle-panel-v2.json \
   --split data/formal-verification/vero/repository-split.json \
   --containment data/formal-verification/vero/containment-contract.v1.json \
   --runtime-lock data/formal-verification/vero/runtime/runtime-lock.v1.json \
   --controller-lock data/formal-verification/vero/controller/controller-lock.v1.json \
   --inference-contract data/formal-verification/vero/inference/inference-contract.v1.json \
-  --repetition-design data/formal-verification/vero/repetition-reliability.v1.json \
-  --measurement-analysis data/formal-verification/vero/measurement-analysis.v1.json
+  --repetition-design data/formal-verification/vero/repetition-reliability.v2.json \
+  --measurement-analysis data/formal-verification/vero/measurement-analysis.v2.json
 ```
 
 [`containment-contract.v1.json`](containment-contract.v1.json) freezes the
@@ -169,7 +172,9 @@ for one scientific attempt. It refuses to start until the probe, containment,
 runtime, controller, inference, and materialized-task records agree. It creates
 a private controller home, exposes only the frozen environment and tool
 allowlists, starts one ephemeral sandbox, applies the 50-turn, 50,000-token,
-and 1,800-second limits, and preserves the Vibe export and runtime receipts.
+and 1,800-second controller thresholds, and preserves the Vibe export and
+runtime receipts. Token accounting uses the actual exported usage rather than
+treating the between-call threshold as a hard cap.
 Scientific retries remain disabled; infrastructure retry handling belongs to
 the outer frozen queue.
 After completion, [`validate_probe_attempt.py`](validate_probe_attempt.py)
@@ -195,8 +200,8 @@ this directory remain unchanged.
 
 ```bash
 python data/formal-verification/vero/promote_probe_deployment.py \
-  --protocol data/formal-verification/vero/policy-probe-protocol.v1.json \
-  --queue data/formal-verification/vero/probe-queue.v1.json \
+  --protocol data/formal-verification/vero/policy-probe-protocol.v2.json \
+  --queue data/formal-verification/vero/probe-queue.v2.json \
   --panel data/formal-verification/vero/development-lifecycle-panel-v2.json \
   --containment data/formal-verification/vero/containment-contract.v1.json \
   --runtime-lock data/formal-verification/vero/runtime/runtime-lock.v1.json \
@@ -214,8 +219,9 @@ benchmark, and invokes Vero's fresh build, axiom, hygiene, and joint-claim
 checks. Its compact receipt retains specification-level strict rewards and
 resource use while replacing machine paths with stable logical identities.
 
-[`probe-queue.v1.json`](probe-queue.v1.json) fixes the 32 attempt identities in
-an outcome-blind hash order. [`measurement-analysis.v1.json`](measurement-analysis.v1.json)
+[`probe-queue.v2.json`](probe-queue.v2.json) fixes the 32 claim-attempt
+identities in an outcome-blind hash order.
+[`measurement-analysis.v2.json`](measurement-analysis.v2.json)
 fixes the mode-specific $\rho$ and $H$ estimands, leave-one-repository-out
 checks, and whole-repository bootstrap before model attempts. Rebuild or verify
 the queue with [`build_probe_queue.py`](build_probe_queue.py), then use
@@ -227,7 +233,9 @@ identity into a fresh task, isolated attempt, linked validation, and fresh
 grade. It checks both cross-file hashes and each contract's semantic validator
 before materialization. Materialization and grading run through the pinned Vero
 checkout's `.venv/bin/python`; the controller and sandbox retain their separate
-qualified runtimes. An existing output is never overwritten. A failed stage
+qualified runtimes. Before inference, the worker invokes Lean and Lake from the
+materialized task through the qualified immutable image and records a runtime
+receipt. An existing output is never overwritten. A failed stage
 remains unclassified and cannot enter the aggregate through a grade receipt.
 
 ```bash
@@ -253,5 +261,5 @@ After one attempt completes, validate its raw runtime receipt with:
 ```bash
 python data/formal-verification/vero/validate_sandbox_receipt.py \
   --receipt /path/to/attempt/runtime-receipt.json \
-  --protocol data/formal-verification/vero/policy-probe-protocol.v1.json
+  --protocol data/formal-verification/vero/policy-probe-protocol.v2.json
 ```

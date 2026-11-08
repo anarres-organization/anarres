@@ -31,12 +31,21 @@ def build_queue(
     if design["repositories"] != len(repositories):
         raise QueueError("protocol and panel repository counts disagree")
     queue_id = f"{protocol['protocol_id']}-queue"
+    namespace = design.get("attempt_namespace")
     entries = []
     for repository in repositories:
         for mode in design["modes"]:
             for replicate in range(1, design["independent_attempts_per_repository_mode"] + 1):
                 benchmark_id = repository["benchmark_id"]
-                attempt_id = f"{benchmark_id}-{mode}-r{replicate:02d}"
+                parts = [benchmark_id, mode]
+                if namespace:
+                    parts.append(namespace)
+                attempt_id = "-".join(parts) + f"-r{replicate:02d}"
+                token_field = (
+                    "controller_token_stop_threshold_per_attempt"
+                    if "controller_token_stop_threshold_per_attempt" in design
+                    else "maximum_cumulative_model_tokens_per_attempt"
+                )
                 entries.append(
                     {
                         "attempt_id": attempt_id,
@@ -46,9 +55,11 @@ def build_queue(
                         "replicate": replicate,
                         "task_id": f"{benchmark_id}:{mode}",
                         "expected_specifications": repository["specifications"],
-                        "maximum_model_tokens": design[
-                            "maximum_cumulative_model_tokens_per_attempt"
-                        ],
+                        (
+                            "controller_token_stop_threshold"
+                            if token_field == "controller_token_stop_threshold_per_attempt"
+                            else "maximum_model_tokens"
+                        ): design[token_field],
                         "maximum_wall_seconds": design["maximum_wall_seconds_per_attempt"],
                         "maximum_agent_turns": design["maximum_agent_turns_per_attempt"],
                         "ordering_key": ordering_key(queue_id, benchmark_id, mode, replicate),
