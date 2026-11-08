@@ -22,3 +22,4 @@ auto_compact_threshold = 168000
 
 [tools.bash]
 default_timeout = 1200
+max_timeout_seconds = 1200

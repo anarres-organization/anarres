@@ -425,7 +425,7 @@ def main() -> None:
                 "--max-turns",
                 "3",
                 "--max-tokens",
-                "4096",
+                str(controller["limits"]["maximum_cumulative_model_tokens"]),
                 "--time-limit",
                 "180",
                 "--output",

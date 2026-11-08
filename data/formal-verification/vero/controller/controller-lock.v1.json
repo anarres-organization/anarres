@@ -7,7 +7,7 @@
   "config": "config.toml",
   "config_sha256": "9892d67db7f2b6e42e8bb4ebb733ac79533ab133a6268d2a539bccae9fdf6ef2",
   "agent": "agents/lean.toml",
-  "agent_sha256": "becb606d85a0bedceb0457fe02fabba47ca1b07d06ed860e5f4ed015159f2781",
+  "agent_sha256": "507d5bf2c2a3836760e08cef337b16e3579756159cc7f308a843005189d38376",
   "qualification_prompt": "qualification-prompt.txt",
   "qualification_prompt_sha256": "ac3c4468842f6d2e526a26956ad093407f4c7656a1c9fa5801bf9dc2e2d2e0c4",
   "system_prompt_sha256": "bc6896006db187401719dcb4a45b150fc6753db31d07bfee8a26531314d8dd21",

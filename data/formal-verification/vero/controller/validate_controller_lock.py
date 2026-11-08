@@ -113,7 +113,9 @@ def validate(lock: dict[str, Any], *, lock_path: Path, protocol_path: Path) -> N
         },
         "Lean agent model",
     )
-    if len(models) != 1 or tools != {"bash": {"default_timeout": 1200}}:
+    if len(models) != 1 or tools != {
+        "bash": {"default_timeout": 1200, "max_timeout_seconds": 1200}
+    }:
         raise ControllerLockError("Lean agent tools or model count are not frozen")
 
     endpoint = urlparse(lock["api_base"])

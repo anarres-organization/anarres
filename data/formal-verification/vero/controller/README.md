@@ -7,6 +7,8 @@ credentials, agents, skills, plugins, hooks, MCP servers, or project
 configuration.
 
 The Lean agent follows Mistral's published local Leanstral configuration. Its
+paired 1,200-second shell timeouts match the built-in Lean profile in the pinned
+Vibe 3.1.0 revision and satisfy that revision's strict configuration schema. Its
 provider is bound to a loopback-only OpenAI-compatible endpoint, telemetry and
 automatic updates are disabled, and strict configuration validation is enabled.
 The launch command additionally restricts Vibe's built-in tools to shell, read,
