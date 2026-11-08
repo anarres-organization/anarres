@@ -1,10 +1,11 @@
 # Predictable utility of formal-verification environments
 
-**Status:** the OSS Verify release indexes and checker bootstrap are qualified.
-Vero's source structure, pinned Lean runtime, reference build, bounded grader
-controls, and repository-disjoint split are also qualified. OSS Verify proof
-replay and both sources' model-facing policy qualification remain pending. No
-claim-bearing reinforcement-learning run is authorized.
+**Status:** the public-evidence bridge is released. The OSS Verify release
+indexes and checker bootstrap are qualified. Vero's source structure, pinned
+Lean runtime, reference build, bounded grader controls, and repository-
+disjoint split are also qualified. Source qualification and starting-policy
+measurement continue, while no claim-bearing reinforcement-learning run is
+authorized.
 
 This workstream asks a narrower question than benchmark construction:
 
@@ -18,6 +19,14 @@ is universally best. The long-term scientific objective is to learn which
 policy-relative properties of a verification environment predict downstream
 utility before full training is run.
 
+The first [public-evidence record](public-evidence/README.md) reconstructs
+decisions from VeruSyn, Re:Form, Formal Disco, and Vericoding, then places them
+against Anthropic and Theorem's production verification workflow. It preserves
+each source's native outcome. The evidence shows that target-matched training
+data and verified feature coverage can improve downstream proof synthesis,
+while raw verifier success can select a semantically weaker reward
+environment.
+
 The detailed protocol is in [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md). The dated
 source assessment and role of each public artifact are in
 [SOURCE_LANDSCAPE.md](SOURCE_LANDSCAPE.md). The fields required before a source
@@ -29,7 +38,29 @@ completed source-index audit is recorded in
 repository-level Vero audit is recorded separately in
 [VERO_SOURCE_QUALIFICATION.md](VERO_SOURCE_QUALIFICATION.md). The frozen
 development measurement and its remaining containment gates are recorded in
-[STARTING_POLICY_PROBE.md](STARTING_POLICY_PROBE.md).
+[STARTING_POLICY_PROBE.md](STARTING_POLICY_PROBE.md). The
+[continuation guide](CONTINUATION.md) records the current execution boundary
+and the path from candidate construction to prospective selection, regression
+forecasting, and production-code transfer.
+
+## Public evidence before new training
+
+The workstream begins with released interventions rather than a new model run.
+The public record contains four complementary checks:
+
+- VeruSyn compares target-matched training-data environments for algorithmic
+  and real-system Verus proofs.
+- Re:Form shows that the reward environment with the highest verifier success
+  can produce the weakest semantic specifications.
+- Formal Disco connects verified feature coverage and generation diversity to
+  downstream Verus performance under a matched SFT pipeline.
+- Vericoding measures how candidate support changes across policies and formal
+  languages.
+
+These studies do not share one numerical outcome. They establish the decision
+structure and failure modes that a prospective environment comparison must
+retain. New starting-policy measurements fill missing public traces. They do
+not replace the existing downstream evidence.
 
 ## Why this workstream is timely
 
@@ -154,23 +185,27 @@ calibration, risk--coverage, and cost are supporting metrics.
 
 ## Immediate deliverables
 
-1. Pin every admitted source and record its license and content manifest. The
-   OSS Verify `v2026.11.1` index and checker metadata are complete. Vero's
-   source structure, bounded runtime qualification, and repository split are
-   complete.
-2. Recover chronology-correct historical tasks from VCVio and validate the
+1. Maintain the source-pinned public-evidence record and add a broader
+   retrospective bridge only when released measurements and outcomes form
+   comparable candidate panels.
+2. Pin every admitted executable source and record its license and content
+   manifest. The OSS Verify `v2026.11.1` index and checker metadata are
+   complete. Vero's source structure, bounded runtime qualification, and
+   repository split are complete.
+3. Recover chronology-correct historical tasks from VCVio and validate the
    existing dalek-lean-bench construction.
-3. Obtain and pin a public VeriBench release before creating any benchmark split.
-4. Implement a common environment record without erasing native verifier
+4. Qualify the prove-first VeriBench v1.3 release before creating a benchmark
+   split. Earlier compile-only versions remain historical evidence only.
+5. Implement a common environment record without erasing native verifier
    semantics. The OSS Verify source adapter now preserves statement status,
    revision, fingerprint, entry-point grouping, and checker identity. The Vero
    adapter preserves repository, module, API, specification, source revision,
    trusted-axiom, and license boundaries.
-5. Run oracle, no-op, statement-mutation, `sorry`, axiom, reset, and containment
+6. Run oracle, no-op, statement-mutation, `sorry`, axiom, reset, and containment
    tests. The bounded OSS Verify and Vero controls are complete; selected
    production-task replay and model-facing controls remain.
-6. Perform a bounded frozen-policy qualification pass.
-7. Freeze candidate environments, predictions, uncertainty, and an a-priori
+7. Perform a bounded frozen-policy qualification pass.
+8. Freeze candidate environments, predictions, uncertainty, and an a-priori
    power/cost decision before any downstream training outcome is opened.
 
 Until those deliverables are complete, the Anthropic/Theorem workflow remains

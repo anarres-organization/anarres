@@ -9,7 +9,7 @@ filesystem edits, compiler feedback, and repository-scale proof work, which
 matches Vero more closely than a whole-proof text generator.
 
 The claim-bearing pre-execution contract is frozen in
-[`policy-probe-protocol.v3.json`](../../../data/formal-verification/vero/policy-probe-protocol.v3.json).
+[`policy-probe-protocol.v5.json`](../../../data/formal-verification/vero/policy-probe-protocol.v5.json).
 It pins the model, agent scaffold, prompt, Vero revision, development panel,
 sampling settings, resource limits, native outcomes, and stop rules. The probe
 uses only the four repositories in the versioned development panel. The ten
@@ -19,10 +19,14 @@ One deployment-calibration pilot ran under the preserved v1 contract and is
 excluded from the claim aggregate. It showed that Vibe evaluates its token stop
 threshold between model calls, so the final call can raise actual usage above
 the threshold. The corrected contract charges every exported input and output
-token. Two subsequent v2 launches ended before inference while qualifying the
-host socket path. The v3 queue records those exclusions, retains the same
-32-attempt design in a new namespace, and was frozen before any claim-bearing
-model request.
+token. Subsequent deployment launches are recorded as exclusions when they
+changed socket, concurrency, path, or runtime qualification. The v5 queue
+retains the original outcome-blind 32-attempt design in a fresh namespace.
+
+The first four v5 queue positions have been exercised. Three reached fresh
+machine-checked grading and one ended during the model-attempt stage. The
+remaining 28 positions have not run. This partial development measurement is
+insufficient for the frozen aggregate and does not authorize training.
 
 The companion
 [`containment-contract.v1.json`](../../../data/formal-verification/vero/containment-contract.v1.json)
@@ -64,7 +68,8 @@ test outcome. The bounded
 adapter implements the pinned interface and container boundary; its deployment
 still requires qualification under the exact task image.
 
-Execution remains blocked until the local model digest, inference runtime,
-serving configuration, containment controls, and resource-limit receipts are
-recorded. This keeps a harness smoke test from silently becoming a scientific
-measurement under an incomplete contract.
+Execution of any remaining queue identity requires the separately promoted
+deployment bundle that binds the model digest, inference runtime, serving
+configuration, containment controls, and resource-limit receipts. The source
+contracts remain immutable. This keeps a harness smoke test from silently
+becoming a scientific measurement under an incomplete contract.

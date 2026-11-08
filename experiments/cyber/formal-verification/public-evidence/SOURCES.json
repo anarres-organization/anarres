@@ -1,0 +1,70 @@
+{
+  "sources": [
+    {
+      "name": "Anthropic formal software verification study",
+      "uri": "https://www.anthropic.com/research/formal-verification",
+      "appendix": "https://www-cdn.anthropic.com/files/4zrzovbb/website/6867eadf760258fa8b42a504600cd3c036d16358.pdf",
+      "release_date": "2026-10-22",
+      "role": "production-code proof target, repeated-attempt token curves, proof reuse, and patch-integrity protocol",
+      "redistribution": "no article, appendix, proof, or figure assets redistributed. This release contains compact numeric and method facts only"
+    },
+    {
+      "name": "Theorem OSS verification proofs",
+      "uri": "https://github.com/theorem-labs/oss-verify-proofs",
+      "revision": "8304a2c02e48c229572d97530ffb46138d1fa5fd",
+      "license": "MIT for Theorem-authored materials; identified Anthropic-derived proofs retain Apache-2.0 or MIT terms; binaries and source archives retain upstream licenses",
+      "role": "public theorem statements and machine-checked Rocq proofs for OSS-Fuzz RISC-V binaries",
+      "redistribution": "no upstream proof artifacts redistributed"
+    },
+    {
+      "name": "Rocq Linux process semantics",
+      "uri": "https://github.com/theorem-labs/rocq-linux-process-semantics",
+      "revision": "c7fbb82e7392ffcf88aca1e3c975dbf0aec155a5",
+      "license": "MIT",
+      "role": "formal RISC-V and Linux process semantics used by the production proof workflow",
+      "redistribution": "no upstream semantics artifacts redistributed"
+    },
+    {
+      "name": "VeruSyn",
+      "paper": "https://arxiv.org/abs/2602.04910v3",
+      "repository": "https://github.com/microsoft/verus-proof-synthesis",
+      "revision": "cbf9c0c6337b224fd8e5b7cb4e01ae65c0f98bc1",
+      "repository_license": "MIT",
+      "role": "controlled Verus training-data environments and downstream algorithmic and system-proof outcomes",
+      "redistribution": "no dataset, trajectory, model, or paper assets redistributed. This release contains compact table facts only"
+    },
+    {
+      "name": "Re:Form",
+      "paper": "https://arxiv.org/abs/2507.16331v4",
+      "repository": "https://github.com/ReFormDafny/ReForm",
+      "revision": "8190daca0089822789135d2f59f60ff1e8a99a3c",
+      "repository_license": "no top-level license identified at the pinned revision",
+      "role": "controlled Dafny RL reward environments across five model scales",
+      "redistribution": "no repository, model, dataset, or paper assets redistributed. This release contains compact table facts only"
+    },
+    {
+      "name": "Formal Disco",
+      "paper": "https://arxiv.org/abs/2607.04631v1",
+      "repository": "https://github.com/metareflection/formal-disco",
+      "revision": "3d9a57fdc3f8d59a2547345dd16a3654fe3eb5a1",
+      "repository_license": "MIT, as stated in the repository README",
+      "role": "controlled verified-program generation environments and matched downstream SFT comparison",
+      "redistribution": "no generated program, run checkpoint, model, or paper assets redistributed. This release contains compact numeric facts only"
+    },
+    {
+      "name": "Vericoding Benchmark",
+      "paper": "https://arxiv.org/abs/2509.22908v1",
+      "repository": "https://github.com/Beneficial-AI-Foundation/vericoding-benchmark",
+      "revision": "387cd69996792d452ead7b0460f36ee4c5cdd148",
+      "repository_license": "MIT for repository software; task sources retain source-specific licenses",
+      "result_artifact": {
+        "path": "vericoding_results_v1.csv",
+        "sha256": "09b3466ed39ac0b61ad2184a0c87afc3ff6b3f3ed59b30fe50afe639e8cd070e",
+        "size_bytes": 4006482,
+        "media_type": "text/csv"
+      },
+      "role": "public model-by-task outcomes across Dafny, Lean, and Verus",
+      "redistribution": "no upstream task specifications, model outputs, or full result table redistributed. This release contains compact aggregate facts only"
+    }
+  ]
+}

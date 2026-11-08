@@ -1,0 +1,27 @@
+{
+  "artifact": "vericoding_policy_language_support_compact_record_v1",
+  "evidence_status": "retrospective task-support audit",
+  "source_support": {
+    "result_rows": 55397,
+    "tasks": 6336,
+    "models": 9,
+    "languages": ["dafny", "lean", "verus"]
+  },
+  "tasks_with_at_least_eight_model_outcomes": {
+    "total": 6121,
+    "all_reported_models_fail": 2978,
+    "all_reported_models_succeed": 296,
+    "mixed_success_across_models": 2847
+  },
+  "selected_model_language_success_rates": {
+    "gpt-5": {"dafny": 0.7663316582914573, "lean": 0.17958492164337145, "verus": 0.3111239860950174},
+    "claude-sonnet-4": {"dafny": 0.8311557788944723, "lean": 0.11901736552308344, "verus": 0.17746913580246915},
+    "deepseek-chat-v3.1": {"dafny": 0.7236180904522613, "lean": 0.00042354934349851756, "verus": 0.05704697986577181}
+  },
+  "claim_boundary": [
+    "mixed success is disagreement across policies rather than repeated sampling from one policy",
+    "language aggregates contain different task populations and should not be read as a controlled language effect",
+    "the public table reports inference outcomes rather than downstream training utility",
+    "task sources retain source-specific licenses"
+  ]
+}

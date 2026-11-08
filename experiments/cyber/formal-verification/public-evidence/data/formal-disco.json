@@ -1,0 +1,37 @@
+{
+  "artifact": "formal_disco_data_environment_compact_record_v1",
+  "evidence_status": "retrospective external evidence",
+  "chronology": {
+    "chronologically_prospective": false,
+    "outcomes_available_when_rule_was_recorded": true
+  },
+  "generation_comparison": {
+    "specialized_workers": {
+      "verified_programs_per_llm_call_percent": 29.8,
+      "mean_program_lines": 268,
+      "maximum_program_lines_lower_bound": 3000
+    },
+    "monolithic_agent": {
+      "verified_programs_per_llm_call_percent": 23.0,
+      "mean_program_lines": 85,
+      "maximum_program_lines": 128
+    }
+  },
+  "downstream_contract": {
+    "base_model": "Qwen2.5-Coder-32B-Instruct",
+    "training_method": "matched LoRA SFT pipeline",
+    "target": "VerusBench",
+    "independent_unit": "trained data-environment arm; sampling budgets are nested evaluations"
+  },
+  "practical_rule": "select the verified-program environment with broader target-feature coverage",
+  "panels": [
+    {"budget_k": 1, "outcomes_percent": {"formal_disco": 43.0, "safe": 40.9}},
+    {"budget_k": 32, "outcomes_percent": {"formal_disco": 59.1, "safe": 51.0}}
+  ],
+  "claim_boundary": [
+    "the practical rule is retrospective",
+    "the two sampling budgets are nested evaluations of the same trained arms",
+    "the downstream comparison concerns one model and one Verus benchmark",
+    "generation efficiency and downstream utility are different endpoints"
+  ]
+}

@@ -6,7 +6,7 @@ two workstreams with different tasks, verifiers, and outcomes.
 
 | Workstream | Training experience and target | Current stage |
 | --- | --- | --- |
-| [Formal verification](formal-verification/README.md) | Executable proof development and verified software, with machine-checked outcomes and held-out proof or specification targets | Source and runtime qualification |
+| [Formal verification](formal-verification/README.md) | Executable proof development and verified software, with machine-checked outcomes and held-out proof or specification targets | Public evidence, source qualification, and bounded starting-policy measurement |
 | [Vulnerability exploitation](qualification/README.md) | Authorized exploit-generation tasks, with strict proof-of-concept verification on isolated targets | Benchmark and warm-start qualification |
 
 Both workstreams measure candidate environments under a fixed starting policy,
@@ -22,6 +22,9 @@ The [experiment plan](formal-verification/EXPERIMENT_PLAN.md) compares
 environment distributions for Lean proof completion, repository-context
 verification, and specification construction. It includes a cryptographic
 software slice and uses production-scale verification as a frontier reference.
+The [public-evidence record](formal-verification/public-evidence/README.md)
+reconstructs training-data and reward-environment decisions from released
+formal-verification studies before introducing new computation.
 Source pinning, chronology-correct tasks, checker-integrity tests, and a
 frozen-policy measurement pass precede any downstream training. The
 [source landscape](formal-verification/SOURCE_LANDSCAPE.md) records each public

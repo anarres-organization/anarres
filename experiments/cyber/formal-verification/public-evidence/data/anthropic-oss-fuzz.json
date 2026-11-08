@@ -1,0 +1,42 @@
+{
+  "artifact": "anthropic_oss_fuzz_formal_verification_compact_record_v1",
+  "evidence_status": "external descriptive evidence",
+  "production_result": {
+    "proved_entry_points": 239,
+    "open_source_libraries": 123,
+    "compiled_isa": "RISC-V",
+    "proof_assistant": "Rocq",
+    "maximum_input_mib": 64,
+    "accepted_proof_lines_millions": 180,
+    "typical_proof_lines": 600000
+  },
+  "public_proof_release": {
+    "proved_entry_points": 90,
+    "open_source_libraries": 32,
+    "proof_checker": "Rocq 9.2.0",
+    "semantics": "Linux Process Semantics for RISC-V",
+    "semantics_complete": false
+  },
+  "finite_budget_panel": {
+    "tasks": 36,
+    "task_groups": 3,
+    "attempts_per_task_model": 3,
+    "tokens_per_attempt": 5000000,
+    "newer_model_token_reduction_to_half_tasks_percent": 40
+  },
+  "reuse_result": {
+    "shared_workspace_token_reduction_percent": 17
+  },
+  "integrity": {
+    "patches_logged_and_audited": true,
+    "patch_penalty_used": true,
+    "proof_kernel_check_required": true,
+    "trusted_components_remain": true
+  },
+  "claim_boundary": [
+    "the article reports 239 proved entry points while the pinned public proof repository exposes 90 entry points in 32 libraries",
+    "the public article reports aggregate token curves rather than released per-attempt trajectories",
+    "proof acceptance is conditional on the correctness of the trusted semantics and checker stack",
+    "the 36 small tasks are reduced from real OSS-Fuzz entry points and are separate from the 239 production proofs"
+  ]
+}

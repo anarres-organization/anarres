@@ -1,0 +1,38 @@
+{
+  "anthropic_production_target": {
+    "attempts_per_task_model": 3,
+    "open_source_libraries": 123,
+    "proved_entry_points": 239,
+    "public_release_entry_points": 90,
+    "public_release_libraries": 32,
+    "shared_workspace_token_reduction_percent": 17,
+    "small_tasks": 36,
+    "tokens_per_attempt": 5000000
+  },
+  "artifact": "formal_verification_public_evidence_summary_v1",
+  "formal_disco": {
+    "mean_allocation_regret_pp": 0,
+    "top_choice_correct": 2,
+    "top_choice_total": 2,
+    "verified_yield_advantage_pp": 6.8
+  },
+  "reform": {
+    "raw_verifier_mean_semantic_regret_pp": 14.78,
+    "raw_verifier_top_choice_correct": 0,
+    "semantic_control_top_choice_correct": 5,
+    "top_choice_total": 5
+  },
+  "vericoding": {
+    "eligible_tasks": 6121,
+    "mixed_success_fraction": 0.46512,
+    "mixed_success_tasks": 2847
+  },
+  "verusyn": {
+    "maximum_allocation_regret_pp": 2,
+    "mean_allocation_regret_pp": 0.25,
+    "pairwise_correct": 15,
+    "pairwise_total": 16,
+    "top_choice_correct": 7,
+    "top_choice_total": 8
+  }
+}

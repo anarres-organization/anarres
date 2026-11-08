@@ -1,0 +1,31 @@
+{
+  "artifact": "reform_reward_integrity_compact_record_v1",
+  "evidence_status": "retrospective falsification",
+  "chronology": {
+    "chronologically_prospective": false,
+    "outcomes_available_when_rule_was_recorded": true
+  },
+  "contract": {
+    "domain": "Dafny code-to-specification generation",
+    "training_method": "reinforcement learning",
+    "independent_unit": "model-scale by reward-environment arm; evaluation examples are nested",
+    "reported_training_seed_count": "not identified in the source table"
+  },
+  "selection_rules": {
+    "raw_verifier_rule": "select the arm with maximum verification rate",
+    "semantic_control": "select the subset-reward arm designed to preserve specification strength"
+  },
+  "panels": [
+    {"model_scale_b": 0.5, "arms": {"verification_reward": {"verification": 92.8, "spec_superiority": 20.7}, "subset_reward": {"verification": 65.8, "spec_superiority": 30.1}, "entropy_kl": {"verification": 60.9, "spec_superiority": 28.5}}},
+    {"model_scale_b": 1.5, "arms": {"verification_reward": {"verification": 86.0, "spec_superiority": 27.0}, "subset_reward": {"verification": 72.4, "spec_superiority": 40.4}, "entropy_kl": {"verification": 59.0, "spec_superiority": 31.8}}},
+    {"model_scale_b": 3, "arms": {"verification_reward": {"verification": 85.2, "spec_superiority": 30.7}, "subset_reward": {"verification": 75.0, "spec_superiority": 44.7}, "entropy_kl": {"verification": 73.4, "spec_superiority": 42.0}}},
+    {"model_scale_b": 7, "arms": {"verification_reward": {"verification": 89.1, "spec_superiority": 30.7}, "subset_reward": {"verification": 78.1, "spec_superiority": 49.8}, "entropy_kl": {"verification": 74.0, "spec_superiority": 44.1}}},
+    {"model_scale_b": 14, "arms": {"verification_reward": {"verification": 92.6, "spec_superiority": 37.3}, "subset_reward": {"verification": 85.9, "spec_superiority": 55.3}, "entropy_kl": {"verification": 84.0, "spec_superiority": 53.9}}}
+  ],
+  "claim_boundary": [
+    "specification superiority is the source-defined semantic endpoint",
+    "the analysis does not estimate seed-level intervention variance",
+    "the result concerns one Dafny code-to-specification training pipeline",
+    "entropy and KL are coupled in the third arm"
+  ]
+}

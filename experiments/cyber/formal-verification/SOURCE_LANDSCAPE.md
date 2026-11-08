@@ -1,6 +1,6 @@
 # Formal-verification source landscape
 
-**Audit date:** 2026-11-07
+**Audit date:** 2026-11-08
 
 This document records public evidence relevant to the formal-verification
 environment-utility study. It distinguishes benchmark relevance from executable
@@ -9,11 +9,12 @@ not be combined without preserving their contracts.
 
 ## Corrections to the initial project premise
 
-Two corrections are necessary before experiment design:
+Three corrections are necessary before experiment design:
 
-1. The current VeriBench launch draft reports **884** paired Python-to-Lean
-   tasks: a 602-task canonical core and a 282-task high-assurance expansion. It
-   does not report 896 tasks.
+1. VeriBench v1.3 contains **896** prove-first Python-to-Lean tasks. Versions
+   1.0 through 1.2 preserve the earlier study but instructed agents to insert
+   `sorry` placeholders and used a compile-oriented success contract. Those
+   versions cannot support a proof-completion claim.
 2. Cryptographic formal-verification benchmarks now exist. CrypFormBench covers
    700 instances over seven formal languages, CryptoFormalEval studies
    Tamarin-guided protocol-vulnerability analysis, and dalek-lean-bench exposes
@@ -21,12 +22,21 @@ Two corrections are necessary before experiment design:
    opportunity is therefore not "the first cryptography benchmark." It is a
    rigorous environment-utility study with realistic repository state,
    policy-relative measurements, and downstream training outcomes.
+3. Released studies already contain controlled formal-verification environment
+   decisions. VeruSyn varies generated training data, Re:Form varies the RL
+   reward environment, and Formal Disco varies verified-program generation.
+   New computation should extend this evidence rather than restart from a
+   benchmark-only premise.
 
 ## Source-role table
 
 | Source | Public evidence | Proposed role | Current blocker |
 | --- | --- | --- | --- |
-| VeriBench | Launch draft describes 884 Python-to-Lean tasks, a nine-part gold-artifact schema, security pairs, and a smooth conjunctive score | Held-out autoformalization target; possible candidate family after release qualification | The launch page's repository link currently returns 404; the task release, evaluator, license, and immutable revision must be obtained and pinned |
+| VeriBench | Public v1.3 contains 896 prove-first Python-to-Lean tasks; earlier versions preserve compile-oriented historical contracts | Held-out autoformalization target after v1.3 qualification | Pin the v1.3 task commit, evaluator, container, scorer, and license; do not use v1.0--v1.2 scores as proof success |
+| VeruSyn | Controlled Part 1, Part 2, combined, teacher, and data-scale comparisons with VerusBench and VeruSAGE outcomes | Retrospective training-data decision panels and source of system-proof candidates | Public tables support compact decisions, but training-seed uncertainty and exact generation-token accounting are incomplete |
+| Re:Form | Three Dafny RL reward environments across five model scales | Reward-integrity falsification and cross-scale environment evidence | Training-seed support is incomplete and the repository has no identified top-level license at the pinned revision |
+| Formal Disco | Specialized and monolithic generation systems, feature-entropy measurements, and matched downstream SFT results | Verified-diversity measurement and training-data comparison | Released run checkpoints and failed generations remain incomplete |
+| Vericoding | 55,397 model-task outcomes over 6,336 tasks, nine models, and three formal languages | Broad policy-support and cross-language diagnostic | Cross-model disagreement is not a repeated-policy measurement or downstream training outcome |
 | VCVio | Apache-2.0 Lean library for cryptographic games, primitives, protocols, implementations, oracle semantics, probability, and program logic | Leading cryptographic training-environment candidate; historical repository tasks; proof-reuse and curriculum studies | Must reconstruct gold historical tasks without future-lemma leakage; existing unresolved `sorry` declarations are not gold outcomes |
 | dalek-lean-bench | 249-theorem history, 146 theorem--proof pairs, chronology-aware proof injection, and a real Rust-to-Lean verification repository | Independent cryptographic target/candidate and validation of the historical-task builder | Must pin an immutable release and audit task identities, source licenses, and agent harness |
 | VeriSoftBench | 500 Lean tasks from 23 repositories with project and local dependencies | Repository-scale external target and possible disjoint candidate family | Pin code/data and verify that training and evaluation repositories can be separated without dependency leakage |
@@ -37,11 +47,31 @@ Two corrections are necessary before experiment design:
 | CrypFormBench | 700 instances, 677 schemes, seven verifier languages, five task types, 160 properties | Cryptography landscape and multi-tool diagnostic | Composite scores and heterogeneous verifier languages are not directly comparable to Lean repository utility |
 | CryptoFormalEval | Manually validated flawed protocols with Tamarin interaction | Symbolic-protocol diagnostic | Symbolic protocol analysis is a different target from Lean proof development and computational-security reductions |
 
+## Public environment evidence
+
+The [compact public-evidence record](public-evidence/README.md) follows the
+legal and robotics analyses. It retains native outcomes, scores choices within
+comparable panels, and keeps retrospective evidence distinct from prospective
+tests.
+
+The strongest current decision panel comes from VeruSyn. A target-matched rule
+chooses Part 1 data for algorithmic proofs and combined Part 1 plus Part 2 data
+for system proofs. It selects the observed best arm in seven of eight nested
+Accuracy@K panels with 0.25 points of mean regret. Formal Disco provides a
+second positive data-environment comparison. Re:Form provides the required
+falsification: choosing the arm with the highest raw verifier success misses
+the best specification-superiority arm at all five model scales.
+
+These are retrospective results. They justify target match, verified feature
+coverage, semantic reward integrity, reliability, and cost as candidate
+measurements. They do not establish a prospective selector.
+
 ## VeriBench
 
-The public launch draft treats autoformalization as more than compilation. It
-separates executable behavior, preconditions, property theorems, bundled
-correctness, and implementation equivalence. Its evaluation combines:
+The current prove-first release treats autoformalization as more than
+compilation. It separates executable behavior, preconditions, property
+theorems, bundled correctness, and implementation equivalence. Its evaluation
+combines:
 
 - successful Lean compilation
 - nontrivial formal content
@@ -59,8 +89,14 @@ issues. The evaluator must therefore be independently qualified. A target score
 should retain its compilation, proof-completeness, and semantic-coverage
 components rather than relying on one scalar.
 
-**Admission decision:** target candidate only until the repository, evaluator,
-license, task identities, and revision are publicly available and pinned.
+The version history matters. VeriBench v1.0 through v1.2 instructed the agent to
+use `sorry` placeholders and preserved a compile-oriented contract. Version
+1.3 changes the instruction to require every theorem to be proved and assigns
+zero credit to `sorry`. Only v1.3 is eligible for a new proof-completion study.
+
+**Admission decision:** prove-first target candidate. The v1.3 task commit,
+evaluator, container, scorer, license, and task identities must be pinned and
+qualified before use.
 
 ## Vero
 
@@ -216,6 +252,12 @@ The defensible contribution is therefore:
 ## Sources
 
 - VeriBench launch draft: <https://ehersch.github.io/veribench-blog/>
+- VeriBench v1.3 Harbor release history:
+  <https://github.com/harbor-framework/harbor-datasets/pull/148>
+- VeruSyn: <https://arxiv.org/abs/2602.04910>
+- Re:Form: <https://arxiv.org/abs/2507.16331>
+- Formal Disco: <https://arxiv.org/abs/2607.04631>
+- Vericoding Benchmark: <https://arxiv.org/abs/2509.22908>
 - VCVio: <https://github.com/Verified-zkEVM/VCVio>
 - dalek-lean-bench: <https://github.com/Beneficial-AI-Foundation/dalek-lean-bench>
 - Anthropic formal-verification report:

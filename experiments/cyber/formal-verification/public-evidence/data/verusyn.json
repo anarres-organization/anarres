@@ -1,0 +1,42 @@
+{
+  "artifact": "verusyn_target_matched_data_compact_record_v1",
+  "evidence_status": "retrospective public outcome analysis",
+  "chronology": {
+    "chronologically_prospective": false,
+    "outcomes_available_when_rule_was_recorded": true
+  },
+  "contract": {
+    "base_model": "Qwen2.5-Coder-32B-Instruct",
+    "training_method": "SFT",
+    "debugging": false,
+    "independent_unit": "trained data-environment arm; sampling budgets and benchmark tasks are nested evaluations",
+    "reported_training_seed_count": "not identified in the source table"
+  },
+  "practical_rule": {
+    "algorithmic": "part1",
+    "system": "combined"
+  },
+  "panels": [
+    {"target": "algorithmic", "benchmark": "VerusBench", "budget_k": 1, "outcomes_percent": {"combined": 18, "part1": 57, "part2": 18}},
+    {"target": "algorithmic", "benchmark": "VerusBench", "budget_k": 5, "outcomes_percent": {"combined": 35, "part1": 64, "part2": 29}},
+    {"target": "algorithmic", "benchmark": "VerusBench", "budget_k": 10, "outcomes_percent": {"combined": 42, "part1": 72, "part2": 34}},
+    {"target": "algorithmic", "benchmark": "VerusBench", "budget_k": 100, "outcomes_percent": {"combined": 75, "part1": 79, "part2": 47}},
+    {"target": "system", "benchmark": "VeruSAGE-Bench", "budget_k": 1, "outcomes_percent": {"combined": 7, "part1": 3, "part2": 9}},
+    {"target": "system", "benchmark": "VeruSAGE-Bench", "budget_k": 5, "outcomes_percent": {"combined": 20, "part1": 6, "part2": 16}},
+    {"target": "system", "benchmark": "VeruSAGE-Bench", "budget_k": 10, "outcomes_percent": {"combined": 25, "part1": 8, "part2": 19}},
+    {"target": "system", "benchmark": "VeruSAGE-Bench", "budget_k": 100, "outcomes_percent": {"combined": 39, "part1": 15, "part2": 35}}
+  ],
+  "teacher_sensitivity": {
+    "benchmark": "VeruSAGE-Bench",
+    "sonnet_4_5_accuracy_at_100_percent": 39,
+    "o4_mini_accuracy_at_100_percent": 15,
+    "sonnet_4_5_accuracy_at_600_with_debugging_percent": 49,
+    "o4_mini_accuracy_at_600_with_debugging_percent": 22
+  },
+  "claim_boundary": [
+    "the practical rule is retrospective",
+    "Accuracy@K panels reuse trained models and are not independent interventions",
+    "teacher comparisons change the data-generating model and may also change generation cost",
+    "the result concerns Verus proof synthesis under one base-model family"
+  ]
+}
