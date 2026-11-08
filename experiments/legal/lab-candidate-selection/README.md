@@ -95,6 +95,13 @@ measurement and training cost relative to the practical choice. Checkpoints,
 rubric criteria, judge repetitions, and tasks remain nested under each trained
 intervention.
 
+[Harvey and Baseten](https://www.harvey.ai/blog/post-training-open-legal-agents-with-baseten-research)
+report a short Qwen3.5-9B GRPO run using LAB rubric reward. This shows a viable
+legal training signal, while the released aggregate does not compare matched
+candidate distributions. Our pre-RL probe must use the same reward and grader
+as candidate training. Held-out all-pass and criterion results are then scored
+under the pinned LAB evaluation profile, with grading cost reported separately.
+
 ## Execution gates
 
 1. Qualify the source revision, task documents, sandbox, tools, reset behavior,
