@@ -1,4 +1,5 @@
 default_agent = "lean"
+installed_agents = ["lean"]
 enable_telemetry = false
 enable_background_processes = false
 enable_auto_update = false

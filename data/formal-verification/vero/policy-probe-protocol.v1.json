@@ -45,7 +45,7 @@
     "runtime_lock": "runtime/runtime-lock.v1.json",
     "runtime_dockerfile_sha256": "a4689080b12d0260cdd6e5423f83a24d42cd76a9f9420eb010f542e612d86035",
     "controller_lock": "controller/controller-lock.v1.json",
-    "controller_lock_sha256": "0f99b9f4bea1402a5ea5c831fceb4a3426c909c3fed093ef49a3d5547a7f7fe8",
+    "controller_lock_sha256": "8657de13d800400e0e439503b05b2862182cc0675ffc088a7aec09a272c0207d",
     "inference_contract": "inference/inference-contract.v1.json",
     "inference_contract_sha256": "8b3c45e7b8b4e803ce1981e810f843db98f08dda22b5a2312d90c4a8b08b02dd"
   },

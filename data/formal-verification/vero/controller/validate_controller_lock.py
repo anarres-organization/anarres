@@ -63,6 +63,7 @@ def validate(lock: dict[str, Any], *, lock_path: Path, protocol_path: Path) -> N
         config,
         {
             "default_agent": "lean",
+            "installed_agents": ["lean"],
             "enable_telemetry": False,
             "enable_background_processes": False,
             "enable_auto_update": False,

@@ -5,7 +5,7 @@
   "agent_scaffold": "mistralai/mistral-vibe@v3.1.0",
   "agent_scaffold_revision": "c96a6dbb34d34f8a868b3f67b279ecabbf1aa616",
   "config": "config.toml",
-  "config_sha256": "b0799ba5b2fa9255c2716f3fc1c6c2269868ae76590d4e5d9b6ecbf43d001aa4",
+  "config_sha256": "9892d67db7f2b6e42e8bb4ebb733ac79533ab133a6268d2a539bccae9fdf6ef2",
   "agent": "agents/lean.toml",
   "agent_sha256": "becb606d85a0bedceb0457fe02fabba47ca1b07d06ed860e5f4ed015159f2781",
   "qualification_prompt": "qualification-prompt.txt",
