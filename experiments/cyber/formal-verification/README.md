@@ -38,7 +38,9 @@ completed source-index audit is recorded in
 repository-level Vero audit is recorded separately in
 [VERO_SOURCE_QUALIFICATION.md](VERO_SOURCE_QUALIFICATION.md). The frozen
 development measurement, completed result, and support boundary are recorded
-in [STARTING_POLICY_PROBE.md](STARTING_POLICY_PROBE.md). The
+in [STARTING_POLICY_PROBE.md](STARTING_POLICY_PROBE.md). The next
+[policy requalification](POLICY_REQUALIFICATION.md) uses a source-grounded
+budget ladder on development tasks before another repeated measurement. The
 [continuation guide](CONTINUATION.md) records the current execution boundary
 and the path from candidate construction to prospective selection, regression
 forecasting, and production-code transfer.

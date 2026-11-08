@@ -56,6 +56,8 @@ The v5 development measurement is complete and remains unchanged. Its compact
 [result record](../../../data/formal-verification/vero/results/development-policy-measurement.v1.json)
 preserves the frozen input hashes and aggregate outcome. The next qualification
 must use a new protocol version and development repositories only.
+The [requalification design](POLICY_REQUALIFICATION.md) fixes the evidence,
+budget ladder, and stop rules that govern that revision.
 
 - Use released Vero and model evaluations to anchor the policy, agent, and
   interaction budget before allocating new inference.
@@ -170,5 +172,6 @@ target or candidate panel after outcomes are observed.
 | Vero source qualification | [`VERO_SOURCE_QUALIFICATION.md`](VERO_SOURCE_QUALIFICATION.md) |
 | Vero policy-measurement contract | [`STARTING_POLICY_PROBE.md`](STARTING_POLICY_PROBE.md) |
 | Completed Vero development result | [`development-policy-measurement.v1.json`](../../../data/formal-verification/vero/results/development-policy-measurement.v1.json) |
+| Vero policy requalification | [`POLICY_REQUALIFICATION.md`](POLICY_REQUALIFICATION.md) |
 | Vero executable pipeline | [`../../../data/formal-verification/vero/`](../../../data/formal-verification/vero/README.md) |
 | OSS Verify adapter | [`../../../data/formal-verification/oss-verify/`](../../../data/formal-verification/oss-verify/README.md) |
