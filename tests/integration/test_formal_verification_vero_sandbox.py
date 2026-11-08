@@ -330,13 +330,22 @@ class VeroInferenceContractTest(unittest.TestCase):
                 controller_lock_path=CONTROLLER_LOCK_PATH,
             )
 
+    def test_inference_contract_rejects_unfrozen_dependency_versions(self) -> None:
+        contract = json.loads(INFERENCE_CONTRACT_PATH.read_text(encoding="utf-8"))
+        contract["runtime"]["required_versions"]["transformers"] = "5.22.2"
+        with self.assertRaises(INFERENCE.InferenceContractError):
+            INFERENCE.validate(
+                contract,
+                protocol_path=PROTOCOL_PATH,
+                controller_lock_path=CONTROLLER_LOCK_PATH,
+            )
+
     def test_live_command_must_match_every_frozen_serving_flag(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            model = Path(directory).resolve()
+        with tempfile.TemporaryDirectory():
             command = [
                 "vllm",
                 "serve",
-                str(model),
+                "/model",
                 "--host",
                 "127.0.0.1",
                 "--port",
@@ -374,21 +383,15 @@ class VeroInferenceContractTest(unittest.TestCase):
                 "--dtype",
                 "bfloat16",
             ]
-            observed = INFERENCE_QUALIFICATION.validate_live_command(
-                command, INFERENCE_CONTRACT, model
-            )
+            observed = INFERENCE_QUALIFICATION.validate_live_command(command, INFERENCE_CONTRACT)
             without_text_only = [item for item in command if item != "--language-model-only"]
             with self.assertRaises(INFERENCE_QUALIFICATION.DeploymentQualificationError):
-                INFERENCE_QUALIFICATION.validate_live_command(
-                    without_text_only, INFERENCE_CONTRACT, model
-                )
+                INFERENCE_QUALIFICATION.validate_live_command(without_text_only, INFERENCE_CONTRACT)
             wrong_kernel = command.copy()
             kernel_index = wrong_kernel.index("--kernel-config") + 1
             wrong_kernel[kernel_index] = "{}"
             with self.assertRaises(INFERENCE_QUALIFICATION.DeploymentQualificationError):
-                INFERENCE_QUALIFICATION.validate_live_command(
-                    wrong_kernel, INFERENCE_CONTRACT, model
-                )
+                INFERENCE_QUALIFICATION.validate_live_command(wrong_kernel, INFERENCE_CONTRACT)
         self.assertEqual(observed["gpu_memory_utilization"], 0.92)
         self.assertEqual(observed["max_num_seqs"], 8)
 
@@ -401,13 +404,60 @@ class VeroInferenceContractTest(unittest.TestCase):
             second = INFERENCE_QUALIFICATION.artifact_manifest(root)
         self.assertNotEqual(first["root_sha256"], second["root_sha256"])
 
-    def test_qualification_python_preserves_virtual_environment_path(self) -> None:
+    def test_container_qualification_binds_the_frozen_image_and_model(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            environment = Path(directory)
-            binary = environment / "python"
-            binary.symlink_to(sys.executable)
-            observed = INFERENCE_QUALIFICATION.qualification_python(binary)
-        self.assertEqual(observed, binary.absolute())
+            model = Path(directory).resolve()
+            image_id = "sha256:image-id"
+            container = {
+                "State": {"Running": True, "Pid": 1234},
+                "Image": image_id,
+                "Path": "vllm",
+                "Args": ["serve", "/model"],
+                "Config": {"Env": ["HF_HUB_OFFLINE=1", "TRANSFORMERS_OFFLINE=1"]},
+                "HostConfig": {
+                    "NetworkMode": "host",
+                    "IpcMode": "host",
+                    "DeviceRequests": [
+                        {
+                            "DeviceIDs": ["0", "2"],
+                            "Capabilities": [["gpu"]],
+                        }
+                    ],
+                },
+                "Mounts": [{"Source": str(model), "Destination": "/model", "RW": False}],
+            }
+            image = {
+                "Id": image_id,
+                "RepoDigests": [
+                    f"{INFERENCE_CONTRACT['runtime']['image']}@"
+                    f"{INFERENCE_CONTRACT['runtime']['image_digest']}"
+                ],
+                "Config": {
+                    "Labels": {
+                        "org.opencontainers.image.revision": INFERENCE_CONTRACT["runtime"][
+                            "source_revision"
+                        ]
+                    }
+                },
+            }
+            command, environment, identity = INFERENCE_QUALIFICATION.validate_container_metadata(
+                container, image, INFERENCE_CONTRACT, 1234, model
+            )
+            altered = json.loads(json.dumps(image))
+            altered["RepoDigests"] = ["vllm/vllm-openai@sha256:wrong"]
+            with self.assertRaises(INFERENCE_QUALIFICATION.DeploymentQualificationError):
+                INFERENCE_QUALIFICATION.validate_container_metadata(
+                    container, altered, INFERENCE_CONTRACT, 1234, model
+                )
+            wrong_devices = json.loads(json.dumps(container))
+            wrong_devices["HostConfig"]["DeviceRequests"][0]["DeviceIDs"] = ["0"]
+            with self.assertRaises(INFERENCE_QUALIFICATION.DeploymentQualificationError):
+                INFERENCE_QUALIFICATION.validate_container_metadata(
+                    wrong_devices, image, INFERENCE_CONTRACT, 1234, model
+                )
+        self.assertEqual(command, ["vllm", "serve", "/model"])
+        self.assertEqual(environment["HF_HUB_OFFLINE"], "1")
+        self.assertEqual(identity["image_digest"], INFERENCE_CONTRACT["runtime"]["image_digest"])
 
     def test_vllm_version_gate_uses_semantic_components(self) -> None:
         self.assertGreaterEqual(

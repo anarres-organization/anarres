@@ -452,7 +452,7 @@
   "ordering": "ascending SHA-256 of queue ID, benchmark ID, mode, and replicate",
   "panel_sha256": "836c7bf6a4e792c9fb7b5bc3bd8ff59bba27b8f57495df5851b34600250194c0",
   "protocol_id": "vero-leanstral-development-probe-v1",
-  "protocol_sha256": "6d250554e1a93cd045dd133209f7dbc636711cc86cbcfbdef5acf33ab2669ffa",
+  "protocol_sha256": "c70677b85f6a4ec8be4c920fa4c28476931af71e8f2d1f33fd90caabbf4546c0",
   "queue_id": "vero-leanstral-development-probe-v1-queue",
   "schema_version": "anarres.formal-verification-probe-queue.v1",
   "status": "frozen_before_model_attempts"

@@ -10,18 +10,25 @@ is text-only, runs eager execution, and disables optional kernel warmup and
 autotuning. The server binds only to loopback and uses the exact model revision
 recorded by the probe protocol.
 
+Inference uses the official `vllm/vllm-openai:v0.28.0` image by immutable digest.
+The contract also freezes its source revision and the package versions that
+define model loading and tokenization. The [vLLM 0.28 release](https://github.com/vllm-project/vllm/releases/tag/v0.28.0)
+was tested against the Transformers 5.15 family; later Transformers releases
+changed the Pixtral interface used by this Mistral architecture. Qualification
+therefore rejects either image drift or changes to the critical package tuple
+before a scientific attempt can begin.
+
 [`inference-contract.v1.json`](inference-contract.v1.json) intentionally leaves
-deployment-host facts unset. Before qualification, record the exact vLLM
-version and installation digest, the local model-artifact digest, serving
-capacity settings, and readiness receipt. Model resolution may use the network
-only before the artifact is sealed; scientific attempts use the resolved local
-artifact without external model downloads.
+deployment-host facts unset. Before qualification, record the local
+model-artifact digest, serving capacity settings, and readiness receipt. Model
+resolution may use the network only before the artifact is sealed; scientific
+attempts use the resolved local artifact without external model downloads.
 
 [`qualify_inference_deployment.py`](qualify_inference_deployment.py) verifies
-the live process against the frozen flags, checks the loopback endpoint, hashes
-the local model artifact, verifies the installed vLLM wheel against its RECORD,
-and emits the evidence needed for that transition. It does not edit or qualify
-the contract by itself.
+the live container against the frozen image, source revision, package metadata,
+serving flags, GPU assignment, read-only model mount, and loopback endpoint. It
+hashes the local model artifact and emits the evidence needed for that
+transition. It does not edit or qualify the contract by itself.
 
 Validate the pre-deployment contract with:
 

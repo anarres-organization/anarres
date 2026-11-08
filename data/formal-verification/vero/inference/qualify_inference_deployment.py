@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 import re
 import subprocess
 from datetime import UTC, datetime
@@ -87,43 +86,53 @@ def artifact_manifest(root: Path) -> dict[str, Any]:
     }
 
 
-def inspect_vllm_installation(python: Path) -> dict[str, Any]:
+def inspect_installation(command: list[str]) -> dict[str, Any]:
     program = r"""
-import base64, csv, hashlib, importlib.metadata, json
+import hashlib, importlib.metadata, json
 from pathlib import Path
-d = importlib.metadata.distribution("vllm")
-record = next((p for p in d.files or () if str(p).endswith(".dist-info/RECORD")), None)
-if record is None:
-    raise SystemExit("vLLM installation has no RECORD")
-record_path = Path(d.locate_file(record))
-verified = 0
-unhashed = 0
-with record_path.open(newline="", encoding="utf-8") as handle:
-    for name, declared, size in csv.reader(handle):
-        if not declared:
-            unhashed += 1
-            continue
-        algorithm, encoded = declared.split("=", 1)
-        if algorithm != "sha256":
-            raise SystemExit(f"unsupported package hash: {algorithm}")
-        path = Path(d.locate_file(name))
-        observed = base64.urlsafe_b64encode(
-            hashlib.sha256(path.read_bytes()).digest()
-        ).decode().rstrip("=")
-        if observed != encoded:
-            raise SystemExit(f"vLLM package file changed: {name}")
-        if size and path.stat().st_size != int(size):
-            raise SystemExit(f"vLLM package size changed: {name}")
-        verified += 1
+package_names = (
+    "flashinfer-python",
+    "huggingface-hub",
+    "mistral-common",
+    "safetensors",
+    "tokenizers",
+    "torch",
+    "transformers",
+    "vllm",
+)
+
+def inspect_distribution(package_name):
+    distribution = importlib.metadata.distribution(package_name)
+    metadata = next(
+        (p for p in distribution.files or () if str(p).endswith(".dist-info/METADATA")),
+        None,
+    )
+    record = next(
+        (p for p in distribution.files or () if str(p).endswith(".dist-info/RECORD")),
+        None,
+    )
+    if metadata is None or record is None:
+        raise SystemExit(f"{package_name} installation lacks package metadata")
+    metadata_path = Path(distribution.locate_file(metadata))
+    record_path = Path(distribution.locate_file(record))
+    return {
+        "version": distribution.version,
+        "metadata_sha256": hashlib.sha256(metadata_path.read_bytes()).hexdigest(),
+        "record_sha256": hashlib.sha256(record_path.read_bytes()).hexdigest(),
+        "declared_files": len(distribution.files or ()),
+    }
+
+package_metadata = {name: inspect_distribution(name) for name in package_names}
 print(json.dumps({
-    "exact_version": d.version,
-    "record_sha256": hashlib.sha256(record_path.read_bytes()).hexdigest(),
-    "verified_files": verified,
-    "unhashed_record_entries": unhashed,
+    "exact_version": package_metadata["vllm"]["version"],
+    "package_versions": {
+        name: metadata["version"] for name, metadata in package_metadata.items()
+    },
+    "package_metadata": package_metadata,
 }, sort_keys=True))
 """
     completed = subprocess.run(
-        [str(python), "-c", program],
+        [*command, "-c", program],
         check=False,
         capture_output=True,
         text=True,
@@ -136,11 +145,102 @@ print(json.dumps({
     return json.loads(completed.stdout)
 
 
-def qualification_python(path: Path) -> Path:
-    python = path.absolute()
-    if not python.is_file():
-        raise DeploymentQualificationError("qualification Python does not exist")
-    return python
+def docker_json(arguments: list[str]) -> list[dict[str, Any]]:
+    completed = subprocess.run(
+        ["docker", *arguments],
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=300,
+    )
+    if completed.returncode != 0:
+        raise DeploymentQualificationError(f"Docker inspection failed: {completed.stderr.strip()}")
+    value = json.loads(completed.stdout)
+    if not isinstance(value, list) or not value or not isinstance(value[0], dict):
+        raise DeploymentQualificationError("Docker inspection returned an invalid record")
+    return value
+
+
+def validate_container_metadata(
+    container: dict[str, Any],
+    image: dict[str, Any],
+    contract: dict[str, Any],
+    server_pid: int,
+    model_root: Path,
+) -> tuple[list[str], dict[str, str], dict[str, Any]]:
+    runtime = contract["runtime"]
+    expected_reference = f"{runtime['image']}@{runtime['image_digest']}"
+    if not container.get("State", {}).get("Running"):
+        raise DeploymentQualificationError("inference container is not running")
+    if container["State"].get("Pid") != server_pid:
+        raise DeploymentQualificationError("server PID is not the container init process")
+    if container.get("Image") != image.get("Id"):
+        raise DeploymentQualificationError("container does not use the inspected image")
+    if expected_reference not in image.get("RepoDigests", []):
+        raise DeploymentQualificationError("container image digest disagrees with the contract")
+    labels = image.get("Config", {}).get("Labels") or {}
+    if labels.get("org.opencontainers.image.revision") != runtime["source_revision"]:
+        raise DeploymentQualificationError("container source revision disagrees")
+    host_config = container.get("HostConfig", {})
+    if host_config.get("NetworkMode") != "host":
+        raise DeploymentQualificationError("inference container does not use host networking")
+    if host_config.get("IpcMode") != "host":
+        raise DeploymentQualificationError("inference container does not use host IPC")
+    device_requests = host_config.get("DeviceRequests") or []
+    device_ids = [
+        device
+        for request in device_requests
+        if ["gpu"] in request.get("Capabilities", [])
+        for device in request.get("DeviceIDs") or []
+    ]
+    expected_devices = contract["required_launch_configuration"]["tensor_parallel_size"]
+    if len(device_ids) != expected_devices or len(set(device_ids)) != expected_devices:
+        raise DeploymentQualificationError("container GPU assignment disagrees with TP size")
+    expected_destination = contract["model"]["container_path"]
+    model_mounts = [
+        mount
+        for mount in container.get("Mounts", [])
+        if mount.get("Destination") == expected_destination
+    ]
+    if len(model_mounts) != 1:
+        raise DeploymentQualificationError("container has no unique model mount")
+    model_mount = model_mounts[0]
+    if Path(model_mount.get("Source", "")).resolve(strict=True) != model_root:
+        raise DeploymentQualificationError("container mounts a different model artifact")
+    if model_mount.get("RW"):
+        raise DeploymentQualificationError("container model mount is writable")
+    command = [container.get("Path", ""), *container.get("Args", [])]
+    if not command[0]:
+        raise DeploymentQualificationError("container command is empty")
+    environment = {}
+    for item in container.get("Config", {}).get("Env") or []:
+        name, separator, value = item.partition("=")
+        if separator:
+            environment[name] = value
+    identity = {
+        "image": runtime["image"],
+        "image_digest": runtime["image_digest"],
+        "image_id": image["Id"],
+        "source_revision": labels["org.opencontainers.image.revision"],
+        "device_ids": device_ids,
+    }
+    return command, environment, identity
+
+
+def inspect_container_runtime(
+    container_name: str,
+    contract: dict[str, Any],
+    server_pid: int,
+    model_root: Path,
+) -> tuple[list[str], dict[str, str], dict[str, Any]]:
+    container = docker_json(["inspect", container_name])[0]
+    image_reference = f"{contract['runtime']['image']}@{contract['runtime']['image_digest']}"
+    image = docker_json(["image", "inspect", image_reference])[0]
+    return validate_container_metadata(container, image, contract, server_pid, model_root)
+
+
+def inspect_container_installation(container_name: str) -> dict[str, Any]:
+    return inspect_installation(["docker", "exec", container_name, "python3"])
 
 
 def request_json(url: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
@@ -156,9 +256,7 @@ def request_json(url: str, payload: dict[str, Any] | None = None) -> dict[str, A
     return value
 
 
-def validate_live_command(
-    command: list[str], contract: dict[str, Any], model_root: Path
-) -> dict[str, Any]:
+def validate_live_command(command: list[str], contract: dict[str, Any]) -> dict[str, Any]:
     required = contract["required_launch_configuration"]
     require_flag(command, "--host", contract["endpoint"]["host"])
     require_flag(command, "--port", str(contract["endpoint"]["port"]))
@@ -181,7 +279,7 @@ def validate_live_command(
         raise DeploymentQualificationError("live process lacks --enforce-eager")
     if required["language_model_only"] and "--language-model-only" not in command:
         raise DeploymentQualificationError("live process lacks --language-model-only")
-    if Path(model_argument(command)).resolve(strict=True) != model_root:
+    if model_argument(command) != contract["model"]["container_path"]:
         raise DeploymentQualificationError("live process serves a different local model artifact")
     gpu_memory = flag_value(command, "--gpu-memory-utilization")
     max_sequences = flag_value(command, "--max-num-seqs")
@@ -214,7 +312,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--protocol", type=Path, required=True)
     parser.add_argument("--controller-lock", type=Path, required=True)
     parser.add_argument("--server-pid", type=int, required=True)
-    parser.add_argument("--vllm-python", type=Path, required=True)
+    parser.add_argument("--container", required=True)
     parser.add_argument("--model-root", type=Path, required=True)
     parser.add_argument("--resolved-revision", required=True)
     parser.add_argument("--maximum-concurrent-attempts", type=int, required=True)
@@ -243,29 +341,16 @@ def main() -> None:
     process_root = Path(f"/proc/{args.server_pid}")
     if not process_root.is_dir():
         raise DeploymentQualificationError("vLLM server PID is not running")
-    command = (process_root / "cmdline").read_bytes().split(b"\0")
-    command = [item.decode() for item in command if item]
-    process_environment = {
-        item.partition(b"=")[0].decode(): item.partition(b"=")[2].decode()
-        for item in (process_root / "environ").read_bytes().split(b"\0")
-        if b"=" in item
-    }
+    model_root = args.model_root.resolve(strict=True)
+    command, process_environment, container_identity = inspect_container_runtime(
+        args.container, contract, args.server_pid, model_root
+    )
     if (
         process_environment.get("HF_HUB_OFFLINE") != "1"
         or process_environment.get("TRANSFORMERS_OFFLINE") != "1"
     ):
         raise DeploymentQualificationError("live server is not frozen to offline model access")
-    server_python = (process_root / "exe").resolve(strict=True)
-    vllm_python = qualification_python(args.vllm_python)
-    server_identity = os.stat(server_python)
-    qualification_identity = os.stat(vllm_python)
-    if (server_identity.st_dev, server_identity.st_ino) != (
-        qualification_identity.st_dev,
-        qualification_identity.st_ino,
-    ):
-        raise DeploymentQualificationError("qualification Python differs from the server runtime")
-    model_root = args.model_root.resolve(strict=True)
-    deployment = validate_live_command(command, contract, model_root)
+    deployment = validate_live_command(command, contract)
     if args.maximum_concurrent_attempts > deployment["max_num_seqs"]:
         raise DeploymentQualificationError("attempt concurrency exceeds vLLM sequence capacity")
     deployment["maximum_concurrent_attempts_per_replica"] = args.maximum_concurrent_attempts
@@ -277,7 +362,9 @@ def main() -> None:
     manifest_path.write_text(
         json.dumps(model_manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
-    installation = inspect_vllm_installation(vllm_python)
+    installation = inspect_container_installation(args.container)
+    if installation["package_versions"] != contract["runtime"]["required_versions"]:
+        raise DeploymentQualificationError("critical inference package versions disagree")
     if version_tuple(installation["exact_version"]) < version_tuple(
         contract["runtime"]["minimum_version"]
     ):
@@ -351,7 +438,7 @@ def main() -> None:
             "files": model_manifest["files"],
             "bytes": model_manifest["bytes"],
         },
-        "runtime": installation,
+        "runtime": {**installation, "container": container_identity},
         "deployment_configuration": deployment,
         "endpoint": {
             "api_base": contract["endpoint"]["api_base"],

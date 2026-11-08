@@ -22,6 +22,7 @@ def validate(contract: dict[str, Any], *, protocol_path: Path, controller_lock_p
     if contract["model"] != {
         "id": starting_policy["model_id"],
         "revision": starting_policy["model_revision"],
+        "container_path": "/model",
         "local_artifact_digest": starting_policy["local_artifact_digest"],
     }:
         raise InferenceContractError("model identity disagrees with the probe protocol")
@@ -40,6 +41,27 @@ def validate(contract: dict[str, Any], *, protocol_path: Path, controller_lock_p
         raise InferenceContractError("unsupported inference runtime")
     if contract["runtime"]["minimum_version"] != "0.24.0":
         raise InferenceContractError("vLLM minimum version disagrees with the model card")
+    if contract["runtime"]["distribution"] != "official_container":
+        raise InferenceContractError("inference runtime is not the official container")
+    if contract["runtime"]["image"] != "vllm/vllm-openai":
+        raise InferenceContractError("inference image is not the official vLLM image")
+    if contract["runtime"]["image_digest"] != (
+        "sha256:61fc8a896b0a4fbbbdc063bc4b0dbc25ce98e02b5050c24aeb7830ac02039b14"
+    ):
+        raise InferenceContractError("inference image digest is not frozen")
+    if contract["runtime"]["source_revision"] != ("2cf0a6915ce544dc493a0990f2ea38d81601128a"):
+        raise InferenceContractError("vLLM source revision is not frozen")
+    if contract["runtime"]["required_versions"] != {
+        "flashinfer-python": "0.6.16.post3",
+        "huggingface-hub": "1.28.0",
+        "mistral-common": "1.11.7",
+        "safetensors": "0.8.0",
+        "tokenizers": "0.22.2",
+        "torch": "2.13.0+cu130",
+        "transformers": "5.15.1",
+        "vllm": "0.28.0",
+    }:
+        raise InferenceContractError("critical inference package versions are not frozen")
     expected_launch = {
         "max_model_len": 200000,
         "tensor_parallel_size": 2,
