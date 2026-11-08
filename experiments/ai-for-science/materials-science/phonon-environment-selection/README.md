@@ -8,9 +8,9 @@ been extracted or inspected for this study.
 
 This study asks whether measurements made under a pretrained phonon model can
 choose a fixed-budget DFT post-training set before any candidate model is
-trained. The decision is practical: given a limited number of high-fidelity
-phonon calculations, should post-training prioritize model-relative signal,
-coverage of materials space, or both?
+trained. The decision is practical: given a labeled high-fidelity reservoir and
+a limited post-training budget, should training prioritize model-relative
+signal, coverage of materials space, or both?
 
 The first loop uses the public PhononScore release. It starts from the released
 MatterSim-pretrained checkpoint and draws candidates only from the 7,809
@@ -23,6 +23,10 @@ contract are frozen.
 This supervised study of dynamical-stability scoring provides the first
 low-cost materials test in Anarres. The planned interatomic-potential study
 will then test the framework with physical phonon and relaxation outcomes.
+Because the signal measurement uses labels from the construction reservoir,
+this experiment studies training-data allocation rather than prospective DFT
+label acquisition. A future acquisition study requires a separately validated
+label-free uncertainty measure.
 
 ## Research-first progression
 
@@ -183,3 +187,6 @@ python scripts/freeze_candidates.py \
 
 The freezer exits without an artifact when repeatability, nesting, atom-count
 matching, or overlap requirements fail.
+
+[`RUNBOOK.md`](RUNBOOK.md) gives the complete source-to-freeze execution order
+and stops before candidate training or external evaluation.

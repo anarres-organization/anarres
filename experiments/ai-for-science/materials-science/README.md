@@ -4,14 +4,15 @@
 
 This study asks whether measurements made before post-training can predict which
 atomistic training environments will produce the greatest improvement for a
-specified starting model, physical target, and compute budget. It is the first
-planned materials-science domain test in Anarres.
+specified starting model, physical target, and compute budget. This page defines
+the materials-science research program in Anarres.
 
-The initial study focuses on universal machine-learned interatomic potentials
-(MLIPs). These models approximate the potential-energy surface of an atomic
-system and enable structural relaxation, molecular dynamics, response-property
-calculation, and candidate screening at scales that are impractical with direct
-quantum calculations.
+The program begins with a supervised phonon-scoring study over an already
+labeled DFT reservoir. Its next phase focuses on universal machine-learned
+interatomic potentials (MLIPs). These models approximate the potential-energy
+surface of an atomic system and enable structural relaxation, molecular
+dynamics, response-property calculation, and candidate screening at scales that
+are impractical with direct quantum calculations.
 
 The scientific object remains
 
@@ -21,13 +22,13 @@ $$
 
 where $E$ is a distribution over atomistic configurations, $\pi_0$ is a
 common pretrained potential, $C$ is a matched training or reference-label
-budget, and $D$ is a frozen physical target. The aim is not to identify one
-universally optimal materials dataset. It is to test whether environment utility
-can be forecast for a named model, target, and budget.
+budget, and $D$ is a frozen physical target. The aim is to forecast environment
+utility for a named model, target, and budget, with no assumption that one
+materials dataset is universally optimal.
 
-No claim-bearing materials run is authorized by this document. Source,
-level-of-theory, split, starting-model, measurement, and evaluation qualification
-must pass before development and prospective contracts are frozen.
+Claim-bearing runs require a versioned study contract after source,
+level-of-theory, split, starting-model, measurement, and evaluation
+qualification.
 
 The first research loop is now being qualified in
 [`phonon-environment-selection/`](phonon-environment-selection/). It uses a
@@ -83,7 +84,7 @@ establish that the planned environment predictor works. Every source version,
 license, checkpoint, data transformation, and evaluation implementation must be
 qualified before use.
 
-## First target: phonons and dynamical stability
+## Broader MLIP target: phonons and dynamical stability
 
 The first claim-bearing target is harmonic phonon and dynamical-stability
 prediction. Phonons are physically important for vibrational and thermal
@@ -105,7 +106,7 @@ utility. A separately frozen replication should target catalytic transition
 states or reaction barriers after the first environment-utility loop is
 complete.
 
-## Starting model and comparators
+## Broader MLIP starting model and comparators
 
 The proposed first starting-model family is a pinned MACE-MP checkpoint. Recent
 work on [frozen transfer learning for foundation
@@ -126,7 +127,7 @@ multi-domain task embeddings, and release cadence require a separate frozen
 contract. Its inclusion as a comparator prevents the study from depending on
 one older architecture.
 
-## Data sources and target separation
+## Broader MLIP data sources and target separation
 
 The source registry should qualify Materials Project relaxation trajectories,
 OMat24, and any derived displaced or strained structures. A PBE phonon dataset
@@ -152,7 +153,7 @@ reported separately from fine-tuning leakage; a public foundation model may have
 seen related Materials Project structures even when the fine-tuning experiment
 is internally disjoint.
 
-## Candidate environments
+## Broader MLIP candidate environments
 
 Candidate environments are equal-budget mixtures drawn from one frozen source
 reservoir. They may vary:
@@ -177,7 +178,7 @@ panel should span the measured coordinates, limit pairwise overlap, preserve
 multiple source families, and avoid one source label acting as a proxy for every
 coordinate.
 
-## Pre-training measurements
+## Broader MLIP pre-training measurements
 
 Every primary coordinate must be computable before claim-bearing fine-tuning and
 must pass independent-view reliability and collinearity checks.
@@ -209,7 +210,7 @@ value. No challenger enters the primary predictor because it improves an
 in-sample regression. It must be reliable, improve held-out-environment
 prediction, and change at least one prespecified decision.
 
-## First experiment
+## Broader MLIP experiment
 
 The initial experiment uses 12 development and four prospective environments,
 two training seeds, and three matched budgets. Every run uses:
