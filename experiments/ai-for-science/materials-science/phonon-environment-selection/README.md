@@ -170,3 +170,16 @@ python scripts/measure_starting_model.py \
 The runner verifies the frozen checkpoint and manifest digests before inference.
 It writes one derived record per eligible training structure and never reads an
 external evaluation directory.
+
+After the full sweep and its 128-record repeat pass satisfy the measurement
+gate, freeze the nested candidates with:
+
+```bash
+python scripts/freeze_candidates.py \
+  --measurement /path/to/starting_model_measurements.jsonl \
+  --repeat-measurement /path/to/repeat_measurements.jsonl \
+  --out /path/to/FREEZE.json
+```
+
+The freezer exits without an artifact when repeatability, nesting, atom-count
+matching, or overlap requirements fail.
