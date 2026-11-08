@@ -136,6 +136,13 @@ print(json.dumps({
     return json.loads(completed.stdout)
 
 
+def qualification_python(path: Path) -> Path:
+    python = path.absolute()
+    if not python.is_file():
+        raise DeploymentQualificationError("qualification Python does not exist")
+    return python
+
+
 def request_json(url: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
     data = None if payload is None else json.dumps(payload).encode()
     request = Request(url, data=data, headers={"Content-Type": "application/json"})
@@ -249,7 +256,7 @@ def main() -> None:
     ):
         raise DeploymentQualificationError("live server is not frozen to offline model access")
     server_python = (process_root / "exe").resolve(strict=True)
-    vllm_python = args.vllm_python.resolve(strict=True)
+    vllm_python = qualification_python(args.vllm_python)
     server_identity = os.stat(server_python)
     qualification_identity = os.stat(vllm_python)
     if (server_identity.st_dev, server_identity.st_ino) != (

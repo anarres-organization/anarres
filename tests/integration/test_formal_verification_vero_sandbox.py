@@ -401,6 +401,14 @@ class VeroInferenceContractTest(unittest.TestCase):
             second = INFERENCE_QUALIFICATION.artifact_manifest(root)
         self.assertNotEqual(first["root_sha256"], second["root_sha256"])
 
+    def test_qualification_python_preserves_virtual_environment_path(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            environment = Path(directory)
+            binary = environment / "python"
+            binary.symlink_to(sys.executable)
+            observed = INFERENCE_QUALIFICATION.qualification_python(binary)
+        self.assertEqual(observed, binary.absolute())
+
     def test_vllm_version_gate_uses_semantic_components(self) -> None:
         self.assertGreaterEqual(
             INFERENCE_QUALIFICATION.version_tuple("0.24.1+cu128"),
