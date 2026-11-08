@@ -35,3 +35,10 @@ def test_only_experience_bank_can_vary() -> None:
     protocol["intervention"]["only_arm_specific_input"] = "reaction catalog"
     errors = MODULE.validate(protocol, sources)
     assert "experience-bank membership must be the only arm-specific input" in errors
+
+
+def test_qed_replay_state_cannot_enter_target_training() -> None:
+    protocol, sources = load()
+    protocol["starting_policy"]["qed_optimizer_or_replay_state_reused"] = True
+    errors = MODULE.validate(protocol, sources)
+    assert "QED optimizer and replay state cannot enter target training" in errors

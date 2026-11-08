@@ -65,7 +65,7 @@ checkpoint incompatible with some environments.
 
 Every intervention arm shares:
 
-- one RxnFlow v2.1.0 GINE-style starting policy
+- identical weights from one RxnFlow v2.1.0 GINE-style starting policy
 - the qualified 5,000-building-block example catalog
 - 4 unimolecular and 26 bimolecular reaction templates with 28 synthon types
 - one outcome-blind MolGenBench target and target-reward contract
@@ -73,6 +73,11 @@ Every intervention arm shares:
 - three matched generated-action and oracle budgets
 - two prespecified training seeds
 - one frozen evaluation contract.
+
+The QED warm start contributes model weights only. Each target-training arm
+starts with a fresh optimizer, scheduler, random-number state, and empty replay
+buffer before its frozen bank is loaded. This prevents QED replay history or
+optimizer state from becoming an unrecorded part of the intervention.
 
 The experience banks have equal membership. Overlap in molecule identity,
 scaffold, reaction family, and graph representation is reported before

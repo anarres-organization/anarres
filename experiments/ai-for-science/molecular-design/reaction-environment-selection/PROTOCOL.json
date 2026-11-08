@@ -15,8 +15,10 @@
     "system": "RxnFlow v2.1.0",
     "encoder": "released GINE-style message-passing encoder",
     "warm_start": "one common QED warm start trained on the qualified public construction space",
-    "checkpoint_identity": "open until warm-start qualification",
-    "reused_across_all_intervention_arms": true
+    "weights_artifact_identity": "open until warm-start qualification",
+    "initialization": "Load identical policy and sampling-model weights into a fresh target-reward trainer for every arm. Initialize fresh optimizer, scheduler, RNG, and replay state, then preload only the arm-specific frozen experience bank.",
+    "reused_across_all_intervention_arms": true,
+    "qed_optimizer_or_replay_state_reused": false
   },
   "target": {
     "source": "MolGenBench Version4",
@@ -29,7 +31,7 @@
     "object": "preloaded replay experience bank",
     "only_arm_specific_input": "experience-bank membership",
     "fixed_across_arms": [
-      "starting checkpoint",
+      "starting-policy weights artifact",
       "building-block catalog",
       "reaction templates and compatibility rules",
       "target reward",
@@ -41,7 +43,8 @@
     ],
     "common_action_space_required": true,
     "common_reward_required": true,
-    "common_trainer_required": true
+    "common_trainer_required": true,
+    "common_empty_state_before_bank_preload_required": true
   },
   "candidate_panel": {
     "development": [

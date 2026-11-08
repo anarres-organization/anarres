@@ -49,9 +49,13 @@ def validate(protocol: dict[str, object], sources: dict[str, object]) -> list[st
         "common_action_space_required",
         "common_reward_required",
         "common_trainer_required",
+        "common_empty_state_before_bank_preload_required",
     ):
         if not intervention[key]:
             errors.append(f"{key} must remain true")
+
+    if protocol["starting_policy"]["qed_optimizer_or_replay_state_reused"]:
+        errors.append("QED optimizer and replay state cannot enter target training")
 
     if len(set(protocol["training"]["seeds"])) < 2:
         errors.append("at least two distinct training seeds are required")

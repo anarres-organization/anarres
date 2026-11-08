@@ -47,9 +47,11 @@ floor or saturation result stops the study before candidate construction.
 ## 4. Train and qualify the common warm start
 
 Train one RxnFlow v2.1.0 QED warm start on the qualified example construction
-space. Record the complete configuration, checkpoint hash, catalog and reaction
-fixture hashes, software environment, and smoke results. Reuse this checkpoint
-without modification across every intervention arm.
+space. Record the complete configuration, weights-artifact hash, catalog and
+reaction fixture hashes, software environment, and smoke results. Export the
+policy and sampling-model weights without QED optimizer or replay state. Every
+target-training arm loads those identical weights into a fresh trainer before
+its frozen replay bank is preloaded.
 
 ## 5. Measure the starting policy
 
