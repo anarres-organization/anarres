@@ -9,7 +9,7 @@ filesystem edits, compiler feedback, and repository-scale proof work, which
 matches Vero more closely than a whole-proof text generator.
 
 The claim-bearing pre-execution contract is frozen in
-[`policy-probe-protocol.v2.json`](../../../data/formal-verification/vero/policy-probe-protocol.v2.json).
+[`policy-probe-protocol.v3.json`](../../../data/formal-verification/vero/policy-probe-protocol.v3.json).
 It pins the model, agent scaffold, prompt, Vero revision, development panel,
 sampling settings, resource limits, native outcomes, and stop rules. The probe
 uses only the four repositories in the versioned development panel. The ten
@@ -18,9 +18,11 @@ qualification and ten prospective repositories remain unopened.
 One deployment-calibration pilot ran under the preserved v1 contract and is
 excluded from the claim aggregate. It showed that Vibe evaluates its token stop
 threshold between model calls, so the final call can raise actual usage above
-the threshold. The v2 contract retains the same 32-attempt design in a new
-namespace and charges every exported input and output token. It was frozen
-before any claim-bearing attempt.
+the threshold. The corrected contract charges every exported input and output
+token. Two subsequent v2 launches ended before inference while qualifying the
+host socket path. The v3 queue records those exclusions, retains the same
+32-attempt design in a new namespace, and was frozen before any claim-bearing
+model request.
 
 The companion
 [`containment-contract.v1.json`](../../../data/formal-verification/vero/containment-contract.v1.json)

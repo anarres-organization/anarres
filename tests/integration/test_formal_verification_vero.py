@@ -44,12 +44,16 @@ PROBE_PROTOCOL_PATH = ADAPTER / "policy-probe-protocol.v1.json"
 PROBE_PROTOCOL = json.loads(PROBE_PROTOCOL_PATH.read_text(encoding="utf-8"))
 PROBE_PROTOCOL_V2_PATH = ADAPTER / "policy-probe-protocol.v2.json"
 PROBE_PROTOCOL_V2 = json.loads(PROBE_PROTOCOL_V2_PATH.read_text(encoding="utf-8"))
+PROBE_PROTOCOL_V3_PATH = ADAPTER / "policy-probe-protocol.v3.json"
+PROBE_PROTOCOL_V3 = json.loads(PROBE_PROTOCOL_V3_PATH.read_text(encoding="utf-8"))
 REPETITION_DESIGN_PATH = ADAPTER / "repetition-reliability.v1.json"
 REPETITION_DESIGN = json.loads(REPETITION_DESIGN_PATH.read_text(encoding="utf-8"))
 PROBE_QUEUE_PATH = ADAPTER / "probe-queue.v1.json"
 PROBE_QUEUE = json.loads(PROBE_QUEUE_PATH.read_text(encoding="utf-8"))
 PROBE_QUEUE_V2_PATH = ADAPTER / "probe-queue.v2.json"
 PROBE_QUEUE_V2 = json.loads(PROBE_QUEUE_V2_PATH.read_text(encoding="utf-8"))
+PROBE_QUEUE_V3_PATH = ADAPTER / "probe-queue.v3.json"
+PROBE_QUEUE_V3 = json.loads(PROBE_QUEUE_V3_PATH.read_text(encoding="utf-8"))
 CONTAINMENT_PATH = ADAPTER / "containment-contract.v1.json"
 CONTAINMENT_CONTRACT = json.loads(CONTAINMENT_PATH.read_text(encoding="utf-8"))
 
@@ -406,6 +410,21 @@ class VeroProbeQueueTest(unittest.TestCase):
             self.assertIn("-claim-v2-r", record["attempt_id"])
             self.assertEqual(record["controller_token_stop_threshold"], 50000)
             self.assertNotIn("maximum_model_tokens", record)
+
+    def test_claim_queue_after_pre_inference_failures_has_a_fresh_namespace(self) -> None:
+        expected = QUEUE.build_queue(
+            PROBE_PROTOCOL_V3,
+            LIFECYCLE_PANEL,
+            protocol_sha256=hashlib.sha256(PROBE_PROTOCOL_V3_PATH.read_bytes()).hexdigest(),
+            panel_sha256=hashlib.sha256(
+                (ADAPTER / "development-lifecycle-panel-v2.json").read_bytes()
+            ).hexdigest(),
+        )
+        self.assertEqual(PROBE_QUEUE_V3, expected)
+        self.assertTrue(
+            all("-claim-v3-r" in record["attempt_id"] for record in PROBE_QUEUE_V3["attempts"])
+        )
+        self.assertEqual(len(PROBE_PROTOCOL_V3["chronology"]["excluded_pre_inference_launches"]), 2)
 
     def test_queue_item_is_unique_and_contract_linked(self) -> None:
         selected = QUEUE_ITEM.select_entry(PROBE_QUEUE, PROBE_QUEUE["attempts"][0]["attempt_id"])

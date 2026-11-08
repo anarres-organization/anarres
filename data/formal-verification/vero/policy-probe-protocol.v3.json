@@ -1,0 +1,154 @@
+{
+  "schema_version": "anarres.formal-verification-policy-probe.v3",
+  "protocol_id": "vero-leanstral-development-probe-v3",
+  "status": "frozen_after_excluded_pre_inference_launches_before_claim_attempts",
+  "execution_authorized": false,
+  "scientific_role": "development-only measurement of policy support, cost, and reliability under corrected controller-threshold accounting; not an environment ranking or downstream-utility test",
+  "source": {
+    "vero_id": "sunblaze-ucb/vero@0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+    "repository_split": "repository-split.json",
+    "repository_split_sha256": "d6485d8d65295a1fb600fa6c2cfb99dba3e161686d339939e81eeee1df0efe5e",
+    "development_panel": "development-lifecycle-panel-v2.json",
+    "development_panel_sha256": "836c7bf6a4e792c9fb7b5bc3bd8ff59bba27b8f57495df5851b34600250194c0"
+  },
+  "starting_policy": {
+    "model_id": "mistralai/Leanstral-1.5-119B-A6B",
+    "model_revision": "81592da95d94ab0439bfce16df1d55b402e598b6",
+    "license": "Apache-2.0",
+    "total_parameters_billions": 119,
+    "active_parameters_billions": 6.5,
+    "local_artifact_digest": null,
+    "agent_scaffold": "mistralai/mistral-vibe@v3.1.0",
+    "agent_scaffold_revision": "c96a6dbb34d34f8a868b3f67b279ecabbf1aa616",
+    "agent_profile": "lean",
+    "system_prompt_sha256": "bc6896006db187401719dcb4a45b150fc6753db31d07bfee8a26531314d8dd21",
+    "user_prompt": "agent-prompt.txt",
+    "user_prompt_sha256": "08dff8e8cc68c36afe62232adb1acc4e2805cb8e4d74dff6702564d0da940e99",
+    "temperature": 1.0,
+    "reasoning_effort": "high"
+  },
+  "execution_interface": {
+    "controller": "mistral-vibe programmatic mode",
+    "vibe_agent_socket_protocol_version": 2,
+    "agent_socket_status": "experimental_interface_pinned_by_exact_scaffold_revision",
+    "sandbox_methods": [
+      "sandbox/execute",
+      "sandbox/readFile"
+    ],
+    "model_facing_tools_execute_on_controller_host": false,
+    "controller_network_scope": "local inference endpoint only",
+    "sandbox_network_scope": "no external egress",
+    "sandbox_workspace": "one freshly materialized Vero task",
+    "sandbox_lifetime": "one scientific attempt",
+    "containment_contract": "containment-contract.v1.json",
+    "containment_contract_sha256": "54ef60f6d4b9003d2665f120219dfdb280c7caae502f78719277552e7bc72f06",
+    "runtime_lock": "runtime/runtime-lock.v1.json",
+    "runtime_dockerfile_sha256": "a4689080b12d0260cdd6e5423f83a24d42cd76a9f9420eb010f542e612d86035",
+    "controller_lock": "controller/controller-lock.v1.json",
+    "controller_lock_sha256": "5cd8b7d80973b5128a893ab4c9e64d9bfbd34696ad6cc650f1c9c1c1f2fb4147",
+    "inference_contract": "inference/inference-contract.v1.json",
+    "inference_contract_sha256": "8b3c45e7b8b4e803ce1981e810f843db98f08dda22b5a2312d90c4a8b08b02dd"
+  },
+  "probe_design": {
+    "repositories": 4,
+    "modes": [
+      "proof",
+      "codeproof"
+    ],
+    "independent_attempts_per_repository_mode": 4,
+    "total_attempts": 32,
+    "repetition_design": "repetition-reliability.v2.json",
+    "repetition_design_sha256": "75c14d2046a36ae214046a347e8e1841bd93b77f60d0c3ff68e72a2e78b05bba",
+    "maximum_wall_seconds_per_attempt": 1800,
+    "maximum_agent_turns_per_attempt": 50,
+    "scientific_retry_count": 0,
+    "maximum_infrastructure_retries": 1,
+    "network_access": false,
+    "source_context": "audited_lean_sandbox_only",
+    "controller_token_stop_threshold_per_attempt": 50000,
+    "attempt_namespace": "claim-v3",
+    "token_accounting": "charge actual exported input and output tokens; the controller evaluates its stop threshold between model calls"
+  },
+  "native_outcomes": [
+    "infrastructure_valid",
+    "fresh_grade_build_ok",
+    "repository_fully_solved",
+    "specifications_passed",
+    "specifications_unfilled",
+    "specifications_failed",
+    "approved_axiom_check",
+    "unexpected_marker_count",
+    "input_tokens",
+    "output_tokens",
+    "tool_calls",
+    "wall_seconds",
+    "peak_memory_bytes"
+  ],
+  "measurement": {
+    "analysis_contract": "measurement-analysis.v2.json",
+    "analysis_contract_sha256": "5ad9fd1db86dfaf83b954f4a2c7bf0edf78ef5ba679b320dbb3bc6fe597a5c7d",
+    "grouping_unit": "specification nested within repository",
+    "strict_reward": "one only when a specification passes fresh Vero grading with approved axioms",
+    "rho": "unnormalized leave-one-out absolute reward-advantage mass per million actual exported input and output tokens",
+    "H": "normalized effective sample size of specification-level advantage mass",
+    "uncertainty_unit": "repository-level cluster",
+    "qualification_and_prospective_repositories_opened": false
+  },
+  "admission_gates": {
+    "required_before_execution": [
+      "record the exact local model artifact digest",
+      "pin the inference runtime and serving configuration",
+      "validate the frozen prospective repetition and cost design",
+      "qualify the pinned Vibe agent-socket interface against the containment contract",
+      "qualify process containment with only one freshly materialized task visible",
+      "reject direct network egress from the agent runtime",
+      "remove reference solutions, host credentials, and global configuration from the agent view",
+      "enforce token, wall-time, process, and memory limits",
+      "verify Vibe export records token usage, tool calls, stop reason, and outcome"
+    ],
+    "required_after_execution": [
+      "all unresolved containment failures equal zero",
+      "unexpected marker count equals zero",
+      "fresh grading separates infrastructure failure from scientific failure",
+      "at least two repositories have nonzero verified specification coverage",
+      "at least eight specification groups have mixed outcomes across attempts",
+      "pooled strict specification success lies between 0.01 and 0.80",
+      "repository-cluster sensitivity supports the precision claimed for qualification"
+    ]
+  },
+  "unsupported_claims": [
+    "the development probe ranks training environments",
+    "four attempts estimate a detailed variance distribution",
+    "specification observations are independent of their repositories",
+    "proof and codeproof rewards are interchangeable",
+    "development results authorize reinforcement learning"
+  ],
+  "chronology": {
+    "excluded_deployment_pilot": {
+      "attempt_id": "verified-bitmasks-codeproof-r04",
+      "queue_position_under_v1": 1,
+      "observed_before_v2_freeze": [
+        "controller threshold semantics",
+        "grader startup behavior"
+      ],
+      "excluded_from_claim_aggregate": true
+    },
+    "excluded_pre_inference_launches": [
+      {
+        "queue_id": "vero-leanstral-development-probe-v2-queue",
+        "attempt_id": "piggybank-v2-codeproof-claim-v2-r04",
+        "launch": 1,
+        "failure": "AF_UNIX path exceeded the host limit",
+        "model_request_started": false
+      },
+      {
+        "queue_id": "vero-leanstral-development-probe-v2-queue",
+        "attempt_id": "piggybank-v2-codeproof-claim-v2-r04",
+        "launch": 2,
+        "failure": "shared /tmp filesystem had no free space",
+        "model_request_started": false
+      }
+    ],
+    "v3_freeze_rule": "no claim-bearing v3 model attempt may begin before the private-work-root socket path and grader runtime preflight are validated"
+  }
+}

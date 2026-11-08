@@ -101,6 +101,11 @@ PROTOCOL_V2 = json.loads(
         encoding="utf-8"
     )
 )
+PROTOCOL_V3 = json.loads(
+    (ROOT / "data" / "formal-verification" / "vero" / "policy-probe-protocol.v3.json").read_text(
+        encoding="utf-8"
+    )
+)
 RUNTIME_LOCK_PATH = RUNTIME_ROOT / "runtime-lock.v1.json"
 RUNTIME_LOCK = json.loads(RUNTIME_LOCK_PATH.read_text(encoding="utf-8"))
 CONTROLLER_LOCK_PATH = CONTROLLER_ROOT / "controller-lock.v1.json"
@@ -315,6 +320,7 @@ class VeroRuntimeLockTest(unittest.TestCase):
 class VeroDeploymentPromotionTest(unittest.TestCase):
     QUEUE = json.loads((VERO_ROOT / "probe-queue.v1.json").read_text(encoding="utf-8"))
     QUEUE_V2 = json.loads((VERO_ROOT / "probe-queue.v2.json").read_text(encoding="utf-8"))
+    QUEUE_V3 = json.loads((VERO_ROOT / "probe-queue.v3.json").read_text(encoding="utf-8"))
     PANEL_PATH = VERO_ROOT / "development-lifecycle-panel-v2.json"
     CONTAINMENT = json.loads(
         (VERO_ROOT / "containment-contract.v1.json").read_text(encoding="utf-8")
@@ -417,6 +423,27 @@ class VeroDeploymentPromotionTest(unittest.TestCase):
         )
         self.assertTrue(promoted["protocol"]["execution_authorized"])
         self.assertEqual(promoted["queue"]["attempts"], self.QUEUE_V2["attempts"])
+
+    def test_promotion_accepts_the_post_preflight_claim_namespace(self) -> None:
+        containment_receipt, inference_receipt = self.receipts()
+        promoted = PROMOTION.promote(
+            protocol=PROTOCOL_V3,
+            queue=self.QUEUE_V3,
+            panel=PANEL,
+            containment=self.CONTAINMENT,
+            runtime=RUNTIME_LOCK,
+            controller=CONTROLLER_LOCK,
+            inference=INFERENCE_CONTRACT,
+            containment_receipt=containment_receipt,
+            inference_receipt=inference_receipt,
+            containment_receipt_sha256="d" * 64,
+            inference_receipt_sha256="e" * 64,
+            controller_sha256=PROMOTION.digest(CONTROLLER_LOCK_PATH),
+            pending_inference_sha256=PROMOTION.digest(INFERENCE_CONTRACT_PATH),
+            panel_sha256=PROMOTION.digest(self.PANEL_PATH),
+            runtime_image="sha256:" + "a" * 64,
+        )
+        self.assertEqual(promoted["queue"]["attempts"], self.QUEUE_V3["attempts"])
 
     def test_promotion_rejects_a_failed_containment_test(self) -> None:
         containment_receipt, inference_receipt = self.receipts()
@@ -746,6 +773,13 @@ class VeroAttemptLauncherTest(unittest.TestCase):
             root = Path(directory)
             environment = RUNNER.isolated_environment(root, Path("/runtime/bin/vibe"))
         self.assertEqual(sorted(environment), sorted(CONTROLLER_LOCK["environment_allowlist"]))
+
+    def test_short_socket_path_is_accepted(self) -> None:
+        RUNNER.validate_socket_path(Path("/work/s-12345678/a.sock"))
+
+    def test_overlong_socket_path_is_rejected_before_server_start(self) -> None:
+        with self.assertRaises(RUNNER.AttemptLaunchError):
+            RUNNER.validate_socket_path(Path("/work") / ("x" * 108))
 
 
 if __name__ == "__main__":

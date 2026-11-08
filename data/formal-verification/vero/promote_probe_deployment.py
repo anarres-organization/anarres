@@ -68,6 +68,7 @@ def promote(
         not in {
             "frozen_before_model_attempts",
             "frozen_after_excluded_deployment_pilot_before_claim_attempts",
+            "frozen_after_excluded_pre_inference_launches_before_claim_attempts",
         }
         or protocol["execution_authorized"]
     ):

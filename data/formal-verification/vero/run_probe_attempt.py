@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import shutil
 import signal
 import subprocess
@@ -173,6 +174,12 @@ def wait_for_socket(socket: Path, server: subprocess.Popen[bytes], seconds: floa
     raise AttemptLaunchError("sandbox server did not open its socket")
 
 
+def validate_socket_path(path: Path) -> None:
+    # Linux sockaddr_un.sun_path holds 108 bytes including the trailing null.
+    if len(os.fsencode(path)) > 107:
+        raise AttemptLaunchError("sandbox socket path exceeds the Linux AF_UNIX limit")
+
+
 def stop_server(server: subprocess.Popen[bytes]) -> None:
     if server.poll() is not None:
         return
@@ -279,7 +286,7 @@ def main() -> None:
     try:
         with (
             tempfile.TemporaryDirectory(prefix="anarres-vero-", dir=work_parent) as temporary,
-            tempfile.TemporaryDirectory(prefix="av-sock-", dir="/tmp") as socket_temporary,
+            tempfile.TemporaryDirectory(prefix="s-", dir=work_parent) as socket_temporary,
         ):
             work = Path(temporary)
             vibe = args.vibe.resolve(strict=True)
@@ -302,6 +309,7 @@ def main() -> None:
             launcher_receipt["vibe_version"] = version_text
 
             socket = Path(socket_temporary) / "a.sock"
+            validate_socket_path(socket)
             sandbox_receipt = output / "sandbox-receipt.json"
             server_stdout = (output / "sandbox.stdout").open("wb")
             server_stderr = (output / "sandbox.stderr").open("wb")
