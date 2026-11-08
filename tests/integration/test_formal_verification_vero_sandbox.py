@@ -125,12 +125,15 @@ class VeroSandboxConfigurationTest(unittest.TestCase):
     def test_runtime_command_enforces_primary_isolation_controls(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             command = SANDBOX.docker_run_command(self.config(Path(directory)), "attempt")
+            expected_mount = f"type=bind,src={directory},dst=/workspace"
         joined = " ".join(command)
         self.assertIn("--network none", joined)
         self.assertIn("--read-only", command)
         self.assertIn("--cap-drop ALL", joined)
         self.assertIn("no-new-privileges", command)
         self.assertIn("--pids-limit 512", joined)
+        self.assertIn(expected_mount, command)
+        self.assertNotIn(f"{expected_mount},rw", command)
         self.assertNotIn("/var/run/docker.sock", joined)
 
     def test_mutable_image_reference_is_rejected(self) -> None:

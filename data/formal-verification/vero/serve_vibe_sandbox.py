@@ -146,7 +146,7 @@ def validate_container_workspace(path: str) -> None:
 
 
 def docker_run_command(config: SandboxConfig, name: str) -> list[str]:
-    mount = f"type=bind,src={config.workspace},dst={config.container_workspace},rw"
+    mount = f"type=bind,src={config.workspace},dst={config.container_workspace}"
     return [
         config.docker,
         "run",
