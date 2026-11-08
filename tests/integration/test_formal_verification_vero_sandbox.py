@@ -777,6 +777,12 @@ class VeroAttemptLauncherTest(unittest.TestCase):
     def test_short_socket_path_is_accepted(self) -> None:
         RUNNER.validate_socket_path(Path("/work/s-12345678/a.sock"))
 
+    def test_socket_path_leaves_its_private_directory_for_the_server(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = RUNNER.new_socket_path(Path(directory))
+            self.assertFalse(path.parent.exists())
+            self.assertEqual(path.parent.parent.stat().st_mode & 0o777, 0o700)
+
     def test_overlong_socket_path_is_rejected_before_server_start(self) -> None:
         with self.assertRaises(RUNNER.AttemptLaunchError):
             RUNNER.validate_socket_path(Path("/work") / ("x" * 108))

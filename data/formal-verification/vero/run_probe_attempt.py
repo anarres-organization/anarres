@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import secrets
 import shutil
 import signal
 import subprocess
@@ -180,6 +181,17 @@ def validate_socket_path(path: Path) -> None:
         raise AttemptLaunchError("sandbox socket path exceeds the Linux AF_UNIX limit")
 
 
+def new_socket_path(work_parent: Path) -> Path:
+    socket_root = work_parent / ".s"
+    socket_root.mkdir(mode=0o700, exist_ok=True)
+    socket_root.chmod(0o700)
+    path = socket_root / secrets.token_hex(8) / "a.sock"
+    validate_socket_path(path)
+    if path.parent.exists():
+        raise AttemptLaunchError("sandbox socket directory already exists")
+    return path
+
+
 def stop_server(server: subprocess.Popen[bytes]) -> None:
     if server.poll() is not None:
         return
@@ -284,10 +296,7 @@ def main() -> None:
     }
 
     try:
-        with (
-            tempfile.TemporaryDirectory(prefix="anarres-vero-", dir=work_parent) as temporary,
-            tempfile.TemporaryDirectory(prefix="s-", dir=work_parent) as socket_temporary,
-        ):
+        with tempfile.TemporaryDirectory(prefix="anarres-vero-", dir=work_parent) as temporary:
             work = Path(temporary)
             vibe = args.vibe.resolve(strict=True)
             environment = isolated_environment(work, vibe)
@@ -308,8 +317,7 @@ def main() -> None:
                 raise AttemptLaunchError("Vibe v3.1.0 is not installed at --vibe")
             launcher_receipt["vibe_version"] = version_text
 
-            socket = Path(socket_temporary) / "a.sock"
-            validate_socket_path(socket)
+            socket = new_socket_path(work_parent)
             sandbox_receipt = output / "sandbox-receipt.json"
             server_stdout = (output / "sandbox.stdout").open("wb")
             server_stderr = (output / "sandbox.stderr").open("wb")
