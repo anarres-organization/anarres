@@ -60,7 +60,7 @@
   ],
   "freeze_requirements": [
     "starting policy and agent harness",
-    "candidate and held-out seed commitments",
+    "salted candidate and held-out seed commitments",
     "candidate memberships and tie breaking",
     "training algorithm and matched budget",
     "prediction and abstention rule",

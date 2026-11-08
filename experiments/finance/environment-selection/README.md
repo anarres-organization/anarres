@@ -51,6 +51,12 @@ Candidate definitions may be revised during preflight, before the protocol is
 frozen. Once training begins, candidate membership, prediction, abstention rule,
 budgets, and evaluation remain unchanged.
 
+The starting policy will be chosen on development scenarios only. A qualifying
+policy must complete the tool protocol reliably and produce enough non-degenerate
+task outcomes to measure candidate differences. Hosted frontier-agent results
+do not substitute for this check because the claim-bearing policy must be open
+to matched post-training.
+
 ## Partition and outcome lock
 
 Development seeds validate generators and instrumentation. Candidate seeds are
@@ -58,6 +64,11 @@ disjoint and provide starting-policy measurements. Held-out scenario seeds and
 content commitments are created before training, remain inaccessible to
 candidate construction, and are opened only after every required arm and seed
 passes the completeness gate.
+
+`scripts/commit_panel.py` creates a salted SHA-256 commitment from a private
+partition file. Its public record contains the source revision and partition
+counts without exposing scenario seeds. The private file is revealed only
+after the outcome gate opens, allowing the published commitment to be checked.
 
 The study will report:
 
@@ -99,6 +110,13 @@ the qualified workflow identities without reading result directories:
 
 ```bash
 python scripts/audit_business_bench.py /path/to/business-bench
+```
+
+Create and later verify a sealed partition commitment:
+
+```bash
+python scripts/commit_panel.py commit private-panel.json > panel-commitment.json
+python scripts/commit_panel.py verify private-panel.json panel-commitment.json
 ```
 
 [`PROTOCOL.json`](PROTOCOL.json) records the preflight contract and the gates
