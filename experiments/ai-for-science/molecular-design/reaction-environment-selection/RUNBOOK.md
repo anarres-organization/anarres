@@ -68,7 +68,9 @@ space. Record the complete configuration, weights-artifact hash, catalog and
 reaction fixture hashes, software environment, and smoke results. Export the
 policy and sampling-model weights without QED optimizer or replay state. Every
 target-training arm loads those identical weights into a fresh trainer before
-its frozen replay bank is preloaded.
+its frozen replay bank is preloaded. Set `num_replay_insert: 0` so fresh online
+trajectories never replace the selected bank. Keep online and replay batch sizes
+identical across arms.
 
 ## 5. Measure the starting policy
 

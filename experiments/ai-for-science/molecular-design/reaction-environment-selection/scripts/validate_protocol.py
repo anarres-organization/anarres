@@ -50,12 +50,15 @@ def validate(protocol: dict[str, object], sources: dict[str, object]) -> list[st
         "common_reward_required",
         "common_trainer_required",
         "common_empty_state_before_bank_preload_required",
+        "static_replay_bank_required",
     ):
         if not intervention[key]:
             errors.append(f"{key} must remain true")
 
     if protocol["starting_policy"]["qed_optimizer_or_replay_state_reused"]:
         errors.append("QED optimizer and replay state cannot enter target training")
+    if intervention["rxnflow_num_replay_insert"] != 0:
+        errors.append("online trajectories cannot replace the frozen replay bank")
 
     if len(set(protocol["training"]["seeds"])) < 2:
         errors.append("at least two distinct training seeds are required")

@@ -36,7 +36,8 @@
       "reaction templates and compatibility rules",
       "target reward",
       "online sampling contract",
-      "replay ratio and priority rule",
+      "online and replay batch sizes",
+      "zero online insertion into replay",
       "optimizer and update schedule",
       "generation and oracle budgets",
       "evaluation contract"
@@ -44,7 +45,9 @@
     "common_action_space_required": true,
     "common_reward_required": true,
     "common_trainer_required": true,
-    "common_empty_state_before_bank_preload_required": true
+    "common_empty_state_before_bank_preload_required": true,
+    "static_replay_bank_required": true,
+    "rxnflow_num_replay_insert": 0
   },
   "candidate_panel": {
     "development": [
@@ -114,6 +117,7 @@
     "seeds": [20261108, 20261109],
     "matched_budgets": 3,
     "budget_unit": "generated molecular-action steps and target-oracle calls, both reported",
+    "replay_contract": "Each update combines the common number of fresh online trajectories with a common number sampled uniformly from the arm's frozen preloaded bank. Fresh online trajectories are not inserted into replay.",
     "adaptive_stopping": false,
     "outcome_driven_seed_replacement": false,
     "exact_schedule_status": "open until smoke qualification"

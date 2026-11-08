@@ -42,3 +42,10 @@ def test_qed_replay_state_cannot_enter_target_training() -> None:
     protocol["starting_policy"]["qed_optimizer_or_replay_state_reused"] = True
     errors = MODULE.validate(protocol, sources)
     assert "QED optimizer and replay state cannot enter target training" in errors
+
+
+def test_online_trajectories_cannot_replace_frozen_bank() -> None:
+    protocol, sources = load()
+    protocol["intervention"]["rxnflow_num_replay_insert"] = 64
+    errors = MODULE.validate(protocol, sources)
+    assert "online trajectories cannot replace the frozen replay bank" in errors

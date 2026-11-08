@@ -79,6 +79,13 @@ starts with a fresh optimizer, scheduler, random-number state, and empty replay
 buffer before its frozen bank is loaded. This prevents QED replay history or
 optimizer state from becoming an unrecorded part of the intervention.
 
+The preloaded bank remains fixed during target training. Fresh online
+trajectories enter the common update batch but are not inserted into replay.
+Every arm therefore receives the same number of online and replay trajectories
+per update while retaining its selected experience distribution. Probe
+generation and target-oracle cost are reported separately from post-training
+compute.
+
 The experience banks have equal membership. Overlap in molecule identity,
 scaffold, reaction family, and graph representation is reported before
 training.
