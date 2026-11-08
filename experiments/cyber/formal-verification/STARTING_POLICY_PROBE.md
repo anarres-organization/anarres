@@ -23,15 +23,18 @@ token. Subsequent deployment launches are recorded as exclusions when they
 changed socket, concurrency, path, or runtime qualification. The v5 queue
 retains the original outcome-blind 32-attempt design in a fresh namespace.
 
-The first four v5 queue positions have been exercised. Three reached fresh
-machine-checked grading and one ended during the model-attempt stage. The
-remaining 28 positions have not run. This partial development measurement is
-insufficient for the frozen aggregate and does not authorize training.
+All 32 v5 queue positions completed fresh machine-checked grading. The compact
+[result record](../../../data/formal-verification/vero/results/development-policy-measurement.v1.json)
+contains the frozen input hashes, execution summary, and measured coordinates.
+Every attempt was infrastructure-valid, but no specification passed strict
+grading. Both proof modes therefore have zero usable signal density and zero
+effective coverage under this interaction contract. The preregistered support
+gate failed, so the result does not rank environments or authorize training.
 
 The companion
 [`containment-contract.v1.json`](../../../data/formal-verification/vero/containment-contract.v1.json)
-freezes the task-sandbox boundary and its required negative tests. Its status is
-unqualified until those tests run under the exact deployment runtime.
+freezes the task-sandbox boundary and its required negative tests. The exact
+deployment passed those tests before the v5 queue began.
 
 ## What the probe measures
 
@@ -45,6 +48,13 @@ System measurement adds peak
 memory. The first pass asks whether the policy produces nonzero, non-saturated,
 mixed verified outcomes at a tractable cost. It does not rank environments or
 authorize training.
+
+The completed pass answers that qualification question negatively. All 32
+attempts reached the cumulative exported-token threshold after four to six
+controller steps. The task tree changed in eight attempts, but fresh grading
+found zero strict successes across 2,776 specification trials. This result
+measures support under the frozen policy and interaction contract. It leaves
+the behavior of other policies and interaction budgets unresolved.
 
 ## Containment gate
 
@@ -65,11 +75,11 @@ limits, and fresh-task reset. Each attempt receives a new sandbox, and the
 resulting receipt records the runtime and image digests together with every
 test outcome. The bounded
 [`serve_vibe_sandbox.py`](../../../data/formal-verification/vero/serve_vibe_sandbox.py)
-adapter implements the pinned interface and container boundary; its deployment
-still requires qualification under the exact task image.
+adapter implements the pinned interface and container boundary. The v5
+deployment passed these controls under the exact task image before execution.
 
-Execution of any remaining queue identity requires the separately promoted
-deployment bundle that binds the model digest, inference runtime, serving
-configuration, containment controls, and resource-limit receipts. The source
-contracts remain immutable. This keeps a harness smoke test from silently
-becoming a scientific measurement under an incomplete contract.
+The completed queue used the separately promoted deployment bundle that binds
+the model digest, inference runtime, serving configuration, containment
+controls, and resource-limit receipts. The source contracts remain immutable.
+Any revised qualification requires a new protocol version and must preserve the
+v5 measurement unchanged.

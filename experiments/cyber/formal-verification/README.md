@@ -3,9 +3,9 @@
 **Status:** the public-evidence bridge is released. The OSS Verify release
 indexes and checker bootstrap are qualified. Vero's source structure, pinned
 Lean runtime, reference build, bounded grader controls, and repository-
-disjoint split are also qualified. Source qualification and starting-policy
-measurement continue, while no claim-bearing reinforcement-learning run is
-authorized.
+disjoint split are also qualified. Its first 32-attempt starting-policy
+measurement is complete and fails the preregistered support gate. No
+claim-bearing reinforcement-learning run is authorized.
 
 This workstream asks a narrower question than benchmark construction:
 
@@ -37,8 +37,8 @@ completed source-index audit is recorded in
 [adapter](../../../data/formal-verification/oss-verify/README.md). The
 repository-level Vero audit is recorded separately in
 [VERO_SOURCE_QUALIFICATION.md](VERO_SOURCE_QUALIFICATION.md). The frozen
-development measurement and its remaining containment gates are recorded in
-[STARTING_POLICY_PROBE.md](STARTING_POLICY_PROBE.md). The
+development measurement, completed result, and support boundary are recorded
+in [STARTING_POLICY_PROBE.md](STARTING_POLICY_PROBE.md). The
 [continuation guide](CONTINUATION.md) records the current execution boundary
 and the path from candidate construction to prospective selection, regression
 forecasting, and production-code transfer.
@@ -204,13 +204,15 @@ calibration, risk--coverage, and cost are supporting metrics.
 6. Run oracle, no-op, statement-mutation, `sorry`, axiom, reset, and containment
    tests. The bounded OSS Verify and Vero controls are complete; selected
    production-task replay and model-facing controls remain.
-7. Perform a bounded frozen-policy qualification pass.
+7. Qualify a revised development-only starting policy and interaction budget
+   after the completed Leanstral pass produced zero strict verified support.
 8. Freeze candidate environments, predictions, uncertainty, and an a-priori
    power/cost decision before any downstream training outcome is opened.
 
 Until those deliverables are complete, the Anthropic/Theorem workflow remains
 the frontier reference, its public release is a source-qualified candidate
-pending proof replay and selected-harness qualification, Vero is a
-runtime-qualified repository candidate pending policy measurement, VCVio is a
-promising high-assurance source candidate, and VeriBench is a narrower target
-candidate. None is yet a validated RL environment in this workstream.
+pending proof replay and selected-harness qualification, and Vero remains a
+runtime-qualified repository source pending a policy with measurable
+development support. VCVio is a promising high-assurance source candidate, and
+VeriBench is a narrower target candidate. None is yet a validated RL
+environment in this workstream.

@@ -234,6 +234,14 @@ the queue with [`build_probe_queue.py`](build_probe_queue.py), then use
 [`aggregate_probe_measurements.py`](aggregate_probe_measurements.py) only after
 all fresh grade receipts are present.
 
+The v5 queue is complete. Its compact
+[development result](results/development-policy-measurement.v1.json) records 32
+infrastructure-valid fresh grades and zero strict successes across 2,776
+specification trials. The support gate fails in proof and code-and-proof mode,
+so the result blocks candidate ranking and downstream training under this
+starting-policy contract. Qualification and prospective repositories remain
+unopened.
+
 [`run_probe_queue_item.py`](run_probe_queue_item.py) turns one frozen queue
 identity into a fresh task, isolated attempt, linked validation, and fresh
 grade. It checks both cross-file hashes and each contract's semantic validator

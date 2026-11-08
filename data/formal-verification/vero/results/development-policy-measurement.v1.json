@@ -1,0 +1,82 @@
+{
+  "schema_version": "anarres.formal-verification-development-result.v1",
+  "result_id": "vero-leanstral-development-policy-measurement-v1",
+  "status": "complete_negative_development_measurement",
+  "scope": {
+    "source": "Vero repository-level Lean tasks",
+    "source_split": "development",
+    "starting_policy": "mistralai/Leanstral-1.5-119B-A6B",
+    "agent": "Mistral Vibe Lean agent",
+    "modes": ["proof", "codeproof"],
+    "repositories": [
+      "arithmetic-v2",
+      "piggybank-v2",
+      "primepy",
+      "verified-bitmasks"
+    ],
+    "attempts_per_repository_mode": 4,
+    "qualification_and_prospective_repositories_opened": false
+  },
+  "frozen_inputs": {
+    "policy_probe_protocol": {
+      "path": "data/formal-verification/vero/policy-probe-protocol.v5.json",
+      "sha256": "ea3f696bb3b60da0d217d303d80bd5447be919014b8850fb9bd83a7441f99bf0"
+    },
+    "probe_queue": {
+      "path": "data/formal-verification/vero/probe-queue.v5.json",
+      "sha256": "01ae540855178228533a98758a6432432137ecedded9573ec815feb14c9e1fce"
+    },
+    "measurement_analysis": {
+      "path": "data/formal-verification/vero/measurement-analysis.v2.json",
+      "sha256": "5ad9fd1db86dfaf83b954f4a2c7bf0edf78ef5ba679b320dbb3bc6fe597a5c7d"
+    }
+  },
+  "execution": {
+    "attempts": 32,
+    "fresh_grade_builds": 32,
+    "infrastructure_valid_attempts": 32,
+    "infrastructure_errors": 0,
+    "timeouts": 0,
+    "output_truncations": 0,
+    "outcomes": {"token_limit": 32},
+    "stop_reasons": {"interrupted": 32},
+    "model_tokens": 1960916,
+    "wall_seconds": 9297.20965,
+    "controller_steps": {"minimum": 4, "maximum": 6, "total": 162},
+    "task_trees_changed": 8,
+    "sandbox_methods": {
+      "agent/initialize": 32,
+      "sandbox/execute": 736,
+      "sandbox/readFile": 113
+    }
+  },
+  "measurement": {
+    "strict_successes": 0,
+    "strict_trials": 2776,
+    "strict_success_rate": 0.0,
+    "repositories_with_nonzero_verified_coverage": 0,
+    "mixed_specification_groups": 0,
+    "passes_preregistered_support_gate": false,
+    "by_mode": {
+      "proof": {
+        "model_tokens": 969530,
+        "specification_groups": 347,
+        "rho_per_million_model_tokens": 0.0,
+        "effective_coverage_H": 0.0
+      },
+      "codeproof": {
+        "model_tokens": 991386,
+        "specification_groups": 347,
+        "rho_per_million_model_tokens": 0.0,
+        "effective_coverage_H": 0.0
+      }
+    }
+  },
+  "interpretation": {
+    "scientific_boundary": "The starting policy produced no strict verified support under the frozen interaction contract, so the candidate panel cannot be ranked and downstream training is not authorized.",
+    "execution_boundary": "Every attempt reached fresh grading without an infrastructure error. All attempts stopped at the cumulative exported-token threshold after four to six controller steps.",
+    "next_test": "A new development-only qualification must establish nonzero strict support under a source-grounded interaction budget before any prospective repository is opened."
+  },
+  "full_measurement_sha256": "70e8c5f57130c2b57acb05923584811c83e085edc62d07d64a4b95e59a5ee072",
+  "execution_audit_sha256": "457b6ea8bd8ffe9dc0736770cfce6d13d50f4278d88d502f7d357f651c93aca4"
+}

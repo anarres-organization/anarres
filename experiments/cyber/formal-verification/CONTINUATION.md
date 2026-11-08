@@ -16,11 +16,13 @@ The workstream has three completed foundations:
    records the production target established by Anthropic and Theorem.
 2. The OSS Verify adapter preserves statement, source, checker, and entry-point
    identities. Vero has a pinned source revision, repository-disjoint split,
-   fresh grader, lifecycle controls, and a frozen 32-attempt development queue.
-3. The Vero deployment path has exercised the first four positions in that
-   queue. Three reached fresh machine-checked grading and one ended during the
-   model-attempt stage. The remaining 28 positions have not run. This partial
-   development measurement does not rank environments or authorize training.
+   fresh grader, lifecycle controls, and a completed 32-attempt development
+   queue.
+3. The Vero starting-policy measurement reached fresh grading for every queue
+   identity without infrastructure errors. It found zero strict successes
+   across 2,776 specification trials, giving zero usable signal density and
+   zero effective coverage in both proof modes. The preregistered support gate
+   failed, so the result does not rank environments or authorize training.
 
 No claim-bearing reinforcement-learning run has begun. Qualification and
 prospective repositories remain unopened.
@@ -48,22 +50,26 @@ cannot establish utility.
 
 ## Next execution steps
 
-### 1. Close the Vero development measurement
+### 1. Requalify starting-policy support
 
-- Compact the four existing execution receipts without machine paths or
-  transient logs.
-- Classify the failed attempt as scientific, infrastructure-invalid, or
-  configuration-invalid under the frozen contract.
-- Make the rolling scheduler fail closed while continuing past a typed
-  scientific failure.
-- Run the 28 identities that have not been attempted. Rerun the failed identity
-  only if the frozen retry rule permits its typed disposition. Never overwrite
-  or relabel the first four attempts.
-- Aggregate the 32 attempts only after every identity has a valid typed
-  disposition.
+The v5 development measurement is complete and remains unchanged. Its compact
+[result record](../../../data/formal-verification/vero/results/development-policy-measurement.v1.json)
+preserves the frozen input hashes and aggregate outcome. The next qualification
+must use a new protocol version and development repositories only.
 
-The output is a bounded support, reliability, and cost record for one starting
-policy. It remains a development measurement.
+- Use released Vero and model evaluations to anchor the policy, agent, and
+  interaction budget before allocating new inference.
+- Distinguish a policy-support failure from an interaction-budget failure with
+  a small qualification panel whose outcomes are excluded from later claims.
+- Require the agent to reach an edit and fresh build within the bounded run,
+  while preserving strict grading, containment, and exported-token accounting.
+- Repeat the frozen support gate only after the revised deployment passes its
+  source, runtime, containment, and controller checks.
+- Keep qualification and prospective repositories unopened until a starting
+  policy produces nonzero strict support on development tasks.
+
+This stage seeks an admissible measurement policy. It cannot revise the v5
+outcome or convert the zero-support panel into a candidate comparison.
 
 ### 2. Construct the candidate panel
 
@@ -163,5 +169,6 @@ target or candidate panel after outcomes are observed.
 | Reproducible public results | [`public-evidence/`](public-evidence/README.md) |
 | Vero source qualification | [`VERO_SOURCE_QUALIFICATION.md`](VERO_SOURCE_QUALIFICATION.md) |
 | Vero policy-measurement contract | [`STARTING_POLICY_PROBE.md`](STARTING_POLICY_PROBE.md) |
+| Completed Vero development result | [`development-policy-measurement.v1.json`](../../../data/formal-verification/vero/results/development-policy-measurement.v1.json) |
 | Vero executable pipeline | [`../../../data/formal-verification/vero/`](../../../data/formal-verification/vero/README.md) |
 | OSS Verify adapter | [`../../../data/formal-verification/oss-verify/`](../../../data/formal-verification/oss-verify/README.md) |

@@ -64,6 +64,8 @@ PROBE_QUEUE_V5_PATH = ADAPTER / "probe-queue.v5.json"
 PROBE_QUEUE_V5 = json.loads(PROBE_QUEUE_V5_PATH.read_text(encoding="utf-8"))
 CONTAINMENT_PATH = ADAPTER / "containment-contract.v1.json"
 CONTAINMENT_CONTRACT = json.loads(CONTAINMENT_PATH.read_text(encoding="utf-8"))
+DEVELOPMENT_RESULT_PATH = ADAPTER / "results" / "development-policy-measurement.v1.json"
+DEVELOPMENT_RESULT = json.loads(DEVELOPMENT_RESULT_PATH.read_text(encoding="utf-8"))
 
 
 def write_fixture(root: Path) -> dict:
@@ -176,6 +178,28 @@ def write_fixture(root: Path) -> dict:
             "source_languages": {"python": 1},
         },
     }
+
+
+class VeroDevelopmentResultTest(unittest.TestCase):
+    def test_result_is_linked_to_frozen_inputs_and_fails_closed(self) -> None:
+        inputs = {
+            "policy_probe_protocol": PROBE_PROTOCOL_V5_PATH,
+            "probe_queue": PROBE_QUEUE_V5_PATH,
+            "measurement_analysis": ADAPTER / "measurement-analysis.v2.json",
+        }
+        for name, path in inputs.items():
+            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            self.assertEqual(DEVELOPMENT_RESULT["frozen_inputs"][name]["sha256"], digest)
+
+        self.assertEqual(DEVELOPMENT_RESULT["execution"]["attempts"], 32)
+        self.assertEqual(DEVELOPMENT_RESULT["execution"]["infrastructure_errors"], 0)
+        self.assertEqual(DEVELOPMENT_RESULT["measurement"]["strict_successes"], 0)
+        self.assertEqual(DEVELOPMENT_RESULT["measurement"]["strict_trials"], 2776)
+        self.assertFalse(DEVELOPMENT_RESULT["measurement"]["passes_preregistered_support_gate"])
+        for mode in ("proof", "codeproof"):
+            measurement = DEVELOPMENT_RESULT["measurement"]["by_mode"][mode]
+            self.assertEqual(measurement["rho_per_million_model_tokens"], 0.0)
+            self.assertEqual(measurement["effective_coverage_H"], 0.0)
 
 
 class VeroSourceAuditTest(unittest.TestCase):
