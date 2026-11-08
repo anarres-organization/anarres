@@ -65,6 +65,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--queue", type=Path, required=True)
     parser.add_argument("--attempt-id", required=True)
     parser.add_argument("--source", type=Path, required=True)
+    parser.add_argument("--vero-python", type=Path, required=True)
     parser.add_argument("--source-pin", type=Path, required=True)
     parser.add_argument("--split", type=Path, required=True)
     parser.add_argument("--panel", type=Path, required=True)
@@ -98,6 +99,7 @@ def main() -> None:
     required = (
         args.queue,
         args.source,
+        args.vero_python,
         args.source_pin,
         args.split,
         args.panel,
@@ -125,6 +127,9 @@ def main() -> None:
             raise QueueItemError(f"required path does not exist: {path}")
     work_root = args.work_root.resolve(strict=True)
     output_root = args.output_root.resolve(strict=True)
+    expected_vero_python = args.source.absolute() / ".venv" / "bin" / "python"
+    if args.vero_python.absolute() != expected_vero_python:
+        raise QueueItemError("--vero-python must belong to the pinned Vero checkout")
     queue = read_object(args.queue)
     validate_queue_contract(queue, protocol_path=args.protocol, panel_path=args.panel)
     entry = select_entry(queue, args.attempt_id)
@@ -226,7 +231,7 @@ def main() -> None:
         (
             "materialize",
             [
-                sys.executable,
+                str(args.vero_python),
                 str(args.materializer),
                 "--source",
                 str(args.source),
@@ -309,7 +314,7 @@ def main() -> None:
         (
             "grade",
             [
-                sys.executable,
+                str(args.vero_python),
                 str(args.grader),
                 "--source",
                 str(args.source),

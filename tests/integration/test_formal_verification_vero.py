@@ -457,6 +457,9 @@ a=p.parse_args(); Path(a.output).mkdir()
             work = root / "work"
             output = root / "output"
             source.mkdir()
+            vero_python = source / ".venv" / "bin" / "python"
+            vero_python.parent.mkdir(parents=True)
+            vero_python.symlink_to(sys.executable)
             work.mkdir()
             output.mkdir()
             required_files = {}
@@ -484,6 +487,8 @@ a=p.parse_args(); Path(a.output).mkdir()
                 "repo-proof-r01",
                 "--source",
                 str(source),
+                "--vero-python",
+                str(vero_python),
                 "--panel",
                 str(panel),
                 "--protocol",
