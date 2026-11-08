@@ -150,9 +150,9 @@ establish that the planned predictor works.
 The committed source audit verifies the exact RxnFlow release, source license,
 5,000 unique example building blocks, 30 reaction templates, and 28 synthon
 types. It also verifies the pinned MolGenBench evaluator code, MIT license, and
-two public test fixtures. The 5.4 GB Version4 archive has not been downloaded or
-inspected. Its Zenodo record does not state a dataset license, so Anarres will
-not redistribute the archive and records license qualification as open.
+two public test fixtures. Zenodo records the 5.38 GB Version4 archive under CC
+BY 4.0 and publishes its MD5 digest. The archive has not been downloaded or
+inspected, so its SHA-256 digest and content inventory remain open.
 
 The next valid action is source and oracle qualification on a CPU node. No GPU
 training is justified until the target-reward adapter, common warm start, and

@@ -33,9 +33,10 @@
       "name": "MolGenBench Version4",
       "record": "https://doi.org/10.5281/zenodo.20233505",
       "archive_name": "MolGenBench_Version4.zip",
-      "archive_size_display": "5.4 GB as reported by Zenodo",
+      "archive_size_bytes": 5381684964,
       "published_md5": "08739fa1d1c2d1709f1dbcc0886f7386",
-      "license_status": "No dataset license was stated on the inspected Zenodo record. The archive is not redistributed by Anarres.",
+      "license": "CC BY 4.0",
+      "license_source": "Zenodo REST metadata for record 20233505",
       "qualification_status": "open"
     }
   },

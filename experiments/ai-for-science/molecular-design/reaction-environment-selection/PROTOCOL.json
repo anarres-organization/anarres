@@ -173,7 +173,7 @@
     "reason": "The first graph claim concerns environment measurement and selection. Multiplying the initial panel across architectures would confound that decision and dilute the prospective test."
   },
   "open_gates": [
-    "MolGenBench Version4 archive checksum and license",
+    "MolGenBench Version4 archive SHA-256 and content inventory",
     "target fixture identity and outcome-blind selection",
     "target reward adapter",
     "oracle fidelity and reproducibility",

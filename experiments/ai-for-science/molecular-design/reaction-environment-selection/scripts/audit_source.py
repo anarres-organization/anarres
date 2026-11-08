@@ -135,7 +135,7 @@ def audit(rxnflow_repo: Path, molgenbench_repo: Path, sources: Path) -> dict[str
         "rxnflow": audit_rxnflow(rxnflow_repo, registry["rxnflow"]),
         "molgenbench": audit_molgenbench(molgenbench_repo, registry["molgenbench"]),
         "open_gates": [
-            "MolGenBench Version4 archive checksum and license",
+            "MolGenBench Version4 archive SHA-256 and content inventory",
             "target fixture and oracle qualification",
             "target reward adapter",
             "common warm-start checkpoint",
