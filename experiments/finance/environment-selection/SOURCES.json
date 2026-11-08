@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "business_bench",
+      "name": "Business Bench",
+      "url": "https://github.com/erphq/business-bench",
+      "revision": "0d09882b59a16f190feac09abc9331a733a6f96b",
+      "license": "MIT",
+      "access": "public repository",
+      "role": "construction_candidate",
+      "status": "generator_preflight_passed",
+      "outcome_use": "none"
+    },
+    {
+      "id": "secondstate_fab",
+      "name": "Finance Agent Benchmark",
+      "url": "https://github.com/SecondState-ai/finance-agents-benchmark",
+      "revision": "85d5a65587ac3cb1b1ca8f34af688c82c656a49c",
+      "license": "MIT code; CC BY 4.0 benchmark assets",
+      "access": "public repository",
+      "role": "external_mechanism_check",
+      "status": "source_audited",
+      "outcome_use": "external only"
+    },
+    {
+      "id": "bankertoolbench",
+      "name": "BankerToolBench",
+      "url": "https://github.com/Handshake-AI-Research/bankertoolbench",
+      "revision": "c3816821fed0c85b975f15ffb03af85a63448012",
+      "license": "Apache-2.0 code; CC BY 4.0 dataset",
+      "access": "public repository and linked dataset",
+      "role": "external_artifact_evaluation",
+      "status": "source_audited",
+      "outcome_use": "external only"
+    },
+    {
+      "id": "frontier_finance",
+      "name": "FrontierFinance",
+      "url": "https://github.com/samaya-ai/frontier-finance",
+      "revision": "8b71342dc7730eb1803dd3934e17bc71c9922ec5",
+      "license": "Apache-2.0 code; CC BY 4.0 rubric dataset",
+      "access": "public repository and dataset",
+      "role": "external_research_evaluation",
+      "status": "source_audited",
+      "outcome_use": "external only"
+    },
+    {
+      "id": "accounted_bench",
+      "name": "Accounted Bench",
+      "url": "https://github.com/erp-mafia/accounted-bench",
+      "revision": "452b7c85d562e0d1cf736e5863eb90fe31ff9f67",
+      "license": "AGPL-3.0-or-later code; CC BY 4.0 tasks and results",
+      "access": "public repository",
+      "role": "external_accounting_check",
+      "status": "source_audited",
+      "outcome_use": "external only"
+    },
+    {
+      "id": "vals_fab_2_1",
+      "name": "Vals Finance Agent Benchmark 2.1",
+      "url": "https://www.vals.ai/benchmarks/fabv2-1",
+      "revision": null,
+      "license": "public page; full benchmark access is licensed",
+      "access": "27 public tasks and licensed held-out evaluation",
+      "role": "external_design_target",
+      "status": "documentation_audited",
+      "outcome_use": "no construction use"
+    },
+    {
+      "id": "ramp_accounting_bench",
+      "name": "Ramp Accounting Bench",
+      "url": "https://labs.ramp.com/accountingbench",
+      "revision": null,
+      "license": "public documentation; complete task release not identified",
+      "access": "public benchmark description",
+      "role": "external_design_target",
+      "status": "documentation_audited",
+      "outcome_use": "no construction use"
+    }
+  ]
+}

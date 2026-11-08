@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "source_id": "business_bench",
+  "source_revision": "0d09882b59a16f190feac09abc9331a733a6f96b",
+  "validated_on": "2026-11-08",
+  "validator": "bench/validate_process.py --strict",
+  "seeds": [0, 1, 2, 3, 4],
+  "workflows": [
+    "freight-accrual-revision",
+    "month-end-close",
+    "payment-run",
+    "payment-run-need-to-know"
+  ],
+  "checks_per_workflow_seed": [
+    "two complete oracle runs pass all required checks",
+    "oracle final states are identical after volatile fields are removed",
+    "null agent fails",
+    "declared negative controls fail their intended checks",
+    "turn records and graders complete without errors",
+    "cited handbook clauses exist",
+    "policy registry and generated handbook pass strict validation"
+  ],
+  "workflow_seed_trials": 20,
+  "passed_trials": 20,
+  "failed_trials": 0,
+  "scientific_outcomes_opened": false
+}
