@@ -209,6 +209,15 @@ def main() -> None:
         "task_id": entry["task_id"],
         "status": "running",
         "stages": [],
+        "implementation_sha256": {
+            "queue_worker": digest(Path(__file__)),
+            "sandbox_server": digest(args.sandbox_server),
+            "materializer": digest(args.materializer),
+            "attempt_runner": digest(args.attempt_runner),
+            "attempt_validator": digest(args.attempt_validator),
+            "grader": digest(args.grader),
+            "grader_runtime_validator": digest(args.grader_runtime_validator),
+        },
     }
     commands = [
         (

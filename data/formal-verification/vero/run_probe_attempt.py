@@ -277,7 +277,10 @@ def main() -> None:
     }
 
     try:
-        with tempfile.TemporaryDirectory(prefix="anarres-vero-", dir=work_parent) as temporary:
+        with (
+            tempfile.TemporaryDirectory(prefix="anarres-vero-", dir=work_parent) as temporary,
+            tempfile.TemporaryDirectory(prefix="av-sock-", dir="/tmp") as socket_temporary,
+        ):
             work = Path(temporary)
             vibe = args.vibe.resolve(strict=True)
             environment = isolated_environment(work, vibe)
@@ -298,7 +301,7 @@ def main() -> None:
                 raise AttemptLaunchError("Vibe v3.1.0 is not installed at --vibe")
             launcher_receipt["vibe_version"] = version_text
 
-            socket = work / "socket" / "agent.sock"
+            socket = Path(socket_temporary) / "a.sock"
             sandbox_receipt = output / "sandbox-receipt.json"
             server_stdout = (output / "sandbox.stdout").open("wb")
             server_stderr = (output / "sandbox.stderr").open("wb")

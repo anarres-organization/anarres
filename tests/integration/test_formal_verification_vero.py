@@ -579,6 +579,18 @@ a=p.parse_args(); Path(a.output).write_text('{}')
             )
             self.assertEqual(receipt["status"], "graded")
             self.assertEqual(
+                set(receipt["implementation_sha256"]),
+                {
+                    "queue_worker",
+                    "sandbox_server",
+                    "materializer",
+                    "attempt_runner",
+                    "attempt_validator",
+                    "grader",
+                    "grader_runtime_validator",
+                },
+            )
+            self.assertEqual(
                 [stage["stage"] for stage in receipt["stages"]],
                 [
                     "validate-protocol",
