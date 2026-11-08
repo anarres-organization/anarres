@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-phonon-environment-selection",
+  "status": "measurement_protocol_frozen_candidate_memberships_open",
+  "scientific_question": "Can measurements under a pretrained phonon model choose a fixed-size DFT post-training set before candidate training outcomes are observed?",
+  "source": {
+    "repository_commit": "e9262cfae0feedb4232602df28b02049923ef228",
+    "archive_sha256": "848f9a916bb75fff4e2911045e6d82c55c6765fd003758b2884602a58f0350ee",
+    "training_manifest_sha256": "a4a461c887417e8d3ac8a3f67b4212cfd71ce9c0a2b9bf5ba40d1e503e26d228",
+    "training_labels_sha256": "735f0033f730aa52801d3242da85d3dfcbad87247e115fd4ac66f1adab97ba47",
+    "gradient_training_records": 7809,
+    "checkpoint_validation_records": 411
+  },
+  "starting_model": {
+    "name": "PhononScore",
+    "stage": "MatterSim-pretrained before DFT post-training",
+    "checkpoint_path_in_source": "checkpoints/phononscore_pretrain/best_model.pt",
+    "checkpoint_sha256": "79b027c7037184786d6913783d3d82b081aee16f4762612184767e5ca58c0b0f",
+    "model_config_path_in_source": "checkpoints/phononscore_pretrain/phonon_score_geom_mdn_config.json",
+    "model_config_sha256": "a422daafc6f7c3e251611a4ed8f6fe2cc9d3ee13f65deb7b872d5fe651961afe"
+  },
+  "measurement": {
+    "eligible_role": "gradient_train",
+    "target_clip_thz": [-5.0, 0.0],
+    "stability_thresholds_thz": [-0.001, -0.01, -0.1, -1.0],
+    "signal_definition": {
+      "name": "singleton_objective_signal",
+      "formula": "smooth_l1_regression + 0.3 * pool_balanced_threshold_bce + 0.02 * ordinal_monotonic_loss + 0.05 * stable_weighted_mean_edge_nll",
+      "class_balance": "computed once over all 7809 eligible records",
+      "stable_weight_threshold_thz": -0.1,
+      "stable_weight_temperature_thz": 0.2,
+      "excluded_terms": [
+        "threshold-aware score ranking",
+        "geometry-score ranking"
+      ],
+      "exclusion_reason": "The released ranking terms are defined over sampled pairs and have no unique per-structure attribution."
+    },
+    "coverage_definition": {
+      "representation": "256-dimensional graph_h output of the frozen pretrained encoder",
+      "preprocessing": "center on the eligible pool, full deterministic SVD, retain the first 32 principal components, divide each retained component by its nonzero singular-value scale, then L2-normalize each record",
+      "distance": "Euclidean distance in the normalized 32-dimensional representation"
+    },
+    "cost_fields": [
+      "atoms",
+      "graph_edges",
+      "inference_seconds"
+    ],
+    "repeatability_gate": {
+      "audit_records": 128,
+      "record_selection": "smallest SHA-256 of repeatability-v1|record_id",
+      "maximum_absolute_signal_difference": 1e-05,
+      "minimum_embedding_cosine_similarity": 0.99999,
+      "failure_action": "abstain_before_candidate_freeze"
+    }
+  },
+  "candidate_construction": {
+    "candidate_names": [
+      "hash_uniform",
+      "signal",
+      "coverage",
+      "signal_coverage"
+    ],
+    "budgets_structures": [256, 512, 1024],
+    "nested_prefixes_required": true,
+    "tie_break": "ascending SHA-256 of phonon-candidate-v1|candidate_name|record_id",
+    "atom_count_strata": [
+      [2, 11],
+      [12, 19],
+      [20, 29],
+      [30, 55],
+      [56, 83],
+      [84, 103],
+      [104, 159],
+      [160, 306]
+    ],
+    "stratum_quotas": "largest-remainder allocation proportional to the eligible-pool stratum counts at each budget",
+    "rules": {
+      "hash_uniform": "ascending deterministic hash within atom-count stratum",
+      "signal": "descending singleton objective signal within atom-count stratum",
+      "coverage": "greedy farthest-first representation coverage subject to remaining stratum quotas; initialize with the record nearest the eligible-pool centroid",
+      "signal_coverage": "greedy maximum of 0.5 * eligible-pool signal percentile + 0.5 * normalized distance to the selected set, subject to remaining stratum quotas; initialize with the highest combined signal percentile and centroid distance"
+    },
+    "maximum_atom_count_difference_from_hash_uniform_fraction": 0.03,
+    "maximum_pairwise_membership_jaccard_for_nonbaseline_candidates": 0.85,
+    "failure_action": "revise_and_version_protocol_before_training"
+  },
+  "candidate_freeze": {
+    "required_before_training": [
+      "measurement artifact hashes",
+      "candidate memberships at every budget",
+      "candidate overlap and cost audit",
+      "point prediction",
+      "complete ranking at every budget",
+      "abstention rule",
+      "training seeds",
+      "training and evaluation contract"
+    ],
+    "provisional_point_prediction": "signal_coverage",
+    "claim_bearing_point_prediction_status": "open_until_candidate_freeze"
+  },
+  "training": {
+    "starting_checkpoint": "released PhononScore pretrained checkpoint",
+    "checkpoint_validation": "all 411 released checkpoint-validation records, unchanged across arms",
+    "epochs": 100,
+    "batch_size": 96,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.00001,
+    "seeds": [20261108, 20261109],
+    "checkpoint_rule": "minimum total loss on the common internal checkpoint-validation set",
+    "loss_contract": "released PhononScore DFT post-training objective and weights",
+    "adaptive_stopping": false,
+    "outcome_driven_seed_replacement": false
+  },
+  "evaluation": {
+    "primary_panel": "formula-disjoint balanced DFT-PBE external test",
+    "primary_panel_records": 1000,
+    "secondary_panel": "formula-disjoint MP20 external test",
+    "secondary_panel_records": 6400,
+    "primary_stability_threshold_thz": -0.1,
+    "primary_metrics": [
+      "Top-100 stable rate",
+      "pairwise ranking accuracy",
+      "area under the ROC curve",
+      "Brier score",
+      "minimum-frequency mean absolute error"
+    ],
+    "decision_metrics": [
+      "best-candidate accuracy",
+      "mean allocation regret",
+      "seed-level winner agreement"
+    ],
+    "open_gate": "all expected arm-budget-seed checkpoints and compact prediction outputs pass identity and completeness audits"
+  },
+  "cost_accounting": {
+    "include": [
+      "starting-model measurement",
+      "candidate construction",
+      "post-training accelerator time",
+      "processed structures",
+      "processed atoms",
+      "graph edges",
+      "evaluation accelerator time"
+    ],
+    "report_training_only_regret_separately": true
+  },
+  "sealed_boundary": {
+    "external_test_labels_inspected_for_this_study": false,
+    "candidate_training_outcomes_exist": false,
+    "permitted_before_candidate_freeze": [
+      "gradient-training labels",
+      "checkpoint-validation labels",
+      "starting-model measurements on eligible training records",
+      "aggregate source metadata"
+    ],
+    "forbidden_before_candidate_freeze": [
+      "external DFT-PBE labels",
+      "external MP20 labels",
+      "candidate post-training outcomes"
+    ]
+  }
+}

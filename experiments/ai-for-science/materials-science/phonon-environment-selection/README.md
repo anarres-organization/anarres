@@ -1,8 +1,8 @@
 # Prospective selection of phonon post-training data
 
-**Status:** source qualified; starting-model measurement and candidate freeze
-remain open. External test labels have not been extracted or inspected for this
-study.
+**Status:** source and measurement protocol qualified; starting-model
+measurement and candidate freeze remain open. External test labels have not
+been extracted or inspected for this study.
 
 ## Research question
 
@@ -137,7 +137,9 @@ Primary sources:
 ## Reproduction
 
 [`SOURCES.json`](SOURCES.json) records the pinned inputs and current
-qualification state. After obtaining the public archive, reproduce the local
+qualification state. [`PROTOCOL.json`](PROTOCOL.json) fixes the measurement,
+candidate families, training seeds, evaluation, and cost accounting before
+starting-model scoring. After obtaining the public archive, reproduce the local
 source audit with:
 
 ```bash
@@ -148,3 +150,8 @@ python scripts/audit_source.py \
 
 The committed [`SOURCE_AUDIT.json`](SOURCE_AUDIT.json) contains only aggregate
 metadata and hashes. It does not contain external labels or source structures.
+Validate the measurement protocol with:
+
+```bash
+python scripts/validate_protocol.py
+```
