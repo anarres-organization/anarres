@@ -1,7 +1,9 @@
 """Scientific partition checks for the LAB source-pool auditor."""
 
+import hashlib
 import importlib.util
 import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -14,6 +16,11 @@ MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
 sys.path.insert(0, str(SCRIPT.parent))
 from build_candidate_bank import bank  # noqa: E402
+from document_blobs import (  # noqa: E402
+    screen_document_blobs,
+    screen_exact_titles,
+    verify_task_hashes,
+)
 
 
 class SourcePoolAuditTest(unittest.TestCase):
@@ -129,6 +136,95 @@ class SourcePoolAuditTest(unittest.TestCase):
         ]
         with self.assertRaisesRegex(ValueError, "two practice areas"):
             bank(rows)
+
+    def test_exact_document_screen_excludes_candidate_reuse(self) -> None:
+        repo = self.root / "source"
+        repo.mkdir()
+        subprocess.run(["git", "init", "-q", str(repo)], check=True)
+        for task_id, document in (
+            ("area/probe", "probe"),
+            ("area/target", "shared"),
+            ("area/candidate-shared", "shared"),
+            ("area/candidate-unique", "unique"),
+        ):
+            task = repo / "tasks" / task_id
+            (task / "documents").mkdir(parents=True)
+            (task / "task.json").write_text("{}", encoding="utf-8")
+            (task / "documents" / "matter.txt").write_text(document, encoding="utf-8")
+        subprocess.run(["git", "add", "tasks"], cwd=repo, check=True)
+        subprocess.run(
+            [
+                "git",
+                "-c",
+                "user.name=Test",
+                "-c",
+                "user.email=test@example.invalid",
+                "commit",
+                "-qm",
+                "fixture",
+            ],
+            cwd=repo,
+            check=True,
+        )
+        revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=repo).decode().strip()
+        task_hash = hashlib.sha256(b"{}").hexdigest()
+        self.assertEqual(
+            verify_task_hashes(
+                repo,
+                {
+                    task_id: task_hash
+                    for task_id in (
+                        "area/probe",
+                        "area/target",
+                        "area/candidate-shared",
+                        "area/candidate-unique",
+                    )
+                },
+                revision=revision,
+            ),
+            4,
+        )
+        eligible = [
+            {"task_id": "area/candidate-shared"},
+            {"task_id": "area/candidate-unique"},
+        ]
+        remaining, summary = screen_document_blobs(
+            repo, eligible, {"area/probe"}, {"area/target"}, revision=revision
+        )
+        self.assertEqual([row["task_id"] for row in remaining], ["area/candidate-unique"])
+        self.assertEqual(summary["excluded_candidate_tasks"], 1)
+        self.assertEqual(summary["exact_blob_collisions_with_target"], 1)
+        self.assertNotIn("area/target", json.dumps(summary))
+        (repo / "tasks" / "area" / "candidate-unique" / "task.json").write_text(
+            '{"changed":true}', encoding="utf-8"
+        )
+        with self.assertRaisesRegex(ValueError, "differs from the inventory"):
+            verify_task_hashes(
+                repo,
+                {"area/candidate-unique": task_hash},
+                revision=revision,
+            )
+
+    def test_exact_title_screen_excludes_candidate_reuse(self) -> None:
+        repo = self.root / "source"
+        for task_id, title in (
+            ("area/probe", "Probe task"),
+            ("area/target", "Review merger agreement"),
+            ("area/same-title", "  review  merger agreement  "),
+            ("area/unique", "Draft a notice"),
+        ):
+            task = repo / "tasks" / task_id
+            task.mkdir(parents=True)
+            (task / "task.json").write_text(json.dumps({"title": title}), encoding="utf-8")
+        remaining, summary = screen_exact_titles(
+            repo,
+            [{"task_id": "area/same-title"}, {"task_id": "area/unique"}],
+            {"area/probe"},
+            {"area/target"},
+        )
+        self.assertEqual([row["task_id"] for row in remaining], ["area/unique"])
+        self.assertEqual(summary["exact_title_matches_with_target"], 1)
+        self.assertNotIn("area/target", json.dumps(summary))
 
 
 if __name__ == "__main__":

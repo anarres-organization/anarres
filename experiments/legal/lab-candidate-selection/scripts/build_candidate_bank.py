@@ -9,7 +9,8 @@ import math
 from collections import Counter
 from pathlib import Path
 
-from audit_pool import audit, screened_pool
+from audit_pool import audit, load_inventory, load_panel, screened_pool
+from document_blobs import screen_document_blobs, screen_exact_titles, verify_task_hashes
 
 
 def bank(rows: list[dict]) -> dict:
@@ -77,14 +78,27 @@ def main() -> None:
     parser.add_argument("--inventory", required=True, type=Path)
     parser.add_argument("--probe-panel", required=True, type=Path)
     parser.add_argument("--target-panel", required=True, type=Path)
+    parser.add_argument("--source-repo", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(args.output)
     source_audit = audit(args.inventory, args.probe_panel, args.target_panel)
     rows, _, _, _, _ = screened_pool(args.inventory, args.probe_panel, args.target_panel)
+    inventory = load_inventory(args.inventory)
+    verified_task_count = verify_task_hashes(
+        args.source_repo,
+        {task_id: row["task_sha256"] for task_id, row in inventory.items()},
+    )
+    probe = load_panel(args.probe_panel, inventory)
+    target = load_panel(args.target_panel, inventory)
+    rows, document_audit = screen_document_blobs(args.source_repo, rows, probe, target)
+    rows, title_audit = screen_exact_titles(args.source_repo, rows, probe, target)
     result = bank(rows)
     result["source_audit"] = source_audit
+    result["document_audit"] = document_audit
+    result["title_audit"] = title_audit
+    result["verified_source_task_hashes"] = verified_task_count
     payload = json.dumps(result, indent=2, sort_keys=True) + "\n"
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(payload, encoding="utf-8")
@@ -95,6 +109,9 @@ def main() -> None:
                 "task_count": result["task_count"],
                 "candidate_ids": list(result["candidates"]),
                 "total_variation": result["total_variation"],
+                "document_audit": document_audit,
+                "title_audit": title_audit,
+                "verified_source_task_hashes": verified_task_count,
                 "outcomes_read": False,
             },
             indent=2,

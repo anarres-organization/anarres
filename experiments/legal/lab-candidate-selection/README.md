@@ -33,21 +33,29 @@ target tasks, then excludes 76 remaining tasks in those scenario families and
 220 remaining tasks flagged as sharing a document corpus. This leaves 1,458
 candidate-source tasks across 26 practice areas. The eligible membership digest
 is `4f0b82789eccebf04a08c6fd6eac6c396c6c3612e9d24079e8185cb1fca15b6b`.
-This is a first overlap screen. Document content, templates, and semantically
-similar matters still require review before candidate training.
+This is a first overlap screen. An exact-document check against the pinned
+source tree finds 17 document blobs shared with the probe panel and three
+shared with the target panel. They affect four distinct candidate tasks, which
+are removed. An exact-title screen removes two more candidate tasks whose
+normalized titles match target tasks. The screened bank therefore contains
+1,452 tasks. The document check compares Git blob identities, and the title
+check uses task metadata. Neither opens target outcomes or reports target task
+IDs. All 2,010 inventory task hashes also match `task.json` at the pinned
+revision. Template reuse and semantically similar matters still require review
+before candidate training.
 
-The metadata preflight constructs three sampling distributions on this same
-1,458-task support:
+The preflight constructs three sampling distributions on this same 1,452-task
+support:
 
 | Candidate | Sampling rule | Effective task count |
 | --- | --- | ---: |
-| Source-proportional | Equal weight per eligible source task | 1,458 |
-| Practice-area balanced | Equal total weight per represented practice area | 769 |
-| Rubric-dense | Half the weight on tasks with at least 68 criteria | 1,131 |
+| Source-proportional | Equal weight per eligible source task | 1,452 |
+| Practice-area balanced | Equal total weight per represented practice area | 765 |
+| Rubric-dense | Half the weight on tasks with at least 68 criteria | 1,126 |
 
-The 68-criterion cutoff is the eligible pool's upper-quartile boundary and
-contains 384 tasks. Pairwise total variation from the source-proportional
-distribution is 0.386 for area balancing and 0.237 for rubric density. These
+The 68-criterion cutoff is the screened pool's upper-quartile boundary and
+contains 382 tasks. Pairwise total variation from the source-proportional
+distribution is 0.387 for area balancing and 0.237 for rubric density. These
 rules create distinguishable candidate distributions without reading policy
 outcomes. The third rule changes exposure to rubric-dense work; it does not
 assume that criterion count measures task difficulty or reward quality.
@@ -57,6 +65,7 @@ python experiments/legal/lab-candidate-selection/scripts/build_candidate_bank.py
   --inventory /path/to/TASK_INVENTORY.jsonl \
   --probe-panel /path/to/PROBE_PANEL.json \
   --target-panel /path/to/TARGET_PANEL.json \
+  --source-repo /path/to/checked-out/pinned/harvey-labs \
   --output /path/outside/repository/CANDIDATE_BANK.json
 ```
 
