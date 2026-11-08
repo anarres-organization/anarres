@@ -36,15 +36,46 @@ is `4f0b82789eccebf04a08c6fd6eac6c396c6c3612e9d24079e8185cb1fca15b6b`.
 This is a first overlap screen. Document content, templates, and semantically
 similar matters still require review before candidate training.
 
+The metadata preflight constructs three sampling distributions on this same
+1,458-task support:
+
+| Candidate | Sampling rule | Effective task count |
+| --- | --- | ---: |
+| Source-proportional | Equal weight per eligible source task | 1,458 |
+| Practice-area balanced | Equal total weight per represented practice area | 769 |
+| Rubric-dense | Half the weight on tasks with at least 68 criteria | 1,131 |
+
+The 68-criterion cutoff is the eligible pool's upper-quartile boundary and
+contains 384 tasks. Pairwise total variation from the source-proportional
+distribution is 0.386 for area balancing and 0.237 for rubric density. These
+rules create distinguishable candidate distributions without reading policy
+outcomes. The third rule changes exposure to rubric-dense work; it does not
+assume that criterion count measures task difficulty or reward quality.
+
+```bash
+python experiments/legal/lab-candidate-selection/scripts/build_candidate_bank.py \
+  --inventory /path/to/TASK_INVENTORY.jsonl \
+  --probe-panel /path/to/PROBE_PANEL.json \
+  --target-panel /path/to/TARGET_PANEL.json \
+  --output /path/outside/repository/CANDIDATE_BANK.json
+```
+
+This bank remains a metadata preflight. The frozen LAB probe panel is separate
+from the candidate support. Policy-relative measurements for each candidate
+must sample from that candidate's source tasks, while the target panel stays
+unopened. The document-overlap and execution gates below determine whether
+these preflight distributions can become training interventions.
+
 ## Decision to test
 
 At least three candidate distributions must share one starting checkpoint,
 agent harness, verifier profile, trainer, compute budget, and held-out target.
-One candidate represents the source-proportional training distribution. Others
-may change practice-area or work-product exposure, with their exact membership
-and sampling weights fixed after development-only policy measurements and before
-any candidate training outcome. The comparison must include the source-native
-practical rule and simple starting-success, cost, and uniform controls.
+The source-proportional distribution is the practical incumbent. Area balancing
+and rubric density are two alternatives. Their task support and weights are
+fixed by metadata, while the predictive decision rule, uncertainty, and budget
+must be fixed after development-only policy measurements and before any
+candidate training outcome. The comparison also includes simple starting-
+success and cost-based decision rules.
 
 The target is a vector of native LAB all-pass and criterion results, practice-
 area retention, document and tool behavior, reliability, and cost. A selected

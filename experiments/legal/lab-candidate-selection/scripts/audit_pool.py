@@ -97,7 +97,10 @@ def load_panel(path: Path, inventory: dict[str, dict]) -> set[str]:
     return set(task_ids)
 
 
-def audit(inventory_path: Path, probe_path: Path, target_path: Path) -> dict:
+def screened_pool(
+    inventory_path: Path, probe_path: Path, target_path: Path
+) -> tuple[list[dict], Counter, int, int, int]:
+    """Return only candidate-source rows after validating protected panels."""
     inventory = load_inventory(inventory_path)
     probe = load_panel(probe_path, inventory)
     target = load_panel(target_path, inventory)
@@ -116,6 +119,13 @@ def audit(inventory_path: Path, probe_path: Path, target_path: Path) -> dict:
             excluded["shared_document_corpus"] += 1
         else:
             eligible.append(row)
+    return eligible, excluded, len(inventory), len(probe), len(target)
+
+
+def audit(inventory_path: Path, probe_path: Path, target_path: Path) -> dict:
+    eligible, excluded, inventory_count, probe_count, target_count = screened_pool(
+        inventory_path, probe_path, target_path
+    )
 
     members = "\n".join(
         f"{row['task_id']}\t{row['task_sha256']}"
@@ -129,9 +139,9 @@ def audit(inventory_path: Path, probe_path: Path, target_path: Path) -> dict:
             "probe_panel": digest(probe_path),
             "target_panel": digest(target_path),
         },
-        "inventory_tasks": len(inventory),
-        "probe_tasks": len(probe),
-        "target_tasks": len(target),
+        "inventory_tasks": inventory_count,
+        "probe_tasks": probe_count,
+        "target_tasks": target_count,
         "excluded": dict(sorted(excluded.items())),
         "eligible_tasks": len(eligible),
         "eligible_practice_areas": len({row["practice_area"] for row in eligible}),

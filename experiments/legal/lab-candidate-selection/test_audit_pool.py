@@ -2,6 +2,7 @@
 
 import importlib.util
 import json
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -11,6 +12,8 @@ SPEC = importlib.util.spec_from_file_location("audit_pool", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
+sys.path.insert(0, str(SCRIPT.parent))
+from build_candidate_bank import bank  # noqa: E402
 
 
 class SourcePoolAuditTest(unittest.TestCase):
@@ -92,6 +95,40 @@ class SourcePoolAuditTest(unittest.TestCase):
         )
         with self.assertRaisesRegex(ValueError, "unexpected inventory fields"):
             MODULE.audit(self.inventory, self.probe, self.target)
+
+    def test_candidate_bank_uses_same_support_and_normalized_weights(self) -> None:
+        rows = [
+            {
+                "task_id": f"task-{i}",
+                "task_sha256": f"{i:064x}",
+                "practice_area": "a" if i < 6 else "b",
+                "criteria_count": i,
+            }
+            for i in range(1, 9)
+        ]
+        result = bank(rows)
+        self.assertEqual(result["task_count"], 8)
+        self.assertEqual(result["rubric_dense_cutoff"], 6)
+        self.assertFalse(result["outcomes_read"])
+        for candidate in result["candidates"].values():
+            self.assertEqual(set(candidate["weights"]), set(result["task_hashes"]))
+            self.assertAlmostEqual(sum(candidate["weights"].values()), 1)
+        self.assertGreater(
+            result["total_variation"]["source_proportional__practice_area_balanced"], 0
+        )
+
+    def test_candidate_bank_rejects_one_area(self) -> None:
+        rows = [
+            {
+                "task_id": f"task-{i}",
+                "task_sha256": f"{i:064x}",
+                "practice_area": "a",
+                "criteria_count": i,
+            }
+            for i in range(4)
+        ]
+        with self.assertRaisesRegex(ValueError, "two practice areas"):
+            bank(rows)
 
 
 if __name__ == "__main__":
