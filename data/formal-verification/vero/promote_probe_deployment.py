@@ -255,11 +255,11 @@ def main() -> None:
     output_parent = args.output.parent.resolve(strict=True)
     temporary = Path(tempfile.mkdtemp(prefix="anarres-vero-promotion-", dir=output_parent))
     try:
-        write(temporary / "containment-contract.v1.json", promoted["containment"])
-        write(temporary / "runtime" / "runtime-lock.v1.json", promoted["runtime"])
-        write(temporary / "inference" / "inference-contract.v1.json", promoted["inference"])
-        write(temporary / "policy-probe-protocol.v1.json", promoted["protocol"])
-        write(temporary / "probe-queue.v1.json", promoted["queue"])
+        write(temporary / args.containment.name, promoted["containment"])
+        write(temporary / "runtime" / args.runtime_lock.name, promoted["runtime"])
+        write(temporary / "inference" / args.inference_contract.name, promoted["inference"])
+        write(temporary / args.protocol.name, promoted["protocol"])
+        write(temporary / args.queue.name, promoted["queue"])
         shutil.copy2(args.protocol.parent / "agent-prompt.txt", temporary / "agent-prompt.txt")
         shutil.copytree(
             args.controller_lock.parent,
