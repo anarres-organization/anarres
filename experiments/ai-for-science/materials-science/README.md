@@ -29,6 +29,13 @@ No claim-bearing materials run is authorized by this document. Source,
 level-of-theory, split, starting-model, measurement, and evaluation qualification
 must pass before development and prospective contracts are frozen.
 
+The first research loop is now being qualified in
+[`phonon-environment-selection/`](phonon-environment-selection/). It uses a
+released phonon-scoring model and DFT post-training pool to compare random,
+model-relative signal, coverage, and joint selection under a sealed external
+evaluation. This smaller supervised study establishes the measurement and
+decision workflow before the broader interatomic-potential experiment below.
+
 ## Why materials science is a distinct domain test
 
 Atomistic post-training changes the structure of the environment-utility

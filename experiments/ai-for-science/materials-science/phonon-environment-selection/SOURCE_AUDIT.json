@@ -1,0 +1,56 @@
+{
+  "external_test_labels_inspected": false,
+  "gradient_training_pool": {
+    "duplicate_formula_rows": 923,
+    "minimum_frequency_quantiles": {
+      "0.0": -102.93616808162231,
+      "0.01": -5.8595049959448815,
+      "0.05": -2.040382935250881,
+      "0.1": -0.7903644121149399,
+      "0.5": -1.7269751733481902e-07,
+      "0.9": -3.534613889022782e-08,
+      "0.99": 1.4537250035496276e-07,
+      "1.0": 6.976901352078324e-07
+    },
+    "records": 7809,
+    "stable_at_minus0p1": 6663,
+    "unique_elements": 81,
+    "unique_reduced_formulas": 6886,
+    "unstable_at_minus0p1": 1146
+  },
+  "inventory": {
+    "cifs": 8221,
+    "label_mismatches": 0,
+    "labels": 8221,
+    "missing_cifs": 0,
+    "records": 8221,
+    "roles": {
+      "checkpoint_validation": 411,
+      "gradient_train": 7809,
+      "unused_rounding": 1
+    }
+  },
+  "qualification": {
+    "content_integrity": "pass",
+    "sealed_boundary": "pass",
+    "upstream_manifest_digest": "open"
+  },
+  "schema_version": "1.0",
+  "scope": "training-visible PhononScore DFT post-training source",
+  "sealed_boundary": {
+    "expected_directories": [
+      "validation_mp20",
+      "test_mp20",
+      "test_dft_pbe"
+    ],
+    "extracted_directories": [],
+    "passes": true
+  },
+  "source_files": {
+    "config_sha256": "4ee6851af0fe04cdafd3d2a6b7fb9197e0da8272d42c9c043313134b8ccba3ed",
+    "labels_sha256": "735f0033f730aa52801d3242da85d3dfcbad87247e115fd4ac66f1adab97ba47",
+    "manifest_sha256": "a4a461c887417e8d3ac8a3f67b4212cfd71ce9c0a2b9bf5ba40d1e503e26d228",
+    "upstream_declared_manifest_sha256": "9c7bde2da1d5dca8a9513f4dc8f62a331e6f68eb9fd8eaf190f951696bde6f13",
+    "upstream_manifest_digest_matches": false
+  }
+}
