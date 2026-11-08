@@ -15,8 +15,8 @@
   },
   "endpoint": {
     "host": "127.0.0.1",
-    "port": 8000,
-    "api_base": "http://127.0.0.1:8000/v1",
+    "port": 8010,
+    "api_base": "http://127.0.0.1:8010/v1",
     "external_network_exposure": false
   },
   "required_launch_configuration": {

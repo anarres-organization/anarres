@@ -7,11 +7,11 @@
   "config": "config.toml",
   "config_sha256": "b0799ba5b2fa9255c2716f3fc1c6c2269868ae76590d4e5d9b6ecbf43d001aa4",
   "agent": "agents/lean.toml",
-  "agent_sha256": "9d42875a8a0880dc138a02805522e85ec250f224cb138fcd56c76ca2bff22072",
+  "agent_sha256": "becb606d85a0bedceb0457fe02fabba47ca1b07d06ed860e5f4ed015159f2781",
   "qualification_prompt": "qualification-prompt.txt",
   "qualification_prompt_sha256": "ac3c4468842f6d2e526a26956ad093407f4c7656a1c9fa5801bf9dc2e2d2e0c4",
   "system_prompt_sha256": "bc6896006db187401719dcb4a45b150fc6753db31d07bfee8a26531314d8dd21",
-  "api_base": "http://127.0.0.1:8000/v1",
+  "api_base": "http://127.0.0.1:8010/v1",
   "model_alias": "leanstral",
   "tool_allowlist": [
     "bash",

@@ -15,6 +15,7 @@ import tempfile
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 from urllib.request import urlopen
 
 from materialize_probe_task import tree_digest
@@ -335,10 +336,13 @@ def main() -> None:
 
             api_base = inference["endpoint"]["api_base"]
             host_ready = host_inference_ready(api_base)
+            inference_endpoint = urlparse(api_base)
+            if inference_endpoint.port is None:
+                raise QualificationError("inference endpoint has no explicit port")
             local_program = (
                 "import socket,sys; "
                 "s=socket.socket(); s.settimeout(1); "
-                "\ntry:\n s.connect(('127.0.0.1',8000)); sys.exit(1)\n"
+                f"\ntry:\n s.connect(('127.0.0.1',{inference_endpoint.port})); sys.exit(1)\n"
                 "except OSError:\n sys.exit(0)"
             )
             local = execute(socket_path, f"python3 -c {shlex.quote(local_program)}", 6, 5)

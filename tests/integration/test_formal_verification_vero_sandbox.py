@@ -297,7 +297,7 @@ class VeroControllerLockTest(unittest.TestCase):
             agent_path = copied_root / "agents" / "lean.toml"
             agent_path.write_text(
                 agent_path.read_text(encoding="utf-8").replace(
-                    "http://127.0.0.1:8000/v1", "https://example.invalid/v1"
+                    "http://127.0.0.1:8010/v1", "https://example.invalid/v1"
                 ),
                 encoding="utf-8",
             )
@@ -340,7 +340,7 @@ class VeroInferenceContractTest(unittest.TestCase):
                 "--host",
                 "127.0.0.1",
                 "--port",
-                "8000",
+                str(INFERENCE_CONTRACT["endpoint"]["port"]),
                 "--max-model-len",
                 "200000",
                 "--tensor-parallel-size",

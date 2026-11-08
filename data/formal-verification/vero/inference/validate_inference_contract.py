@@ -7,6 +7,7 @@ import argparse
 import json
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 
 class InferenceContractError(ValueError):
@@ -25,9 +26,12 @@ def validate(contract: dict[str, Any], *, protocol_path: Path, controller_lock_p
     }:
         raise InferenceContractError("model identity disagrees with the probe protocol")
     endpoint = contract["endpoint"]
+    controller_endpoint = urlparse(controller["api_base"])
+    if controller_endpoint.port is None:
+        raise InferenceContractError("controller endpoint has no explicit port")
     if endpoint != {
         "host": "127.0.0.1",
-        "port": 8000,
+        "port": controller_endpoint.port,
         "api_base": controller["api_base"],
         "external_network_exposure": False,
     }:

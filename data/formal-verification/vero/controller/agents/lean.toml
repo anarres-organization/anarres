@@ -7,7 +7,7 @@ active_model = "leanstral"
 
 [[providers]]
 name = "vllm"
-api_base = "http://127.0.0.1:8000/v1"
+api_base = "http://127.0.0.1:8010/v1"
 api_key_env_var = ""
 backend = "generic"
 reasoning_field_name = "reasoning_content"
