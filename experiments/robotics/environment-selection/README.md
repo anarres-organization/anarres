@@ -10,6 +10,7 @@ choice between robot-learning datasets.
 | [Prospective PushT panel](prospective-pusht/README.md) | Three equal-episode subsets, three training seeds, fixed closed-loop evaluation | The frozen abstention set contained the observed best arm | The uncertainty-aware decision was safe in this panel |
 | [Retrospective cross-source analysis](retrospective-bridge/README.md) | 31 retrospective panels, 111 candidate arms, eight task contexts | Practical rule: 65.4% pair ordering and 0.272 normalized regret | Interpretable measurements are promising. The fitted model is not yet incrementally useful. |
 | [External checks](external-checks/README.md) | GUILD real-robot transport, SOLE-R1 reward-model falsification, and GreenBall initiation probe | Policy-responsive collection transfers, trajectory correlation alone fails, and initiation risk is measurable offline | Positive, negative, and mechanism-specific evidence must be reported together |
+| [Prospective closed-loop curation](prospective-cupid-can/README.md) | Frozen RoboMimic Can protocol with target-sensitive influence, coverage, and practical controls | Measurement stage in progress; candidate-policy outcomes unopened | Tests whether the next decision improves beyond full-data, random, and length-based controls |
 
 ## Decision workflow
 

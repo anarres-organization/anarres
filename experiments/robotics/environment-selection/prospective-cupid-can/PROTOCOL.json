@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "study_id": "prospective_cupid_can_v1",
+  "status": "MEASUREMENT_PROTOCOL_FROZEN__CANDIDATE_OUTCOMES_UNOPENED",
+  "source": {
+    "task": "can",
+    "dataset_type": "multi_human_low_dim",
+    "demonstrations": 300,
+    "dataset_sha256": "48353c1220d1bb1d586283d6271ba0ffa24b05236e491f93ed33c8f97af327f1",
+    "policy_family": "robomimic_diffusion_policy"
+  },
+  "chronology": {
+    "stage_1": "freeze measurement, construction, training, and evaluation rules",
+    "stage_2": "generate closed-loop scoring rollouts and CUPID influence without candidate-policy outcomes",
+    "stage_3": "serialize candidate memberships, measurements, recommendation, and hashes",
+    "stage_4": "train and evaluate every candidate arm and seed",
+    "stage_5": "open outcomes only after completeness and identity checks pass"
+  },
+  "measurement": {
+    "scoring_checkpoint_seeds": [1, 2, 3],
+    "rollouts_per_checkpoint": 100,
+    "rollout_seed": 0,
+    "horizon": 400,
+    "return_labels": {
+      "success": 1,
+      "failure": -1
+    },
+    "influence_method": "CUPID performance influence",
+    "canonical_aggregation": "sum_of_sum-net-all",
+    "projection_dimension": 4000,
+    "projection_seed": 0,
+    "checkpoint_merge": "mean per-demonstration rank across the three scoring checkpoints",
+    "reliability_gate": {
+      "requires_finite_scores": true,
+      "requires_success_and_failure_rollouts_per_checkpoint": true,
+      "minimum_mean_pairwise_spearman": 0.2,
+      "minimum_mean_pairwise_top_half_jaccard": 0.33
+    }
+  },
+  "candidates": [
+    {
+      "id": "all_data",
+      "count": 300,
+      "construction": "all demonstrations"
+    },
+    {
+      "id": "random_50",
+      "count": 150,
+      "construction": "numpy.random.default_rng(0).choice(300, 150, replace=False)"
+    },
+    {
+      "id": "length_50",
+      "count": 150,
+      "construction": "150 shortest demonstrations under the official episode-length score"
+    },
+    {
+      "id": "cupid_50",
+      "count": 150,
+      "construction": "150 highest merged CUPID ranks"
+    },
+    {
+      "id": "cupid_tier_balanced_50",
+      "count": 150,
+      "construction": "50 highest merged CUPID ranks within each of the better, okay, and worse operator tiers"
+    }
+  ],
+  "tie_breaking": "ascending numeric demonstration id",
+  "decision": {
+    "point_prediction_if_gate_passes": "cupid_tier_balanced_50",
+    "primary_comparators": [
+      "all_data",
+      "random_50",
+      "length_50",
+      "cupid_50"
+    ],
+    "if_gate_fails": "ABSTAIN_MEASUREMENT_UNRELIABLE",
+    "no_outcome_driven_revision": true
+  },
+  "training": {
+    "seeds": [1101, 1102, 1103, 1104, 1105],
+    "epochs": 100,
+    "steps_per_epoch": 500,
+    "batch_size": 256,
+    "equal_optimizer_steps_across_arms": true,
+    "checkpoint_rule": "final checkpoint",
+    "hardware_rule": "one fixed GPU type and software environment across all candidate runs",
+    "adaptive_stopping": false
+  },
+  "evaluation": {
+    "rollouts_per_policy": 100,
+    "horizon": 400,
+    "environment_seed": 424242,
+    "terminate_on_success": true,
+    "primary_outcome": "closed_loop_success_rate",
+    "primary_unit": "training_seed",
+    "paired_initial_conditions_across_arms": true
+  },
+  "scoring": {
+    "primary": [
+      "allocation_regret_of_frozen_point_prediction",
+      "pairwise_candidate_ordering",
+      "mean_success_rate_by_arm"
+    ],
+    "uncertainty": [
+      "seed_level_outcomes",
+      "paired_seed_contrasts",
+      "whole_seed_bootstrap_intervals"
+    ],
+    "guardrails": [
+      "training_failures",
+      "rollout_exceptions",
+      "measurement_gpu_hours",
+      "training_gpu_hours",
+      "evaluation_gpu_hours"
+    ]
+  },
+  "release_gate": {
+    "expected_candidate_runs": 25,
+    "expected_evaluation_episodes": 2500,
+    "require_all_arms_and_seeds": true,
+    "require_membership_hashes": true,
+    "require_checkpoint_hashes": true,
+    "require_outcome_file_hashes": true
+  },
+  "prohibitions": [
+    "inspecting candidate-policy outcomes before the release gate passes",
+    "changing candidates or prediction after candidate training begins",
+    "replacing failed seeds based on their outcomes",
+    "treating evaluation episodes as independent training interventions"
+  ]
+}
+
