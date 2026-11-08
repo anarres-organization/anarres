@@ -351,6 +351,26 @@ class VeroRepetitionDesignTest(unittest.TestCase):
 
 
 class VeroProbeQueueTest(unittest.TestCase):
+    def test_grader_wrappers_use_the_qualified_image_without_network(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source"
+            wrappers = root / "wrappers"
+            source.mkdir()
+            environment = QUEUE_ITEM.build_grader_environment(
+                wrappers,
+                docker=sys.executable,
+                image="sha256:" + "a" * 64,
+                source=source,
+            )
+            lake = (wrappers / "lake").read_text(encoding="utf-8")
+        self.assertIn("--network none", lake)
+        self.assertIn("--read-only", lake)
+        self.assertIn("--cap-drop ALL", lake)
+        self.assertIn("sha256:" + "a" * 64, lake)
+        self.assertIn(str(source), lake)
+        self.assertEqual(environment["PATH"].split(":", 1)[0], str(wrappers))
+
     def test_frozen_queue_matches_the_protocol_and_panel(self) -> None:
         expected = QUEUE.build_queue(
             PROBE_PROTOCOL,
@@ -500,7 +520,7 @@ a=p.parse_args(); Path(a.output).mkdir()
                 "--image",
                 "fixture@sha256:" + "a" * 64,
                 "--docker",
-                "docker",
+                sys.executable,
                 "--materializer",
                 str(materializer),
                 "--attempt-runner",

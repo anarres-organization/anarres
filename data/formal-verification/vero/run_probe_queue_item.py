@@ -6,6 +6,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
+import shlex
+import shutil
 import subprocess
 import sys
 from datetime import UTC, datetime
@@ -46,17 +49,65 @@ def validate_queue_contract(
         raise QueueItemError("queue disagrees with the development panel")
 
 
-def run_stage(name: str, command: list[str], root: Path) -> dict[str, Any]:
+def run_stage(
+    name: str,
+    command: list[str],
+    root: Path,
+    *,
+    environment: dict[str, str] | None = None,
+) -> dict[str, Any]:
     log_path = root / f"{name}.log"
     started = datetime.now(UTC).isoformat()
     with log_path.open("wb") as log:
-        result = subprocess.run(command, check=False, stdout=log, stderr=subprocess.STDOUT)
+        result = subprocess.run(
+            command,
+            check=False,
+            stdout=log,
+            stderr=subprocess.STDOUT,
+            env=environment,
+        )
     return {
         "stage": name,
         "started_at": started,
         "ended_at": datetime.now(UTC).isoformat(),
         "return_code": result.returncode,
         "log": log_path.name,
+    }
+
+
+def build_grader_environment(
+    destination: Path, *, docker: str, image: str, source: Path
+) -> dict[str, str]:
+    docker_path = shutil.which(docker)
+    if docker_path is None:
+        raise QueueItemError("grader cannot resolve the qualified container runtime")
+    destination.mkdir(mode=0o700)
+    source = source.resolve(strict=True)
+    common = " ".join(
+        [
+            shlex.quote(docker_path),
+            "run --rm --network none --read-only --cap-drop ALL",
+            "--security-opt no-new-privileges --pids-limit 512",
+            f"--user {os.getuid()}:{os.getgid()}",
+            "--tmpfs /tmp:rw,noexec,nosuid,nodev",
+            "--env HOME=/tmp --env ELAN_HOME=/opt/elan",
+            '--mount "type=bind,src=$PWD,dst=$PWD"',
+            f"--mount {shlex.quote(f'type=bind,src={source},dst={source},readonly')}",
+            '--workdir "$PWD"',
+            shlex.quote(image),
+        ]
+    )
+    for tool in ("lake", "lean"):
+        wrapper = destination / tool
+        wrapper.write_text(
+            f'#!/bin/sh\nset -eu\nexec {common} /opt/elan/bin/{tool} "$@"\n',
+            encoding="utf-8",
+        )
+        wrapper.chmod(0o700)
+    return {
+        "HOME": "/tmp",
+        "LANG": "C.UTF-8",
+        "PATH": f"{destination}:/usr/local/bin:/usr/bin:/bin",
     }
 
 
@@ -155,7 +206,6 @@ def main() -> None:
         "status": "running",
         "stages": [],
     }
-
     commands = [
         (
             "validate-protocol",
@@ -342,14 +392,29 @@ def main() -> None:
         ),
     ]
     try:
+        grader_environment = build_grader_environment(
+            root / "grader-runtime",
+            docker=args.docker,
+            image=args.image,
+            source=args.source,
+        )
         for name, command in commands:
-            stage = run_stage(name, command, root)
+            stage = run_stage(
+                name,
+                command,
+                root,
+                environment=grader_environment if name == "grade" else None,
+            )
             receipt["stages"].append(stage)
             if stage["return_code"] != 0:
                 receipt["status"] = "failed_unclassified"
                 raise QueueItemError(f"{name} failed; inspect {stage['log']}")
         receipt["status"] = "graded"
         receipt["grade_receipt_sha256"] = digest(grade_output / "grade-receipt.json")
+    except Exception:
+        if receipt["status"] == "running":
+            receipt["status"] = "failed_unclassified"
+        raise
     finally:
         receipt["ended_at"] = datetime.now(UTC).isoformat()
         receipt_path.write_text(
