@@ -34,6 +34,13 @@ that one selector is generally superior. The retrospective analysis finds that a
 simple practical rule beats an uninformed choice, while a fitted linear model
 does not yet add reliable value under held-out-context evaluation.
 
+The next [prospective closed-loop curation
+panel](environment-selection/prospective-cupid-can/README.md) is now frozen at
+the measurement stage. It uses success-labelled policy rollouts to construct a
+new candidate bank, then tests one recommendation against full-data, random,
+length-based, and unconstrained influence controls under matched training and
+evaluation budgets.
+
 ## What is measured
 
 The current representation keeps the following concepts separate:

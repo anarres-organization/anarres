@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-phonon-environment-selection",
+  "source_repository": {
+    "url": "https://github.com/xqh19970407/PhononScore",
+    "commit": "e9262cfae0feedb4232602df28b02049923ef228",
+    "commit_date": "2026-11-05T19:45:14+09:00",
+    "code_license": "MIT",
+    "bundled_alignn_license": "See the upstream third_party/alignn-main license"
+  },
+  "dataset": {
+    "name": "PhononScore data splits 20261104",
+    "archive_url": "https://media.githubusercontent.com/media/xqh19970407/PhononScore/main/data/PhononScore_data_splits_20261104.zip",
+    "archive_sha256": "848f9a916bb75fff4e2911045e6d82c55c6765fd003758b2884602a58f0350ee",
+    "historical_record": "https://doi.org/10.5281/zenodo.21157982",
+    "dataset_license_status": "No standalone dataset license was stated on the inspected release pages; source data are not redistributed by Anarres.",
+    "upstream_data_attribution": "Materials Project core data are described by Materials Project as CC BY 4.0; contributed data may retain separate terms."
+  },
+  "local_use_boundary": {
+    "extracted": [
+      "dft_posttrain",
+      "splits/dft_posttrain_internal_ids.json",
+      "splits/split_audit.json",
+      "splits/summary.json"
+    ],
+    "sealed": [
+      "validation_mp20",
+      "test_mp20",
+      "test_dft_pbe"
+    ],
+    "external_labels_inspected_for_this_study": false
+  },
+  "qualification": {
+    "archive_checksum": "pass",
+    "training_manifest_content": "pass",
+    "role_counts": "pass",
+    "training_label_join": "pass",
+    "cif_inventory": "pass",
+    "upstream_manifest_digest_match": "open",
+    "dataset_redistribution_license": "open",
+    "starting_checkpoint_reproduction": "open",
+    "candidate_freeze": "open"
+  }
+}

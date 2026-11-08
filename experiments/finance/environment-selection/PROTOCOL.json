@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "study_id": "prospective_finance_environment_selection_v1",
+  "status": "SOURCE_QUALIFICATION_COMPLETE__PROSPECTIVE_CONTRACT_NOT_FROZEN",
+  "question": "Which finance-task distribution produces the greatest held-out executable improvement under matched training and control budgets?",
+  "source": {
+    "primary": "business_bench",
+    "revision": "0d09882b59a16f190feac09abc9331a733a6f96b",
+    "qualified_workflows": [
+      "freight-accrual-revision",
+      "month-end-close",
+      "payment-run",
+      "payment-run-need-to-know"
+    ]
+  },
+  "partitions": {
+    "development": "generator and harness validation only",
+    "candidate": "disjoint generated scenarios used for starting-policy measurement and candidate construction",
+    "held_out": "secret generated scenarios committed before training and inaccessible to construction"
+  },
+  "required_candidates": [
+    "source_proportional",
+    "static_difficulty_size_matched",
+    "policy_relative_usable_signal",
+    "policy_relative_usable_signal_with_workflow_coverage"
+  ],
+  "candidate_measurements": [
+    "valid_execution_rate",
+    "starting_policy_success",
+    "within_task_outcome_variation",
+    "usable_signal_per_generated_token",
+    "effective_task_coverage",
+    "tool_calls",
+    "material_control_violation_rate"
+  ],
+  "primary_outcome": "held_out_executable_task_completion",
+  "decision_outputs": [
+    "allocation_regret",
+    "pairwise_candidate_ordering",
+    "mean_held_out_completion_by_arm",
+    "abstention_when_predicted_margins_do_not_exceed_uncertainty"
+  ],
+  "guardrails": [
+    "ledger_and_subledger_consistency",
+    "approval_policy_violations",
+    "unauthorized_bank_detail_changes",
+    "held_invoice_payment_violations",
+    "unauthorized_state_changes",
+    "evidence_provenance",
+    "cross_artifact_consistency"
+  ],
+  "cost_accounting": [
+    "measurement_generated_tokens",
+    "measurement_tool_calls",
+    "training_generated_tokens",
+    "training_tool_calls",
+    "evaluation_generated_tokens",
+    "evaluation_tool_calls",
+    "wall_time"
+  ],
+  "freeze_requirements": [
+    "starting policy and agent harness",
+    "salted candidate and held-out seed commitments",
+    "candidate memberships and tie breaking",
+    "training algorithm and matched budget",
+    "prediction and abstention rule",
+    "evaluation checks and material-control guardrails",
+    "training seeds and completeness gate"
+  ],
+  "chronology": [
+    "qualify sources and workflow generators",
+    "freeze the starting policy, harness, partitions, and measurement contract",
+    "measure candidate scenarios without trained-policy outcomes",
+    "serialize candidate memberships, prediction, abstention rule, and content commitments",
+    "train and evaluate every required arm and seed",
+    "open held-out outcomes only after completeness and identity audits pass"
+  ],
+  "prohibitions": [
+    "using held-out outcomes to construct candidates",
+    "inspecting trained-policy outcomes before the release gate passes",
+    "changing candidate membership or prediction after training begins",
+    "replacing failed seeds based on scientific outcomes",
+    "converting infrastructure failures into financial task failures",
+    "pooling accounting, research, and authority-bearing outcomes into one score"
+  ],
+  "unresolved_before_freeze": [
+    "starting policy",
+    "training algorithm",
+    "candidate and held-out seed identities",
+    "candidate sizes",
+    "training seeds and budget",
+    "uncertainty threshold",
+    "complete evaluation checklist"
+  ]
+}

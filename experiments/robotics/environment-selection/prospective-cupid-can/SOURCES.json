@@ -1,0 +1,34 @@
+{
+  "sources": [
+    {
+      "name": "CuraEval",
+      "url": "https://github.com/jiuyixu25/CuraEval",
+      "revision": "bd94bbbd435c1ef55edfe244894e5468f3a5df2b",
+      "license": "MIT",
+      "use": "candidate training, evaluation, and CUPID port"
+    },
+    {
+      "name": "CUPID",
+      "url": "https://github.com/agiachris/cupid",
+      "revision": "2941eba9427a3398d3cbe26b10c01e3ece56bd18",
+      "license": "MIT",
+      "use": "performance-influence definition and reference implementation"
+    },
+    {
+      "name": "robomimic",
+      "url": "https://github.com/ARISE-Initiative/robomimic",
+      "revision": "d309eaecc18acf4152a830a895a6984b8ac71b05",
+      "license": "MIT",
+      "use": "policy, simulator integration, and dataset tooling"
+    },
+    {
+      "name": "RoboMimic Can multi-human low-dimensional dataset",
+      "url": "https://huggingface.co/datasets/robomimic/robomimic_datasets",
+      "revision": "e049c25b069296d0385a56217c8f671e655b676c",
+      "path": "v1.5/can/mh/low_dim_v15.hdf5",
+      "sha256": "48353c1220d1bb1d586283d6271ba0ffa24b05236e491f93ed33c8f97af327f1",
+      "redistribution": "not included; download from the official source"
+    }
+  ]
+}
+
