@@ -27,6 +27,11 @@ tests whether task and workflow structure available before continued training
 can flag later regressions when the complete target practice area is excluded
 from model fitting.
 
+The [LAB candidate-set study](lab-candidate-selection/README.md) prepares a
+matched training comparison on a held-out legal target. Its published source
+audit screens task identities and scenario families. Candidate training and
+prospective scoring have not yet been performed.
+
 Together, these studies exercise both sides of environment qualification:
 ranking candidate training mixtures and identifying downstream regression
 risk. The results support the workflow while preserving uncertainty when the
