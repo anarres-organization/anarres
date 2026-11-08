@@ -344,9 +344,9 @@ class VeroInferenceContractTest(unittest.TestCase):
                 "--max-model-len",
                 "200000",
                 "--tensor-parallel-size",
-                "4",
+                "2",
                 "--attention-backend",
-                "FLASH_ATTN_MLA",
+                "FLASHINFER_MLA",
                 "--tool-call-parser",
                 "mistral",
                 "--reasoning-parser",
@@ -354,6 +354,18 @@ class VeroInferenceContractTest(unittest.TestCase):
                 "--served-model-name",
                 "mistralai/Leanstral-1.5-119B-A6B",
                 "--enable-auto-tool-choice",
+                "--tokenizer-mode",
+                "mistral",
+                "--config-format",
+                "mistral",
+                "--load-format",
+                "safetensors",
+                "--seed",
+                "42",
+                "--enforce-eager",
+                "--language-model-only",
+                "--kernel-config",
+                '{"enable_flashinfer_autotune": false, "enable_cutedsl_warmup": false, "enable_jit_warmup": false}',
                 "--gpu-memory-utilization",
                 "0.92",
                 "--max-num-seqs",
@@ -364,6 +376,18 @@ class VeroInferenceContractTest(unittest.TestCase):
             observed = INFERENCE_QUALIFICATION.validate_live_command(
                 command, INFERENCE_CONTRACT, model
             )
+            without_text_only = [item for item in command if item != "--language-model-only"]
+            with self.assertRaises(INFERENCE_QUALIFICATION.DeploymentQualificationError):
+                INFERENCE_QUALIFICATION.validate_live_command(
+                    without_text_only, INFERENCE_CONTRACT, model
+                )
+            wrong_kernel = command.copy()
+            kernel_index = wrong_kernel.index("--kernel-config") + 1
+            wrong_kernel[kernel_index] = "{}"
+            with self.assertRaises(INFERENCE_QUALIFICATION.DeploymentQualificationError):
+                INFERENCE_QUALIFICATION.validate_live_command(
+                    wrong_kernel, INFERENCE_CONTRACT, model
+                )
         self.assertEqual(observed["gpu_memory_utilization"], 0.92)
         self.assertEqual(observed["max_num_seqs"], 8)
 

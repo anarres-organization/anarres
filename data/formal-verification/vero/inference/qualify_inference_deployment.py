@@ -161,8 +161,19 @@ def validate_live_command(
     require_flag(command, "--tool-call-parser", required["tool_call_parser"])
     require_flag(command, "--reasoning-parser", required["reasoning_parser"])
     require_flag(command, "--served-model-name", required["served_model_name"])
+    require_flag(command, "--tokenizer-mode", required["tokenizer_mode"])
+    require_flag(command, "--config-format", required["config_format"])
+    require_flag(command, "--load-format", required["load_format"])
+    require_flag(command, "--seed", str(required["seed"]))
+    kernel_config = flag_value(command, "--kernel-config")
+    if kernel_config is None or json.loads(kernel_config) != required["kernel_config"]:
+        raise DeploymentQualificationError("live process has the wrong kernel configuration")
     if "--enable-auto-tool-choice" not in command:
         raise DeploymentQualificationError("live process lacks --enable-auto-tool-choice")
+    if required["enforce_eager"] and "--enforce-eager" not in command:
+        raise DeploymentQualificationError("live process lacks --enforce-eager")
+    if required["language_model_only"] and "--language-model-only" not in command:
+        raise DeploymentQualificationError("live process lacks --language-model-only")
     if Path(model_argument(command)).resolve(strict=True) != model_root:
         raise DeploymentQualificationError("live process serves a different local model artifact")
     gpu_memory = flag_value(command, "--gpu-memory-utilization")

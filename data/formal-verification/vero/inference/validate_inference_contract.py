@@ -42,12 +42,23 @@ def validate(contract: dict[str, Any], *, protocol_path: Path, controller_lock_p
         raise InferenceContractError("vLLM minimum version disagrees with the model card")
     expected_launch = {
         "max_model_len": 200000,
-        "tensor_parallel_size": 4,
-        "attention_backend": "FLASH_ATTN_MLA",
+        "tensor_parallel_size": 2,
+        "attention_backend": "FLASHINFER_MLA",
         "tool_call_parser": "mistral",
         "enable_auto_tool_choice": True,
         "reasoning_parser": "mistral",
         "served_model_name": starting_policy["model_id"],
+        "tokenizer_mode": "mistral",
+        "config_format": "mistral",
+        "load_format": "safetensors",
+        "seed": 42,
+        "enforce_eager": True,
+        "language_model_only": True,
+        "kernel_config": {
+            "enable_flashinfer_autotune": False,
+            "enable_cutedsl_warmup": False,
+            "enable_jit_warmup": False,
+        },
         "model_source_offline_after_resolution": True,
     }
     if contract["required_launch_configuration"] != expected_launch:

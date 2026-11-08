@@ -1,10 +1,13 @@
 # Local Leanstral inference contract
 
 This directory freezes the model-serving requirements for the Vero starting-policy
-probe. The required arguments follow the official Leanstral model card: a
-200,000-token context, tensor parallelism across four devices, the
-`FLASH_ATTN_MLA` backend, Mistral tool-call and reasoning parsers, and automatic
-tool choice. The server binds only to loopback and uses the exact model revision
+probe. The model, 200,000-token context, Mistral tool-call and reasoning parsers,
+and automatic tool choice follow the official Leanstral model card. The Blackwell
+deployment contract uses tensor parallelism across two B200 devices and vLLM's
+`FLASHINFER_MLA` backend because the card's `FLASH_ATTN_MLA` backend is not
+available for this architecture. It disables multimodal inputs because the probe
+is text-only, runs eager execution, and disables optional kernel warmup and
+autotuning. The server binds only to loopback and uses the exact model revision
 recorded by the probe protocol.
 
 [`inference-contract.v1.json`](inference-contract.v1.json) intentionally leaves
