@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Freeze one MolGenBench target from outcome-free fixture qualification."""
+"""Freeze one MolGenBench target without post-training outcome access."""
 
 from __future__ import annotations
 
@@ -15,6 +15,10 @@ ALLOWED_TARGET_KEYS = {
     "pocket_integrity",
     "ligand_fixture_integrity",
     "oracle_input_integrity",
+    "oracle_repeatability",
+    "reference_control_validity",
+    "starting_policy_validity",
+    "starting_policy_headroom",
     "exclusion_reasons",
 }
 REQUIRED_PASS_FIELDS = {
@@ -22,6 +26,10 @@ REQUIRED_PASS_FIELDS = {
     "pocket_integrity",
     "ligand_fixture_integrity",
     "oracle_input_integrity",
+    "oracle_repeatability",
+    "reference_control_validity",
+    "starting_policy_validity",
+    "starting_policy_headroom",
 }
 
 

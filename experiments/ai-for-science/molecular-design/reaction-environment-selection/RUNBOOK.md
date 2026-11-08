@@ -36,10 +36,11 @@ python scripts/audit_molgenbench_archive.py \
   --out /tmp/MOLGENBENCH_ARCHIVE_AUDIT.json
 ```
 
-Select one target by the outcome-blind hash rule in `PROTOCOL.json` after every
-eligible target passes file-integrity and oracle-input checks. Serialize the
-eligible target IDs, selection hash, selected identity, and all exclusion
-reasons.
+Run the same small starting-policy probe on every source-valid target. Select
+one target by the outcome-blind hash rule in `PROTOCOL.json` after each eligible
+target passes file integrity, oracle repeatability, reference-control behavior,
+starting-policy validity, and pre-RL headroom. Serialize the eligible target
+IDs, selection hash, selected identity, and all exclusion reasons.
 
 Create an outcome-free qualification file using only the fields accepted by
 `freeze_target.py`, then freeze the identity:

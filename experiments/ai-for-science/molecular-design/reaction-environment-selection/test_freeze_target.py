@@ -19,6 +19,10 @@ def target(target_id: str, status: str = "pass") -> dict[str, object]:
         "pocket_integrity": status,
         "ligand_fixture_integrity": status,
         "oracle_input_integrity": status,
+        "oracle_repeatability": status,
+        "reference_control_validity": status,
+        "starting_policy_validity": status,
+        "starting_policy_headroom": status,
         "exclusion_reasons": [] if status == "pass" else ["fixture failed"],
     }
 

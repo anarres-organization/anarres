@@ -22,7 +22,7 @@
   },
   "target": {
     "source": "MolGenBench Version4",
-    "selection": "Select one target by ascending SHA-256 of reaction-environment-selection-v1|target_id among targets that pass the frozen fixture and oracle gates.",
+    "selection": "Select one target by ascending SHA-256 of reaction-environment-selection-v1|target_id among targets that pass the frozen fixture, oracle-repeatability, reference-control, starting-policy validity, and pre-RL headroom gates.",
     "selection_uses_outcomes": false,
     "reference_active_outcomes_sealed_until_scoring": true,
     "identity_status": "open until dataset qualification"
