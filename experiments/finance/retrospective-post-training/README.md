@@ -24,7 +24,8 @@ public studies:
 Each row is one reported trained intervention or its starting-policy control.
 Targets within a row remain nested outcomes rather than independent training
 runs. The source registry records the exact paper version, title, authors, and
-table used.
+table used. [`SCREENING.md`](SCREENING.md) records relevant studies that were
+not admitted and the evidence needed to reconsider them.
 
 ## Normalization and model
 
