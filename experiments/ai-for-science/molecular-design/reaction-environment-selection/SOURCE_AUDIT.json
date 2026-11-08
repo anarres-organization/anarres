@@ -3,10 +3,13 @@
     "commit": "f7b6cec1892cb575dc3adee4f5a71ee16ef04c39",
     "dataset_archive_inspected": false,
     "evaluation_outcomes_inspected": false,
+    "listed_target_ids": 120,
+    "listed_target_ids_sha256": "cd3b7b1e1b1eb99feec252b9490e672ed310b5f223c6ca1f4e6626a73c688ef1",
     "qualification": "code_pass_dataset_open",
     "qualified_file_sha256": {
       "LICENSE": "8368ede93fd8291c7d8bcaea57956bdcef0f7c3f13a7e9c657d303f37bbdd18c",
       "eval.py": "f50a488a2c498184b385b2a81428122c8c31640f20b632cdd7b5d2348600eb1e",
+      "sup_info/MolGenBench_UniprotIDS.txt": "b748d5d6265a73c4045b5d9ae766eb80649e33aa97fe9104c360eec2903c8a77",
       "test_evaluator.py": "990d938354e4b0732a259bf47bed6c9a14dea2507dc14ac1898ecce469113cb4",
       "vina_docking.py": "2b49b8f407a8a4ff6e00e66bff3e773cd70f80038894976c04ee82070cf68545"
     },

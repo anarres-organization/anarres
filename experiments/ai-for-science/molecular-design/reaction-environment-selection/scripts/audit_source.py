@@ -115,10 +115,21 @@ def audit_molgenbench(repository: Path, source: dict[str, object]) -> dict[str, 
     )
     if fixture_targets != ["O14757", "Q92769"]:
         raise ValueError(f"Unexpected MolGenBench test targets: {fixture_targets}")
+    listed_targets = [
+        line.strip()
+        for line in (repository / "sup_info/MolGenBench_UniprotIDS.txt")
+        .read_text(encoding="utf-8")
+        .splitlines()
+        if line.strip()
+    ]
+    if len(listed_targets) != 120 or len(set(listed_targets)) != 120:
+        raise ValueError("MolGenBench target list must contain 120 unique identities")
     return {
         "commit": observed_commit,
         "qualified_file_sha256": observed_hashes,
         "test_fixture_targets": fixture_targets,
+        "listed_target_ids": len(listed_targets),
+        "listed_target_ids_sha256": hashlib.sha256("\n".join(listed_targets).encode()).hexdigest(),
         "dataset_archive_inspected": False,
         "evaluation_outcomes_inspected": False,
         "qualification": "code_pass_dataset_open",
