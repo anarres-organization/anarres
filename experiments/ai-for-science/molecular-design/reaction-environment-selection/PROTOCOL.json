@@ -22,7 +22,9 @@
   },
   "target": {
     "source": "MolGenBench Version4",
-    "selection": "Select one target by ascending SHA-256 of reaction-environment-selection-v1|target_id among targets that pass the frozen fixture, oracle-repeatability, reference-control, starting-policy validity, and pre-RL headroom gates.",
+    "qualification_panel": "Freeze eight complete target fixtures by ascending SHA-256 of reaction-target-panel-v1|target_id before reading fixture contents or running target probes.",
+    "selection": "Within the frozen eight-target panel, select one target by ascending SHA-256 of reaction-environment-selection-v1|target_id among targets that pass the frozen fixture, oracle-repeatability, reference-control, starting-policy validity, and pre-RL headroom gates.",
+    "qualification_panel_size": 8,
     "selection_uses_outcomes": false,
     "reference_active_outcomes_sealed_until_scoring": true,
     "identity_status": "open until dataset qualification"

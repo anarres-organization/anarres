@@ -41,6 +41,8 @@ def validate(protocol: dict[str, object], sources: dict[str, object]) -> list[st
         errors.append("RxnFlow commit differs from SOURCES.json")
     if source["molgenbench_commit"] != sources["molgenbench"]["commit"]:
         errors.append("MolGenBench commit differs from SOURCES.json")
+    if protocol["target"]["qualification_panel_size"] != 8:
+        errors.append("target qualification panel must contain eight identities")
 
     intervention = protocol["intervention"]
     if intervention["only_arm_specific_input"] != "experience-bank membership":

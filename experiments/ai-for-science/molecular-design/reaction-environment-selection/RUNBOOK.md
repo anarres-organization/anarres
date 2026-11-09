@@ -36,7 +36,16 @@ python scripts/audit_molgenbench_archive.py \
   --out /tmp/MOLGENBENCH_ARCHIVE_AUDIT.json
 ```
 
-Run the same small starting-policy probe on every source-valid target. Select
+Freeze an eight-target qualification panel from the complete archive inventory:
+
+```bash
+python scripts/freeze_target_panel.py \
+  --archive-audit /path/to/MOLGENBENCH_ARCHIVE_AUDIT.json \
+  --panel-size 8 \
+  --out /path/to/TARGET_PANEL_FREEZE.json
+```
+
+Run the same small starting-policy probe on every target in that panel. Select
 one target by the outcome-blind hash rule in `PROTOCOL.json` after each eligible
 target passes file integrity, oracle repeatability, reference-control behavior,
 starting-policy validity, and pre-RL headroom. Serialize the eligible target

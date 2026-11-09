@@ -49,3 +49,10 @@ def test_online_trajectories_cannot_replace_frozen_bank() -> None:
     protocol["intervention"]["rxnflow_num_replay_insert"] = 64
     errors = MODULE.validate(protocol, sources)
     assert "online trajectories cannot replace the frozen replay bank" in errors
+
+
+def test_target_qualification_panel_size_is_frozen() -> None:
+    protocol, sources = load()
+    protocol["target"]["qualification_panel_size"] = 9
+    errors = MODULE.validate(protocol, sources)
+    assert "target qualification panel must contain eight identities" in errors

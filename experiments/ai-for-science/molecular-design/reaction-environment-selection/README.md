@@ -39,9 +39,9 @@ The study advances through five gates.
 1. **Qualify the public sources.** Pin code revisions, verify construction
    fixtures, record licenses, and keep target outcomes sealed.
 2. **Qualify the target and starting policy.** Verify the MolGenBench archive,
-   validate the docking reward and common QED warm start, then select one target
-   from the source-valid, repeatable, and nondegenerate targets without using
-   post-training outcomes.
+   freeze an eight-target qualification panel, validate the docking reward and
+   common QED warm start on that panel, then select one source-valid,
+   repeatable, and nondegenerate target without using post-training outcomes.
 3. **Measure and freeze experience banks.** Generate two independent probe
    views under the starting policy, audit coordinate reliability, and serialize
    six development banks plus two prospective banks.
