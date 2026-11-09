@@ -182,6 +182,17 @@ is a candidate--target pair rather than a stage-level label. It remains
 retrospective and requires an excluded-source test. The complete record is in
 [`strict-task-level/`](strict-task-level/).
 
+That excluded-source test was frozen on numerical faithfulness in financial
+summarization. Its content-alignment prediction fails: at matched volume,
+financial QA and numeracy training raises overt hallucination from 64.6% to
+90.8%. The base model also remains much safer than finance-language adaptation.
+The result shows that content alignment must be separated from alignment with
+the target's behavioral contract, including grounding and abstention. The full
+freeze and score are in
+[`heldout-numerical-hallucination/`](heldout-numerical-hallucination/), and the
+revised research specification is
+[`TARGET_CONDITIONAL_V4.md`](TARGET_CONDITIONAL_V4.md).
+
 A derived alignment/interference coordinate does not improve the original
 sixteen-study source holdout. Against the corrected baseline, the fixed rule
 falls from 74.9% to 74.0% pairwise ordering with unchanged regret. The ridge
@@ -220,6 +231,8 @@ python scripts/analyze_target_conditional_diagnostic.py
 python -m unittest test_target_conditional_diagnostic.py
 python strict-task-level/score.py
 python -m unittest strict-task-level/test_score.py
+python heldout-numerical-hallucination/score_holdout.py
+python -m unittest heldout-numerical-hallucination/test_score.py
 ```
 
 The script writes [`results/summary.json`](results/summary.json) and a manifest

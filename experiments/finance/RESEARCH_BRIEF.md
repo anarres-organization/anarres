@@ -54,6 +54,15 @@ weighting it reaches 83.6% ordering and 0.098 regret. This is the strongest
 current evidence for a model-agnostic relationship, although it remains
 retrospective and still needs an excluded-source test.
 
+The first excluded-source test of that stricter relationship examines numerical
+faithfulness in financial summarization. Its prediction fails. Financial QA and
+numeracy training increases overt hallucination from 64.6% to 90.8% at matched
+volume, while the untouched base remains substantially safer than either
+finance-adapted model. This result separates content alignment from alignment
+with the target's behavioral contract. A revised representation now records
+grounding, abstention, and output constraints explicitly before another source
+is tested.
+
 The evidence suggests that task alignment, reasoning-data quality, capability
 retention, verifier design, policy-relative difficulty, and data composition
 carry more decision information than volume alone. Because every outcome was
