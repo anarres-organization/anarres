@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_REPRESENTATION_EXCLUDED_SOURCE",
+  "representation": {
+    "name": "capability-contract finance transfer representation v4",
+    "path": "../TARGET_CONDITIONAL_V4.md",
+    "commit_before_source_entry": "70b6bb6",
+    "source_used_for_representation_design": false
+  },
+  "chronology": {
+    "representation_frozen_before_source_entry": true,
+    "source_public_before_scoring": true,
+    "outcome_blind_source_extraction": false,
+    "claim_label": "retrospective excluded-source test of a pre-existing representation"
+  },
+  "predictions": {
+    "deterministic_tools": "Tools aligned with numerical execution, retrieval, visual decoding, and answer verification should improve every target that requires those operations.",
+    "conditional_experience": "Relevant strategies and failure-derived cautions should improve the tool-augmented agent when retrieval is conditioned on task similarity and can fall back safely.",
+    "memory_fields": "The complete memory contract should rank first, followed by experience without query-specific directives, directives without experience, question-and-answer references, and question-only references.",
+    "model_transfer": "The direction should transfer across backbones because the representation describes the task and intervention contract rather than model identity."
+  },
+  "scoring": {
+    "unit": "source-native controlled decision panel",
+    "pairwise_ties": "abstain",
+    "regret": "within-panel normalized regret",
+    "independence_guardrail": "Rows nested within this paper are not counted as independent studies."
+  }
+}

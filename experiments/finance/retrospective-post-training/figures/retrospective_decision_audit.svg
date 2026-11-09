@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="500" viewBox="0 0 1040 500" role="img" aria-labelledby="title description">
+<title id="title">Retrospective finance environment-selection audit</title>
+<desc id="description">The quality-aware rule chooses ten of twelve reported winners with low regret. Leave-one-study-out ridge chooses eight, while selecting the arm with more training chooses six.</desc>
+<rect width="1040" height="500" fill="#FFFFFF"/>
+<style>text{font-family:Inter,Arial,sans-serif;fill:#172033}.title{font-size:28px;font-weight:700}.subtitle{font-size:17px;fill:#586174}.panel{font-size:19px;font-weight:700}.label{font-size:16px}.value{font-size:16px;font-weight:700}.axis{font-size:13px;fill:#687184}.note{font-size:14px;fill:#586174}</style>
+<text x="70" y="58" class="title">Published finance evidence favors quality over volume</text>
+<text x="70" y="88" class="subtitle">Retrospective grouped audit · 12 decision panels · 4 independent studies</text>
+<line x1="70" y1="112" x2="970" y2="112" stroke="#D9DEE7" stroke-width="1"/>
+<text x="70" y="150" class="panel">Reported winner selected</text>
+<text x="555" y="150" class="panel">Mean normalized regret</text>
+<text x="250" y="176" class="axis" text-anchor="middle">0</text>
+<text x="515" y="176" class="axis" text-anchor="middle">100%</text>
+<text x="735" y="176" class="axis" text-anchor="middle">0</text>
+<text x="1000" y="176" class="axis" text-anchor="middle">0.30</text>
+<text x="70" y="210" class="label">Quality-aware rule</text>
+<rect x="250" y="190" width="265.00" height="24" rx="5" fill="#EEF1F5"/>
+<rect x="250" y="190" width="220.83" height="24" rx="5" fill="#16836B"/>
+<text x="479.83324500000003" y="209" class="value">10/12</text>
+<text x="555" y="210" class="label">Quality-aware rule</text>
+<rect x="735" y="190" width="265.00" height="24" rx="5" fill="#EEF1F5"/>
+<rect x="735" y="190" width="34.22" height="24" rx="5" fill="#16836B"/>
+<text x="778.2168" y="209" class="value">0.039</text>
+<text x="70" y="280" class="label">LOSO ridge</text>
+<rect x="250" y="260" width="265.00" height="24" rx="5" fill="#EEF1F5"/>
+<rect x="250" y="260" width="176.67" height="24" rx="5" fill="#3569A8"/>
+<text x="435.66675499999997" y="279" class="value">8/12</text>
+<text x="555" y="280" class="label">LOSO ridge</text>
+<rect x="735" y="260" width="265.00" height="24" rx="5" fill="#EEF1F5"/>
+<rect x="735" y="260" width="156.19" height="24" rx="5" fill="#3569A8"/>
+<text x="900.191" y="279" class="value">0.177</text>
+<text x="70" y="350" class="label">More training</text>
+<rect x="250" y="330" width="265.00" height="24" rx="5" fill="#EEF1F5"/>
+<rect x="250" y="330" width="132.50" height="24" rx="5" fill="#9AA4B2"/>
+<text x="391.5" y="349" class="value">6/12</text>
+<text x="555" y="350" class="label">More training</text>
+<rect x="735" y="330" width="265.00" height="24" rx="5" fill="#EEF1F5"/>
+<rect x="735" y="330" width="214.93" height="24" rx="5" fill="#9AA4B2"/>
+<text x="958.9300166666667" y="349" class="value">0.243</text>
+<line x1="70" y1="392" x2="970" y2="392" stroke="#D9DEE7" stroke-width="1"/>
+<text x="70" y="426" class="note">Quality-aware rule: data quality, retention, verifier alignment, and policy-relative difficulty.</text>
+<text x="70" y="454" class="note">Exploratory evidence: all outcomes were public before the feature schema was assembled.</text>
+</svg>

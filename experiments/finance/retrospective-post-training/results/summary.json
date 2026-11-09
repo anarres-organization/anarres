@@ -1,0 +1,256 @@
+{
+  "decision_panels": 12,
+  "independent_studies": 4,
+  "interpretation_guardrails": [
+    "all outcomes were public before this feature schema was assembled",
+    "targets inside one trained intervention are not independent runs",
+    "source-native aggregate outcomes do not identify training-seed variance",
+    "the analysis motivates prospective measurements and baselines but does not validate them"
+  ],
+  "models": {
+    "more_training": {
+      "mean_normalized_regret": 0.243317,
+      "normalized_rmse": 1.535145,
+      "pairwise_rank_accuracy": 0.660256,
+      "panels": [
+        {
+          "chosen": "hard_sample_grpo",
+          "normalized_regret": 0.0,
+          "observed_best": "hard_sample_grpo",
+          "panel_id": "dc_gemma12b"
+        },
+        {
+          "chosen": "self_distilled_sft",
+          "normalized_regret": 0.0,
+          "observed_best": "self_distilled_sft",
+          "panel_id": "dc_qwen35_35b"
+        },
+        {
+          "chosen": "self_distilled_sft",
+          "normalized_regret": 0.0,
+          "observed_best": "self_distilled_sft",
+          "panel_id": "dc_qwen35_4b"
+        },
+        {
+          "chosen": "verifiable_grpo_1p7b",
+          "normalized_regret": 0.0,
+          "observed_best": "verifiable_grpo_1p7b",
+          "panel_id": "dc_verifiable_grpo"
+        },
+        {
+          "chosen": "verifiable_grpo_4b",
+          "normalized_regret": 0.0,
+          "observed_best": "verifiable_grpo_4b",
+          "panel_id": "dc_verifiable_grpo_4b"
+        },
+        {
+          "chosen": "ppo",
+          "normalized_regret": 0.452323,
+          "observed_best": "grpo",
+          "panel_id": "fino1_rl"
+        },
+        {
+          "chosen": "all_cot",
+          "normalized_regret": 0.365079,
+          "observed_best": "filtered_cot",
+          "panel_id": "fino1_sft"
+        },
+        {
+          "chosen": "raw_698k",
+          "normalized_regret": 0.066667,
+          "observed_best": "distilled_cot_318k",
+          "panel_id": "oda_qwen25_sft"
+        },
+        {
+          "chosen": "raw_697k",
+          "normalized_regret": 1.090909,
+          "observed_best": "distilled_cot_318k",
+          "panel_id": "oda_qwen3_sft"
+        },
+        {
+          "chosen": "model_128token_25k",
+          "normalized_regret": 0.6,
+          "observed_best": "model_16token_12k",
+          "panel_id": "oda_rl_from_sft"
+        },
+        {
+          "chosen": "sft_100pct_grpo",
+          "normalized_regret": 0.344828,
+          "observed_best": "sft_100pct",
+          "panel_id": "quanteval_knowledge"
+        },
+        {
+          "chosen": "sft_100pct_grpo",
+          "normalized_regret": 0.0,
+          "observed_best": "sft_100pct_grpo",
+          "panel_id": "quanteval_reasoning"
+        }
+      ],
+      "top_choice_accuracy": 0.5
+    },
+    "quality_rule": {
+      "mean_normalized_regret": 0.038736,
+      "normalized_rmse": 1.869247,
+      "pairwise_rank_accuracy": 0.782051,
+      "panels": [
+        {
+          "chosen": "hard_sample_grpo",
+          "normalized_regret": 0.0,
+          "observed_best": "hard_sample_grpo",
+          "panel_id": "dc_gemma12b"
+        },
+        {
+          "chosen": "self_distilled_sft",
+          "normalized_regret": 0.0,
+          "observed_best": "self_distilled_sft",
+          "panel_id": "dc_qwen35_35b"
+        },
+        {
+          "chosen": "self_distilled_sft",
+          "normalized_regret": 0.0,
+          "observed_best": "self_distilled_sft",
+          "panel_id": "dc_qwen35_4b"
+        },
+        {
+          "chosen": "verifiable_grpo_1p7b",
+          "normalized_regret": 0.0,
+          "observed_best": "verifiable_grpo_1p7b",
+          "panel_id": "dc_verifiable_grpo"
+        },
+        {
+          "chosen": "verifiable_grpo_4b",
+          "normalized_regret": 0.0,
+          "observed_best": "verifiable_grpo_4b",
+          "panel_id": "dc_verifiable_grpo_4b"
+        },
+        {
+          "chosen": "grpo",
+          "normalized_regret": 0.0,
+          "observed_best": "grpo",
+          "panel_id": "fino1_rl"
+        },
+        {
+          "chosen": "filtered_cot",
+          "normalized_regret": 0.0,
+          "observed_best": "filtered_cot",
+          "panel_id": "fino1_sft"
+        },
+        {
+          "chosen": "distilled_cot_318k",
+          "normalized_regret": 0.0,
+          "observed_best": "distilled_cot_318k",
+          "panel_id": "oda_qwen25_sft"
+        },
+        {
+          "chosen": "distilled_cot_318k",
+          "normalized_regret": 0.0,
+          "observed_best": "distilled_cot_318k",
+          "panel_id": "oda_qwen3_sft"
+        },
+        {
+          "chosen": "model_1token_6k",
+          "normalized_regret": 0.12,
+          "observed_best": "model_16token_12k",
+          "panel_id": "oda_rl_from_sft"
+        },
+        {
+          "chosen": "sft_100pct_grpo",
+          "normalized_regret": 0.344828,
+          "observed_best": "sft_100pct",
+          "panel_id": "quanteval_knowledge"
+        },
+        {
+          "chosen": "sft_100pct_grpo",
+          "normalized_regret": 0.0,
+          "observed_best": "sft_100pct_grpo",
+          "panel_id": "quanteval_reasoning"
+        }
+      ],
+      "top_choice_accuracy": 0.833333
+    },
+    "ridge": {
+      "mean_normalized_regret": 0.17682,
+      "normalized_rmse": 0.573121,
+      "pairwise_rank_accuracy": 0.705128,
+      "panels": [
+        {
+          "chosen": "hard_sample_grpo",
+          "normalized_regret": 0.0,
+          "observed_best": "hard_sample_grpo",
+          "panel_id": "dc_gemma12b"
+        },
+        {
+          "chosen": "self_distilled_sft",
+          "normalized_regret": 0.0,
+          "observed_best": "self_distilled_sft",
+          "panel_id": "dc_qwen35_35b"
+        },
+        {
+          "chosen": "linear_merge",
+          "normalized_regret": 0.59375,
+          "observed_best": "self_distilled_sft",
+          "panel_id": "dc_qwen35_4b"
+        },
+        {
+          "chosen": "verifiable_grpo_1p7b",
+          "normalized_regret": 0.0,
+          "observed_best": "verifiable_grpo_1p7b",
+          "panel_id": "dc_verifiable_grpo"
+        },
+        {
+          "chosen": "verifiable_grpo_4b",
+          "normalized_regret": 0.0,
+          "observed_best": "verifiable_grpo_4b",
+          "panel_id": "dc_verifiable_grpo_4b"
+        },
+        {
+          "chosen": "grpo",
+          "normalized_regret": 0.0,
+          "observed_best": "grpo",
+          "panel_id": "fino1_rl"
+        },
+        {
+          "chosen": "all_cot",
+          "normalized_regret": 0.365079,
+          "observed_best": "filtered_cot",
+          "panel_id": "fino1_sft"
+        },
+        {
+          "chosen": "distilled_cot_318k",
+          "normalized_regret": 0.0,
+          "observed_best": "distilled_cot_318k",
+          "panel_id": "oda_qwen25_sft"
+        },
+        {
+          "chosen": "distilled_plus_general_math",
+          "normalized_regret": 0.818182,
+          "observed_best": "distilled_cot_318k",
+          "panel_id": "oda_qwen3_sft"
+        },
+        {
+          "chosen": "model_16token_12k",
+          "normalized_regret": 0.0,
+          "observed_best": "model_16token_12k",
+          "panel_id": "oda_rl_from_sft"
+        },
+        {
+          "chosen": "sft_100pct_grpo",
+          "normalized_regret": 0.344828,
+          "observed_best": "sft_100pct",
+          "panel_id": "quanteval_knowledge"
+        },
+        {
+          "chosen": "sft_100pct_grpo",
+          "normalized_regret": 0.0,
+          "observed_best": "sft_100pct_grpo",
+          "panel_id": "quanteval_reasoning"
+        }
+      ],
+      "top_choice_accuracy": 0.666667
+    }
+  },
+  "normalization": "baseline-subtracted utility divided by maximum absolute within-panel change",
+  "status": "retrospective_exploratory",
+  "trained_intervention_rows_including_controls": 47,
+  "validation": "leave-one-study-out"
+}

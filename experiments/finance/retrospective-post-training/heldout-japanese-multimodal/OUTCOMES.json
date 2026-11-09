@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "source": {
+    "id": "staged_japanese_financial_documents_2026_holdout",
+    "title": "Staged Continual Adaptation of Multimodal Foundation Models for Japanese Financial Documents",
+    "authors": [
+      "Genshin Kakimoto",
+      "Atsushi Yanagisawa"
+    ],
+    "url": "https://arxiv.org/abs/2610.27904v1",
+    "released": "2026-10-20",
+    "license": "CC BY 4.0",
+    "evidence": "Table 2, Table 5, and Section 3"
+  },
+  "status": "EXTRACTED_AFTER_TARGET_CONDITIONAL_FREEZE",
+  "text_finance_subtasks": [
+    {
+      "target": "chabsa",
+      "unadapted_checkpoint": 0.8591,
+      "financial_text_adaptation": 0.9357
+    },
+    {
+      "target": "cma_basics",
+      "unadapted_checkpoint": 0.3421,
+      "financial_text_adaptation": 0.3947
+    },
+    {
+      "target": "cpa_audit",
+      "unadapted_checkpoint": 0.2764,
+      "financial_text_adaptation": 0.2487
+    },
+    {
+      "target": "fp2",
+      "unadapted_checkpoint": 0.2989,
+      "financial_text_adaptation": 0.2863
+    },
+    {
+      "target": "security_sales_1",
+      "unadapted_checkpoint": 0.4737,
+      "financial_text_adaptation": 0.5614
+    }
+  ],
+  "full_path_vs_skip_stage": [
+    {
+      "target": "EDINET earnings",
+      "full_staged_path": 0.488,
+      "skip_prerequisite_stage": 0.491,
+      "score_for_direction": false,
+      "reason": "The source identifies every checkpoint as near chance and does not interpret this row"
+    },
+    {
+      "target": "EDINET fraud",
+      "full_staged_path": 0.614,
+      "skip_prerequisite_stage": 0.499,
+      "score_for_direction": true
+    },
+    {
+      "target": "EDINET industry",
+      "full_staged_path": 8.2,
+      "skip_prerequisite_stage": 10.4,
+      "score_for_direction": true
+    },
+    {
+      "target": "JP Fin Harness",
+      "full_staged_path": 49.6,
+      "skip_prerequisite_stage": 56.2,
+      "score_for_direction": true
+    }
+  ],
+  "visual_financial_documents": {
+    "status": "UNSCORED",
+    "reason": "All reported benchmark outcomes use text inputs and do not measure the page-image capability targeted by the visual stage"
+  },
+  "robustness": {
+    "three_seed_evaluation": "P1, P2, and P3 are reevaluated with three decoding seeds, but the unadapted and skip-stage candidates required by the frozen comparisons are absent",
+    "skip_stage_multi_seed": "not reported"
+  }
+}

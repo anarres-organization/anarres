@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "lower_is_better": true,
+  "primary_volume_matched": {
+    "metric": "L1 overt numerical hallucination rate percent",
+    "finance_language_3500": 64.6,
+    "finance_qa_and_numeracy_3500": 90.8,
+    "observed_winner": "finance_language_3500",
+    "evidence": "Table 1 and Table 11"
+  },
+  "full_recipe": {
+    "finance_language_1000": {"L1": 82.5, "L2": 34.6, "L3": 3.8},
+    "finance_qa_and_numeracy_3500": {"L1": 90.8, "L2": 45.8, "L3": 13.3},
+    "observed_winner_by_level": {
+      "L1": "finance_language_1000",
+      "L2": "finance_language_1000",
+      "L3": "finance_language_1000"
+    },
+    "evidence": "Table 7"
+  },
+  "base_vs_finance_language": {
+    "base": {"L1": 5.4, "L2": 3.3, "summarization_quality": 4.7},
+    "finance_language_1000": {"L1": 82.5, "L2": 34.6, "summarization_quality": 1.6},
+    "observed_winner": "base",
+    "evidence": "Table 6 and Table 7",
+    "note": "L3 is excluded because the source identifies a faithful-paraphrase detection artifact for the base model."
+  }
+}

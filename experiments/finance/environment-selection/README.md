@@ -1,12 +1,14 @@
 # Prospective environment selection for finance operations
 
-**Status:** source qualification complete; policy, candidate bank, and outcome
-contract are not yet frozen.
+**Status:** source qualification complete; Qwen3-8B excluded by the starting-policy
+gate; the next policy, candidate bank, and outcome contract are not yet frozen.
 
 This study will test whether policy-relative measurements can choose among
 finance training distributions before trained-policy outcomes are available.
-The initial task family is stateful accounting operations with executable
-checks and explicit control policies.
+The first generator-qualified task family is stateful accounting operations
+with executable checks and explicit control policies. Reconciliation and
+post-trade exception handling are the primary domain target, but their public
+construction source remains under qualification.
 
 ## Qualified construction source
 
@@ -31,6 +33,13 @@ record is in [`PREFLIGHT.json`](PREFLIGHT.json).
 The preflight establishes generator validity for these seeds. It does not
 qualify a starting model, define the final candidate mixtures, or reveal any
 training outcome.
+
+The [starting-policy qualification record](STARTING_POLICY_QUALIFICATION.md)
+begins with a pinned Qwen3-8B checkpoint on 128 new development episodes. That
+policy fails the gate with 0% executable completion, 99.2% truncation, 59.2%
+valid tool protocol, and no mixed-success scenario groups. The complete record
+therefore advances to the pinned 30B-A3B checkpoint before candidate-bank
+measurement begins.
 
 ## Prospective decision
 
@@ -96,6 +105,11 @@ construction sources.
 These sources will test transfer only after their licenses, task identities,
 and evaluation contracts pass the relevant gate. Native outcomes remain
 separate across accounting operations, research, and artifact production.
+
+FINOS Common Domain Model is being audited as a representation layer for a
+future post-trade panel. RecBench is a relevant reconciliation dataset, but its
+public snapshot does not include the generator and evaluator described by its
+dataset card. Neither source is admitted to prospective construction yet.
 
 ## Reproduce the source audit
 

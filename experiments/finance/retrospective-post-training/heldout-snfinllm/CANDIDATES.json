@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "status": "ENCODED_WITHOUT_OUTCOME_TABLES",
+  "source": "arXiv:2408.02302v1",
+  "arms": [
+    {
+      "id": "original_general_base",
+      "description": "The open general starting checkpoint before finance adaptation.",
+      "treatment": {
+        "target_alignment": 0.0,
+        "source_diversity": 0,
+        "quality_control": 0.0,
+        "retention_control": 0.0
+      }
+    },
+    {
+      "id": "snfinllm_base_cpt",
+      "description": "Continued pretraining on a 25 percent financial and 75 percent general corpus.",
+      "treatment": {
+        "target_alignment": 0.25,
+        "source_diversity": 2,
+        "quality_control": 0.0,
+        "retention_control": 1.0
+      }
+    },
+    {
+      "id": "snfinllm_chat_sft",
+      "description": "The continued-pretraining checkpoint followed by curated financial instruction tuning.",
+      "treatment": {
+        "target_alignment": 1.0,
+        "source_diversity": 2,
+        "quality_control": 0.5,
+        "retention_control": 1.0
+      }
+    },
+    {
+      "id": "snfinllm_dpo",
+      "description": "The instruction-tuned checkpoint followed by direct preference optimization.",
+      "treatment": {
+        "target_alignment": 1.0,
+        "source_diversity": 2,
+        "quality_control": 1.0,
+        "retention_control": 1.0
+      }
+    }
+  ],
+  "encoding_notes": [
+    "model identity, model size, language, and target labels are excluded",
+    "the continued-pretraining mix receives retention credit for explicit general-data replay",
+    "curated SFT receives partial quality-control credit and DPO receives full quality-control credit",
+    "data volume is left unobserved because stage token and example counts are not comparable",
+    "generic DPO receives no feedback-locality or verifier-alignment credit"
+  ]
+}
