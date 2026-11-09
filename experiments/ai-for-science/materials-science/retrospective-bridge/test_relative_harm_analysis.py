@@ -23,9 +23,15 @@ def test_relative_harm_support_references_and_controls():
     prevalence = result["prevalence_baseline"]["source_macro"]
     random_control = result["random_fingerprint_control"]["source_macro"]
     shuffled_control = result["shuffled_pairing_control"]["source_macro"]
+    permutations = result["within_source_permutation_test"]["source_macro"]
 
     assert semantic["roc_auc"] > ridge["roc_auc"]
     assert semantic["roc_auc"] > random_control["roc_auc"]
     assert semantic["roc_auc"] > shuffled_control["roc_auc"]
     assert semantic["brier_score"] < prevalence["brier_score"]
     assert semantic["recall_in_top_risk_20pct"] > prevalence["recall_in_top_risk_20pct"]
+    assert semantic["roc_auc"] > permutations["roc_auc"]["permutation_95th_percentile"]
+    assert (
+        semantic["recall_in_top_risk_20pct"]
+        > permutations["recall_in_top_risk_20pct"]["permutation_95th_percentile"]
+    )

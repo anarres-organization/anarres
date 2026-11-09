@@ -749,6 +749,24 @@
           "roc_auc": 0.5673104681597466,
           "roc_auc_sources": 10
         }
+      },
+      "within_source_permutation_test": {
+        "iterations": 200,
+        "source_macro": {
+          "recall_in_top_risk_20pct": {
+            "observed": 0.4222888098213405,
+            "one_sided_empirical_p": 0.004975124378109453,
+            "permutation_95th_percentile": 0.24053506570336616,
+            "permutation_mean": 0.19106958464186286
+          },
+          "roc_auc": {
+            "observed": 0.7598286302775661,
+            "one_sided_empirical_p": 0.004975124378109453,
+            "permutation_95th_percentile": 0.569191843818497,
+            "permutation_mean": 0.4969849191998283
+          }
+        },
+        "within_source": true
       }
     },
     {
@@ -1492,6 +1510,24 @@
           "roc_auc": 0.5559420839501966,
           "roc_auc_sources": 10
         }
+      },
+      "within_source_permutation_test": {
+        "iterations": 200,
+        "source_macro": {
+          "recall_in_top_risk_20pct": {
+            "observed": 0.4182349219960148,
+            "one_sided_empirical_p": 0.004975124378109453,
+            "permutation_95th_percentile": 0.24680538161839088,
+            "permutation_mean": 0.19111539299812486
+          },
+          "roc_auc": {
+            "observed": 0.708184882530188,
+            "one_sided_empirical_p": 0.004975124378109453,
+            "permutation_95th_percentile": 0.5486971994736758,
+            "permutation_mean": 0.49595027033264005
+          }
+        },
+        "within_source": true
       }
     },
     {
@@ -2235,6 +2271,24 @@
           "roc_auc": 0.5581267554763378,
           "roc_auc_sources": 10
         }
+      },
+      "within_source_permutation_test": {
+        "iterations": 200,
+        "source_macro": {
+          "recall_in_top_risk_20pct": {
+            "observed": 0.42805132219792696,
+            "one_sided_empirical_p": 0.004975124378109453,
+            "permutation_95th_percentile": 0.24938548347947082,
+            "permutation_mean": 0.18963840592579587
+          },
+          "roc_auc": {
+            "observed": 0.7061246754340916,
+            "one_sided_empirical_p": 0.004975124378109453,
+            "permutation_95th_percentile": 0.5532897724208989,
+            "permutation_mean": 0.49456691297563443
+          }
+        },
+        "within_source": true
       }
     }
   ],
@@ -2979,6 +3033,24 @@
         "roc_auc": 0.5559420839501966,
         "roc_auc_sources": 10
       }
+    },
+    "within_source_permutation_test": {
+      "iterations": 200,
+      "source_macro": {
+        "recall_in_top_risk_20pct": {
+          "observed": 0.4182349219960148,
+          "one_sided_empirical_p": 0.004975124378109453,
+          "permutation_95th_percentile": 0.24680538161839088,
+          "permutation_mean": 0.19111539299812486
+        },
+        "roc_auc": {
+          "observed": 0.708184882530188,
+          "one_sided_empirical_p": 0.004975124378109453,
+          "permutation_95th_percentile": 0.5486971994736758,
+          "permutation_mean": 0.49595027033264005
+        }
+      },
+      "within_source": true
     }
   },
   "support": {

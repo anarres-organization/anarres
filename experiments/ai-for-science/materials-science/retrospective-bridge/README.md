@@ -304,9 +304,10 @@ Across 13 held-out studies, 787 panels, and 2,136 candidate-reference pairs,
 the fixed semantic score reaches 0.708 source-macro ROC AUC and 0.535 average
 precision. It recovers 41.8% of adverse choices in the highest-risk 20% of
 pairs. The corresponding prevalence baseline reaches 0.500 ROC AUC and 18.4%
-recall, while controls based on deterministic random fingerprints or shuffled
-candidate measurements remain substantially weaker. Results are similar when
-the adverse margin is set to zero or 0.20.
+recall. Both metrics exceed the 95th percentile of 200 deterministic
+within-study permutations. Controls based on random fingerprints or one
+shuffled pairing are also substantially weaker. Results are similar when the
+adverse margin is set to zero or 0.20.
 
 A fitted logistic ridge reaches 0.603 source-macro ROC AUC. As in the utility
 analysis, the fixed direction of signal, coverage, and target relevance

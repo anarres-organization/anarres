@@ -23,6 +23,7 @@ BRIDGE_SCRIPT = Path(__file__).with_name("analyze_pooled_semantic.py")
 PRIMARY_MARGIN = 0.10
 MARGINS = (0.0, PRIMARY_MARGIN, 0.20)
 ALPHAS = (0.01, 0.1, 1.0, 10.0, 100.0)
+PERMUTATIONS = 200
 REFERENCE_SOURCES = {
     "li_2023_redundancy",
     "kulichenko_2023_udd",
@@ -262,6 +263,46 @@ def metrics(rows: list[dict], scores: np.ndarray, margin: float) -> dict:
     return {"pooled": pooled, "source_macro": macro, "per_source": per_source}
 
 
+def permutation_control(
+    rows: list[dict], scores: np.ndarray, margin: float, iterations: int = PERMUTATIONS
+) -> dict:
+    sources = sorted({row["source"] for row in rows})
+    source_indices = {
+        source: np.asarray(
+            [index for index, row in enumerate(rows) if row["source"] == source], dtype=int
+        )
+        for source in sources
+    }
+    observed = metrics(rows, scores, margin)["source_macro"]
+    distributions = {"roc_auc": [], "recall_in_top_risk_20pct": []}
+    for iteration in range(iterations):
+        shuffled = np.empty(len(scores), dtype=float)
+        for source in sources:
+            seed = int.from_bytes(
+                hashlib.sha256(f"relative-harm-permutation|{iteration}|{source}".encode()).digest()[
+                    :8
+                ],
+                "big",
+            )
+            rng = np.random.default_rng(seed)
+            indices = source_indices[source]
+            shuffled[indices] = scores[rng.permutation(indices)]
+        result = metrics(rows, shuffled, margin)["source_macro"]
+        for key in distributions:
+            distributions[key].append(result[key])
+
+    summary = {}
+    for key, values in distributions.items():
+        array = np.asarray(values, dtype=float)
+        summary[key] = {
+            "observed": observed[key],
+            "permutation_mean": float(array.mean()),
+            "permutation_95th_percentile": float(np.quantile(array, 0.95)),
+            "one_sided_empirical_p": float((1 + np.sum(array >= observed[key])) / (iterations + 1)),
+        }
+    return {"iterations": iterations, "within_source": True, "source_macro": summary}
+
+
 def evaluate(rows: list[dict], margin: float, *, tune: bool) -> dict:
     predictions = np.zeros(len(rows), dtype=float)
     semantic_predictions = np.zeros(len(rows), dtype=float)
@@ -312,6 +353,7 @@ def evaluate(rows: list[dict], margin: float, *, tune: bool) -> dict:
         "prevalence_baseline": metrics(rows, prevalence_probabilities, margin),
         "random_fingerprint_control": metrics(rows, random_fingerprint, margin),
         "shuffled_pairing_control": metrics(rows, shuffled_semantic, margin),
+        "within_source_permutation_test": permutation_control(rows, semantic_predictions, margin),
         "semantic_relative_score": metrics(rows, semantic_predictions, margin),
         "fitted_logistic_ridge": metrics(rows, predictions, margin),
     }
