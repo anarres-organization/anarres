@@ -35,8 +35,8 @@ following performance:
 
 | Aggregation | Pair ordering | Mean normalized regret | Top-choice credit |
 |---|---:|---:|---:|
-| Panel weighted | 64.3% | 0.304 | 59.8% |
-| Study macro | 75.3% | 0.170 | 72.5% |
+| Panel weighted | 64.1% | 0.304 | 59.8% |
+| Study macro | 74.9% | 0.170 | 72.5% |
 
 The more-data baseline reaches 56.0% ordering and 0.489 regret under panel
 weighting, and 58.2% ordering and 0.421 regret under study-macro weighting. The
@@ -46,20 +46,20 @@ studies gives $p=0.007$. This records breadth across published studies while
 remaining a retrospective test of a semantically encoded rule.
 
 Two sources contribute one decision panel each. Excluding both leaves fourteen
-multi-panel studies, where the practical rule reaches 72.5% ordering and 0.194
+multi-panel studies, where the practical rule reaches 72.0% ordering and 0.194
 regret versus 58.7% and 0.424 for more data. Removing any one source from the
 complete bridge preserves the rule's lower study-macro regret, with an advantage
 between 0.233 and 0.272.
 
 The conclusion also survives rank normalization. With outcomes replaced by
-within-panel ranks, the practical rule reaches 75.3% study-macro ordering and
+within-panel ranks, the practical rule reaches 74.9% study-macro ordering and
 0.168 regret, compared with 58.2% and 0.428 for more data. Pair ordering is
 unchanged because monotone within-panel normalization preserves every candidate
 comparison.
 
 Model roles remain separate. The exploratory seven-coordinate ridge has the
-lowest study-macro source-holdout RMSE at 0.403. The full-feature ridge improves
-candidate ordering to 72.9% and lowers regret to 0.212. The fixed practical
+lowest study-macro source-holdout RMSE at 0.400. The full-feature ridge reaches
+71.8% candidate ordering and 0.220 regret. The fixed practical
 rule has the strongest decision metrics but is not calibrated as a utility
 scale. These models answer different questions and are reported together.
 
@@ -82,14 +82,14 @@ prediction with the actual allocation decision and strong simple rules
 
 A publication-date split fits the ridge models on seven studies from 2024--2025
 and scores nine sources released in 2026. On the later sources, the full ridge
-reaches 72.8% study-macro ordering and 0.248 regret, while more data reaches
-57.3% and 0.434. The practical rule reaches 72.2% ordering and 0.200 regret.
+reaches 72.4% study-macro ordering and 0.248 regret, while more data reaches
+57.3% and 0.434. The practical rule reaches 71.8% ordering and 0.200 regret.
 This split is a chronological sensitivity rather than a prospective test because
 the shared semantic representation was designed after all outcomes were public.
 
 One-coordinate-at-a-time ablations of the fixed practical rule leave
-study-macro ordering between 72.3% and 76.1% and regret between 0.167 and 0.227.
-Across ridge penalties from 0.5 to 16, the full model remains between 72.4% and
-72.9% ordering with regret from 0.212 to 0.224. These checks do not select a new
+study-macro ordering between 72.3% and 75.6% and regret between 0.167 and 0.215.
+Across ridge penalties from 0.5 to 16, the full model remains between 71.8% and
+72.9% ordering with regret from 0.196 to 0.224. These checks do not select a new
 specification. They test whether the reported direction depends on one coordinate
 or one regularization value.

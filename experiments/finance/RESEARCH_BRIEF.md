@@ -23,7 +23,7 @@ study is held out in turn for the strictest retrospective test.
 ![Expanded finance evidence bridge](retrospective-post-training/figures/expanded_evidence_bridge.svg)
 
 Under leave-one-study-out evaluation, an interpretable measurement rule orders
-64.3% of candidate pairs with 0.304 mean normalized regret. Choosing more data
+64.1% of candidate pairs with 0.304 mean normalized regret. Choosing more data
 orders 56.0% with 0.489 regret. The measurement rule also falls below the fifth
 percentile of regret from 200 within-panel shuffled-pairing controls. A grouped
 ridge predicts outcome magnitude better but allocates less reliably across a
@@ -32,12 +32,12 @@ new study. When the study is known, ridge transfer to a held-out model reaches
 74.1% and 0.162. The difference between within-program transfer and new-study
 transfer defines the current boundary.
 
-With each study receiving equal weight, the expanded rule reaches 75.3% pair
+With each study receiving equal weight, the expanded rule reaches 74.9% pair
 ordering and 0.170 regret, compared with 58.2% and 0.421 for more data. It has
 lower regret in thirteen of sixteen studies, ties in one, and loses in two.
 Removing any one source preserves the direction. A publication-date sensitivity
 fits the learned relationship on seven studies from 2024--2025 and evaluates
-nine 2026 sources, where the full ridge reaches 72.8% ordering and 0.248 regret.
+nine 2026 sources, where the full ridge reaches 72.4% ordering and 0.248 regret.
 These checks strengthen the retrospective relationship without converting it
 into a prospective result. Removing any one coordinate from the practical rule
 or varying ridge regularization over a 32-fold range preserves the main
@@ -192,7 +192,7 @@ change held-out outcomes after training begins.
 - [Machine-readable panels](retrospective-post-training/data/panels.json)
 - [Source-recovered expansion](retrospective-post-training/data/recovered_panels.json)
 - [Machine-readable results](retrospective-post-training/results/summary.json)
-- [Expanded grouped results](retrospective-post-training/results/expanded_summary.json)
+- [Corrected expanded grouped results](retrospective-post-training/results/expanded_summary_corrected.json)
 - [Agent-systems evidence map](agent-systems-evidence/README.md)
 - [Prospective protocol](environment-selection/README.md)
 - [Qualified-source record](environment-selection/PREFLIGHT.json)
@@ -204,6 +204,7 @@ python scripts/reproduce.py
 python scripts/render_summary.py
 python scripts/build_recovered_panels.py
 python scripts/analyze_expanded_bridge.py
+python scripts/analyze_expanded_bridge_corrected.py
 python scripts/render_expanded_summary.py
 python test_reproduce.py
 ```

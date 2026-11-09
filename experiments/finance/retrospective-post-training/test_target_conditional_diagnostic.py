@@ -33,9 +33,13 @@ class TargetConditionalDiagnosticTests(unittest.TestCase):
             evaluations["derived_rule"]["pairwise_ordering"],
             evaluations["v2_rule"]["pairwise_ordering"],
         )
+        self.assertLessEqual(
+            evaluations["derived_ridge"]["pairwise_ordering"],
+            evaluations["v2_ridge"]["pairwise_ordering"],
+        )
         self.assertGreaterEqual(
-            evaluations["derived_ridge"]["mean_normalized_regret"],
-            evaluations["v2_ridge"]["mean_normalized_regret"],
+            evaluations["derived_ridge"]["normalized_rmse"],
+            evaluations["v2_ridge"]["normalized_rmse"],
         )
 
 

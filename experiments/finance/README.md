@@ -106,5 +106,5 @@ with financial authority remain approval-gated.
 - [Retrospective post-training audit](retrospective-post-training/README.md)
 - [Frozen SNFinLLM source holdout](retrospective-post-training/heldout-snfinllm/README.md)
 - [Frozen Japanese financial-document holdout](retrospective-post-training/heldout-japanese-multimodal/README.md)
-- [Expanded machine-readable results](retrospective-post-training/results/expanded_summary.json)
+- [Corrected expanded machine-readable results](retrospective-post-training/results/expanded_summary_corrected.json)
 - [Agent-systems evidence map](agent-systems-evidence/README.md)

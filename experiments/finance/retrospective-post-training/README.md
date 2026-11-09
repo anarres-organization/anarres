@@ -94,16 +94,16 @@ transfer across independently published finance decisions.
 The expanded bridge contains 149 source-native decision panels, 538 arms, and
 sixteen independent studies. Outcomes are normalized only within each panel.
 Under leave-one-source-out evaluation, an interpretable treatment rule orders
-64.3% of candidate pairs and has 0.304 mean normalized regret, compared with
+64.1% of candidate pairs and has 0.304 mean normalized regret, compared with
 56.0% and 0.489 for choosing more data. Its regret is also below the fifth
 percentile from 200 within-panel shuffled-pairing controls. The grouped ridge
 has lower magnitude error but weaker allocation performance than the rule. The
 exploratory seven-coordinate ridge gives the best study-macro calibration at
-0.403 RMSE. The full ridge reaches 72.9% study-macro pair ordering and 0.212
+0.400 RMSE. The full ridge reaches 71.8% study-macro pair ordering and 0.220
 regret, while the practical rule remains strongest for decisions.
 
 Equal-study weighting strengthens the comparison. The practical rule reaches
-75.3% pair ordering, 72.5% top-choice credit, and 0.170 regret, compared with
+74.9% pair ordering, 72.5% top-choice credit, and 0.170 regret, compared with
 58.2%, 37.6%, and 0.421 for more data. It has lower regret in thirteen of sixteen
 held-out studies, ties in one, and loses in two. The same ordering survives
 replacement of min-to-max utility with within-panel ranks. The exact two-sided
@@ -113,7 +113,7 @@ normalization and weighting rationale is recorded in
 [`NORMALIZATION_AUDIT.md`](NORMALIZATION_AUDIT.md).
 
 The direction does not depend on the two sources that report only one decision
-panel. Restricting the audit to fourteen multi-panel studies yields 72.5% pair
+panel. Restricting the audit to fourteen multi-panel studies yields 72.0% pair
 ordering and 0.194 regret for the practical rule, compared with 58.7% and 0.424
 for more data. Removing any single source also preserves the practical rule's
 regret advantage, with a study-macro gap of 0.233 to 0.272. These sensitivities
@@ -121,17 +121,17 @@ prevent a small or unusually favorable table from driving the result.
 
 A publication-date sensitivity fits the learned models on seven studies released
 in 2024--2025 and scores nine sources released in 2026. The full ridge reaches
-72.8% study-macro pair ordering and 0.248 regret, compared with 57.3% and 0.434
-for more data. The fixed practical rule reaches 72.2% ordering and 0.200 regret.
+72.4% study-macro pair ordering and 0.248 regret, compared with 57.3% and 0.434
+for more data. The fixed practical rule reaches 71.8% ordering and 0.200 regret.
 Publication order reduces direct outcome reuse but does not make this a
 prospective test because the shared semantic schema was assembled after these
 results were public.
 
 The result is also stable to ordinary modeling choices. Removing any one
 coordinate from the practical rule leaves study-macro ordering between 72.3%
-and 76.1% and regret between 0.167 and 0.227. Varying the ridge penalty from
-0.5 to 16 leaves full-model ordering between 72.4% and 72.9%, with regret from
-0.212 to 0.224. The relationship is therefore not carried by one semantic
+and 75.6% and regret between 0.167 and 0.215. Varying the ridge penalty from
+0.5 to 16 leaves full-model ordering between 71.8% and 72.9%, with regret from
+0.196 to 0.224. The relationship is therefore not carried by one semantic
 coordinate or one regularization value.
 
 ## Frozen source-level holdout
@@ -167,10 +167,11 @@ The complete audit is in
 [`heldout-japanese-multimodal/`](heldout-japanese-multimodal/).
 
 A derived alignment/interference coordinate does not improve the original
-sixteen-study source holdout. The fixed rule falls from 75.3% to 74.3% pairwise
-ordering with unchanged regret, while the ridge falls from 72.9% to 71.7% and
-slightly higher regret. We therefore retain the earlier fitted bridge and move
-the next analysis to task-level re-encoding. The diagnostic is recorded in
+sixteen-study source holdout. Against the corrected baseline, the fixed rule
+falls from 74.9% to 74.0% pairwise ordering with unchanged regret. The ridge
+falls from 71.8% to 71.0% ordering and has worse magnitude error, despite a
+0.003 reduction in regret. We therefore retain the corrected earlier bridge and
+move the next analysis to task-level re-encoding. The diagnostic is recorded in
 [`results/target_conditional_diagnostic.json`](results/target_conditional_diagnostic.json).
 
 Transfer is stronger when a study is known and the held-out group is a new
@@ -191,8 +192,9 @@ python scripts/reproduce.py
 python test_reproduce.py
 python scripts/build_recovered_panels.py
 python scripts/analyze_expanded_bridge.py
+python scripts/analyze_expanded_bridge_corrected.py
 python scripts/render_expanded_summary.py
-python -m unittest test_expanded_bridge.py
+python -m unittest test_expanded_bridge.py test_expanded_bridge_corrected.py
 python heldout-snfinllm/freeze_predictions.py
 python heldout-snfinllm/score_holdout.py
 python -m unittest heldout-snfinllm/test_freeze.py heldout-snfinllm/test_score.py
@@ -203,9 +205,12 @@ python -m unittest test_target_conditional_diagnostic.py
 ```
 
 The script writes [`results/summary.json`](results/summary.json) and a manifest
-of its inputs and outputs. The expanded analysis writes
-[`results/expanded_summary.json`](results/expanded_summary.json) and an
-independent [`results/EXPANDED_MANIFEST.sha256.json`](results/EXPANDED_MANIFEST.sha256.json)
-covering its mapping, sources, inputs, script, and result. Any result used to
-design the prospective panel must remain labeled retrospective until it is
-frozen and tested on untouched training outcomes.
+of its inputs and outputs. The current expanded analysis is
+[`results/expanded_summary_corrected.json`](results/expanded_summary_corrected.json),
+with an independent
+[`results/EXPANDED_CORRECTED_MANIFEST.sha256.json`](results/EXPANDED_CORRECTED_MANIFEST.sha256.json)
+covering its mapping, sources, inputs, scripts, and result. The earlier
+[`results/expanded_summary.json`](results/expanded_summary.json) remains
+available because it entered the frozen source-holdout chronology. Any result
+used to design a future test must remain labeled retrospective until it is
+frozen and evaluated on untouched outcomes.

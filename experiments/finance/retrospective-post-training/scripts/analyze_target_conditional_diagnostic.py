@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-V2 = ROOT / "scripts" / "analyze_expanded_bridge.py"
+CORRECTED = ROOT / "scripts" / "analyze_expanded_bridge_corrected.py"
 OUT = ROOT / "results" / "target_conditional_diagnostic.json"
 
 INTERVENTION_FEATURES = [
@@ -29,8 +29,8 @@ INTERVENTION_FEATURES = [
 ]
 
 
-def load_v2():
-    spec = importlib.util.spec_from_file_location("finance_bridge_v2", V2)
+def load_corrected():
+    spec = importlib.util.spec_from_file_location("finance_bridge_corrected", CORRECTED)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
     spec.loader.exec_module(module)
@@ -55,8 +55,9 @@ def derived(row: dict) -> tuple[float, float, float, float]:
 
 
 def main() -> None:
-    bridge = load_v2()
-    rows = bridge.all_rows()
+    corrected = load_corrected()
+    bridge = corrected.load_v2()
+    rows = corrected.corrected_rows(bridge)
     predictions = {name: {} for name in ("v2_rule", "derived_rule", "v2_ridge", "derived_ridge")}
     for held_out in sorted({row["source"] for row in rows}):
         train = [row for row in rows if row["source"] != held_out]

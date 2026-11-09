@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SUMMARY = ROOT / "results" / "expanded_summary.json"
+SUMMARY = ROOT / "results" / "expanded_summary_corrected.json"
 OUTPUT = ROOT / "figures" / "expanded_evidence_bridge.svg"
 
 
@@ -61,7 +61,7 @@ def main() -> None:
             84,
             (
                 f"Retrospective grouped audit · {support['panels']} decision panels · "
-                f"{support['arms']} trained arms · {support['sources']} studies"
+                f"{support['arms']} candidate arms · {support['sources']} studies"
             ),
             "subtitle",
         ),
