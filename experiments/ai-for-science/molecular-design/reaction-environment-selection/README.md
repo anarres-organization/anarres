@@ -84,6 +84,10 @@ The QED warm start contributes model weights only. Each target-training arm
 starts with a fresh optimizer, scheduler, random-number state, and empty replay
 buffer before its frozen bank is loaded. This prevents QED replay history or
 optimizer state from becoming an unrecorded part of the intervention.
+The weights-only handoff is implemented by
+[`scripts/warm_start_weights.py`](scripts/warm_start_weights.py). Its interface
+smoke preserves policy and sampling weights exactly while leaving the receiving
+trainer at step zero with empty optimizer and replay state.
 
 The preloaded bank remains fixed during target training. Fresh online
 trajectories enter the common update batch but are not inserted into replay.

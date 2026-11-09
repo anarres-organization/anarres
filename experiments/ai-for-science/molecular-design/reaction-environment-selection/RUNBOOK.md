@@ -117,7 +117,8 @@ signature. Train one RxnFlow v2.1.0 QED warm start using
 `warm-start-qed.yaml` and the execution settings frozen in
 `WARM_START_CONTRACT.json`. Record the complete configuration, weights-artifact hash, catalog and
 reaction fixture hashes, software environment, and smoke results. Export the
-policy and sampling-model weights without QED optimizer or replay state. Every
+policy and sampling-model weights with `scripts/warm_start_weights.py`, which
+excludes QED optimizer, scheduler, replay, and random-number state. Every
 target-training arm loads those identical weights into a fresh trainer before
 its frozen replay bank is preloaded. Set `num_replay_insert: 0` so fresh online
 trajectories never replace the selected bank. Keep online and replay batch sizes

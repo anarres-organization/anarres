@@ -31,6 +31,23 @@
     "optimizer_update_completed": true,
     "checkpoint_written": true
   },
+  "weights_only_handoff": {
+    "artifact_type": "anarres.rxnflow-warm-start-weights.v1",
+    "source_checkpoint_step": 1,
+    "policy_weights_exact": true,
+    "sampling_model_weights_exact": true,
+    "fresh_target_trainer_step_before_and_after": 0,
+    "fresh_target_replay_size_before_and_after": 0,
+    "fresh_target_optimizer_state_size_before_and_after": 0,
+    "excluded_fields": [
+      "optimizer",
+      "learning-rate scheduler",
+      "replay",
+      "NumPy random-number state",
+      "Torch random-number state",
+      "CUDA random-number state"
+    ]
+  },
   "authorization": "The warm-start software path is qualified. This one-update CPU smoke does not authorize a target experiment or replace the frozen 1,000-update warm start.",
   "sealed_boundary": {
     "target_reward_evaluated": false,
