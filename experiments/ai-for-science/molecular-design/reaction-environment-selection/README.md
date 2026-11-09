@@ -2,10 +2,11 @@
 
 **Status:** RxnFlow, MolGenBench code, the Version4 archive, an eight-target
 qualification panel, its 24 structural fixtures, and reference docking on all
-eight targets are qualified. The structured reward adapter passes valid,
+eight targets and the common synthesis environment are qualified. The
+structured reward adapter passes valid,
 malformed, filtered, timeout, repeat-call, batched, and RxnFlow v2.1 interface
 checks. Starting-policy oracle throughput, final target identity, the common
-warm start, and candidate memberships remain open. No training or evaluation
+QED warm start, and candidate memberships remain open. No training or evaluation
 outcome has been inspected for this study.
 
 ## Research question
@@ -195,6 +196,9 @@ published model results, or known-active collections.
 construction-fixture counts. [`PROTOCOL.json`](PROTOCOL.json) fixes the study
 structure while listing every open gate. [`BATCH_REWARD_QUALIFICATION.json`](BATCH_REWARD_QUALIFICATION.json)
 records the CPU-only batch and RxnFlow interface checks.
+[`SYNTHESIS_ENVIRONMENT_QUALIFICATION.json`](SYNTHESIS_ENVIRONMENT_QUALIFICATION.json)
+and [`WARM_START_CONTRACT.json`](WARM_START_CONTRACT.json) fix the common action
+space and QED training recipe before the warm start is trained.
 
 Audit local checkouts without reading target outcomes:
 
