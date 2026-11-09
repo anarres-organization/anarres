@@ -1,0 +1,88 @@
+{
+  "artifact": "kuner_2025_mp_aloe_cost_sensitive_audit_v1",
+  "source": {
+    "title": "MP-ALOE: an r2SCAN dataset for universal machine learning interatomic potentials",
+    "doi": "10.1038/s41524-025-01834-9",
+    "data_doi": "10.6084/m9.figshare.29452190.v2",
+    "repository_revision": "91af8c26debb57abac7cc67c7857c25fa33b0ed3"
+  },
+  "comparison_contract": {
+    "architecture": "MACE",
+    "model_parameters": 5725072,
+    "training_epochs": 100,
+    "dft_functional": "r2SCAN",
+    "matched_training_cost": false,
+    "reason_outside_fitted_bridge": "The three arms use substantially different numbers of training configurations and the combined arm contains the deduplicated union."
+  },
+  "arms": [
+    {
+      "arm_id": "mp_aloe",
+      "environment": "MP-ALOE",
+      "reported_frames": 909792,
+      "selection": "query by committee followed by DIRECT downsampling, primarily off-equilibrium hypothetical structures"
+    },
+    {
+      "arm_id": "matpes",
+      "environment": "MatPES r2SCAN 2025.1",
+      "reported_frames": 387897,
+      "selection": "DIRECT sampling from primarily near-equilibrium 300 K molecular dynamics"
+    },
+    {
+      "arm_id": "combined",
+      "environment": "MP-ALOE plus MatPES r2SCAN",
+      "reported_frames": null,
+      "selection": "all MatPES r2SCAN structures plus MP-ALOE structures not duplicated through Materials Project provenance"
+    }
+  ],
+  "panels": [
+    {
+      "panel_id": "wbm_equilibrium_cohesive_energy",
+      "target_regime": "near-equilibrium",
+      "metric": "cohesive_energy_mae_mev_per_atom",
+      "direction": "lower_is_better",
+      "outcomes": {
+        "mp_aloe": 64.0,
+        "matpes": 48.0,
+        "combined": 51.0
+      },
+      "winner": "matpes"
+    },
+    {
+      "panel_id": "extreme_static_compression",
+      "target_regime": "far_from_equilibrium",
+      "metric": "energy_volume_curve_failure_percent",
+      "direction": "lower_is_better",
+      "outcomes": {
+        "mp_aloe": 2.5,
+        "matpes": 14.8,
+        "combined": 0.8
+      },
+      "winner": "combined"
+    },
+    {
+      "panel_id": "extreme_temperature_nvt",
+      "target_regime": "far_from_equilibrium",
+      "metric": "scheduled_md_steps_completed_percent",
+      "direction": "higher_is_better",
+      "outcomes": {
+        "mp_aloe": 98.8,
+        "matpes": 94.7,
+        "combined": 98.2
+      },
+      "winner": "mp_aloe"
+    },
+    {
+      "panel_id": "extreme_temperature_pressure_npt",
+      "target_regime": "far_from_equilibrium",
+      "metric": "scheduled_md_steps_completed_percent",
+      "direction": "higher_is_better",
+      "outcomes": {
+        "mp_aloe": 90.6,
+        "matpes": 83.7,
+        "combined": 93.2
+      },
+      "winner": "combined"
+    }
+  ],
+  "interpretation": "The preferred data environment changes with the physical target. Near-equilibrium MatPES is best for equilibrium cohesive energy, MP-ALOE is best for the extreme-temperature NVT test, and their union is best for static-compression physicality and high-temperature/high-pressure NPT stability. Unequal dataset sizes prevent a matched-cost allocation claim."
+}

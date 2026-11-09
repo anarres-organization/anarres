@@ -258,18 +258,6 @@
       ]
     },
     {
-      "id": "khan_2026_active_learning",
-      "title": "Active Learning Strategies for Efficient Machine-Learned Interatomic Potentials Across Diverse Material Systems",
-      "authors": [
-        "Mohammed Azeez Khan",
-        "Aaron D'Souza",
-        "Vijay Choyal"
-      ],
-      "arxiv": "https://arxiv.org/abs/2601.06916",
-      "status": "excluded_unverified_release",
-      "reason": "The manuscript claims an open GitHub implementation, but no repository URL or independently checkable result archive was located."
-    },
-    {
       "id": "bernard_2024_md_hit",
       "title": "MD-HIT: Machine learning based coreset selection for molecular dynamics datasets",
       "doi": "10.1038/s41524-024-01426-z",
@@ -988,6 +976,39 @@
       ]
     },
     {
+      "id": "kuner_2025_mp_aloe",
+      "title": "MP-ALOE: an r2SCAN dataset for universal machine learning interatomic potentials",
+      "authors": [
+        "Matthew C. Kuner",
+        "Aaron D. Kaplan",
+        "Kristin A. Persson",
+        "Mark Asta",
+        "Daryl C. Chrzan"
+      ],
+      "doi": "10.1038/s41524-025-01834-9",
+      "article": "https://doi.org/10.1038/s41524-025-01834-9",
+      "arxiv": "https://arxiv.org/abs/2507.05559",
+      "data": "https://doi.org/10.6084/m9.figshare.29452190.v2",
+      "data_version": "v2",
+      "repository": "https://github.com/matthewkuner/MP-ALOE",
+      "repository_revision": "91af8c26debb57abac7cc67c7857c25fa33b0ed3",
+      "license": "CC BY 4.0 article and Figshare data deposit; the code repository does not declare a license",
+      "status": "included",
+      "source_artifacts": {
+        "mp_aloe_data_jsonl_gz_md5": "0cac41b76cdc936848d360a14bdc9bf2",
+        "mp_aloe_model_md5": "73cbee33ebb1fd0a7b7b0bdc1cc54800",
+        "matpes_model_md5": "2a128f32ecc36a1328b98b4d7717d72b",
+        "combined_model_md5": "e0d97bf8a8eb61973ccb47924b74bf3c",
+        "off_equilibrium_forces_json_md5": "3a06ab1441d4391d3d59290014f59360"
+      },
+      "use": "Four exact benchmark panels compare MACE potentials trained on MP-ALOE, MatPES, and their deduplicated union. The preferred data environment changes across equilibrium cohesive energy, static compression, extreme-temperature dynamics, and combined high-temperature/high-pressure dynamics.",
+      "exclusions": [
+        "MP-ALOE contains 909,792 frames, MatPES r2SCAN contains about 388,000, and the combined arm is larger than either source after deduplication. Configuration count and training exposure are therefore not matched.",
+        "The published comparison reports one final model per data environment and does not expose independent training-seed outcomes.",
+        "The panels remain a cost-sensitive target-relevance audit outside the fitted bridge."
+      ]
+    },
+    {
       "id": "schaefer_kaestner_2026_erbs",
       "title": "Enhanced Representation-Based Sampling for the Efficient Generation of Data Sets for Machine-Learned Interatomic Potentials",
       "authors": [
@@ -1046,6 +1067,44 @@
       "license": "CC BY 4.0 article and Zenodo data deposit",
       "status": "pending_result_artifact",
       "reason": "The paper reports learning curves across eight data fractions and a five-member committee trained on independent 10% Ti-Al-V subsets. The public deposit contains the underlying Ti-Al-V configurations and baseline potentials, but it does not contain the exact learning-curve or committee outcomes. The bridge will not digitize plotted values, so the study remains pending an exact numerical result artifact."
+    },
+    {
+      "id": "tompa_2026_finetuning_strategies",
+      "title": "Fine-tuning MLIP foundation models: strategies for accuracy and transferability",
+      "authors": [
+        "Tamás Lajos Tompa",
+        "Eszter Varga-Umbrich",
+        "Ilyes Batatia",
+        "Alin M. Elena",
+        "Noam Bernstein",
+        "Gábor Csányi"
+      ],
+      "arxiv": "https://arxiv.org/abs/2606.12704v1",
+      "data": "https://huggingface.co/datasets/ev-tlt/MACE_finetuning_supplementary",
+      "data_version": "8923f4fa19fde4f2bbcdbe9dea53181c4f70361f",
+      "license": "The public supplement records CC BY 4.0, MIT, and CC BY-SA 4.0 terms for its component artifacts",
+      "status": "context_only",
+      "reason": "The release contains datasets, configurations, logs, checkpoints, and evaluations for seven adaptation strategies across five domains, three foundation-model generations, and multiple training-set sizes. The candidate arms primarily change parameter updates, replay, initialization, or atomic reference energies rather than the training environment under one fixed trainer, so the study informs the adaptation contract without entering the environment predictor."
+    },
+    {
+      "id": "tahmasbi_2026_unary_benchmark",
+      "title": "Benchmarking Universal Machine Learning Interatomic Potentials on Elemental Systems",
+      "authors": [
+        "Hossein Tahmasbi",
+        "Andreas Knüpfer",
+        "Thomas D. Kühne",
+        "Hossein Mirhosseini"
+      ],
+      "doi": "10.1038/s41524-026-02251-2",
+      "article": "https://doi.org/10.1038/s41524-026-02251-2",
+      "arxiv": "https://arxiv.org/abs/2512.20230v2",
+      "data": "https://doi.org/10.14278/rodare.4596",
+      "data_version": "v1",
+      "data_archive": "Unary_Benchmark.tar.gz",
+      "data_archive_md5": "1ea5cc0b010ef998c4c90800cb995e60",
+      "license": "CC BY 4.0 data deposit",
+      "status": "context_only",
+      "reason": "The released equation-of-state and minima-hopping benchmark provides valuable common evaluations for universal interatomic potentials across elemental systems. Its models differ in architecture, parameterization, training data, and training budget, so their outcomes cannot isolate an environment decision under a common trainer. The benchmark remains a candidate evaluation asset for future qualification."
     },
     {
       "id": "poul_2025_assyst",

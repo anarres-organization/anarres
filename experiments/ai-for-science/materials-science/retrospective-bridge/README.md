@@ -51,7 +51,7 @@ unchanged between property prediction, interatomic potentials, and phonons.
 ## Qualified evidence
 
 Sixteen sources enter the predictive bridge. Together they contain 828 matched
-decision panels and 2,990 candidate arms. Eight additional sources audit
+decision panels and 2,990 candidate arms. Nine additional sources audit
 selection uncertainty, model–environment compatibility, and training-regime
 dependence without entering the predictor.
 
@@ -188,6 +188,14 @@ dependence without entering the predictor.
   random subsets retain substantial outcome variation. Because no continuous
   pre-outcome measurement is shared across the six arms, this study audits
   selector behavior and uncertainty without entering the pooled predictor.
+- **Kuner et al. (2025)** compare a common MACE architecture trained on
+  MP-ALOE, MatPES, and their deduplicated union. MatPES gives the lowest
+  equilibrium cohesive-energy error, MP-ALOE gives the most stable
+  extreme-temperature NVT trajectories, and the union gives the best static
+  compression and high-pressure NPT results. This target-dependent reversal
+  is a direct data-environment effect, but the training sets contain different
+  numbers of configurations. The four panels therefore remain a
+  cost-sensitive audit outside the matched-cost predictor.
 - **Schäfer and Kästner (2026)** compare standard molecular dynamics with
   enhanced representation-based sampling in a liquid-water active-learning
   loop. Both arms use the same starting data, model, acquisition rule, sampling
@@ -210,13 +218,15 @@ while Supporting Table S3 reports 0.066 eV/Å for the same named comparison. No
 value from that comparison enters the bridge until the discrepancy is resolved.
 
 The broader audit also covers frozen transfer learning, ASSYST, FALCON,
-replica-exchange nested-sampling active learning, and information-matched
-potential design. These studies strengthen the scientific basis for candidate
-construction and target-aware measurement. They remain outside the fitted
-bridge because exact arm outcomes are unavailable or the candidate arms change
-label cost, training weights, or the optimization contract. A four-system
-active-learning preprint is excluded until its announced code release and
-feature provenance can be verified.
+replica-exchange nested-sampling active learning, information-matched potential
+design, fine-tuning-strategy comparisons, and a common unary benchmark for
+universal interatomic potentials. These studies strengthen the scientific
+basis for candidate construction, adaptation, target-aware measurement, and
+evaluation. They remain outside the fitted bridge because exact arm outcomes
+are unavailable or the candidate arms change model architecture, label cost,
+training weights, or the optimization contract. A four-system active-learning
+preprint is excluded until its announced code release and feature provenance
+can be verified.
 
 [`SOURCES.json`](SOURCES.json) records the complete eligibility audit, exact
 revisions, checksums, licenses, and exclusion reasons.
