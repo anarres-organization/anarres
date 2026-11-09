@@ -1,0 +1,111 @@
+{
+  "artifact": "anarres_mlip_full_measurement_validation_v1",
+  "status": "complete",
+  "records": 80000,
+  "atoms": 2035803,
+  "neighbor_edges": 80792358,
+  "model_sha256": "1647af8e627e1afa11e2bfadeab0797326513a521afd7dd01606a96f56783eee",
+  "manifest_sha256": "6ba4b7c44b792af1479decda417fbb7206271c56b9c668b69e6b316c829709c4",
+  "measurement_sha256": {
+    "records_0_10000.jsonl": "85ebb0e0626a6b84447ce4330841a12d347ab370610e27be034e76578215f56b",
+    "records_10000_20000.jsonl": "dac351721de1b3b1166546d7321d3f81561217d0a384595f891a6b845309451f",
+    "records_20000_30000.jsonl": "cc774005985efbadc2865068b1e0f4ec75dbd17144b6eddc28e8c91900690277",
+    "records_30000_40000.jsonl": "a2eada2c655dea46520c8486325eb22fb223a213334f715b54fc662753c61c33",
+    "records_40000_50000.jsonl": "493ceefcee1114c338dc18da07b9cac0d8bb669ca3a751ce38eece6d32ad4ec5",
+    "records_50000_60000.jsonl": "e9a6f15a4774bff2bf2bde66dbd6487eb2414a3515e05de9e2e694a050644fb3",
+    "records_60000_70000.jsonl": "4e02cc738e65fe0eb292c3a9abaac865c00830a394d77e4104ae284df5b0b285",
+    "records_70000_80000.jsonl": "55e1c3141cf9cb3bf94cd66dae4e52833b6ba43b204c0f3cc07ce85484e748fc"
+  },
+  "summary_sha256": {
+    "summary_0_10000.json": "eef2cdbb2b005faaec589c371437fb68b2a53c2d6bd1e5c7eb197308cbabd425",
+    "summary_10000_20000.json": "c1040fd62832011422efc938792d6d9eb5628185648ca455a2c32bc4fd6ee273",
+    "summary_20000_30000.json": "2c9768d454e6054542a336804d98fbfad6d1eec271c24c4681c8ee89a5df39b1",
+    "summary_30000_40000.json": "85040d5eaf64c5b44cc31c66b130f944af9dc4d52a21492b9fcaf4c599cd4188",
+    "summary_40000_50000.json": "d00b78443a8a8acaed7ee658df04988615bd821a9d1232abed31289cdaabcfd2",
+    "summary_50000_60000.json": "ccfbf4dec7346765745a49fc396831e787a444edfea5bfb9aad9e38eb32a0218",
+    "summary_60000_70000.json": "cd914efe55685c5071c2b35a4b14a2ff6d476d78287bcc932ef9d36ffee676fe",
+    "summary_70000_80000.json": "25eaa6ccfc62d9c8906bd922a53d8225de90574ef2f26472420cb249146900b1"
+  },
+  "source_families": {
+    "aimd-from-PBE-1000-npt": {
+      "records": 10000,
+      "atoms": 84931,
+      "neighbor_edges": 3505890,
+      "neighbor_edges_per_atom": 41.27927376340794,
+      "signal_density_per_atom": 5.264871410640039,
+      "effective_signal_coverage": 0.16326791727558432,
+      "mean_force_mae": 0.13757823116814252,
+      "mean_stress_mae_per_atom": 0.0009226055651114734
+    },
+    "aimd-from-PBE-1000-nvt": {
+      "records": 10000,
+      "atoms": 83613,
+      "neighbor_edges": 3552456,
+      "neighbor_edges_per_atom": 42.4868860105486,
+      "signal_density_per_atom": 5.302313434476121,
+      "effective_signal_coverage": 0.37170319024094206,
+      "mean_force_mae": 0.13889146124680993,
+      "mean_stress_mae_per_atom": 0.000942138304141963
+    },
+    "aimd-from-PBE-3000-npt": {
+      "records": 10000,
+      "atoms": 678269,
+      "neighbor_edges": 27646498,
+      "neighbor_edges_per_atom": 40.760373833980324,
+      "signal_density_per_atom": 7.169400425113429,
+      "effective_signal_coverage": 0.4006024845051246,
+      "mean_force_mae": 0.1797808850596426,
+      "mean_stress_mae_per_atom": 4.9240791573066646e-05
+    },
+    "aimd-from-PBE-3000-nvt": {
+      "records": 10000,
+      "atoms": 677839,
+      "neighbor_edges": 27743308,
+      "neighbor_edges_per_atom": 40.92905247411258,
+      "signal_density_per_atom": 7.266338305513542,
+      "effective_signal_coverage": 0.26399262054180245,
+      "mean_force_mae": 0.1809713146257214,
+      "mean_stress_mae_per_atom": 4.9125131676635194e-05
+    },
+    "rattled-1000": {
+      "records": 10000,
+      "atoms": 141113,
+      "neighbor_edges": 4997282,
+      "neighbor_edges_per_atom": 35.41333541204567,
+      "signal_density_per_atom": 17.370388472759405,
+      "effective_signal_coverage": 0.17252957752012038,
+      "mean_force_mae": 0.40353115959130226,
+      "mean_stress_mae_per_atom": 0.000670049664092221
+    },
+    "rattled-300": {
+      "records": 10000,
+      "atoms": 142431,
+      "neighbor_edges": 4847480,
+      "neighbor_edges_per_atom": 34.03388307320738,
+      "signal_density_per_atom": 16.051486271936056,
+      "effective_signal_coverage": 0.12672171128606766,
+      "mean_force_mae": 0.36728388735111805,
+      "mean_stress_mae_per_atom": 0.0006466394665048483
+    },
+    "rattled-500": {
+      "records": 10000,
+      "atoms": 143056,
+      "neighbor_edges": 4968766,
+      "neighbor_edges_per_atom": 34.73301364500615,
+      "signal_density_per_atom": 16.473543670717177,
+      "effective_signal_coverage": 0.1627865109390905,
+      "mean_force_mae": 0.38067884258702395,
+      "mean_stress_mae_per_atom": 0.0006748725876325353
+    },
+    "rattled-relax": {
+      "records": 10000,
+      "atoms": 84551,
+      "neighbor_edges": 3530678,
+      "neighbor_edges_per_atom": 41.75796856335229,
+      "signal_density_per_atom": 7.585967908465395,
+      "effective_signal_coverage": 0.016421651704812464,
+      "mean_force_mae": 0.1988236273923656,
+      "mean_stress_mae_per_atom": 0.0011650606739465844
+    }
+  }
+}

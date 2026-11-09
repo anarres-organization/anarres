@@ -1,10 +1,11 @@
 # Predicting MLIP post-training utility for phonons
 
 **Status:** source artifacts and the starting checkpoint are qualified, the
-outcome-blind target roles are frozen, the measurement pool is fixed, and its
-label-to-model path has passed a bounded smoke test. Candidate measurement is
-in progress. No claim-bearing model has been trained and no prospective
-environment outcome has been opened.
+outcome-blind target roles are frozen, and the complete 80,000-record
+measurement sweep has passed integrity checks. A 48-environment, equal-atom
+candidate bank is available as a measurement-only draft for domain review. No
+claim-bearing model has been trained and no prospective environment outcome has
+been opened.
 
 ## Research question
 
@@ -237,6 +238,32 @@ and
 [`MEASUREMENT_INFERENCE_SMOKE_512.json`](MEASUREMENT_INFERENCE_SMOKE_512.json).
 This qualification establishes the measurement transport and runtime. It does
 not compare candidate environments or use a phonon target outcome.
+
+[`FULL_MEASUREMENT_VALIDATION.json`](FULL_MEASUREMENT_VALIDATION.json) records
+the complete starting-model measurement gate. All 80,000 records and 2,035,803
+atoms have contiguous identities, finite measurements, matching atom counts,
+and one common Nequix-MP-1 hash. The eight source families span signal density
+from 5.26 to 17.37 per processed atom and normalized effective signal coverage
+from 0.016 to 0.401. The measurement files remain represented by their
+individual SHA-256 hashes rather than being added to the repository.
+
+[`CANDIDATE_BANK_DRAFT.json`](CANDIDATE_BANK_DRAFT.json) constructs six
+outcome-blind selectors within each physical source family: hash-uniform, low
+signal, high signal, structural coverage, target affinity, and a joint score.
+Every one of the 48 candidates contains exactly 50,000 atoms from unique parent
+structures. Across the bank, signal density spans 1.75--32.26 and effective
+signal coverage spans 0.014--0.897. Neighbor-edge cost varies from 24.6 to 59.5
+per atom, so the final development and prospective panel must tighten or match
+this coordinate before memberships are frozen. The draft uses no candidate
+training outcome and no development or prospective phonon outcome.
+
+This is the current domain-review gate. The scientific questions are whether
+the source families cover the physical regimes that matter for phonons, whether
+composition-level exclusion is appropriately conservative, whether processed
+atoms and neighbor edges define the right cost contract, and whether the target
+affinity and curvature measurements capture the relevant transfer mechanism.
+The bank remains editable until those questions are resolved and the final
+membership hashes are serialized.
 
 ## Primary sources
 
