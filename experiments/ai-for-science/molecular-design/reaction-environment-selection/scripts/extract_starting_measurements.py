@@ -136,6 +136,7 @@ def build_records(
     scores: list[dict[str, Any]],
     embeddings: np.ndarray,
     view_seed: int,
+    target_id: str,
 ) -> list[dict[str, Any]]:
     if len(samples) != len(scores) or len(samples) != len(embeddings):
         raise ValueError("samples, target scores, and embeddings must have equal length")
@@ -155,6 +156,7 @@ def build_records(
                     trajectory,
                 ),
                 "view_seed": view_seed,
+                "target_id": target_id,
                 "returned_index": index,
                 "smiles": str(sample["smiles"]),
                 **chemistry,
@@ -183,6 +185,7 @@ def main() -> None:
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--env-dir", type=Path, required=True)
     parser.add_argument("--view-seed", type=int, required=True)
+    parser.add_argument("--target-id", required=True)
     parser.add_argument("--attempts", type=int, required=True)
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--batch-size", type=int, default=128)
@@ -199,11 +202,12 @@ def main() -> None:
         args.device,
         args.batch_size,
     )
-    records = build_records(samples, scores, embeddings, args.view_seed)
+    records = build_records(samples, scores, embeddings, args.view_seed, args.target_id)
     write_jsonl(args.output, records)
     manifest = {
         "schema_version": "1.0",
         "view_seed": args.view_seed,
+        "target_id": args.target_id,
         "attempts": args.attempts,
         "returned_records": len(records),
         "embedding_dimension": int(embeddings.shape[1]),

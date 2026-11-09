@@ -33,7 +33,7 @@ class MeasurementExtractionTests(unittest.TestCase):
 
     def test_build_records_requires_aligned_inputs(self):
         with self.assertRaisesRegex(ValueError, "equal length"):
-            MODULE.build_records([], [{}], np.empty((0, 4)), 1)
+            MODULE.build_records([], [{}], np.empty((0, 4)), 1, "Q07820")
 
     def test_record_identity_changes_with_view(self):
         trajectory = [{"reaction": None}]

@@ -4,7 +4,7 @@
   "scope": "selected-target operational and graph measurement extractor",
   "qualification": "pass",
   "contract_sha256": "1347ff8d8df9786f7b91c53b928f1adec90afda367abc0c9f508fd0d1c620cda",
-  "extractor_sha256": "7cf18050dee6f117b58446a3705f566cb0b7e142df26764cc96545a2c4889604",
+  "extractor_sha256": "394e3430af2885a07da6f222bcdc8c4e5fccd476189903796e577bc410ec39a0",
   "starting_policy_artifact_sha256": "effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a",
   "input_view": {
     "seed": 20261110,
@@ -25,16 +25,17 @@
       1,
       2
     ],
-    "content_sha256": "bc37b4b23cccc171f69763053f1a05511b82bcb5321e43f98ee0f7345e72f6ab"
+    "content_sha256": "42852091202688d9c3c8289c6636c06de0af6067fadb587bb615d247dfd5910b"
   },
   "repeatability": {
     "independent_extractions": 2,
     "byte_identical": true,
-    "first_content_sha256": "bc37b4b23cccc171f69763053f1a05511b82bcb5321e43f98ee0f7345e72f6ab",
-    "second_content_sha256": "bc37b4b23cccc171f69763053f1a05511b82bcb5321e43f98ee0f7345e72f6ab"
+    "first_content_sha256": "42852091202688d9c3c8289c6636c06de0af6067fadb587bb615d247dfd5910b",
+    "second_content_sha256": "42852091202688d9c3c8289c6636c06de0af6067fadb587bb615d247dfd5910b"
   },
   "checks": {
     "sample_score_alignment": "pass",
+    "selected_target_identity": "pass",
     "record_identity_uniqueness": "pass",
     "canonical_molecule_features": "pass",
     "route_feature_extraction": "pass",

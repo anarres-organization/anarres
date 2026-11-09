@@ -162,6 +162,19 @@ with `scripts/extract_starting_measurements.py`. Verify the checkpoint and both
 input digests before accepting its manifest. The committed extractor
 qualification is byte-identical across two runs on the 64-record smoke view.
 
+After both complete view artifacts pass their digest checks, apply the frozen
+reliability gates with:
+
+```bash
+python scripts/qualify_measurements.py \
+  --contract MEASUREMENT_CONTRACT.json \
+  --records /path/to/construction-records.jsonl \
+  --manifest /path/to/construction-manifest.json \
+  --records /path/to/confirmation-records.jsonl \
+  --manifest /path/to/confirmation-manifest.json \
+  --output /tmp/MEASUREMENT_QUALIFICATION.json
+```
+
 Compute all operational and graph coordinates separately in each probe view.
 Apply the prespecified reliability and support gates. Failure produces an
 abstention or a new versioned protocol.
