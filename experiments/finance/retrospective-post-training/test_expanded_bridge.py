@@ -23,7 +23,7 @@ class ExpandedBridgeTests(unittest.TestCase):
         cls.summary = json.loads(SUMMARY.read_text())
 
     def test_support(self) -> None:
-        self.assertEqual(self.summary["support"], {"sources": 14, "panels": 107, "arms": 438})
+        self.assertEqual(self.summary["support"], {"sources": 16, "panels": 149, "arms": 538})
 
     def test_required_holdouts_and_controls(self) -> None:
         self.assertEqual(
@@ -74,11 +74,24 @@ class ExpandedBridgeTests(unittest.TestCase):
         comparison = self.summary["paired_source_comparison"]
         self.assertGreater(comparison["study_wins"], comparison["study_losses"])
         multi_panel = self.summary["multi_panel_source_sensitivity"]
-        self.assertEqual(multi_panel["support"]["sources"], 12)
+        self.assertEqual(multi_panel["support"]["sources"], 14)
         self.assertLess(
             multi_panel["evaluations"]["practical_rule"]["source_macro"]["mean_normalized_regret"],
             multi_panel["evaluations"]["more_data"]["source_macro"]["mean_normalized_regret"],
         )
+
+    def test_time_and_influence_sensitivities(self) -> None:
+        temporal = self.summary["publication_cutoff_sensitivity"]
+        self.assertEqual(temporal["cutoff_year"], 2026)
+        self.assertEqual(temporal["train_support"]["sources"], 7)
+        self.assertEqual(temporal["test_support"]["sources"], 9)
+        self.assertLess(
+            temporal["evaluations"]["ridge"]["source_macro"]["mean_normalized_regret"],
+            temporal["evaluations"]["more_data"]["source_macro"]["mean_normalized_regret"],
+        )
+        influence = self.summary["source_exclusion_sensitivity"]
+        self.assertTrue(influence["all_source_exclusions_preserve_direction"])
+        self.assertGreater(influence["minimum_gap"], 0.0)
 
     def test_shuffled_pairing_is_not_claim_evidence(self) -> None:
         shuffled = self.summary["shuffled_pairing_control"]

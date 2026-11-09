@@ -4964,6 +4964,1544 @@
       "panel_id": "okochi_gpt_oss_20b_pfmt_bench_fin_ja_average",
       "source_id": "okochi_japanese_finance_2026",
       "target": "pfmt_bench_fin_ja_average"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 92.99,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 91.13,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 4",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_fpb",
+      "source_id": "findap_2025",
+      "target": "fpb"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 94.47,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 95.32,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 4",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_fiqasa",
+      "source_id": "findap_2025",
+      "target": "fiqasa"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 63.1,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 64.31,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 4",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_fomc",
+      "source_id": "findap_2025",
+      "target": "fomc"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 74.33,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 76.69,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 4",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_ner",
+      "source_id": "findap_2025",
+      "target": "ner"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 54.21,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 53.78,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 4",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_edtsum",
+      "source_id": "findap_2025",
+      "target": "edtsum"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 47.22,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 47.42,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_mmlu",
+      "source_id": "findap_2025",
+      "target": "mmlu"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 88.95,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 89.43,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_ai2_arc",
+      "source_id": "findap_2025",
+      "target": "ai2_arc"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 16.2,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 19.2,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_nq_open",
+      "source_id": "findap_2025",
+      "target": "nq_open"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 63.93,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 64.2,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_mmlu_finance",
+      "source_id": "findap_2025",
+      "target": "mmlu_finance"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 34.41,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 34.1,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_flare_ectsum",
+      "source_id": "findap_2025",
+      "target": "flare_ectsum"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 42.0,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 40.67,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_mlesg",
+      "source_id": "findap_2025",
+      "target": "mlesg"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 84.6,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 84.0,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_ma_rumor_detection",
+      "source_id": "findap_2025",
+      "target": "ma_rumor_detection"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 52.04,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 54.14,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_sm_bigdata",
+      "source_id": "findap_2025",
+      "target": "sm_bigdata"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 49.89,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 51.99,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_sm_acl",
+      "source_id": "findap_2025",
+      "target": "sm_acl"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 44.88,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 54.94,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_sm_cikm",
+      "source_id": "findap_2025",
+      "target": "sm_cikm"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 0.61,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 0.83,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_cra_ccf",
+      "source_id": "findap_2025",
+      "target": "cra_ccf"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 32.32,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 34.03,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_cra_ccfraud",
+      "source_id": "findap_2025",
+      "target": "cra_ccfraud"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 60.5,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 64.0,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_flare_german",
+      "source_id": "findap_2025",
+      "target": "flare_german"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 51.8,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 44.6,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_flare_australian",
+      "source_id": "findap_2025",
+      "target": "flare_australian"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 65.96,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 68.49,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_cra_lendingclub",
+      "source_id": "findap_2025",
+      "target": "cra_lendingclub"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 6.65,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 15.3,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_cra_polish",
+      "source_id": "findap_2025",
+      "target": "cra_polish"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 96.41,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 40.81,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_cra_taiwan",
+      "source_id": "findap_2025",
+      "target": "cra_taiwan"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 86.57,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 35.14,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_cra_proseguro",
+      "source_id": "findap_2025",
+      "target": "cra_proseguro"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 98.5,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 41.52,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_cra_travelinsurance",
+      "source_id": "findap_2025",
+      "target": "cra_travelinsurance"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 66.43,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 66.61,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_flare_tatqa",
+      "source_id": "findap_2025",
+      "target": "flare_tatqa"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 52.0,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 54.0,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_finance_bench",
+      "source_id": "findap_2025",
+      "target": "finance_bench"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 7.29,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 7.36,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_mt_bench",
+      "source_id": "findap_2025",
+      "target": "mt_bench"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 54.3,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 55.08,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_mathqa",
+      "source_id": "findap_2025",
+      "target": "mathqa"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 73.64,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 75.23,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_social_iqa",
+      "source_id": "findap_2025",
+      "target": "social_iqa"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 79.2,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 82.6,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_openbook_qa",
+      "source_id": "findap_2025",
+      "target": "openbook_qa"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 78.92,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 81.9,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_hellaswag",
+      "source_id": "findap_2025",
+      "target": "hellaswag"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 67.48,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 70.32,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_winogrande",
+      "source_id": "findap_2025",
+      "target": "winogrande"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 84.39,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 85.85,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_piqa",
+      "source_id": "findap_2025",
+      "target": "piqa"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 62.31,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 66.28,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_cfa_easy",
+      "source_id": "findap_2025",
+      "target": "cfa_easy"
+    },
+    {
+      "arms": [
+        {
+          "id": "joint_cpt_it",
+          "score": 35.56,
+          "treatment": {
+            "feedback_locality": 0.0,
+            "quality_control": 0.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "joint_cpt_it_plus_preference_alignment",
+          "score": 55.56,
+          "treatment": {
+            "feedback_locality": 1.0,
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3_8b_instruct",
+      "panel_id": "findap_pa_cfa_challenge",
+      "source_id": "findap_2025",
+      "target": "cfa_challenge"
+    },
+    {
+      "arms": [
+        {
+          "id": "full_reward",
+          "score": 27.05,
+          "treatment": {
+            "quality_control": 1.0,
+            "target_alignment": 1.0,
+            "verifier_alignment": 1.0
+          }
+        },
+        {
+          "id": "without_length",
+          "score": 26.58,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        },
+        {
+          "id": "without_image_selection",
+          "score": 26.62,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        },
+        {
+          "id": "without_adversarial",
+          "score": 26.69,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 3",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_vl_3b",
+      "panel_id": "finlmm_reward_mathvision",
+      "source_id": "finlmm_r1_2025",
+      "target": "mathvision"
+    },
+    {
+      "arms": [
+        {
+          "id": "full_reward",
+          "score": 42.29,
+          "treatment": {
+            "quality_control": 1.0,
+            "target_alignment": 1.0,
+            "verifier_alignment": 1.0
+          }
+        },
+        {
+          "id": "without_length",
+          "score": 41.82,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        },
+        {
+          "id": "without_image_selection",
+          "score": 41.72,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        },
+        {
+          "id": "without_adversarial",
+          "score": 41.9,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 3",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_vl_3b",
+      "panel_id": "finlmm_reward_mathverse",
+      "source_id": "finlmm_r1_2025",
+      "target": "mathverse"
+    },
+    {
+      "arms": [
+        {
+          "id": "full_reward",
+          "score": 61.13,
+          "treatment": {
+            "quality_control": 1.0,
+            "target_alignment": 1.0,
+            "verifier_alignment": 1.0
+          }
+        },
+        {
+          "id": "without_length",
+          "score": 60.73,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        },
+        {
+          "id": "without_image_selection",
+          "score": 60.6,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        },
+        {
+          "id": "without_adversarial",
+          "score": 59.07,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 3",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_vl_3b",
+      "panel_id": "finlmm_reward_mm_star",
+      "source_id": "finlmm_r1_2025",
+      "target": "mm_star"
+    },
+    {
+      "arms": [
+        {
+          "id": "full_reward",
+          "score": 65.2,
+          "treatment": {
+            "quality_control": 1.0,
+            "target_alignment": 1.0,
+            "verifier_alignment": 1.0
+          }
+        },
+        {
+          "id": "without_length",
+          "score": 65.0,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        },
+        {
+          "id": "without_image_selection",
+          "score": 64.4,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        },
+        {
+          "id": "without_adversarial",
+          "score": 64.2,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 3",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_vl_3b",
+      "panel_id": "finlmm_reward_mathvista",
+      "source_id": "finlmm_r1_2025",
+      "target": "mathvista"
+    },
+    {
+      "arms": [
+        {
+          "id": "full_reward",
+          "score": 55.02,
+          "treatment": {
+            "quality_control": 1.0,
+            "target_alignment": 1.0,
+            "verifier_alignment": 1.0
+          }
+        },
+        {
+          "id": "without_length",
+          "score": 53.35,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        },
+        {
+          "id": "without_image_selection",
+          "score": 53.27,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        },
+        {
+          "id": "without_adversarial",
+          "score": 52.83,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 3",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_vl_3b",
+      "panel_id": "finlmm_reward_asp_finance",
+      "source_id": "finlmm_r1_2025",
+      "target": "asp_finance"
+    },
+    {
+      "arms": [
+        {
+          "id": "full_reward",
+          "score": 27.49,
+          "treatment": {
+            "quality_control": 1.0,
+            "target_alignment": 1.0,
+            "verifier_alignment": 1.0
+          }
+        },
+        {
+          "id": "without_length",
+          "score": 26.53,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        },
+        {
+          "id": "without_image_selection",
+          "score": 26.44,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        },
+        {
+          "id": "without_adversarial",
+          "score": 25.84,
+          "treatment": {
+            "quality_control": 0.6666666666666666,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.6666666666666666
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 3",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_vl_3b",
+      "panel_id": "finlmm_reward_famma",
+      "source_id": "finlmm_r1_2025",
+      "target": "famma"
+    },
+    {
+      "arms": [
+        {
+          "id": "findata_0pct",
+          "score": 55.02,
+          "treatment": {
+            "sample_count": 0,
+            "target_alignment": 0.0
+          }
+        },
+        {
+          "id": "findata_20pct",
+          "score": 55.92,
+          "treatment": {
+            "sample_count": 20,
+            "target_alignment": 0.2
+          }
+        },
+        {
+          "id": "findata_40pct",
+          "score": 56.74,
+          "treatment": {
+            "sample_count": 40,
+            "target_alignment": 0.4
+          }
+        },
+        {
+          "id": "findata_60pct",
+          "score": 57.53,
+          "treatment": {
+            "sample_count": 60,
+            "target_alignment": 0.6
+          }
+        },
+        {
+          "id": "findata_80pct",
+          "score": 58.9,
+          "treatment": {
+            "sample_count": 80,
+            "target_alignment": 0.8
+          }
+        },
+        {
+          "id": "findata_100pct",
+          "score": 59.36,
+          "treatment": {
+            "sample_count": 100,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 4",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_vl_3b",
+      "panel_id": "finlmm_findata_scaling",
+      "source_id": "finlmm_r1_2025",
+      "target": "asp_finance"
     }
   ],
   "schema_version": 1,

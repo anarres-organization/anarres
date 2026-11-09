@@ -35,38 +35,39 @@ following performance:
 
 | Aggregation | Pair ordering | Mean normalized regret | Top-choice credit |
 |---|---:|---:|---:|
-| Panel weighted | 62.6% | 0.340 | 52.4% |
-| Study macro | 74.9% | 0.175 | 70.4% |
+| Panel weighted | 64.3% | 0.304 | 59.8% |
+| Study macro | 75.3% | 0.170 | 72.5% |
 
-The more-data baseline reaches 55.7% ordering and 0.486 regret under panel
-weighting, and 58.4% ordering and 0.411 regret under study-macro weighting. The
-practical rule has lower regret in eleven of fourteen held-out studies, ties in
-one, and loses in two. A two-sided exact sign test over the thirteen non-tied
-studies gives $p=0.022$. This records breadth across published studies while
+The more-data baseline reaches 56.0% ordering and 0.489 regret under panel
+weighting, and 58.2% ordering and 0.421 regret under study-macro weighting. The
+practical rule has lower regret in thirteen of sixteen held-out studies, ties in
+one, and loses in two. A two-sided exact sign test over the fifteen non-tied
+studies gives $p=0.007$. This records breadth across published studies while
 remaining a retrospective test of a semantically encoded rule.
 
-Two sources contribute one decision panel each. Excluding both leaves twelve
-multi-panel studies, where the practical rule reaches 71.5% ordering and 0.205
-regret versus 58.9% and 0.413 for more data. The corresponding study-level
-comparison has nine wins, two losses, and one tie.
+Two sources contribute one decision panel each. Excluding both leaves fourteen
+multi-panel studies, where the practical rule reaches 72.5% ordering and 0.194
+regret versus 58.7% and 0.424 for more data. Removing any one source from the
+complete bridge preserves the rule's lower study-macro regret, with an advantage
+between 0.233 and 0.272.
 
 The conclusion also survives rank normalization. With outcomes replaced by
-within-panel ranks, the practical rule reaches 74.9% study-macro ordering and
-0.174 regret, compared with 58.4% and 0.422 for more data. Pair ordering is
+within-panel ranks, the practical rule reaches 75.3% study-macro ordering and
+0.168 regret, compared with 58.2% and 0.428 for more data. Pair ordering is
 unchanged because monotone within-panel normalization preserves every candidate
 comparison.
 
 Model roles remain separate. The exploratory seven-coordinate ridge has the
-lowest study-macro source-holdout RMSE at 0.408. The full-feature ridge improves
-candidate ordering to 71.4% and lowers regret to 0.228. The fixed practical
+lowest study-macro source-holdout RMSE at 0.403. The full-feature ridge improves
+candidate ordering to 72.9% and lowers regret to 0.212. The fixed practical
 rule has the strongest decision metrics but is not calibrated as a utility
 scale. These models answer different questions and are reported together.
 
 ## Interpretation
 
 The original 12-panel audit selected ten reported winners with its quality-aware
-rule. That result remains the initial evidence cut. The 107-panel analysis is
-more demanding because it adds ten independently recovered sources, new model
+rule. That result remains the initial evidence cut. The 149-panel analysis is
+more demanding because it adds twelve independently recovered sources, new model
 families and targets, policy-relative curriculum ablations, data-mixture and
 reward interventions, and a source-level holdout. Its result is expressed
 through ordering and regret rather than a single winner count.
@@ -76,3 +77,12 @@ weakens. They do not validate a finance allocator. Following the decision-first
 evaluation used by DataDecide, the prospective panel must compare curve or score
 prediction with the actual allocation decision and strong simple rules
 ([Magnusson et al., 2025](https://arxiv.org/abs/2504.11393)).
+
+## Time and influence sensitivities
+
+A publication-date split fits the ridge models on seven studies from 2024--2025
+and scores nine sources released in 2026. On the later sources, the full ridge
+reaches 72.8% study-macro ordering and 0.248 regret, while more data reaches
+57.3% and 0.434. The practical rule reaches 72.2% ordering and 0.200 regret.
+This split is a chronological sensitivity rather than a prospective test because
+the shared semantic representation was designed after all outcomes were public.

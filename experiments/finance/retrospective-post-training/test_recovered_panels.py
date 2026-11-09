@@ -25,10 +25,10 @@ class RecoveredPanelTests(unittest.TestCase):
 
     def test_support(self) -> None:
         panels = self.document["panels"]
-        self.assertEqual(len(panels), 95)
-        self.assertEqual(sum(len(panel["arms"]) for panel in panels), 391)
+        self.assertEqual(len(panels), 137)
+        self.assertEqual(sum(len(panel["arms"]) for panel in panels), 491)
         self.assertEqual(sum(panel["budget_matched"] for panel in panels), 20)
-        self.assertEqual(len({panel["source_id"] for panel in panels}), 10)
+        self.assertEqual(len({panel["source_id"] for panel in panels}), 12)
 
     def test_identity_and_values(self) -> None:
         panel_ids = [panel["panel_id"] for panel in self.document["panels"]]
@@ -78,6 +78,12 @@ class RecoveredPanelTests(unittest.TestCase):
         }
         self.assertEqual(advice["base"], 0.0170)
         self.assertEqual(advice["finance_reward_grpo"], 0.0228)
+        findap = {arm["id"]: arm["score"] for arm in panels["findap_pa_cra_taiwan"]["arms"]}
+        self.assertEqual(findap["joint_cpt_it"], 96.41)
+        self.assertEqual(findap["joint_cpt_it_plus_preference_alignment"], 40.81)
+        finlmm = {arm["id"]: arm["score"] for arm in panels["finlmm_reward_famma"]["arms"]}
+        self.assertEqual(finlmm["full_reward"], 27.49)
+        self.assertEqual(finlmm["without_adversarial"], 25.84)
 
     def test_alignment_is_relative_to_the_evaluation_target(self) -> None:
         panels = {panel["panel_id"]: panel for panel in self.document["panels"]}

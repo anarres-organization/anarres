@@ -28,15 +28,18 @@ table used. [`SCREENING.md`](SCREENING.md) records relevant studies that were
 not admitted and the evidence needed to reconsider them.
 
 The literature expansion adds a source-recovered layer before refitting.
-[`data/recovered_panels.json`](data/recovered_panels.json) contains 95
-additional panels and 391 arms from ten audited primary sources. It covers
+[`data/recovered_panels.json`](data/recovered_panels.json) contains 137
+additional panels and 491 arms from twelve audited primary sources. It covers
 cross-task mixtures over five model families, real and synthetic data at fixed
 sample counts, finance-specific trajectory selection, five-seed
 self-distillation ablations, and a complete two-stage data-processing
 factorial across nine model families. It also adds controlled curriculum and
 policy-relative difficulty-filtering ablations for long-context financial RL,
 finance-data mixture and GRPO interventions, selective knowledge fusion, and a
-judge-independent business-outcome audit of financial-advice GRPO.
+judge-independent business-outcome audit of financial-advice GRPO. A
+same-checkpoint preference-alignment ablation from FINDAP adds finance and
+general-capability outcomes, including the reported regressions. FinLMM-R1
+adds reward-component ablations and a financial multimodal data-scaling curve.
 Source-native treatment fields remain explicit instead of forcing missing
 quantities into a common numeric feature.
 
@@ -48,20 +51,16 @@ and arm names are excluded from the predictive representation.
 
 ## Normalization and model
 
-For each panel, the script subtracts the panel's starting-policy score and
-divides by the largest absolute observed change in that panel. This preserves
-within-panel ordering while preventing a benchmark with a wider numerical range
-from dominating the fit. A fixed ridge model uses only source-reported treatment
-properties:
+For each panel, the script maps the worst reported arm to zero and the best to
+one, preserving intermediate differences. This prevents a benchmark with a
+wider numerical range from dominating the fit. The bridge then evaluates fixed
+rules and ridge models using only source-reported treatment properties such as:
 
-- reasoning-data quality control
-- retention control
-- verifier alignment
-- policy-relative difficulty
-- out-of-domain augmentation
-- raw-volume-only adaptation
-- SFT and RL stage indicators
-- reported data fraction when available.
+- target fit and source breadth
+- data volume and human-labeled share
+- quality, retention, and refinement controls
+- verifier alignment and policy-relative selection
+- feedback locality, rollout efficiency, and curriculum progression.
 
 Leave-one-study-out evaluation keeps every panel from the held-out paper outside
 the fit. A transparent quality-aware rule and a more-training rule are reported
@@ -92,36 +91,45 @@ transfer across independently published finance decisions.
 
 ## Expanded source-recovered result
 
-The expanded bridge contains 107 source-native decision panels, 438 arms, and
-fourteen independent studies. Outcomes are normalized only within each panel.
+The expanded bridge contains 149 source-native decision panels, 538 arms, and
+sixteen independent studies. Outcomes are normalized only within each panel.
 Under leave-one-source-out evaluation, an interpretable treatment rule orders
-62.6% of candidate pairs and has 0.340 mean normalized regret, compared with
-55.7% and 0.486 for choosing more data. Its regret is also below the fifth
+64.3% of candidate pairs and has 0.304 mean normalized regret, compared with
+56.0% and 0.489 for choosing more data. Its regret is also below the fifth
 percentile from 200 within-panel shuffled-pairing controls. The grouped ridge
 has lower magnitude error but weaker allocation performance than the rule. The
 exploratory seven-coordinate ridge gives the best study-macro calibration at
-0.408 RMSE. The full ridge reaches 71.4% study-macro pair ordering and 0.228
+0.403 RMSE. The full ridge reaches 72.9% study-macro pair ordering and 0.212
 regret, while the practical rule remains strongest for decisions.
 
 Equal-study weighting strengthens the comparison. The practical rule reaches
-74.9% pair ordering, 70.4% top-choice credit, and 0.175 regret, compared with
-58.4%, 36.8%, and 0.411 for more data. It has lower regret in eleven of fourteen
+75.3% pair ordering, 72.5% top-choice credit, and 0.170 regret, compared with
+58.2%, 37.6%, and 0.421 for more data. It has lower regret in thirteen of sixteen
 held-out studies, ties in one, and loses in two. The same ordering survives
 replacement of min-to-max utility with within-panel ranks. The exact two-sided
-sign-test value is 0.022 across the thirteen non-tied studies. This is a
+sign-test value is 0.007 across the fifteen non-tied studies. This is a
 retrospective breadth test, not evidence from a frozen selector. The full
 normalization and weighting rationale is recorded in
 [`NORMALIZATION_AUDIT.md`](NORMALIZATION_AUDIT.md).
 
 The direction does not depend on the two sources that report only one decision
-panel. Restricting the audit to twelve multi-panel studies yields 71.5% pair
-ordering and 0.205 regret for the practical rule, compared with 58.9% and 0.413
-for more data. This sensitivity prevents a small, easy intervention table from
-driving the study-macro result.
+panel. Restricting the audit to fourteen multi-panel studies yields 72.5% pair
+ordering and 0.194 regret for the practical rule, compared with 58.7% and 0.424
+for more data. Removing any single source also preserves the practical rule's
+regret advantage, with a study-macro gap of 0.233 to 0.272. These sensitivities
+prevent a small or unusually favorable table from driving the result.
+
+A publication-date sensitivity fits the learned models on seven studies released
+in 2024--2025 and scores nine sources released in 2026. The full ridge reaches
+72.8% study-macro pair ordering and 0.248 regret, compared with 57.3% and 0.434
+for more data. The fixed practical rule reaches 72.2% ordering and 0.200 regret.
+Publication order reduces direct outcome reuse but does not make this a
+prospective test because the shared semantic schema was assembled after these
+results were public.
 
 Transfer is stronger when a study is known and the held-out group is a new
-model or target. The full ridge reaches 76.8% study-macro pair ordering and
-0.155 regret under model holdout, and 74.3% ordering and 0.176 regret under
+model or target. The full ridge reaches 76.9% study-macro pair ordering and
+0.152 regret under model holdout, and 74.1% ordering and 0.162 regret under
 target holdout. The compact ridge remains better calibrated under source
 holdout but gives up some ordering and decision accuracy.
 This gap is scientifically important. Recurring treatment measurements carry

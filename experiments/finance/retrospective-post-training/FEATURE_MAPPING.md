@@ -38,7 +38,9 @@ The shared coordinates are:
 - transcript refinement and QA refinement: the two independently randomized
   stages in the speech-to-SFT factorial study.
 - feedback locality: localized correction rather than full-solution or
-  reference-only supervision.
+  reference-only supervision. FINDAP's stepwise corrective preference stage is
+  encoded here and under quality control, while its checkpoint before preference
+  alignment is the within-panel control.
 - efficient rollout: a source-defined short rollout or answer contract.
 - curriculum progression: an explicit sequence from short-context reasoning to
   long-context retrieval, rather than an unordered mixture.

@@ -48,6 +48,25 @@ COMPACT_GROUPS = {
     "rollout_efficiency": ["efficient_rollout"],
 }
 
+SOURCE_YEARS = {
+    "phogat2024_financial_qa": 2024,
+    "fino1": 2025,
+    "harsha2025_synthetic_financial_qa": 2025,
+    "dianjin_r1_2025": 2025,
+    "select2know_2025": 2025,
+    "findap_2025": 2025,
+    "finlmm_r1_2025": 2025,
+    "oda_fin": 2026,
+    "data_centric_finance": 2026,
+    "quanteval": 2026,
+    "fin_prm_2026": 2026,
+    "fin_sd_2026": 2026,
+    "shin_kim_2026_speech_sft": 2026,
+    "finlcr_2026": 2026,
+    "financial_advice_grpo_2026": 2026,
+    "okochi_japanese_finance_2026": 2026,
+}
+
 
 def solve(matrix: list[list[float]], vector: list[float]) -> list[float]:
     n = len(vector)
@@ -292,6 +311,36 @@ def compact_x(row: dict) -> list[float]:
     return output
 
 
+def practical_value(row: dict) -> float:
+    f = row["feature_values"]
+    return (
+        f["target_alignment"]
+        + 0.5 * f["quality_control"]
+        + 0.5 * f["retention_control"]
+        + 0.5 * f["verifier_alignment"]
+        + 0.5 * f["policy_relative_selection"]
+        + 0.25 * f["source_diversity"]
+        + 0.25 * f["human_labeled_fraction"]
+        + 0.25 * f["domain_specific_selection"]
+        + 0.25 * f["transcript_refinement"]
+        + 0.25 * f["qa_refinement"]
+        + 0.25 * f["feedback_locality"]
+        + 0.1 * f["efficient_rollout"]
+        + 0.5 * f["curriculum_progression"]
+    )
+
+
+def row_key(row: dict) -> str:
+    return f"{row['source']}::{row['panel']}::{row['arm']}"
+
+
+def fixed_predictions(rows: list[dict]) -> dict[str, dict[str, float]]:
+    return {
+        "practical_rule": {row_key(row): practical_value(row) for row in rows},
+        "more_data": {row_key(row): row["feature_values"]["data_volume"] for row in rows},
+    }
+
+
 def grouped_predictions(rows: list[dict], group_key: str) -> dict[str, dict[str, float]]:
     predictions = {
         "ridge": {},
@@ -319,26 +368,11 @@ def grouped_predictions(rows: list[dict], group_key: str) -> dict[str, dict[str,
             [compact_x(row) for row in train], [row["utility"] for row in train]
         )
         for row in test:
-            key = f"{row['source']}::{row['panel']}::{row['arm']}"
-            f = row["feature_values"]
+            key = row_key(row)
             predictions["ridge"][key] = predict(coef, row["x"])
             predictions["compact_ridge"][key] = predict(compact_coef, compact_x(row))
-            predictions["practical_rule"][key] = (
-                f["target_alignment"]
-                + 0.5 * f["quality_control"]
-                + 0.5 * f["retention_control"]
-                + 0.5 * f["verifier_alignment"]
-                + 0.5 * f["policy_relative_selection"]
-                + 0.25 * f["source_diversity"]
-                + 0.25 * f["human_labeled_fraction"]
-                + 0.25 * f["domain_specific_selection"]
-                + 0.25 * f["transcript_refinement"]
-                + 0.25 * f["qa_refinement"]
-                + 0.25 * f["feedback_locality"]
-                + 0.1 * f["efficient_rollout"]
-                + 0.5 * f["curriculum_progression"]
-            )
-            predictions["more_data"][key] = f["data_volume"]
+            predictions["practical_rule"][key] = practical_value(row)
+            predictions["more_data"][key] = row["feature_values"]["data_volume"]
             predictions["uninformed"][key] = 0.0
             digest = hashlib.sha256(key.encode()).digest()
             predictions["random_fingerprint"][key] = int.from_bytes(digest[:8], "big") / 2**64
@@ -467,6 +501,58 @@ def shuffled_control(rows: list[dict], repeats: int = 200) -> dict:
     }
 
 
+def temporal_cutoff_audit(rows: list[dict], cutoff: int = 2026) -> dict:
+    """Fit on publications before the cutoff and score sources at or after it."""
+
+    train = [row for row in rows if SOURCE_YEARS[row["source"]] < cutoff]
+    test = [row for row in rows if SOURCE_YEARS[row["source"]] >= cutoff]
+    full_coef = ridge_fit([row["x"] for row in train], [row["utility"] for row in train])
+    compact_coef = ridge_fit([compact_x(row) for row in train], [row["utility"] for row in train])
+    fixed = fixed_predictions(test)
+    predictions = {
+        "ridge": {row_key(row): predict(full_coef, row["x"]) for row in test},
+        "compact_ridge": {row_key(row): predict(compact_coef, compact_x(row)) for row in test},
+        **fixed,
+    }
+    return {
+        "cutoff_year": cutoff,
+        "interpretation": "publication-date sensitivity, not a prospective test",
+        "train_support": {
+            "sources": len({row["source"] for row in train}),
+            "panels": len({(row["source"], row["panel"]) for row in train}),
+            "arms": len(train),
+        },
+        "test_support": {
+            "sources": len({row["source"] for row in test}),
+            "panels": len({(row["source"], row["panel"]) for row in test}),
+            "arms": len(test),
+        },
+        "evaluations": {name: score(test, values) for name, values in predictions.items()},
+    }
+
+
+def source_exclusion_audit(rows: list[dict]) -> dict:
+    """Check whether one source can reverse the fixed-rule comparison."""
+
+    differences = {}
+    for source in sorted({row["source"] for row in rows}):
+        subset = [row for row in rows if row["source"] != source]
+        predictions = fixed_predictions(subset)
+        practical = score(subset, predictions["practical_rule"])["source_macro"]
+        more_data = score(subset, predictions["more_data"])["source_macro"]
+        differences[source] = round(
+            more_data["mean_normalized_regret"] - practical["mean_normalized_regret"], 6
+        )
+    return {
+        "positive_means_practical_rule_has_lower_regret": differences,
+        "minimum_gap": min(differences.values()),
+        "maximum_gap": max(differences.values()),
+        "all_source_exclusions_preserve_direction": all(
+            value > 0 for value in differences.values()
+        ),
+    }
+
+
 def main() -> None:
     rows = all_rows()
     evaluations = {}
@@ -511,6 +597,8 @@ def main() -> None:
         "evaluations": evaluations,
         "rank_utility_sensitivity": rank_sensitivity,
         "multi_panel_source_sensitivity": multi_panel_sensitivity,
+        "publication_cutoff_sensitivity": temporal_cutoff_audit(rows),
+        "source_exclusion_sensitivity": source_exclusion_audit(rows),
         "paired_source_comparison": paired_source_comparison(
             source_result, "practical_rule", "more_data"
         ),

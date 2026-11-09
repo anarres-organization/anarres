@@ -140,6 +140,26 @@
       "license": "arXiv non-exclusive distribution license",
       "evidence": ["Table 1"],
       "audit_note": "Four model-target panels compare the reported synthetic-finance SFT pipeline with financial continued pretraining followed by the same SFT stage. CPT cost is not reported as a matched budget."
+    },
+    {
+      "id": "findap_2025",
+      "title": "Demystifying Domain-adaptive Post-training for Financial LLMs",
+      "authors": ["Zixuan Ke", "Yifei Ming", "Xuan-Phi Nguyen", "Caiming Xiong", "Shafiq Joty"],
+      "url": "https://aclanthology.org/2025.emnlp-main.1579/",
+      "version": "ACL Anthology 2025.emnlp-main.1579",
+      "license": "CC BY 4.0",
+      "evidence": ["Table 4", "Table 5"],
+      "audit_note": "Thirty-five target-level panels compare the same joint CPT and instruction-tuned checkpoint before and after preference alignment. Finance and general targets are retained to measure both adaptation and capability regressions. Additional appendix figures are excluded because they do not report source-native numerical tables."
+    },
+    {
+      "id": "finlmm_r1_2025",
+      "title": "FinLMM-R1: Enhancing Financial Reasoning in LMM through Scalable Data and Reward Design",
+      "authors": ["Kai Lan", "Jiayong Zhu", "Jiangtong Li", "Dawei Cheng", "Guang Chen", "Changjun Jiang"],
+      "url": "https://arxiv.org/abs/2506.13066v1",
+      "version": "arXiv:2506.13066v1",
+      "license": "CC BY 4.0",
+      "evidence": ["Table 3", "Table 4"],
+      "audit_note": "Six target-level panels compare the complete second-stage reward with one reward component removed, and one panel records the reported six-level FinData utilization curve. Reward ablations are not described as compute matched."
     }
   ]
 }

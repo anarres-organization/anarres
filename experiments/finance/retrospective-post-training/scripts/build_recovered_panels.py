@@ -789,6 +789,142 @@ def okochi_japanese_finance_2026() -> list[dict]:
     return panels
 
 
+def findap_2025() -> list[dict]:
+    """Recover the same-checkpoint preference-alignment ablation from Tables 4--5."""
+
+    results = {
+        # Similar unseen tasks, Table 4.
+        "fpb": (92.99, 91.13),
+        "fiqasa": (94.47, 95.32),
+        "fomc": (63.10, 64.31),
+        "ner": (74.33, 76.69),
+        "edtsum": (54.21, 53.78),
+        # Novel tasks, Table 5.
+        "mmlu": (47.22, 47.42),
+        "ai2_arc": (88.95, 89.43),
+        "nq_open": (16.20, 19.20),
+        "mmlu_finance": (63.93, 64.20),
+        "flare_ectsum": (34.41, 34.10),
+        "mlesg": (42.00, 40.67),
+        "ma_rumor_detection": (84.60, 84.00),
+        "sm_bigdata": (52.04, 54.14),
+        "sm_acl": (49.89, 51.99),
+        "sm_cikm": (44.88, 54.94),
+        "cra_ccf": (0.61, 0.83),
+        "cra_ccfraud": (32.32, 34.03),
+        "flare_german": (60.50, 64.00),
+        "flare_australian": (51.80, 44.60),
+        "cra_lendingclub": (65.96, 68.49),
+        "cra_polish": (6.65, 15.30),
+        "cra_taiwan": (96.41, 40.81),
+        "cra_proseguro": (86.57, 35.14),
+        "cra_travelinsurance": (98.50, 41.52),
+        "flare_tatqa": (66.43, 66.61),
+        "finance_bench": (52.00, 54.00),
+        "mt_bench": (7.29, 7.36),
+        "mathqa": (54.30, 55.08),
+        "social_iqa": (73.64, 75.23),
+        "openbook_qa": (79.20, 82.60),
+        "hellaswag": (78.92, 81.90),
+        "winogrande": (67.48, 70.32),
+        "piqa": (84.39, 85.85),
+        "cfa_easy": (62.31, 66.28),
+        "cfa_challenge": (35.56, 55.56),
+    }
+    panels = []
+    for target, (without_pa, with_pa) in results.items():
+        panels.append(
+            panel(
+                "findap_2025",
+                f"findap_pa_{target}",
+                "Table 4" if target in {"fpb", "fiqasa", "fomc", "ner", "edtsum"} else "Table 5",
+                "llama3_8b_instruct",
+                target,
+                [
+                    arm(
+                        "joint_cpt_it",
+                        without_pa,
+                        target_alignment=1.0,
+                        source_diversity=2,
+                        retention_control=1.0,
+                        quality_control=0.0,
+                        feedback_locality=0.0,
+                    ),
+                    arm(
+                        "joint_cpt_it_plus_preference_alignment",
+                        with_pa,
+                        target_alignment=1.0,
+                        source_diversity=2,
+                        retention_control=1.0,
+                        quality_control=1.0,
+                        feedback_locality=1.0,
+                    ),
+                ],
+                budget_matched=False,
+            )
+        )
+    return panels
+
+
+def finlmm_r1_2025() -> list[dict]:
+    """Recover reward ablations and the FinData scaling curve from Tables 3--4."""
+
+    reward_results = {
+        "mathvision": [27.05, 26.58, 26.62, 26.69],
+        "mathverse": [42.29, 41.82, 41.72, 41.90],
+        "mm_star": [61.13, 60.73, 60.60, 59.07],
+        "mathvista": [65.20, 65.00, 64.40, 64.20],
+        "asp_finance": [55.02, 53.35, 53.27, 52.83],
+        "famma": [27.49, 26.53, 26.44, 25.84],
+    }
+    arm_ids = ["full_reward", "without_length", "without_image_selection", "without_adversarial"]
+    panels = []
+    for target, values in reward_results.items():
+        panels.append(
+            panel(
+                "finlmm_r1_2025",
+                f"finlmm_reward_{target}",
+                "Table 3",
+                "qwen2p5_vl_3b",
+                target,
+                [
+                    arm(
+                        arm_id,
+                        score,
+                        target_alignment=1.0,
+                        quality_control=1.0 if arm_id == "full_reward" else 2.0 / 3.0,
+                        verifier_alignment=1.0 if arm_id == "full_reward" else 2.0 / 3.0,
+                    )
+                    for arm_id, score in zip(arm_ids, values, strict=True)
+                ],
+                budget_matched=False,
+            )
+        )
+
+    fractions = [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+    scores = [55.02, 55.92, 56.74, 57.53, 58.90, 59.36]
+    panels.append(
+        panel(
+            "finlmm_r1_2025",
+            "finlmm_findata_scaling",
+            "Table 4",
+            "qwen2p5_vl_3b",
+            "asp_finance",
+            [
+                arm(
+                    f"findata_{int(fraction * 100)}pct",
+                    score,
+                    sample_count=int(fraction * 100),
+                    target_alignment=fraction,
+                )
+                for fraction, score in zip(fractions, scores, strict=True)
+            ],
+            budget_matched=False,
+        )
+    )
+    return panels
+
+
 def main() -> None:
     panels = (
         phogat_2024()
@@ -801,6 +937,8 @@ def main() -> None:
         + select2know_2025()
         + financial_advice_grpo_2026()
         + okochi_japanese_finance_2026()
+        + findap_2025()
+        + finlmm_r1_2025()
     )
     document = {
         "schema_version": 1,

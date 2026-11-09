@@ -24,8 +24,8 @@ It is no longer the full evidence map.
 
 ## Source-recovered expansion
 
-A second audit recovered 95 additional decision panels and 391 candidate arms
-from ten primary sources. These rows are stored in
+A second audit recovered 137 additional decision panels and 491 candidate arms
+from twelve primary sources. These rows are stored in
 [`data/recovered_panels.json`](data/recovered_panels.json) before feature
 mapping or model fitting. This separation prevents the treatment schema from
 being changed after inspecting grouped-holdout results.
@@ -42,6 +42,8 @@ being changed after inspecting grouped-holdout results.
 | [Select to Know](https://aclanthology.org/2025.findings-emnlp.565/) | selective SFT, internal-external fusion, reasoning-data sampling, reward design, and GRPO across three backbones | 7 | 21 |
 | [GRPO for Financial Advice Generation](https://aclanthology.org/2026.finnlp-1.27/) | same-backbone base versus finance-reward GRPO under a judge-independent gross-profit CATE audit | 1 | 2 |
 | [Constructing Synthetic Instruction Datasets](https://arxiv.org/abs/2603.01353) | synthetic-finance SFT versus financial CPT followed by SFT across two models and two Japanese finance targets | 4 | 8 |
+| [FINDAP](https://aclanthology.org/2025.emnlp-main.1579/) | the same joint CPT and instruction-tuned checkpoint before and after preference alignment across similar, novel, finance, reasoning, and general-capability targets | 35 | 70 |
+| [FinLMM-R1](https://arxiv.org/abs/2506.13066v1) | complete second-stage reward versus three single-component reward ablations, plus a six-level financial multimodal data-scaling curve | 7 | 30 |
 
 Twenty of these panels hold the reported sample or rollout budget fixed. The
 remaining panels retain explicit sample counts or method costs and must not be
@@ -49,7 +51,7 @@ described as equal-budget decisions. Accuracy remains separate from completion
 rate, generated tokens, safety, and compliance outcomes.
 
 The versioned source-native mapping combines these panels with the initial cut,
-producing 107 panels and 438 arms from fourteen studies. The expanded audit evaluates
+producing 149 panels and 538 arms from sixteen studies. The expanded audit evaluates
 leave-one-source-out transfer, with nested model and target holdouts as
 sensitivities. Source labels are excluded from the predictor, while stable
 random fingerprints and shuffled treatment-outcome pairings remain negative
