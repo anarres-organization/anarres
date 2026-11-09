@@ -76,6 +76,7 @@ def greedy_scaffold_bank(pool: list[dict[str, Any]], size: int) -> list[dict[str
     seen_rings: set[str] = set()
     selected = []
     while len(selected) < size:
+
         def priority(row: dict[str, Any]) -> tuple[Any, ...]:
             scaffold = str(row["bemis_murcko_scaffold"])
             rings = set(map(str, row["ring_systems"]))
@@ -104,6 +105,7 @@ def greedy_route_bank(pool: list[dict[str, Any]], size: int) -> list[dict[str, A
     seen_depths: set[int] = set()
     selected = []
     while len(selected) < size:
+
         def gain(row: dict[str, Any]) -> float:
             families = set(map(str, row["reaction_families"])) - seen_families
             depth = int(row["reaction_depth"])
@@ -188,9 +190,7 @@ def main() -> None:
         "schema_version": "1.0",
         "source_records": str(args.records.name),
         "bank_size": args.bank_size,
-        "banks": {
-            name: [row["record_id"] for row in members] for name, members in banks.items()
-        },
+        "banks": {name: [row["record_id"] for row in members] for name, members in banks.items()},
     }
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps({name: len(members) for name, members in banks.items()}, sort_keys=True))

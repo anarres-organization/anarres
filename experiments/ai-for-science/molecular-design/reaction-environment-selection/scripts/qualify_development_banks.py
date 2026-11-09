@@ -66,9 +66,7 @@ def summarize_bank(
     bank_ids = {row["record_id"] for row in members}
     indices = [index for index, row in enumerate(pool) if row["record_id"] in bank_ids]
     selected_values = pool_representation[indices]
-    distances = np.linalg.norm(
-        selected_values[:, None, :] - selected_values[None, :, :], axis=2
-    )
+    distances = np.linalg.norm(selected_values[:, None, :] - selected_values[None, :, :], axis=2)
     np.fill_diagonal(distances, np.inf)
     nearest = np.min(distances, axis=1)
     scaffolds = {str(row["bemis_murcko_scaffold"]) for row in members}
@@ -80,9 +78,7 @@ def summarize_bank(
         "mean_generated_action_count": float(
             np.mean([row["generated_action_count"] for row in members])
         ),
-        "mean_oracle_seconds": float(
-            np.mean([row["oracle_elapsed_seconds"] for row in members])
-        ),
+        "mean_oracle_seconds": float(np.mean([row["oracle_elapsed_seconds"] for row in members])),
         "unique_scaffold_fraction": len(scaffolds) / len(members),
         "unique_ring_systems_per_record": len(ring_systems) / len(members),
         "unique_route_fraction": len(routes) / len(members),
@@ -109,13 +105,8 @@ def qualify(
     banks = [construct(records, size) for records in records_by_view]
     representations = [normalized_representation(pool) for pool in pools]
     summaries = [
-        {
-            name: summarize_bank(view_banks[name], pool, representation)
-            for name in names
-        }
-        for view_banks, pool, representation in zip(
-            banks, pools, representations, strict=True
-        )
+        {name: summarize_bank(view_banks[name], pool, representation) for name in names}
+        for view_banks, pool, representation in zip(banks, pools, representations, strict=True)
     ]
     minimum = float(bank_contract["confirmation_rule"]["minimum_correlation"])
     correlations = {}
@@ -127,13 +118,10 @@ def qualify(
         )
         correlations[coordinate] = {"spearman": value, "status": status}
         checks[coordinate] = value >= minimum
-    construction_sets = {
-        name: {row["record_id"] for row in banks[0][name]} for name in names
-    }
+    construction_sets = {name: {row["record_id"] for row in banks[0][name]} for name in names}
     overlaps = {
         first: {
-            second: jaccard(construction_sets[first], construction_sets[second])
-            for second in names
+            second: jaccard(construction_sets[first], construction_sets[second]) for second in names
         }
         for first in names
     }

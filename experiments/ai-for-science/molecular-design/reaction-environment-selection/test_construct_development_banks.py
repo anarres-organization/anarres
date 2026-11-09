@@ -42,10 +42,17 @@ class DevelopmentBankTests(unittest.TestCase):
     def test_all_banks_have_unique_requested_membership(self):
         records = [row(index) for index in range(20)]
         banks = MODULE.construct(records, 8)
-        self.assertEqual(set(banks), {
-            "hash_uniform", "reward_signal", "validity_cost", "scaffold_coverage",
-            "route_coverage", "graph_embedding_coverage",
-        })
+        self.assertEqual(
+            set(banks),
+            {
+                "hash_uniform",
+                "reward_signal",
+                "validity_cost",
+                "scaffold_coverage",
+                "route_coverage",
+                "graph_embedding_coverage",
+            },
+        )
         for members in banks.values():
             self.assertEqual(len(members), 8)
             self.assertEqual(len({item["record_id"] for item in members}), 8)
