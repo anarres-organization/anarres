@@ -60,6 +60,7 @@ class TargetRewardAdapterTests(unittest.TestCase):
 
         def dock(_target, smiles, _timeout):
             return {
+                "status": "ok",
                 "affinity": -8.0 if smiles == "first" else -6.0,
                 "elapsed_seconds": 1.0,
             }
@@ -77,6 +78,24 @@ class TargetRewardAdapterTests(unittest.TestCase):
         self.assertEqual(worker.call_count, 2)
         self.assertEqual([result["reward"] for result in results], [4.0, 0.0, 3.0, 4.0])
         self.assertEqual(results[1]["status"], "scientific_zero")
+
+    def test_batch_preserves_molecule_specific_conformer_failure(self):
+        assessment = {"status": "eligible", "metrics": {"qed": 0.5}}
+        failure = {
+            "status": "scientific_zero",
+            "reason": "ligand_conformer_failure",
+            "reward": 0.0,
+            "elapsed_seconds": 0.25,
+        }
+        with (
+            patch.object(MODULE, "molecule_assessment", return_value=assessment),
+            patch.object(MODULE, "run_worker", return_value=failure),
+        ):
+            result = MODULE.score_batch(Path("unused"), ["CCO"])[0]
+        self.assertEqual(result["status"], "scientific_zero")
+        self.assertEqual(result["reason"], "ligand_conformer_failure")
+        self.assertEqual(result["reward"], 0.0)
+        self.assertEqual(result["oracle_elapsed_seconds"], 0.25)
 
 
 if __name__ == "__main__":

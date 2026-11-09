@@ -106,6 +106,13 @@ verifies deduplicated batch scoring and the pinned RxnFlow v2.1 reward
 interface. `TARGET_SELECTION_RESULT.json` records the completed throughput and
 headroom gates and freezes Q07820 before candidate construction.
 
+The first 4,096-attempt scoring pass stopped on a molecule-specific conformer
+failure before producing candidate measurements. `TARGET_REWARD_CONTRACT_V2.json`
+adds one deterministic random-coordinate fallback. Exhausting both conformer
+attempts is a scientific zero for that molecule; receptor, ligand-toolchain,
+Vina, process, and timeout failures still abort the batch. Reuse the unchanged
+views under `MEASUREMENT_CONTRACT_V2.json`; do not redraw either seed.
+
 The reward must provide adequate headroom under the common starting policy. A
 floor or saturation result stops the study before candidate construction.
 

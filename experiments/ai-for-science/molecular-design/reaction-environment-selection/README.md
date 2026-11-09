@@ -11,6 +11,11 @@ checks. Candidate measurement, reliability, and membership gates remain open.
 No target-training or evaluation outcome has been inspected for this study.
 The selected-target measurement extractor is qualified on the frozen 64-record
 view with byte-identical graph representations across two independent runs.
+The first large-batch scoring attempt stopped on a molecule-specific conformer
+failure before producing candidate measurements. The version 2 reward contract
+keeps the sampled views fixed, adds one deterministic conformer fallback, and
+records fallback exhaustion as a scientific zero while preserving strict
+infrastructure failures for the receptor, toolchain, Vina, process, and timeout.
 
 ## Research question
 
@@ -229,6 +234,9 @@ records the complete aggregate gate audit, input digests, and selected target.
 two-view probe and six development-bank rules before those samples are drawn.
 [`MEASUREMENT_EXTRACTOR_QUALIFICATION.json`](MEASUREMENT_EXTRACTOR_QUALIFICATION.json)
 records the deterministic operational and graph-feature smoke.
+[`TARGET_REWARD_CONTRACT_V2.json`](TARGET_REWARD_CONTRACT_V2.json) and
+[`MEASUREMENT_CONTRACT_V2.json`](MEASUREMENT_CONTRACT_V2.json) record the
+pre-measurement scoring revision without redrawing either frozen view.
 
 Audit local checkouts without reading target outcomes:
 

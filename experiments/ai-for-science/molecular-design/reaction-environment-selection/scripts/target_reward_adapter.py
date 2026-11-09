@@ -30,6 +30,10 @@ class OracleInfrastructureError(RuntimeError):
     """Raised when scientific reward is unavailable because the oracle failed."""
 
 
+class LigandConformerFailure(ValueError):
+    """A valid molecule cannot produce a deterministic docking conformer."""
+
+
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -161,7 +165,12 @@ def prepare_generated_ligand(smiles: str, output: Path, seed: int) -> None:
     parameters = AllChem.ETKDGv3()
     parameters.randomSeed = seed
     if AllChem.EmbedMolecule(molecule, parameters) != 0:
-        raise OracleInfrastructureError("conformer embedding failed")
+        molecule.RemoveAllConformers()
+        parameters = AllChem.ETKDGv3()
+        parameters.randomSeed = seed
+        parameters.useRandomCoords = True
+        if AllChem.EmbedMolecule(molecule, parameters) != 0:
+            raise LigandConformerFailure("conformer embedding failed")
     if AllChem.MMFFHasAllMoleculeParams(molecule):
         AllChem.MMFFOptimizeMolecule(molecule)
 
@@ -191,7 +200,23 @@ def docking_worker(
     started = time.monotonic()
     with tempfile.TemporaryDirectory(prefix="molecular-reward-") as temp:
         ligand_pdbqt = Path(temp) / "ligand.pdbqt"
-        prepare_generated_ligand(smiles, ligand_pdbqt, seed)
+        try:
+            prepare_generated_ligand(smiles, ligand_pdbqt, seed)
+        except LigandConformerFailure:
+            output.write_text(
+                json.dumps(
+                    {
+                        "status": "scientific_zero",
+                        "reason": "ligand_conformer_failure",
+                        "reward": 0.0,
+                        "elapsed_seconds": round(time.monotonic() - started, 6),
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+                + "\n"
+            )
+            return
         affinity = dock_once(
             receptor,
             ligand_pdbqt,
@@ -256,6 +281,10 @@ def run_worker(
             result = json.loads(output.read_text())
         except json.JSONDecodeError as error:
             raise OracleInfrastructureError("docking worker produced invalid JSON") from error
+        if result.get("status") == "scientific_zero":
+            if result.get("reason") != "ligand_conformer_failure":
+                raise OracleInfrastructureError("worker returned an unknown scientific zero")
+            return result
         if result.get("status") != "ok" or not math.isfinite(result.get("affinity", math.nan)):
             raise OracleInfrastructureError("docking worker returned invalid affinity")
         return result
@@ -271,6 +300,16 @@ def score_smiles(
     if assessment["status"] == "scientific_zero":
         return assessment
     oracle = run_worker(prepared_target, smiles, timeout_seconds)
+    if oracle["status"] == "scientific_zero":
+        return {
+            key: value
+            for key, value in {
+                **oracle,
+                "metrics": assessment["metrics"],
+                "oracle_elapsed_seconds": oracle["elapsed_seconds"],
+            }.items()
+            if key != "elapsed_seconds"
+        }
     qed = assessment["metrics"]["qed"]
     return {
         "status": "ok",
@@ -319,6 +358,19 @@ def score_batch(
             results.append(assessment)
             continue
         oracle = oracle_results[smiles]
+        if oracle["status"] == "scientific_zero":
+            results.append(
+                {
+                    key: value
+                    for key, value in {
+                        **oracle,
+                        "metrics": assessment["metrics"],
+                        "oracle_elapsed_seconds": oracle["elapsed_seconds"],
+                    }.items()
+                    if key != "elapsed_seconds"
+                }
+            )
+            continue
         qed = assessment["metrics"]["qed"]
         results.append(
             {

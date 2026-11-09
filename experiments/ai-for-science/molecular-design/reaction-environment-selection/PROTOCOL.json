@@ -29,6 +29,7 @@
     "qualification_panel_sha256": "d4024f9a65aba7a4d3027be4b67aedac7080bb3b545c1fa4378bab2d0a294fe7",
     "selected_target": "Q07820",
     "selection_result": "TARGET_SELECTION_RESULT.json",
+    "target_reward_contract": "TARGET_REWARD_CONTRACT_V2.json",
     "selection_uses_outcomes": false,
     "reference_active_outcomes_sealed_until_scoring": true,
     "identity_status": "Q07820 selected by the frozen outcome-blind hash rule after all eight panel targets passed oracle and starting-policy qualification"
@@ -193,6 +194,7 @@
   "sealed_boundary": {
     "training_or_evaluation_outcomes_inspected": false,
     "candidate_training_outcomes_exist": false,
-    "reference_active_results_opened": false
+    "reference_active_results_opened": false,
+    "measurement_v1_scoring_aborted_before_candidate_measurement": true
   }
 }
