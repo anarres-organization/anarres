@@ -260,6 +260,16 @@ replaces it with the current non-interactive workspace-write flag, preserves
 every scientific setting, and permits the protocol's single infrastructure
 retry.
 
+The replacement launch completes in 1,668.606 seconds and passes all nine
+PrimePy specifications under Vero's fresh slot-only grader. The compact
+[qualification result](results/development-policy-qualification.codex-sol-v1.json)
+records zero failed, unfilled, overfilled, tainted, or unapproved-axiom
+outcomes. One attempt establishes strict task support without estimating
+reliability. The post-run audit found broader read and temporary-write scope
+than the intended task-only boundary, although no reference proof or protected
+repository was accessed. Repeated measurement remains blocked until the task
+sandbox is tightened and requalified.
+
 [`policy-budget-calibration.200k.v1.json`](policy-budget-calibration.200k.v1.json)
 freezes the first requalification stage after that result. It selects the
 smallest development repository, one proof-mode attempt, a 200,000-token

@@ -1,0 +1,69 @@
+{
+  "schema_version": "anarres.formal-verification-development-qualification-result.v1",
+  "result_id": "vero-codex-sol-primepy-proof-qualification-v1",
+  "status": "complete_support_pass_with_containment_followup",
+  "scientific_role": "one excluded development-only support test; not an estimate of policy reliability, an environment comparison, or a downstream-utility test",
+  "frozen_inputs": {
+    "qualification_protocol": {
+      "path": "data/formal-verification/vero/policy-codex-sol-qualification.v1.json",
+      "sha256": "9fef27518d568e8d4fae241e30bd1642c6f48416ede52df0910228cbf878435a"
+    },
+    "execution_record": {
+      "path": "data/formal-verification/vero/policy-codex-sol-execution.v1.json",
+      "sha256": "b80c855b6ae973e3b3b678d3e8ef263d2f249b2dc93cf4d8425e49d66f540371"
+    },
+    "infrastructure_retry_record": {
+      "path": "data/formal-verification/vero/policy-codex-sol-infrastructure-retry.v1.json",
+      "sha256": "70f4a8c931633d0bc75678003983b0ac4658292b02ea06910231087b2438270a"
+    }
+  },
+  "execution": {
+    "source_id": "sunblaze-ucb/vero@0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+    "benchmark_id": "primepy",
+    "mode": "proof",
+    "starting_policy": "gpt-5.6-sol",
+    "agent_harness": "openai/codex@0.154.0",
+    "reasoning_effort": "xhigh",
+    "lean_version": "4.29.1",
+    "lean_commit": "f72c35b3f637c8c6571d353742168ab66cc22c00",
+    "independent_attempts": 1,
+    "scientific_retries": 0,
+    "infrastructure_retries": 1,
+    "infrastructure_retry_reason": "the first launch stopped before inference because the pinned adapter used a removed Codex command-line flag",
+    "wall_seconds": 1668.606,
+    "tool_calls": 75,
+    "input_tokens": 8404477,
+    "cached_input_tokens": 8288256,
+    "output_tokens": 70170,
+    "reasoning_output_tokens": 26507,
+    "timed_out": false
+  },
+  "fresh_grade": {
+    "build_ok": true,
+    "total_specifications": 9,
+    "passed_specifications": 9,
+    "failed_specifications": 0,
+    "unfilled_specifications": 0,
+    "overfilled_specifications": 0,
+    "filled_slot_taint_count": 0,
+    "approved_axiom_check": "pass",
+    "unexpected_marker_count": 0,
+    "report_sha256": "0ca2ea06d13e46ec4706a0f57d098b0be443e752a1feacc75972af1b85367231",
+    "artifact_sha256": "20e254fc2ca9f12b3b1687a8e78cc2d91ac61f501a534ad27c0400bb85e5b5b6"
+  },
+  "decision": {
+    "support_threshold": "at least one of nine specifications passes fresh grading with approved axioms",
+    "passes_support_threshold": true,
+    "interpretation": "The selected policy has strict verified support on the excluded PrimePy development task. One attempt cannot estimate reliability or compare environments.",
+    "next_step": "Tighten and requalify the task sandbox, then freeze a fresh development-only screen under the same policy identity before repeated measurement."
+  },
+  "containment_audit": {
+    "task_network_access": false,
+    "qualification_and_prospective_repositories_opened": false,
+    "reference_solution_access_observed": false,
+    "fresh_grade_retained_only_editable_slots": true,
+    "generic_upstream_guidance_readable": true,
+    "write_outside_rendered_task_observed": true,
+    "assessment": "The result is valid evidence of strict task support because no reference solution or protected repository was accessed and the fresh grader retained only editable slots. The broader read and temporary-write scope does not meet the intended containment boundary for repeated measurement and must be corrected before that stage."
+  }
+}

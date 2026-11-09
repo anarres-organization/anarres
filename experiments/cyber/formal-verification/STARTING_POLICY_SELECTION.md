@@ -92,3 +92,20 @@ no valid scored slot. Changing the starting policy is therefore better
 supported than extending the same interaction budget again. GPT-5.6 Sol also
 keeps the next test close to two released precedents: native Codex on Vero and
 the same model-harness pair on repository-scale Lean studies.
+
+## Qualification outcome
+
+The frozen attempt passes all nine PrimePy proof specifications under Vero's
+fresh slot-only grader. The result contains no failed or unfilled
+specifications, filled-slot taint, marker imbalance, or unapproved axiom. It
+therefore passes the preregistered task-support threshold.
+
+This is one excluded development attempt, so it does not estimate policy
+reliability or compare environments. The post-run audit also found that the
+task process could read generic guidance from the upstream checkout and write
+a temporary probe outside the rendered task. No reference proof or protected
+repository was accessed. The next development screen requires a tightened and
+requalified sandbox before execution. The compact
+[result record](../../../data/formal-verification/vero/results/development-policy-qualification.codex-sol-v1.json)
+preserves the frozen inputs, fresh-grade outcome, resource use, and this
+containment boundary without releasing raw traces.

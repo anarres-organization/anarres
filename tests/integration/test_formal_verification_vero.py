@@ -87,6 +87,10 @@ CONTAINMENT_PATH = ADAPTER / "containment-contract.v1.json"
 CONTAINMENT_CONTRACT = json.loads(CONTAINMENT_PATH.read_text(encoding="utf-8"))
 DEVELOPMENT_RESULT_PATH = ADAPTER / "results" / "development-policy-measurement.v1.json"
 DEVELOPMENT_RESULT = json.loads(DEVELOPMENT_RESULT_PATH.read_text(encoding="utf-8"))
+CODEX_QUALIFICATION_RESULT_PATH = (
+    ADAPTER / "results" / "development-policy-qualification.codex-sol-v1.json"
+)
+CODEX_QUALIFICATION_RESULT = json.loads(CODEX_QUALIFICATION_RESULT_PATH.read_text(encoding="utf-8"))
 
 
 def write_fixture(root: Path) -> dict:
@@ -258,6 +262,31 @@ class VeroCodexQualificationTest(unittest.TestCase):
         self.assertFalse(record["compatibility_change"]["scientific_settings_changed"])
         self.assertEqual(record["retry"]["infrastructure_retry_index"], 1)
         self.assertEqual(record["retry"]["maximum_infrastructure_retries"], 1)
+
+    def test_result_links_frozen_inputs_and_preserves_boundary(self) -> None:
+        inputs = {
+            "qualification_protocol": ADAPTER / "policy-codex-sol-qualification.v1.json",
+            "execution_record": ADAPTER / "policy-codex-sol-execution.v1.json",
+            "infrastructure_retry_record": ADAPTER
+            / "policy-codex-sol-infrastructure-retry.v1.json",
+        }
+        for name, path in inputs.items():
+            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            self.assertEqual(CODEX_QUALIFICATION_RESULT["frozen_inputs"][name]["sha256"], digest)
+
+        grade = CODEX_QUALIFICATION_RESULT["fresh_grade"]
+        self.assertTrue(grade["build_ok"])
+        self.assertEqual(grade["passed_specifications"], 9)
+        self.assertEqual(grade["failed_specifications"], 0)
+        self.assertEqual(grade["unfilled_specifications"], 0)
+        self.assertEqual(grade["filled_slot_taint_count"], 0)
+        self.assertTrue(CODEX_QUALIFICATION_RESULT["decision"]["passes_support_threshold"])
+
+        containment = CODEX_QUALIFICATION_RESULT["containment_audit"]
+        self.assertFalse(containment["reference_solution_access_observed"])
+        self.assertFalse(containment["qualification_and_prospective_repositories_opened"])
+        self.assertTrue(containment["generic_upstream_guidance_readable"])
+        self.assertTrue(containment["write_outside_rendered_task_observed"])
 
 
 class VeroSourceAuditTest(unittest.TestCase):

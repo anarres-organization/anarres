@@ -2,10 +2,11 @@
 
 **Status date:** 2026-11-09
 
-The next scientific milestone is a prospective comparison of qualified
-formal-verification environments, followed by checkpoint-level regression
-forecasting. This guide records the current evidence boundary and the order in
-which the remaining work should proceed.
+The next scientific milestone is a development screen under a tightened task
+sandbox, followed by a prospective comparison of qualified formal-verification
+environments and checkpoint-level regression forecasting. This guide records
+the current evidence boundary and the order in which the remaining work should
+proceed.
 
 ## Current state
 
@@ -27,6 +28,14 @@ The workstream has four completed foundations:
    200,000 and 1 million exported tokens. The larger budget increased tool use
    and proof drafting but produced no valid scored slot. Leanstral is rejected
    for this Vero contract, and the unopened partitions remain protected.
+5. GPT-5.6 Sol with Codex 0.154.0 passed all nine PrimePy proof specifications
+   in one excluded development attempt. Vero rebuilt only the editable slots
+   in a fresh grader, with no failed, unfilled, tainted, or unapproved-axiom
+   result. The attempt establishes policy support but not reliability.
+6. The post-run containment audit found that generic upstream Lean guidance
+   was readable and a temporary write outside the rendered task was possible.
+   No reference proof or protected repository was accessed. Repeated
+   measurement remains blocked until the sandbox matches the intended boundary.
 
 No claim-bearing reinforcement-learning run has begun. Qualification and
 prospective repositories remain unopened.
@@ -54,10 +63,10 @@ cannot establish utility.
 
 ## Next execution steps
 
-### 1. Requalify starting-policy support
+### 1. Tighten containment and run the development screen
 
-The v5 development measurement and its budget-ladder follow-up are complete
-and remain unchanged. Their compact
+The v5 Leanstral measurement and its budget-ladder follow-up are complete and
+remain unchanged. Their compact
 [result record](../../../data/formal-verification/vero/results/development-policy-measurement.v1.json)
 and [calibration result](../../../data/formal-verification/vero/results/development-budget-calibration.1m-v1.json)
 preserve the frozen inputs and outcomes. The next qualification must use a new
@@ -66,21 +75,23 @@ The [requalification design](POLICY_REQUALIFICATION.md) fixes the evidence,
 budget ladder, and stop rules that govern that revision.
 The [starting-policy selection](STARTING_POLICY_SELECTION.md) audits the
 released Vero, VeriSoftBench, and LeanLean evidence and selects GPT-5.6 Sol
-through Codex 0.154.0 for one excluded development qualification.
+through Codex 0.154.0. The resulting one-attempt
+[qualification result](../../../data/formal-verification/vero/results/development-policy-qualification.codex-sol-v1.json)
+passes all nine PrimePy specifications under fresh grading.
 
-- Preserve the selected GPT-5.6 Sol model, Codex 0.154.0 harness, xhigh
-  reasoning setting, native repository interface, and 90-minute Vero budget.
-- Distinguish a policy-support failure from an interaction-budget failure with
-  a small qualification panel whose outcomes are excluded from later claims.
-- Require the agent to reach an edit and fresh build within the bounded run,
-  while preserving strict grading, containment, and exported-token accounting.
-- Repeat the frozen support gate only after the revised deployment passes its
-  source, runtime, containment, and controller checks.
-- Keep qualification and prospective repositories unopened until a starting
-  policy produces nonzero strict support on development tasks.
+- Preserve the GPT-5.6 Sol model, Codex 0.154.0 harness, xhigh reasoning
+  setting, native repository interface, and 90-minute Vero budget.
+- Restrict task reads and writes to the freshly rendered workspace while
+  keeping controller authentication outside the artifact and fresh grader.
+- Re-run the containment negatives before any new model attempt.
+- Freeze a small development-only screen across repositories and proof modes.
+  Exclude its outcomes from later environment comparisons.
+- Keep qualification and prospective repositories unopened until the screen
+  establishes nonzero strict coverage in at least two development repositories.
 
-This stage seeks an admissible measurement policy. It cannot revise the v5
-outcome or convert the zero-support panel into a candidate comparison.
+This stage establishes whether the supported policy and tightened interface
+produce measurable coverage beyond one excluded task. It cannot revise the v5
+outcome or convert either qualification into a candidate comparison.
 
 ### 2. Construct the candidate panel
 
@@ -182,5 +193,6 @@ target or candidate panel after outcomes are observed.
 | Vero policy-measurement contract | [`STARTING_POLICY_PROBE.md`](STARTING_POLICY_PROBE.md) |
 | Completed Vero development result | [`development-policy-measurement.v1.json`](../../../data/formal-verification/vero/results/development-policy-measurement.v1.json) |
 | Vero policy requalification | [`POLICY_REQUALIFICATION.md`](POLICY_REQUALIFICATION.md) |
+| GPT-5.6 Sol qualification result | [`development-policy-qualification.codex-sol-v1.json`](../../../data/formal-verification/vero/results/development-policy-qualification.codex-sol-v1.json) |
 | Vero executable pipeline | [`../../../data/formal-verification/vero/`](../../../data/formal-verification/vero/README.md) |
 | OSS Verify adapter | [`../../../data/formal-verification/oss-verify/`](../../../data/formal-verification/oss-verify/README.md) |

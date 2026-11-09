@@ -3,10 +3,12 @@
 **Status:** the public-evidence bridge is released. The OSS Verify release
 indexes and checker bootstrap are qualified. Vero's source structure, pinned
 Lean runtime, reference build, bounded grader controls, and repository-
-disjoint split are also qualified. Its first 32-attempt starting-policy
-measurement and subsequent development-only budget ladder are complete. Both
-fail the preregistered support gates, so Leanstral is rejected for this Vero
-contract. No claim-bearing reinforcement-learning run is authorized.
+disjoint split are also qualified. Leanstral failed the frozen support screen
+and budget ladder. The replacement GPT-5.6 Sol policy passes all nine PrimePy
+specifications in one excluded development attempt under fresh grading. This
+establishes task support, not reliability. A broader-than-intended task
+sandbox remains to be corrected before repeated measurement. No claim-bearing
+reinforcement-learning run is authorized.
 
 This workstream asks a narrower question than benchmark construction:
 
@@ -210,16 +212,16 @@ calibration, risk--coverage, and cost are supporting metrics.
 6. Run oracle, no-op, statement-mutation, `sorry`, axiom, reset, and containment
    tests. The bounded OSS Verify and Vero controls are complete; selected
    production-task replay and model-facing controls remain.
-7. Qualify the selected GPT-5.6 Sol and Codex 0.154.0 policy on one excluded
-   development task after the completed Leanstral pass and budget ladder
-   produced zero strict verified support.
+7. Tighten the task sandbox after GPT-5.6 Sol and Codex 0.154.0 passed all nine
+   PrimePy specifications in one excluded development attempt. Then freeze a
+   fresh development-only support screen under the same policy identity.
 8. Freeze candidate environments, predictions, uncertainty, and an a-priori
    power/cost decision before any downstream training outcome is opened.
 
 Until those deliverables are complete, the Anthropic/Theorem workflow remains
 the frontier reference, its public release is a source-qualified candidate
 pending proof replay and selected-harness qualification, and Vero remains a
-runtime-qualified repository source pending a policy with measurable
-development support. VCVio is a promising high-assurance source candidate, and
-VeriBench is a narrower target candidate. None is yet a validated RL
-environment in this workstream.
+runtime-qualified repository source with development support from one policy
+attempt. VCVio is a promising high-assurance source candidate, and VeriBench
+is a narrower target candidate. None is yet a validated RL environment in this
+workstream.
