@@ -1,9 +1,10 @@
 # Vero starting-policy requalification
 
-**Status:** development-only design. Execution is not authorized until a new
-controller lock and deployment receipt bind the revised limits. The completed
-v5 result remains unchanged, and qualification and prospective repositories
-remain unopened.
+**Status:** development-only calibration. The first 200,000-token attempt
+reached a clean build but ended before grading when one model request exceeded
+the controller's first-output timeout. It is recorded as an infrastructure
+failure rather than a scientific zero. Qualification and prospective
+repositories remain unopened.
 
 ## Why the interaction contract must be requalified
 
@@ -53,6 +54,19 @@ The attempt passes interface qualification only if it reaches an expected-slot
 edit, invokes a fresh build after the edit, and completes infrastructure-valid
 grading. It establishes policy support only if at least one specification
 passes strict grading.
+
+The first Stage A launch generated 77,100 exported tokens across seven steps.
+The backend remained healthy during the final request, but no complete event
+reached the controller before its 720-second timeout. The attempt made no
+expected-slot edit, produced no fresh grade, and cannot authorize Stage B.
+
+One output-bounded Stage A retry is frozen under a new attempt identity. It
+keeps the model, task, prompt, cumulative token threshold, turn limit, wall
+limit, and grader unchanged. The controller caps each model response at 4,096
+tokens, removes the stream-idle cutoff, and allows 1,800 seconds for a request.
+These controls bound a single response within the experiment while preserving
+the original cumulative interaction budget. This is an interface retry, not a
+scientific replicate.
 
 ### Stage B: one prespecified 1-million-token escalation
 

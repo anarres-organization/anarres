@@ -63,24 +63,38 @@ def validate(lock: dict[str, Any], *, lock_path: Path, protocol_path: Path) -> N
     )
 
     config = tomllib.loads(config_path.read_text(encoding="utf-8"))
-    exactly(
-        config,
-        {
-            "default_agent": "lean",
-            "installed_agents": ["lean"],
-            "enable_telemetry": False,
-            "enable_background_processes": False,
-            "enable_subagents": False,
-            "enable_connectors": False,
-            "enable_mcp": False,
-            "enable_update_checks": False,
-            "enable_auto_update": False,
-            "enable_notifications": False,
-            "strict_config": True,
-            "experiments": {"enable": False},
-        },
-        "isolated Vibe config",
-    )
+    expected_config = {
+        "default_agent": "lean",
+        "installed_agents": ["lean"],
+        "enable_telemetry": False,
+        "enable_background_processes": False,
+        "enable_subagents": False,
+        "enable_connectors": False,
+        "enable_mcp": False,
+        "enable_update_checks": False,
+        "enable_auto_update": False,
+        "enable_notifications": False,
+        "strict_config": True,
+        "experiments": {"enable": False},
+    }
+    if request_controls := lock.get("request_controls"):
+        exactly(
+            request_controls,
+            {
+                "api_timeout_seconds": 1800.0,
+                "api_stream_idle_timeout_seconds": 0.0,
+                "agent_max_output_tokens": 4096,
+            },
+            "model-request controls",
+        )
+        expected_config.update(
+            {
+                "api_timeout": request_controls["api_timeout_seconds"],
+                "api_stream_idle_timeout": request_controls["api_stream_idle_timeout_seconds"],
+                "agent_max_output_tokens": request_controls["agent_max_output_tokens"],
+            }
+        )
+    exactly(config, expected_config, "isolated Vibe config")
 
     agent = tomllib.loads(agent_path.read_text(encoding="utf-8"))
     providers = agent.pop("providers")
