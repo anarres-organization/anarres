@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "structured target-reward adapter behavior",
+  "qualification": "pass",
+  "contract": "TARGET_REWARD_CONTRACT.json",
+  "prepared_target_fixture": {
+    "target_id": "P08254",
+    "purpose": "adapter qualification only; this does not select the study target",
+    "prepared_receptor_sha256": "33b0961d2cdcd5e9037225ae6fb6038012b36c2cc0c9cbababf05f0145fe582a"
+  },
+  "checks": {
+    "malformed_molecule": {
+      "status": "scientific_zero",
+      "reason": "invalid_molecule",
+      "reward": 0.0,
+      "pass": true
+    },
+    "eligibility_filter": {
+      "status": "scientific_zero",
+      "violations": [
+        "molecular_weight",
+        "logp",
+        "rotatable_bonds"
+      ],
+      "reward": 0.0,
+      "pass": true
+    },
+    "forced_timeout": {
+      "timeout_seconds": 0.01,
+      "status": "infrastructure_failure",
+      "process_exit_code": 2,
+      "scientific_reward_emitted": false,
+      "pass": true
+    },
+    "valid_repeat": {
+      "calls": 2,
+      "status": "ok",
+      "affinities": [-7.397, -7.397],
+      "qed": 0.39769480776589894,
+      "rewards": [2.9417484930443547, 2.9417484930443547],
+      "affinity_delta": 0.0,
+      "reward_delta": 0.0,
+      "pass": true
+    }
+  },
+  "authorization": "The adapter core is qualified. RxnFlow batch integration, throughput qualification, final target selection, and starting-policy headroom remain open before training.",
+  "sealed_boundary": {
+    "training_outcomes_opened": false,
+    "candidate_memberships_frozen": false,
+    "fixture_used_only_for_adapter_qualification": true
+  }
+}

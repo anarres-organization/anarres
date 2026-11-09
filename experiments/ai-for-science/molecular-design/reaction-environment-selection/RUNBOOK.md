@@ -99,6 +99,10 @@ and every qualifying-hit threshold.
 and larger-is-better docking reward, together with the Veber-style eligibility
 gate used by the official RxnFlow docking task. Final target identity and
 prepared target artifacts remain open until the starting-policy gate passes.
+`REWARD_ADAPTER_QUALIFICATION.json` verifies that malformed and filtered
+molecules remain scientific zeroes, timeouts remain infrastructure failures,
+and repeated valid calls are deterministic. Integrate the adapter with
+RxnFlow's batch reward interface and qualify throughput before training.
 
 The reward must provide adequate headroom under the common starting policy. A
 floor or saturation result stops the study before candidate construction.

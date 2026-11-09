@@ -2,9 +2,10 @@
 
 **Status:** RxnFlow, MolGenBench code, the Version4 archive, an eight-target
 qualification panel, its 24 structural fixtures, and reference docking on all
-eight targets are qualified. The target-reward adapter, final target identity,
-common warm start, and candidate memberships remain open. No training or
-evaluation outcome has been inspected for this study.
+eight targets are qualified. The structured reward adapter also passes valid,
+malformed, filtered, timeout, and repeat-call checks. RxnFlow batch integration,
+final target identity, the common warm start, and candidate memberships remain
+open. No training or evaluation outcome has been inspected for this study.
 
 ## Research question
 
@@ -179,9 +180,9 @@ reference-ligand docking calls succeeded under two seeds and two repeats. The
 same-seed repeats were exact, and the largest cross-seed affinity range was
 0.812 kcal/mol. P53350 took substantially longer than the other controls, so
 oracle wall time remains an explicit cost coordinate. No GPU training is
-justified until the reward adapter, malformed-input and timeout isolation,
-common warm start, and starting-policy headroom pass their gates. The fixture
-and oracle audits do not open training outcomes, published model results, or
+justified until RxnFlow batch integration, oracle throughput, the common warm
+start, and starting-policy headroom pass their gates. The fixture, oracle, and
+adapter audits do not open training outcomes, published model results, or
 known-active collections.
 
 ## Reproduction
@@ -236,6 +237,9 @@ records the aggregate result and the digest of the raw machine report.
 [`TARGET_REWARD_CONTRACT.json`](TARGET_REWARD_CONTRACT.json) fixes the
 larger-is-better docking and QED reward, eligibility filters, timeout, and
 failure semantics while final target identity remains open.
+[`REWARD_ADAPTER_QUALIFICATION.json`](REWARD_ADAPTER_QUALIFICATION.json)
+records valid, malformed, filtered, timeout, and repeat-call behavior without
+selecting a target.
 
 Validate the protocol:
 
