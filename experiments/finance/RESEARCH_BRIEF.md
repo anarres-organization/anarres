@@ -32,6 +32,13 @@ new study. When the study is known, ridge transfer to a held-out model reaches
 67.5% and 0.227. The difference between within-program transfer and new-study
 transfer defines the current boundary.
 
+With each study receiving equal weight, the measurement rule reaches 70.5%
+pair ordering and 0.216 regret, compared with 58.8% and 0.418 for more data. It
+has lower regret in eight of ten studies.
+Within-panel rank normalization preserves this direction. The
+[normalization audit](retrospective-post-training/NORMALIZATION_AUDIT.md)
+records both weighting levels and the paired source comparison.
+
 The evidence suggests that task alignment, reasoning-data quality, capability
 retention, verifier design, policy-relative difficulty, and data composition
 carry more decision information than volume alone. Because every outcome was

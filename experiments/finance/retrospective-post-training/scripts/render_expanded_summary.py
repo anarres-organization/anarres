@@ -74,12 +74,14 @@ def main() -> None:
     ]
     y_values = [205, 270, 335]
     for (label, values, color), y in zip(rules, y_values, strict=True):
+        values = values["source_macro"]
         ordering = values["pairwise_ordering"]
         regret = values["mean_normalized_regret"]
         parts.extend([text(60, y + 17, label, "label"), *bar(180, y, ordering, 1.0, color)])
         parts.append(text(430, y + 17, f"{ordering * 100:.1f}% · regret {regret:.3f}", "value"))
 
     for (label, values), y in zip(holdouts, y_values, strict=True):
+        values = values["source_macro"]
         ordering = values["pairwise_ordering"]
         regret = values["mean_normalized_regret"]
         color = "#3569A8" if label == "New study" else "#16836B"
@@ -87,7 +89,6 @@ def main() -> None:
         parts.append(text(950, y + 17, f"{ordering * 100:.1f}%", "value"))
         parts.append(text(1032, y + 17, f"{regret:.3f}", "value", "end"))
 
-    shuffle = summary["shuffled_pairing_control"]
     parts.extend(
         [
             '<line x1="60" y1="398" x2="1060" y2="398" stroke="#D9DEE7"/>',
@@ -104,8 +105,8 @@ def main() -> None:
                 60,
                 462,
                 (
-                    "Its held-out-study regret is below the shuffled-pairing fifth percentile "
-                    f"({shuffle['p05_regret']:.3f})."
+                    "Equal-study summaries prevent papers with many reported targets from "
+                    "dominating the comparison."
                 ),
                 "note",
             ),

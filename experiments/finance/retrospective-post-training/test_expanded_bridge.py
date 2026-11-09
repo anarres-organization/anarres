@@ -49,6 +49,20 @@ class ExpandedBridgeTests(unittest.TestCase):
             result["random_fingerprint"]["pairwise_ordering"],
         )
 
+    def test_study_weighting_and_rank_sensitivity(self) -> None:
+        result = self.summary["evaluations"]["leave_one_source_out"]
+        self.assertLess(
+            result["practical_rule"]["source_macro"]["mean_normalized_regret"],
+            result["more_data"]["source_macro"]["mean_normalized_regret"],
+        )
+        ranked = self.summary["rank_utility_sensitivity"]
+        self.assertLess(
+            ranked["practical_rule"]["source_macro"]["mean_normalized_regret"],
+            ranked["more_data"]["source_macro"]["mean_normalized_regret"],
+        )
+        comparison = self.summary["paired_source_comparison"]
+        self.assertGreater(comparison["study_wins"], comparison["study_losses"])
+
     def test_shuffled_pairing_is_not_claim_evidence(self) -> None:
         shuffled = self.summary["shuffled_pairing_control"]
         observed = self.summary["evaluations"]["leave_one_source_out"]["practical_rule"]

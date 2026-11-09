@@ -303,7 +303,7 @@ def grouped_predictions(rows: list[dict], group_key: str) -> dict[str, dict[str,
     return predictions
 
 
-def score(rows: list[dict], predictions: dict[str, float]) -> dict:
+def score_core(rows: list[dict], predictions: dict[str, float]) -> dict:
     panels: dict[str, list[dict]] = {}
     for row in rows:
         panels.setdefault(f"{row['source']}::{row['panel']}", []).append(row)
@@ -346,6 +346,61 @@ def score(rows: list[dict], predictions: dict[str, float]) -> dict:
     }
 
 
+def score(rows: list[dict], predictions: dict[str, float]) -> dict:
+    result = score_core(rows, predictions)
+    per_source = {
+        source: score_core([row for row in rows if row["source"] == source], predictions)
+        for source in sorted({row["source"] for row in rows})
+    }
+    metric_names = list(result)
+    result["source_macro"] = {
+        name: round(sum(values[name] for values in per_source.values()) / len(per_source), 6)
+        for name in metric_names
+    }
+    result["per_source"] = per_source
+    return result
+
+
+def rank_normalized_rows(rows: list[dict]) -> list[dict]:
+    output = [dict(row) for row in rows]
+    by_panel: dict[str, list[int]] = {}
+    for index, row in enumerate(output):
+        by_panel.setdefault(f"{row['source']}::{row['panel']}", []).append(index)
+    for indices in by_panel.values():
+        utilities = [output[index]["utility"] for index in indices]
+        normalized = rank(utilities)
+        for index, value in zip(indices, normalized, strict=True):
+            output[index]["utility"] = value
+    return output
+
+
+def paired_source_comparison(result: dict, left: str, right: str) -> dict:
+    left_sources = result[left]["per_source"]
+    right_sources = result[right]["per_source"]
+    differences = {
+        source: round(
+            right_sources[source]["mean_normalized_regret"]
+            - left_sources[source]["mean_normalized_regret"],
+            6,
+        )
+        for source in left_sources
+    }
+    wins = sum(value > 0 for value in differences.values())
+    losses = sum(value < 0 for value in differences.values())
+    ties = sum(value == 0 for value in differences.values())
+    n = wins + losses
+    tail = sum(math.comb(n, k) for k in range(min(wins, losses) + 1)) / (2**n) if n else 1.0
+    return {
+        "left": left,
+        "right": right,
+        "positive_means_left_has_lower_regret": differences,
+        "study_wins": wins,
+        "study_losses": losses,
+        "study_ties": ties,
+        "two_sided_exact_sign_p": round(min(1.0, 2 * tail), 6),
+    }
+
+
 def shuffled_control(rows: list[dict], repeats: int = 200) -> dict:
     rng = random.Random(20261109)
     values = []
@@ -378,6 +433,10 @@ def main() -> None:
         evaluations[f"leave_one_{group_key}_out"] = {
             name: score(rows, values) for name, values in predictions.items()
         }
+    rank_rows = rank_normalized_rows(rows)
+    rank_predictions = grouped_predictions(rank_rows, "source")
+    rank_sensitivity = {name: score(rank_rows, values) for name, values in rank_predictions.items()}
+    source_result = evaluations["leave_one_source_out"]
     output = {
         "status": "retrospective_source_recovered",
         "support": {
@@ -388,6 +447,10 @@ def main() -> None:
         "normalization": "zero-to-one utility within each source-native decision panel",
         "features": FEATURES,
         "evaluations": evaluations,
+        "rank_utility_sensitivity": rank_sensitivity,
+        "paired_source_comparison": paired_source_comparison(
+            source_result, "practical_rule", "more_data"
+        ),
         "shuffled_pairing_control": shuffled_control(rows),
         "guardrails": [
             "all outcomes were public before this retrospective mapping",

@@ -99,6 +99,15 @@ percentile from 200 within-panel shuffled-pairing controls. The grouped ridge
 has lower magnitude error but weaker allocation performance, with 0.434 RMSE
 and 0.464 regret.
 
+Equal-study weighting strengthens the comparison. The practical rule reaches
+70.5% pair ordering and 0.216 regret, compared with 58.8% and 0.418 for more
+data. It has lower regret in eight of ten held-out studies. The same ordering
+survives replacement of min-to-max utility with within-panel ranks. The exact
+two-sided sign-test value is 0.109, so this breadth supports the direction of
+the result without establishing a conventional significance claim. The full
+normalization and weighting rationale is recorded in
+[`NORMALIZATION_AUDIT.md`](NORMALIZATION_AUDIT.md).
+
 Transfer is stronger when a study is known and the held-out group is a new
 model or target. The ridge reaches 70.1% pair ordering and 0.194 regret under
 model holdout, and 67.5% pair ordering and 0.227 regret under target holdout.
@@ -115,6 +124,7 @@ python scripts/reproduce.py
 python test_reproduce.py
 python scripts/build_recovered_panels.py
 python scripts/analyze_expanded_bridge.py
+python scripts/render_expanded_summary.py
 python -m unittest test_expanded_bridge.py
 ```
 
