@@ -233,6 +233,9 @@ conda run -n anarres-molecular-oracle \
 implementation, runtime, seeds, repeatability thresholds, and reference-control
 gate before panel qualification is scored. [`ORACLE_QUALIFICATION.json`](ORACLE_QUALIFICATION.json)
 records the aggregate result and the digest of the raw machine report.
+[`TARGET_REWARD_CONTRACT.json`](TARGET_REWARD_CONTRACT.json) fixes the
+larger-is-better docking and QED reward, eligibility filters, timeout, and
+failure semantics while final target identity remains open.
 
 Validate the protocol:
 

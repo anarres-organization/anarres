@@ -95,6 +95,11 @@ repeat calls. Infrastructure failures remain separate from scientific reward.
 Freeze docking preparation, random seeds, box definition, pose count, timeout,
 and every qualifying-hit threshold.
 
+`TARGET_REWARD_CONTRACT.json` fixes the terminal reward as the product of QED
+and larger-is-better docking reward, together with the Veber-style eligibility
+gate used by the official RxnFlow docking task. Final target identity and
+prepared target artifacts remain open until the starting-policy gate passes.
+
 The reward must provide adequate headroom under the common starting policy. A
 floor or saturation result stops the study before candidate construction.
 
