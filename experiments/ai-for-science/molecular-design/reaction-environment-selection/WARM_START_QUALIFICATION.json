@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "claim-bearing common QED warm start",
+  "qualification": "pass",
+  "contract": "WARM_START_CONTRACT.json",
+  "execution": {
+    "rxnflow_version": "2.1.0",
+    "seed": 20261108,
+    "updates": 1000,
+    "online_trajectories_per_update": 64,
+    "replay_trajectories_per_update": 64,
+    "elapsed_seconds": 332.0,
+    "accelerator_count": 1
+  },
+  "integrity": {
+    "training_records": 1000,
+    "first_step": 1,
+    "last_step": 1000,
+    "sample_records": 64000,
+    "sample_step_count": 1000,
+    "valid_records": 64000,
+    "distinct_final_smiles": 39028,
+    "prepared_environment_sha256": "def699e5d284061daaabe58953e57df4e14fe537e2b132a1d7d1ffff706a49b3"
+  },
+  "final_update": {
+    "valid_fraction": 1.0,
+    "unique_fraction_within_batch": 0.984375,
+    "mean_qed": 0.8183043249882758,
+    "mean_combined_reward": 0.8161811568642836,
+    "mean_trajectory_length": 2.515625,
+    "loss": 0.5504060983657837,
+    "policy_gradient_norm": 11.909806251525879
+  },
+  "artifacts": {
+    "full_checkpoint": {
+      "bytes": 108503481,
+      "sha256": "95b68db8c4494d0eedc3162bfe566809223dcc5c4a9ec2455f54dff7f6088e96"
+    },
+    "weights_only_starting_policy": {
+      "artifact_type": "anarres.rxnflow-warm-start-weights.v1",
+      "source_step": 1000,
+      "bytes": 37571107,
+      "sha256": "29da27efeae7f7d803e760f74eba63ab1fc2746b509e0f0b59900920aded79cc",
+      "contains_policy_weights": true,
+      "contains_sampling_model_weights": true,
+      "contains_optimizer_scheduler_replay_or_rng_state": false
+    }
+  },
+  "authorization": "The common QED warm start and weights-only starting-policy artifact are qualified. Final target selection, starting-policy headroom, probe reliability, candidate freeze, and target-training smoke remain open.",
+  "sealed_boundary": {
+    "target_reward_used_for_checkpoint_selection": false,
+    "target_training_started": false,
+    "candidate_memberships_frozen": false,
+    "post_training_target_outcomes_opened": false
+  }
+}
