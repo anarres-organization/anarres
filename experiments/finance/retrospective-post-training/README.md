@@ -205,6 +205,16 @@ one retrospective source-level test rather than independent replications. The
 contract, source-native outcomes, and score are in
 [`heldout-finacumen/`](heldout-finacumen/).
 
+A second V4 test freezes a safety-constrained decision before extracting the
+numerical FinHarmBench table. FiRSD qualifies for Llama3-8B-Instruct and
+AdaptLLM-Finance-chat-7B. It reduces attack success, stays within the benign
+helpfulness guardrail, and retains at least 95% of average external capability.
+The same intervention is rejected for WiroAI-Finance-Gemma-9B because benign
+accuracy falls 7.69 points, beyond the frozen five-point limit. The result shows
+how one model-agnostic contract can produce different model-level decisions
+without making model identity a feature. The freeze and score are in
+[`heldout-finharmbench/`](heldout-finharmbench/).
+
 A derived alignment/interference coordinate does not improve the original
 sixteen-study source holdout. Against the corrected baseline, the fixed rule
 falls from 74.9% to 74.0% pairwise ordering with unchanged regret. The ridge
@@ -247,6 +257,8 @@ python heldout-numerical-hallucination/score_holdout.py
 python -m unittest heldout-numerical-hallucination/test_score.py
 python heldout-finacumen/score_holdout.py
 python -m unittest heldout-finacumen/test_score.py
+python heldout-finharmbench/score_holdout.py
+python -m unittest heldout-finharmbench/test_score.py
 ```
 
 The script writes [`results/summary.json`](results/summary.json) and a manifest

@@ -90,6 +90,13 @@ coverage, grounding requirements, artifact-level verification, and the cost of
 admission. They also show why a generic label such as financial fine-tuning is
 too coarse for predicting a real workflow.
 
+Financial safety adds a separate deployment contract.
+[FinHarmBench](https://aclanthology.org/2026.acl-industry.117/) measures harmful
+financial prompts, confusable benign requests, external finance capability, and
+general capability before and after refusal steering distillation. Its matched
+interventions show why a candidate should clear explicit harm and over-refusal
+guardrails before capability gains inform allocation.
+
 ### Tool orchestration under operational constraints
 
 Tool access alone is not a sufficient environment description.

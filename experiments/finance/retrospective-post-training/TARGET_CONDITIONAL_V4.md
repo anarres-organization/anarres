@@ -51,6 +51,14 @@ failure continues to define the current boundary for grounded generation and
 abstention. Version 4 does not replace the frozen results produced by earlier
 representations.
 
+The next test freezes a safety-constrained decision before extracting
+FinHarmBench's numerical table. The contract qualifies FiRSD on two models and
+rejects it on WiroAI because benign helpfulness crosses the prespecified
+five-point guardrail. The external capability measurements remain above the
+95% retention threshold for all three models. This result illustrates why
+safety, helpfulness, and capability remain separate coordinates rather than one
+post-training score.
+
 ## Development evidence
 
 - Li and Liu, *When Financial Fine-tuning Fails*,
@@ -61,3 +69,5 @@ representations.
   [arXiv:2610.37905](https://arxiv.org/abs/2610.37905)
 - Guo et al., *FinAcumen*,
   [arXiv:2606.17642](https://arxiv.org/abs/2606.17642)
+- Choi et al., *FinHarmBench*,
+  [ACL Industry 2026](https://aclanthology.org/2026.acl-industry.117/)

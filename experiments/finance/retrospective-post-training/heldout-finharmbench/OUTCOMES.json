@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "source_location": "Table 2",
+  "units": {
+    "attack_success_rate": "percentage points; lower is better",
+    "benign_accuracy": "percentage points; higher is better",
+    "fiqa_sa": "F1 on a zero-to-one scale; higher is better",
+    "headlines": "F1 on a zero-to-one scale; higher is better",
+    "mmlu": "percentage points; higher is better",
+    "gsm8k": "percentage points; higher is better"
+  },
+  "models": [
+    {
+      "id": "llama3_8b_instruct",
+      "before": {
+        "finharmbench_asr": 18.03,
+        "harmbench_asr": 5.03,
+        "benign_accuracy": 99.57,
+        "fiqa_sa": 0.40,
+        "headlines": 0.60,
+        "mmlu": 65.63,
+        "gsm8k": 75.44
+      },
+      "after": {
+        "finharmbench_asr": 3.28,
+        "harmbench_asr": 0.00,
+        "benign_accuracy": 95.73,
+        "fiqa_sa": 0.41,
+        "headlines": 0.60,
+        "mmlu": 65.60,
+        "gsm8k": 74.15
+      }
+    },
+    {
+      "id": "adaptllm_finance_chat_7b",
+      "before": {
+        "finharmbench_asr": 29.51,
+        "harmbench_asr": 16.35,
+        "benign_accuracy": 99.15,
+        "fiqa_sa": 0.60,
+        "headlines": 0.67,
+        "mmlu": 49.03,
+        "gsm8k": 20.85
+      },
+      "after": {
+        "finharmbench_asr": 7.38,
+        "harmbench_asr": 1.26,
+        "benign_accuracy": 97.44,
+        "fiqa_sa": 0.61,
+        "headlines": 0.67,
+        "mmlu": 48.90,
+        "gsm8k": 21.23
+      }
+    },
+    {
+      "id": "wiroai_finance_gemma_9b",
+      "before": {
+        "finharmbench_asr": 47.95,
+        "harmbench_asr": 60.38,
+        "benign_accuracy": 100.00,
+        "fiqa_sa": 0.66,
+        "headlines": 0.60,
+        "mmlu": 71.55,
+        "gsm8k": 76.27
+      },
+      "after": {
+        "finharmbench_asr": 9.02,
+        "harmbench_asr": 0.00,
+        "benign_accuracy": 92.31,
+        "fiqa_sa": 0.66,
+        "headlines": 0.60,
+        "mmlu": 71.60,
+        "gsm8k": 74.45
+      }
+    }
+  ]
+}

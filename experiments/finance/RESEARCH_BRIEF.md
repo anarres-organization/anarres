@@ -145,9 +145,12 @@ The first excluded-source test of the capability-contract representation uses
 FinAcumen's controlled financial-tool and experience-memory interventions. The
 representation recovers all 33 scored candidate orderings across 16 nested
 panels and several backbones. This result supports the model-agnostic task
-description, but it remains one retrospective source. The next source should
-test the same representation on a different behavioral contract and report
-ordering, regret, and abstention separately.
+description, but it remains one retrospective source. A second test freezes a
+safety-constrained decision before extracting FinHarmBench's numerical table.
+It accepts the intervention for two models and rejects it for WiroAI because
+benign helpfulness falls beyond the fixed guardrail. The next source should
+test a new workflow contract and continue reporting decisions, regret, and
+abstention separately.
 
 The executable accounting panel remains the prospective extension. Four
 stateful workflows have passed source qualification, but no model has yet
@@ -211,6 +214,7 @@ change held-out outcomes after training begins.
 - [Strict task-level transfer audit](retrospective-post-training/strict-task-level/README.md)
 - [Numerical-faithfulness source holdout](retrospective-post-training/heldout-numerical-hallucination/README.md)
 - [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
+- [Financial safety capability-contract holdout](retrospective-post-training/heldout-finharmbench/README.md)
 - [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
 - [Machine-readable panels](retrospective-post-training/data/panels.json)
 - [Source-recovered expansion](retrospective-post-training/data/recovered_panels.json)
