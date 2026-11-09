@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "status": "TARGET_CONDITIONAL_PREDICTIONS_FROZEN__OUTCOMES_NOT_EXTRACTED",
+  "frozen_at_utc": "2026-11-09T18:30:30Z",
+  "source": {
+    "id": "staged_japanese_financial_documents_2026_holdout",
+    "title": "Staged Continual Adaptation of Multimodal Foundation Models for Japanese Financial Documents",
+    "url": "https://arxiv.org/abs/2610.27904",
+    "selection_reason": "Different language, modality, model pipeline, and evaluation contract from all development sources"
+  },
+  "representation": {
+    "path": "../TARGET_CONDITIONAL_V3.md",
+    "git_commit": "15f8d61443ee512a7e5c88ddb56c51e6857671e8",
+    "sha256": "a250728fb8e29b39ac19a31902d9528f40c638795443034e2eb4ab0f0d2b7f31",
+    "development_sources": [
+      "snfinllm_2024_holdout",
+      "fevo_2025"
+    ],
+    "excluded_from_development": "staged_japanese_financial_documents_2026_holdout"
+  },
+  "predictions": [
+    {
+      "id": "text_adaptation_over_base",
+      "target_family": "text_finance",
+      "preferred_candidate": "financial_text_adaptation",
+      "comparison_candidate": "unadapted_checkpoint",
+      "basis": [
+        "domain-content alignment"
+      ]
+    },
+    {
+      "id": "visual_adaptation_over_text_only",
+      "target_family": "visual_financial_documents",
+      "preferred_candidate": "visual_financial_adaptation",
+      "comparison_candidate": "financial_text_adaptation",
+      "basis": [
+        "supervision alignment",
+        "modality alignment"
+      ]
+    },
+    {
+      "id": "full_path_over_skip_stage",
+      "target_family": "combined_financial_documents",
+      "preferred_candidate": "full_staged_path",
+      "comparison_candidate": "skip_prerequisite_stage",
+      "basis": [
+        "prerequisite coverage"
+      ]
+    }
+  ],
+  "abstentions": [
+    {
+      "target_family": "general_capabilities",
+      "reason": "No comparable retention contract was available before outcome extraction"
+    }
+  ],
+  "scoring_contract": {
+    "primary": "directional accuracy across the three frozen comparisons",
+    "secondary": "target-level pairwise ordering where exact same-lineage scores are reported",
+    "regressions": "retain every reported target regression",
+    "missing": "do not impute unreported stage outcomes"
+  }
+}
