@@ -245,6 +245,20 @@ class VeroCodexQualificationTest(unittest.TestCase):
         self.assertEqual(record["attempt"]["independent_attempts"], 1)
         self.assertFalse(record["containment"]["qualification_and_prospective_repositories_opened"])
 
+    def test_infrastructure_retry_changes_only_the_codex_interface(self) -> None:
+        record = json.loads(
+            (ADAPTER / "policy-codex-sol-infrastructure-retry.v1.json").read_text(encoding="utf-8")
+        )
+        patch_path = ADAPTER / record["compatibility_change"]["patch"]
+        self.assertEqual(
+            record["compatibility_change"]["patch_sha256"],
+            hashlib.sha256(patch_path.read_bytes()).hexdigest(),
+        )
+        self.assertFalse(record["failed_launch"]["model_request_started"])
+        self.assertFalse(record["compatibility_change"]["scientific_settings_changed"])
+        self.assertEqual(record["retry"]["infrastructure_retry_index"], 1)
+        self.assertEqual(record["retry"]["maximum_infrastructure_retries"], 1)
+
 
 class VeroSourceAuditTest(unittest.TestCase):
     def test_audit_checks_pinned_source_and_manifest(self) -> None:

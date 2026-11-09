@@ -1,0 +1,48 @@
+{
+  "schema_version": "anarres.formal-verification-policy-qualification-retry.v1",
+  "protocol_id": "vero-codex-sol-development-qualification-v1",
+  "execution_record": "policy-codex-sol-execution.v1.json",
+  "status": "frozen_before_single_infrastructure_retry",
+  "failed_launch": {
+    "attempt_identity": "anarres-codex-sol-primepy-proof-qualification-v1-attempt-01",
+    "classification": "pre_inference_interface_failure",
+    "model_request_started": false,
+    "model_tokens": 0,
+    "scientific_outcome": false,
+    "exit_code": 2,
+    "cause": "the pinned Vero adapter emitted the removed Codex --full-auto flag"
+  },
+  "compatibility_change": {
+    "scope": "Codex command construction and its unit-test expectation only",
+    "patch": "runtime/codex-0.154-compat.patch",
+    "patch_sha256": "d8ea30b4160ee7b0bb949306dec3201c3e1f0330a1acccd30a9157791f8f22a8",
+    "old_flag": "--full-auto",
+    "new_flag": "--approve-for-me",
+    "scientific_settings_changed": false,
+    "upstream_codex_agent_tests": "19 passed",
+    "non_benchmark_route_probe": "pass"
+  },
+  "retry": {
+    "attempt_identity": "anarres-codex-sol-primepy-proof-qualification-v1-attempt-01-infra-retry-01",
+    "model_id": "gpt-5.6-sol",
+    "agent_harness_version": "0.154.0",
+    "reasoning_effort": "xhigh",
+    "benchmark_id": "primepy",
+    "mode": "proof",
+    "maximum_wall_seconds": 5400,
+    "task_network_access": false,
+    "scientific_retry_count": 0,
+    "infrastructure_retry_index": 1,
+    "maximum_infrastructure_retries": 1
+  },
+  "authorization_boundary": {
+    "permits": "one replacement launch because no model request began",
+    "does_not_permit": [
+      "another infrastructure retry",
+      "a second scientific attempt",
+      "opening protected repositories",
+      "environment ranking",
+      "downstream reinforcement learning"
+    ]
+  }
+}

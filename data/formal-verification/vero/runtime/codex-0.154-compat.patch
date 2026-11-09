@@ -1,0 +1,28 @@
+diff --git a/src/vero/generation/agents/codex.py b/src/vero/generation/agents/codex.py
+index e2df66b..d6cea6e 100644
+--- a/src/vero/generation/agents/codex.py
++++ b/src/vero/generation/agents/codex.py
+@@ -357,7 +357,9 @@ class CodexAgent(BaseAgent):
+         # Sandbox flags are identical for the fresh and resume subcommands
+         # (`codex exec resume` accepts --full-auto / --sandbox too).
+         if self.sandbox_mode == "workspace-write":
+-            cmd.append("--full-auto")
++            # Codex 0.154 replaces the former --full-auto flag with
++            # --approve-for-me for non-interactive workspace-write execution.
++            cmd.append("--approve-for-me")
+             if self.network_access:
+                 cmd.extend(["-c", "sandbox_workspace_write.network_access=true"])
+         elif self.sandbox_mode == "read-only":
+diff --git a/tests/generation/test_codex_agent.py b/tests/generation/test_codex_agent.py
+index 278ff4c..9612a6f 100644
+--- a/tests/generation/test_codex_agent.py
++++ b/tests/generation/test_codex_agent.py
+@@ -18,7 +18,7 @@ def test_build_cmd_workspace_write_default() -> None:
+     cmd = CodexAgent(model="gpt-5-codex")._build_cmd()
+     assert cmd[0] == "codex"
+     assert "exec" in cmd and "--json" in cmd
+-    assert "--full-auto" in cmd
++    assert "--approve-for-me" in cmd
+     assert "--skip-git-repo-check" in cmd
+     assert cmd[-1] == "-"
+     assert "-m" in cmd and "gpt-5-codex" in cmd
