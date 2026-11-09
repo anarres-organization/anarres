@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "frozen target-panel reference-ligand docking qualification",
+  "qualification": "pass",
+  "contract": "ORACLE_CONTRACT.json",
+  "raw_report_sha256": "dd00b6cf2a7b38a17031a0e26cda1468bd6f6f25dfd70b99a6f8e4ac37509eb1",
+  "aggregate": {
+    "targets_qualified": 8,
+    "targets_passed": 8,
+    "docking_calls": 32,
+    "successful_calls": 32,
+    "maximum_same_seed_repeat_delta": 0.0,
+    "maximum_cross_seed_affinity_range": 0.812,
+    "maximum_call_seconds": 169.533122,
+    "total_elapsed_seconds": 981.707981
+  },
+  "targets": [
+    {
+      "target_id": "P08254",
+      "receptor_source": "full prepared receptor",
+      "median_reference_affinity": -7.5635,
+      "cross_seed_affinity_range": 0.369,
+      "elapsed_seconds": 60.857239,
+      "qualification": "pass"
+    },
+    {
+      "target_id": "O14757",
+      "receptor_source": "full prepared receptor",
+      "median_reference_affinity": -9.038,
+      "cross_seed_affinity_range": 0.002,
+      "elapsed_seconds": 35.063188,
+      "qualification": "pass"
+    },
+    {
+      "target_id": "Q07820",
+      "receptor_source": "full prepared receptor",
+      "median_reference_affinity": -10.7355,
+      "cross_seed_affinity_range": 0.015,
+      "elapsed_seconds": 92.997915,
+      "qualification": "pass"
+    },
+    {
+      "target_id": "P00533",
+      "receptor_source": "full prepared receptor",
+      "median_reference_affinity": -8.307,
+      "cross_seed_affinity_range": 0.812,
+      "elapsed_seconds": 74.199618,
+      "qualification": "pass"
+    },
+    {
+      "target_id": "P21554",
+      "receptor_source": "full prepared receptor",
+      "median_reference_affinity": -12.0525,
+      "cross_seed_affinity_range": 0.021,
+      "elapsed_seconds": 33.827349,
+      "qualification": "pass"
+    },
+    {
+      "target_id": "Q07343",
+      "receptor_source": "full prepared receptor",
+      "median_reference_affinity": -9.403,
+      "cross_seed_affinity_range": 0.012,
+      "elapsed_seconds": 25.456063,
+      "qualification": "pass"
+    },
+    {
+      "target_id": "P53350",
+      "receptor_source": "full prepared receptor",
+      "median_reference_affinity": -8.475,
+      "cross_seed_affinity_range": 0.23,
+      "elapsed_seconds": 637.952115,
+      "qualification": "pass"
+    },
+    {
+      "target_id": "P16184",
+      "receptor_source": "full prepared receptor",
+      "median_reference_affinity": -8.537,
+      "cross_seed_affinity_range": 0.044,
+      "elapsed_seconds": 21.296706,
+      "qualification": "pass"
+    }
+  ],
+  "interpretation": {
+    "reference_control": "Every frozen target supports deterministic same-seed docking and stable cross-seed reference affinity under the released MolGenBench contract.",
+    "cost_note": "P53350 is substantially slower than the other reference controls. Oracle wall time remains an explicit cost coordinate and does not alter scientific reward.",
+    "authorization": "This result qualifies reference docking behavior only. It does not authorize target selection or claim-bearing training before the reward adapter, starting policy, and headroom gates pass."
+  },
+  "sealed_boundary": {
+    "training_or_evaluation_outcomes_opened": false,
+    "published_model_results_opened": false,
+    "known_active_collections_opened": false,
+    "reference_ligands_used_only_as_oracle_controls": true
+  }
+}

@@ -60,6 +60,24 @@ python scripts/audit_target_fixtures.py \
   --out /tmp/TARGET_FIXTURE_AUDIT.json
 ```
 
+Create the runtime from `oracle-environment.yml`, extract only the audited
+fixture triplets, and run the frozen qualification contract:
+
+```bash
+conda env create -f oracle-environment.yml
+conda run -n anarres-molecular-oracle \
+  python scripts/qualify_docking_oracle.py \
+  --fixtures /path/to/frozen-panel-fixtures \
+  --targets P08254 O14757 Q07820 P00533 P21554 Q07343 P53350 P16184 \
+  --output /tmp/ORACLE_QUALIFICATION.json
+```
+
+Stop if a reference call fails, a fixed-seed repeat changes, cross-seed
+affinity exceeds the frozen range, or the reference control misses its gate.
+The committed aggregate report passes all four checks for the eight-target
+panel. This qualifies reference docking behavior without selecting a final
+target or authorizing training.
+
 Create an outcome-free qualification file using only the fields accepted by
 `freeze_target.py`, then freeze the identity:
 

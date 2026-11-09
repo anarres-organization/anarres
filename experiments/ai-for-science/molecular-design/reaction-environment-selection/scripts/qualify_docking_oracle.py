@@ -115,9 +115,7 @@ def prepare_receptor(source: Path, workdir: Path, python: str) -> Path:
         capture_output=True,
         text=True,
     )
-    prepare_script = (
-        Path(AutoDockTools.__path__[0]) / "Utilities24" / "prepare_receptor4.py"
-    )
+    prepare_script = Path(AutoDockTools.__path__[0]) / "Utilities24" / "prepare_receptor4.py"
     subprocess.run(
         [python, str(prepare_script), "-r", str(pqr), "-o", str(pdbqt)],
         check=True,
