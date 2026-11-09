@@ -1,0 +1,364 @@
+{
+  "contract_status": "frozen_before_starting_policy_sampling",
+  "decision": "select",
+  "passing_targets_in_hash_order": [
+    "Q07820",
+    "P21554",
+    "P00533",
+    "P08254",
+    "O14757",
+    "P16184",
+    "P53350",
+    "Q07343"
+  ],
+  "schema_version": "1.0",
+  "scope": "starting-policy target qualification and selection",
+  "selected_target": "Q07820",
+  "study": "prospective-reaction-environment-selection",
+  "targets": [
+    {
+      "checks": {
+        "median_oracle_time": true,
+        "median_reward_repeatability": true,
+        "oracle_completion_fraction": true,
+        "p95_oracle_time": true,
+        "positive_fraction_repeatability": true,
+        "positive_reward_fraction": true,
+        "reference_oracle_qualification": true,
+        "returned_valid_fraction": true,
+        "reward_eligible_fraction": true,
+        "reward_spread": true,
+        "unique_fraction": true
+      },
+      "hash_rank": "6e830038c4945a81f3c302e9bb911e853080f3d92d6a46a6a5633c3b641aca8c",
+      "median_oracle_seconds": 8.484601000000001,
+      "p95_oracle_seconds": 13.23273225,
+      "pooled_reward_p90_minus_p10": 1.7683512781934736,
+      "qualification": "pass",
+      "target_id": "P08254",
+      "view_score_sha256": {
+        "20261110": "53ece30645038af0d22569d3f188b9f6fe49b84cec4d39dd4764185738bda6da",
+        "20261111": "5b2ea598c163411db8354d49fc98adc5f650ebde2bf3389b111114d623357038"
+      },
+      "views": [
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 6.311881469272242,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 0.984375,
+          "records": 64
+        },
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 6.11306998760563,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 0.96875,
+          "records": 64
+        }
+      ]
+    },
+    {
+      "checks": {
+        "median_oracle_time": true,
+        "median_reward_repeatability": true,
+        "oracle_completion_fraction": true,
+        "p95_oracle_time": true,
+        "positive_fraction_repeatability": true,
+        "positive_reward_fraction": true,
+        "reference_oracle_qualification": true,
+        "returned_valid_fraction": true,
+        "reward_eligible_fraction": true,
+        "reward_spread": true,
+        "unique_fraction": true
+      },
+      "hash_rank": "9d2a098b268de3889dfb8d395cf36015bf1839f3b254572753a9a1559cff4bed",
+      "median_oracle_seconds": 8.589762499999999,
+      "p95_oracle_seconds": 13.448522,
+      "pooled_reward_p90_minus_p10": 2.288482438096146,
+      "qualification": "pass",
+      "target_id": "O14757",
+      "view_score_sha256": {
+        "20261110": "0c6497600e41a304b2c3bf530e550b1d82ba4d08db0183ef851a874429c70462",
+        "20261111": "e3cdee39609941f6f6a8b5cd4665a3a40a7caca22ed7ff6b451624e89c2ca67e"
+      },
+      "views": [
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 6.421281081686018,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 1.0,
+          "records": 64
+        },
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 6.374885428440068,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 1.0,
+          "records": 64
+        }
+      ]
+    },
+    {
+      "checks": {
+        "median_oracle_time": true,
+        "median_reward_repeatability": true,
+        "oracle_completion_fraction": true,
+        "p95_oracle_time": true,
+        "positive_fraction_repeatability": true,
+        "positive_reward_fraction": true,
+        "reference_oracle_qualification": true,
+        "returned_valid_fraction": true,
+        "reward_eligible_fraction": true,
+        "reward_spread": true,
+        "unique_fraction": true
+      },
+      "hash_rank": "109566e4d3de34f312fffc4e57681e277eabd279ce8853ec4b55a82eaa3ea1bd",
+      "median_oracle_seconds": 6.5924345,
+      "p95_oracle_seconds": 9.47788935,
+      "pooled_reward_p90_minus_p10": 1.9551564066979141,
+      "qualification": "pass",
+      "target_id": "Q07820",
+      "view_score_sha256": {
+        "20261110": "2845b77e1a35fba0dce3aef4c9ba668431c2710774384c05d1c99750bdb0fde4",
+        "20261111": "3c41f64141bcca333450418fdc5a0597a0c1e01062786572cbfcce6c74738d48"
+      },
+      "views": [
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 6.558695687653769,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 1.0,
+          "records": 64
+        },
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 6.503062677012222,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 1.0,
+          "records": 64
+        }
+      ]
+    },
+    {
+      "checks": {
+        "median_oracle_time": true,
+        "median_reward_repeatability": true,
+        "oracle_completion_fraction": true,
+        "p95_oracle_time": true,
+        "positive_fraction_repeatability": true,
+        "positive_reward_fraction": true,
+        "reference_oracle_qualification": true,
+        "returned_valid_fraction": true,
+        "reward_eligible_fraction": true,
+        "reward_spread": true,
+        "unique_fraction": true
+      },
+      "hash_rank": "340ce000932769e4df12df4ab158577f75737ecd7b109d772636ff53aa0a6999",
+      "median_oracle_seconds": 6.7991765,
+      "p95_oracle_seconds": 10.77110935,
+      "pooled_reward_p90_minus_p10": 1.7010295837349476,
+      "qualification": "pass",
+      "target_id": "P00533",
+      "view_score_sha256": {
+        "20261110": "8adfa02addafa9c4d3fb5f25790b287bbbc7398340df0151c8c0860ffc3da92b",
+        "20261111": "9e97cd050663a195e84abb59961cc85943469833f301adffac09d2cf823e6872"
+      },
+      "views": [
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 6.450685986599085,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 1.0,
+          "records": 64
+        },
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 6.165128119702114,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 1.0,
+          "records": 64
+        }
+      ]
+    },
+    {
+      "checks": {
+        "median_oracle_time": true,
+        "median_reward_repeatability": true,
+        "oracle_completion_fraction": true,
+        "p95_oracle_time": true,
+        "positive_fraction_repeatability": true,
+        "positive_reward_fraction": true,
+        "reference_oracle_qualification": true,
+        "returned_valid_fraction": true,
+        "reward_eligible_fraction": true,
+        "reward_spread": true,
+        "unique_fraction": true
+      },
+      "hash_rank": "10fca4aab8a4b3482a08141d30d45149b14b3c6287b24a8856d060c5226efe9b",
+      "median_oracle_seconds": 7.0354565000000004,
+      "p95_oracle_seconds": 11.8692828,
+      "pooled_reward_p90_minus_p10": 2.242470063963969,
+      "qualification": "pass",
+      "target_id": "P21554",
+      "view_score_sha256": {
+        "20261110": "36e54b1095d793ff27110d77c10305d7b54ebaf0018d9ac44f21e7b4af26c733",
+        "20261111": "608034ddf507c9046e32f13e953545e75165e0f13623a6e0332b687e4e3520f2"
+      },
+      "views": [
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 7.329164171324335,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 1.0,
+          "records": 64
+        },
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 6.865298218982156,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 1.0,
+          "records": 64
+        }
+      ]
+    },
+    {
+      "checks": {
+        "median_oracle_time": true,
+        "median_reward_repeatability": true,
+        "oracle_completion_fraction": true,
+        "p95_oracle_time": true,
+        "positive_fraction_repeatability": true,
+        "positive_reward_fraction": true,
+        "reference_oracle_qualification": true,
+        "returned_valid_fraction": true,
+        "reward_eligible_fraction": true,
+        "reward_spread": true,
+        "unique_fraction": true
+      },
+      "hash_rank": "d9c8ef8531c94465c9d6c69fce1bc8613badc2bb96a27473228c6424722c9531",
+      "median_oracle_seconds": 7.7601875,
+      "p95_oracle_seconds": 12.461687899999998,
+      "pooled_reward_p90_minus_p10": 2.298168457406276,
+      "qualification": "pass",
+      "target_id": "Q07343",
+      "view_score_sha256": {
+        "20261110": "e1c5c259de9c4c6ed43ac6aa31b4545ba231d932257d8f7d03be7bf522036667",
+        "20261111": "c8a1bae35f669e88d35183f5fa85449fff05ca75d80d23e52ea58cdfa98c7409"
+      },
+      "views": [
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 7.107466885325104,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 0.984375,
+          "records": 64
+        },
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 7.041112727763235,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 1.0,
+          "records": 64
+        }
+      ]
+    },
+    {
+      "checks": {
+        "median_oracle_time": true,
+        "median_reward_repeatability": true,
+        "oracle_completion_fraction": true,
+        "p95_oracle_time": true,
+        "positive_fraction_repeatability": true,
+        "positive_reward_fraction": true,
+        "reference_oracle_qualification": true,
+        "returned_valid_fraction": true,
+        "reward_eligible_fraction": true,
+        "reward_spread": true,
+        "unique_fraction": true
+      },
+      "hash_rank": "cb6ba985e0919c0619749bfd428ff87cb8a22cee75ad3ae0a75bb812cfd70373",
+      "median_oracle_seconds": 6.361661,
+      "p95_oracle_seconds": 8.8527921,
+      "pooled_reward_p90_minus_p10": 1.325057204225856,
+      "qualification": "pass",
+      "target_id": "P53350",
+      "view_score_sha256": {
+        "20261110": "32223be464ee89f015a6665b22bfc7b21ec7d26e2737c710ba1bfd20334e997f",
+        "20261111": "0c60e09b22301c3c9ffcbd2ad50346ed2f92507b697c2bda562a27ad347e5b0c"
+      },
+      "views": [
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 5.992924006681608,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 1.0,
+          "records": 64
+        },
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 5.941963868344108,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 1.0,
+          "records": 64
+        }
+      ]
+    },
+    {
+      "checks": {
+        "median_oracle_time": true,
+        "median_reward_repeatability": true,
+        "oracle_completion_fraction": true,
+        "p95_oracle_time": true,
+        "positive_fraction_repeatability": true,
+        "positive_reward_fraction": true,
+        "reference_oracle_qualification": true,
+        "returned_valid_fraction": true,
+        "reward_eligible_fraction": true,
+        "reward_spread": true,
+        "unique_fraction": true
+      },
+      "hash_rank": "aba97c3eb4192a4d08db4e781bdf2fa410f43624ee24d5fe2de6756751188fa4",
+      "median_oracle_seconds": 7.338944,
+      "p95_oracle_seconds": 13.301568699999997,
+      "pooled_reward_p90_minus_p10": 1.605058966878567,
+      "qualification": "pass",
+      "target_id": "P16184",
+      "view_score_sha256": {
+        "20261110": "8e23c79b29508a46d8f3f54eb2b1a2ecb3ee091891bce30f1f79d7b5ff8fdd63",
+        "20261111": "962c6176bf0f659303013cf8f98ee3bc0cd6a649e4ab577dc190ecc45fb115f9"
+      },
+      "views": [
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 6.86492570367789,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 1.0,
+          "records": 64
+        },
+        {
+          "complete": true,
+          "eligible_fraction": 1.0,
+          "median_reward": 6.67502289541452,
+          "oracle_completion_fraction": 1.0,
+          "positive_reward_fraction": 1.0,
+          "records": 64
+        }
+      ]
+    }
+  ]
+}

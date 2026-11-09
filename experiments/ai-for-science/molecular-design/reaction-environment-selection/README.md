@@ -2,13 +2,13 @@
 
 **Status:** RxnFlow, MolGenBench code, the Version4 archive, an eight-target
 qualification panel, its 24 structural fixtures, and reference docking on all
-eight targets, the common synthesis environment, and the 1,000-update QED warm
-start are qualified. The
-structured reward adapter passes valid,
+eight targets are qualified, together with the common synthesis environment and
+the 1,000-update QED warm start. Two frozen starting-policy views were scored
+against all eight targets. Every target passed the prespecified gates, and the
+outcome-blind hash rule selected Q07820. The structured reward adapter passes valid,
 malformed, filtered, timeout, repeat-call, batched, and RxnFlow v2.1 interface
-checks. Starting-policy oracle throughput, final target identity, starting-policy
-headroom, and candidate memberships remain open. No target-training or
-evaluation outcome has been inspected for this study.
+checks. Candidate measurement, reliability, and membership gates remain open.
+No target-training or evaluation outcome has been inspected for this study.
 
 ## Research question
 
@@ -196,10 +196,12 @@ same-seed repeats were exact, and the largest cross-seed affinity range was
 oracle wall time remains an explicit cost coordinate. The batched adapter also
 passes the pinned RxnFlow v2.1 reward interface with finite nonnegative
 `float32` output, exact duplicate reuse, and explicit zeroes for malformed or
-missing molecules. No GPU training is justified until starting-policy oracle
-throughput, the common warm start, and starting-policy headroom pass their
-gates. The fixture, oracle, and adapter audits do not open training outcomes,
-published model results, or known-active collections.
+missing molecules. Both starting-policy views are fully valid, and all 16
+target-view score batches completed without infrastructure failures. Every
+target passed the frozen signal, repeatability, and throughput gates. Q07820 is
+the first passing member in the prespecified hash order and is therefore the
+selected target. These audits do not open training outcomes, published model
+results, or known-active collections.
 
 ## Reproduction
 
@@ -217,6 +219,10 @@ trajectory-generation, and checkpoint path. The claim-bearing 1,000-update warm
 start is recorded in [`WARM_START_QUALIFICATION.json`](WARM_START_QUALIFICATION.json).
 Its weights-only starting-policy artifact has SHA-256
 `effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a`.
+[`TARGET_SELECTION_CONTRACT.json`](TARGET_SELECTION_CONTRACT.json) and
+[`STARTING_POLICY_VIEWS.json`](STARTING_POLICY_VIEWS.json) freeze the target
+gate and both sampled views. [`TARGET_SELECTION_RESULT.json`](TARGET_SELECTION_RESULT.json)
+records the complete aggregate gate audit, input digests, and selected target.
 
 Audit local checkouts without reading target outcomes:
 

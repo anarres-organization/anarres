@@ -98,13 +98,13 @@ and every qualifying-hit threshold.
 `TARGET_REWARD_CONTRACT.json` fixes the terminal reward as the product of QED
 and larger-is-better docking reward, together with the Veber-style eligibility
 gate used by the official RxnFlow docking task. Final target identity and
-prepared target artifacts remain open until the starting-policy gate passes.
+prepared target artifacts were held open until the starting-policy gate passed.
 `REWARD_ADAPTER_QUALIFICATION.json` verifies that malformed and filtered
 molecules remain scientific zeroes, timeouts remain infrastructure failures,
 and repeated valid calls are deterministic. `BATCH_REWARD_QUALIFICATION.json`
 verifies deduplicated batch scoring and the pinned RxnFlow v2.1 reward
-interface. Measure oracle throughput on the selected starting-policy
-distribution before training.
+interface. `TARGET_SELECTION_RESULT.json` records the completed throughput and
+headroom gates and freezes Q07820 before candidate construction.
 
 The reward must provide adequate headroom under the common starting policy. A
 floor or saturation result stops the study before candidate construction.
@@ -113,6 +113,20 @@ After the warm start passes integrity checks, follow
 `TARGET_SELECTION_CONTRACT.json`. Generate both starting-policy views once,
 score the same frozen samples against all eight qualified targets, apply every
 gate, and select the first passing target in the prespecified hash order.
+
+After all 16 target-view score files are complete, apply the frozen gate with:
+
+```bash
+python scripts/select_target.py \
+  --results-dir /path/to/complete/target-view-scores \
+  --contract TARGET_SELECTION_CONTRACT.json \
+  --starting-views STARTING_POLICY_VIEWS.json \
+  --oracle-qualification ORACLE_QUALIFICATION.json \
+  --output /tmp/TARGET_SELECTION_RESULT.json
+```
+
+Stop if the result abstains. Commit the aggregate decision and its gate values,
+not machine paths or raw per-molecule oracle records.
 
 ## 4. Train and qualify the common warm start
 

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "study": "prospective-reaction-environment-selection",
-  "status": "warm_start_and_starting_policy_views_qualified_target_scoring_and_candidate_freeze_open",
+  "status": "target_and_starting_policy_qualified_candidate_measurement_and_freeze_open",
   "scientific_question": "Can measurements under one starting molecular graph policy predict which fixed replay experience bank will produce the greatest target-specific improvement at a matched generation and oracle budget?",
   "source": {
     "rxnflow_commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b",
@@ -27,9 +27,11 @@
     "selection": "Within the frozen eight-target panel, select one target by ascending SHA-256 of reaction-environment-selection-v1|target_id among targets that pass the frozen fixture, oracle-repeatability, reference-control, starting-policy validity, and pre-RL headroom gates.",
     "qualification_panel_size": 8,
     "qualification_panel_sha256": "d4024f9a65aba7a4d3027be4b67aedac7080bb3b545c1fa4378bab2d0a294fe7",
+    "selected_target": "Q07820",
+    "selection_result": "TARGET_SELECTION_RESULT.json",
     "selection_uses_outcomes": false,
     "reference_active_outcomes_sealed_until_scoring": true,
-    "identity_status": "eight-target qualification panel frozen; final target open until oracle and starting-policy qualification"
+    "identity_status": "Q07820 selected by the frozen outcome-blind hash rule after all eight panel targets passed oracle and starting-policy qualification"
   },
   "intervention": {
     "object": "preloaded replay experience bank",
@@ -184,9 +186,6 @@
     "reason": "The first graph claim concerns environment measurement and selection. Multiplying the initial panel across architectures would confound that decision and dilute the prospective test."
   },
   "open_gates": [
-    "final target and starting-policy qualification",
-    "starting-policy oracle throughput and cost gate",
-    "starting-policy headroom",
     "two-view measurement reliability",
     "candidate membership and cost matching",
     "training schedule smoke qualification"
