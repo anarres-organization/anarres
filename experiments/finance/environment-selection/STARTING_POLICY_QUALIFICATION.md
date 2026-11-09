@@ -21,6 +21,19 @@ unchanged. The policy receives four tools: read a workspace file, list workspace
 files, call the ERP command, and write a handoff note. Every tool call and state
 transition is recorded.
 
+Development seeds are the first eight integers from 71001 upward for which all
+four generators and their oracle references complete successfully. This source
+gate runs before policy evaluation for a seed and does not inspect model
+outcomes. A generator failure advances to the next integer and remains recorded;
+policy failures never replace a seed.
+
+The source-only gate can be reproduced without loading a policy:
+
+```bash
+python scripts/select_development_seeds.py /path/to/business-bench \
+  --output qualification-development-seeds.json
+```
+
 ## Policy ladder
 
 Qualification begins with
