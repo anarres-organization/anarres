@@ -16,6 +16,12 @@ failure before producing candidate measurements. The version 2 reward contract
 keeps the sampled views fixed, adds one deterministic conformer fallback, and
 records fallback exhaustion as a scientific zero while preserving strict
 infrastructure failures for the receptor, toolchain, Vina, process, and timeout.
+The resulting version 2 views passed every signal, throughput, graph, and
+cross-view stability check but failed the prespecified 0.90 unique-product
+fraction in both views. That failed gate is preserved. Version 3 replaces the
+fraction-only condition with an absolute support requirement of 2,048 unique
+products and a 0.80 fraction floor, then tests both on two new independent views
+before any bank membership or training outcome exists.
 
 ## Research question
 
@@ -237,6 +243,10 @@ records the deterministic operational and graph-feature smoke.
 [`TARGET_REWARD_CONTRACT_V2.json`](TARGET_REWARD_CONTRACT_V2.json) and
 [`MEASUREMENT_CONTRACT_V2.json`](MEASUREMENT_CONTRACT_V2.json) record the
 pre-measurement scoring revision without redrawing either frozen view.
+[`MEASUREMENT_RELIABILITY_RESULT_V2.json`](MEASUREMENT_RELIABILITY_RESULT_V2.json)
+preserves the failed diversity gate and the passing reliability checks.
+[`MEASUREMENT_CONTRACT_V3.json`](MEASUREMENT_CONTRACT_V3.json) freezes the
+decision-aligned diversity gate and two new view seeds before they are sampled.
 [`BANK_CONSTRUCTION_CONTRACT.json`](BANK_CONSTRUCTION_CONTRACT.json) fixes the
 development-bank summaries and confirmation statistic before measurement
 reliability is scored.

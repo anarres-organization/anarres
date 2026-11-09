@@ -70,6 +70,7 @@ def summarize_view(records: list[dict[str, Any]], manifest: dict[str, Any]) -> d
     oracle_times = np.asarray(
         [float(row["oracle_elapsed_seconds"]) for row in eligible], dtype=float
     )
+    unique_canonical_products = len({row["canonical_smiles"] for row in records})
     embeddings = np.asarray([row["graph_embedding"] for row in records], dtype=float)
     reaction_counts = Counter(family for row in records for family in row["reaction_sequence"])
     scaffold_counts = Counter(row["bemis_murcko_scaffold"] for row in records)
@@ -78,8 +79,8 @@ def summarize_view(records: list[dict[str, Any]], manifest: dict[str, Any]) -> d
         "attempts": attempts,
         "returned_records": returned,
         "returned_valid_fraction": returned / attempts,
-        "unique_canonical_smiles_fraction": len({row["canonical_smiles"] for row in records})
-        / returned,
+        "unique_canonical_products": unique_canonical_products,
+        "unique_canonical_smiles_fraction": unique_canonical_products / returned,
         "reward_eligible_fraction": len(eligible) / returned,
         "oracle_completion_fraction": sum(
             row["reward_status"] != "infrastructure_failure" for row in records
@@ -133,6 +134,8 @@ def qualify(
                 >= per["minimum_returned_valid_fraction"],
                 "unique_canonical_smiles_fraction": view["unique_canonical_smiles_fraction"]
                 >= per["minimum_unique_canonical_smiles_fraction"],
+                "unique_canonical_products": view["unique_canonical_products"]
+                >= per.get("minimum_unique_canonical_products", 0),
                 "reward_eligible_fraction": view["reward_eligible_fraction"]
                 >= per["minimum_reward_eligible_fraction"],
                 "oracle_completion_fraction": view["oracle_completion_fraction"]

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "study": "prospective-reaction-environment-selection",
-  "status": "target_and_starting_policy_qualified_candidate_measurement_and_freeze_open",
+  "status": "version_2_measurement_gate_failed_version_3_independent_views_frozen",
   "scientific_question": "Can measurements under one starting molecular graph policy predict which fixed replay experience bank will produce the greatest target-specific improvement at a matched generation and oracle budget?",
   "source": {
     "rxnflow_commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b",
@@ -100,6 +100,7 @@
   },
   "measurement": {
     "probe_views": 2,
+    "current_contract": "MEASUREMENT_CONTRACT_V3.json",
     "operational_coordinates": [
       "reward signal",
       "measurement reliability",
@@ -117,7 +118,7 @@
       "molecular graph size and connectivity",
       "effective coverage in the frozen graph representation"
     ],
-    "reliability_gate": "Every predictor coordinate must pass its prespecified two-view agreement threshold before candidate freeze.",
+    "reliability_gate": "Every predictor coordinate and the version 3 absolute and fractional diversity support gates must pass on two new independent views before candidate freeze.",
     "failure_action": "abstain or version a new qualification protocol before training"
   },
   "training": {
@@ -195,6 +196,8 @@
     "training_or_evaluation_outcomes_inspected": false,
     "candidate_training_outcomes_exist": false,
     "reference_active_results_opened": false,
-    "measurement_v1_scoring_aborted_before_candidate_measurement": true
+    "measurement_v1_scoring_aborted_before_candidate_measurement": true,
+    "measurement_v2_reliability_result": "failed only the prespecified 0.90 unique-fraction gate in both views; all other per-view and two-view checks passed",
+    "measurement_v3_views_drawn": false
   }
 }

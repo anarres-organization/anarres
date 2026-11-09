@@ -156,7 +156,13 @@ its integrity counts, and the weights-only starting-policy identity.
 
 ## 5. Measure the starting policy
 
-Follow `MEASUREMENT_CONTRACT.json`. Generate two independent 4,096-attempt
+The original two 4,096-attempt views are preserved in
+`MEASUREMENT_RELIABILITY_RESULT_V2.json`. They passed every signal,
+throughput, graph, and cross-view stability check but failed the prespecified
+0.90 unique-product fraction in both views. Do not use them to qualify a bank.
+
+Follow `MEASUREMENT_CONTRACT_V3.json`. Generate two new independent
+4,096-attempt
 trajectory sweeps under the frozen Q07820 target reward. The construction view
 is the only source of development-bank members; the confirmation view measures
 reliability and independently reconstructs bank summaries.
@@ -174,7 +180,7 @@ reliability gates with:
 
 ```bash
 python scripts/qualify_measurements.py \
-  --contract MEASUREMENT_CONTRACT.json \
+  --contract MEASUREMENT_CONTRACT_V3.json \
   --records /path/to/construction-records.jsonl \
   --manifest /path/to/construction-manifest.json \
   --records /path/to/confirmation-records.jsonl \
@@ -183,8 +189,9 @@ python scripts/qualify_measurements.py \
 ```
 
 Compute all operational and graph coordinates separately in each probe view.
-Apply the prespecified reliability and support gates. Failure produces an
-abstention or a new versioned protocol.
+The version 3 diversity gate requires at least 2,048 unique canonical products
+and a unique fraction of at least 0.80 in each new view. All other gates remain
+unchanged. Failure produces an abstention or a new versioned protocol.
 
 ## 6. Freeze development banks
 

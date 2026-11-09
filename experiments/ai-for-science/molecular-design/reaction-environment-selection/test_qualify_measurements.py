@@ -15,6 +15,24 @@ SPEC.loader.exec_module(MODULE)
 
 
 class MeasurementQualificationTests(unittest.TestCase):
+    def test_unique_product_count_gate_is_applied_when_present(self):
+        records = [
+            {
+                "canonical_smiles": f"C{index}",
+                "target_reward": float(index + 1),
+                "reward_status": "ok",
+                "oracle_elapsed_seconds": 1.0,
+                "reaction_sequence": ["rxn"],
+                "reaction_depth": 1,
+                "bemis_murcko_scaffold": f"s{index}",
+                "graph_embedding": [float(index), float(index % 2)],
+            }
+            for index in range(4)
+        ]
+        manifest = {"view_seed": 1, "attempts": 4}
+        summary = MODULE.summarize_view(records, manifest)
+        self.assertEqual(summary["unique_canonical_products"], 4)
+
     def test_effective_rank(self):
         values = np.asarray([[1.0, 0.0], [-1.0, 0.0], [0.0, 1.0], [0.0, -1.0]])
         self.assertAlmostEqual(MODULE.effective_rank(values), 2.0)
