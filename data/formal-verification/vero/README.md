@@ -285,6 +285,13 @@ policy support. It authorizes one excluded 1-million-token development
 calibration under a fresh identity. Qualification and prospective repositories
 remain unopened, and downstream ranking and training remain blocked.
 
+[`policy-budget-calibration.1m-v1.json`](policy-budget-calibration.1m-v1.json)
+freezes that final development stage. It scales the cumulative token, wall, and
+turn ceilings by five while preserving the model, task, prompt, uncapped
+response contract, request timeout, sandbox, and grader. The matching
+controller lock, repetition record, analysis boundary, and queue remain
+development-only and require fresh qualification before execution.
+
 The matching [`runtime lock`](runtime/runtime-lock.200k.v1.json) binds the
 same immutable Lean image to the one-attempt calibration panel. This keeps the
 task runtime unchanged while making the panel hash explicit at preflight.

@@ -110,6 +110,9 @@ RUNTIME_LOCK_PATH = RUNTIME_ROOT / "runtime-lock.v1.json"
 RUNTIME_LOCK = json.loads(RUNTIME_LOCK_PATH.read_text(encoding="utf-8"))
 CONTROLLER_LOCK_PATH = CONTROLLER_ROOT / "controller-lock.v1.json"
 CONTROLLER_LOCK = json.loads(CONTROLLER_LOCK_PATH.read_text(encoding="utf-8"))
+CONTROLLER_1M_LOCK_PATH = CONTROLLER_ROOT / "controller-lock.1m-v1.json"
+CONTROLLER_1M_LOCK = json.loads(CONTROLLER_1M_LOCK_PATH.read_text(encoding="utf-8"))
+CALIBRATION_1M_PROTOCOL_PATH = VERO_ROOT / "policy-budget-calibration.1m-v1.json"
 INFERENCE_CONTRACT_PATH = INFERENCE_ROOT / "inference-contract.v1.json"
 INFERENCE_CONTRACT = json.loads(INFERENCE_CONTRACT_PATH.read_text(encoding="utf-8"))
 PROTOCOL_PATH = ROOT / "data" / "formal-verification" / "vero" / "policy-probe-protocol.v1.json"
@@ -474,6 +477,13 @@ class VeroControllerLockTest(unittest.TestCase):
             CONTROLLER_LOCK,
             lock_path=CONTROLLER_LOCK_PATH,
             protocol_path=PROTOCOL_PATH,
+        )
+
+    def test_one_million_controller_preserves_uncapped_request_controls(self) -> None:
+        CONTROLLER.validate(
+            CONTROLLER_1M_LOCK,
+            lock_path=CONTROLLER_1M_LOCK_PATH,
+            protocol_path=CALIBRATION_1M_PROTOCOL_PATH,
         )
 
     def test_controller_rejects_a_nonlocal_inference_endpoint(self) -> None:

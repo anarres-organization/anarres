@@ -1,0 +1,23 @@
+{
+  "schema_version": "anarres.formal-verification-measurement-analysis.v2",
+  "analysis_id": "vero-development-budget-calibration-1m-v1",
+  "status": "frozen_after_200k_v3_before_1m_calibration",
+  "reward_unit": "strict fresh-graded specification success",
+  "grouping_unit": "specification nested within one development repository",
+  "attempts_per_group": 1,
+  "mode_handling": "proof mode only",
+  "advantage_mass": null,
+  "rho": null,
+  "H": null,
+  "zero_signal_rule": null,
+  "cluster_unit": "repository",
+  "cluster_sensitivity": null,
+  "admission_summary": {
+    "minimum_expected_slot_edits": 1,
+    "minimum_post_edit_build_invocations": 1,
+    "minimum_strict_successes_for_policy_support": 1
+  },
+  "token_accounting": "all actual exported input and output tokens are charged, including final-call usage above the controller stop threshold",
+  "excluded_deployment_pilots": [],
+  "claim_boundary": "this calibration cannot estimate rho, H, reliability, or environment utility"
+}
