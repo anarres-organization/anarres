@@ -45,11 +45,12 @@ committing the resources required by the final training panel.
 The next candidate is
 [`Qwen/Qwen3-30B-A3B-Instruct-2507`](https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507).
 The checkpoint is pinned at revision
-`0d7cf23991f47feeb3a57ecb4c9cee8ea4a17bfe` and remains unevaluated unless 8B
-fails the complete qualification record. A tool-specialized checkpoint can be
-considered when the limiting failure is tool-protocol validity rather than task
-performance. Every evaluated checkpoint receives a separately named
-qualification record.
+`0d7cf23991f47feeb3a57ecb4c9cee8ea4a17bfe`. A tool-specialized checkpoint is
+considered when the limiting failure is agentic tool use rather than task
+knowledge. That candidate is
+[`Qwen/Qwen3-Coder-30B-A3B-Instruct`](https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct),
+pinned at revision `b2cff646eb4bb1d68355c01b18ae02e7cf42d120`. Every evaluated
+checkpoint receives a separately named qualification record.
 
 ## Fixed rollout contract
 

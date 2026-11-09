@@ -20,7 +20,7 @@
       "license": "Apache-2.0",
       "access": "public model repository",
       "role": "starting_policy_qualification_candidate",
-      "status": "pinned_not_yet_qualified",
+      "status": "qualification_failed_under_fixed_contract",
       "outcome_use": "development qualification only"
     },
     {
@@ -28,6 +28,17 @@
       "name": "Qwen3-30B-A3B-Instruct-2507",
       "url": "https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507",
       "revision": "0d7cf23991f47feeb3a57ecb4c9cee8ea4a17bfe",
+      "license": "Apache-2.0",
+      "access": "public model repository",
+      "role": "starting_policy_qualification_candidate",
+      "status": "pinned_not_yet_qualified",
+      "outcome_use": "development qualification only"
+    },
+    {
+      "id": "qwen3_coder_30b_a3b_instruct",
+      "name": "Qwen3-Coder-30B-A3B-Instruct",
+      "url": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+      "revision": "b2cff646eb4bb1d68355c01b18ae02e7cf42d120",
       "license": "Apache-2.0",
       "access": "public model repository",
       "role": "starting_policy_qualification_candidate",

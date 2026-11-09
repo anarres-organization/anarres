@@ -32,6 +32,37 @@ def test_structured_tool_call_parser() -> None:
     assert calls == [{"id": "call-7", "name": "list_files", "arguments": {"path": "."}}]
 
 
+def test_erp_command_in_function_name_is_canonicalized() -> None:
+    message = {
+        "tool_calls": [
+            {
+                "id": "call-8",
+                "function": {"name": "erp get /inbox", "arguments": "{}"},
+            }
+        ]
+    }
+    calls = MODULE.parse_tool_calls(message)
+    assert calls == [{"id": "call-8", "name": "erp", "arguments": {"args": ["get", "/inbox"]}}]
+
+
+def test_erp_argument_list_is_canonicalized() -> None:
+    name, arguments = MODULE.normalize_tool_call("erp", ["get", "/inbox"])
+    assert name == "erp"
+    assert arguments == {"args": ["get", "/inbox"]}
+
+
+def test_unknown_function_name_is_not_canonicalized() -> None:
+    name, arguments = MODULE.normalize_tool_call("shell true", {})
+    assert name == "shell true"
+    assert arguments == {}
+
+
+def test_malformed_erp_function_name_remains_rejected() -> None:
+    name, arguments = MODULE.normalize_tool_call('erp get "unterminated', {})
+    assert name == 'erp get "unterminated'
+    assert arguments == {}
+
+
 def test_workspace_tools_and_path_boundary() -> None:
     with tempfile.TemporaryDirectory() as temporary:
         workspace = Path(temporary).resolve()
@@ -52,6 +83,17 @@ def test_workspace_tools_and_path_boundary() -> None:
             assert "leaves the task workspace" in str(error)
         else:
             raise AssertionError("workspace traversal was accepted")
+
+
+def test_missing_workspace_paths_return_tool_observations() -> None:
+    with tempfile.TemporaryDirectory() as temporary:
+        workspace = Path(temporary).resolve()
+        assert MODULE.run_tool("read_file", {"path": "missing.md"}, workspace) == (
+            "tool_error: requested path is not a file"
+        )
+        assert MODULE.run_tool("list_files", {"path": "missing"}, workspace) == (
+            "tool_error: requested path is not a directory"
+        )
 
 
 def test_unknown_tool_is_rejected() -> None:
@@ -128,6 +170,44 @@ def test_context_compaction_preserves_task_and_recent_turn() -> None:
     assert all(message.get("tool_call_id") != "old" for message in messages)
 
 
+def test_agent_step_limit_is_reported_as_truncation() -> None:
+    response = {
+        "choices": [
+            {
+                "message": {
+                    "content": "",
+                    "tool_calls": [
+                        {
+                            "id": "call-1",
+                            "function": {
+                                "name": "list_files",
+                                "arguments": '{"path":"."}',
+                            },
+                        }
+                    ],
+                }
+            }
+        ]
+    }
+    original = MODULE.request_completion
+    MODULE.request_completion = lambda *_args, **_kwargs: response
+    try:
+        with tempfile.TemporaryDirectory() as temporary:
+            result = MODULE.run_agent(
+                Path(temporary),
+                "Review the queue.",
+                "http://unused",
+                "fixture-policy",
+                None,
+                1,
+            )
+    finally:
+        MODULE.request_completion = original
+    assert result["protocol_valid"] is False
+    assert result["step_limit_reached"] is True
+    assert result["truncated"] is True
+
+
 def test_endpoint_error_includes_response_detail() -> None:
     original = MODULE.urllib.request.urlopen
 
@@ -177,10 +257,16 @@ def test_prior_completion_tokens_are_summed() -> None:
 if __name__ == "__main__":
     test_xml_tool_call_parser()
     test_structured_tool_call_parser()
+    test_erp_command_in_function_name_is_canonicalized()
+    test_erp_argument_list_is_canonicalized()
+    test_unknown_function_name_is_not_canonicalized()
+    test_malformed_erp_function_name_remains_rejected()
     test_workspace_tools_and_path_boundary()
+    test_missing_workspace_paths_return_tool_observations()
     test_unknown_tool_is_rejected()
     test_agent_loop_records_tool_trace()
     test_context_compaction_preserves_task_and_recent_turn()
+    test_agent_step_limit_is_reported_as_truncation()
     test_endpoint_error_includes_response_detail()
     test_episode_seed_is_stable()
     test_prior_completion_tokens_are_summed()
