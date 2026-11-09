@@ -34,6 +34,11 @@ The preflight establishes generator validity for these seeds. It does not
 qualify a starting model, define the final candidate mixtures, or reveal any
 training outcome.
 
+The [starting-policy qualification plan](STARTING_POLICY_QUALIFICATION.md)
+defines the next gate. It begins with a pinned Qwen3-8B checkpoint on 128 new
+development episodes and escalates only when the smaller policy produces
+invalid tool use or insufficient reward variation.
+
 ## Prospective decision
 
 The planned decision is:

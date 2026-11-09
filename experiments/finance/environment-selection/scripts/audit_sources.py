@@ -17,6 +17,13 @@ ALLOWED_ROLES = {
     "post_trade_representation_candidate",
     "external_reconciliation_design_target",
     "domain_priority_evidence",
+    "starting_policy_qualification_candidate",
+    "multi_turn_training_runtime_candidate",
+}
+PINNED_ROLES = {
+    "construction_candidate",
+    "starting_policy_qualification_candidate",
+    "multi_turn_training_runtime_candidate",
 }
 
 
@@ -41,13 +48,15 @@ def validate_sources(payload: dict) -> None:
             raise ValueError(f"{source.get('id', '<unknown>')} lacks {missing}")
         if source["role"] not in ALLOWED_ROLES:
             raise ValueError(f"unsupported role for {source['id']}: {source['role']}")
-        if source["role"] == "construction_candidate" and not source.get("revision"):
-            raise ValueError("a construction source requires an immutable revision")
-        if source["role"] != "construction_candidate" and source["outcome_use"] not in {
+        if source["role"] in PINNED_ROLES and not source.get("revision"):
+            raise ValueError(f"{source['role']} requires an immutable revision")
+        allowed_outcome_use = {
             "external only",
             "no construction use",
             "none",
-        }:
+            "development qualification only",
+        }
+        if source["outcome_use"] not in allowed_outcome_use:
             raise ValueError(f"external source {source['id']} has unsafe outcome_use")
 
 

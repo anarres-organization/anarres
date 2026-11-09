@@ -92,6 +92,7 @@ with financial authority remain approval-gated.
 - [Research brief](RESEARCH_BRIEF.md)
 - [Finance domain-priority audit](DOMAIN_PRIORITIES.md)
 - [Prospective environment-selection protocol](environment-selection/README.md)
+- [Starting-policy qualification](environment-selection/STARTING_POLICY_QUALIFICATION.md)
 - [Post-trade source audit](environment-selection/POST_TRADE_SOURCE_AUDIT.md)
 - [Post-trade panel specification](environment-selection/POST_TRADE_PANEL_SPEC.md)
 - [Retrospective post-training audit](retrospective-post-training/README.md)

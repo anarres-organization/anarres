@@ -13,6 +13,28 @@
       "outcome_use": "none"
     },
     {
+      "id": "qwen3_8b",
+      "name": "Qwen3-8B",
+      "url": "https://huggingface.co/Qwen/Qwen3-8B",
+      "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+      "license": "Apache-2.0",
+      "access": "public model repository",
+      "role": "starting_policy_qualification_candidate",
+      "status": "pinned_not_yet_qualified",
+      "outcome_use": "development qualification only"
+    },
+    {
+      "id": "nemo_rl",
+      "name": "NVIDIA NeMo RL",
+      "url": "https://github.com/NVIDIA-NeMo/RL",
+      "revision": "ccbcd4cc5442784f6af2288dd99021560480b8f2",
+      "license": "Apache-2.0",
+      "access": "public repository",
+      "role": "multi_turn_training_runtime_candidate",
+      "status": "source_audited_integration_not_yet_qualified",
+      "outcome_use": "none"
+    },
+    {
       "id": "secondstate_fab",
       "name": "Finance Agent Benchmark",
       "url": "https://github.com/SecondState-ai/finance-agents-benchmark",
