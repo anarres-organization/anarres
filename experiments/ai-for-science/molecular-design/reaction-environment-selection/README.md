@@ -9,6 +9,8 @@ outcome-blind hash rule selected Q07820. The structured reward adapter passes va
 malformed, filtered, timeout, repeat-call, batched, and RxnFlow v2.1 interface
 checks. Candidate measurement, reliability, and membership gates remain open.
 No target-training or evaluation outcome has been inspected for this study.
+The selected-target measurement extractor is qualified on the frozen 64-record
+view with byte-identical graph representations across two independent runs.
 
 ## Research question
 
@@ -223,6 +225,10 @@ Its weights-only starting-policy artifact has SHA-256
 [`STARTING_POLICY_VIEWS.json`](STARTING_POLICY_VIEWS.json) freeze the target
 gate and both sampled views. [`TARGET_SELECTION_RESULT.json`](TARGET_SELECTION_RESULT.json)
 records the complete aggregate gate audit, input digests, and selected target.
+[`MEASUREMENT_CONTRACT.json`](MEASUREMENT_CONTRACT.json) fixes the larger
+two-view probe and six development-bank rules before those samples are drawn.
+[`MEASUREMENT_EXTRACTOR_QUALIFICATION.json`](MEASUREMENT_EXTRACTOR_QUALIFICATION.json)
+records the deterministic operational and graph-feature smoke.
 
 Audit local checkouts without reading target outcomes:
 

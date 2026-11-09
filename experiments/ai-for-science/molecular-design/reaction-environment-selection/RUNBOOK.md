@@ -149,10 +149,18 @@ its integrity counts, and the weights-only starting-policy identity.
 
 ## 5. Measure the starting policy
 
-Generate two independent trajectory sweeps under the frozen target reward.
+Follow `MEASUREMENT_CONTRACT.json`. Generate two independent 4,096-attempt
+trajectory sweeps under the frozen Q07820 target reward. The construction view
+is the only source of development-bank members; the confirmation view measures
+reliability and independently reconstructs bank summaries.
 Each record must contain trajectory identity, product identity, reward,
 validity and oracle status, generated-action cost, scaffold and ring system,
 reaction sequence, route depth, graph summary, and frozen representation.
+
+Join samples, selected-target scores, and the frozen encoder representation
+with `scripts/extract_starting_measurements.py`. Verify the checkpoint and both
+input digests before accepting its manifest. The committed extractor
+qualification is byte-identical across two runs on the 64-record smoke view.
 
 Compute all operational and graph coordinates separately in each probe view.
 Apply the prespecified reliability and support gates. Failure produces an

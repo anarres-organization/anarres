@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "selected-target operational and graph measurement extractor",
+  "qualification": "pass",
+  "contract_sha256": "1347ff8d8df9786f7b91c53b928f1adec90afda367abc0c9f508fd0d1c620cda",
+  "extractor_sha256": "7cf18050dee6f117b58446a3705f566cb0b7e142df26764cc96545a2c4889604",
+  "starting_policy_artifact_sha256": "effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a",
+  "input_view": {
+    "seed": 20261110,
+    "attempts": 64,
+    "samples_sha256": "a45412e94780f110b946bdf5f3b6bd33c7740c06caa1e50ee3b6c5b58d0f6b26",
+    "selected_target_scores_sha256": "2845b77e1a35fba0dce3aef4c9ba668431c2710774384c05d1c99750bdb0fde4"
+  },
+  "output": {
+    "records": 64,
+    "unique_record_ids": 64,
+    "unique_canonical_smiles": 64,
+    "finite_graph_embeddings": 64,
+    "graph_embedding_dimension": 256,
+    "distinct_bemis_murcko_scaffolds": 64,
+    "distinct_ring_systems": 47,
+    "distinct_reaction_families": 11,
+    "observed_reaction_depths": [
+      1,
+      2
+    ],
+    "content_sha256": "bc37b4b23cccc171f69763053f1a05511b82bcb5321e43f98ee0f7345e72f6ab"
+  },
+  "repeatability": {
+    "independent_extractions": 2,
+    "byte_identical": true,
+    "first_content_sha256": "bc37b4b23cccc171f69763053f1a05511b82bcb5321e43f98ee0f7345e72f6ab",
+    "second_content_sha256": "bc37b4b23cccc171f69763053f1a05511b82bcb5321e43f98ee0f7345e72f6ab"
+  },
+  "checks": {
+    "sample_score_alignment": "pass",
+    "record_identity_uniqueness": "pass",
+    "canonical_molecule_features": "pass",
+    "route_feature_extraction": "pass",
+    "finite_frozen_encoder_representation": "pass",
+    "deterministic_repeat": "pass"
+  },
+  "interpretation": "The extractor deterministically joins target scores, synthesis routes, molecular graph summaries, scaffold and ring-system identities, and the frozen 256-dimensional RxnFlow state representation. This qualifies measurement generation but does not qualify the larger two-view sample or any candidate bank."
+}
