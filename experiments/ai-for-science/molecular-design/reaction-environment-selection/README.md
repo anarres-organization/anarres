@@ -105,6 +105,8 @@ training.
 and broad validity, signal, repeatability, and throughput gates. The final
 target is the first passing member in the previously frozen hash order, so its
 identity cannot be chosen to maximize a favorable training result.
+`STARTING_POLICY_VIEWS.json` records both frozen view identities and confirms
+that their validity and uniqueness gates pass.
 
 ## Candidate panel
 
