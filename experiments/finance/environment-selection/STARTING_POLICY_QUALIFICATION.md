@@ -93,6 +93,27 @@ execution validity, reward, control outcome, token count, tool-call count, and
 truncation status. The script computes the gates without reading candidate or
 held-out partitions.
 
+`adapters/business-bench-openai-policy.sh` implements the upstream Business
+Bench harness contract for an OpenAI-compatible local policy endpoint. It offers
+only the ERP command, workspace reads, workspace listing, and handoff-note
+writes. It does not provide a general shell. The adapter records every model
+message, tool call, tool result, and protocol error for later conversion into a
+qualification record. A completed policy attempt returns normally even when its
+trace contains an invalid tool call. This keeps model protocol failures distinct
+from endpoint or harness failures.
+
+`scripts/convert_business_bench_qualification.py` converts completed process
+attempts into the JSONL schema above. It marks an attempt infrastructure-valid
+only when every planned turn has a trace, exits normally, and avoids a timeout.
+Deterministic grading failures and control breaches remain policy outcomes.
+
+```bash
+python scripts/convert_business_bench_qualification.py \
+  business-bench/results/qualification-qwen3-8b \
+  --policy-id qwen3-8b-pinned \
+  --output qualification-attempts.jsonl
+```
+
 ```bash
 python scripts/score_policy_qualification.py \
   qualification-attempts.jsonl \
