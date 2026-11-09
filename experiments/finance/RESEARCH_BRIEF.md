@@ -16,26 +16,33 @@ Anarres studies that decision directly:
 
 ### Published intervention evidence
 
-The source-recovered bridge contains 377 intervention and control arms across
-90 comparable decision panels from ten finance post-training studies. Every
+The source-recovered bridge contains 538 intervention and control arms across
+149 comparable decision panels from sixteen finance post-training studies. Every
 study is held out in turn for the strictest retrospective test.
 
 ![Expanded finance evidence bridge](retrospective-post-training/figures/expanded_evidence_bridge.svg)
 
 Under leave-one-study-out evaluation, an interpretable measurement rule orders
-60.0% of candidate pairs with 0.390 mean normalized regret. Choosing more data
-orders 53.3% with 0.507 regret. The measurement rule also falls below the fifth
+64.3% of candidate pairs with 0.304 mean normalized regret. Choosing more data
+orders 56.0% with 0.489 regret. The measurement rule also falls below the fifth
 percentile of regret from 200 within-panel shuffled-pairing controls. A grouped
 ridge predicts outcome magnitude better but allocates less reliably across a
 new study. When the study is known, ridge transfer to a held-out model reaches
-70.1% pair ordering and 0.194 regret. Transfer to a held-out target reaches
-67.5% and 0.227. The difference between within-program transfer and new-study
+76.9% pair ordering and 0.152 regret. Transfer to a held-out target reaches
+74.1% and 0.162. The difference between within-program transfer and new-study
 transfer defines the current boundary.
 
-With each study receiving equal weight, the measurement rule reaches 70.5%
-pair ordering and 0.216 regret, compared with 58.8% and 0.418 for more data. It
-has lower regret in eight of ten studies.
-Within-panel rank normalization preserves this direction. The
+With each study receiving equal weight, the expanded rule reaches 75.3% pair
+ordering and 0.170 regret, compared with 58.2% and 0.421 for more data. It has
+lower regret in thirteen of sixteen studies, ties in one, and loses in two.
+Removing any one source preserves the direction. A publication-date sensitivity
+fits the learned relationship on seven studies from 2024--2025 and evaluates
+nine 2026 sources, where the full ridge reaches 72.8% ordering and 0.248 regret.
+These checks strengthen the retrospective relationship without converting it
+into a prospective result. Removing any one coordinate from the practical rule
+or varying ridge regularization over a 32-fold range preserves the main
+ordering advantage.
+Within-panel rank normalization preserves the direction. The
 [normalization audit](retrospective-post-training/NORMALIZATION_AUDIT.md)
 records both weighting levels and the paired source comparison.
 
@@ -89,6 +96,13 @@ will compare matched finance-task distributions under one starting policy,
 trainer, tool contract, and budget. Candidate and held-out scenario identities
 will be committed before training. Candidate construction will not read
 trained-policy outcomes.
+
+The first starting-policy qualification is complete. Qwen3-8B produced no
+executable completions and exhausted the interaction limit in 99.2% of valid
+episodes, so it is excluded from the training panel. The next step is the pinned
+Qwen3-30B-A3B policy under the same development-only gate. Candidate measurement
+begins only after a policy produces reliable tool use and non-degenerate task
+outcomes.
 
 The comparison includes:
 

@@ -86,3 +86,10 @@ reaches 72.8% study-macro ordering and 0.248 regret, while more data reaches
 57.3% and 0.434. The practical rule reaches 72.2% ordering and 0.200 regret.
 This split is a chronological sensitivity rather than a prospective test because
 the shared semantic representation was designed after all outcomes were public.
+
+One-coordinate-at-a-time ablations of the fixed practical rule leave
+study-macro ordering between 72.3% and 76.1% and regret between 0.167 and 0.227.
+Across ridge penalties from 0.5 to 16, the full model remains between 72.4% and
+72.9% ordering with regret from 0.212 to 0.224. These checks do not select a new
+specification. They test whether the reported direction depends on one coordinate
+or one regularization value.

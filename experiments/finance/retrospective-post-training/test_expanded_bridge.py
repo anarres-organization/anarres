@@ -92,6 +92,13 @@ class ExpandedBridgeTests(unittest.TestCase):
         influence = self.summary["source_exclusion_sensitivity"]
         self.assertTrue(influence["all_source_exclusions_preserve_direction"])
         self.assertGreater(influence["minimum_gap"], 0.0)
+        feature_ablation = self.summary["practical_feature_ablation"]
+        self.assertGreater(feature_ablation["ordering_range"][0], 0.70)
+        self.assertLess(feature_ablation["regret_range"][1], 0.25)
+        penalties = self.summary["ridge_penalty_sensitivity"]
+        self.assertEqual(set(penalties), {"0.5", "1.0", "2.0", "4.0", "8.0", "16.0"})
+        for result in penalties.values():
+            self.assertGreater(result["ridge"]["pairwise_ordering"], 0.70)
 
     def test_shuffled_pairing_is_not_claim_evidence(self) -> None:
         shuffled = self.summary["shuffled_pairing_control"]

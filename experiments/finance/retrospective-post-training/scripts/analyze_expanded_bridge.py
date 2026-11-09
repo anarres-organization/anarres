@@ -48,6 +48,22 @@ COMPACT_GROUPS = {
     "rollout_efficiency": ["efficient_rollout"],
 }
 
+PRACTICAL_WEIGHTS = {
+    "target_alignment": 1.0,
+    "quality_control": 0.5,
+    "retention_control": 0.5,
+    "verifier_alignment": 0.5,
+    "policy_relative_selection": 0.5,
+    "source_diversity": 0.25,
+    "human_labeled_fraction": 0.25,
+    "domain_specific_selection": 0.25,
+    "transcript_refinement": 0.25,
+    "qa_refinement": 0.25,
+    "feedback_locality": 0.25,
+    "efficient_rollout": 0.1,
+    "curriculum_progression": 0.5,
+}
+
 SOURCE_YEARS = {
     "phogat2024_financial_qa": 2024,
     "fino1": 2025,
@@ -311,23 +327,9 @@ def compact_x(row: dict) -> list[float]:
     return output
 
 
-def practical_value(row: dict) -> float:
+def practical_value(row: dict, excluded: str | None = None) -> float:
     f = row["feature_values"]
-    return (
-        f["target_alignment"]
-        + 0.5 * f["quality_control"]
-        + 0.5 * f["retention_control"]
-        + 0.5 * f["verifier_alignment"]
-        + 0.5 * f["policy_relative_selection"]
-        + 0.25 * f["source_diversity"]
-        + 0.25 * f["human_labeled_fraction"]
-        + 0.25 * f["domain_specific_selection"]
-        + 0.25 * f["transcript_refinement"]
-        + 0.25 * f["qa_refinement"]
-        + 0.25 * f["feedback_locality"]
-        + 0.1 * f["efficient_rollout"]
-        + 0.5 * f["curriculum_progression"]
-    )
+    return sum(weight * f[name] for name, weight in PRACTICAL_WEIGHTS.items() if name != excluded)
 
 
 def row_key(row: dict) -> str:
@@ -341,7 +343,9 @@ def fixed_predictions(rows: list[dict]) -> dict[str, dict[str, float]]:
     }
 
 
-def grouped_predictions(rows: list[dict], group_key: str) -> dict[str, dict[str, float]]:
+def grouped_predictions(
+    rows: list[dict], group_key: str, penalty: float = 4.0
+) -> dict[str, dict[str, float]]:
     predictions = {
         "ridge": {},
         "compact_ridge": {},
@@ -363,9 +367,11 @@ def grouped_predictions(rows: list[dict], group_key: str) -> dict[str, dict[str,
 
         train = [row for row in rows if group(row) != held_out]
         test = [row for row in rows if group(row) == held_out]
-        coef = ridge_fit([row["x"] for row in train], [row["utility"] for row in train])
+        coef = ridge_fit([row["x"] for row in train], [row["utility"] for row in train], penalty)
         compact_coef = ridge_fit(
-            [compact_x(row) for row in train], [row["utility"] for row in train]
+            [compact_x(row) for row in train],
+            [row["utility"] for row in train],
+            penalty,
         )
         for row in test:
             key = row_key(row)
@@ -553,6 +559,31 @@ def source_exclusion_audit(rows: list[dict]) -> dict:
     }
 
 
+def practical_feature_ablation(rows: list[dict]) -> dict:
+    results = {}
+    for excluded in PRACTICAL_WEIGHTS:
+        predictions = {row_key(row): practical_value(row, excluded=excluded) for row in rows}
+        results[excluded] = score(rows, predictions)["source_macro"]
+    regrets = [value["mean_normalized_regret"] for value in results.values()]
+    orderings = [value["pairwise_ordering"] for value in results.values()]
+    return {
+        "evaluations": results,
+        "regret_range": [min(regrets), max(regrets)],
+        "ordering_range": [min(orderings), max(orderings)],
+    }
+
+
+def ridge_penalty_audit(rows: list[dict]) -> dict:
+    results = {}
+    for penalty in (0.5, 1.0, 2.0, 4.0, 8.0, 16.0):
+        predictions = grouped_predictions(rows, "source", penalty=penalty)
+        results[str(penalty)] = {
+            name: score(rows, predictions[name])["source_macro"]
+            for name in ("ridge", "compact_ridge")
+        }
+    return results
+
+
 def main() -> None:
     rows = all_rows()
     evaluations = {}
@@ -594,11 +625,14 @@ def main() -> None:
         "normalization": "zero-to-one utility within each source-native decision panel",
         "features": FEATURES,
         "compact_feature_groups": COMPACT_GROUPS,
+        "practical_rule_weights": PRACTICAL_WEIGHTS,
         "evaluations": evaluations,
         "rank_utility_sensitivity": rank_sensitivity,
         "multi_panel_source_sensitivity": multi_panel_sensitivity,
         "publication_cutoff_sensitivity": temporal_cutoff_audit(rows),
         "source_exclusion_sensitivity": source_exclusion_audit(rows),
+        "practical_feature_ablation": practical_feature_ablation(rows),
+        "ridge_penalty_sensitivity": ridge_penalty_audit(rows),
         "paired_source_comparison": paired_source_comparison(
             source_result, "practical_rule", "more_data"
         ),

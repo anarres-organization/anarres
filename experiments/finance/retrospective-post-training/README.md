@@ -127,6 +127,13 @@ Publication order reduces direct outcome reuse but does not make this a
 prospective test because the shared semantic schema was assembled after these
 results were public.
 
+The result is also stable to ordinary modeling choices. Removing any one
+coordinate from the practical rule leaves study-macro ordering between 72.3%
+and 76.1% and regret between 0.167 and 0.227. Varying the ridge penalty from
+0.5 to 16 leaves full-model ordering between 72.4% and 72.9%, with regret from
+0.212 to 0.224. The relationship is therefore not carried by one semantic
+coordinate or one regularization value.
+
 Transfer is stronger when a study is known and the held-out group is a new
 model or target. The full ridge reaches 76.9% study-macro pair ordering and
 0.152 regret under model holdout, and 74.1% ordering and 0.162 regret under
