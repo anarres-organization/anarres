@@ -193,6 +193,18 @@ freeze and score are in
 revised research specification is
 [`TARGET_CONDITIONAL_V4.md`](TARGET_CONDITIONAL_V4.md).
 
+We then apply that pre-existing V4 representation to FinAcumen, an excluded
+source that varies deterministic financial tools, conditional experience
+memory, and memory contents under shared backbones. The representation recovers
+33 of 33 scored candidate orderings across 16 nested panels with zero normalized
+regret. It correctly orders the full memory-field ablation and predicts the
+intervention direction across Qwen, GLM, GPT, and Gemini backbones. Four
+comparisons between memory baselines remain unranked because their remaining
+implementation differences are outside the representation. These rows provide
+one retrospective source-level test rather than independent replications. The
+contract, source-native outcomes, and score are in
+[`heldout-finacumen/`](heldout-finacumen/).
+
 A derived alignment/interference coordinate does not improve the original
 sixteen-study source holdout. Against the corrected baseline, the fixed rule
 falls from 74.9% to 74.0% pairwise ordering with unchanged regret. The ridge
@@ -233,6 +245,8 @@ python strict-task-level/score.py
 python -m unittest strict-task-level/test_score.py
 python heldout-numerical-hallucination/score_holdout.py
 python -m unittest heldout-numerical-hallucination/test_score.py
+python heldout-finacumen/score_holdout.py
+python -m unittest heldout-finacumen/test_score.py
 ```
 
 The script writes [`results/summary.json`](results/summary.json) and a manifest

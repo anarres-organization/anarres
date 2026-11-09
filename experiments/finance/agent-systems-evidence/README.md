@@ -64,6 +64,32 @@ These sources argue for candidate environments that vary evidence quality,
 calculation burden, forecast structure, and source diversity rather than only
 surface difficulty.
 
+### Disclosure review and controlled improvement
+
+Recent disclosure systems make the improvement contract explicit. They connect
+feedback to one requirement, preserve protected cases, and evaluate the final
+artifact rather than rewarding a plausible intermediate response.
+
+- [FilingLoop](https://arxiv.org/abs/2610.37905) reconstructs 380 SEC disclosure
+  reviews with 6,099 eligible requirements. Requirement-level procedural
+  feedback raises fulfillment from 24.28% to 27.96% and full comment resolution
+  from 16.90% to 20.75%, while harmful-revision prevalence falls from 5.8% to
+  4.5% under the common audit.
+- [FINSKILLOPS](https://arxiv.org/abs/2609.19680) turns typed SEC-filing QA
+  failures into scoped skills with targeted validation, negative controls, and
+  protected-case regression checks. Six of 33 proposed skills are promoted in
+  its operational study, while monitoring non-correctness falls from 20.0% to
+  12.5%.
+- [FinReportBench](https://arxiv.org/abs/2608.04374) evaluates 244 bilingual
+  report-generation tasks with a 35-item expert rubric. Benchmark-guided skill
+  distillation improves institutional report properties across five model
+  families while preserving basic deliverability.
+
+These studies motivate candidate measurements for feedback scope, protected
+coverage, grounding requirements, artifact-level verification, and the cost of
+admission. They also show why a generic label such as financial fine-tuning is
+too coarse for predicting a real workflow.
+
 ### Tool orchestration under operational constraints
 
 Tool access alone is not a sufficient environment description.

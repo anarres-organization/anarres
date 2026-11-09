@@ -141,11 +141,13 @@ controls in addition to final-answer accuracy.
 
 ## The next tests
 
-The immediate next step re-encodes the public intervention evidence at task
-level. Each row must connect training content and feedback to one named target,
-record exposure to competing objectives, and distinguish explicit retention
-from missing retention information. A new fitted relationship will be evaluated
-only after this conversion passes source audits.
+The first excluded-source test of the capability-contract representation uses
+FinAcumen's controlled financial-tool and experience-memory interventions. The
+representation recovers all 33 scored candidate orderings across 16 nested
+panels and several backbones. This result supports the model-agnostic task
+description, but it remains one retrospective source. The next source should
+test the same representation on a different behavioral contract and report
+ordering, regret, and abstention separately.
 
 The executable accounting panel remains the prospective extension. Four
 stateful workflows have passed source qualification, but no model has yet
@@ -206,6 +208,10 @@ change held-out outcomes after training begins.
 - [Retrospective methods and interpretation](retrospective-post-training/README.md)
 - [Frozen source-level holdout](retrospective-post-training/heldout-snfinllm/README.md)
 - [Target-conditional source holdout](retrospective-post-training/heldout-japanese-multimodal/README.md)
+- [Strict task-level transfer audit](retrospective-post-training/strict-task-level/README.md)
+- [Numerical-faithfulness source holdout](retrospective-post-training/heldout-numerical-hallucination/README.md)
+- [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
+- [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
 - [Machine-readable panels](retrospective-post-training/data/panels.json)
 - [Source-recovered expansion](retrospective-post-training/data/recovered_panels.json)
 - [Machine-readable results](retrospective-post-training/results/summary.json)

@@ -36,13 +36,19 @@ for this separation. The holdout finds that numeracy supervision improves
 calculation but weakens numerical restraint during summarization. E2A-Bench
 finds that financial fine-tuning amplifies action imbalance across strict
 base--fine-tuned pairs and that verification can improve support while reducing
-coverage. Both results show that a training intervention can improve one
-capability while changing the output policy in ways that reduce target utility.
+coverage. FilingLoop adds an agentic example: requirement-level feedback
+improves later disclosure work when guidance remains scoped to the role and
+the final filing receives a separate harm audit. Together, these results show
+that a training intervention can improve one capability while changing the
+output policy in ways that alter target utility.
 
-The next excluded-source test must encode these six concepts before inspecting
-target-level outcomes. It should report candidate ordering, normalized regret,
-and abstention separately. Version 4 remains a research specification until it
-passes that test and does not replace the frozen results produced by earlier
+The first excluded-source application uses FinAcumen's controlled financial
+tools and experience-memory interventions. The representation correctly orders
+all 33 scored candidate pairs across 16 nested panels, including transfer across
+several backbones. This supports the capability-contract description while
+remaining one retrospective source-level test. The numerical-faithfulness
+failure continues to define the current boundary for grounded generation and
+abstention. Version 4 does not replace the frozen results produced by earlier
 representations.
 
 ## Development evidence
@@ -51,3 +57,7 @@ representations.
   [arXiv:2609.04806](https://arxiv.org/abs/2609.04806)
 - Wang, Xu, and Wang, *E2A-Bench*,
   [Findings of EMNLP 2026](https://aclanthology.org/2026.findings-emnlp.450/)
+- Zhang et al., *FilingLoop*,
+  [arXiv:2610.37905](https://arxiv.org/abs/2610.37905)
+- Guo et al., *FinAcumen*,
+  [arXiv:2606.17642](https://arxiv.org/abs/2606.17642)

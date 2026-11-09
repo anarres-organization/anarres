@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source_id": "finacumen_2026",
+  "title": "FinAcumen: Financial Multimodal Reasoning via Self-Evolving Experience Memory Harness",
+  "authors": [
+    "Pianran Guo",
+    "Pengcheng Zhou",
+    "Yuchen Jian",
+    "Shuhua Chen",
+    "Zhongliang Yang",
+    "Linna Zhou"
+  ],
+  "url": "https://arxiv.org/abs/2606.17642",
+  "source_status": "public_preprint",
+  "audit_note": "The controlled rows use the same frozen backbone within each panel. Published model-only comparisons are excluded from scoring."
+}

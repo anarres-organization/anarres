@@ -48,10 +48,13 @@ Any prospective training experiment will:
 The [retrospective post-training audit](retrospective-post-training/README.md)
 separately normalizes published finance interventions. It asks which recurring
 properties of training data and reward design predict improvement across prior
-studies. Two frozen source-level holdouts then test transfer to excluded model
-families, languages, pipelines, and targets. They support target-aligned domain
-adaptation while showing that later-stage effects require task-level alignment,
-interference, and retention measurements.
+studies. A strict task-level tier reaches 81.6% candidate ordering across 79
+panels without using model identity. Four excluded-source tests then expose
+where successive representations transfer and where they fail. The latest test
+applies the capability-contract representation to financial tools and experience
+memory. It recovers all 33 scored candidate orderings across several targets and
+backbones, while the earlier numerical-faithfulness failure remains an important
+boundary.
 
 The [agent-systems evidence map](agent-systems-evidence/README.md) audits the
 workflow side of the decision. It separates post-training interventions from
@@ -106,5 +109,9 @@ with financial authority remain approval-gated.
 - [Retrospective post-training audit](retrospective-post-training/README.md)
 - [Frozen SNFinLLM source holdout](retrospective-post-training/heldout-snfinllm/README.md)
 - [Frozen Japanese financial-document holdout](retrospective-post-training/heldout-japanese-multimodal/README.md)
+- [Strict task-level transfer audit](retrospective-post-training/strict-task-level/README.md)
+- [Numerical-faithfulness source holdout](retrospective-post-training/heldout-numerical-hallucination/README.md)
+- [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
+- [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
 - [Corrected expanded machine-readable results](retrospective-post-training/results/expanded_summary_corrected.json)
 - [Agent-systems evidence map](agent-systems-evidence/README.md)
