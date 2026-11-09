@@ -32,6 +32,22 @@ FEATURES = [
     "curriculum_progression",
 ]
 
+COMPACT_GROUPS = {
+    "target_fit": ["target_alignment"],
+    "curation": [
+        "quality_control",
+        "human_labeled_fraction",
+        "domain_specific_selection",
+        "transcript_refinement",
+        "qa_refinement",
+    ],
+    "retention": ["retention_control", "feedback_locality"],
+    "verification": ["verifier_alignment", "policy_relative_selection", "curriculum_progression"],
+    "breadth": ["source_diversity"],
+    "volume": ["data_volume"],
+    "rollout_efficiency": ["efficient_rollout"],
+}
+
 
 def solve(matrix: list[list[float]], vector: list[float]) -> list[float]:
     n = len(vector)
@@ -267,9 +283,19 @@ def all_rows() -> list[dict]:
     return rows
 
 
+def compact_x(row: dict) -> list[float]:
+    values = row["feature_values"]
+    output = []
+    for names in COMPACT_GROUPS.values():
+        observed = [values[name] for name in names if values[f"{name}__observed"]]
+        output.append(sum(observed) / len(observed) if observed else 0.0)
+    return output
+
+
 def grouped_predictions(rows: list[dict], group_key: str) -> dict[str, dict[str, float]]:
     predictions = {
         "ridge": {},
+        "compact_ridge": {},
         "practical_rule": {},
         "more_data": {},
         "uninformed": {},
@@ -289,10 +315,14 @@ def grouped_predictions(rows: list[dict], group_key: str) -> dict[str, dict[str,
         train = [row for row in rows if group(row) != held_out]
         test = [row for row in rows if group(row) == held_out]
         coef = ridge_fit([row["x"] for row in train], [row["utility"] for row in train])
+        compact_coef = ridge_fit(
+            [compact_x(row) for row in train], [row["utility"] for row in train]
+        )
         for row in test:
             key = f"{row['source']}::{row['panel']}::{row['arm']}"
             f = row["feature_values"]
             predictions["ridge"][key] = predict(coef, row["x"])
+            predictions["compact_ridge"][key] = predict(compact_coef, compact_x(row))
             predictions["practical_rule"][key] = (
                 f["target_alignment"]
                 + 0.5 * f["quality_control"]
@@ -477,6 +507,7 @@ def main() -> None:
         },
         "normalization": "zero-to-one utility within each source-native decision panel",
         "features": FEATURES,
+        "compact_feature_groups": COMPACT_GROUPS,
         "evaluations": evaluations,
         "rank_utility_sensitivity": rank_sensitivity,
         "multi_panel_source_sensitivity": multi_panel_sensitivity,

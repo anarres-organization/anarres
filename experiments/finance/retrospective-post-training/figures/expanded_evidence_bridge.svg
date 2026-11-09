@@ -26,19 +26,19 @@
 <text x="430" y="352" class="value" text-anchor="start">44.4% · regret 0.515</text>
 <text x="595" y="222" class="label" text-anchor="start">New study</text>
 <rect x="700" y="205" width="238" height="22" rx="5" fill="#EEF1F5"/>
-<rect x="700" y="205" width="169.83" height="22" rx="5" fill="#3569A8"/>
-<text x="950" y="222" class="value" text-anchor="start">71.4%</text>
-<text x="1032" y="222" class="value" text-anchor="end">0.228</text>
+<rect x="700" y="205" width="161.66" height="22" rx="5" fill="#3569A8"/>
+<text x="950" y="222" class="value" text-anchor="start">67.9%</text>
+<text x="1032" y="222" class="value" text-anchor="end">0.330</text>
 <text x="595" y="287" class="label" text-anchor="start">New model</text>
 <rect x="700" y="270" width="238" height="22" rx="5" fill="#EEF1F5"/>
-<rect x="700" y="270" width="182.82" height="22" rx="5" fill="#16836B"/>
-<text x="950" y="287" class="value" text-anchor="start">76.8%</text>
-<text x="1032" y="287" class="value" text-anchor="end">0.155</text>
+<rect x="700" y="270" width="168.15" height="22" rx="5" fill="#16836B"/>
+<text x="950" y="287" class="value" text-anchor="start">70.6%</text>
+<text x="1032" y="287" class="value" text-anchor="end">0.285</text>
 <text x="595" y="352" class="label" text-anchor="start">New target</text>
 <rect x="700" y="335" width="238" height="22" rx="5" fill="#EEF1F5"/>
-<rect x="700" y="335" width="176.75" height="22" rx="5" fill="#16836B"/>
-<text x="950" y="352" class="value" text-anchor="start">74.3%</text>
-<text x="1032" y="352" class="value" text-anchor="end">0.176</text>
+<rect x="700" y="335" width="166.48" height="22" rx="5" fill="#16836B"/>
+<text x="950" y="352" class="value" text-anchor="start">70.0%</text>
+<text x="1032" y="352" class="value" text-anchor="end">0.296</text>
 <line x1="60" y1="398" x2="1060" y2="398" stroke="#D9DEE7"/>
 <text x="60" y="434" class="note" text-anchor="start">The measurement rule uses source-reported alignment, composition, supervision, selection, and retention properties.</text>
 <text x="60" y="462" class="note" text-anchor="start">Equal-study summaries prevent papers with many reported targets from dominating the comparison.</text>

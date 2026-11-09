@@ -98,8 +98,10 @@ Under leave-one-source-out evaluation, an interpretable treatment rule orders
 62.6% of candidate pairs and has 0.340 mean normalized regret, compared with
 55.7% and 0.486 for choosing more data. Its regret is also below the fifth
 percentile from 200 within-panel shuffled-pairing controls. The grouped ridge
-has lower magnitude error, with 0.464 RMSE, but weaker allocation performance
-than the rule, with 0.405 regret.
+has lower magnitude error but weaker allocation performance than the rule. The
+exploratory seven-coordinate ridge gives the best study-macro calibration at
+0.408 RMSE. The full ridge reaches 71.4% study-macro pair ordering and 0.228
+regret, while the practical rule remains strongest for decisions.
 
 Equal-study weighting strengthens the comparison. The practical rule reaches
 74.9% pair ordering, 70.4% top-choice credit, and 0.175 regret, compared with
@@ -118,9 +120,10 @@ for more data. This sensitivity prevents a small, easy intervention table from
 driving the study-macro result.
 
 Transfer is stronger when a study is known and the held-out group is a new
-model or target. The ridge reaches 76.8% study-macro pair ordering and 0.155
-regret under model holdout, and 74.3% ordering and 0.176 regret under target
-holdout.
+model or target. The full ridge reaches 76.8% study-macro pair ordering and
+0.155 regret under model holdout, and 74.3% ordering and 0.176 regret under
+target holdout. The compact ridge remains better calibrated under source
+holdout but gives up some ordering and decision accuracy.
 This gap is scientifically important. Recurring treatment measurements carry
 substantial information within an experimental program, while transfer to a
 new paper remains harder. The prospective finance test must therefore use an

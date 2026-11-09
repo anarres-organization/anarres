@@ -43,6 +43,12 @@ The shared coordinates are:
 - curriculum progression: an explicit sequence from short-context reasoning to
   long-context retrieval, rather than an unordered mixture.
 
+An exploratory compact ridge averages these fields into seven broader concepts:
+target fit, curation, retention, verification and policy-relative selection,
+source breadth, data volume, and rollout efficiency. This compression is
+reported separately from the original full-feature ridge and the fixed
+practical decision rule.
+
 Every coordinate is paired with an observation flag. Unreported properties
 remain missing rather than being imputed as absent. Starting-policy controls
 are coded as observed zeros only for intervention coordinates that are varied

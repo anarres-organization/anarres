@@ -56,6 +56,12 @@ within-panel ranks, the practical rule reaches 74.9% study-macro ordering and
 unchanged because monotone within-panel normalization preserves every candidate
 comparison.
 
+Model roles remain separate. The exploratory seven-coordinate ridge has the
+lowest study-macro source-holdout RMSE at 0.408. The full-feature ridge improves
+candidate ordering to 71.4% and lowers regret to 0.228. The fixed practical
+rule has the strongest decision metrics but is not calibrated as a utility
+scale. These models answer different questions and are reported together.
+
 ## Interpretation
 
 The original 12-panel audit selected ten reported winners with its quality-aware

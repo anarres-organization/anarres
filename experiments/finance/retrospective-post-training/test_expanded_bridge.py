@@ -30,7 +30,14 @@ class ExpandedBridgeTests(unittest.TestCase):
             set(self.summary["evaluations"]),
             {"leave_one_source_out", "leave_one_model_out", "leave_one_target_out"},
         )
-        required = {"ridge", "practical_rule", "more_data", "uninformed", "random_fingerprint"}
+        required = {
+            "ridge",
+            "compact_ridge",
+            "practical_rule",
+            "more_data",
+            "uninformed",
+            "random_fingerprint",
+        }
         for result in self.summary["evaluations"].values():
             self.assertEqual(set(result), required)
 
@@ -43,6 +50,10 @@ class ExpandedBridgeTests(unittest.TestCase):
         self.assertLess(
             result["ridge"]["normalized_rmse"],
             result["uninformed"]["normalized_rmse"],
+        )
+        self.assertLess(
+            result["compact_ridge"]["source_macro"]["normalized_rmse"],
+            result["more_data"]["source_macro"]["normalized_rmse"],
         )
         self.assertGreater(
             result["practical_rule"]["pairwise_ordering"],

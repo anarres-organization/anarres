@@ -29,9 +29,9 @@ def main() -> None:
     summary = json.loads(SUMMARY.read_text())
     source = summary["evaluations"]["leave_one_source_out"]
     holdouts = [
-        ("New study", source["ridge"]),
-        ("New model", summary["evaluations"]["leave_one_model_out"]["ridge"]),
-        ("New target", summary["evaluations"]["leave_one_target_out"]["ridge"]),
+        ("New study", source["compact_ridge"]),
+        ("New model", summary["evaluations"]["leave_one_model_out"]["compact_ridge"]),
+        ("New target", summary["evaluations"]["leave_one_target_out"]["compact_ridge"]),
     ]
     rules = [
         ("Measurement rule", source["practical_rule"], "#16836B"),
