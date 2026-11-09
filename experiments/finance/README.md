@@ -12,6 +12,10 @@ This program asks:
 > distribution that improves held-out work at a fixed training budget while
 > preserving material controls?
 
+**Start here:** the [finance research brief](RESEARCH_BRIEF.md) summarizes the
+completed evidence, the qualified accounting experiment, and the prospective
+post-trade extension in one page.
+
 The first studies focus on control-heavy finance operations. Reconciliation,
 settlement exceptions, collateral disputes, payment controls, and close
 workflows have planted truth, executable checks, stateful tools, and explicit
@@ -47,8 +51,9 @@ properties of training data and reward design predict improvement across prior
 studies. Because those outcomes are already public, this analysis can motivate
 measurements and baselines but cannot validate the prospective selector.
 
-The primary prospective outcome is held-out executable task completion. Allocation regret
-measures the cost of choosing a candidate other than the observed best arm.
+The primary prospective outcome is held-out executable task completion.
+Allocation regret measures the cost of choosing a candidate other than the
+observed best arm.
 Ledger integrity, authorization violations, evidence provenance, and
 unauthorized state changes remain separate guardrails. A high aggregate score
 cannot erase a material-control failure.
@@ -81,3 +86,13 @@ Neither panel can establish a universal finance-task selector. Investment
 research, underwriting, market analysis, spreadsheet modeling, and money
 movement require separate candidate panels and evaluation contracts. Actions
 with financial authority remain approval-gated.
+
+## Public artifacts
+
+- [Research brief](RESEARCH_BRIEF.md)
+- [Finance domain-priority audit](DOMAIN_PRIORITIES.md)
+- [Prospective environment-selection protocol](environment-selection/README.md)
+- [Post-trade source audit](environment-selection/POST_TRADE_SOURCE_AUDIT.md)
+- [Post-trade panel specification](environment-selection/POST_TRADE_PANEL_SPEC.md)
+- [Retrospective post-training audit](retrospective-post-training/README.md)
+- [Machine-readable retrospective results](retrospective-post-training/results/summary.json)

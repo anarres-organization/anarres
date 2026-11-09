@@ -24,6 +24,7 @@ def test_panel_registry() -> None:
 
 def test_reproduction() -> None:
     subprocess.run([sys.executable, "scripts/reproduce.py"], cwd=ROOT, check=True)
+    subprocess.run([sys.executable, "scripts/render_summary.py"], cwd=ROOT, check=True)
     summary = json.loads((ROOT / "results" / "summary.json").read_text())
     assert summary["status"] == "retrospective_exploratory"
     assert summary["independent_studies"] == 4
@@ -33,6 +34,11 @@ def test_reproduction() -> None:
     assert all(len(model["panels"]) == 12 for model in summary["models"].values())
     assert summary["models"]["quality_rule"]["top_choice_accuracy"] == 0.833333
     assert summary["models"]["ridge"]["normalized_rmse"] == 0.573121
+    figure = (ROOT / "figures" / "retrospective_decision_audit.svg").read_text()
+    assert "Quality-aware rule" in figure
+    assert "10/12" in figure
+    assert "Exploratory evidence" in figure
+    assert ">nan<" not in figure.lower()
 
 
 if __name__ == "__main__":
