@@ -48,11 +48,10 @@ Any prospective training experiment will:
 The [retrospective post-training audit](retrospective-post-training/README.md)
 separately normalizes published finance interventions. It asks which recurring
 properties of training data and reward design predict improvement across prior
-studies. A frozen source-level holdout on SNFinLLM then tests the shared
-representation on a model family, language, pipeline, and target set excluded
-from feature design and fitting. It supports domain continued pretraining while
-showing that later SFT and DPO effects require explicit objective--target
-alignment.
+studies. Two frozen source-level holdouts then test transfer to excluded model
+families, languages, pipelines, and targets. They support target-aligned domain
+adaptation while showing that later-stage effects require task-level alignment,
+interference, and retention measurements.
 
 The [agent-systems evidence map](agent-systems-evidence/README.md) audits the
 workflow side of the decision. It separates post-training interventions from
@@ -106,5 +105,6 @@ with financial authority remain approval-gated.
 - [Post-trade panel specification](environment-selection/POST_TRADE_PANEL_SPEC.md)
 - [Retrospective post-training audit](retrospective-post-training/README.md)
 - [Frozen SNFinLLM source holdout](retrospective-post-training/heldout-snfinllm/README.md)
+- [Frozen Japanese financial-document holdout](retrospective-post-training/heldout-japanese-multimodal/README.md)
 - [Expanded machine-readable results](retrospective-post-training/results/expanded_summary.json)
 - [Agent-systems evidence map](agent-systems-evidence/README.md)

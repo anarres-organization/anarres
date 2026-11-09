@@ -38,5 +38,13 @@ The initial decision rule is deliberately ordinal:
    no retention evidence.
 
 SNFinLLM and FEVO are development evidence for this revision and cannot test it.
-The first source-level test is frozen on a separate Japanese financial-document
-adaptation study before its result table is inspected.
+A source-level test was frozen on a separate Japanese financial-document
+adaptation study before its result table was inspected. It supports domain
+adaptation in aggregate but reaches only 4/8 task-level directional comparisons,
+because broad target families still contain opposing effects.
+
+A derived alignment/interference coordinate was also evaluated across the
+original sixteen studies. It does not improve source-held-out ordering or regret
+and is therefore not promoted into the fitted bridge. The next fitted version
+requires task-level treatment encoding rather than another transformation of
+the current family-level fields.

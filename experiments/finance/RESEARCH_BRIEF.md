@@ -52,7 +52,7 @@ carry more decision information than volume alone. Because every outcome was
 already public, this remains retrospective evidence rather than prospective
 validation.
 
-### Frozen transfer to an untouched source
+### Frozen transfer to untouched sources
 
 We froze the shared representation and candidate rankings before extracting
 results from SNFinLLM, an independently reported Chinese financial model that
@@ -69,6 +69,21 @@ alignment must be represented separately, because a generic preference stage
 does not imply that its feedback improves the target being predicted. The full
 freeze and scoring record are available in the
 [source-level holdout](retrospective-post-training/heldout-snfinllm/README.md).
+
+A second freeze tests a target-conditional revision on staged adaptation for
+Japanese financial documents. Financial text adaptation improves the aggregate
+JP Fin Harness score, but two of five subtasks regress. The full staged path
+improves fraud detection while trailing the skip-stage ablation on industry
+classification and finance knowledge. One visual-stage prediction is unscorable
+because every reported benchmark uses text input. The frozen claims are correct
+on 4 of 8 meaningful task-level directions.
+
+Together, the holdouts identify the same boundary from different pipelines.
+Domain adaptation can transfer in aggregate while individual tasks move in
+opposite directions. A broad derived interference coordinate does not improve
+the original sixteen-study leave-one-source-out result, so it is not added to
+the fitted bridge. The next representation must encode treatment alignment,
+interference, and retention at task level.
 
 ### Executable workflow qualification
 
@@ -109,10 +124,11 @@ controls in addition to final-answer accuracy.
 
 ## The next tests
 
-The immediate next test revises the shared representation using only the scored
-SNFinLLM diagnosis, freezes it, and evaluates another excluded public study.
-This keeps the analysis model-agnostic and tests whether the new
-objective--target coordinate transfers beyond the study that motivated it.
+The immediate next step re-encodes the public intervention evidence at task
+level. Each row must connect training content and feedback to one named target,
+record exposure to competing objectives, and distinguish explicit retention
+from missing retention information. A new fitted relationship will be evaluated
+only after this conversion passes source audits.
 
 The executable accounting panel remains the prospective extension. Four
 stateful workflows have passed source qualification, but no model has yet
@@ -149,10 +165,10 @@ starting policy, estimate its finite-budget return, and train only after the
 selection and uncertainty are recorded.
 
 The present evidence supports domain adaptation while exposing a boundary for
-later post-training stages. A second source holdout will test whether an explicit
-objective--target coordinate repairs that failure. The prospective accounting
-comparison then asks whether the resulting measurements change a real allocation
-decision relative to transparent quality-aware and volume-based baselines.
+later post-training stages. Task-level re-encoding is now the decisive
+retrospective test. The prospective accounting comparison then asks whether the
+resulting measurements change a real allocation decision relative to transparent
+quality-aware and volume-based baselines.
 
 ## Questions for finance practitioners
 
@@ -172,6 +188,7 @@ change held-out outcomes after training begins.
 
 - [Retrospective methods and interpretation](retrospective-post-training/README.md)
 - [Frozen source-level holdout](retrospective-post-training/heldout-snfinllm/README.md)
+- [Target-conditional source holdout](retrospective-post-training/heldout-japanese-multimodal/README.md)
 - [Machine-readable panels](retrospective-post-training/data/panels.json)
 - [Source-recovered expansion](retrospective-post-training/data/recovered_panels.json)
 - [Machine-readable results](retrospective-post-training/results/summary.json)

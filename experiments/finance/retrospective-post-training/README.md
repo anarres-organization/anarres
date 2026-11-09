@@ -158,6 +158,21 @@ credit only when its preference signal is connected to the evaluation target.
 The full freeze, extracted outcomes, scoring code, and result are in
 [`heldout-snfinllm/`](heldout-snfinllm/).
 
+A target-conditional revision was then frozen on staged adaptation for Japanese
+financial documents. It gets 4 of 8 meaningful task-level directions correct.
+The domain-adaptation direction holds in aggregate, but individual finance tasks
+regress, the full path loses to a skip-stage ablation on two of three meaningful
+finance targets, and the visual-stage prediction has no matching visual outcome.
+The complete audit is in
+[`heldout-japanese-multimodal/`](heldout-japanese-multimodal/).
+
+A derived alignment/interference coordinate does not improve the original
+sixteen-study source holdout. The fixed rule falls from 75.3% to 74.3% pairwise
+ordering with unchanged regret, while the ridge falls from 72.9% to 71.7% and
+slightly higher regret. We therefore retain the earlier fitted bridge and move
+the next analysis to task-level re-encoding. The diagnostic is recorded in
+[`results/target_conditional_diagnostic.json`](results/target_conditional_diagnostic.json).
+
 Transfer is stronger when a study is known and the held-out group is a new
 model or target. The full ridge reaches 76.9% study-macro pair ordering and
 0.152 regret under model holdout, and 74.1% ordering and 0.162 regret under
@@ -181,6 +196,10 @@ python -m unittest test_expanded_bridge.py
 python heldout-snfinllm/freeze_predictions.py
 python heldout-snfinllm/score_holdout.py
 python -m unittest heldout-snfinllm/test_freeze.py heldout-snfinllm/test_score.py
+python heldout-japanese-multimodal/score_holdout.py
+python -m unittest heldout-japanese-multimodal/test_score.py
+python scripts/analyze_target_conditional_diagnostic.py
+python -m unittest test_target_conditional_diagnostic.py
 ```
 
 The script writes [`results/summary.json`](results/summary.json) and a manifest
