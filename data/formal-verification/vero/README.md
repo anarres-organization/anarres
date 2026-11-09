@@ -270,13 +270,20 @@ Pinned Vibe then discarded each limited response and retried it under its
 documented recovery policy. The complete development result is
 [`development-budget-calibration.200k-v2.json`](results/development-budget-calibration.200k-v2.json).
 
-The v3 calibration removes only the artificial per-response cap. It retains
+The v3 calibration removed only the artificial per-response cap. It retained
 the 1,800-second request timeout, 90-minute wall limit, 200,000-token cumulative
-threshold, model, prompt, task, sandbox, and grader. It remains excluded from
-scientific claims and must repeat containment and inference qualification
-before execution. A 1-million-token escalation remains blocked unless this
-stage reaches an expected-slot edit, a post-edit build, and an
-infrastructure-valid fresh grade with zero strict successes.
+threshold, model, prompt, task, sandbox, and grader. The uncapped controller
+restored repository inspection and Lean tool use. The policy completed a clean
+baseline build, attempted one expected-slot edit, and invoked Lean on the
+edited proof file. That attempted proof did not compile and was not retained.
+Fresh grading found all nine specifications unfilled. The complete
+development result is
+[`development-budget-calibration.200k-v3.json`](results/development-budget-calibration.200k-v3.json).
+
+This result crosses the frozen interaction gate without establishing strict
+policy support. It authorizes one excluded 1-million-token development
+calibration under a fresh identity. Qualification and prospective repositories
+remain unopened, and downstream ranking and training remain blocked.
 
 The matching [`runtime lock`](runtime/runtime-lock.200k.v1.json) binds the
 same immutable Lean image to the one-attempt calibration panel. This keeps the

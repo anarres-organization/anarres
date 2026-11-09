@@ -1,0 +1,57 @@
+{
+  "schema_version": "anarres.formal-verification-development-calibration-result.v1",
+  "protocol_id": "vero-leanstral-development-budget-calibration-200k-v3",
+  "attempt_id": "primepy-proof-calibration-v3-200k-r01",
+  "status": "complete",
+  "scientific_role": "development-only controller calibration excluded from repeated measurement, environment ranking, and downstream utility claims",
+  "outcome": {
+    "queue_status": "graded",
+    "attempt_outcome": "deadline",
+    "infrastructure_valid": true,
+    "fresh_grade_build_ok": true,
+    "expected_slot_edit_attempts": 1,
+    "expected_slots_filled_at_grade": 0,
+    "post_edit_compile_invocations": 1,
+    "successful_post_edit_compile_invocations": 0,
+    "specifications_total": 9,
+    "specifications_passed": 0,
+    "specifications_unfilled": 9,
+    "approved_axiom_check": true,
+    "unexpected_marker_count": 0,
+    "controller_steps": 12,
+    "input_tokens": 176132,
+    "output_tokens": 11548,
+    "model_tokens": 187680,
+    "tool_calls": 32,
+    "wall_seconds": 5401.504897
+  },
+  "trace_audit": {
+    "per_response_output_cap": null,
+    "baseline_build_succeeded": true,
+    "expected_slot_write_observed": true,
+    "post_edit_compile_command": "lake lean Primepy/Proof/Primes.lean",
+    "post_edit_compile_succeeded": false,
+    "attempted_proof_retained_at_grade": false,
+    "interpretation": "removing the per-response cap restored repository inspection, Lean tool use, and an expected-slot edit attempt, but the attempted proof did not compile and no valid slot remained filled at fresh grading"
+  },
+  "decision": {
+    "interaction_gate_passed": true,
+    "policy_support_established": false,
+    "one_million_token_escalation_authorized": true,
+    "next_action": "freeze one excluded 1000000-token development calibration under a fresh identity while preserving the model, prompt, task, sandbox, grader, and uncapped response contract"
+  },
+  "evidence": {
+    "vibe_export_sha256": "f4bdf185c78022227c32c7e5650ef66c9aa82d37436ee58c8e49a5ef386d0e25",
+    "attempt_receipt_sha256": "1020fe2f72b4639c9ca7f6c65a99ce80cf4d1918f0d34c2588346969d9130463",
+    "sandbox_receipt_sha256": "d841f573fe39e089898787a2fee2349956edc455d540811396c46ff6e85f4fd5",
+    "fresh_grade_sha256": "112acdfd7ceff83d310c1591024dcbdae23e01d2c3f0ecf3092a9db8a9f1e78c",
+    "grade_receipt_sha256": "b61ebd02736e61d78a347a6eec45af883795efada3facfa86e6ed6c7fc4f1912",
+    "queue_item_receipt_sha256": "3bb24f2b8da8b5a591c00a3b3e7678ceab35912d55684746dd1d9ce19be21801"
+  },
+  "boundaries": {
+    "qualification_and_prospective_repositories_opened": false,
+    "estimates_rho_or_H": false,
+    "ranks_training_environments": false,
+    "authorizes_downstream_training": false
+  }
+}
