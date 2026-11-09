@@ -100,6 +100,21 @@ measurement.
 The selected policy, revision, tool schema, rollout settings, and qualification
 record are frozen before candidate-bank measurement begins.
 
+## Qwen3-8B result
+
+The complete 128-episode Qwen3-8B record fails qualification. Of 128 planned
+episodes, 125 are infrastructure-valid. None completes the executable task,
+99.2% exhaust the 8,192-token interaction limit, and 59.2% satisfy the tool
+protocol. No scenario group contains mixed success. Material-control violations
+occur in 15.2% of valid episodes.
+
+This result excludes Qwen3-8B from the claim-bearing training panel under the
+fixed contract. It does not establish that the underlying workflows are
+unlearnable or that a larger policy will qualify. The next admissible step is
+the pinned 30B-A3B checkpoint in the policy ladder, evaluated on the same
+development panel before candidate construction. The machine-readable aggregate
+is stored in [`QWEN3_8B_QUALIFICATION.json`](QWEN3_8B_QUALIFICATION.json).
+
 ## Machine-readable scoring
 
 `scripts/score_policy_qualification.py` accepts one JSONL row per planned
@@ -138,5 +153,5 @@ python scripts/score_policy_qualification.py \
   --output qualification-summary.json
 ```
 
-The summary is descriptive until the complete signed attempt record, model
-revision, and environment identity are attached.
+The aggregate summary records the qualification decision. Release of the
+episode-level attempt record requires a separate provenance and privacy audit.

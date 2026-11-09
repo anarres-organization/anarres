@@ -1,0 +1,27 @@
+{
+  "complete_scenario_groups": 4,
+  "completion_rate": 0.0,
+  "expected_episodes": 128,
+  "gates": {
+    "at_least_two_workflows_with_mixed_groups": false,
+    "completion_rate_between_0_02_and_0_80": false,
+    "mixed_group_fraction_at_least_0_10": false,
+    "planned_episode_completeness": true,
+    "tool_protocol_valid_rate_at_least_0_98": false,
+    "truncation_rate_at_most_0_10": false
+  },
+  "infrastructure_failures": 3,
+  "material_control_violation_rate": 0.152,
+  "median_generated_tokens": 8192,
+  "median_tool_calls": 8,
+  "mixed_group_fraction": 0.0,
+  "mixed_scenario_groups": 0,
+  "policy_id": "qwen3-8b-b968826d9c46",
+  "qualified": false,
+  "recorded_episodes": 128,
+  "status": "qualification_complete",
+  "tool_protocol_valid_rate": 0.592,
+  "truncation_rate": 0.992,
+  "valid_episodes": 125,
+  "workflows_with_mixed_groups": []
+}

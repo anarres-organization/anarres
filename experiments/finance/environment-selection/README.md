@@ -1,7 +1,7 @@
 # Prospective environment selection for finance operations
 
-**Status:** source qualification complete; policy, candidate bank, and outcome
-contract are not yet frozen.
+**Status:** source qualification complete; Qwen3-8B excluded by the starting-policy
+gate; the next policy, candidate bank, and outcome contract are not yet frozen.
 
 This study will test whether policy-relative measurements can choose among
 finance training distributions before trained-policy outcomes are available.
@@ -34,10 +34,12 @@ The preflight establishes generator validity for these seeds. It does not
 qualify a starting model, define the final candidate mixtures, or reveal any
 training outcome.
 
-The [starting-policy qualification plan](STARTING_POLICY_QUALIFICATION.md)
-defines the next gate. It begins with a pinned Qwen3-8B checkpoint on 128 new
-development episodes and escalates only when the smaller policy produces
-invalid tool use or insufficient reward variation.
+The [starting-policy qualification record](STARTING_POLICY_QUALIFICATION.md)
+begins with a pinned Qwen3-8B checkpoint on 128 new development episodes. That
+policy fails the gate with 0% executable completion, 99.2% truncation, 59.2%
+valid tool protocol, and no mixed-success scenario groups. The complete record
+therefore advances to the pinned 30B-A3B checkpoint before candidate-bank
+measurement begins.
 
 ## Prospective decision
 
