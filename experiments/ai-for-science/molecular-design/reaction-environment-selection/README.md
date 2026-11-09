@@ -1,8 +1,9 @@
 # Prospective selection of molecular graph experience
 
-**Status:** RxnFlow and MolGenBench code revisions qualified. The MolGenBench
-dataset, target reward, common warm start, and candidate memberships remain
-open. No training or evaluation outcome has been inspected for this study.
+**Status:** RxnFlow, MolGenBench code, the Version4 archive, and an eight-target
+qualification panel are frozen. Target reward, final target identity, common
+warm start, and candidate memberships remain open. No training or evaluation
+outcome has been inspected for this study.
 
 ## Research question
 
@@ -165,11 +166,16 @@ The committed source audit verifies the exact RxnFlow release, source license,
 types. It also verifies the pinned MolGenBench evaluator code, MIT license, and
 120-target identity list, together with two public test fixtures. Zenodo records
 the 5.38 GB Version4 archive under CC BY 4.0 and publishes its MD5 digest. The
-archive has not been fully qualified, so its SHA-256 digest and content
-inventory remain open.
+downloaded archive matches that digest and has SHA-256
+`e52ab106f35c1376fe181a7172caaf11da86c2ba21f89af9236ddadc17cdfb43`.
+Its 305,410 member paths are safe and unencrypted, and its 120 complete target
+fixtures match the pinned identity registry. Published results and
+reference-active contents remain unopened.
 
-The next valid action is source and oracle qualification on a CPU node. No GPU
-training is justified until the target-reward adapter, common warm start, and
+The outcome-blind hash rule freezes an eight-target qualification panel:
+P08254, O14757, Q07820, P00533, P21554, Q07343, P53350, and P16184. The next
+valid action is fixture and oracle qualification on that panel. No GPU training
+is justified until the target-reward adapter, common warm start, and
 starting-policy headroom pass their gates.
 
 ## Reproduction

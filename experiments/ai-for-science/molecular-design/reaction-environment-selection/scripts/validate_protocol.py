@@ -24,7 +24,11 @@ def canonical_digest(payload: dict[str, object]) -> str:
     return hashlib.sha256(encoded).hexdigest()
 
 
-def validate(protocol: dict[str, object], sources: dict[str, object]) -> list[str]:
+def validate(
+    protocol: dict[str, object],
+    sources: dict[str, object],
+    panel_freeze: dict[str, object] | None = None,
+) -> list[str]:
     errors: list[str] = []
     panel = protocol["candidate_panel"]
     development = {candidate["name"] for candidate in panel["development"]}
@@ -41,8 +45,15 @@ def validate(protocol: dict[str, object], sources: dict[str, object]) -> list[st
         errors.append("RxnFlow commit differs from SOURCES.json")
     if source["molgenbench_commit"] != sources["molgenbench"]["commit"]:
         errors.append("MolGenBench commit differs from SOURCES.json")
+    if source["molgenbench_archive_sha256"] != sources["molgenbench"]["dataset"]["archive_sha256"]:
+        errors.append("MolGenBench archive digest differs from SOURCES.json")
     if protocol["target"]["qualification_panel_size"] != 8:
         errors.append("target qualification panel must contain eight identities")
+    if panel_freeze is not None:
+        if protocol["target"]["qualification_panel_sha256"] != panel_freeze["target_ids_sha256"]:
+            errors.append("target panel digest differs from TARGET_PANEL_FREEZE.json")
+        if protocol["target"]["qualification_panel_size"] != panel_freeze["panel_size"]:
+            errors.append("target panel size differs from TARGET_PANEL_FREEZE.json")
 
     intervention = protocol["intervention"]
     if intervention["only_arm_specific_input"] != "experience-bank membership":
@@ -86,10 +97,12 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--protocol", type=Path, default=root / "PROTOCOL.json")
     parser.add_argument("--sources", type=Path, default=root / "SOURCES.json")
+    parser.add_argument("--panel-freeze", type=Path, default=root / "TARGET_PANEL_FREEZE.json")
     args = parser.parse_args()
     protocol = json.loads(args.protocol.read_text(encoding="utf-8"))
     sources = json.loads(args.sources.read_text(encoding="utf-8"))
-    errors = validate(protocol, sources)
+    panel_freeze = json.loads(args.panel_freeze.read_text(encoding="utf-8"))
+    errors = validate(protocol, sources, panel_freeze)
     if errors:
         raise SystemExit("\n".join(errors))
     print(f"protocol_sha256={canonical_digest(protocol)}")

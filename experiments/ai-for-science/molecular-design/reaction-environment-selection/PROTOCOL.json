@@ -1,11 +1,12 @@
 {
   "schema_version": "1.0",
   "study": "prospective-reaction-environment-selection",
-  "status": "source_code_qualified_target_reward_and_candidate_freeze_open",
+  "status": "source_archive_and_target_panel_qualified_reward_and_candidate_freeze_open",
   "scientific_question": "Can measurements under one starting molecular graph policy predict which fixed replay experience bank will produce the greatest target-specific improvement at a matched generation and oracle budget?",
   "source": {
     "rxnflow_commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b",
     "molgenbench_commit": "f7b6cec1892cb575dc3adee4f5a71ee16ef04c39",
+    "molgenbench_archive_sha256": "e52ab106f35c1376fe181a7172caaf11da86c2ba21f89af9236ddadc17cdfb43",
     "rxnflow_building_blocks": 5000,
     "rxnflow_unimolecular_reactions": 4,
     "rxnflow_bimolecular_reactions": 26,
@@ -25,9 +26,10 @@
     "qualification_panel": "Freeze eight complete target fixtures by ascending SHA-256 of reaction-target-panel-v1|target_id before reading fixture contents or running target probes.",
     "selection": "Within the frozen eight-target panel, select one target by ascending SHA-256 of reaction-environment-selection-v1|target_id among targets that pass the frozen fixture, oracle-repeatability, reference-control, starting-policy validity, and pre-RL headroom gates.",
     "qualification_panel_size": 8,
+    "qualification_panel_sha256": "d4024f9a65aba7a4d3027be4b67aedac7080bb3b545c1fa4378bab2d0a294fe7",
     "selection_uses_outcomes": false,
     "reference_active_outcomes_sealed_until_scoring": true,
-    "identity_status": "open until dataset qualification"
+    "identity_status": "eight-target qualification panel frozen; final target open until oracle and starting-policy qualification"
   },
   "intervention": {
     "object": "preloaded replay experience bank",
@@ -182,7 +184,6 @@
     "reason": "The first graph claim concerns environment measurement and selection. Multiplying the initial panel across architectures would confound that decision and dilute the prospective test."
   },
   "open_gates": [
-    "MolGenBench Version4 archive SHA-256 and content inventory",
     "target fixture identity and outcome-blind selection",
     "target reward adapter",
     "oracle fidelity and reproducibility",
