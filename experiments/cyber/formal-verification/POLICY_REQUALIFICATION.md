@@ -1,10 +1,10 @@
 # Vero starting-policy requalification
 
-**Status:** development-only calibration. The first 200,000-token attempt
-reached a clean build but ended before grading when one model request exceeded
-the controller's first-output timeout. It is recorded as an infrastructure
-failure rather than a scientific zero. Qualification and prospective
-repositories remain unopened.
+**Status:** complete. The 200,000-token stage restored repository inspection,
+Lean tool use, and an expected-slot edit but closed no specification. The
+prespecified 1-million-token escalation also produced zero strict support.
+Leanstral is therefore rejected as the starting policy for this Vero contract.
+Qualification and prospective repositories remain unopened.
 
 ## Why the interaction contract must be requalified
 
@@ -88,9 +88,17 @@ the starting policy for this Vero contract. The next policy must have released
 repository-level Lean evidence or a released Vero baseline before local
 qualification.
 
+Stage B completed infrastructure-valid fresh grading after 1,018,842 exported
+model tokens and 52 tool calls. The policy drafted helpers and invoked Lean
+after several proof-file replacements, but it removed required marker lines
+and never produced a compiling post-write proof. Fresh grading recovered no
+valid scored slot and found all nine specifications unfilled. The compact
+[result record](../../../data/formal-verification/vero/results/development-budget-calibration.1m-v1.json)
+preserves the outcome and evidence hashes without releasing raw agent traces.
+
 ## Support screen after calibration
 
-Once one budget establishes strict support, a fresh development-only screen
+If a future policy establishes strict support, a fresh development-only screen
 runs one attempt for each of the four repositories in both proof modes. A later
 repeated measurement is frozen only if that screen finds:
 

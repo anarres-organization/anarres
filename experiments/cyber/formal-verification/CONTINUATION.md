@@ -1,6 +1,6 @@
 # Formal-verification continuation guide
 
-**Status date:** 2026-11-08
+**Status date:** 2026-11-09
 
 The next scientific milestone is a prospective comparison of qualified
 formal-verification environments, followed by checkpoint-level regression
@@ -9,7 +9,7 @@ which the remaining work should proceed.
 
 ## Current state
 
-The workstream has three completed foundations:
+The workstream has four completed foundations:
 
 1. The [public-evidence record](public-evidence/README.md) reconstructs
    decisions from VeruSyn, Re:Form, Formal Disco, and Vericoding. It also
@@ -23,6 +23,10 @@ The workstream has three completed foundations:
    across 2,776 specification trials, giving zero usable signal density and
    zero effective coverage in both proof modes. The preregistered support gate
    failed, so the result does not rank environments or authorize training.
+4. The development-only budget ladder tested the same Leanstral policy at
+   200,000 and 1 million exported tokens. The larger budget increased tool use
+   and proof drafting but produced no valid scored slot. Leanstral is rejected
+   for this Vero contract, and the unopened partitions remain protected.
 
 No claim-bearing reinforcement-learning run has begun. Qualification and
 prospective repositories remain unopened.
@@ -52,15 +56,17 @@ cannot establish utility.
 
 ### 1. Requalify starting-policy support
 
-The v5 development measurement is complete and remains unchanged. Its compact
+The v5 development measurement and its budget-ladder follow-up are complete
+and remain unchanged. Their compact
 [result record](../../../data/formal-verification/vero/results/development-policy-measurement.v1.json)
-preserves the frozen input hashes and aggregate outcome. The next qualification
-must use a new protocol version and development repositories only.
+and [calibration result](../../../data/formal-verification/vero/results/development-budget-calibration.1m-v1.json)
+preserve the frozen inputs and outcomes. The next qualification must use a new
+policy, a new protocol version, and development repositories only.
 The [requalification design](POLICY_REQUALIFICATION.md) fixes the evidence,
 budget ladder, and stop rules that govern that revision.
 
-- Use released Vero and model evaluations to anchor the policy, agent, and
-  interaction budget before allocating new inference.
+- Require released repository-level Lean evidence or a released Vero baseline
+  before allocating local qualification inference to another policy.
 - Distinguish a policy-support failure from an interaction-budget failure with
   a small qualification panel whose outcomes are excluded from later claims.
 - Require the agent to reach an edit and fresh build within the bounded run,

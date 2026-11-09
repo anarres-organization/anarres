@@ -1,0 +1,58 @@
+{
+  "schema_version": "anarres.formal-verification-development-calibration-result.v1",
+  "protocol_id": "vero-leanstral-development-budget-calibration-1m-v1",
+  "attempt_id": "primepy-proof-calibration-v1-1m-r01",
+  "status": "complete",
+  "scientific_role": "development-only controller calibration excluded from repeated measurement, environment ranking, and downstream utility claims",
+  "outcome": {
+    "queue_status": "graded",
+    "attempt_outcome": "token_limit",
+    "infrastructure_valid": true,
+    "fresh_grade_build_ok": true,
+    "marker_contract_preserved": false,
+    "artifact_slot_error_count": 37,
+    "expected_slots_filled_at_grade": 0,
+    "specifications_total": 9,
+    "specifications_passed": 0,
+    "specifications_unfilled": 9,
+    "approved_axiom_check": false,
+    "controller_steps": 30,
+    "input_tokens": 993867,
+    "output_tokens": 24975,
+    "model_tokens": 1018842,
+    "tool_calls": 52,
+    "wall_seconds": 9120.742336
+  },
+  "trace_audit": {
+    "per_response_output_cap": null,
+    "baseline_build_succeeded": true,
+    "proof_file_replacements_observed": 6,
+    "post_write_compile_invocations": 4,
+    "successful_post_write_compile_invocations": 0,
+    "marker_lines_removed": true,
+    "restoration_attempt_interrupted": true,
+    "compaction_events_observed": 0,
+    "interpretation": "the larger budget supported sustained repository inspection, proof drafting, repeated file replacement, and Lean invocations, but the agent removed required slot markers, never produced a compiling post-write proof, and reached the token limit before restoring a valid scored artifact"
+  },
+  "decision": {
+    "policy_support_established": false,
+    "leanstral_rejected_for_this_vero_contract": true,
+    "qualification_or_prospective_measurement_authorized": false,
+    "downstream_training_authorized": false,
+    "next_action": "select a new starting policy with released repository-level Lean evidence or a released Vero baseline, then freeze a fresh development-only qualification before another support screen"
+  },
+  "evidence": {
+    "vibe_export_sha256": "e037635e5e7622d9c0dc374bb0f0549dbebda3125caff69f58c630a9074bd3e8",
+    "attempt_receipt_sha256": "6b139194530ace633a25c02db3227f2c1fba01b4648773fdc2fc5ea240ac5c29",
+    "sandbox_receipt_sha256": "cdb5c12758dd47fa73fa48d9ccb628bbe37be7311d061172945f96bf9a78287e",
+    "fresh_grade_sha256": "fa585da810faa1ccdd7322ccbf160887ea4f5b2e1d639258be8dad53b31bd425",
+    "grade_receipt_sha256": "e152e91570cead642206a99b50fb0621d6d71f07f82d73dd29118bfa68191bb8",
+    "queue_item_receipt_sha256": "36880a502d49f11e14a78e816e9028c37dddc9d66b5e319f4155896e0e58aab9"
+  },
+  "boundaries": {
+    "qualification_and_prospective_repositories_opened": false,
+    "estimates_rho_or_H": false,
+    "ranks_training_environments": false,
+    "authorizes_downstream_training": false
+  }
+}
