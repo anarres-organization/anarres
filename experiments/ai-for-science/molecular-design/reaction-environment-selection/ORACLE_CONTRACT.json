@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "reference-ligand docking qualification before target or candidate selection",
+  "source_contract": {
+    "molgenbench_commit": "f7b6cec1892cb575dc3adee4f5a71ee16ef04c39",
+    "molgenbench_vina_implementation": "molgenbench/vina/vina_utils.py",
+    "receptor_order": [
+      "full prepared receptor",
+      "10A pocket fallback"
+    ],
+    "reference_ligand_defines_box": true,
+    "box_buffer_angstrom": 5.0,
+    "pose_count": 1,
+    "exhaustiveness": 8
+  },
+  "runtime": {
+    "python": "3.11.18",
+    "rdkit": "2025.09.1",
+    "openbabel": "3.2.1",
+    "meeko": "0.1.dev3",
+    "pdb2pqr": "3.8.0",
+    "vina": "1.2.7",
+    "autodocktools_py3": "1.5.7.post1+12.ga62a5d9",
+    "autodocktools_commit": "a62a5d98116f1590183b58a9ad732b997cf2579c"
+  },
+  "qualification": {
+    "seeds": [
+      20261108,
+      20261109
+    ],
+    "repeats_per_seed": 2,
+    "all_calls_must_succeed": true,
+    "maximum_repeat_affinity_delta": 0.000001,
+    "maximum_cross_seed_affinity_range": 2.0,
+    "maximum_median_reference_affinity": -4.0,
+    "infrastructure_failures_are_not_rewards": true
+  },
+  "sealed_boundary": {
+    "training_or_evaluation_outcomes_opened": false,
+    "published_model_results_opened": false,
+    "reference_ligands_used_only_as_oracle_controls": true
+  }
+}
