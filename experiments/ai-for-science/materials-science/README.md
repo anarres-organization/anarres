@@ -1,13 +1,38 @@
 # Predictable post-training for atomistic materials models
 
+Atomistic datasets can be expensive to label and train on, while equal-size
+subsets can produce different physical outcomes. This program asks a concrete
+question:
+
+> Can measurements made before post-training predict which atomistic training
+> environment will produce the greatest improvement for a specified model,
+> physical target, and compute budget?
+
+## Results and current work at a glance
+
+| Study | Status | Public result or current gate |
+| --- | --- | --- |
+| [Supervised phonon selection](phonon-environment-selection/) | Complete | The frozen signal-plus-coverage rule missed the best candidate at all three PBE budgets, establishing that the initial measurements were insufficient. |
+| [Independent PBEsol transfer](phonon-environment-selection/pbesol-transfer/) | Complete | The transferred ordering selected the best candidate at two of three budgets, while no post-trained candidate improved absolute Top-100 stability over the starting checkpoint. |
+| [Retrospective materials bridge](retrospective-bridge/) | Validated | Sixteen public studies provide 804 matched decisions and 3,002 candidate arms. A separate harm audit reaches 0.708 source-macro ROC AUC and captures 41.8% of adverse choices in the highest-risk 20% of pairs. |
+| [MLIP phonon study](mlip-phonon-environment-selection/) | Candidate bank under domain review | The starting model and target roles are frozen, 80,000 structures have been measured, and 48 equal-atom candidate environments have been constructed without opening any candidate training outcome. |
+
+## Current external-review handoff
+
+The MLIP phonon study is the current prospective workstream. Its next decision
+is which 12 development and four prospective environments to freeze from the
+48-candidate draft. Domain review is focused on four questions: whether the
+source families cover the physical regimes that matter for phonons, whether
+composition-level target exclusion is appropriate, whether both processed
+atoms and neighbor edges should define matched cost, and whether the proposed
+target-affinity and curvature measurements capture the relevant transfer
+mechanism. The complete measurement gate and candidate coordinates are linked
+from the [study page](mlip-phonon-environment-selection/).
+
 ## Purpose
 
-This study asks whether measurements made before post-training can predict which
-atomistic training environments will produce the greatest improvement for a
-specified starting model, physical target, and compute budget. This page defines
-the materials-science research program in Anarres.
-
-The program begins with a supervised phonon-scoring study over an already
+This page defines the materials-science research program in Anarres. The
+program began with a supervised phonon-scoring study over an already
 labeled DFT reservoir. Its next phase focuses on universal machine-learned
 interatomic potentials (MLIPs). These models approximate the potential-energy
 surface of an atomic system and enable structural relaxation, molecular
@@ -30,7 +55,7 @@ Claim-bearing runs require a versioned study contract after source,
 level-of-theory, split, starting-model, measurement, and evaluation
 qualification.
 
-The first research loop is complete in
+The first prospective research loop is complete in
 [`phonon-environment-selection/`](phonon-environment-selection/). It uses a
 released phonon-scoring model and DFT post-training pool to compare random,
 model-relative signal, coverage, and joint selection under sealed external
@@ -137,24 +162,19 @@ complete.
 
 ## Broader MLIP starting model and comparators
 
-The proposed first starting-model family is a pinned MACE-MP checkpoint. Recent
-work on [frozen transfer learning for foundation
+The qualified shortlist contained MACE-MP-0b3 and Nequix-MP-1, two PBE+U
+potentials pretrained on MPtrj rather than the OMat24 candidate reservoir.
+Nequix-MP-1 is the selected common starting checkpoint. It achieved lower
+phonon-frequency error on the frozen 16-material qualification split and
+provides analytical energy Hessians for the planned curvature diagnostic. The
+selection used no candidate-environment training outcome.
+
+Recent work on [frozen transfer learning for foundation
 potentials](https://www.nature.com/articles/s41524-025-01727-x) shows that
-partially frozen fine-tuning can reach task-specific accuracy with a fraction of
-the original reference data. This makes a multi-environment experiment feasible
-without training a universal potential from scratch.
-
-Qualification must compare at least:
-
-- one pinned MACE-MP checkpoint as the common fine-tuning start
-- the same checkpoint without post-training
-- M3GNet as a frozen historical baseline where compatible
-- one pinned UMA checkpoint as a later external comparator.
-
-UMA is not the default first fine-tuning backbone because its model access,
-multi-domain task embeddings, and release cadence require a separate frozen
-contract. Its inclusion as a comparator prevents the study from depending on
-one older architecture.
+partially frozen fine-tuning can reach task-specific accuracy with a fraction
+of the original reference data. MACE remains a qualified comparator, while a
+pinned UMA checkpoint is reserved for a later external transfer test under its
+own model and task-embedding contract.
 
 ## Broader MLIP data sources and target separation
 
@@ -208,11 +228,11 @@ These are predictive contrasts, not isolated causal interventions. Chemistry,
 geometry, force regime, and source can remain coupled even when their continuous
 measurements are reported separately.
 
-The initial design constructs at least 40 candidate distributions and selects 12
-development and four prospective environments before fine-tuning. The selected
-panel should span the measured coordinates, limit pairwise overlap, preserve
-multiple source families, and avoid one source label acting as a proxy for every
-coordinate.
+The current measurement-only draft contains 48 equal-atom candidate
+distributions. Before fine-tuning, the study will select 12 development and four
+prospective environments that span the measured coordinates, limit pairwise
+overlap, preserve multiple source families, and avoid one source label acting
+as a proxy for every coordinate.
 
 ## Broader MLIP pre-training measurements
 

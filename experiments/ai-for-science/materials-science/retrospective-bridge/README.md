@@ -1,7 +1,7 @@
 # Retrospective materials environment bridge
 
-**Status:** source qualification and normalization in progress. This is
-retrospective evidence, not a prospective forecast.
+**Status:** the qualified retrospective bridge and relative-harm audit are
+complete. This is retrospective evidence, not a prospective forecast.
 
 This bridge asks whether recurring measurements of a materials training
 environment predict downstream utility across published studies. It follows the
