@@ -232,6 +232,19 @@ class VeroCodexQualificationTest(unittest.TestCase):
         self.assertEqual(contract["qualification_design"]["benchmark_id"], "primepy")
         self.assertEqual(contract["qualification_design"]["mode"], "proof")
 
+    def test_execution_record_binds_the_protocol_before_attempt(self) -> None:
+        protocol_path = ADAPTER / "policy-codex-sol-qualification.v1.json"
+        record = json.loads(
+            (ADAPTER / "policy-codex-sol-execution.v1.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            record["protocol_sha256"], hashlib.sha256(protocol_path.read_bytes()).hexdigest()
+        )
+        self.assertTrue(record["execution_authorized"])
+        self.assertFalse(record["attempt_started_at_freeze"])
+        self.assertEqual(record["attempt"]["independent_attempts"], 1)
+        self.assertFalse(record["containment"]["qualification_and_prospective_repositories_opened"])
+
 
 class VeroSourceAuditTest(unittest.TestCase):
     def test_audit_checks_pinned_source_and_manifest(self) -> None:

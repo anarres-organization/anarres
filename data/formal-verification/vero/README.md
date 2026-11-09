@@ -249,6 +249,10 @@ proof-only task, and Vero's 90-minute budget. The record does not authorize its
 own execution. Prompt hashes, fresh-task containment, provider-only controller
 networking, and the execution-host grader must be bound in an immutable receipt
 before the one-attempt support test can begin.
+The matching
+[`execution record`](policy-codex-sol-execution.v1.json) binds the rendered
+instruction, upstream run configuration, Lean toolchain, no-op fresh-grade
+preflight, containment boundary, and attempt identity before inference.
 
 [`policy-budget-calibration.200k.v1.json`](policy-budget-calibration.200k.v1.json)
 freezes the first requalification stage after that result. It selects the

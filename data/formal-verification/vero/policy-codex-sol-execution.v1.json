@@ -1,0 +1,76 @@
+{
+  "schema_version": "anarres.formal-verification-policy-qualification-execution.v1",
+  "protocol_id": "vero-codex-sol-development-qualification-v1",
+  "protocol_sha256": "9fef27518d568e8d4fae241e30bd1642c6f48416ede52df0910228cbf878435a",
+  "freeze_timestamp": "2026-11-09T10:12:36-08:00",
+  "status": "authorized_before_attempt",
+  "execution_authorized": true,
+  "attempt_started_at_freeze": false,
+  "policy": {
+    "model_id": "gpt-5.6-sol",
+    "agent_harness": "openai/codex",
+    "agent_harness_version": "0.154.0",
+    "reasoning_effort": "xhigh",
+    "system_prompt_identity": "native Codex default for version 0.154.0; provider-managed text is not exposed by the harness",
+    "sampling_overrides": []
+  },
+  "route_qualification": {
+    "status": "pass",
+    "method": "one non-benchmark JSON route probe",
+    "benchmark_content_sent": false,
+    "account_secret_recorded": false
+  },
+  "task": {
+    "source_id": "sunblaze-ucb/vero@0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+    "benchmark_id": "primepy",
+    "mode": "proof",
+    "specifications": 9,
+    "run_config_sha256": "28be2b8972ab10624b5f9f3b5597d35a261fcc335256b44eaad126735a0049c5",
+    "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+    "fresh_render": true,
+    "untouched_build": "pass"
+  },
+  "runtime": {
+    "lean_version": "4.29.1",
+    "lean_commit": "f72c35b3f637c8c6571d353742168ab66cc22c00",
+    "lake_version": "5.0.0-src+f72c35b",
+    "python_environment": "Vero uv.lock at the pinned source revision",
+    "maximum_wall_seconds": 5400
+  },
+  "grader_preflight": {
+    "status": "pass",
+    "report_sha256": "598b1c0b71ee7613c30cc24b9ce018c3b1e116c95c4124a506a8aa09768cdd4e",
+    "fresh_build_ok": true,
+    "passed_specs": 0,
+    "unfilled_specs": 9,
+    "interpretation": "the untouched artifact builds and grades as nine unfilled specifications"
+  },
+  "containment": {
+    "workspace": "one fresh Vero PrimePy task",
+    "workspace_write_scope": "rendered task only",
+    "task_network_access": false,
+    "controller_network_scope": "model provider only",
+    "qualification_and_prospective_repositories_opened": false,
+    "credential_handling": "the upstream harness uses a per-run Codex home for controller authentication; it is excluded from the Vero artifact, grading overlay, compact result, and public release",
+    "reference_solution_visible": false
+  },
+  "attempt": {
+    "identity": "anarres-codex-sol-primepy-proof-qualification-v1-attempt-01",
+    "independent_attempts": 1,
+    "scientific_retries": 0,
+    "maximum_infrastructure_retries": 1,
+    "support_threshold": "at least one of nine specifications passes fresh grading with approved axioms"
+  },
+  "authorization_boundary": {
+    "permits": [
+      "one excluded development-only PrimePy proof attempt",
+      "one fresh independent Vero grade"
+    ],
+    "does_not_permit": [
+      "opening qualification repositories",
+      "opening prospective repositories",
+      "environment ranking",
+      "downstream reinforcement learning"
+    ]
+  }
+}
