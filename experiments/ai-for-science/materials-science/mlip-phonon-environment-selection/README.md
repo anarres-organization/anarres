@@ -3,9 +3,9 @@
 **Status:** source artifacts and the starting checkpoint are qualified, the
 outcome-blind target roles are frozen, and the complete 80,000-record
 measurement sweep has passed integrity checks. A 48-environment, equal-atom
-candidate bank is available as a measurement-only draft for domain review. No
-claim-bearing model has been trained and no prospective environment outcome has
-been opened.
+candidate bank is published as a measurement-only draft, and final candidate
+selection is in progress. No claim-bearing model has been trained and no
+prospective environment outcome has been opened.
 
 ## Research question
 
@@ -256,13 +256,13 @@ per atom, so the final development and prospective panel must tighten or match
 this coordinate before memberships are frozen. The draft uses no candidate
 training outcome and no development or prospective phonon outcome.
 
-This is the current domain-review gate. The scientific questions are whether
-the source families cover the physical regimes that matter for phonons, whether
-composition-level exclusion is appropriately conservative, whether processed
-atoms and neighbor edges define the right cost contract, and whether the target
-affinity and curvature measurements capture the relevant transfer mechanism.
-The bank remains editable until those questions are resolved and the final
-membership hashes are serialized.
+Before the final panel is frozen, we are evaluating whether the source families
+cover the physical regimes that matter for phonons, whether composition-level
+exclusion is appropriately conservative, and whether processed atoms and
+neighbor edges define the right cost contract. We also welcome feedback on
+whether the target-affinity and curvature measurements capture the relevant
+transfer mechanism. The bank remains editable until these questions are
+resolved and the final membership hashes are serialized.
 
 ## Primary sources
 

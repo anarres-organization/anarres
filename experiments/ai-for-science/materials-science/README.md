@@ -15,18 +15,18 @@ question:
 | [Supervised phonon selection](phonon-environment-selection/) | Complete | The frozen signal-plus-coverage rule missed the best candidate at all three PBE budgets, establishing that the initial measurements were insufficient. |
 | [Independent PBEsol transfer](phonon-environment-selection/pbesol-transfer/) | Complete | The transferred ordering selected the best candidate at two of three budgets, while no post-trained candidate improved absolute Top-100 stability over the starting checkpoint. |
 | [Retrospective materials bridge](retrospective-bridge/) | Validated | Sixteen public studies provide 804 matched decisions and 3,002 candidate arms. A separate harm audit reaches 0.708 source-macro ROC AUC and captures 41.8% of adverse choices in the highest-risk 20% of pairs. |
-| [MLIP phonon study](mlip-phonon-environment-selection/) | Candidate bank under domain review | The starting model and target roles are frozen, 80,000 structures have been measured, and 48 equal-atom candidate environments have been constructed without opening any candidate training outcome. |
+| [MLIP phonon study](mlip-phonon-environment-selection/) | Candidate selection in progress | The starting model and target roles are frozen, 80,000 structures have been measured, and 48 equal-atom candidate environments have been constructed without opening any candidate training outcome. |
 
-## Current external-review handoff
+## Next step: selecting the final panel
 
 The MLIP phonon study is the current prospective workstream. Its next decision
 is which 12 development and four prospective environments to freeze from the
-48-candidate draft. We are asking domain reviewers whether the source families
-cover the physical regimes that matter for phonons and whether the target
-exclusion rule is appropriately conservative. Their judgment will also guide
-how we match computational cost and whether the target-affinity and curvature
-measurements capture the relevant transfer mechanism. The complete measurement
-gate and candidate coordinates are linked from the [study
+48-candidate draft. We welcome feedback on whether the source families cover
+the physical regimes that matter for phonons and whether the target exclusion
+rule is appropriately conservative. We are also evaluating how to match
+computational cost and whether the target-affinity and curvature measurements
+capture the relevant transfer mechanism. The complete measurement record and
+candidate coordinates are linked from the [study
 page](mlip-phonon-environment-selection/).
 
 ## Purpose

@@ -37,7 +37,7 @@ The project provides:
 | [Cyber: formal verification](experiments/cyber/formal-verification/README.md) | Which executable proof environments improve held-out verification under a fixed policy and budget? | Starting policy selected for development qualification |
 | [Cyber: vulnerability exploitation](experiments/cyber/qualification/README.md) | Which authorized exploit-generation environments provide measurable signal and held-out improvement? | Benchmark and warm-start qualification |
 | [Molecular design](experiments/ai-for-science/molecular-design/README.md) | Which reaction-based environments improve a molecular graph policy for a specified protein target and compute budget? | Protocol drafted |
-| [Materials science](experiments/ai-for-science/materials-science/README.md) | Which atomistic training distributions improve a materials model for a specified physical target and compute budget? | Retrospective bridge validated; candidate bank under domain review |
+| [Materials science](experiments/ai-for-science/materials-science/README.md) | Which atomistic training distributions improve a materials model for a specified physical target and compute budget? | Retrospective bridge validated; candidate selection in progress |
 | [Robotics](experiments/robotics/README.md) | Which environments help robots improve across diverse embodied tasks? | First evidence release available |
 | [Legal reasoning](experiments/legal/README.md) | Can policy-relative measurements guide legal training-mixture selection? | First evidence release available |
 | [Agentic finance](experiments/finance/README.md) | Which finance-task distributions improve held-out work under fixed training and control budgets? | Source qualification and prospective design |
