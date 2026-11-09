@@ -1,9 +1,10 @@
 # Prospective selection of molecular graph experience
 
-**Status:** RxnFlow, MolGenBench code, the Version4 archive, and an eight-target
-qualification panel are frozen. Target reward, final target identity, common
-warm start, and candidate memberships remain open. No training or evaluation
-outcome has been inspected for this study.
+**Status:** RxnFlow, MolGenBench code, the Version4 archive, an eight-target
+qualification panel, and its 24 structural fixtures are qualified. Target
+reward, final target identity, common warm start, and candidate memberships
+remain open. No training or evaluation outcome has been inspected for this
+study.
 
 ## Research question
 
@@ -174,9 +175,11 @@ reference-active contents remain unopened.
 
 The outcome-blind hash rule freezes an eight-target qualification panel:
 P08254, O14757, Q07820, P00533, P21554, Q07343, P53350, and P16184. The next
-valid action is fixture and oracle qualification on that panel. No GPU training
-is justified until the target-reward adapter, common warm start, and
-starting-policy headroom pass their gates.
+valid action is oracle qualification on that panel. No GPU training is
+justified until the target-reward adapter, oracle behavior, common warm start,
+and starting-policy headroom pass their gates. The fixture audit records valid
+coordinates or molecule records and content hashes for all 24 selected files
+without opening results or reference-active collections.
 
 ## Reproduction
 
@@ -201,6 +204,14 @@ inventory without extracting or opening result contents:
 python scripts/audit_molgenbench_archive.py \
   --archive /path/to/MolGenBench_Version4.zip \
   --out /tmp/MOLGENBENCH_ARCHIVE_AUDIT.json
+```
+
+Audit only the frozen target fixtures:
+
+```bash
+python scripts/audit_target_fixtures.py \
+  --archive /path/to/MolGenBench_Version4.zip \
+  --out /tmp/TARGET_FIXTURE_AUDIT.json
 ```
 
 Validate the protocol:

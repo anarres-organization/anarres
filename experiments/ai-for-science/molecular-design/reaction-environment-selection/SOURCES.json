@@ -49,6 +49,7 @@
       "repository identity and license",
       "released code and test fixtures",
       "RxnFlow example building-block and reaction fixtures",
+      "frozen target-panel receptor, pocket, and reference-ligand fixtures",
       "Zenodo record metadata"
     ]
   }

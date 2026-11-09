@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "study": "prospective-reaction-environment-selection",
-  "status": "source_archive_and_target_panel_qualified_reward_and_candidate_freeze_open",
+  "status": "source_archive_and_target_fixtures_qualified_reward_and_candidate_freeze_open",
   "scientific_question": "Can measurements under one starting molecular graph policy predict which fixed replay experience bank will produce the greatest target-specific improvement at a matched generation and oracle budget?",
   "source": {
     "rxnflow_commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b",
@@ -184,7 +184,7 @@
     "reason": "The first graph claim concerns environment measurement and selection. Multiplying the initial panel across architectures would confound that decision and dilute the prospective test."
   },
   "open_gates": [
-    "target fixture identity and outcome-blind selection",
+    "target oracle and starting-policy qualification",
     "target reward adapter",
     "oracle fidelity and reproducibility",
     "common QED warm start",

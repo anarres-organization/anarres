@@ -28,6 +28,7 @@ def validate(
     protocol: dict[str, object],
     sources: dict[str, object],
     panel_freeze: dict[str, object] | None = None,
+    fixture_audit: dict[str, object] | None = None,
 ) -> list[str]:
     errors: list[str] = []
     panel = protocol["candidate_panel"]
@@ -54,6 +55,14 @@ def validate(
             errors.append("target panel digest differs from TARGET_PANEL_FREEZE.json")
         if protocol["target"]["qualification_panel_size"] != panel_freeze["panel_size"]:
             errors.append("target panel size differs from TARGET_PANEL_FREEZE.json")
+    if fixture_audit is not None:
+        if protocol["target"]["qualification_panel_sha256"] != fixture_audit["target_panel_sha256"]:
+            errors.append("target panel digest differs from TARGET_FIXTURE_AUDIT.json")
+        fixture_targets = fixture_audit.get("targets", [])
+        if len(fixture_targets) != protocol["target"]["qualification_panel_size"]:
+            errors.append("target fixture count differs from the frozen panel size")
+        if any(target.get("fixture_integrity") != "pass" for target in fixture_targets):
+            errors.append("one or more frozen target fixtures failed integrity")
 
     intervention = protocol["intervention"]
     if intervention["only_arm_specific_input"] != "experience-bank membership":
@@ -98,11 +107,13 @@ def main() -> None:
     parser.add_argument("--protocol", type=Path, default=root / "PROTOCOL.json")
     parser.add_argument("--sources", type=Path, default=root / "SOURCES.json")
     parser.add_argument("--panel-freeze", type=Path, default=root / "TARGET_PANEL_FREEZE.json")
+    parser.add_argument("--fixture-audit", type=Path, default=root / "TARGET_FIXTURE_AUDIT.json")
     args = parser.parse_args()
     protocol = json.loads(args.protocol.read_text(encoding="utf-8"))
     sources = json.loads(args.sources.read_text(encoding="utf-8"))
     panel_freeze = json.loads(args.panel_freeze.read_text(encoding="utf-8"))
-    errors = validate(protocol, sources, panel_freeze)
+    fixture_audit = json.loads(args.fixture_audit.read_text(encoding="utf-8"))
+    errors = validate(protocol, sources, panel_freeze, fixture_audit)
     if errors:
         raise SystemExit("\n".join(errors))
     print(f"protocol_sha256={canonical_digest(protocol)}")

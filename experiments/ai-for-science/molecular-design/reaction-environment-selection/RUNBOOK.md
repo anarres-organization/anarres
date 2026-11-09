@@ -51,6 +51,15 @@ target passes file integrity, oracle repeatability, reference-control behavior,
 starting-policy validity, and pre-RL headroom. Serialize the eligible target
 IDs, selection hash, selected identity, and all exclusion reasons.
 
+Before installing the docking stack, audit only the selected structural
+fixtures inside the archive:
+
+```bash
+python scripts/audit_target_fixtures.py \
+  --archive /path/to/MolGenBench_Version4.zip \
+  --out /tmp/TARGET_FIXTURE_AUDIT.json
+```
+
 Create an outcome-free qualification file using only the fields accepted by
 `freeze_target.py`, then freeze the identity:
 
