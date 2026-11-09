@@ -109,6 +109,11 @@ distribution before training.
 The reward must provide adequate headroom under the common starting policy. A
 floor or saturation result stops the study before candidate construction.
 
+After the warm start passes integrity checks, follow
+`TARGET_SELECTION_CONTRACT.json`. Generate both starting-policy views once,
+score the same frozen samples against all eight qualified targets, apply every
+gate, and select the first passing target in the prespecified hash order.
+
 ## 4. Train and qualify the common warm start
 
 Build the public example construction space as specified by

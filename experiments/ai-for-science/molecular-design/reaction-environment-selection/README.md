@@ -101,6 +101,11 @@ The experience banks have equal membership. Overlap in molecule identity,
 scaffold, reaction family, and graph representation is reported before
 training.
 
+`TARGET_SELECTION_CONTRACT.json` fixes two independent starting-policy views
+and broad validity, signal, repeatability, and throughput gates. The final
+target is the first passing member in the previously frozen hash order, so its
+identity cannot be chosen to maximize a favorable training result.
+
 ## Candidate panel
 
 Six banks support model development.

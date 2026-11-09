@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "starting-policy target qualification and selection",
+  "status": "frozen_before_starting_policy_sampling",
+  "starting_policy": {
+    "artifact_sha256": "29da27efeae7f7d803e760f74eba63ab1fc2746b509e0f0b59900920aded79cc",
+    "rxnflow_version": "2.1.0",
+    "source_step": 1000
+  },
+  "sampling": {
+    "views": 2,
+    "trajectory_attempts_per_view": 64,
+    "seeds": [20261110, 20261111],
+    "batch_size": 64,
+    "reward_exponent_beta": 32.0,
+    "softmax_temperature": 1.0,
+    "deduplication": "Preserve every sampled attempt for policy-distribution summaries. Evaluate each unique valid SMILES once per target and reuse that oracle result for exact duplicates."
+  },
+  "target_panel": {
+    "freeze": "TARGET_PANEL_FREEZE.json",
+    "size": 8,
+    "targets": [
+      "P08254",
+      "O14757",
+      "Q07820",
+      "P00533",
+      "P21554",
+      "Q07343",
+      "P53350",
+      "P16184"
+    ]
+  },
+  "per_target_gates": {
+    "reference_oracle_qualification": "pass",
+    "minimum_returned_valid_fraction_per_view": 0.875,
+    "minimum_unique_fraction_per_view": 0.75,
+    "minimum_reward_eligible_fraction_per_view": 0.5,
+    "minimum_oracle_completion_fraction_per_view": 0.95,
+    "minimum_positive_reward_fraction_per_view": 0.5,
+    "minimum_pooled_reward_p90_minus_p10": 0.5,
+    "maximum_absolute_view_median_reward_difference": 0.75,
+    "maximum_absolute_view_positive_fraction_difference": 0.15,
+    "maximum_median_oracle_seconds": 30.0,
+    "maximum_p95_oracle_seconds": 120.0
+  },
+  "selection_rule": "Select the passing target with the lowest SHA-256 of reaction-environment-selection-v1|target_id. If no target passes every gate, abstain and version a new protocol before target training.",
+  "allowed_information": [
+    "frozen fixture and reference-oracle qualification",
+    "starting-policy validity and uniqueness",
+    "frozen target-reward distribution",
+    "oracle completion and wall time"
+  ],
+  "excluded_information": [
+    "target-training outcomes",
+    "candidate-bank outcomes",
+    "published model rankings",
+    "known-active recovery",
+    "MolGenBench evaluation outcomes"
+  ],
+  "sealed_boundary": {
+    "starting_policy_samples_generated": false,
+    "target_selected": false,
+    "target_training_started": false,
+    "candidate_memberships_frozen": false
+  }
+}
