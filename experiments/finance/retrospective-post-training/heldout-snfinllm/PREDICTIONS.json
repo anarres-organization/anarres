@@ -1,0 +1,205 @@
+{
+  "candidate_file_sha256": "fa15a0cae6a24a3e003676e97eb9e7cdaf2d0897c13992ba5471caef5c6a33a4",
+  "interpretation": "Rankings apply wherever the paper reports comparable outcomes for these stages. A tie remains a tie and receives fractional decision credit.",
+  "predictions": {
+    "original_general_base": {
+      "compact_ridge": 0.32122084389595595,
+      "feature_values": {
+        "curriculum_progression": 0.0,
+        "curriculum_progression__observed": 0.0,
+        "data_volume": 0.0,
+        "data_volume__observed": 0.0,
+        "domain_specific_selection": 0.0,
+        "domain_specific_selection__observed": 0.0,
+        "efficient_rollout": 0.0,
+        "efficient_rollout__observed": 0.0,
+        "feedback_locality": 0.0,
+        "feedback_locality__observed": 0.0,
+        "human_labeled_fraction": 0.0,
+        "human_labeled_fraction__observed": 0.0,
+        "policy_relative_selection": 0.0,
+        "policy_relative_selection__observed": 0.0,
+        "qa_refinement": 0.0,
+        "qa_refinement__observed": 0.0,
+        "quality_control": 0.0,
+        "quality_control__observed": 1.0,
+        "retention_control": 0.0,
+        "retention_control__observed": 1.0,
+        "source_diversity": 0.0,
+        "source_diversity__observed": 1.0,
+        "target_alignment": 0.0,
+        "target_alignment__observed": 1.0,
+        "transcript_refinement": 0.0,
+        "transcript_refinement__observed": 0.0,
+        "verifier_alignment": 0.0,
+        "verifier_alignment__observed": 0.0
+      },
+      "full_ridge": 0.0027728207102167834,
+      "more_data": 0.0,
+      "practical_rule": 0.0
+    },
+    "snfinllm_base_cpt": {
+      "compact_ridge": 0.5421206888077034,
+      "feature_values": {
+        "curriculum_progression": 0.0,
+        "curriculum_progression__observed": 0.0,
+        "data_volume": 0.0,
+        "data_volume__observed": 0.0,
+        "domain_specific_selection": 0.0,
+        "domain_specific_selection__observed": 0.0,
+        "efficient_rollout": 0.0,
+        "efficient_rollout__observed": 0.0,
+        "feedback_locality": 0.0,
+        "feedback_locality__observed": 0.0,
+        "human_labeled_fraction": 0.0,
+        "human_labeled_fraction__observed": 0.0,
+        "policy_relative_selection": 0.0,
+        "policy_relative_selection__observed": 0.0,
+        "qa_refinement": 0.0,
+        "qa_refinement__observed": 0.0,
+        "quality_control": 0.0,
+        "quality_control__observed": 1.0,
+        "retention_control": 1.0,
+        "retention_control__observed": 1.0,
+        "source_diversity": 1.0,
+        "source_diversity__observed": 1.0,
+        "target_alignment": 0.25,
+        "target_alignment__observed": 1.0,
+        "transcript_refinement": 0.0,
+        "transcript_refinement__observed": 0.0,
+        "verifier_alignment": 0.0,
+        "verifier_alignment__observed": 0.0
+      },
+      "full_ridge": 0.2507600753657535,
+      "more_data": 0.0,
+      "practical_rule": 1.0
+    },
+    "snfinllm_chat_sft": {
+      "compact_ridge": 0.6599563664737451,
+      "feature_values": {
+        "curriculum_progression": 0.0,
+        "curriculum_progression__observed": 0.0,
+        "data_volume": 0.0,
+        "data_volume__observed": 0.0,
+        "domain_specific_selection": 0.0,
+        "domain_specific_selection__observed": 0.0,
+        "efficient_rollout": 0.0,
+        "efficient_rollout__observed": 0.0,
+        "feedback_locality": 0.0,
+        "feedback_locality__observed": 0.0,
+        "human_labeled_fraction": 0.0,
+        "human_labeled_fraction__observed": 0.0,
+        "policy_relative_selection": 0.0,
+        "policy_relative_selection__observed": 0.0,
+        "qa_refinement": 0.0,
+        "qa_refinement__observed": 0.0,
+        "quality_control": 0.5,
+        "quality_control__observed": 1.0,
+        "retention_control": 1.0,
+        "retention_control__observed": 1.0,
+        "source_diversity": 1.0,
+        "source_diversity__observed": 1.0,
+        "target_alignment": 1.0,
+        "target_alignment__observed": 1.0,
+        "transcript_refinement": 0.0,
+        "transcript_refinement__observed": 0.0,
+        "verifier_alignment": 0.0,
+        "verifier_alignment__observed": 0.0
+      },
+      "full_ridge": 0.6263185184691956,
+      "more_data": 0.0,
+      "practical_rule": 2.0
+    },
+    "snfinllm_dpo": {
+      "compact_ridge": 0.6932975161505444,
+      "feature_values": {
+        "curriculum_progression": 0.0,
+        "curriculum_progression__observed": 0.0,
+        "data_volume": 0.0,
+        "data_volume__observed": 0.0,
+        "domain_specific_selection": 0.0,
+        "domain_specific_selection__observed": 0.0,
+        "efficient_rollout": 0.0,
+        "efficient_rollout__observed": 0.0,
+        "feedback_locality": 0.0,
+        "feedback_locality__observed": 0.0,
+        "human_labeled_fraction": 0.0,
+        "human_labeled_fraction__observed": 0.0,
+        "policy_relative_selection": 0.0,
+        "policy_relative_selection__observed": 0.0,
+        "qa_refinement": 0.0,
+        "qa_refinement__observed": 0.0,
+        "quality_control": 1.0,
+        "quality_control__observed": 1.0,
+        "retention_control": 1.0,
+        "retention_control__observed": 1.0,
+        "source_diversity": 1.0,
+        "source_diversity__observed": 1.0,
+        "target_alignment": 1.0,
+        "target_alignment__observed": 1.0,
+        "transcript_refinement": 0.0,
+        "transcript_refinement__observed": 0.0,
+        "verifier_alignment": 0.0,
+        "verifier_alignment__observed": 0.0
+      },
+      "full_ridge": 0.722742708110015,
+      "more_data": 0.0,
+      "practical_rule": 2.25
+    }
+  },
+  "ranking_tiers": {
+    "compact_ridge": [
+      [
+        "snfinllm_dpo"
+      ],
+      [
+        "snfinllm_chat_sft"
+      ],
+      [
+        "snfinllm_base_cpt"
+      ],
+      [
+        "original_general_base"
+      ]
+    ],
+    "full_ridge": [
+      [
+        "snfinllm_dpo"
+      ],
+      [
+        "snfinllm_chat_sft"
+      ],
+      [
+        "snfinllm_base_cpt"
+      ],
+      [
+        "original_general_base"
+      ]
+    ],
+    "more_data": [
+      [
+        "original_general_base",
+        "snfinllm_base_cpt",
+        "snfinllm_chat_sft",
+        "snfinllm_dpo"
+      ]
+    ],
+    "practical_rule": [
+      [
+        "snfinllm_dpo"
+      ],
+      [
+        "snfinllm_chat_sft"
+      ],
+      [
+        "snfinllm_base_cpt"
+      ],
+      [
+        "original_general_base"
+      ]
+    ]
+  },
+  "representation_commit": "ea2e8b8714e1127a56a343c7f1a92da39f320cb7",
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_OUTCOME_EXTRACTION"
+}
