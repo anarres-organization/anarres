@@ -1,7 +1,8 @@
 # Prospective closed-loop curation on RoboMimic Can
 
-**Status:** measurement protocol frozen; candidate-policy outcomes have not
-been generated.
+**Status:** the execution is invalidated because its dataset and simulator
+variant did not match the intended CuraEval contract. No candidate policy was
+trained.
 
 This study asks whether target-sensitive measurements from a robot policy can
 choose a useful training subset before any candidate policy is trained. It uses
@@ -15,6 +16,25 @@ Second, those measurements deterministically construct a candidate bank. The
 candidate memberships, point prediction, and abstention rule must be serialized
 before candidate training begins.
 
+## Execution audit
+
+All three scoring checkpoints completed. Closed-loop panels were then collected
+for seeds 2 and 3, and each contained 100 failures and no successes. The
+reliability gate could not pass because CUPID's performance influence requires
+both outcome classes.
+
+A subsequent provenance audit found that the staged artifact was RoboMimic's
+v1.5 Can dataset with a RoboSuite 1.5 environment contract. CuraEval's released
+Can study instead specifies `low_dim_v141.hdf5` and RoboSuite 1.4.1. This
+mismatch invalidates the execution as a test of the intended protocol. It may
+explain the failed rollouts, but this record does not establish causality. The
+influence computations were stopped, and candidate training did not begin.
+
+The machine-readable evidence and artifact hashes are recorded in
+[`RESULT.json`](RESULT.json). No candidate-policy outcome was generated or
+opened. A new study must freeze the correct v1.4.1 artifact and qualify its
+closed-loop policy before influence measurement.
+
 ## Candidate bank
 
 Every 50% candidate contains 150 demonstrations. The bank contains:
@@ -26,11 +46,10 @@ Every 50% candidate contains 150 demonstrations. The bank contains:
 - the highest-ranked 50 demonstrations from each of the better, okay, and
   worse operator tiers.
 
-The final arm is the Anarres recommendation when the influence measurement
-passes its reliability gate. It combines target-sensitive influence with a
-fixed coverage constraint instead of assuming that either signal is sufficient
-alone. If the gate fails, the protocol abstains rather than replacing the rule
-after seeing training outcomes.
+The final arm was the Anarres recommendation if the influence measurement
+passed its reliability gate. The execution was invalidated before candidate
+training, so no arm was selected and the candidate bank remains an unevaluated
+design.
 
 ## Frozen decision contract
 
@@ -44,7 +63,7 @@ The protocol fixes:
 - 100 paired evaluation episodes per trained policy
 - training seed as the primary statistical unit
 - allocation regret, pair ordering, and seed-level uncertainty as the primary
-  decision outputs;
+  decision outputs
 - complete accounting of measurement, training, and evaluation cost.
 
 Candidate training outcomes remain sealed until every expected arm and seed is
