@@ -2,15 +2,21 @@
   "evaluations": {
     "leave_one_model_out": {
       "more_data": {
-        "mean_normalized_regret": 0.50653,
-        "normalized_rmse": 0.553651,
-        "pairwise_ordering": 0.532836,
+        "mean_normalized_regret": 0.485977,
+        "normalized_rmse": 0.546954,
+        "pairwise_ordering": 0.556921,
         "per_source": {
           "data_centric_finance": {
             "mean_normalized_regret": 0.158816,
             "normalized_rmse": 0.448729,
             "pairwise_ordering": 0.666667,
             "top_choice_credit": 0.733333
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.04674,
+            "normalized_rmse": 0.253486,
+            "pairwise_ordering": 0.793333,
+            "top_choice_credit": 0.6
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.298611,
@@ -23,6 +29,12 @@
             "normalized_rmse": 0.685415,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.325
+          },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
           },
           "finlcr_2026": {
             "mean_normalized_regret": 0.693065,
@@ -48,6 +60,12 @@
             "pairwise_ordering": 0.516129,
             "top_choice_credit": 0.0
           },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
+          },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.38941,
             "normalized_rmse": 0.536953,
@@ -60,6 +78,12 @@
             "pairwise_ordering": 0.9,
             "top_choice_credit": 0.5
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.525451,
+            "normalized_rmse": 0.637787,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.357143
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.645532,
             "normalized_rmse": 0.53065,
@@ -68,23 +92,29 @@
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.41786,
-          "normalized_rmse": 0.508528,
-          "pairwise_ordering": 0.587791,
-          "top_choice_credit": 0.319875
+          "mean_normalized_regret": 0.410771,
+          "normalized_rmse": 0.527912,
+          "pairwise_ordering": 0.58366,
+          "top_choice_credit": 0.368278
         },
-        "top_choice_credit": 0.340556
+        "top_choice_credit": 0.361215
       },
       "practical_rule": {
-        "mean_normalized_regret": 0.390174,
-        "normalized_rmse": 0.649697,
-        "pairwise_ordering": 0.6,
+        "mean_normalized_regret": 0.339714,
+        "normalized_rmse": 0.682552,
+        "pairwise_ordering": 0.626132,
         "per_source": {
           "data_centric_finance": {
             "mean_normalized_regret": 0.0,
             "normalized_rmse": 1.002072,
             "pairwise_ordering": 0.866667,
             "top_choice_credit": 1.0
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.04674,
+            "normalized_rmse": 0.440002,
+            "pairwise_ordering": 0.753333,
+            "top_choice_credit": 0.6
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.0,
@@ -97,6 +127,12 @@
             "normalized_rmse": 0.505011,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.75
+          },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 1.0,
+            "top_choice_credit": 1.0
           },
           "finlcr_2026": {
             "mean_normalized_regret": 0.387041,
@@ -122,6 +158,12 @@
             "pairwise_ordering": 0.709677,
             "top_choice_credit": 0.666667
           },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.25,
+            "normalized_rmse": 1.21192,
+            "pairwise_ordering": 0.75,
+            "top_choice_credit": 0.75
+          },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.129364,
             "normalized_rmse": 0.290484,
@@ -134,6 +176,12 @@
             "pairwise_ordering": 0.75,
             "top_choice_credit": 0.5
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 1.120418,
+            "pairwise_ordering": 0.934783,
+            "top_choice_credit": 1.0
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.69677,
             "normalized_rmse": 0.507723,
@@ -142,23 +190,29 @@
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.215831,
-          "normalized_rmse": 0.753873,
-          "pairwise_ordering": 0.70471,
-          "top_choice_credit": 0.651111
+          "mean_normalized_regret": 0.175361,
+          "normalized_rmse": 0.787013,
+          "pairwise_ordering": 0.748944,
+          "top_choice_credit": 0.704365
         },
-        "top_choice_credit": 0.467407
+        "top_choice_credit": 0.523988
       },
       "random_fingerprint": {
-        "mean_normalized_regret": 0.580194,
-        "normalized_rmse": 0.504452,
-        "pairwise_ordering": 0.493284,
+        "mean_normalized_regret": 0.575001,
+        "normalized_rmse": 0.50666,
+        "pairwise_ordering": 0.484476,
         "per_source": {
           "data_centric_finance": {
             "mean_normalized_regret": 0.362186,
             "normalized_rmse": 0.480247,
             "pairwise_ordering": 0.4,
             "top_choice_credit": 0.4
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.372187,
+            "normalized_rmse": 0.45792,
+            "pairwise_ordering": 0.446667,
+            "top_choice_credit": 0.2
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.076389,
@@ -171,6 +225,12 @@
             "normalized_rmse": 0.457893,
             "pairwise_ordering": 0.78125,
             "top_choice_credit": 1.0
+          },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 1.0,
+            "normalized_rmse": 0.713976,
+            "pairwise_ordering": 0.0,
+            "top_choice_credit": 0.0
           },
           "finlcr_2026": {
             "mean_normalized_regret": 0.62256,
@@ -196,6 +256,12 @@
             "pairwise_ordering": 0.483871,
             "top_choice_credit": 0.333333
           },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.75,
+            "normalized_rmse": 0.554002,
+            "pairwise_ordering": 0.25,
+            "top_choice_credit": 0.25
+          },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.540477,
             "normalized_rmse": 0.486642,
@@ -208,6 +274,12 @@
             "pairwise_ordering": 0.4,
             "top_choice_credit": 0.0
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.492377,
+            "normalized_rmse": 0.566315,
+            "pairwise_ordering": 0.413043,
+            "top_choice_credit": 0.285714
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.674162,
             "normalized_rmse": 0.494554,
@@ -216,90 +288,114 @@
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.459273,
-          "normalized_rmse": 0.496565,
-          "pairwise_ordering": 0.510404,
-          "top_choice_credit": 0.293148
+          "mean_normalized_regret": 0.514807,
+          "normalized_rmse": 0.518419,
+          "pairwise_ordering": 0.443839,
+          "top_choice_credit": 0.261943
         },
-        "top_choice_credit": 0.233333
+        "top_choice_credit": 0.233645
       },
       "ridge": {
-        "mean_normalized_regret": 0.194111,
-        "normalized_rmse": 0.36487,
-        "pairwise_ordering": 0.700746,
+        "mean_normalized_regret": 0.178029,
+        "normalized_rmse": 0.439413,
+        "pairwise_ordering": 0.713454,
         "per_source": {
           "data_centric_finance": {
             "mean_normalized_regret": 0.0,
-            "normalized_rmse": 0.378384,
-            "pairwise_ordering": 0.8,
+            "normalized_rmse": 0.333914,
+            "pairwise_ordering": 0.866667,
             "top_choice_credit": 1.0
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.04674,
+            "normalized_rmse": 0.423494,
+            "pairwise_ordering": 0.713333,
+            "top_choice_credit": 0.6
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.0,
-            "normalized_rmse": 0.384164,
+            "normalized_rmse": 0.376607,
             "pairwise_ordering": 0.85,
             "top_choice_credit": 1.0
           },
           "fin_sd_2026": {
             "mean_normalized_regret": 0.312169,
-            "normalized_rmse": 0.497302,
+            "normalized_rmse": 0.479618,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.666667
           },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 0.244717,
+            "pairwise_ordering": 1.0,
+            "top_choice_credit": 1.0
+          },
           "finlcr_2026": {
             "mean_normalized_regret": 0.652724,
-            "normalized_rmse": 0.469402,
-            "pairwise_ordering": 0.556034,
+            "normalized_rmse": 0.874032,
+            "pairwise_ordering": 0.538793,
             "top_choice_credit": 0.1875
           },
           "fino1": {
-            "mean_normalized_regret": 0.0,
-            "normalized_rmse": 0.328956,
-            "pairwise_ordering": 0.791667,
-            "top_choice_credit": 1.0
+            "mean_normalized_regret": 0.172673,
+            "normalized_rmse": 0.332024,
+            "pairwise_ordering": 0.708333,
+            "top_choice_credit": 0.5
           },
           "harsha2025_synthetic_financial_qa": {
             "mean_normalized_regret": 0.45,
-            "normalized_rmse": 0.495467,
-            "pairwise_ordering": 0.533333,
+            "normalized_rmse": 0.465169,
+            "pairwise_ordering": 0.683333,
             "top_choice_credit": 0.55
           },
           "oda_fin": {
             "mean_normalized_regret": 0.04,
-            "normalized_rmse": 0.371578,
-            "pairwise_ordering": 0.677419,
+            "normalized_rmse": 0.367253,
+            "pairwise_ordering": 0.709677,
             "top_choice_credit": 0.666667
+          },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.25,
+            "normalized_rmse": 0.526286,
+            "pairwise_ordering": 0.75,
+            "top_choice_credit": 0.75
           },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.0,
-            "normalized_rmse": 0.272181,
-            "pairwise_ordering": 0.916667,
+            "normalized_rmse": 0.292298,
+            "pairwise_ordering": 0.866667,
             "top_choice_credit": 1.0
           },
           "quanteval": {
             "mean_normalized_regret": 0.172414,
-            "normalized_rmse": 0.291552,
+            "normalized_rmse": 0.27492,
             "pairwise_ordering": 0.9,
             "top_choice_credit": 0.5
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 0.355744,
+            "pairwise_ordering": 0.978261,
+            "top_choice_credit": 1.0
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.079965,
-            "normalized_rmse": 0.296538,
+            "normalized_rmse": 0.302079,
             "pairwise_ordering": 0.688889,
             "top_choice_credit": 0.851852
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.170727,
-          "normalized_rmse": 0.378552,
-          "pairwise_ordering": 0.721401,
-          "top_choice_credit": 0.742269
+          "mean_normalized_regret": 0.155477,
+          "normalized_rmse": 0.40344,
+          "pairwise_ordering": 0.768139,
+          "top_choice_credit": 0.733763
         },
-        "top_choice_credit": 0.753704
+        "top_choice_credit": 0.755452
       },
       "uninformed": {
-        "mean_normalized_regret": 0.538569,
-        "normalized_rmse": 0.612115,
+        "mean_normalized_regret": 0.53065,
+        "normalized_rmse": 0.619741,
         "pairwise_ordering": 0.5,
         "per_source": {
           "data_centric_finance": {
@@ -307,6 +403,12 @@
             "normalized_rmse": 0.709856,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.4
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.426028,
+            "normalized_rmse": 0.66903,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.166667
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.418056,
@@ -319,6 +421,12 @@
             "normalized_rmse": 0.685415,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.325
+          },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
           },
           "finlcr_2026": {
             "mean_normalized_regret": 0.483244,
@@ -344,6 +452,12 @@
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.205556
           },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
+          },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.502875,
             "normalized_rmse": 0.637577,
@@ -356,6 +470,12 @@
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.2
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.525451,
+            "normalized_rmse": 0.637787,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.357143
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.645532,
             "normalized_rmse": 0.53065,
@@ -364,25 +484,31 @@
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.487606,
-          "normalized_rmse": 0.655008,
+          "mean_normalized_regret": 0.487681,
+          "normalized_rmse": 0.662222,
           "pairwise_ordering": 0.5,
-          "top_choice_credit": 0.264597
+          "top_choice_credit": 0.297842
         },
-        "top_choice_credit": 0.273333
+        "top_choice_credit": 0.284424
       }
     },
     "leave_one_source_out": {
       "more_data": {
-        "mean_normalized_regret": 0.50653,
-        "normalized_rmse": 0.553651,
-        "pairwise_ordering": 0.532836,
+        "mean_normalized_regret": 0.485977,
+        "normalized_rmse": 0.546954,
+        "pairwise_ordering": 0.556921,
         "per_source": {
           "data_centric_finance": {
             "mean_normalized_regret": 0.158816,
             "normalized_rmse": 0.448729,
             "pairwise_ordering": 0.666667,
             "top_choice_credit": 0.733333
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.04674,
+            "normalized_rmse": 0.253486,
+            "pairwise_ordering": 0.793333,
+            "top_choice_credit": 0.6
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.298611,
@@ -395,6 +521,12 @@
             "normalized_rmse": 0.685415,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.325
+          },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
           },
           "finlcr_2026": {
             "mean_normalized_regret": 0.693065,
@@ -420,6 +552,12 @@
             "pairwise_ordering": 0.516129,
             "top_choice_credit": 0.0
           },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
+          },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.38941,
             "normalized_rmse": 0.536953,
@@ -432,6 +570,12 @@
             "pairwise_ordering": 0.9,
             "top_choice_credit": 0.5
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.525451,
+            "normalized_rmse": 0.637787,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.357143
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.645532,
             "normalized_rmse": 0.53065,
@@ -440,23 +584,29 @@
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.41786,
-          "normalized_rmse": 0.508528,
-          "pairwise_ordering": 0.587791,
-          "top_choice_credit": 0.319875
+          "mean_normalized_regret": 0.410771,
+          "normalized_rmse": 0.527912,
+          "pairwise_ordering": 0.58366,
+          "top_choice_credit": 0.368278
         },
-        "top_choice_credit": 0.340556
+        "top_choice_credit": 0.361215
       },
       "practical_rule": {
-        "mean_normalized_regret": 0.390174,
-        "normalized_rmse": 0.649697,
-        "pairwise_ordering": 0.6,
+        "mean_normalized_regret": 0.339714,
+        "normalized_rmse": 0.682552,
+        "pairwise_ordering": 0.626132,
         "per_source": {
           "data_centric_finance": {
             "mean_normalized_regret": 0.0,
             "normalized_rmse": 1.002072,
             "pairwise_ordering": 0.866667,
             "top_choice_credit": 1.0
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.04674,
+            "normalized_rmse": 0.440002,
+            "pairwise_ordering": 0.753333,
+            "top_choice_credit": 0.6
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.0,
@@ -469,6 +619,12 @@
             "normalized_rmse": 0.505011,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.75
+          },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 1.0,
+            "top_choice_credit": 1.0
           },
           "finlcr_2026": {
             "mean_normalized_regret": 0.387041,
@@ -494,6 +650,12 @@
             "pairwise_ordering": 0.709677,
             "top_choice_credit": 0.666667
           },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.25,
+            "normalized_rmse": 1.21192,
+            "pairwise_ordering": 0.75,
+            "top_choice_credit": 0.75
+          },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.129364,
             "normalized_rmse": 0.290484,
@@ -506,6 +668,12 @@
             "pairwise_ordering": 0.75,
             "top_choice_credit": 0.5
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 1.120418,
+            "pairwise_ordering": 0.934783,
+            "top_choice_credit": 1.0
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.69677,
             "normalized_rmse": 0.507723,
@@ -514,23 +682,29 @@
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.215831,
-          "normalized_rmse": 0.753873,
-          "pairwise_ordering": 0.70471,
-          "top_choice_credit": 0.651111
+          "mean_normalized_regret": 0.175361,
+          "normalized_rmse": 0.787013,
+          "pairwise_ordering": 0.748944,
+          "top_choice_credit": 0.704365
         },
-        "top_choice_credit": 0.467407
+        "top_choice_credit": 0.523988
       },
       "random_fingerprint": {
-        "mean_normalized_regret": 0.580194,
-        "normalized_rmse": 0.504452,
-        "pairwise_ordering": 0.493284,
+        "mean_normalized_regret": 0.575001,
+        "normalized_rmse": 0.50666,
+        "pairwise_ordering": 0.484476,
         "per_source": {
           "data_centric_finance": {
             "mean_normalized_regret": 0.362186,
             "normalized_rmse": 0.480247,
             "pairwise_ordering": 0.4,
             "top_choice_credit": 0.4
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.372187,
+            "normalized_rmse": 0.45792,
+            "pairwise_ordering": 0.446667,
+            "top_choice_credit": 0.2
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.076389,
@@ -543,6 +717,12 @@
             "normalized_rmse": 0.457893,
             "pairwise_ordering": 0.78125,
             "top_choice_credit": 1.0
+          },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 1.0,
+            "normalized_rmse": 0.713976,
+            "pairwise_ordering": 0.0,
+            "top_choice_credit": 0.0
           },
           "finlcr_2026": {
             "mean_normalized_regret": 0.62256,
@@ -568,6 +748,12 @@
             "pairwise_ordering": 0.483871,
             "top_choice_credit": 0.333333
           },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.75,
+            "normalized_rmse": 0.554002,
+            "pairwise_ordering": 0.25,
+            "top_choice_credit": 0.25
+          },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.540477,
             "normalized_rmse": 0.486642,
@@ -580,6 +766,12 @@
             "pairwise_ordering": 0.4,
             "top_choice_credit": 0.0
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.492377,
+            "normalized_rmse": 0.566315,
+            "pairwise_ordering": 0.413043,
+            "top_choice_credit": 0.285714
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.674162,
             "normalized_rmse": 0.494554,
@@ -588,90 +780,114 @@
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.459273,
-          "normalized_rmse": 0.496565,
-          "pairwise_ordering": 0.510404,
-          "top_choice_credit": 0.293148
+          "mean_normalized_regret": 0.514807,
+          "normalized_rmse": 0.518419,
+          "pairwise_ordering": 0.443839,
+          "top_choice_credit": 0.261943
         },
-        "top_choice_credit": 0.233333
+        "top_choice_credit": 0.233645
       },
       "ridge": {
-        "mean_normalized_regret": 0.464127,
-        "normalized_rmse": 0.433705,
-        "pairwise_ordering": 0.549254,
+        "mean_normalized_regret": 0.405144,
+        "normalized_rmse": 0.486625,
+        "pairwise_ordering": 0.578266,
         "per_source": {
           "data_centric_finance": {
             "mean_normalized_regret": 0.0,
-            "normalized_rmse": 0.378384,
-            "pairwise_ordering": 0.8,
+            "normalized_rmse": 0.333914,
+            "pairwise_ordering": 0.866667,
             "top_choice_credit": 1.0
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.04674,
+            "normalized_rmse": 0.423494,
+            "pairwise_ordering": 0.713333,
+            "top_choice_credit": 0.6
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.0,
-            "normalized_rmse": 0.384164,
+            "normalized_rmse": 0.376607,
             "pairwise_ordering": 0.85,
             "top_choice_credit": 1.0
           },
           "fin_sd_2026": {
             "mean_normalized_regret": 0.312169,
-            "normalized_rmse": 0.497302,
+            "normalized_rmse": 0.479618,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.666667
           },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 0.244717,
+            "pairwise_ordering": 1.0,
+            "top_choice_credit": 1.0
+          },
           "finlcr_2026": {
             "mean_normalized_regret": 0.652724,
-            "normalized_rmse": 0.469402,
-            "pairwise_ordering": 0.556034,
+            "normalized_rmse": 0.874032,
+            "pairwise_ordering": 0.538793,
             "top_choice_credit": 0.1875
           },
           "fino1": {
-            "mean_normalized_regret": 0.0,
-            "normalized_rmse": 0.328956,
-            "pairwise_ordering": 0.791667,
-            "top_choice_credit": 1.0
+            "mean_normalized_regret": 0.172673,
+            "normalized_rmse": 0.332024,
+            "pairwise_ordering": 0.708333,
+            "top_choice_credit": 0.5
           },
           "harsha2025_synthetic_financial_qa": {
             "mean_normalized_regret": 0.512143,
-            "normalized_rmse": 0.52758,
+            "normalized_rmse": 0.51795,
             "pairwise_ordering": 0.425,
             "top_choice_credit": 0.45
           },
           "oda_fin": {
             "mean_normalized_regret": 0.04,
-            "normalized_rmse": 0.371578,
-            "pairwise_ordering": 0.677419,
+            "normalized_rmse": 0.367253,
+            "pairwise_ordering": 0.709677,
             "top_choice_credit": 0.666667
+          },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.25,
+            "normalized_rmse": 0.555008,
+            "pairwise_ordering": 0.75,
+            "top_choice_credit": 0.75
           },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.38941,
-            "normalized_rmse": 0.437937,
+            "normalized_rmse": 0.416731,
             "pairwise_ordering": 0.55,
             "top_choice_credit": 0.5
           },
           "quanteval": {
             "mean_normalized_regret": 0.172414,
-            "normalized_rmse": 0.291552,
+            "normalized_rmse": 0.27492,
             "pairwise_ordering": 0.9,
             "top_choice_credit": 0.5
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 0.367187,
+            "pairwise_ordering": 0.978261,
+            "top_choice_credit": 1.0
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.645532,
-            "normalized_rmse": 0.397878,
+            "normalized_rmse": 0.395661,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.2
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.272439,
-          "normalized_rmse": 0.408473,
-          "pairwise_ordering": 0.655012,
-          "top_choice_credit": 0.617083
+          "mean_normalized_regret": 0.228129,
+          "normalized_rmse": 0.425651,
+          "pairwise_ordering": 0.713576,
+          "top_choice_credit": 0.644345
         },
-        "top_choice_credit": 0.424815
+        "top_choice_credit": 0.478816
       },
       "uninformed": {
-        "mean_normalized_regret": 0.538569,
-        "normalized_rmse": 0.612115,
+        "mean_normalized_regret": 0.53065,
+        "normalized_rmse": 0.619741,
         "pairwise_ordering": 0.5,
         "per_source": {
           "data_centric_finance": {
@@ -679,6 +895,12 @@
             "normalized_rmse": 0.709856,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.4
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.426028,
+            "normalized_rmse": 0.66903,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.166667
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.418056,
@@ -691,6 +913,12 @@
             "normalized_rmse": 0.685415,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.325
+          },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
           },
           "finlcr_2026": {
             "mean_normalized_regret": 0.483244,
@@ -716,6 +944,12 @@
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.205556
           },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
+          },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.502875,
             "normalized_rmse": 0.637577,
@@ -728,6 +962,12 @@
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.2
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.525451,
+            "normalized_rmse": 0.637787,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.357143
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.645532,
             "normalized_rmse": 0.53065,
@@ -736,25 +976,31 @@
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.487606,
-          "normalized_rmse": 0.655008,
+          "mean_normalized_regret": 0.487681,
+          "normalized_rmse": 0.662222,
           "pairwise_ordering": 0.5,
-          "top_choice_credit": 0.264597
+          "top_choice_credit": 0.297842
         },
-        "top_choice_credit": 0.273333
+        "top_choice_credit": 0.284424
       }
     },
     "leave_one_target_out": {
       "more_data": {
-        "mean_normalized_regret": 0.50653,
-        "normalized_rmse": 0.553651,
-        "pairwise_ordering": 0.532836,
+        "mean_normalized_regret": 0.485977,
+        "normalized_rmse": 0.546954,
+        "pairwise_ordering": 0.556921,
         "per_source": {
           "data_centric_finance": {
             "mean_normalized_regret": 0.158816,
             "normalized_rmse": 0.448729,
             "pairwise_ordering": 0.666667,
             "top_choice_credit": 0.733333
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.04674,
+            "normalized_rmse": 0.253486,
+            "pairwise_ordering": 0.793333,
+            "top_choice_credit": 0.6
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.298611,
@@ -767,6 +1013,12 @@
             "normalized_rmse": 0.685415,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.325
+          },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
           },
           "finlcr_2026": {
             "mean_normalized_regret": 0.693065,
@@ -792,6 +1044,12 @@
             "pairwise_ordering": 0.516129,
             "top_choice_credit": 0.0
           },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
+          },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.38941,
             "normalized_rmse": 0.536953,
@@ -804,6 +1062,12 @@
             "pairwise_ordering": 0.9,
             "top_choice_credit": 0.5
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.525451,
+            "normalized_rmse": 0.637787,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.357143
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.645532,
             "normalized_rmse": 0.53065,
@@ -812,23 +1076,29 @@
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.41786,
-          "normalized_rmse": 0.508528,
-          "pairwise_ordering": 0.587791,
-          "top_choice_credit": 0.319875
+          "mean_normalized_regret": 0.410771,
+          "normalized_rmse": 0.527912,
+          "pairwise_ordering": 0.58366,
+          "top_choice_credit": 0.368278
         },
-        "top_choice_credit": 0.340556
+        "top_choice_credit": 0.361215
       },
       "practical_rule": {
-        "mean_normalized_regret": 0.390174,
-        "normalized_rmse": 0.649697,
-        "pairwise_ordering": 0.6,
+        "mean_normalized_regret": 0.339714,
+        "normalized_rmse": 0.682552,
+        "pairwise_ordering": 0.626132,
         "per_source": {
           "data_centric_finance": {
             "mean_normalized_regret": 0.0,
             "normalized_rmse": 1.002072,
             "pairwise_ordering": 0.866667,
             "top_choice_credit": 1.0
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.04674,
+            "normalized_rmse": 0.440002,
+            "pairwise_ordering": 0.753333,
+            "top_choice_credit": 0.6
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.0,
@@ -841,6 +1111,12 @@
             "normalized_rmse": 0.505011,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.75
+          },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 1.0,
+            "top_choice_credit": 1.0
           },
           "finlcr_2026": {
             "mean_normalized_regret": 0.387041,
@@ -866,6 +1142,12 @@
             "pairwise_ordering": 0.709677,
             "top_choice_credit": 0.666667
           },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.25,
+            "normalized_rmse": 1.21192,
+            "pairwise_ordering": 0.75,
+            "top_choice_credit": 0.75
+          },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.129364,
             "normalized_rmse": 0.290484,
@@ -878,6 +1160,12 @@
             "pairwise_ordering": 0.75,
             "top_choice_credit": 0.5
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 1.120418,
+            "pairwise_ordering": 0.934783,
+            "top_choice_credit": 1.0
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.69677,
             "normalized_rmse": 0.507723,
@@ -886,23 +1174,29 @@
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.215831,
-          "normalized_rmse": 0.753873,
-          "pairwise_ordering": 0.70471,
-          "top_choice_credit": 0.651111
+          "mean_normalized_regret": 0.175361,
+          "normalized_rmse": 0.787013,
+          "pairwise_ordering": 0.748944,
+          "top_choice_credit": 0.704365
         },
-        "top_choice_credit": 0.467407
+        "top_choice_credit": 0.523988
       },
       "random_fingerprint": {
-        "mean_normalized_regret": 0.580194,
-        "normalized_rmse": 0.504452,
-        "pairwise_ordering": 0.493284,
+        "mean_normalized_regret": 0.575001,
+        "normalized_rmse": 0.50666,
+        "pairwise_ordering": 0.484476,
         "per_source": {
           "data_centric_finance": {
             "mean_normalized_regret": 0.362186,
             "normalized_rmse": 0.480247,
             "pairwise_ordering": 0.4,
             "top_choice_credit": 0.4
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.372187,
+            "normalized_rmse": 0.45792,
+            "pairwise_ordering": 0.446667,
+            "top_choice_credit": 0.2
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.076389,
@@ -915,6 +1209,12 @@
             "normalized_rmse": 0.457893,
             "pairwise_ordering": 0.78125,
             "top_choice_credit": 1.0
+          },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 1.0,
+            "normalized_rmse": 0.713976,
+            "pairwise_ordering": 0.0,
+            "top_choice_credit": 0.0
           },
           "finlcr_2026": {
             "mean_normalized_regret": 0.62256,
@@ -940,6 +1240,12 @@
             "pairwise_ordering": 0.483871,
             "top_choice_credit": 0.333333
           },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.75,
+            "normalized_rmse": 0.554002,
+            "pairwise_ordering": 0.25,
+            "top_choice_credit": 0.25
+          },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.540477,
             "normalized_rmse": 0.486642,
@@ -952,6 +1258,12 @@
             "pairwise_ordering": 0.4,
             "top_choice_credit": 0.0
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.492377,
+            "normalized_rmse": 0.566315,
+            "pairwise_ordering": 0.413043,
+            "top_choice_credit": 0.285714
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.674162,
             "normalized_rmse": 0.494554,
@@ -960,90 +1272,114 @@
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.459273,
-          "normalized_rmse": 0.496565,
-          "pairwise_ordering": 0.510404,
-          "top_choice_credit": 0.293148
+          "mean_normalized_regret": 0.514807,
+          "normalized_rmse": 0.518419,
+          "pairwise_ordering": 0.443839,
+          "top_choice_credit": 0.261943
         },
-        "top_choice_credit": 0.233333
+        "top_choice_credit": 0.233645
       },
       "ridge": {
-        "mean_normalized_regret": 0.227283,
-        "normalized_rmse": 0.374937,
-        "pairwise_ordering": 0.675373,
+        "mean_normalized_regret": 0.212138,
+        "normalized_rmse": 0.367562,
+        "pairwise_ordering": 0.675938,
         "per_source": {
           "data_centric_finance": {
             "mean_normalized_regret": 0.0,
-            "normalized_rmse": 0.378384,
-            "pairwise_ordering": 0.8,
+            "normalized_rmse": 0.333914,
+            "pairwise_ordering": 0.866667,
             "top_choice_credit": 1.0
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.04674,
+            "normalized_rmse": 0.312321,
+            "pairwise_ordering": 0.793333,
+            "top_choice_credit": 0.6
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.0,
-            "normalized_rmse": 0.384164,
+            "normalized_rmse": 0.376607,
             "pairwise_ordering": 0.85,
             "top_choice_credit": 1.0
           },
           "fin_sd_2026": {
             "mean_normalized_regret": 0.312169,
-            "normalized_rmse": 0.497302,
+            "normalized_rmse": 0.479618,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.666667
           },
-          "finlcr_2026": {
-            "mean_normalized_regret": 0.596861,
-            "normalized_rmse": 0.379294,
-            "pairwise_ordering": 0.599138,
-            "top_choice_credit": 0.208333
-          },
-          "fino1": {
+          "financial_advice_grpo_2026": {
             "mean_normalized_regret": 0.0,
-            "normalized_rmse": 0.328956,
-            "pairwise_ordering": 0.791667,
+            "normalized_rmse": 0.244717,
+            "pairwise_ordering": 1.0,
             "top_choice_credit": 1.0
           },
+          "finlcr_2026": {
+            "mean_normalized_regret": 0.820312,
+            "normalized_rmse": 0.40149,
+            "pairwise_ordering": 0.409483,
+            "top_choice_credit": 0.125
+          },
+          "fino1": {
+            "mean_normalized_regret": 0.172673,
+            "normalized_rmse": 0.332024,
+            "pairwise_ordering": 0.708333,
+            "top_choice_credit": 0.5
+          },
           "harsha2025_synthetic_financial_qa": {
-            "mean_normalized_regret": 0.621617,
-            "normalized_rmse": 0.54701,
-            "pairwise_ordering": 0.283333,
+            "mean_normalized_regret": 0.565448,
+            "normalized_rmse": 0.496165,
+            "pairwise_ordering": 0.383333,
             "top_choice_credit": 0.35
           },
           "oda_fin": {
             "mean_normalized_regret": 0.04,
-            "normalized_rmse": 0.371578,
-            "pairwise_ordering": 0.677419,
+            "normalized_rmse": 0.367253,
+            "pairwise_ordering": 0.709677,
             "top_choice_credit": 0.666667
+          },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.25,
+            "normalized_rmse": 0.526286,
+            "pairwise_ordering": 0.75,
+            "top_choice_credit": 0.75
           },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.0,
-            "normalized_rmse": 0.306898,
-            "pairwise_ordering": 0.875,
+            "normalized_rmse": 0.313863,
+            "pairwise_ordering": 0.866667,
             "top_choice_credit": 1.0
           },
           "quanteval": {
             "mean_normalized_regret": 0.172414,
-            "normalized_rmse": 0.291552,
+            "normalized_rmse": 0.27492,
             "pairwise_ordering": 0.9,
             "top_choice_credit": 0.5
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 0.367187,
+            "pairwise_ordering": 0.978261,
+            "top_choice_credit": 1.0
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.079965,
-            "normalized_rmse": 0.317786,
+            "normalized_rmse": 0.32483,
             "pairwise_ordering": 0.681481,
             "top_choice_credit": 0.851852
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.182303,
-          "normalized_rmse": 0.380292,
-          "pairwise_ordering": 0.695804,
-          "top_choice_credit": 0.724352
+          "mean_normalized_regret": 0.175694,
+          "normalized_rmse": 0.367943,
+          "pairwise_ordering": 0.74266,
+          "top_choice_credit": 0.715013
         },
-        "top_choice_credit": 0.711111
+        "top_choice_credit": 0.713396
       },
       "uninformed": {
-        "mean_normalized_regret": 0.538569,
-        "normalized_rmse": 0.612115,
+        "mean_normalized_regret": 0.53065,
+        "normalized_rmse": 0.619741,
         "pairwise_ordering": 0.5,
         "per_source": {
           "data_centric_finance": {
@@ -1051,6 +1387,12 @@
             "normalized_rmse": 0.709856,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.4
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.426028,
+            "normalized_rmse": 0.66903,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.166667
           },
           "fin_prm_2026": {
             "mean_normalized_regret": 0.418056,
@@ -1063,6 +1405,12 @@
             "normalized_rmse": 0.685415,
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.325
+          },
+          "financial_advice_grpo_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
           },
           "finlcr_2026": {
             "mean_normalized_regret": 0.483244,
@@ -1088,6 +1436,12 @@
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.205556
           },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
+          },
           "phogat2024_financial_qa": {
             "mean_normalized_regret": 0.502875,
             "normalized_rmse": 0.637577,
@@ -1100,6 +1454,12 @@
             "pairwise_ordering": 0.5,
             "top_choice_credit": 0.2
           },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.525451,
+            "normalized_rmse": 0.637787,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.357143
+          },
           "shin_kim_2026_speech_sft": {
             "mean_normalized_regret": 0.645532,
             "normalized_rmse": 0.53065,
@@ -1108,12 +1468,12 @@
           }
         },
         "source_macro": {
-          "mean_normalized_regret": 0.487606,
-          "normalized_rmse": 0.655008,
+          "mean_normalized_regret": 0.487681,
+          "normalized_rmse": 0.662222,
           "pairwise_ordering": 0.5,
-          "top_choice_credit": 0.264597
+          "top_choice_credit": 0.297842
         },
-        "top_choice_credit": 0.273333
+        "top_choice_credit": 0.284424
       }
     }
   },
@@ -1139,38 +1499,509 @@
     "model and target holdouts are nested within sources and are sensitivity analyses",
     "the result cannot replace a frozen prospective finance decision"
   ],
+  "multi_panel_source_sensitivity": {
+    "evaluations": {
+      "more_data": {
+        "mean_normalized_regret": 0.487628,
+        "normalized_rmse": 0.547088,
+        "pairwise_ordering": 0.55643,
+        "per_source": {
+          "data_centric_finance": {
+            "mean_normalized_regret": 0.158816,
+            "normalized_rmse": 0.448729,
+            "pairwise_ordering": 0.666667,
+            "top_choice_credit": 0.733333
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.04674,
+            "normalized_rmse": 0.253486,
+            "pairwise_ordering": 0.793333,
+            "top_choice_credit": 0.6
+          },
+          "fin_sd_2026": {
+            "mean_normalized_regret": 0.447776,
+            "normalized_rmse": 0.685415,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.325
+          },
+          "finlcr_2026": {
+            "mean_normalized_regret": 0.693065,
+            "normalized_rmse": 0.593152,
+            "pairwise_ordering": 0.478448,
+            "top_choice_credit": 0.15625
+          },
+          "fino1": {
+            "mean_normalized_regret": 0.371391,
+            "normalized_rmse": 0.533908,
+            "pairwise_ordering": 0.625,
+            "top_choice_credit": 0.125
+          },
+          "harsha2025_synthetic_financial_qa": {
+            "mean_normalized_regret": 0.510916,
+            "normalized_rmse": 0.660163,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.409167
+          },
+          "oda_fin": {
+            "mean_normalized_regret": 0.550091,
+            "normalized_rmse": 0.501368,
+            "pairwise_ordering": 0.516129,
+            "top_choice_credit": 0.0
+          },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
+          },
+          "phogat2024_financial_qa": {
+            "mean_normalized_regret": 0.38941,
+            "normalized_rmse": 0.536953,
+            "pairwise_ordering": 0.591667,
+            "top_choice_credit": 0.5
+          },
+          "quanteval": {
+            "mean_normalized_regret": 0.112993,
+            "normalized_rmse": 0.140931,
+            "pairwise_ordering": 0.9,
+            "top_choice_credit": 0.5
+          },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.525451,
+            "normalized_rmse": 0.637787,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.357143
+          },
+          "shin_kim_2026_speech_sft": {
+            "mean_normalized_regret": 0.645532,
+            "normalized_rmse": 0.53065,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.2
+          }
+        },
+        "source_macro": {
+          "mean_normalized_regret": 0.412682,
+          "normalized_rmse": 0.519137,
+          "pairwise_ordering": 0.58927,
+          "top_choice_credit": 0.367158
+        },
+        "top_choice_credit": 0.360952
+      },
+      "practical_rule": {
+        "mean_normalized_regret": 0.346185,
+        "normalized_rmse": 0.684817,
+        "pairwise_ordering": 0.622047,
+        "per_source": {
+          "data_centric_finance": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 1.002072,
+            "pairwise_ordering": 0.866667,
+            "top_choice_credit": 1.0
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.04674,
+            "normalized_rmse": 0.440002,
+            "pairwise_ordering": 0.753333,
+            "top_choice_credit": 0.6
+          },
+          "fin_sd_2026": {
+            "mean_normalized_regret": 0.25,
+            "normalized_rmse": 0.505011,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.75
+          },
+          "finlcr_2026": {
+            "mean_normalized_regret": 0.387041,
+            "normalized_rmse": 0.92423,
+            "pairwise_ordering": 0.594828,
+            "top_choice_credit": 0.258333
+          },
+          "fino1": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 1.333844,
+            "pairwise_ordering": 0.791667,
+            "top_choice_credit": 1.0
+          },
+          "harsha2025_synthetic_financial_qa": {
+            "mean_normalized_regret": 0.482724,
+            "normalized_rmse": 0.627851,
+            "pairwise_ordering": 0.658333,
+            "top_choice_credit": 0.475
+          },
+          "oda_fin": {
+            "mean_normalized_regret": 0.04,
+            "normalized_rmse": 1.115833,
+            "pairwise_ordering": 0.709677,
+            "top_choice_credit": 0.666667
+          },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.25,
+            "normalized_rmse": 1.21192,
+            "pairwise_ordering": 0.75,
+            "top_choice_credit": 0.75
+          },
+          "phogat2024_financial_qa": {
+            "mean_normalized_regret": 0.129364,
+            "normalized_rmse": 0.290484,
+            "pairwise_ordering": 0.85,
+            "top_choice_credit": 0.75
+          },
+          "quanteval": {
+            "mean_normalized_regret": 0.172414,
+            "normalized_rmse": 0.801229,
+            "pairwise_ordering": 0.75,
+            "top_choice_credit": 0.5
+          },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 1.120418,
+            "pairwise_ordering": 0.934783,
+            "top_choice_credit": 1.0
+          },
+          "shin_kim_2026_speech_sft": {
+            "mean_normalized_regret": 0.69677,
+            "normalized_rmse": 0.507723,
+            "pairwise_ordering": 0.425926,
+            "top_choice_credit": 0.111111
+          }
+        },
+        "source_macro": {
+          "mean_normalized_regret": 0.204588,
+          "normalized_rmse": 0.823385,
+          "pairwise_ordering": 0.715435,
+          "top_choice_credit": 0.655093
+        },
+        "top_choice_credit": 0.514921
+      },
+      "random_fingerprint": {
+        "mean_normalized_regret": 0.575702,
+        "normalized_rmse": 0.506645,
+        "pairwise_ordering": 0.483596,
+        "per_source": {
+          "data_centric_finance": {
+            "mean_normalized_regret": 0.362186,
+            "normalized_rmse": 0.480247,
+            "pairwise_ordering": 0.4,
+            "top_choice_credit": 0.4
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.372187,
+            "normalized_rmse": 0.45792,
+            "pairwise_ordering": 0.446667,
+            "top_choice_credit": 0.2
+          },
+          "fin_sd_2026": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 0.457893,
+            "pairwise_ordering": 0.78125,
+            "top_choice_credit": 1.0
+          },
+          "finlcr_2026": {
+            "mean_normalized_regret": 0.62256,
+            "normalized_rmse": 0.508002,
+            "pairwise_ordering": 0.487069,
+            "top_choice_credit": 0.0
+          },
+          "fino1": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.481418,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
+          },
+          "harsha2025_synthetic_financial_qa": {
+            "mean_normalized_regret": 0.631478,
+            "normalized_rmse": 0.553598,
+            "pairwise_ordering": 0.441667,
+            "top_choice_credit": 0.3
+          },
+          "oda_fin": {
+            "mean_normalized_regret": 0.337268,
+            "normalized_rmse": 0.516043,
+            "pairwise_ordering": 0.483871,
+            "top_choice_credit": 0.333333
+          },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.75,
+            "normalized_rmse": 0.554002,
+            "pairwise_ordering": 0.25,
+            "top_choice_credit": 0.25
+          },
+          "phogat2024_financial_qa": {
+            "mean_normalized_regret": 0.540477,
+            "normalized_rmse": 0.486642,
+            "pairwise_ordering": 0.525,
+            "top_choice_credit": 0.25
+          },
+          "quanteval": {
+            "mean_normalized_regret": 0.848214,
+            "normalized_rmse": 0.591288,
+            "pairwise_ordering": 0.4,
+            "top_choice_credit": 0.0
+          },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.492377,
+            "normalized_rmse": 0.566315,
+            "pairwise_ordering": 0.413043,
+            "top_choice_credit": 0.285714
+          },
+          "shin_kim_2026_speech_sft": {
+            "mean_normalized_regret": 0.674162,
+            "normalized_rmse": 0.494554,
+            "pairwise_ordering": 0.485185,
+            "top_choice_credit": 0.148148
+          }
+        },
+        "source_macro": {
+          "mean_normalized_regret": 0.510909,
+          "normalized_rmse": 0.512327,
+          "pairwise_ordering": 0.467813,
+          "top_choice_credit": 0.3056
+        },
+        "top_choice_credit": 0.238095
+      },
+      "ridge": {
+        "mean_normalized_regret": 0.422864,
+        "normalized_rmse": 0.49871,
+        "pairwise_ordering": 0.571522,
+        "per_source": {
+          "data_centric_finance": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 0.334678,
+            "pairwise_ordering": 0.866667,
+            "top_choice_credit": 1.0
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.04674,
+            "normalized_rmse": 0.420414,
+            "pairwise_ordering": 0.713333,
+            "top_choice_credit": 0.6
+          },
+          "fin_sd_2026": {
+            "mean_normalized_regret": 0.312169,
+            "normalized_rmse": 0.482992,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.666667
+          },
+          "finlcr_2026": {
+            "mean_normalized_regret": 0.652724,
+            "normalized_rmse": 0.915048,
+            "pairwise_ordering": 0.538793,
+            "top_choice_credit": 0.1875
+          },
+          "fino1": {
+            "mean_normalized_regret": 0.172673,
+            "normalized_rmse": 0.337363,
+            "pairwise_ordering": 0.708333,
+            "top_choice_credit": 0.5
+          },
+          "harsha2025_synthetic_financial_qa": {
+            "mean_normalized_regret": 0.512143,
+            "normalized_rmse": 0.515331,
+            "pairwise_ordering": 0.425,
+            "top_choice_credit": 0.45
+          },
+          "oda_fin": {
+            "mean_normalized_regret": 0.390091,
+            "normalized_rmse": 0.368175,
+            "pairwise_ordering": 0.645161,
+            "top_choice_credit": 0.0
+          },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.25,
+            "normalized_rmse": 0.54915,
+            "pairwise_ordering": 0.75,
+            "top_choice_credit": 0.75
+          },
+          "phogat2024_financial_qa": {
+            "mean_normalized_regret": 0.38941,
+            "normalized_rmse": 0.42804,
+            "pairwise_ordering": 0.55,
+            "top_choice_credit": 0.5
+          },
+          "quanteval": {
+            "mean_normalized_regret": 0.172414,
+            "normalized_rmse": 0.279429,
+            "pairwise_ordering": 0.9,
+            "top_choice_credit": 0.5
+          },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.0,
+            "normalized_rmse": 0.386383,
+            "pairwise_ordering": 0.978261,
+            "top_choice_credit": 1.0
+          },
+          "shin_kim_2026_speech_sft": {
+            "mean_normalized_regret": 0.645532,
+            "normalized_rmse": 0.396019,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.2
+          }
+        },
+        "source_macro": {
+          "mean_normalized_regret": 0.295325,
+          "normalized_rmse": 0.451085,
+          "pairwise_ordering": 0.672962,
+          "top_choice_credit": 0.529514
+        },
+        "top_choice_credit": 0.449841
+      },
+      "uninformed": {
+        "mean_normalized_regret": 0.532014,
+        "normalized_rmse": 0.617954,
+        "pairwise_ordering": 0.5,
+        "per_source": {
+          "data_centric_finance": {
+            "mean_normalized_regret": 0.459658,
+            "normalized_rmse": 0.709856,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.4
+          },
+          "dianjin_r1_2025": {
+            "mean_normalized_regret": 0.426028,
+            "normalized_rmse": 0.66903,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.166667
+          },
+          "fin_sd_2026": {
+            "mean_normalized_regret": 0.447776,
+            "normalized_rmse": 0.685415,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.325
+          },
+          "finlcr_2026": {
+            "mean_normalized_regret": 0.483244,
+            "normalized_rmse": 0.638495,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.20625
+          },
+          "fino1": {
+            "mean_normalized_regret": 0.485129,
+            "normalized_rmse": 0.654768,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.25
+          },
+          "harsha2025_synthetic_financial_qa": {
+            "mean_normalized_regret": 0.510916,
+            "normalized_rmse": 0.660163,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.409167
+          },
+          "oda_fin": {
+            "mean_normalized_regret": 0.472193,
+            "normalized_rmse": 0.649933,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.205556
+          },
+          "okochi_japanese_finance_2026": {
+            "mean_normalized_regret": 0.5,
+            "normalized_rmse": 0.707107,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.5
+          },
+          "phogat2024_financial_qa": {
+            "mean_normalized_regret": 0.502875,
+            "normalized_rmse": 0.637577,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.25
+          },
+          "quanteval": {
+            "mean_normalized_regret": 0.450677,
+            "normalized_rmse": 0.656347,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.2
+          },
+          "select2know_2025": {
+            "mean_normalized_regret": 0.525451,
+            "normalized_rmse": 0.637787,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.357143
+          },
+          "shin_kim_2026_speech_sft": {
+            "mean_normalized_regret": 0.645532,
+            "normalized_rmse": 0.53065,
+            "pairwise_ordering": 0.5,
+            "top_choice_credit": 0.2
+          }
+        },
+        "source_macro": {
+          "mean_normalized_regret": 0.492457,
+          "normalized_rmse": 0.653094,
+          "pairwise_ordering": 0.5,
+          "top_choice_credit": 0.289149
+        },
+        "top_choice_credit": 0.283175
+      }
+    },
+    "paired_source_comparison": {
+      "left": "practical_rule",
+      "positive_means_left_has_lower_regret": {
+        "data_centric_finance": 0.158816,
+        "dianjin_r1_2025": 0.0,
+        "fin_sd_2026": 0.197776,
+        "finlcr_2026": 0.306024,
+        "fino1": 0.371391,
+        "harsha2025_synthetic_financial_qa": 0.028192,
+        "oda_fin": 0.510091,
+        "okochi_japanese_finance_2026": 0.25,
+        "phogat2024_financial_qa": 0.260046,
+        "quanteval": -0.059421,
+        "select2know_2025": 0.525451,
+        "shin_kim_2026_speech_sft": -0.051238
+      },
+      "right": "more_data",
+      "study_losses": 2,
+      "study_ties": 1,
+      "study_wins": 9,
+      "two_sided_exact_sign_p": 0.06543
+    },
+    "support": {
+      "arms": 431,
+      "panels": 105,
+      "sources": 12
+    }
+  },
   "normalization": "zero-to-one utility within each source-native decision panel",
   "paired_source_comparison": {
     "left": "practical_rule",
     "positive_means_left_has_lower_regret": {
       "data_centric_finance": 0.158816,
+      "dianjin_r1_2025": 0.0,
       "fin_prm_2026": 0.298611,
       "fin_sd_2026": 0.197776,
+      "financial_advice_grpo_2026": 0.5,
       "finlcr_2026": 0.306024,
       "fino1": 0.371391,
       "harsha2025_synthetic_financial_qa": 0.028192,
       "oda_fin": 0.510091,
+      "okochi_japanese_finance_2026": 0.25,
       "phogat2024_financial_qa": 0.260046,
       "quanteval": -0.059421,
+      "select2know_2025": 0.525451,
       "shin_kim_2026_speech_sft": -0.051238
     },
     "right": "more_data",
     "study_losses": 2,
-    "study_ties": 0,
-    "study_wins": 8,
-    "two_sided_exact_sign_p": 0.109375
+    "study_ties": 1,
+    "study_wins": 11,
+    "two_sided_exact_sign_p": 0.022461
   },
   "rank_utility_sensitivity": {
     "more_data": {
-      "mean_normalized_regret": 0.453349,
-      "normalized_rmse": 0.567537,
-      "pairwise_ordering": 0.532836,
+      "mean_normalized_regret": 0.444172,
+      "normalized_rmse": 0.559566,
+      "pairwise_ordering": 0.556921,
       "per_source": {
         "data_centric_finance": {
           "mean_normalized_regret": 0.177778,
           "normalized_rmse": 0.417855,
           "pairwise_ordering": 0.666667,
           "top_choice_credit": 0.733333
+        },
+        "dianjin_r1_2025": {
+          "mean_normalized_regret": 0.12,
+          "normalized_rmse": 0.268173,
+          "pairwise_ordering": 0.793333,
+          "top_choice_credit": 0.6
         },
         "fin_prm_2026": {
           "mean_normalized_regret": 0.4375,
@@ -1183,6 +2014,12 @@
           "normalized_rmse": 0.675863,
           "pairwise_ordering": 0.5,
           "top_choice_credit": 0.325
+        },
+        "financial_advice_grpo_2026": {
+          "mean_normalized_regret": 0.5,
+          "normalized_rmse": 0.707107,
+          "pairwise_ordering": 0.5,
+          "top_choice_credit": 0.5
         },
         "finlcr_2026": {
           "mean_normalized_regret": 0.635417,
@@ -1208,6 +2045,12 @@
           "pairwise_ordering": 0.516129,
           "top_choice_credit": 0.0
         },
+        "okochi_japanese_finance_2026": {
+          "mean_normalized_regret": 0.5,
+          "normalized_rmse": 0.707107,
+          "pairwise_ordering": 0.5,
+          "top_choice_credit": 0.5
+        },
         "phogat2024_financial_qa": {
           "mean_normalized_regret": 0.333333,
           "normalized_rmse": 0.488763,
@@ -1220,6 +2063,12 @@
           "pairwise_ordering": 0.9,
           "top_choice_credit": 0.5
         },
+        "select2know_2025": {
+          "mean_normalized_regret": 0.517857,
+          "normalized_rmse": 0.638285,
+          "pairwise_ordering": 0.5,
+          "top_choice_credit": 0.357143
+        },
         "shin_kim_2026_speech_sft": {
           "mean_normalized_regret": 0.502469,
           "normalized_rmse": 0.611195,
@@ -1228,23 +2077,29 @@
         }
       },
       "source_macro": {
-        "mean_normalized_regret": 0.427677,
-        "normalized_rmse": 0.509976,
-        "pairwise_ordering": 0.587791,
-        "top_choice_credit": 0.319875
+        "mean_normalized_regret": 0.422474,
+        "normalized_rmse": 0.530031,
+        "pairwise_ordering": 0.58366,
+        "top_choice_credit": 0.368278
       },
-      "top_choice_credit": 0.340556
+      "top_choice_credit": 0.361215
     },
     "practical_rule": {
-      "mean_normalized_regret": 0.327712,
-      "normalized_rmse": 0.657597,
-      "pairwise_ordering": 0.6,
+      "mean_normalized_regret": 0.290599,
+      "normalized_rmse": 0.688012,
+      "pairwise_ordering": 0.626132,
       "per_source": {
         "data_centric_finance": {
           "mean_normalized_regret": 0.0,
           "normalized_rmse": 1.04307,
           "pairwise_ordering": 0.866667,
           "top_choice_credit": 1.0
+        },
+        "dianjin_r1_2025": {
+          "mean_normalized_regret": 0.12,
+          "normalized_rmse": 0.417431,
+          "pairwise_ordering": 0.753333,
+          "top_choice_credit": 0.6
         },
         "fin_prm_2026": {
           "mean_normalized_regret": 0.0,
@@ -1257,6 +2112,12 @@
           "normalized_rmse": 0.433155,
           "pairwise_ordering": 0.5,
           "top_choice_credit": 0.75
+        },
+        "financial_advice_grpo_2026": {
+          "mean_normalized_regret": 0.0,
+          "normalized_rmse": 0.707107,
+          "pairwise_ordering": 1.0,
+          "top_choice_credit": 1.0
         },
         "finlcr_2026": {
           "mean_normalized_regret": 0.389881,
@@ -1282,6 +2143,12 @@
           "pairwise_ordering": 0.709677,
           "top_choice_credit": 0.666667
         },
+        "okochi_japanese_finance_2026": {
+          "mean_normalized_regret": 0.25,
+          "normalized_rmse": 1.21192,
+          "pairwise_ordering": 0.75,
+          "top_choice_credit": 0.75
+        },
         "phogat2024_financial_qa": {
           "mean_normalized_regret": 0.133333,
           "normalized_rmse": 0.288675,
@@ -1294,6 +2161,12 @@
           "pairwise_ordering": 0.75,
           "top_choice_credit": 0.5
         },
+        "select2know_2025": {
+          "mean_normalized_regret": 0.0,
+          "normalized_rmse": 1.11966,
+          "pairwise_ordering": 0.934783,
+          "top_choice_credit": 1.0
+        },
         "shin_kim_2026_speech_sft": {
           "mean_normalized_regret": 0.484568,
           "normalized_rmse": 0.525972,
@@ -1302,23 +2175,29 @@
         }
       },
       "source_macro": {
-        "mean_normalized_regret": 0.205986,
-        "normalized_rmse": 0.748942,
-        "pairwise_ordering": 0.70471,
-        "top_choice_credit": 0.651111
+        "mean_normalized_regret": 0.173562,
+        "normalized_rmse": 0.781824,
+        "pairwise_ordering": 0.748944,
+        "top_choice_credit": 0.704365
       },
-      "top_choice_credit": 0.467407
+      "top_choice_credit": 0.523988
     },
     "random_fingerprint": {
-      "mean_normalized_regret": 0.531825,
-      "normalized_rmse": 0.477343,
-      "pairwise_ordering": 0.493284,
+      "mean_normalized_regret": 0.537828,
+      "normalized_rmse": 0.483441,
+      "pairwise_ordering": 0.484476,
       "per_source": {
         "data_centric_finance": {
           "mean_normalized_regret": 0.466667,
           "normalized_rmse": 0.482587,
           "pairwise_ordering": 0.4,
           "top_choice_credit": 0.4
+        },
+        "dianjin_r1_2025": {
+          "mean_normalized_regret": 0.47,
+          "normalized_rmse": 0.468539,
+          "pairwise_ordering": 0.446667,
+          "top_choice_credit": 0.2
         },
         "fin_prm_2026": {
           "mean_normalized_regret": 0.25,
@@ -1331,6 +2210,12 @@
           "normalized_rmse": 0.371105,
           "pairwise_ordering": 0.78125,
           "top_choice_credit": 1.0
+        },
+        "financial_advice_grpo_2026": {
+          "mean_normalized_regret": 1.0,
+          "normalized_rmse": 0.713976,
+          "pairwise_ordering": 0.0,
+          "top_choice_credit": 0.0
         },
         "finlcr_2026": {
           "mean_normalized_regret": 0.599702,
@@ -1356,6 +2241,12 @@
           "pairwise_ordering": 0.483871,
           "top_choice_credit": 0.333333
         },
+        "okochi_japanese_finance_2026": {
+          "mean_normalized_regret": 0.75,
+          "normalized_rmse": 0.554002,
+          "pairwise_ordering": 0.25,
+          "top_choice_credit": 0.25
+        },
         "phogat2024_financial_qa": {
           "mean_normalized_regret": 0.483333,
           "normalized_rmse": 0.462897,
@@ -1368,6 +2259,12 @@
           "pairwise_ordering": 0.4,
           "top_choice_credit": 0.0
         },
+        "select2know_2025": {
+          "mean_normalized_regret": 0.47619,
+          "normalized_rmse": 0.552257,
+          "pairwise_ordering": 0.413043,
+          "top_choice_credit": 0.285714
+        },
         "shin_kim_2026_speech_sft": {
           "mean_normalized_regret": 0.518519,
           "normalized_rmse": 0.459109,
@@ -1376,90 +2273,114 @@
         }
       },
       "source_macro": {
-        "mean_normalized_regret": 0.465155,
-        "normalized_rmse": 0.462989,
-        "pairwise_ordering": 0.510404,
-        "top_choice_credit": 0.293148
+        "mean_normalized_regret": 0.524839,
+        "normalized_rmse": 0.49419,
+        "pairwise_ordering": 0.443839,
+        "top_choice_credit": 0.261943
       },
-      "top_choice_credit": 0.233333
+      "top_choice_credit": 0.233645
     },
     "ridge": {
-      "mean_normalized_regret": 0.415637,
-      "normalized_rmse": 0.41464,
-      "pairwise_ordering": 0.547761,
+      "mean_normalized_regret": 0.361245,
+      "normalized_rmse": 0.444608,
+      "pairwise_ordering": 0.591203,
       "per_source": {
         "data_centric_finance": {
           "mean_normalized_regret": 0.0,
-          "normalized_rmse": 0.351801,
+          "normalized_rmse": 0.30526,
           "pairwise_ordering": 0.866667,
           "top_choice_credit": 1.0
         },
+        "dianjin_r1_2025": {
+          "mean_normalized_regret": 0.12,
+          "normalized_rmse": 0.344155,
+          "pairwise_ordering": 0.793333,
+          "top_choice_credit": 0.6
+        },
         "fin_prm_2026": {
           "mean_normalized_regret": 0.0,
-          "normalized_rmse": 0.345524,
+          "normalized_rmse": 0.349456,
           "pairwise_ordering": 0.85,
           "top_choice_credit": 1.0
         },
         "fin_sd_2026": {
           "mean_normalized_regret": 0.277778,
-          "normalized_rmse": 0.448032,
+          "normalized_rmse": 0.43831,
           "pairwise_ordering": 0.5,
           "top_choice_credit": 0.666667
         },
+        "financial_advice_grpo_2026": {
+          "mean_normalized_regret": 0.0,
+          "normalized_rmse": 0.256011,
+          "pairwise_ordering": 1.0,
+          "top_choice_credit": 1.0
+        },
         "finlcr_2026": {
           "mean_normalized_regret": 0.599702,
-          "normalized_rmse": 0.51856,
+          "normalized_rmse": 0.781976,
           "pairwise_ordering": 0.538793,
           "top_choice_credit": 0.1875
         },
         "fino1": {
-          "mean_normalized_regret": 0.0,
-          "normalized_rmse": 0.3162,
-          "pairwise_ordering": 0.791667,
-          "top_choice_credit": 1.0
+          "mean_normalized_regret": 0.166667,
+          "normalized_rmse": 0.32395,
+          "pairwise_ordering": 0.708333,
+          "top_choice_credit": 0.5
         },
         "harsha2025_synthetic_financial_qa": {
-          "mean_normalized_regret": 0.509375,
-          "normalized_rmse": 0.495935,
-          "pairwise_ordering": 0.425,
-          "top_choice_credit": 0.45
+          "mean_normalized_regret": 0.4625,
+          "normalized_rmse": 0.488,
+          "pairwise_ordering": 0.525,
+          "top_choice_credit": 0.4125
         },
         "oda_fin": {
-          "mean_normalized_regret": 0.377778,
-          "normalized_rmse": 0.358329,
-          "pairwise_ordering": 0.677419,
-          "top_choice_credit": 0.333333
+          "mean_normalized_regret": 0.461111,
+          "normalized_rmse": 0.354645,
+          "pairwise_ordering": 0.645161,
+          "top_choice_credit": 0.0
+        },
+        "okochi_japanese_finance_2026": {
+          "mean_normalized_regret": 0.25,
+          "normalized_rmse": 0.541589,
+          "pairwise_ordering": 0.75,
+          "top_choice_credit": 0.75
         },
         "phogat2024_financial_qa": {
           "mean_normalized_regret": 0.333333,
-          "normalized_rmse": 0.406604,
+          "normalized_rmse": 0.361905,
           "pairwise_ordering": 0.55,
           "top_choice_credit": 0.5
         },
         "quanteval": {
           "mean_normalized_regret": 0.25,
-          "normalized_rmse": 0.283091,
+          "normalized_rmse": 0.273921,
           "pairwise_ordering": 0.9,
           "top_choice_credit": 0.5
         },
+        "select2know_2025": {
+          "mean_normalized_regret": 0.0,
+          "normalized_rmse": 0.320222,
+          "pairwise_ordering": 0.978261,
+          "top_choice_credit": 1.0
+        },
         "shin_kim_2026_speech_sft": {
           "mean_normalized_regret": 0.502469,
-          "normalized_rmse": 0.365449,
+          "normalized_rmse": 0.380769,
           "pairwise_ordering": 0.5,
           "top_choice_credit": 0.2
         }
       },
       "source_macro": {
-        "mean_normalized_regret": 0.285044,
-        "normalized_rmse": 0.388952,
-        "pairwise_ordering": 0.659955,
-        "top_choice_credit": 0.58375
+        "mean_normalized_regret": 0.24454,
+        "normalized_rmse": 0.394298,
+        "pairwise_ordering": 0.721825,
+        "top_choice_credit": 0.594048
       },
-      "top_choice_credit": 0.413704
+      "top_choice_credit": 0.453115
     },
     "uninformed": {
-      "mean_normalized_regret": 0.49963,
-      "normalized_rmse": 0.626463,
+      "mean_normalized_regret": 0.500467,
+      "normalized_rmse": 0.628016,
       "pairwise_ordering": 0.5,
       "per_source": {
         "data_centric_finance": {
@@ -1467,6 +2388,12 @@
           "normalized_rmse": 0.660687,
           "pairwise_ordering": 0.5,
           "top_choice_credit": 0.4
+        },
+        "dianjin_r1_2025": {
+          "mean_normalized_regret": 0.491667,
+          "normalized_rmse": 0.612032,
+          "pairwise_ordering": 0.5,
+          "top_choice_credit": 0.166667
         },
         "fin_prm_2026": {
           "mean_normalized_regret": 0.5,
@@ -1479,6 +2406,12 @@
           "normalized_rmse": 0.675863,
           "pairwise_ordering": 0.5,
           "top_choice_credit": 0.325
+        },
+        "financial_advice_grpo_2026": {
+          "mean_normalized_regret": 0.5,
+          "normalized_rmse": 0.707107,
+          "pairwise_ordering": 0.5,
+          "top_choice_credit": 0.5
         },
         "finlcr_2026": {
           "mean_normalized_regret": 0.479167,
@@ -1504,6 +2437,12 @@
           "pairwise_ordering": 0.5,
           "top_choice_credit": 0.205556
         },
+        "okochi_japanese_finance_2026": {
+          "mean_normalized_regret": 0.5,
+          "normalized_rmse": 0.707107,
+          "pairwise_ordering": 0.5,
+          "top_choice_credit": 0.5
+        },
         "phogat2024_financial_qa": {
           "mean_normalized_regret": 0.5,
           "normalized_rmse": 0.62361,
@@ -1516,6 +2455,12 @@
           "pairwise_ordering": 0.5,
           "top_choice_credit": 0.2
         },
+        "select2know_2025": {
+          "mean_normalized_regret": 0.517857,
+          "normalized_rmse": 0.638285,
+          "pairwise_ordering": 0.5,
+          "top_choice_credit": 0.357143
+        },
         "shin_kim_2026_speech_sft": {
           "mean_normalized_regret": 0.502469,
           "normalized_rmse": 0.611195,
@@ -1524,24 +2469,24 @@
         }
       },
       "source_macro": {
-        "mean_normalized_regret": 0.493997,
-        "normalized_rmse": 0.631572,
+        "mean_normalized_regret": 0.496392,
+        "normalized_rmse": 0.641446,
         "pairwise_ordering": 0.5,
-        "top_choice_credit": 0.264597
+        "top_choice_credit": 0.297842
       },
-      "top_choice_credit": 0.273333
+      "top_choice_credit": 0.284424
     }
   },
   "shuffled_pairing_control": {
-    "median_regret": 0.53908,
-    "p05_regret": 0.476259,
-    "p95_regret": 0.596875,
+    "median_regret": 0.532503,
+    "p05_regret": 0.470612,
+    "p95_regret": 0.581618,
     "repeats": 200
   },
   "status": "retrospective_source_recovered",
   "support": {
-    "arms": 377,
-    "panels": 90,
-    "sources": 10
+    "arms": 438,
+    "panels": 107,
+    "sources": 14
   }
 }

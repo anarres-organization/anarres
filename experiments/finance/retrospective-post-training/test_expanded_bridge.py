@@ -23,7 +23,7 @@ class ExpandedBridgeTests(unittest.TestCase):
         cls.summary = json.loads(SUMMARY.read_text())
 
     def test_support(self) -> None:
-        self.assertEqual(self.summary["support"], {"sources": 10, "panels": 90, "arms": 377})
+        self.assertEqual(self.summary["support"], {"sources": 14, "panels": 107, "arms": 438})
 
     def test_required_holdouts_and_controls(self) -> None:
         self.assertEqual(
@@ -62,6 +62,12 @@ class ExpandedBridgeTests(unittest.TestCase):
         )
         comparison = self.summary["paired_source_comparison"]
         self.assertGreater(comparison["study_wins"], comparison["study_losses"])
+        multi_panel = self.summary["multi_panel_source_sensitivity"]
+        self.assertEqual(multi_panel["support"]["sources"], 12)
+        self.assertLess(
+            multi_panel["evaluations"]["practical_rule"]["source_macro"]["mean_normalized_regret"],
+            multi_panel["evaluations"]["more_data"]["source_macro"]["mean_normalized_regret"],
+        )
 
     def test_shuffled_pairing_is_not_claim_evidence(self) -> None:
         shuffled = self.summary["shuffled_pairing_control"]

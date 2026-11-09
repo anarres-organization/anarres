@@ -100,6 +100,46 @@
       "license": "CC BY 4.0",
       "evidence": ["Table 2", "Table 3"],
       "audit_note": "Eight decision panels recovered from curriculum-component and pass-rate-threshold ablations. Aggregate short- and long-context outcomes are kept separate from six direct benchmark or split outcomes. Reported train size remains explicit, and the panels are not treated as budget matched."
+    },
+    {
+      "id": "dianjin_r1_2025",
+      "title": "DianJin-R1: Evaluating and Enhancing Financial Reasoning in Large Language Models",
+      "authors": ["Jie Zhu", "Qian Chen", "Huaixia Dou", "Junhui Li", "Lifan Guo", "Feng Chen", "Chi Zhang"],
+      "url": "https://arxiv.org/abs/2504.15716",
+      "version": "arXiv:2504.15716",
+      "license": "arXiv non-exclusive distribution license",
+      "evidence": ["Table 4", "Table 5"],
+      "audit_note": "Five target-level panels combine the common base, four reported SFT source mixtures, and the subsequent CFLUE-only GRPO stage. Training membership and sample counts are explicit, while stage compute is not budget matched."
+    },
+    {
+      "id": "select2know_2025",
+      "title": "Select to Know: An Internal-External Knowledge Self-Selection Framework for Domain-Specific Question Answering",
+      "authors": ["Bolei He", "Xinran He", "Run Shao", "Shanfu Shu", "Xianwei Xue", "MingQuan Cheng", "Haifeng Li", "Zhen-Hua Ling"],
+      "url": "https://aclanthology.org/2025.findings-emnlp.565/",
+      "version": "ACL Anthology 2025.findings-emnlp.565",
+      "license": "CC BY 4.0",
+      "evidence": ["Table 2", "Table 3", "Table 4", "Table 5", "Table 6", "Table 7", "Table 8"],
+      "audit_note": "Seven finance-only Avg@5 decision panels recover training-stage, SFT-data, reasoning-sampling, and reward comparisons across three backbones. Prompting and RAG baselines are excluded."
+    },
+    {
+      "id": "financial_advice_grpo_2026",
+      "title": "GRPO for Financial Advice Generation: Outperforming Commercial LLMs under CATE Evaluation",
+      "authors": ["Ofir Ben Shoham", "Shrutendra Harsola", "Vignesh Subrahmaniam", "Shravan Mohan", "Yakov Gazman", "Oded Vainas"],
+      "url": "https://aclanthology.org/2026.finnlp-1.27/",
+      "version": "ACL Anthology 2026.finnlp-1.27",
+      "license": "CC BY 4.0",
+      "evidence": ["Table 4"],
+      "audit_note": "One same-backbone base-versus-GRPO panel uses the judge-independent doubly robust CATE estimate of gross-profit lift. It remains an observational off-policy outcome and is not marked budget matched."
+    },
+    {
+      "id": "okochi_japanese_finance_2026",
+      "title": "Constructing Synthetic Instruction Datasets for Improving Reasoning in Domain-Specific LLMs: A Case Study in the Japanese Financial Domain",
+      "authors": ["Yuma Okochi", "Fabio Milentiansen Sim", "Tomoyasu Okada"],
+      "url": "https://arxiv.org/abs/2603.01353",
+      "version": "arXiv:2603.01353",
+      "license": "arXiv non-exclusive distribution license",
+      "evidence": ["Table 1"],
+      "audit_note": "Four model-target panels compare the reported synthetic-finance SFT pipeline with financial continued pretraining followed by the same SFT stage. CPT cost is not reported as a matched budget."
     }
   ]
 }

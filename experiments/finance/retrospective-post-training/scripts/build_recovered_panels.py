@@ -541,6 +541,254 @@ def finlcr_2026() -> list[dict]:
     return panels
 
 
+def dianjin_r1_2025() -> list[dict]:
+    """Recover the source-mixture and GRPO interventions from Tables 4--5."""
+
+    source_sizes = {"cflue": 31_717, "finqa": 4_851, "ccc": 1_800}
+    rl_size = 4_096
+    scores = {
+        "cflue": [69.37, 75.09, 75.20, 75.16, 75.48, 80.32],
+        "finqa": [66.70, 71.65, 80.85, 71.78, 80.28, 77.72],
+        "ccc": [55.00, 70.50, 70.00, 95.00, 93.00, 94.50],
+        "math500": [71.40, 75.07, 75.33, 76.27, 74.87, 76.60],
+        "gpqa_diamond": [33.84, 36.03, 36.03, 35.35, 34.85, 37.54],
+    }
+    mixtures = [
+        ("base", {}),
+        ("cflue", {"cflue": source_sizes["cflue"]}),
+        (
+            "cflue_finqa",
+            {"cflue": source_sizes["cflue"], "finqa": source_sizes["finqa"]},
+        ),
+        ("cflue_ccc", {"cflue": source_sizes["cflue"], "ccc": source_sizes["ccc"]}),
+        ("all_sft", dict(source_sizes)),
+        (
+            "all_sft_grpo",
+            {
+                "cflue": source_sizes["cflue"] + rl_size,
+                "finqa": source_sizes["finqa"],
+                "ccc": source_sizes["ccc"],
+            },
+        ),
+    ]
+
+    panels = []
+    for target, outcomes in scores.items():
+        arms = []
+        for (arm_id, membership), outcome in zip(mixtures, outcomes, strict=True):
+            total = sum(membership.values())
+            target_fraction = membership.get(target, 0) / total if total else 0.0
+            arms.append(
+                arm(
+                    arm_id,
+                    outcome,
+                    sample_count=total,
+                    source_diversity=len(membership),
+                    target_fraction=target_fraction,
+                    verifier_alignment=1.0 if arm_id == "all_sft_grpo" else 0.0,
+                )
+            )
+        panels.append(
+            panel(
+                "dianjin_r1_2025",
+                f"dianjin_qwen2p5_7b_{target}",
+                "Tables 4--5",
+                "qwen2p5_7b_instruct",
+                target,
+                arms,
+                budget_matched=False,
+            )
+        )
+    return panels
+
+
+def select2know_2025() -> list[dict]:
+    """Recover finance-only, same-backbone decisions from Tables 2--8."""
+
+    def features(
+        *,
+        selective: bool = False,
+        fusion: bool = False,
+        grpo: bool = False,
+        distillation: bool = False,
+    ) -> dict:
+        trained = selective or fusion or grpo or distillation
+        return {
+            "target_alignment": 1.0 if trained else 0.0,
+            "source_diversity": 2 if fusion else (1 if trained else 0),
+            "quality_control": 1.0 if selective or fusion else 0.0,
+            "retention_control": 1.0 if fusion else (0.5 if distillation else 0.0),
+            "verifier_alignment": 1.0 if grpo else 0.0,
+        }
+
+    decisions = [
+        (
+            "qwen2p5_7b_stages",
+            "Table 6",
+            "qwen2p5_7b_instruct",
+            [
+                arm("raw", 33.5, **features()),
+                arm("selective_sft", 35.1, **features(selective=True, fusion=True)),
+                arm("grpo", 36.1, **features(grpo=True)),
+                arm(
+                    "selective_sft_grpo",
+                    38.6,
+                    **features(selective=True, fusion=True, grpo=True),
+                ),
+            ],
+        ),
+        (
+            "qwen2p5_7b_sft_data",
+            "Table 7",
+            "qwen2p5_7b_instruct",
+            [
+                arm("raw", 33.5, **features()),
+                arm(
+                    "standard_sft_external",
+                    33.5,
+                    target_alignment=1.0,
+                    source_diversity=1,
+                    quality_control=0.0,
+                    retention_control=0.0,
+                    verifier_alignment=0.0,
+                ),
+                arm("selective_sft_external", 34.2, **features(selective=True)),
+                arm("selective_sft_fusion", 35.1, **features(selective=True, fusion=True)),
+            ],
+        ),
+        (
+            "qwen2p5_7b_data_quality",
+            "Table 8",
+            "qwen2p5_7b_instruct",
+            [
+                arm("raw", 18.0, **features()),
+                arm("r1_distillation", 20.0, **features(distillation=True)),
+                arm("internal_external_fusion", 22.2, **features(selective=True, fusion=True)),
+            ],
+        ),
+        (
+            "qwen2p5_7b_reasoning_sampling",
+            "Table 4",
+            "qwen2p5_7b_instruct",
+            [
+                arm("random", 32.6, target_alignment=1.0, quality_control=0.0),
+                arm("relevance_based", 38.6, target_alignment=1.0, quality_control=1.0),
+            ],
+        ),
+        (
+            "qwen2p5_7b_reward",
+            "Table 5",
+            "qwen2p5_7b_instruct",
+            [
+                arm("answer_only", 34.9, target_alignment=1.0, verifier_alignment=0.0),
+                arm("answer_format", 35.6, target_alignment=1.0, verifier_alignment=0.5),
+                arm("enhanced_answer_format", 38.6, target_alignment=1.0, verifier_alignment=1.0),
+            ],
+        ),
+        (
+            "llama3p1_8b_stages",
+            "Table 2",
+            "llama3p1_8b_instruct",
+            [
+                arm("raw", 12.7, **features()),
+                arm("selective_sft", 21.5, **features(selective=True, fusion=True)),
+                arm(
+                    "selective_sft_grpo",
+                    23.0,
+                    **features(selective=True, fusion=True, grpo=True),
+                ),
+            ],
+        ),
+        (
+            "qwen2p5_1p5b_stages",
+            "Table 3",
+            "qwen2p5_1p5b_instruct",
+            [
+                arm("raw", 8.9, **features()),
+                arm("s2k", 17.0, **features(selective=True, fusion=True, grpo=True)),
+            ],
+        ),
+    ]
+    return [
+        panel(
+            "select2know_2025",
+            f"s2k_{decision_id}",
+            evidence,
+            model,
+            "financeiq_avg_at_5",
+            arms,
+            budget_matched=False,
+        )
+        for decision_id, evidence, model, arms in decisions
+    ]
+
+
+def financial_advice_grpo_2026() -> list[dict]:
+    """Recover the base-to-GRPO causal business-outcome comparison."""
+
+    return [
+        panel(
+            "financial_advice_grpo_2026",
+            "financial_advice_qwen3p5_27b_cate",
+            "Table 4",
+            "qwen3p5_27b",
+            "gross_profit_lift_dr_cate",
+            [
+                arm("base", 0.0170, target_alignment=0.0, verifier_alignment=0.0),
+                arm(
+                    "finance_reward_grpo",
+                    0.0228,
+                    target_alignment=1.0,
+                    verifier_alignment=1.0,
+                    quality_control=1.0,
+                ),
+            ],
+            metric="dr_cate_lift",
+            budget_matched=False,
+        )
+    ]
+
+
+def okochi_japanese_finance_2026() -> list[dict]:
+    """Recover SFT versus financial CPT+SFT choices from Table 1."""
+
+    results = {
+        ("qwen3_14b_base", "japanese_fin_harness_average"): (70.69, 71.78),
+        ("qwen3_14b_base", "pfmt_bench_fin_ja_average"): (8.415, 8.455),
+        ("gpt_oss_20b", "japanese_fin_harness_average"): (69.56, 72.50),
+        ("gpt_oss_20b", "pfmt_bench_fin_ja_average"): (8.432, 8.209),
+    }
+    panels = []
+    for (model, target), (sft_score, cpt_sft_score) in results.items():
+        panels.append(
+            panel(
+                "okochi_japanese_finance_2026",
+                f"okochi_{model}_{target}",
+                "Table 1",
+                model,
+                target,
+                [
+                    arm(
+                        "synthetic_finance_sft",
+                        sft_score,
+                        target_alignment=1.0,
+                        source_diversity=1,
+                        quality_control=1.0,
+                    ),
+                    arm(
+                        "financial_cpt_plus_sft",
+                        cpt_sft_score,
+                        target_alignment=1.0,
+                        source_diversity=2,
+                        quality_control=1.0,
+                    ),
+                ],
+                budget_matched=False,
+            )
+        )
+    return panels
+
+
 def main() -> None:
     panels = (
         phogat_2024()
@@ -549,6 +797,10 @@ def main() -> None:
         + fin_sd_2026()
         + shin_kim_2026()
         + finlcr_2026()
+        + dianjin_r1_2025()
+        + select2know_2025()
+        + financial_advice_grpo_2026()
+        + okochi_japanese_finance_2026()
     )
     document = {
         "schema_version": 1,

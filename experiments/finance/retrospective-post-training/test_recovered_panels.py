@@ -25,10 +25,10 @@ class RecoveredPanelTests(unittest.TestCase):
 
     def test_support(self) -> None:
         panels = self.document["panels"]
-        self.assertEqual(len(panels), 78)
-        self.assertEqual(sum(len(panel["arms"]) for panel in panels), 330)
+        self.assertEqual(len(panels), 95)
+        self.assertEqual(sum(len(panel["arms"]) for panel in panels), 391)
         self.assertEqual(sum(panel["budget_matched"] for panel in panels), 20)
-        self.assertEqual(len({panel["source_id"] for panel in panels}), 6)
+        self.assertEqual(len({panel["source_id"] for panel in panels}), 10)
 
     def test_identity_and_values(self) -> None:
         panel_ids = [panel["panel_id"] for panel in self.document["panels"]]
@@ -67,6 +67,17 @@ class RecoveredPanelTests(unittest.TestCase):
         finlcr = {arm["id"]: arm["score"] for arm in panels["finlcr_thresholds_docfinqa"]["arms"]}
         self.assertEqual(finlcr["0p2_0p8"], 47.29)
         self.assertEqual(finlcr["0p3_0p7"], 43.93)
+        dianjin = {arm["id"]: arm["score"] for arm in panels["dianjin_qwen2p5_7b_finqa"]["arms"]}
+        self.assertEqual(dianjin["all_sft"], 80.28)
+        self.assertEqual(dianjin["all_sft_grpo"], 77.72)
+        s2k = {arm["id"]: arm["score"] for arm in panels["s2k_qwen2p5_7b_stages"]["arms"]}
+        self.assertEqual(s2k["raw"], 33.5)
+        self.assertEqual(s2k["selective_sft_grpo"], 38.6)
+        advice = {
+            arm["id"]: arm["score"] for arm in panels["financial_advice_qwen3p5_27b_cate"]["arms"]
+        }
+        self.assertEqual(advice["base"], 0.0170)
+        self.assertEqual(advice["finance_reward_grpo"], 0.0228)
 
     def test_alignment_is_relative_to_the_evaluation_target(self) -> None:
         panels = {panel["panel_id"]: panel for panel in self.document["panels"]}

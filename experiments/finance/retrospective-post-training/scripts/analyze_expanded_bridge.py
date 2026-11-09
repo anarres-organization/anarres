@@ -173,6 +173,18 @@ def mapped_recovered_panel(panel: dict) -> list[dict]:
             observed_feature(
                 values, "domain_specific_selection", float(treatment["domain_specific"])
             )
+        if "verifier_alignment" in treatment:
+            observed_feature(values, "verifier_alignment", float(treatment["verifier_alignment"]))
+        for feature in (
+            "target_alignment",
+            "quality_control",
+            "retention_control",
+            "policy_relative_selection",
+            "feedback_locality",
+            "efficient_rollout",
+        ):
+            if feature in treatment:
+                observed_feature(values, feature, float(treatment[feature]))
 
         method = treatment.get("method")
         if method is not None:
@@ -436,6 +448,25 @@ def main() -> None:
     rank_rows = rank_normalized_rows(rows)
     rank_predictions = grouped_predictions(rank_rows, "source")
     rank_sensitivity = {name: score(rank_rows, values) for name, values in rank_predictions.items()}
+    panels_per_source: dict[str, set[str]] = {}
+    for row in rows:
+        panels_per_source.setdefault(row["source"], set()).add(row["panel"])
+    multi_panel_rows = [row for row in rows if len(panels_per_source[row["source"]]) >= 2]
+    multi_panel_predictions = grouped_predictions(multi_panel_rows, "source")
+    multi_panel_sensitivity = {
+        "support": {
+            "sources": len({row["source"] for row in multi_panel_rows}),
+            "panels": len({(row["source"], row["panel"]) for row in multi_panel_rows}),
+            "arms": len(multi_panel_rows),
+        },
+        "evaluations": {
+            name: score(multi_panel_rows, values)
+            for name, values in multi_panel_predictions.items()
+        },
+    }
+    multi_panel_sensitivity["paired_source_comparison"] = paired_source_comparison(
+        multi_panel_sensitivity["evaluations"], "practical_rule", "more_data"
+    )
     source_result = evaluations["leave_one_source_out"]
     output = {
         "status": "retrospective_source_recovered",
@@ -448,6 +479,7 @@ def main() -> None:
         "features": FEATURES,
         "evaluations": evaluations,
         "rank_utility_sensitivity": rank_sensitivity,
+        "multi_panel_source_sensitivity": multi_panel_sensitivity,
         "paired_source_comparison": paired_source_comparison(
             source_result, "practical_rule", "more_data"
         ),

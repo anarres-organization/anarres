@@ -24,8 +24,8 @@ It is no longer the full evidence map.
 
 ## Source-recovered expansion
 
-A second audit recovered 78 additional decision panels and 330 candidate arms
-from six primary sources. These rows are stored in
+A second audit recovered 95 additional decision panels and 391 candidate arms
+from ten primary sources. These rows are stored in
 [`data/recovered_panels.json`](data/recovered_panels.json) before feature
 mapping or model fitting. This separation prevents the treatment schema from
 being changed after inspecting grouped-holdout results.
@@ -38,6 +38,10 @@ being changed after inspecting grouped-holdout results.
 | [How Much Does the Hint Matter?](https://arxiv.org/abs/2610.36082v1) | base, SFT, full-solution OPSD, localized self-distillation, and five-seed hint-writer, KL, and rollout ablations | 2 | 9 |
 | [A Factorial Ablation of a Speech-to-SFT Pipeline](https://arxiv.org/abs/2608.20394v1) | base, transcript refinement, QA refinement, and their combination across nine model families and three finance-relevant targets | 27 | 135 |
 | [FinLCR](https://aclanthology.org/2026.finnlp-1.3/) | short-to-long curriculum, policy-relative difficulty filtering, their interaction, and five pass-rate windows | 8 | 46 |
+| [DianJin-R1](https://arxiv.org/abs/2504.15716) | four SFT source mixtures and the subsequent CFLUE-only GRPO stage across five targets | 5 | 30 |
+| [Select to Know](https://aclanthology.org/2025.findings-emnlp.565/) | selective SFT, internal-external fusion, reasoning-data sampling, reward design, and GRPO across three backbones | 7 | 21 |
+| [GRPO for Financial Advice Generation](https://aclanthology.org/2026.finnlp-1.27/) | same-backbone base versus finance-reward GRPO under a judge-independent gross-profit CATE audit | 1 | 2 |
+| [Constructing Synthetic Instruction Datasets](https://arxiv.org/abs/2603.01353) | synthetic-finance SFT versus financial CPT followed by SFT across two models and two Japanese finance targets | 4 | 8 |
 
 Twenty of these panels hold the reported sample or rollout budget fixed. The
 remaining panels retain explicit sample counts or method costs and must not be
@@ -45,7 +49,7 @@ described as equal-budget decisions. Accuracy remains separate from completion
 rate, generated tokens, safety, and compliance outcomes.
 
 The versioned source-native mapping combines these panels with the initial cut,
-producing 90 panels and 377 arms from ten studies. The expanded audit evaluates
+producing 107 panels and 438 arms from fourteen studies. The expanded audit evaluates
 leave-one-source-out transfer, with nested model and target holdouts as
 sensitivities. Source labels are excluded from the predictor, while stable
 random fingerprints and shuffled treatment-outcome pairings remain negative
@@ -63,10 +67,6 @@ until their intervention identities and comparable outcomes can be recovered.
   reports progressive financial SFT, reasoning RL, agentic RL, and general RL.
   The stages change objectives and capabilities together, so the headline
   progression is not yet a matched environment-allocation panel.
-- [DianJin-R1](https://arxiv.org/abs/2504.15716)
-  provides a finance SFT-to-GRPO recipe. QuantEval supplies a later controlled
-  data-scale and stage ablation on the released model, which is the comparison
-  currently encoded.
 - [Samaya Sterling](https://samaya.ai/blog/rl-post-trained-agentic-model)
   reports finance-research SFT and offline GRPO with expert grading. The
   training questions are internal, so candidate membership and public
@@ -84,12 +84,9 @@ until their intervention identities and comparable outcomes can be recovered.
   rather than one scalar utility panel, so they remain a guardrail study until
   the analysis specifies a prospective safety floor.
 - [FinED-Bench](https://aclanthology.org/2026.findings-acl.1481/)
-  studies supervised adaptation for financial-document error detection. The
-  exact train-set variants and matched model outcomes still require recovery.
-- [Constructing Synthetic Instruction Datasets for Improving Reasoning in
-  Domain-Specific LLMs](https://arxiv.org/abs/2603.01353)
-  reports financial-reasoning improvements and reasoning-length effects in
-  Japanese. Exact matched ablation rows remain under audit.
+  reports one supervised-adaptation arm for financial-document error detection.
+  Its remaining controlled comparisons change inference prompting rather than
+  the training environment, so they do not form a post-training decision panel.
 
 ## Agent and operations evidence
 

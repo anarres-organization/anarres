@@ -1,8 +1,9 @@
 # Frozen semantic mapping for the expanded finance bridge
 
-This mapping is fixed before scoring the expanded retrospective bridge. It
-translates only source-reported treatment properties. Published outcomes do not
-enter feature construction.
+This mapping translates source-reported treatment properties into a shared
+representation. New sources are encoded from their intervention contracts
+before they are added to the grouped rescore. Scores are not numerical inputs
+to feature construction, although every result in this audit was already public.
 
 The versioned practical rule and its weights are fixed before each grouped
 rescore. It rewards
@@ -10,7 +11,8 @@ target alignment, explicit quality and retention controls, verifier or
 policy-relative selection, source diversity, human-labeled data, and the two
 independently randomized processing stages. The second mapping version adds
 context progression after the FinLCR source audit and before its grouped
-rescore. All outcomes remain retrospective and public. Missing measurements
+rescore. Later source additions retain the same coordinate definitions and
+practical-rule weights. All outcomes remain retrospective and public. Missing measurements
 contribute no weight and remain distinguishable through their observation flags
 in the fitted model.
 

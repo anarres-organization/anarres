@@ -4155,6 +4155,815 @@
       "panel_id": "finlcr_thresholds_docmatheval_simple_short",
       "source_id": "finlcr_2026",
       "target": "docmatheval_simple_short"
+    },
+    {
+      "arms": [
+        {
+          "id": "base",
+          "score": 69.37,
+          "treatment": {
+            "sample_count": 0,
+            "source_diversity": 0,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue",
+          "score": 75.09,
+          "treatment": {
+            "sample_count": 31717,
+            "source_diversity": 1,
+            "target_fraction": 1.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue_finqa",
+          "score": 75.2,
+          "treatment": {
+            "sample_count": 36568,
+            "source_diversity": 2,
+            "target_fraction": 0.8673430321592649,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue_ccc",
+          "score": 75.16,
+          "treatment": {
+            "sample_count": 33517,
+            "source_diversity": 2,
+            "target_fraction": 0.9462959095384432,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "all_sft",
+          "score": 75.48,
+          "treatment": {
+            "sample_count": 38368,
+            "source_diversity": 3,
+            "target_fraction": 0.8266524186822352,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "all_sft_grpo",
+          "score": 80.32,
+          "treatment": {
+            "sample_count": 42464,
+            "source_diversity": 3,
+            "target_fraction": 0.8433732102486813,
+            "verifier_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Tables 4--5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_7b_instruct",
+      "panel_id": "dianjin_qwen2p5_7b_cflue",
+      "source_id": "dianjin_r1_2025",
+      "target": "cflue"
+    },
+    {
+      "arms": [
+        {
+          "id": "base",
+          "score": 66.7,
+          "treatment": {
+            "sample_count": 0,
+            "source_diversity": 0,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue",
+          "score": 71.65,
+          "treatment": {
+            "sample_count": 31717,
+            "source_diversity": 1,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue_finqa",
+          "score": 80.85,
+          "treatment": {
+            "sample_count": 36568,
+            "source_diversity": 2,
+            "target_fraction": 0.13265696784073508,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue_ccc",
+          "score": 71.78,
+          "treatment": {
+            "sample_count": 33517,
+            "source_diversity": 2,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "all_sft",
+          "score": 80.28,
+          "treatment": {
+            "sample_count": 38368,
+            "source_diversity": 3,
+            "target_fraction": 0.12643348623853212,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "all_sft_grpo",
+          "score": 77.72,
+          "treatment": {
+            "sample_count": 42464,
+            "source_diversity": 3,
+            "target_fraction": 0.1142379427279578,
+            "verifier_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Tables 4--5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_7b_instruct",
+      "panel_id": "dianjin_qwen2p5_7b_finqa",
+      "source_id": "dianjin_r1_2025",
+      "target": "finqa"
+    },
+    {
+      "arms": [
+        {
+          "id": "base",
+          "score": 55.0,
+          "treatment": {
+            "sample_count": 0,
+            "source_diversity": 0,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue",
+          "score": 70.5,
+          "treatment": {
+            "sample_count": 31717,
+            "source_diversity": 1,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue_finqa",
+          "score": 70.0,
+          "treatment": {
+            "sample_count": 36568,
+            "source_diversity": 2,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue_ccc",
+          "score": 95.0,
+          "treatment": {
+            "sample_count": 33517,
+            "source_diversity": 2,
+            "target_fraction": 0.053704090461556823,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "all_sft",
+          "score": 93.0,
+          "treatment": {
+            "sample_count": 38368,
+            "source_diversity": 3,
+            "target_fraction": 0.04691409507923269,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "all_sft_grpo",
+          "score": 94.5,
+          "treatment": {
+            "sample_count": 42464,
+            "source_diversity": 3,
+            "target_fraction": 0.042388847023360966,
+            "verifier_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Tables 4--5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_7b_instruct",
+      "panel_id": "dianjin_qwen2p5_7b_ccc",
+      "source_id": "dianjin_r1_2025",
+      "target": "ccc"
+    },
+    {
+      "arms": [
+        {
+          "id": "base",
+          "score": 71.4,
+          "treatment": {
+            "sample_count": 0,
+            "source_diversity": 0,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue",
+          "score": 75.07,
+          "treatment": {
+            "sample_count": 31717,
+            "source_diversity": 1,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue_finqa",
+          "score": 75.33,
+          "treatment": {
+            "sample_count": 36568,
+            "source_diversity": 2,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue_ccc",
+          "score": 76.27,
+          "treatment": {
+            "sample_count": 33517,
+            "source_diversity": 2,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "all_sft",
+          "score": 74.87,
+          "treatment": {
+            "sample_count": 38368,
+            "source_diversity": 3,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "all_sft_grpo",
+          "score": 76.6,
+          "treatment": {
+            "sample_count": 42464,
+            "source_diversity": 3,
+            "target_fraction": 0.0,
+            "verifier_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Tables 4--5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_7b_instruct",
+      "panel_id": "dianjin_qwen2p5_7b_math500",
+      "source_id": "dianjin_r1_2025",
+      "target": "math500"
+    },
+    {
+      "arms": [
+        {
+          "id": "base",
+          "score": 33.84,
+          "treatment": {
+            "sample_count": 0,
+            "source_diversity": 0,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue",
+          "score": 36.03,
+          "treatment": {
+            "sample_count": 31717,
+            "source_diversity": 1,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue_finqa",
+          "score": 36.03,
+          "treatment": {
+            "sample_count": 36568,
+            "source_diversity": 2,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "cflue_ccc",
+          "score": 35.35,
+          "treatment": {
+            "sample_count": 33517,
+            "source_diversity": 2,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "all_sft",
+          "score": 34.85,
+          "treatment": {
+            "sample_count": 38368,
+            "source_diversity": 3,
+            "target_fraction": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "all_sft_grpo",
+          "score": 37.54,
+          "treatment": {
+            "sample_count": 42464,
+            "source_diversity": 3,
+            "target_fraction": 0.0,
+            "verifier_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Tables 4--5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_7b_instruct",
+      "panel_id": "dianjin_qwen2p5_7b_gpqa_diamond",
+      "source_id": "dianjin_r1_2025",
+      "target": "gpqa_diamond"
+    },
+    {
+      "arms": [
+        {
+          "id": "raw",
+          "score": 33.5,
+          "treatment": {
+            "quality_control": 0.0,
+            "retention_control": 0.0,
+            "source_diversity": 0,
+            "target_alignment": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "selective_sft",
+          "score": 35.1,
+          "treatment": {
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "grpo",
+          "score": 36.1,
+          "treatment": {
+            "quality_control": 0.0,
+            "retention_control": 0.0,
+            "source_diversity": 1,
+            "target_alignment": 1.0,
+            "verifier_alignment": 1.0
+          }
+        },
+        {
+          "id": "selective_sft_grpo",
+          "score": 38.6,
+          "treatment": {
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0,
+            "verifier_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 6",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_7b_instruct",
+      "panel_id": "s2k_qwen2p5_7b_stages",
+      "source_id": "select2know_2025",
+      "target": "financeiq_avg_at_5"
+    },
+    {
+      "arms": [
+        {
+          "id": "raw",
+          "score": 33.5,
+          "treatment": {
+            "quality_control": 0.0,
+            "retention_control": 0.0,
+            "source_diversity": 0,
+            "target_alignment": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "standard_sft_external",
+          "score": 33.5,
+          "treatment": {
+            "quality_control": 0.0,
+            "retention_control": 0.0,
+            "source_diversity": 1,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "selective_sft_external",
+          "score": 34.2,
+          "treatment": {
+            "quality_control": 1.0,
+            "retention_control": 0.0,
+            "source_diversity": 1,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "selective_sft_fusion",
+          "score": 35.1,
+          "treatment": {
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 7",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_7b_instruct",
+      "panel_id": "s2k_qwen2p5_7b_sft_data",
+      "source_id": "select2know_2025",
+      "target": "financeiq_avg_at_5"
+    },
+    {
+      "arms": [
+        {
+          "id": "raw",
+          "score": 18.0,
+          "treatment": {
+            "quality_control": 0.0,
+            "retention_control": 0.0,
+            "source_diversity": 0,
+            "target_alignment": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "r1_distillation",
+          "score": 20.0,
+          "treatment": {
+            "quality_control": 0.0,
+            "retention_control": 0.5,
+            "source_diversity": 1,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "internal_external_fusion",
+          "score": 22.2,
+          "treatment": {
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 8",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_7b_instruct",
+      "panel_id": "s2k_qwen2p5_7b_data_quality",
+      "source_id": "select2know_2025",
+      "target": "financeiq_avg_at_5"
+    },
+    {
+      "arms": [
+        {
+          "id": "random",
+          "score": 32.6,
+          "treatment": {
+            "quality_control": 0.0,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "relevance_based",
+          "score": 38.6,
+          "treatment": {
+            "quality_control": 1.0,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 4",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_7b_instruct",
+      "panel_id": "s2k_qwen2p5_7b_reasoning_sampling",
+      "source_id": "select2know_2025",
+      "target": "financeiq_avg_at_5"
+    },
+    {
+      "arms": [
+        {
+          "id": "answer_only",
+          "score": 34.9,
+          "treatment": {
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "answer_format",
+          "score": 35.6,
+          "treatment": {
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.5
+          }
+        },
+        {
+          "id": "enhanced_answer_format",
+          "score": 38.6,
+          "treatment": {
+            "target_alignment": 1.0,
+            "verifier_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 5",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_7b_instruct",
+      "panel_id": "s2k_qwen2p5_7b_reward",
+      "source_id": "select2know_2025",
+      "target": "financeiq_avg_at_5"
+    },
+    {
+      "arms": [
+        {
+          "id": "raw",
+          "score": 12.7,
+          "treatment": {
+            "quality_control": 0.0,
+            "retention_control": 0.0,
+            "source_diversity": 0,
+            "target_alignment": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "selective_sft",
+          "score": 21.5,
+          "treatment": {
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "selective_sft_grpo",
+          "score": 23.0,
+          "treatment": {
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0,
+            "verifier_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 2",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "llama3p1_8b_instruct",
+      "panel_id": "s2k_llama3p1_8b_stages",
+      "source_id": "select2know_2025",
+      "target": "financeiq_avg_at_5"
+    },
+    {
+      "arms": [
+        {
+          "id": "raw",
+          "score": 8.9,
+          "treatment": {
+            "quality_control": 0.0,
+            "retention_control": 0.0,
+            "source_diversity": 0,
+            "target_alignment": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "s2k",
+          "score": 17.0,
+          "treatment": {
+            "quality_control": 1.0,
+            "retention_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0,
+            "verifier_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 3",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen2p5_1p5b_instruct",
+      "panel_id": "s2k_qwen2p5_1p5b_stages",
+      "source_id": "select2know_2025",
+      "target": "financeiq_avg_at_5"
+    },
+    {
+      "arms": [
+        {
+          "id": "base",
+          "score": 0.017,
+          "treatment": {
+            "target_alignment": 0.0,
+            "verifier_alignment": 0.0
+          }
+        },
+        {
+          "id": "finance_reward_grpo",
+          "score": 0.0228,
+          "treatment": {
+            "quality_control": 1.0,
+            "target_alignment": 1.0,
+            "verifier_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 4",
+      "higher_is_better": true,
+      "metric": "dr_cate_lift",
+      "model": "qwen3p5_27b",
+      "panel_id": "financial_advice_qwen3p5_27b_cate",
+      "source_id": "financial_advice_grpo_2026",
+      "target": "gross_profit_lift_dr_cate"
+    },
+    {
+      "arms": [
+        {
+          "id": "synthetic_finance_sft",
+          "score": 70.69,
+          "treatment": {
+            "quality_control": 1.0,
+            "source_diversity": 1,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "financial_cpt_plus_sft",
+          "score": 71.78,
+          "treatment": {
+            "quality_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 1",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen3_14b_base",
+      "panel_id": "okochi_qwen3_14b_base_japanese_fin_harness_average",
+      "source_id": "okochi_japanese_finance_2026",
+      "target": "japanese_fin_harness_average"
+    },
+    {
+      "arms": [
+        {
+          "id": "synthetic_finance_sft",
+          "score": 8.415,
+          "treatment": {
+            "quality_control": 1.0,
+            "source_diversity": 1,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "financial_cpt_plus_sft",
+          "score": 8.455,
+          "treatment": {
+            "quality_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 1",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "qwen3_14b_base",
+      "panel_id": "okochi_qwen3_14b_base_pfmt_bench_fin_ja_average",
+      "source_id": "okochi_japanese_finance_2026",
+      "target": "pfmt_bench_fin_ja_average"
+    },
+    {
+      "arms": [
+        {
+          "id": "synthetic_finance_sft",
+          "score": 69.56,
+          "treatment": {
+            "quality_control": 1.0,
+            "source_diversity": 1,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "financial_cpt_plus_sft",
+          "score": 72.5,
+          "treatment": {
+            "quality_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 1",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "gpt_oss_20b",
+      "panel_id": "okochi_gpt_oss_20b_japanese_fin_harness_average",
+      "source_id": "okochi_japanese_finance_2026",
+      "target": "japanese_fin_harness_average"
+    },
+    {
+      "arms": [
+        {
+          "id": "synthetic_finance_sft",
+          "score": 8.432,
+          "treatment": {
+            "quality_control": 1.0,
+            "source_diversity": 1,
+            "target_alignment": 1.0
+          }
+        },
+        {
+          "id": "financial_cpt_plus_sft",
+          "score": 8.209,
+          "treatment": {
+            "quality_control": 1.0,
+            "source_diversity": 2,
+            "target_alignment": 1.0
+          }
+        }
+      ],
+      "budget_matched": false,
+      "evidence": "Table 1",
+      "higher_is_better": true,
+      "metric": "accuracy_percent",
+      "model": "gpt_oss_20b",
+      "panel_id": "okochi_gpt_oss_20b_pfmt_bench_fin_ja_average",
+      "source_id": "okochi_japanese_finance_2026",
+      "target": "pfmt_bench_fin_ja_average"
     }
   ],
   "schema_version": 1,

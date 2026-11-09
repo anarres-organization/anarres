@@ -35,29 +35,35 @@ following performance:
 
 | Aggregation | Pair ordering | Mean normalized regret | Top-choice credit |
 |---|---:|---:|---:|
-| Panel weighted | 60.0% | 0.390 | 46.7% |
-| Study macro | 70.5% | 0.216 | 65.1% |
+| Panel weighted | 62.6% | 0.340 | 52.4% |
+| Study macro | 74.9% | 0.175 | 70.4% |
 
-The more-data baseline reaches 53.3% ordering and 0.507 regret under panel
-weighting, and 58.8% ordering and 0.418 regret under study-macro weighting. The
-practical rule has lower regret in eight of ten held-out studies. A two-sided
-exact sign test gives $p=0.109$, which records a consistent direction without
-claiming conventional statistical significance from ten sources.
+The more-data baseline reaches 55.7% ordering and 0.486 regret under panel
+weighting, and 58.4% ordering and 0.411 regret under study-macro weighting. The
+practical rule has lower regret in eleven of fourteen held-out studies, ties in
+one, and loses in two. A two-sided exact sign test over the thirteen non-tied
+studies gives $p=0.022$. This records breadth across published studies while
+remaining a retrospective test of a semantically encoded rule.
+
+Two sources contribute one decision panel each. Excluding both leaves twelve
+multi-panel studies, where the practical rule reaches 71.5% ordering and 0.205
+regret versus 58.9% and 0.413 for more data. The corresponding study-level
+comparison has nine wins, two losses, and one tie.
 
 The conclusion also survives rank normalization. With outcomes replaced by
-within-panel ranks, the practical rule reaches 70.5% study-macro ordering and
-0.206 regret, compared with 58.8% and 0.428 for more data. Pair ordering is
+within-panel ranks, the practical rule reaches 74.9% study-macro ordering and
+0.174 regret, compared with 58.4% and 0.422 for more data. Pair ordering is
 unchanged because monotone within-panel normalization preserves every candidate
 comparison.
 
 ## Interpretation
 
 The original 12-panel audit selected ten reported winners with its quality-aware
-rule. That result remains the initial evidence cut. The 90-panel analysis is
-more demanding because it adds six independently recovered sources, new model
-families and targets, policy-relative curriculum ablations, and a source-level
-holdout. Its result is expressed through ordering and regret rather than a
-single winner count.
+rule. That result remains the initial evidence cut. The 107-panel analysis is
+more demanding because it adds ten independently recovered sources, new model
+families and targets, policy-relative curriculum ablations, data-mixture and
+reward interventions, and a source-level holdout. Its result is expressed
+through ordering and regret rather than a single winner count.
 
 These retrospective checks establish useful baselines and expose where transfer
 weakens. They do not validate a finance allocator. Following the decision-first

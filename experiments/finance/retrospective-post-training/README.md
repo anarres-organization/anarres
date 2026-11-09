@@ -28,13 +28,15 @@ table used. [`SCREENING.md`](SCREENING.md) records relevant studies that were
 not admitted and the evidence needed to reconsider them.
 
 The literature expansion adds a source-recovered layer before refitting.
-[`data/recovered_panels.json`](data/recovered_panels.json) contains 78
-additional panels and 330 arms from six audited primary sources. It covers
+[`data/recovered_panels.json`](data/recovered_panels.json) contains 95
+additional panels and 391 arms from ten audited primary sources. It covers
 cross-task mixtures over five model families, real and synthetic data at fixed
 sample counts, finance-specific trajectory selection, five-seed
 self-distillation ablations, and a complete two-stage data-processing
 factorial across nine model families. It also adds controlled curriculum and
-policy-relative difficulty-filtering ablations for long-context financial RL.
+policy-relative difficulty-filtering ablations for long-context financial RL,
+finance-data mixture and GRPO interventions, selective knowledge fusion, and a
+judge-independent business-outcome audit of financial-advice GRPO.
 Source-native treatment fields remain explicit instead of forcing missing
 quantities into a common numeric feature.
 
@@ -90,27 +92,35 @@ transfer across independently published finance decisions.
 
 ## Expanded source-recovered result
 
-The expanded bridge contains 90 source-native decision panels, 377 arms, and
-ten independent studies. Outcomes are normalized only within each panel.
-Under leave-one-source-out evaluation, an interpretable measurement rule
-orders 60.0% of candidate pairs and has 0.390 mean normalized regret, compared
-with 53.3% and 0.507 for choosing more data. Its regret is also below the fifth
+The expanded bridge contains 107 source-native decision panels, 438 arms, and
+fourteen independent studies. Outcomes are normalized only within each panel.
+Under leave-one-source-out evaluation, an interpretable treatment rule orders
+62.6% of candidate pairs and has 0.340 mean normalized regret, compared with
+55.7% and 0.486 for choosing more data. Its regret is also below the fifth
 percentile from 200 within-panel shuffled-pairing controls. The grouped ridge
-has lower magnitude error but weaker allocation performance, with 0.434 RMSE
-and 0.464 regret.
+has lower magnitude error, with 0.464 RMSE, but weaker allocation performance
+than the rule, with 0.405 regret.
 
 Equal-study weighting strengthens the comparison. The practical rule reaches
-70.5% pair ordering and 0.216 regret, compared with 58.8% and 0.418 for more
-data. It has lower regret in eight of ten held-out studies. The same ordering
-survives replacement of min-to-max utility with within-panel ranks. The exact
-two-sided sign-test value is 0.109, so this breadth supports the direction of
-the result without establishing a conventional significance claim. The full
+74.9% pair ordering, 70.4% top-choice credit, and 0.175 regret, compared with
+58.4%, 36.8%, and 0.411 for more data. It has lower regret in eleven of fourteen
+held-out studies, ties in one, and loses in two. The same ordering survives
+replacement of min-to-max utility with within-panel ranks. The exact two-sided
+sign-test value is 0.022 across the thirteen non-tied studies. This is a
+retrospective breadth test, not evidence from a frozen selector. The full
 normalization and weighting rationale is recorded in
 [`NORMALIZATION_AUDIT.md`](NORMALIZATION_AUDIT.md).
 
+The direction does not depend on the two sources that report only one decision
+panel. Restricting the audit to twelve multi-panel studies yields 71.5% pair
+ordering and 0.205 regret for the practical rule, compared with 58.9% and 0.413
+for more data. This sensitivity prevents a small, easy intervention table from
+driving the study-macro result.
+
 Transfer is stronger when a study is known and the held-out group is a new
-model or target. The ridge reaches 70.1% pair ordering and 0.194 regret under
-model holdout, and 67.5% pair ordering and 0.227 regret under target holdout.
+model or target. The ridge reaches 76.8% study-macro pair ordering and 0.155
+regret under model holdout, and 74.3% ordering and 0.176 regret under target
+holdout.
 This gap is scientifically important. Recurring treatment measurements carry
 substantial information within an experimental program, while transfer to a
 new paper remains harder. The prospective finance test must therefore use an
