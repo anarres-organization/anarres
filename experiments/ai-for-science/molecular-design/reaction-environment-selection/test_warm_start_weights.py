@@ -47,6 +47,7 @@ class WarmStartWeightsTests(unittest.TestCase):
         self.assertEqual(artifact["source_step"], 1000)
         self.assertEqual(float(artifact["model"]["weight"][0]), 1.0)
         self.assertEqual(float(artifact["sampling_model"]["weight"][0]), 2.0)
+        self.assertEqual(artifact["objectives"], ("qed",))
         for excluded in (
             "optimizer",
             "lr_scheduler",

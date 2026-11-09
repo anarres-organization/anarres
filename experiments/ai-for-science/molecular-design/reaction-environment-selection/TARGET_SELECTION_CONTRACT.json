@@ -4,7 +4,7 @@
   "scope": "starting-policy target qualification and selection",
   "status": "frozen_before_starting_policy_sampling",
   "starting_policy": {
-    "artifact_sha256": "29da27efeae7f7d803e760f74eba63ab1fc2746b509e0f0b59900920aded79cc",
+    "artifact_sha256": "effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a",
     "rxnflow_version": "2.1.0",
     "source_step": 1000
   },

@@ -214,7 +214,7 @@ records a one-update CPU smoke of the complete environment, policy, optimizer,
 trajectory-generation, and checkpoint path. The claim-bearing 1,000-update warm
 start is recorded in [`WARM_START_QUALIFICATION.json`](WARM_START_QUALIFICATION.json).
 Its weights-only starting-policy artifact has SHA-256
-`29da27efeae7f7d803e760f74eba63ab1fc2746b509e0f0b59900920aded79cc`.
+`effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a`.
 
 Audit local checkouts without reading target outcomes:
 

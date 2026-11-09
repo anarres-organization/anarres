@@ -16,7 +16,7 @@
     "system": "RxnFlow v2.1.0",
     "encoder": "released GINE-style message-passing encoder",
     "warm_start": "one common QED warm start trained on the qualified public construction space",
-    "weights_artifact_identity": "sha256:29da27efeae7f7d803e760f74eba63ab1fc2746b509e0f0b59900920aded79cc",
+    "weights_artifact_identity": "sha256:effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a",
     "initialization": "Load identical policy and sampling-model weights into a fresh target-reward trainer for every arm. Initialize fresh optimizer, scheduler, RNG, and replay state, then preload only the arm-specific frozen experience bank.",
     "reused_across_all_intervention_arms": true,
     "qed_optimizer_or_replay_state_reused": false

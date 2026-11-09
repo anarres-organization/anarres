@@ -40,10 +40,11 @@
     "weights_only_starting_policy": {
       "artifact_type": "anarres.rxnflow-warm-start-weights.v1",
       "source_step": 1000,
-      "bytes": 37571107,
-      "sha256": "29da27efeae7f7d803e760f74eba63ab1fc2746b509e0f0b59900920aded79cc",
+      "bytes": 37571171,
+      "sha256": "effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a",
       "contains_policy_weights": true,
       "contains_sampling_model_weights": true,
+      "contains_rxnflow_objective_metadata": true,
       "contains_optimizer_scheduler_replay_or_rng_state": false
     }
   },

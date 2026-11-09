@@ -38,6 +38,7 @@ def extract_weights(checkpoint: Path, output: Path) -> dict[str, Any]:
         "environment": payload["environment"],
         "model": payload["model"],
         "sampling_model": payload["sampling_model"],
+        "objectives": tuple(payload["objectives"]),
         "source_objectives": tuple(payload["objectives"]),
         "condition_dim": payload["condition_dim"],
     }
@@ -67,7 +68,7 @@ def load_weights(trainer: Any, artifact_path: Path) -> dict[str, Any]:
         raise ValueError("warm-start weights require a fresh optimizer")
     if artifact["condition_dim"] != trainer.model.condition_dim:
         raise ValueError("warm-start and target condition dimensions differ")
-    if len(artifact["source_objectives"]) != len(trainer.objectives):
+    if len(artifact["objectives"]) != len(trainer.objectives):
         raise ValueError("warm-start and target objective dimensions differ")
     if (
         artifact["environment"]["content_sha256"] != trainer.env.signature["content_sha256"]
@@ -80,7 +81,7 @@ def load_weights(trainer: Any, artifact_path: Path) -> dict[str, Any]:
         "artifact_type": artifact["artifact_type"],
         "rxnflow_version": artifact["rxnflow_version"],
         "source_step": artifact["source_step"],
-        "source_objectives": list(artifact["source_objectives"]),
+        "source_objectives": list(artifact["objectives"]),
     }
 
 
