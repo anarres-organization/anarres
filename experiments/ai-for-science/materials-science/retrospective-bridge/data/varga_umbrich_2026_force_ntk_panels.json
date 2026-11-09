@@ -1,0 +1,2804 @@
+{
+  "artifact": "varga_umbrich_2026_force_aware_ntk_panels_v1",
+  "source_id": "varga_umbrich_2026_force_aware_ntk",
+  "source_version": "arXiv:2605.13788v2",
+  "panel_count": 12,
+  "arm_count": 84,
+  "primary_outcome": "energy or force RMSE area under the acquisition curve and final-round RMSE",
+  "normalization": "negative error min-max normalized within dataset and metric",
+  "matched_contract": {
+    "fixed_test_fraction": 0.2,
+    "fixed_validation_fraction": 0.1,
+    "initial_label_count": 50,
+    "labels_per_round": 150,
+    "acquisition_rounds": 20,
+    "maximum_label_count": 3050,
+    "independent_experiment_seeds": 2
+  },
+  "source_files": {
+    "arXiv_2605.13788v2.pdf": {
+      "sha256": "5dfb12e3c9dba05db026ace670883e29cdc6cb0aea106f46deb86aafa755fac8"
+    }
+  },
+  "interpretation_boundary": [
+    "All seven acquisition arms share the downstream model, initial label count, labels per round, acquisition rounds, validation fraction, test fraction, and two-seed evaluation within each dataset.",
+    "The three datasets remain separate holdout groups because each defines a distinct candidate pool and downstream task.",
+    "The reported table contains two-seed means or midpoints rather than seed-level outcomes.",
+    "These reactive-benchmark experiments overlap the experimental family summarized by arXiv:2605.03964, so the earlier paired round-gain panels are superseded in pooled fitting rather than double counted.",
+    "The 200,000-structure OC20 experiment is excluded because exact arm-level numerical values are shown only in a figure."
+  ],
+  "arms": [
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:energy_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "energy_rmse_auc",
+      "environment": "activation",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 427.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -427.0,
+        "panel_normalized_utility": 0.9924812030075187,
+        "panel_normalized_regret": 0.007518796992481258
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:energy_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "energy_rmse_auc",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 493.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -493.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:energy_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "energy_rmse_auc",
+      "environment": "committee_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 457.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -457.5,
+        "panel_normalized_utility": 0.5338345864661654,
+        "panel_normalized_regret": 0.46616541353383456
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:energy_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "energy_rmse_auc",
+      "environment": "ntk_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 426.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -426.5,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:energy_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "energy_rmse_auc",
+      "environment": "ntk_energy_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 431.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -431.0,
+        "panel_normalized_utility": 0.9323308270676691,
+        "panel_normalized_regret": 0.06766917293233088
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:energy_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "energy_rmse_auc",
+      "environment": "ntk_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 433.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -433.5,
+        "panel_normalized_utility": 0.8947368421052632,
+        "panel_normalized_regret": 0.10526315789473684
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:energy_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "energy_rmse_auc",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 0,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 453.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -453.0,
+        "panel_normalized_utility": 0.6015037593984962,
+        "panel_normalized_regret": 0.3984962406015038
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_energy_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_energy_rmse",
+      "environment": "activation",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 16.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -16.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_energy_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_energy_rmse",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 19.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -19.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_energy_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_energy_rmse",
+      "environment": "committee_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 17.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -17.0,
+        "panel_normalized_utility": 0.6666666666666666,
+        "panel_normalized_regret": 0.33333333333333337
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_energy_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_energy_rmse",
+      "environment": "ntk_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 16.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -16.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_energy_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_energy_rmse",
+      "environment": "ntk_energy_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 16.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -16.5,
+        "panel_normalized_utility": 0.8333333333333334,
+        "panel_normalized_regret": 0.16666666666666663
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_energy_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_energy_rmse",
+      "environment": "ntk_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 16.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -16.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_energy_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_energy_rmse",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 0,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 17.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -17.0,
+        "panel_normalized_utility": 0.6666666666666666,
+        "panel_normalized_regret": 0.33333333333333337
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_force_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_force_rmse",
+      "environment": "activation",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 109.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -109.0,
+        "panel_normalized_utility": 0.391304347826087,
+        "panel_normalized_regret": 0.6086956521739131
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_force_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_force_rmse",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 107.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -107.0,
+        "panel_normalized_utility": 0.5652173913043478,
+        "panel_normalized_regret": 0.4347826086956522
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_force_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_force_rmse",
+      "environment": "committee_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 102.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -102.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_force_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_force_rmse",
+      "environment": "ntk_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 106.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -106.5,
+        "panel_normalized_utility": 0.6086956521739131,
+        "panel_normalized_regret": 0.3913043478260869
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_force_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_force_rmse",
+      "environment": "ntk_energy_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 109.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -109.5,
+        "panel_normalized_utility": 0.34782608695652173,
+        "panel_normalized_regret": 0.6521739130434783
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_force_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_force_rmse",
+      "environment": "ntk_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 111.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -111.5,
+        "panel_normalized_utility": 0.17391304347826086,
+        "panel_normalized_regret": 0.8260869565217391
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:final_force_rmse",
+      "dataset": "pmechdb",
+      "metric": "final_force_rmse",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 0,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 113.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -113.5,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:force_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "force_rmse_auc",
+      "environment": "activation",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 2800.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -2800.5,
+        "panel_normalized_utility": 0.2539325842696629,
+        "panel_normalized_regret": 0.7460674157303371
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:force_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "force_rmse_auc",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 2799.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -2799.0,
+        "panel_normalized_utility": 0.2606741573033708,
+        "panel_normalized_regret": 0.7393258426966292
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:force_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "force_rmse_auc",
+      "environment": "committee_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 2634.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -2634.5,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:force_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "force_rmse_auc",
+      "environment": "ntk_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 2718.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -2718.5,
+        "panel_normalized_utility": 0.6224719101123596,
+        "panel_normalized_regret": 0.3775280898876404
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:force_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "force_rmse_auc",
+      "environment": "ntk_energy_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 2777.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -2777.0,
+        "panel_normalized_utility": 0.3595505617977528,
+        "panel_normalized_regret": 0.6404494382022472
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:force_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "force_rmse_auc",
+      "environment": "ntk_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 2780.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -2780.5,
+        "panel_normalized_utility": 0.3438202247191011,
+        "panel_normalized_regret": 0.6561797752808989
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:pmechdb:force_rmse_auc",
+      "dataset": "pmechdb",
+      "metric": "force_rmse_auc",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 0,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 2857.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -2857.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:energy_rmse_auc",
+      "dataset": "rgd",
+      "metric": "energy_rmse_auc",
+      "environment": "activation",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 326.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -326.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:energy_rmse_auc",
+      "dataset": "rgd",
+      "metric": "energy_rmse_auc",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 339.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -339.0,
+        "panel_normalized_utility": 0.4090909090909091,
+        "panel_normalized_regret": 0.5909090909090908
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:energy_rmse_auc",
+      "dataset": "rgd",
+      "metric": "energy_rmse_auc",
+      "environment": "committee_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 334.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -334.0,
+        "panel_normalized_utility": 0.6363636363636364,
+        "panel_normalized_regret": 0.36363636363636365
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:energy_rmse_auc",
+      "dataset": "rgd",
+      "metric": "energy_rmse_auc",
+      "environment": "ntk_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 339.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -339.0,
+        "panel_normalized_utility": 0.4090909090909091,
+        "panel_normalized_regret": 0.5909090909090908
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:energy_rmse_auc",
+      "dataset": "rgd",
+      "metric": "energy_rmse_auc",
+      "environment": "ntk_energy_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 344.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -344.5,
+        "panel_normalized_utility": 0.1590909090909091,
+        "panel_normalized_regret": 0.8409090909090909
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:energy_rmse_auc",
+      "dataset": "rgd",
+      "metric": "energy_rmse_auc",
+      "environment": "ntk_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 338.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -338.0,
+        "panel_normalized_utility": 0.45454545454545453,
+        "panel_normalized_regret": 0.5454545454545454
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:energy_rmse_auc",
+      "dataset": "rgd",
+      "metric": "energy_rmse_auc",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 0,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 348.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -348.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_energy_rmse",
+      "dataset": "rgd",
+      "metric": "final_energy_rmse",
+      "environment": "activation",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 12.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -12.0,
+        "panel_normalized_utility": 0.6666666666666666,
+        "panel_normalized_regret": 0.33333333333333337
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_energy_rmse",
+      "dataset": "rgd",
+      "metric": "final_energy_rmse",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 12.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -12.0,
+        "panel_normalized_utility": 0.6666666666666666,
+        "panel_normalized_regret": 0.33333333333333337
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_energy_rmse",
+      "dataset": "rgd",
+      "metric": "final_energy_rmse",
+      "environment": "committee_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 11.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -11.5,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_energy_rmse",
+      "dataset": "rgd",
+      "metric": "final_energy_rmse",
+      "environment": "ntk_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 12.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -12.0,
+        "panel_normalized_utility": 0.6666666666666666,
+        "panel_normalized_regret": 0.33333333333333337
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_energy_rmse",
+      "dataset": "rgd",
+      "metric": "final_energy_rmse",
+      "environment": "ntk_energy_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 12.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -12.0,
+        "panel_normalized_utility": 0.6666666666666666,
+        "panel_normalized_regret": 0.33333333333333337
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_energy_rmse",
+      "dataset": "rgd",
+      "metric": "final_energy_rmse",
+      "environment": "ntk_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 12.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -12.0,
+        "panel_normalized_utility": 0.6666666666666666,
+        "panel_normalized_regret": 0.33333333333333337
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_energy_rmse",
+      "dataset": "rgd",
+      "metric": "final_energy_rmse",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 0,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 13.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -13.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_force_rmse",
+      "dataset": "rgd",
+      "metric": "final_force_rmse",
+      "environment": "activation",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 185.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -185.0,
+        "panel_normalized_utility": 0.5833333333333334,
+        "panel_normalized_regret": 0.41666666666666663
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_force_rmse",
+      "dataset": "rgd",
+      "metric": "final_force_rmse",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 186.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -186.0,
+        "panel_normalized_utility": 0.4166666666666667,
+        "panel_normalized_regret": 0.5833333333333333
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_force_rmse",
+      "dataset": "rgd",
+      "metric": "final_force_rmse",
+      "environment": "committee_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 182.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -182.5,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_force_rmse",
+      "dataset": "rgd",
+      "metric": "final_force_rmse",
+      "environment": "ntk_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 186.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -186.0,
+        "panel_normalized_utility": 0.4166666666666667,
+        "panel_normalized_regret": 0.5833333333333333
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_force_rmse",
+      "dataset": "rgd",
+      "metric": "final_force_rmse",
+      "environment": "ntk_energy_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 186.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -186.0,
+        "panel_normalized_utility": 0.4166666666666667,
+        "panel_normalized_regret": 0.5833333333333333
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_force_rmse",
+      "dataset": "rgd",
+      "metric": "final_force_rmse",
+      "environment": "ntk_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 184.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -184.0,
+        "panel_normalized_utility": 0.75,
+        "panel_normalized_regret": 0.25
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:final_force_rmse",
+      "dataset": "rgd",
+      "metric": "final_force_rmse",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 0,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 188.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -188.5,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:force_rmse_auc",
+      "dataset": "rgd",
+      "metric": "force_rmse_auc",
+      "environment": "activation",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 4677.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -4677.0,
+        "panel_normalized_utility": 0.4914772727272727,
+        "panel_normalized_regret": 0.5085227272727273
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:force_rmse_auc",
+      "dataset": "rgd",
+      "metric": "force_rmse_auc",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 4659.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -4659.0,
+        "panel_normalized_utility": 0.59375,
+        "panel_normalized_regret": 0.40625
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:force_rmse_auc",
+      "dataset": "rgd",
+      "metric": "force_rmse_auc",
+      "environment": "committee_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 4587.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -4587.5,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:force_rmse_auc",
+      "dataset": "rgd",
+      "metric": "force_rmse_auc",
+      "environment": "ntk_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 4651.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -4651.5,
+        "panel_normalized_utility": 0.6363636363636364,
+        "panel_normalized_regret": 0.36363636363636365
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:force_rmse_auc",
+      "dataset": "rgd",
+      "metric": "force_rmse_auc",
+      "environment": "ntk_energy_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 4684.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -4684.0,
+        "panel_normalized_utility": 0.45170454545454547,
+        "panel_normalized_regret": 0.5482954545454546
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:force_rmse_auc",
+      "dataset": "rgd",
+      "metric": "force_rmse_auc",
+      "environment": "ntk_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 4665.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -4665.5,
+        "panel_normalized_utility": 0.5568181818181818,
+        "panel_normalized_regret": 0.44318181818181823
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:rgd:force_rmse_auc",
+      "dataset": "rgd",
+      "metric": "force_rmse_auc",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 0,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 4763.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -4763.5,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:energy_rmse_auc",
+      "dataset": "t1x",
+      "metric": "energy_rmse_auc",
+      "environment": "activation",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 164.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -164.0,
+        "panel_normalized_utility": 0.9587155963302753,
+        "panel_normalized_regret": 0.041284403669724745
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:energy_rmse_auc",
+      "dataset": "t1x",
+      "metric": "energy_rmse_auc",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 268.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -268.5,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:energy_rmse_auc",
+      "dataset": "t1x",
+      "metric": "energy_rmse_auc",
+      "environment": "committee_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 250.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -250.0,
+        "panel_normalized_utility": 0.16972477064220184,
+        "panel_normalized_regret": 0.8302752293577982
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:energy_rmse_auc",
+      "dataset": "t1x",
+      "metric": "energy_rmse_auc",
+      "environment": "ntk_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 159.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -159.5,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:energy_rmse_auc",
+      "dataset": "t1x",
+      "metric": "energy_rmse_auc",
+      "environment": "ntk_energy_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 175.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -175.0,
+        "panel_normalized_utility": 0.8577981651376146,
+        "panel_normalized_regret": 0.14220183486238536
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:energy_rmse_auc",
+      "dataset": "t1x",
+      "metric": "energy_rmse_auc",
+      "environment": "ntk_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 178.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -178.5,
+        "panel_normalized_utility": 0.8256880733944955,
+        "panel_normalized_regret": 0.17431192660550454
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:energy_rmse_auc",
+      "dataset": "t1x",
+      "metric": "energy_rmse_auc",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 0,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 246.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -246.5,
+        "panel_normalized_utility": 0.2018348623853211,
+        "panel_normalized_regret": 0.7981651376146789
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_energy_rmse",
+      "dataset": "t1x",
+      "metric": "final_energy_rmse",
+      "environment": "activation",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 5.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -5.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_energy_rmse",
+      "dataset": "t1x",
+      "metric": "final_energy_rmse",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 5.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -5.5,
+        "panel_normalized_utility": 0.6666666666666666,
+        "panel_normalized_regret": 0.33333333333333337
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_energy_rmse",
+      "dataset": "t1x",
+      "metric": "final_energy_rmse",
+      "environment": "committee_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 5.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -5.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_energy_rmse",
+      "dataset": "t1x",
+      "metric": "final_energy_rmse",
+      "environment": "ntk_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 5.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -5.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_energy_rmse",
+      "dataset": "t1x",
+      "metric": "final_energy_rmse",
+      "environment": "ntk_energy_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 5.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -5.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_energy_rmse",
+      "dataset": "t1x",
+      "metric": "final_energy_rmse",
+      "environment": "ntk_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 5.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -5.5,
+        "panel_normalized_utility": 0.6666666666666666,
+        "panel_normalized_regret": 0.33333333333333337
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_energy_rmse",
+      "dataset": "t1x",
+      "metric": "final_energy_rmse",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 0,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 6.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -6.5,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_force_rmse",
+      "dataset": "t1x",
+      "metric": "final_force_rmse",
+      "environment": "activation",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 57.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -57.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_force_rmse",
+      "dataset": "t1x",
+      "metric": "final_force_rmse",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 60.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -60.0,
+        "panel_normalized_utility": 0.4,
+        "panel_normalized_regret": 0.6
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_force_rmse",
+      "dataset": "t1x",
+      "metric": "final_force_rmse",
+      "environment": "committee_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 57.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -57.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_force_rmse",
+      "dataset": "t1x",
+      "metric": "final_force_rmse",
+      "environment": "ntk_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 57.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -57.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_force_rmse",
+      "dataset": "t1x",
+      "metric": "final_force_rmse",
+      "environment": "ntk_energy_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 60.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -60.5,
+        "panel_normalized_utility": 0.3,
+        "panel_normalized_regret": 0.7
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_force_rmse",
+      "dataset": "t1x",
+      "metric": "final_force_rmse",
+      "environment": "ntk_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 59.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -59.5,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:final_force_rmse",
+      "dataset": "t1x",
+      "metric": "final_force_rmse",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 0,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 62.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -62.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:force_rmse_auc",
+      "dataset": "t1x",
+      "metric": "force_rmse_auc",
+      "environment": "activation",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 1789.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -1789.0,
+        "panel_normalized_utility": 0.9546946815495733,
+        "panel_normalized_regret": 0.045305318450426735
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:force_rmse_auc",
+      "dataset": "t1x",
+      "metric": "force_rmse_auc",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 2516.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -2516.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:force_rmse_auc",
+      "dataset": "t1x",
+      "metric": "force_rmse_auc",
+      "environment": "committee_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 2182.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -2182.5,
+        "panel_normalized_utility": 0.43795141168745894,
+        "panel_normalized_regret": 0.562048588312541
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:force_rmse_auc",
+      "dataset": "t1x",
+      "metric": "force_rmse_auc",
+      "environment": "ntk_energy",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 1754.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -1754.5,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:force_rmse_auc",
+      "dataset": "t1x",
+      "metric": "force_rmse_auc",
+      "environment": "ntk_energy_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 1,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 1796.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -1796.5,
+        "panel_normalized_utility": 0.9448456992777413,
+        "panel_normalized_regret": 0.05515430072225869
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:force_rmse_auc",
+      "dataset": "t1x",
+      "metric": "force_rmse_auc",
+      "environment": "ntk_force",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 1,
+        "uses_pretrained_representation": 1,
+        "uses_diversity_aware_lcmd": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 1,
+        "acquisition_signal_matches_endpoint": 1,
+        "forward_passes_per_candidate": 1,
+        "requires_parameter_derivatives": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 1802.5,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -1802.5,
+        "panel_normalized_utility": 0.9369665134602758,
+        "panel_normalized_regret": 0.06303348653972418
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_force_aware_ntk",
+      "panel_id": "varga_umbrich_2026_force_aware_ntk:t1x:force_rmse_auc",
+      "dataset": "t1x",
+      "metric": "force_rmse_auc",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "uses_model_relative_signal": 0,
+        "uses_pretrained_representation": 0,
+        "uses_diversity_aware_lcmd": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "uses_energy_signal": 0,
+        "uses_force_signal": 0,
+        "acquisition_signal_matches_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "requires_parameter_derivatives": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "reported_error": 2300.0,
+        "lower_is_better": true,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -2300.0,
+        "panel_normalized_utility": 0.28365068942875904,
+        "panel_normalized_regret": 0.716349310571241
+      }
+    }
+  ]
+}

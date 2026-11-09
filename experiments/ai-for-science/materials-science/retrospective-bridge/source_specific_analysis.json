@@ -3,8 +3,8 @@
   "design": "nested grouped holdout within each source",
   "support": {
     "sources": 16,
-    "panels": 828,
-    "arms": 2990
+    "panels": 804,
+    "arms": 3002
   },
   "sources": {
     "li_2023_redundancy": {
@@ -439,11 +439,11 @@
         }
       }
     },
-    "varga_umbrich_2026_pretrained_acquisition": {
+    "varga_umbrich_2026_force_aware_ntk": {
       "support": {
         "groups": 3,
-        "panels": 36,
-        "arms": 72
+        "panels": 12,
+        "arms": 84
       },
       "fold_alphas": [
         1.0,
@@ -453,23 +453,23 @@
       "metrics": {
         "uninformed_tie": {
           "pairwise_ordering": 0.5,
-          "mean_normalized_regret": 0.4027777777777778,
-          "top_choice_credit": 0.5972222222222222
+          "mean_normalized_regret": 0.41822469330366285,
+          "top_choice_credit": 0.22619047619047614
         },
         "practical_rule": {
-          "pairwise_ordering": 0.7777777777777778,
-          "mean_normalized_regret": 0.125,
-          "top_choice_credit": 0.875
+          "pairwise_ordering": 0.621031746031746,
+          "mean_normalized_regret": 0.29807924468565977,
+          "top_choice_credit": 0.25
         },
         "fixed_identity": {
-          "pairwise_ordering": 0.7777777777777778,
-          "mean_normalized_regret": 0.125,
-          "top_choice_credit": 0.875
+          "pairwise_ordering": 0.5119047619047619,
+          "mean_normalized_regret": 0.38548481698159925,
+          "top_choice_credit": 0.25
         },
         "ridge": {
-          "pairwise_ordering": 0.7916666666666666,
-          "mean_normalized_regret": 0.1111111111111111,
-          "top_choice_credit": 0.8888888888888888
+          "pairwise_ordering": 0.6507936507936508,
+          "mean_normalized_regret": 0.3337441923620826,
+          "top_choice_credit": 0.08333333333333333
         }
       }
     },

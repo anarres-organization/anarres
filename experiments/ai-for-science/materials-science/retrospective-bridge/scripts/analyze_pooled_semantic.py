@@ -30,7 +30,7 @@ FILES = {
     "zhang_2023_etal": "zhang_2023_etal_panels.json",
     "espinosa_castaneda_2026_diversity": "espinosa_castaneda_2026_diversity_panels.json",
     "wang_2026_dataset_aware_entropy": "wang_2026_entropy_panels.json",
-    "varga_umbrich_2026_pretrained_acquisition": "varga_umbrich_2026_transfer_panels.json",
+    "varga_umbrich_2026_force_aware_ntk": "varga_umbrich_2026_force_ntk_panels.json",
     "kim_2026_density_diversity": "kim_2026_density_diversity_panels.json",
     "liu_2026_heterogeneous_uq": "liu_2026_tungsten_label_panels.json",
     "haenseroth_dressler_2026_data_efficiency": (
@@ -182,15 +182,15 @@ def semantic_coordinates(source: str, arm: dict) -> dict[str, float | None]:
             "measurement_accessibility": 1.0 - float(native["adaptive_acquisition"]),
             "exposure": float(native["training_configuration_count"]),
         }
-    if source == "varga_umbrich_2026_pretrained_acquisition":
+    if source == "varga_umbrich_2026_force_aware_ntk":
         native = arm["pre_outcome_measurements"]
         return {
             "model_relative_signal": float(native["uses_model_relative_signal"]),
-            "structural_coverage": float(native["uses_lcmd_structural_coverage"]),
-            "target_relevance": float(native["acquisition_signal_matches_energy_endpoint"]),
+            "structural_coverage": float(native["uses_diversity_aware_lcmd"]),
+            "target_relevance": float(native["acquisition_signal_matches_endpoint"]),
             "measurement_accessibility": -float(
                 native["forward_passes_per_candidate"]
-                + native["backward_passes_per_candidate"]
+                + native["requires_parameter_derivatives"]
                 + native["models_maintained"]
                 - 1
             ),

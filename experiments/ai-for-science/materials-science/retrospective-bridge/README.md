@@ -50,8 +50,8 @@ unchanged between property prediction, interatomic potentials, and phonons.
 
 ## Qualified evidence
 
-Sixteen sources enter the predictive bridge. Together they contain 828 matched
-decision panels and 2,990 candidate arms. Nine additional sources audit
+Sixteen sources enter the predictive bridge. Together they contain 804 matched
+decision panels and 3,002 candidate arms. Nine additional sources audit
 selection uncertainty, model–environment compatibility, and training-regime
 dependence without entering the predictor.
 
@@ -114,11 +114,12 @@ dependence without entering the predictor.
   separately across common in-distribution tests and independent equilibrium
   and thermal-MD tests. Broad coverage transfers reliably for energy, while
   carbon force and stress expose the importance of target-distribution match.
-- **Varga-Umbrich et al. (2026)** report exact transfer gains for pretrained
-  representation kernels and committee acquisition across three reactive-
-  chemistry datasets. The bridge reconstructs 36 method-versus-random
-  decisions over energy and force metrics. Method-specific targets prevent
-  direct comparison among acquisition families, so each remains a binary panel.
+- **Varga-Umbrich et al. (2026)** report matched active-learning curves for
+  random, activation, committee, and energy- and force-aware neural-tangent-
+  kernel acquisition across three reactive-chemistry datasets. The bridge
+  reconstructs twelve seven-arm decisions from exact AUC and final-RMSE values.
+  These panels supersede an earlier paired round-gain summary of the same
+  experimental family, preventing duplicate evidence in the pooled fit.
 - **Kim et al. (2026)** release five independent training seeds for three
   equal-size distilled-water environments that vary density and temperature
   support. Twelve shared thermodynamic states are scored from exact RDF arrays
@@ -250,7 +251,7 @@ material contexts. Outcomes are normalized only within matched decisions.
 | Zaverkin et al. | 81.0% / 0.002 | 80.2% / 0.030 | Coverage and model-relative acquisition transfer across three physical contexts at a fixed 512-configuration cap. |
 | Espinosa Castañeda et al. | 70.8% / 0.157 | 69.5% / 0.183 | Target match and diversity transfer across five complete datasets, while a fixed policy retains lower regret. |
 | Wang et al. | 87.8% / 0.122 | 91.1% / 0.089 | Coverage plus target match transfers across three systems; a fixed entropy preference remains slightly better because most panels favor entropy. |
-| Varga-Umbrich et al. | 77.8% / 0.125 | 79.2% / 0.111 | Pretrained representation kernels transfer across three reactive datasets, with paired random comparisons preserving method-specific targets. |
+| Varga-Umbrich et al. | 62.1% / 0.298 | 65.1% / 0.334 | Representation-aware selection improves on an uninformed tie across three reactive datasets, while the best acquisition signal remains endpoint dependent. |
 | Kim et al. | 66.7% / 0.250 | 72.2% / 0.250 | Density coverage selects nine of twelve thermodynamic states; the three misses occur where no-variance training narrowly leads at high density. |
 | Liu et al. | 56.7% / 0.000 | 83.3% / 0.001 | The independently validated uncertainty threshold nearly matches the best energy and force arms while using about 4% DFT-labeled atomic environments. |
 | Zhang et al. | 100.0% / 0.000 | 100.0% / 0.000 | Entropy-targeted coverage wins all four released model–target panels; only two target holdout groups are available. |

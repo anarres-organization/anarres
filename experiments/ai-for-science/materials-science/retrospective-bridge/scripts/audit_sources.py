@@ -16,6 +16,7 @@ ALLOWED = {
     "pending_numerical_extraction",
     "excluded_unverified_release",
     "context_only",
+    "superseded_overlapping_experiments",
 }
 
 
@@ -29,9 +30,11 @@ def validate() -> dict:
     for source in sources:
         assert source["title"].strip()
         assert source["status"] in ALLOWED
-        if source["status"] == "included":
+        if source["status"] in {"included", "superseded_overlapping_experiments"}:
             assert source.get("use")
             assert source.get("license")
+            if source["status"] == "superseded_overlapping_experiments":
+                assert source.get("reason")
         else:
             assert source.get("reason")
     return payload

@@ -3,8 +3,8 @@
   "design": "nested leave-one-source-out ridge with source-local, outcome-blind coordinate normalization",
   "support": {
     "sources": 16,
-    "panels": 828,
-    "arms": 2990
+    "panels": 804,
+    "arms": 3002
   },
   "coordinates": [
     "model_relative_signal",
@@ -25,7 +25,7 @@
     "li_2023_redundancy": 100.0,
     "liu_2026_heterogeneous_uq": 100.0,
     "qi_2024_direct_sampling": 100.0,
-    "varga_umbrich_2026_pretrained_acquisition": 100.0,
+    "varga_umbrich_2026_force_aware_ntk": 100.0,
     "wang_2026_dataset_aware_entropy": 100.0,
     "wong_yang_2026_umlip_bias": 100.0,
     "zaverkin_2024_uncertainty_biased_md": 100.0,
@@ -33,42 +33,42 @@
   },
   "panel_weighted_metrics": {
     "uninformed_tie": {
-      "panels": 828,
-      "arms": 2990,
+      "panels": 804,
+      "arms": 3002,
       "pairwise_ordering": 0.5,
-      "mean_normalized_regret": 0.44655604374672153,
-      "top_choice_credit": 0.3630175983436853
+      "mean_normalized_regret": 0.4480934086342405,
+      "top_choice_credit": 0.35048862828713573
     },
     "semantic_mean": {
-      "panels": 828,
-      "arms": 2990,
-      "pairwise_ordering": 0.677875608842263,
-      "mean_normalized_regret": 0.2701448102544626,
-      "top_choice_credit": 0.5144927536231884
+      "panels": 804,
+      "arms": 3002,
+      "pairwise_ordering": 0.6746489016924739,
+      "mean_normalized_regret": 0.2772094009830269,
+      "top_choice_credit": 0.4944029850746269
     },
     "ridge": {
-      "panels": 828,
-      "arms": 2990,
-      "pairwise_ordering": 0.6656987635818659,
-      "mean_normalized_regret": 0.277377449998175,
-      "top_choice_credit": 0.5084541062801933
+      "panels": 804,
+      "arms": 3002,
+      "pairwise_ordering": 0.6636658264314008,
+      "mean_normalized_regret": 0.2859017215151088,
+      "top_choice_credit": 0.4869402985074627
     }
   },
   "source_macro_metrics": {
     "uninformed_tie": {
       "pairwise_ordering": 0.5,
-      "mean_normalized_regret": 0.43962509764790225,
-      "top_choice_credit": 0.3501604015700483
+      "mean_normalized_regret": 0.4405905298682701,
+      "top_choice_credit": 0.32697091744306417
     },
     "semantic_mean": {
-      "pairwise_ordering": 0.7365809948649389,
-      "mean_normalized_regret": 0.1907927557642618,
-      "top_choice_credit": 0.6094616539154158
+      "pairwise_ordering": 0.7275284154998595,
+      "mean_normalized_regret": 0.20396873926942807,
+      "top_choice_credit": 0.5686630428043047
     },
     "ridge": {
-      "pairwise_ordering": 0.6599787097180978,
-      "mean_normalized_regret": 0.2641909972810044,
-      "top_choice_credit": 0.5437870507408127
+      "pairwise_ordering": 0.6614420033688915,
+      "mean_normalized_regret": 0.27910309189728183,
+      "top_choice_credit": 0.5012523285185904
     }
   },
   "source_win_counts_vs_uninformed_tie": {
@@ -84,9 +84,9 @@
         "worsened": 2
       },
       "top_choice_credit": {
-        "improved": 13,
+        "improved": 12,
         "tied": 0,
-        "worsened": 3
+        "worsened": 4
       }
     },
     "ridge": {
@@ -101,9 +101,9 @@
         "worsened": 3
       },
       "top_choice_credit": {
-        "improved": 11,
+        "improved": 10,
         "tied": 1,
-        "worsened": 4
+        "worsened": 5
       }
     }
   },
@@ -333,7 +333,7 @@
       "ridge": {
         "panels": 2,
         "arms": 12,
-        "pairwise_ordering": 0.6333333333333333,
+        "pairwise_ordering": 0.8333333333333334,
         "mean_normalized_regret": 0.00019904288850064455,
         "top_choice_credit": 0.0
       }
@@ -361,27 +361,27 @@
         "top_choice_credit": 0.5
       }
     },
-    "varga_umbrich_2026_pretrained_acquisition": {
+    "varga_umbrich_2026_force_aware_ntk": {
       "uninformed_tie": {
-        "panels": 36,
-        "arms": 72,
+        "panels": 12,
+        "arms": 84,
         "pairwise_ordering": 0.5,
-        "mean_normalized_regret": 0.4027777777777778,
-        "top_choice_credit": 0.5972222222222222
+        "mean_normalized_regret": 0.41822469330366285,
+        "top_choice_credit": 0.22619047619047614
       },
       "semantic_mean": {
-        "panels": 36,
-        "arms": 72,
-        "pairwise_ordering": 0.7638888888888888,
-        "mean_normalized_regret": 0.1388888888888889,
-        "top_choice_credit": 0.8611111111111112
+        "panels": 12,
+        "arms": 84,
+        "pairwise_ordering": 0.6190476190476191,
+        "mean_normalized_regret": 0.34970462497154925,
+        "top_choice_credit": 0.20833333333333334
       },
       "ridge": {
-        "panels": 36,
-        "arms": 72,
-        "pairwise_ordering": 0.7916666666666666,
-        "mean_normalized_regret": 0.1111111111111111,
-        "top_choice_credit": 0.8888888888888888
+        "panels": 12,
+        "arms": 84,
+        "pairwise_ordering": 0.6150793650793651,
+        "mean_normalized_regret": 0.34970462497154925,
+        "top_choice_credit": 0.20833333333333334
       }
     },
     "wang_2026_dataset_aware_entropy": {

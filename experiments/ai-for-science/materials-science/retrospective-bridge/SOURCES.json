@@ -176,18 +176,44 @@
       ],
       "arxiv": "https://arxiv.org/abs/2605.03964",
       "license": "arXiv non-exclusive distribution license",
-      "status": "included",
+      "status": "superseded_overlapping_experiments",
+      "reason": "A newer paper reports direct matched multi-arm error outcomes for the overlapping reactive-benchmark experiment family, so retaining both sources in pooled fitting would duplicate evidence.",
       "source_artifacts": {
         "arxiv_version": "2605.03964v2",
         "source_bundle_sha256": "d41e257505d9ed835d036062f3b1430d05084ac73083bba7a66631c2877522b0",
         "paper_tex_sha256": "ae9aeb233f32a6b5692579c0a408135b0df8972b35effdf3ccbfbba4dbcec458",
         "transfer_table_sha256": "eb6accab45047eb1e0f52e135917e69a43f5bf717ad1bbcdef8eb1889d6f41ea"
       },
-      "use": "Thirty-six paired decisions compare Activation-LCMD, NTK-LCMD, or energy-committee acquisition with random acquisition across three reactive datasets and four error metrics. The exact manuscript table reports percentage reduction in rounds to a target reached by each method and its paired random curve.",
+      "use": "This source first exposed the reactive-benchmark acquisition family. Its paired round-gain summaries are retained for provenance but are superseded in pooled fitting by the direct multi-arm errors in arXiv:2605.13788v2.",
       "exclusions": [
         "Acquisition methods are never compared directly because each method's round gain uses a method-specific shared target with random.",
         "The T1x summary table averages three candidate pools and is excluded from grouped-holdout fitting.",
         "Underlying per-round histories and seed-level outcomes were not released as numerical artifacts."
+      ]
+    },
+    {
+      "id": "varga_umbrich_2026_force_aware_ntk",
+      "title": "Force-Aware Neural Tangent Kernels for Scalable and Robust Active Learning of MLIPs",
+      "authors": [
+        "Eszter Varga-Umbrich",
+        "Zachary Weller-Davies",
+        "Paul Duckworth",
+        "Jules Tilly",
+        "Olivier Peltre",
+        "Shikha Surana"
+      ],
+      "arxiv": "https://arxiv.org/abs/2605.13788",
+      "license": "arXiv non-exclusive distribution license",
+      "status": "included",
+      "source_artifacts": {
+        "arxiv_version": "2605.13788v2",
+        "paper_pdf_sha256": "5dfb12e3c9dba05db026ace670883e29cdc6cb0aea106f46deb86aafa755fac8"
+      },
+      "use": "Twelve matched multi-arm panels compare random, activation, energy- and force-committee, and three neural-tangent-kernel acquisition environments across RGD, T1x, and PMechDB. Every panel fixes the downstream model, initial labels, per-round label budget, number of rounds, and evaluation split. Exact Table 1 values provide full-curve RMSE AUC and final-round RMSE.",
+      "exclusions": [
+        "The reactive-benchmark runs overlap the experimental family in arXiv:2605.03964, so the earlier paired round-gain panels are not included in the pooled fit.",
+        "The two-seed table summaries do not expose seed-level outcomes.",
+        "The 200,000-structure OC20 experiment is excluded because its exact arm-level outcomes are shown only in a figure."
       ]
     },
     {

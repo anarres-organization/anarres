@@ -12,7 +12,7 @@ SPEC.loader.exec_module(MODULE)
 
 def test_pooled_semantic_analysis_support_and_boundaries():
     result = MODULE.analyze(ROOT / "data")
-    assert result["support"] == {"sources": 16, "panels": 828, "arms": 2990}
+    assert result["support"] == {"sources": 16, "panels": 804, "arms": 3002}
     assert set(result["fold_alphas"]) == set(MODULE.FILES)
     for family in ("panel_weighted_metrics", "source_macro_metrics"):
         assert set(result[family]) == {"uninformed_tie", "semantic_mean", "ridge"}

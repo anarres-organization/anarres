@@ -28,7 +28,7 @@ def test_metrics_distinguish_tie_from_perfect_ordering():
 def test_checked_in_analysis_has_expected_support():
     data = Path(__file__).parent / "data"
     payload = MODULE.analyze(data)
-    assert payload["support"] == {"sources": 16, "panels": 828, "arms": 2990}
+    assert payload["support"] == {"sources": 16, "panels": 804, "arms": 3002}
     assert payload["sources"]["dale_2026_active_learning_failure"]["support"]["panels"] == 23
     assert payload["sources"]["liu_2026_heterogeneous_uq"]["support"] == {
         "groups": 2,

@@ -23,7 +23,7 @@ FILES = {
     "zhang_2023_etal": "zhang_2023_etal_panels.json",
     "espinosa_castaneda_2026_diversity": "espinosa_castaneda_2026_diversity_panels.json",
     "wang_2026_dataset_aware_entropy": "wang_2026_entropy_panels.json",
-    "varga_umbrich_2026_pretrained_acquisition": "varga_umbrich_2026_transfer_panels.json",
+    "varga_umbrich_2026_force_aware_ntk": "varga_umbrich_2026_force_ntk_panels.json",
     "kim_2026_density_diversity": "kim_2026_density_diversity_panels.json",
     "liu_2026_heterogeneous_uq": "liu_2026_tungsten_label_panels.json",
     "haenseroth_dressler_2026_data_efficiency": (
@@ -227,21 +227,26 @@ def records(source: str, payload: dict) -> list[dict]:
             group = arm["material_system"]
             identity = arm["environment"]
             utility = arm["derived"]["panel_normalized_utility"]
-        elif source == "varga_umbrich_2026_pretrained_acquisition":
+        elif source == "varga_umbrich_2026_force_aware_ntk":
             coordinates = arm["pre_outcome_measurements"]
             features = [
-                coordinates["uses_pretrained_representation_kernel"],
                 coordinates["uses_model_relative_signal"],
-                coordinates["uses_lcmd_structural_coverage"],
+                coordinates["uses_pretrained_representation"],
+                coordinates["uses_diversity_aware_lcmd"],
                 coordinates["uses_pointwise_committee_disagreement"],
-                coordinates["acquisition_signal_matches_energy_endpoint"],
+                coordinates["uses_energy_signal"],
+                coordinates["uses_force_signal"],
+                coordinates["acquisition_signal_matches_endpoint"],
                 -coordinates["forward_passes_per_candidate"],
-                -coordinates["backward_passes_per_candidate"],
+                -coordinates["requires_parameter_derivatives"],
                 -coordinates["models_maintained"],
             ]
-            # This outcome-blind rule tests the paper's central proposal:
-            # pretrained representation kernels coupled to LCMD coverage.
-            practical = coordinates["uses_pretrained_representation_kernel"]
+            # This outcome-blind rule represents the paper's central design:
+            # pretrained representations coupled to diversity-aware selection.
+            practical = (
+                coordinates["uses_pretrained_representation"]
+                + coordinates["uses_diversity_aware_lcmd"]
+            )
             group = arm["dataset"]
             identity = arm["environment"]
             utility = arm["derived"]["panel_normalized_utility"]

@@ -41,7 +41,7 @@ frozen PBEsol workflow. These supervised studies establish the measurement and
 decision workflow before the broader interatomic-potential experiment below.
 
 The supporting [`retrospective-bridge/`](retrospective-bridge/) reconstructs
-828 matched decisions and 2,990 candidate arms from sixteen public studies. It
+804 matched decisions and 3,002 candidate arms from sixteen public studies. It
 tests recurring measurements under source-specific grouped holdouts and then
 holds out each complete study. Directionally aligned signal, coverage, and
 target-relevance concepts transfer better than an uninformed rule. A shared
