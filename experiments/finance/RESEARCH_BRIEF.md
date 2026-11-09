@@ -16,19 +16,27 @@ Anarres studies that decision directly:
 
 ### Published intervention evidence
 
-We normalized 47 reported intervention and control arms across 12 comparable
-decision panels from four finance post-training studies. Every study is held
-out in turn when fitting the exploratory ridge model.
+The source-recovered bridge contains 377 intervention and control arms across
+90 comparable decision panels from ten finance post-training studies. Every
+study is held out in turn for the strictest retrospective test.
 
-![Retrospective finance decision audit](retrospective-post-training/figures/retrospective_decision_audit.svg)
+![Expanded finance evidence bridge](retrospective-post-training/figures/expanded_evidence_bridge.svg)
 
-A transparent quality-aware rule selects the reported winner in 10 of 12
-panels. A leave-one-study-out ridge model selects 8 of 12 and has substantially
-better magnitude calibration. Choosing the arm with the most training selects 6
-of 12. The evidence suggests that reasoning-data quality, capability retention,
-verifier alignment, and policy-relative difficulty matter more than volume
-alone. Because the feature schema was assembled after the studies were public,
-this is retrospective evidence rather than a prospective validation.
+Under leave-one-study-out evaluation, an interpretable measurement rule orders
+60.0% of candidate pairs with 0.390 mean normalized regret. Choosing more data
+orders 53.3% with 0.507 regret. The measurement rule also falls below the fifth
+percentile of regret from 200 within-panel shuffled-pairing controls. A grouped
+ridge predicts outcome magnitude better but allocates less reliably across a
+new study. When the study is known, ridge transfer to a held-out model reaches
+70.1% pair ordering and 0.194 regret. Transfer to a held-out target reaches
+67.5% and 0.227. The difference between within-program transfer and new-study
+transfer defines the current boundary.
+
+The evidence suggests that task alignment, reasoning-data quality, capability
+retention, verifier design, policy-relative difficulty, and data composition
+carry more decision information than volume alone. Because every outcome was
+already public, this remains retrospective evidence rather than prospective
+validation.
 
 ### Executable workflow qualification
 
@@ -51,6 +59,21 @@ tool permissions, audit logs, and human review. [Bank of England and FCA survey
 evidence](https://www.bankofengland.co.uk/report/2026/artificial-intelligence-in-uk-financial-services-2026)
 places most deployed financial agents in decision-support roles and finds that
 Operations and IT is the largest area of reported AI use.
+
+This priority is also reflected in current systems and public benchmarks.
+Anthropic includes ledger reconciliation, month-end close, statement audit,
+KYC, and valuation review among its finance-agent templates. Ramp emphasizes
+reconciliation, journal entries, accruals, variance analysis, and controlled
+spend workflows. OpenAI's Endex case study highlights financial-model
+reconciliation and source-linked discrepancy detection. FinBalance and
+FORCE-Bench provide public evaluation designs for document-grounded accounting,
+ERP research, and evidence-backed finance work.
+
+The broader [agent-systems evidence map](agent-systems-evidence/README.md)
+adds Finch, FinMaster, RealFin, AgenticFinBench, FinNextAssist, DealTrace, and a
+controlled tool-surface ablation. Together they show why the prospective task
+must measure evidence, calculation, workflow orchestration, recovery, and
+controls in addition to final-answer accuracy.
 
 ## The prospective tests
 
@@ -111,7 +134,10 @@ change held-out outcomes after training begins.
 
 - [Retrospective methods and interpretation](retrospective-post-training/README.md)
 - [Machine-readable panels](retrospective-post-training/data/panels.json)
+- [Source-recovered expansion](retrospective-post-training/data/recovered_panels.json)
 - [Machine-readable results](retrospective-post-training/results/summary.json)
+- [Expanded grouped results](retrospective-post-training/results/expanded_summary.json)
+- [Agent-systems evidence map](agent-systems-evidence/README.md)
 - [Prospective protocol](environment-selection/README.md)
 - [Qualified-source record](environment-selection/PREFLIGHT.json)
 - [Post-trade panel specification](environment-selection/POST_TRADE_PANEL_SPEC.md)
@@ -120,6 +146,9 @@ change held-out outcomes after training begins.
 cd experiments/finance/retrospective-post-training
 python scripts/reproduce.py
 python scripts/render_summary.py
+python scripts/build_recovered_panels.py
+python scripts/analyze_expanded_bridge.py
+python scripts/render_expanded_summary.py
 python test_reproduce.py
 ```
 

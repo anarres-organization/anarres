@@ -40,6 +40,66 @@
       "license": "arXiv non-exclusive distribution license",
       "evidence": ["Table 23"],
       "audit_note": "Data-scale and GRPO progression; reasoning and knowledge outcomes remain separate panels."
+    },
+    {
+      "id": "phogat2024_financial_qa",
+      "title": "Fine-tuning Smaller Language Models for Question Answering over Financial Documents",
+      "authors": ["Karmvir Singh Phogat", "Sai Akhil Puranam", "Sridhar Dasaratha", "Chetan Harsha", "Shashishekar Ramakrishna"],
+      "url": "https://aclanthology.org/2024.findings-emnlp.617/",
+      "version": "ACL Anthology 2024.findings-emnlp.617",
+      "license": "CC BY 4.0",
+      "evidence": ["Table 4", "Table 5"],
+      "audit_note": "Twenty model-target decision panels recovered. Full-target arms use more examples than the 1,500-example mixtures, so sample count remains explicit and those panels are not marked budget matched."
+    },
+    {
+      "id": "harsha2025_synthetic_financial_qa",
+      "title": "Synthetic Data Generation Using Large Language Models for Financial Question Answering",
+      "authors": ["Chetan Harsha", "Karmvir Singh Phogat", "Sridhar Dasaratha", "Sai Akhil Puranam", "Shashishekar Ramakrishna"],
+      "url": "https://aclanthology.org/2025.finnlp-1.7/",
+      "version": "ACL Anthology 2025.finnlp-1.7",
+      "license": "CC BY 4.0",
+      "evidence": ["Table 2", "Table 3", "Table 4", "Table 5", "Table 6"],
+      "audit_note": "Twenty panels recovered across fixed sample counts, selection by distance, synthetic-generation recipes, and real/synthetic mixture fractions."
+    },
+    {
+      "id": "fin_prm_2026",
+      "title": "Fin-PRM: A Domain-Specialized Process Reward Model for Financial Reasoning in Large Language Models",
+      "authors": ["Jie Zhu", "Yuanchen Zhou", "Shuo Jiang", "Junhui Li", "Lifan Guo", "Feng Chen", "Chi Zhang"],
+      "url": "https://arxiv.org/abs/2508.15202v2",
+      "version": "arXiv:2508.15202v2",
+      "license": "arXiv non-exclusive distribution license",
+      "evidence": ["Table 1"],
+      "audit_note": "Offline trajectory-selection comparison on Qwen2.5-7B-Instruct and CFLUE. The no-training control differs in training volume from the four selected 1,000-trajectory arms."
+    },
+    {
+      "id": "fin_sd_2026",
+      "title": "How Much Does the Hint Matter? Scope Conditions for Hindsight Self-Distillation in Financial Reasoning",
+      "authors": ["Johnny Yu", "Cyril Gorlla"],
+      "url": "https://arxiv.org/abs/2610.36082v1",
+      "version": "arXiv:2610.36082v1; accepted at ICAIF 2026",
+      "license": "arXiv non-exclusive distribution license",
+      "evidence": ["Table 2", "Table 5"],
+      "audit_note": "Five-seed method and ablation panels recovered. Accuracy is the decision outcome; completion rate and generated tokens remain separate cost and reliability measurements."
+    },
+    {
+      "id": "shin_kim_2026_speech_sft",
+      "title": "A Factorial Ablation of a Speech-to-SFT Pipeline: Differential Effects on Data Quality and Downstream Transfer",
+      "authors": ["Wonsup Shin", "Jingu Kim"],
+      "url": "https://arxiv.org/abs/2608.20394v1",
+      "version": "arXiv:2608.20394v1",
+      "license": "CC BY 4.0",
+      "evidence": ["Table 13"],
+      "audit_note": "Twenty-seven finance-trained model-target panels recovered from the complete 2x2 factorial table. Each SFT cell is a two-seed mean. Training-set sizes are within roughly six percent but are not treated as exactly budget matched."
+    },
+    {
+      "id": "finlcr_2026",
+      "title": "FinLCR: Scaling Financial Long-Context Reasoning via Curriculum Reinforcement Learning",
+      "authors": ["Wenjie Qiu", "Yong Xie", "Karan Aggarwal", "Aitzaz Ahmad", "Stephen Lau"],
+      "url": "https://aclanthology.org/2026.finnlp-1.3/",
+      "version": "ACL Anthology 2026.finnlp-1.3",
+      "license": "CC BY 4.0",
+      "evidence": ["Table 2", "Table 3"],
+      "audit_note": "Eight decision panels recovered from curriculum-component and pass-rate-threshold ablations. Aggregate short- and long-context outcomes are kept separate from six direct benchmark or split outcomes. Reported train size remains explicit, and the panels are not treated as budget matched."
     }
   ]
 }

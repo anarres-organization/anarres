@@ -1,0 +1,114 @@
+# Evidence map for agentic finance tasks
+
+This map identifies finance workflows where environment selection can be tested
+against a real operational decision. It is separate from the post-training
+bridge because changes to tools and agent scaffolds are not training-data
+interventions.
+
+## Strongest task convergence
+
+### Reconciliation, close, and audit
+
+This is the strongest first task family. It appears in current product systems,
+public benchmarks, and controlled ablations. The work has executable structure:
+records must tie, journal entries must balance, evidence must support each
+change, and unresolved cases must be escalated.
+
+- [FinBalance](https://aclanthology.org/2026.findings-emnlp.675/) evaluates
+  source-document reconciliation, cited journal entries, final balance sheets,
+  and planted inconsistencies. Ledger feedback substantially improves reported
+  balance sheets, while citation pressure alone barely changes document-linking
+  errors.
+- [Finch](https://aclanthology.org/2026.findings-acl.523/) contains 384 tasks
+  inside 172 spreadsheet-centered enterprise workflows. The workflows combine
+  retrieval, calculation, modeling, validation, and reporting over 1,710
+  spreadsheets and supporting artifacts.
+- [FinMaster](https://aclanthology.org/2026.findings-acl.385/) spans the full
+  transaction-to-statement workflow across accounting, audit, analysis, and
+  consulting.
+- [Anthropic's finance-agent templates](https://www.anthropic.com/news/finance-agents)
+  include ledger reconciliation, month-end close, statement audit, valuation
+  review, KYC, and model maintenance.
+- [OpenAI's Model ML case study](https://openai.com/index/model-ml/) emphasizes
+  evidence reconciliation, source-linked calculations, editable financial
+  models, and review-ready work products.
+
+The prospective panel should therefore keep balance integrity, evidence
+linkage, false matches, missed breaks, and authority violations as separate
+outcomes. Aggregate task completion cannot erase a material-control failure.
+
+### Financial research and model reconciliation
+
+This is the strongest second task family. It matches work performed by banks,
+investment firms, and advisory teams, but evaluation must separate factual
+grounding from persuasive analysis.
+
+- [Finance Agent Benchmark](https://arxiv.org/abs/2508.00828) contains 537
+  expert-authored SEC research questions across nine task categories. Its best
+  reported agent reaches 46.8% accuracy at an average cost of $3.79 per query.
+- [AgenticFinBench](https://arxiv.org/abs/2611.04813) contains 230 real-world
+  requests across eight categories and 18 model-harness configurations. Its
+  claim audit lowers the rubric-only leader by 7.58 points, and harness choice
+  explains more grounding variation than model choice in the complete
+  comparison.
+- [FinNextAssist](https://arxiv.org/abs/2610.03174) uses typed evidence,
+  executable finance skills, and dedicated table and heterogeneous-evidence
+  agents. Its 2x2 component ablation raises overall score from 42.7 to 48.5 and
+  calculation from 55.0 to 75.0 when both specialist agents are present.
+- [DealTrace](https://aclanthology.org/2026.finnlp-1.52/) decomposes deal
+  analysis into extraction, reconciliation, forecasting, market context, and
+  recommendation. Forecast repair is the only repair that improves every
+  tested model, while an added critique pass raises cost without reliable gain.
+
+These sources argue for candidate environments that vary evidence quality,
+calculation burden, forecast structure, and source diversity rather than only
+surface difficulty.
+
+### Tool orchestration under operational constraints
+
+Tool access alone is not a sufficient environment description.
+
+- [RealFin](https://aclanthology.org/2026.findings-emnlp.341/) contains 1,524
+  tasks from 108 workflow templates and 85 callable finance tools. It measures
+  tool selection, ordering, parameter planning, temporal grounding, completion,
+  and recovery.
+- [FORCE-Bench](https://arxiv.org/abs/2607.19409) covers ERP obligation
+  research, time-bounded entity research, and multi-source business briefs. It
+  scores accuracy, citations, groundedness, recency, relevance, depth, clarity,
+  and structure under latency constraints.
+- [Do Tools Matter, or Just Their Descriptions?](https://aclanthology.org/2026.finnlp-1.54/)
+  holds GPT-5 fixed across six tool surfaces. The full configuration beats the
+  restricted baseline by 3.6 points, but a description-only control remains
+  within one point while the nominal system tools run on fewer than 0.2% of
+  samples.
+
+The environment representation should therefore include tool dependency,
+description quality, evidence availability, temporal requirements, and recovery
+paths. Tool count is a poor standalone proxy.
+
+## Measurement contract
+
+The retrospective studies support a broader finance representation than any
+single pair of rollout statistics. Candidate distributions should record:
+
+- target and workflow alignment
+- example count, source diversity, and real or synthetic composition
+- evidence completeness, authority, provenance, and temporal validity
+- calculation, reconciliation, forecasting, and tool-dependency structure
+- explicit quality control, retention control, and verifier coverage
+- policy-relative difficulty and failure variation
+- response, tool, verifier, and measurement cost
+- control burden, including approval, abstention, and escalation requirements.
+
+Usable signal density and effective coverage remain candidate measurements
+when RL is used. They sit inside this representation rather than defining the
+finance project.
+
+## Experimental consequence
+
+The next strong result is an independently assembled candidate-set decision.
+The candidate bank should be committed before training, measured under the
+starting policy, and scored against source-proportional, more-data,
+static-difficulty, and practical quality-aware rules. A new composition must be
+held out from model construction. The outcome vector must preserve operational
+controls and measurement cost instead of collapsing them into one score.

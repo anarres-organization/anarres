@@ -34,6 +34,38 @@ Primary references:
 - [ISDA collateral-management practices](https://www.isda.org/collateral-management-sop/)
 - [BIS AI agents for cash management](https://www.bis.org/publications/working-paper-1310-ai-agents-cash-management-payment-systems)
 
+## Convergence in current finance-agent systems
+
+Recent product and benchmark releases reinforce the same task choice from
+different directions. Anthropic's finance-agent templates include general-ledger
+reconciliation, month-end close, statement audit, KYC screening, and valuation
+review. Ramp describes reconciliation, journal entries, variance analysis,
+accruals, expense controls, procurement review, and close workflows. OpenAI's
+Endex case study emphasizes model reconciliation, discrepancy detection, and
+source-linked review of financial documents. Stripe's finance automation work
+describes accounting, treasury, tax, payments, reporting, reconciliation, and
+the validation and monitoring needed to operate agents in those workflows.
+
+Primary references:
+
+- [Anthropic finance-agent templates](https://www.anthropic.com/news/finance-agents)
+- [Ramp agents for finance teams](https://ramp.com/blog/ramp-agents-announcement)
+- [Ramp Stack accounting workflows](https://ramp.com/stack)
+- [OpenAI and Endex financial analysis](https://openai.com/index/endex/)
+- [Stripe finance-agent responsibilities](https://stripe.com/careers/listing/ai-solutions-program-manager-finance/8221776)
+
+The public research frontier now includes complementary evaluation resources.
+FORCE-Bench covers ERP obligation research, time-bounded entity research, and
+multi-source business briefs under latency constraints. FinBalance evaluates
+document-grounded journal entries, final balance sheets, citations, and
+contradiction handling with deterministic ledger replay. Business Bench covers
+stateful bookkeeping and finance operations. These resources support a focus
+on evidence-grounded accounting work rather than a generic finance chatbot.
+
+- [FORCE-Bench](https://arxiv.org/abs/2607.19409v1)
+- [FinBalance](https://arxiv.org/abs/2606.15949v1)
+- [Business Bench](https://businessbench.org/paper)
+
 ## Construction-source decision
 
 No single open source currently satisfies the full post-trade construction
@@ -55,6 +87,15 @@ can be recovered and audited.
 generator-qualified source in this program. Its close, accrual, and payment
 workflows support a prospective experiment now, while a post-trade generator is
 built from independently audited lifecycle and reconciliation components.
+
+[FinBalance](https://arxiv.org/abs/2606.15949v1) is a particularly close
+external design reference because its deterministic ledger separates reported
+balance-sheet accuracy from the balance sheet implied by a model's journal
+entries. Its ablations show that ledger feedback can repair aggregation while
+weakening contradiction detection. This supports keeping task completion,
+evidence binding, ledger consistency, and inconsistency handling as separate
+outcomes. The paper reports a generator, but a reusable public repository has
+not yet been pinned in this program, so it is not a construction source.
 
 ## Evaluation contract
 

@@ -14,7 +14,11 @@ def test_panel_registry() -> None:
     source_ids = {source["id"] for source in sources["sources"]}
     panel_ids = [panel["panel_id"] for panel in panels["panels"]]
     assert len(panel_ids) == len(set(panel_ids))
-    assert {panel["study_id"] for panel in panels["panels"]} == source_ids
+    fitted_source_ids = {panel["study_id"] for panel in panels["panels"]}
+    assert fitted_source_ids <= source_ids
+    recovered = json.loads((ROOT / "data" / "recovered_panels.json").read_text())
+    recovered_source_ids = {panel["source_id"] for panel in recovered["panels"]}
+    assert fitted_source_ids | recovered_source_ids == source_ids
     for panel in panels["panels"]:
         arm_ids = [arm["id"] for arm in panel["arms"]]
         assert panel["baseline"] in arm_ids

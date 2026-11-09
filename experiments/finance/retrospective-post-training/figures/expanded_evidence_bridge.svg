@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
+<title id="title">Expanded finance evidence bridge</title>
+<desc id="desc">A fixed measurement rule outperforms choosing more data across held-out studies. Fitted transfer is stronger to a new model or target within a known study than to a wholly new study.</desc>
+<rect width="1120" height="560" fill="#FFFFFF"/>
+<style>text{font-family:Inter,Arial,sans-serif;fill:#172033}.title{font-size:28px;font-weight:700}.subtitle{font-size:16px;fill:#596275}.panel{font-size:19px;font-weight:700}.label{font-size:15px}.value{font-size:15px;font-weight:700}.axis{font-size:12px;fill:#697386}.note{font-size:14px;fill:#596275}</style>
+<text x="60" y="54" class="title" text-anchor="start">Measurements beat volume, but transfer to a new study remains harder</text>
+<text x="60" y="84" class="subtitle" text-anchor="start">Retrospective grouped audit · 90 decision panels · 377 trained arms · 10 studies</text>
+<line x1="60" y1="108" x2="1060" y2="108" stroke="#D9DEE7"/>
+<text x="60" y="145" class="panel" text-anchor="start">Held-out-study decision ordering</text>
+<text x="595" y="145" class="panel" text-anchor="start">Fitted transfer across holdouts</text>
+<text x="235" y="172" class="axis" text-anchor="middle">pair ordering</text>
+<text x="770" y="172" class="axis" text-anchor="middle">pair ordering</text>
+<text x="998" y="172" class="axis" text-anchor="middle">regret</text>
+<text x="60" y="222" class="label" text-anchor="start">Measurement rule</text>
+<rect x="180" y="205" width="238" height="22" rx="5" fill="#EEF1F5"/>
+<rect x="180" y="205" width="142.80" height="22" rx="5" fill="#16836B"/>
+<text x="430" y="222" class="value" text-anchor="start">60.0% · regret 0.390</text>
+<text x="60" y="287" class="label" text-anchor="start">More data</text>
+<rect x="180" y="270" width="238" height="22" rx="5" fill="#EEF1F5"/>
+<rect x="180" y="270" width="126.81" height="22" rx="5" fill="#9AA4B2"/>
+<text x="430" y="287" class="value" text-anchor="start">53.3% · regret 0.507</text>
+<text x="60" y="352" class="label" text-anchor="start">Random fingerprint</text>
+<rect x="180" y="335" width="238" height="22" rx="5" fill="#EEF1F5"/>
+<rect x="180" y="335" width="117.40" height="22" rx="5" fill="#C8CDD6"/>
+<text x="430" y="352" class="value" text-anchor="start">49.3% · regret 0.580</text>
+<text x="595" y="222" class="label" text-anchor="start">New study</text>
+<rect x="700" y="205" width="238" height="22" rx="5" fill="#EEF1F5"/>
+<rect x="700" y="205" width="130.72" height="22" rx="5" fill="#3569A8"/>
+<text x="950" y="222" class="value" text-anchor="start">54.9%</text>
+<text x="1032" y="222" class="value" text-anchor="end">0.464</text>
+<text x="595" y="287" class="label" text-anchor="start">New model</text>
+<rect x="700" y="270" width="238" height="22" rx="5" fill="#EEF1F5"/>
+<rect x="700" y="270" width="166.78" height="22" rx="5" fill="#16836B"/>
+<text x="950" y="287" class="value" text-anchor="start">70.1%</text>
+<text x="1032" y="287" class="value" text-anchor="end">0.194</text>
+<text x="595" y="352" class="label" text-anchor="start">New target</text>
+<rect x="700" y="335" width="238" height="22" rx="5" fill="#EEF1F5"/>
+<rect x="700" y="335" width="160.74" height="22" rx="5" fill="#16836B"/>
+<text x="950" y="352" class="value" text-anchor="start">67.5%</text>
+<text x="1032" y="352" class="value" text-anchor="end">0.227</text>
+<line x1="60" y1="398" x2="1060" y2="398" stroke="#D9DEE7"/>
+<text x="60" y="434" class="note" text-anchor="start">The measurement rule uses source-reported alignment, composition, supervision, selection, and retention properties.</text>
+<text x="60" y="462" class="note" text-anchor="start">Its held-out-study regret is below the shuffled-pairing fifth percentile (0.476).</text>
+<text x="60" y="490" class="note" text-anchor="start">All outcomes were public before this retrospective mapping; the untouched prospective panel remains the decisive test.</text>
+</svg>

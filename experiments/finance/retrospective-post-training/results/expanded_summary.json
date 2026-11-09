@@ -1,0 +1,135 @@
+{
+  "evaluations": {
+    "leave_one_model_out": {
+      "more_data": {
+        "mean_normalized_regret": 0.50653,
+        "normalized_rmse": 0.553651,
+        "pairwise_ordering": 0.532836,
+        "top_choice_credit": 0.340556
+      },
+      "practical_rule": {
+        "mean_normalized_regret": 0.390174,
+        "normalized_rmse": 0.649697,
+        "pairwise_ordering": 0.6,
+        "top_choice_credit": 0.467407
+      },
+      "random_fingerprint": {
+        "mean_normalized_regret": 0.580194,
+        "normalized_rmse": 0.504452,
+        "pairwise_ordering": 0.493284,
+        "top_choice_credit": 0.233333
+      },
+      "ridge": {
+        "mean_normalized_regret": 0.194111,
+        "normalized_rmse": 0.36487,
+        "pairwise_ordering": 0.700746,
+        "top_choice_credit": 0.753704
+      },
+      "uninformed": {
+        "mean_normalized_regret": 0.538569,
+        "normalized_rmse": 0.612115,
+        "pairwise_ordering": 0.5,
+        "top_choice_credit": 0.273333
+      }
+    },
+    "leave_one_source_out": {
+      "more_data": {
+        "mean_normalized_regret": 0.50653,
+        "normalized_rmse": 0.553651,
+        "pairwise_ordering": 0.532836,
+        "top_choice_credit": 0.340556
+      },
+      "practical_rule": {
+        "mean_normalized_regret": 0.390174,
+        "normalized_rmse": 0.649697,
+        "pairwise_ordering": 0.6,
+        "top_choice_credit": 0.467407
+      },
+      "random_fingerprint": {
+        "mean_normalized_regret": 0.580194,
+        "normalized_rmse": 0.504452,
+        "pairwise_ordering": 0.493284,
+        "top_choice_credit": 0.233333
+      },
+      "ridge": {
+        "mean_normalized_regret": 0.464127,
+        "normalized_rmse": 0.433705,
+        "pairwise_ordering": 0.549254,
+        "top_choice_credit": 0.424815
+      },
+      "uninformed": {
+        "mean_normalized_regret": 0.538569,
+        "normalized_rmse": 0.612115,
+        "pairwise_ordering": 0.5,
+        "top_choice_credit": 0.273333
+      }
+    },
+    "leave_one_target_out": {
+      "more_data": {
+        "mean_normalized_regret": 0.50653,
+        "normalized_rmse": 0.553651,
+        "pairwise_ordering": 0.532836,
+        "top_choice_credit": 0.340556
+      },
+      "practical_rule": {
+        "mean_normalized_regret": 0.390174,
+        "normalized_rmse": 0.649697,
+        "pairwise_ordering": 0.6,
+        "top_choice_credit": 0.467407
+      },
+      "random_fingerprint": {
+        "mean_normalized_regret": 0.580194,
+        "normalized_rmse": 0.504452,
+        "pairwise_ordering": 0.493284,
+        "top_choice_credit": 0.233333
+      },
+      "ridge": {
+        "mean_normalized_regret": 0.227283,
+        "normalized_rmse": 0.374937,
+        "pairwise_ordering": 0.675373,
+        "top_choice_credit": 0.711111
+      },
+      "uninformed": {
+        "mean_normalized_regret": 0.538569,
+        "normalized_rmse": 0.612115,
+        "pairwise_ordering": 0.5,
+        "top_choice_credit": 0.273333
+      }
+    }
+  },
+  "features": [
+    "target_alignment",
+    "data_volume",
+    "source_diversity",
+    "human_labeled_fraction",
+    "quality_control",
+    "retention_control",
+    "verifier_alignment",
+    "policy_relative_selection",
+    "domain_specific_selection",
+    "transcript_refinement",
+    "qa_refinement",
+    "feedback_locality",
+    "efficient_rollout",
+    "curriculum_progression"
+  ],
+  "guardrails": [
+    "all outcomes were public before this retrospective mapping",
+    "source-native panels remain the unit of normalization and regret",
+    "model and target holdouts are nested within sources and are sensitivity analyses",
+    "the result cannot replace a frozen prospective finance decision"
+  ],
+  "normalization": "zero-to-one utility within each source-native decision panel",
+  "shuffled_pairing_control": {
+    "median_regret": 0.53908,
+    "p05_regret": 0.476259,
+    "p95_regret": 0.596875,
+    "repeats": 200
+  },
+  "status": "retrospective_source_recovered",
+  "support": {
+    "arms": 377,
+    "panels": 90,
+    "sources": 10
+  }
+}

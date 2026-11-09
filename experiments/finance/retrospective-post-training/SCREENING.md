@@ -5,7 +5,7 @@ from adjacent evidence that informs task design but cannot yet enter the model.
 The search covers finance reasoning, long-context analysis, agentic workflows,
 data curation, SFT, and reinforcement learning.
 
-## Encoded studies
+## Current fitted cut
 
 Four studies currently meet the minimum panel contract: a shared starting
 policy within each comparison, at least two reported interventions or controls,
@@ -18,6 +18,38 @@ training environment.
 | [Fino1](https://arxiv.org/abs/2502.08127v3) | original QA, all chain-of-thought, filtered chain-of-thought, PPO, DPO, and GRPO |
 | [Data-Centric Post-Training for Financial Reasoning](https://arxiv.org/abs/2609.10113v1) | ordinary and self-distilled SFT, model merging, hard-example GRPO, and verifier-selected GRPO |
 | [QuantEval](https://arxiv.org/abs/2601.08689v3) | SFT data fractions and the subsequent GRPO stage, with knowledge and reasoning outcomes kept separate |
+
+This first cut remains reproducible in [`data/panels.json`](data/panels.json).
+It is no longer the full evidence map.
+
+## Source-recovered expansion
+
+A second audit recovered 78 additional decision panels and 330 candidate arms
+from six primary sources. These rows are stored in
+[`data/recovered_panels.json`](data/recovered_panels.json) before feature
+mapping or model fitting. This separation prevents the treatment schema from
+being changed after inspecting grouped-holdout results.
+
+| Study | Recovered comparison | Panels | Arms |
+|---|---|---:|---:|
+| [Fine-tuning Smaller Language Models for Question Answering over Financial Documents](https://aclanthology.org/2024.findings-emnlp.617/) | FinQA-only, target-mixture, and full-target training across five student models and FinQA, ConvFinQA, and TATQA outcomes | 20 | 80 |
+| [Synthetic Data Generation Using Large Language Models for Financial Question Answering](https://aclanthology.org/2025.finnlp-1.7/) | real versus synthetic data at fixed sample counts, distance-based selection, generation recipes, and real/synthetic mixture fractions | 20 | 55 |
+| [Fin-PRM](https://arxiv.org/abs/2508.15202v2) | no training, random selection, general-domain PRM selection, and finance-specific PRM selection | 1 | 5 |
+| [How Much Does the Hint Matter?](https://arxiv.org/abs/2610.36082v1) | base, SFT, full-solution OPSD, localized self-distillation, and five-seed hint-writer, KL, and rollout ablations | 2 | 9 |
+| [A Factorial Ablation of a Speech-to-SFT Pipeline](https://arxiv.org/abs/2608.20394v1) | base, transcript refinement, QA refinement, and their combination across nine model families and three finance-relevant targets | 27 | 135 |
+| [FinLCR](https://aclanthology.org/2026.finnlp-1.3/) | short-to-long curriculum, policy-relative difficulty filtering, their interaction, and five pass-rate windows | 8 | 46 |
+
+Twenty of these panels hold the reported sample or rollout budget fixed. The
+remaining panels retain explicit sample counts or method costs and must not be
+described as equal-budget decisions. Accuracy remains separate from completion
+rate, generated tokens, safety, and compliance outcomes.
+
+The versioned source-native mapping combines these panels with the initial cut,
+producing 90 panels and 377 arms from ten studies. The expanded audit evaluates
+leave-one-source-out transfer, with nested model and target holdouts as
+sensitivities. Source labels are excluded from the predictor, while stable
+random fingerprints and shuffled treatment-outcome pairings remain negative
+controls.
 
 ## Relevant studies not yet encoded
 
@@ -39,6 +71,25 @@ until their intervention identities and comparable outcomes can be recovered.
   reports finance-research SFT and offline GRPO with expert grading. The
   training questions are internal, so candidate membership and public
   remeasurement are unavailable.
+- [Mixing It Up](https://arxiv.org/abs/2410.01109v2)
+  reports 220 finance fine-tuning experiments across four model families and
+  nine datasets. Its main tables report the best multi-task outcome or only
+  the top three mixtures for each target. Those outcome-selected summaries
+  cannot yet support an unbiased candidate-selection panel. The study remains
+  important evidence that task composition, general instruction data, and
+  mathematics data change finance transfer.
+- [FinHarmBench](https://aclanthology.org/2026.acl-industry.117/)
+  reports matched safety-alignment interventions across three model families.
+  The safety gains and capability measurements form a multi-objective tradeoff
+  rather than one scalar utility panel, so they remain a guardrail study until
+  the analysis specifies a prospective safety floor.
+- [FinED-Bench](https://aclanthology.org/2026.findings-acl.1481/)
+  studies supervised adaptation for financial-document error detection. The
+  exact train-set variants and matched model outcomes still require recovery.
+- [Constructing Synthetic Instruction Datasets for Improving Reasoning in
+  Domain-Specific LLMs](https://arxiv.org/abs/2603.01353)
+  reports financial-reasoning improvements and reasoning-length effects in
+  Japanese. Exact matched ablation rows remain under audit.
 
 ## Agent and operations evidence
 
@@ -57,3 +108,8 @@ independent row, its starting policy and changed treatment are identifiable, and
 the compared arms share a native outcome. Targets, checkpoints, or repeated
 criteria remain nested measurements. Missing training membership, seed variance,
 or optimization details are recorded rather than imputed.
+
+For sources with many targets or budgets, the panel boundary follows the
+decision that could have been made before training. Models, targets, and budgets
+are grouping variables, not extra independent studies. Outcome-selected best
+mixtures are not admitted as if they were prospective candidates.

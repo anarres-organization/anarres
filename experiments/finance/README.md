@@ -51,6 +51,12 @@ properties of training data and reward design predict improvement across prior
 studies. Because those outcomes are already public, this analysis can motivate
 measurements and baselines but cannot validate the prospective selector.
 
+The [agent-systems evidence map](agent-systems-evidence/README.md) audits the
+workflow side of the decision. It separates post-training interventions from
+tool and scaffold ablations, and identifies reconciliation, spreadsheet work,
+evidence-grounded research, and workflow orchestration as the strongest public
+task families.
+
 The primary prospective outcome is held-out executable task completion.
 Allocation regret measures the cost of choosing a candidate other than the
 observed best arm.
@@ -96,4 +102,5 @@ with financial authority remain approval-gated.
 - [Post-trade source audit](environment-selection/POST_TRADE_SOURCE_AUDIT.md)
 - [Post-trade panel specification](environment-selection/POST_TRADE_PANEL_SPEC.md)
 - [Retrospective post-training audit](retrospective-post-training/README.md)
-- [Machine-readable retrospective results](retrospective-post-training/results/summary.json)
+- [Expanded machine-readable results](retrospective-post-training/results/expanded_summary.json)
+- [Agent-systems evidence map](agent-systems-evidence/README.md)
