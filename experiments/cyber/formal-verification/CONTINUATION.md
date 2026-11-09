@@ -83,7 +83,9 @@ passes all nine PrimePy specifications under fresh grading.
   setting, native repository interface, and 90-minute Vero budget.
 - Restrict task reads and writes to the freshly rendered workspace while
   keeping controller authentication outside the artifact and fresh grader.
-- Re-run the containment negatives before any new model attempt.
+- Implement and re-run the negative controls in the
+  [containment requalification](CODEX_CONTAINMENT.md) before any new model
+  attempt.
 - Freeze a small development-only screen across repositories and proof modes.
   Exclude its outcomes from later environment comparisons.
 - Keep qualification and prospective repositories unopened until the screen
@@ -194,5 +196,6 @@ target or candidate panel after outcomes are observed.
 | Completed Vero development result | [`development-policy-measurement.v1.json`](../../../data/formal-verification/vero/results/development-policy-measurement.v1.json) |
 | Vero policy requalification | [`POLICY_REQUALIFICATION.md`](POLICY_REQUALIFICATION.md) |
 | GPT-5.6 Sol qualification result | [`development-policy-qualification.codex-sol-v1.json`](../../../data/formal-verification/vero/results/development-policy-qualification.codex-sol-v1.json) |
+| Codex containment requalification | [`CODEX_CONTAINMENT.md`](CODEX_CONTAINMENT.md) |
 | Vero executable pipeline | [`../../../data/formal-verification/vero/`](../../../data/formal-verification/vero/README.md) |
 | OSS Verify adapter | [`../../../data/formal-verification/oss-verify/`](../../../data/formal-verification/oss-verify/README.md) |

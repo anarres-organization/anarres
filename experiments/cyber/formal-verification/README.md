@@ -47,6 +47,8 @@ source-grounded budget ladder and the evidence required before testing a new
 starting policy. The audited
 [starting-policy selection](STARTING_POLICY_SELECTION.md) chooses GPT-5.6 Sol
 with Codex 0.154.0 for the next development-only support test. The
+[containment requalification](CODEX_CONTAINMENT.md) defines the task-only
+execution boundary and negative controls required after that support result. The
 [continuation guide](CONTINUATION.md) records the current execution boundary
 and the path from candidate construction to prospective selection, regression
 forecasting, and production-code transfer.
