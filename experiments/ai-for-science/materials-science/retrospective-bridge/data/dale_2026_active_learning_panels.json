@@ -1,0 +1,5333 @@
+{
+  "artifact": "dale_2026_active_learning_panels_v1",
+  "source_id": "dale_2026_active_learning_failure",
+  "panel_count": 23,
+  "arm_count": 161,
+  "primary_outcome": "final_ood_test_mae",
+  "normalization": "within target, omitted element, and acquisition budget; lower MAE maps to higher utility",
+  "release_boundary": {
+    "paper_reports_repetitions": 5,
+    "exact_released_trajectory_count_per_arm": 1,
+    "interpretation": "The fitted artifact uses the exact released trajectory and does not reconstruct plotted error bars."
+  },
+  "excluded_incomplete_panels": {
+    "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt05": [
+      "random"
+    ]
+  },
+  "arms": [
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05448025640716899,
+        "final_ood_test_rmse": 0.10621436535229653,
+        "final_ood_test_loss": 0.011281491407191131
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt05/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05448025640716899,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.056245332402166594,
+        "final_ood_test_rmse": 0.10773629134589154,
+        "final_ood_test_loss": 0.011607108472966823
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt05/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.056245332402166594,
+        "panel_normalized_utility": 0.17983186859785355,
+        "panel_normalized_regret": 0.8201681314021465
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.056245332402166594,
+        "final_ood_test_rmse": 0.10773629134589154,
+        "final_ood_test_loss": 0.011607108472966823
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt05/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.056245332402166594,
+        "panel_normalized_utility": 0.17983186859785355,
+        "panel_normalized_regret": 0.8201681314021465
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05562388707721044,
+        "final_ood_test_rmse": 0.10739787597823974,
+        "final_ood_test_loss": 0.011534303764637365
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt05/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05562388707721044,
+        "panel_normalized_utility": 0.4685954416011665,
+        "panel_normalized_regret": 0.5314045583988335
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.056632346847430376,
+        "final_ood_test_rmse": 0.10842828327458737,
+        "final_ood_test_loss": 0.011756692613874162
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt05/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.056632346847430376,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.056632346847430376,
+        "final_ood_test_rmse": 0.10842828327458737,
+        "final_ood_test_loss": 0.011756692613874162
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt05/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.056632346847430376,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.056632346847430376,
+        "final_ood_test_rmse": 0.10842828327458737,
+        "final_ood_test_loss": 0.011756692613874162
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt05/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.056632346847430376,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05696938097341801,
+        "final_ood_test_rmse": 0.1100925133745576,
+        "final_ood_test_loss": 0.012120361501127143
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt10/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05696938097341801,
+        "panel_normalized_utility": 0.8719080674520004,
+        "panel_normalized_regret": 0.1280919325479996
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05611356099446615,
+        "final_ood_test_rmse": 0.10832509219584309,
+        "final_ood_test_loss": 0.011734325599237904
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt10/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05611356099446615,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05611356099446615,
+        "final_ood_test_rmse": 0.10832509219584309,
+        "final_ood_test_loss": 0.011734325599237904
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt10/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05611356099446615,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06279485592013342,
+        "final_ood_test_rmse": 0.11956236874421666,
+        "final_ood_test_loss": 0.014295160019728038
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt10/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06279485592013342,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.060258898987277626,
+        "final_ood_test_rmse": 0.11496764627293457,
+        "final_ood_test_loss": 0.013217559689538605
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt10/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.060258898987277626,
+        "panel_normalized_utility": 0.37956069310958107,
+        "panel_normalized_regret": 0.6204393068904189
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05826645954429953,
+        "final_ood_test_rmse": 0.11309483681235011,
+        "final_ood_test_loss": 0.0127904421136121
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt10/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05826645954429953,
+        "panel_normalized_utility": 0.6777722621459693,
+        "panel_normalized_regret": 0.3222277378540307
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05753616602054471,
+        "final_ood_test_rmse": 0.11014014985643655,
+        "final_ood_test_loss": 0.0121308526103983
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt10/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05753616602054471,
+        "panel_normalized_utility": 0.7870764512110675,
+        "panel_normalized_regret": 0.2129235487889325
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05715225616731255,
+        "final_ood_test_rmse": 0.11049573545653703,
+        "final_ood_test_loss": 0.012209307554081015
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt20/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05715225616731255,
+        "panel_normalized_utility": 0.4707175833797672,
+        "panel_normalized_regret": 0.5292824166202328
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.056605175070093765,
+        "final_ood_test_rmse": 0.10830471569473174,
+        "final_ood_test_loss": 0.011729911441716673
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt20/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.056605175070093765,
+        "panel_normalized_utility": 0.8911917270291101,
+        "panel_normalized_regret": 0.10880827297088988
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.056605175070093765,
+        "final_ood_test_rmse": 0.10830471569473174,
+        "final_ood_test_loss": 0.011729911441716673
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt20/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.056605175070093765,
+        "panel_normalized_utility": 0.8911917270291101,
+        "panel_normalized_regret": 0.10880827297088988
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.057764709265523365,
+        "final_ood_test_rmse": 0.11131629720519141,
+        "final_ood_test_loss": 0.012391318023474507
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt20/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.057764709265523365,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05646360405969404,
+        "final_ood_test_rmse": 0.10884367614149129,
+        "final_ood_test_loss": 0.01184694583599384
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt20/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05646360405969404,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05646360405969404,
+        "final_ood_test_rmse": 0.10884367614149129,
+        "final_ood_test_loss": 0.01184694583599384
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt20/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05646360405969404,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05646360405969404,
+        "final_ood_test_rmse": 0.10884367614149129,
+        "final_ood_test_loss": 0.01184694583599384
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt20/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05646360405969404,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.0579745103647043,
+        "final_ood_test_rmse": 0.11051000974300348,
+        "final_ood_test_loss": 0.012212462253398724
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt50/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.0579745103647043,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05625022424233926,
+        "final_ood_test_rmse": 0.1082353612198407,
+        "final_ood_test_loss": 0.011714893418389398
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt50/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05625022424233926,
+        "panel_normalized_utility": 0.7726970840929365,
+        "panel_normalized_regret": 0.2273029159070635
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05625022424233926,
+        "final_ood_test_rmse": 0.1082353612198407,
+        "final_ood_test_loss": 0.011714893418389398
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt50/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05625022424233926,
+        "panel_normalized_utility": 0.7726970840929365,
+        "panel_normalized_regret": 0.2273029159070635
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05574299408508851,
+        "final_ood_test_rmse": 0.10739524817482529,
+        "final_ood_test_loss": 0.011533739330532315
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt50/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05574299408508851,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05728304063951647,
+        "final_ood_test_rmse": 0.11058379963966768,
+        "final_ood_test_loss": 0.012228776742746163
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt50/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05728304063951647,
+        "panel_normalized_utility": 0.30986541819308905,
+        "panel_normalized_regret": 0.690134581806911
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05728304063951647,
+        "final_ood_test_rmse": 0.11058379963966768,
+        "final_ood_test_loss": 0.012228776742746163
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt50/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05728304063951647,
+        "panel_normalized_utility": 0.30986541819308905,
+        "panel_normalized_regret": 0.690134581806911
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05728304063951647,
+        "final_ood_test_rmse": 0.11058379963966768,
+        "final_ood_test_loss": 0.012228776742746163
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt50/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05728304063951647,
+        "panel_normalized_utility": 0.30986541819308905,
+        "panel_normalized_regret": 0.690134581806911
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05797137999802493,
+        "final_ood_test_rmse": 0.11118856021513367,
+        "final_ood_test_loss": 0.012362895922714405
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt70/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05797137999802493,
+        "panel_normalized_utility": 0.32455858576124486,
+        "panel_normalized_regret": 0.6754414142387551
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.058491061778550735,
+        "final_ood_test_rmse": 0.11114082665338558,
+        "final_ood_test_loss": 0.012352283349197902
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt70/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.058491061778550735,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.058491061778550735,
+        "final_ood_test_rmse": 0.11114082665338558,
+        "final_ood_test_loss": 0.012352283349197902
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt70/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.058491061778550735,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05754949162515362,
+        "final_ood_test_rmse": 0.1096190398186597,
+        "final_ood_test_loss": 0.012016333890764902
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt70/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05754949162515362,
+        "panel_normalized_utility": 0.5880419303373913,
+        "panel_normalized_regret": 0.4119580696626088
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05688986617527651,
+        "final_ood_test_rmse": 0.10931262446599141,
+        "final_ood_test_loss": 0.011949249867642864
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt70/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05688986617527651,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05688986617527651,
+        "final_ood_test_rmse": 0.10931262446599141,
+        "final_ood_test_loss": 0.011949249867642864
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt70/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05688986617527651,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05688986617527651,
+        "final_ood_test_rmse": 0.10931262446599141,
+        "final_ood_test_loss": 0.011949249867642864
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/0pt70/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05688986617527651,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05806084020559153,
+        "final_ood_test_rmse": 0.11134111268848039,
+        "final_ood_test_loss": 0.012396843374708888
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/1pt00/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05806084020559153,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05745440574833744,
+        "final_ood_test_rmse": 0.10926543685727712,
+        "final_ood_test_loss": 0.011938935691611613
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/1pt00/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05745440574833744,
+        "panel_normalized_utility": 0.36163542817011846,
+        "panel_normalized_regret": 0.6383645718298816
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.05745440574833744,
+        "final_ood_test_rmse": 0.10926543685727712,
+        "final_ood_test_loss": 0.011938935691611613
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/1pt00/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.05745440574833744,
+        "panel_normalized_utility": 0.36163542817011846,
+        "panel_normalized_regret": 0.6383645718298816
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.056383918062419165,
+        "final_ood_test_rmse": 0.10903657397854973,
+        "final_ood_test_loss": 0.011888974464979747
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/1pt00/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.056383918062419165,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.057116019912480775,
+        "final_ood_test_rmse": 0.10864913756084808,
+        "final_ood_test_loss": 0.011804635092716089
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/1pt00/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.057116019912480775,
+        "panel_normalized_utility": 0.563425259161624,
+        "panel_normalized_regret": 0.436574740838376
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.057116019912480775,
+        "final_ood_test_rmse": 0.10864913756084808,
+        "final_ood_test_loss": 0.011804635092716089
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/1pt00/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.057116019912480775,
+        "panel_normalized_utility": 0.563425259161624,
+        "panel_normalized_regret": 0.436574740838376
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_F:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.057116019912480775,
+        "final_ood_test_rmse": 0.10864913756084808,
+        "final_ood_test_loss": 0.011804635092716089
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/F/1pt00/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.057116019912480775,
+        "panel_normalized_utility": 0.563425259161624,
+        "panel_normalized_regret": 0.436574740838376
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06444433706778067,
+        "final_ood_test_rmse": 0.11985231298731588,
+        "final_ood_test_loss": 0.014364576928409529
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt05/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06444433706778067,
+        "panel_normalized_utility": 0.5440820138832512,
+        "panel_normalized_regret": 0.45591798611674883
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06550840212975019,
+        "final_ood_test_rmse": 0.12221965209108207,
+        "final_ood_test_loss": 0.014937643357265143
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt05/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06550840212975019,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06550840212975019,
+        "final_ood_test_rmse": 0.12221965209108207,
+        "final_ood_test_loss": 0.014937643357265143
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt05/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06550840212975019,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.065075685292947,
+        "final_ood_test_rmse": 0.12548981514608856,
+        "final_ood_test_loss": 0.01574769370539948
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt05/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.065075685292947,
+        "panel_normalized_utility": 0.2212585079838077,
+        "panel_normalized_regret": 0.7787414920161924
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06355269502159748,
+        "final_ood_test_rmse": 0.12233857459566728,
+        "final_ood_test_loss": 0.014966726834099648
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt05/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06355269502159748,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06432866306772211,
+        "final_ood_test_rmse": 0.12235600876364214,
+        "final_ood_test_loss": 0.014970992880568473
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt05/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06432866306772211,
+        "panel_normalized_utility": 0.6032289073911558,
+        "panel_normalized_regret": 0.3967710926088442
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt05",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06399427384204483,
+        "final_ood_test_rmse": 0.12270067095766708,
+        "final_ood_test_loss": 0.015055454653461685
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt05/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06399427384204483,
+        "panel_normalized_utility": 0.7742101470069073,
+        "panel_normalized_regret": 0.22578985299309276
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.0649629333872854,
+        "final_ood_test_rmse": 0.12073826661421316,
+        "final_ood_test_loss": 0.014577729025004822
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt10/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.0649629333872854,
+        "panel_normalized_utility": 0.18900132286136767,
+        "panel_normalized_regret": 0.8109986771386323
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06394081586672935,
+        "final_ood_test_rmse": 0.11909666070536969,
+        "final_ood_test_loss": 0.014184014591169946
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt10/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06394081586672935,
+        "panel_normalized_utility": 0.603163192293502,
+        "panel_normalized_regret": 0.396836807706498
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06394081586672935,
+        "final_ood_test_rmse": 0.11909666070536969,
+        "final_ood_test_loss": 0.014184014591169946
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt10/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06394081586672935,
+        "panel_normalized_utility": 0.603163192293502,
+        "panel_normalized_regret": 0.396836807706498
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06449104682905371,
+        "final_ood_test_rmse": 0.1246313678912884,
+        "final_ood_test_loss": 0.015532977862453673
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt10/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06449104682905371,
+        "panel_normalized_utility": 0.38020968705300284,
+        "panel_normalized_regret": 0.6197903129469972
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06542937314855495,
+        "final_ood_test_rmse": 0.12462966791740131,
+        "final_ood_test_loss": 0.015532554125201728
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt10/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06542937314855495,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.0629614551773581,
+        "final_ood_test_rmse": 0.12100415711600138,
+        "final_ood_test_loss": 0.014642006039353946
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt10/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.0629614551773581,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt10",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06434607558898246,
+        "final_ood_test_rmse": 0.12363686310454487,
+        "final_ood_test_loss": 0.01528607391833197
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt10/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06434607558898246,
+        "panel_normalized_utility": 0.4389520122693239,
+        "panel_normalized_regret": 0.5610479877306761
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06481650779987204,
+        "final_ood_test_rmse": 0.11945424040393034,
+        "final_ood_test_loss": 0.014269315550479982
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt20/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06481650779987204,
+        "panel_normalized_utility": 0.7014073965730203,
+        "panel_normalized_regret": 0.29859260342697963
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.0653142741161027,
+        "final_ood_test_rmse": 0.11942387036818014,
+        "final_ood_test_loss": 0.014262060813715893
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt20/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.0653142741161027,
+        "panel_normalized_utility": 0.27601752265734386,
+        "panel_normalized_regret": 0.7239824773426562
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.0653142741161027,
+        "final_ood_test_rmse": 0.11942387036818014,
+        "final_ood_test_loss": 0.014262060813715893
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt20/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.0653142741161027,
+        "panel_normalized_utility": 0.27601752265734386,
+        "panel_normalized_regret": 0.7239824773426562
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.0644671122233073,
+        "final_ood_test_rmse": 0.12345733697793668,
+        "final_ood_test_loss": 0.01524171405368381
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt20/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.0644671122233073,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06563725365532769,
+        "final_ood_test_rmse": 0.12561091017694126,
+        "final_ood_test_loss": 0.015778100755479602
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt20/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06563725365532769,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.0653726535373264,
+        "final_ood_test_rmse": 0.1260190454785987,
+        "final_ood_test_loss": 0.015880799823337132
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt20/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.0653726535373264,
+        "panel_normalized_utility": 0.22612661235695997,
+        "panel_normalized_regret": 0.77387338764304
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt20",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06486157735188802,
+        "final_ood_test_rmse": 0.12314308993203353,
+        "final_ood_test_loss": 0.015164220598008898
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt20/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06486157735188802,
+        "panel_normalized_utility": 0.6628910678774667,
+        "panel_normalized_regret": 0.33710893212253334
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06306793531563124,
+        "final_ood_test_rmse": 0.11728217372343051,
+        "final_ood_test_loss": 0.013755108273292935
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt50/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06306793531563124,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06410072945259712,
+        "final_ood_test_rmse": 0.11942385217311914,
+        "final_ood_test_loss": 0.014262056467867015
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt50/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06410072945259712,
+        "panel_normalized_utility": 0.6953834512126219,
+        "panel_normalized_regret": 0.3046165487873781
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06410072945259712,
+        "final_ood_test_rmse": 0.11942385217311914,
+        "final_ood_test_loss": 0.014262056467867015
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt50/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06410072945259712,
+        "panel_normalized_utility": 0.6953834512126219,
+        "panel_normalized_regret": 0.3046165487873781
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06395170376729013,
+        "final_ood_test_rmse": 0.12149456710108716,
+        "final_ood_test_loss": 0.014760929835080571
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt50/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06395170376729013,
+        "panel_normalized_utility": 0.7393376995125309,
+        "panel_normalized_regret": 0.26066230048746913
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06363343452402863,
+        "final_ood_test_rmse": 0.12216922786994092,
+        "final_ood_test_loss": 0.014925320238337548
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt50/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06363343452402863,
+        "panel_normalized_utility": 0.8332093385908733,
+        "panel_normalized_regret": 0.16679066140912666
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.0664584081611718,
+        "final_ood_test_rmse": 0.12720237596432898,
+        "final_ood_test_loss": 0.0161804444509705
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt50/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.0664584081611718,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt50",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06493979917132933,
+        "final_ood_test_rmse": 0.12453127945741001,
+        "final_ood_test_loss": 0.015508039563299547
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt50/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06493979917132933,
+        "panel_normalized_utility": 0.44790477878030116,
+        "panel_normalized_regret": 0.5520952212196988
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06443465924730488,
+        "final_ood_test_rmse": 0.11898292986467483,
+        "final_ood_test_loss": 0.014156937599182129
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt70/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06443465924730488,
+        "panel_normalized_utility": 0.9973457421087367,
+        "panel_normalized_regret": 0.0026542578912633684
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06396217907176298,
+        "final_ood_test_rmse": 0.11753559149607953,
+        "final_ood_test_loss": 0.013814615268333285
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt70/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06396217907176298,
+        "panel_normalized_utility": 0.9995230101199484,
+        "panel_normalized_regret": 0.0004769898800516397
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06396217907176298,
+        "final_ood_test_rmse": 0.11753559149607953,
+        "final_ood_test_loss": 0.013814615268333285
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt70/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06396217907176298,
+        "panel_normalized_utility": 0.9995230101199484,
+        "panel_normalized_regret": 0.0004769898800516397
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06385866941603939,
+        "final_ood_test_rmse": 0.1216449004906161,
+        "final_ood_test_loss": 0.014797481815371893
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt70/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06385866941603939,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.064577157518505,
+        "final_ood_test_rmse": 0.12312993759742881,
+        "final_ood_test_loss": 0.015160981532746712
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt70/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.064577157518505,
+        "panel_normalized_utility": 0.9966890861396662,
+        "panel_normalized_regret": 0.0033109138603337326
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.2808646480594061,
+        "final_ood_test_rmse": 0.48182080142103895,
+        "final_ood_test_loss": 0.23215128468201224
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt70/ll_og/history_test.json",
+        "selected_epoch": 7
+      },
+      "derived": {
+        "native_utility": -0.2808646480594061,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_0pt70",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06472478714664426,
+        "final_ood_test_rmse": 0.12276100487674428,
+        "final_ood_test_loss": 0.015070264318348032
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/0pt70/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06472478714664426,
+        "panel_normalized_utility": 0.9960087840159083,
+        "panel_normalized_regret": 0.003991215984091703
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.064349649010635,
+        "final_ood_test_rmse": 0.11917037988878924,
+        "final_ood_test_loss": 0.014201579442838343
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/1pt00/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.064349649010635,
+        "panel_normalized_utility": 0.773212308234066,
+        "panel_normalized_regret": 0.22678769176593408
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06412194880043588,
+        "final_ood_test_rmse": 0.11862692962326506,
+        "final_ood_test_loss": 0.014072348431843082
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/1pt00/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06412194880043588,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06412194880043588,
+        "final_ood_test_rmse": 0.11862692962326506,
+        "final_ood_test_loss": 0.014072348431843082
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/1pt00/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06412194880043588,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.064952585665665,
+        "final_ood_test_rmse": 0.12385799935171254,
+        "final_ood_test_loss": 0.015340804003408827
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/1pt00/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.064952585665665,
+        "panel_normalized_utility": 0.1726919479069853,
+        "panel_normalized_regret": 0.8273080520930147
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06512597246867854,
+        "final_ood_test_rmse": 0.1188371076856046,
+        "final_ood_test_loss": 0.014122258163079982
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/1pt00/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06512597246867854,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06504187814989804,
+        "final_ood_test_rmse": 0.12431725820594942,
+        "final_ood_test_loss": 0.015454780687844701
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/1pt00/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06504187814989804,
+        "panel_normalized_utility": 0.08375730716358375,
+        "panel_normalized_regret": 0.9162426928364162
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:bandgap:omit_Fe:budget_1pt00",
+      "target_property": "bandgap",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06504187814989804,
+        "final_ood_test_rmse": 0.12431725820594942,
+        "final_ood_test_loss": 0.015454780687844701
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "bandgap/Fe/1pt00/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.06504187814989804,
+        "panel_normalized_utility": 0.08375730716358375,
+        "panel_normalized_regret": 0.9162426928364162
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019570899928778477,
+        "final_ood_test_rmse": 0.029457396435334404,
+        "final_ood_test_loss": 0.0008677382047484521
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt10/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019570899928778477,
+        "panel_normalized_utility": 0.6012184971413783,
+        "panel_normalized_regret": 0.3987815028586217
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.01944449807510895,
+        "final_ood_test_rmse": 0.0292571891091221,
+        "final_ood_test_loss": 0.0008559831145669327
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt10/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.01944449807510895,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.01944449807510895,
+        "final_ood_test_rmse": 0.0292571891091221,
+        "final_ood_test_loss": 0.0008559831145669327
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt10/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.01944449807510895,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019478021565478405,
+        "final_ood_test_rmse": 0.029395872566515022,
+        "final_ood_test_loss": 0.0008641173239467906
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt10/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019478021565478405,
+        "panel_normalized_utility": 0.8942377229249414,
+        "panel_normalized_regret": 0.10576227707505857
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019761468277496544,
+        "final_ood_test_rmse": 0.029648392921485286,
+        "final_ood_test_loss": 0.0008790272028267789
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt10/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019761468277496544,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019761468277496544,
+        "final_ood_test_rmse": 0.029648392921485286,
+        "final_ood_test_loss": 0.0008790272028267789
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt10/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019761468277496544,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019761468277496544,
+        "final_ood_test_rmse": 0.029648392921485286,
+        "final_ood_test_loss": 0.0008790272028267789
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt10/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019761468277496544,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019332417535566096,
+        "final_ood_test_rmse": 0.029186615515585355,
+        "final_ood_test_loss": 0.0008518585252546078
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt20/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019332417535566096,
+        "panel_normalized_utility": 0.9993811857386165,
+        "panel_normalized_regret": 0.0006188142613836712
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.01977377455698419,
+        "final_ood_test_rmse": 0.029806651829600635,
+        "final_ood_test_loss": 0.0008884364932910349
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt20/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.01977377455698419,
+        "panel_normalized_utility": 0.9890285096895777,
+        "panel_normalized_regret": 0.010971490310422395
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.01977377455698419,
+        "final_ood_test_rmse": 0.029806651829600635,
+        "final_ood_test_loss": 0.0008884364932910349
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt20/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.01977377455698419,
+        "panel_normalized_utility": 0.9890285096895777,
+        "panel_normalized_regret": 0.010971490310422395
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019306036142202523,
+        "final_ood_test_rmse": 0.029037329351712955,
+        "final_ood_test_loss": 0.0008431664958798508
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt20/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019306036142202523,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06193820383753712,
+        "final_ood_test_rmse": 0.08908991690322181,
+        "final_ood_test_loss": 0.007937013293822966
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt20/ll_cf/history_test.json",
+        "selected_epoch": 9
+      },
+      "derived": {
+        "native_utility": -0.06193820383753712,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06193820383753712,
+        "final_ood_test_rmse": 0.08908991690322181,
+        "final_ood_test_loss": 0.007937013293822966
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt20/ll_og/history_test.json",
+        "selected_epoch": 9
+      },
+      "derived": {
+        "native_utility": -0.06193820383753712,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.06193820383753712,
+        "final_ood_test_rmse": 0.08908991690322181,
+        "final_ood_test_loss": 0.007937013293822966
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt20/random/history_test.json",
+        "selected_epoch": 9
+      },
+      "derived": {
+        "native_utility": -0.06193820383753712,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.01945182869026253,
+        "final_ood_test_rmse": 0.02919714049416288,
+        "final_ood_test_loss": 0.0008524730130358859
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt50/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.01945182869026253,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019608121734481673,
+        "final_ood_test_rmse": 0.02950636963848116,
+        "final_ood_test_loss": 0.0008706258492426829
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt50/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019608121734481673,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019608121734481673,
+        "final_ood_test_rmse": 0.02950636963848116,
+        "final_ood_test_loss": 0.0008706258492426829
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt50/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019608121734481673,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019514382422507345,
+        "final_ood_test_rmse": 0.029362115017459747,
+        "final_ood_test_loss": 0.0008621337982985351
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt50/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019514382422507345,
+        "panel_normalized_utility": 0.599766371194946,
+        "panel_normalized_regret": 0.400233628805054
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019601106643676758,
+        "final_ood_test_rmse": 0.02957850544023835,
+        "final_ood_test_loss": 0.0008748879840782096
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt50/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019601106643676758,
+        "panel_normalized_utility": 0.044884216312778884,
+        "panel_normalized_regret": 0.9551157836872212
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019601106643676758,
+        "final_ood_test_rmse": 0.02957850544023835,
+        "final_ood_test_loss": 0.0008748879840782096
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt50/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019601106643676758,
+        "panel_normalized_utility": 0.044884216312778884,
+        "panel_normalized_regret": 0.9551157836872212
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019601106643676758,
+        "final_ood_test_rmse": 0.02957850544023835,
+        "final_ood_test_loss": 0.0008748879840782096
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt50/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019601106643676758,
+        "panel_normalized_utility": 0.044884216312778884,
+        "panel_normalized_regret": 0.9551157836872212
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020135258795911833,
+        "final_ood_test_rmse": 0.029933988797168562,
+        "final_ood_test_loss": 0.0008960436853090129
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt70/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020135258795911833,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019521942567289546,
+        "final_ood_test_rmse": 0.0294143720866941,
+        "final_ood_test_loss": 0.0008652052852544892
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt70/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019521942567289546,
+        "panel_normalized_utility": 0.923778962805274,
+        "panel_normalized_regret": 0.076221037194726
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019521942567289546,
+        "final_ood_test_rmse": 0.0294143720866941,
+        "final_ood_test_loss": 0.0008652052852544892
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt70/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019521942567289546,
+        "panel_normalized_utility": 0.923778962805274,
+        "panel_normalized_regret": 0.076221037194726
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019471337822046172,
+        "final_ood_test_rmse": 0.02929030555477362,
+        "final_ood_test_loss": 0.0008579219994920024
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt70/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019471337822046172,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019803572236821894,
+        "final_ood_test_rmse": 0.029833947784637656,
+        "final_ood_test_loss": 0.000890064440416486
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt70/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019803572236821894,
+        "panel_normalized_utility": 0.49958740896330417,
+        "panel_normalized_regret": 0.5004125910366959
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019803572236821894,
+        "final_ood_test_rmse": 0.029833947784637656,
+        "final_ood_test_loss": 0.000890064440416486
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt70/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019803572236821894,
+        "panel_normalized_utility": 0.49958740896330417,
+        "panel_normalized_regret": 0.5004125910366959
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019803572236821894,
+        "final_ood_test_rmse": 0.029833947784637656,
+        "final_ood_test_loss": 0.000890064440416486
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/0pt70/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019803572236821894,
+        "panel_normalized_utility": 0.49958740896330417,
+        "panel_normalized_regret": 0.5004125910366959
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019648182845489023,
+        "final_ood_test_rmse": 0.029454149760993847,
+        "final_ood_test_loss": 0.0008675469381430539
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/1pt00/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019648182845489023,
+        "panel_normalized_utility": 0.5406607777339151,
+        "panel_normalized_regret": 0.4593392222660849
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019251008428449866,
+        "final_ood_test_rmse": 0.02902493035586259,
+        "final_ood_test_loss": 0.0008424465821626736
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/1pt00/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019251008428449866,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.019251008428449866,
+        "final_ood_test_rmse": 0.02902493035586259,
+        "final_ood_test_loss": 0.0008424465821626736
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/1pt00/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.019251008428449866,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020115673141991534,
+        "final_ood_test_rmse": 0.030239199558679344,
+        "final_ood_test_loss": 0.000914409189949633
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/1pt00/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020115673141991534,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.0200390079677505,
+        "final_ood_test_rmse": 0.030076070608023094,
+        "final_ood_test_loss": 0.0009045700232187907
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/1pt00/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.0200390079677505,
+        "panel_normalized_utility": 0.08866462692459624,
+        "panel_normalized_regret": 0.9113353730754038
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.0200390079677505,
+        "final_ood_test_rmse": 0.030076070608023094,
+        "final_ood_test_loss": 0.0009045700232187907
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/1pt00/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.0200390079677505,
+        "panel_normalized_utility": 0.08866462692459624,
+        "panel_normalized_regret": 0.9113353730754038
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_F:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "F",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.0200390079677505,
+        "final_ood_test_rmse": 0.030076070608023094,
+        "final_ood_test_loss": 0.0009045700232187907
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/F/1pt00/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.0200390079677505,
+        "panel_normalized_utility": 0.08866462692459624,
+        "panel_normalized_regret": 0.9113353730754038
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt05",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.02086877291876914,
+        "final_ood_test_rmse": 0.031180000707020386,
+        "final_ood_test_loss": 0.0009721924440897918
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt05/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.02086877291876914,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt05",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020701142886699175,
+        "final_ood_test_rmse": 0.03109864921357519,
+        "final_ood_test_loss": 0.0009671259829090008
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt05/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020701142886699175,
+        "panel_normalized_utility": 0.45332981033235276,
+        "panel_normalized_regret": 0.5466701896676472
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt05",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020701142886699175,
+        "final_ood_test_rmse": 0.03109864921357519,
+        "final_ood_test_loss": 0.0009671259829090008
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt05/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020701142886699175,
+        "panel_normalized_utility": 0.45332981033235276,
+        "panel_normalized_regret": 0.5466701896676472
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt05",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020498997915561055,
+        "final_ood_test_rmse": 0.030806499644341595,
+        "final_ood_test_loss": 0.0009490404203368189
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt05/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020498997915561055,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt05",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020579318957764214,
+        "final_ood_test_rmse": 0.030911348084692706,
+        "final_ood_test_loss": 0.0009555114404130354
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt05/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020579318957764214,
+        "panel_normalized_utility": 0.7827840132342334,
+        "panel_normalized_regret": 0.21721598676576662
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt05",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020579318957764214,
+        "final_ood_test_rmse": 0.030911348084692706,
+        "final_ood_test_loss": 0.0009555114404130354
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt05/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020579318957764214,
+        "panel_normalized_utility": 0.7827840132342334,
+        "panel_normalized_regret": 0.21721598676576662
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt05",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.05,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.05
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020680134439786984,
+        "final_ood_test_rmse": 0.030989027671893953,
+        "final_ood_test_loss": 0.0009603198360494091
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt05/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020680134439786984,
+        "panel_normalized_utility": 0.5101439452249932,
+        "panel_normalized_regret": 0.4898560547750069
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020610437626828064,
+        "final_ood_test_rmse": 0.030867751463587827,
+        "final_ood_test_loss": 0.0009528180804178285
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt10/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020610437626828064,
+        "panel_normalized_utility": 0.6504794986030374,
+        "panel_normalized_regret": 0.34952050139696256
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020566207528910817,
+        "final_ood_test_rmse": 0.03097631512849876,
+        "final_ood_test_loss": 0.0009595320989400613
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt10/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020566207528910817,
+        "panel_normalized_utility": 0.8077248357622917,
+        "panel_normalized_regret": 0.19227516423770832
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020566207528910817,
+        "final_ood_test_rmse": 0.03097631512849876,
+        "final_ood_test_loss": 0.0009595320989400613
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt10/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020566207528910817,
+        "panel_normalized_utility": 0.8077248357622917,
+        "panel_normalized_regret": 0.19227516423770832
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.02079340503582179,
+        "final_ood_test_rmse": 0.03111342809440757,
+        "final_ood_test_loss": 0.0009680454077858702
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt10/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.02079340503582179,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020628939758164846,
+        "final_ood_test_rmse": 0.03095369965832203,
+        "final_ood_test_loss": 0.0009581315225376053
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt10/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020628939758164846,
+        "panel_normalized_utility": 0.5847013516574794,
+        "panel_normalized_regret": 0.4152986483425206
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020628939758164846,
+        "final_ood_test_rmse": 0.03095369965832203,
+        "final_ood_test_loss": 0.0009581315225376053
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt10/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020628939758164846,
+        "panel_normalized_utility": 0.5847013516574794,
+        "panel_normalized_regret": 0.4152986483425206
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt10",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.1,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.1
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020512124212388207,
+        "final_ood_test_rmse": 0.030862221475380994,
+        "final_ood_test_loss": 0.0009524767143954679
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt10/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020512124212388207,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.02051068623860677,
+        "final_ood_test_rmse": 0.030739318119164468,
+        "final_ood_test_loss": 0.0009449056784311931
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt20/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.02051068623860677,
+        "panel_normalized_utility": 0.9990160732949118,
+        "panel_normalized_regret": 0.0009839267050881955
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020395033094618056,
+        "final_ood_test_rmse": 0.030606335771910603,
+        "final_ood_test_loss": 0.0009367477893829346
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt20/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020395033094618056,
+        "panel_normalized_utility": 0.9996286715328107,
+        "panel_normalized_regret": 0.0003713284671893404
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020395033094618056,
+        "final_ood_test_rmse": 0.030606335771910603,
+        "final_ood_test_loss": 0.0009367477893829346
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt20/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020395033094618056,
+        "panel_normalized_utility": 0.9996286715328107,
+        "panel_normalized_regret": 0.0003713284671893404
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.0207185427347819,
+        "final_ood_test_rmse": 0.030999997737159782,
+        "final_ood_test_loss": 0.0009609998597039117
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt20/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.0207185427347819,
+        "panel_normalized_utility": 0.9979150870276889,
+        "panel_normalized_regret": 0.0020849129723110034
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.20911610921223958,
+        "final_ood_test_rmse": 0.33745260023535006,
+        "final_ood_test_loss": 0.11387425740559896
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt20/ll_cf/history_test.json",
+        "selected_epoch": 0
+      },
+      "derived": {
+        "native_utility": -0.20911610921223958,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.20911610921223958,
+        "final_ood_test_rmse": 0.33745260023535006,
+        "final_ood_test_loss": 0.11387425740559896
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt20/ll_og/history_test.json",
+        "selected_epoch": 0
+      },
+      "derived": {
+        "native_utility": -0.20911610921223958,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt20",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.2,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.2
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.02032492955525716,
+        "final_ood_test_rmse": 0.03056004965610309,
+        "final_ood_test_loss": 0.0009339166349834866
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt20/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.02032492955525716,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020495433765081502,
+        "final_ood_test_rmse": 0.030658238406692035,
+        "final_ood_test_loss": 0.0009399275822015665
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt50/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020495433765081502,
+        "panel_normalized_utility": 0.8565942063007652,
+        "panel_normalized_regret": 0.14340579369923476
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.02077539321324249,
+        "final_ood_test_rmse": 0.03123804295027314,
+        "final_ood_test_loss": 0.0009758153273631094
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt50/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.02077539321324249,
+        "panel_normalized_utility": 0.23499225315742833,
+        "panel_normalized_regret": 0.7650077468425717
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.02077539321324249,
+        "final_ood_test_rmse": 0.03123804295027314,
+        "final_ood_test_loss": 0.0009758153273631094
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt50/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.02077539321324249,
+        "panel_normalized_utility": 0.23499225315742833,
+        "panel_normalized_regret": 0.7650077468425717
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.02043084611913846,
+        "final_ood_test_rmse": 0.030743140304799747,
+        "final_ood_test_loss": 0.0009451406758006026
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt50/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.02043084611913846,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020881229916591602,
+        "final_ood_test_rmse": 0.031398895313487524,
+        "final_ood_test_loss": 0.0009858906269073486
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt50/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020881229916591602,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020881229916591602,
+        "final_ood_test_rmse": 0.031398895313487524,
+        "final_ood_test_loss": 0.0009858906269073486
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt50/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020881229916591602,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt50",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.5,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.5
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020442182367498226,
+        "final_ood_test_rmse": 0.030751319985516622,
+        "final_ood_test_loss": 0.000945643680851634
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt50/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020442182367498226,
+        "panel_normalized_utility": 0.9748298042161545,
+        "panel_normalized_regret": 0.02517019578384553
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020906720541219795,
+        "final_ood_test_rmse": 0.031404644296055356,
+        "final_ood_test_loss": 0.0009862516833617624
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt70/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020906720541219795,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020858933440351907,
+        "final_ood_test_rmse": 0.031292254861935,
+        "final_ood_test_loss": 0.0009792052143442946
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt70/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020858933440351907,
+        "panel_normalized_utility": 0.07907093656939157,
+        "panel_normalized_regret": 0.9209290634306084
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020858933440351907,
+        "final_ood_test_rmse": 0.031292254861935,
+        "final_ood_test_loss": 0.0009792052143442946
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt70/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020858933440351907,
+        "panel_normalized_utility": 0.07907093656939157,
+        "panel_normalized_regret": 0.9209290634306084
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020302363201580215,
+        "final_ood_test_rmse": 0.030391177754213777,
+        "final_ood_test_loss": 0.0009236236852882183
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt70/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020302363201580215,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020564627858389795,
+        "final_ood_test_rmse": 0.030970904263864354,
+        "final_ood_test_loss": 0.0009591969109214513
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt70/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020564627858389795,
+        "panel_normalized_utility": 0.5660437300786534,
+        "panel_normalized_regret": 0.43395626992134656
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020564627858389795,
+        "final_ood_test_rmse": 0.030970904263864354,
+        "final_ood_test_loss": 0.0009591969109214513
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt70/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020564627858389795,
+        "panel_normalized_utility": 0.5660437300786534,
+        "panel_normalized_regret": 0.43395626992134656
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_0pt70",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 0.7,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 0.7
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020484396841673726,
+        "final_ood_test_rmse": 0.030752992845890875,
+        "final_ood_test_loss": 0.0009457465689794153
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/0pt70/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020484396841673726,
+        "panel_normalized_utility": 0.6987979988758468,
+        "panel_normalized_regret": 0.30120200112415313
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ensem_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020605099883898765,
+        "final_ood_test_rmse": 0.03094942740646104,
+        "final_ood_test_loss": 0.0009578670567878017
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/1pt00/ensem_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020605099883898765,
+        "panel_normalized_utility": 0.36802833069809077,
+        "panel_normalized_regret": 0.6319716693019093
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ensem_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020604064286017732,
+        "final_ood_test_rmse": 0.030866033803216657,
+        "final_ood_test_loss": 0.0009527120427413134
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/1pt00/ensem_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020604064286017732,
+        "panel_normalized_utility": 0.37336741103338755,
+        "panel_normalized_regret": 0.6266325889666124
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ensem_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 1,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020604064286017732,
+        "final_ood_test_rmse": 0.030866033803216657,
+        "final_ood_test_loss": 0.0009527120427413134
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/1pt00/ensem_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020604064286017732,
+        "panel_normalized_utility": 0.37336741103338755,
+        "panel_normalized_regret": 0.6266325889666124
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ll_cal",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 2,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020482519124573023,
+        "final_ood_test_rmse": 0.030777054806208137,
+        "final_ood_test_loss": 0.0009472271025443393
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/1pt00/ll_cal/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020482519124573023,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ll_cf",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 1,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020676484717146417,
+        "final_ood_test_rmse": 0.030912275859894364,
+        "final_ood_test_loss": 0.0009555687988382079
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/1pt00/ll_cf/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020676484717146417,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "ll_og",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 1,
+        "ensemble_source": 0,
+        "loss_landscape_source": 1,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020676484717146417,
+        "final_ood_test_rmse": 0.030912275859894364,
+        "final_ood_test_loss": 0.0009555687988382079
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/1pt00/ll_og/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020676484717146417,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "dale_2026_active_learning_failure",
+      "panel_id": "dale_2026_active_learning_failure:e_form:omit_Fe:budget_1pt00",
+      "target_property": "e_form",
+      "omitted_element": "Fe",
+      "acquisition_budget_fraction": 1.0,
+      "acquisition_method": "random",
+      "pre_outcome_measurements": {
+        "selects_by_uncertainty": 0,
+        "ensemble_source": 0,
+        "loss_landscape_source": 0,
+        "calibration_complexity": 0,
+        "acquisition_budget_fraction": 1.0
+      },
+      "outcome": {
+        "final_ood_test_mae": 0.020676484717146417,
+        "final_ood_test_rmse": 0.030912275859894364,
+        "final_ood_test_loss": 0.0009555687988382079
+      },
+      "replication": {
+        "exact_released_trajectories": 1,
+        "reported_paper_repetitions": 5
+      },
+      "provenance": {
+        "relative_history_path": "e_form/Fe/1pt00/random/history_test.json",
+        "selected_epoch": 24
+      },
+      "derived": {
+        "native_utility": -0.020676484717146417,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    }
+  ]
+}

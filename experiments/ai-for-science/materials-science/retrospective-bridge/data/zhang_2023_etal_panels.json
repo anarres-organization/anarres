@@ -1,0 +1,231 @@
+{
+  "artifact": "zhang_2023_etal_panels_v1",
+  "source_id": "zhang_2023_etal",
+  "source_revision": "9cc7ca8e632a31dba366a309817d24de09404766",
+  "panel_count": 4,
+  "arm_count": 8,
+  "primary_outcome": "mean held-out R2 across 30 released downstream-model fits",
+  "normalization": "test R2 min-max normalized within target and downstream model",
+  "matched_contract": {
+    "test_count": 4898,
+    "initial_training_count": 1000,
+    "acquired_count": 954,
+    "final_training_count": 1954,
+    "independent_model_fits": 30
+  },
+  "source_files": {
+    "results/ML_r2.csv": {
+      "sha256": "ca4efc2934ef9055b2fc631b3d703f01d6ecf4aef9d2590fb686f07a174f312b"
+    },
+    "results/info_entropy_evolution.csv": {
+      "sha256": "0115bc1a60be8a7fc6dd3bbc6097f1616a3dabd915372a82359ea5a1446e4256"
+    }
+  },
+  "interpretation_boundary": [
+    "The release contains exact 30-fit histories for random forest and gradient boosting; other model families shown in the paper are not reconstructed from figures.",
+    "Bulk and shear modulus are repeated target views of one pair of selected training sets.",
+    "ET-AL uses formation-energy entropy to target underrepresented structure space before the downstream modulus models are fit."
+  ],
+  "arms": [
+    {
+      "source_id": "zhang_2023_etal",
+      "panel_id": "zhang_2023_etal:B:gb:test_r2",
+      "target": "B",
+      "downstream_model": "gb",
+      "environment": "etal",
+      "pre_outcome_measurements": {
+        "uses_entropy_targeting": 1,
+        "targets_underrepresented_structure_space": 1,
+        "adaptive_acquisition": 1,
+        "initial_training_count": 1000,
+        "acquired_count": 954,
+        "final_training_count": 1954
+      },
+      "outcome": {
+        "mean_test_r2": 0.8402207968145691,
+        "test_r2_standard_deviation": 0.00037246490913539585,
+        "independent_model_fits": 30
+      },
+      "derived": {
+        "native_utility": 0.8402207968145691,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "zhang_2023_etal",
+      "panel_id": "zhang_2023_etal:B:gb:test_r2",
+      "target": "B",
+      "downstream_model": "gb",
+      "environment": "rand",
+      "pre_outcome_measurements": {
+        "uses_entropy_targeting": 0,
+        "targets_underrepresented_structure_space": 0,
+        "adaptive_acquisition": 0,
+        "initial_training_count": 1000,
+        "acquired_count": 954,
+        "final_training_count": 1954
+      },
+      "outcome": {
+        "mean_test_r2": 0.8339141930007318,
+        "test_r2_standard_deviation": 0.00047643656219145545,
+        "independent_model_fits": 30
+      },
+      "derived": {
+        "native_utility": 0.8339141930007318,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "zhang_2023_etal",
+      "panel_id": "zhang_2023_etal:G:gb:test_r2",
+      "target": "G",
+      "downstream_model": "gb",
+      "environment": "etal",
+      "pre_outcome_measurements": {
+        "uses_entropy_targeting": 1,
+        "targets_underrepresented_structure_space": 1,
+        "adaptive_acquisition": 1,
+        "initial_training_count": 1000,
+        "acquired_count": 954,
+        "final_training_count": 1954
+      },
+      "outcome": {
+        "mean_test_r2": 0.7622866350326325,
+        "test_r2_standard_deviation": 0.0008827018859613115,
+        "independent_model_fits": 30
+      },
+      "derived": {
+        "native_utility": 0.7622866350326325,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "zhang_2023_etal",
+      "panel_id": "zhang_2023_etal:G:gb:test_r2",
+      "target": "G",
+      "downstream_model": "gb",
+      "environment": "rand",
+      "pre_outcome_measurements": {
+        "uses_entropy_targeting": 0,
+        "targets_underrepresented_structure_space": 0,
+        "adaptive_acquisition": 0,
+        "initial_training_count": 1000,
+        "acquired_count": 954,
+        "final_training_count": 1954
+      },
+      "outcome": {
+        "mean_test_r2": 0.7400464906506071,
+        "test_r2_standard_deviation": 0.0006319441798346453,
+        "independent_model_fits": 30
+      },
+      "derived": {
+        "native_utility": 0.7400464906506071,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "zhang_2023_etal",
+      "panel_id": "zhang_2023_etal:B:rf:test_r2",
+      "target": "B",
+      "downstream_model": "rf",
+      "environment": "etal",
+      "pre_outcome_measurements": {
+        "uses_entropy_targeting": 1,
+        "targets_underrepresented_structure_space": 1,
+        "adaptive_acquisition": 1,
+        "initial_training_count": 1000,
+        "acquired_count": 954,
+        "final_training_count": 1954
+      },
+      "outcome": {
+        "mean_test_r2": 0.8311151486253359,
+        "test_r2_standard_deviation": 0.0007558011757002811,
+        "independent_model_fits": 30
+      },
+      "derived": {
+        "native_utility": 0.8311151486253359,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "zhang_2023_etal",
+      "panel_id": "zhang_2023_etal:B:rf:test_r2",
+      "target": "B",
+      "downstream_model": "rf",
+      "environment": "rand",
+      "pre_outcome_measurements": {
+        "uses_entropy_targeting": 0,
+        "targets_underrepresented_structure_space": 0,
+        "adaptive_acquisition": 0,
+        "initial_training_count": 1000,
+        "acquired_count": 954,
+        "final_training_count": 1954
+      },
+      "outcome": {
+        "mean_test_r2": 0.8273743445948191,
+        "test_r2_standard_deviation": 0.0006254288334675465,
+        "independent_model_fits": 30
+      },
+      "derived": {
+        "native_utility": 0.8273743445948191,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "zhang_2023_etal",
+      "panel_id": "zhang_2023_etal:G:rf:test_r2",
+      "target": "G",
+      "downstream_model": "rf",
+      "environment": "etal",
+      "pre_outcome_measurements": {
+        "uses_entropy_targeting": 1,
+        "targets_underrepresented_structure_space": 1,
+        "adaptive_acquisition": 1,
+        "initial_training_count": 1000,
+        "acquired_count": 954,
+        "final_training_count": 1954
+      },
+      "outcome": {
+        "mean_test_r2": 0.7618329097583221,
+        "test_r2_standard_deviation": 0.0014640075819635965,
+        "independent_model_fits": 30
+      },
+      "derived": {
+        "native_utility": 0.7618329097583221,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "zhang_2023_etal",
+      "panel_id": "zhang_2023_etal:G:rf:test_r2",
+      "target": "G",
+      "downstream_model": "rf",
+      "environment": "rand",
+      "pre_outcome_measurements": {
+        "uses_entropy_targeting": 0,
+        "targets_underrepresented_structure_space": 0,
+        "adaptive_acquisition": 0,
+        "initial_training_count": 1000,
+        "acquired_count": 954,
+        "final_training_count": 1954
+      },
+      "outcome": {
+        "mean_test_r2": 0.74433753175973,
+        "test_r2_standard_deviation": 0.0016924364324843828,
+        "independent_model_fits": 30
+      },
+      "derived": {
+        "native_utility": 0.74433753175973,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    }
+  ]
+}

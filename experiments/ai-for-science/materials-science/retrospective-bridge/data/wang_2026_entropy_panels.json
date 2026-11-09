@@ -1,0 +1,2559 @@
+{
+  "artifact": "wang_2026_dataset_aware_entropy_panels_v1",
+  "source_id": "wang_2026_dataset_aware_entropy",
+  "source_version": "arXiv:2605.20384v1",
+  "panel_count": 45,
+  "arm_count": 90,
+  "primary_outcome": "three-draw mean energy, force, or stress MAE",
+  "normalization": "negative MAE, min-max normalized within system, test distribution, budget, and endpoint",
+  "matched_contract": {
+    "training_configuration_counts": [
+      100,
+      250,
+      500,
+      800
+    ],
+    "training_draw_seeds": [
+      42,
+      123,
+      456
+    ],
+    "common_validation_and_test_partition_within_panel": true
+  },
+  "source_files": {
+    "arXiv_source_bundle": {
+      "sha256": "0ca4daf9c9c8249edffb1cc94f433e9005517c5ade86bd50c8df01e2db532041"
+    },
+    "paper.tex": {
+      "sha256": "83831cbe107889ad4ee0156427cddca005982edc69dbdf540b6c1691e1edc612"
+    }
+  },
+  "interpretation_boundary": [
+    "The bridge uses only exact numerical entries from Tables 1--4 and does not digitize learning-curve figures.",
+    "The in-distribution test partition is drawn from the entropy-driven pool, while the independent test emphasizes equilibrium and thermal-MD configurations.",
+    "The post-outcome carbon mixed-pool remedy is excluded because its composition was designed after observing the independent-test reversal.",
+    "Three reported draws combine training-subset and optimizer variation; individual seed outcomes are not released in the source tables."
+  ],
+  "arms": [
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n100:energy_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 100,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 12.5,
+        "mae_standard_deviation": 0.7,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -12.5,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n100:energy_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 100,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 58.2,
+        "mae_standard_deviation": 0.4,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -58.2,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n100:force_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "eV_per_A",
+      "training_configuration_count": 100,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 0.209,
+        "mae_standard_deviation": 0.003,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.209,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n100:force_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "eV_per_A",
+      "training_configuration_count": 100,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 0.258,
+        "mae_standard_deviation": 0.002,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.258,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n100:stress_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 100,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 2.36,
+        "mae_standard_deviation": 0.13,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -2.36,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n100:stress_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 100,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 4.76,
+        "mae_standard_deviation": 0.23,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -4.76,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n250:energy_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 250,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 8.9,
+        "mae_standard_deviation": 0.8,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -8.9,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n250:energy_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 250,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 51.6,
+        "mae_standard_deviation": 7.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -51.6,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n250:force_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "eV_per_A",
+      "training_configuration_count": 250,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 0.171,
+        "mae_standard_deviation": 0.006,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.171,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n250:force_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "eV_per_A",
+      "training_configuration_count": 250,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 0.261,
+        "mae_standard_deviation": 0.004,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.261,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n250:stress_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 250,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 2.53,
+        "mae_standard_deviation": 0.07,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -2.53,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n250:stress_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 250,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 4.32,
+        "mae_standard_deviation": 0.35,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -4.32,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n500:energy_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 500,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 5.9,
+        "mae_standard_deviation": 0.5,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -5.9,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n500:energy_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 500,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 43.3,
+        "mae_standard_deviation": 1.6,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -43.3,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n500:force_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "eV_per_A",
+      "training_configuration_count": 500,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 0.131,
+        "mae_standard_deviation": 0.001,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.131,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n500:force_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "eV_per_A",
+      "training_configuration_count": 500,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 0.269,
+        "mae_standard_deviation": 0.004,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.269,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n500:stress_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 500,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 2.45,
+        "mae_standard_deviation": 0.08,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -2.45,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n500:stress_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 500,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 3.92,
+        "mae_standard_deviation": 0.23,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -3.92,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n800:energy_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 4.2,
+        "mae_standard_deviation": 0.2,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -4.2,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n800:energy_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 42.8,
+        "mae_standard_deviation": 1.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -42.8,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n800:force_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "eV_per_A",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 0.084,
+        "mae_standard_deviation": 0.003,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.084,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n800:force_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "eV_per_A",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 0.268,
+        "mae_standard_deviation": 0.004,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.268,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n800:stress_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 2.42,
+        "mae_standard_deviation": 0.09,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -2.42,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:in_distribution:n800:stress_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 3.75,
+        "mae_standard_deviation": 0.21,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -3.75,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:independent_test:n800:energy_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 6.4,
+        "mae_standard_deviation": 0.4,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -6.4,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:independent_test:n800:energy_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 10.2,
+        "mae_standard_deviation": 0.7,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -10.2,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:independent_test:n800:force_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 61.9,
+        "mae_standard_deviation": 0.5,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -61.9,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:independent_test:n800:force_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 40.5,
+        "mae_standard_deviation": 1.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -40.5,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:independent_test:n800:stress_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 2.05,
+        "mae_standard_deviation": 0.1,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -2.05,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:carbon:independent_test:n800:stress_mae",
+      "material_system": "carbon",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 1.3,
+        "mae_standard_deviation": 0.03,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -1.3,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n100:energy_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 100,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 0.54,
+        "mae_standard_deviation": 0.14,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.54,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n100:energy_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 100,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 1.82,
+        "mae_standard_deviation": 0.05,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -1.82,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n100:force_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 100,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 6.0,
+        "mae_standard_deviation": 1.6,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -6.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n100:force_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 100,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 27.5,
+        "mae_standard_deviation": 1.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -27.5,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n100:stress_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 100,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 0.07,
+        "mae_standard_deviation": 0.01,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.07,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n100:stress_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 100,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 0.22,
+        "mae_standard_deviation": 0.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.22,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n250:energy_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 250,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 0.48,
+        "mae_standard_deviation": 0.01,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.48,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n250:energy_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 250,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 2.4,
+        "mae_standard_deviation": 0.25,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -2.4,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n250:force_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 250,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 4.1,
+        "mae_standard_deviation": 0.1,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -4.1,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n250:force_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 250,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 32.4,
+        "mae_standard_deviation": 1.7,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -32.4,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n250:stress_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 250,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 0.06,
+        "mae_standard_deviation": 0.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.06,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n250:stress_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 250,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 0.21,
+        "mae_standard_deviation": 0.01,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.21,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n500:energy_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 500,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 0.47,
+        "mae_standard_deviation": 0.01,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.47,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n500:energy_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 500,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 2.48,
+        "mae_standard_deviation": 0.28,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -2.48,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n500:force_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 500,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 4.1,
+        "mae_standard_deviation": 0.1,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -4.1,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n500:force_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 500,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 34.2,
+        "mae_standard_deviation": 2.1,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -34.2,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n500:stress_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 500,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 0.06,
+        "mae_standard_deviation": 0.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.06,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n500:stress_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 500,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 0.18,
+        "mae_standard_deviation": 0.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.18,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n800:energy_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 0.44,
+        "mae_standard_deviation": 0.01,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.44,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n800:energy_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 2.59,
+        "mae_standard_deviation": 0.17,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -2.59,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n800:force_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 4.2,
+        "mae_standard_deviation": 0.04,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -4.2,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n800:force_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 34.7,
+        "mae_standard_deviation": 1.4,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -34.7,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n800:stress_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 0.06,
+        "mae_standard_deviation": 0.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.06,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:in_distribution:n800:stress_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 0.19,
+        "mae_standard_deviation": 0.01,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.19,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:independent_test:n800:energy_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 0.7,
+        "mae_standard_deviation": 0.05,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.7,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:independent_test:n800:energy_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 3.19,
+        "mae_standard_deviation": 0.07,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -3.19,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:independent_test:n800:force_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 7.6,
+        "mae_standard_deviation": 0.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -7.6,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:independent_test:n800:force_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 11.7,
+        "mae_standard_deviation": 0.2,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -11.7,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:independent_test:n800:stress_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 0.07,
+        "mae_standard_deviation": 0.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.07,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:nacl:independent_test:n800:stress_mae",
+      "material_system": "nacl",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 0.08,
+        "mae_standard_deviation": 0.01,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.08,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n100:energy_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 100,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 2.49,
+        "mae_standard_deviation": 0.15,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -2.49,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n100:energy_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 100,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 4.17,
+        "mae_standard_deviation": 0.6,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -4.17,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n100:force_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 100,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 25.7,
+        "mae_standard_deviation": 0.6,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -25.7,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n100:force_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 100,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 25.8,
+        "mae_standard_deviation": 2.3,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -25.8,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n100:stress_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 100,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 0.39,
+        "mae_standard_deviation": 0.04,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.39,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n100:stress_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 100,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 100
+      },
+      "outcome": {
+        "mean_mae": 0.54,
+        "mae_standard_deviation": 0.03,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.54,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n250:energy_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 250,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 2.09,
+        "mae_standard_deviation": 0.43,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -2.09,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n250:energy_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 250,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 4.19,
+        "mae_standard_deviation": 0.7,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -4.19,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n250:force_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 250,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 23.7,
+        "mae_standard_deviation": 1.7,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -23.7,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n250:force_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 250,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 23.5,
+        "mae_standard_deviation": 0.2,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -23.5,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n250:stress_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 250,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 0.38,
+        "mae_standard_deviation": 0.03,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.38,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n250:stress_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 250,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 250
+      },
+      "outcome": {
+        "mean_mae": 0.57,
+        "mae_standard_deviation": 0.02,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.57,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n500:energy_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 500,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 1.59,
+        "mae_standard_deviation": 0.22,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -1.59,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n500:energy_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 500,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 4.03,
+        "mae_standard_deviation": 0.34,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -4.03,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n500:force_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 500,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 21.1,
+        "mae_standard_deviation": 0.6,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -21.1,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n500:force_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 500,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 22.6,
+        "mae_standard_deviation": 0.2,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -22.6,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n500:stress_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 500,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 0.35,
+        "mae_standard_deviation": 0.02,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.35,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n500:stress_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 500,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 500
+      },
+      "outcome": {
+        "mean_mae": 0.57,
+        "mae_standard_deviation": 0.01,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.57,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n800:energy_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 1.32,
+        "mae_standard_deviation": 0.08,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -1.32,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n800:energy_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 3.81,
+        "mae_standard_deviation": 0.29,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -3.81,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n800:force_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 20.0,
+        "mae_standard_deviation": 0.2,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -20.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n800:force_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 22.5,
+        "mae_standard_deviation": 0.2,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -22.5,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n800:stress_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 0.33,
+        "mae_standard_deviation": 0.01,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.33,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:in_distribution:n800:stress_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "in_distribution",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 0.56,
+        "mae_standard_deviation": 0.01,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.56,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:independent_test:n800:energy_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 1.8,
+        "mae_standard_deviation": 0.06,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -1.8,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:independent_test:n800:energy_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "energy",
+      "outcome_unit": "meV_per_atom",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 2.52,
+        "mae_standard_deviation": 0.1,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -2.52,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:independent_test:n800:force_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 34.2,
+        "mae_standard_deviation": 0.2,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -34.2,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:independent_test:n800:force_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "force",
+      "outcome_unit": "meV_per_A",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 33.1,
+        "mae_standard_deviation": 0.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -33.1,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:independent_test:n800:stress_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 800,
+      "environment": "entropy_driven",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 1,
+        "uses_structural_coverage_selection": 1,
+        "targets_underrepresented_structure_space": 1,
+        "target_distribution_match": 0,
+        "adaptive_acquisition": 1,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 0.2,
+        "mae_standard_deviation": 0.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.2,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wang_2026_dataset_aware_entropy",
+      "panel_id": "wang_2026_dataset_aware_entropy:silicon:independent_test:n800:stress_mae",
+      "material_system": "silicon",
+      "evaluation_distribution": "independent_test",
+      "endpoint": "stress",
+      "outcome_unit": "GPa",
+      "training_configuration_count": 800,
+      "environment": "random_md",
+      "pre_outcome_measurements": {
+        "uses_dataset_entropy": 0,
+        "uses_structural_coverage_selection": 0,
+        "targets_underrepresented_structure_space": 0,
+        "target_distribution_match": 1,
+        "adaptive_acquisition": 0,
+        "training_configuration_count": 800
+      },
+      "outcome": {
+        "mean_mae": 0.28,
+        "mae_standard_deviation": 0.0,
+        "independent_training_draws": 3
+      },
+      "derived": {
+        "native_utility": -0.28,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    }
+  ]
+}

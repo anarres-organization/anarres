@@ -1,0 +1,82 @@
+{
+  "artifact": "anarres_mlip_checkpoint_qualification_v1",
+  "status": "complete",
+  "panel": {
+    "role_manifest_sha256": "3af598f1cf652e4918f37a2359242b29d89ed3fea40f12125cbbdc66ab73169f",
+    "materials": 16,
+    "material_ids": [
+      "mp-6356",
+      "mp-616190",
+      "mp-654956",
+      "mp-753541",
+      "mp-625416",
+      "mp-867577",
+      "mp-625678",
+      "mp-867570",
+      "mp-12992",
+      "mp-768573",
+      "mp-561196",
+      "mp-555065",
+      "mp-867334",
+      "mp-867700",
+      "mp-754368",
+      "mp-867261"
+    ]
+  },
+  "gate": {
+    "minimum_successes": 15,
+    "primary_metric": "mean commensurate-phonon frequency MAE in THz",
+    "practical_equivalence_relative": 0.05,
+    "tie_breakers": [
+      "stability accuracy",
+      "median evaluation runtime excluding model load"
+    ]
+  },
+  "checkpoints": {
+    "mace": {
+      "successes": 16,
+      "failures": [],
+      "eligible": true,
+      "frequency_mae_thz": {
+        "mean": 0.5520027732170558,
+        "median": 0.4411771829299528
+      },
+      "frequency_rmse_thz": {
+        "mean": 0.6481497411301009,
+        "median": 0.5294336819621717
+      },
+      "stability_accuracy": 0.9375,
+      "evaluation_runtime_excluding_model_load_seconds": {
+        "mean": 6.11429770156974,
+        "median": 4.613772584591061
+      },
+      "model_sha256": [
+        "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012"
+      ]
+    },
+    "nequix": {
+      "successes": 16,
+      "failures": [],
+      "eligible": true,
+      "frequency_mae_thz": {
+        "mean": 0.3441668891342477,
+        "median": 0.21458335566408987
+      },
+      "frequency_rmse_thz": {
+        "mean": 0.41093950868526113,
+        "median": 0.2637204632920989
+      },
+      "stability_accuracy": 1.0,
+      "evaluation_runtime_excluding_model_load_seconds": {
+        "mean": 16.355154624849092,
+        "median": 17.424260972067714
+      },
+      "model_sha256": [
+        "1647af8e627e1afa11e2bfadeab0797326513a521afd7dd01606a96f56783eee"
+      ]
+    }
+  },
+  "selected_backend": "nequix",
+  "selection_rationale": "Selected by lower mean phonon-frequency MAE.",
+  "interpretation": "This gate selects a common starting checkpoint. It contains no candidate-environment post-training outcome and does not estimate environment utility."
+}

@@ -1,0 +1,779 @@
+{
+  "artifact": "moerman_2026_omat24_matched_budget_panels_v1",
+  "source_id": "moerman_2026_atoms_that_matter",
+  "panel_count": 6,
+  "arm_count": 36,
+  "role": "matched-budget selector and random-seed audit; excluded from predictive fitting",
+  "normalization": "within MatPES domain and physical endpoint; lower released geometric-mean error maps to higher utility",
+  "source_artifact": {
+    "paper": "https://arxiv.org/abs/2610.14392",
+    "repository": "https://github.com/em819/omat24-chemenv-subset",
+    "repository_revision": "723696de2c26584b8a907ef900690c0caf3c7b68",
+    "path": "09_benchmarks/matpes/paper_tables/paper_tables.json",
+    "sha256": "3de131cecab9e72d2218f9fb77b5b6836e60a1c454410119d546ac30a1660b48"
+  },
+  "interpretation_boundary": [
+    "EnvTok, DIRECT, and four random subsets hold the training budget near 6.5 million atoms and use the same MACE training pipeline.",
+    "Bulk and non-bulk MatPES outcomes remain separate because the preferred selector can change with the evaluation distribution.",
+    "The paper reports one trained model for EnvTok and DIRECT and four independently selected random subsets, so selector effects and training variation are not fully separated.",
+    "These released panels test matched-budget selection behavior but do not provide a new pre-outcome continuous measurement shared by all six arms."
+  ],
+  "arms": [
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:energy_geometric_mean_eV_per_atom",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "energy_geometric_mean_eV_per_atom",
+      "candidate": "v14",
+      "selector_family": "EnvTok",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 1,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 0,
+        "training_atom_count": 6566253
+      },
+      "outcome": {
+        "geometric_mean_error": 0.032256744885381855
+      },
+      "derived": {
+        "native_utility": -0.032256744885381855,
+        "panel_normalized_utility": 1.0
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:energy_geometric_mean_eV_per_atom",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "energy_geometric_mean_eV_per_atom",
+      "candidate": "DIRECT",
+      "selector_family": "DIRECT",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 1,
+        "uses_random_sampling": 0,
+        "training_atom_count": 6532238
+      },
+      "outcome": {
+        "geometric_mean_error": 0.0364690044553151
+      },
+      "derived": {
+        "native_utility": -0.0364690044553151,
+        "panel_normalized_utility": 0.0
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:energy_geometric_mean_eV_per_atom",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "energy_geometric_mean_eV_per_atom",
+      "candidate": "rdm1",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.033758993946994685
+      },
+      "derived": {
+        "native_utility": -0.033758993946994685,
+        "panel_normalized_utility": 0.6433626568657452
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:energy_geometric_mean_eV_per_atom",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "energy_geometric_mean_eV_per_atom",
+      "candidate": "rdm2",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.03356833650750032
+      },
+      "derived": {
+        "native_utility": -0.03356833650750032,
+        "panel_normalized_utility": 0.6886251665304547
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:energy_geometric_mean_eV_per_atom",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "energy_geometric_mean_eV_per_atom",
+      "candidate": "rdm3",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.0338156456328926
+      },
+      "derived": {
+        "native_utility": -0.0338156456328926,
+        "panel_normalized_utility": 0.6299134178154532
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:energy_geometric_mean_eV_per_atom",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "energy_geometric_mean_eV_per_atom",
+      "candidate": "rdm4",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.03391034637280421
+      },
+      "derived": {
+        "native_utility": -0.03391034637280421,
+        "panel_normalized_utility": 0.6074312468240024
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:force_component_geometric_mean_eV_per_A",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "force_component_geometric_mean_eV_per_A",
+      "candidate": "v14",
+      "selector_family": "EnvTok",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 1,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 0,
+        "training_atom_count": 6566253
+      },
+      "outcome": {
+        "geometric_mean_error": 0.0806315827159238
+      },
+      "derived": {
+        "native_utility": -0.0806315827159238,
+        "panel_normalized_utility": 1.0
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:force_component_geometric_mean_eV_per_A",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "force_component_geometric_mean_eV_per_A",
+      "candidate": "DIRECT",
+      "selector_family": "DIRECT",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 1,
+        "uses_random_sampling": 0,
+        "training_atom_count": 6532238
+      },
+      "outcome": {
+        "geometric_mean_error": 0.08638637237423602
+      },
+      "derived": {
+        "native_utility": -0.08638637237423602,
+        "panel_normalized_utility": 0.0
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:force_component_geometric_mean_eV_per_A",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "force_component_geometric_mean_eV_per_A",
+      "candidate": "rdm1",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.08295050427741645
+      },
+      "derived": {
+        "native_utility": -0.08295050427741645,
+        "panel_normalized_utility": 0.5970449487857138
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:force_component_geometric_mean_eV_per_A",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "force_component_geometric_mean_eV_per_A",
+      "candidate": "rdm2",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.08258318292355084
+      },
+      "derived": {
+        "native_utility": -0.08258318292355084,
+        "panel_normalized_utility": 0.660873754993261
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:force_component_geometric_mean_eV_per_A",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "force_component_geometric_mean_eV_per_A",
+      "candidate": "rdm3",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.0816877399289134
+      },
+      "derived": {
+        "native_utility": -0.0816877399289134,
+        "panel_normalized_utility": 0.8164733594625676
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:force_component_geometric_mean_eV_per_A",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "force_component_geometric_mean_eV_per_A",
+      "candidate": "rdm4",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.08294052992042092
+      },
+      "derived": {
+        "native_utility": -0.08294052992042092,
+        "panel_normalized_utility": 0.5987781758170648
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:stress_voigt_geometric_mean_eV_per_A3",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "stress_voigt_geometric_mean_eV_per_A3",
+      "candidate": "v14",
+      "selector_family": "EnvTok",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 1,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 0,
+        "training_atom_count": 6566253
+      },
+      "outcome": {
+        "geometric_mean_error": 0.0045730776427312745
+      },
+      "derived": {
+        "native_utility": -0.0045730776427312745,
+        "panel_normalized_utility": 1.0
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:stress_voigt_geometric_mean_eV_per_A3",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "stress_voigt_geometric_mean_eV_per_A3",
+      "candidate": "DIRECT",
+      "selector_family": "DIRECT",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 1,
+        "uses_random_sampling": 0,
+        "training_atom_count": 6532238
+      },
+      "outcome": {
+        "geometric_mean_error": 0.0048888969301948155
+      },
+      "derived": {
+        "native_utility": -0.0048888969301948155,
+        "panel_normalized_utility": 0.0
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:stress_voigt_geometric_mean_eV_per_A3",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "stress_voigt_geometric_mean_eV_per_A3",
+      "candidate": "rdm1",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.004802552740357402
+      },
+      "derived": {
+        "native_utility": -0.004802552740357402,
+        "panel_normalized_utility": 0.2733974562822776
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:stress_voigt_geometric_mean_eV_per_A3",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "stress_voigt_geometric_mean_eV_per_A3",
+      "candidate": "rdm2",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.00473271298055073
+      },
+      "derived": {
+        "native_utility": -0.00473271298055073,
+        "panel_normalized_utility": 0.49453581793073903
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:stress_voigt_geometric_mean_eV_per_A3",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "stress_voigt_geometric_mean_eV_per_A3",
+      "candidate": "rdm3",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.0047047605639636775
+      },
+      "derived": {
+        "native_utility": -0.0047047605639636775,
+        "panel_normalized_utility": 0.5830434477577471
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:bulk:stress_voigt_geometric_mean_eV_per_A3",
+      "evaluation_distribution": "MatPES bulk",
+      "endpoint": "stress_voigt_geometric_mean_eV_per_A3",
+      "candidate": "rdm4",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.00481838434366121
+      },
+      "derived": {
+        "native_utility": -0.00481838434366121,
+        "panel_normalized_utility": 0.22326877848378943
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:energy_geometric_mean_eV_per_atom",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "energy_geometric_mean_eV_per_atom",
+      "candidate": "v14",
+      "selector_family": "EnvTok",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 1,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 0,
+        "training_atom_count": 6566253
+      },
+      "outcome": {
+        "geometric_mean_error": 0.06876082741746935
+      },
+      "derived": {
+        "native_utility": -0.06876082741746935,
+        "panel_normalized_utility": 0.05469322132483905
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:energy_geometric_mean_eV_per_atom",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "energy_geometric_mean_eV_per_atom",
+      "candidate": "DIRECT",
+      "selector_family": "DIRECT",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 1,
+        "uses_random_sampling": 0,
+        "training_atom_count": 6532238
+      },
+      "outcome": {
+        "geometric_mean_error": 0.06256550735966339
+      },
+      "derived": {
+        "native_utility": -0.06256550735966339,
+        "panel_normalized_utility": 1.0
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:energy_geometric_mean_eV_per_atom",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "energy_geometric_mean_eV_per_atom",
+      "candidate": "rdm1",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.06898184317793611
+      },
+      "derived": {
+        "native_utility": -0.06898184317793611,
+        "panel_normalized_utility": 0.020969750283172106
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:energy_geometric_mean_eV_per_atom",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "energy_geometric_mean_eV_per_atom",
+      "candidate": "rdm2",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.0664264596364741
+      },
+      "derived": {
+        "native_utility": -0.0664264596364741,
+        "panel_normalized_utility": 0.41088041854886553
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:energy_geometric_mean_eV_per_atom",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "energy_geometric_mean_eV_per_atom",
+      "candidate": "rdm3",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.06736942903453307
+      },
+      "derived": {
+        "native_utility": -0.06736942903453307,
+        "panel_normalized_utility": 0.2669983663302338
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:energy_geometric_mean_eV_per_atom",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "energy_geometric_mean_eV_per_atom",
+      "candidate": "rdm4",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.06911927402839356
+      },
+      "derived": {
+        "native_utility": -0.06911927402839356,
+        "panel_normalized_utility": 0.0
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:force_component_geometric_mean_eV_per_A",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "force_component_geometric_mean_eV_per_A",
+      "candidate": "v14",
+      "selector_family": "EnvTok",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 1,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 0,
+        "training_atom_count": 6566253
+      },
+      "outcome": {
+        "geometric_mean_error": 0.23068748099890415
+      },
+      "derived": {
+        "native_utility": -0.23068748099890415,
+        "panel_normalized_utility": 0.2286770245689995
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:force_component_geometric_mean_eV_per_A",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "force_component_geometric_mean_eV_per_A",
+      "candidate": "DIRECT",
+      "selector_family": "DIRECT",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 1,
+        "uses_random_sampling": 0,
+        "training_atom_count": 6532238
+      },
+      "outcome": {
+        "geometric_mean_error": 0.20225073720784126
+      },
+      "derived": {
+        "native_utility": -0.20225073720784126,
+        "panel_normalized_utility": 1.0
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:force_component_geometric_mean_eV_per_A",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "force_component_geometric_mean_eV_per_A",
+      "candidate": "rdm1",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.22258963734059228
+      },
+      "derived": {
+        "native_utility": -0.22258963734059228,
+        "panel_normalized_utility": 0.4483242848529699
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:force_component_geometric_mean_eV_per_A",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "force_component_geometric_mean_eV_per_A",
+      "candidate": "rdm2",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.22326870495454498
+      },
+      "derived": {
+        "native_utility": -0.22326870495454498,
+        "panel_normalized_utility": 0.4299051417766293
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:force_component_geometric_mean_eV_per_A",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "force_component_geometric_mean_eV_per_A",
+      "candidate": "rdm3",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.21755764584025722
+      },
+      "derived": {
+        "native_utility": -0.21755764584025722,
+        "panel_normalized_utility": 0.5848128605105584
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:force_component_geometric_mean_eV_per_A",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "force_component_geometric_mean_eV_per_A",
+      "candidate": "rdm4",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.2391182294216872
+      },
+      "derived": {
+        "native_utility": -0.2391182294216872,
+        "panel_normalized_utility": 0.0
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:stress_voigt_geometric_mean_eV_per_A3",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "stress_voigt_geometric_mean_eV_per_A3",
+      "candidate": "v14",
+      "selector_family": "EnvTok",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 1,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 0,
+        "training_atom_count": 6566253
+      },
+      "outcome": {
+        "geometric_mean_error": 0.003671041926646946
+      },
+      "derived": {
+        "native_utility": -0.003671041926646946,
+        "panel_normalized_utility": 0.5796010490169703
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:stress_voigt_geometric_mean_eV_per_A3",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "stress_voigt_geometric_mean_eV_per_A3",
+      "candidate": "DIRECT",
+      "selector_family": "DIRECT",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 1,
+        "uses_random_sampling": 0,
+        "training_atom_count": 6532238
+      },
+      "outcome": {
+        "geometric_mean_error": 0.0034010016641521593
+      },
+      "derived": {
+        "native_utility": -0.0034010016641521593,
+        "panel_normalized_utility": 1.0
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:stress_voigt_geometric_mean_eV_per_A3",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "stress_voigt_geometric_mean_eV_per_A3",
+      "candidate": "rdm1",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.0037224789437199065
+      },
+      "derived": {
+        "native_utility": -0.0037224789437199065,
+        "panel_normalized_utility": 0.4995238493453614
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:stress_voigt_geometric_mean_eV_per_A3",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "stress_voigt_geometric_mean_eV_per_A3",
+      "candidate": "rdm2",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.00373202307186861
+      },
+      "derived": {
+        "native_utility": -0.00373202307186861,
+        "panel_normalized_utility": 0.48466554108905063
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:stress_voigt_geometric_mean_eV_per_A3",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "stress_voigt_geometric_mean_eV_per_A3",
+      "candidate": "rdm3",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.0036633982140462833
+      },
+      "derived": {
+        "native_utility": -0.0036633982140462833,
+        "panel_normalized_utility": 0.5915007884456285
+      }
+    },
+    {
+      "source_id": "moerman_2026_atoms_that_matter",
+      "panel_id": "moerman_2026_atoms_that_matter:matpes:non_bulk:stress_voigt_geometric_mean_eV_per_A3",
+      "evaluation_distribution": "MatPES non_bulk",
+      "endpoint": "stress_voigt_geometric_mean_eV_per_A3",
+      "candidate": "rdm4",
+      "selector_family": "random",
+      "pre_outcome_measurements": {
+        "uses_interpretable_local_environment_coverage": 0,
+        "uses_pretrained_latent_space_coverage": 0,
+        "uses_random_sampling": 1,
+        "training_atom_count": 6505010.5
+      },
+      "outcome": {
+        "geometric_mean_error": 0.004043344519345648
+      },
+      "derived": {
+        "native_utility": -0.004043344519345648,
+        "panel_normalized_utility": 0.0
+      }
+    }
+  ]
+}

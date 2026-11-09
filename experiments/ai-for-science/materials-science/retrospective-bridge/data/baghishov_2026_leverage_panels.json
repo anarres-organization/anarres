@@ -1,0 +1,1356 @@
+{
+  "artifact": "baghishov_2026_leverage_sampling_panels_v1",
+  "source_id": "baghishov_2026_application_specific_mlip",
+  "source_revision": "b982ccd33e981eab2f6527d56b407f9297b1cfb1",
+  "panel_count": 18,
+  "arm_count": 54,
+  "primary_outcome": "mean testing RMSE across 50 released realizations, evaluated separately for energy and forces",
+  "normalization": "negative RMSE, min-max normalized within budget and endpoint",
+  "matched_contract": {
+    "candidate_pool_size": 10000,
+    "qSNAP_2Jmax": 10,
+    "DFT_precision_level": 6,
+    "energy_to_force_weight": 150
+  },
+  "source_files": {
+    "100": {
+      "relative_path": "data/sampling_methods_comparison/100/results.csv",
+      "sha256": "173f8d38b920517839ba74982cde81dd5ebad46b4b9ebe36b277810dfc3e5337"
+    },
+    "200": {
+      "relative_path": "data/sampling_methods_comparison/200/results.csv",
+      "sha256": "c3a97322fb39f04e2d0b5953c047b2d1fcd7fae165c40c4db5e72ecc6b69937c"
+    },
+    "350": {
+      "relative_path": "data/sampling_methods_comparison/350/results.csv",
+      "sha256": "2619af9cb4e4052353096a6efed01eb4e3e11202171c43927159fd89a61ed1f8"
+    },
+    "500": {
+      "relative_path": "data/sampling_methods_comparison/500/results.csv",
+      "sha256": "196e4566a21f477f66d513e80b204f7c99e4851fd90bc9cc8d1fa984caeaea8d"
+    },
+    "750": {
+      "relative_path": "data/sampling_methods_comparison/750/results.csv",
+      "sha256": "96144dc436073052c5782c9ef12913a9656003062a36ea5912c5deddf36bec4f"
+    },
+    "1000": {
+      "relative_path": "data/sampling_methods_comparison/1000/results.csv",
+      "sha256": "38744087a5cd15efb45b07086718e96fe63a228f7f697e69d7815f478e2a128b"
+    },
+    "1500": {
+      "relative_path": "data/sampling_methods_comparison/1500/results.csv",
+      "sha256": "a3d3473872d19635d7bbce8cf802f3ff6e751c0b9d1ae49c92933bfba2b09cdc"
+    },
+    "2250": {
+      "relative_path": "data/sampling_methods_comparison/2250/results.csv",
+      "sha256": "7b9009e5cab008fa2a7f716318b90690bdfcefb689a022977e505a933e93d5d6"
+    },
+    "3000": {
+      "relative_path": "data/sampling_methods_comparison/3000/results.csv",
+      "sha256": "64906d74c841db08a524ef3b88215633fa6071b5f5c607b89d3c53e7beb009db"
+    }
+  },
+  "interpretation_boundary": [
+    "Energy and force endpoints are repeated views of the same sampling decisions.",
+    "The released files contain 50 realizations per method and budget.",
+    "Leverage scores use descriptor matrices and do not require DFT labels for the selected configurations."
+  ],
+  "arms": [
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_100:testing_energy_rmse",
+      "training_configuration_count": 100,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 100,
+        "training_pool_fraction": 0.01
+      },
+      "outcome": {
+        "mean_rmse": 0.024828361036750013,
+        "rmse_standard_deviation": 0.013287566244196173,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.024828361036750013,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_100:testing_energy_rmse",
+      "training_configuration_count": 100,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 100,
+        "training_pool_fraction": 0.01
+      },
+      "outcome": {
+        "mean_rmse": 0.011366822956616705,
+        "rmse_standard_deviation": 0.0004931949112471078,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.011366822956616705,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_100:testing_energy_rmse",
+      "training_configuration_count": 100,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 100,
+        "training_pool_fraction": 0.01
+      },
+      "outcome": {
+        "mean_rmse": 0.01199810937870351,
+        "rmse_standard_deviation": 0.0008612363937599454,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.01199810937870351,
+        "panel_normalized_utility": 0.9531044358877189,
+        "panel_normalized_regret": 0.04689556411228113
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_100:testing_force_rmse",
+      "training_configuration_count": 100,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 100,
+        "training_pool_fraction": 0.01
+      },
+      "outcome": {
+        "mean_rmse": 0.2245960955352632,
+        "rmse_standard_deviation": 0.03503349801704333,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.2245960955352632,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_100:testing_force_rmse",
+      "training_configuration_count": 100,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 100,
+        "training_pool_fraction": 0.01
+      },
+      "outcome": {
+        "mean_rmse": 0.1824138220205134,
+        "rmse_standard_deviation": 0.004165445479681525,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.1824138220205134,
+        "panel_normalized_utility": 0.9050457368798202,
+        "panel_normalized_regret": 0.09495426312017985
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_100:testing_force_rmse",
+      "training_configuration_count": 100,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 100,
+        "training_pool_fraction": 0.01
+      },
+      "outcome": {
+        "mean_rmse": 0.1779882040267359,
+        "rmse_standard_deviation": 0.004779001489365741,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.1779882040267359,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_200:testing_energy_rmse",
+      "training_configuration_count": 200,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 200,
+        "training_pool_fraction": 0.02
+      },
+      "outcome": {
+        "mean_rmse": 0.01840385010472597,
+        "rmse_standard_deviation": 0.009457987942123816,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.01840385010472597,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_200:testing_energy_rmse",
+      "training_configuration_count": 200,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 200,
+        "training_pool_fraction": 0.02
+      },
+      "outcome": {
+        "mean_rmse": 0.010031159509228123,
+        "rmse_standard_deviation": 0.0002761349923329226,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.010031159509228123,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_200:testing_energy_rmse",
+      "training_configuration_count": 200,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 200,
+        "training_pool_fraction": 0.02
+      },
+      "outcome": {
+        "mean_rmse": 0.010571662116330129,
+        "rmse_standard_deviation": 0.0005000125038722793,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.010571662116330129,
+        "panel_normalized_utility": 0.9354445741261902,
+        "panel_normalized_regret": 0.0645554258738098
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_200:testing_force_rmse",
+      "training_configuration_count": 200,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 200,
+        "training_pool_fraction": 0.02
+      },
+      "outcome": {
+        "mean_rmse": 0.19993903310494093,
+        "rmse_standard_deviation": 0.017364917815156936,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.19993903310494093,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_200:testing_force_rmse",
+      "training_configuration_count": 200,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 200,
+        "training_pool_fraction": 0.02
+      },
+      "outcome": {
+        "mean_rmse": 0.17918831653118836,
+        "rmse_standard_deviation": 0.0017611171178642815,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.17918831653118836,
+        "panel_normalized_utility": 0.8191881900249327,
+        "panel_normalized_regret": 0.1808118099750673
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_200:testing_force_rmse",
+      "training_configuration_count": 200,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 200,
+        "training_pool_fraction": 0.02
+      },
+      "outcome": {
+        "mean_rmse": 0.1746082033561368,
+        "rmse_standard_deviation": 0.0019290204579936689,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.1746082033561368,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_350:testing_energy_rmse",
+      "training_configuration_count": 350,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 350,
+        "training_pool_fraction": 0.035
+      },
+      "outcome": {
+        "mean_rmse": 0.013901046687659823,
+        "rmse_standard_deviation": 0.00641682852420616,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.013901046687659823,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_350:testing_energy_rmse",
+      "training_configuration_count": 350,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 350,
+        "training_pool_fraction": 0.035
+      },
+      "outcome": {
+        "mean_rmse": 0.009485012981761673,
+        "rmse_standard_deviation": 0.00020645978153488093,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.009485012981761673,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_350:testing_energy_rmse",
+      "training_configuration_count": 350,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 350,
+        "training_pool_fraction": 0.035
+      },
+      "outcome": {
+        "mean_rmse": 0.009896843035888234,
+        "rmse_standard_deviation": 0.0003598593108729631,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.009896843035888234,
+        "panel_normalized_utility": 0.9067420944780127,
+        "panel_normalized_regret": 0.09325790552198732
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_350:testing_force_rmse",
+      "training_configuration_count": 350,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 350,
+        "training_pool_fraction": 0.035
+      },
+      "outcome": {
+        "mean_rmse": 0.19241417978711334,
+        "rmse_standard_deviation": 0.012698224088213294,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.19241417978711334,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_350:testing_force_rmse",
+      "training_configuration_count": 350,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 350,
+        "training_pool_fraction": 0.035
+      },
+      "outcome": {
+        "mean_rmse": 0.17717353029784633,
+        "rmse_standard_deviation": 0.0016471038723748176,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.17717353029784633,
+        "panel_normalized_utility": 0.7742767980239221,
+        "panel_normalized_regret": 0.22572320197607787
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_350:testing_force_rmse",
+      "training_configuration_count": 350,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 350,
+        "training_pool_fraction": 0.035
+      },
+      "outcome": {
+        "mean_rmse": 0.1727304574695086,
+        "rmse_standard_deviation": 0.001338565262368372,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.1727304574695086,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_500:testing_energy_rmse",
+      "training_configuration_count": 500,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 500,
+        "training_pool_fraction": 0.05
+      },
+      "outcome": {
+        "mean_rmse": 0.012767157451254953,
+        "rmse_standard_deviation": 0.005722503910729655,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.012767157451254953,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_500:testing_energy_rmse",
+      "training_configuration_count": 500,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 500,
+        "training_pool_fraction": 0.05
+      },
+      "outcome": {
+        "mean_rmse": 0.009170653451159054,
+        "rmse_standard_deviation": 9.525215191381615e-05,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.009170653451159054,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_500:testing_energy_rmse",
+      "training_configuration_count": 500,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 500,
+        "training_pool_fraction": 0.05
+      },
+      "outcome": {
+        "mean_rmse": 0.009518533380035714,
+        "rmse_standard_deviation": 0.0002569716098061489,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.009518533380035714,
+        "panel_normalized_utility": 0.9032727535219246,
+        "panel_normalized_regret": 0.0967272464780754
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_500:testing_force_rmse",
+      "training_configuration_count": 500,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 500,
+        "training_pool_fraction": 0.05
+      },
+      "outcome": {
+        "mean_rmse": 0.18806654986396013,
+        "rmse_standard_deviation": 0.014315859137123556,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.18806654986396013,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_500:testing_force_rmse",
+      "training_configuration_count": 500,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 500,
+        "training_pool_fraction": 0.05
+      },
+      "outcome": {
+        "mean_rmse": 0.1756145375375003,
+        "rmse_standard_deviation": 0.0010999052338390009,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.1756145375375003,
+        "panel_normalized_utility": 0.7369814529284033,
+        "panel_normalized_regret": 0.26301854707159666
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_500:testing_force_rmse",
+      "training_configuration_count": 500,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 500,
+        "training_pool_fraction": 0.05
+      },
+      "outcome": {
+        "mean_rmse": 0.17117058555307874,
+        "rmse_standard_deviation": 0.0009807384386566914,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.17117058555307874,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_750:testing_energy_rmse",
+      "training_configuration_count": 750,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 750,
+        "training_pool_fraction": 0.075
+      },
+      "outcome": {
+        "mean_rmse": 0.010764087671760124,
+        "rmse_standard_deviation": 0.0041426547902463735,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.010764087671760124,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_750:testing_energy_rmse",
+      "training_configuration_count": 750,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 750,
+        "training_pool_fraction": 0.075
+      },
+      "outcome": {
+        "mean_rmse": 0.008920953586922133,
+        "rmse_standard_deviation": 0.00012684992026526151,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.008920953586922133,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_750:testing_energy_rmse",
+      "training_configuration_count": 750,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 750,
+        "training_pool_fraction": 0.075
+      },
+      "outcome": {
+        "mean_rmse": 0.009191975501130337,
+        "rmse_standard_deviation": 0.00013256845350234162,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.009191975501130337,
+        "panel_normalized_utility": 0.8529559425775438,
+        "panel_normalized_regret": 0.1470440574224562
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_750:testing_force_rmse",
+      "training_configuration_count": 750,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 750,
+        "training_pool_fraction": 0.075
+      },
+      "outcome": {
+        "mean_rmse": 0.18122557714043944,
+        "rmse_standard_deviation": 0.01305222864753369,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.18122557714043944,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_750:testing_force_rmse",
+      "training_configuration_count": 750,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 750,
+        "training_pool_fraction": 0.075
+      },
+      "outcome": {
+        "mean_rmse": 0.17355543609230195,
+        "rmse_standard_deviation": 0.0008234885524536038,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.17355543609230195,
+        "panel_normalized_utility": 0.6900414212517012,
+        "panel_normalized_regret": 0.3099585787482988
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_750:testing_force_rmse",
+      "training_configuration_count": 750,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 750,
+        "training_pool_fraction": 0.075
+      },
+      "outcome": {
+        "mean_rmse": 0.17011009796496585,
+        "rmse_standard_deviation": 0.0007079160263321257,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.17011009796496585,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_1000:testing_energy_rmse",
+      "training_configuration_count": 1000,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 1000,
+        "training_pool_fraction": 0.1
+      },
+      "outcome": {
+        "mean_rmse": 0.00995515593114355,
+        "rmse_standard_deviation": 0.002038233656630633,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.00995515593114355,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_1000:testing_energy_rmse",
+      "training_configuration_count": 1000,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 1000,
+        "training_pool_fraction": 0.1
+      },
+      "outcome": {
+        "mean_rmse": 0.008784477873553086,
+        "rmse_standard_deviation": 7.860849761657257e-05,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.008784477873553086,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_1000:testing_energy_rmse",
+      "training_configuration_count": 1000,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 1000,
+        "training_pool_fraction": 0.1
+      },
+      "outcome": {
+        "mean_rmse": 0.009053427159566372,
+        "rmse_standard_deviation": 9.384439342727785e-05,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.009053427159566372,
+        "panel_normalized_utility": 0.7702619569321668,
+        "panel_normalized_regret": 0.2297380430678332
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_1000:testing_force_rmse",
+      "training_configuration_count": 1000,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 1000,
+        "training_pool_fraction": 0.1
+      },
+      "outcome": {
+        "mean_rmse": 0.17870108237397486,
+        "rmse_standard_deviation": 0.011779459401441261,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.17870108237397486,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_1000:testing_force_rmse",
+      "training_configuration_count": 1000,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 1000,
+        "training_pool_fraction": 0.1
+      },
+      "outcome": {
+        "mean_rmse": 0.1724486494264282,
+        "rmse_standard_deviation": 0.0006906534880885142,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.1724486494264282,
+        "panel_normalized_utility": 0.658346637138178,
+        "panel_normalized_regret": 0.341653362861822
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_1000:testing_force_rmse",
+      "training_configuration_count": 1000,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 1000,
+        "training_pool_fraction": 0.1
+      },
+      "outcome": {
+        "mean_rmse": 0.16920390779323138,
+        "rmse_standard_deviation": 0.0007174191357714196,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.16920390779323138,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_1500:testing_energy_rmse",
+      "training_configuration_count": 1500,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 1500,
+        "training_pool_fraction": 0.15
+      },
+      "outcome": {
+        "mean_rmse": 0.009313857729525452,
+        "rmse_standard_deviation": 0.000791435467524512,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.009313857729525452,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_1500:testing_energy_rmse",
+      "training_configuration_count": 1500,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 1500,
+        "training_pool_fraction": 0.15
+      },
+      "outcome": {
+        "mean_rmse": 0.008605223772562736,
+        "rmse_standard_deviation": 6.187386710629747e-05,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.008605223772562736,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_1500:testing_energy_rmse",
+      "training_configuration_count": 1500,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 1500,
+        "training_pool_fraction": 0.15
+      },
+      "outcome": {
+        "mean_rmse": 0.008869664780688952,
+        "rmse_standard_deviation": 9.550152901372945e-05,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.008869664780688952,
+        "panel_normalized_utility": 0.6268298950001785,
+        "panel_normalized_regret": 0.3731701049998215
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_1500:testing_force_rmse",
+      "training_configuration_count": 1500,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 1500,
+        "training_pool_fraction": 0.15
+      },
+      "outcome": {
+        "mean_rmse": 0.176622894252992,
+        "rmse_standard_deviation": 0.00986733898835375,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.176622894252992,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_1500:testing_force_rmse",
+      "training_configuration_count": 1500,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 1500,
+        "training_pool_fraction": 0.15
+      },
+      "outcome": {
+        "mean_rmse": 0.17097899383310644,
+        "rmse_standard_deviation": 0.0005470080760723461,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.17097899383310644,
+        "panel_normalized_utility": 0.6640452843662852,
+        "panel_normalized_regret": 0.3359547156337148
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_1500:testing_force_rmse",
+      "training_configuration_count": 1500,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 1500,
+        "training_pool_fraction": 0.15
+      },
+      "outcome": {
+        "mean_rmse": 0.16812362386773255,
+        "rmse_standard_deviation": 0.0005118586713797959,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.16812362386773255,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_2250:testing_energy_rmse",
+      "training_configuration_count": 2250,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 2250,
+        "training_pool_fraction": 0.225
+      },
+      "outcome": {
+        "mean_rmse": 0.008910793786256309,
+        "rmse_standard_deviation": 0.0006405076858958135,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.008910793786256309,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_2250:testing_energy_rmse",
+      "training_configuration_count": 2250,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 2250,
+        "training_pool_fraction": 0.225
+      },
+      "outcome": {
+        "mean_rmse": 0.008462491807183286,
+        "rmse_standard_deviation": 3.947170837806546e-05,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.008462491807183286,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_2250:testing_energy_rmse",
+      "training_configuration_count": 2250,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 2250,
+        "training_pool_fraction": 0.225
+      },
+      "outcome": {
+        "mean_rmse": 0.008695903600887685,
+        "rmse_standard_deviation": 6.153809900607356e-05,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.008695903600887685,
+        "panel_normalized_utility": 0.4793424865376763,
+        "panel_normalized_regret": 0.5206575134623237
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_2250:testing_force_rmse",
+      "training_configuration_count": 2250,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 2250,
+        "training_pool_fraction": 0.225
+      },
+      "outcome": {
+        "mean_rmse": 0.17072278453878476,
+        "rmse_standard_deviation": 0.005829011890555904,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.17072278453878476,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_2250:testing_force_rmse",
+      "training_configuration_count": 2250,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 2250,
+        "training_pool_fraction": 0.225
+      },
+      "outcome": {
+        "mean_rmse": 0.16972438252640987,
+        "rmse_standard_deviation": 0.00037251572979047997,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.16972438252640987,
+        "panel_normalized_utility": 0.2931870902501881,
+        "panel_normalized_regret": 0.7068129097498119
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_2250:testing_force_rmse",
+      "training_configuration_count": 2250,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 2250,
+        "training_pool_fraction": 0.225
+      },
+      "outcome": {
+        "mean_rmse": 0.16731744356172157,
+        "rmse_standard_deviation": 0.00040720067145061443,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.16731744356172157,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_3000:testing_energy_rmse",
+      "training_configuration_count": 3000,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 3000,
+        "training_pool_fraction": 0.3
+      },
+      "outcome": {
+        "mean_rmse": 0.008720198678169375,
+        "rmse_standard_deviation": 0.0004328713840093377,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.008720198678169375,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_3000:testing_energy_rmse",
+      "training_configuration_count": 3000,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 3000,
+        "training_pool_fraction": 0.3
+      },
+      "outcome": {
+        "mean_rmse": 0.008392610640721878,
+        "rmse_standard_deviation": 2.9893456736313324e-05,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.008392610640721878,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_3000:testing_energy_rmse",
+      "training_configuration_count": 3000,
+      "endpoint": "testing_energy_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 3000,
+        "training_pool_fraction": 0.3
+      },
+      "outcome": {
+        "mean_rmse": 0.00861627278321541,
+        "rmse_standard_deviation": 4.7916520130211105e-05,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.00861627278321541,
+        "panel_normalized_utility": 0.31724569603864444,
+        "panel_normalized_regret": 0.6827543039613555
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_3000:testing_force_rmse",
+      "training_configuration_count": 3000,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Random",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 3000,
+        "training_pool_fraction": 0.3
+      },
+      "outcome": {
+        "mean_rmse": 0.16983952009889017,
+        "rmse_standard_deviation": 0.005123526761412728,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.16983952009889017,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_3000:testing_force_rmse",
+      "training_configuration_count": 3000,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+        "training_configuration_count": 3000,
+        "training_pool_fraction": 0.3
+      },
+      "outcome": {
+        "mean_rmse": 0.16890867430692316,
+        "rmse_standard_deviation": 0.0002680208907570064,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.16890867430692316,
+        "panel_normalized_utility": 0.299713511594752,
+        "panel_normalized_regret": 0.700286488405248
+      }
+    },
+    {
+      "source_id": "baghishov_2026_application_specific_mlip",
+      "panel_id": "baghishov_2026_application_specific_mlip:budget_3000:testing_force_rmse",
+      "training_configuration_count": 3000,
+      "endpoint": "testing_force_rmse",
+      "sampling_method": "Block Leverage",
+      "pre_outcome_measurements": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+        "training_configuration_count": 3000,
+        "training_pool_fraction": 0.3
+      },
+      "outcome": {
+        "mean_rmse": 0.16673373488749263,
+        "rmse_standard_deviation": 0.000283859027807247,
+        "released_realizations": 50
+      },
+      "derived": {
+        "native_utility": -0.16673373488749263,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    }
+  ]
+}

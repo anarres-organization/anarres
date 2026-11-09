@@ -1,0 +1,350 @@
+{
+  "evaluation_contract_sha256": "f8603b7e92073bf873ab5c4ac322653d0501b780ece0841e0b6300c4294ea781",
+  "external_labels_read": false,
+  "graph_cache_sha256": "0fe96c2db803025c31ab7d174812facbf8561bb0b245972aa03df96bf9d8de35",
+  "prediction_manifest_sha256": "c523c85c96fa22876d181e21ffc5fd577d7c880fd62504bd31776780abb744d7",
+  "references": [
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "484735305be933b0b85d0436dcec8113f040830c61459c2094457953d9e5fd47"
+        }
+      ],
+      "reference": "starting_pretrained",
+      "reference_completion_sha256": "38381e2ec5df1629e08f74eedb15521b6d5ba1cc298fc526ffdb4b7f1ef5da5a",
+      "wall_seconds": 7.838403940200806
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "e064203622dba8e9c3d0c3c6c0c08e299aeeef674daab1fd56c9ee18ec7827df"
+        }
+      ],
+      "reference": "full_dft_posttrained",
+      "reference_completion_sha256": "f854924acbf44955a3bfa5be923ce63a7814f393a401273ccc60e25e474ec392",
+      "wall_seconds": 7.420540809631348
+    }
+  ],
+  "runs": [
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "00cd91e8b28dd095d7f11a27216b31584d4ada5b5b4e8bbe06592d2cce840b8a"
+        }
+      ],
+      "prediction_completion_sha256": "e021b035c5097f986c315fa17f18d32a36631d4a445444dfd06e06cced04ae8d",
+      "run_id": "phonon-coverage-n1024-s20261108",
+      "wall_seconds": 67.07973623275757
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "fefe41cf95e1671360367d4395f7fc4444bc0d6dcb1ba863c4ca7b2d8eb61b4a"
+        }
+      ],
+      "prediction_completion_sha256": "634364c6130614c4da3015d9a870a6ccb53ac21331842ab7356ff857de08ea7e",
+      "run_id": "phonon-coverage-n1024-s20261109",
+      "wall_seconds": 59.415499210357666
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "2190f476d8b919df38f3587e6770d4193b92e145bab1be1ec20b40ea8f6695df"
+        }
+      ],
+      "prediction_completion_sha256": "88b5ec6fff87ca64829f6b127be0e13260c37645f549558a75c016164b3137e7",
+      "run_id": "phonon-coverage-n256-s20261108",
+      "wall_seconds": 22.25069260597229
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "24cb03870ac217e06ca9d176e3de7219cc5e891557328349baa3af104ce6e8d3"
+        }
+      ],
+      "prediction_completion_sha256": "a87fd3066cbb3c00bad3353a6574b331d01fb2731055d5a1bb46d7d9207810d6",
+      "run_id": "phonon-coverage-n256-s20261109",
+      "wall_seconds": 22.703521013259888
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "ba208be2827a481519dfbaf4aa6349d198499c12200a8dc4c6e2a03b8792caf4"
+        }
+      ],
+      "prediction_completion_sha256": "7341d9362760827076636cd1fec8077b822cff768b0471bf5dab554dbe27d431",
+      "run_id": "phonon-coverage-n512-s20261108",
+      "wall_seconds": 39.701720237731934
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "91dab29043879de1fd1f16912a7fbd540ebe146f626f67f3e19ded0072fdbf55"
+        }
+      ],
+      "prediction_completion_sha256": "9cf93c7d5ed8a15e732549083152215e79014263ab21f61aa8988f728330c5bf",
+      "run_id": "phonon-coverage-n512-s20261109",
+      "wall_seconds": 39.11289691925049
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "2cf241afa3da10330dd834de772f2b1992ea401e74707a40773317766f3ce060"
+        }
+      ],
+      "prediction_completion_sha256": "16d02e386155bfb266d600a3133b521ecab954081fd5074b2792626f6ce4f82c",
+      "run_id": "phonon-hash-uniform-n1024-s20261108",
+      "wall_seconds": 74.06318521499634
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "0e933132107484f4693ad4b1e1ccb68169582ca8647d6cc70b9b4a1189319936"
+        }
+      ],
+      "prediction_completion_sha256": "31be0b308cb2d991527e67f0f5ed482c62d8579d55847b6b908d5f40596558a0",
+      "run_id": "phonon-hash-uniform-n1024-s20261109",
+      "wall_seconds": 57.290008306503296
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "97fc7985601a4f87f81cc112e88bfdcc8506e6688ed1449485df5fe217799ca8"
+        }
+      ],
+      "prediction_completion_sha256": "af05de5753aacabe34d48a99723b8edf5e5f641e62d08cf3265fd6c5465899fd",
+      "run_id": "phonon-hash-uniform-n256-s20261108",
+      "wall_seconds": 29.446924209594727
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "8acb4f9507bff2656f688e24f6da42248eb157e15a33beb64586f494c82e34c8"
+        }
+      ],
+      "prediction_completion_sha256": "4132e6b572a74bdcee7589741b573e0c771fe6665c52426338656a7fd36b8ce5",
+      "run_id": "phonon-hash-uniform-n256-s20261109",
+      "wall_seconds": 28.45361304283142
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "abceaff722a9c791a517d6709d91cc7fc0fa86f2387053679974c83ec1b25a75"
+        }
+      ],
+      "prediction_completion_sha256": "6930fbe1ebf5958d52c01acd9c7f6db219ee2316d2c3aa17c8f8b847b520040e",
+      "run_id": "phonon-hash-uniform-n512-s20261108",
+      "wall_seconds": 45.09806752204895
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "25a8d80cf7a45a607ed12a1de199239bc2e1521a74de7e2f757defc47cc6559f"
+        }
+      ],
+      "prediction_completion_sha256": "2312e21e30031ae1b8163b40d9e2fc702bc34628596272aff4b730c673756847",
+      "run_id": "phonon-hash-uniform-n512-s20261109",
+      "wall_seconds": 44.290836811065674
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "0958e6e116ff7b6a331517c1a6f93947267bbb88199dbf742aab9f726857e0e3"
+        }
+      ],
+      "prediction_completion_sha256": "04ae9160aac9d2fae64b63e6917fbf25456570a9afb55d2914e9f209e7e9e035",
+      "run_id": "phonon-signal-coverage-n1024-s20261108",
+      "wall_seconds": 69.9257299900055
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "878ebfabd4c03f1f301385471c581ee1fd9cce32d1afdbe7b6a9411a973e23a1"
+        }
+      ],
+      "prediction_completion_sha256": "95a774000aa324bc410a65b61668b19083f14d0175e172c9482fdb9779e4f0e5",
+      "run_id": "phonon-signal-coverage-n1024-s20261109",
+      "wall_seconds": 68.52001762390137
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "cc895b731423262b9fd3bf794650d71e2ace6f22b1b97107cba6ff3319e9f4d2"
+        }
+      ],
+      "prediction_completion_sha256": "6e3e8adad7d69456e8864a6da1589cbeaf6573f135323d1148f574287b8a47f5",
+      "run_id": "phonon-signal-coverage-n256-s20261108",
+      "wall_seconds": 25.364543437957764
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "9b91184582f66f07d12adf65abc158c6d308a404214d7c6b77b9187aa954cfce"
+        }
+      ],
+      "prediction_completion_sha256": "51f5c8e681b2a5c539cb3ca95128bbce0130b1735c7331996957737b85f0057c",
+      "run_id": "phonon-signal-coverage-n256-s20261109",
+      "wall_seconds": 20.847010374069214
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "96f80389586ad3c052b6fddf37a866261ef7366871872642ecdf1cc0e2dbac98"
+        }
+      ],
+      "prediction_completion_sha256": "d1e58c4c12cf60a09c5440347c7a622efb9d4673e9f579329a40c1be98b77bca",
+      "run_id": "phonon-signal-coverage-n512-s20261108",
+      "wall_seconds": 41.284013509750366
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "1b9abe8daea70a5c7fee5700748de3b29d25eaa76d31ad88e58d9f5c0ccfa5d6"
+        }
+      ],
+      "prediction_completion_sha256": "36eefe1aaf1ef263d7574a38226cd395630b3bc2730f9a0def83b8de11b010eb",
+      "run_id": "phonon-signal-coverage-n512-s20261109",
+      "wall_seconds": 37.472278356552124
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "effe7ba67d1bf44f36b44a9cf99a785f27243b34e18d4aba6578477745ee249b"
+        }
+      ],
+      "prediction_completion_sha256": "e1fc9dc0ad1ad3df583349e50467db020849d0582b3e6678fb4e10e254fb30b3",
+      "run_id": "phonon-signal-n1024-s20261108",
+      "wall_seconds": 65.29516792297363
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "0709ff5d5394b57b864f723397ecaa12968d64b56db05f357a9a6a106022b63a"
+        }
+      ],
+      "prediction_completion_sha256": "95d4e7994594948af7cf1a9decf93e761d5df9479c12d49287ccc5040ba97c2d",
+      "run_id": "phonon-signal-n1024-s20261109",
+      "wall_seconds": 63.05121088027954
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "ae06dbe05749aefdd477fe320b5e6f1d23da183b42e10f904239d5ad22716c60"
+        }
+      ],
+      "prediction_completion_sha256": "048c4bbe761d7913ce354c368411dd374a9f2fe5566741d4e6977f25918d5307",
+      "run_id": "phonon-signal-n256-s20261108",
+      "wall_seconds": 30.152167797088623
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "9bb5c2805439fffdf5614ca65d3e2fba142144a685e575f3e341775186c35386"
+        }
+      ],
+      "prediction_completion_sha256": "8c31561a6aed8f21cf91b47fe600f8c7203d2a2cee99c0e58ab641216d7ada57",
+      "run_id": "phonon-signal-n256-s20261109",
+      "wall_seconds": 30.063924074172974
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "0705b1affcaa984387a711ef16c95ef83142db3b178fa6d7be04d4f5ac3d7bd5"
+        }
+      ],
+      "prediction_completion_sha256": "b5cc23612d9bfab0614cba2e299f50e2872dacdecda63c05cc7f9b799ec8451d",
+      "run_id": "phonon-signal-n512-s20261108",
+      "wall_seconds": 41.16886329650879
+    },
+    {
+      "device": "cpu",
+      "panel_outputs": [
+        {
+          "panel": "pbesol",
+          "records": 1000,
+          "sha256": "8090b64f49ea6ba648b4dcb2a2946a18dc772671ad360ef9e1ba7a54a93bb361"
+        }
+      ],
+      "prediction_completion_sha256": "78cab9a1b157297320b4abe5d1c289f69c49a2a47766a9be7c163cfd69186af5",
+      "run_id": "phonon-signal-n512-s20261109",
+      "wall_seconds": 36.859915256500244
+    }
+  ],
+  "schema_version": "1.0",
+  "status": "all_candidate_predictions_complete_external_labels_sealed"
+}

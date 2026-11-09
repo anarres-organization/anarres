@@ -1,0 +1,279 @@
+{
+  "artifact": "hwang_2026_surface_training_regime_panels_v1",
+  "source_id": "hwang_2026_surface_finetuning",
+  "doi": "10.1016/j.commatsci.2026.114666",
+  "repository_revision": "4a1c96f9badbb1676d83103a0c9e0f4a16e65e28",
+  "panel_count": 18,
+  "arm_count": 36,
+  "primary_outcome": "surface energy or force RMSE from exact Figure 2 source data",
+  "normalization": "negative RMSE, min-max normalized within material system, matched training configuration count, and endpoint",
+  "matched_contract": {
+    "matched_training_configuration_counts": {
+      "Au": [40, 200, 2000],
+      "RuO2": [50, 100, 300],
+      "BiVO4": [100, 200, 592]
+    },
+    "common_surface_training_data_within_panel": true,
+    "common_test_contract_within_panel": true
+  },
+  "source_files": {
+    "data/Fig_2a.csv": {
+      "sha256": "2bfc358b7656aa74d83a2c175b71629752fdbd2eaedc0732ec9adb8f5c5349c1"
+    },
+    "data/Fig_2c.csv": {
+      "sha256": "f0180c663297864dafc126377df44c197b690ed93b74bb5a43d74fbee2d6c5f4"
+    },
+    "data/Fig_2e.csv": {
+      "sha256": "9c8e86aa8e4e91e19854c3cc61e8b04d15154f360313a32aead317bdfe5909ca"
+    },
+    "README.md": {
+      "sha256": "397c683042dd429328fe5ce7f4fc06713ff7f3f7cc479e6829d8c4acbb72f5ea"
+    },
+    "LICENSE": {
+      "sha256": "032bf41f31142c6596636dc1ef0734864173b3441b6c3c8c67daa95a0b206c61"
+    }
+  },
+  "interpretation_boundary": [
+    "All outcomes come from exact released figure-source CSV files; no figure is digitized.",
+    "Each panel matches the surface training configurations and evaluation endpoint while changing pretrained fine-tuning versus random initialization.",
+    "The update regime changes within each panel, so these results test starting-model and training-regime compatibility rather than candidate-environment choice under one fixed trainer.",
+    "The raw DFT datasets are not redistributed by the source repository, which prevents reconstruction of additional pre-training environment coordinates.",
+    "The panels remain outside the strict fitted bridge and serve as an auxiliary training-regime audit."
+  ],
+  "matched_decisions": [
+    {
+      "panel_id": "hwang_2026_surface_finetuning:bismuth_vanadate_surfaces:n100:energy_rmse",
+      "material_system": "bismuth_vanadate_surfaces",
+      "formula": "BiVO4",
+      "composition_class": "ternary",
+      "training_configuration_count": 100,
+      "endpoint": "energy_rmse",
+      "outcome_unit": "meV_per_atom",
+      "fine_tuning_rmse": 17.7,
+      "training_from_scratch_rmse": 38.9,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 54.4987146529563
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:bismuth_vanadate_surfaces:n100:force_rmse",
+      "material_system": "bismuth_vanadate_surfaces",
+      "formula": "BiVO4",
+      "composition_class": "ternary",
+      "training_configuration_count": 100,
+      "endpoint": "force_rmse",
+      "outcome_unit": "meV_per_A",
+      "fine_tuning_rmse": 255.5,
+      "training_from_scratch_rmse": 398.3,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 35.85237258347979
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:bismuth_vanadate_surfaces:n200:energy_rmse",
+      "material_system": "bismuth_vanadate_surfaces",
+      "formula": "BiVO4",
+      "composition_class": "ternary",
+      "training_configuration_count": 200,
+      "endpoint": "energy_rmse",
+      "outcome_unit": "meV_per_atom",
+      "fine_tuning_rmse": 14.4,
+      "training_from_scratch_rmse": 23.5,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 38.723404255319146
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:bismuth_vanadate_surfaces:n200:force_rmse",
+      "material_system": "bismuth_vanadate_surfaces",
+      "formula": "BiVO4",
+      "composition_class": "ternary",
+      "training_configuration_count": 200,
+      "endpoint": "force_rmse",
+      "outcome_unit": "meV_per_A",
+      "fine_tuning_rmse": 208.4,
+      "training_from_scratch_rmse": 307.0,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 32.11726384364821
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:bismuth_vanadate_surfaces:n592:energy_rmse",
+      "material_system": "bismuth_vanadate_surfaces",
+      "formula": "BiVO4",
+      "composition_class": "ternary",
+      "training_configuration_count": 592,
+      "endpoint": "energy_rmse",
+      "outcome_unit": "meV_per_atom",
+      "fine_tuning_rmse": 10.7,
+      "training_from_scratch_rmse": 12.2,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 12.295081967213115
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:bismuth_vanadate_surfaces:n592:force_rmse",
+      "material_system": "bismuth_vanadate_surfaces",
+      "formula": "BiVO4",
+      "composition_class": "ternary",
+      "training_configuration_count": 592,
+      "endpoint": "force_rmse",
+      "outcome_unit": "meV_per_A",
+      "fine_tuning_rmse": 172.0,
+      "training_from_scratch_rmse": 235.3,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 26.901827454313644
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:gold_surfaces:n2000:energy_rmse",
+      "material_system": "gold_surfaces",
+      "formula": "Au",
+      "composition_class": "unary",
+      "training_configuration_count": 2000,
+      "endpoint": "energy_rmse",
+      "outcome_unit": "meV_per_atom",
+      "fine_tuning_rmse": 2.1,
+      "training_from_scratch_rmse": 4.7,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 55.31914893617021
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:gold_surfaces:n2000:force_rmse",
+      "material_system": "gold_surfaces",
+      "formula": "Au",
+      "composition_class": "unary",
+      "training_configuration_count": 2000,
+      "endpoint": "force_rmse",
+      "outcome_unit": "meV_per_A",
+      "fine_tuning_rmse": 26.1,
+      "training_from_scratch_rmse": 29.7,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 12.121212121212114
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:gold_surfaces:n200:energy_rmse",
+      "material_system": "gold_surfaces",
+      "formula": "Au",
+      "composition_class": "unary",
+      "training_configuration_count": 200,
+      "endpoint": "energy_rmse",
+      "outcome_unit": "meV_per_atom",
+      "fine_tuning_rmse": 3.5,
+      "training_from_scratch_rmse": 7.3,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 52.054794520547944
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:gold_surfaces:n200:force_rmse",
+      "material_system": "gold_surfaces",
+      "formula": "Au",
+      "composition_class": "unary",
+      "training_configuration_count": 200,
+      "endpoint": "force_rmse",
+      "outcome_unit": "meV_per_A",
+      "fine_tuning_rmse": 28.8,
+      "training_from_scratch_rmse": 43.5,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 33.793103448275865
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:gold_surfaces:n40:energy_rmse",
+      "material_system": "gold_surfaces",
+      "formula": "Au",
+      "composition_class": "unary",
+      "training_configuration_count": 40,
+      "endpoint": "energy_rmse",
+      "outcome_unit": "meV_per_atom",
+      "fine_tuning_rmse": 4.3,
+      "training_from_scratch_rmse": 11.0,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 60.90909090909091
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:gold_surfaces:n40:force_rmse",
+      "material_system": "gold_surfaces",
+      "formula": "Au",
+      "composition_class": "unary",
+      "training_configuration_count": 40,
+      "endpoint": "force_rmse",
+      "outcome_unit": "meV_per_A",
+      "fine_tuning_rmse": 37.4,
+      "training_from_scratch_rmse": 47.8,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 21.757322175732213
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:ruthenium_dioxide_surfaces:n100:energy_rmse",
+      "material_system": "ruthenium_dioxide_surfaces",
+      "formula": "RuO2",
+      "composition_class": "binary",
+      "training_configuration_count": 100,
+      "endpoint": "energy_rmse",
+      "outcome_unit": "meV_per_atom",
+      "fine_tuning_rmse": 6.3,
+      "training_from_scratch_rmse": 14.3,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 55.94405594405594
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:ruthenium_dioxide_surfaces:n100:force_rmse",
+      "material_system": "ruthenium_dioxide_surfaces",
+      "formula": "RuO2",
+      "composition_class": "binary",
+      "training_configuration_count": 100,
+      "endpoint": "force_rmse",
+      "outcome_unit": "meV_per_A",
+      "fine_tuning_rmse": 174.6,
+      "training_from_scratch_rmse": 192.9,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 9.486780715396584
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:ruthenium_dioxide_surfaces:n300:energy_rmse",
+      "material_system": "ruthenium_dioxide_surfaces",
+      "formula": "RuO2",
+      "composition_class": "binary",
+      "training_configuration_count": 300,
+      "endpoint": "energy_rmse",
+      "outcome_unit": "meV_per_atom",
+      "fine_tuning_rmse": 5.2,
+      "training_from_scratch_rmse": 6.4,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 18.75
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:ruthenium_dioxide_surfaces:n300:force_rmse",
+      "material_system": "ruthenium_dioxide_surfaces",
+      "formula": "RuO2",
+      "composition_class": "binary",
+      "training_configuration_count": 300,
+      "endpoint": "force_rmse",
+      "outcome_unit": "meV_per_A",
+      "fine_tuning_rmse": 121.4,
+      "training_from_scratch_rmse": 126.2,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 3.8034865293185396
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:ruthenium_dioxide_surfaces:n50:energy_rmse",
+      "material_system": "ruthenium_dioxide_surfaces",
+      "formula": "RuO2",
+      "composition_class": "binary",
+      "training_configuration_count": 50,
+      "endpoint": "energy_rmse",
+      "outcome_unit": "meV_per_atom",
+      "fine_tuning_rmse": 9.2,
+      "training_from_scratch_rmse": 20.5,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 55.1219512195122
+    },
+    {
+      "panel_id": "hwang_2026_surface_finetuning:ruthenium_dioxide_surfaces:n50:force_rmse",
+      "material_system": "ruthenium_dioxide_surfaces",
+      "formula": "RuO2",
+      "composition_class": "binary",
+      "training_configuration_count": 50,
+      "endpoint": "force_rmse",
+      "outcome_unit": "meV_per_A",
+      "fine_tuning_rmse": 242.2,
+      "training_from_scratch_rmse": 354.3,
+      "winner": "fine_tuning",
+      "fine_tuning_rmse_reduction_percent": 31.63985323172453
+    }
+  ]
+}

@@ -1,0 +1,248 @@
+{
+  "artifact": "lee_2026_training_regime_panels_v1",
+  "source_id": "lee_2026_budget_constrained_augmentation",
+  "doi": "10.1038/s41524-026-02202-x",
+  "repository_revision": "f01ec6b8eab730ae5c09efa68b132fe3207878f3",
+  "panel_count": 2,
+  "arm_count": 6,
+  "primary_outcome": "log10 sodium-ion diffusivity R2 from Supplementary Table S2",
+  "baseline": {
+    "log_diffusivity_r2": 0.48,
+    "bootstrap_log_diffusivity_r2_mean": 0.27,
+    "bootstrap_log_diffusivity_r2_standard_deviation": 0.21
+  },
+  "normalization": "raw R2 and improvement over the MatPES baseline per 1,000 DFT labels are min-max normalized separately within each training regime",
+  "source_files": {
+    "article_reference_pdf": {
+      "sha256": "3e1928a71969dac3300fd02315c863d692fd3d65fa7a089f4b005dcfab71bcfc"
+    },
+    "supplementary_information_pdf": {
+      "sha256": "e328406669daac522a9fcc2cac6ca551e9889b4b21449d0bcb5ae566014c48af"
+    }
+  },
+  "interpretation_boundary": [
+    "Exact numerical outcomes come from Supplementary Table S2; figures are not digitized.",
+    "Random and LCMD use 8,000 DFT labels, while DIRECT uses 8,879. The paper describes these as matched or comparable budgets, but they are not exactly equal.",
+    "A cost-normalized improvement sensitivity preserves the raw winners: LCMD after scratch retraining and DIRECT after fine-tuning.",
+    "The two panels remain an auxiliary regime audit rather than entering the strict matched-cost fitted bridge.",
+    "The public repository is a reduced reproducibility example rather than the claim-bearing numerical result archive."
+  ],
+  "arms": [
+    {
+      "source_id": "lee_2026_budget_constrained_augmentation",
+      "panel_id": "lee_2026_budget_constrained_augmentation:sodium_oxide:fine_tuning:log_diffusivity_r2",
+      "material_system": "sodium_oxide_solid_electrolytes",
+      "training_regime": "fine_tuning",
+      "endpoint": "log10_sodium_ion_diffusivity_r2",
+      "environment": "direct",
+      "pre_outcome_measurements": {
+        "dft_label_budget": 8879,
+        "uses_uniform_representation_coverage": 1,
+        "uses_initial_aware_expansion": 0,
+        "requires_structural_encoder": 1,
+        "requires_iterative_distance_updates": 0,
+        "scratch_retraining": 0,
+        "fine_tuning_with_replay_and_ewc": 1,
+        "label_budget_ratio_to_smallest_arm": 1.109875
+      },
+      "outcome": {
+        "mean_percentage_error_percent": 22.2,
+        "mean_absolute_percentage_error_percent": 66.42,
+        "mean_log_error_dex": 0.0322,
+        "mean_absolute_log_error_dex": 0.22,
+        "bootstrap_log_diffusivity_r2_mean": 0.4,
+        "bootstrap_log_diffusivity_r2_standard_deviation": 0.16,
+        "linear_diffusivity_r2": 0.48,
+        "log_diffusivity_r2": 0.56
+      },
+      "derived": {
+        "improvement_over_matpes_r2": 0.08000000000000007,
+        "improvement_over_matpes_r2_per_1000_labels": 0.009010023651312093,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0,
+        "cost_adjusted_normalized_utility": 1.0,
+        "cost_adjusted_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "lee_2026_budget_constrained_augmentation",
+      "panel_id": "lee_2026_budget_constrained_augmentation:sodium_oxide:fine_tuning:log_diffusivity_r2",
+      "material_system": "sodium_oxide_solid_electrolytes",
+      "training_regime": "fine_tuning",
+      "endpoint": "log10_sodium_ion_diffusivity_r2",
+      "environment": "lcmd",
+      "pre_outcome_measurements": {
+        "dft_label_budget": 8000,
+        "uses_uniform_representation_coverage": 1,
+        "uses_initial_aware_expansion": 1,
+        "requires_structural_encoder": 1,
+        "requires_iterative_distance_updates": 1,
+        "scratch_retraining": 0,
+        "fine_tuning_with_replay_and_ewc": 1,
+        "label_budget_ratio_to_smallest_arm": 1.0
+      },
+      "outcome": {
+        "mean_percentage_error_percent": 20.12,
+        "mean_absolute_percentage_error_percent": 62.29,
+        "mean_log_error_dex": 0.0199,
+        "mean_absolute_log_error_dex": 0.2,
+        "bootstrap_log_diffusivity_r2_mean": 0.32,
+        "bootstrap_log_diffusivity_r2_standard_deviation": 0.18,
+        "linear_diffusivity_r2": 0.33,
+        "log_diffusivity_r2": 0.53
+      },
+      "derived": {
+        "improvement_over_matpes_r2": 0.050000000000000044,
+        "improvement_over_matpes_r2_per_1000_labels": 0.0062500000000000056,
+        "panel_normalized_utility": 0.8124999999999999,
+        "panel_normalized_regret": 0.18750000000000014,
+        "cost_adjusted_normalized_utility": 0.8548121926654422,
+        "cost_adjusted_normalized_regret": 0.14518780733455788
+      }
+    },
+    {
+      "source_id": "lee_2026_budget_constrained_augmentation",
+      "panel_id": "lee_2026_budget_constrained_augmentation:sodium_oxide:fine_tuning:log_diffusivity_r2",
+      "material_system": "sodium_oxide_solid_electrolytes",
+      "training_regime": "fine_tuning",
+      "endpoint": "log10_sodium_ion_diffusivity_r2",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "dft_label_budget": 8000,
+        "uses_uniform_representation_coverage": 0,
+        "uses_initial_aware_expansion": 0,
+        "requires_structural_encoder": 0,
+        "requires_iterative_distance_updates": 0,
+        "scratch_retraining": 0,
+        "fine_tuning_with_replay_and_ewc": 1,
+        "label_budget_ratio_to_smallest_arm": 1.0
+      },
+      "outcome": {
+        "mean_percentage_error_percent": 20.69,
+        "mean_absolute_percentage_error_percent": 55.23,
+        "mean_log_error_dex": -0.0181,
+        "mean_absolute_log_error_dex": 0.21,
+        "bootstrap_log_diffusivity_r2_mean": 0.17,
+        "bootstrap_log_diffusivity_r2_standard_deviation": 0.28,
+        "linear_diffusivity_r2": 0.5,
+        "log_diffusivity_r2": 0.4
+      },
+      "derived": {
+        "improvement_over_matpes_r2": -0.07999999999999996,
+        "improvement_over_matpes_r2_per_1000_labels": -0.009999999999999995,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0,
+        "cost_adjusted_normalized_utility": 0.0,
+        "cost_adjusted_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "lee_2026_budget_constrained_augmentation",
+      "panel_id": "lee_2026_budget_constrained_augmentation:sodium_oxide:scratch:log_diffusivity_r2",
+      "material_system": "sodium_oxide_solid_electrolytes",
+      "training_regime": "scratch",
+      "endpoint": "log10_sodium_ion_diffusivity_r2",
+      "environment": "direct",
+      "pre_outcome_measurements": {
+        "dft_label_budget": 8879,
+        "uses_uniform_representation_coverage": 1,
+        "uses_initial_aware_expansion": 0,
+        "requires_structural_encoder": 1,
+        "requires_iterative_distance_updates": 0,
+        "scratch_retraining": 1,
+        "fine_tuning_with_replay_and_ewc": 0,
+        "label_budget_ratio_to_smallest_arm": 1.109875
+      },
+      "outcome": {
+        "mean_percentage_error_percent": 20.71,
+        "mean_absolute_percentage_error_percent": 60.68,
+        "mean_log_error_dex": 0.0235,
+        "mean_absolute_log_error_dex": 0.21,
+        "bootstrap_log_diffusivity_r2_mean": 0.42,
+        "bootstrap_log_diffusivity_r2_standard_deviation": 0.16,
+        "linear_diffusivity_r2": 0.26,
+        "log_diffusivity_r2": 0.6
+      },
+      "derived": {
+        "improvement_over_matpes_r2": 0.12,
+        "improvement_over_matpes_r2_per_1000_labels": 0.013515035476968126,
+        "panel_normalized_utility": 0.090909090909091,
+        "panel_normalized_regret": 0.909090909090909,
+        "cost_adjusted_normalized_utility": 0.0,
+        "cost_adjusted_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "lee_2026_budget_constrained_augmentation",
+      "panel_id": "lee_2026_budget_constrained_augmentation:sodium_oxide:scratch:log_diffusivity_r2",
+      "material_system": "sodium_oxide_solid_electrolytes",
+      "training_regime": "scratch",
+      "endpoint": "log10_sodium_ion_diffusivity_r2",
+      "environment": "lcmd",
+      "pre_outcome_measurements": {
+        "dft_label_budget": 8000,
+        "uses_uniform_representation_coverage": 1,
+        "uses_initial_aware_expansion": 1,
+        "requires_structural_encoder": 1,
+        "requires_iterative_distance_updates": 1,
+        "scratch_retraining": 1,
+        "fine_tuning_with_replay_and_ewc": 0,
+        "label_budget_ratio_to_smallest_arm": 1.0
+      },
+      "outcome": {
+        "mean_percentage_error_percent": 20.38,
+        "mean_absolute_percentage_error_percent": 55.13,
+        "mean_log_error_dex": 0.0211,
+        "mean_absolute_log_error_dex": 0.2,
+        "bootstrap_log_diffusivity_r2_mean": 0.49,
+        "bootstrap_log_diffusivity_r2_standard_deviation": 0.15,
+        "linear_diffusivity_r2": 0.54,
+        "log_diffusivity_r2": 0.7
+      },
+      "derived": {
+        "improvement_over_matpes_r2": 0.21999999999999997,
+        "improvement_over_matpes_r2_per_1000_labels": 0.027499999999999997,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0,
+        "cost_adjusted_normalized_utility": 1.0,
+        "cost_adjusted_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "lee_2026_budget_constrained_augmentation",
+      "panel_id": "lee_2026_budget_constrained_augmentation:sodium_oxide:scratch:log_diffusivity_r2",
+      "material_system": "sodium_oxide_solid_electrolytes",
+      "training_regime": "scratch",
+      "endpoint": "log10_sodium_ion_diffusivity_r2",
+      "environment": "random",
+      "pre_outcome_measurements": {
+        "dft_label_budget": 8000,
+        "uses_uniform_representation_coverage": 0,
+        "uses_initial_aware_expansion": 0,
+        "requires_structural_encoder": 0,
+        "requires_iterative_distance_updates": 0,
+        "scratch_retraining": 1,
+        "fine_tuning_with_replay_and_ewc": 0,
+        "label_budget_ratio_to_smallest_arm": 1.0
+      },
+      "outcome": {
+        "mean_percentage_error_percent": 15.93,
+        "mean_absolute_percentage_error_percent": 50.99,
+        "mean_log_error_dex": -0.0084,
+        "mean_absolute_log_error_dex": 0.2,
+        "bootstrap_log_diffusivity_r2_mean": 0.35,
+        "bootstrap_log_diffusivity_r2_standard_deviation": 0.22,
+        "linear_diffusivity_r2": 0.53,
+        "log_diffusivity_r2": 0.59
+      },
+      "derived": {
+        "improvement_over_matpes_r2": 0.10999999999999999,
+        "improvement_over_matpes_r2_per_1000_labels": 0.013749999999999998,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0,
+        "cost_adjusted_normalized_utility": 0.016801224103565538,
+        "cost_adjusted_normalized_regret": 0.9831987758964345
+      }
+    }
+  ]
+}

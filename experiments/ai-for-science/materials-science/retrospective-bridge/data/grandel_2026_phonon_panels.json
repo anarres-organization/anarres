@@ -1,0 +1,290 @@
+{
+  "artifact": "grandel_2026_phonon_training_environment_panels_v1",
+  "source_id": "grandel_2026_phonon_finetuning",
+  "source_version": "arXiv:2604.01017",
+  "data_doi": "10.5281/zenodo.22180297",
+  "panel_count": 4,
+  "arm_count": 12,
+  "primary_outcome": "median phonon-frequency MAE across 53 material-specific models",
+  "normalization": "negative median MAE, min-max normalized within each adaptation regime",
+  "source_files": {
+    "arXiv_source_bundle": {
+      "sha256": "b0053b8914d66d23862ae5792e40191b5164cbbfde3a3d733681a000aeb7f501"
+    },
+    "results.tex": {
+      "sha256": "129f83fbe79038385a9160ab7ea8cedd40474be21a27230d0ce28068abdc0242"
+    }
+  },
+  "interpretation_boundary": [
+    "The exact values come from Table 1 in the released arXiv source; no figure is digitized.",
+    "Every arm uses ten configurations per material, but larger supercells contain more atoms and require more DFT compute. Configuration count is therefore not an equal reference-label cost.",
+    "Each outcome is a median over 53 material-specific models. The table does not release a complete material-level matrix for this comparison.",
+    "The panels remain outside the strict matched-cost fitted bridge and serve as a cost-sensitive environment audit."
+  ],
+  "arms": [
+    {
+      "source_id": "grandel_2026_phonon_finetuning",
+      "panel_id": "grandel_2026_phonon_finetuning:53_materials:equitrain:phonon_frequency_mae",
+      "evaluation_set": "53_materials",
+      "training_regime": "equitrain",
+      "training_environment": "large_supercell",
+      "training_configuration_count_per_material": 10,
+      "pre_outcome_measurements": {
+        "maximum_supercell_edge_A": 15,
+        "larger_than_primitive_cell": 1,
+        "training_configuration_count_per_material": 10
+      },
+      "outcome": {
+        "median_phonon_frequency_mae_THz": 0.05,
+        "interquartile_range_THz": 0.05
+      },
+      "derived": {
+        "native_utility": -0.05,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "grandel_2026_phonon_finetuning",
+      "panel_id": "grandel_2026_phonon_finetuning:53_materials:equitrain:phonon_frequency_mae",
+      "evaluation_set": "53_materials",
+      "training_regime": "equitrain",
+      "training_environment": "primitive_cell",
+      "training_configuration_count_per_material": 10,
+      "pre_outcome_measurements": {
+        "maximum_supercell_edge_A": null,
+        "larger_than_primitive_cell": 0,
+        "training_configuration_count_per_material": 10
+      },
+      "outcome": {
+        "median_phonon_frequency_mae_THz": 0.12,
+        "interquartile_range_THz": 0.12
+      },
+      "derived": {
+        "native_utility": -0.12,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "grandel_2026_phonon_finetuning",
+      "panel_id": "grandel_2026_phonon_finetuning:53_materials:equitrain:phonon_frequency_mae",
+      "evaluation_set": "53_materials",
+      "training_regime": "equitrain",
+      "training_environment": "small_supercell",
+      "training_configuration_count_per_material": 10,
+      "pre_outcome_measurements": {
+        "maximum_supercell_edge_A": 10,
+        "larger_than_primitive_cell": 1,
+        "training_configuration_count_per_material": 10
+      },
+      "outcome": {
+        "median_phonon_frequency_mae_THz": 0.07,
+        "interquartile_range_THz": 0.06
+      },
+      "derived": {
+        "native_utility": -0.07,
+        "panel_normalized_utility": 0.7142857142857142,
+        "panel_normalized_regret": 0.2857142857142858
+      }
+    },
+    {
+      "source_id": "grandel_2026_phonon_finetuning",
+      "panel_id": "grandel_2026_phonon_finetuning:53_materials:multihead_fine_tuning:phonon_frequency_mae",
+      "evaluation_set": "53_materials",
+      "training_regime": "multihead_fine_tuning",
+      "training_environment": "large_supercell",
+      "training_configuration_count_per_material": 10,
+      "pre_outcome_measurements": {
+        "maximum_supercell_edge_A": 15,
+        "larger_than_primitive_cell": 1,
+        "training_configuration_count_per_material": 10
+      },
+      "outcome": {
+        "median_phonon_frequency_mae_THz": 0.07,
+        "interquartile_range_THz": 0.06
+      },
+      "derived": {
+        "native_utility": -0.07,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "grandel_2026_phonon_finetuning",
+      "panel_id": "grandel_2026_phonon_finetuning:53_materials:multihead_fine_tuning:phonon_frequency_mae",
+      "evaluation_set": "53_materials",
+      "training_regime": "multihead_fine_tuning",
+      "training_environment": "primitive_cell",
+      "training_configuration_count_per_material": 10,
+      "pre_outcome_measurements": {
+        "maximum_supercell_edge_A": null,
+        "larger_than_primitive_cell": 0,
+        "training_configuration_count_per_material": 10
+      },
+      "outcome": {
+        "median_phonon_frequency_mae_THz": 0.18,
+        "interquartile_range_THz": 0.16
+      },
+      "derived": {
+        "native_utility": -0.18,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "grandel_2026_phonon_finetuning",
+      "panel_id": "grandel_2026_phonon_finetuning:53_materials:multihead_fine_tuning:phonon_frequency_mae",
+      "evaluation_set": "53_materials",
+      "training_regime": "multihead_fine_tuning",
+      "training_environment": "small_supercell",
+      "training_configuration_count_per_material": 10,
+      "pre_outcome_measurements": {
+        "maximum_supercell_edge_A": 10,
+        "larger_than_primitive_cell": 1,
+        "training_configuration_count_per_material": 10
+      },
+      "outcome": {
+        "median_phonon_frequency_mae_THz": 0.12,
+        "interquartile_range_THz": 0.06
+      },
+      "derived": {
+        "native_utility": -0.12,
+        "panel_normalized_utility": 0.5454545454545455,
+        "panel_normalized_regret": 0.4545454545454545
+      }
+    },
+    {
+      "source_id": "grandel_2026_phonon_finetuning",
+      "panel_id": "grandel_2026_phonon_finetuning:53_materials:training_from_scratch:phonon_frequency_mae",
+      "evaluation_set": "53_materials",
+      "training_regime": "training_from_scratch",
+      "training_environment": "large_supercell",
+      "training_configuration_count_per_material": 10,
+      "pre_outcome_measurements": {
+        "maximum_supercell_edge_A": 15,
+        "larger_than_primitive_cell": 1,
+        "training_configuration_count_per_material": 10
+      },
+      "outcome": {
+        "median_phonon_frequency_mae_THz": 0.21,
+        "interquartile_range_THz": 0.14
+      },
+      "derived": {
+        "native_utility": -0.21,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "grandel_2026_phonon_finetuning",
+      "panel_id": "grandel_2026_phonon_finetuning:53_materials:training_from_scratch:phonon_frequency_mae",
+      "evaluation_set": "53_materials",
+      "training_regime": "training_from_scratch",
+      "training_environment": "primitive_cell",
+      "training_configuration_count_per_material": 10,
+      "pre_outcome_measurements": {
+        "maximum_supercell_edge_A": null,
+        "larger_than_primitive_cell": 0,
+        "training_configuration_count_per_material": 10
+      },
+      "outcome": {
+        "median_phonon_frequency_mae_THz": 0.39,
+        "interquartile_range_THz": 0.5
+      },
+      "derived": {
+        "native_utility": -0.39,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "grandel_2026_phonon_finetuning",
+      "panel_id": "grandel_2026_phonon_finetuning:53_materials:training_from_scratch:phonon_frequency_mae",
+      "evaluation_set": "53_materials",
+      "training_regime": "training_from_scratch",
+      "training_environment": "small_supercell",
+      "training_configuration_count_per_material": 10,
+      "pre_outcome_measurements": {
+        "maximum_supercell_edge_A": 10,
+        "larger_than_primitive_cell": 1,
+        "training_configuration_count_per_material": 10
+      },
+      "outcome": {
+        "median_phonon_frequency_mae_THz": 0.25,
+        "interquartile_range_THz": 0.39
+      },
+      "derived": {
+        "native_utility": -0.25,
+        "panel_normalized_utility": 0.7777777777777778,
+        "panel_normalized_regret": 0.22222222222222224
+      }
+    },
+    {
+      "source_id": "grandel_2026_phonon_finetuning",
+      "panel_id": "grandel_2026_phonon_finetuning:53_materials:transfer_learning:phonon_frequency_mae",
+      "evaluation_set": "53_materials",
+      "training_regime": "transfer_learning",
+      "training_environment": "large_supercell",
+      "training_configuration_count_per_material": 10,
+      "pre_outcome_measurements": {
+        "maximum_supercell_edge_A": 15,
+        "larger_than_primitive_cell": 1,
+        "training_configuration_count_per_material": 10
+      },
+      "outcome": {
+        "median_phonon_frequency_mae_THz": 0.06,
+        "interquartile_range_THz": 0.05
+      },
+      "derived": {
+        "native_utility": -0.06,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "grandel_2026_phonon_finetuning",
+      "panel_id": "grandel_2026_phonon_finetuning:53_materials:transfer_learning:phonon_frequency_mae",
+      "evaluation_set": "53_materials",
+      "training_regime": "transfer_learning",
+      "training_environment": "primitive_cell",
+      "training_configuration_count_per_material": 10,
+      "pre_outcome_measurements": {
+        "maximum_supercell_edge_A": null,
+        "larger_than_primitive_cell": 0,
+        "training_configuration_count_per_material": 10
+      },
+      "outcome": {
+        "median_phonon_frequency_mae_THz": 0.12,
+        "interquartile_range_THz": 0.07
+      },
+      "derived": {
+        "native_utility": -0.12,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "grandel_2026_phonon_finetuning",
+      "panel_id": "grandel_2026_phonon_finetuning:53_materials:transfer_learning:phonon_frequency_mae",
+      "evaluation_set": "53_materials",
+      "training_regime": "transfer_learning",
+      "training_environment": "small_supercell",
+      "training_configuration_count_per_material": 10,
+      "pre_outcome_measurements": {
+        "maximum_supercell_edge_A": 10,
+        "larger_than_primitive_cell": 1,
+        "training_configuration_count_per_material": 10
+      },
+      "outcome": {
+        "median_phonon_frequency_mae_THz": 0.09,
+        "interquartile_range_THz": 0.06
+      },
+      "derived": {
+        "native_utility": -0.09,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    }
+  ]
+}

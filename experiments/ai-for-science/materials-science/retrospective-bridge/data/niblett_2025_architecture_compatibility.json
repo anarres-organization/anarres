@@ -1,0 +1,146 @@
+{
+  "artifact": "niblett_2025_architecture_compatibility_audit_v1",
+  "source_id": "niblett_2025_dataset_transferability",
+  "source_archive": {
+    "doi": "10.17863/CAM.115858",
+    "filename": "Transferability_OpenData.tar.gz",
+    "bytes": 1971779899,
+    "md5": "1cbf2ec5286bbd3cd30b15a8e01178f7"
+  },
+  "training_environments": {
+    "OPLS": {
+      "configurations": 203,
+      "single_molecule": false,
+      "volume_scan": false,
+      "gap_iterative": false
+    },
+    "OPLS+SM": {
+      "configurations": 803,
+      "single_molecule": true,
+      "volume_scan": false,
+      "gap_iterative": false
+    },
+    "OPLS+VS": {
+      "configurations": 223,
+      "single_molecule": false,
+      "volume_scan": true,
+      "gap_iterative": false
+    },
+    "Full": {
+      "configurations": 935,
+      "single_molecule": true,
+      "volume_scan": true,
+      "gap_iterative": true
+    }
+  },
+  "panels": [
+    {
+      "panel": "force_rmse_ec_dec",
+      "architecture": "DeePMD",
+      "active_learning": false,
+      "direction": "lower_is_better",
+      "unit": "eV_per_angstrom",
+      "outcomes": {
+        "OPLS": 0.0884508700781876,
+        "OPLS+SM": 0.0949075636238823,
+        "OPLS+VS": 1.56653865901153,
+        "Full": 0.103784433632758
+      }
+    },
+    {
+      "panel": "force_rmse_ec_dec",
+      "architecture": "MACE",
+      "active_learning": false,
+      "direction": "lower_is_better",
+      "unit": "eV_per_angstrom",
+      "outcomes": {
+        "OPLS": 0.039630984960852,
+        "OPLS+SM": 0.0295532247114381,
+        "OPLS+VS": 0.0384973870464577,
+        "Full": 0.0242873084588962
+      }
+    },
+    {
+      "panel": "stability_ec_dec",
+      "architecture": "DeePMD",
+      "active_learning": false,
+      "direction": "higher_is_better",
+      "unit": "fs",
+      "outcomes": {"OPLS": 100, "OPLS+SM": 114, "OPLS+VS": 44600, "Full": 447800}
+    },
+    {
+      "panel": "stability_vc_emc",
+      "architecture": "DeePMD",
+      "active_learning": false,
+      "direction": "higher_is_better",
+      "unit": "fs",
+      "outcomes": {"OPLS": 400, "OPLS+SM": 400, "OPLS+VS": 7800, "Full": 271600}
+    },
+    {
+      "panel": "stability_pc",
+      "architecture": "DeePMD",
+      "active_learning": false,
+      "direction": "higher_is_better",
+      "unit": "fs",
+      "outcomes": {"OPLS": 100, "OPLS+SM": 100, "OPLS+VS": 600, "Full": 34600}
+    },
+    {
+      "panel": "stability_ec_dec",
+      "architecture": "MACE",
+      "active_learning": false,
+      "direction": "higher_is_better",
+      "unit": "fs",
+      "outcomes": {"OPLS": 1000000, "OPLS+SM": 1000000, "OPLS+VS": 1000000, "Full": 1000000}
+    },
+    {
+      "panel": "stability_vc_emc",
+      "architecture": "MACE",
+      "active_learning": false,
+      "direction": "higher_is_better",
+      "unit": "fs",
+      "outcomes": {"OPLS": 800000, "OPLS+SM": 1000000, "OPLS+VS": 73000, "Full": 336000}
+    },
+    {
+      "panel": "stability_pc",
+      "architecture": "MACE",
+      "active_learning": false,
+      "direction": "higher_is_better",
+      "unit": "fs",
+      "outcomes": {"OPLS": 840000, "OPLS+SM": 1000000, "OPLS+VS": 1000000, "Full": 1000000}
+    },
+    {
+      "panel": "stability_ec_dec",
+      "architecture": "DeePMD",
+      "active_learning": true,
+      "direction": "higher_is_better",
+      "unit": "fs",
+      "outcomes": {"OPLS": 857200, "OPLS+SM": 815600, "OPLS+VS": 833800, "Full": 526400}
+    },
+    {
+      "panel": "stability_vc_emc",
+      "architecture": "DeePMD",
+      "active_learning": true,
+      "direction": "higher_is_better",
+      "unit": "fs",
+      "outcomes": {"OPLS": 51200, "OPLS+SM": 627200, "OPLS+VS": 468200, "Full": 412400}
+    },
+    {
+      "panel": "stability_pc",
+      "architecture": "DeePMD",
+      "active_learning": true,
+      "direction": "higher_is_better",
+      "unit": "fs",
+      "outcomes": {"OPLS": 2200, "OPLS+SM": 219800, "OPLS+VS": 80400, "Full": 100}
+    }
+  ],
+  "provenance": {
+    "configuration_counts": "Count of Properties= records in the four released extended-XYZ training files",
+    "force_rmse": "data_for_plotting/other_molecules/force_RMSEs.dat",
+    "stability": "data_for_plotting/other_molecules/MACE_stabilities.dat and AL_comparison.dat"
+  },
+  "interpretation_boundary": [
+    "The four training environments contain different numbers of configurations, so these panels do not enter the matched-cost predictive bridge.",
+    "The audit tests whether the same named environment retains its ordering across model architectures and after architecture-specific active learning.",
+    "Dataset composition, model architecture, and active-learning history are all known before the reported downstream test, but this study alone is too small to fit a transferable interaction law."
+  ]
+}

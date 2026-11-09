@@ -1,0 +1,22 @@
+{
+  "artifact": "anarres_mlip_measurement_inference_smoke_v1",
+  "records": 512,
+  "batch_size": 8,
+  "devices": [
+    "cuda:0"
+  ],
+  "elapsed_seconds_including_compilation": 15.145802695304155,
+  "records_per_second_including_compilation": 33.804745136336805,
+  "loss_contract": {
+    "energy_weight": 0.0,
+    "force_weight": 20.0,
+    "stress_weight": 5.0,
+    "loss_type": "mae"
+  },
+  "metrics": {
+    "loss": 9.349722862243652,
+    "energy_mae_per_atom": 0.08915653079748154,
+    "force_mae": 0.23186877369880676,
+    "stress_mae_per_atom": 0.0007692015497013927
+  }
+}

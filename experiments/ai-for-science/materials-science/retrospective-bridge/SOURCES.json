@@ -1,0 +1,1114 @@
+{
+  "artifact": "materials_retrospective_source_audit_v1",
+  "updated": "2026-11-09",
+  "eligibility_rule": {
+    "matched_cost_arms": true,
+    "numerical_arm_outcomes": true,
+    "pre_outcome_information_recoverable": true,
+    "candidate_pool_and_evaluation_defined": true,
+    "provenance_reproducible": true
+  },
+  "sources": [
+    {
+      "id": "li_2023_redundancy",
+      "title": "Exploiting redundancy in large materials datasets for efficient machine learning with less data",
+      "authors": [
+        "Kangming Li",
+        "Daniel Persaud",
+        "Kamal Choudhary",
+        "Brian DeCost",
+        "Michael Greenwood",
+        "Jason Hattrick-Simpers"
+      ],
+      "doi": "10.1038/s41467-023-42992-y",
+      "article": "https://doi.org/10.1038/s41467-023-42992-y",
+      "repository": "https://github.com/mathsphy/paper-data-redundancy",
+      "repository_revision": "d76b6059fe6d9bf4b9b729d3d19c2d7fee890f70",
+      "source_data": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-023-42992-y/MediaObjects/41467_2023_42992_MOESM4_ESM.zip",
+      "source_data_sha256": "1426dfee5c1728d11ea18bcbfdafed1100fd0343189e36c3eb047a88251557bc",
+      "license": "CC-BY-4.0 article and source data; BSD-3-Clause code",
+      "status": "included",
+      "use": "Active-learning arms at matched pool fractions; RMSE is primary and MAE is a sensitivity outcome.",
+      "exclusions": [
+        "Outcome-informed pruning is excluded from predictive panels.",
+        "Random-sampling dispersion is retained, but active-learning curves are single released trajectories."
+      ]
+    },
+    {
+      "id": "haenseroth_2026_generators",
+      "title": "Universal Interatomic Potentials as Configuration-Space Generators for One-Shot and Iterative Fine-Tuning of Ab Initio-Accurate Material-Specific Models",
+      "authors": [
+        "Jonas Hänseroth",
+        "Aaron Flötotto",
+        "Christian Dreßler"
+      ],
+      "doi": "10.1021/acs.jpclett.6c02067",
+      "article": "https://doi.org/10.1021/acs.jpclett.6c02067",
+      "supporting_information": "https://acs.figshare.com/articles/journal_contribution/Universal_Interatomic_Potentials_as_Configuration-Space_Generators_for_One-Shot_and_Iterative_Fine-Tuning_of_Ab_Initio-Accurate_Material-Specific_Models/33341788",
+      "supporting_information_md5": "81f0280babb377195d8ade85ed525a43",
+      "data": "https://doi.org/10.5281/zenodo.20792778",
+      "archive_files": {
+        "dataset_2000__stride_100_finetune.zip": "md5:9d3fedb04578eba7c64fed12055021f3"
+      },
+      "license": "CC-BY-4.0 data deposit; CC-BY-4.0 article; CC-BY-NC-4.0 supporting information",
+      "status": "included",
+      "use": "Three configuration generators at a fixed 2,000-DFT-label budget, common MACE fine-tuning architecture, and seven material systems.",
+      "exclusions": [
+        "The main 21-panel benchmark uses one training realization per arm.",
+        "Iterative MoS2 results are analyzed separately because the environment changes between rounds."
+      ]
+    },
+    {
+      "id": "haenseroth_dressler_2026_data_efficiency",
+      "title": "Data-Efficient Construction of Material-Specific Machine-Learning Interatomic Potentials from Ab Initio Molecular Dynamics Trajectories",
+      "authors": [
+        "Jonas Hänseroth",
+        "Christian Dreßler"
+      ],
+      "arxiv": "https://arxiv.org/abs/2608.14899",
+      "data": "https://doi.org/10.5281/zenodo.21198813",
+      "data_version": "v1",
+      "license": "The arXiv manuscript uses the arXiv non-exclusive distribution license; no explicit license was visible on the Zenodo v1 record during the 2026-11-08 audit",
+      "status": "included",
+      "source_artifacts": {
+        "arxiv_version": "2608.14899v1",
+        "source_bundle_sha256": "595bc9384c7a104735632074a3aebd6b7d49fa6be63b1a9d102922f3808dd09d",
+        "main_tex_sha256": "509f073ab515e512643b62c0049de48a013733a551cfc508a27a7b3286367749",
+        "si_tex_sha256": "cdcbcfa9a29ccf799098fb6b9cf428ab14518df365c36e33d254cf76a2f2a633",
+        "zenodo_archive_count": 12,
+        "selectively_fetched_metric_files": 336
+      },
+      "use": "Three hundred thirty-six matched decisions compare AIMD trajectory strides 10 and 100 across seven material systems, three label budgets, scratch training and fine-tuning, five frameworks, and energy and force error. Each pair fixes the DFT-label count, downstream trainer, system, endpoint, and held-out trajectory.",
+      "exclusions": [
+        "The wider-stride environment spans about ten times more AIMD frames, so the comparison matches final DFT-label and training budgets rather than reference-trajectory generation cost.",
+        "The release contains one trained model per arm and does not support seed-level variance estimates.",
+        "Energy and force remain separate panels because their units and training weights differ."
+      ]
+    },
+    {
+      "id": "kulichenko_2023_udd",
+      "title": "Uncertainty-driven dynamics for active learning of interatomic potentials",
+      "authors": [
+        "Maksim Kulichenko",
+        "Kipton Barros",
+        "Nicholas Lubbers",
+        "Ying Wai Li",
+        "Richard Messerly",
+        "Sergei Tretiak",
+        "Justin S. Smith",
+        "Benjamin Nebgen"
+      ],
+      "doi": "10.1038/s43588-023-00406-5",
+      "article": "https://doi.org/10.1038/s43588-023-00406-5",
+      "supporting_information": "https://static-content.springer.com/esm/art%3A10.1038%2Fs43588-023-00406-5/MediaObjects/43588_2023_406_MOESM1_ESM.pdf",
+      "supporting_information_sha256": "ae397b4099152476bc7f53c6975a7f13038a0d492b159dd1962e74bbb72b42b0",
+      "data": "https://doi.org/10.5281/zenodo.7526389",
+      "repository": "https://github.com/lanl/Active-Learning-Framework/tree/udd-al",
+      "repository_revision": "17e7445a35ef3aac9012b0f12264d8e151c17837",
+      "license": "CC-BY-4.0 article and supporting information; BSD-3-Clause code",
+      "status": "included",
+      "use": "Four equal-size active-learning environments cross-tested on four held-out environment distributions, with exact RMSEs and pre-training coverage measurements.",
+      "exclusions": [
+        "The fitted bridge uses the complete cross-test matrix rather than scan-specific examples.",
+        "Published environment measurements are retained separately from downstream RMSE outcomes."
+      ]
+    },
+    {
+      "id": "dale_2026_active_learning_failure",
+      "title": "When active learning fails, uncalibrated out of distribution uncertainty quantification might be the problem",
+      "authors": [
+        "Ashley S. Dale",
+        "Kangming Li",
+        "Brian DeCost",
+        "Hao Wan",
+        "Yuchen Han",
+        "Yao Fehlis",
+        "Jason Hattrick-Simpers"
+      ],
+      "doi": "10.1038/s41524-026-02368-4",
+      "article": "https://doi.org/10.1038/s41524-026-02368-4",
+      "data": "https://doi.org/10.5281/zenodo.20754201",
+      "data_version": "v0.0.1",
+      "data_archive_md5": {
+        "paper1_add_data_part1.zip": "f582c8b1d9e05173e599714b9bb0d60a",
+        "paper1_add_data_part2.zip": "13618666de839cc7bb6521ac7dfaa932",
+        "paper1_add_data_part3.zip": "6389a5806d10c1ef43e35041fee6c086",
+        "paper1_add_data_part4.zip": "f1d83e04657fb9dafff15934dc412df1"
+      },
+      "software_repository": "https://github.com/TRustworthy-AI-Tools-for-Science/paper_when_active_learning_fails",
+      "software_repository_status": "The URL recorded by Zenodo was unavailable during the 2026-11-08 audit.",
+      "license": "CC-BY-4.0 article and Zenodo release",
+      "status": "included",
+      "use": "Seven acquisition policies at matched OOD-label fractions across band-gap and formation-energy tasks with fluorine or iron omitted. The primary outcome is final OOD-test MAE from the exact released histories.",
+      "exclusions": [
+        "One formation-energy, omit-fluorine panel at the 5% budget is excluded because its random history is absent from the release.",
+        "The paper reports five repetitions, while the exact released histories expose one trajectory per arm. The bridge does not reconstruct numerical error bars from figures.",
+        "Acquisition-policy descriptors are used only in source-specific tests and are not treated as direct substitutes for measured coverage in interatomic-potential studies."
+      ]
+    },
+    {
+      "id": "lin_2026_zif_sampling",
+      "title": "Efficient and Transferable Machine Learning Potentials for Zn-Coordinated Zeolitic Imidazolate Frameworks Through Structural Diversity Sampling and Transfer Learning",
+      "authors": [
+        "Shang-Wei Lin",
+        "Yen-Yung Wu",
+        "Li-Chiang Lin"
+      ],
+      "doi": "10.1021/acs.jctc.6c01271",
+      "article": "https://doi.org/10.1021/acs.jctc.6c01271",
+      "supporting_information": "https://doi.org/10.1021/acs.jctc.6c01271.s002",
+      "supporting_information_md5": "5c33783e39f14a627ff730851210a901",
+      "data": "https://doi.org/10.5281/zenodo.22314232",
+      "license": "CC-BY-4.0 data and article; CC-BY-NC-4.0 supporting information",
+      "status": "pending_numerical_reconciliation",
+      "reason": "The article reports 0.077 eV/Å for the 1,000-sample random unseen-topology force MAE, while Supporting Table S3 reports 0.066 eV/Å for the same named comparison."
+    },
+    {
+      "id": "varga_umbrich_2026_pretrained_acquisition",
+      "title": "Pretrained Model Representations as Acquisition Signals for Active Learning of MLIPs",
+      "authors": [
+        "Eszter Varga-Umbrich",
+        "Shikha Surana",
+        "Paul Duckworth",
+        "Jules Tilly",
+        "Olivier Peltre",
+        "Zachary Weller-Davies"
+      ],
+      "arxiv": "https://arxiv.org/abs/2605.03964",
+      "license": "arXiv non-exclusive distribution license",
+      "status": "included",
+      "source_artifacts": {
+        "arxiv_version": "2605.03964v2",
+        "source_bundle_sha256": "d41e257505d9ed835d036062f3b1430d05084ac73083bba7a66631c2877522b0",
+        "paper_tex_sha256": "ae9aeb233f32a6b5692579c0a408135b0df8972b35effdf3ccbfbba4dbcec458",
+        "transfer_table_sha256": "eb6accab45047eb1e0f52e135917e69a43f5bf717ad1bbcdef8eb1889d6f41ea"
+      },
+      "use": "Thirty-six paired decisions compare Activation-LCMD, NTK-LCMD, or energy-committee acquisition with random acquisition across three reactive datasets and four error metrics. The exact manuscript table reports percentage reduction in rounds to a target reached by each method and its paired random curve.",
+      "exclusions": [
+        "Acquisition methods are never compared directly because each method's round gain uses a method-specific shared target with random.",
+        "The T1x summary table averages three candidate pools and is excluded from grouped-holdout fitting.",
+        "Underlying per-round histories and seed-level outcomes were not released as numerical artifacts."
+      ]
+    },
+    {
+      "id": "montes_de_oca_zapiain_2022_entropy",
+      "title": "Training data selection for accuracy and transferability of interatomic potentials",
+      "authors": [
+        "David Montes de Oca Zapiain",
+        "Mitchell A. Wood",
+        "Nicholas Lubbers",
+        "Carlos Z. Pereyra",
+        "Aidan P. Thompson",
+        "Danny Perez"
+      ],
+      "doi": "10.1038/s41524-022-00872-x",
+      "status": "context_only",
+      "reason": "The paper compares entropy-generated and expert-curated tungsten datasets, but states that numerical study data are available only on request."
+    },
+    {
+      "id": "stolte_2025_quantum_water_sampling",
+      "title": "Random Sampling Versus Active Learning Algorithms for Machine Learning Potentials of Quantum Liquid Water",
+      "authors": [
+        "Nore Stolte",
+        "János Daru",
+        "Harald Forbert",
+        "Dominik Marx",
+        "Jörg Behler"
+      ],
+      "doi": "10.1021/acs.jctc.4c01382",
+      "article": "https://doi.org/10.1021/acs.jctc.4c01382",
+      "arxiv": "https://arxiv.org/abs/2410.10698",
+      "status": "context_only",
+      "source_artifacts": {
+        "arxiv_version": "2410.10698v1",
+        "source_bundle_sha256": "decbf1aaa2bdd374a4bbbb1c6d92dfc445dad77aa16639228ad5caa654cc712c",
+        "paper_tex_sha256": "058c59c262fd9c0d237356792b231e2fd616fc0ad39c421894e9d6c3e373bd75"
+      },
+      "reason": "Twenty independent training procedures compare random sampling with three query-by-committee variants at matched set sizes for quantum liquid water. Random selection gives smaller near-equilibrium test errors, while end-to-end RDF quality converges across methods beyond roughly 200 structures. The result supports target-aware coverage as a mechanism, but exact learning-curve values are released only as figures, so the study remains outside the numerical bridge."
+    },
+    {
+      "id": "espinosa_castaneda_2026_diversity",
+      "title": "Diversity-Aware Active Learning Builds Materials Datasets for Current and Future Objectives",
+      "authors": [
+        "Rafael Espinosa Castañeda",
+        "Ashley Dale",
+        "Hongchen Wang",
+        "Yonatan Kurniawan",
+        "Hao Wan",
+        "Runze Zhang",
+        "Adji Bousso Dieng",
+        "Kangming Li",
+        "Jason Hattrick-Simpers"
+      ],
+      "arxiv": "https://arxiv.org/abs/2605.05104v2",
+      "repository": "https://github.com/rafaelespinosacastaneda/DiversityAware_DatasetConstruction",
+      "repository_revision": "9c3098d17222f9796851bc35276136a007bcd61d",
+      "data": "https://doi.org/10.5281/zenodo.23424148",
+      "data_archive": "Results.zip",
+      "data_archive_bytes": 67352831,
+      "data_archive_md5": "92518bb6907804fbf682914abb753b4c",
+      "data_archive_sha256": "2e591e0af2d0369ad6ff28956333bb139eb50b47ba135a4d1f974652c3724d8a",
+      "license": "MIT code; CC-BY-4.0 result archive",
+      "status": "included",
+      "use": "Full acquisition curves compare random sampling with disagreement- and diversity-based policies on four computed-data repositories and one experimental thermoelectric dataset. The bridge reconstructs seed-mean RMSE-AUC for targeted and untargeted properties under fixed test sets, equal acquisition schedules, five campaign seeds, and common RF or XGBoost evaluators.",
+      "exclusions": [
+        "Only policy families with five released seeds for every dataset and target combination at the corresponding target count enter the bridge.",
+        "Supplementary policies with incomplete target coverage remain in the source audit but outside the fitted panels.",
+        "Multiple evaluation properties and downstream models can score one selected dataset, so grouped holdouts use the complete source dataset rather than individual panels."
+      ]
+    },
+    {
+      "id": "khan_2026_active_learning",
+      "title": "Active Learning Strategies for Efficient Machine-Learned Interatomic Potentials Across Diverse Material Systems",
+      "authors": [
+        "Mohammed Azeez Khan",
+        "Aaron D'Souza",
+        "Vijay Choyal"
+      ],
+      "arxiv": "https://arxiv.org/abs/2601.06916",
+      "status": "excluded_unverified_release",
+      "reason": "The manuscript claims an open GitHub implementation, but no repository URL or independently checkable result archive was located."
+    },
+    {
+      "id": "bernard_2024_md_hit",
+      "title": "MD-HIT: Machine learning based coreset selection for molecular dynamics datasets",
+      "doi": "10.1038/s41524-024-01426-z",
+      "repository": "https://github.com/bio-phys/MD-HIT",
+      "repository_revision": "ee80d0acf1bdc2cdbfda9629c28d2e28c10a128b",
+      "license": "MIT",
+      "status": "context_only",
+      "reason": "The released work focuses on redundancy-aware splitting and performance estimation rather than matched downstream environment-utility decisions."
+    },
+    {
+      "id": "wong_yang_2026_umlip_bias",
+      "title": "Bias in Universal Machine-Learned Interatomic Potentials and Its Effects on Fine-Tuning",
+      "authors": [
+        "Nicolas H. Wong",
+        "Julia H. Yang"
+      ],
+      "doi": "10.1021/acs.jctc.6c00425",
+      "article": "https://doi.org/10.1021/acs.jctc.6c00425",
+      "repository": "https://github.com/YangLab-GT/umlip_bias_finetuning",
+      "repository_revision": "de86171359689e7240d074e80d7f0ecb7b0394a4",
+      "license": "CC-BY-4.0 article; repository assets retain their recorded upstream terms",
+      "status": "included",
+      "use": "Naive and iterative data-generation environments at five matched cumulative fine-tuning budgets, evaluated with the ten released checkpoints on one common 22-structure DFT test set.",
+      "exclusions": [
+        "Independent-test energy MAE per atom is primary because it matches the article's energy analysis; force errors are retained as sensitivity outcomes.",
+        "The periodic 50-configuration raw dataset contains force labels for 40 configurations and energy labels for all 50, so force-based pre-training coordinates report their exact labeled support.",
+        "The starting-potential coordinates were recomputed from the released model and raw fine-tuning datasets without using fine-tuned outcomes."
+      ]
+    },
+    {
+      "id": "bi_elena_2026_budget_crossover",
+      "title": "A budget-dependent crossover between coverage- and response-based training-set selection for machine-learned interatomic potentials",
+      "authors": [
+        "Jia Bi",
+        "Alin-Marin Elena"
+      ],
+      "arxiv": "https://arxiv.org/abs/2609.05877v1",
+      "data": "https://doi.org/10.5281/zenodo.22263567",
+      "data_version": "2.3.0",
+      "data_record_id": 22263568,
+      "data_archive": "DD_Zenodo_v2.3.0_2026-09-05.zip",
+      "data_archive_md5": "0676e1f69c65db6eec57a82153c27072",
+      "data_archive_sha256": "0adf688b6a92da7922b0e0e6b24a65e0a1fe3e842e890c9c5cb427e7a14eb880",
+      "repository": "https://github.com/JIABI/QUESTS_physical_kernel",
+      "license": "CC-BY-4.0 article and source data; MIT analysis code",
+      "status": "included",
+      "use": "Five selector families at 1%, 5%, and 20% retained-data budgets on Carbon and pooled rMD17, evaluated across four held-out force endpoints with five-seed means.",
+      "exclusions": [
+        "The four endpoints share held-out structures and are repeated views of two dataset-level contexts.",
+        "The response witness requires a full-data reference model and is retained as a retrospective comparator rather than a cheap deployable measurement.",
+        "The bridge uses the recorded budget-sensitivity table and does not infer unavailable seed-level values for every arm."
+      ]
+    },
+    {
+      "id": "baghishov_2026_application_specific_mlip",
+      "title": "Application-specific machine-learned interatomic potentials: exploring the trade-off between DFT convergence, MLIP expressivity, and computational cost",
+      "authors": [
+        "Ilgar Baghishov",
+        "Jan Janssen",
+        "Graeme Henkelman",
+        "Danny Perez"
+      ],
+      "doi": "10.1039/D5DD00294J",
+      "article": "https://doi.org/10.1039/D5DD00294J",
+      "repository": "https://github.com/IlgarBaghishov/DFTprecisionMLIP",
+      "repository_revision": "b982ccd33e981eab2f6527d56b407f9297b1cfb1",
+      "data": "https://doi.org/10.5281/zenodo.15814503",
+      "license": "CC-BY-4.0 article; MIT code and released result files",
+      "status": "included",
+      "use": "Random, regular-leverage, and block-leverage sampling at nine matched configuration budgets. Energy and force testing RMSEs are aggregated over the 50 released realizations per arm.",
+      "exclusions": [
+        "Energy and force endpoints are treated as repeated views of each sampling decision.",
+        "The bridge uses the fixed highest-precision, 2Jmax=10, energy-to-force-weight 150 comparison from Figure 6 rather than the broader Pareto sweep.",
+        "Target-specific matching between regular or block leverage and the energy or force endpoint is defined before reading downstream errors."
+      ]
+    },
+    {
+      "id": "liu_2024_microstructure_active_learning",
+      "title": "Active learning for regression of structure-property mapping: the importance of sampling and representation",
+      "authors": [
+        "Hao Liu",
+        "Berkay Yucel",
+        "Baskar Ganapathysubramanian",
+        "Surya R. Kalidindi",
+        "Daniel Wheeler",
+        "Olga Wodo"
+      ],
+      "doi": "10.1039/D4DD00073K",
+      "repository": "https://github.com/usnistgov/active-learning",
+      "repository_revision": "fc41a63cbb6531857e7ef30835d0b3044ea37cbc",
+      "status": "pending_result_artifact",
+      "reason": "The public repositories contain the workflow, datasets, and rendered result figures, but no exact numerical active-learning histories suitable for arm-level reconstruction were located."
+    },
+    {
+      "id": "bi_2025_automl_active_learning",
+      "title": "A comprehensive benchmark of active learning strategies with AutoML for small-sample regression in materials science",
+      "authors": [
+        "Jinghou Bi",
+        "Yuanhao Xu",
+        "Felix Conrad",
+        "Hajo Wiemer",
+        "Steffen Ihlenfeldt"
+      ],
+      "doi": "10.1038/s41598-025-24613-4",
+      "repository": "https://github.com/bjhtud/Benchmark-AL-Mat",
+      "repository_revision": "bb590a427912effe32507a46cdaae38aa8048bfe",
+      "status": "pending_result_artifact",
+      "reason": "The audited revision contains the benchmark implementation and one concrete dataset, but not the paper's nine-dataset numerical result archive or complete experiment outputs."
+    },
+    {
+      "id": "wu_2026_data_distribution",
+      "title": "Data Distribution Matters: Enhancing model generalization in Data-Driven Materials Discovery by intentionally exploiting both positive and negative data",
+      "authors": [
+        "Yiheng Wu",
+        "Lijun Liu",
+        "Wei Deng",
+        "Haodong Jiang",
+        "Ruotong Li",
+        "Ming Hu",
+        "Bo Peng",
+        "Dapeng Wang"
+      ],
+      "doi": "10.1016/j.actphy.2026.100291",
+      "repository": "https://github.com/2305293559/DataDistributionMatters",
+      "repository_revision": "d1d863400fcb99f2cd4b81138e3a8e99fbd67604",
+      "status": "pending_result_artifact",
+      "reason": "The repository exposes generation and training scripts, but its database and model placeholders do not contain the released numerical panels needed to reproduce the matched sampling comparisons."
+    },
+    {
+      "id": "kim_2026_density_diversity",
+      "title": "Density diversity in training data governs thermodynamic transferability of machine learning interatomic potentials",
+      "authors": [
+        "Minwoo Kim",
+        "Seungtae Kim",
+        "Je-Yeon Jung",
+        "Min Young Ha",
+        "Won Bo Lee"
+      ],
+      "arxiv": "https://arxiv.org/abs/2605.05733",
+      "repository": "https://github.com/minu928/MLFFTrans",
+      "repository_revision": "911342978ec687673ecfa76d47729b6feb7dad8b",
+      "license": "arXiv non-exclusive distribution license; the source-data repository has no license file, so Anarres retains only a derived numerical audit with citation",
+      "status": "included",
+      "source_artifacts": {
+        "arxiv_version": "2605.05733v1",
+        "source_bundle_sha256": "29a7808013f4a2cc2ab6df65d79928330b2c71ecd6ceadad03e2773efbf5d2bc",
+        "paper_tex_sha256": "f49d278a3607d3b78bec5fe181a22582a7d540b41fedb6efb77e90c5c9605520"
+      },
+      "use": "Twelve matched thermodynamic-state panels compare no-variance, temperature-diverse, and density-diverse 512-configuration environments. The pinned public robustness release provides exact RDF trajectories for five independent training seeds per arm under one common distilled SevenNet contract.",
+      "exclusions": [
+        "The bridge reconstructs the manuscript's RDF similarity equation from exact released arrays and does not digitize heatmaps.",
+        "Four seed releases use radial-bin centers while the reference and first seed use endpoints; the common reference is interpolated onto each released test grid before integration.",
+        "The repository's five-seed ensemble was added after the arXiv manuscript and is identified as a public robustness release rather than a result described in the submitted text.",
+        "Only the distilled H2O experiment enters the bridge because it has five explicit training seeds; the from-scratch CO2 comparison remains scientific context."
+      ]
+    },
+    {
+      "id": "lee_2026_budget_constrained_augmentation",
+      "title": "Budget-constrained augmentation of universal interatomic potentials for reliable multicomponent molecular dynamics",
+      "authors": [
+        "Hyeon-Jong Lee",
+        "You-Yeob Song",
+        "Hojoon Kim",
+        "Minjun Kwon",
+        "Seung-Hui Ham",
+        "Jae-Seung Kim",
+        "Donghun Kim",
+        "Dong-Hwa Seo"
+      ],
+      "doi": "10.1038/s41524-026-02202-x",
+      "article": "https://doi.org/10.1038/s41524-026-02202-x",
+      "repository": "https://github.com/zjark10/MLIP-sampling-strategy",
+      "repository_revision": "f01ec6b8eab730ae5c09efa68b132fe3207878f3",
+      "license": "CC BY-NC-ND 4.0 article and supplementary information; the example repository has no license file, so Anarres retains only a derived numerical audit with citation",
+      "status": "included",
+      "source_artifacts": {
+        "article_reference_pdf_sha256": "3e1928a71969dac3300fd02315c863d692fd3d65fa7a089f4b005dcfab71bcfc",
+        "supplementary_information_pdf_sha256": "e328406669daac522a9fcc2cac6ca551e9889b4b21449d0bcb5ae566014c48af"
+      },
+      "use": "Two training-regime panels compare random, DIRECT, and LCMD selection through exact sodium-ion diffusivity R2 values from Supplementary Table S2. Scratch retraining favors initial-aware LCMD, while fine-tuning favors uniform DIRECT coverage.",
+      "exclusions": [
+        "Random and LCMD use 8,000 DFT labels, while DIRECT uses 8,879. A cost-normalized improvement sensitivity preserves both winners, but the panels remain outside the strict matched-cost fitted bridge.",
+        "The public repository is a reduced reproducibility example and not the claim-bearing numerical result archive.",
+        "The bridge records exact table values and does not reproduce or adapt licensed figures."
+      ]
+    },
+    {
+      "id": "liu_2026_finetuning_tutorial",
+      "title": "Fine-Tuning Universal Machine-Learned Interatomic Potentials: A Tutorial on Methods and Applications",
+      "authors": [
+        "Xiaoqing Liu",
+        "Kehan Zeng",
+        "Zedong Luo",
+        "Yangshuai Wang",
+        "Teng Zhao",
+        "Zhenli Xu"
+      ],
+      "doi": "10.1063/5.0299305",
+      "article": "https://doi.org/10.1063/5.0299305",
+      "arxiv": "https://arxiv.org/abs/2506.21935",
+      "repository": "https://github.com/John2021-hub/mace-ft-tutorial",
+      "repository_revision": "0dea8607570907e37a3a6e0707195361536fbffc",
+      "license": "CC0-1.0 arXiv source; the tutorial repository has no license file",
+      "status": "context_only",
+      "source_artifacts": {
+        "arxiv_version": "2506.21935v2",
+        "arxiv_source_bundle_sha256": "9fdc79988d330593a30c9ec5cfdb17e4c23e9e7db04095b24a669b8587d96dfd",
+        "paper_tex_sha256": "52bbc6bab6f602b708c9da28d258ef36d55e8210ce9e74691128773f15398ad0"
+      },
+      "reason": "The silicon study shows that a 5% uncertainty-filtered scratch set and fine-tuning can greatly reduce energy and force error relative to the foundation model. The current public source does not expose a matched random-selection arm or a numerical silicon result archive, and the tutorial repository covers other applications. The comparison therefore informs training-regime design but cannot support a controlled candidate-environment panel."
+    },
+    {
+      "id": "grandel_2026_phonon_finetuning",
+      "title": "Parameter-Efficient Fine-Tuning of Machine-Learning Interatomic Potentials for Phonon and Thermal Properties",
+      "authors": [
+        "Jonas Grandel",
+        "Philipp Benner",
+        "Janine George"
+      ],
+      "arxiv": "https://arxiv.org/abs/2604.01017",
+      "data": "https://doi.org/10.5281/zenodo.22180297",
+      "data_version": "v3",
+      "license": "arXiv non-exclusive distribution license; the Zenodo record does not state an explicit license",
+      "status": "included",
+      "source_artifacts": {
+        "arxiv_version": "2604.01017v1",
+        "arxiv_source_bundle_sha256": "b0053b8914d66d23862ae5792e40191b5164cbbfde3a3d733681a000aeb7f501",
+        "results_tex_sha256": "129f83fbe79038385a9160ab7ea8cedd40474be21a27230d0ce28068abdc0242"
+      },
+      "use": "Four aggregate panels compare primitive-cell, small-supercell, and large-supercell training environments across training from scratch, transfer learning, multihead fine-tuning, and Equitrain. Exact Table 1 medians and interquartile ranges cover phonon-frequency error across 53 material-specific models, and the large-supercell environment wins in every regime.",
+      "exclusions": [
+        "Every arm uses ten configurations per material, but larger supercells contain more atoms and require more reference compute. Configuration count is therefore not an equal labeling-cost control.",
+        "The released table reports aggregate medians and interquartile ranges rather than the complete material-level outcome matrix.",
+        "These cost-sensitive panels remain outside the strict matched-cost fitted bridge."
+      ]
+    },
+    {
+      "id": "hwang_2026_surface_finetuning",
+      "title": "Fine-tuning bulk-oriented universal interatomic potentials for surfaces: accuracy, efficiency, and forgetting control",
+      "authors": [
+        "Jaekyun Hwang",
+        "Taehun Lee",
+        "Yonghyuk Lee",
+        "Su-Hyun Yoo"
+      ],
+      "doi": "10.1016/j.commatsci.2026.114666",
+      "article": "https://doi.org/10.1016/j.commatsci.2026.114666",
+      "arxiv": "https://arxiv.org/abs/2509.25807",
+      "repository": "https://github.com/JaekyunHwang/UIP-surface-finetuning",
+      "repository_revision": "4a1c96f9badbb1676d83103a0c9e0f4a16e65e28",
+      "license": "MIT repository",
+      "status": "included",
+      "source_artifacts": {
+        "figure_2a_csv_sha256": "2bfc358b7656aa74d83a2c175b71629752fdbd2eaedc0732ec9adb8f5c5349c1",
+        "figure_2c_csv_sha256": "f0180c663297864dafc126377df44c197b690ed93b74bb5a43d74fbee2d6c5f4",
+        "figure_2e_csv_sha256": "9c8e86aa8e4e91e19854c3cc61e8b04d15154f360313a32aead317bdfe5909ca",
+        "repository_readme_sha256": "397c683042dd429328fe5ce7f4fc06713ff7f3f7cc479e6829d8c4acbb72f5ea",
+        "repository_license_sha256": "032bf41f31142c6596636dc1ef0734864173b3441b6c3c8c67daa95a0b206c61"
+      },
+      "use": "Eighteen matched training-regime panels compare pretrained fine-tuning with training from scratch at nine common surface-data budgets. Exact energy and force RMSE values cover unary Au, binary RuO2, and ternary BiVO4 surfaces, and fine-tuning wins every panel.",
+      "exclusions": [
+        "The training configurations and evaluation endpoint are matched within each panel, but the initialization and update path change. These results audit training-regime compatibility rather than environment choice under one fixed trainer.",
+        "The source repository releases exact figure data and commands but does not redistribute the raw DFT datasets, so additional pre-training environment coordinates cannot be reconstructed.",
+        "These panels remain outside the strict fitted bridge."
+      ]
+    },
+    {
+      "id": "karimitari_2026_catalysis_finetuning",
+      "title": "Systematic fine-tuning of MACE interatomic potentials for catalysis",
+      "authors": [
+        "Nima Karimitari",
+        "Jacob Clary",
+        "Derek Vigil-Fowler",
+        "Ravishankar Sundararaman",
+        "Gábor Csányi",
+        "Christopher Sutton"
+      ],
+      "doi": "10.1038/s41524-026-02335-z",
+      "article": "https://doi.org/10.1038/s41524-026-02335-z",
+      "arxiv": "https://arxiv.org/abs/2605.09394",
+      "data": "https://doi.org/10.5281/zenodo.20043317",
+      "data_version": "v1",
+      "license": "CC-BY-4.0 article and data deposit",
+      "status": "included",
+      "source_artifacts": {
+        "arxiv_version": "2605.09394v1",
+        "source_bundle_sha256": "64fc864e4bdd5b047378c3647480136df6782da00929c1e5f6bb650edfcdf7f7",
+        "main_tex_sha256": "0e22789d24394410fdb3bcad8a542909569498b8d4c93aa9edc5dfac6121752b",
+        "si_tex_sha256": "7a673c05b2aca05b8cb1f82b8ab6880b3ee3a7d88d1d67778ffa26acb497df1e",
+        "zenodo_archives_md5": {
+          "datasets.zip": "fb67a0484138ff63b60c0977d24e7f69",
+          "from_scratch.zip": "fbc25999b2a8c868d881ff1d15584888",
+          "mh_fine_tune.zip": "ec6b4871d185bd4e2534db22270c7006",
+          "screening.zip": "c0222bf5033c398437e360be741c4a7a"
+        }
+      },
+      "use": "Six cost-sensitive panels preserve exact reaction-energy and activation-barrier errors for three from-scratch and six MACE-MH-1 fine-tuning environments. Added MD and contour configurations substantially improve scratch training, while their value changes after foundation-model initialization and OMAT replay.",
+      "exclusions": [
+        "Candidate environments use different configuration counts and do not enter the matched-cost predictive bridge.",
+        "Scratch training and fine-tuning change initialization, optimization, and replay, so cross-regime comparisons are not fixed-trainer environment effects.",
+        "The manuscript reports 39,584 configurations for FS-BMA in its outcome table and 39,983 for the BMA dataset elsewhere. The audit preserves the reported values and does not reconcile the discrepancy from figures.",
+        "Independent training-seed outcomes are not released for the model comparisons."
+      ]
+    },
+    {
+      "id": "gibson_2025_diversity_underfitting",
+      "title": "When more data hurts: Optimizing data coverage while mitigating diversity-induced underfitting in an ultrafast machine-learned potential",
+      "authors": [
+        "Jason B. Gibson",
+        "Tesia D. Janicki",
+        "Ajinkya C. Hire",
+        "Chris Bishop",
+        "J. Matthew D. Lane",
+        "Richard G. Hennig"
+      ],
+      "doi": "10.1103/PhysRevMaterials.9.043802",
+      "article": "https://doi.org/10.1103/PhysRevMaterials.9.043802",
+      "status": "context_only",
+      "reason": "The four training-set variants establish that excessive off-target diversity can induce underfitting, but they do not form matched-cost candidate panels with released numerical outcomes."
+    },
+    {
+      "id": "liu_2026_heterogeneous_uq",
+      "title": "Heterogeneous Ensemble Enables a Universal Uncertainty Metric for Atomistic Foundation Models",
+      "authors": [
+        "Kai Liu",
+        "Zixiong Wei",
+        "Wei Gao",
+        "Poulumi Dey",
+        "Marcel H.F. Sluiter",
+        "Fei Shuang"
+      ],
+      "doi": "10.1038/s41524-025-01905-x",
+      "article": "https://doi.org/10.1038/s41524-025-01905-x",
+      "arxiv": "https://arxiv.org/abs/2507.21297",
+      "repository": "https://github.com/Kai-Liu-MSE/UQ-uMLIP",
+      "repository_revision": "189443c7263cfbf8530213a24615f41dc86abfd8",
+      "license": "CC-BY-4.0 article; MIT repository",
+      "status": "included",
+      "source_artifacts": {
+        "arxiv_version": "2507.21297v1",
+        "arxiv_source_bundle_sha256": "243349d3d7e55e67ee7b92e06748164731d3b1195a686dfca50b603ce4344915",
+        "paper_tex_sha256": "56066b0e826f6896195ac685ae93a39aa1fe6883bddb488e3ca7b0c4461d2c56",
+        "build_notebook_sha256": "b0712a6e174a0ff832482b3d696e8b4084f797a9fed8f03ee47ad111fb120d66",
+        "evaluation_notebook_sha256": "d25f35bb9eada24efdb56690a3c82a154046f9a218cf0f998f8218e67b2e367c"
+      },
+      "use": "Two matched panels compare six uncertainty-partitioned label environments on a common 1,139-configuration tungsten training support. Exact released notebook outputs provide five independent ACE fits per environment for energy and force RMSE on one independent defect, plasticity, and crack test set.",
+      "exclusions": [
+        "The six arms hold training support and fitting fixed while varying label provenance and DFT reference cost. DFT fraction is therefore a cost coordinate rather than a matched labeling budget.",
+        "The paper reports DFT fractions over atomic environments, which are not interpreted as configuration fractions.",
+        "Both endpoint panels share one material system and one evaluation distribution."
+      ]
+    },
+    {
+      "id": "liu_2026_fire_battery_interfaces",
+      "title": "FIRE: Fine-Tuning and Stress-Testing Universal Interatomic Potentials for Solid-Solid Battery Interfaces",
+      "authors": [
+        "Xiaoqing Liu",
+        "Xinyu Yu",
+        "Yangshuai Wang",
+        "Zhe-Tao Sun",
+        "Zedong Luo",
+        "Kehan Zeng",
+        "Teng Zhao",
+        "Shou-Hang Bo",
+        "Zhenli Xu"
+      ],
+      "arxiv": "https://arxiv.org/abs/2601.17847",
+      "status": "pending_result_artifact",
+      "license": "arXiv non-exclusive distribution license",
+      "source_artifacts": {
+        "arxiv_version": "2601.17847v2",
+        "arxiv_source_bundle_sha256": "8770a9cbc450de7c710a3012fa07b85401db2b85e81a9f0abea4adb6a176b794",
+        "main_tex_sha256": "49a4d550b5e0d951247b7de72f834a8c6626e4650830a2201fcfad046c56388e",
+        "supplementary_information_pdf_sha256": "8de96ea475f30f2becac811e090f91dab80fe4badd91af7f5c22996a9ed92f56",
+        "figure_3_pdf_sha256": "8aff96d8d0efa16591dbc9850ce070d1d701462d5075c9d6f681c9c6b80b20e8"
+      },
+      "reason": "The revised source documents a matched 100- to 4,000-frame comparison of representative FIRE sampling, random sampling, and from-scratch training on Na/Na3SbS4. The manuscript states that FIRE and random sampling share the trainer and that FIRE has lower force RMSE at every budget. Exact curve values remain embedded in Figure 3, while the announced data and model repositories are private during review. The comparison is eligible once a stable numerical archive is public."
+    },
+    {
+      "id": "kurniawan_2026_information_matching",
+      "title": "Inverse design of bespoke interatomic potentials via active learning by information-matching",
+      "authors": [
+        "Yonatan Kurniawan",
+        "Logan D. Williams",
+        "Amit Samanta",
+        "Ilia Nikiforov",
+        "Daniel Schwalbe-Koda",
+        "Mark K. Transtrum",
+        "Ellad B. Tadmor",
+        "Vincenzo Lordi",
+        "Vasily V. Bulatov"
+      ],
+      "doi": "10.1186/s41313-026-00086-4",
+      "article": "https://doi.org/10.1186/s41313-026-00086-4",
+      "arxiv": "https://arxiv.org/abs/2606.08148",
+      "repository": "https://github.com/yonatank93/information-matching_eam-strength",
+      "repository_revision": "f0222e28742e419d8b4eb4f4af7ea38529cd7e25",
+      "data": "https://doi.org/10.5281/zenodo.18012696",
+      "data_metadata_sha256": "b8408a68ba255baedc1a1d782b2d36740229791fd9e1c38b9e556dde4388023c",
+      "data_archive": "information-matching_eam-strength.tar.gz",
+      "data_archive_bytes": 25996876269,
+      "data_archive_md5": "e254d860588cab4937e092b22b911f76",
+      "license": "CC BY 4.0 article and Zenodo data deposit; public repository has no license file",
+      "status": "context_only",
+      "reason": "The public workflow and 26 GB research archive define five information-matching design arms, but the arms use different reference quantities, label counts, and fitting weights. They do not form a matched-cost environment decision under one common downstream contract. The study remains important evidence that target-aligned Fisher information can constrain parameter precision while model-form error still produces overconfidence."
+    },
+    {
+      "id": "lee_2022_t_metaset",
+      "title": "t-METASET: Task-Aware Acquisition of Metamaterial Datasets Through Diversity-Based Active Learning",
+      "authors": [
+        "Doksoo Lee",
+        "Yu-Chin Chan",
+        "Wei (Wayne) Chen",
+        "Liwei Wang",
+        "Anton van Beek",
+        "Wei Chen"
+      ],
+      "doi": "10.1115/1.4055925",
+      "article": "https://doi.org/10.1115/1.4055925",
+      "arxiv": "https://arxiv.org/abs/2202.10565",
+      "status": "context_only",
+      "reason": "The study develops diversity- and task-aware acquisition for two mechanical-metamaterial libraries. Its deployment studies target dataset property distributions rather than matched candidate environments evaluated through one common downstream training contract."
+    },
+    {
+      "id": "van_der_oord_2023_hyperactive_learning",
+      "title": "Hyperactive learning for data-driven interatomic potentials",
+      "authors": [
+        "Cas van der Oord",
+        "Matthias Sachs",
+        "Dávid Péter Kovács",
+        "Christoph Ortner",
+        "Gábor Csányi"
+      ],
+      "doi": "10.1038/s41524-023-01104-6",
+      "article": "https://doi.org/10.1038/s41524-023-01104-6",
+      "repository": "https://github.com/ACEsuit/ACEHAL",
+      "repository_revision": "fa876053cadca6bc48d6918cacd0a5b61d35003f",
+      "status": "pending_result_artifact",
+      "reason": "The paper compares uncertainty-filtered and random silicon subsets from a common pool and reports downstream learning and physical-property curves. The audited repository implements the method but does not contain the paper's numerical comparison histories, databases, or released potential files at the recorded revision."
+    },
+    {
+      "id": "zou_2026_dpp_curation",
+      "title": "Data Curation for Machine Learning Interatomic Potentials by Determinantal Point Processes",
+      "authors": [
+        "Joanna Zou",
+        "Youssef Marzouk"
+      ],
+      "arxiv": "https://arxiv.org/abs/2603.22160",
+      "status": "pending_result_artifact",
+      "reason": "The study compares random, k-means, and determinantal-point-process selection over seven matched budgets with 100 trials on a common HfO2 validation contract. The manuscript reports medians and interquartile ranges graphically, but no stable public numerical result archive or official code revision was located."
+    },
+    {
+      "id": "liu_mo_2024_learning_from_models",
+      "title": "Learning from models: high-dimensional analyses on the performance of machine learning interatomic potentials",
+      "authors": [
+        "Yunsheng Liu",
+        "Yifei Mo"
+      ],
+      "doi": "10.1038/s41524-024-01333-3",
+      "article": "https://doi.org/10.1038/s41524-024-01333-3",
+      "repository": "https://github.com/mogroupumd/Learning_from_models",
+      "repository_revision": "5a9f9493bf067e27004c2d21c1d96fa863dce6a4",
+      "status": "context_only",
+      "reason": "The release provides 2,300 model evaluations across five matched-size training-set constructions and 48 physical properties. However, each construction uses a separately sampled architecture and hyperparameter ensemble, with no shared model identities across environments, so downstream differences cannot be attributed cleanly to environment choice."
+    },
+    {
+      "id": "zhang_2023_etal",
+      "title": "ET-AL: Entropy-targeted active learning for bias mitigation in materials data",
+      "authors": [
+        "Hengrui Zhang",
+        "Wei (Wayne) Chen",
+        "James M. Rondinelli",
+        "Wei Chen"
+      ],
+      "doi": "10.1063/5.0138913",
+      "article": "https://doi.org/10.1063/5.0138913",
+      "repository": "https://github.com/Henrium/ET-AL",
+      "repository_revision": "9cc7ca8e632a31dba366a309817d24de09404766",
+      "data": "https://doi.org/10.5281/zenodo.7406332",
+      "data_archive_md5": "bcabcbc2a4293d1becdd27958325c4a7",
+      "license": "MIT code; public Zenodo research artifact",
+      "status": "included",
+      "use": "Entropy-targeted and random acquisition produce two equal-size 1,954-material training sets. Exact released outcomes cover bulk and shear modulus under random forest and gradient boosting, with 30 repeated fits per arm on one common 4,898-material test set.",
+      "exclusions": [
+        "The bridge uses only the exact random-forest and gradient-boosting histories released in ML_r2.csv and does not digitize other model families from figures.",
+        "Bulk and shear modulus are treated as repeated target views of one data-selection decision.",
+        "Acquisition uses formation-energy entropy and a Gaussian-process proxy rather than the downstream modulus outcomes."
+      ]
+    },
+    {
+      "id": "zaverkin_2024_uncertainty_biased_md",
+      "title": "Uncertainty-biased molecular dynamics for learning uniformly accurate interatomic potentials",
+      "authors": [
+        "Viktor Zaverkin",
+        "David Holzmüller",
+        "Henrik Christiansen",
+        "Federico Errica",
+        "Francesco Alesiani",
+        "Makoto Takamoto",
+        "Mathias Niepert",
+        "Johannes Kästner"
+      ],
+      "doi": "10.1038/s41524-024-01254-1",
+      "article": "https://doi.org/10.1038/s41524-024-01254-1",
+      "data": "https://doi.org/10.5281/zenodo.10776838",
+      "data_archives": {
+        "ala2-ffs.zip": {
+          "bytes": 146129485,
+          "md5": "c9d5bc06e12b0923457635f9323dc07d"
+        },
+        "mil53.zip": {
+          "bytes": 559281684,
+          "md5": "306b7344c15a4f211b9b8d2784416081"
+        }
+      },
+      "repository": "https://github.com/nec-research/alebrew",
+      "license": "CC-BY-4.0 article; CC-BY-NC-4.0 data; non-commercial research software license",
+      "status": "included",
+      "use": "Eight matched panels compare random, uncertainty-selected, and uncertainty-biased acquisition at a common 512-configuration cap. Exact mean and standard-deviation outcomes cover alanine dipeptide and MIL-53(Al) over energy, force, and stress endpoints.",
+      "exclusions": [
+        "The 500-configuration metadynamics baseline is excluded from the matched bridge.",
+        "Adaptive acquisition and uncertainty measurement incur costs beyond the matched final training-set size; accessibility records this distinction.",
+        "Collective-variable coverage is reported for alanine dipeptide but not as a common scalar for MIL-53(Al)."
+      ]
+    },
+    {
+      "id": "wang_2026_dataset_aware_entropy",
+      "title": "Dataset-aware entropy-maximized active learning for machine-learned interatomic potentials",
+      "authors": [
+        "Meiyan Wang",
+        "Rishi Rao",
+        "Li Zhu"
+      ],
+      "arxiv": "https://arxiv.org/abs/2605.20384",
+      "license": "CC-BY-4.0 manuscript and source",
+      "status": "included",
+      "source_artifacts": {
+        "arxiv_version": "2605.20384v1",
+        "source_bundle_sha256": "0ca4daf9c9c8249edffb1cc94f433e9005517c5ade86bd50c8df01e2db532041",
+        "paper_tex_sha256": "83831cbe107889ad4ee0156427cddca005982edc69dbdf540b6c1691e1edc612"
+      },
+      "use": "Forty-five matched panels compare entropy-driven and random-MD environments at 100, 250, 500, and 800 configurations. Exact three-draw mean and standard-deviation outcomes cover energy, force, and stress on common in-distribution tests, plus independent equilibrium and thermal-MD tests at 800 configurations.",
+      "exclusions": [
+        "Learning-curve values visible only in figures are not digitized; the bridge uses exact entries from Tables 1--4.",
+        "The post-outcome carbon mixed-pool remedy is excluded because it was designed after observing the independent-test force and stress reversal.",
+        "Individual seed outcomes are not recoverable from the reported table means and standard deviations."
+      ]
+    },
+    {
+      "id": "zhang_2026_minimum_ab_initio",
+      "title": "Constructing machine learning interatomic potentials with minimum amount of ab initio data",
+      "authors": [
+        "Wentao Zhang",
+        "Xingxing Wu",
+        "Chen Wang",
+        "Siyu Hu",
+        "Yueyang Liu",
+        "Lin-Wang Wang"
+      ],
+      "doi": "10.1038/s41524-026-02023-y",
+      "article": "https://doi.org/10.1038/s41524-026-02023-y",
+      "repository": "https://github.com/hyjwpk/ELoRA",
+      "status": "context_only",
+      "reason": "The study compares model-guided and first-principles trajectory sampling across solid electrolytes and training budgets, but the paper states that its computational data are available only from the corresponding author on request."
+    },
+    {
+      "id": "subramanyam_2025_entropy_generation",
+      "title": "Information-entropy-driven generation of material-agnostic datasets for machine-learning interatomic potentials",
+      "authors": [
+        "Aparna P. A. Subramanyam",
+        "Danny Perez"
+      ],
+      "doi": "10.1038/s41524-025-01602-9",
+      "article": "https://doi.org/10.1038/s41524-025-01602-9",
+      "data": "https://doi.org/10.5281/zenodo.15330844",
+      "status": "context_only",
+      "reason": "The release provides entropy-maximized elemental datasets and application evaluations, but the published comparisons do not define matched-cost candidate-environment decisions with a common downstream contract."
+    },
+    {
+      "id": "qi_2024_direct_sampling",
+      "title": "Robust training of machine learning interatomic potentials with dimensionality reduction and stratified sampling",
+      "authors": [
+        "Ji Qi",
+        "Tsz Wai Ko",
+        "Brandon C. Wood",
+        "Tuan Anh Pham",
+        "Shyue Ping Ong"
+      ],
+      "doi": "10.1038/s41524-024-01227-4",
+      "article": "https://doi.org/10.1038/s41524-024-01227-4",
+      "data": "https://doi.org/10.6084/m9.figshare.23734134.v3",
+      "data_version": "v3",
+      "data_archive": "20230723_figshare_DIRECT.zip",
+      "data_archive_bytes": 1293261530,
+      "data_archive_md5": "5316a79c9570d3cb5a7e25ae5ac101e0",
+      "repository": "https://github.com/materialsvirtuallab/maml",
+      "license": "CC BY 4.0 data deposit and article; BSD-3-Clause software",
+      "status": "included",
+      "use": "Six matched panels compare manual and DIRECT sampling on energy, force, and stress MAE under the two released test distributions. Training-set coverage and target-distribution match are measured before downstream training outcomes.",
+      "exclusions": [
+        "The Ti-H comparison uses 947 DIRECT configurations versus 2,077 active-learning configurations and remains outside the matched bridge.",
+        "The two test distributions are sampled from the two candidate environment families rather than from an independently constructed domain."
+      ]
+    },
+    {
+      "id": "niblett_2025_dataset_transferability",
+      "title": "Transferability of Data Sets between Machine-Learned Interatomic Potential Algorithms",
+      "authors": [
+        "Samuel P. Niblett",
+        "Panagiotis Kourtis",
+        "Ioan-Bogdan Magdău",
+        "Clare P. Grey",
+        "Gábor Csányi"
+      ],
+      "doi": "10.1021/acs.jctc.5c00272",
+      "article": "https://doi.org/10.1021/acs.jctc.5c00272",
+      "data": "https://doi.org/10.17863/CAM.115858",
+      "data_archive": "Transferability_OpenData.tar.gz",
+      "data_archive_bytes": 1971779899,
+      "data_archive_md5": "1cbf2ec5286bbd3cd30b15a8e01178f7",
+      "license": "CC BY 4.0",
+      "status": "included",
+      "use": "Eleven architecture-by-evaluation panels record force error and trajectory stability for four released training environments under MACE, DeePMD, and DeePMD after active learning. They show that environment ordering depends on model architecture and adaptation history.",
+      "exclusions": [
+        "The four environments contain 203, 803, 223, and 935 configurations, so they do not enter the matched-cost predictive bridge.",
+        "The source-specific audit preserves the released physical outcomes and does not fit a transferable interaction law from two model architectures."
+      ]
+    },
+    {
+      "id": "svahn_2026_cluster_mlip_limits",
+      "title": "Limitations of Cluster-Trained MLIPs for Liquid Density and Diffusivity",
+      "authors": [
+        "Viktor Svahn",
+        "Ioan-Bogdan Magdău",
+        "Samuel P. Niblett",
+        "Gábor Csányi",
+        "Kersti Hermansson",
+        "Jolla Kullgren"
+      ],
+      "doi": "10.1021/acs.jctc.5c02043",
+      "article": "https://doi.org/10.1021/acs.jctc.5c02043",
+      "repository": "https://github.com/viktorsvahn/Limits_of_cluster_MLIPs",
+      "repository_revision": "f7275efdd4955cbb6231a5711c9f4e4f130cce27",
+      "license": "Article CC BY 4.0; the source repository has no license file, so Anarres retains only a derived numerical audit with citation",
+      "status": "included",
+      "use": "Eight matched random-subset panels quantify unresolved selection variability at fixed data size and molecular composition. The panels are excluded from predictive fitting because the release provides no pre-training measurement that distinguishes the three subset realizations."
+    },
+    {
+      "id": "kim_2026_cross_domain_transfer",
+      "title": "Optimizing cross-domain transfer for universal machine learning interatomic potentials",
+      "authors": [
+        "Jaesun Kim",
+        "Jinmu You",
+        "Yutack Park",
+        "Yunsung Lim",
+        "Yujin Kang",
+        "Jisu Kim",
+        "Haekwan Jeon",
+        "Suyeon Ju",
+        "Deokgi Hong",
+        "Seung Yul Lee",
+        "Saerom Choi",
+        "Yongdeok Kim",
+        "Jae W. Lee",
+        "Seungwu Han"
+      ],
+      "doi": "10.1038/s41467-026-70195-8",
+      "article": "https://doi.org/10.1038/s41467-026-70195-8",
+      "arxiv": "https://arxiv.org/abs/2510.11241",
+      "supporting_information": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-026-70195-8/MediaObjects/41467_2026_70195_MOESM1_ESM.pdf",
+      "supporting_information_sha256": "f6474e7d1c3bd5406cae49a751a4d704688edcba6e09fa8d6e47e6313e5d231b",
+      "source_data": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-026-70195-8/MediaObjects/41467_2026_70195_MOESM3_ESM.xlsx",
+      "source_data_sha256": "f2dd58b5d4ec9ed6c4467219a109e1c4c1f2d23f45d8a6d03789b6ac00a63ac6",
+      "data": "https://doi.org/10.6084/m9.figshare.30399814",
+      "data_version": "v3",
+      "data_metadata_sha256": "a5b7d12619c50911b3cbb195cab4b2021ad19e41f619b364889b9bb8d72cde22",
+      "domain_bridging_archive": {
+        "name": "dbs_total.extxyz",
+        "bytes": 779700511,
+        "md5": "2db93317d0e9fc5cb3d07d7663d55b73"
+      },
+      "repository": "https://github.com/MDIL-SNU/SevenNet",
+      "repository_revision": "8207c8a6c0557812a3e4722ca025200e08acbdf3",
+      "software_archive": "https://doi.org/10.5281/zenodo.18505985",
+      "license": "CC BY 4.0 article, source data, and Figshare deposit; MIT software",
+      "status": "included",
+      "use": "Eleven exact ablation arms measure how MPtrj, SPICE, a PBE domain-bridging set, and task-specific regularization interact during cross-domain transfer. Molecular PBE, molecular hybrid, and crystal PBE force errors remain separate outcomes.",
+      "exclusions": [
+        "Database membership and the regularization contract change across arms, so the study remains outside the fixed-trainer predictive bridge.",
+        "The 0.1% domain-bridging set adds PBE relabeling cost that is not matched across arms.",
+        "The release reports one value per arm and does not expose independent training-seed outcomes for this ablation."
+      ]
+    },
+    {
+      "id": "moerman_2026_atoms_that_matter",
+      "title": "Atoms that Matter: Largest Materials Datasets Are 99% Redundant, and Local Chemistry Can Guide the Required 1%",
+      "authors": [
+        "Evgeny Moerman",
+        "Igor Poltavsky",
+        "Anton Charkin-Gorbulin",
+        "Alexandre Tkatchenko"
+      ],
+      "arxiv": "https://arxiv.org/abs/2610.14392",
+      "data": "https://doi.org/10.5281/zenodo.23137852",
+      "repository": "https://github.com/em819/omat24-chemenv-subset",
+      "repository_revision": "723696de2c26584b8a907ef900690c0caf3c7b68",
+      "source_artifact": "09_benchmarks/matpes/paper_tables/paper_tables.json",
+      "source_artifact_sha256": "3de131cecab9e72d2218f9fb77b5b6836e60a1c454410119d546ac30a1660b48",
+      "license": "arXiv non-exclusive distribution license; MIT software; third-party benchmark data retain their own licenses",
+      "status": "included",
+      "use": "EnvTok, DIRECT, and four random OMat24 subsets are trained under one MACE contract at approximately 6.5 million atoms. Six exact MatPES panels preserve bulk and non-bulk energy, force, and stress outcomes as a matched-budget selector and random-seed audit outside the predictive fit.",
+      "exclusions": [
+        "The release contains one trained model for EnvTok and DIRECT, so selector effects are not replicated independently for those arms.",
+        "The six arms do not share a released continuous pre-outcome measurement, so the panels do not enter the pooled predictor.",
+        "Overcompressed MatPES outcomes are excluded because that stratum contains only eleven structures; the aggregate all-domain outcome is excluded because it overlaps the retained bulk and non-bulk strata."
+      ]
+    },
+    {
+      "id": "schaefer_kaestner_2026_erbs",
+      "title": "Enhanced Representation-Based Sampling for the Efficient Generation of Data Sets for Machine-Learned Interatomic Potentials",
+      "authors": [
+        "Moritz R. Schäfer",
+        "Johannes Kästner"
+      ],
+      "doi": "10.1021/acs.jctc.5c01767",
+      "article": "https://doi.org/10.1021/acs.jctc.5c01767",
+      "arxiv": "2601.16047v1",
+      "arxiv_source_sha256": "156d4b57fb0745e390b8b31f17298b5556fcc7c98e0e5535a3872b6370d6cc84",
+      "data": "https://doi.org/10.18419/DARUS-6365",
+      "data_version": "V1",
+      "data_metadata_sha256": "e44118aab78b9a84ee7f2bd4f1ed96f5a1ee11e42903de873e30bc0d8c5ec42d",
+      "data_license": "CC BY 4.0",
+      "data_archive": "erbs_data.tar split across ten files",
+      "data_archive_bytes": 102321991680,
+      "data_archive_md5_members": {
+        "erbs_data.tar.part.000": "3a0d9c7019716c0c3ce1399a9fed75f0",
+        "erbs_data.tar.part.001": "9602b1a600a440bfaf330f2fcfffdcdb",
+        "erbs_data.tar.part.002": "56367883ed86eaf9d62f347a61472e5d",
+        "erbs_data.tar.part.003": "5a804bc357e0dfb84128bd25793d16f1",
+        "erbs_data.tar.part.004": "c0f404f040c0e2718ba703ca20732942",
+        "erbs_data.tar.part.005": "8f63333d87cfe65c2c05af0e2e6c12bf",
+        "erbs_data.tar.part.006": "76cf2a7dfcf7d5166ab58287aeda1d3e",
+        "erbs_data.tar.part.007": "daf658ba253ce2d48e160d29b8d9ddc6",
+        "erbs_data.tar.part.008": "ce1cb19b747590eb69704e513b8a4e5c",
+        "erbs_data.tar.part.009": "25d778b9b7fca5294e4024de8126cc8e"
+      },
+      "repository": "https://github.com/M-R-Schaefer/erbs_experiments",
+      "repository_revisions": {
+        "water_al": "4a085a380a8a7b0d9b3fc9982ee23ab632a54efc",
+        "alad_static": "953824e17e91853ceea2bbc935dea424677ba234",
+        "bmim_sampling": "cb5bbd08528e0e934cd0d15c450459fecf386d6a"
+      },
+      "water_dvc_lock_sha256": "0a82a5927cb68999cc7fbc2858a6a2c0b526c5ddc5b46171f53ba30821941c05",
+      "status": "pending_numerical_extraction",
+      "reason": "The liquid-water experiment compares MD and ERBS active-learning environments under the same starting data, model, acquisition rule, 25 ps sampling duration, ten new training configurations, four validation configurations, and ten iterations. The article reports that ERBS has lower force error and diffusion closer to the common reference at every iteration. Exact outputs are released, but the relevant water results reside inside an 82.6 GB compressed member of the split archive. The bridge will not digitize the plotted curves, so this study remains pending until the exact metric files are recovered."
+    },
+    {
+      "id": "radova_2025_frozen_transfer",
+      "title": "Fine-tuning foundation models of materials interatomic potentials with frozen transfer learning",
+      "authors": [
+        "Mariia Radova",
+        "Wojciech G. Stark",
+        "Connor S. Allen",
+        "Reinhard J. Maurer",
+        "Albert P. Bartók"
+      ],
+      "doi": "10.1038/s41524-025-01727-x",
+      "article": "https://doi.org/10.1038/s41524-025-01727-x",
+      "arxiv": "https://arxiv.org/abs/2502.15582",
+      "data": "https://doi.org/10.5281/zenodo.15114121",
+      "data_metadata_sha256": "4e613fed86bea618ab87ac15156546aa6a54cfd21d190400f480b7e38862005f",
+      "repository": "https://github.com/7radians/mace-freeze/tree/mace-freeze",
+      "repository_revision": "933231d31b2b5437e8e31fdb85039822fa399d1b",
+      "license": "CC BY 4.0 article and Zenodo data deposit",
+      "status": "pending_result_artifact",
+      "reason": "The paper reports learning curves across eight data fractions and a five-member committee trained on independent 10% Ti-Al-V subsets. The public deposit contains the underlying Ti-Al-V configurations and baseline potentials, but it does not contain the exact learning-curve or committee outcomes. The bridge will not digitize plotted values, so the study remains pending an exact numerical result artifact."
+    },
+    {
+      "id": "poul_2025_assyst",
+      "title": "Automated generation of structure datasets for machine learning potentials and alloys",
+      "authors": [
+        "Marvin Poul",
+        "Liam Huber",
+        "Jörg Neugebauer"
+      ],
+      "doi": "10.1038/s41524-025-01669-4",
+      "article": "https://doi.org/10.1038/s41524-025-01669-4",
+      "repository": "https://github.com/eisenforschung/assyst",
+      "repository_revision": "1759d9bbd0e66e2295c1db911be95175aefe3468",
+      "license": "CC BY 4.0 article; BSD-3-Clause software",
+      "status": "context_only",
+      "reason": "ASSYST provides a reproducible generator for small symmetric alloy structures and validates the resulting potential across bulk, surface, defect, and phase-diagram properties. The study does not report matched-cost candidate environment arms under one downstream training and evaluation contract, so it informs candidate construction without entering the predictive bridge."
+    },
+    {
+      "id": "felis_dononelli_2026_falcon",
+      "title": "FALCON: fast active learning for machine learning potentials in atomistic and ab initio molecular dynamics simulations",
+      "authors": [
+        "Noah Felis",
+        "Wilke Dononelli"
+      ],
+      "doi": "10.1038/s41524-025-01897-8",
+      "article": "https://doi.org/10.1038/s41524-025-01897-8",
+      "repository": "https://github.com/thequantumchemist/falcon",
+      "repository_revision": "90eed8f190ff718886d244fc83fa9fabe5c85969",
+      "license": "CC BY 4.0 article; GPL-3.0 software",
+      "status": "context_only",
+      "reason": "FALCON demonstrates efficient on-the-fly retraining by clustering configurations across several molecular-dynamics applications. Its comparisons evaluate a training system and runtime design rather than matched candidate environments under a common label and training budget."
+    },
+    {
+      "id": "unglert_2026_rens_active_learning",
+      "title": "Active learning potentials for first-principles phase diagrams using replica-exchange nested sampling",
+      "authors": [
+        "Nico Unglert",
+        "Michael Ketter",
+        "Georg K. H. Madsen"
+      ],
+      "doi": "10.1038/s41524-026-01989-z",
+      "article": "https://doi.org/10.1038/s41524-026-01989-z",
+      "data": "https://doi.org/10.5281/zenodo.17662936",
+      "data_metadata_sha256": "ec278d839149a66ca516513e7ac623b20728560c7a13bd51caab1b6247f448fd",
+      "data_archive": "datasets.zip",
+      "data_archive_bytes": 4666106,
+      "data_archive_md5": "bedb5629ea509bd831ff8556c0373e16",
+      "license": "CC BY 4.0 article and Zenodo data deposit",
+      "status": "context_only",
+      "reason": "The release contains active-learned databases for silicon, germanium, and titanium along one sequential replica-exchange nested-sampling trajectory per material. Initial random and distance-based selection tests are described as similar, but exact matched arm-level outcomes are not released."
+    },
+    {
+      "id": "khan_2026_active_learning_strategies",
+      "title": "Active Learning Strategies for Efficient Machine-Learned Interatomic Potentials Across Diverse Material Systems",
+      "authors": [
+        "Mohammed Azeez Khan",
+        "Aaron D'Souza",
+        "Vijay Choyal"
+      ],
+      "arxiv": "https://arxiv.org/abs/2601.06916v2",
+      "arxiv_source_sha256": "42985235e1cfa356624bb9ba84aad195fc7bf558149769187b01f267cfbe34f7",
+      "status": "excluded_unverified_release",
+      "reason": "The preprint reports exact five-seed means for four selection rules across four material systems, but its claimed open-source implementation is not linked in the manuscript or arXiv record. The feature list also includes energy and stability properties while formation energy is the prediction target. The bridge excludes the study until the code, exact feature contract, and result provenance can be verified."
+    }
+  ]
+}

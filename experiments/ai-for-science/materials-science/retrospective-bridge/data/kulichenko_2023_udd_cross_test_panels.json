@@ -1,0 +1,544 @@
+{
+  "artifact": "kulichenko_2023_udd_cross_test_panels_v1",
+  "source_id": "kulichenko_2023_udd",
+  "panel_count": 4,
+  "arm_count": 16,
+  "primary_outcome": "energy_rmse_kcal_per_mol",
+  "matched_contract": {
+    "training_configuration_count": 1040,
+    "molecule": "glycine",
+    "training_runs_per_environment": 1,
+    "heldout_runs_per_target_environment": 2
+  },
+  "normalization": "within held-out target environment; lower RMSE maps to higher utility",
+  "arms": [
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_md1000",
+      "molecule": "glycine",
+      "target_environment": "md1000",
+      "training_environment": "md1000",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 1000,
+        "uses_uncertainty_bias": 0,
+        "high_energy_region_count": 394,
+        "temperature_gap_to_target_K": 0,
+        "uncertainty_bias_matches_target": 1,
+        "high_energy_count_gap_to_target": 0
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 0.87
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -0.87,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_md1000",
+      "molecule": "glycine",
+      "target_environment": "md1000",
+      "training_environment": "md350",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 350,
+        "uses_uncertainty_bias": 0,
+        "high_energy_region_count": 105,
+        "temperature_gap_to_target_K": 650,
+        "uncertainty_bias_matches_target": 1,
+        "high_energy_count_gap_to_target": 289
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 9.93
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -9.93,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_md1000",
+      "molecule": "glycine",
+      "target_environment": "md1000",
+      "training_environment": "md600",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 600,
+        "uses_uncertainty_bias": 0,
+        "high_energy_region_count": 290,
+        "temperature_gap_to_target_K": 400,
+        "uncertainty_bias_matches_target": 1,
+        "high_energy_count_gap_to_target": 104
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 2.72
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -2.72,
+        "panel_normalized_utility": 0.7958057395143486,
+        "panel_normalized_regret": 0.2041942604856512
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_md1000",
+      "molecule": "glycine",
+      "target_environment": "md1000",
+      "training_environment": "udd350",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 350,
+        "uses_uncertainty_bias": 1,
+        "high_energy_region_count": 289,
+        "temperature_gap_to_target_K": 650,
+        "uncertainty_bias_matches_target": 0,
+        "high_energy_count_gap_to_target": 105
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 1.28
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -1.28,
+        "panel_normalized_utility": 0.9547461368653422,
+        "panel_normalized_regret": 0.04525386313465784
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_md350",
+      "molecule": "glycine",
+      "target_environment": "md350",
+      "training_environment": "md1000",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 1000,
+        "uses_uncertainty_bias": 0,
+        "high_energy_region_count": 394,
+        "temperature_gap_to_target_K": 650,
+        "uncertainty_bias_matches_target": 1,
+        "high_energy_count_gap_to_target": 289
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 0.37
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -0.37,
+        "panel_normalized_utility": 0.24999999999999992,
+        "panel_normalized_regret": 0.7500000000000001
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_md350",
+      "molecule": "glycine",
+      "target_environment": "md350",
+      "training_environment": "md350",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 350,
+        "uses_uncertainty_bias": 0,
+        "high_energy_region_count": 105,
+        "temperature_gap_to_target_K": 0,
+        "uncertainty_bias_matches_target": 1,
+        "high_energy_count_gap_to_target": 0
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 0.25
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -0.25,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_md350",
+      "molecule": "glycine",
+      "target_environment": "md350",
+      "training_environment": "md600",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 600,
+        "uses_uncertainty_bias": 0,
+        "high_energy_region_count": 290,
+        "temperature_gap_to_target_K": 250,
+        "uncertainty_bias_matches_target": 1,
+        "high_energy_count_gap_to_target": 185
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 0.41
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -0.41,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_md350",
+      "molecule": "glycine",
+      "target_environment": "md350",
+      "training_environment": "udd350",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 350,
+        "uses_uncertainty_bias": 1,
+        "high_energy_region_count": 289,
+        "temperature_gap_to_target_K": 0,
+        "uncertainty_bias_matches_target": 0,
+        "high_energy_count_gap_to_target": 184
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 0.34
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -0.34,
+        "panel_normalized_utility": 0.4374999999999998,
+        "panel_normalized_regret": 0.5625000000000002
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_md600",
+      "molecule": "glycine",
+      "target_environment": "md600",
+      "training_environment": "md1000",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 1000,
+        "uses_uncertainty_bias": 0,
+        "high_energy_region_count": 394,
+        "temperature_gap_to_target_K": 400,
+        "uncertainty_bias_matches_target": 1,
+        "high_energy_count_gap_to_target": 104
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 0.67
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -0.67,
+        "panel_normalized_utility": 0.9740932642487047,
+        "panel_normalized_regret": 0.02590673575129536
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_md600",
+      "molecule": "glycine",
+      "target_environment": "md600",
+      "training_environment": "md350",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 350,
+        "uses_uncertainty_bias": 0,
+        "high_energy_region_count": 105,
+        "temperature_gap_to_target_K": 250,
+        "uncertainty_bias_matches_target": 1,
+        "high_energy_count_gap_to_target": 185
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 4.43
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -4.43,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_md600",
+      "molecule": "glycine",
+      "target_environment": "md600",
+      "training_environment": "md600",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 600,
+        "uses_uncertainty_bias": 0,
+        "high_energy_region_count": 290,
+        "temperature_gap_to_target_K": 0,
+        "uncertainty_bias_matches_target": 1,
+        "high_energy_count_gap_to_target": 0
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 0.62
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -0.62,
+        "panel_normalized_utility": 0.9870466321243523,
+        "panel_normalized_regret": 0.01295336787564768
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_md600",
+      "molecule": "glycine",
+      "target_environment": "md600",
+      "training_environment": "udd350",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 350,
+        "uses_uncertainty_bias": 1,
+        "high_energy_region_count": 289,
+        "temperature_gap_to_target_K": 250,
+        "uncertainty_bias_matches_target": 0,
+        "high_energy_count_gap_to_target": 1
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 0.57
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -0.57,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_udd350",
+      "molecule": "glycine",
+      "target_environment": "udd350",
+      "training_environment": "md1000",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 1000,
+        "uses_uncertainty_bias": 0,
+        "high_energy_region_count": 394,
+        "temperature_gap_to_target_K": 650,
+        "uncertainty_bias_matches_target": 0,
+        "high_energy_count_gap_to_target": 105
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 0.73
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -0.73,
+        "panel_normalized_utility": 0.9806295399515741,
+        "panel_normalized_regret": 0.01937046004842614
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_udd350",
+      "molecule": "glycine",
+      "target_environment": "udd350",
+      "training_environment": "md350",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 350,
+        "uses_uncertainty_bias": 0,
+        "high_energy_region_count": 105,
+        "temperature_gap_to_target_K": 0,
+        "uncertainty_bias_matches_target": 0,
+        "high_energy_count_gap_to_target": 184
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 4.78
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -4.78,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_udd350",
+      "molecule": "glycine",
+      "target_environment": "udd350",
+      "training_environment": "md600",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 600,
+        "uses_uncertainty_bias": 0,
+        "high_energy_region_count": 290,
+        "temperature_gap_to_target_K": 250,
+        "uncertainty_bias_matches_target": 0,
+        "high_energy_count_gap_to_target": 1
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 0.92
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -0.92,
+        "panel_normalized_utility": 0.9346246973365618,
+        "panel_normalized_regret": 0.06537530266343826
+      }
+    },
+    {
+      "source_id": "kulichenko_2023_udd",
+      "panel_id": "kulichenko_2023_udd:glycine:test_udd350",
+      "molecule": "glycine",
+      "target_environment": "udd350",
+      "training_environment": "udd350",
+      "training_configuration_count": 1040,
+      "pre_outcome_measurements": {
+        "temperature_K": 350,
+        "uses_uncertainty_bias": 1,
+        "high_energy_region_count": 289,
+        "temperature_gap_to_target_K": 0,
+        "uncertainty_bias_matches_target": 1,
+        "high_energy_count_gap_to_target": 0
+      },
+      "outcome": {
+        "energy_rmse_kcal_per_mol": 0.65
+      },
+      "replication": {
+        "independent_environment_runs": 3,
+        "training_run_count": 1,
+        "heldout_runs_combined": 2
+      },
+      "provenance": {
+        "outcome_source": "Supplementary Table 2",
+        "coverage_source": "main-text Figure 2 analysis"
+      },
+      "derived": {
+        "native_utility": -0.65,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    }
+  ]
+}

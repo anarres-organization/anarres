@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-phonon-environment-selection",
+  "status": "frozen_before_external_label_opening",
+  "source_archive_sha256": "848f9a916bb75fff4e2911045e6d82c55c6765fd003758b2884602a58f0350ee",
+  "source_repository_commit": "e9262cfae0feedb4232602df28b02049923ef228",
+  "protocol_sha256": "091bf7fb37d4cf01b8fe562cd5f403f5e1ff41594af1f22aabe6184cd26d8074",
+  "freeze_sha256": "2415291345f1a5f92634f96e6a08b2aa57548c9e0f597db9660d7cfc47e25f2e",
+  "launch_sha256": "de4c1227347a889a4301ea80ecffeaad6a2c38225d66532e286838233e712578",
+  "training_manifest_sha256": "ab700aafcdf595363e5ad05b818d36f9baad069b1d2fb64459050bd01cf75eb1",
+  "expected_candidate_runs": 24,
+  "expected_candidates": [
+    "hash_uniform",
+    "signal",
+    "coverage",
+    "signal_coverage"
+  ],
+  "expected_budgets_structures": [256, 512, 1024],
+  "expected_seeds": [20261108, 20261109],
+  "expected_reference_checkpoints": [
+    "starting_pretrained",
+    "full_dft_posttrained"
+  ],
+  "panels": {
+    "dft_pbe": {
+      "archive_prefix": "phononscore_data_20261104/test_dft_pbe",
+      "records": 1000,
+      "role": "primary",
+      "pooling": "single balanced formula-disjoint panel"
+    },
+    "mp20": {
+      "archive_prefix": "phononscore_data_20261104/test_mp20",
+      "records": 6400,
+      "role": "secondary",
+      "pooling": "report each generator source before macro averaging"
+    }
+  },
+  "label_blind_phase": {
+    "permitted_archive_members": [
+      "phononscore_data_20261104/test_dft_pbe/cifs/*.cif",
+      "phononscore_data_20261104/test_mp20/cifs/*.cif"
+    ],
+    "forbidden_archive_members": [
+      "phononscore_data_20261104/test_dft_pbe/manifest.json",
+      "phononscore_data_20261104/test_dft_pbe/id_prop.csv",
+      "phononscore_data_20261104/test_mp20/manifest.json",
+      "phononscore_data_20261104/test_mp20/id_prop.csv"
+    ],
+    "required_before_label_opening": [
+      "all 24 candidate checkpoints match their sealed completion records",
+      "the released starting and full-data DFT reference checkpoints match their published hashes",
+      "all candidate-specific normalization moments use only the frozen arm training subset",
+      "every checkpoint has exactly one finite prediction for every CIF in both panels",
+      "prediction outputs and the complete prediction manifest are hashed"
+    ]
+  },
+  "checkpoint_scoring": {
+    "raw_outputs": [
+      "minimum-frequency prediction",
+      "four threshold probabilities",
+      "threshold-score mean",
+      "pair-geometry score"
+    ],
+    "normalization_reference": "the exact frozen training subset for that candidate-budget arm",
+    "normalization_ddof": 0,
+    "composite_score": "z(minimum-frequency prediction) + 0.5 * z(threshold-score mean) + 0.2 * z(pair-geometry score)",
+    "query_pool_normalization_forbidden": true,
+    "threshold_thz": -0.1,
+    "threshold_probability_index": 2
+  },
+  "metrics": {
+    "primary_dft_pbe": [
+      "top_100_stable_rate_by_composite_score",
+      "continuous_pairwise_concordance",
+      "roc_auc_at_minus_0.1_thz",
+      "brier_score_at_minus_0.1_thz",
+      "minimum_frequency_mae_thz"
+    ],
+    "secondary_mp20": [
+      "the same metrics by generator source",
+      "macro average across generator sources"
+    ],
+    "candidate_decisions": [
+      "best_candidate_accuracy at each budget using the two-seed mean primary Top-100 stable rate",
+      "mean allocation regret in Top-100 stable-rate points",
+      "pairwise agreement with the frozen complete candidate order",
+      "seed-level winner agreement"
+    ],
+    "ties": "half credit for pairwise ties; tied predicted winners share their observed utility",
+    "supporting_references": [
+      "unmodified starting checkpoint",
+      "released full-data DFT-posttrained checkpoint"
+    ]
+  },
+  "frozen_candidate_prediction": {
+    "best_at_each_budget": "signal_coverage",
+    "complete_order": [
+      "signal_coverage",
+      "signal",
+      "coverage",
+      "hash_uniform"
+    ]
+  },
+  "cost_accounting": {
+    "report": [
+      "starting-model measurement wall time",
+      "candidate construction wall time",
+      "candidate training wall and accelerator time",
+      "processed structures, atoms, and graph edges",
+      "candidate-normalization inference time",
+      "external evaluation wall and accelerator time"
+    ],
+    "training_only_regret_reported_separately": true
+  },
+  "external_test_labels_inspected_at_freeze": false,
+  "evaluation_contract_sha256": "031a96f67497fbbaaf0742a4ed56b4708c57f94be8fc429dd22216618eb4e166"
+}

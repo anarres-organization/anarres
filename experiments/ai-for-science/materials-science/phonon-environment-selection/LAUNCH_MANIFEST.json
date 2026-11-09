@@ -1,0 +1,268 @@
+{
+  "candidate_training_outcomes_exist": false,
+  "external_test_labels_inspected": false,
+  "freeze_sha256": "2415291345f1a5f92634f96e6a08b2aa57548c9e0f597db9660d7cfc47e25f2e",
+  "launch_sha256": "de4c1227347a889a4301ea80ecffeaad6a2c38225d66532e286838233e712578",
+  "protocol_sha256": "091bf7fb37d4cf01b8fe562cd5f403f5e1ff41594af1f22aabe6184cd26d8074",
+  "released_split_sha256": "826521c186672a89dc2bcff84794b0b5cb1158e3b3420462facfd9c1250dae69",
+  "runs": [
+    {
+      "budget_structures": 256,
+      "candidate": "hash_uniform",
+      "expected_train_records": 256,
+      "expected_validation_records": 411,
+      "run_id": "phonon-hash-uniform-n256-s20261108",
+      "seed": 20261108,
+      "split_file": "splits/hash_uniform_n256.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 256,
+      "candidate": "hash_uniform",
+      "expected_train_records": 256,
+      "expected_validation_records": 411,
+      "run_id": "phonon-hash-uniform-n256-s20261109",
+      "seed": 20261109,
+      "split_file": "splits/hash_uniform_n256.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 512,
+      "candidate": "hash_uniform",
+      "expected_train_records": 512,
+      "expected_validation_records": 411,
+      "run_id": "phonon-hash-uniform-n512-s20261108",
+      "seed": 20261108,
+      "split_file": "splits/hash_uniform_n512.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 512,
+      "candidate": "hash_uniform",
+      "expected_train_records": 512,
+      "expected_validation_records": 411,
+      "run_id": "phonon-hash-uniform-n512-s20261109",
+      "seed": 20261109,
+      "split_file": "splits/hash_uniform_n512.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 1024,
+      "candidate": "hash_uniform",
+      "expected_train_records": 1024,
+      "expected_validation_records": 411,
+      "run_id": "phonon-hash-uniform-n1024-s20261108",
+      "seed": 20261108,
+      "split_file": "splits/hash_uniform_n1024.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 1024,
+      "candidate": "hash_uniform",
+      "expected_train_records": 1024,
+      "expected_validation_records": 411,
+      "run_id": "phonon-hash-uniform-n1024-s20261109",
+      "seed": 20261109,
+      "split_file": "splits/hash_uniform_n1024.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 256,
+      "candidate": "signal",
+      "expected_train_records": 256,
+      "expected_validation_records": 411,
+      "run_id": "phonon-signal-n256-s20261108",
+      "seed": 20261108,
+      "split_file": "splits/signal_n256.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 256,
+      "candidate": "signal",
+      "expected_train_records": 256,
+      "expected_validation_records": 411,
+      "run_id": "phonon-signal-n256-s20261109",
+      "seed": 20261109,
+      "split_file": "splits/signal_n256.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 512,
+      "candidate": "signal",
+      "expected_train_records": 512,
+      "expected_validation_records": 411,
+      "run_id": "phonon-signal-n512-s20261108",
+      "seed": 20261108,
+      "split_file": "splits/signal_n512.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 512,
+      "candidate": "signal",
+      "expected_train_records": 512,
+      "expected_validation_records": 411,
+      "run_id": "phonon-signal-n512-s20261109",
+      "seed": 20261109,
+      "split_file": "splits/signal_n512.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 1024,
+      "candidate": "signal",
+      "expected_train_records": 1024,
+      "expected_validation_records": 411,
+      "run_id": "phonon-signal-n1024-s20261108",
+      "seed": 20261108,
+      "split_file": "splits/signal_n1024.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 1024,
+      "candidate": "signal",
+      "expected_train_records": 1024,
+      "expected_validation_records": 411,
+      "run_id": "phonon-signal-n1024-s20261109",
+      "seed": 20261109,
+      "split_file": "splits/signal_n1024.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 256,
+      "candidate": "coverage",
+      "expected_train_records": 256,
+      "expected_validation_records": 411,
+      "run_id": "phonon-coverage-n256-s20261108",
+      "seed": 20261108,
+      "split_file": "splits/coverage_n256.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 256,
+      "candidate": "coverage",
+      "expected_train_records": 256,
+      "expected_validation_records": 411,
+      "run_id": "phonon-coverage-n256-s20261109",
+      "seed": 20261109,
+      "split_file": "splits/coverage_n256.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 512,
+      "candidate": "coverage",
+      "expected_train_records": 512,
+      "expected_validation_records": 411,
+      "run_id": "phonon-coverage-n512-s20261108",
+      "seed": 20261108,
+      "split_file": "splits/coverage_n512.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 512,
+      "candidate": "coverage",
+      "expected_train_records": 512,
+      "expected_validation_records": 411,
+      "run_id": "phonon-coverage-n512-s20261109",
+      "seed": 20261109,
+      "split_file": "splits/coverage_n512.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 1024,
+      "candidate": "coverage",
+      "expected_train_records": 1024,
+      "expected_validation_records": 411,
+      "run_id": "phonon-coverage-n1024-s20261108",
+      "seed": 20261108,
+      "split_file": "splits/coverage_n1024.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 1024,
+      "candidate": "coverage",
+      "expected_train_records": 1024,
+      "expected_validation_records": 411,
+      "run_id": "phonon-coverage-n1024-s20261109",
+      "seed": 20261109,
+      "split_file": "splits/coverage_n1024.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 256,
+      "candidate": "signal_coverage",
+      "expected_train_records": 256,
+      "expected_validation_records": 411,
+      "run_id": "phonon-signal-coverage-n256-s20261108",
+      "seed": 20261108,
+      "split_file": "splits/signal_coverage_n256.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 256,
+      "candidate": "signal_coverage",
+      "expected_train_records": 256,
+      "expected_validation_records": 411,
+      "run_id": "phonon-signal-coverage-n256-s20261109",
+      "seed": 20261109,
+      "split_file": "splits/signal_coverage_n256.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 512,
+      "candidate": "signal_coverage",
+      "expected_train_records": 512,
+      "expected_validation_records": 411,
+      "run_id": "phonon-signal-coverage-n512-s20261108",
+      "seed": 20261108,
+      "split_file": "splits/signal_coverage_n512.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 512,
+      "candidate": "signal_coverage",
+      "expected_train_records": 512,
+      "expected_validation_records": 411,
+      "run_id": "phonon-signal-coverage-n512-s20261109",
+      "seed": 20261109,
+      "split_file": "splits/signal_coverage_n512.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 1024,
+      "candidate": "signal_coverage",
+      "expected_train_records": 1024,
+      "expected_validation_records": 411,
+      "run_id": "phonon-signal-coverage-n1024-s20261108",
+      "seed": 20261108,
+      "split_file": "splits/signal_coverage_n1024.json",
+      "status": "planned"
+    },
+    {
+      "budget_structures": 1024,
+      "candidate": "signal_coverage",
+      "expected_train_records": 1024,
+      "expected_validation_records": 411,
+      "run_id": "phonon-signal-coverage-n1024-s20261109",
+      "seed": 20261109,
+      "split_file": "splits/signal_coverage_n1024.json",
+      "status": "planned"
+    }
+  ],
+  "schema_version": "1.0",
+  "source_manifest_sha256": "a4a461c887417e8d3ac8a3f67b4212cfd71ce9c0a2b9bf5ba40d1e503e26d228",
+  "split_sha256": {
+    "splits/coverage_n1024.json": "fa35ad131d582f77561ef48ab20717a59733cc3331f996af980351db902e0aed",
+    "splits/coverage_n256.json": "daa9f71960cfa4be0a6f3cbdf863a03ca3df962de4174013238f500a835ba31f",
+    "splits/coverage_n512.json": "033e8348772d8dd86574e5edfb8d092faa769ab373bc447272b547f4c05a611e",
+    "splits/hash_uniform_n1024.json": "3a321f828567f9e14028bb23036a56b05f0881aa5c3e14d60f33d42202596f96",
+    "splits/hash_uniform_n256.json": "349c799dd0380339cb2b536a073c183778bfd988e60650491a81ec1a2f05d565",
+    "splits/hash_uniform_n512.json": "ee0cad8b13a7349d89057a04c0aa7869c11d34f3c49992e4ce17a50bc204b89f",
+    "splits/signal_coverage_n1024.json": "a21285191a172bb2d2218c3aa07b124ce58a0277b748e157dac49f05fd34b0f2",
+    "splits/signal_coverage_n256.json": "5bd3e3bbe04b57b65cb9eb45fd6546de42ba33b948308519ca633e862c93ce9f",
+    "splits/signal_coverage_n512.json": "dcd399a49ec16784b3b972cc658d1699ada4529d9166fc4233fa4df30dbceca9",
+    "splits/signal_n1024.json": "81aa46ad51631a25b9f8de425dedad94a61a85a56073b1d686f9263bc6897365",
+    "splits/signal_n256.json": "8fa448b8a9ad44915a1dfdf3db5476e5aaf2b8a0a63f392c9a9ea534ca8de79b",
+    "splits/signal_n512.json": "d177074eddeeaee6210854fa35d09fd9f4ce31a8095c9dd6cf752db89cb724b7"
+  },
+  "status": "launch_materialized_external_outcomes_sealed",
+  "study": "prospective-phonon-environment-selection"
+}

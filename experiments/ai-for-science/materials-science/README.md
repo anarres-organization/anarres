@@ -4,14 +4,15 @@
 
 This study asks whether measurements made before post-training can predict which
 atomistic training environments will produce the greatest improvement for a
-specified starting model, physical target, and compute budget. It is the first
-planned materials-science domain test in Anarres.
+specified starting model, physical target, and compute budget. This page defines
+the materials-science research program in Anarres.
 
-The initial study focuses on universal machine-learned interatomic potentials
-(MLIPs). These models approximate the potential-energy surface of an atomic
-system and enable structural relaxation, molecular dynamics, response-property
-calculation, and candidate screening at scales that are impractical with direct
-quantum calculations.
+The program begins with a supervised phonon-scoring study over an already
+labeled DFT reservoir. Its next phase focuses on universal machine-learned
+interatomic potentials (MLIPs). These models approximate the potential-energy
+surface of an atomic system and enable structural relaxation, molecular
+dynamics, response-property calculation, and candidate screening at scales that
+are impractical with direct quantum calculations.
 
 The scientific object remains
 
@@ -21,20 +22,41 @@ $$
 
 where $E$ is a distribution over atomistic configurations, $\pi_0$ is a
 common pretrained potential, $C$ is a matched training or reference-label
-budget, and $D$ is a frozen physical target. The aim is not to identify one
-universally optimal materials dataset. It is to test whether environment utility
-can be forecast for a named model, target, and budget.
+budget, and $D$ is a frozen physical target. The aim is to forecast environment
+utility for a named model, target, and budget, with no assumption that one
+materials dataset is universally optimal.
 
-No claim-bearing materials run is authorized by this document. Source,
-level-of-theory, split, starting-model, measurement, and evaluation qualification
-must pass before development and prospective contracts are frozen.
+Claim-bearing runs require a versioned study contract after source,
+level-of-theory, split, starting-model, measurement, and evaluation
+qualification.
 
-The first research loop is now being qualified in
+The first research loop is complete in
 [`phonon-environment-selection/`](phonon-environment-selection/). It uses a
 released phonon-scoring model and DFT post-training pool to compare random,
-model-relative signal, coverage, and joint selection under a sealed external
-evaluation. This smaller supervised study establishes the measurement and
+model-relative signal, coverage, and joint selection under sealed external
+evaluation. Its prospective
+[`pbesol-transfer/`](phonon-environment-selection/pbesol-transfer/) follow-up
+tests whether the PBE environment ordering transfers to an independently
+frozen PBEsol workflow. These supervised studies establish the measurement and
 decision workflow before the broader interatomic-potential experiment below.
+
+The supporting [`retrospective-bridge/`](retrospective-bridge/) reconstructs
+828 matched decisions and 2,990 candidate arms from sixteen public studies. It
+tests recurring measurements under source-specific grouped holdouts and then
+holds out each complete study. Directionally aligned signal, coverage, and
+target-relevance concepts transfer better than an uninformed rule. A shared
+ridge fit remains competitive but does not improve on their fixed direction.
+This result narrows the prospective hypothesis without opening the sealed
+phonon evaluation. Eight additional studies remain outside the predictor. They
+quantify random-subset variability, show architecture-dependent environment
+rankings, recover a sampling-rule reversal between scratch retraining and
+fine-tuning, compare pretrained fine-tuning with random initialization on
+matched surface datasets, and show how training-structure size changes phonon
+accuracy under several adaptation regimes. A catalysis audit further shows that
+MD and bond-breaking configurations have different value under scratch training
+and foundation-model fine-tuning. A matched-budget OMat24 audit finds that
+interpretable environment coverage leads on bulk MatPES outcomes, while
+pretrained latent-space coverage leads on non-bulk outcomes.
 
 ## Why materials science is a distinct domain test
 
@@ -72,6 +94,7 @@ have different roles and should not be treated as one benchmark.
 | [M3GNet](https://arxiv.org/abs/2202.02450) | Universal graph interatomic potential trained on Materials Project relaxation trajectories | Scientific baseline and evidence that energies, forces, and stresses provide complementary supervision |
 | [MACE-MP](https://github.com/ACEsuit/mace) | Open equivariant foundation potential with an active fine-tuning ecosystem | Proposed first starting-model family, subject to qualification |
 | [OMat24](https://arxiv.org/abs/2410.12771) | More than 110 million open DFT calculations emphasizing structural and compositional diversity | Candidate source for off-equilibrium and diverse inorganic configurations |
+| [Atoms that Matter](https://arxiv.org/abs/2610.14392) | EnvTok, DIRECT, and four random OMat24 subsets trained at roughly 6.5 million atoms | Matched-budget evidence that the value of coverage depends on the physical target distribution |
 | [UMA / FAIRChem](https://github.com/facebookresearch/fairchem) | Multi-domain atomistic foundation model trained across materials, molecules, and catalysts | Frozen frontier comparator and later transfer test |
 | [Matbench Discovery](https://arxiv.org/abs/2308.14920) | Task-level benchmark for thermodynamic-stability decisions | Evidence that generic regression error can disagree with the downstream decision |
 | [MatterGen](https://arxiv.org/abs/2312.03687) | Property-conditioned generative model for inorganic materials | Later generator family rather than the first utility study |
@@ -83,7 +106,10 @@ establish that the planned environment predictor works. Every source version,
 license, checkpoint, data transformation, and evaluation implementation must be
 qualified before use.
 
-## First target: phonons and dynamical stability
+## Broader MLIP target: phonons and dynamical stability
+
+The implementation and current qualification state are tracked in
+[`mlip-phonon-environment-selection/`](mlip-phonon-environment-selection/).
 
 The first claim-bearing target is harmonic phonon and dynamical-stability
 prediction. Phonons are physically important for vibrational and thermal
@@ -105,7 +131,7 @@ utility. A separately frozen replication should target catalytic transition
 states or reaction barriers after the first environment-utility loop is
 complete.
 
-## Starting model and comparators
+## Broader MLIP starting model and comparators
 
 The proposed first starting-model family is a pinned MACE-MP checkpoint. Recent
 work on [frozen transfer learning for foundation
@@ -126,7 +152,7 @@ multi-domain task embeddings, and release cadence require a separate frozen
 contract. Its inclusion as a comparator prevents the study from depending on
 one older architecture.
 
-## Data sources and target separation
+## Broader MLIP data sources and target separation
 
 The source registry should qualify Materials Project relaxation trajectories,
 OMat24, and any derived displaced or strained structures. A PBE phonon dataset
@@ -152,7 +178,7 @@ reported separately from fine-tuning leakage; a public foundation model may have
 seen related Materials Project structures even when the fine-tuning experiment
 is internally disjoint.
 
-## Candidate environments
+## Broader MLIP candidate environments
 
 Candidate environments are equal-budget mixtures drawn from one frozen source
 reservoir. They may vary:
@@ -167,6 +193,13 @@ reservoir. They may vary:
   target-affinity-selected acquisition;
 - the balance of energy, force, and stress-bearing configurations.
 
+Coverage is not assigned one universal direction. Released OMat24 comparisons
+show that local-environment coverage can lead on bulk outcomes while latent-
+space coverage leads on non-bulk outcomes at the same training-atom budget.
+The candidate bank therefore crosses coverage type with target affinity and
+retains both as measured coordinates rather than treating either selector name
+as an ordered feature.
+
 These are predictive contrasts, not isolated causal interventions. Chemistry,
 geometry, force regime, and source can remain coupled even when their continuous
 measurements are reported separately.
@@ -177,7 +210,7 @@ panel should span the measured coordinates, limit pairwise overlap, preserve
 multiple source families, and avoid one source label acting as a proxy for every
 coordinate.
 
-## Pre-training measurements
+## Broader MLIP pre-training measurements
 
 Every primary coordinate must be computable before claim-bearing fine-tuning and
 must pass independent-view reliability and collinearity checks.
@@ -209,7 +242,7 @@ value. No challenger enters the primary predictor because it improves an
 in-sample regression. It must be reliable, improve held-out-environment
 prediction, and change at least one prespecified decision.
 
-## First experiment
+## Broader MLIP experiment
 
 The initial experiment uses 12 development and four prospective environments,
 two training seeds, and three matched budgets. Every run uses:

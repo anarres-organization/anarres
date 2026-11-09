@@ -1,0 +1,41 @@
+{
+  "artifact": "qi_2024_direct_matched_panels_v1",
+  "source_id": "qi_2024_direct_sampling",
+  "panel_count": 6,
+  "arm_count": 12,
+  "primary_outcome": "MAE printed in Figure 4 for energy, force, and stress on the DIRECT and manual-sampling test distributions",
+  "normalization": "negative MAE, min-max normalized within evaluation distribution and endpoint",
+  "matched_contract": {
+    "candidate_pool": "MPF.2021.2.8.All",
+    "manual_sampling_configurations": 185877,
+    "direct_sampling_configurations": 185670,
+    "model_family": "M3GNet",
+    "direct_coverage_score": 0.996,
+    "manual_sampling_coverage_score": 0.642
+  },
+  "source_archive": {
+    "doi": "10.6084/m9.figshare.23734134.v3",
+    "filename": "20230723_figshare_DIRECT.zip",
+    "bytes": 1293261530,
+    "md5": "5316a79c9570d3cb5a7e25ae5ac101e0"
+  },
+  "interpretation_boundary": [
+    "The DIRECT and manual-sampling arms differ by 207 configurations, or 0.11% of the larger training set.",
+    "The evaluation distributions are sampled from the same two environment families and therefore test target-matched transfer rather than an independently constructed domain.",
+    "MAEs are exact values printed in the primary paper's Figure 4, not values estimated from plot geometry."
+  ],
+  "arms": [
+    {"panel_id":"qi_2024_direct_sampling:test_direct:energy_mae","evaluation_distribution":"DIRECT","endpoint":"energy_mae_eV_per_atom","environment":"DIRECT","pre_outcome_measurements":{"structural_coverage":0.996,"target_distribution_match":1,"training_configuration_count":185670},"outcome":{"mae":0.058},"derived":{"native_utility":-0.058,"panel_normalized_utility":1.0,"panel_normalized_regret":0.0}},
+    {"panel_id":"qi_2024_direct_sampling:test_direct:energy_mae","evaluation_distribution":"DIRECT","endpoint":"energy_mae_eV_per_atom","environment":"MS","pre_outcome_measurements":{"structural_coverage":0.642,"target_distribution_match":0,"training_configuration_count":185877},"outcome":{"mae":0.114},"derived":{"native_utility":-0.114,"panel_normalized_utility":0.0,"panel_normalized_regret":1.0}},
+    {"panel_id":"qi_2024_direct_sampling:test_direct:force_mae","evaluation_distribution":"DIRECT","endpoint":"force_mae_eV_per_angstrom","environment":"DIRECT","pre_outcome_measurements":{"structural_coverage":0.996,"target_distribution_match":1,"training_configuration_count":185670},"outcome":{"mae":0.104},"derived":{"native_utility":-0.104,"panel_normalized_utility":1.0,"panel_normalized_regret":0.0}},
+    {"panel_id":"qi_2024_direct_sampling:test_direct:force_mae","evaluation_distribution":"DIRECT","endpoint":"force_mae_eV_per_angstrom","environment":"MS","pre_outcome_measurements":{"structural_coverage":0.642,"target_distribution_match":0,"training_configuration_count":185877},"outcome":{"mae":0.235},"derived":{"native_utility":-0.235,"panel_normalized_utility":0.0,"panel_normalized_regret":1.0}},
+    {"panel_id":"qi_2024_direct_sampling:test_direct:stress_mae","evaluation_distribution":"DIRECT","endpoint":"stress_mae_GPa","environment":"DIRECT","pre_outcome_measurements":{"structural_coverage":0.996,"target_distribution_match":1,"training_configuration_count":185670},"outcome":{"mae":0.600},"derived":{"native_utility":-0.600,"panel_normalized_utility":1.0,"panel_normalized_regret":0.0}},
+    {"panel_id":"qi_2024_direct_sampling:test_direct:stress_mae","evaluation_distribution":"DIRECT","endpoint":"stress_mae_GPa","environment":"MS","pre_outcome_measurements":{"structural_coverage":0.642,"target_distribution_match":0,"training_configuration_count":185877},"outcome":{"mae":1.245},"derived":{"native_utility":-1.245,"panel_normalized_utility":0.0,"panel_normalized_regret":1.0}},
+    {"panel_id":"qi_2024_direct_sampling:test_ms:energy_mae","evaluation_distribution":"MS","endpoint":"energy_mae_eV_per_atom","environment":"DIRECT","pre_outcome_measurements":{"structural_coverage":0.996,"target_distribution_match":0,"training_configuration_count":185670},"outcome":{"mae":0.045},"derived":{"native_utility":-0.045,"panel_normalized_utility":0.0,"panel_normalized_regret":1.0}},
+    {"panel_id":"qi_2024_direct_sampling:test_ms:energy_mae","evaluation_distribution":"MS","endpoint":"energy_mae_eV_per_atom","environment":"MS","pre_outcome_measurements":{"structural_coverage":0.642,"target_distribution_match":1,"training_configuration_count":185877},"outcome":{"mae":0.015},"derived":{"native_utility":-0.015,"panel_normalized_utility":1.0,"panel_normalized_regret":0.0}},
+    {"panel_id":"qi_2024_direct_sampling:test_ms:force_mae","evaluation_distribution":"MS","endpoint":"force_mae_eV_per_angstrom","environment":"DIRECT","pre_outcome_measurements":{"structural_coverage":0.996,"target_distribution_match":0,"training_configuration_count":185670},"outcome":{"mae":0.118},"derived":{"native_utility":-0.118,"panel_normalized_utility":0.0,"panel_normalized_regret":1.0}},
+    {"panel_id":"qi_2024_direct_sampling:test_ms:force_mae","evaluation_distribution":"MS","endpoint":"force_mae_eV_per_angstrom","environment":"MS","pre_outcome_measurements":{"structural_coverage":0.642,"target_distribution_match":1,"training_configuration_count":185877},"outcome":{"mae":0.060},"derived":{"native_utility":-0.060,"panel_normalized_utility":1.0,"panel_normalized_regret":0.0}},
+    {"panel_id":"qi_2024_direct_sampling:test_ms:stress_mae","evaluation_distribution":"MS","endpoint":"stress_mae_GPa","environment":"DIRECT","pre_outcome_measurements":{"structural_coverage":0.996,"target_distribution_match":0,"training_configuration_count":185670},"outcome":{"mae":0.533},"derived":{"native_utility":-0.533,"panel_normalized_utility":0.0,"panel_normalized_regret":1.0}},
+    {"panel_id":"qi_2024_direct_sampling:test_ms:stress_mae","evaluation_distribution":"MS","endpoint":"stress_mae_GPa","environment":"MS","pre_outcome_measurements":{"structural_coverage":0.642,"target_distribution_match":1,"training_configuration_count":185877},"outcome":{"mae":0.244},"derived":{"native_utility":-0.244,"panel_normalized_utility":1.0,"panel_normalized_regret":0.0}}
+  ]
+}

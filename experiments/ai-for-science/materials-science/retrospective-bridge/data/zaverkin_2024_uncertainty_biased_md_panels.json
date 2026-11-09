@@ -1,0 +1,1338 @@
+{
+  "artifact": "zaverkin_2024_uncertainty_biased_md_panels_v1",
+  "source_id": "zaverkin_2024_uncertainty_biased_md",
+  "panel_count": 8,
+  "arm_count": 46,
+  "primary_outcome": "mean terminal RMSE from primary-paper Tables 1 and 2",
+  "normalization": "negative RMSE, min-max normalized within physical system, acquisition-temperature context, and endpoint",
+  "matched_contract": {
+    "maximum_training_and_validation_configurations": 512,
+    "alanine_independent_runs": 5,
+    "mil53_independent_runs": 3
+  },
+  "source_archive": {
+    "doi": "10.5281/zenodo.10776838",
+    "license": "CC-BY-NC-4.0",
+    "files": {
+      "ala2-ffs.zip": {
+        "bytes": 146129485,
+        "md5": "c9d5bc06e12b0923457635f9323dc07d"
+      },
+      "mil53.zip": {
+        "bytes": 559281684,
+        "md5": "306b7344c15a4f211b9b8d2784416081"
+      }
+    }
+  },
+  "interpretation_boundary": [
+    "These are adaptive environment-generation experiments, so acquisition and uncertainty-measurement cost is separate from the matched 512-configuration final training budget.",
+    "The 500-configuration metadynamics baseline is excluded from the matched panels.",
+    "Alanine coverage is measured directly in collective-variable space; the paper does not report the same scalar coverage coordinate for MIL-53(Al)."
+  ],
+  "arms": [
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:energy_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "random_1200K",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 1200,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": 0.95,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.01,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 19.83,
+        "sd_across_runs": 4.62,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -19.83,
+        "panel_normalized_utility": 0.43715511955855313,
+        "panel_normalized_regret": 0.5628448804414469
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:energy_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "random_300K",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 900,
+        "structural_coverage": 0.58,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.03,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 34.09,
+        "sd_across_runs": 6.29,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -34.09,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:energy_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "random_600K",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 600,
+        "structural_coverage": 0.76,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.04,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 31.44,
+        "sd_across_runs": 4.77,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -31.44,
+        "panel_normalized_utility": 0.08123850398528515,
+        "panel_normalized_regret": 0.9187614960147148
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:energy_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "uncertainty_1200K",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 1200,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": 0.97,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.01,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 1.47,
+        "sd_across_runs": 0.09,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -1.47,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:energy_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "uncertainty_300K",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 900,
+        "structural_coverage": 0.58,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.03,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 30.29,
+        "sd_across_runs": 5.47,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -30.29,
+        "panel_normalized_utility": 0.11649294911097498,
+        "panel_normalized_regret": 0.883507050889025
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:energy_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "uncertainty_600K",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 600,
+        "structural_coverage": 0.89,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.0,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 26.03,
+        "sd_across_runs": 2.23,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -26.03,
+        "panel_normalized_utility": 0.24708767627222566,
+        "panel_normalized_regret": 0.7529123237277744
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:energy_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "uncertainty_biased_300K_with_H",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 1,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 900,
+        "structural_coverage": 0.87,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.02,
+        "uses_hydrogen_bias": 1
+      },
+      "outcome": {
+        "mean_rmse": 5.09,
+        "sd_across_runs": 5.4,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -5.09,
+        "panel_normalized_utility": 0.8890251379521765,
+        "panel_normalized_regret": 0.1109748620478234
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:energy_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "uncertainty_biased_300K_without_H",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 1,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 900,
+        "structural_coverage": 0.94,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.01,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 1.97,
+        "sd_across_runs": 0.88,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -1.97,
+        "panel_normalized_utility": 0.9846719803801349,
+        "panel_normalized_regret": 0.01532801961986511
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:force_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "random_1200K",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 1200,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": 0.95,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.01,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.116,
+        "sd_across_runs": 0.017,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -0.116,
+        "panel_normalized_utility": 0.551470588235294,
+        "panel_normalized_regret": 0.4485294117647059
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:force_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "random_300K",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 900,
+        "structural_coverage": 0.58,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.03,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.191,
+        "sd_across_runs": 0.019,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -0.191,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:force_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "random_600K",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 600,
+        "structural_coverage": 0.76,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.04,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.143,
+        "sd_across_runs": 0.015,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -0.143,
+        "panel_normalized_utility": 0.3529411764705883,
+        "panel_normalized_regret": 0.6470588235294117
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:force_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "uncertainty_1200K",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 1200,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": 0.97,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.01,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.055,
+        "sd_across_runs": 0.002,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -0.055,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:force_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "uncertainty_300K",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 900,
+        "structural_coverage": 0.58,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.03,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.149,
+        "sd_across_runs": 0.019,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -0.149,
+        "panel_normalized_utility": 0.3088235294117648,
+        "panel_normalized_regret": 0.6911764705882353
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:force_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "uncertainty_600K",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 600,
+        "structural_coverage": 0.89,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.0,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.116,
+        "sd_across_runs": 0.012,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -0.116,
+        "panel_normalized_utility": 0.551470588235294,
+        "panel_normalized_regret": 0.4485294117647059
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:force_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "uncertainty_biased_300K_with_H",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 1,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 900,
+        "structural_coverage": 0.87,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.02,
+        "uses_hydrogen_bias": 1
+      },
+      "outcome": {
+        "mean_rmse": 0.082,
+        "sd_across_runs": 0.016,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -0.082,
+        "panel_normalized_utility": 0.801470588235294,
+        "panel_normalized_regret": 0.1985294117647059
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:alanine_1200K_test:force_rmse",
+      "system": "alanine_dipeptide",
+      "evaluation_distribution": "1200K_MD",
+      "environment": "uncertainty_biased_300K_without_H",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 1,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 900,
+        "structural_coverage": 0.94,
+        "training_configuration_count": 512,
+        "coverage_sd": 0.01,
+        "uses_hydrogen_bias": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.071,
+        "sd_across_runs": 0.003,
+        "independent_runs": 5
+      },
+      "derived": {
+        "native_utility": -0.071,
+        "panel_normalized_utility": 0.8823529411764706,
+        "panel_normalized_regret": 0.11764705882352935
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:energy_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "random_0MPa",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 1.04,
+        "sd_across_runs": 0.26,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -1.04,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:energy_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "random_250MPa",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 250
+      },
+      "outcome": {
+        "mean_rmse": 0.58,
+        "sd_across_runs": 0.08,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.58,
+        "panel_normalized_utility": 0.8214285714285715,
+        "panel_normalized_regret": 0.17857142857142852
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:energy_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_0MPa",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.88,
+        "sd_across_runs": 0.2,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.88,
+        "panel_normalized_utility": 0.28571428571428575,
+        "panel_normalized_regret": 0.7142857142857143
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:energy_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_250MPa",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 250
+      },
+      "outcome": {
+        "mean_rmse": 0.48,
+        "sd_across_runs": 0.01,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.48,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:energy_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_biased_0MPa",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 1,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.49,
+        "sd_across_runs": 0.09,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.49,
+        "panel_normalized_utility": 0.9821428571428571,
+        "panel_normalized_regret": 0.01785714285714287
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:force_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "random_0MPa",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.058,
+        "sd_across_runs": 0.001,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.058,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:force_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "random_250MPa",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 250
+      },
+      "outcome": {
+        "mean_rmse": 0.055,
+        "sd_across_runs": 0.002,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.055,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:force_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_0MPa",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.056,
+        "sd_across_runs": 0.001,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.056,
+        "panel_normalized_utility": 0.3333333333333333,
+        "panel_normalized_regret": 0.6666666666666666
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:force_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_250MPa",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 250
+      },
+      "outcome": {
+        "mean_rmse": 0.054,
+        "sd_across_runs": 0.0,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.054,
+        "panel_normalized_utility": 0.6666666666666666,
+        "panel_normalized_regret": 0.3333333333333333
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:force_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_biased_0MPa",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 1,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.052,
+        "sd_across_runs": 0.001,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.052,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:stress_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "random_0MPa",
+      "endpoint": "stress_rmse_MPa",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 70.49,
+        "sd_across_runs": 6.61,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -70.49,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:stress_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "random_250MPa",
+      "endpoint": "stress_rmse_MPa",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 250
+      },
+      "outcome": {
+        "mean_rmse": 52.19,
+        "sd_across_runs": 2.22,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -52.19,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:stress_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_0MPa",
+      "endpoint": "stress_rmse_MPa",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 58.57,
+        "sd_across_runs": 5.94,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -58.57,
+        "panel_normalized_utility": 0.32568306010928955,
+        "panel_normalized_regret": 0.6743169398907105
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:stress_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_250MPa",
+      "endpoint": "stress_rmse_MPa",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 250
+      },
+      "outcome": {
+        "mean_rmse": 39.88,
+        "sd_across_runs": 1.76,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -39.88,
+        "panel_normalized_utility": 0.8363387978142076,
+        "panel_normalized_regret": 0.16366120218579244
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_300K_600K_test:stress_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_biased_0MPa",
+      "endpoint": "stress_rmse_MPa",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 1,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 300,
+        "temperature_gap_to_test_K": 300,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 33.89,
+        "sd_across_runs": 3.06,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -33.89,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:energy_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "random_0MPa",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 1.62,
+        "sd_across_runs": 0.52,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -1.62,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:energy_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "random_250MPa",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 250
+      },
+      "outcome": {
+        "mean_rmse": 0.84,
+        "sd_across_runs": 0.09,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.84,
+        "panel_normalized_utility": 0.7428571428571428,
+        "panel_normalized_regret": 0.2571428571428571
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:energy_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_0MPa",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 1.17,
+        "sd_across_runs": 0.36,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -1.17,
+        "panel_normalized_utility": 0.42857142857142866,
+        "panel_normalized_regret": 0.5714285714285713
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:energy_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_250MPa",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 250
+      },
+      "outcome": {
+        "mean_rmse": 0.57,
+        "sd_across_runs": 0.05,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.57,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:energy_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_biased_0MPa",
+      "endpoint": "energy_rmse_meV_per_atom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 1,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.57,
+        "sd_across_runs": 0.08,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.57,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:force_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "random_0MPa",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.062,
+        "sd_across_runs": 0.002,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.062,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:force_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "random_250MPa",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 250
+      },
+      "outcome": {
+        "mean_rmse": 0.057,
+        "sd_across_runs": 0.001,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.057,
+        "panel_normalized_utility": 0.4545454545454542,
+        "panel_normalized_regret": 0.5454545454545457
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:force_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_0MPa",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.058,
+        "sd_across_runs": 0.002,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.058,
+        "panel_normalized_utility": 0.36363636363636326,
+        "panel_normalized_regret": 0.6363636363636368
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:force_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_250MPa",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 250
+      },
+      "outcome": {
+        "mean_rmse": 0.052,
+        "sd_across_runs": 0.001,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.052,
+        "panel_normalized_utility": 0.9090909090909091,
+        "panel_normalized_regret": 0.09090909090909097
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:force_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_biased_0MPa",
+      "endpoint": "force_rmse_eV_per_angstrom",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 1,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 0.051,
+        "sd_across_runs": 0.001,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -0.051,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:stress_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "random_0MPa",
+      "endpoint": "stress_rmse_MPa",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 145.3,
+        "sd_across_runs": 35.49,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -145.3,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:stress_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "random_250MPa",
+      "endpoint": "stress_rmse_MPa",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 0,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 0,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 250
+      },
+      "outcome": {
+        "mean_rmse": 63.8,
+        "sd_across_runs": 15.82,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -63.8,
+        "panel_normalized_utility": 0.749770009199632,
+        "panel_normalized_regret": 0.2502299908003679
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:stress_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_0MPa",
+      "endpoint": "stress_rmse_MPa",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 90.81,
+        "sd_across_runs": 32.82,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -90.81,
+        "panel_normalized_utility": 0.5012879484820607,
+        "panel_normalized_regret": 0.49871205151793924
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:stress_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_250MPa",
+      "endpoint": "stress_rmse_MPa",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 0,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 250
+      },
+      "outcome": {
+        "mean_rmse": 42.72,
+        "sd_across_runs": 1.37,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -42.72,
+        "panel_normalized_utility": 0.9436982520699172,
+        "panel_normalized_regret": 0.05630174793008277
+      }
+    },
+    {
+      "source_id": "zaverkin_2024_uncertainty_biased_md",
+      "panel_id": "zaverkin_2024_uncertainty_biased_md:mil53_generation_600K_600K_test:stress_rmse",
+      "system": "MIL-53(Al)",
+      "evaluation_distribution": "600K_first_principles_MD",
+      "environment": "uncertainty_biased_0MPa",
+      "endpoint": "stress_rmse_MPa",
+      "pre_outcome_measurements": {
+        "uses_uncertainty_selection": 1,
+        "uses_uncertainty_bias": 1,
+        "adaptive_acquisition": 1,
+        "generation_temperature_K": 600,
+        "temperature_gap_to_test_K": 0,
+        "structural_coverage": null,
+        "training_configuration_count": 512,
+        "generation_pressure_MPa": 0
+      },
+      "outcome": {
+        "mean_rmse": 36.6,
+        "sd_across_runs": 1.46,
+        "independent_runs": 3
+      },
+      "derived": {
+        "native_utility": -36.6,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    }
+  ]
+}

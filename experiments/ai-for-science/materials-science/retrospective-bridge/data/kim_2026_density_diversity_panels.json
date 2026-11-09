@@ -1,0 +1,1299 @@
+{
+  "artifact": "kim_2026_density_diversity_panels_v1",
+  "source_id": "kim_2026_density_diversity",
+  "source_version": "arXiv:2605.05733v1",
+  "repository_revision": "911342978ec687673ecfa76d47729b6feb7dad8b",
+  "panel_count": 12,
+  "arm_count": 36,
+  "primary_outcome": "five-seed mean RDF similarity from Equation 1",
+  "normalization": "RDF similarity min-max normalized within each thermodynamic state",
+  "matched_contract": {
+    "training_configuration_count": 512,
+    "training_seeds": [
+      19970928,
+      493423,
+      677233,
+      765427,
+      851482
+    ],
+    "common_reference_within_panel": true,
+    "student_architecture": "SevenNet lmax=1 with two convolutional layers"
+  },
+  "source_files": {
+    "arXiv_source_bundle": {
+      "sha256": "29a7808013f4a2cc2ab6df65d79928330b2c71ecd6ceadad03e2773efbf5d2bc"
+    },
+    "main.tex": {
+      "sha256": "f49d278a3607d3b78bec5fe181a22582a7d540b41fedb6efb77e90c5c9605520"
+    }
+  },
+  "interpretation_boundary": [
+    "The bridge reconstructs Equation 1 from exact released RDF arrays and does not digitize figures.",
+    "The source repository was updated after the arXiv manuscript with five explicit training seeds; the pinned revision is treated as a public robustness release.",
+    "A half-bin radial-grid change among seed releases is handled by interpolating the common reference RDF onto each released test grid.",
+    "All three environments contain 512 configurations and use the same student architecture, optimization contract, teacher labels, and thermodynamic evaluation states.",
+    "The three environments change the density or temperature support of the training data, not one isolated causal factor in the generated trajectories."
+  ],
+  "arms": [
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T300:rho03:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 300,
+      "evaluation_density_g_cm3": 0.3,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "density_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.7,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 400,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9838744099224389,
+        "rdf_similarity_standard_deviation": 0.006018178701775186,
+        "seed_scores": [
+          0.9916978665610929,
+          0.9887637669694563,
+          0.9815061261263717,
+          0.9781328489304391,
+          0.9792714410248344
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9838744099224389,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T300:rho03:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 300,
+      "evaluation_density_g_cm3": 0.3,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "no_variance",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.7,
+        "closest_temperature_gap_K": 400,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9658778676746514,
+        "rdf_similarity_standard_deviation": 0.007313289828247011,
+        "seed_scores": [
+          0.968719343951803,
+          0.9746057462873131,
+          0.9672913282671805,
+          0.9547274707638272,
+          0.964045449103134
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9658778676746514,
+        "panel_normalized_utility": 0.24354716623238634,
+        "panel_normalized_regret": 0.7564528337676136
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T300:rho03:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 300,
+      "evaluation_density_g_cm3": 0.3,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "temperature_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 200,
+        "closest_density_gap_g_cm3": 0.7,
+        "closest_temperature_gap_K": 400,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9600837101663771,
+        "rdf_similarity_standard_deviation": 0.013540100645575315,
+        "seed_scores": [
+          0.9509294155592115,
+          0.9456137187185103,
+          0.9699525613963841,
+          0.9781004428293584,
+          0.9558224123284209
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9600837101663771,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T300:rho06:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 300,
+      "evaluation_density_g_cm3": 0.6,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "density_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.7,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.3,
+        "closest_temperature_gap_K": 400,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9858245423364351,
+        "rdf_similarity_standard_deviation": 0.003080778995676408,
+        "seed_scores": [
+          0.9808091052323533,
+          0.9891949042508114,
+          0.9868752069776594,
+          0.985829951480189,
+          0.9864135437411621
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9858245423364351,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T300:rho06:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 300,
+      "evaluation_density_g_cm3": 0.6,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "no_variance",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.4,
+        "closest_temperature_gap_K": 400,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9667800823734805,
+        "rdf_similarity_standard_deviation": 0.014704087183357853,
+        "seed_scores": [
+          0.9534299651780713,
+          0.9753286866433263,
+          0.9781056533200188,
+          0.9482867331363356,
+          0.9787493735896508
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9667800823734805,
+        "panel_normalized_utility": 0.12491666478895637,
+        "panel_normalized_regret": 0.8750833352110436
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T300:rho06:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 300,
+      "evaluation_density_g_cm3": 0.6,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "temperature_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 200,
+        "closest_density_gap_g_cm3": 0.4,
+        "closest_temperature_gap_K": 400,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.964061517951607,
+        "rdf_similarity_standard_deviation": 0.012172396235829037,
+        "seed_scores": [
+          0.9449625200982764,
+          0.960717759769411,
+          0.9709334117469958,
+          0.9767595697022454,
+          0.9669343284411062
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.964061517951607,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T300:rho10:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 300,
+      "evaluation_density_g_cm3": 1.0,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "density_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.7,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 400,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9834564300955204,
+        "rdf_similarity_standard_deviation": 0.00494480413574242,
+        "seed_scores": [
+          0.9855277997774166,
+          0.9860572853140985,
+          0.9857937529078622,
+          0.9746262748425305,
+          0.9852770376356946
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9834564300955204,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T300:rho10:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 300,
+      "evaluation_density_g_cm3": 1.0,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "no_variance",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 400,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9749396582011393,
+        "rdf_similarity_standard_deviation": 0.014974454843556022,
+        "seed_scores": [
+          0.9525809906759795,
+          0.9869252695394579,
+          0.9884329131901829,
+          0.9676160291388436,
+          0.9791430884612331
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9749396582011393,
+        "panel_normalized_utility": 0.48835517429741326,
+        "panel_normalized_regret": 0.5116448257025867
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T300:rho10:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 300,
+      "evaluation_density_g_cm3": 1.0,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "temperature_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 200,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 400,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.966810562754468,
+        "rdf_similarity_standard_deviation": 0.015220109401932084,
+        "seed_scores": [
+          0.9540837939967346,
+          0.9545967711875136,
+          0.9891984852151922,
+          0.9755361273272389,
+          0.9606376360456605
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.966810562754468,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T500:rho03:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 500,
+      "evaluation_density_g_cm3": 0.3,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "density_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.7,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9791195863788523,
+        "rdf_similarity_standard_deviation": 0.008582630859995853,
+        "seed_scores": [
+          0.97890632700085,
+          0.967846032895298,
+          0.9855533932807894,
+          0.9741178951415356,
+          0.9891742835757888
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9791195863788523,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T500:rho03:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 500,
+      "evaluation_density_g_cm3": 0.3,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "no_variance",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.7,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9257842484894565,
+        "rdf_similarity_standard_deviation": 0.04162209615082927,
+        "seed_scores": [
+          0.9004537427240847,
+          0.8685746874003598,
+          0.9471844350159533,
+          0.9749016505147144,
+          0.9378067267921701
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9257842484894565,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T500:rho03:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 500,
+      "evaluation_density_g_cm3": 0.3,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "temperature_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 200,
+        "closest_density_gap_g_cm3": 0.7,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9420139049788869,
+        "rdf_similarity_standard_deviation": 0.036776917985478566,
+        "seed_scores": [
+          0.9589205283044523,
+          0.8868073181631436,
+          0.9563580852749415,
+          0.9821331395017763,
+          0.9258504536501206
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9420139049788869,
+        "panel_normalized_utility": 0.3042946221337658,
+        "panel_normalized_regret": 0.6957053778662342
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T500:rho06:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 500,
+      "evaluation_density_g_cm3": 0.6,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "density_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.7,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.3,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.990663165659792,
+        "rdf_similarity_standard_deviation": 0.0010887952494373855,
+        "seed_scores": [
+          0.9905418614773374,
+          0.9919909160746588,
+          0.9899097461311166,
+          0.9915076347841086,
+          0.9893656698317386
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.990663165659792,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T500:rho06:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 500,
+      "evaluation_density_g_cm3": 0.6,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "no_variance",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.4,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9744771117741736,
+        "rdf_similarity_standard_deviation": 0.00495989923876564,
+        "seed_scores": [
+          0.9708652274490546,
+          0.9711078852480833,
+          0.9826688488491977,
+          0.9756278797878787,
+          0.9721157175366542
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9744771117741736,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T500:rho06:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 500,
+      "evaluation_density_g_cm3": 0.6,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "temperature_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 200,
+        "closest_density_gap_g_cm3": 0.4,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9777461926203814,
+        "rdf_similarity_standard_deviation": 0.005989102222599468,
+        "seed_scores": [
+          0.9792699204979576,
+          0.9724785712168553,
+          0.9742066490171424,
+          0.9874852549799633,
+          0.9752905673899891
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9777461926203814,
+        "panel_normalized_utility": 0.20196898325616328,
+        "panel_normalized_regret": 0.7980310167438367
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T500:rho10:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 500,
+      "evaluation_density_g_cm3": 1.0,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "density_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.7,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9906941152713082,
+        "rdf_similarity_standard_deviation": 0.002018088618003682,
+        "seed_scores": [
+          0.9937866611085748,
+          0.9893249947882502,
+          0.9915706873963587,
+          0.9899874224777334,
+          0.988800810585624
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9906941152713082,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T500:rho10:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 500,
+      "evaluation_density_g_cm3": 1.0,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "no_variance",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9900242979952502,
+        "rdf_similarity_standard_deviation": 0.0015798381725767624,
+        "seed_scores": [
+          0.9913007052392532,
+          0.9910806136832905,
+          0.9910800095333,
+          0.9887678394780781,
+          0.9878923220423291
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9900242979952502,
+        "panel_normalized_utility": 0.8549098460764115,
+        "panel_normalized_regret": 0.1450901539235885
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T500:rho10:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 500,
+      "evaluation_density_g_cm3": 1.0,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "temperature_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 200,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9860775561324239,
+        "rdf_similarity_standard_deviation": 0.0016694149317175303,
+        "seed_scores": [
+          0.9853850146030159,
+          0.9836953256710793,
+          0.9881268691811785,
+          0.9869561285501876,
+          0.9862244426566589
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9860775561324239,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T700:rho03:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 700,
+      "evaluation_density_g_cm3": 0.3,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "density_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.7,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 0,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 1,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9823204715278141,
+        "rdf_similarity_standard_deviation": 0.005155396418715723,
+        "seed_scores": [
+          0.9868463718531876,
+          0.9750104255522462,
+          0.9853677890868108,
+          0.9787924809314325,
+          0.9855852902153935
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9823204715278141,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T700:rho03:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 700,
+      "evaluation_density_g_cm3": 0.3,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "no_variance",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.7,
+        "closest_temperature_gap_K": 0,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 1,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9410812228357536,
+        "rdf_similarity_standard_deviation": 0.03777665340323189,
+        "seed_scores": [
+          0.9264316877618701,
+          0.8825541113493631,
+          0.9720710779299924,
+          0.9726158040069544,
+          0.9517334331305872
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9410812228357536,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T700:rho03:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 700,
+      "evaluation_density_g_cm3": 0.3,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "temperature_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 200,
+        "closest_density_gap_g_cm3": 0.7,
+        "closest_temperature_gap_K": 0,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 1,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9568348926814056,
+        "rdf_similarity_standard_deviation": 0.027628181428165817,
+        "seed_scores": [
+          0.9742566912546773,
+          0.9081593873626769,
+          0.9634463815432147,
+          0.9732248169586137,
+          0.9650871862878464
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9568348926814056,
+        "panel_normalized_utility": 0.3820067131505479,
+        "panel_normalized_regret": 0.6179932868494521
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T700:rho06:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 700,
+      "evaluation_density_g_cm3": 0.6,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "density_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.7,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.3,
+        "closest_temperature_gap_K": 0,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 1,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9910608484658608,
+        "rdf_similarity_standard_deviation": 0.0007710238757063497,
+        "seed_scores": [
+          0.9905716725439472,
+          0.9919856842882546,
+          0.9905996966613567,
+          0.9918051376432844,
+          0.9903420511924611
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9910608484658608,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T700:rho06:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 700,
+      "evaluation_density_g_cm3": 0.6,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "no_variance",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.4,
+        "closest_temperature_gap_K": 0,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 1,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9843260194313231,
+        "rdf_similarity_standard_deviation": 0.0031646490267016143,
+        "seed_scores": [
+          0.9847722269518485,
+          0.9805012372418316,
+          0.9859254237549223,
+          0.9884629986477843,
+          0.9819682105602292
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9843260194313231,
+        "panel_normalized_utility": 0.12257973686474993,
+        "panel_normalized_regret": 0.8774202631352501
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T700:rho06:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 700,
+      "evaluation_density_g_cm3": 0.6,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "temperature_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 200,
+        "closest_density_gap_g_cm3": 0.4,
+        "closest_temperature_gap_K": 0,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 1,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9833851321443886,
+        "rdf_similarity_standard_deviation": 0.003892764496932487,
+        "seed_scores": [
+          0.9850051579573549,
+          0.9773646166461744,
+          0.9820326306601126,
+          0.9875588665761094,
+          0.9849643888821918
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9833851321443886,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T700:rho10:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 700,
+      "evaluation_density_g_cm3": 1.0,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "density_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.7,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 0,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 1,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9905435133136111,
+        "rdf_similarity_standard_deviation": 0.0027076949750330327,
+        "seed_scores": [
+          0.9941787694996764,
+          0.9890463386120034,
+          0.9914556648861896,
+          0.991066059763141,
+          0.9869707338070445
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9905435133136111,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T700:rho10:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 700,
+      "evaluation_density_g_cm3": 1.0,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "no_variance",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 0,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 1,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9915945405593384,
+        "rdf_similarity_standard_deviation": 0.0017737243471536801,
+        "seed_scores": [
+          0.9934194384628307,
+          0.9912719145907782,
+          0.9922664868623152,
+          0.9922871685077442,
+          0.9887276943730239
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9915945405593384,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T700:rho10:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 700,
+      "evaluation_density_g_cm3": 1.0,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "temperature_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 200,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 0,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 1,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9908183660889487,
+        "rdf_similarity_standard_deviation": 0.0013167352062927553,
+        "seed_scores": [
+          0.9929745908308164,
+          0.9904839070763904,
+          0.9907399485494195,
+          0.9893773864172686,
+          0.9905159975708483
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9908183660889487,
+        "panel_normalized_utility": 0.26150870632033973,
+        "panel_normalized_regret": 0.7384912936796603
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T900:rho03:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 900,
+      "evaluation_density_g_cm3": 0.3,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "density_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.7,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9690117417526702,
+        "rdf_similarity_standard_deviation": 0.02528340117531426,
+        "seed_scores": [
+          0.9844989576152421,
+          0.9789248755873079,
+          0.9239971922580007,
+          0.9791423685550732,
+          0.9784953147477273
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9690117417526702,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T900:rho03:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 900,
+      "evaluation_density_g_cm3": 0.3,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "no_variance",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.7,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9376616938813249,
+        "rdf_similarity_standard_deviation": 0.03760861477342264,
+        "seed_scores": [
+          0.9551078877100069,
+          0.9076432275149497,
+          0.8877855619596251,
+          0.9715899184272122,
+          0.9661818737948304
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9376616938813249,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T900:rho03:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 900,
+      "evaluation_density_g_cm3": 0.3,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "temperature_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 200,
+        "closest_density_gap_g_cm3": 0.7,
+        "closest_temperature_gap_K": 0,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 1,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.955613734400376,
+        "rdf_similarity_standard_deviation": 0.022007463956876874,
+        "seed_scores": [
+          0.9687191872915084,
+          0.9296228060213697,
+          0.9381539650253166,
+          0.9580432776073644,
+          0.9835294360563209
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.955613734400376,
+        "panel_normalized_utility": 0.5726319970139397,
+        "panel_normalized_regret": 0.42736800298606026
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T900:rho06:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 900,
+      "evaluation_density_g_cm3": 0.6,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "density_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.7,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.3,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9741791519182973,
+        "rdf_similarity_standard_deviation": 0.03536092715275471,
+        "seed_scores": [
+          0.9935803535831746,
+          0.9119179612581998,
+          0.9925577198725899,
+          0.9938789655957538,
+          0.9789607592817676
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9741791519182973,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T900:rho06:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 900,
+      "evaluation_density_g_cm3": 0.6,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "no_variance",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.4,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9828922324966154,
+        "rdf_similarity_standard_deviation": 0.00509460077014457,
+        "seed_scores": [
+          0.987746299374261,
+          0.9832527088710871,
+          0.9744288614041877,
+          0.9857858643143937,
+          0.983247428519148
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9828922324966154,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T900:rho06:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 900,
+      "evaluation_density_g_cm3": 0.6,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "temperature_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 200,
+        "closest_density_gap_g_cm3": 0.4,
+        "closest_temperature_gap_K": 0,
+        "target_density_inside_training_range": 0,
+        "target_temperature_inside_training_range": 1,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9810761393269789,
+        "rdf_similarity_standard_deviation": 0.006874466733704471,
+        "seed_scores": [
+          0.9884802300805255,
+          0.9802923883143658,
+          0.9755092936644296,
+          0.9734060859651703,
+          0.9876926986104038
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9810761393269789,
+        "panel_normalized_utility": 0.7915670406910142,
+        "panel_normalized_regret": 0.2084329593089857
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T900:rho10:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 900,
+      "evaluation_density_g_cm3": 1.0,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "density_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.7,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9868600241394241,
+        "rdf_similarity_standard_deviation": 0.012553906397134372,
+        "seed_scores": [
+          0.9939402374895023,
+          0.9902986238987904,
+          0.99317955087765,
+          0.992346745257092,
+          0.9645349631740854
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9868600241394241,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T900:rho10:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 900,
+      "evaluation_density_g_cm3": 1.0,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "no_variance",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 0,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 200,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 0,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9923024414181549,
+        "rdf_similarity_standard_deviation": 0.0011235233492356575,
+        "seed_scores": [
+          0.9937494634328242,
+          0.9926837605509143,
+          0.9917543672765469,
+          0.9925815507573076,
+          0.9907430650731813
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9923024414181549,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "kim_2026_density_diversity",
+      "panel_id": "kim_2026_density_diversity:h2o:T900:rho10:rdf_similarity",
+      "material_system": "h2o",
+      "evaluation_temperature_K": 900,
+      "evaluation_density_g_cm3": 1.0,
+      "endpoint": "oxygen_oxygen_rdf_similarity",
+      "environment": "temperature_diverse",
+      "pre_outcome_measurements": {
+        "training_density_span_g_cm3": 0.0,
+        "training_temperature_span_K": 200,
+        "closest_density_gap_g_cm3": 0.0,
+        "closest_temperature_gap_K": 0,
+        "target_density_inside_training_range": 1,
+        "target_temperature_inside_training_range": 1,
+        "training_configuration_count": 512
+      },
+      "outcome": {
+        "mean_rdf_similarity": 0.9902221104051623,
+        "rdf_similarity_standard_deviation": 0.003569187711483534,
+        "seed_scores": [
+          0.9928946376745117,
+          0.990094288334154,
+          0.9924581386295532,
+          0.9841324103118151,
+          0.9915310770757775
+        ],
+        "independent_training_seeds": 5
+      },
+      "derived": {
+        "native_utility": 0.9902221104051623,
+        "panel_normalized_utility": 0.6177560619758692,
+        "panel_normalized_regret": 0.3822439380241308
+      }
+    }
+  ]
+}

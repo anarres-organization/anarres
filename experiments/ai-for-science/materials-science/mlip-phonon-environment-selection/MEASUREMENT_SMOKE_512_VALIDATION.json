@@ -1,0 +1,26 @@
+{
+  "artifact": "anarres_mlip_materialized_pool_validation_v1",
+  "database_sha256": "3829b516dff8bd584b177da05187071286a509c04d57f47ea61839208d8a624b",
+  "records": 512,
+  "atoms": 13248,
+  "maximum_atoms_per_record": 96,
+  "source_families": {
+    "aimd-from-PBE-1000-npt": 64,
+    "aimd-from-PBE-1000-nvt": 64,
+    "aimd-from-PBE-3000-npt": 64,
+    "aimd-from-PBE-3000-nvt": 64,
+    "rattled-1000": 64,
+    "rattled-300": 64,
+    "rattled-500": 64,
+    "rattled-relax": 64
+  },
+  "labels": {
+    "energy": "finite",
+    "force": "finite",
+    "stress": "finite"
+  },
+  "provenance": {
+    "unique_source_identities": true,
+    "contiguous_ordinals": true
+  }
+}

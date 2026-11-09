@@ -1,0 +1,3025 @@
+{
+  "artifact": "bi_elena_2026_budget_crossover_panels_v1",
+  "source_id": "bi_elena_2026_budget_crossover",
+  "panel_count": 24,
+  "arm_count": 120,
+  "primary_outcome": "absolute percentage gap from the paired full-data force-error endpoint",
+  "normalization": "within dataset, retained-data budget, and force endpoint; lower absolute gap maps to higher utility",
+  "source_artifact": {
+    "concept_doi": "10.5281/zenodo.22263567",
+    "record_id": 22263568,
+    "release_version": "2.3.0",
+    "archive_name": "DD_Zenodo_v2.3.0_2026-09-05.zip",
+    "archive_md5": "0676e1f69c65db6eec57a82153c27072",
+    "archive_sha256": "0adf688b6a92da7922b0e0e6b24a65e0a1fe3e842e890c9c5cb427e7a14eb880",
+    "source_csv_relative_path": "data/si/figS6_budget_sensitivity.csv",
+    "source_csv_sha256": "1401a80644e821d6b15e5807f27adffc2da711c18fd792073ed55a00b203d046"
+  },
+  "interpretation_boundary": [
+    "The response witness is a retrospective scientific comparator that requires a full-data reference model.",
+    "Five-seed means are available for every arm; individual seeds are released only for selected contrasts.",
+    "Four force endpoints share held-out structures and are repeated views of two dataset-level contexts."
+  ],
+  "arms": [
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 7.3,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -7.3,
+        "panel_normalized_utility": 0.9816902328030658,
+        "panel_normalized_regret": 0.018309767196934064
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 45.9858688795976,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -45.9858688795976,
+        "panel_normalized_utility": 0.7731335223381619,
+        "panel_normalized_regret": 0.22686647766183796
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 8.0,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -8.0,
+        "panel_normalized_utility": 0.9779165112464996,
+        "panel_normalized_regret": 0.022083488753500313
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 3.90366117485466,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -3.90366117485466,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 189.396944001195,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -189.396944001195,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "high_force_tail",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 14.8,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -14.8,
+        "panel_normalized_utility": 0.9668093564819966,
+        "panel_normalized_regret": 0.0331906435180033
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "high_force_tail",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 65.5901616231849,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -65.5901616231849,
+        "panel_normalized_utility": 0.7307973234193713,
+        "panel_normalized_regret": 0.2692026765806288
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "high_force_tail",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 16.5,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -16.5,
+        "panel_normalized_utility": 0.9589097861049001,
+        "panel_normalized_regret": 0.04109021389509996
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "high_force_tail",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 7.65732118493472,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -7.65732118493472,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "high_force_tail",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 222.858897833816,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -222.858897833816,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "mean",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.05115881798325,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.05115881798325,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "mean",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 42.9815022244263,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -42.9815022244263,
+        "panel_normalized_utility": 0.8053359242519907,
+        "panel_normalized_regret": 0.19466407574800929
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "mean",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 6.49756821308808,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -6.49756821308808,
+        "panel_normalized_utility": 0.9788529461700266,
+        "panel_normalized_regret": 0.021147053829973367
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "mean",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.56612463331748,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.56612463331748,
+        "panel_normalized_utility": 0.9975508306028998,
+        "panel_normalized_regret": 0.0024491693971000934
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "mean",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 212.312570684377,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -212.312570684377,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.71677013746242,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.71677013746242,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 44.7561833701569,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -44.7561833701569,
+        "panel_normalized_utility": 0.8002930800896365,
+        "panel_normalized_regret": 0.1997069199103635
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 7.21820319189517,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -7.21820319189517,
+        "panel_normalized_utility": 0.9786160828290457,
+        "panel_normalized_regret": 0.021383917170954427
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.91779493920176,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.91779493920176,
+        "panel_normalized_utility": 0.9990450379561974,
+        "panel_normalized_regret": 0.0009549620438025788
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.01:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 213.222311215175,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -213.222311215175,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 5.54978289430179,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -5.54978289430179,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 11.0830367749197,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -11.0830367749197,
+        "panel_normalized_utility": 0.886272267555091,
+        "panel_normalized_regret": 0.11372773244490904
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 6.02,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -6.02,
+        "panel_normalized_utility": 0.9903353928191898,
+        "panel_normalized_regret": 0.009664607180810145
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 5.90128578886173,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -5.90128578886173,
+        "panel_normalized_utility": 0.9927753853322814,
+        "panel_normalized_regret": 0.007224614667718763
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 54.2032974035995,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -54.2032974035995,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "high_force_tail",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 10.5190192984504,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -10.5190192984504,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "high_force_tail",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 17.5375310653075,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -17.5375310653075,
+        "panel_normalized_utility": 0.8430856335029885,
+        "panel_normalized_regret": 0.1569143664970115
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "high_force_tail",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 11.45,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -11.45,
+        "panel_normalized_utility": 0.9791858656283174,
+        "panel_normalized_regret": 0.020814134371682523
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "high_force_tail",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 10.6025876521054,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -10.6025876521054,
+        "panel_normalized_utility": 0.9981316444698584,
+        "panel_normalized_regret": 0.0018683555301417694
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "high_force_tail",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 55.2473123384046,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -55.2473123384046,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "mean",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 1.79660723850888,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -1.79660723850888,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "mean",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 4.98711485112583,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -4.98711485112583,
+        "panel_normalized_utility": 0.9424868527540954,
+        "panel_normalized_regret": 0.057513147245904526
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "mean",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.1,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.1,
+        "panel_normalized_utility": 0.9945309415667971,
+        "panel_normalized_regret": 0.005469058433202774
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "mean",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 1.86249470690884,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -1.86249470690884,
+        "panel_normalized_utility": 0.9988122906659863,
+        "panel_normalized_regret": 0.0011877093340136563
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "mean",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 57.2710120554726,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -57.2710120554726,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.16886870871063,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.16886870871063,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 5.93834442487961,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -5.93834442487961,
+        "panel_normalized_utility": 0.9356359946767084,
+        "panel_normalized_regret": 0.06436400532329166
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.42,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.42,
+        "panel_normalized_utility": 0.9957119193791168,
+        "panel_normalized_regret": 0.004288080620883224
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.34960952162353,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.34960952162353,
+        "panel_normalized_utility": 0.9969138406716452,
+        "panel_normalized_regret": 0.0030861593283548487
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.05:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 60.7338336644404,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -60.7338336644404,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.33124679331348,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.33124679331348,
+        "panel_normalized_utility": 0.44884429013707605,
+        "panel_normalized_regret": 0.551155709862924
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 4.00709879422003,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -4.00709879422003,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.25,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.25,
+        "panel_normalized_utility": 0.4706046599376168,
+        "panel_normalized_regret": 0.5293953400623832
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.33124679331348,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.33124679331348,
+        "panel_normalized_utility": 0.44884429013707605,
+        "panel_normalized_regret": 0.551155709862924
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:frozen_md_mask_rms_force",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.2733941716331,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.2733941716331,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "high_force_tail",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 4.16101278319694,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -4.16101278319694,
+        "panel_normalized_utility": 0.38523468356427704,
+        "panel_normalized_regret": 0.614765316435723
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "high_force_tail",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 6.18770522543949,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -6.18770522543949,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "high_force_tail",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 4.35,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -4.35,
+        "panel_normalized_utility": 0.3493119016239341,
+        "panel_normalized_regret": 0.6506880983760659
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "high_force_tail",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 4.16101278319694,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -4.16101278319694,
+        "panel_normalized_utility": 0.38523468356427704,
+        "panel_normalized_regret": 0.614765316435723
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:high_force_tail",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "high_force_tail",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.926775904405514,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.926775904405514,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "mean",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.604821956135563,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.604821956135563,
+        "panel_normalized_utility": 0.4694782640930075,
+        "panel_normalized_regret": 0.5305217359069925
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "mean",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 1.0124044502825,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -1.0124044502825,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "mean",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.63,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.63,
+        "panel_normalized_utility": 0.4404766644255005,
+        "panel_normalized_regret": 0.5595233355744995
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "mean",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.604821956135563,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.604821956135563,
+        "panel_normalized_utility": 0.4694782640930075,
+        "panel_normalized_regret": 0.5305217359069925
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:mean",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "mean",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.144243929721762,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.144243929721762,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.978705277879564,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.978705277879564,
+        "panel_normalized_utility": 0.314426616016944,
+        "panel_normalized_regret": 0.685573383983056
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 1.40967247432731,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -1.40967247432731,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.95,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.95,
+        "panel_normalized_utility": 0.33536951714698787,
+        "panel_normalized_regret": 0.6646304828530121
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.978705277879564,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.978705277879564,
+        "panel_normalized_utility": 0.314426616016944,
+        "panel_normalized_regret": 0.685573383983056
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:Carbon:budget_0.2:validation_frozen_stratum",
+      "dataset": "Carbon",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.0390277054235166,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.0390277054235166,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 12.0279021925194,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -12.0279021925194,
+        "panel_normalized_utility": 0.9901207663626654,
+        "panel_normalized_regret": 0.009879233637334568
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 98.0323355292931,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -98.0323355292931,
+        "panel_normalized_utility": 0.4956429954769497,
+        "panel_normalized_regret": 0.5043570045230504
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 10.3096087912637,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -10.3096087912637,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 10.8595059018451,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -10.8595059018451,
+        "panel_normalized_utility": 0.996838396732503,
+        "panel_normalized_regret": 0.0031616032674971722
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 184.239436178087,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -184.239436178087,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "high_force_tail",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 24.5516452525681,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -24.5516452525681,
+        "panel_normalized_utility": 0.9404475041896433,
+        "panel_normalized_regret": 0.0595524958103566
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "high_force_tail",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 134.579214769165,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -134.579214769165,
+        "panel_normalized_utility": 0.2812725183166526,
+        "panel_normalized_regret": 0.7187274816833473
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "high_force_tail",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 14.611316033335,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -14.611316033335,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "high_force_tail",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 21.8930429769359,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -21.8930429769359,
+        "panel_normalized_utility": 0.9563751859986777,
+        "panel_normalized_regret": 0.0436248140013223
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "high_force_tail",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 181.528404628376,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -181.528404628376,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "mean",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 7.02590536910022,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -7.02590536910022,
+        "panel_normalized_utility": 0.995814568640546,
+        "panel_normalized_regret": 0.004185431359453988
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "mean",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 95.1570807731657,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -95.1570807731657,
+        "panel_normalized_utility": 0.5182236606465559,
+        "panel_normalized_regret": 0.48177633935344405
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "mean",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 10.5079153461072,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -10.5079153461072,
+        "panel_normalized_utility": 0.9769452377943562,
+        "panel_normalized_regret": 0.023054762205643786
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "mean",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 6.25355610719518,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -6.25355610719518,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "mean",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 190.786330766244,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -190.786330766244,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 6.41440278751271,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -6.41440278751271,
+        "panel_normalized_utility": 0.9953191694248102,
+        "panel_normalized_regret": 0.00468083057518984
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 95.9216746745583,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -95.9216746745583,
+        "panel_normalized_utility": 0.49439162264573616,
+        "panel_normalized_regret": 0.5056083773542639
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 9.86794307705441,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -9.86794307705441,
+        "panel_normalized_utility": 0.9759914273489936,
+        "panel_normalized_regret": 0.024008572651006543
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 5.57801761036554,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -5.57801761036554,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.01:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.01,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.01,
+        "response_budget_interaction": 0.01
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 184.26108757242,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -184.26108757242,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 4.00967717541294,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -4.00967717541294,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 11.1272978186393,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -11.1272978186393,
+        "panel_normalized_utility": 0.596778264110391,
+        "panel_normalized_regret": 0.4032217358896089
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 4.36,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -4.36,
+        "panel_normalized_utility": 0.9801537923229757,
+        "panel_normalized_regret": 0.019846207677024264
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 4.00967717541294,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -4.00967717541294,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 21.6615545662066,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -21.6615545662066,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "high_force_tail",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 9.11111976862467,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -9.11111976862467,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "high_force_tail",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 24.3202212544916,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -24.3202212544916,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "high_force_tail",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 9.88,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -9.88,
+        "panel_normalized_utility": 0.949446045048104,
+        "panel_normalized_regret": 0.05055395495189596
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "high_force_tail",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 9.11111976862467,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -9.11111976862467,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "high_force_tail",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 23.5151378595355,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -23.5151378595355,
+        "panel_normalized_utility": 0.05293431671188624,
+        "panel_normalized_regret": 0.9470656832881138
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "mean",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 1.6758891222798,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -1.6758891222798,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "mean",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 6.78214404357345,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -6.78214404357345,
+        "panel_normalized_utility": 0.772631661256739,
+        "panel_normalized_regret": 0.22736833874326093
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "mean",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 1.92,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -1.92,
+        "panel_normalized_utility": 0.9891303733182322,
+        "panel_normalized_regret": 0.010869626681767715
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "mean",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 1.6758891222798,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -1.6758891222798,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "mean",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 24.1339628783603,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -24.1339628783603,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 1.56320769416129,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -1.56320769416129,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 6.94034583107029,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -6.94034583107029,
+        "panel_normalized_utility": 0.7458286156334621,
+        "panel_normalized_regret": 0.2541713843665378
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 1.76,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -1.76,
+        "panel_normalized_utility": 0.9906978449252818,
+        "panel_normalized_regret": 0.00930215507471805
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 1.56320769416129,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -1.56320769416129,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.05:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.05,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.05,
+        "response_budget_interaction": 0.05
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 22.7187683419905,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -22.7187683419905,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.10575881171457,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.10575881171457,
+        "panel_normalized_utility": 0.5275903528754459,
+        "panel_normalized_regret": 0.4724096471245542
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 4.31787368462952,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -4.31787368462952,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.04,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.04,
+        "panel_normalized_utility": 0.5432738578787115,
+        "panel_normalized_regret": 0.45672614212128854
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.10575881171457,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.10575881171457,
+        "panel_normalized_utility": 0.5275903528754459,
+        "panel_normalized_regret": 0.4724096471245542
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:frozen_md_mask_rms_force",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "frozen_md_mask_rms_force",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.125009162261749,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.125009162261749,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "high_force_tail",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 5.49648601830977,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -5.49648601830977,
+        "panel_normalized_utility": 0.5396605520803242,
+        "panel_normalized_regret": 0.46033944791967596
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "high_force_tail",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 11.1007017513723,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -11.1007017513723,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "high_force_tail",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 5.7,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -5.7,
+        "panel_normalized_utility": 0.5200630788661734,
+        "panel_normalized_regret": 0.47993692113382663
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "high_force_tail",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 5.49648601830977,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -5.49648601830977,
+        "panel_normalized_utility": 0.5396605520803242,
+        "panel_normalized_regret": 0.46033944791967596
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:high_force_tail",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "high_force_tail",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.715996566865154,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.715996566865154,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "mean",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.61968773919285,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.61968773919285,
+        "panel_normalized_utility": 0.6968067731115416,
+        "panel_normalized_regret": 0.30319322688845834
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "mean",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 1.79933338534469,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -1.79933338534469,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "mean",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.65,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.65,
+        "panel_normalized_utility": 0.6789015753026507,
+        "panel_normalized_regret": 0.3210984246973492
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "mean",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.61968773919285,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.61968773919285,
+        "panel_normalized_utility": 0.6968067731115416,
+        "panel_normalized_regret": 0.30319322688845834
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:mean",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "mean",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.106402587780517,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.106402587780517,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "FPS/DPP",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.72266565824243,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.72266565824243,
+        "panel_normalized_utility": 0.7152454621807678,
+        "panel_normalized_regret": 0.28475453781923227
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "QUESTS-MSC",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 2.135699534115,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -2.135699534115,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Random",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 0,
+        "requires_full_data_reference": 0,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.0
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.7,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.7,
+        "panel_normalized_utility": 0.7267183005054876,
+        "panel_normalized_regret": 0.2732816994945124
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Response repair",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 1,
+        "uses_learned_embedding": 1,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.72266565824243,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.72266565824243,
+        "panel_normalized_utility": 0.7152454621807678,
+        "panel_normalized_regret": 0.28475453781923227
+      }
+    },
+    {
+      "source_id": "bi_elena_2026_budget_crossover",
+      "panel_id": "bi_elena_2026_budget_crossover:rMD17 full:budget_0.2:validation_frozen_stratum",
+      "dataset": "rMD17 full",
+      "retained_budget_fraction": 0.2,
+      "endpoint": "validation_frozen_stratum",
+      "selector": "Response witness",
+      "pre_outcome_measurements": {
+        "uses_structural_coverage": 0,
+        "uses_learned_embedding": 0,
+        "uses_response_disagreement": 1,
+        "requires_full_data_reference": 1,
+        "retained_budget_fraction": 0.2,
+        "response_budget_interaction": 0.2
+      },
+      "outcome": {
+        "absolute_gap_from_full_data_pct": 0.160106607507314,
+        "seed_aggregation": "mean_of_seeds_1_to_5"
+      },
+      "derived": {
+        "native_utility": -0.160106607507314,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    }
+  ]
+}

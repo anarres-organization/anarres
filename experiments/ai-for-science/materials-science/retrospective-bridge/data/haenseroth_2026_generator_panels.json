@@ -1,0 +1,673 @@
+{
+  "artifact": "haenseroth_2026_generator_panels_v1",
+  "source_id": "haenseroth_2026_generators",
+  "panel_count": 7,
+  "arm_count": 21,
+  "matched_contract": {
+    "dft_labels": 2000,
+    "downstream_model": "MACE-MP-0 fine-tune",
+    "force_threshold_eV_per_A": 0.05,
+    "energy_threshold_eV_per_atom": 0.006
+  },
+  "primary_decision_outcome": "joint_threshold_ratio",
+  "primary_outcome_definition": "max(force MAE / 0.05, energy MAE / 0.006)",
+  "normalization": "within material system; lower native error maps to higher utility",
+  "fetch_provenance": {
+    "archive_url": "https://zenodo.org/records/20792778/files/dataset_2000__stride_100_finetune.zip?download=1",
+    "archive_md5_from_zenodo": "9d3fedb04578eba7c64fed12055021f3",
+    "archive_size_bytes": 3641720952
+  },
+  "arms": [
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:cdp:labels2000",
+      "material_system": "cdp",
+      "generator": "grace_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.19,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.031188296519616257,
+        "relative_force_error": 0.03176953830689246,
+        "energy_mae_eV_per_atom": 0.0020767392215714155,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.6237659303923251
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/grace_oam/mace/cdp/err/errors.txt",
+        "crc32": "78efa932"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.3877886818665989,
+        "panel_normalized_energy_utility": 0.8017878322840676,
+        "panel_normalized_joint_utility": 0.9220354627979345
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:cdp:labels2000",
+      "material_system": "cdp",
+      "generator": "mace_omat",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.182,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.02962502285993829,
+        "relative_force_error": 0.030483862110513557,
+        "energy_mae_eV_per_atom": 0.0011164675655379597,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.5925004571987658
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/mace_omat/mace/cdp/err/errors.txt",
+        "crc32": "4dc63de7"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 1.0,
+        "panel_normalized_energy_utility": 1.0,
+        "panel_normalized_joint_utility": 1.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:cdp:labels2000",
+      "material_system": "cdp",
+      "generator": "pet_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.175,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.03217850988863992,
+        "relative_force_error": 0.03267941236305437,
+        "energy_mae_eV_per_atom": 0.00596113309288171,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.9935221821469515
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/pet_oam/mace/cdp/err/errors.txt",
+        "crc32": "612d5880"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.0,
+        "panel_normalized_energy_utility": 0.0,
+        "panel_normalized_joint_utility": 0.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:cpp:labels2000",
+      "material_system": "cpp",
+      "generator": "grace_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.195,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.034663351423289884,
+        "relative_force_error": 0.034962909942944306,
+        "energy_mae_eV_per_atom": 0.002218049286178838,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.6932670284657977
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/grace_oam/mace/cpp/err/errors.txt",
+        "crc32": "8b51672b"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.0,
+        "panel_normalized_energy_utility": 0.8443438026040099,
+        "panel_normalized_joint_utility": 0.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:cpp:labels2000",
+      "material_system": "cpp",
+      "generator": "mace_omat",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.197,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.033586430771299615,
+        "relative_force_error": 0.034168121953074324,
+        "energy_mae_eV_per_atom": 0.0018635750627794955,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.6717286154259923
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/mace_omat/mace/cpp/err/errors.txt",
+        "crc32": "676b0957"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.7172743948922575,
+        "panel_normalized_energy_utility": 1.0,
+        "panel_normalized_joint_utility": 1.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:cpp:labels2000",
+      "material_system": "cpp",
+      "generator": "pet_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.179,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.033161944626032,
+        "relative_force_error": 0.03354477863625707,
+        "energy_mae_eV_per_atom": 0.004140864559307273,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.6901440932178788
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/pet_oam/mace/cpp/err/errors.txt",
+        "crc32": "37b08f70"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 1.0,
+        "panel_normalized_energy_utility": 0.0,
+        "panel_normalized_joint_utility": 0.14499374871060877
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:koh:labels2000",
+      "material_system": "koh",
+      "generator": "grace_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.086,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.033350404404478104,
+        "relative_force_error": 0.041750758459602993,
+        "energy_mae_eV_per_atom": 0.0030645947233609652,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.667008088089562
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/grace_oam/mace/koh/err/errors.txt",
+        "crc32": "77928ad6"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 1.0,
+        "panel_normalized_energy_utility": 1.0,
+        "panel_normalized_joint_utility": 1.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:koh:labels2000",
+      "material_system": "koh",
+      "generator": "mace_omat",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.109,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.0377731758816337,
+        "relative_force_error": 0.04744592234071206,
+        "energy_mae_eV_per_atom": 0.0046337460133741674,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.7722910022290279
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/mace_omat/mace/koh/err/errors.txt",
+        "crc32": "96ab04c1"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.0,
+        "panel_normalized_energy_utility": 0.1461430082192262,
+        "panel_normalized_joint_utility": 0.29832255541468106
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:koh:labels2000",
+      "material_system": "koh",
+      "generator": "pet_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.319,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.03590495478240078,
+        "relative_force_error": 0.04474249996498496,
+        "energy_mae_eV_per_atom": 0.004902316151091663,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.8170526918486105
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/pet_oam/mace/koh/err/errors.txt",
+        "crc32": "346f24a0"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.4224095929176124,
+        "panel_normalized_energy_utility": 0.0,
+        "panel_normalized_joint_utility": 0.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:lisi:labels2000",
+      "material_system": "lisi",
+      "generator": "grace_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.085,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.028160253519822338,
+        "relative_force_error": 0.05805803811128953,
+        "energy_mae_eV_per_atom": 0.0008736251866862876,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.5632050703964467
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/grace_oam/mace/lisi/err/errors.txt",
+        "crc32": "e8a0d647"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.0,
+        "panel_normalized_energy_utility": 0.6996850070357548,
+        "panel_normalized_joint_utility": 0.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:lisi:labels2000",
+      "material_system": "lisi",
+      "generator": "mace_omat",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.08,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.023543201199331287,
+        "relative_force_error": 0.04852313491996685,
+        "energy_mae_eV_per_atom": 0.00021988452166527676,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.47086402398662575
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/mace_omat/mace/lisi/err/errors.txt",
+        "crc32": "9adbdce1"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 1.0,
+        "panel_normalized_energy_utility": 1.0,
+        "panel_normalized_joint_utility": 1.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:lisi:labels2000",
+      "material_system": "lisi",
+      "generator": "pet_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.104,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.025104425543667718,
+        "relative_force_error": 0.0517176090885874,
+        "energy_mae_eV_per_atom": 0.002396734430383766,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.5020885108733544
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/pet_oam/mace/lisi/err/errors.txt",
+        "crc32": "7ee817b5"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.6618569087017871,
+        "panel_normalized_energy_utility": 0.0,
+        "panel_normalized_joint_utility": 0.6618569087017869
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:lpyro:labels2000",
+      "material_system": "lpyro",
+      "generator": "grace_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.353,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.0397719945310066,
+        "relative_force_error": 0.04187566767238526,
+        "energy_mae_eV_per_atom": 0.0015365229497068512,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.7954398906201319
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/grace_oam/mace/lpyro/err/errors.txt",
+        "crc32": "6b4ac3b3"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.9664483102383105,
+        "panel_normalized_energy_utility": 1.0,
+        "panel_normalized_joint_utility": 0.9664483102383105
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:lpyro:labels2000",
+      "material_system": "lpyro",
+      "generator": "mace_omat",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.424,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.08555586095969243,
+        "relative_force_error": 0.09333817663287675,
+        "energy_mae_eV_per_atom": 0.006902604654459815,
+        "joint_threshold_pass": 0,
+        "joint_threshold_ratio": 1.7111172191938486
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/mace_omat/mace/lpyro/err/errors.txt",
+        "crc32": "ff6ec171"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.0,
+        "panel_normalized_energy_utility": 0.0,
+        "panel_normalized_joint_utility": 0.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:lpyro:labels2000",
+      "material_system": "lpyro",
+      "generator": "pet_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.277,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.03818253954802141,
+        "relative_force_error": 0.03941849143476091,
+        "energy_mae_eV_per_atom": 0.0015861034608834262,
+        "joint_threshold_pass": 1,
+        "joint_threshold_ratio": 0.7636507909604281
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/pet_oam/mace/lpyro/err/errors.txt",
+        "crc32": "0274f336"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 1.0,
+        "panel_normalized_energy_utility": 0.9907603883234465,
+        "panel_normalized_joint_utility": 1.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:mos2:labels2000",
+      "material_system": "mos2",
+      "generator": "grace_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.235,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.0599027942470898,
+        "relative_force_error": 0.05091147204308478,
+        "energy_mae_eV_per_atom": 0.029817344820528988,
+        "joint_threshold_pass": 0,
+        "joint_threshold_ratio": 4.969557470088165
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/grace_oam/mace/mos2/err/errors.txt",
+        "crc32": "15c8aeb7"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 1.0,
+        "panel_normalized_energy_utility": 0.5512265978050358,
+        "panel_normalized_joint_utility": 0.5512265978050356
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:mos2:labels2000",
+      "material_system": "mos2",
+      "generator": "mace_omat",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.167,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.06957923842031305,
+        "relative_force_error": 0.05954580522239238,
+        "energy_mae_eV_per_atom": 0.03611046097618937,
+        "joint_threshold_pass": 0,
+        "joint_threshold_ratio": 6.0184101626982285
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/mace_omat/mace/mos2/err/errors.txt",
+        "crc32": "de6eba25"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.0,
+        "panel_normalized_energy_utility": 0.0,
+        "panel_normalized_joint_utility": 0.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:mos2:labels2000",
+      "material_system": "mos2",
+      "generator": "pet_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.09,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.06501903157743642,
+        "relative_force_error": 0.055089094896876745,
+        "energy_mae_eV_per_atom": 0.02469389257996295,
+        "joint_threshold_pass": 0,
+        "joint_threshold_ratio": 4.115648763327158
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/pet_oam/mace/mos2/err/errors.txt",
+        "crc32": "af9b2b48"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.4712688629461302,
+        "panel_normalized_energy_utility": 1.0,
+        "panel_normalized_joint_utility": 1.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:phoh:labels2000",
+      "material_system": "phoh",
+      "generator": "grace_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.156,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.07980108622644294,
+        "relative_force_error": 0.10719488383246338,
+        "energy_mae_eV_per_atom": 0.19516784218915603,
+        "joint_threshold_pass": 0,
+        "joint_threshold_ratio": 32.527973698192675
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/grace_oam/mace/phoh/err/errors.txt",
+        "crc32": "906ed33e"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.5425225506505729,
+        "panel_normalized_energy_utility": 0.0,
+        "panel_normalized_joint_utility": 0.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:phoh:labels2000",
+      "material_system": "phoh",
+      "generator": "mace_omat",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.188,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.08260802515166732,
+        "relative_force_error": 0.10974623008787994,
+        "energy_mae_eV_per_atom": 0.19389982108735193,
+        "joint_threshold_pass": 0,
+        "joint_threshold_ratio": 32.316636847891985
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/mace_omat/mace/phoh/err/errors.txt",
+        "crc32": "9c06d72b"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 0.0,
+        "panel_normalized_energy_utility": 1.0,
+        "panel_normalized_joint_utility": 1.0
+      }
+    },
+    {
+      "source_id": "haenseroth_2026_generators",
+      "panel_id": "haenseroth_2026_generators:phoh:labels2000",
+      "material_system": "phoh",
+      "generator": "pet_oam",
+      "dft_label_budget": 2000,
+      "downstream_model": "MACE-MP-0 fine-tune",
+      "pre_outcome_measurements": {
+        "generator_zero_shot_force_mae_eV_per_A": 0.144,
+        "measurement_source": "Supplementary Figure 10 exact annotation"
+      },
+      "outcome": {
+        "force_mae_eV_per_A": 0.07743415925087038,
+        "relative_force_error": 0.10377599613407565,
+        "energy_mae_eV_per_atom": 0.1948607787226612,
+        "joint_threshold_pass": 0,
+        "joint_threshold_ratio": 32.47679645377686
+      },
+      "replication": {
+        "released_training_realizations": 1
+      },
+      "provenance": {
+        "archive_member": "dataset_2000__stride_100_finetune/pet_oam/mace/phoh/err/errors.txt",
+        "crc32": "32356424"
+      },
+      "derived": {
+        "panel_normalized_force_utility": 1.0,
+        "panel_normalized_energy_utility": 0.24215958713775246,
+        "panel_normalized_joint_utility": 0.24215958713776753
+      }
+    }
+  ]
+}

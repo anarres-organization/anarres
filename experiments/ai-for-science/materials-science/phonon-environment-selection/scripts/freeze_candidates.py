@@ -12,7 +12,24 @@ from pathlib import Path
 from typing import Any
 
 BUDGETS = (256, 512, 1024)
-ATOM_STRATA = ((2, 11), (12, 19), (20, 29), (30, 55), (56, 83), (84, 103), (104, 159), (160, 306))
+ATOM_STRATA = (
+    (1, 5),
+    (6, 8),
+    (9, 10),
+    (11, 12),
+    (13, 14),
+    (15, 16),
+    (17, 20),
+    (21, 22),
+    (23, 24),
+    (25, 28),
+    (29, 32),
+    (33, 36),
+    (37, 44),
+    (45, 54),
+    (55, 72),
+    (73, 192),
+)
 CANDIDATES = ("hash_uniform", "signal", "coverage", "signal_coverage")
 
 
@@ -268,9 +285,12 @@ def candidate_summary(rows: list[dict[str, Any]], indexes: list[int]) -> dict[st
         / len(selected),
         "unstable_at_minus0p1": sum(float(row["min_frequency"]) <= -0.1 for row in selected),
         "unique_reduced_formulas": len({row["formula_reduced"] for row in selected}),
-        "atom_strata": dict(
-            sorted(Counter(atom_stratum(int(row["atoms"])) for row in selected).items())
-        ),
+        "atom_strata": {
+            str(index): count
+            for index, count in sorted(
+                Counter(atom_stratum(int(row["atoms"])) for row in selected).items()
+            )
+        },
     }
 
 
@@ -279,6 +299,8 @@ def jaccard(left: set[str], right: set[str]) -> float:
 
 
 def freeze(full_path: Path, repeat_path: Path) -> dict[str, Any]:
+    protocol_path = Path(__file__).resolve().parents[1] / "PROTOCOL.json"
+    protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
     rows = read_jsonl(full_path)
     if len(rows) != 7809:
         raise ValueError(f"Expected 7809 full-pool measurements, found {len(rows)}")
@@ -347,6 +369,8 @@ def freeze(full_path: Path, repeat_path: Path) -> dict[str, Any]:
         "schema_version": "1.0",
         "study": "prospective-phonon-environment-selection",
         "status": "candidates_frozen_outcomes_sealed",
+        "protocol_schema_version": protocol["schema_version"],
+        "protocol_sha256": canonical_digest(protocol),
         "measurement_sha256": sha256(full_path),
         "repeat_measurement_sha256": sha256(repeat_path),
         "repeatability": repeatability,

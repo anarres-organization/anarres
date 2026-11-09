@@ -1,0 +1,21 @@
+{
+  "batch_size": 16,
+  "build_seconds": 107.92838215827942,
+  "checkpoint_sha256": "79b027c7037184786d6913783d3d82b081aee16f4762612184767e5ca58c0b0f",
+  "device": "cpu",
+  "external_test_labels_inspected": false,
+  "inference_seconds": 264.00969791412354,
+  "manifest_sha256": "a4a461c887417e8d3ac8a3f67b4212cfd71ce9c0a2b9bf5ba40d1e503e26d228",
+  "output_sha256": "29b0b20b036748c3ccfb5489b462f97fe4a6b24fc8c5126230794550684249bc",
+  "positive_class_weights": [
+    0.1767631104314703,
+    0.1767631104314703,
+    0.17199459715263477,
+    0.09492428503997136
+  ],
+  "protocol_status": "measurement_protocol_frozen_candidate_memberships_open",
+  "record_ids_sha256": "e319924a930f800e38f182657d8672dd367bebdfafc738821e213c26d6fe5226",
+  "records": 7809,
+  "schema_version": "1.0",
+  "total_seconds": 373.58448600769043
+}

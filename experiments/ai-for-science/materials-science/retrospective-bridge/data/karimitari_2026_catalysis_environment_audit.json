@@ -1,0 +1,669 @@
+{
+  "artifact": "karimitari_2026_catalysis_environment_compatibility_audit_v1",
+  "source_id": "karimitari_2026_catalysis_finetuning",
+  "doi": "10.1038/s41524-026-02335-z",
+  "source_version": "arXiv:2605.09394v1",
+  "data_doi": "10.5281/zenodo.20043317",
+  "panel_count": 6,
+  "arm_count": 25,
+  "primary_outcome": "reaction-energy or activation-barrier MAE in eV",
+  "source_files": {
+    "arXiv_source_bundle": {
+      "sha256": "64fc864e4bdd5b047378c3647480136df6782da00929c1e5f6bb650edfcdf7f7"
+    },
+    "submission_arxiv.tex": {
+      "sha256": "0e22789d24394410fdb3bcad8a542909569498b8d4c93aa9edc5dfac6121752b"
+    },
+    "SI_arxiv.tex": {
+      "sha256": "7a673c05b2aca05b8cb1f82b8ab6880b3ee3a7d88d1d67778ffa26acb497df1e"
+    }
+  },
+  "panels": [
+    {
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:activation_barrier_metal",
+      "training_regime": "fine_tuning",
+      "endpoint": "activation_barrier_metal",
+      "candidate_count": 6
+    },
+    {
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal",
+      "training_regime": "fine_tuning",
+      "endpoint": "reaction_energy_metal",
+      "candidate_count": 6
+    },
+    {
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal_oxide",
+      "training_regime": "fine_tuning",
+      "endpoint": "reaction_energy_metal_oxide",
+      "candidate_count": 6
+    },
+    {
+      "panel_id": "karimitari_2026_catalysis_finetuning:from_scratch:activation_barrier_metal",
+      "training_regime": "from_scratch",
+      "endpoint": "activation_barrier_metal",
+      "candidate_count": 2
+    },
+    {
+      "panel_id": "karimitari_2026_catalysis_finetuning:from_scratch:reaction_energy_metal",
+      "training_regime": "from_scratch",
+      "endpoint": "reaction_energy_metal",
+      "candidate_count": 3
+    },
+    {
+      "panel_id": "karimitari_2026_catalysis_finetuning:from_scratch:reaction_energy_metal_oxide",
+      "training_regime": "from_scratch",
+      "endpoint": "reaction_energy_metal_oxide",
+      "candidate_count": 2
+    }
+  ],
+  "arms": [
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:activation_barrier_metal",
+      "training_regime": "fine_tuning",
+      "environment": "ft_all",
+      "endpoint": "activation_barrier_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 49860,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 1,
+        "contains_contour_bond_breaking_configurations": 1
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.144
+      },
+      "derived": {
+        "native_utility": -0.144,
+        "panel_normalized_utility": 0.8888888888888894,
+        "panel_normalized_regret": 0.11111111111111063
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:activation_barrier_metal",
+      "training_regime": "fine_tuning",
+      "environment": "ft_bma",
+      "endpoint": "activation_barrier_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 39983,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 0,
+        "contains_metal_oxide_md_configurations": 0,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.145
+      },
+      "derived": {
+        "native_utility": -0.145,
+        "panel_normalized_utility": 0.8666666666666671,
+        "panel_normalized_regret": 0.1333333333333329
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:activation_barrier_metal",
+      "training_regime": "fine_tuning",
+      "environment": "ft_bma_plus_md_metal",
+      "endpoint": "activation_barrier_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 44959,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 0,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.152
+      },
+      "derived": {
+        "native_utility": -0.152,
+        "panel_normalized_utility": 0.7111111111111114,
+        "panel_normalized_regret": 0.28888888888888864
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:activation_barrier_metal",
+      "training_regime": "fine_tuning",
+      "environment": "ft_contour",
+      "endpoint": "activation_barrier_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 2208,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 0,
+        "contains_metal_md_configurations": 0,
+        "contains_metal_oxide_md_configurations": 0,
+        "contains_contour_bond_breaking_configurations": 1
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.139
+      },
+      "derived": {
+        "native_utility": -0.139,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:activation_barrier_metal",
+      "training_regime": "fine_tuning",
+      "environment": "ft_md_metal",
+      "endpoint": "activation_barrier_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 4976,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 0,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 0,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.149
+      },
+      "derived": {
+        "native_utility": -0.149,
+        "panel_normalized_utility": 0.7777777777777781,
+        "panel_normalized_regret": 0.22222222222222188
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:activation_barrier_metal",
+      "training_regime": "fine_tuning",
+      "environment": "ft_md_metal_oxide",
+      "endpoint": "activation_barrier_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 2692,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 0,
+        "contains_metal_md_configurations": 0,
+        "contains_metal_oxide_md_configurations": 1,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.184
+      },
+      "derived": {
+        "native_utility": -0.184,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal",
+      "training_regime": "fine_tuning",
+      "environment": "ft_all",
+      "endpoint": "reaction_energy_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 49860,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 1,
+        "contains_contour_bond_breaking_configurations": 1
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.247
+      },
+      "derived": {
+        "native_utility": -0.247,
+        "panel_normalized_utility": 0.9508196721311475,
+        "panel_normalized_regret": 0.04918032786885251
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal",
+      "training_regime": "fine_tuning",
+      "environment": "ft_bma",
+      "endpoint": "reaction_energy_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 39983,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 0,
+        "contains_metal_oxide_md_configurations": 0,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.238
+      },
+      "derived": {
+        "native_utility": -0.238,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal",
+      "training_regime": "fine_tuning",
+      "environment": "ft_bma_plus_md_metal",
+      "endpoint": "reaction_energy_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 44959,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 0,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.245
+      },
+      "derived": {
+        "native_utility": -0.245,
+        "panel_normalized_utility": 0.9617486338797814,
+        "panel_normalized_regret": 0.038251366120218615
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal",
+      "training_regime": "fine_tuning",
+      "environment": "ft_contour",
+      "endpoint": "reaction_energy_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 2208,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 0,
+        "contains_metal_md_configurations": 0,
+        "contains_metal_oxide_md_configurations": 0,
+        "contains_contour_bond_breaking_configurations": 1
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.421
+      },
+      "derived": {
+        "native_utility": -0.421,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal",
+      "training_regime": "fine_tuning",
+      "environment": "ft_md_metal",
+      "endpoint": "reaction_energy_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 4976,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 0,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 0,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.376
+      },
+      "derived": {
+        "native_utility": -0.376,
+        "panel_normalized_utility": 0.2459016393442622,
+        "panel_normalized_regret": 0.7540983606557378
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal",
+      "training_regime": "fine_tuning",
+      "environment": "ft_md_metal_oxide",
+      "endpoint": "reaction_energy_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 2692,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 0,
+        "contains_metal_md_configurations": 0,
+        "contains_metal_oxide_md_configurations": 1,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.334
+      },
+      "derived": {
+        "native_utility": -0.334,
+        "panel_normalized_utility": 0.4754098360655736,
+        "panel_normalized_regret": 0.5245901639344264
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal_oxide",
+      "training_regime": "fine_tuning",
+      "environment": "ft_all",
+      "endpoint": "reaction_energy_metal_oxide",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 49860,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 1,
+        "contains_contour_bond_breaking_configurations": 1
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.277
+      },
+      "derived": {
+        "native_utility": -0.277,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal_oxide",
+      "training_regime": "fine_tuning",
+      "environment": "ft_bma",
+      "endpoint": "reaction_energy_metal_oxide",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 39983,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 0,
+        "contains_metal_oxide_md_configurations": 0,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.334
+      },
+      "derived": {
+        "native_utility": -0.334,
+        "panel_normalized_utility": 0.6225165562913907,
+        "panel_normalized_regret": 0.3774834437086093
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal_oxide",
+      "training_regime": "fine_tuning",
+      "environment": "ft_bma_plus_md_metal",
+      "endpoint": "reaction_energy_metal_oxide",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 44959,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 0,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.348
+      },
+      "derived": {
+        "native_utility": -0.348,
+        "panel_normalized_utility": 0.5298013245033115,
+        "panel_normalized_regret": 0.47019867549668853
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal_oxide",
+      "training_regime": "fine_tuning",
+      "environment": "ft_contour",
+      "endpoint": "reaction_energy_metal_oxide",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 2208,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 0,
+        "contains_metal_md_configurations": 0,
+        "contains_metal_oxide_md_configurations": 0,
+        "contains_contour_bond_breaking_configurations": 1
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.305
+      },
+      "derived": {
+        "native_utility": -0.305,
+        "panel_normalized_utility": 0.8145695364238412,
+        "panel_normalized_regret": 0.18543046357615878
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal_oxide",
+      "training_regime": "fine_tuning",
+      "environment": "ft_md_metal",
+      "endpoint": "reaction_energy_metal_oxide",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 4976,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 0,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 0,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.428
+      },
+      "derived": {
+        "native_utility": -0.428,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:fine_tuning:reaction_energy_metal_oxide",
+      "training_regime": "fine_tuning",
+      "environment": "ft_md_metal_oxide",
+      "endpoint": "reaction_energy_metal_oxide",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 2692,
+        "common_omat_replay_configuration_count": 30000,
+        "starts_from_mace_mh_1": 1,
+        "contains_relaxation_configurations": 0,
+        "contains_metal_md_configurations": 0,
+        "contains_metal_oxide_md_configurations": 1,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.306
+      },
+      "derived": {
+        "native_utility": -0.306,
+        "panel_normalized_utility": 0.8079470198675498,
+        "panel_normalized_regret": 0.19205298013245017
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:from_scratch:activation_barrier_metal",
+      "training_regime": "from_scratch",
+      "environment": "fs_all",
+      "endpoint": "activation_barrier_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 49860,
+        "common_omat_replay_configuration_count": 0,
+        "starts_from_mace_mh_1": 0,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 1,
+        "contains_contour_bond_breaking_configurations": 1
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.175
+      },
+      "derived": {
+        "native_utility": -0.175,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:from_scratch:activation_barrier_metal",
+      "training_regime": "from_scratch",
+      "environment": "fs_bma_plus_md",
+      "endpoint": "activation_barrier_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 47651,
+        "common_omat_replay_configuration_count": 0,
+        "starts_from_mace_mh_1": 0,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 1,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.398
+      },
+      "derived": {
+        "native_utility": -0.398,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:from_scratch:reaction_energy_metal",
+      "training_regime": "from_scratch",
+      "environment": "fs_all",
+      "endpoint": "reaction_energy_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 49860,
+        "common_omat_replay_configuration_count": 0,
+        "starts_from_mace_mh_1": 0,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 1,
+        "contains_contour_bond_breaking_configurations": 1
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.279
+      },
+      "derived": {
+        "native_utility": -0.279,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:from_scratch:reaction_energy_metal",
+      "training_regime": "from_scratch",
+      "environment": "fs_bma",
+      "endpoint": "reaction_energy_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 39584,
+        "common_omat_replay_configuration_count": 0,
+        "starts_from_mace_mh_1": 0,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 0,
+        "contains_metal_oxide_md_configurations": 0,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.659
+      },
+      "derived": {
+        "native_utility": -0.659,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:from_scratch:reaction_energy_metal",
+      "training_regime": "from_scratch",
+      "environment": "fs_bma_plus_md",
+      "endpoint": "reaction_energy_metal",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 47651,
+        "common_omat_replay_configuration_count": 0,
+        "starts_from_mace_mh_1": 0,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 1,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.31
+      },
+      "derived": {
+        "native_utility": -0.31,
+        "panel_normalized_utility": 0.918421052631579,
+        "panel_normalized_regret": 0.08157894736842097
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:from_scratch:reaction_energy_metal_oxide",
+      "training_regime": "from_scratch",
+      "environment": "fs_all",
+      "endpoint": "reaction_energy_metal_oxide",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 49860,
+        "common_omat_replay_configuration_count": 0,
+        "starts_from_mace_mh_1": 0,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 1,
+        "contains_contour_bond_breaking_configurations": 1
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.398
+      },
+      "derived": {
+        "native_utility": -0.398,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "karimitari_2026_catalysis_finetuning",
+      "panel_id": "karimitari_2026_catalysis_finetuning:from_scratch:reaction_energy_metal_oxide",
+      "training_regime": "from_scratch",
+      "environment": "fs_bma_plus_md",
+      "endpoint": "reaction_energy_metal_oxide",
+      "pre_outcome_measurements": {
+        "training_configuration_count": 47651,
+        "common_omat_replay_configuration_count": 0,
+        "starts_from_mace_mh_1": 0,
+        "contains_relaxation_configurations": 1,
+        "contains_metal_md_configurations": 1,
+        "contains_metal_oxide_md_configurations": 1,
+        "contains_contour_bond_breaking_configurations": 0
+      },
+      "outcome": {
+        "mean_absolute_error_eV": 0.476
+      },
+      "derived": {
+        "native_utility": -0.476,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    }
+  ],
+  "interpretation_boundary": [
+    "All outcomes come from exact manuscript tables; no figure is digitized.",
+    "Candidate environments use different configuration counts, so these panels do not enter the matched-cost predictive bridge.",
+    "Fine-tuning changes initialization, loss schedule, epoch count, and adds a common 30,000-configuration OMAT replay head relative to scratch training.",
+    "The manuscript reports 39,584 configurations for FS-BMA in the outcome table and 39,983 for the underlying BMA dataset elsewhere. Each value is preserved only in its reported context.",
+    "The release does not provide independent training-seed outcomes for these model comparisons.",
+    "The audit tests model-environment compatibility and target dependence, not a fixed-trainer allocation rule."
+  ]
+}

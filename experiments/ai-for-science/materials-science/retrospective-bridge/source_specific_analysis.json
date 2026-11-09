@@ -1,0 +1,589 @@
+{
+  "artifact": "materials_source_specific_grouped_holdouts_v1",
+  "design": "nested grouped holdout within each source",
+  "support": {
+    "sources": 16,
+    "panels": 828,
+    "arms": 2990
+  },
+  "sources": {
+    "li_2023_redundancy": {
+      "support": {
+        "groups": 14,
+        "panels": 42,
+        "arms": 156
+      },
+      "fold_alphas": [
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.5317901818366193,
+          "top_choice_credit": 0.2857142857142857
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.7072072072072072,
+          "mean_normalized_regret": 0.3256527274122812,
+          "top_choice_credit": 0.5119047619047619
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.7252252252252253,
+          "mean_normalized_regret": 0.06612585745959955,
+          "top_choice_credit": 0.8809523809523809
+        },
+        "ridge": {
+          "pairwise_ordering": 0.7477477477477478,
+          "mean_normalized_regret": 0.06612585745959955,
+          "top_choice_credit": 0.8809523809523809
+        }
+      }
+    },
+    "haenseroth_2026_generators": {
+      "support": {
+        "groups": 7,
+        "panels": 7,
+        "arms": 21
+      },
+      "fold_alphas": [
+        100.0,
+        100.0,
+        100.0,
+        100.0,
+        10.0,
+        100.0,
+        100.0
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.4863312775806607,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.6190476190476191,
+          "mean_normalized_regret": 0.3732638091645177,
+          "top_choice_credit": 0.5714285714285714
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.30952380952380953,
+          "mean_normalized_regret": 0.8145253492264741,
+          "top_choice_credit": 0.14285714285714285
+        },
+        "ridge": {
+          "pairwise_ordering": 0.6190476190476191,
+          "mean_normalized_regret": 0.3732638091645177,
+          "top_choice_credit": 0.5714285714285714
+        }
+      }
+    },
+    "kulichenko_2023_udd": {
+      "support": {
+        "groups": 4,
+        "panels": 4,
+        "arms": 16
+      },
+      "fold_alphas": [
+        1.0,
+        1.0,
+        1.0,
+        0.1
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.3553471243724448,
+          "top_choice_credit": 0.25
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.5833333333333334,
+          "mean_normalized_regret": 0.0032383419689119286,
+          "top_choice_credit": 0.75
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.6458333333333334,
+          "mean_normalized_regret": 0.17537596578366452,
+          "top_choice_credit": 0.5
+        },
+        "ridge": {
+          "pairwise_ordering": 0.75,
+          "mean_normalized_regret": 0.20384382566585957,
+          "top_choice_credit": 0.5
+        }
+      }
+    },
+    "dale_2026_active_learning_failure": {
+      "support": {
+        "groups": 4,
+        "panels": 23,
+        "arms": 161
+      },
+      "fold_alphas": [
+        100.0,
+        100.0,
+        100.0,
+        100.0
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.4795549638660572,
+          "top_choice_credit": 0.19254658385093168
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.4968944099378882,
+          "mean_normalized_regret": 0.4789083218016824,
+          "top_choice_credit": 0.19565217391304351
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.531055900621118,
+          "mean_normalized_regret": 0.43424985969989427,
+          "top_choice_credit": 0.2608695652173913
+        },
+        "ridge": {
+          "pairwise_ordering": 0.5175983436853002,
+          "mean_normalized_regret": 0.5487179399412635,
+          "top_choice_credit": 0.08695652173913043
+        }
+      }
+    },
+    "bi_elena_2026_budget_crossover": {
+      "support": {
+        "groups": 2,
+        "panels": 24,
+        "arms": 120
+      },
+      "fold_alphas": [
+        1.0,
+        1.0
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.34619078188310953,
+          "top_choice_credit": 0.23333333333333336
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.4875,
+          "mean_normalized_regret": 0.36272294732006993,
+          "top_choice_credit": 0.20833333333333334
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.5916666666666667,
+          "mean_normalized_regret": 0.16526126639627362,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "ridge": {
+          "pairwise_ordering": 0.7625,
+          "mean_normalized_regret": 0.16802130866824538,
+          "top_choice_credit": 0.4166666666666667
+        }
+      }
+    },
+    "wong_yang_2026_umlip_bias": {
+      "support": {
+        "groups": 5,
+        "panels": 5,
+        "arms": 10
+      },
+      "fold_alphas": [
+        0.01,
+        0.01,
+        0.01,
+        0.01,
+        0.01
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.5,
+          "top_choice_credit": 0.5
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.8,
+          "mean_normalized_regret": 0.2,
+          "top_choice_credit": 0.8
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 1.0,
+          "mean_normalized_regret": 0.0,
+          "top_choice_credit": 1.0
+        },
+        "ridge": {
+          "pairwise_ordering": 1.0,
+          "mean_normalized_regret": 0.0,
+          "top_choice_credit": 1.0
+        }
+      }
+    },
+    "baghishov_2026_application_specific_mlip": {
+      "support": {
+        "groups": 9,
+        "panels": 18,
+        "arms": 54
+      },
+      "fold_alphas": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.43359211189706964,
+          "top_choice_credit": 0.33333333333333326
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.8333333333333334,
+          "mean_normalized_regret": 0.0,
+          "top_choice_credit": 1.0
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.6666666666666666,
+          "mean_normalized_regret": 0.12526667582777465,
+          "top_choice_credit": 0.5
+        },
+        "ridge": {
+          "pairwise_ordering": 1.0,
+          "mean_normalized_regret": 0.0,
+          "top_choice_credit": 1.0
+        }
+      }
+    },
+    "qi_2024_direct_sampling": {
+      "support": {
+        "groups": 2,
+        "panels": 6,
+        "arms": 12
+      },
+      "fold_alphas": [
+        1.0,
+        1.0
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.5,
+          "top_choice_credit": 0.5
+        },
+        "practical_rule": {
+          "pairwise_ordering": 1.0,
+          "mean_normalized_regret": 0.0,
+          "top_choice_credit": 1.0
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.0,
+          "mean_normalized_regret": 1.0,
+          "top_choice_credit": 0.0
+        },
+        "ridge": {
+          "pairwise_ordering": 0.0,
+          "mean_normalized_regret": 1.0,
+          "top_choice_credit": 0.0
+        }
+      }
+    },
+    "zaverkin_2024_uncertainty_biased_md": {
+      "support": {
+        "groups": 3,
+        "panels": 8,
+        "arms": 46
+      },
+      "fold_alphas": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.43819023581119615,
+          "top_choice_credit": 0.20625
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.8103448275862069,
+          "mean_normalized_regret": 0.002232142857142863,
+          "top_choice_credit": 0.875
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.5431034482758621,
+          "mean_normalized_regret": 0.2717050679735693,
+          "top_choice_credit": 0.38125
+        },
+        "ridge": {
+          "pairwise_ordering": 0.8017241379310345,
+          "mean_normalized_regret": 0.029887102373138116,
+          "top_choice_credit": 0.625
+        }
+      }
+    },
+    "zhang_2023_etal": {
+      "support": {
+        "groups": 2,
+        "panels": 4,
+        "arms": 8
+      },
+      "fold_alphas": [
+        1.0,
+        1.0
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.5,
+          "top_choice_credit": 0.5
+        },
+        "practical_rule": {
+          "pairwise_ordering": 1.0,
+          "mean_normalized_regret": 0.0,
+          "top_choice_credit": 1.0
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 1.0,
+          "mean_normalized_regret": 0.0,
+          "top_choice_credit": 1.0
+        },
+        "ridge": {
+          "pairwise_ordering": 1.0,
+          "mean_normalized_regret": 0.0,
+          "top_choice_credit": 1.0
+        }
+      }
+    },
+    "espinosa_castaneda_2026_diversity": {
+      "support": {
+        "groups": 5,
+        "panels": 256,
+        "arms": 1504
+      },
+      "fold_alphas": [
+        1.0,
+        100.0,
+        100.0,
+        10.0,
+        0.01
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.36232803833702387,
+          "top_choice_credit": 0.1708333333333333
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.7084239130434783,
+          "mean_normalized_regret": 0.15748540136448494,
+          "top_choice_credit": 0.287109375
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.5994565217391304,
+          "mean_normalized_regret": 0.09834086322482502,
+          "top_choice_credit": 0.41015625
+        },
+        "ridge": {
+          "pairwise_ordering": 0.6953804347826087,
+          "mean_normalized_regret": 0.183097854622079,
+          "top_choice_credit": 0.21875
+        }
+      }
+    },
+    "wang_2026_dataset_aware_entropy": {
+      "support": {
+        "groups": 3,
+        "panels": 45,
+        "arms": 90
+      },
+      "fold_alphas": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.5,
+          "top_choice_credit": 0.5
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.8777777777777778,
+          "mean_normalized_regret": 0.12222222222222222,
+          "top_choice_credit": 0.8777777777777778
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.9111111111111111,
+          "mean_normalized_regret": 0.08888888888888889,
+          "top_choice_credit": 0.9111111111111111
+        },
+        "ridge": {
+          "pairwise_ordering": 0.9111111111111111,
+          "mean_normalized_regret": 0.08888888888888889,
+          "top_choice_credit": 0.9111111111111111
+        }
+      }
+    },
+    "varga_umbrich_2026_pretrained_acquisition": {
+      "support": {
+        "groups": 3,
+        "panels": 36,
+        "arms": 72
+      },
+      "fold_alphas": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.4027777777777778,
+          "top_choice_credit": 0.5972222222222222
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.7777777777777778,
+          "mean_normalized_regret": 0.125,
+          "top_choice_credit": 0.875
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.7777777777777778,
+          "mean_normalized_regret": 0.125,
+          "top_choice_credit": 0.875
+        },
+        "ridge": {
+          "pairwise_ordering": 0.7916666666666666,
+          "mean_normalized_regret": 0.1111111111111111,
+          "top_choice_credit": 0.8888888888888888
+        }
+      }
+    },
+    "kim_2026_density_diversity": {
+      "support": {
+        "groups": 4,
+        "panels": 12,
+        "arms": 36
+      },
+      "fold_alphas": [
+        100.0,
+        100.0,
+        100.0,
+        10.0
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.5287210357555123,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.6666666666666666,
+          "mean_normalized_regret": 0.25,
+          "top_choice_credit": 0.75
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.6666666666666666,
+          "mean_normalized_regret": 0.25,
+          "top_choice_credit": 0.75
+        },
+        "ridge": {
+          "pairwise_ordering": 0.7222222222222222,
+          "mean_normalized_regret": 0.25,
+          "top_choice_credit": 0.75
+        }
+      }
+    },
+    "liu_2026_heterogeneous_uq": {
+      "support": {
+        "groups": 2,
+        "panels": 2,
+        "arms": 12
+      },
+      "fold_alphas": [
+        1.0,
+        1.0
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.1691780332489652,
+          "top_choice_credit": 0.16666666666666666
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.5666666666666667,
+          "mean_normalized_regret": 0.00019904288850064455,
+          "top_choice_credit": 0.0
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.5666666666666667,
+          "mean_normalized_regret": 0.0015322770224712179,
+          "top_choice_credit": 0.0
+        },
+        "ridge": {
+          "pairwise_ordering": 0.8333333333333334,
+          "mean_normalized_regret": 0.0014459219645333588,
+          "top_choice_credit": 0.5
+        }
+      }
+    },
+    "haenseroth_dressler_2026_data_efficiency": {
+      "support": {
+        "groups": 7,
+        "panels": 336,
+        "arms": 672
+      },
+      "fold_alphas": [
+        100.0,
+        10.0,
+        100.0,
+        10.0,
+        100.0,
+        100.0,
+        100.0
+      ],
+      "metrics": {
+        "uninformed_tie": {
+          "pairwise_ordering": 0.5,
+          "mean_normalized_regret": 0.5,
+          "top_choice_credit": 0.5
+        },
+        "practical_rule": {
+          "pairwise_ordering": 0.6339285714285714,
+          "mean_normalized_regret": 0.36607142857142855,
+          "top_choice_credit": 0.6339285714285714
+        },
+        "fixed_identity": {
+          "pairwise_ordering": 0.6339285714285714,
+          "mean_normalized_regret": 0.36607142857142855,
+          "top_choice_credit": 0.6339285714285714
+        },
+        "ridge": {
+          "pairwise_ordering": 0.625,
+          "mean_normalized_regret": 0.375,
+          "top_choice_credit": 0.625
+        }
+      }
+    }
+  },
+  "interpretation_boundary": [
+    "Outcomes are normalized only within matched decision panels.",
+    "Source-specific coordinates are not assumed to share units or coefficients.",
+    "Method identities define a negative-control selector and are not ridge features.",
+    "These retrospective tests do not replace the sealed prospective phonon study."
+  ]
+}

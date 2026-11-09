@@ -1,0 +1,1899 @@
+{
+  "candidate_composition": [
+    {
+      "atoms_mean": 27.6328125,
+      "budget_structures": 256,
+      "candidate": "coverage",
+      "formula_unique_fraction": 1.0,
+      "graph_edges_mean": 365.2109375,
+      "minimum_frequency_quantiles_thz": {
+        "q05": -2.292895211097862,
+        "q25": -4.3128332814261953e-07,
+        "q50": -1.948888183782638e-07,
+        "q75": -1.0176771436405605e-07,
+        "q95": 4.8260622565969465e-08
+      },
+      "records": 256,
+      "singleton_signal_mean": 0.3930688036571155,
+      "singleton_signal_median": 0.15394069254398346,
+      "stable_fraction": 0.81640625,
+      "unique_formulas": 256
+    },
+    {
+      "atoms_mean": 28.060546875,
+      "budget_structures": 512,
+      "candidate": "coverage",
+      "formula_unique_fraction": 0.998046875,
+      "graph_edges_mean": 371.078125,
+      "minimum_frequency_quantiles_thz": {
+        "q05": -2.3629843136839703,
+        "q25": -4.4289842879789936e-07,
+        "q50": -2.0184563040616408e-07,
+        "q75": -1.0289649561519931e-07,
+        "q95": 4.894402435507151e-08
+      },
+      "records": 512,
+      "singleton_signal_mean": 0.4259198904846926,
+      "singleton_signal_median": 0.17085883021354675,
+      "stable_fraction": 0.814453125,
+      "unique_formulas": 511
+    },
+    {
+      "atoms_mean": 28.3369140625,
+      "budget_structures": 1024,
+      "candidate": "coverage",
+      "formula_unique_fraction": 0.9970703125,
+      "graph_edges_mean": 374.55078125,
+      "minimum_frequency_quantiles_thz": {
+        "q05": -2.3619840618204115,
+        "q25": -4.297118469666581e-07,
+        "q50": -1.9727528215686845e-07,
+        "q75": -1.0053518922918793e-07,
+        "q95": 4.356320535168904e-08
+      },
+      "records": 1024,
+      "singleton_signal_mean": 0.42022642817769906,
+      "singleton_signal_median": 0.1750987246632576,
+      "stable_fraction": 0.81640625,
+      "unique_formulas": 1021
+    },
+    {
+      "atoms_mean": 28.140625,
+      "budget_structures": 256,
+      "candidate": "hash_uniform",
+      "formula_unique_fraction": 0.98828125,
+      "graph_edges_mean": 370.3125,
+      "minimum_frequency_quantiles_thz": {
+        "q05": -1.7064780400091322,
+        "q25": -3.9996274812831475e-07,
+        "q50": -1.8890567980271416e-07,
+        "q75": -8.416260962278228e-08,
+        "q95": 2.7230470840153905e-08
+      },
+      "records": 256,
+      "singleton_signal_mean": 0.36053392398571305,
+      "singleton_signal_median": 0.17921172082424164,
+      "stable_fraction": 0.84765625,
+      "unique_formulas": 253
+    },
+    {
+      "atoms_mean": 28.560546875,
+      "budget_structures": 512,
+      "candidate": "hash_uniform",
+      "formula_unique_fraction": 0.990234375,
+      "graph_edges_mean": 376.13671875,
+      "minimum_frequency_quantiles_thz": {
+        "q05": -1.8436870695911867,
+        "q25": -3.8322111117401283e-07,
+        "q50": -1.8440790022306406e-07,
+        "q75": -8.539723981561519e-08,
+        "q95": 3.6451789829914984e-08
+      },
+      "records": 512,
+      "singleton_signal_mean": 0.34651339078027377,
+      "singleton_signal_median": 0.146714948117733,
+      "stable_fraction": 0.857421875,
+      "unique_formulas": 507
+    },
+    {
+      "atoms_mean": 28.5078125,
+      "budget_structures": 1024,
+      "candidate": "hash_uniform",
+      "formula_unique_fraction": 0.9716796875,
+      "graph_edges_mean": 375.947265625,
+      "minimum_frequency_quantiles_thz": {
+        "q05": -1.8653119953941961,
+        "q25": -3.8005941082985386e-07,
+        "q50": -1.7518954328718727e-07,
+        "q75": -8.97901590329639e-08,
+        "q95": 3.024746510077298e-08
+      },
+      "records": 1024,
+      "singleton_signal_mean": 0.33976636690232453,
+      "singleton_signal_median": 0.13347215950489044,
+      "stable_fraction": 0.8505859375,
+      "unique_formulas": 995
+    },
+    {
+      "atoms_mean": 28.01171875,
+      "budget_structures": 256,
+      "candidate": "signal",
+      "formula_unique_fraction": 0.96484375,
+      "graph_edges_mean": 372.6484375,
+      "minimum_frequency_quantiles_thz": {
+        "q05": -17.418208140342337,
+        "q25": -5.679748719103095,
+        "q50": -2.609571904003579,
+        "q75": -3.0065528877266954e-07,
+        "q95": -7.078557565375753e-08
+      },
+      "records": 256,
+      "singleton_signal_mean": 2.913999187760055,
+      "singleton_signal_median": 2.637429118156433,
+      "stable_fraction": 0.3828125,
+      "unique_formulas": 247
+    },
+    {
+      "atoms_mean": 28.375,
+      "budget_structures": 512,
+      "candidate": "signal",
+      "formula_unique_fraction": 0.955078125,
+      "graph_edges_mean": 376.703125,
+      "minimum_frequency_quantiles_thz": {
+        "q05": -13.434737564318137,
+        "q25": -3.304188439792703,
+        "q50": -7.162202422749643e-07,
+        "q75": -2.0135403278282489e-07,
+        "q95": -5.8291083428294294e-08
+      },
+      "records": 512,
+      "singleton_signal_mean": 2.1651466673938558,
+      "singleton_signal_median": 1.7996686100959778,
+      "stable_fraction": 0.53515625,
+      "unique_formulas": 489
+    },
+    {
+      "atoms_mean": 28.587890625,
+      "budget_structures": 1024,
+      "candidate": "signal",
+      "formula_unique_fraction": 0.9443359375,
+      "graph_edges_mean": 378.935546875,
+      "minimum_frequency_quantiles_thz": {
+        "q05": -7.093245940156647,
+        "q25": -1.6932759701581963,
+        "q50": -3.1319639563649007e-07,
+        "q75": -1.5965901134299533e-07,
+        "q95": 2.1128958345131045e-08
+      },
+      "records": 1024,
+      "singleton_signal_mean": 1.5320297683938406,
+      "singleton_signal_median": 1.143521249294281,
+      "stable_fraction": 0.6630859375,
+      "unique_formulas": 967
+    },
+    {
+      "atoms_mean": 28.4921875,
+      "budget_structures": 256,
+      "candidate": "signal_coverage",
+      "formula_unique_fraction": 0.99609375,
+      "graph_edges_mean": 379.671875,
+      "minimum_frequency_quantiles_thz": {
+        "q05": -13.268747174001792,
+        "q25": -3.187181204791988,
+        "q50": -0.7710193158791565,
+        "q75": -2.1252404506399356e-07,
+        "q95": -4.297543738291192e-08
+      },
+      "records": 256,
+      "singleton_signal_mean": 2.04606591432821,
+      "singleton_signal_median": 1.6099395155906677,
+      "stable_fraction": 0.4765625,
+      "unique_formulas": 255
+    },
+    {
+      "atoms_mean": 28.525390625,
+      "budget_structures": 512,
+      "candidate": "signal_coverage",
+      "formula_unique_fraction": 0.99609375,
+      "graph_edges_mean": 377.96484375,
+      "minimum_frequency_quantiles_thz": {
+        "q05": -9.29611678097007,
+        "q25": -2.073775871042229,
+        "q50": -3.820452624612523e-07,
+        "q75": -1.715709802668777e-07,
+        "q95": -2.1999046968201625e-08
+      },
+      "records": 512,
+      "singleton_signal_mean": 1.6693430632003583,
+      "singleton_signal_median": 1.2452336549758911,
+      "stable_fraction": 0.580078125,
+      "unique_formulas": 510
+    },
+    {
+      "atoms_mean": 28.4306640625,
+      "budget_structures": 1024,
+      "candidate": "signal_coverage",
+      "formula_unique_fraction": 0.9873046875,
+      "graph_edges_mean": 375.845703125,
+      "minimum_frequency_quantiles_thz": {
+        "q05": -5.903344831596444,
+        "q25": -1.1164705331958649,
+        "q50": -3.070485861892601e-07,
+        "q75": -1.6138713749124765e-07,
+        "q95": 1.8402912560688855e-08
+      },
+      "records": 1024,
+      "singleton_signal_mean": 1.2907005050656153,
+      "singleton_signal_median": 0.9489119946956635,
+      "stable_fraction": 0.6708984375,
+      "unique_formulas": 1011
+    }
+  ],
+  "candidate_decisions": [
+    {
+      "allocation_regret": 0.04499999999999993,
+      "budget_structures": 256,
+      "observed_best": [
+        "coverage"
+      ],
+      "pairwise_order_accuracy": 0.5,
+      "predicted_best": "signal_coverage",
+      "predicted_best_correct": false,
+      "seed_winner_agreement": false,
+      "seed_winners": [
+        [
+          "coverage",
+          "signal"
+        ],
+        [
+          "coverage"
+        ]
+      ],
+      "two_seed_mean_top100_stable_rate": {
+        "coverage": 0.845,
+        "hash_uniform": 0.77,
+        "signal": 0.84,
+        "signal_coverage": 0.8
+      }
+    },
+    {
+      "allocation_regret": 0.20999999999999996,
+      "budget_structures": 512,
+      "observed_best": [
+        "coverage"
+      ],
+      "pairwise_order_accuracy": 0.16666666666666666,
+      "predicted_best": "signal_coverage",
+      "predicted_best_correct": false,
+      "seed_winner_agreement": true,
+      "seed_winners": [
+        [
+          "coverage"
+        ],
+        [
+          "coverage"
+        ]
+      ],
+      "two_seed_mean_top100_stable_rate": {
+        "coverage": 0.87,
+        "hash_uniform": 0.795,
+        "signal": 0.76,
+        "signal_coverage": 0.66
+      }
+    },
+    {
+      "allocation_regret": 0.21000000000000008,
+      "budget_structures": 1024,
+      "observed_best": [
+        "hash_uniform"
+      ],
+      "pairwise_order_accuracy": 0.16666666666666666,
+      "predicted_best": "signal_coverage",
+      "predicted_best_correct": false,
+      "seed_winner_agreement": true,
+      "seed_winners": [
+        [
+          "hash_uniform"
+        ],
+        [
+          "hash_uniform"
+        ]
+      ],
+      "two_seed_mean_top100_stable_rate": {
+        "coverage": 0.84,
+        "hash_uniform": 0.87,
+        "signal": 0.655,
+        "signal_coverage": 0.6599999999999999
+      }
+    }
+  ],
+  "complete_score_sha256": "46cca8be36d155a08100222ef3e00a73fb2e8870a44a30fa26ef616f43e300a2",
+  "composition_audit_sha256": "fa734730e7f7a18561b607faccafc25492e925e67d196e282be075b4d458509a",
+  "decision_summary": {
+    "best_candidate_accuracy": 0.0,
+    "mean_allocation_regret": 0.155,
+    "mean_pairwise_order_accuracy": 0.27777777777777773,
+    "seed_winner_agreement_rate": 0.6666666666666666
+  },
+  "dft_pbe_two_seed_means": [
+    {
+      "brier_score": 0.23992748328984215,
+      "budget_structures": 256,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.6622262262262262,
+      "minimum_frequency_mae_thz": 0.923655971999009,
+      "replicates": 2,
+      "roc_auc": 0.765896,
+      "top_k_stable_rate": 0.845
+    },
+    {
+      "brier_score": 0.2509333917617131,
+      "budget_structures": 256,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.6428788788788788,
+      "minimum_frequency_mae_thz": 0.9515777217868396,
+      "replicates": 2,
+      "roc_auc": 0.72841,
+      "top_k_stable_rate": 0.77
+    },
+    {
+      "brier_score": 0.2462453494414965,
+      "budget_structures": 256,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.6591531531531531,
+      "minimum_frequency_mae_thz": 0.9974248504784007,
+      "replicates": 2,
+      "roc_auc": 0.714162,
+      "top_k_stable_rate": 0.84
+    },
+    {
+      "brier_score": 0.25341615758442537,
+      "budget_structures": 256,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.6502182182182182,
+      "minimum_frequency_mae_thz": 0.9896975112329576,
+      "replicates": 2,
+      "roc_auc": 0.7035359999999999,
+      "top_k_stable_rate": 0.8
+    },
+    {
+      "brier_score": 0.24567142838346598,
+      "budget_structures": 512,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.6660770770770771,
+      "minimum_frequency_mae_thz": 0.8889533480130303,
+      "replicates": 2,
+      "roc_auc": 0.7790079999999999,
+      "top_k_stable_rate": 0.87
+    },
+    {
+      "brier_score": 0.24167315706874745,
+      "budget_structures": 512,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.6597347347347347,
+      "minimum_frequency_mae_thz": 0.9019999489563042,
+      "replicates": 2,
+      "roc_auc": 0.7594620000000001,
+      "top_k_stable_rate": 0.795
+    },
+    {
+      "brier_score": 0.2812077381416719,
+      "budget_structures": 512,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.5996306306306306,
+      "minimum_frequency_mae_thz": 1.0584025649564075,
+      "replicates": 2,
+      "roc_auc": 0.664192,
+      "top_k_stable_rate": 0.76
+    },
+    {
+      "brier_score": 0.31811140126746473,
+      "budget_structures": 512,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.5830520520520521,
+      "minimum_frequency_mae_thz": 1.0742138181593046,
+      "replicates": 2,
+      "roc_auc": 0.6323399999999999,
+      "top_k_stable_rate": 0.66
+    },
+    {
+      "brier_score": 0.2322565919769522,
+      "budget_structures": 1024,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.6647857857857857,
+      "minimum_frequency_mae_thz": 0.8791826801791802,
+      "replicates": 2,
+      "roc_auc": 0.776656,
+      "top_k_stable_rate": 0.84
+    },
+    {
+      "brier_score": 0.230677097544906,
+      "budget_structures": 1024,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.6761801801801802,
+      "minimum_frequency_mae_thz": 0.8901178172196669,
+      "replicates": 2,
+      "roc_auc": 0.777882,
+      "top_k_stable_rate": 0.87
+    },
+    {
+      "brier_score": 0.25494244960367574,
+      "budget_structures": 1024,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.570997997997998,
+      "minimum_frequency_mae_thz": 1.0437061448454115,
+      "replicates": 2,
+      "roc_auc": 0.6473880000000001,
+      "top_k_stable_rate": 0.655
+    },
+    {
+      "brier_score": 0.26438096259369026,
+      "budget_structures": 1024,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.5525055055055055,
+      "minimum_frequency_mae_thz": 1.0293288464624988,
+      "replicates": 2,
+      "roc_auc": 0.628666,
+      "top_k_stable_rate": 0.6599999999999999
+    }
+  ],
+  "frozen_prediction": {
+    "best_at_each_budget": "signal_coverage",
+    "complete_order": [
+      "signal_coverage",
+      "signal",
+      "coverage",
+      "hash_uniform"
+    ]
+  },
+  "interpretation": {
+    "post_outcome_audit": "Signal-based candidates substantially shift the training-label distribution toward unstable structures; this is descriptive evidence for a missing distribution-matching constraint, not a prospective explanation test.",
+    "primary_panel": "Coverage leads at 256 and 512 structures; hash-uniform leads at 1024.",
+    "prospective_result": "The frozen signal-plus-coverage point prediction missed the best candidate at all three budgets.",
+    "secondary_panel": "No candidate mean exceeds the starting checkpoint's macro Top-100 stable rate on MP20."
+  },
+  "mp20_two_seed_macro_means": [
+    {
+      "brier_score": 0.20993485781952187,
+      "budget_structures": 256,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7442848482478097,
+      "minimum_frequency_mae_thz": 1.0127192711419095,
+      "replicates": 2,
+      "roc_auc": 0.8136140968465089,
+      "top_k_stable_rate": 0.725
+    },
+    {
+      "brier_score": 0.20802121078123692,
+      "budget_structures": 256,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.748541340738423,
+      "minimum_frequency_mae_thz": 1.028500383677681,
+      "replicates": 2,
+      "roc_auc": 0.8215729495947308,
+      "top_k_stable_rate": 0.7281249999999999
+    },
+    {
+      "brier_score": 0.16554332770754113,
+      "budget_structures": 256,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.759944266270338,
+      "minimum_frequency_mae_thz": 1.0094075899597148,
+      "replicates": 2,
+      "roc_auc": 0.8399759940603879,
+      "top_k_stable_rate": 0.7575000000000001
+    },
+    {
+      "brier_score": 0.1863564077230223,
+      "budget_structures": 256,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7595073920525657,
+      "minimum_frequency_mae_thz": 1.0067503308533161,
+      "replicates": 2,
+      "roc_auc": 0.8394308681293465,
+      "top_k_stable_rate": 0.755625
+    },
+    {
+      "brier_score": 0.22792515769962762,
+      "budget_structures": 512,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7379161451814769,
+      "minimum_frequency_mae_thz": 1.0115007091754453,
+      "replicates": 2,
+      "roc_auc": 0.8033247226349667,
+      "top_k_stable_rate": 0.7081249999999999
+    },
+    {
+      "brier_score": 0.21218886383594715,
+      "budget_structures": 512,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7282970901126408,
+      "minimum_frequency_mae_thz": 1.019655947583969,
+      "replicates": 2,
+      "roc_auc": 0.7905417964859052,
+      "top_k_stable_rate": 0.70625
+    },
+    {
+      "brier_score": 0.2254440836719835,
+      "budget_structures": 512,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7296462374843555,
+      "minimum_frequency_mae_thz": 1.1301145250449627,
+      "replicates": 2,
+      "roc_auc": 0.8091585309633686,
+      "top_k_stable_rate": 0.7206250000000001
+    },
+    {
+      "brier_score": 0.25587079187065115,
+      "budget_structures": 512,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7264369524405507,
+      "minimum_frequency_mae_thz": 1.1529431303897448,
+      "replicates": 2,
+      "roc_auc": 0.8070933863670557,
+      "top_k_stable_rate": 0.704375
+    },
+    {
+      "brier_score": 0.2052906346258499,
+      "budget_structures": 1024,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7344045290988737,
+      "minimum_frequency_mae_thz": 1.0203990516613912,
+      "replicates": 2,
+      "roc_auc": 0.7985230518002044,
+      "top_k_stable_rate": 0.7175
+    },
+    {
+      "brier_score": 0.19195368994318074,
+      "budget_structures": 1024,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7423290832290363,
+      "minimum_frequency_mae_thz": 1.0125031894798364,
+      "replicates": 2,
+      "roc_auc": 0.8095335949464895,
+      "top_k_stable_rate": 0.74
+    },
+    {
+      "brier_score": 0.19770916787740941,
+      "budget_structures": 1024,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7066700563204005,
+      "minimum_frequency_mae_thz": 1.1657619480842465,
+      "replicates": 2,
+      "roc_auc": 0.7686848237181008,
+      "top_k_stable_rate": 0.700625
+    },
+    {
+      "brier_score": 0.18866014279735804,
+      "budget_structures": 1024,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.6869211514392991,
+      "minimum_frequency_mae_thz": 1.1279284510311065,
+      "replicates": 2,
+      "roc_auc": 0.7306226449357482,
+      "top_k_stable_rate": 0.5825
+    }
+  ],
+  "mp20_two_seed_means_by_generator": [
+    {
+      "brier_score": 0.2784131956541021,
+      "budget_structures": 256,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7144774718397997,
+      "minimum_frequency_mae_thz": 0.49145169323180915,
+      "replicates": 2,
+      "roc_auc": 0.7859821616225304,
+      "source": "CrystalFlow-gen",
+      "top_k_stable_rate": 0.8049999999999999
+    },
+    {
+      "brier_score": 0.266091537990396,
+      "budget_structures": 256,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7242506257822279,
+      "minimum_frequency_mae_thz": 0.48147189468981877,
+      "replicates": 2,
+      "roc_auc": 0.7968782839428332,
+      "source": "CrystalFlow-gen",
+      "top_k_stable_rate": 0.8200000000000001
+    },
+    {
+      "brier_score": 0.1921009945657936,
+      "budget_structures": 256,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7514314768460576,
+      "minimum_frequency_mae_thz": 0.4708382090890052,
+      "replicates": 2,
+      "roc_auc": 0.8397271700294241,
+      "source": "CrystalFlow-gen",
+      "top_k_stable_rate": 0.85
+    },
+    {
+      "brier_score": 0.22502244979861719,
+      "budget_structures": 256,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7465362953692115,
+      "minimum_frequency_mae_thz": 0.44738305509628895,
+      "replicates": 2,
+      "roc_auc": 0.833481110760824,
+      "source": "CrystalFlow-gen",
+      "top_k_stable_rate": 0.855
+    },
+    {
+      "brier_score": 0.31601285877551605,
+      "budget_structures": 512,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7043898623279099,
+      "minimum_frequency_mae_thz": 0.4997385326705028,
+      "replicates": 2,
+      "roc_auc": 0.7644427805800756,
+      "source": "CrystalFlow-gen",
+      "top_k_stable_rate": 0.78
+    },
+    {
+      "brier_score": 0.2859606014821646,
+      "budget_structures": 512,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.6845729036295369,
+      "minimum_frequency_mae_thz": 0.4834187878851317,
+      "replicates": 2,
+      "roc_auc": 0.7320072772173182,
+      "source": "CrystalFlow-gen",
+      "top_k_stable_rate": 0.775
+    },
+    {
+      "brier_score": 0.266662844234655,
+      "budget_structures": 512,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7170760325406759,
+      "minimum_frequency_mae_thz": 0.5103525766541392,
+      "replicates": 2,
+      "roc_auc": 0.805088141025641,
+      "source": "CrystalFlow-gen",
+      "top_k_stable_rate": 0.855
+    },
+    {
+      "brier_score": 0.30827533831759846,
+      "budget_structures": 512,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7101783479349186,
+      "minimum_frequency_mae_thz": 0.4937213100919279,
+      "replicates": 2,
+      "roc_auc": 0.7981787253047499,
+      "source": "CrystalFlow-gen",
+      "top_k_stable_rate": 0.835
+    },
+    {
+      "brier_score": 0.2713141000014296,
+      "budget_structures": 1024,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.702808197747184,
+      "minimum_frequency_mae_thz": 0.49896154878535803,
+      "replicates": 2,
+      "roc_auc": 0.7598157051282052,
+      "source": "CrystalFlow-gen",
+      "top_k_stable_rate": 0.78
+    },
+    {
+      "brier_score": 0.2522833756857524,
+      "budget_structures": 1024,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7207259073842303,
+      "minimum_frequency_mae_thz": 0.48962842077781,
+      "replicates": 2,
+      "roc_auc": 0.7835290563261875,
+      "source": "CrystalFlow-gen",
+      "top_k_stable_rate": 0.835
+    },
+    {
+      "brier_score": 0.24063756002345957,
+      "budget_structures": 1024,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.6782493742177722,
+      "minimum_frequency_mae_thz": 0.5591117725334709,
+      "replicates": 2,
+      "roc_auc": 0.746078972257251,
+      "source": "CrystalFlow-gen",
+      "top_k_stable_rate": 0.835
+    },
+    {
+      "brier_score": 0.2367226739239341,
+      "budget_structures": 1024,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.6349530663329161,
+      "minimum_frequency_mae_thz": 0.56238604448243,
+      "replicates": 2,
+      "roc_auc": 0.670141078184111,
+      "source": "CrystalFlow-gen",
+      "top_k_stable_rate": 0.66
+    },
+    {
+      "brier_score": 0.168784718662006,
+      "budget_structures": 256,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7679990613266583,
+      "minimum_frequency_mae_thz": 2.058369422666814,
+      "replicates": 2,
+      "roc_auc": 0.8698245439634177,
+      "source": "CrystalFormer-mp20",
+      "top_k_stable_rate": 0.5700000000000001
+    },
+    {
+      "brier_score": 0.17679263258589997,
+      "budget_structures": 256,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7635278473091365,
+      "minimum_frequency_mae_thz": 2.114069757592399,
+      "replicates": 2,
+      "roc_auc": 0.866289328495452,
+      "source": "CrystalFormer-mp20",
+      "top_k_stable_rate": 0.585
+    },
+    {
+      "brier_score": 0.14720546581484767,
+      "budget_structures": 256,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7639252190237797,
+      "minimum_frequency_mae_thz": 2.0742060198652434,
+      "replicates": 2,
+      "roc_auc": 0.8729186341269446,
+      "source": "CrystalFormer-mp20",
+      "top_k_stable_rate": 0.6
+    },
+    {
+      "brier_score": 0.16493648883642026,
+      "budget_structures": 256,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7668069461827285,
+      "minimum_frequency_mae_thz": 2.0947648874696094,
+      "replicates": 2,
+      "roc_auc": 0.8751988170386202,
+      "source": "CrystalFormer-mp20",
+      "top_k_stable_rate": 0.595
+    },
+    {
+      "brier_score": 0.16564593644753073,
+      "budget_structures": 512,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7729709011264081,
+      "minimum_frequency_mae_thz": 2.0291466462491066,
+      "replicates": 2,
+      "roc_auc": 0.87798846861176,
+      "source": "CrystalFormer-mp20",
+      "top_k_stable_rate": 0.575
+    },
+    {
+      "brier_score": 0.16351762131364528,
+      "budget_structures": 512,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7638595118898623,
+      "minimum_frequency_mae_thz": 2.073741370701148,
+      "replicates": 2,
+      "roc_auc": 0.8652144738804115,
+      "source": "CrystalFormer-mp20",
+      "top_k_stable_rate": 0.595
+    },
+    {
+      "brier_score": 0.21426944882351484,
+      "budget_structures": 512,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7255976220275344,
+      "minimum_frequency_mae_thz": 2.3525424988669985,
+      "replicates": 2,
+      "roc_auc": 0.8457055519658034,
+      "source": "CrystalFormer-mp20",
+      "top_k_stable_rate": 0.535
+    },
+    {
+      "brier_score": 0.2401549423653484,
+      "budget_structures": 512,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7282024405506884,
+      "minimum_frequency_mae_thz": 2.4170628806458954,
+      "replicates": 2,
+      "roc_auc": 0.8463703464386898,
+      "source": "CrystalFormer-mp20",
+      "top_k_stable_rate": 0.52
+    },
+    {
+      "brier_score": 0.14787272356363643,
+      "budget_structures": 1024,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7663063204005006,
+      "minimum_frequency_mae_thz": 2.0478214681006146,
+      "replicates": 2,
+      "roc_auc": 0.8734964461454346,
+      "source": "CrystalFormer-mp20",
+      "top_k_stable_rate": 0.61
+    },
+    {
+      "brier_score": 0.14056422548543804,
+      "budget_structures": 1024,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7688297872340426,
+      "minimum_frequency_mae_thz": 2.0440765091713824,
+      "replicates": 2,
+      "roc_auc": 0.8726452606988419,
+      "source": "CrystalFormer-mp20",
+      "top_k_stable_rate": 0.605
+    },
+    {
+      "brier_score": 0.17772677174370904,
+      "budget_structures": 1024,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7240269086357948,
+      "minimum_frequency_mae_thz": 2.373249281692548,
+      "replicates": 2,
+      "roc_auc": 0.8366593767085839,
+      "source": "CrystalFormer-mp20",
+      "top_k_stable_rate": 0.51
+    },
+    {
+      "brier_score": 0.14855612411526903,
+      "budget_structures": 1024,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.728058510638298,
+      "minimum_frequency_mae_thz": 2.2364584467872803,
+      "replicates": 2,
+      "roc_auc": 0.8249602365922759,
+      "source": "CrystalFormer-mp20",
+      "top_k_stable_rate": 0.425
+    },
+    {
+      "brier_score": 0.18278223980686736,
+      "budget_structures": 256,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.6953097622027535,
+      "minimum_frequency_mae_thz": 0.8826955722918366,
+      "replicates": 2,
+      "roc_auc": 0.6914421690938913,
+      "source": "CrystalLLM-gen",
+      "top_k_stable_rate": 0.31
+    },
+    {
+      "brier_score": 0.1908334121484695,
+      "budget_structures": 256,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7208010012515644,
+      "minimum_frequency_mae_thz": 0.9061229550423212,
+      "replicates": 2,
+      "roc_auc": 0.7215878025746807,
+      "source": "CrystalLLM-gen",
+      "top_k_stable_rate": 0.315
+    },
+    {
+      "brier_score": 0.12780693378863522,
+      "budget_structures": 256,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7389815394242804,
+      "minimum_frequency_mae_thz": 0.8286009142858406,
+      "replicates": 2,
+      "roc_auc": 0.7533798896565436,
+      "source": "CrystalLLM-gen",
+      "top_k_stable_rate": 0.415
+    },
+    {
+      "brier_score": 0.14957869783333966,
+      "budget_structures": 256,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7367443679599499,
+      "minimum_frequency_mae_thz": 0.8343246337735231,
+      "replicates": 2,
+      "roc_auc": 0.7505032556290074,
+      "source": "CrystalLLM-gen",
+      "top_k_stable_rate": 0.41
+    },
+    {
+      "brier_score": 0.2209636566810628,
+      "budget_structures": 512,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.6874374217772216,
+      "minimum_frequency_mae_thz": 0.9010261361305544,
+      "replicates": 2,
+      "roc_auc": 0.680817883592624,
+      "source": "CrystalLLM-gen",
+      "top_k_stable_rate": 0.27
+    },
+    {
+      "brier_score": 0.1972049628241807,
+      "budget_structures": 512,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.6843444931163956,
+      "minimum_frequency_mae_thz": 0.9096313111524794,
+      "replicates": 2,
+      "roc_auc": 0.6773199463193995,
+      "source": "CrystalLLM-gen",
+      "top_k_stable_rate": 0.275
+    },
+    {
+      "brier_score": 0.20298250888426272,
+      "budget_structures": 512,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7033776595744681,
+      "minimum_frequency_mae_thz": 0.9660560837195353,
+      "replicates": 2,
+      "roc_auc": 0.7030543267558029,
+      "source": "CrystalLLM-gen",
+      "top_k_stable_rate": 0.375
+    },
+    {
+      "brier_score": 0.22854036292752225,
+      "budget_structures": 512,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7127784730913642,
+      "minimum_frequency_mae_thz": 1.004628110028771,
+      "replicates": 2,
+      "roc_auc": 0.7219730105870072,
+      "source": "CrystalLLM-gen",
+      "top_k_stable_rate": 0.395
+    },
+    {
+      "brier_score": 0.19520621052093856,
+      "budget_structures": 1024,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.689820087609512,
+      "minimum_frequency_mae_thz": 0.9038341954364786,
+      "replicates": 2,
+      "roc_auc": 0.6863288433818778,
+      "source": "CrystalLLM-gen",
+      "top_k_stable_rate": 0.29
+    },
+    {
+      "brier_score": 0.17219040263615965,
+      "budget_structures": 1024,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.6927831664580726,
+      "minimum_frequency_mae_thz": 0.891467235817496,
+      "replicates": 2,
+      "roc_auc": 0.6873042894776082,
+      "source": "CrystalLLM-gen",
+      "top_k_stable_rate": 0.305
+    },
+    {
+      "brier_score": 0.1685971466026236,
+      "budget_structures": 1024,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.6542600125156446,
+      "minimum_frequency_mae_thz": 0.9964369613416264,
+      "replicates": 2,
+      "roc_auc": 0.6359162980267409,
+      "source": "CrystalLLM-gen",
+      "top_k_stable_rate": 0.315
+    },
+    {
+      "brier_score": 0.15128091735960988,
+      "budget_structures": 1024,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.6437202753441802,
+      "minimum_frequency_mae_thz": 0.963928515462129,
+      "replicates": 2,
+      "roc_auc": 0.6171032357473036,
+      "source": "CrystalLLM-gen",
+      "top_k_stable_rate": 0.22999999999999998
+    },
+    {
+      "brier_score": 0.15171630112817164,
+      "budget_structures": 256,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7929646433041302,
+      "minimum_frequency_mae_thz": 1.2196289604961723,
+      "replicates": 2,
+      "roc_auc": 0.8811931428571429,
+      "source": "CrystalLLM-no-sg",
+      "top_k_stable_rate": 0.79
+    },
+    {
+      "brier_score": 0.15033873043459672,
+      "budget_structures": 256,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7917725281602002,
+      "minimum_frequency_mae_thz": 1.2278073261512656,
+      "replicates": 2,
+      "roc_auc": 0.8864274285714285,
+      "source": "CrystalLLM-no-sg",
+      "top_k_stable_rate": 0.745
+    },
+    {
+      "brier_score": 0.1345265632101153,
+      "budget_structures": 256,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7912984981226533,
+      "minimum_frequency_mae_thz": 1.2216789718182128,
+      "replicates": 2,
+      "roc_auc": 0.8894674285714286,
+      "source": "CrystalLLM-no-sg",
+      "top_k_stable_rate": 0.76
+    },
+    {
+      "brier_score": 0.14797228750754157,
+      "budget_structures": 256,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7915112640801001,
+      "minimum_frequency_mae_thz": 1.234398815668328,
+      "replicates": 2,
+      "roc_auc": 0.8907245714285714,
+      "source": "CrystalLLM-no-sg",
+      "top_k_stable_rate": 0.77
+    },
+    {
+      "brier_score": 0.15149522576513474,
+      "budget_structures": 512,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7965050062578223,
+      "minimum_frequency_mae_thz": 1.1912782727168483,
+      "replicates": 2,
+      "roc_auc": 0.881472,
+      "source": "CrystalLLM-no-sg",
+      "top_k_stable_rate": 0.815
+    },
+    {
+      "brier_score": 0.14439538075805097,
+      "budget_structures": 512,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7849483729662078,
+      "minimum_frequency_mae_thz": 1.2192983308221341,
+      "replicates": 2,
+      "roc_auc": 0.8720045714285714,
+      "source": "CrystalLLM-no-sg",
+      "top_k_stable_rate": 0.75
+    },
+    {
+      "brier_score": 0.17224896399241252,
+      "budget_structures": 512,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.768994055068836,
+      "minimum_frequency_mae_thz": 1.3767836903706658,
+      "replicates": 2,
+      "roc_auc": 0.8698331428571429,
+      "source": "CrystalLLM-no-sg",
+      "top_k_stable_rate": 0.6950000000000001
+    },
+    {
+      "brier_score": 0.1967923429294019,
+      "budget_structures": 512,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7677518773466834,
+      "minimum_frequency_mae_thz": 1.4286734509136263,
+      "replicates": 2,
+      "roc_auc": 0.8713234285714286,
+      "source": "CrystalLLM-no-sg",
+      "top_k_stable_rate": 0.7
+    },
+    {
+      "brier_score": 0.1376451518860814,
+      "budget_structures": 1024,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7898294743429286,
+      "minimum_frequency_mae_thz": 1.2130834470507859,
+      "replicates": 2,
+      "roc_auc": 0.881312,
+      "source": "CrystalLLM-no-sg",
+      "top_k_stable_rate": 0.815
+    },
+    {
+      "brier_score": 0.13260626231977884,
+      "budget_structures": 1024,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.791595744680851,
+      "minimum_frequency_mae_thz": 1.2064915466800963,
+      "replicates": 2,
+      "roc_auc": 0.8821485714285715,
+      "source": "CrystalLLM-no-sg",
+      "top_k_stable_rate": 0.79
+    },
+    {
+      "brier_score": 0.14750002989445718,
+      "budget_structures": 1024,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7616739674593243,
+      "minimum_frequency_mae_thz": 1.416909779875567,
+      "replicates": 2,
+      "roc_auc": 0.8477805714285714,
+      "source": "CrystalLLM-no-sg",
+      "top_k_stable_rate": 0.67
+    },
+    {
+      "brier_score": 0.13651694691604585,
+      "budget_structures": 1024,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7573795369211515,
+      "minimum_frequency_mae_thz": 1.3516897776432026,
+      "replicates": 2,
+      "roc_auc": 0.8351314285714286,
+      "source": "CrystalLLM-no-sg",
+      "top_k_stable_rate": 0.6100000000000001
+    },
+    {
+      "brier_score": 0.17728645110982796,
+      "budget_structures": 256,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7849859198998748,
+      "minimum_frequency_mae_thz": 1.1821090769666716,
+      "replicates": 2,
+      "roc_auc": 0.8503106534584637,
+      "source": "CrystalLLM-with-sg",
+      "top_k_stable_rate": 0.815
+    },
+    {
+      "brier_score": 0.173489124444077,
+      "budget_structures": 256,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7863657697121402,
+      "minimum_frequency_mae_thz": 1.1903353542618695,
+      "replicates": 2,
+      "roc_auc": 0.8603109431120379,
+      "source": "CrystalLLM-with-sg",
+      "top_k_stable_rate": 0.825
+    },
+    {
+      "brier_score": 0.15186813009324895,
+      "budget_structures": 256,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.793543491864831,
+      "minimum_frequency_mae_thz": 1.1954064464364167,
+      "replicates": 2,
+      "roc_auc": 0.866893320588576,
+      "source": "CrystalLLM-with-sg",
+      "top_k_stable_rate": 0.86
+    },
+    {
+      "brier_score": 0.16787370706192867,
+      "budget_structures": 256,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7904818523153943,
+      "minimum_frequency_mae_thz": 1.1966351553149916,
+      "replicates": 2,
+      "roc_auc": 0.8645181612791102,
+      "source": "CrystalLLM-with-sg",
+      "top_k_stable_rate": 0.845
+    },
+    {
+      "brier_score": 0.18733603185766284,
+      "budget_structures": 512,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7821730287859825,
+      "minimum_frequency_mae_thz": 1.179176919641935,
+      "replicates": 2,
+      "roc_auc": 0.8453901633646159,
+      "source": "CrystalLLM-with-sg",
+      "top_k_stable_rate": 0.8
+    },
+    {
+      "brier_score": 0.17395973059454894,
+      "budget_structures": 512,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7737202753441802,
+      "minimum_frequency_mae_thz": 1.1921420565530279,
+      "replicates": 2,
+      "roc_auc": 0.8395246784845325,
+      "source": "CrystalLLM-with-sg",
+      "top_k_stable_rate": 0.85
+    },
+    {
+      "brier_score": 0.18879031394929668,
+      "budget_structures": 512,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7704818523153942,
+      "minimum_frequency_mae_thz": 1.3206486817608343,
+      "replicates": 2,
+      "roc_auc": 0.8421206986444213,
+      "source": "CrystalLLM-with-sg",
+      "top_k_stable_rate": 0.8
+    },
+    {
+      "brier_score": 0.21761349832600552,
+      "budget_structures": 512,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7611576971214018,
+      "minimum_frequency_mae_thz": 1.3472974967254945,
+      "replicates": 2,
+      "roc_auc": 0.8320914436334145,
+      "source": "CrystalLLM-with-sg",
+      "top_k_stable_rate": 0.76
+    },
+    {
+      "brier_score": 0.16971558206257403,
+      "budget_structures": 1024,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7795447434292866,
+      "minimum_frequency_mae_thz": 1.1744726127950085,
+      "replicates": 2,
+      "roc_auc": 0.83705900243309,
+      "source": "CrystalLLM-with-sg",
+      "top_k_stable_rate": 0.815
+    },
+    {
+      "brier_score": 0.16427838990217913,
+      "budget_structures": 1024,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7816458072590738,
+      "minimum_frequency_mae_thz": 1.188189572999542,
+      "replicates": 2,
+      "roc_auc": 0.8497530703278878,
+      "source": "CrystalLLM-with-sg",
+      "top_k_stable_rate": 0.865
+    },
+    {
+      "brier_score": 0.1686327843230715,
+      "budget_structures": 1024,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7550735294117648,
+      "minimum_frequency_mae_thz": 1.3554466817372433,
+      "replicates": 2,
+      "roc_auc": 0.8070581334723671,
+      "source": "CrystalLLM-with-sg",
+      "top_k_stable_rate": 0.785
+    },
+    {
+      "brier_score": 0.16917761199914927,
+      "budget_structures": 1024,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7412719023779725,
+      "minimum_frequency_mae_thz": 1.3140248414104443,
+      "replicates": 2,
+      "roc_auc": 0.7841682597613255,
+      "source": "CrystalLLM-with-sg",
+      "top_k_stable_rate": 0.7150000000000001
+    },
+    {
+      "brier_score": 0.24983304433298287,
+      "budget_structures": 256,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7287609511889862,
+      "minimum_frequency_mae_thz": 0.5193891953253296,
+      "replicates": 2,
+      "roc_auc": 0.8211649939988253,
+      "source": "DiffCSP-gen",
+      "top_k_stable_rate": 0.9199999999999999
+    },
+    {
+      "brier_score": 0.23649831105256952,
+      "budget_structures": 256,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7268116395494368,
+      "minimum_frequency_mae_thz": 0.5164831617226033,
+      "replicates": 2,
+      "roc_auc": 0.8221928547715722,
+      "source": "DiffCSP-gen",
+      "top_k_stable_rate": 0.945
+    },
+    {
+      "brier_score": 0.17512945165678037,
+      "budget_structures": 256,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.747679912390488,
+      "minimum_frequency_mae_thz": 0.5099565833953268,
+      "replicates": 2,
+      "roc_auc": 0.85325851017646,
+      "source": "DiffCSP-gen",
+      "top_k_stable_rate": 0.94
+    },
+    {
+      "brier_score": 0.1993383935255564,
+      "budget_structures": 256,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.749197434292866,
+      "minimum_frequency_mae_thz": 0.4941942355652543,
+      "replicates": 2,
+      "roc_auc": 0.8533542736024924,
+      "source": "DiffCSP-gen",
+      "top_k_stable_rate": 0.9299999999999999
+    },
+    {
+      "brier_score": 0.28004949361841214,
+      "budget_structures": 512,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7112719023779724,
+      "minimum_frequency_mae_thz": 0.5295018298276485,
+      "replicates": 2,
+      "roc_auc": 0.8005439362598636,
+      "source": "DiffCSP-gen",
+      "top_k_stable_rate": 0.88
+    },
+    {
+      "brier_score": 0.2510182817612088,
+      "budget_structures": 512,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.704288172715895,
+      "minimum_frequency_mae_thz": 0.5088397149322031,
+      "replicates": 2,
+      "roc_auc": 0.7886501187466484,
+      "source": "DiffCSP-gen",
+      "top_k_stable_rate": 0.93
+    },
+    {
+      "brier_score": 0.25297821189486414,
+      "budget_structures": 512,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7195056320400501,
+      "minimum_frequency_mae_thz": 0.5631121613048682,
+      "replicates": 2,
+      "roc_auc": 0.8233867054827754,
+      "source": "DiffCSP-gen",
+      "top_k_stable_rate": 0.91
+    },
+    {
+      "brier_score": 0.2843913850815958,
+      "budget_structures": 512,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7173936170212766,
+      "minimum_frequency_mae_thz": 0.5539079962500417,
+      "replicates": 2,
+      "roc_auc": 0.8223301156822187,
+      "source": "DiffCSP-gen",
+      "top_k_stable_rate": 0.91
+    },
+    {
+      "brier_score": 0.25546388899318107,
+      "budget_structures": 1024,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7008839173967458,
+      "minimum_frequency_mae_thz": 0.5368047209371869,
+      "replicates": 2,
+      "roc_auc": 0.7868433821088383,
+      "source": "DiffCSP-gen",
+      "top_k_stable_rate": 0.885
+    },
+    {
+      "brier_score": 0.22424117296172358,
+      "budget_structures": 1024,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.720467772215269,
+      "minimum_frequency_mae_thz": 0.5148688259860992,
+      "replicates": 2,
+      "roc_auc": 0.8142604509818943,
+      "source": "DiffCSP-gen",
+      "top_k_stable_rate": 0.955
+    },
+    {
+      "brier_score": 0.23501669216435195,
+      "budget_structures": 1024,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.6816583229036295,
+      "minimum_frequency_mae_thz": 0.6097812924812609,
+      "replicates": 2,
+      "roc_auc": 0.7618140146581884,
+      "source": "DiffCSP-gen",
+      "top_k_stable_rate": 0.91
+    },
+    {
+      "brier_score": 0.23812545552600092,
+      "budget_structures": 1024,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.6336936795994994,
+      "minimum_frequency_mae_thz": 0.6128765141068302,
+      "replicates": 2,
+      "roc_auc": 0.6751225771853214,
+      "source": "DiffCSP-gen",
+      "top_k_stable_rate": 0.69
+    },
+    {
+      "brier_score": 0.2107704843166996,
+      "budget_structures": 256,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7694258448060075,
+      "minimum_frequency_mae_thz": 1.08696205711989,
+      "replicates": 2,
+      "roc_auc": 0.8187931389901832,
+      "source": "LLaMA2-70B",
+      "top_k_stable_rate": 0.735
+    },
+    {
+      "brier_score": 0.21327212787375296,
+      "budget_structures": 256,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7694665206508136,
+      "minimum_frequency_mae_thz": 1.1166557101052206,
+      "replicates": 2,
+      "roc_auc": 0.8277070493819263,
+      "source": "LLaMA2-70B",
+      "top_k_stable_rate": 0.73
+    },
+    {
+      "brier_score": 0.18576731294044938,
+      "budget_structures": 256,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7696636420525658,
+      "minimum_frequency_mae_thz": 1.1254712955754984,
+      "replicates": 2,
+      "roc_auc": 0.8353236801512665,
+      "source": "LLaMA2-70B",
+      "top_k_stable_rate": 0.775
+    },
+    {
+      "brier_score": 0.2025672038856226,
+      "budget_structures": 256,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7710638297872341,
+      "minimum_frequency_mae_thz": 1.112464465944296,
+      "replicates": 2,
+      "roc_auc": 0.8357715081853012,
+      "source": "LLaMA2-70B",
+      "top_k_stable_rate": 0.76
+    },
+    {
+      "brier_score": 0.22078475349150523,
+      "budget_structures": 512,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7618914267834793,
+      "minimum_frequency_mae_thz": 1.0956222222985774,
+      "replicates": 2,
+      "roc_auc": 0.8075228001336376,
+      "source": "LLaMA2-70B",
+      "top_k_stable_rate": 0.705
+    },
+    {
+      "brier_score": 0.21914188662665712,
+      "budget_structures": 512,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7544086357947434,
+      "minimum_frequency_mae_thz": 1.1075739045081479,
+      "replicates": 2,
+      "roc_auc": 0.802546933088805,
+      "source": "LLaMA2-70B",
+      "top_k_stable_rate": 0.675
+    },
+    {
+      "brier_score": 0.23755384863091805,
+      "budget_structures": 512,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7420337922403004,
+      "minimum_frequency_mae_thz": 1.2519341579810468,
+      "replicates": 2,
+      "roc_auc": 0.8108886187703922,
+      "source": "LLaMA2-70B",
+      "top_k_stable_rate": 0.75
+    },
+    {
+      "brier_score": 0.2661350706257236,
+      "budget_structures": 512,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7373920525657072,
+      "minimum_frequency_mae_thz": 1.2803339783034322,
+      "replicates": 2,
+      "roc_auc": 0.804491075427036,
+      "source": "LLaMA2-70B",
+      "top_k_stable_rate": 0.72
+    },
+    {
+      "brier_score": 0.20755055369009914,
+      "budget_structures": 1024,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7631398623279099,
+      "minimum_frequency_mae_thz": 1.1036063109253516,
+      "replicates": 2,
+      "roc_auc": 0.8052587806282387,
+      "source": "LLaMA2-70B",
+      "top_k_stable_rate": 0.7150000000000001
+    },
+    {
+      "brier_score": 0.20529770168396203,
+      "budget_structures": 1024,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7671683354192741,
+      "minimum_frequency_mae_thz": 1.0859586472251714,
+      "replicates": 2,
+      "roc_auc": 0.8184910327767471,
+      "source": "LLaMA2-70B",
+      "top_k_stable_rate": 0.74
+    },
+    {
+      "brier_score": 0.20717335253158803,
+      "budget_structures": 1024,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7351001251564455,
+      "minimum_frequency_mae_thz": 1.2693485394365729,
+      "replicates": 2,
+      "roc_auc": 0.7843921267566588,
+      "source": "LLaMA2-70B",
+      "top_k_stable_rate": 0.74
+    },
+    {
+      "brier_score": 0.19554903343221725,
+      "budget_structures": 1024,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7262531289111389,
+      "minimum_frequency_mae_thz": 1.228164797736139,
+      "replicates": 2,
+      "roc_auc": 0.7623525899387968,
+      "source": "LLaMA2-70B",
+      "top_k_stable_rate": 0.6699999999999999
+    },
+    {
+      "brier_score": 0.25989242754551756,
+      "budget_structures": 256,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.7003551314142678,
+      "minimum_frequency_mae_thz": 0.6611481910367529,
+      "replicates": 2,
+      "roc_auc": 0.7902019707876162,
+      "source": "MatterGen-mp20-base",
+      "top_k_stable_rate": 0.855
+    },
+    {
+      "brier_score": 0.2568538097201336,
+      "budget_structures": 256,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.7053347934918648,
+      "minimum_frequency_mae_thz": 0.6750569098559501,
+      "replicates": 2,
+      "roc_auc": 0.7911899059079156,
+      "source": "MatterGen-mp20-base",
+      "top_k_stable_rate": 0.86
+    },
+    {
+      "brier_score": 0.2099417695904586,
+      "budget_structures": 256,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.7230303504380475,
+      "minimum_frequency_mae_thz": 0.6491022792121732,
+      "replicates": 2,
+      "roc_auc": 0.8088393191824599,
+      "source": "MatterGen-mp20-base",
+      "top_k_stable_rate": 0.86
+    },
+    {
+      "brier_score": 0.23356203333515205,
+      "budget_structures": 256,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.7237171464330413,
+      "minimum_frequency_mae_thz": 0.6398373979942362,
+      "replicates": 2,
+      "roc_auc": 0.8118952471108457,
+      "source": "MatterGen-mp20-base",
+      "top_k_stable_rate": 0.88
+    },
+    {
+      "brier_score": 0.2811133049601966,
+      "budget_structures": 512,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.6866896120150188,
+      "minimum_frequency_mae_thz": 0.6665151138683902,
+      "replicates": 2,
+      "roc_auc": 0.7684197485371571,
+      "source": "MatterGen-mp20-base",
+      "top_k_stable_rate": 0.84
+    },
+    {
+      "brier_score": 0.2623124453271209,
+      "budget_structures": 512,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.6762343554443053,
+      "minimum_frequency_mae_thz": 0.6626021041174801,
+      "replicates": 2,
+      "roc_auc": 0.7470663727215547,
+      "source": "MatterGen-mp20-base",
+      "top_k_stable_rate": 0.8
+    },
+    {
+      "brier_score": 0.26806652896594396,
+      "budget_structures": 512,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.6901032540675844,
+      "minimum_frequency_mae_thz": 0.6994863497016133,
+      "replicates": 2,
+      "roc_auc": 0.7731910622049696,
+      "source": "MatterGen-mp20-base",
+      "top_k_stable_rate": 0.845
+    },
+    {
+      "brier_score": 0.30506339439201324,
+      "budget_structures": 512,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.6766411138923655,
+      "minimum_frequency_mae_thz": 0.6979198201587697,
+      "replicates": 2,
+      "roc_auc": 0.7599889452919015,
+      "source": "MatterGen-mp20-base",
+      "top_k_stable_rate": 0.795
+    },
+    {
+      "brier_score": 0.25755686628885915,
+      "budget_structures": 1024,
+      "candidate": "coverage",
+      "continuous_pairwise_concordance": 0.6829036295369211,
+      "minimum_frequency_mae_thz": 0.6846081092603458,
+      "replicates": 2,
+      "roc_auc": 0.7580702545759503,
+      "source": "MatterGen-mp20-base",
+      "top_k_stable_rate": 0.8300000000000001
+    },
+    {
+      "brier_score": 0.24416798887045232,
+      "budget_structures": 1024,
+      "candidate": "hash_uniform",
+      "continuous_pairwise_concordance": 0.6954161451814769,
+      "minimum_frequency_mae_thz": 0.6793447571810942,
+      "replicates": 2,
+      "roc_auc": 0.7681370275541777,
+      "source": "MatterGen-mp20-base",
+      "top_k_stable_rate": 0.825
+    },
+    {
+      "brier_score": 0.2363890057360144,
+      "budget_structures": 1024,
+      "candidate": "signal",
+      "continuous_pairwise_concordance": 0.6633182102628286,
+      "minimum_frequency_mae_thz": 0.7458112755756832,
+      "replicates": 2,
+      "roc_auc": 0.729779096436445,
+      "source": "MatterGen-mp20-base",
+      "top_k_stable_rate": 0.84
+    },
+    {
+      "brier_score": 0.23335237910663792,
+      "budget_structures": 1024,
+      "candidate": "signal_coverage",
+      "continuous_pairwise_concordance": 0.6300391113892365,
+      "minimum_frequency_mae_thz": 0.7538986706203956,
+      "replicates": 2,
+      "roc_auc": 0.6760017535054226,
+      "source": "MatterGen-mp20-base",
+      "top_k_stable_rate": 0.66
+    }
+  ],
+  "prediction_manifest_sha256": "90eee150f6d49521afe72aa9dad171f2ca196bbce2161c2e17e10ae82f87f558",
+  "reference_metrics": [
+    {
+      "brier_score": 0.2557272400885594,
+      "continuous_pairwise_concordance": 0.6942062062062062,
+      "minimum_frequency_mae_thz": 0.9327004451804461,
+      "panel": "dft_pbe",
+      "records": 1000,
+      "reference": "starting_pretrained",
+      "roc_auc": 0.751768,
+      "source": "all",
+      "stable_fraction": 0.5,
+      "stable_records": 500,
+      "top_k": 100,
+      "top_k_stable_rate": 0.85
+    },
+    {
+      "brier_score": 0.16030037114692144,
+      "continuous_pairwise_concordance": 0.7642772215269087,
+      "minimum_frequency_mae_thz": 0.43628247271315507,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "starting_pretrained",
+      "roc_auc": 0.8465676229508197,
+      "source": "CrystalFlow-gen",
+      "stable_fraction": 0.39,
+      "stable_records": 312,
+      "top_k": 100,
+      "top_k_stable_rate": 0.88
+    },
+    {
+      "brier_score": 0.1068444623565747,
+      "continuous_pairwise_concordance": 0.794552565707134,
+      "minimum_frequency_mae_thz": 1.8460619572641193,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "starting_pretrained",
+      "roc_auc": 0.8837541627317461,
+      "source": "CrystalFormer-mp20",
+      "stable_fraction": 0.1475,
+      "stable_records": 118,
+      "top_k": 100,
+      "top_k_stable_rate": 0.62
+    },
+    {
+      "brier_score": 0.0992804255280032,
+      "continuous_pairwise_concordance": 0.7602158948685858,
+      "minimum_frequency_mae_thz": 0.8132214449573376,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "starting_pretrained",
+      "roc_auc": 0.7874397335851683,
+      "source": "CrystalLLM-gen",
+      "stable_fraction": 0.1475,
+      "stable_records": 118,
+      "top_k": 100,
+      "top_k_stable_rate": 0.48
+    },
+    {
+      "brier_score": 0.11255238920595831,
+      "continuous_pairwise_concordance": 0.8082978723404255,
+      "minimum_frequency_mae_thz": 1.1431316020031095,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "starting_pretrained",
+      "roc_auc": 0.8959542857142857,
+      "source": "CrystalLLM-no-sg",
+      "stable_fraction": 0.21875,
+      "stable_records": 175,
+      "top_k": 100,
+      "top_k_stable_rate": 0.81
+    },
+    {
+      "brier_score": 0.13801787239256771,
+      "continuous_pairwise_concordance": 0.8041301627033792,
+      "minimum_frequency_mae_thz": 1.1273594103876186,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "starting_pretrained",
+      "roc_auc": 0.871140366122118,
+      "source": "CrystalLLM-with-sg",
+      "stable_fraction": 0.315,
+      "stable_records": 252,
+      "top_k": 100,
+      "top_k_stable_rate": 0.88
+    },
+    {
+      "brier_score": 0.15298918305969994,
+      "continuous_pairwise_concordance": 0.7583917396745933,
+      "minimum_frequency_mae_thz": 0.4929058957218573,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "starting_pretrained",
+      "roc_auc": 0.8551546260119002,
+      "source": "DiffCSP-gen",
+      "stable_fraction": 0.4275,
+      "stable_records": 342,
+      "top_k": 100,
+      "top_k_stable_rate": 0.96
+    },
+    {
+      "brier_score": 0.16049608940232024,
+      "continuous_pairwise_concordance": 0.7891082603254067,
+      "minimum_frequency_mae_thz": 1.0116756900068429,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "starting_pretrained",
+      "roc_auc": 0.8457623383731758,
+      "source": "LLaMA2-70B",
+      "stable_fraction": 0.32625,
+      "stable_records": 261,
+      "top_k": 100,
+      "top_k_stable_rate": 0.79
+    },
+    {
+      "brier_score": 0.17742184867110375,
+      "continuous_pairwise_concordance": 0.7391989987484355,
+      "minimum_frequency_mae_thz": 0.6248779925315417,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "starting_pretrained",
+      "roc_auc": 0.8277816250420905,
+      "source": "MatterGen-mp20-base",
+      "stable_fraction": 0.43625,
+      "stable_records": 349,
+      "top_k": 100,
+      "top_k_stable_rate": 0.88
+    },
+    {
+      "brier_score": 0.17053141401199293,
+      "continuous_pairwise_concordance": 0.7149149149149149,
+      "minimum_frequency_mae_thz": 0.8234067727306321,
+      "panel": "dft_pbe",
+      "records": 1000,
+      "reference": "full_dft_posttrained",
+      "roc_auc": 0.851152,
+      "source": "all",
+      "stable_fraction": 0.5,
+      "stable_records": 500,
+      "top_k": 100,
+      "top_k_stable_rate": 0.92
+    },
+    {
+      "brier_score": 0.2598172963932171,
+      "continuous_pairwise_concordance": 0.6749249061326659,
+      "minimum_frequency_mae_thz": 0.499830654777398,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "full_dft_posttrained",
+      "roc_auc": 0.7149603299705759,
+      "source": "CrystalFlow-gen",
+      "stable_fraction": 0.39,
+      "stable_records": 312,
+      "top_k": 100,
+      "top_k_stable_rate": 0.77
+    },
+    {
+      "brier_score": 0.13202146855678337,
+      "continuous_pairwise_concordance": 0.7725907384230288,
+      "minimum_frequency_mae_thz": 2.0592369000645103,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "full_dft_posttrained",
+      "roc_auc": 0.8675381480192853,
+      "source": "CrystalFormer-mp20",
+      "stable_fraction": 0.1475,
+      "stable_records": 118,
+      "top_k": 100,
+      "top_k_stable_rate": 0.56
+    },
+    {
+      "brier_score": 0.1417118214402814,
+      "continuous_pairwise_concordance": 0.6854286608260325,
+      "minimum_frequency_mae_thz": 0.8723522338463608,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "full_dft_posttrained",
+      "roc_auc": 0.6782270490581043,
+      "source": "CrystalLLM-gen",
+      "stable_fraction": 0.1475,
+      "stable_records": 118,
+      "top_k": 100,
+      "top_k_stable_rate": 0.28
+    },
+    {
+      "brier_score": 0.13475629623361987,
+      "continuous_pairwise_concordance": 0.7854380475594493,
+      "minimum_frequency_mae_thz": 1.2194842102030194,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "full_dft_posttrained",
+      "roc_auc": 0.8606537142857142,
+      "source": "CrystalLLM-no-sg",
+      "stable_fraction": 0.21875,
+      "stable_records": 175,
+      "top_k": 100,
+      "top_k_stable_rate": 0.78
+    },
+    {
+      "brier_score": 0.17315001244159578,
+      "continuous_pairwise_concordance": 0.763360450563204,
+      "minimum_frequency_mae_thz": 1.21176249880172,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "full_dft_posttrained",
+      "roc_auc": 0.8211678832116789,
+      "source": "CrystalLLM-with-sg",
+      "stable_fraction": 0.315,
+      "stable_records": 252,
+      "top_k": 100,
+      "top_k_stable_rate": 0.82
+    },
+    {
+      "brier_score": 0.2243365505330798,
+      "continuous_pairwise_concordance": 0.6901877346683354,
+      "minimum_frequency_mae_thz": 0.52958725898212,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "full_dft_posttrained",
+      "roc_auc": 0.7682844301437728,
+      "source": "DiffCSP-gen",
+      "stable_fraction": 0.4275,
+      "stable_records": 342,
+      "top_k": 100,
+      "top_k_stable_rate": 0.84
+    },
+    {
+      "brier_score": 0.19805791426397742,
+      "continuous_pairwise_concordance": 0.7544837296620776,
+      "minimum_frequency_mae_thz": 1.098554355181876,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "full_dft_posttrained",
+      "roc_auc": 0.7949160855564796,
+      "source": "LLaMA2-70B",
+      "stable_fraction": 0.32625,
+      "stable_records": 261,
+      "top_k": 100,
+      "top_k_stable_rate": 0.65
+    },
+    {
+      "brier_score": 0.2368643767171231,
+      "continuous_pairwise_concordance": 0.6672403003754693,
+      "minimum_frequency_mae_thz": 0.6693365026934195,
+      "panel": "mp20",
+      "records": 800,
+      "reference": "full_dft_posttrained",
+      "roc_auc": 0.7321393401482855,
+      "source": "MatterGen-mp20-base",
+      "stable_fraction": 0.43625,
+      "stable_records": 349,
+      "top_k": 100,
+      "top_k_stable_rate": 0.71
+    }
+  ],
+  "result_summary_sha256": "4ef379fee7920983bb13501826d7eaa062d105ddf44c602188ebea276e5f8b91",
+  "schema_version": "1.0",
+  "source_pool_composition": {
+    "records": 7809,
+    "stable_fraction": 0.8532462543219362,
+    "unique_formulas": 6886
+  },
+  "status": "prospective_prediction_scored",
+  "study": "prospective-phonon-environment-selection"
+}

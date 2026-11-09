@@ -1,0 +1,416 @@
+{
+  "artifact": "liu_2026_tungsten_label_environment_panels_v1",
+  "source_id": "liu_2026_heterogeneous_uq",
+  "source_version": "arXiv:2507.21297",
+  "repository_revision": "189443c7263cfbf8530213a24615f41dc86abfd8",
+  "panel_count": 2,
+  "arm_count": 12,
+  "primary_outcome": "energy or force RMSE on one independent tungsten test set",
+  "source_files": {
+    "Pure W/Test_W_ACE.ipynb": {
+      "sha256": "d25f35bb9eada24efdb56690a3c82a154046f9a218cf0f998f8218e67b2e367c"
+    },
+    "Pure W/Build_dataset_from_uMLIP_and_DFT.ipynb": {
+      "sha256": "b0712a6e174a0ff832482b3d696e8b4084f797a9fed8f03ee47ad111fb120d66"
+    },
+    "README.md": {
+      "sha256": "5587de6e599f4c30fee8b03987330b492b6925956271775d7a07054f3301c698"
+    },
+    "LICENSE": {
+      "sha256": "2d9a55c6bedb3b3a06605e551b4cba3bb3efff0e8cdd19eee746e5defe18aba4"
+    }
+  },
+  "interpretation_boundary": [
+    "All six environments contain the same 1,139 training configurations and use the same ACE training and independent test contracts.",
+    "The environments vary label provenance and DFT reference cost rather than configuration identity.",
+    "DFT fractions are measured over atomic environments and are not equivalent to configuration fractions.",
+    "The uncertainty threshold was validated across separate public DFT datasets before the tungsten downstream model comparison.",
+    "The two endpoint panels share one material system and one test distribution, so they provide a source-level stress test rather than broad materials support."
+  ],
+  "arms": [
+    {
+      "source_id": "liu_2026_heterogeneous_uq",
+      "panel_id": "liu_2026_heterogeneous_uq:tungsten_independent_test:energy_rmse",
+      "material_system": "tungsten",
+      "evaluation_distribution": "independent_defect_plasticity_and_crack_test",
+      "environment": "all_umlip",
+      "endpoint": "energy_rmse_eV_per_atom",
+      "pre_outcome_measurements": {
+        "uncertainty_cutoff_eV_per_A": null,
+        "dft_atomic_environment_fraction": 0.0,
+        "umlip_atomic_environment_fraction": 1.0,
+        "uses_model_relative_uncertainty_partition": 0,
+        "matches_independently_validated_uc1_threshold": 0,
+        "training_configuration_count": 1139
+      },
+      "outcome": {
+        "replicate_rmse": [
+          0.105923,
+          0.098285,
+          0.196397,
+          0.147796,
+          0.021551
+        ],
+        "mean_rmse": 0.1139904,
+        "independent_initializations": 5
+      },
+      "derived": {
+        "native_utility": -0.1139904,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "liu_2026_heterogeneous_uq",
+      "panel_id": "liu_2026_heterogeneous_uq:tungsten_independent_test:energy_rmse",
+      "material_system": "tungsten",
+      "evaluation_distribution": "independent_defect_plasticity_and_crack_test",
+      "environment": "full_dft",
+      "endpoint": "energy_rmse_eV_per_atom",
+      "pre_outcome_measurements": {
+        "uncertainty_cutoff_eV_per_A": 0.0,
+        "dft_atomic_environment_fraction": 1.0,
+        "umlip_atomic_environment_fraction": 0.0,
+        "uses_model_relative_uncertainty_partition": 0,
+        "matches_independently_validated_uc1_threshold": 0,
+        "training_configuration_count": 1139
+      },
+      "outcome": {
+        "replicate_rmse": [
+          0.006443,
+          0.006662,
+          0.007506,
+          0.005812,
+          0.007156
+        ],
+        "mean_rmse": 0.006715800000000001,
+        "independent_initializations": 5
+      },
+      "derived": {
+        "native_utility": -0.006715800000000001,
+        "panel_normalized_utility": 0.9904897852907448,
+        "panel_normalized_regret": 0.009510214709255206
+      }
+    },
+    {
+      "source_id": "liu_2026_heterogeneous_uq",
+      "panel_id": "liu_2026_heterogeneous_uq:tungsten_independent_test:energy_rmse",
+      "material_system": "tungsten",
+      "evaluation_distribution": "independent_defect_plasticity_and_crack_test",
+      "environment": "uc_0p1",
+      "endpoint": "energy_rmse_eV_per_atom",
+      "pre_outcome_measurements": {
+        "uncertainty_cutoff_eV_per_A": 0.1,
+        "dft_atomic_environment_fraction": 0.9509667813524879,
+        "umlip_atomic_environment_fraction": 0.04903321864751209,
+        "uses_model_relative_uncertainty_partition": 1,
+        "matches_independently_validated_uc1_threshold": 0,
+        "training_configuration_count": 1139
+      },
+      "outcome": {
+        "replicate_rmse": [
+          0.006041,
+          0.006132,
+          0.005747,
+          0.005595,
+          0.00648
+        ],
+        "mean_rmse": 0.005998999999999999,
+        "independent_initializations": 5
+      },
+      "derived": {
+        "native_utility": -0.005998999999999999,
+        "panel_normalized_utility": 0.9971081560709333,
+        "panel_normalized_regret": 0.002891843929066721
+      }
+    },
+    {
+      "source_id": "liu_2026_heterogeneous_uq",
+      "panel_id": "liu_2026_heterogeneous_uq:tungsten_independent_test:energy_rmse",
+      "material_system": "tungsten",
+      "evaluation_distribution": "independent_defect_plasticity_and_crack_test",
+      "environment": "uc_0p5",
+      "endpoint": "energy_rmse_eV_per_atom",
+      "pre_outcome_measurements": {
+        "uncertainty_cutoff_eV_per_A": 0.5,
+        "dft_atomic_environment_fraction": 0.39364399106657816,
+        "umlip_atomic_environment_fraction": 0.6063560089334219,
+        "uses_model_relative_uncertainty_partition": 1,
+        "matches_independently_validated_uc1_threshold": 0,
+        "training_configuration_count": 1139
+      },
+      "outcome": {
+        "replicate_rmse": [
+          0.00573,
+          0.00563,
+          0.00573,
+          0.00578,
+          0.005559
+        ],
+        "mean_rmse": 0.0056857999999999995,
+        "independent_initializations": 5
+      },
+      "derived": {
+        "native_utility": -0.0056857999999999995,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "liu_2026_heterogeneous_uq",
+      "panel_id": "liu_2026_heterogeneous_uq:tungsten_independent_test:energy_rmse",
+      "material_system": "tungsten",
+      "evaluation_distribution": "independent_defect_plasticity_and_crack_test",
+      "environment": "uc_1",
+      "endpoint": "energy_rmse_eV_per_atom",
+      "pre_outcome_measurements": {
+        "uncertainty_cutoff_eV_per_A": 1.0,
+        "dft_atomic_environment_fraction": 0.04274561880042655,
+        "umlip_atomic_environment_fraction": 0.9572543811995734,
+        "uses_model_relative_uncertainty_partition": 1,
+        "matches_independently_validated_uc1_threshold": 1,
+        "training_configuration_count": 1139
+      },
+      "outcome": {
+        "replicate_rmse": [
+          0.005799,
+          0.00563,
+          0.005492,
+          0.005622,
+          0.005942
+        ],
+        "mean_rmse": 0.005697,
+        "independent_initializations": 5
+      },
+      "derived": {
+        "native_utility": -0.005697,
+        "panel_normalized_utility": 0.9998965879565597,
+        "panel_normalized_regret": 0.00010341204344044733
+      }
+    },
+    {
+      "source_id": "liu_2026_heterogeneous_uq",
+      "panel_id": "liu_2026_heterogeneous_uq:tungsten_independent_test:energy_rmse",
+      "material_system": "tungsten",
+      "evaluation_distribution": "independent_defect_plasticity_and_crack_test",
+      "environment": "uc_10",
+      "endpoint": "energy_rmse_eV_per_atom",
+      "pre_outcome_measurements": {
+        "uncertainty_cutoff_eV_per_A": 10.0,
+        "dft_atomic_environment_fraction": 0.027534657250357135,
+        "umlip_atomic_environment_fraction": 0.9724653427496429,
+        "uses_model_relative_uncertainty_partition": 1,
+        "matches_independently_validated_uc1_threshold": 0,
+        "training_configuration_count": 1139
+      },
+      "outcome": {
+        "replicate_rmse": [
+          0.00665,
+          0.006559,
+          0.006188,
+          0.006269,
+          0.007372
+        ],
+        "mean_rmse": 0.0066076,
+        "independent_initializations": 5
+      },
+      "derived": {
+        "native_utility": -0.0066076,
+        "panel_normalized_utility": 0.9914888194961248,
+        "panel_normalized_regret": 0.008511180503875185
+      }
+    },
+    {
+      "source_id": "liu_2026_heterogeneous_uq",
+      "panel_id": "liu_2026_heterogeneous_uq:tungsten_independent_test:force_rmse",
+      "material_system": "tungsten",
+      "evaluation_distribution": "independent_defect_plasticity_and_crack_test",
+      "environment": "all_umlip",
+      "endpoint": "force_rmse_eV_per_A",
+      "pre_outcome_measurements": {
+        "uncertainty_cutoff_eV_per_A": null,
+        "dft_atomic_environment_fraction": 0.0,
+        "umlip_atomic_environment_fraction": 1.0,
+        "uses_model_relative_uncertainty_partition": 0,
+        "matches_independently_validated_uc1_threshold": 0,
+        "training_configuration_count": 1139
+      },
+      "outcome": {
+        "replicate_rmse": [
+          1.714586,
+          1.398529,
+          1.556342,
+          1.604256,
+          0.363713
+        ],
+        "mean_rmse": 1.3274851999999997,
+        "independent_initializations": 5
+      },
+      "derived": {
+        "native_utility": -1.3274851999999997,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "liu_2026_heterogeneous_uq",
+      "panel_id": "liu_2026_heterogeneous_uq:tungsten_independent_test:force_rmse",
+      "material_system": "tungsten",
+      "evaluation_distribution": "independent_defect_plasticity_and_crack_test",
+      "environment": "full_dft",
+      "endpoint": "force_rmse_eV_per_A",
+      "pre_outcome_measurements": {
+        "uncertainty_cutoff_eV_per_A": 0.0,
+        "dft_atomic_environment_fraction": 1.0,
+        "umlip_atomic_environment_fraction": 0.0,
+        "uses_model_relative_uncertainty_partition": 0,
+        "matches_independently_validated_uc1_threshold": 0,
+        "training_configuration_count": 1139
+      },
+      "outcome": {
+        "replicate_rmse": [
+          0.167639,
+          0.167516,
+          0.167194,
+          0.164662,
+          0.164318
+        ],
+        "mean_rmse": 0.16626579999999996,
+        "independent_initializations": 5
+      },
+      "derived": {
+        "native_utility": -0.16626579999999996,
+        "panel_normalized_utility": 0.9987765793385376,
+        "panel_normalized_regret": 0.001223420661462486
+      }
+    },
+    {
+      "source_id": "liu_2026_heterogeneous_uq",
+      "panel_id": "liu_2026_heterogeneous_uq:tungsten_independent_test:force_rmse",
+      "material_system": "tungsten",
+      "evaluation_distribution": "independent_defect_plasticity_and_crack_test",
+      "environment": "uc_0p1",
+      "endpoint": "force_rmse_eV_per_A",
+      "pre_outcome_measurements": {
+        "uncertainty_cutoff_eV_per_A": 0.1,
+        "dft_atomic_environment_fraction": 0.9509667813524879,
+        "umlip_atomic_environment_fraction": 0.04903321864751209,
+        "uses_model_relative_uncertainty_partition": 1,
+        "matches_independently_validated_uc1_threshold": 0,
+        "training_configuration_count": 1139
+      },
+      "outcome": {
+        "replicate_rmse": [
+          0.166467,
+          0.165875,
+          0.165412,
+          0.163984,
+          0.162479
+        ],
+        "mean_rmse": 0.16484340000000003,
+        "independent_initializations": 5
+      },
+      "derived": {
+        "native_utility": -0.16484340000000003,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "liu_2026_heterogeneous_uq",
+      "panel_id": "liu_2026_heterogeneous_uq:tungsten_independent_test:force_rmse",
+      "material_system": "tungsten",
+      "evaluation_distribution": "independent_defect_plasticity_and_crack_test",
+      "environment": "uc_0p5",
+      "endpoint": "force_rmse_eV_per_A",
+      "pre_outcome_measurements": {
+        "uncertainty_cutoff_eV_per_A": 0.5,
+        "dft_atomic_environment_fraction": 0.39364399106657816,
+        "umlip_atomic_environment_fraction": 0.6063560089334219,
+        "uses_model_relative_uncertainty_partition": 1,
+        "matches_independently_validated_uc1_threshold": 0,
+        "training_configuration_count": 1139
+      },
+      "outcome": {
+        "replicate_rmse": [
+          0.165854,
+          0.163672,
+          0.166343,
+          0.165263,
+          0.164089
+        ],
+        "mean_rmse": 0.16504420000000003,
+        "independent_initializations": 5
+      },
+      "derived": {
+        "native_utility": -0.16504420000000003,
+        "panel_normalized_utility": 0.9998272898841243,
+        "panel_normalized_regret": 0.000172710115875759
+      }
+    },
+    {
+      "source_id": "liu_2026_heterogeneous_uq",
+      "panel_id": "liu_2026_heterogeneous_uq:tungsten_independent_test:force_rmse",
+      "material_system": "tungsten",
+      "evaluation_distribution": "independent_defect_plasticity_and_crack_test",
+      "environment": "uc_1",
+      "endpoint": "force_rmse_eV_per_A",
+      "pre_outcome_measurements": {
+        "uncertainty_cutoff_eV_per_A": 1.0,
+        "dft_atomic_environment_fraction": 0.04274561880042655,
+        "umlip_atomic_environment_fraction": 0.9572543811995734,
+        "uses_model_relative_uncertainty_partition": 1,
+        "matches_independently_validated_uc1_threshold": 1,
+        "training_configuration_count": 1139
+      },
+      "outcome": {
+        "replicate_rmse": [
+          0.166376,
+          0.165917,
+          0.163218,
+          0.164386,
+          0.166033
+        ],
+        "mean_rmse": 0.165186,
+        "independent_initializations": 5
+      },
+      "derived": {
+        "native_utility": -0.165186,
+        "panel_normalized_utility": 0.999705326266439,
+        "panel_normalized_regret": 0.00029467373356090485
+      }
+    },
+    {
+      "source_id": "liu_2026_heterogeneous_uq",
+      "panel_id": "liu_2026_heterogeneous_uq:tungsten_independent_test:force_rmse",
+      "material_system": "tungsten",
+      "evaluation_distribution": "independent_defect_plasticity_and_crack_test",
+      "environment": "uc_10",
+      "endpoint": "force_rmse_eV_per_A",
+      "pre_outcome_measurements": {
+        "uncertainty_cutoff_eV_per_A": 10.0,
+        "dft_atomic_environment_fraction": 0.027534657250357135,
+        "umlip_atomic_environment_fraction": 0.9724653427496429,
+        "uses_model_relative_uncertainty_partition": 1,
+        "matches_independently_validated_uc1_threshold": 0,
+        "training_configuration_count": 1139
+      },
+      "outcome": {
+        "replicate_rmse": [
+          0.174642,
+          0.173951,
+          0.171789,
+          0.170647,
+          0.176374
+        ],
+        "mean_rmse": 0.1734806,
+        "independent_initializations": 5
+      },
+      "derived": {
+        "native_utility": -0.1734806,
+        "panel_normalized_utility": 0.9925710567089537,
+        "panel_normalized_regret": 0.007428943291046293
+      }
+    }
+  ]
+}

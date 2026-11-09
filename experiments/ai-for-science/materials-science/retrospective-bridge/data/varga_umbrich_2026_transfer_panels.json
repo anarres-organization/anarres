@@ -1,0 +1,2268 @@
+{
+  "artifact": "varga_umbrich_2026_transfer_panels_v1",
+  "source_id": "varga_umbrich_2026_pretrained_acquisition",
+  "source_version": "arXiv:2605.03964v2",
+  "panel_count": 36,
+  "arm_count": 72,
+  "primary_outcome": "percentage reduction in rounds to a method-specific shared target",
+  "normalization": "round gain min-max normalized within method, dataset, and metric",
+  "matched_contract": {
+    "fixed_test_fraction": 0.2,
+    "fixed_validation_fraction": 0.1,
+    "initial_label_count": 50,
+    "labels_per_round": 150,
+    "acquisition_rounds": 20,
+    "independent_experiment_seeds": 2
+  },
+  "source_files": {
+    "arXiv_source_bundle": {
+      "sha256": "d41e257505d9ed835d036062f3b1430d05084ac73083bba7a66631c2877522b0"
+    },
+    "arxiv_version.tex": {
+      "sha256": "ae9aeb233f32a6b5692579c0a408135b0df8972b35effdf3ccbfbba4dbcec458"
+    },
+    "icml/icml_tables/transferability.tex": {
+      "sha256": "eb6accab45047eb1e0f52e135917e69a43f5bf717ad1bbcdef8eb1889d6f41ea"
+    }
+  },
+  "interpretation_boundary": [
+    "Each method is compared only with its paired random curve because the shared target used to compute round gain is method-specific.",
+    "Activation, NTK, and committee gains therefore define separate binary decisions and are never treated as directly comparable utilities.",
+    "The aggregate T1x table is excluded because it averages three candidate pools and leaves no independent material or dataset holdout group.",
+    "Exact round gains come from the manuscript table; underlying per-round numerical histories and seed-level outcomes were not released."
+  ],
+  "arms": [
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:pmechdb:energy_mae",
+      "dataset": "pmechdb",
+      "metric": "energy_mae",
+      "comparison_method": "activation_lcmd",
+      "environment": "activation_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 5.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 5.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:pmechdb:energy_mae",
+      "dataset": "pmechdb",
+      "metric": "energy_mae",
+      "comparison_method": "activation_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:pmechdb:energy_rmse",
+      "dataset": "pmechdb",
+      "metric": "energy_rmse",
+      "comparison_method": "activation_lcmd",
+      "environment": "activation_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 15.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 15.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:pmechdb:energy_rmse",
+      "dataset": "pmechdb",
+      "metric": "energy_rmse",
+      "comparison_method": "activation_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:pmechdb:force_mae",
+      "dataset": "pmechdb",
+      "metric": "force_mae",
+      "comparison_method": "activation_lcmd",
+      "environment": "activation_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:pmechdb:force_mae",
+      "dataset": "pmechdb",
+      "metric": "force_mae",
+      "comparison_method": "activation_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:pmechdb:force_rmse",
+      "dataset": "pmechdb",
+      "metric": "force_rmse",
+      "comparison_method": "activation_lcmd",
+      "environment": "activation_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 20.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 20.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:pmechdb:force_rmse",
+      "dataset": "pmechdb",
+      "metric": "force_rmse",
+      "comparison_method": "activation_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:rgd:energy_mae",
+      "dataset": "rgd",
+      "metric": "energy_mae",
+      "comparison_method": "activation_lcmd",
+      "environment": "activation_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 10.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 10.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:rgd:energy_mae",
+      "dataset": "rgd",
+      "metric": "energy_mae",
+      "comparison_method": "activation_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:rgd:energy_rmse",
+      "dataset": "rgd",
+      "metric": "energy_rmse",
+      "comparison_method": "activation_lcmd",
+      "environment": "activation_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 22.2,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 22.2,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:rgd:energy_rmse",
+      "dataset": "rgd",
+      "metric": "energy_rmse",
+      "comparison_method": "activation_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:rgd:force_mae",
+      "dataset": "rgd",
+      "metric": "force_mae",
+      "comparison_method": "activation_lcmd",
+      "environment": "activation_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:rgd:force_mae",
+      "dataset": "rgd",
+      "metric": "force_mae",
+      "comparison_method": "activation_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:rgd:force_rmse",
+      "dataset": "rgd",
+      "metric": "force_rmse",
+      "comparison_method": "activation_lcmd",
+      "environment": "activation_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 10.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 10.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:rgd:force_rmse",
+      "dataset": "rgd",
+      "metric": "force_rmse",
+      "comparison_method": "activation_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:t1x_mixed:energy_mae",
+      "dataset": "t1x_mixed",
+      "metric": "energy_mae",
+      "comparison_method": "activation_lcmd",
+      "environment": "activation_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 61.5,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 61.5,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:t1x_mixed:energy_mae",
+      "dataset": "t1x_mixed",
+      "metric": "energy_mae",
+      "comparison_method": "activation_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:t1x_mixed:energy_rmse",
+      "dataset": "t1x_mixed",
+      "metric": "energy_rmse",
+      "comparison_method": "activation_lcmd",
+      "environment": "activation_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 77.8,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 77.8,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:t1x_mixed:energy_rmse",
+      "dataset": "t1x_mixed",
+      "metric": "energy_rmse",
+      "comparison_method": "activation_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:t1x_mixed:force_mae",
+      "dataset": "t1x_mixed",
+      "metric": "force_mae",
+      "comparison_method": "activation_lcmd",
+      "environment": "activation_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 15.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 15.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:t1x_mixed:force_mae",
+      "dataset": "t1x_mixed",
+      "metric": "force_mae",
+      "comparison_method": "activation_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:t1x_mixed:force_rmse",
+      "dataset": "t1x_mixed",
+      "metric": "force_rmse",
+      "comparison_method": "activation_lcmd",
+      "environment": "activation_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 44.4,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 44.4,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:activation_lcmd:t1x_mixed:force_rmse",
+      "dataset": "t1x_mixed",
+      "metric": "force_rmse",
+      "comparison_method": "activation_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:pmechdb:energy_mae",
+      "dataset": "pmechdb",
+      "metric": "energy_mae",
+      "comparison_method": "committee_energy",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "acquisition_signal_matches_energy_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": -31.6,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -31.6,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:pmechdb:energy_mae",
+      "dataset": "pmechdb",
+      "metric": "energy_mae",
+      "comparison_method": "committee_energy",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:pmechdb:energy_rmse",
+      "dataset": "pmechdb",
+      "metric": "energy_rmse",
+      "comparison_method": "committee_energy",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "acquisition_signal_matches_energy_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": -23.5,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -23.5,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:pmechdb:energy_rmse",
+      "dataset": "pmechdb",
+      "metric": "energy_rmse",
+      "comparison_method": "committee_energy",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:pmechdb:force_mae",
+      "dataset": "pmechdb",
+      "metric": "force_mae",
+      "comparison_method": "committee_energy",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": -5.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -5.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:pmechdb:force_mae",
+      "dataset": "pmechdb",
+      "metric": "force_mae",
+      "comparison_method": "committee_energy",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:pmechdb:force_rmse",
+      "dataset": "pmechdb",
+      "metric": "force_rmse",
+      "comparison_method": "committee_energy",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 25.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 25.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:pmechdb:force_rmse",
+      "dataset": "pmechdb",
+      "metric": "force_rmse",
+      "comparison_method": "committee_energy",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:rgd:energy_mae",
+      "dataset": "rgd",
+      "metric": "energy_mae",
+      "comparison_method": "committee_energy",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "acquisition_signal_matches_energy_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 5.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 5.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:rgd:energy_mae",
+      "dataset": "rgd",
+      "metric": "energy_mae",
+      "comparison_method": "committee_energy",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:rgd:energy_rmse",
+      "dataset": "rgd",
+      "metric": "energy_rmse",
+      "comparison_method": "committee_energy",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "acquisition_signal_matches_energy_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 11.1,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 11.1,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:rgd:energy_rmse",
+      "dataset": "rgd",
+      "metric": "energy_rmse",
+      "comparison_method": "committee_energy",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:rgd:force_mae",
+      "dataset": "rgd",
+      "metric": "force_mae",
+      "comparison_method": "committee_energy",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:rgd:force_mae",
+      "dataset": "rgd",
+      "metric": "force_mae",
+      "comparison_method": "committee_energy",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:rgd:force_rmse",
+      "dataset": "rgd",
+      "metric": "force_rmse",
+      "comparison_method": "committee_energy",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 15.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 15.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:rgd:force_rmse",
+      "dataset": "rgd",
+      "metric": "force_rmse",
+      "comparison_method": "committee_energy",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:t1x_mixed:energy_mae",
+      "dataset": "t1x_mixed",
+      "metric": "energy_mae",
+      "comparison_method": "committee_energy",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "acquisition_signal_matches_energy_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": -13.3,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": -13.3,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:t1x_mixed:energy_mae",
+      "dataset": "t1x_mixed",
+      "metric": "energy_mae",
+      "comparison_method": "committee_energy",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:t1x_mixed:energy_rmse",
+      "dataset": "t1x_mixed",
+      "metric": "energy_rmse",
+      "comparison_method": "committee_energy",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "acquisition_signal_matches_energy_endpoint": 1,
+        "forward_passes_per_candidate": 3,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 27.8,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 27.8,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:t1x_mixed:energy_rmse",
+      "dataset": "t1x_mixed",
+      "metric": "energy_rmse",
+      "comparison_method": "committee_energy",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:t1x_mixed:force_mae",
+      "dataset": "t1x_mixed",
+      "metric": "force_mae",
+      "comparison_method": "committee_energy",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:t1x_mixed:force_mae",
+      "dataset": "t1x_mixed",
+      "metric": "force_mae",
+      "comparison_method": "committee_energy",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:t1x_mixed:force_rmse",
+      "dataset": "t1x_mixed",
+      "metric": "force_rmse",
+      "comparison_method": "committee_energy",
+      "environment": "committee_energy",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 1,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 3,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 3,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:committee_energy:t1x_mixed:force_rmse",
+      "dataset": "t1x_mixed",
+      "metric": "force_rmse",
+      "comparison_method": "committee_energy",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:pmechdb:energy_mae",
+      "dataset": "pmechdb",
+      "metric": "energy_mae",
+      "comparison_method": "ntk_lcmd",
+      "environment": "ntk_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 5.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 5.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:pmechdb:energy_mae",
+      "dataset": "pmechdb",
+      "metric": "energy_mae",
+      "comparison_method": "ntk_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:pmechdb:energy_rmse",
+      "dataset": "pmechdb",
+      "metric": "energy_rmse",
+      "comparison_method": "ntk_lcmd",
+      "environment": "ntk_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 20.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 20.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:pmechdb:energy_rmse",
+      "dataset": "pmechdb",
+      "metric": "energy_rmse",
+      "comparison_method": "ntk_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:pmechdb:force_mae",
+      "dataset": "pmechdb",
+      "metric": "force_mae",
+      "comparison_method": "ntk_lcmd",
+      "environment": "ntk_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:pmechdb:force_mae",
+      "dataset": "pmechdb",
+      "metric": "force_mae",
+      "comparison_method": "ntk_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:pmechdb:force_rmse",
+      "dataset": "pmechdb",
+      "metric": "force_rmse",
+      "comparison_method": "ntk_lcmd",
+      "environment": "ntk_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 25.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 25.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:pmechdb:force_rmse",
+      "dataset": "pmechdb",
+      "metric": "force_rmse",
+      "comparison_method": "ntk_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:rgd:energy_mae",
+      "dataset": "rgd",
+      "metric": "energy_mae",
+      "comparison_method": "ntk_lcmd",
+      "environment": "ntk_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 15.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 15.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:rgd:energy_mae",
+      "dataset": "rgd",
+      "metric": "energy_mae",
+      "comparison_method": "ntk_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:rgd:energy_rmse",
+      "dataset": "rgd",
+      "metric": "energy_rmse",
+      "comparison_method": "ntk_lcmd",
+      "environment": "ntk_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 11.1,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 11.1,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:rgd:energy_rmse",
+      "dataset": "rgd",
+      "metric": "energy_rmse",
+      "comparison_method": "ntk_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:rgd:force_mae",
+      "dataset": "rgd",
+      "metric": "force_mae",
+      "comparison_method": "ntk_lcmd",
+      "environment": "ntk_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:rgd:force_mae",
+      "dataset": "rgd",
+      "metric": "force_mae",
+      "comparison_method": "ntk_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.5,
+        "panel_normalized_regret": 0.5
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:rgd:force_rmse",
+      "dataset": "rgd",
+      "metric": "force_rmse",
+      "comparison_method": "ntk_lcmd",
+      "environment": "ntk_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 10.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 10.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:rgd:force_rmse",
+      "dataset": "rgd",
+      "metric": "force_rmse",
+      "comparison_method": "ntk_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:t1x_mixed:energy_mae",
+      "dataset": "t1x_mixed",
+      "metric": "energy_mae",
+      "comparison_method": "ntk_lcmd",
+      "environment": "ntk_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 61.5,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 61.5,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:t1x_mixed:energy_mae",
+      "dataset": "t1x_mixed",
+      "metric": "energy_mae",
+      "comparison_method": "ntk_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:t1x_mixed:energy_rmse",
+      "dataset": "t1x_mixed",
+      "metric": "energy_rmse",
+      "comparison_method": "ntk_lcmd",
+      "environment": "ntk_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 83.3,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 83.3,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:t1x_mixed:energy_rmse",
+      "dataset": "t1x_mixed",
+      "metric": "energy_rmse",
+      "comparison_method": "ntk_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:t1x_mixed:force_mae",
+      "dataset": "t1x_mixed",
+      "metric": "force_mae",
+      "comparison_method": "ntk_lcmd",
+      "environment": "ntk_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 25.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 25.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:t1x_mixed:force_mae",
+      "dataset": "t1x_mixed",
+      "metric": "force_mae",
+      "comparison_method": "ntk_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:t1x_mixed:force_rmse",
+      "dataset": "t1x_mixed",
+      "metric": "force_rmse",
+      "comparison_method": "ntk_lcmd",
+      "environment": "ntk_lcmd",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 1,
+        "uses_model_relative_signal": 1,
+        "uses_lcmd_structural_coverage": 1,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 1,
+        "backward_passes_per_candidate": 1,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 50.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 50.0,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "varga_umbrich_2026_pretrained_acquisition",
+      "panel_id": "varga_umbrich_2026_pretrained_acquisition:ntk_lcmd:t1x_mixed:force_rmse",
+      "dataset": "t1x_mixed",
+      "metric": "force_rmse",
+      "comparison_method": "ntk_lcmd",
+      "environment": "paired_random",
+      "pre_outcome_measurements": {
+        "uses_pretrained_representation_kernel": 0,
+        "uses_model_relative_signal": 0,
+        "uses_lcmd_structural_coverage": 0,
+        "uses_pointwise_committee_disagreement": 0,
+        "acquisition_signal_matches_energy_endpoint": 0,
+        "forward_passes_per_candidate": 0,
+        "backward_passes_per_candidate": 0,
+        "models_maintained": 1,
+        "initial_label_count": 50,
+        "labels_per_round": 150,
+        "acquisition_rounds": 20,
+        "maximum_label_count": 3050
+      },
+      "outcome": {
+        "round_gain_percent_vs_paired_random": 0.0,
+        "independent_experiment_seeds": 2
+      },
+      "derived": {
+        "native_utility": 0.0,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    }
+  ]
+}

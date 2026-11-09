@@ -1,0 +1,488 @@
+{
+  "artifact": "materials_pooled_semantic_loso_v1",
+  "design": "nested leave-one-source-out ridge with source-local, outcome-blind coordinate normalization",
+  "support": {
+    "sources": 16,
+    "panels": 828,
+    "arms": 2990
+  },
+  "coordinates": [
+    "model_relative_signal",
+    "structural_coverage",
+    "target_relevance",
+    "measurement_accessibility",
+    "exposure"
+  ],
+  "fold_alphas": {
+    "baghishov_2026_application_specific_mlip": 100.0,
+    "bi_elena_2026_budget_crossover": 100.0,
+    "dale_2026_active_learning_failure": 100.0,
+    "espinosa_castaneda_2026_diversity": 100.0,
+    "haenseroth_2026_generators": 100.0,
+    "haenseroth_dressler_2026_data_efficiency": 100.0,
+    "kim_2026_density_diversity": 100.0,
+    "kulichenko_2023_udd": 100.0,
+    "li_2023_redundancy": 100.0,
+    "liu_2026_heterogeneous_uq": 100.0,
+    "qi_2024_direct_sampling": 100.0,
+    "varga_umbrich_2026_pretrained_acquisition": 100.0,
+    "wang_2026_dataset_aware_entropy": 100.0,
+    "wong_yang_2026_umlip_bias": 100.0,
+    "zaverkin_2024_uncertainty_biased_md": 100.0,
+    "zhang_2023_etal": 100.0
+  },
+  "panel_weighted_metrics": {
+    "uninformed_tie": {
+      "panels": 828,
+      "arms": 2990,
+      "pairwise_ordering": 0.5,
+      "mean_normalized_regret": 0.44655604374672153,
+      "top_choice_credit": 0.3630175983436853
+    },
+    "semantic_mean": {
+      "panels": 828,
+      "arms": 2990,
+      "pairwise_ordering": 0.677875608842263,
+      "mean_normalized_regret": 0.2701448102544626,
+      "top_choice_credit": 0.5144927536231884
+    },
+    "ridge": {
+      "panels": 828,
+      "arms": 2990,
+      "pairwise_ordering": 0.6656987635818659,
+      "mean_normalized_regret": 0.277377449998175,
+      "top_choice_credit": 0.5084541062801933
+    }
+  },
+  "source_macro_metrics": {
+    "uninformed_tie": {
+      "pairwise_ordering": 0.5,
+      "mean_normalized_regret": 0.43962509764790225,
+      "top_choice_credit": 0.3501604015700483
+    },
+    "semantic_mean": {
+      "pairwise_ordering": 0.7365809948649389,
+      "mean_normalized_regret": 0.1907927557642618,
+      "top_choice_credit": 0.6094616539154158
+    },
+    "ridge": {
+      "pairwise_ordering": 0.6599787097180978,
+      "mean_normalized_regret": 0.2641909972810044,
+      "top_choice_credit": 0.5437870507408127
+    }
+  },
+  "source_win_counts_vs_uninformed_tie": {
+    "semantic_mean": {
+      "pairwise_ordering": {
+        "improved": 15,
+        "tied": 0,
+        "worsened": 1
+      },
+      "mean_normalized_regret": {
+        "improved": 14,
+        "tied": 0,
+        "worsened": 2
+      },
+      "top_choice_credit": {
+        "improved": 13,
+        "tied": 0,
+        "worsened": 3
+      }
+    },
+    "ridge": {
+      "pairwise_ordering": {
+        "improved": 12,
+        "tied": 1,
+        "worsened": 3
+      },
+      "mean_normalized_regret": {
+        "improved": 12,
+        "tied": 1,
+        "worsened": 3
+      },
+      "top_choice_credit": {
+        "improved": 11,
+        "tied": 1,
+        "worsened": 4
+      }
+    }
+  },
+  "per_source_metrics": {
+    "baghishov_2026_application_specific_mlip": {
+      "uninformed_tie": {
+        "panels": 18,
+        "arms": 54,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.43359211189706964,
+        "top_choice_credit": 0.33333333333333326
+      },
+      "semantic_mean": {
+        "panels": 18,
+        "arms": 54,
+        "pairwise_ordering": 1.0,
+        "mean_normalized_regret": 0.0,
+        "top_choice_credit": 1.0
+      },
+      "ridge": {
+        "panels": 18,
+        "arms": 54,
+        "pairwise_ordering": 1.0,
+        "mean_normalized_regret": 0.0,
+        "top_choice_credit": 1.0
+      }
+    },
+    "bi_elena_2026_budget_crossover": {
+      "uninformed_tie": {
+        "panels": 24,
+        "arms": 120,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.34619078188310953,
+        "top_choice_credit": 0.23333333333333336
+      },
+      "semantic_mean": {
+        "panels": 24,
+        "arms": 120,
+        "pairwise_ordering": 0.6041666666666666,
+        "mean_normalized_regret": 0.16526126639627362,
+        "top_choice_credit": 0.3333333333333333
+      },
+      "ridge": {
+        "panels": 24,
+        "arms": 120,
+        "pairwise_ordering": 0.6041666666666666,
+        "mean_normalized_regret": 0.16526126639627362,
+        "top_choice_credit": 0.3333333333333333
+      }
+    },
+    "dale_2026_active_learning_failure": {
+      "uninformed_tie": {
+        "panels": 23,
+        "arms": 161,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.4795549638660572,
+        "top_choice_credit": 0.19254658385093168
+      },
+      "semantic_mean": {
+        "panels": 23,
+        "arms": 161,
+        "pairwise_ordering": 0.4668737060041408,
+        "mean_normalized_regret": 0.5288868306817526,
+        "top_choice_credit": 0.15217391304347827
+      },
+      "ridge": {
+        "panels": 23,
+        "arms": 161,
+        "pairwise_ordering": 0.4668737060041408,
+        "mean_normalized_regret": 0.5288868306817526,
+        "top_choice_credit": 0.15217391304347827
+      }
+    },
+    "espinosa_castaneda_2026_diversity": {
+      "uninformed_tie": {
+        "panels": 256,
+        "arms": 1504,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.3623280383370239,
+        "top_choice_credit": 0.17083333333333334
+      },
+      "semantic_mean": {
+        "panels": 256,
+        "arms": 1504,
+        "pairwise_ordering": 0.7084239130434783,
+        "mean_normalized_regret": 0.15748540136448494,
+        "top_choice_credit": 0.287109375
+      },
+      "ridge": {
+        "panels": 256,
+        "arms": 1504,
+        "pairwise_ordering": 0.6991847826086957,
+        "mean_normalized_regret": 0.15748540136448494,
+        "top_choice_credit": 0.287109375
+      }
+    },
+    "haenseroth_2026_generators": {
+      "uninformed_tie": {
+        "panels": 7,
+        "arms": 21,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.4863312775806607,
+        "top_choice_credit": 0.3333333333333333
+      },
+      "semantic_mean": {
+        "panels": 7,
+        "arms": 21,
+        "pairwise_ordering": 0.6190476190476191,
+        "mean_normalized_regret": 0.3732638091645177,
+        "top_choice_credit": 0.5714285714285714
+      },
+      "ridge": {
+        "panels": 7,
+        "arms": 21,
+        "pairwise_ordering": 0.6190476190476191,
+        "mean_normalized_regret": 0.3732638091645177,
+        "top_choice_credit": 0.5714285714285714
+      }
+    },
+    "haenseroth_dressler_2026_data_efficiency": {
+      "uninformed_tie": {
+        "panels": 336,
+        "arms": 672,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.5,
+        "top_choice_credit": 0.5
+      },
+      "semantic_mean": {
+        "panels": 336,
+        "arms": 672,
+        "pairwise_ordering": 0.6339285714285714,
+        "mean_normalized_regret": 0.36607142857142855,
+        "top_choice_credit": 0.6339285714285714
+      },
+      "ridge": {
+        "panels": 336,
+        "arms": 672,
+        "pairwise_ordering": 0.6339285714285714,
+        "mean_normalized_regret": 0.36607142857142855,
+        "top_choice_credit": 0.6339285714285714
+      }
+    },
+    "kim_2026_density_diversity": {
+      "uninformed_tie": {
+        "panels": 12,
+        "arms": 36,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.5287210357555123,
+        "top_choice_credit": 0.3333333333333333
+      },
+      "semantic_mean": {
+        "panels": 12,
+        "arms": 36,
+        "pairwise_ordering": 0.6527777777777778,
+        "mean_normalized_regret": 0.25,
+        "top_choice_credit": 0.75
+      },
+      "ridge": {
+        "panels": 12,
+        "arms": 36,
+        "pairwise_ordering": 0.6527777777777778,
+        "mean_normalized_regret": 0.25,
+        "top_choice_credit": 0.75
+      }
+    },
+    "kulichenko_2023_udd": {
+      "uninformed_tie": {
+        "panels": 4,
+        "arms": 16,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.3553471243724448,
+        "top_choice_credit": 0.25
+      },
+      "semantic_mean": {
+        "panels": 4,
+        "arms": 16,
+        "pairwise_ordering": 0.7916666666666666,
+        "mean_normalized_regret": 0.0032383419689119286,
+        "top_choice_credit": 0.75
+      },
+      "ridge": {
+        "panels": 4,
+        "arms": 16,
+        "pairwise_ordering": 0.7916666666666666,
+        "mean_normalized_regret": 0.0032383419689119286,
+        "top_choice_credit": 0.75
+      }
+    },
+    "li_2023_redundancy": {
+      "uninformed_tie": {
+        "panels": 42,
+        "arms": 156,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.5317901818366193,
+        "top_choice_credit": 0.2857142857142857
+      },
+      "semantic_mean": {
+        "panels": 42,
+        "arms": 156,
+        "pairwise_ordering": 0.6351351351351351,
+        "mean_normalized_regret": 0.5851795973649627,
+        "top_choice_credit": 0.14285714285714285
+      },
+      "ridge": {
+        "panels": 42,
+        "arms": 156,
+        "pairwise_ordering": 0.4369369369369369,
+        "mean_normalized_regret": 0.6804176926030581,
+        "top_choice_credit": 0.047619047619047616
+      }
+    },
+    "liu_2026_heterogeneous_uq": {
+      "uninformed_tie": {
+        "panels": 2,
+        "arms": 12,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.1691780332489652,
+        "top_choice_credit": 0.16666666666666666
+      },
+      "semantic_mean": {
+        "panels": 2,
+        "arms": 12,
+        "pairwise_ordering": 0.5666666666666667,
+        "mean_normalized_regret": 0.00019904288850064455,
+        "top_choice_credit": 0.0
+      },
+      "ridge": {
+        "panels": 2,
+        "arms": 12,
+        "pairwise_ordering": 0.6333333333333333,
+        "mean_normalized_regret": 0.00019904288850064455,
+        "top_choice_credit": 0.0
+      }
+    },
+    "qi_2024_direct_sampling": {
+      "uninformed_tie": {
+        "panels": 6,
+        "arms": 12,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.5,
+        "top_choice_credit": 0.5
+      },
+      "semantic_mean": {
+        "panels": 6,
+        "arms": 12,
+        "pairwise_ordering": 1.0,
+        "mean_normalized_regret": 0.0,
+        "top_choice_credit": 1.0
+      },
+      "ridge": {
+        "panels": 6,
+        "arms": 12,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.5,
+        "top_choice_credit": 0.5
+      }
+    },
+    "varga_umbrich_2026_pretrained_acquisition": {
+      "uninformed_tie": {
+        "panels": 36,
+        "arms": 72,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.4027777777777778,
+        "top_choice_credit": 0.5972222222222222
+      },
+      "semantic_mean": {
+        "panels": 36,
+        "arms": 72,
+        "pairwise_ordering": 0.7638888888888888,
+        "mean_normalized_regret": 0.1388888888888889,
+        "top_choice_credit": 0.8611111111111112
+      },
+      "ridge": {
+        "panels": 36,
+        "arms": 72,
+        "pairwise_ordering": 0.7916666666666666,
+        "mean_normalized_regret": 0.1111111111111111,
+        "top_choice_credit": 0.8888888888888888
+      }
+    },
+    "wang_2026_dataset_aware_entropy": {
+      "uninformed_tie": {
+        "panels": 45,
+        "arms": 90,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.5,
+        "top_choice_credit": 0.5
+      },
+      "semantic_mean": {
+        "panels": 45,
+        "arms": 90,
+        "pairwise_ordering": 0.8444444444444444,
+        "mean_normalized_regret": 0.15555555555555556,
+        "top_choice_credit": 0.8444444444444444
+      },
+      "ridge": {
+        "panels": 45,
+        "arms": 90,
+        "pairwise_ordering": 0.9111111111111111,
+        "mean_normalized_regret": 0.08888888888888889,
+        "top_choice_credit": 0.9111111111111111
+      }
+    },
+    "wong_yang_2026_umlip_bias": {
+      "uninformed_tie": {
+        "panels": 5,
+        "arms": 10,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.5,
+        "top_choice_credit": 0.5
+      },
+      "semantic_mean": {
+        "panels": 5,
+        "arms": 10,
+        "pairwise_ordering": 0.8,
+        "mean_normalized_regret": 0.2,
+        "top_choice_credit": 0.8
+      },
+      "ridge": {
+        "panels": 5,
+        "arms": 10,
+        "pairwise_ordering": 0.0,
+        "mean_normalized_regret": 1.0,
+        "top_choice_credit": 0.0
+      }
+    },
+    "zaverkin_2024_uncertainty_biased_md": {
+      "uninformed_tie": {
+        "panels": 8,
+        "arms": 46,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.43819023581119615,
+        "top_choice_credit": 0.20625
+      },
+      "semantic_mean": {
+        "panels": 8,
+        "arms": 46,
+        "pairwise_ordering": 0.6982758620689655,
+        "mean_normalized_regret": 0.12865392938291198,
+        "top_choice_credit": 0.625
+      },
+      "ridge": {
+        "panels": 8,
+        "arms": 46,
+        "pairwise_ordering": 0.8189655172413793,
+        "mean_normalized_regret": 0.002232142857142863,
+        "top_choice_credit": 0.875
+      }
+    },
+    "zhang_2023_etal": {
+      "uninformed_tie": {
+        "panels": 4,
+        "arms": 8,
+        "pairwise_ordering": 0.5,
+        "mean_normalized_regret": 0.5,
+        "top_choice_credit": 0.5
+      },
+      "semantic_mean": {
+        "panels": 4,
+        "arms": 8,
+        "pairwise_ordering": 1.0,
+        "mean_normalized_regret": 0.0,
+        "top_choice_credit": 1.0
+      },
+      "ridge": {
+        "panels": 4,
+        "arms": 8,
+        "pairwise_ordering": 1.0,
+        "mean_normalized_regret": 0.0,
+        "top_choice_credit": 1.0
+      }
+    }
+  },
+  "interpretation_boundary": [
+    "Outcomes are normalized only within matched decision panels.",
+    "Native measurements are mapped to oriented scientific concepts and standardized within source without using outcomes.",
+    "No source, dataset, material, method, or environment identity is a predictive feature.",
+    "The sixteen studies differ in target, downstream model, candidate construction, and available measurements.",
+    "This retrospective audit tests whether broad concepts recur; it does not establish a universal coefficient vector.",
+    "The sealed PhononScore candidate set remains the prospective test."
+  ]
+}

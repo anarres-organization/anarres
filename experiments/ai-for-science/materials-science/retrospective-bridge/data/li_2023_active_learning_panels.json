@@ -1,0 +1,5788 @@
+{
+  "artifact": "li_2023_active_learning_panels_v1",
+  "source_id": "li_2023_redundancy",
+  "outcome_scope": "in-distribution test split",
+  "primary_outcome": "rmse",
+  "budgets": [
+    0.02,
+    0.1,
+    0.2
+  ],
+  "normalization": "within matched panel; best RMSE maps to 1 and worst to 0",
+  "panel_count": 42,
+  "arm_count": 156,
+  "arms": [
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:rf:b0.02",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199985295198882,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.4051675373825593,
+        "rmse": 0.7156246460141865,
+        "r2": 0.7025625474823609,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.7156246460141865,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:rf:b0.02",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.4038255482334259,
+        "rmse": 0.7441597810627956,
+        "r2": 0.6810211457177356,
+        "mae_std": 0.009409716174670691,
+        "rmse_std": 0.013772472724775376,
+        "r2_std": 0.012013468538853964
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.7441597810627956,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:rf:b0.02",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199985295198882,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.4098472528781262,
+        "rmse": 0.7298007976622659,
+        "r2": 0.6906616662764434,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.7298007976622659,
+        "panel_normalized_utility": 0.5032036251473633,
+        "panel_normalized_regret": 0.4967963748526367
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:rf:b0.02",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.4018,
+        "rmse": 0.7334,
+        "r2": 0.6876,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.7334,
+        "panel_normalized_utility": 0.37707132082839057,
+        "panel_normalized_regret": 0.6229286791716094
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:rf:b0.10",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999926475994412,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.2857133842227641,
+        "rmse": 0.5230042481022522,
+        "r2": 0.8411323368765653,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.5230042481022522,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:rf:b0.10",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.30825381179763955,
+        "rmse": 0.609377613634962,
+        "r2": 0.7861456744388706,
+        "mae_std": 0.0028000975872222054,
+        "rmse_std": 0.006851105481746843,
+        "r2_std": 0.004811227500117556
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.609377613634962,
+        "panel_normalized_utility": 0.09647276350629656,
+        "panel_normalized_regret": 0.9035272364937035
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:rf:b0.10",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999926475994412,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.3288456655639363,
+        "rmse": 0.5763298501877071,
+        "r2": 0.8070844204032694,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.5763298501877071,
+        "panel_normalized_utility": 0.44217602741915135,
+        "panel_normalized_regret": 0.5578239725808486
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:rf:b0.10",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.3337,
+        "rmse": 0.6186,
+        "r2": 0.7778,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.6186,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:rf:b0.20",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999852951988824,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.2324369380265537,
+        "rmse": 0.4524521942092701,
+        "r2": 0.8811031163077269,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.4524521942092701,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:rf:b0.20",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.2707416788584535,
+        "rmse": 0.5548100572135768,
+        "r2": 0.8226879920067034,
+        "mae_std": 0.0034273373604118804,
+        "rmse_std": 0.01100835634126134,
+        "r2_std": 0.0070608199275047166
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.5548100572135768,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:rf:b0.20",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999852951988824,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.266020651934189,
+        "rmse": 0.4742176024592081,
+        "r2": 0.8693888012541587,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.4742176024592081,
+        "panel_normalized_utility": 0.787359684824387,
+        "panel_normalized_regret": 0.21264031517561302
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:rf:b0.20",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.2885,
+        "rmse": 0.5314,
+        "r2": 0.836,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.5314,
+        "panel_normalized_utility": 0.22870795194885837,
+        "panel_normalized_regret": 0.7712920480511416
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:xgb:b0.02",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199985295198882,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.3959204605709188,
+        "rmse": 0.7135216564912757,
+        "r2": 0.704308123929891,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.7135216564912757,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:xgb:b0.02",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.39837614325806986,
+        "rmse": 0.7527039665048826,
+        "r2": 0.6736096050171148,
+        "mae_std": 0.007776325627352131,
+        "rmse_std": 0.01674143698533514,
+        "r2_std": 0.014695116223594764
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.7527039665048826,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:xgb:b0.02",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199985295198882,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.4009249343604886,
+        "rmse": 0.7201288468948005,
+        "r2": 0.6988065723597509,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.7201288468948005,
+        "panel_normalized_utility": 0.8313731272803907,
+        "panel_normalized_regret": 0.16862687271960933
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:xgb:b0.02",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.3885,
+        "rmse": 0.7301,
+        "r2": 0.6904,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.7301,
+        "panel_normalized_utility": 0.576892135686562,
+        "panel_normalized_regret": 0.423107864313438
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:xgb:b0.10",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999926475994412,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.2961656756870385,
+        "rmse": 0.5112073617992268,
+        "r2": 0.8482183487705591,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.5112073617992268,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:xgb:b0.10",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.29656975981148676,
+        "rmse": 0.5933087656066629,
+        "r2": 0.7972406213771279,
+        "mae_std": 0.002307180849366981,
+        "rmse_std": 0.010558905933119162,
+        "r2_std": 0.007285004602246558
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.5933087656066629,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:xgb:b0.10",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999926475994412,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.3277322187917459,
+        "rmse": 0.5402032601928464,
+        "r2": 0.8305117965790465,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.5402032601928464,
+        "panel_normalized_utility": 0.6468282264499676,
+        "panel_normalized_regret": 0.3531717735500324
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:xgb:b0.10",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.3178,
+        "rmse": 0.5668,
+        "r2": 0.8134,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.5668,
+        "panel_normalized_utility": 0.32287834771787377,
+        "panel_normalized_regret": 0.6771216522821262
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:xgb:b0.20",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999852951988824,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.2473250629088057,
+        "rmse": 0.4365590812969424,
+        "r2": 0.8893093014786787,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.4365590812969424,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:xgb:b0.20",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.2555447563102001,
+        "rmse": 0.5281679279527116,
+        "r2": 0.8393180784484693,
+        "mae_std": 0.003268405379022322,
+        "rmse_std": 0.009533201620876374,
+        "r2_std": 0.005779787035277698
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.5281679279527116,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:xgb:b0.20",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999852951988824,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.2917173543071826,
+        "rmse": 0.4701098453971817,
+        "r2": 0.8716417558451441,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.4701098453971817,
+        "panel_normalized_utility": 0.6337606538557332,
+        "panel_normalized_regret": 0.3662393461442668
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:jarvis22:xgb:b0.20",
+      "target_property": "bandgap",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.2754,
+        "rmse": 0.4814,
+        "r2": 0.8654,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_jarvis22_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.4814,
+        "panel_normalized_utility": 0.5105175936604407,
+        "panel_normalized_regret": 0.48948240633955936
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:rf:b0.02",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199955734989964,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.6068484139707397,
+        "rmse": 0.8894579259196934,
+        "r2": 0.6408677627843609,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.8894579259196934,
+        "panel_normalized_utility": 0.5751526012068003,
+        "panel_normalized_regret": 0.42484739879319966
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:rf:b0.02",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.5806457691668385,
+        "rmse": 0.893273559891985,
+        "r2": 0.6507399231847911,
+        "mae_std": 0.004669394119735247,
+        "rmse_std": 0.005923801101258762,
+        "r2_std": 0.004634738043219051
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.893273559891985,
+        "panel_normalized_utility": 0.4019238129275976,
+        "panel_normalized_regret": 0.5980761870724024
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:rf:b0.02",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199955734989964,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.6107269076859674,
+        "rmse": 0.9021265581153964,
+        "r2": 0.6305645992700802,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.9021265581153964,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:rf:b0.02",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.5777,
+        "rmse": 0.8801,
+        "r2": 0.6484,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.8801,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:rf:b0.10",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.099977867494982,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.4675141531698606,
+        "rmse": 0.7006521490436369,
+        "r2": 0.7771521292366228,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.7006521490436369,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:rf:b0.10",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.47723631181159415,
+        "rmse": 0.7684383918532773,
+        "r2": 0.7415390329957594,
+        "mae_std": 0.0033813056566855283,
+        "rmse_std": 0.004608616180094943,
+        "r2_std": 0.0030978289756062377
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.7684383918532773,
+        "panel_normalized_utility": 0.2309938123937075,
+        "panel_normalized_regret": 0.7690061876062925
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:rf:b0.10",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.099977867494982,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.5252414377361082,
+        "rmse": 0.7762119325435368,
+        "r2": 0.7264956729366259,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.7762119325435368,
+        "panel_normalized_utility": 0.142806288751098,
+        "panel_normalized_regret": 0.857193711248902
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:rf:b0.10",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.5244,
+        "rmse": 0.7888,
+        "r2": 0.7175,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.7888,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:rf:b0.20",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.199955734989964,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.4097535600888339,
+        "rmse": 0.6352839132352828,
+        "r2": 0.8167941705315394,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.6352839132352828,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:rf:b0.20",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.4304809656192045,
+        "rmse": 0.7103826142081355,
+        "r2": 0.7791210804570887,
+        "mae_std": 0.0012632675215731154,
+        "rmse_std": 0.0029682102671908187,
+        "r2_std": 0.0018475634909979138
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.7103826142081355,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:rf:b0.20",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.199955734989964,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.45705706320718,
+        "rmse": 0.6800601133023043,
+        "r2": 0.7900585564747131,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.6800601133023043,
+        "panel_normalized_utility": 0.4037686473004696,
+        "panel_normalized_regret": 0.5962313526995304
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:rf:b0.20",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.4697,
+        "rmse": 0.7028,
+        "r2": 0.7758,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.7028,
+        "panel_normalized_utility": 0.10096864672634713,
+        "panel_normalized_regret": 0.8990313532736529
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:xgb:b0.02",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199955734989964,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.5759224707394938,
+        "rmse": 0.8606745930952135,
+        "r2": 0.6637350994657552,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.8606745930952135,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:xgb:b0.02",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.5671084905365656,
+        "rmse": 0.8815960412196786,
+        "r2": 0.6597852691105872,
+        "mae_std": 0.0049773169542501605,
+        "rmse_std": 0.010075915515149355,
+        "r2_std": 0.007752980747376302
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.8815960412196786,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:xgb:b0.02",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199955734989964,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.5935486322033449,
+        "rmse": 0.8773754282659559,
+        "r2": 0.6505584791113055,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.8773754282659559,
+        "panel_normalized_utility": 0.20173617660754475,
+        "panel_normalized_regret": 0.7982638233924553
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:xgb:b0.02",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.5685,
+        "rmse": 0.8746,
+        "r2": 0.6528,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.8746,
+        "panel_normalized_utility": 0.33439564881254813,
+        "panel_normalized_regret": 0.6656043511874519
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:xgb:b0.10",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.099977867494982,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.4714214416205634,
+        "rmse": 0.6987757448421333,
+        "r2": 0.7783441408729105,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.6987757448421333,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:xgb:b0.10",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.44496944495049595,
+        "rmse": 0.7244537692334323,
+        "r2": 0.7702775620795808,
+        "mae_std": 0.003600767490251049,
+        "rmse_std": 0.005086328181262514,
+        "r2_std": 0.003234616178740464
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.7244537692334323,
+        "panel_normalized_utility": 0.46307528875177617,
+        "panel_normalized_regret": 0.5369247112482238
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:xgb:b0.10",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.099977867494982,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.5118941455666519,
+        "rmse": 0.7456378257374241,
+        "r2": 0.7476173855934933,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.7456378257374241,
+        "panel_normalized_utility": 0.020118959707784878,
+        "panel_normalized_regret": 0.9798810402922151
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:xgb:b0.10",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.4922,
+        "rmse": 0.7466,
+        "r2": 0.747,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.7466,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:xgb:b0.20",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.199955734989964,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.4170271611039527,
+        "rmse": 0.6308170193794043,
+        "r2": 0.8193614759267375,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.6308170193794043,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:xgb:b0.20",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.4000516983400839,
+        "rmse": 0.6668011103705577,
+        "r2": 0.8053888357075722,
+        "mae_std": 0.002297420299268691,
+        "rmse_std": 0.003744357621132741,
+        "r2_std": 0.0021824159753523124
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.6668011103705577,
+        "panel_normalized_utility": 0.27906128952095344,
+        "panel_normalized_regret": 0.7209387104790466
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:xgb:b0.20",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.199955734989964,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.4727633356345392,
+        "rmse": 0.6807298489557809,
+        "r2": 0.7896448445029567,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.6807298489557809,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:mp:xgb:b0.20",
+      "target_property": "bandgap",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.4478,
+        "rmse": 0.6765,
+        "r2": 0.7922,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_mp_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.6765,
+        "panel_normalized_utility": 0.08474472378506244,
+        "panel_normalized_regret": 0.9152552762149375
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:rf:b0.02",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199971608021884,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.0850004138228426,
+        "rmse": 0.3183496699844682,
+        "r2": 0.8058905105608263,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.3183496699844682,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:rf:b0.02",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.09526638714557019,
+        "rmse": 0.3714722945551653,
+        "r2": 0.7355221888741011,
+        "mae_std": 0.0030112921053253674,
+        "rmse_std": 0.010266107970331546,
+        "r2_std": 0.014678542440818855
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.3714722945551653,
+        "panel_normalized_utility": 0.07693623031596461,
+        "panel_normalized_regret": 0.9230637696840354
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:rf:b0.02",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199971608021884,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.0951239416904236,
+        "rmse": 0.3366491229005037,
+        "r2": 0.7829334349243915,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.3366491229005037,
+        "panel_normalized_utility": 0.6820269682016278,
+        "panel_normalized_regret": 0.3179730317983722
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:rf:b0.02",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.094,
+        "rmse": 0.3759,
+        "r2": 0.7293,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.3759,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:rf:b0.10",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999858040109424,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.0470260639319225,
+        "rmse": 0.2142080383878111,
+        "r2": 0.9121160663281084,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2142080383878111,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:rf:b0.10",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.07115576187672648,
+        "rmse": 0.3048305562256667,
+        "r2": 0.8219881883050215,
+        "mae_std": 0.0010193699747467948,
+        "rmse_std": 0.004724084323597811,
+        "r2_std": 0.005546998401283548
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.3048305562256667,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:rf:b0.10",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999858040109424,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.0481187302109908,
+        "rmse": 0.2142990675038246,
+        "r2": 0.9120413567450336,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2142990675038246,
+        "panel_normalized_utility": 0.9989955132765527,
+        "panel_normalized_regret": 0.0010044867234473528
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:rf:b0.10",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.0539,
+        "rmse": 0.2242,
+        "r2": 0.9037,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2242,
+        "panel_normalized_utility": 0.8897408519363056,
+        "panel_normalized_regret": 0.1102591480636944
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:rf:b0.20",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999716080218848,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.0424212161156852,
+        "rmse": 0.2133146516532587,
+        "r2": 0.9128476038857004,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2133146516532587,
+        "panel_normalized_utility": 0.9557370078945858,
+        "panel_normalized_regret": 0.04426299210541414
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:rf:b0.20",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.06182272133061539,
+        "rmse": 0.2779110877245762,
+        "r2": 0.8520506780779982,
+        "mae_std": 0.0009024770242969269,
+        "rmse_std": 0.0035360065442934146,
+        "r2_std": 0.003755412468171189
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.2779110877245762,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:rf:b0.20",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999716080218848,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.0418503749701436,
+        "rmse": 0.210323000690447,
+        "r2": 0.9152750155515924,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.210323000690447,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:rf:b0.20",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.0438,
+        "rmse": 0.2121,
+        "r2": 0.9138,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2121,
+        "panel_normalized_utility": 0.9737083946664193,
+        "panel_normalized_regret": 0.026291605333580638
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:xgb:b0.02",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199971608021884,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.0901898344239641,
+        "rmse": 0.3067915509882913,
+        "r2": 0.8197294642931503,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.3067915509882913,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:xgb:b0.02",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.09433051660944958,
+        "rmse": 0.36963938658114603,
+        "r2": 0.7381341571446364,
+        "mae_std": 0.0022921470410235765,
+        "rmse_std": 0.009972648131957087,
+        "r2_std": 0.014094495996123939
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.36963938658114603,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:xgb:b0.02",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199971608021884,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.0982592613712547,
+        "rmse": 0.3297292089028928,
+        "r2": 0.7917654443368907,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.3297292089028928,
+        "panel_normalized_utility": 0.6350286736491952,
+        "panel_normalized_regret": 0.36497132635080476
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:xgb:b0.02",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.0914,
+        "rmse": 0.3646,
+        "r2": 0.7454,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.3646,
+        "panel_normalized_utility": 0.08018393208944478,
+        "panel_normalized_regret": 0.9198160679105553
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:xgb:b0.10",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999858040109424,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.0676564698674771,
+        "rmse": 0.2058449994759107,
+        "r2": 0.9188443796401364,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2058449994759107,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:xgb:b0.10",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.06918480488725816,
+        "rmse": 0.2933985870990142,
+        "r2": 0.8350624999249604,
+        "mae_std": 0.0010415648688379727,
+        "rmse_std": 0.006036285781620226,
+        "r2_std": 0.006807292911206752
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.2933985870990142,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:xgb:b0.10",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999858040109424,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.0785861255699588,
+        "rmse": 0.2110204609524355,
+        "r2": 0.9147121642342696,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2110204609524355,
+        "panel_normalized_utility": 0.9408880707572613,
+        "panel_normalized_regret": 0.05911192924273866
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:xgb:b0.10",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.0708,
+        "rmse": 0.2105,
+        "r2": 0.9151,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2105,
+        "panel_normalized_utility": 0.9468325553473843,
+        "panel_normalized_regret": 0.05316744465261569
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:xgb:b0.20",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999716080218848,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.0498644746830619,
+        "rmse": 0.2006861551601522,
+        "r2": 0.9228612166947036,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2006861551601522,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:xgb:b0.20",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.05985281714831429,
+        "rmse": 0.263200271913988,
+        "r2": 0.8672953306847866,
+        "mae_std": 0.0005989529082672656,
+        "rmse_std": 0.0036600610734770916,
+        "r2_std": 0.003693077575694318
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.263200271913988,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:xgb:b0.20",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999716080218848,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.0530176837701787,
+        "rmse": 0.2016557453000402,
+        "r2": 0.9221140432768608,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2016557453000402,
+        "panel_normalized_utility": 0.9844900609616545,
+        "panel_normalized_regret": 0.015509939038345567
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:bandgap:oqmd1.0:xgb:b0.20",
+      "target_property": "bandgap",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.0532,
+        "rmse": 0.201,
+        "r2": 0.9226,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "bandgap_oqmd1.0_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.201,
+        "panel_normalized_utility": 0.9949796165067221,
+        "panel_normalized_regret": 0.005020383493277987
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:rf:b0.02",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199985295198882,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.2740542111881919,
+        "rmse": 0.4036877753330158,
+        "r2": 0.8585111106667898,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.4036877753330158,
+        "panel_normalized_utility": 0.6073029288751192,
+        "panel_normalized_regret": 0.39269707112488084
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:rf:b0.02",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.2551245290644876,
+        "rmse": 0.4014813465986332,
+        "r2": 0.8616763943708966,
+        "mae_std": 0.005645175962163396,
+        "rmse_std": 0.010952970193699596,
+        "r2_std": 0.007598038665639976
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.4014813465986332,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:rf:b0.02",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199985295198882,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.2742541866124123,
+        "rmse": 0.4069622478349288,
+        "r2": 0.8562064558450361,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.4069622478349288,
+        "panel_normalized_utility": 0.02451693586184114,
+        "panel_normalized_regret": 0.9754830641381589
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:rf:b0.02",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.2615,
+        "rmse": 0.4071,
+        "r2": 0.8561,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.4071,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:rf:b0.10",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999926475994412,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1883507418270981,
+        "rmse": 0.2663468080281689,
+        "r2": 0.9384077408161392,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2663468080281689,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:rf:b0.10",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.18547582941810806,
+        "rmse": 0.310094177982746,
+        "r2": 0.9175192038881741,
+        "mae_std": 0.002314884799457876,
+        "rmse_std": 0.004728544460879213,
+        "r2_std": 0.002534291421838221
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.310094177982746,
+        "panel_normalized_utility": 0.16802465433536495,
+        "panel_normalized_regret": 0.831975345664635
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:rf:b0.10",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999926475994412,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.2331530334380086,
+        "rmse": 0.3189293396891629,
+        "r2": 0.9116879250989708,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.3189293396891629,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:rf:b0.10",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.2168,
+        "rmse": 0.3161,
+        "r2": 0.9132,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.3161,
+        "panel_normalized_utility": 0.05380759731014916,
+        "panel_normalized_regret": 0.9461924026898508
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:rf:b0.20",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999852951988824,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1458260433804094,
+        "rmse": 0.2172068475427336,
+        "r2": 0.9590382817334802,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2172068475427336,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:rf:b0.20",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.15639693099563734,
+        "rmse": 0.27118765170682674,
+        "r2": 0.9369231071915964,
+        "mae_std": 0.0012459862585835252,
+        "rmse_std": 0.00323821247570341,
+        "r2_std": 0.0015051919755908968
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.27118765170682674,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:rf:b0.20",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999852951988824,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1827204820473922,
+        "rmse": 0.2572320362628643,
+        "r2": 0.942551161500557,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2572320362628643,
+        "panel_normalized_utility": 0.25852922460250094,
+        "panel_normalized_regret": 0.7414707753974991
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:rf:b0.20",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1853,
+        "rmse": 0.265,
+        "r2": 0.9391,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.265,
+        "panel_normalized_utility": 0.11462689010740257,
+        "panel_normalized_regret": 0.8853731098925974
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199985295198882,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.2417760156503952,
+        "rmse": 0.3675820581076951,
+        "r2": 0.8826887259611625,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.3675820581076951,
+        "panel_normalized_utility": 0.08452144872031365,
+        "panel_normalized_regret": 0.9154785512796864
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.22114713121048896,
+        "rmse": 0.360444916108055,
+        "r2": 0.8884772225144179,
+        "mae_std": 0.005171986196693584,
+        "rmse_std": 0.011691287694595329,
+        "r2_std": 0.007342387980403681
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.360444916108055,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199985295198882,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.2432539710521305,
+        "rmse": 0.3682409938967302,
+        "r2": 0.8822677593736955,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.3682409938967302,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.2228,
+        "rmse": 0.3617,
+        "r2": 0.8864,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.3617,
+        "panel_normalized_utility": 0.8390108557192465,
+        "panel_normalized_regret": 0.16098914428075345
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999926475994412,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1655116337349235,
+        "rmse": 0.2368912998138861,
+        "r2": 0.9512775225733664,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2368912998138861,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.14241104785374262,
+        "rmse": 0.2521525556722447,
+        "r2": 0.9454681952676804,
+        "mae_std": 0.001659347105644016,
+        "rmse_std": 0.002805374558217211,
+        "r2_std": 0.0012111248662181853
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.2521525556722447,
+        "panel_normalized_utility": 0.13820575773677776,
+        "panel_normalized_regret": 0.8617942422632222
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999926475994412,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1743710425659026,
+        "rmse": 0.2461203714747046,
+        "r2": 0.9474072033734912,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2461203714747046,
+        "panel_normalized_utility": 0.47883969100931517,
+        "panel_normalized_regret": 0.5211603089906849
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1713,
+        "rmse": 0.2546,
+        "r2": 0.9437,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2546,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999852951988824,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1237963456681219,
+        "rmse": 0.1875264981789238,
+        "r2": 0.9694679173843168,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.1875264981789238,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.11527614746367017,
+        "rmse": 0.2129867762134491,
+        "r2": 0.9610854635008661,
+        "mae_std": 0.001228470916973871,
+        "rmse_std": 0.003911951689647353,
+        "r2_std": 0.0014492557201124256
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.2129867762134491,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999852951988824,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.131267484107277,
+        "rmse": 0.1939098645864316,
+        "r2": 0.9673539270000392,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.1939098645864316,
+        "panel_normalized_utility": 0.7492813551033626,
+        "panel_normalized_regret": 0.2507186448966374
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis22:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "jarvis22",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1393,
+        "rmse": 0.206,
+        "r2": 0.9631,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis22_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.206,
+        "panel_normalized_utility": 0.2744186926778542,
+        "panel_normalized_regret": 0.7255813073221459
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis:rf:b0.02",
+      "target_property": "e_form",
+      "database": "jarvis",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199644982771222,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.292220941473094,
+        "rmse": 0.407471934186515,
+        "r2": 0.8561712353524279,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.407471934186515,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis:rf:b0.02",
+      "target_property": "e_form",
+      "database": "jarvis",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.26181650201741524,
+        "rmse": 0.4015285403859237,
+        "r2": 0.8602679373125127,
+        "mae_std": 0.0037055963884656345,
+        "rmse_std": 0.009371840761081466,
+        "r2_std": 0.006504033232575886
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.4015285403859237,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis:rf:b0.10",
+      "target_property": "e_form",
+      "database": "jarvis",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0998224913856113,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1896171693612461,
+        "rmse": 0.2606666733344588,
+        "r2": 0.9411398495879516,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2606666733344588,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis:rf:b0.10",
+      "target_property": "e_form",
+      "database": "jarvis",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.19138467455788827,
+        "rmse": 0.30817295984286697,
+        "r2": 0.9177071244717677,
+        "mae_std": 0.00183659218144377,
+        "rmse_std": 0.005463417392255504,
+        "r2_std": 0.0028987160672067033
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.30817295984286697,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis:rf:b0.20",
+      "target_property": "e_form",
+      "database": "jarvis",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1996449827712227,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1558314956132857,
+        "rmse": 0.2231596311948808,
+        "r2": 0.9568598531942528,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2231596311948808,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis:rf:b0.20",
+      "target_property": "e_form",
+      "database": "jarvis",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.16284317257599937,
+        "rmse": 0.2705003927202838,
+        "r2": 0.936606199340716,
+        "mae_std": 0.001159918076306658,
+        "rmse_std": 0.0033694099329542866,
+        "r2_std": 0.0015816992571196797
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.2705003927202838,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "jarvis",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199644982771222,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.2542959081287221,
+        "rmse": 0.3582001986302294,
+        "r2": 0.8888519127419054,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.3582001986302294,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "jarvis",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.22998480652594658,
+        "rmse": 0.36060268206910157,
+        "r2": 0.8873048425267502,
+        "mae_std": 0.003861045848118645,
+        "rmse_std": 0.00809653042108554,
+        "r2_std": 0.005056059883968476
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.36060268206910157,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "jarvis",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0998224913856113,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1708286321110811,
+        "rmse": 0.2391149977186669,
+        "r2": 0.9504704956375726,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2391149977186669,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "jarvis",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.14905109830739574,
+        "rmse": 0.2492377023869575,
+        "r2": 0.9461700822841699,
+        "mae_std": 0.0019554258611322174,
+        "rmse_std": 0.004815577882812159,
+        "r2_std": 0.0020769676036662037
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.2492377023869575,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "jarvis",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1996449827712227,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1341836353725762,
+        "rmse": 0.194004400651357,
+        "r2": 0.9673958028029696,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.194004400651357,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:jarvis:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "jarvis",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.12147495485814583,
+        "rmse": 0.21279299404015162,
+        "r2": 0.9607559258038222,
+        "mae_std": 0.0016349783188708946,
+        "rmse_std": 0.004922228883617137,
+        "r2_std": 0.0018345647711653565
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_jarvis_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.21279299404015162,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:rf:b0.02",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199955734989964,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.2323890318268175,
+        "rmse": 0.3483717610418831,
+        "r2": 0.9154232463088527,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.3483717610418831,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:rf:b0.02",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.22271383964866381,
+        "rmse": 0.3766298022310628,
+        "r2": 0.9033066679158998,
+        "mae_std": 0.0014579122175271964,
+        "rmse_std": 0.0048827639082061345,
+        "r2_std": 0.0025124355688459755
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_mp_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.3766298022310628,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:rf:b0.02",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199955734989964,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.25282091155487,
+        "rmse": 0.3753114514388402,
+        "r2": 0.9018367891923847,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.3753114514388402,
+        "panel_normalized_utility": 0.04665400490418282,
+        "panel_normalized_regret": 0.9533459950958172
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:rf:b0.02",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.2191,
+        "rmse": 0.3661,
+        "r2": 0.9066,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.3661,
+        "panel_normalized_utility": 0.3726302952341506,
+        "panel_normalized_regret": 0.6273697047658494
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:rf:b0.10",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.099977867494982,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1655557707488176,
+        "rmse": 0.2446757508883322,
+        "r2": 0.9582797422004676,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2446757508883322,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:rf:b0.10",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.15907791229970494,
+        "rmse": 0.2964397841267083,
+        "r2": 0.9401012213419276,
+        "mae_std": 0.0011823382933113997,
+        "rmse_std": 0.003128012381691454,
+        "r2_std": 0.0012612831988550958
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_mp_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.2964397841267083,
+        "panel_normalized_utility": 0.04712841714625393,
+        "panel_normalized_regret": 0.9528715828537461
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:rf:b0.10",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.099977867494982,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.2070524265267554,
+        "rmse": 0.2891236809088934,
+        "r2": 0.9417451011518724,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2891236809088934,
+        "panel_normalized_utility": 0.1818031404503178,
+        "panel_normalized_regret": 0.8181968595496822
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:rf:b0.10",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1953,
+        "rmse": 0.299,
+        "r2": 0.9377,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.299,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:rf:b0.20",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.199955734989964,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1298461572023889,
+        "rmse": 0.2100130153596508,
+        "r2": 0.9692632783007328,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2100130153596508,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:rf:b0.20",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.13401895523198765,
+        "rmse": 0.2630768419951736,
+        "r2": 0.9528135385542165,
+        "mae_std": 0.001154492414760311,
+        "rmse_std": 0.005166076583857023,
+        "r2_std": 0.0018488107241355284
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_mp_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.2630768419951736,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:rf:b0.20",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.199955734989964,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1659337477795133,
+        "rmse": 0.2437342414740395,
+        "r2": 0.9586002025715804,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2437342414740395,
+        "panel_normalized_utility": 0.3645157491937361,
+        "panel_normalized_regret": 0.6354842508062639
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:rf:b0.20",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1639,
+        "rmse": 0.2545,
+        "r2": 0.9549,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2545,
+        "panel_normalized_utility": 0.1616325572236807,
+        "panel_normalized_regret": 0.8383674427763194
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199955734989964,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.2062206099645944,
+        "rmse": 0.3160850712953246,
+        "r2": 0.9303737359244216,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.3160850712953246,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1881442647095249,
+        "rmse": 0.3312122146798893,
+        "r2": 0.925217194833106,
+        "mae_std": 0.002651573857018517,
+        "rmse_std": 0.004958409626963729,
+        "r2_std": 0.002244401818109491
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_mp_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.3312122146798893,
+        "panel_normalized_utility": 0.2979548490914664,
+        "panel_normalized_regret": 0.7020451509085336
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199955734989964,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.2225736276012378,
+        "rmse": 0.3376323227292079,
+        "r2": 0.9205574535227814,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.3376323227292079,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1825,
+        "rmse": 0.3201,
+        "r2": 0.9286,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.3201,
+        "panel_normalized_utility": 0.8136686381093655,
+        "panel_normalized_regret": 0.18633136189063443
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.099977867494982,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1498457228555245,
+        "rmse": 0.226020159094337,
+        "r2": 0.9643992230310924,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.226020159094337,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.12438976296218399,
+        "rmse": 0.2458912404383394,
+        "r2": 0.9587831848457554,
+        "mae_std": 0.0010526192356211045,
+        "rmse_std": 0.003665365642730145,
+        "r2_std": 0.001229501228209576
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_mp_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.2458912404383394,
+        "panel_normalized_utility": 0.33273379777446516,
+        "panel_normalized_regret": 0.6672662022255349
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.099977867494982,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1593732664554688,
+        "rmse": 0.2345376444978703,
+        "r2": 0.9616654612536958,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2345376444978703,
+        "panel_normalized_utility": 0.7139848587332925,
+        "panel_normalized_regret": 0.28601514126670746
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1606,
+        "rmse": 0.2558,
+        "r2": 0.9544,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2558,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.199955734989964,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1163662429116276,
+        "rmse": 0.1895931523318595,
+        "r2": 0.9749498449160728,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.1895931523318595,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.10454302739757156,
+        "rmse": 0.21674398088582505,
+        "r2": 0.9679705385858808,
+        "mae_std": 0.0011963142125885186,
+        "rmse_std": 0.004303621571437962,
+        "r2_std": 0.0012652477424447658
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_mp_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.21674398088582505,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.199955734989964,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1224501830439394,
+        "rmse": 0.1932579888685513,
+        "r2": 0.9739720457146422,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.1932579888685513,
+        "panel_normalized_utility": 0.8650193481422676,
+        "panel_normalized_regret": 0.13498065185773248
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:mp:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "mp",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.133,
+        "rmse": 0.2129,
+        "r2": 0.9684,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_mp_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2129,
+        "panel_normalized_utility": 0.14157876906720074,
+        "panel_normalized_regret": 0.8584212309327993
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:rf:b0.02",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199948613129728,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1941274349309261,
+        "rmse": 0.2761430368511846,
+        "r2": 0.8934334613581355,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2761430368511846,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:rf:b0.02",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.19138547744043083,
+        "rmse": 0.28605500056295113,
+        "r2": 0.887499239002208,
+        "mae_std": 0.002423519816567619,
+        "rmse_std": 0.0037360108657583124,
+        "r2_std": 0.0029376219389282473
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.28605500056295113,
+        "panel_normalized_utility": 0.5820911272126137,
+        "panel_normalized_regret": 0.41790887278738625
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:rf:b0.02",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199948613129728,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.2060250295485746,
+        "rmse": 0.2998610394043616,
+        "r2": 0.8743412455462638,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2998610394043616,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:rf:b0.02",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1939,
+        "rmse": 0.2934,
+        "r2": 0.8797,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2934,
+        "panel_normalized_utility": 0.27241077278221926,
+        "panel_normalized_regret": 0.7275892272177807
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:rf:b0.10",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999743065648644,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1240341236831089,
+        "rmse": 0.1672396477754477,
+        "r2": 0.9609131065490338,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.1672396477754477,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:rf:b0.10",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.13681490834583593,
+        "rmse": 0.2137455286178967,
+        "r2": 0.9371928326338722,
+        "mae_std": 0.0008246408149398132,
+        "rmse_std": 0.001723938544170017,
+        "r2_std": 0.001014468701674744
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.2137455286178967,
+        "panel_normalized_utility": 0.17338091562545188,
+        "panel_normalized_regret": 0.8266190843745481
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:rf:b0.10",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999743065648644,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1575457134019028,
+        "rmse": 0.2088234286568512,
+        "r2": 0.939058784694123,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2088234286568512,
+        "panel_normalized_utility": 0.2608688136997458,
+        "panel_normalized_regret": 0.7391311863002542
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:rf:b0.10",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1611,
+        "rmse": 0.2235,
+        "r2": 0.9302,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2235,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:rf:b0.20",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999486131297288,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.0963130845919021,
+        "rmse": 0.1370257252203804,
+        "r2": 0.9737604196487744,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_rf_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.1370257252203804,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:rf:b0.20",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.11408600987617297,
+        "rmse": 0.18244468111761578,
+        "r2": 0.9542421845776301,
+        "mae_std": 0.0004972984453581626,
+        "rmse_std": 0.0010587899901347234,
+        "r2_std": 0.0005327514918135878
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_rf_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.18244468111761578,
+        "panel_normalized_utility": 0.00776241424020148,
+        "panel_normalized_regret": 0.9922375857597985
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:rf:b0.20",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999486131297288,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1254550238152096,
+        "rmse": 0.1681944709044652,
+        "r2": 0.9604655140169972,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_rf_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.1681944709044652,
+        "panel_normalized_utility": 0.3190772364139716,
+        "panel_normalized_regret": 0.6809227635860283
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:rf:b0.20",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "rf",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1328,
+        "rmse": 0.1828,
+        "r2": 0.9533,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_rf_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.1828,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199948613129728,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1498658490084203,
+        "rmse": 0.2220586665731382,
+        "r2": 0.931089068302229,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.2220586665731382,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.14033646571585057,
+        "rmse": 0.2272752748074577,
+        "r2": 0.928982770611352,
+        "mae_std": 0.0015194618513117947,
+        "rmse_std": 0.0030337243061293252,
+        "r2_std": 0.0019051140720877646
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.2272752748074577,
+        "panel_normalized_utility": 0.5905759578254466,
+        "panel_normalized_regret": 0.4094240421745534
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.0199948613129728,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1541336082377279,
+        "rmse": 0.2345719337666292,
+        "r2": 0.923103820530951,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2345719337666292,
+        "panel_normalized_utility": 0.01789971471039309,
+        "panel_normalized_regret": 0.9821002852896069
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:xgb:b0.02",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.02,
+      "actual_pool_fraction": 0.02,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1438,
+        "rmse": 0.2348,
+        "r2": 0.9229,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.2348,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999743065648644,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.1023673293094283,
+        "rmse": 0.1442451144470171,
+        "r2": 0.9709226454665996,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.1442451144470171,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.08884663979474398,
+        "rmse": 0.1551784487963526,
+        "r2": 0.9668959415935973,
+        "mae_std": 0.0005998460296903921,
+        "rmse_std": 0.001330250241750256,
+        "r2_std": 0.0005692176664133014
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.1551784487963526,
+        "panel_normalized_utility": 0.25900242939362084,
+        "panel_normalized_regret": 0.7409975706063792
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.0999743065648644,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1056453736613489,
+        "rmse": 0.1471420131551807,
+        "r2": 0.9697429868644308,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.1471420131551807,
+        "panel_normalized_utility": 0.8036651183934163,
+        "panel_normalized_regret": 0.1963348816065838
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:xgb:b0.10",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.1,
+      "actual_pool_fraction": 0.1,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.1101,
+        "rmse": 0.159,
+        "r2": 0.9647,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.159,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999486131297288,
+      "method": "QBC",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 1,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.0791696556701701,
+        "rmse": 0.117807906964401,
+        "r2": 0.9806044746776108,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_xgb_QBC.csv"
+      },
+      "derived": {
+        "native_utility": -0.117807906964401,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "random",
+      "method_coordinates": {
+        "uses_model_relative_signal": 0,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 0,
+        "acquisition_model_match": null,
+        "acquisition_model_match_missing": 1
+      },
+      "outcome": {
+        "mae": 0.07318702601086916,
+        "rmse": 0.13092912749471305,
+        "r2": 0.9764345237197073,
+        "mae_std": 0.0003909352780939392,
+        "rmse_std": 0.0007827291431828935,
+        "r2_std": 0.0002820018655234575
+      },
+      "replication": {
+        "released_dispersion_available": 1,
+        "active_learning_single_released_trajectory": 0
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_xgb_rand.csv"
+      },
+      "derived": {
+        "native_utility": -0.13092912749471305,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.1999486131297288,
+      "method": "rfMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 0,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.0829646954723907,
+        "rmse": 0.1204251217419102,
+        "r2": 0.9797331219352808,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_xgb_rfMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.1204251217419102,
+        "panel_normalized_utility": 0.8005357221561036,
+        "panel_normalized_regret": 0.1994642778438964
+      }
+    },
+    {
+      "source_id": "li_2023_redundancy",
+      "panel_id": "li_2023_redundancy:e_form:oqmd1.0:xgb:b0.20",
+      "target_property": "e_form",
+      "database": "oqmd1.0",
+      "downstream_model": "xgb",
+      "requested_pool_fraction": 0.2,
+      "actual_pool_fraction": 0.2,
+      "method": "xgbMaxUncertainty",
+      "method_coordinates": {
+        "uses_model_relative_signal": 1,
+        "uses_committee_disagreement": 0,
+        "uses_predictive_uncertainty": 1,
+        "acquisition_model_match": 1,
+        "acquisition_model_match_missing": 0
+      },
+      "outcome": {
+        "mae": 0.0885,
+        "rmse": 0.1298,
+        "r2": 0.9764,
+        "mae_std": null,
+        "rmse_std": null,
+        "r2_std": null
+      },
+      "replication": {
+        "released_dispersion_available": 0,
+        "active_learning_single_released_trajectory": 1
+      },
+      "provenance": {
+        "source_file": "e_form_oqmd1.0_xgb_xgbMaxUncertainty.csv"
+      },
+      "derived": {
+        "native_utility": -0.1298,
+        "panel_normalized_utility": 0.08605354144491327,
+        "panel_normalized_regret": 0.9139464585550867
+      }
+    }
+  ]
+}

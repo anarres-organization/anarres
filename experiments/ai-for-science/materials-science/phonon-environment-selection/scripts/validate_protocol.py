@@ -32,7 +32,7 @@ def validate(protocol: dict[str, object]) -> list[str]:
         errors.append("candidate budgets must be unique positive ascending integers")
 
     strata = protocol["candidate_construction"]["atom_count_strata"]
-    if not strata or strata[0][0] != 2 or strata[-1][1] != 306:
+    if not strata or strata[0][0] != 1 or strata[-1][1] != 192:
         errors.append("atom-count strata do not span the qualified source range")
     for previous, current in zip(strata, strata[1:], strict=False):
         if previous[1] + 1 != current[0]:

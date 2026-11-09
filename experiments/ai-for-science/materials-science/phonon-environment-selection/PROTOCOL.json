@@ -1,5 +1,6 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
+  "revision_note": "Before candidate construction, the atom-count strata were replaced by 16 training-pool quantile bins after the complete training-visible measurement identified a 1--192 atom range and the original eight bins missed the 3% cost-matching gate. No candidate membership or external outcome had been inspected.",
   "study": "prospective-phonon-environment-selection",
   "status": "measurement_protocol_frozen_candidate_memberships_open",
   "scientific_question": "Can measurements under a pretrained phonon model choose a fixed-size DFT post-training set before candidate training outcomes are observed?",
@@ -64,14 +65,22 @@
     "nested_prefixes_required": true,
     "tie_break": "ascending SHA-256 of phonon-candidate-v1|candidate_name|record_id",
     "atom_count_strata": [
-      [2, 11],
-      [12, 19],
-      [20, 29],
-      [30, 55],
-      [56, 83],
-      [84, 103],
-      [104, 159],
-      [160, 306]
+      [1, 5],
+      [6, 8],
+      [9, 10],
+      [11, 12],
+      [13, 14],
+      [15, 16],
+      [17, 20],
+      [21, 22],
+      [23, 24],
+      [25, 28],
+      [29, 32],
+      [33, 36],
+      [37, 44],
+      [45, 54],
+      [55, 72],
+      [73, 192]
     ],
     "stratum_quotas": "largest-remainder allocation proportional to the eligible-pool stratum counts at each budget",
     "rules": {

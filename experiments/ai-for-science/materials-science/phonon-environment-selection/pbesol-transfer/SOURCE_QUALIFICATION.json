@@ -1,0 +1,44 @@
+{
+  "dataset": {
+    "authors": [
+      "Hrushikesh Sahasrabuddhe",
+      "Jiongzhi Zheng",
+      "Changpeng Lin",
+      "Aaron Kaplan",
+      "Tyler Mathis",
+      "Patrick Huck",
+      "Guido Petretto",
+      "Janine George",
+      "Nicola Marzari",
+      "Kristin A. Persson",
+      "Geoffroy Hautier",
+      "Anubhav Jain"
+    ],
+    "doi": "10.5281/zenodo.20196565",
+    "license": "CC BY 4.0",
+    "release_date": "2026-06-08",
+    "title": "Materials Project Phonon database v1.1 - (26,413 compounds)",
+    "version": "v1.1"
+  },
+  "label_contract": {
+    "functional": "PBEsol with Materials Project Hubbard U corrections where applicable",
+    "minimum_frequency_definition": "minimum phonon frequency along the stored band path",
+    "positivity_threshold_thz": -0.1,
+    "primary_label": "minimum_frequency_thz >= -0.1",
+    "workflow": "Pheasy compressive-sensing harmonic phonons in atomate2"
+  },
+  "schema_version": "1.0",
+  "shard": {
+    "expected_materials": 1530,
+    "key": "mp_0860001-0880000.tar",
+    "range_end": 880000,
+    "range_start": 860001,
+    "sha256": "7ecfe6261da217394c5db2985d925d7555e9ba19d28bd6143a4bbb1ba45c76dc",
+    "size_bytes": 1814466560
+  },
+  "source_paper": {
+    "doi": "10.26434/chemrxiv.15004632/v1",
+    "title": "A High-Throughput ab initio Database of Harmonic Phonon Properties for Inorganic Crystals"
+  },
+  "status": "qualified_for_label_blind_panel_construction"
+}

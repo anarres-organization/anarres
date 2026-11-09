@@ -1,0 +1,149 @@
+{
+  "artifact": "anarres_mlip_phonon_source_qualification_v1",
+  "status": "qualified",
+  "construction_reservoir": {
+    "archive": {
+      "url": "https://dl.fbaipublicfiles.com/opencatalystproject/data/omat/251210/omat24_1M_251210.tar.gz",
+      "bytes": 2274568000,
+      "sha256": "789ecc1306575a1652806b339265d7659c57282eeb1b3e3b54ba0e1154938b81",
+      "members": 103,
+      "unpacked_bytes": 3439246770
+    },
+    "license": "CC BY 4.0",
+    "format": "ASE-compatible LMDB plus natoms metadata",
+    "split_record_counts": {
+      "train": 1009850,
+      "val": 107732,
+      "test": 53727
+    },
+    "split_atom_counts": {
+      "train": 18803341,
+      "val": 2020567,
+      "test": 963804
+    },
+    "subdataset_record_counts": {
+      "train": {
+        "aimd-from-PBE-1000-npt": 211578,
+        "aimd-from-PBE-1000-nvt": 201512,
+        "aimd-from-PBE-3000-npt": 60477,
+        "aimd-from-PBE-3000-nvt": 78011,
+        "rattled-1000": 113337,
+        "rattled-1000-subsampled": 38603,
+        "rattled-300": 62894,
+        "rattled-300-subsampled": 34462,
+        "rattled-500": 68885,
+        "rattled-500-subsampled": 39548,
+        "rattled-relax": 100543
+      },
+      "val": {
+        "aimd-from-PBE-1000-npt": 22357,
+        "aimd-from-PBE-1000-nvt": 21558,
+        "aimd-from-PBE-3000-npt": 6524,
+        "aimd-from-PBE-3000-nvt": 8406,
+        "rattled-1000": 12293,
+        "rattled-1000-subsampled": 4178,
+        "rattled-300": 6859,
+        "rattled-300-subsampled": 3739,
+        "rattled-500": 7516,
+        "rattled-500-subsampled": 4306,
+        "rattled-relax": 9996
+      },
+      "test": {
+        "aimd-from-PBE-1000-npt": 9392,
+        "aimd-from-PBE-1000-nvt": 13346,
+        "aimd-from-PBE-3000-npt": 3033,
+        "aimd-from-PBE-3000-nvt": 3925,
+        "rattled-1000": 6749,
+        "rattled-1000-subsampled": 1488,
+        "rattled-300": 3307,
+        "rattled-300-subsampled": 2218,
+        "rattled-500": 3605,
+        "rattled-500-subsampled": 2293,
+        "rattled-relax": 4371
+      }
+    },
+    "subdataset_atom_counts": {
+      "train": {
+        "aimd-from-PBE-1000-npt": 1783624,
+        "aimd-from-PBE-1000-nvt": 1692183,
+        "aimd-from-PBE-3000-npt": 4099444,
+        "aimd-from-PBE-3000-nvt": 5288171,
+        "rattled-1000": 1607250,
+        "rattled-1000-subsampled": 553602,
+        "rattled-300": 894978,
+        "rattled-300-subsampled": 494279,
+        "rattled-500": 983111,
+        "rattled-500-subsampled": 565789,
+        "rattled-relax": 840910
+      },
+      "val": {
+        "aimd-from-PBE-1000-npt": 187312,
+        "aimd-from-PBE-1000-nvt": 183326,
+        "aimd-from-PBE-3000-npt": 441761,
+        "aimd-from-PBE-3000-nvt": 570584,
+        "rattled-1000": 173642,
+        "rattled-1000-subsampled": 59921,
+        "rattled-300": 97019,
+        "rattled-300-subsampled": 53663,
+        "rattled-500": 108156,
+        "rattled-500-subsampled": 61438,
+        "rattled-relax": 83745
+      },
+      "test": {
+        "aimd-from-PBE-1000-npt": 72979,
+        "aimd-from-PBE-1000-nvt": 102089,
+        "aimd-from-PBE-3000-npt": 213046,
+        "aimd-from-PBE-3000-nvt": 274562,
+        "rattled-1000": 92045,
+        "rattled-1000-subsampled": 20343,
+        "rattled-300": 44294,
+        "rattled-300-subsampled": 30326,
+        "rattled-500": 48881,
+        "rattled-500-subsampled": 31100,
+        "rattled-relax": 34139
+      }
+    }
+  },
+  "physical_target": {
+    "metadata": {
+      "url": "https://alexandria.icams.rub.de/data/phonon_benchmark/pbe.csv",
+      "bytes": 1451555,
+      "sha256": "5875695dc44166cf4f09888485c4cfebee03494f65b3e1b3b4b4381620e5d752",
+      "records": 9958,
+      "stable": 8189,
+      "unstable": 1769
+    },
+    "displacements": {
+      "url": "https://alexandria.icams.rub.de/data/phonon_benchmark/disp_extxyz.tar.gz",
+      "bytes": 621251841,
+      "sha256": "bdc9f8e93c3d2d11e3c73fcf2c0dd4b0050adae863204c7276eec2e6e0bf6db3",
+      "archive_members": 364655,
+      "extxyz_files": 354696,
+      "material_directories": 9958,
+      "unpacked_bytes": 4160080416,
+      "files_per_material": {
+        "minimum": 1,
+        "median": 26.0,
+        "maximum": 406
+      },
+      "sample_schema": {
+        "atom_count": 40,
+        "required_fields": {
+          "lattice": true,
+          "species_positions_forces": true,
+          "energy": true,
+          "stress": true,
+          "periodic": true
+        }
+      }
+    },
+    "license": "CC BY 4.0",
+    "paper": "https://doi.org/10.1038/s41524-025-01650-1"
+  },
+  "interpretation_boundary": [
+    "The two releases use PBE labels, but pseudopotential, Hubbard-correction, energy-reference, and stress-convention compatibility require record-level checks before training.",
+    "The OMat24 1M train split is the only construction reservoir; its validation and test splits remain available for training diagnostics.",
+    "Alexandria material identities and displacement labels remain evaluation-only.",
+    "Starting-model pretraining exposure is distinct from overlap introduced by the new post-training experiment and will be reported separately."
+  ]
+}

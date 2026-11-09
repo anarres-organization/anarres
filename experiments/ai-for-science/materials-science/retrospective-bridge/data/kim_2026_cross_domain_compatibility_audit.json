@@ -1,0 +1,255 @@
+{
+  "artifact": "kim_2026_cross_domain_compatibility_audit_v1",
+  "source_id": "kim_2026_cross_domain_transfer",
+  "doi": "10.1038/s41467-026-70195-8",
+  "source_sheet": "ablation_MPSP_MAE!A1:I14",
+  "arm_count": 11,
+  "arms": [
+    {
+      "arm": "mptrj_only",
+      "training_set": {
+        "mptrj": 1,
+        "spice": 0,
+        "domain_bridging_set": 0
+      },
+      "regularization": {
+        "scope": null,
+        "weight": null
+      },
+      "force_mae_eV_per_A": {
+        "crystal_gga": 0.056312,
+        "molecule_hybrid": null,
+        "molecule_gga": 0.156852868
+      },
+      "task_specific_parameter_l2_norm": null,
+      "derived": {
+        "molecule_gga_mae_reduction_vs_mptrj_only_fraction": 0.0
+      }
+    },
+    {
+      "arm": "mptrj_spice_unregularized",
+      "training_set": {
+        "mptrj": 1,
+        "spice": 1,
+        "domain_bridging_set": 0
+      },
+      "regularization": {
+        "scope": "unregularized",
+        "weight": 0.0
+      },
+      "force_mae_eV_per_A": {
+        "crystal_gga": 0.057738,
+        "molecule_hybrid": 0.02462,
+        "molecule_gga": 0.101268506
+      },
+      "task_specific_parameter_l2_norm": 69526.72852,
+      "derived": {
+        "molecule_gga_mae_reduction_vs_mptrj_only_fraction": 0.35437262135366254
+      }
+    },
+    {
+      "arm": "mptrj_spice_all_1e-3",
+      "training_set": {
+        "mptrj": 1,
+        "spice": 1,
+        "domain_bridging_set": 0
+      },
+      "regularization": {
+        "scope": "all_parameters",
+        "weight": 0.001
+      },
+      "force_mae_eV_per_A": {
+        "crystal_gga": 0.056155,
+        "molecule_hybrid": 0.024747,
+        "molecule_gga": 0.09114556
+      },
+      "task_specific_parameter_l2_norm": 3755.401394,
+      "derived": {
+        "molecule_gga_mae_reduction_vs_mptrj_only_fraction": 0.41891046582584646
+      }
+    },
+    {
+      "arm": "mptrj_spice_selective_1e-3",
+      "training_set": {
+        "mptrj": 1,
+        "spice": 1,
+        "domain_bridging_set": 0
+      },
+      "regularization": {
+        "scope": "task_specific_parameters",
+        "weight": 0.001
+      },
+      "force_mae_eV_per_A": {
+        "crystal_gga": 0.058533,
+        "molecule_hybrid": 0.02491,
+        "molecule_gga": 0.246398363273152
+      },
+      "task_specific_parameter_l2_norm": 0.010041,
+      "derived": {
+        "molecule_gga_mae_reduction_vs_mptrj_only_fraction": -0.5708884792157706
+      }
+    },
+    {
+      "arm": "mptrj_spice_selective_1e-4",
+      "training_set": {
+        "mptrj": 1,
+        "spice": 1,
+        "domain_bridging_set": 0
+      },
+      "regularization": {
+        "scope": "task_specific_parameters",
+        "weight": 0.0001
+      },
+      "force_mae_eV_per_A": {
+        "crystal_gga": 0.057999,
+        "molecule_hybrid": 0.025075,
+        "molecule_gga": 0.0866430059953237
+      },
+      "task_specific_parameter_l2_norm": 0.609331,
+      "derived": {
+        "molecule_gga_mae_reduction_vs_mptrj_only_fraction": 0.44761605509614466
+      }
+    },
+    {
+      "arm": "mptrj_spice_selective_1e-5",
+      "training_set": {
+        "mptrj": 1,
+        "spice": 1,
+        "domain_bridging_set": 0
+      },
+      "regularization": {
+        "scope": "task_specific_parameters",
+        "weight": 1e-05
+      },
+      "force_mae_eV_per_A": {
+        "crystal_gga": 0.057941,
+        "molecule_hybrid": 0.024742,
+        "molecule_gga": 0.083644823
+      },
+      "task_specific_parameter_l2_norm": 10.64643,
+      "derived": {
+        "molecule_gga_mae_reduction_vs_mptrj_only_fraction": 0.4667306752720646
+      }
+    },
+    {
+      "arm": "mptrj_spice_selective_1e-6",
+      "training_set": {
+        "mptrj": 1,
+        "spice": 1,
+        "domain_bridging_set": 0
+      },
+      "regularization": {
+        "scope": "task_specific_parameters",
+        "weight": 1e-06
+      },
+      "force_mae_eV_per_A": {
+        "crystal_gga": 0.058309,
+        "molecule_hybrid": 0.025097,
+        "molecule_gga": 0.091011908335307
+      },
+      "task_specific_parameter_l2_norm": 171.140305,
+      "derived": {
+        "molecule_gga_mae_reduction_vs_mptrj_only_fraction": 0.41976254884094943
+      }
+    },
+    {
+      "arm": "mptrj_spice_selective_1e-7",
+      "training_set": {
+        "mptrj": 1,
+        "spice": 1,
+        "domain_bridging_set": 0
+      },
+      "regularization": {
+        "scope": "task_specific_parameters",
+        "weight": 1e-07
+      },
+      "force_mae_eV_per_A": {
+        "crystal_gga": 0.057813,
+        "molecule_hybrid": 0.024681,
+        "molecule_gga": 0.09607385682411
+      },
+      "task_specific_parameter_l2_norm": 1938.934868,
+      "derived": {
+        "molecule_gga_mae_reduction_vs_mptrj_only_fraction": 0.3874905951728597
+      }
+    },
+    {
+      "arm": "mptrj_dbs_only",
+      "training_set": {
+        "mptrj": 1,
+        "spice": 0,
+        "domain_bridging_set": 1
+      },
+      "regularization": {
+        "scope": null,
+        "weight": null
+      },
+      "force_mae_eV_per_A": {
+        "crystal_gga": 0.056095,
+        "molecule_hybrid": null,
+        "molecule_gga": 0.114416388
+      },
+      "task_specific_parameter_l2_norm": null,
+      "derived": {
+        "molecule_gga_mae_reduction_vs_mptrj_only_fraction": 0.27054959556110897
+      }
+    },
+    {
+      "arm": "mptrj_spice_dbs_unregularized",
+      "training_set": {
+        "mptrj": 1,
+        "spice": 1,
+        "domain_bridging_set": 1
+      },
+      "regularization": {
+        "scope": "unregularized",
+        "weight": 0.0
+      },
+      "force_mae_eV_per_A": {
+        "crystal_gga": 0.057584,
+        "molecule_hybrid": 0.024866,
+        "molecule_gga": 0.068720598
+      },
+      "task_specific_parameter_l2_norm": 67764.5105,
+      "derived": {
+        "molecule_gga_mae_reduction_vs_mptrj_only_fraction": 0.561878600778916
+      }
+    },
+    {
+      "arm": "mptrj_spice_dbs_selective_1e-5",
+      "training_set": {
+        "mptrj": 1,
+        "spice": 1,
+        "domain_bridging_set": 1
+      },
+      "regularization": {
+        "scope": "task_specific_parameters",
+        "weight": 1e-05
+      },
+      "force_mae_eV_per_A": {
+        "crystal_gga": 0.05789,
+        "molecule_hybrid": 0.025769,
+        "molecule_gga": 0.048304002
+      },
+      "task_specific_parameter_l2_norm": 9.937525366,
+      "derived": {
+        "molecule_gga_mae_reduction_vs_mptrj_only_fraction": 0.6920425962501368
+      }
+    }
+  ],
+  "source_files": {
+    "41467_2026_70195_MOESM3_ESM.xlsx": {
+      "sha256": "f2dd58b5d4ec9ed6c4467219a109e1c4c1f2d23f45d8a6d03789b6ac00a63ac6"
+    },
+    "41467_2026_70195_MOESM1_ESM.pdf": {
+      "sha256": "f6474e7d1c3bd5406cae49a751a4d704688edcba6e09fa8d6e47e6313e5d231b"
+    }
+  },
+  "interpretation_boundary": [
+    "Every numerical value comes from the official Source Data workbook; no figure is digitized.",
+    "The ablation changes database membership and the regularization contract, so it is not a matched fixed-trainer environment comparison.",
+    "The 0.1% domain-bridging set adds PBE relabeling cost that is not matched across arms.",
+    "The source data report one value per arm and do not expose independent training-seed outcomes for this ablation.",
+    "The audit tests how data composition and optimization interact during cross-domain transfer; it remains outside the fitted bridge."
+  ]
+}

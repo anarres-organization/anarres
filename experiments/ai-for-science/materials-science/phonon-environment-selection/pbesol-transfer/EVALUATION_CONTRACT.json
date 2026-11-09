@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "study": "phononscore-pbesol-transfer-v1",
+  "status": "frozen_before_pbesol_outcome_opening",
+  "source_shard": "mp_0860001-0880000.tar",
+  "source_shard_sha256": "7ecfe6261da217394c5db2985d925d7555e9ba19d28bd6143a4bbb1ba45c76dc",
+  "panel_freeze_file_sha256": "5fbd4a51037f1d282ecf579f747176b9f329364d5a677e8ad74cf10111cc48ee",
+  "panel_freeze_sha256": "720b45ee83254609d9a9c2433d28530d511527db5339ed975c530024e0c7df00",
+  "launch_sha256": "de4c1227347a889a4301ea80ecffeaad6a2c38225d66532e286838233e712578",
+  "training_manifest_sha256": "ab700aafcdf595363e5ad05b818d36f9baad069b1d2fb64459050bd01cf75eb1",
+  "expected_candidate_runs": 24,
+  "expected_candidates": [
+    "hash_uniform",
+    "signal",
+    "coverage",
+    "signal_coverage"
+  ],
+  "expected_budgets_structures": [256, 512, 1024],
+  "expected_seeds": [20261108, 20261109],
+  "expected_reference_checkpoints": [
+    "starting_pretrained",
+    "full_dft_posttrained"
+  ],
+  "panels": {
+    "pbesol": {
+      "records": 1000,
+      "role": "prospective cross-functional transfer",
+      "pooling": "one hash-selected record per reduced composition"
+    }
+  },
+  "label_blind_phase": {
+    "permitted_archive_members": [
+      "the 1,000 frozen */06_harmonic_phonons/POSCAR.gz members"
+    ],
+    "forbidden_archive_members": [
+      "*/06_harmonic_phonons/summary.json.gz",
+      "*/06_harmonic_phonons/*band*.yaml.gz",
+      "*/06_harmonic_phonons/*dos*.dat.gz",
+      "*/06_harmonic_phonons/phonopy.yaml.gz"
+    ],
+    "required_before_label_opening": [
+      "the committed panel freeze matches its canonical digest",
+      "all 24 candidate checkpoints match their sealed completion records",
+      "both released reference checkpoints match their published hashes",
+      "every checkpoint has exactly one finite prediction for every frozen structure",
+      "prediction outputs and the complete prediction manifest are hashed"
+    ]
+  },
+  "checkpoint_scoring": {
+    "normalization_reference": "the exact frozen training subset for each candidate-budget arm",
+    "query_pool_normalization_forbidden": true,
+    "composite_score": "z(minimum-frequency prediction) + 0.5 * z(threshold-score mean) + 0.2 * z(pair-geometry score)",
+    "threshold_thz": -0.1,
+    "threshold_probability_index": 2
+  },
+  "outcome_source": {
+    "functional": "PBEsol",
+    "summary_member": "*/06_harmonic_phonons/summary.json.gz",
+    "minimum_frequency_field": "min_frequency",
+    "positivity_threshold_field": "positivity_threshold_thz",
+    "expected_positivity_threshold_thz": -0.1,
+    "workflow": "Pheasy compressive-sensing harmonic phonons in atomate2"
+  },
+  "metrics": {
+    "primary": [
+      "best_candidate_accuracy at each budget using two-seed mean Top-100 stable rate",
+      "mean allocation regret in Top-100 stable-rate points",
+      "pairwise agreement with the frozen complete order"
+    ],
+    "supporting": [
+      "top_100_stable_rate_by_composite_score",
+      "continuous_pairwise_concordance",
+      "roc_auc_at_minus_0.1_thz",
+      "brier_score_at_minus_0.1_thz",
+      "minimum_frequency_mae_thz",
+      "utility relative to the starting checkpoint",
+      "full-data DFT reference"
+    ],
+    "ties": "half credit for pairwise ties; tied predicted winners share their observed utility"
+  },
+  "frozen_candidate_prediction": {
+    "source": "complete two-seed ordering observed on the earlier PBE panel",
+    "best_by_budget": {
+      "256": "coverage",
+      "512": "coverage",
+      "1024": "hash_uniform"
+    },
+    "complete_order_by_budget": {
+      "256": ["coverage", "signal", "signal_coverage", "hash_uniform"],
+      "512": ["coverage", "hash_uniform", "signal", "signal_coverage"],
+      "1024": ["hash_uniform", "coverage", "signal_coverage", "signal"]
+    }
+  },
+  "scope": {
+    "dft_training_and_prior_test_identity_or_composition_overlap": 0,
+    "selected_exact_ids_in_starting_mattersim_pretraining": 946,
+    "selected_compositions_in_starting_mattersim_pretraining": 948,
+    "claim": "transfer to new PBEsol outcomes and a new DFT workflow, not to structures wholly unseen by the starting model"
+  },
+  "external_test_labels_inspected_at_freeze": false,
+  "evaluation_contract_sha256": "0b886148e734543e11eb669ef9623ff9ac6649906f3c11e18a092c2d57fcc745"
+}

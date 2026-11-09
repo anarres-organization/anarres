@@ -1,0 +1,16 @@
+{
+  "artifact": "anarres_mlip_materialized_pool_v1",
+  "records": 512,
+  "atoms": 13248,
+  "source_families": {
+    "aimd-from-PBE-1000-npt": 64,
+    "aimd-from-PBE-1000-nvt": 64,
+    "aimd-from-PBE-3000-npt": 64,
+    "aimd-from-PBE-3000-nvt": 64,
+    "rattled-1000": 64,
+    "rattled-300": 64,
+    "rattled-500": 64,
+    "rattled-relax": 64
+  },
+  "manifest_selection_sha256": "d2f66e3ed9ac8c2fac85a2b9805c37d27a74c0c43aabefc89a94b21931154e7b"
+}

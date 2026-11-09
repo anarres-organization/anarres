@@ -1,0 +1,573 @@
+{
+  "artifact": "svahn_2026_random_subset_uncertainty_panels_v1",
+  "source_id": "svahn_2026_cluster_mlip_limits",
+  "panel_count": 8,
+  "arm_count": 24,
+  "role": "uncertainty audit; excluded from predictive fitting",
+  "normalization": "within data budget, pure-solvent composition, and physical endpoint; lower absolute error from the reported experimental target maps to higher utility",
+  "source_artifact": {
+    "repository": "https://github.com/viktorsvahn/Limits_of_cluster_MLIPs",
+    "repository_revision": "f7275efdd4955cbb6231a5711c9f4e4f130cce27",
+    "source_pickle": "part2_results.pkl",
+    "restricted_csv_sha256": "08d9171ad85c0b70c0ad53b31edacd1f0814f0e00134975bff01d1b9568d755a"
+  },
+  "interpretation_boundary": [
+    "The three arms at each budget use different random cluster identities but the same molecular composition.",
+    "No released pre-training measurement distinguishes the arms, so these panels estimate unresolved selection variability rather than predictor accuracy.",
+    "The diffusion endpoint applies the finite-size correction used in the released analysis notebook."
+  ],
+  "arms": [
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Medium:EC:density_g_cm3",
+      "data_budget": "Clusters-Medium",
+      "composition": "EC",
+      "endpoint": "density_g_cm3",
+      "candidate": "random_subset_1",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 1.2327383668536687,
+        "experimental_target": 1.312,
+        "absolute_error": 0.07926163314633139,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -0.07926163314633139,
+        "panel_normalized_utility": 0.29911709203722053
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Medium:EC:density_g_cm3",
+      "data_budget": "Clusters-Medium",
+      "composition": "EC",
+      "endpoint": "density_g_cm3",
+      "candidate": "random_subset_2",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 1.2820130104301044,
+        "experimental_target": 1.312,
+        "absolute_error": 0.02998698956989565,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -0.02998698956989565,
+        "panel_normalized_utility": 1.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Medium:EC:density_g_cm3",
+      "data_budget": "Clusters-Medium",
+      "composition": "EC",
+      "endpoint": "density_g_cm3",
+      "candidate": "random_subset_3",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 1.211709336283363,
+        "experimental_target": 1.312,
+        "absolute_error": 0.10029066371663697,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -0.10029066371663697,
+        "panel_normalized_utility": 0.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Medium:EC:diffusion_1e-6_cm2_s",
+      "data_budget": "Clusters-Medium",
+      "composition": "EC",
+      "endpoint": "diffusion_1e-6_cm2_s",
+      "candidate": "random_subset_1",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 11.901528534020319,
+        "experimental_target": 8.0,
+        "absolute_error": 3.9015285340203185,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -3.9015285340203185,
+        "panel_normalized_utility": 0.11866642216412628
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Medium:EC:diffusion_1e-6_cm2_s",
+      "data_budget": "Clusters-Medium",
+      "composition": "EC",
+      "endpoint": "diffusion_1e-6_cm2_s",
+      "candidate": "random_subset_2",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 8.590709716940612,
+        "experimental_target": 8.0,
+        "absolute_error": 0.5907097169406121,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -0.5907097169406121,
+        "panel_normalized_utility": 1.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Medium:EC:diffusion_1e-6_cm2_s",
+      "data_budget": "Clusters-Medium",
+      "composition": "EC",
+      "endpoint": "diffusion_1e-6_cm2_s",
+      "candidate": "random_subset_3",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 12.347310963439657,
+        "experimental_target": 8.0,
+        "absolute_error": 4.347310963439657,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -4.347310963439657,
+        "panel_normalized_utility": 0.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Medium:EMC:density_g_cm3",
+      "data_budget": "Clusters-Medium",
+      "composition": "EMC",
+      "endpoint": "density_g_cm3",
+      "candidate": "random_subset_1",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 0.9327415782115641,
+        "experimental_target": 1.006,
+        "absolute_error": 0.07325842178843589,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -0.07325842178843589,
+        "panel_normalized_utility": 0.08466749519551597
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Medium:EMC:density_g_cm3",
+      "data_budget": "Clusters-Medium",
+      "composition": "EMC",
+      "endpoint": "density_g_cm3",
+      "candidate": "random_subset_2",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 1.0261754307743078,
+        "experimental_target": 1.006,
+        "absolute_error": 0.020175430774307834,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -0.020175430774307834,
+        "panel_normalized_utility": 1.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Medium:EMC:density_g_cm3",
+      "data_budget": "Clusters-Medium",
+      "composition": "EMC",
+      "endpoint": "density_g_cm3",
+      "candidate": "random_subset_3",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 0.927831445704457,
+        "experimental_target": 1.006,
+        "absolute_error": 0.07816855429554304,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -0.07816855429554304,
+        "panel_normalized_utility": 0.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Medium:EMC:diffusion_1e-6_cm2_s",
+      "data_budget": "Clusters-Medium",
+      "composition": "EMC",
+      "endpoint": "diffusion_1e-6_cm2_s",
+      "candidate": "random_subset_1",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 26.696999400576384,
+        "experimental_target": 18.3,
+        "absolute_error": 8.396999400576384,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -8.396999400576384,
+        "panel_normalized_utility": 0.2997635638826903
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Medium:EMC:diffusion_1e-6_cm2_s",
+      "data_budget": "Clusters-Medium",
+      "composition": "EMC",
+      "endpoint": "diffusion_1e-6_cm2_s",
+      "candidate": "random_subset_2",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 16.76731984134625,
+        "experimental_target": 18.3,
+        "absolute_error": 1.5326801586537506,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -1.5326801586537506,
+        "panel_normalized_utility": 1.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Medium:EMC:diffusion_1e-6_cm2_s",
+      "data_budget": "Clusters-Medium",
+      "composition": "EMC",
+      "endpoint": "diffusion_1e-6_cm2_s",
+      "candidate": "random_subset_3",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 29.635539432849907,
+        "experimental_target": 18.3,
+        "absolute_error": 11.335539432849906,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -11.335539432849906,
+        "panel_normalized_utility": 0.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Small:EC:density_g_cm3",
+      "data_budget": "Clusters-Small",
+      "composition": "EC",
+      "endpoint": "density_g_cm3",
+      "candidate": "random_subset_1",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 1.3790884983199663,
+        "experimental_target": 1.312,
+        "absolute_error": 0.06708849831996622,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -0.06708849831996622,
+        "panel_normalized_utility": 0.11221876971806251
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Small:EC:density_g_cm3",
+      "data_budget": "Clusters-Small",
+      "composition": "EC",
+      "endpoint": "density_g_cm3",
+      "candidate": "random_subset_2",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 1.384449390217275,
+        "experimental_target": 1.312,
+        "absolute_error": 0.07244939021727492,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -0.07244939021727492,
+        "panel_normalized_utility": 0.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Small:EC:density_g_cm3",
+      "data_budget": "Clusters-Small",
+      "composition": "EC",
+      "endpoint": "density_g_cm3",
+      "candidate": "random_subset_3",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 1.3366775966859668,
+        "experimental_target": 1.312,
+        "absolute_error": 0.024677596685966696,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -0.024677596685966696,
+        "panel_normalized_utility": 1.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Small:EC:diffusion_1e-6_cm2_s",
+      "data_budget": "Clusters-Small",
+      "composition": "EC",
+      "endpoint": "diffusion_1e-6_cm2_s",
+      "candidate": "random_subset_1",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 3.2927354336324006,
+        "experimental_target": 8.0,
+        "absolute_error": 4.707264566367599,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -4.707264566367599,
+        "panel_normalized_utility": 0.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Small:EC:diffusion_1e-6_cm2_s",
+      "data_budget": "Clusters-Small",
+      "composition": "EC",
+      "endpoint": "diffusion_1e-6_cm2_s",
+      "candidate": "random_subset_2",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 3.8733349969723037,
+        "experimental_target": 8.0,
+        "absolute_error": 4.126665003027696,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -4.126665003027696,
+        "panel_normalized_utility": 0.41466041033713985
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Small:EC:diffusion_1e-6_cm2_s",
+      "data_budget": "Clusters-Small",
+      "composition": "EC",
+      "endpoint": "diffusion_1e-6_cm2_s",
+      "candidate": "random_subset_3",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 4.692916277682225,
+        "experimental_target": 8.0,
+        "absolute_error": 3.307083722317775,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -3.307083722317775,
+        "panel_normalized_utility": 1.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Small:EMC:density_g_cm3",
+      "data_budget": "Clusters-Small",
+      "composition": "EMC",
+      "endpoint": "density_g_cm3",
+      "candidate": "random_subset_1",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 1.1337065558566757,
+        "experimental_target": 1.006,
+        "absolute_error": 0.12770655585667567,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -0.12770655585667567,
+        "panel_normalized_utility": 0.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Small:EMC:density_g_cm3",
+      "data_budget": "Clusters-Small",
+      "composition": "EMC",
+      "endpoint": "density_g_cm3",
+      "candidate": "random_subset_2",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 1.131116972608315,
+        "experimental_target": 1.006,
+        "absolute_error": 0.125116972608315,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -0.125116972608315,
+        "panel_normalized_utility": 0.15744927432223138
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Small:EMC:density_g_cm3",
+      "data_budget": "Clusters-Small",
+      "composition": "EMC",
+      "endpoint": "density_g_cm3",
+      "candidate": "random_subset_3",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 1.1172594603746038,
+        "experimental_target": 1.006,
+        "absolute_error": 0.11125946037460377,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -0.11125946037460377,
+        "panel_normalized_utility": 1.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Small:EMC:diffusion_1e-6_cm2_s",
+      "data_budget": "Clusters-Small",
+      "composition": "EMC",
+      "endpoint": "diffusion_1e-6_cm2_s",
+      "candidate": "random_subset_1",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 7.910074772966274,
+        "experimental_target": 18.3,
+        "absolute_error": 10.389925227033727,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -10.389925227033727,
+        "panel_normalized_utility": 0.5661585325270219
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Small:EMC:diffusion_1e-6_cm2_s",
+      "data_budget": "Clusters-Small",
+      "composition": "EMC",
+      "endpoint": "diffusion_1e-6_cm2_s",
+      "candidate": "random_subset_2",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 6.902089505332343,
+        "experimental_target": 18.3,
+        "absolute_error": 11.397910494667657,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -11.397910494667657,
+        "panel_normalized_utility": 0.0
+      }
+    },
+    {
+      "source_id": "svahn_2026_cluster_mlip_limits",
+      "panel_id": "svahn_2026_cluster_mlip_limits:Clusters-Small:EMC:diffusion_1e-6_cm2_s",
+      "data_budget": "Clusters-Small",
+      "composition": "EMC",
+      "endpoint": "diffusion_1e-6_cm2_s",
+      "candidate": "random_subset_3",
+      "pre_outcome_measurements": {
+        "same_structure_count_within_panel": 1,
+        "same_molecular_composition_within_panel": 1,
+        "distinguishing_measurement_available": 0
+      },
+      "outcome": {
+        "observed": 8.682483528778102,
+        "experimental_target": 18.3,
+        "absolute_error": 9.617516471221899,
+        "model_seed": 1
+      },
+      "derived": {
+        "native_utility": -9.617516471221899,
+        "panel_normalized_utility": 1.0
+      }
+    }
+  ]
+}

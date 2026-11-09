@@ -1,0 +1,558 @@
+{
+  "artifact": "wong_yang_2026_umlip_bias_panels_v1",
+  "source_id": "wong_yang_2026_umlip_bias",
+  "source_revision": "de86171359689e7240d074e80d7f0ecb7b0394a4",
+  "panel_count": 5,
+  "arm_count": 10,
+  "primary_outcome": "independent-test energy MAE per atom",
+  "normalization": "within matched training-configuration budget; lower energy MAE maps to higher utility",
+  "interpretation_boundary": [
+    "The primary outcome follows the released independent-test energy analysis.",
+    "Force errors are retained as target-specific sensitivity outcomes.",
+    "All pre-outcome measurements use the shared released starting potential on the exact training configurations."
+  ],
+  "input_artifacts": {
+    "evaluation_sha256": "13e98fa53ba74dbac2dc35906fae0a4b302eefea8b4fa3e7a990dece5792fbdb",
+    "measurement_sha256": "bd101c42cab768951f584c576bd5efd3b40ff3eeb28e84f1056c23150b9233cc",
+    "starting_model_sha256": "7e3a0abcaf41e03a80e69f778e1b11b29de1cca704783dc25917a736392f8cf0",
+    "test_contract": {
+      "relative_path": "data/ChClCA_Evaluations/Independent_Test_Set",
+      "structure_count": 22,
+      "atom_count": 4334,
+      "test_files": [
+        {
+          "eval_id": 1,
+          "poscar_sha256": "7c75032b084f5ae73bbe2830ffb563ea7647da2622d3646f702d0b7656070ec7",
+          "metadata_sha256": "ab4d238ab46e6955a261125f1c83a2924610ba640ad9b0e9929093f81325075f"
+        },
+        {
+          "eval_id": 2,
+          "poscar_sha256": "7d11f985bfd0fcc9997316011c5cac2efa61cfec1e5832e0a076b4801ce5c7b5",
+          "metadata_sha256": "9dd34517ac1517bb694b8ad56c623cade2322493962fc56d5995cd9cc8c3daa4"
+        },
+        {
+          "eval_id": 4,
+          "poscar_sha256": "3d19fab462b63148d983068a808455c7b1d91f03e85efadbb94f0889a672c56f",
+          "metadata_sha256": "7199386f1981f5787868ba680f907ba438bbe540fc707311c81271f53a271bfd"
+        },
+        {
+          "eval_id": 7,
+          "poscar_sha256": "6b07b76bb4a279c805e8dd7e7d33c9d864b6eab61188029e45fee08048b469fa",
+          "metadata_sha256": "a8a30073ae950adcc2408ce5930bfcadea6717a401bc0de41fe5a38897a2cca9"
+        },
+        {
+          "eval_id": 10,
+          "poscar_sha256": "cf5f2febf6501509731ae9836f663b9da929b4a3d79eaa53846773bc62ed7352",
+          "metadata_sha256": "a24ba5857423254fbde1bd065462680530218845328682a7adc28e938e45ddfc"
+        },
+        {
+          "eval_id": 11,
+          "poscar_sha256": "4cf5198d38d2a8c2cef7bc03691e6f2cfc7e18395e9cb6f432fed784eb44870a",
+          "metadata_sha256": "6da9fd1dd8af986c068e88c9359ac0031cd09a7d4599be6ce5c9cf4b734ba55f"
+        },
+        {
+          "eval_id": 12,
+          "poscar_sha256": "45b6e2f4787595c92d6c25a8bec73b27f8252bd88a0d9da86f80c01bc6ac1d11",
+          "metadata_sha256": "dfdf2f0d570e325e57ce8d9d9098fa18484020bab0efb412198c6c76047b2b44"
+        },
+        {
+          "eval_id": 13,
+          "poscar_sha256": "8887427c25d06a24876f2e6f50e3f8fefc2318a512fa5c40ba6d56c35478f590",
+          "metadata_sha256": "e0b2eb8705cce7485c8afe3a630a34c8e935441d1a32e16eab23798865d1ade7"
+        },
+        {
+          "eval_id": 15,
+          "poscar_sha256": "82b33e9eb175e25dd018cbdbe13f619468178fc4e8e67eb45937fe2147a1ced9",
+          "metadata_sha256": "d507b710f3a4476a008503aa01aee2693ec985d52580aa7817c594f1b1e36bf0"
+        },
+        {
+          "eval_id": 25,
+          "poscar_sha256": "2a9f78d98d0f03a7570e4728d84e92d32a0a8cf144d4c25e734e547086484e5f",
+          "metadata_sha256": "4108b79861f4e4896daf798885766d27b0f78f4b7ae3b3042ff391dd0f802a59"
+        },
+        {
+          "eval_id": 31,
+          "poscar_sha256": "01aad44a7ee670e4b3ad4cabe409e2b0674c427814f611cdcc2c75f9ffdc1e38",
+          "metadata_sha256": "176359581eff35d5f81facf1153cb94efc66af7eb3802f14800bb7eac9f69eb7"
+        },
+        {
+          "eval_id": 32,
+          "poscar_sha256": "6d4511b6413c15515e18984753cb8db0cdf37f0556e9df5f2cd66e8015b63f77",
+          "metadata_sha256": "ee81e73ba43478da9033a8fa8d04c62087370d81b0761a637d8fd119aa4fb826"
+        },
+        {
+          "eval_id": 34,
+          "poscar_sha256": "6e7e131bd8c6e9b28381fb57deada28aebe528d76845534fe109b7ddb47bbedc",
+          "metadata_sha256": "8177436d2aed0f628b4b2438ea186d38e20a2b9b19ac03cf8141779d84566033"
+        },
+        {
+          "eval_id": 36,
+          "poscar_sha256": "517416882684c834ae4c4130366b6c3d7c650ece51448aaaadcd6041ab6a9650",
+          "metadata_sha256": "46d80272eda378d5c45066b887a15bb0e93e967fda7407127f7184844ba2e2f4"
+        },
+        {
+          "eval_id": 37,
+          "poscar_sha256": "e56e1ba9960cbf28348beefb31f47506e119d24f059f90e8caf938e8a36d3391",
+          "metadata_sha256": "db8b9d4b0b875ef9fbc674d440cd3cab83d243ccddd76d5b36e2446f5ec0cffd"
+        },
+        {
+          "eval_id": 38,
+          "poscar_sha256": "8932b8cb7184225452be803dd2b1a759f12eaaecfe2cc51197292661e0798143",
+          "metadata_sha256": "d4bb6cdd72068aa17d9c201dcebe3cc331ac2d061a29726e7bbc58dc856169e6"
+        },
+        {
+          "eval_id": 41,
+          "poscar_sha256": "ccc3491e423989342b92db8ae91e7005ef1718e9f535b602e665fc22722ffb43",
+          "metadata_sha256": "ab03384e37a626239e5be55eaff6c0e8e2a99ff3f89428d866d1af8a4ef38d68"
+        },
+        {
+          "eval_id": 42,
+          "poscar_sha256": "c2373394cdf75f0c28141dc895c116ddf08ebb669a83ff187a706f4a46b10643",
+          "metadata_sha256": "062964a52b51d979858c2e402e26d8d9ccf11b7b6afccc23995884b57c7140fd"
+        },
+        {
+          "eval_id": 43,
+          "poscar_sha256": "6bfa990a46b78f59c655befb916650693b38a6158e17906821f881a880385a47",
+          "metadata_sha256": "82ac0570439c4661733e74755eeb62b3bc3b4c19b78f3a7288df24e2f929955e"
+        },
+        {
+          "eval_id": 45,
+          "poscar_sha256": "1b32a829b20f2cdaead8661149582322bce36616bab77aa8876957b3d10321e5",
+          "metadata_sha256": "4c680a0b66d7b251e4d44ee73a8b5278459ac80e92687af9817cd7a71d3502e6"
+        },
+        {
+          "eval_id": 46,
+          "poscar_sha256": "f881a4ddac1b9c914d1d6fa6c2562a9faa02ce8a72397ca89c0106f6653da390",
+          "metadata_sha256": "892d2ae6838da3f78129c19a4ec9538d1bf1007c5cdb94ebb6186dfeb9c6dc00"
+        },
+        {
+          "eval_id": 47,
+          "poscar_sha256": "01275fb47beede53ab193b952514977f9590e5cc89e77e5611842776f8f8615d",
+          "metadata_sha256": "c6922b1b8f47732517091ab02c7162e5f87ab041a822d7ba642222d4a316036a"
+        }
+      ]
+    }
+  },
+  "arms": [
+    {
+      "source_id": "wong_yang_2026_umlip_bias",
+      "panel_id": "wong_yang_2026_umlip_bias:budget_10",
+      "training_configuration_count": 10,
+      "environment": "naive",
+      "pre_outcome_measurements": {
+        "configuration_count": 10,
+        "atom_count": 1970,
+        "starting_energy_mae_meV_per_atom": 18.51095137021626,
+        "starting_energy_rmse_meV_per_atom": 18.885338481490177,
+        "effective_configuration_coverage_energy_error": 0.9607445590298703,
+        "force_labeled_configuration_count": 10,
+        "force_labeled_atom_count": 1970,
+        "starting_force_error_density_eV_per_A_per_atom": 0.2452351725323716,
+        "starting_force_vector_rmse_eV_per_A": 0.31319535911699864,
+        "starting_force_error_p90_eV_per_A": 0.506560174154773,
+        "effective_configuration_coverage_force_error": 0.9959889040609422,
+        "effective_atom_coverage_force_error": 0.6131050320611707
+      },
+      "outcome": {
+        "structure_count": 22,
+        "atom_count": 4334,
+        "energy_mae_meV_per_atom": 8.406904700182487,
+        "energy_rmse_meV_per_atom": 10.302415927066251,
+        "energy_bias_meV_per_atom": -8.22122665545528,
+        "force_component_mae_eV_per_A": 0.11030543998821365,
+        "force_component_rmse_eV_per_A": 0.20742400797708843,
+        "force_vector_mae_eV_per_A": 0.22055067241202014,
+        "force_vector_rmse_eV_per_A": 0.3592689205258892
+      },
+      "provenance": {
+        "training_dataset_relative_path": "data/ChClCA_Finetuning/Naive/Finetuned_Models/N-10pts/10pt_dataset_raw.xyz",
+        "training_dataset_sha256": "0e0ec0cc5bb4a48e58f93d3a1d32b8ae9a0c1c2db4859a00d711f69bd001aaf1",
+        "fine_tuned_model_relative_path": "data/ChClCA_Finetuning/Naive/Finetuned_Models/N-10pts/10pts.model",
+        "fine_tuned_model_sha256": "2fe2c159e9a23dd231cf3c144a1ccfcf99824d5f2fb50495f17f6887f4065f6a"
+      },
+      "derived": {
+        "native_utility": -8.406904700182487,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wong_yang_2026_umlip_bias",
+      "panel_id": "wong_yang_2026_umlip_bias:budget_10",
+      "training_configuration_count": 10,
+      "environment": "periodic",
+      "pre_outcome_measurements": {
+        "configuration_count": 10,
+        "atom_count": 1970,
+        "starting_energy_mae_meV_per_atom": 21.84221568501561,
+        "starting_energy_rmse_meV_per_atom": 22.017882901567397,
+        "effective_configuration_coverage_energy_error": 0.984106878330449,
+        "force_labeled_configuration_count": 10,
+        "force_labeled_atom_count": 1970,
+        "starting_force_error_density_eV_per_A_per_atom": 0.249110389357241,
+        "starting_force_vector_rmse_eV_per_A": 0.32151117473936514,
+        "starting_force_error_p90_eV_per_A": 0.5204494227192622,
+        "effective_configuration_coverage_force_error": 0.9971143145487282,
+        "effective_atom_coverage_force_error": 0.6003320594350169
+      },
+      "outcome": {
+        "structure_count": 22,
+        "atom_count": 4334,
+        "energy_mae_meV_per_atom": 8.261547917366205,
+        "energy_rmse_meV_per_atom": 10.059499896188779,
+        "energy_bias_meV_per_atom": -8.12462974061337,
+        "force_component_mae_eV_per_A": 0.11557810910384708,
+        "force_component_rmse_eV_per_A": 0.21021107511020562,
+        "force_vector_mae_eV_per_A": 0.23095380724331974,
+        "force_vector_rmse_eV_per_A": 0.36409626240455356
+      },
+      "provenance": {
+        "training_dataset_relative_path": "data/ChClCA_Finetuning/Periodic/Model:FT1/model/u_data_raw.xyz",
+        "training_dataset_sha256": "ca2fba8da4f5ceccf472a95fd4178eebf5ac166c9e165dbe12ad46ca455e8e32",
+        "fine_tuned_model_relative_path": "data/ChClCA_Finetuning/Periodic/Model:FT1/model/ft1.model",
+        "fine_tuned_model_sha256": "85af194e2a7f7b6c09104527f8a2c907ef4689d4cb45e311026c123d16487087"
+      },
+      "derived": {
+        "native_utility": -8.261547917366205,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wong_yang_2026_umlip_bias",
+      "panel_id": "wong_yang_2026_umlip_bias:budget_21",
+      "training_configuration_count": 21,
+      "environment": "naive",
+      "pre_outcome_measurements": {
+        "configuration_count": 21,
+        "atom_count": 4137,
+        "starting_energy_mae_meV_per_atom": 19.17797372332489,
+        "starting_energy_rmse_meV_per_atom": 19.46900333858278,
+        "effective_configuration_coverage_energy_error": 0.9703267390816648,
+        "force_labeled_configuration_count": 21,
+        "force_labeled_atom_count": 4137,
+        "starting_force_error_density_eV_per_A_per_atom": 0.2416003110983788,
+        "starting_force_vector_rmse_eV_per_A": 0.3097123335219323,
+        "starting_force_error_p90_eV_per_A": 0.503959105090656,
+        "effective_configuration_coverage_force_error": 0.9974088765009995,
+        "effective_atom_coverage_force_error": 0.6085243730011102
+      },
+      "outcome": {
+        "structure_count": 22,
+        "atom_count": 4334,
+        "energy_mae_meV_per_atom": 10.014953544158036,
+        "energy_rmse_meV_per_atom": 11.33970316196608,
+        "energy_bias_meV_per_atom": -10.014953544158036,
+        "force_component_mae_eV_per_A": 0.10228268039321954,
+        "force_component_rmse_eV_per_A": 0.19760702033395056,
+        "force_vector_mae_eV_per_A": 0.20462122198836624,
+        "force_vector_rmse_eV_per_A": 0.34226539915069865
+      },
+      "provenance": {
+        "training_dataset_relative_path": "data/ChClCA_Finetuning/Naive/Finetuned_Models/N-21pts/21pt_dataset_raw.xyz",
+        "training_dataset_sha256": "a78ed2a29a1a6b70d3218aca661a8a6cba4751902618f27c32d074c361e7e0d5",
+        "fine_tuned_model_relative_path": "data/ChClCA_Finetuning/Naive/Finetuned_Models/N-21pts/21pts.model",
+        "fine_tuned_model_sha256": "b31e5a80f8d26361c8be10177e6e16e36cc65746b5fa879f0154c29a47a1f225"
+      },
+      "derived": {
+        "native_utility": -10.014953544158036,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wong_yang_2026_umlip_bias",
+      "panel_id": "wong_yang_2026_umlip_bias:budget_21",
+      "training_configuration_count": 21,
+      "environment": "periodic",
+      "pre_outcome_measurements": {
+        "configuration_count": 21,
+        "atom_count": 4137,
+        "starting_energy_mae_meV_per_atom": 14.200497510698701,
+        "starting_energy_rmse_meV_per_atom": 16.199215573895845,
+        "effective_configuration_coverage_energy_error": 0.7684562555481823,
+        "force_labeled_configuration_count": 21,
+        "force_labeled_atom_count": 4137,
+        "starting_force_error_density_eV_per_A_per_atom": 0.2506064488279618,
+        "starting_force_vector_rmse_eV_per_A": 0.31956280553088695,
+        "starting_force_error_p90_eV_per_A": 0.5112218130410909,
+        "effective_configuration_coverage_force_error": 0.9969713434855489,
+        "effective_atom_coverage_force_error": 0.614995636392525
+      },
+      "outcome": {
+        "structure_count": 22,
+        "atom_count": 4334,
+        "energy_mae_meV_per_atom": 4.467691308492755,
+        "energy_rmse_meV_per_atom": 5.986248901064733,
+        "energy_bias_meV_per_atom": -2.8870379128248014,
+        "force_component_mae_eV_per_A": 0.10784918444889496,
+        "force_component_rmse_eV_per_A": 0.19830724550271048,
+        "force_vector_mae_eV_per_A": 0.21553794030271542,
+        "force_vector_rmse_eV_per_A": 0.3434782247197293
+      },
+      "provenance": {
+        "training_dataset_relative_path": "data/ChClCA_Finetuning/Periodic/Model:FT2/model/ft1_data_raw.xyz",
+        "training_dataset_sha256": "1efb01b9e41226234ff6763c939f4f4621b1d5a7e37172e8c690d7615c027fa3",
+        "fine_tuned_model_relative_path": "data/ChClCA_Finetuning/Periodic/Model:FT2/model/ft2.model",
+        "fine_tuned_model_sha256": "ddb5025afe2990ee2b4f82ca845f8087b2de733642ce4367147f0e5584104b5c"
+      },
+      "derived": {
+        "native_utility": -4.467691308492755,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wong_yang_2026_umlip_bias",
+      "panel_id": "wong_yang_2026_umlip_bias:budget_31",
+      "training_configuration_count": 31,
+      "environment": "naive",
+      "pre_outcome_measurements": {
+        "configuration_count": 31,
+        "atom_count": 6107,
+        "starting_energy_mae_meV_per_atom": 18.40624475269322,
+        "starting_energy_rmse_meV_per_atom": 18.589566486232656,
+        "effective_configuration_coverage_energy_error": 0.980374172096073,
+        "force_labeled_configuration_count": 31,
+        "force_labeled_atom_count": 6107,
+        "starting_force_error_density_eV_per_A_per_atom": 0.24222702322843295,
+        "starting_force_vector_rmse_eV_per_A": 0.3048325246390841,
+        "starting_force_error_p90_eV_per_A": 0.5074596950673207,
+        "effective_configuration_coverage_force_error": 0.9979404738038722,
+        "effective_atom_coverage_force_error": 0.6314261709287642
+      },
+      "outcome": {
+        "structure_count": 22,
+        "atom_count": 4334,
+        "energy_mae_meV_per_atom": 10.005557432248345,
+        "energy_rmse_meV_per_atom": 11.366328722437135,
+        "energy_bias_meV_per_atom": -10.005557432248345,
+        "force_component_mae_eV_per_A": 0.09874715263989847,
+        "force_component_rmse_eV_per_A": 0.19517883859643043,
+        "force_vector_mae_eV_per_A": 0.19738782596040394,
+        "force_vector_rmse_eV_per_A": 0.3380596650113029
+      },
+      "provenance": {
+        "training_dataset_relative_path": "data/ChClCA_Finetuning/Naive/Finetuned_Models/N-31pts/31pt_dataset_raw.xyz",
+        "training_dataset_sha256": "686aff4f611e11b7e9dbe19a3b8c935573d0079b9edb933d979e88efaa114ab2",
+        "fine_tuned_model_relative_path": "data/ChClCA_Finetuning/Naive/Finetuned_Models/N-31pts/31pts.model",
+        "fine_tuned_model_sha256": "7a5386d80ad3ab4b4c62b9fe13234f85355ad5ee7b47bfd1dcc15c6fe0eb30da"
+      },
+      "derived": {
+        "native_utility": -10.005557432248345,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wong_yang_2026_umlip_bias",
+      "panel_id": "wong_yang_2026_umlip_bias:budget_31",
+      "training_configuration_count": 31,
+      "environment": "periodic",
+      "pre_outcome_measurements": {
+        "configuration_count": 31,
+        "atom_count": 6107,
+        "starting_energy_mae_meV_per_atom": 11.431495196136122,
+        "starting_energy_rmse_meV_per_atom": 13.739050194385406,
+        "effective_configuration_coverage_energy_error": 0.6922973289069663,
+        "force_labeled_configuration_count": 31,
+        "force_labeled_atom_count": 6107,
+        "starting_force_error_density_eV_per_A_per_atom": 0.25509173220241116,
+        "starting_force_vector_rmse_eV_per_A": 0.3282846651803555,
+        "starting_force_error_p90_eV_per_A": 0.5242019673400237,
+        "effective_configuration_coverage_force_error": 0.9967721736828334,
+        "effective_atom_coverage_force_error": 0.6037978647391843
+      },
+      "outcome": {
+        "structure_count": 22,
+        "atom_count": 4334,
+        "energy_mae_meV_per_atom": 5.223897785470336,
+        "energy_rmse_meV_per_atom": 6.781305952163283,
+        "energy_bias_meV_per_atom": -4.437273172593536,
+        "force_component_mae_eV_per_A": 0.10349767443595087,
+        "force_component_rmse_eV_per_A": 0.1934958827788217,
+        "force_vector_mae_eV_per_A": 0.20678822534283353,
+        "force_vector_rmse_eV_per_A": 0.3351447000283109
+      },
+      "provenance": {
+        "training_dataset_relative_path": "data/ChClCA_Finetuning/Periodic/Model:FT3/model/ft2_data_raw.xyz",
+        "training_dataset_sha256": "3a4695d2537d2d7c8f7d922779f8af678e3eccc78e9efa17b72d58b829434c51",
+        "fine_tuned_model_relative_path": "data/ChClCA_Finetuning/Periodic/Model:FT3/model/ft3.model",
+        "fine_tuned_model_sha256": "065dad4bef5cbd6abb74efb7d31cddd86d7a8c35c11aa2b998802293fdb137b8"
+      },
+      "derived": {
+        "native_utility": -5.223897785470336,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wong_yang_2026_umlip_bias",
+      "panel_id": "wong_yang_2026_umlip_bias:budget_40",
+      "training_configuration_count": 40,
+      "environment": "naive",
+      "pre_outcome_measurements": {
+        "configuration_count": 40,
+        "atom_count": 7880,
+        "starting_energy_mae_meV_per_atom": 18.78485916099303,
+        "starting_energy_rmse_meV_per_atom": 19.010119755957447,
+        "effective_configuration_coverage_energy_error": 0.9764413918421165,
+        "force_labeled_configuration_count": 40,
+        "force_labeled_atom_count": 7880,
+        "starting_force_error_density_eV_per_A_per_atom": 0.24303311974715147,
+        "starting_force_vector_rmse_eV_per_A": 0.30913171617939744,
+        "starting_force_error_p90_eV_per_A": 0.5080465569949322,
+        "effective_configuration_coverage_force_error": 0.9979234237961675,
+        "effective_atom_coverage_force_error": 0.6180787234387611
+      },
+      "outcome": {
+        "structure_count": 22,
+        "atom_count": 4334,
+        "energy_mae_meV_per_atom": 7.4917174453404805,
+        "energy_rmse_meV_per_atom": 9.021464768705206,
+        "energy_bias_meV_per_atom": -7.3090336517682255,
+        "force_component_mae_eV_per_A": 0.09590056675790155,
+        "force_component_rmse_eV_per_A": 0.19074113003397208,
+        "force_vector_mae_eV_per_A": 0.19164868828522516,
+        "force_vector_rmse_eV_per_A": 0.33037332831194155
+      },
+      "provenance": {
+        "training_dataset_relative_path": "data/ChClCA_Finetuning/Naive/Finetuned_Models/N-40pts/40pt_dataset_raw.xyz",
+        "training_dataset_sha256": "fa8751e683fc62a8735c15814a28c018b568f707bb0e8164991bc67e5c37f5da",
+        "fine_tuned_model_relative_path": "data/ChClCA_Finetuning/Naive/Finetuned_Models/N-40pts/40pts.model",
+        "fine_tuned_model_sha256": "4bc324d230314b14fd50a24dac5301e3f96bbda88baf28c8b3fe31fd4de5c648"
+      },
+      "derived": {
+        "native_utility": -7.4917174453404805,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wong_yang_2026_umlip_bias",
+      "panel_id": "wong_yang_2026_umlip_bias:budget_40",
+      "training_configuration_count": 40,
+      "environment": "periodic",
+      "pre_outcome_measurements": {
+        "configuration_count": 40,
+        "atom_count": 7880,
+        "starting_energy_mae_meV_per_atom": 10.18991317856659,
+        "starting_energy_rmse_meV_per_atom": 12.428356946294603,
+        "effective_configuration_coverage_energy_error": 0.6722232538568649,
+        "force_labeled_configuration_count": 40,
+        "force_labeled_atom_count": 7880,
+        "starting_force_error_density_eV_per_A_per_atom": 0.2538693659484398,
+        "starting_force_vector_rmse_eV_per_A": 0.32734826571078424,
+        "starting_force_error_p90_eV_per_A": 0.522099602009742,
+        "effective_configuration_coverage_force_error": 0.9967559977555412,
+        "effective_atom_coverage_force_error": 0.6014513554192296
+      },
+      "outcome": {
+        "structure_count": 22,
+        "atom_count": 4334,
+        "energy_mae_meV_per_atom": 4.644179446200695,
+        "energy_rmse_meV_per_atom": 6.086748580550259,
+        "energy_bias_meV_per_atom": -3.144404331749465,
+        "force_component_mae_eV_per_A": 0.10021832462953721,
+        "force_component_rmse_eV_per_A": 0.1917978121217855,
+        "force_vector_mae_eV_per_A": 0.20021234996260434,
+        "force_vector_rmse_eV_per_A": 0.3322035553754824
+      },
+      "provenance": {
+        "training_dataset_relative_path": "data/ChClCA_Finetuning/Periodic/Model:FT4/model/ft3_data_raw.xyz",
+        "training_dataset_sha256": "aadf1e4ac9331dcfa59dce10ba51fc9b4797eb1cb8419b42375e1bb20cc5c37a",
+        "fine_tuned_model_relative_path": "data/ChClCA_Finetuning/Periodic/Model:FT4/model/ft4.model",
+        "fine_tuned_model_sha256": "936091fe826d4b9351e3270f978b62719813d5b631c4b3c7ce60776c61dea813"
+      },
+      "derived": {
+        "native_utility": -4.644179446200695,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    },
+    {
+      "source_id": "wong_yang_2026_umlip_bias",
+      "panel_id": "wong_yang_2026_umlip_bias:budget_50",
+      "training_configuration_count": 50,
+      "environment": "naive",
+      "pre_outcome_measurements": {
+        "configuration_count": 50,
+        "atom_count": 9850,
+        "starting_energy_mae_meV_per_atom": 18.70839613871596,
+        "starting_energy_rmse_meV_per_atom": 18.925089547692362,
+        "effective_configuration_coverage_energy_error": 0.9772309840672775,
+        "force_labeled_configuration_count": 50,
+        "force_labeled_atom_count": 9850,
+        "starting_force_error_density_eV_per_A_per_atom": 0.24323535843027988,
+        "starting_force_vector_rmse_eV_per_A": 0.30875135081242244,
+        "starting_force_error_p90_eV_per_A": 0.5072354535069552,
+        "effective_configuration_coverage_force_error": 0.998014945056739,
+        "effective_atom_coverage_force_error": 0.6206341690130811
+      },
+      "outcome": {
+        "structure_count": 22,
+        "atom_count": 4334,
+        "energy_mae_meV_per_atom": 8.763833067840643,
+        "energy_rmse_meV_per_atom": 10.190490322196267,
+        "energy_bias_meV_per_atom": -8.715533947022337,
+        "force_component_mae_eV_per_A": 0.09395314605428232,
+        "force_component_rmse_eV_per_A": 0.19009295369908935,
+        "force_vector_mae_eV_per_A": 0.1876836552738125,
+        "force_vector_rmse_eV_per_A": 0.3292506539676609
+      },
+      "provenance": {
+        "training_dataset_relative_path": "data/ChClCA_Finetuning/Naive/Finetuned_Models/N-50pts/ft_dataset_raw.xyz",
+        "training_dataset_sha256": "c3284e8f030a7261d94c040dd73cff694c2d6d499d8d862aad4b0b047291fb0e",
+        "fine_tuned_model_relative_path": "data/ChClCA_Finetuning/Naive/Finetuned_Models/N-50pts/50pts.model",
+        "fine_tuned_model_sha256": "cc55508851915d0f37931499636168a5236d6698e11f2b645fecea6f07c66e8c"
+      },
+      "derived": {
+        "native_utility": -8.763833067840643,
+        "panel_normalized_utility": 0.0,
+        "panel_normalized_regret": 1.0
+      }
+    },
+    {
+      "source_id": "wong_yang_2026_umlip_bias",
+      "panel_id": "wong_yang_2026_umlip_bias:budget_50",
+      "training_configuration_count": 50,
+      "environment": "periodic",
+      "pre_outcome_measurements": {
+        "configuration_count": 50,
+        "atom_count": 9850,
+        "starting_energy_mae_meV_per_atom": 9.289381049108883,
+        "starting_energy_rmse_meV_per_atom": 11.433097440435057,
+        "effective_configuration_coverage_energy_error": 0.6601547403904913,
+        "force_labeled_configuration_count": 40,
+        "force_labeled_atom_count": 7880,
+        "starting_force_error_density_eV_per_A_per_atom": 0.2538693659484398,
+        "starting_force_vector_rmse_eV_per_A": 0.32734826571078424,
+        "starting_force_error_p90_eV_per_A": 0.522099602009742,
+        "effective_configuration_coverage_force_error": 0.9967559977555412,
+        "effective_atom_coverage_force_error": 0.6014513554192296
+      },
+      "outcome": {
+        "structure_count": 22,
+        "atom_count": 4334,
+        "energy_mae_meV_per_atom": 4.348120906834061,
+        "energy_rmse_meV_per_atom": 5.793668696134509,
+        "energy_bias_meV_per_atom": -2.6741928246973456,
+        "force_component_mae_eV_per_A": 0.09647442471033103,
+        "force_component_rmse_eV_per_A": 0.1891993132780785,
+        "force_vector_mae_eV_per_A": 0.19265650568741785,
+        "force_vector_rmse_eV_per_A": 0.32770282335477285
+      },
+      "provenance": {
+        "training_dataset_relative_path": "data/ChClCA_Finetuning/Periodic/Model:FT5/model/ft4_data_raw.xyz",
+        "training_dataset_sha256": "21e377aca5bb1a37bd7c0af69fc25e879b3fb30b87358608e77c36aa8dbb9ac3",
+        "fine_tuned_model_relative_path": "data/ChClCA_Finetuning/Periodic/Model:FT5/model/ft5.model",
+        "fine_tuned_model_sha256": "b3c6d39309944aa932fa1ecefb5a552b59a14888b00817b716896a6f04f8e6c4"
+      },
+      "derived": {
+        "native_utility": -4.348120906834061,
+        "panel_normalized_utility": 1.0,
+        "panel_normalized_regret": 0.0
+      }
+    }
+  ]
+}

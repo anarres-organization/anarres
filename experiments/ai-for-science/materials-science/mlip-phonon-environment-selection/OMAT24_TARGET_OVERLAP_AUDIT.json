@@ -1,0 +1,612 @@
+{
+  "artifact": "anarres_omat24_target_overlap_audit_v1",
+  "status": "complete",
+  "rule": "Exclude an OMat24 record when its reduced composition matches any frozen Alexandria target.",
+  "interpretation": "This is a conservative chemistry-level leakage control. It excludes unrelated polymorphs with the same composition and does not assert structural identity.",
+  "inputs": {
+    "roles_sha256": "3af598f1cf652e4918f37a2359242b29d89ed3fea40f12125cbbdc66ab73169f",
+    "target_materials": 91,
+    "unique_target_compositions": 90,
+    "unique_target_descriptors": 90,
+    "supported_atomic_numbers": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94
+    ]
+  },
+  "targets": {
+    "mp-6356": {
+      "role": "checkpoint_qualification",
+      "descriptor": "Ag1Cd2Ga1S4|spg31"
+    },
+    "mp-616190": {
+      "role": "checkpoint_qualification",
+      "descriptor": "Re3Se6Tl2|spg15"
+    },
+    "mp-654956": {
+      "role": "checkpoint_qualification",
+      "descriptor": "Al1Ca1H5|spg19"
+    },
+    "mp-753541": {
+      "role": "checkpoint_qualification",
+      "descriptor": "Cu1F4Li1|spg140"
+    },
+    "mp-625416": {
+      "role": "checkpoint_qualification",
+      "descriptor": "H3O3Tb1|spg176"
+    },
+    "mp-867577": {
+      "role": "checkpoint_qualification",
+      "descriptor": "Al11Na1O17|spg194"
+    },
+    "mp-625678": {
+      "role": "checkpoint_qualification",
+      "descriptor": "H1O2Sc1|spg62"
+    },
+    "mp-867570": {
+      "role": "checkpoint_qualification",
+      "descriptor": "O5Rb4Sb2|spg62"
+    },
+    "mp-12992": {
+      "role": "checkpoint_qualification",
+      "descriptor": "Ba1O3Ti1|spg99"
+    },
+    "mp-768573": {
+      "role": "checkpoint_qualification",
+      "descriptor": "Al1Lu3O6|spg36"
+    },
+    "mp-561196": {
+      "role": "checkpoint_qualification",
+      "descriptor": "S1Zn1|spg186"
+    },
+    "mp-555065": {
+      "role": "checkpoint_qualification",
+      "descriptor": "Er1Li1O12P4|spg15"
+    },
+    "mp-867334": {
+      "role": "checkpoint_qualification",
+      "descriptor": "Ge1K1S4Y1|spg4"
+    },
+    "mp-867700": {
+      "role": "checkpoint_qualification",
+      "descriptor": "Cu1Li3S2|spg167"
+    },
+    "mp-754368": {
+      "role": "checkpoint_qualification",
+      "descriptor": "Na1O2Sb1|spg15"
+    },
+    "mp-867261": {
+      "role": "checkpoint_qualification",
+      "descriptor": "C1F1O3Rb1Sr1|spg187"
+    },
+    "mp-867953": {
+      "role": "development",
+      "descriptor": "Ba2Ca1I6|spg150"
+    },
+    "mp-558347": {
+      "role": "development",
+      "descriptor": "Ba1K4O9Si3|spg40"
+    },
+    "mp-867328": {
+      "role": "development",
+      "descriptor": "K1S4Si1Y1|spg4"
+    },
+    "mp-867133": {
+      "role": "development",
+      "descriptor": "Ba2O5Sc2|spg123"
+    },
+    "mp-867286": {
+      "role": "development",
+      "descriptor": "B1S3Tb1|spg33"
+    },
+    "mp-867712": {
+      "role": "development",
+      "descriptor": "Ag1F4Li1|spg12"
+    },
+    "mp-867329": {
+      "role": "development",
+      "descriptor": "H4I4K2O14Zn1|spg5"
+    },
+    "mp-558023": {
+      "role": "development",
+      "descriptor": "O11Rb2Sb4|spg12"
+    },
+    "mp-867129": {
+      "role": "development",
+      "descriptor": "Cl1H2O6Rb1Se2Zn1|spg13"
+    },
+    "mp-867839": {
+      "role": "development",
+      "descriptor": "Bi1O19Ta7|spg182"
+    },
+    "mp-867607": {
+      "role": "development",
+      "descriptor": "O12Sm3Y5|spg24"
+    },
+    "mp-6425": {
+      "role": "development",
+      "descriptor": "In2Li3O12P3|spg148"
+    },
+    "mp-867168": {
+      "role": "development",
+      "descriptor": "Au1Sb1Sr2|spg225"
+    },
+    "mp-626902": {
+      "role": "development",
+      "descriptor": "Al1H1O2|spg36"
+    },
+    "mp-553973": {
+      "role": "development",
+      "descriptor": "Ge1S2|spg43"
+    },
+    "mp-4122": {
+      "role": "development",
+      "descriptor": "Ga1O4P1|spg152"
+    },
+    "mp-867757": {
+      "role": "development",
+      "descriptor": "C1Ca1F1O3Rb1|spg189"
+    },
+    "mp-557452": {
+      "role": "development",
+      "descriptor": "I2Mg1O6|spg4"
+    },
+    "mp-625056": {
+      "role": "development",
+      "descriptor": "Al1H1O2|spg36"
+    },
+    "mp-867194": {
+      "role": "development",
+      "descriptor": "As2Mg2Sr1|spg164"
+    },
+    "mp-3887": {
+      "role": "development",
+      "descriptor": "Ga1Li3N2|spg206"
+    },
+    "mp-754668": {
+      "role": "development",
+      "descriptor": "Hf3N2O3|spg8"
+    },
+    "mp-626878": {
+      "role": "development",
+      "descriptor": "Ca1H2O2|spg5"
+    },
+    "mp-7339": {
+      "role": "development",
+      "descriptor": "Ba1O3Si1|spg19"
+    },
+    "mp-867699": {
+      "role": "development",
+      "descriptor": "Li4S4Ti1|spg121"
+    },
+    "mp-613442": {
+      "role": "prospective",
+      "descriptor": "I1Li1O3|spg173"
+    },
+    "mp-867203": {
+      "role": "prospective",
+      "descriptor": "As2Cd1Sr2|spg36"
+    },
+    "mp-867929": {
+      "role": "prospective",
+      "descriptor": "Ag1S7Si1Sm3|spg173"
+    },
+    "mp-867943": {
+      "role": "prospective",
+      "descriptor": "H7Na3Os1|spg136"
+    },
+    "mp-867730": {
+      "role": "prospective",
+      "descriptor": "Cs2O3Sn1|spg63"
+    },
+    "mp-626369": {
+      "role": "prospective",
+      "descriptor": "H3Nd1O3|spg11"
+    },
+    "mp-619456": {
+      "role": "prospective",
+      "descriptor": "Al2Ba1O4|spg182"
+    },
+    "mp-561394": {
+      "role": "prospective",
+      "descriptor": "O3Sr1Te1|spg5"
+    },
+    "mp-771888": {
+      "role": "prospective",
+      "descriptor": "Cl7La1Sr2|spg14"
+    },
+    "mp-684708": {
+      "role": "prospective",
+      "descriptor": "Er2S3|spg122"
+    },
+    "mp-867674": {
+      "role": "prospective",
+      "descriptor": "Ba3Ca1I8|spg139"
+    },
+    "mp-625837": {
+      "role": "prospective",
+      "descriptor": "Be1H2O2|spg19"
+    },
+    "mp-643770": {
+      "role": "prospective",
+      "descriptor": "H4Mg1Rb2|spg62"
+    },
+    "mp-552806": {
+      "role": "prospective",
+      "descriptor": "Ba1Bi1Cl1O2|spg63"
+    },
+    "mp-626557": {
+      "role": "prospective",
+      "descriptor": "H2O7Ti3|spg8"
+    },
+    "mp-6799": {
+      "role": "prospective",
+      "descriptor": "B3Ca4Li1N6|spg229"
+    },
+    "mp-867964": {
+      "role": "prospective",
+      "descriptor": "P2Pb1Rb4Se8|spg72"
+    },
+    "mp-867192": {
+      "role": "prospective",
+      "descriptor": "As1Au1Sr2|spg225"
+    },
+    "mp-769396": {
+      "role": "prospective",
+      "descriptor": "Ge2O7Y2|spg227"
+    },
+    "mp-561623": {
+      "role": "prospective",
+      "descriptor": "Li4O5U1|spg87"
+    },
+    "mp-867132": {
+      "role": "prospective",
+      "descriptor": "Br1H2O6Rb1Se2Zn1|spg13"
+    },
+    "mp-867528": {
+      "role": "prospective",
+      "descriptor": "Ge7H8N2O15|spg15"
+    },
+    "mp-4748": {
+      "role": "prospective",
+      "descriptor": "Na1Nb1O3|spg63"
+    },
+    "mp-867322": {
+      "role": "prospective",
+      "descriptor": "Ag1Pr3S7Si1|spg173"
+    },
+    "mp-614491": {
+      "role": "prospective",
+      "descriptor": "P1Se4Tl3|spg62"
+    },
+    "mp-867335": {
+      "role": "prospective",
+      "descriptor": "Au1K2Sb1|spg63"
+    },
+    "mp-867884": {
+      "role": "prospective",
+      "descriptor": "Ba1Rb1S4Ta1|spg62"
+    },
+    "mp-42160": {
+      "role": "prospective",
+      "descriptor": "Al6Na8O28S1Si6|spg195"
+    },
+    "mp-627016": {
+      "role": "prospective",
+      "descriptor": "Ba1H2O2|spg14"
+    },
+    "mp-625052": {
+      "role": "prospective",
+      "descriptor": "H1Na1O1|spg160"
+    },
+    "mp-867355": {
+      "role": "prospective",
+      "descriptor": "Br2Te1|spg136"
+    },
+    "mp-625917": {
+      "role": "prospective",
+      "descriptor": "H1I1O3|spg19"
+    },
+    "mp-556062": {
+      "role": "prospective",
+      "descriptor": "Na1Nb4O17P2Tl3|spg40"
+    },
+    "mp-978857": {
+      "role": "prospective",
+      "descriptor": "Hg1O2Sr1|spg166"
+    },
+    "mp-3033": {
+      "role": "prospective",
+      "descriptor": "O3Rb1Ta1|spg12"
+    },
+    "mp-867615": {
+      "role": "prospective",
+      "descriptor": "Ca2O5Tl2|spg14"
+    },
+    "mp-23151": {
+      "role": "prospective",
+      "descriptor": "Al1Be1Cl1Na4O12Si4|spg82"
+    },
+    "mp-646925": {
+      "role": "prospective",
+      "descriptor": "I2O6Zn1|spg4"
+    },
+    "mp-867300": {
+      "role": "prospective",
+      "descriptor": "Hf2O5Rb2|spg123"
+    },
+    "mp-569349": {
+      "role": "prospective",
+      "descriptor": "Hg1P1Rb2Se5|spg86"
+    },
+    "mp-6929": {
+      "role": "prospective",
+      "descriptor": "As2Ca2O7|spg12"
+    },
+    "mp-769284": {
+      "role": "prospective",
+      "descriptor": "Dy2O2Se1|spg164"
+    },
+    "mp-11695": {
+      "role": "prospective",
+      "descriptor": "Pd3Rb2S4|spg69"
+    },
+    "mp-867371": {
+      "role": "prospective",
+      "descriptor": "Cu4K2Se9Y4|spg12"
+    },
+    "mp-555153": {
+      "role": "prospective",
+      "descriptor": "O5Pb2S1|spg12"
+    },
+    "mp-8426": {
+      "role": "prospective",
+      "descriptor": "K2Se1|spg225"
+    },
+    "mp-6643": {
+      "role": "prospective",
+      "descriptor": "Ba1Dy2O5Zn1|spg62"
+    },
+    "mp-656662": {
+      "role": "prospective",
+      "descriptor": "Na5O6Re1|spg12"
+    },
+    "mp-632394": {
+      "role": "prospective",
+      "descriptor": "H2N1Na1|spg70"
+    },
+    "mp-772812": {
+      "role": "prospective",
+      "descriptor": "Ge1Lu2O5|spg14"
+    }
+  },
+  "construction_reservoir": {
+    "records": 1009850,
+    "target_composition_overlap": {
+      "records": 109,
+      "fraction": 0.00010793682230034163,
+      "parent_ids": 77,
+      "record_manifest_sha256": "c5aaa218ec961440b828e2767baf8035cb75b6f4c1962d7c8d1a5418450496f2",
+      "records_by_target_role": {
+        "checkpoint_qualification": 21,
+        "development": 28,
+        "prospective": 60
+      }
+    },
+    "target_composition_space_group_overlap_records": 23,
+    "unsupported_element_records": 0,
+    "unsupported_element_counts": {},
+    "ineligible_records": 109,
+    "eligible_records": 1009741,
+    "ineligible_record_manifest_sha256": "c5aaa218ec961440b828e2767baf8035cb75b6f4c1962d7c8d1a5418450496f2",
+    "sources": {
+      "aimd-from-PBE-1000-npt": {
+        "records": 211578,
+        "target_composition_overlap_records": 22,
+        "target_composition_space_group_overlap_records": 3,
+        "target_overlap_parent_ids": 18,
+        "target_overlap_record_sha256": "15ba851e5b802babed835be3bfca77e53df53928fd71f6a6e7622c4774fc06a2",
+        "unsupported_element_records": 0,
+        "ineligible_records": 22,
+        "eligible_records": 211556,
+        "ineligible_record_sha256": "15ba851e5b802babed835be3bfca77e53df53928fd71f6a6e7622c4774fc06a2"
+      },
+      "aimd-from-PBE-1000-nvt": {
+        "records": 201512,
+        "target_composition_overlap_records": 21,
+        "target_composition_space_group_overlap_records": 4,
+        "target_overlap_parent_ids": 15,
+        "target_overlap_record_sha256": "97804aebefbb046fcffbff617d1cf681d8479baa141e1d0c3901ecc1e3fc616f",
+        "unsupported_element_records": 0,
+        "ineligible_records": 21,
+        "eligible_records": 201491,
+        "ineligible_record_sha256": "97804aebefbb046fcffbff617d1cf681d8479baa141e1d0c3901ecc1e3fc616f"
+      },
+      "aimd-from-PBE-3000-npt": {
+        "records": 60477,
+        "target_composition_overlap_records": 3,
+        "target_composition_space_group_overlap_records": 1,
+        "target_overlap_parent_ids": 3,
+        "target_overlap_record_sha256": "33aab3d25b0dfbcb6a112ddbf59e07e4ea8eae15ec568717bee3e0bba9d06c86",
+        "unsupported_element_records": 0,
+        "ineligible_records": 3,
+        "eligible_records": 60474,
+        "ineligible_record_sha256": "33aab3d25b0dfbcb6a112ddbf59e07e4ea8eae15ec568717bee3e0bba9d06c86"
+      },
+      "aimd-from-PBE-3000-nvt": {
+        "records": 78011,
+        "target_composition_overlap_records": 12,
+        "target_composition_space_group_overlap_records": 3,
+        "target_overlap_parent_ids": 10,
+        "target_overlap_record_sha256": "760761327d2a71ed4addd2e7b539719ff859edc8a3e265b701d05cbba854280b",
+        "unsupported_element_records": 0,
+        "ineligible_records": 12,
+        "eligible_records": 77999,
+        "ineligible_record_sha256": "760761327d2a71ed4addd2e7b539719ff859edc8a3e265b701d05cbba854280b"
+      },
+      "rattled-1000": {
+        "records": 113337,
+        "target_composition_overlap_records": 11,
+        "target_composition_space_group_overlap_records": 4,
+        "target_overlap_parent_ids": 11,
+        "target_overlap_record_sha256": "cfd60aa612cf5cf499aa5a0b8065da2f7a15e399e102fda0132a4e0ef029245c",
+        "unsupported_element_records": 0,
+        "ineligible_records": 11,
+        "eligible_records": 113326,
+        "ineligible_record_sha256": "cfd60aa612cf5cf499aa5a0b8065da2f7a15e399e102fda0132a4e0ef029245c"
+      },
+      "rattled-1000-subsampled": {
+        "records": 38603,
+        "target_composition_overlap_records": 3,
+        "target_composition_space_group_overlap_records": 1,
+        "target_overlap_parent_ids": 3,
+        "target_overlap_record_sha256": "425946af40bc4bbf05abe6a4458ae031ddc50159af24737c89530e9ca7766f62",
+        "unsupported_element_records": 0,
+        "ineligible_records": 3,
+        "eligible_records": 38600,
+        "ineligible_record_sha256": "425946af40bc4bbf05abe6a4458ae031ddc50159af24737c89530e9ca7766f62"
+      },
+      "rattled-300": {
+        "records": 62894,
+        "target_composition_overlap_records": 6,
+        "target_composition_space_group_overlap_records": 2,
+        "target_overlap_parent_ids": 6,
+        "target_overlap_record_sha256": "13a208ad19f86ca49ac38ce75b44845f1a80984bae47323223c8ae62ce32591d",
+        "unsupported_element_records": 0,
+        "ineligible_records": 6,
+        "eligible_records": 62888,
+        "ineligible_record_sha256": "13a208ad19f86ca49ac38ce75b44845f1a80984bae47323223c8ae62ce32591d"
+      },
+      "rattled-300-subsampled": {
+        "records": 34462,
+        "target_composition_overlap_records": 2,
+        "target_composition_space_group_overlap_records": 0,
+        "target_overlap_parent_ids": 2,
+        "target_overlap_record_sha256": "2a4d68528159dbe7bbfdda1f8162216c12f4beb1b6427ccf70baa9a46a716ec5",
+        "unsupported_element_records": 0,
+        "ineligible_records": 2,
+        "eligible_records": 34460,
+        "ineligible_record_sha256": "2a4d68528159dbe7bbfdda1f8162216c12f4beb1b6427ccf70baa9a46a716ec5"
+      },
+      "rattled-500": {
+        "records": 68885,
+        "target_composition_overlap_records": 6,
+        "target_composition_space_group_overlap_records": 0,
+        "target_overlap_parent_ids": 6,
+        "target_overlap_record_sha256": "5682cf3c42b5b0d98ffc05c8d188b5a930e42d43ca5f15e833dd9dd80e3a4339",
+        "unsupported_element_records": 0,
+        "ineligible_records": 6,
+        "eligible_records": 68879,
+        "ineligible_record_sha256": "5682cf3c42b5b0d98ffc05c8d188b5a930e42d43ca5f15e833dd9dd80e3a4339"
+      },
+      "rattled-500-subsampled": {
+        "records": 39548,
+        "target_composition_overlap_records": 5,
+        "target_composition_space_group_overlap_records": 0,
+        "target_overlap_parent_ids": 5,
+        "target_overlap_record_sha256": "59f787d3bf9fffa017666e1dad170f63e7007deda8ed1b3c2d5f681b25493e13",
+        "unsupported_element_records": 0,
+        "ineligible_records": 5,
+        "eligible_records": 39543,
+        "ineligible_record_sha256": "59f787d3bf9fffa017666e1dad170f63e7007deda8ed1b3c2d5f681b25493e13"
+      },
+      "rattled-relax": {
+        "records": 100543,
+        "target_composition_overlap_records": 18,
+        "target_composition_space_group_overlap_records": 5,
+        "target_overlap_parent_ids": 8,
+        "target_overlap_record_sha256": "74cac113068ce8ca6c2f2d59499007101f3121540f4afe9aaa7065f7271b3a69",
+        "unsupported_element_records": 0,
+        "ineligible_records": 18,
+        "eligible_records": 100525,
+        "ineligible_record_sha256": "74cac113068ce8ca6c2f2d59499007101f3121540f4afe9aaa7065f7271b3a69"
+      }
+    }
+  }
+}
