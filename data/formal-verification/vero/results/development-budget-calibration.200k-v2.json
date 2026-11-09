@@ -1,0 +1,55 @@
+{
+  "schema_version": "anarres.formal-verification-development-calibration-result.v1",
+  "protocol_id": "vero-leanstral-development-budget-calibration-200k-v2",
+  "attempt_id": "primepy-proof-calibration-v2-200k-r01",
+  "status": "complete",
+  "scientific_role": "development-only controller calibration excluded from repeated measurement, environment ranking, and downstream utility claims",
+  "outcome": {
+    "queue_status": "graded",
+    "attempt_outcome": "deadline",
+    "infrastructure_valid": true,
+    "fresh_grade_build_ok": true,
+    "expected_slot_edits": 0,
+    "post_edit_build_invocations": 0,
+    "specifications_total": 9,
+    "specifications_passed": 0,
+    "specifications_unfilled": 9,
+    "approved_axiom_check": false,
+    "unexpected_marker_count": 0,
+    "controller_steps": 8,
+    "input_tokens": 41803,
+    "output_tokens": 307,
+    "model_tokens": 42110,
+    "tool_calls": 24,
+    "wall_seconds": 5402.647851
+  },
+  "trace_audit": {
+    "capped_reasoning_completions": 3,
+    "tokens_per_capped_completion": 4096,
+    "reasoning_tokens": [4057, 4093, 4061],
+    "visible_text": "blank",
+    "output_limit_recovery": "Vibe discarded each length-limited response and retried it under the pinned default recovery policy",
+    "task_difference_outside_build_artifacts": false,
+    "interpretation": "the 4096-token response cap prevented the high-reasoning policy from reaching its next edit action"
+  },
+  "decision": {
+    "interface_qualification_passed": false,
+    "policy_support_established": false,
+    "one_million_token_escalation_authorized": false,
+    "next_action": "remove the artificial per-response cap while preserving the 200000-token cumulative budget and repeat one excluded interface calibration under a fresh identity"
+  },
+  "evidence": {
+    "vibe_export_sha256": "414782c2d67d273611fa733f54d47a635a1a48784f393c57324f5fa4e6dc63a9",
+    "attempt_receipt_sha256": "36dc76771f8893061d4ad005b1930dea0daa6a68864273558202bd94852168ab",
+    "sandbox_receipt_sha256": "f3803280300d18f456c05e9fd7790bc9ec74a86bda135cc59cdd88d543ccc8be",
+    "fresh_grade_sha256": "313d9036dc3e1f26a3f450eefd2e9c0653c2907d26a32107a3b76edb0a649401",
+    "grade_receipt_sha256": "51cdefe0ef0bfee10af3f7d3871589bf1381cdfdabcad5d08399e80fc26ae65a",
+    "queue_item_receipt_sha256": "ce03300ab45979e334e106a562bad2619ddb417e45e17898e10d0d6fcd13043b"
+  },
+  "boundaries": {
+    "qualification_and_prospective_repositories_opened": false,
+    "estimates_rho_or_H": false,
+    "ranks_training_environments": false,
+    "authorizes_downstream_training": false
+  }
+}

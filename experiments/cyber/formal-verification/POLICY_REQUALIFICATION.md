@@ -60,13 +60,19 @@ The backend remained healthy during the final request, but no complete event
 reached the controller before its 720-second timeout. The attempt made no
 expected-slot edit, produced no fresh grade, and cannot authorize Stage B.
 
-One output-bounded Stage A retry is frozen under a new attempt identity. It
-keeps the model, task, prompt, cumulative token threshold, turn limit, wall
-limit, and grader unchanged. The controller caps each model response at 4,096
-tokens, removes the stream-idle cutoff, and allows 1,800 seconds for a request.
-These controls bound a single response within the experiment while preserving
-the original cumulative interaction budget. This is an interface retry, not a
-scientific replicate.
+One output-bounded Stage A retry kept the model, task, prompt, cumulative token
+threshold, turn limit, wall limit, and grader unchanged. It reached fresh
+grading but made no expected-slot edit and closed no specification. The trace
+shows three reasoning responses cut off at the 4,096-token response limit.
+Vibe discarded each limited response and retried it under the pinned default
+recovery policy, consuming the wall budget before the next edit action.
+
+One final Stage A interface calibration is frozen under a new identity. It
+removes only the artificial per-response cap while retaining the 1,800-second
+request timeout and no stream-idle cutoff. Vibe therefore sends no output cap
+to the local generic provider, matching its documented default, while the
+90-minute wall limit and 200,000-token cumulative threshold still bound the
+attempt. This calibration remains excluded from scientific measurement.
 
 ### Stage B: one prespecified 1-million-token escalation
 

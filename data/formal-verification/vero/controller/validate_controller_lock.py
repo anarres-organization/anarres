@@ -78,13 +78,24 @@ def validate(lock: dict[str, Any], *, lock_path: Path, protocol_path: Path) -> N
         "experiments": {"enable": False},
     }
     if request_controls := lock.get("request_controls"):
-        exactly(
-            request_controls,
-            {
+        allowed_request_controls = {
+            "mistral-vibe-leanstral-local-200k-v2": {
                 "api_timeout_seconds": 1800.0,
                 "api_stream_idle_timeout_seconds": 0.0,
                 "agent_max_output_tokens": 4096,
             },
+            "mistral-vibe-leanstral-local-200k-v3": {
+                "api_timeout_seconds": 1800.0,
+                "api_stream_idle_timeout_seconds": 0.0,
+                "agent_max_output_tokens": 0,
+            },
+        }
+        expected_request_controls = allowed_request_controls.get(lock["controller_id"])
+        if expected_request_controls is None:
+            raise ControllerLockError("controller has unrecognized model-request controls")
+        exactly(
+            request_controls,
+            expected_request_controls,
             "model-request controls",
         )
         expected_config.update(

@@ -259,15 +259,24 @@ scientific interpretation. Its stable receipt hashes and resource use are
 recorded in
 [`policy-budget-calibration.200k-v2.json`](policy-budget-calibration.200k-v2.json).
 
-The v2 calibration freezes one interface retry under a fresh attempt identity.
-It preserves the 200,000-token cumulative threshold and every scientific
-input, while [`controller-lock.200k-v2.json`](controller/controller-lock.200k-v2.json)
-adds a 4,096-token per-response cap, a 1,800-second request timeout, and no
-stream-idle cutoff. The retry remains development-only and must repeat
-containment and inference qualification before execution. A 1-million-token
-escalation remains blocked unless the 200,000-token stage reaches an
-expected-slot edit, a post-edit build, and an infrastructure-valid fresh grade
-with zero strict successes.
+The v2 calibration tested one output-bounded interface under a fresh attempt
+identity. It preserved the 200,000-token cumulative threshold and every
+scientific input, while [`controller-lock.200k-v2.json`](controller/controller-lock.200k-v2.json)
+added a 4,096-token per-response cap, a 1,800-second request timeout, and no
+stream-idle cutoff. The attempt reached infrastructure-valid fresh grading but
+made no expected-slot edit and closed no specification. Its trace contains
+three responses cut off at exactly 4,096 tokens, almost entirely in reasoning.
+Pinned Vibe then discarded each limited response and retried it under its
+documented recovery policy. The complete development result is
+[`development-budget-calibration.200k-v2.json`](results/development-budget-calibration.200k-v2.json).
+
+The v3 calibration removes only the artificial per-response cap. It retains
+the 1,800-second request timeout, 90-minute wall limit, 200,000-token cumulative
+threshold, model, prompt, task, sandbox, and grader. It remains excluded from
+scientific claims and must repeat containment and inference qualification
+before execution. A 1-million-token escalation remains blocked unless this
+stage reaches an expected-slot edit, a post-edit build, and an
+infrastructure-valid fresh grade with zero strict successes.
 
 The matching [`runtime lock`](runtime/runtime-lock.200k.v1.json) binds the
 same immutable Lean image to the one-attempt calibration panel. This keeps the

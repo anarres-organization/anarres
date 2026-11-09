@@ -1,0 +1,25 @@
+{
+  "attempts": [
+    {
+      "attempt_id": "primepy-proof-calibration-v3-200k-r01",
+      "benchmark_id": "primepy",
+      "controller_token_stop_threshold": 200000,
+      "expected_specifications": 9,
+      "maximum_agent_turns": 100,
+      "maximum_wall_seconds": 5400,
+      "mode": "proof",
+      "ordering_key": "a920e07295f8058c214802936a2a50b198d6953f4a77ff76d7df2545adf7d1d6",
+      "queue_position": 1,
+      "replicate": 1,
+      "source_language": "python",
+      "task_id": "primepy:proof"
+    }
+  ],
+  "ordering": "ascending SHA-256 of queue ID, benchmark ID, mode, and replicate",
+  "panel_sha256": "3a495a9c6ffa19bcbc364f8413a113eff22c6df41a13994f49bfd6305acf10d1",
+  "protocol_id": "vero-leanstral-development-budget-calibration-200k-v3",
+  "protocol_sha256": "9d12d1bff8d7078221d287458fd069e313bcfab118143696621f4110aafc2683",
+  "queue_id": "vero-leanstral-development-budget-calibration-200k-v3-queue",
+  "schema_version": "anarres.formal-verification-probe-queue.v1",
+  "status": "frozen_before_model_attempts"
+}
