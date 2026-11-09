@@ -243,11 +243,12 @@ def qualify_target(
 def package_versions() -> dict[str, str]:
     from importlib.metadata import PackageNotFoundError, version
 
+    from openbabel import openbabel
+
     packages = [
         "AutoDockTools-py3",
         "meeko",
         "numpy",
-        "openbabel",
         "pdb2pqr",
         "rdkit",
         "scipy",
@@ -259,6 +260,7 @@ def package_versions() -> dict[str, str]:
             versions[package] = version(package)
         except PackageNotFoundError:
             versions[package] = "not-found"
+    versions["openbabel"] = openbabel.OBReleaseVersion()
     return versions
 
 
