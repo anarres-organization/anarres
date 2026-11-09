@@ -237,6 +237,9 @@ records the deterministic operational and graph-feature smoke.
 [`TARGET_REWARD_CONTRACT_V2.json`](TARGET_REWARD_CONTRACT_V2.json) and
 [`MEASUREMENT_CONTRACT_V2.json`](MEASUREMENT_CONTRACT_V2.json) record the
 pre-measurement scoring revision without redrawing either frozen view.
+[`BANK_CONSTRUCTION_CONTRACT.json`](BANK_CONSTRUCTION_CONTRACT.json) fixes the
+development-bank summaries and confirmation statistic before measurement
+reliability is scored.
 
 Audit local checkouts without reading target outcomes:
 
