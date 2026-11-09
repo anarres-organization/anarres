@@ -1,7 +1,8 @@
 # Prospective closed-loop curation on RoboMimic Can v1.4.1
 
-**Status:** protocol frozen. The all-data scoring policy must pass closed-loop
-qualification before influence measurement or candidate training begins.
+**Status:** closed-loop qualification passed with 95 successes and 5 failures
+across 100 episodes. Influence measurement is the next stage, and no candidate
+policy has been trained.
 
 This study tests whether target-sensitive measurements from a robot policy can
 choose a useful training subset before any candidate policy is trained. It uses
@@ -23,6 +24,11 @@ failures, the outcome support required by CUPID performance influence. Passing
 qualification triggers the remaining scoring checkpoints, influence
 measurement, and deterministic candidate construction. Failing qualification
 returns a frozen abstention before those costs are incurred.
+
+The corrected policy passed this gate with both outcome classes present. The
+machine-readable counts and artifact hashes are recorded in
+[`QUALIFICATION.json`](QUALIFICATION.json). This result qualifies the
+measurement pipeline. It does not reveal candidate-policy performance.
 
 ## Candidate decision
 
