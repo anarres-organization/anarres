@@ -213,6 +213,14 @@ def stable_episode_seed(run_id: str) -> int:
     return int(digest[:8], 16) % (2**31)
 
 
+def prior_completion_tokens(run_dir: Path) -> int:
+    total = 0
+    for path in run_dir.glob("turns/*/out/anarres_policy_trace.json"):
+        trace = json.loads(path.read_text(encoding="utf-8"))
+        total += int((trace.get("usage") or {}).get("completion_tokens") or 0)
+    return total
+
+
 def run_agent(
     workspace: Path,
     prompt: str,
@@ -223,6 +231,9 @@ def run_agent(
     max_completion_tokens: int = 2048,
     episode_seed: int = 0,
     turn: int = 0,
+    episode_completion_budget: int = 8192,
+    completion_tokens_used_before_turn: int = 0,
+    max_tool_calls: int = 24,
 ) -> dict[str, Any]:
     messages: list[dict[str, Any]] = [
         {
@@ -240,8 +251,20 @@ def run_agent(
     events = []
     final_text = ""
     protocol_valid = True
+    budget_exhausted = False
+    tool_call_limit_reached = False
+    tool_calls_used = 0
     usage = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
     for step in range(max_steps):
+        remaining_tokens = (
+            episode_completion_budget
+            - completion_tokens_used_before_turn
+            - usage["completion_tokens"]
+        )
+        if remaining_tokens <= 0:
+            budget_exhausted = True
+            final_text = "episode_completion_budget_exhausted"
+            break
         compact_messages(messages)
         response = request_completion(
             endpoint,
@@ -252,7 +275,7 @@ def run_agent(
                 "tools": TOOLS,
                 "temperature": 0.6,
                 "top_p": 0.95,
-                "max_tokens": max_completion_tokens,
+                "max_tokens": min(max_completion_tokens, remaining_tokens),
                 "seed": episode_seed + turn * 10_000 + step,
             },
         )
@@ -271,9 +294,20 @@ def run_agent(
                 "tool_results": [],
             }
         )
+        if (
+            usage["completion_tokens"] + completion_tokens_used_before_turn
+            >= episode_completion_budget
+        ):
+            budget_exhausted = True
         if not calls:
             final_text = message.get("content") or ""
             messages.append({"role": "assistant", "content": final_text})
+            break
+
+        if tool_calls_used + len(calls) > max_tool_calls:
+            protocol_valid = False
+            tool_call_limit_reached = True
+            final_text = "tool_call_limit_reached"
             break
 
         assistant_message = {
@@ -293,6 +327,7 @@ def run_agent(
         }
         messages.append(assistant_message)
         for call in calls:
+            tool_calls_used += 1
             try:
                 result = run_tool(call["name"], call["arguments"], workspace)
                 valid = True
@@ -321,7 +356,11 @@ def run_agent(
         "episode_seed": episode_seed,
         "protocol_valid": protocol_valid,
         "steps": len(events),
-        "truncated": any(event.get("finish_reason") == "length" for event in events),
+        "truncated": budget_exhausted
+        or tool_call_limit_reached
+        or any(event.get("finish_reason") == "length" for event in events),
+        "budget_exhausted": budget_exhausted,
+        "tool_call_limit_reached": tool_call_limit_reached,
         "usage": usage,
         "events": events,
         "final_text": final_text,
@@ -343,9 +382,12 @@ def main() -> None:
         raise SystemExit("ANARRES_POLICY_MODEL is required")
     max_steps = int(os.environ.get("ANARRES_MAX_AGENT_STEPS", "24"))
     max_completion_tokens = int(os.environ.get("ANARRES_MAX_COMPLETION_TOKENS", "2048"))
-    run_id = Path(os.environ.get("BENCH_RUN_DIR", args.output_dir.parent.parent)).name
+    run_dir = Path(os.environ.get("BENCH_RUN_DIR", args.output_dir.parent.parent)).resolve()
+    run_id = run_dir.name
     episode_seed = int(os.environ.get("ANARRES_POLICY_SEED", str(stable_episode_seed(run_id))))
     turn = int(os.environ.get("BENCH_TURN", "0"))
+    episode_completion_budget = int(os.environ.get("ANARRES_EPISODE_COMPLETION_BUDGET", "8192"))
+    max_tool_calls = int(os.environ.get("ANARRES_MAX_TOOL_CALLS_PER_TURN", "24"))
     args.output_dir.mkdir(parents=True, exist_ok=True)
     result = run_agent(
         args.workspace.resolve(),
@@ -357,6 +399,9 @@ def main() -> None:
         max_completion_tokens,
         episode_seed,
         turn,
+        episode_completion_budget,
+        prior_completion_tokens(run_dir),
+        max_tool_calls,
     )
     (args.output_dir / "anarres_policy_trace.json").write_text(
         json.dumps(result, indent=2, sort_keys=True) + "\n",

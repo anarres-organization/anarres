@@ -65,7 +65,8 @@ A policy qualifies when one complete record satisfies all of the following:
 4. at least 10% of complete scenario groups contain both successful and failed
    rollouts
 5. at least two workflow families contain a mixed scenario group
-6. the record reports material-control violations, generated tokens, tool calls,
+6. no more than 10% of non-infrastructure episodes exhaust the interaction limit
+7. the record reports material-control violations, generated tokens, tool calls,
    and truncation separately.
 
 Infrastructure failures never become task reward zero. Material-control

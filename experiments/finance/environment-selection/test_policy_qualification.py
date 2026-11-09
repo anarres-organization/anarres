@@ -64,7 +64,18 @@ def test_duplicate_identity_is_rejected() -> None:
         raise AssertionError("duplicate identity was accepted")
 
 
+def test_excessive_truncation_fails_qualification() -> None:
+    rows = make_rows()
+    for row in rows[:4]:
+        row["truncated"] = True
+    summary = MODULE.score(rows, 4, 2, 4)
+    assert summary["truncation_rate"] == 0.125
+    assert summary["gates"]["truncation_rate_at_most_0_10"] is False
+    assert summary["qualified"] is False
+
+
 if __name__ == "__main__":
     test_qualifying_record()
     test_infrastructure_failure_is_not_reward_zero()
     test_duplicate_identity_is_rejected()
+    test_excessive_truncation_fails_qualification()

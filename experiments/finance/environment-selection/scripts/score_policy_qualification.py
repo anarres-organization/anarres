@@ -91,6 +91,7 @@ def score(
         "completion_rate_between_0_02_and_0_80": 0.02 <= completion_rate <= 0.80,
         "mixed_group_fraction_at_least_0_10": mixed_fraction >= 0.10,
         "at_least_two_workflows_with_mixed_groups": len(mixed_workflows) >= 2,
+        "truncation_rate_at_most_0_10": truncated / valid_count <= 0.10 if valid_count else False,
     }
 
     return {

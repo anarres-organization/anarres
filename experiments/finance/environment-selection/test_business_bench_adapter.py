@@ -162,6 +162,18 @@ def test_episode_seed_is_stable() -> None:
     assert 0 <= first < 2**31
 
 
+def test_prior_completion_tokens_are_summed() -> None:
+    with tempfile.TemporaryDirectory() as temporary:
+        run_dir = Path(temporary)
+        for turn, tokens in ((1, 120), (2, 80)):
+            out = run_dir / "turns" / str(turn) / "out"
+            out.mkdir(parents=True)
+            (out / "anarres_policy_trace.json").write_text(
+                '{"usage":{"completion_tokens":' + str(tokens) + "}}"
+            )
+        assert MODULE.prior_completion_tokens(run_dir) == 200
+
+
 if __name__ == "__main__":
     test_xml_tool_call_parser()
     test_structured_tool_call_parser()
@@ -171,3 +183,4 @@ if __name__ == "__main__":
     test_context_compaction_preserves_task_and_recent_turn()
     test_endpoint_error_includes_response_detail()
     test_episode_seed_is_stable()
+    test_prior_completion_tokens_are_summed()
