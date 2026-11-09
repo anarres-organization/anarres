@@ -44,10 +44,14 @@ The supporting [`retrospective-bridge/`](retrospective-bridge/) reconstructs
 804 matched decisions and 3,002 candidate arms from sixteen public studies. It
 tests recurring measurements under source-specific grouped holdouts and then
 holds out each complete study. Directionally aligned signal, coverage, and
-target-relevance concepts transfer better than an uninformed rule. A shared
-ridge fit remains competitive but does not improve on their fixed direction.
-This result narrows the prospective hypothesis without opening the sealed
-phonon evaluation. Eight additional studies remain outside the predictor. They
+target-relevance concepts transfer better than an uninformed rule. A separate
+relative-harm audit holds out 13 complete studies and tests whether the same
+measurements identify environments that underperform a matched reference. The
+fixed semantic score reaches 0.708 source-macro ROC AUC and recovers 41.8% of
+adverse choices in the highest-risk 20% of pairs. Flexible fitted models remain
+weaker than the compact scores in both audits. These results narrow the
+prospective hypothesis without opening the sealed phonon evaluation. Additional
+studies remain outside the predictor. They
 quantify random-subset variability, show architecture-dependent environment
 rankings, recover a sampling-rule reversal between scratch retraining and
 fine-tuning, compare pretrained fine-tuning with random initialization on

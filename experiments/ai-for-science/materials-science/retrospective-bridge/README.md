@@ -290,3 +290,32 @@ without measured pre-outcome coordinates remain outside the fit.
 
 Retrospective performance can justify a compact hypothesis and expose
 confounds. The sealed PhononScore study remains the prospective test.
+
+## Relative-harm audit
+
+Environment selection also needs to identify choices that are likely to
+underperform a defensible reference. We define an adverse choice as a candidate
+whose panel-normalized utility falls more than 0.10 below one prespecified,
+outcome-independent reference arm. The reference is random sampling, the
+study's named control, or a target-matched environment, depending on the source.
+Sources without one defensible reference remain outside this audit.
+
+Across 13 held-out studies, 787 panels, and 2,136 candidate-reference pairs,
+the fixed semantic score reaches 0.708 source-macro ROC AUC and 0.535 average
+precision. It recovers 41.8% of adverse choices in the highest-risk 20% of
+pairs. The corresponding prevalence baseline reaches 0.500 ROC AUC and 18.4%
+recall, while controls based on deterministic random fingerprints or shuffled
+candidate measurements remain substantially weaker. Results are similar when
+the adverse margin is set to zero or 0.20.
+
+A fitted logistic ridge reaches 0.603 source-macro ROC AUC. As in the utility
+analysis, the fixed direction of signal, coverage, and target relevance
+transfers more reliably than a flexible coefficient vector estimated from a
+small number of independent studies. This endpoint measures underperformance
+relative to a matched reference. Absolute degradation from a starting model
+remains a prospective outcome in the sealed phonon study.
+
+[`relative_harm_analysis.json`](relative_harm_analysis.json) contains the full
+source-held-out results, threshold sensitivities, and negative controls. The
+analysis is reproduced by
+[`scripts/analyze_relative_harm.py`](scripts/analyze_relative_harm.py).

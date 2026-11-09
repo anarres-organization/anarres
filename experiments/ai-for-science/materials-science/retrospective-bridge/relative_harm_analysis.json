@@ -1,0 +1,2989 @@
+{
+  "artifact": "materials_relative_harm_loso_v1",
+  "endpoint": "candidate panel-normalized utility below a prespecified matched reference by more than the stated margin",
+  "interpretation_boundary": [
+    "This endpoint measures relative underperformance against a matched reference arm.",
+    "It does not establish absolute degradation from a starting model.",
+    "Sources without one outcome-independent reference environment are excluded.",
+    "All predictive tests hold out the complete source."
+  ],
+  "margin_sensitivities": [
+    {
+      "fitted_logistic_ridge": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.06492768386727546,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 52,
+            "average_precision": 0.8102918638598076,
+            "brier_score": 0.3097444080686381,
+            "pairs": 96,
+            "prevalence": 0.5416666666666666,
+            "recall_in_top_risk_20pct": 0.38461538461538464,
+            "roc_auc": 0.7307692307692307
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 59,
+            "average_precision": 0.44408571525194335,
+            "brier_score": 0.2503990471755614,
+            "pairs": 138,
+            "prevalence": 0.427536231884058,
+            "recall_in_top_risk_20pct": 0.1864406779661017,
+            "roc_auc": 0.5
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 335,
+            "average_precision": 0.6243430671193556,
+            "brier_score": 0.1703831485388949,
+            "pairs": 1248,
+            "prevalence": 0.26842948717948717,
+            "recall_in_top_risk_20pct": 0.46865671641791046,
+            "roc_auc": 0.8489627437838191
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3588811993260974,
+            "brier_score": 0.2360257196470537,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.14634146341463414,
+            "roc_auc": 0.5
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 11,
+            "average_precision": 0.7332100913440627,
+            "brier_score": 0.20634237504566266,
+            "pairs": 24,
+            "prevalence": 0.4583333333333333,
+            "recall_in_top_risk_20pct": 0.2727272727272727,
+            "roc_auc": 0.7657342657342657
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 11,
+            "average_precision": 0.9406172110717566,
+            "brier_score": 0.09504635677299474,
+            "pairs": 12,
+            "prevalence": 0.9166666666666666,
+            "recall_in_top_risk_20pct": 0.2727272727272727,
+            "roc_auc": 0.45454545454545453
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 29,
+            "average_precision": 0.28267594436921917,
+            "brier_score": 0.277721611614449,
+            "pairs": 114,
+            "prevalence": 0.2543859649122807,
+            "recall_in_top_risk_20pct": 0.2413793103448276,
+            "roc_auc": 0.4894523326572008
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 0.3833333333333333,
+            "brier_score": 0.49999999999999933,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.0,
+            "roc_auc": 0.5
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 6,
+            "average_precision": 0.3075404351720141,
+            "brier_score": 0.10545994031011352,
+            "pairs": 72,
+            "prevalence": 0.08333333333333333,
+            "recall_in_top_risk_20pct": 0.5,
+            "roc_auc": 0.6818181818181818
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.4117324561403508,
+            "brier_score": 0.1199520991007302,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.75,
+            "roc_auc": 0.801829268292683
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.22957530030005585,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.010622343766016637,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 633,
+          "average_precision": 0.4496702859734741,
+          "brier_score": 0.19358853114552146,
+          "pairs": 2136,
+          "prevalence": 0.29634831460674155,
+          "recall_in_top_risk_20pct": 0.3522906793048973,
+          "roc_auc": 0.7220540488270432
+        },
+        "source_macro": {
+          "average_precision": 0.5296711316987941,
+          "average_precision_sources": 10,
+          "brier_score": 0.19816923340057274,
+          "brier_score_sources": 13,
+          "prevalence": 0.30040861549508796,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.3222888098213404,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.6273111477600836,
+          "roc_auc_sources": 10
+        }
+      },
+      "fold_alphas": {
+        "baghishov_2026_application_specific_mlip": 100.0,
+        "bi_elena_2026_budget_crossover": 100.0,
+        "dale_2026_active_learning_failure": 100.0,
+        "espinosa_castaneda_2026_diversity": 100.0,
+        "haenseroth_dressler_2026_data_efficiency": 100.0,
+        "kim_2026_density_diversity": 100.0,
+        "kulichenko_2023_udd": 100.0,
+        "li_2023_redundancy": 100.0,
+        "qi_2024_direct_sampling": 100.0,
+        "varga_umbrich_2026_force_aware_ntk": 100.0,
+        "wang_2026_dataset_aware_entropy": 100.0,
+        "wong_yang_2026_umlip_bias": 100.0,
+        "zhang_2023_etal": 100.0
+      },
+      "margin": 0.0,
+      "prevalence_baseline": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.09085918367346939,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 52,
+            "average_precision": 0.5300925252241483,
+            "brier_score": 0.3142423587081891,
+            "pairs": 96,
+            "prevalence": 0.5416666666666666,
+            "recall_in_top_risk_20pct": 0.19230769230769232,
+            "roc_auc": 0.5
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 59,
+            "average_precision": 0.4019535620435356,
+            "brier_score": 0.264418768770947,
+            "pairs": 138,
+            "prevalence": 0.427536231884058,
+            "recall_in_top_risk_20pct": 0.2033898305084746,
+            "roc_auc": 0.5
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 335,
+            "average_precision": 0.24150598881732235,
+            "brier_score": 0.2008850391451743,
+            "pairs": 1248,
+            "prevalence": 0.26842948717948717,
+            "recall_in_top_risk_20pct": 0.15522388059701492,
+            "roc_auc": 0.5
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3588811993260974,
+            "brier_score": 0.23890873015873013,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.14634146341463414,
+            "roc_auc": 0.5
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 11,
+            "average_precision": 0.4155293300695533,
+            "brier_score": 0.2751027677341598,
+            "pairs": 24,
+            "prevalence": 0.4583333333333333,
+            "recall_in_top_risk_20pct": 0.18181818181818182,
+            "roc_auc": 0.5
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 11,
+            "average_precision": 0.9750688705234158,
+            "brier_score": 0.4655439936728838,
+            "pairs": 12,
+            "prevalence": 0.9166666666666666,
+            "recall_in_top_risk_20pct": 0.2727272727272727,
+            "roc_auc": 0.5
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 29,
+            "average_precision": 0.21758009957622118,
+            "brier_score": 0.1916387332656413,
+            "pairs": 114,
+            "prevalence": 0.2543859649122807,
+            "recall_in_top_risk_20pct": 0.10344827586206896,
+            "roc_auc": 0.5
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 0.3833333333333333,
+            "brier_score": 0.29170799444554646,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.0,
+            "roc_auc": 0.5
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 6,
+            "average_precision": 0.3013235294117647,
+            "brier_score": 0.12498521160086533,
+            "pairs": 72,
+            "prevalence": 0.08333333333333333,
+            "recall_in_top_risk_20pct": 0.5,
+            "roc_auc": 0.5
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.09534632034632035,
+            "brier_score": 0.1258994866371428,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.0,
+            "roc_auc": 0.5
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.08823492494540493,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.08815217238259841,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 633,
+          "average_precision": 0.2563698817226053,
+          "brier_score": 0.21168075968257236,
+          "pairs": 2136,
+          "prevalence": 0.29634831460674155,
+          "recall_in_top_risk_20pct": 0.13744075829383887,
+          "roc_auc": 0.4402648100323839
+        },
+        "source_macro": {
+          "average_precision": 0.3920614758671712,
+          "average_precision_sources": 10,
+          "brier_score": 0.212352258856981,
+          "brier_score_sources": 13,
+          "prevalence": 0.30040861549508796,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.17552565972353396,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.5,
+          "roc_auc_sources": 10
+        }
+      },
+      "random_fingerprint_control": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.2790114349298854,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 52,
+            "average_precision": 0.6038527608085319,
+            "brier_score": 0.3027124167090521,
+            "pairs": 96,
+            "prevalence": 0.5416666666666666,
+            "recall_in_top_risk_20pct": 0.21153846153846154,
+            "roc_auc": 0.5633741258741258
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 59,
+            "average_precision": 0.5084762305843148,
+            "brier_score": 0.3358769229002172,
+            "pairs": 138,
+            "prevalence": 0.427536231884058,
+            "recall_in_top_risk_20pct": 0.3050847457627119,
+            "roc_auc": 0.5327183007938211
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 335,
+            "average_precision": 0.280291949092988,
+            "brier_score": 0.3236606550908266,
+            "pairs": 1248,
+            "prevalence": 0.26842948717948717,
+            "recall_in_top_risk_20pct": 0.21492537313432836,
+            "roc_auc": 0.5148289222016968
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3890457370397451,
+            "brier_score": 0.32356657781927795,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.21138211382113822,
+            "roc_auc": 0.5354402839803046
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 11,
+            "average_precision": 0.4095338805946192,
+            "brier_score": 0.381356424604031,
+            "pairs": 24,
+            "prevalence": 0.4583333333333333,
+            "recall_in_top_risk_20pct": 0.09090909090909091,
+            "roc_auc": 0.40559440559440557
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 11,
+            "average_precision": 0.9072838777384231,
+            "brier_score": 0.278490549446362,
+            "pairs": 12,
+            "prevalence": 0.9166666666666666,
+            "recall_in_top_risk_20pct": 0.2727272727272727,
+            "roc_auc": 0.2727272727272727
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 29,
+            "average_precision": 0.3483623162863403,
+            "brier_score": 0.30894925548658636,
+            "pairs": 114,
+            "prevalence": 0.2543859649122807,
+            "recall_in_top_risk_20pct": 0.2413793103448276,
+            "roc_auc": 0.5334685598377282
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 0.6333333333333333,
+            "brier_score": 0.42415152978215453,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.3333333333333333,
+            "roc_auc": 0.3333333333333333
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 6,
+            "average_precision": 0.15130931160342923,
+            "brier_score": 0.2882190372514535,
+            "pairs": 72,
+            "prevalence": 0.08333333333333333,
+            "recall_in_top_risk_20pct": 0.3333333333333333,
+            "roc_auc": 0.6515151515151515
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.4037698412698413,
+            "brier_score": 0.31790357339039943,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.5,
+            "roc_auc": 0.7560975609756098
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.4630357861060418,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.430143121279598,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 633,
+          "average_precision": 0.3187579095749117,
+          "brier_score": 0.32184243198068446,
+          "pairs": 2136,
+          "prevalence": 0.29634831460674155,
+          "recall_in_top_risk_20pct": 0.2259083728278041,
+          "roc_auc": 0.5279278199787891
+        },
+        "source_macro": {
+          "average_precision": 0.4635259238351567,
+          "average_precision_sources": 10,
+          "brier_score": 0.34285209883045276,
+          "brier_score_sources": 13,
+          "prevalence": 0.30040861549508796,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.2714613034904498,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.5099097916833448,
+          "roc_auc_sources": 10
+        }
+      },
+      "semantic_calibration_fold_alphas": {
+        "baghishov_2026_application_specific_mlip": 0.01,
+        "bi_elena_2026_budget_crossover": 0.01,
+        "dale_2026_active_learning_failure": 0.01,
+        "espinosa_castaneda_2026_diversity": 0.01,
+        "haenseroth_dressler_2026_data_efficiency": 0.01,
+        "kim_2026_density_diversity": 0.01,
+        "kulichenko_2023_udd": 0.01,
+        "li_2023_redundancy": 0.01,
+        "qi_2024_direct_sampling": 0.01,
+        "varga_umbrich_2026_force_aware_ntk": 0.01,
+        "wang_2026_dataset_aware_entropy": 0.01,
+        "wong_yang_2026_umlip_bias": 0.01,
+        "zhang_2023_etal": 0.01
+      },
+      "semantic_relative_score": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.04327608418444008,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 52,
+            "average_precision": 0.8986900942129321,
+            "brier_score": 0.26224732004215706,
+            "pairs": 96,
+            "prevalence": 0.5416666666666666,
+            "recall_in_top_risk_20pct": 0.38461538461538464,
+            "roc_auc": 0.8356643356643356
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 59,
+            "average_precision": 0.44408571525194335,
+            "brier_score": 0.29034481136942597,
+            "pairs": 138,
+            "prevalence": 0.427536231884058,
+            "recall_in_top_risk_20pct": 0.1864406779661017,
+            "roc_auc": 0.5
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 335,
+            "average_precision": 0.6243430671193556,
+            "brier_score": 0.14982498813658887,
+            "pairs": 1248,
+            "prevalence": 0.26842948717948717,
+            "recall_in_top_risk_20pct": 0.46865671641791046,
+            "roc_auc": 0.8489627437838191
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3588811993260974,
+            "brier_score": 0.23728744522571102,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.14634146341463414,
+            "roc_auc": 0.5
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 11,
+            "average_precision": 0.7305785123966941,
+            "brier_score": 0.19614061045436318,
+            "pairs": 24,
+            "prevalence": 0.4583333333333333,
+            "recall_in_top_risk_20pct": 0.2727272727272727,
+            "roc_auc": 0.7587412587412588
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 11,
+            "average_precision": 1.0,
+            "brier_score": 0.05663804416553459,
+            "pairs": 12,
+            "prevalence": 0.9166666666666666,
+            "recall_in_top_risk_20pct": 0.2727272727272727,
+            "roc_auc": 1.0
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 29,
+            "average_precision": 0.28267594436921917,
+            "brier_score": 0.19981053969211404,
+            "pairs": 114,
+            "prevalence": 0.2543859649122807,
+            "recall_in_top_risk_20pct": 0.2413793103448276,
+            "roc_auc": 0.4894523326572008
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 1.0,
+            "brier_score": 0.04911675851103831,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.6666666666666666,
+            "roc_auc": 1.0
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 6,
+            "average_precision": 0.4037952787952788,
+            "brier_score": 0.10592428643365835,
+            "pairs": 72,
+            "prevalence": 0.08333333333333333,
+            "recall_in_top_risk_20pct": 0.8333333333333334,
+            "roc_auc": 0.8636363636363636
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.4117324561403508,
+            "brier_score": 0.2115347868513026,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.75,
+            "roc_auc": 0.801829268292683
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.334857968601971,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.004299598655085048,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 633,
+          "average_precision": 0.5248107634163124,
+          "brier_score": 0.17828121162920882,
+          "pairs": 2136,
+          "prevalence": 0.29634831460674155,
+          "recall_in_top_risk_20pct": 0.40126382306477093,
+          "roc_auc": 0.7526884093844959
+        },
+        "source_macro": {
+          "average_precision": 0.6154782267611871,
+          "average_precision_sources": 10,
+          "brier_score": 0.16471563402487618,
+          "brier_score_sources": 13,
+          "prevalence": 0.30040861549508796,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.4222888098213405,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.7598286302775661,
+          "roc_auc_sources": 10
+        }
+      },
+      "shuffled_pairing_control": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.04327608418444008,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 52,
+            "average_precision": 0.6902812682155097,
+            "brier_score": 0.3151723157487533,
+            "pairs": 96,
+            "prevalence": 0.5416666666666666,
+            "recall_in_top_risk_20pct": 0.28846153846153844,
+            "roc_auc": 0.6258741258741258
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 59,
+            "average_precision": 0.42150442641604113,
+            "brier_score": 0.30213933786612607,
+            "pairs": 138,
+            "prevalence": 0.427536231884058,
+            "recall_in_top_risk_20pct": 0.1864406779661017,
+            "roc_auc": 0.47039261960952583
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 335,
+            "average_precision": 0.28137486400965106,
+            "brier_score": 0.20728024427127223,
+            "pairs": 1248,
+            "prevalence": 0.26842948717948717,
+            "recall_in_top_risk_20pct": 0.2,
+            "roc_auc": 0.5463879943110297
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3588811993260974,
+            "brier_score": 0.23728744522571102,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.14634146341463414,
+            "roc_auc": 0.5
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 11,
+            "average_precision": 0.4886544011544011,
+            "brier_score": 0.3115990394798018,
+            "pairs": 24,
+            "prevalence": 0.4583333333333333,
+            "recall_in_top_risk_20pct": 0.18181818181818182,
+            "roc_auc": 0.5034965034965035
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 11,
+            "average_precision": 0.9536042240587694,
+            "brier_score": 0.07878064744121792,
+            "pairs": 12,
+            "prevalence": 0.9166666666666666,
+            "recall_in_top_risk_20pct": 0.2727272727272727,
+            "roc_auc": 0.5909090909090909
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 29,
+            "average_precision": 0.2774930038518975,
+            "brier_score": 0.2013295922473698,
+            "pairs": 114,
+            "prevalence": 0.2543859649122807,
+            "recall_in_top_risk_20pct": 0.1724137931034483,
+            "roc_auc": 0.529817444219067
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 0.5555555555555555,
+            "brier_score": 0.26197373271304986,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.3333333333333333,
+            "roc_auc": 0.6666666666666666
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 6,
+            "average_precision": 0.43194444444444446,
+            "brier_score": 0.13248201180756947,
+            "pairs": 72,
+            "prevalence": 0.08333333333333333,
+            "recall_in_top_risk_20pct": 0.3333333333333333,
+            "roc_auc": 0.7121212121212122
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.11931333247122722,
+            "brier_score": 0.26872992873991336,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.25,
+            "roc_auc": 0.5274390243902439
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.3348579686019709,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.004299598655085048,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 633,
+          "average_precision": 0.3425364023522743,
+          "brier_score": 0.21919205848538945,
+          "pairs": 2136,
+          "prevalence": 0.29634831460674155,
+          "recall_in_top_risk_20pct": 0.23222748815165878,
+          "roc_auc": 0.562987242996892
+        },
+        "source_macro": {
+          "average_precision": 0.4578606719503594,
+          "average_precision_sources": 10,
+          "brier_score": 0.20763138053709854,
+          "brier_score_sources": 13,
+          "prevalence": 0.30040861549508796,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.2364869594157844,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.5673104681597466,
+          "roc_auc_sources": 10
+        }
+      }
+    },
+    {
+      "fitted_logistic_ridge": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.053362498439985445,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 38,
+            "average_precision": 0.741807498794406,
+            "brier_score": 0.23124542872869505,
+            "pairs": 96,
+            "prevalence": 0.3958333333333333,
+            "recall_in_top_risk_20pct": 0.47368421052631576,
+            "roc_auc": 0.7722323049001815
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 48,
+            "average_precision": 0.3859508508457535,
+            "brier_score": 0.23577231926235603,
+            "pairs": 138,
+            "prevalence": 0.34782608695652173,
+            "recall_in_top_risk_20pct": 0.20833333333333334,
+            "roc_auc": 0.48935185185185187
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 276,
+            "average_precision": 0.5916101290856135,
+            "brier_score": 0.1549186863324328,
+            "pairs": 1248,
+            "prevalence": 0.22115384615384615,
+            "recall_in_top_risk_20pct": 0.5217391304347826,
+            "roc_auc": 0.8603059581320451
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3588811993260974,
+            "brier_score": 0.25764114843421737,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.14634146341463414,
+            "roc_auc": 0.5
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 11,
+            "average_precision": 0.7305785123966941,
+            "brier_score": 0.2112658974031395,
+            "pairs": 24,
+            "prevalence": 0.4583333333333333,
+            "recall_in_top_risk_20pct": 0.2727272727272727,
+            "roc_auc": 0.7622377622377622
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 7,
+            "average_precision": 0.5376211090496804,
+            "brier_score": 0.3330303812634941,
+            "pairs": 12,
+            "prevalence": 0.5833333333333334,
+            "recall_in_top_risk_20pct": 0.14285714285714285,
+            "roc_auc": 0.35714285714285715
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 24,
+            "average_precision": 0.23086746109174983,
+            "brier_score": 0.25851718538087687,
+            "pairs": 114,
+            "prevalence": 0.21052631578947367,
+            "recall_in_top_risk_20pct": 0.25,
+            "roc_auc": 0.4449074074074074
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 0.3833333333333333,
+            "brier_score": 0.49999999999999933,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.0,
+            "roc_auc": 0.5
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 4,
+            "average_precision": 0.07630591117433223,
+            "brier_score": 0.08638853753858927,
+            "pairs": 72,
+            "prevalence": 0.05555555555555555,
+            "recall_in_top_risk_20pct": 0.25,
+            "roc_auc": 0.5441176470588235
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.4117324561403508,
+            "brier_score": 0.10377029312895494,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.75,
+            "roc_auc": 0.801829268292683
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.2318855685681322,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.008064566520665133,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 538,
+          "average_precision": 0.37265992070821624,
+          "brier_score": 0.18266955375727267,
+          "pairs": 2136,
+          "prevalence": 0.25187265917602997,
+          "recall_in_top_risk_20pct": 0.31226765799256506,
+          "roc_auc": 0.7156343198514872
+        },
+        "source_macro": {
+          "average_precision": 0.4448688461238011,
+          "average_precision_sources": 10,
+          "brier_score": 0.20506634700011828,
+          "brier_score_sources": 13,
+          "prevalence": 0.24827093245505497,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.3015682553293481,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.6032125057023612,
+          "roc_auc_sources": 10
+        }
+      },
+      "fold_alphas": {
+        "baghishov_2026_application_specific_mlip": 100.0,
+        "bi_elena_2026_budget_crossover": 100.0,
+        "dale_2026_active_learning_failure": 100.0,
+        "espinosa_castaneda_2026_diversity": 100.0,
+        "haenseroth_dressler_2026_data_efficiency": 100.0,
+        "kim_2026_density_diversity": 100.0,
+        "kulichenko_2023_udd": 100.0,
+        "li_2023_redundancy": 100.0,
+        "qi_2024_direct_sampling": 100.0,
+        "varga_umbrich_2026_force_aware_ntk": 100.0,
+        "wang_2026_dataset_aware_entropy": 100.0,
+        "wong_yang_2026_umlip_bias": 100.0,
+        "zhang_2023_etal": 100.0
+      },
+      "margin": 0.1,
+      "prevalence_baseline": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.06563356009070292,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 38,
+            "average_precision": 0.4398191272423106,
+            "brier_score": 0.2618704344482891,
+            "pairs": 96,
+            "prevalence": 0.3958333333333333,
+            "recall_in_top_risk_20pct": 0.2631578947368421,
+            "roc_auc": 0.5
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 48,
+            "average_precision": 0.37148431474680293,
+            "brier_score": 0.23736592927522987,
+            "pairs": 138,
+            "prevalence": 0.34782608695652173,
+            "recall_in_top_risk_20pct": 0.25,
+            "roc_auc": 0.5
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 276,
+            "average_precision": 0.20352120160710946,
+            "brier_score": 0.17770473175878584,
+            "pairs": 1248,
+            "prevalence": 0.22115384615384615,
+            "recall_in_top_risk_20pct": 0.17028985507246377,
+            "roc_auc": 0.5
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3588811993260974,
+            "brier_score": 0.2504276895943562,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.14634146341463414,
+            "roc_auc": 0.5
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 11,
+            "average_precision": 0.4155293300695533,
+            "brier_score": 0.29186417620810384,
+            "pairs": 24,
+            "prevalence": 0.4583333333333333,
+            "recall_in_top_risk_20pct": 0.18181818181818182,
+            "roc_auc": 0.5
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 7,
+            "average_precision": 0.8242424242424242,
+            "brier_score": 0.3541666666666667,
+            "pairs": 12,
+            "prevalence": 0.5833333333333334,
+            "recall_in_top_risk_20pct": 0.2857142857142857,
+            "roc_auc": 0.5
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 24,
+            "average_precision": 0.17066607138780962,
+            "brier_score": 0.16811270516483806,
+            "pairs": 114,
+            "prevalence": 0.21052631578947367,
+            "recall_in_top_risk_20pct": 0.041666666666666664,
+            "roc_auc": 0.5
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 0.3833333333333333,
+            "brier_score": 0.3119145231325355,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.0,
+            "roc_auc": 0.5
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 4,
+            "average_precision": 0.2172058823529412,
+            "brier_score": 0.093745305270116,
+            "pairs": 72,
+            "prevalence": 0.05555555555555555,
+            "recall_in_top_risk_20pct": 0.5,
+            "roc_auc": 0.5
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.09534632034632035,
+            "brier_score": 0.10870701128312657,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.0,
+            "roc_auc": 0.5
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.06373788553191573,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.0636781079168852,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 538,
+          "average_precision": 0.21508799713642818,
+          "brier_score": 0.19226780531462948,
+          "pairs": 2136,
+          "prevalence": 0.25187265917602997,
+          "recall_in_top_risk_20pct": 0.13568773234200743,
+          "roc_auc": 0.4269195695362698
+        },
+        "source_macro": {
+          "average_precision": 0.34800292046547027,
+          "average_precision_sources": 10,
+          "brier_score": 0.18837913279550395,
+          "brier_score_sources": 13,
+          "prevalence": 0.24827093245505497,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.18389883474230742,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.5,
+          "roc_auc_sources": 10
+        }
+      },
+      "random_fingerprint_control": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.2790114349298854,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 38,
+            "average_precision": 0.48841652758941984,
+            "brier_score": 0.2934885085313697,
+            "pairs": 96,
+            "prevalence": 0.3958333333333333,
+            "recall_in_top_risk_20pct": 0.21052631578947367,
+            "roc_auc": 0.5757713248638838
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 48,
+            "average_precision": 0.41759083217540144,
+            "brier_score": 0.3594417215033891,
+            "pairs": 138,
+            "prevalence": 0.34782608695652173,
+            "recall_in_top_risk_20pct": 0.2916666666666667,
+            "roc_auc": 0.49930555555555556
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 276,
+            "average_precision": 0.22895549483899,
+            "brier_score": 0.3236354937756524,
+            "pairs": 1248,
+            "prevalence": 0.22115384615384615,
+            "recall_in_top_risk_20pct": 0.213768115942029,
+            "roc_auc": 0.5141759110156856
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3890457370397451,
+            "brier_score": 0.32356657781927795,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.21138211382113822,
+            "roc_auc": 0.5354402839803046
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 11,
+            "average_precision": 0.4095338805946192,
+            "brier_score": 0.381356424604031,
+            "pairs": 24,
+            "prevalence": 0.4583333333333333,
+            "recall_in_top_risk_20pct": 0.09090909090909091,
+            "roc_auc": 0.40559440559440557
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 7,
+            "average_precision": 0.8523809523809522,
+            "brier_score": 0.18992286632568092,
+            "pairs": 12,
+            "prevalence": 0.5833333333333334,
+            "recall_in_top_risk_20pct": 0.42857142857142855,
+            "roc_auc": 0.7428571428571429
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 24,
+            "average_precision": 0.33890323953536267,
+            "brier_score": 0.30219915297945293,
+            "pairs": 114,
+            "prevalence": 0.21052631578947367,
+            "recall_in_top_risk_20pct": 0.2916666666666667,
+            "roc_auc": 0.5550925925925926
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 0.6333333333333333,
+            "brier_score": 0.42415152978215453,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.3333333333333333,
+            "roc_auc": 0.3333333333333333
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 4,
+            "average_precision": 0.12068160597572362,
+            "brier_score": 0.2855314785300086,
+            "pairs": 72,
+            "prevalence": 0.05555555555555555,
+            "recall_in_top_risk_20pct": 0.25,
+            "roc_auc": 0.7316176470588235
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.4037698412698413,
+            "brier_score": 0.31790357339039943,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.5,
+            "roc_auc": 0.7560975609756098
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.4630357861060418,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.430143121279598,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 538,
+          "average_precision": 0.27368898319252294,
+          "brier_score": 0.3219871967698405,
+          "pairs": 2136,
+          "prevalence": 0.25187265917602997,
+          "recall_in_top_risk_20pct": 0.22676579925650558,
+          "roc_auc": 0.5302853008639982
+        },
+        "source_macro": {
+          "average_precision": 0.4282611444733389,
+          "average_precision_sources": 10,
+          "brier_score": 0.33641443611976474,
+          "brier_score_sources": 13,
+          "prevalence": 0.24827093245505497,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.28218237316998274,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.5649285757827337,
+          "roc_auc_sources": 10
+        }
+      },
+      "semantic_calibration_fold_alphas": {
+        "baghishov_2026_application_specific_mlip": 100.0,
+        "bi_elena_2026_budget_crossover": 100.0,
+        "dale_2026_active_learning_failure": 100.0,
+        "espinosa_castaneda_2026_diversity": 10.0,
+        "haenseroth_dressler_2026_data_efficiency": 100.0,
+        "kim_2026_density_diversity": 100.0,
+        "kulichenko_2023_udd": 100.0,
+        "li_2023_redundancy": 100.0,
+        "qi_2024_direct_sampling": 100.0,
+        "varga_umbrich_2026_force_aware_ntk": 100.0,
+        "wang_2026_dataset_aware_entropy": 100.0,
+        "wong_yang_2026_umlip_bias": 100.0,
+        "zhang_2023_etal": 100.0
+      },
+      "semantic_relative_score": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.03508533183763629,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 38,
+            "average_precision": 0.8981506240956443,
+            "brier_score": 0.209669082099211,
+            "pairs": 96,
+            "prevalence": 0.3958333333333333,
+            "recall_in_top_risk_20pct": 0.47368421052631576,
+            "roc_auc": 0.9464609800362976
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 48,
+            "average_precision": 0.3859508508457535,
+            "brier_score": 0.24617826120544994,
+            "pairs": 138,
+            "prevalence": 0.34782608695652173,
+            "recall_in_top_risk_20pct": 0.20833333333333334,
+            "roc_auc": 0.48935185185185187
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 276,
+            "average_precision": 0.5916101290856135,
+            "brier_score": 0.1393254660260157,
+            "pairs": 1248,
+            "prevalence": 0.22115384615384615,
+            "recall_in_top_risk_20pct": 0.5217391304347826,
+            "roc_auc": 0.8603059581320451
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3588811993260974,
+            "brier_score": 0.24813938109058353,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.14634146341463414,
+            "roc_auc": 0.5
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 11,
+            "average_precision": 0.7305785123966941,
+            "brier_score": 0.21069554608607452,
+            "pairs": 24,
+            "prevalence": 0.4583333333333333,
+            "recall_in_top_risk_20pct": 0.2727272727272727,
+            "roc_auc": 0.7587412587412588
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 7,
+            "average_precision": 0.5856369820655535,
+            "brier_score": 0.31834261742526315,
+            "pairs": 12,
+            "prevalence": 0.5833333333333334,
+            "recall_in_top_risk_20pct": 0.14285714285714285,
+            "roc_auc": 0.4714285714285714
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 24,
+            "average_precision": 0.23086746109174983,
+            "brier_score": 0.17526869440648493,
+            "pairs": 114,
+            "prevalence": 0.21052631578947367,
+            "recall_in_top_risk_20pct": 0.25,
+            "roc_auc": 0.4449074074074074
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 1.0,
+            "brier_score": 0.05379909331794589,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.6666666666666666,
+            "roc_auc": 1.0
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 4,
+            "average_precision": 0.160485347985348,
+            "brier_score": 0.08479270446699706,
+            "pairs": 72,
+            "prevalence": 0.05555555555555555,
+            "recall_in_top_risk_20pct": 0.75,
+            "roc_auc": 0.8088235294117647
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.4117324561403508,
+            "brier_score": 0.16072351647399094,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.75,
+            "roc_auc": 0.801829268292683
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.21214651465729073,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.008981170907499923,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 538,
+          "average_precision": 0.4495575977689256,
+          "brier_score": 0.16677501778006587,
+          "pairs": 2136,
+          "prevalence": 0.25187265917602997,
+          "recall_in_top_risk_20pct": 0.4144981412639405,
+          "roc_auc": 0.7434374287562054
+        },
+        "source_macro": {
+          "average_precision": 0.5353893563032804,
+          "average_precision_sources": 10,
+          "brier_score": 0.16178056769234184,
+          "brier_score_sources": 13,
+          "prevalence": 0.24827093245505497,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.4182349219960148,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.708184882530188,
+          "roc_auc_sources": 10
+        }
+      },
+      "shuffled_pairing_control": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.03508533183763629,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 38,
+            "average_precision": 0.5468431407161235,
+            "brier_score": 0.2622736865326092,
+            "pairs": 96,
+            "prevalence": 0.3958333333333333,
+            "recall_in_top_risk_20pct": 0.3157894736842105,
+            "roc_auc": 0.5871143375680581
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 48,
+            "average_precision": 0.3733494361985932,
+            "brier_score": 0.2468298147084189,
+            "pairs": 138,
+            "prevalence": 0.34782608695652173,
+            "recall_in_top_risk_20pct": 0.20833333333333334,
+            "roc_auc": 0.48935185185185187
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 276,
+            "average_precision": 0.22858787328623395,
+            "brier_score": 0.18011043748480482,
+            "pairs": 1248,
+            "prevalence": 0.22115384615384615,
+            "recall_in_top_risk_20pct": 0.21014492753623187,
+            "roc_auc": 0.5371264984791555
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3588811993260974,
+            "brier_score": 0.24813938109058353,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.14634146341463414,
+            "roc_auc": 0.5
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 11,
+            "average_precision": 0.4886544011544011,
+            "brier_score": 0.2868171786767096,
+            "pairs": 24,
+            "prevalence": 0.4583333333333333,
+            "recall_in_top_risk_20pct": 0.18181818181818182,
+            "roc_auc": 0.5034965034965035
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 7,
+            "average_precision": 0.7834776334776334,
+            "brier_score": 0.3037197655042449,
+            "pairs": 12,
+            "prevalence": 0.5833333333333334,
+            "recall_in_top_risk_20pct": 0.42857142857142855,
+            "roc_auc": 0.5714285714285714
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 24,
+            "average_precision": 0.24661986598739527,
+            "brier_score": 0.16876795219655524,
+            "pairs": 114,
+            "prevalence": 0.21052631578947367,
+            "recall_in_top_risk_20pct": 0.16666666666666666,
+            "roc_auc": 0.5444444444444444
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 0.5555555555555555,
+            "brier_score": 0.23397507877406287,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.3333333333333333,
+            "roc_auc": 0.6666666666666666
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 4,
+            "average_precision": 0.31180555555555556,
+            "brier_score": 0.09496210671604685,
+            "pairs": 72,
+            "prevalence": 0.05555555555555555,
+            "recall_in_top_risk_20pct": 0.25,
+            "roc_auc": 0.6323529411764706
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.11931333247122722,
+            "brier_score": 0.21029167459460726,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.25,
+            "roc_auc": 0.5274390243902439
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.21214651465729073,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.008981170907499923,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 538,
+          "average_precision": 0.2793755915405651,
+          "brier_score": 0.19533015875706577,
+          "pairs": 2136,
+          "prevalence": 0.25187265917602997,
+          "recall_in_top_risk_20pct": 0.22676579925650558,
+          "roc_auc": 0.5413062796897609
+        },
+        "source_macro": {
+          "average_precision": 0.4013087993728816,
+          "average_precision_sources": 10,
+          "brier_score": 0.19170000720623617,
+          "brier_score_sources": 13,
+          "prevalence": 0.24827093245505497,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.24909988083580203,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.5559420839501966,
+          "roc_auc_sources": 10
+        }
+      }
+    },
+    {
+      "fitted_logistic_ridge": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.04750337264111481,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 34,
+            "average_precision": 0.554377664371053,
+            "brier_score": 0.22260336514533705,
+            "pairs": 96,
+            "prevalence": 0.3541666666666667,
+            "recall_in_top_risk_20pct": 0.4117647058823529,
+            "roc_auc": 0.7163187855787476
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 39,
+            "average_precision": 0.3670646668253922,
+            "brier_score": 0.21238966696149558,
+            "pairs": 138,
+            "prevalence": 0.2826086956521739,
+            "recall_in_top_risk_20pct": 0.2564102564102564,
+            "roc_auc": 0.5357420357420357
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 218,
+            "average_precision": 0.5519777972397399,
+            "brier_score": 0.13031702708491752,
+            "pairs": 1248,
+            "prevalence": 0.17467948717948717,
+            "recall_in_top_risk_20pct": 0.6009174311926605,
+            "roc_auc": 0.8763071167720673
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3588811993260974,
+            "brier_score": 0.27578251246475893,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.14634146341463414,
+            "roc_auc": 0.5
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 9,
+            "average_precision": 0.5535914702581369,
+            "brier_score": 0.21546120741524152,
+            "pairs": 24,
+            "prevalence": 0.375,
+            "recall_in_top_risk_20pct": 0.2222222222222222,
+            "roc_auc": 0.6703703703703704
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 7,
+            "average_precision": 0.5856369820655535,
+            "brier_score": 0.3227965189872528,
+            "pairs": 12,
+            "prevalence": 0.5833333333333334,
+            "recall_in_top_risk_20pct": 0.14285714285714285,
+            "roc_auc": 0.4714285714285714
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 18,
+            "average_precision": 0.21339715464780817,
+            "brier_score": 0.22055239510469934,
+            "pairs": 114,
+            "prevalence": 0.15789473684210525,
+            "recall_in_top_risk_20pct": 0.3333333333333333,
+            "roc_auc": 0.4982638888888889
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 0.3833333333333333,
+            "brier_score": 0.49999999999999933,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.0,
+            "roc_auc": 0.5
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 4,
+            "average_precision": 0.07630591117433223,
+            "brier_score": 0.0708260272577736,
+            "pairs": 72,
+            "prevalence": 0.05555555555555555,
+            "recall_in_top_risk_20pct": 0.25,
+            "roc_auc": 0.5441176470588235
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.4117324561403508,
+            "brier_score": 0.09319734025726875,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.75,
+            "roc_auc": 0.801829268292683
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.24534707327526623,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.006144602283727125,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 459,
+          "average_precision": 0.2972075737977209,
+          "brier_score": 0.1663954404481515,
+          "pairs": 2136,
+          "prevalence": 0.2148876404494382,
+          "recall_in_top_risk_20pct": 0.27450980392156865,
+          "roc_auc": 0.6390093836514266
+        },
+        "source_macro": {
+          "average_precision": 0.4056298635381797,
+          "average_precision_sources": 10,
+          "brier_score": 0.19714777760606556,
+          "brier_score_sources": 13,
+          "prevalence": 0.2260152917453569,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.31138465553126027,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.6114377684132187,
+          "roc_auc_sources": 10
+        }
+      },
+      "fold_alphas": {
+        "baghishov_2026_application_specific_mlip": 100.0,
+        "bi_elena_2026_budget_crossover": 100.0,
+        "dale_2026_active_learning_failure": 100.0,
+        "espinosa_castaneda_2026_diversity": 100.0,
+        "haenseroth_dressler_2026_data_efficiency": 100.0,
+        "kim_2026_density_diversity": 100.0,
+        "kulichenko_2023_udd": 100.0,
+        "li_2023_redundancy": 100.0,
+        "qi_2024_direct_sampling": 100.0,
+        "varga_umbrich_2026_force_aware_ntk": 100.0,
+        "wang_2026_dataset_aware_entropy": 100.0,
+        "wong_yang_2026_umlip_bias": 100.0,
+        "zhang_2023_etal": 100.0
+      },
+      "margin": 0.2,
+      "prevalence_baseline": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.04777346938775511,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 34,
+            "average_precision": 0.3625795701365814,
+            "brier_score": 0.24999999999999992,
+            "pairs": 96,
+            "prevalence": 0.3541666666666667,
+            "recall_in_top_risk_20pct": 0.20588235294117646,
+            "roc_auc": 0.5
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 39,
+            "average_precision": 0.3041829875444746,
+            "brier_score": 0.20798256148824107,
+            "pairs": 138,
+            "prevalence": 0.2826086956521739,
+            "recall_in_top_risk_20pct": 0.23076923076923078,
+            "roc_auc": 0.5
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 218,
+            "average_precision": 0.17138404601704507,
+            "brier_score": 0.1535207244666704,
+            "pairs": 1248,
+            "prevalence": 0.17467948717948717,
+            "recall_in_top_risk_20pct": 0.17889908256880735,
+            "roc_auc": 0.5
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3588811993260974,
+            "brier_score": 0.2642492063492064,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.14634146341463414,
+            "roc_auc": 0.5
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 9,
+            "average_precision": 0.3247919355123106,
+            "brier_score": 0.26059691373966937,
+            "pairs": 24,
+            "prevalence": 0.375,
+            "recall_in_top_risk_20pct": 0.1111111111111111,
+            "roc_auc": 0.5
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 7,
+            "average_precision": 0.8242424242424242,
+            "brier_score": 0.3803460407645029,
+            "pairs": 12,
+            "prevalence": 0.5833333333333334,
+            "recall_in_top_risk_20pct": 0.2857142857142857,
+            "roc_auc": 0.5
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 18,
+            "average_precision": 0.130491191676247,
+            "brier_score": 0.13658876982275095,
+            "pairs": 114,
+            "prevalence": 0.15789473684210525,
+            "recall_in_top_risk_20pct": 0.05555555555555555,
+            "roc_auc": 0.5
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 0.3833333333333333,
+            "brier_score": 0.33174766911327125,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.0,
+            "roc_auc": 0.5
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 4,
+            "average_precision": 0.2172058823529412,
+            "brier_score": 0.07965790755263107,
+            "pairs": 72,
+            "prevalence": 0.05555555555555555,
+            "recall_in_top_risk_20pct": 0.5,
+            "roc_auc": 0.5
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.09534632034632035,
+            "brier_score": 0.09755400746963275,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.0,
+            "roc_auc": 0.5
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.046393642506839104,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.04635013147288349,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 459,
+          "average_precision": 0.17963092217694862,
+          "brier_score": 0.1749652567709843,
+          "pairs": 2136,
+          "prevalence": 0.2148876404494382,
+          "recall_in_top_risk_20pct": 0.13507625272331156,
+          "roc_auc": 0.3997899298856891
+        },
+        "source_macro": {
+          "average_precision": 0.31724388904877754,
+          "average_precision_sources": 10,
+          "brier_score": 0.17713546493338875,
+          "brier_score_sources": 13,
+          "prevalence": 0.2260152917453569,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.17142730820748012,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.5,
+          "roc_auc_sources": 10
+        }
+      },
+      "random_fingerprint_control": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.2790114349298854,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 34,
+            "average_precision": 0.469453432062841,
+            "brier_score": 0.2850090168863869,
+            "pairs": 96,
+            "prevalence": 0.3541666666666667,
+            "recall_in_top_risk_20pct": 0.23529411764705882,
+            "roc_auc": 0.5863377609108159
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 39,
+            "average_precision": 0.31113290723405856,
+            "brier_score": 0.37160384024812915,
+            "pairs": 138,
+            "prevalence": 0.2826086956521739,
+            "recall_in_top_risk_20pct": 0.28205128205128205,
+            "roc_auc": 0.4843304843304843
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 218,
+            "average_precision": 0.17895567014614402,
+            "brier_score": 0.32431839727729334,
+            "pairs": 1248,
+            "prevalence": 0.17467948717948717,
+            "recall_in_top_risk_20pct": 0.21100917431192662,
+            "roc_auc": 0.5115035183040884
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3890457370397451,
+            "brier_score": 0.32356657781927795,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.21138211382113822,
+            "roc_auc": 0.5354402839803046
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 9,
+            "average_precision": 0.3557144619322121,
+            "brier_score": 0.36467082889662095,
+            "pairs": 24,
+            "prevalence": 0.375,
+            "recall_in_top_risk_20pct": 0.1111111111111111,
+            "roc_auc": 0.4444444444444444
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 7,
+            "average_precision": 0.8523809523809522,
+            "brier_score": 0.18992286632568092,
+            "pairs": 12,
+            "prevalence": 0.5833333333333334,
+            "recall_in_top_risk_20pct": 0.42857142857142855,
+            "roc_auc": 0.7428571428571429
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 18,
+            "average_precision": 0.23741967536036443,
+            "brier_score": 0.3042438383178133,
+            "pairs": 114,
+            "prevalence": 0.15789473684210525,
+            "recall_in_top_risk_20pct": 0.2777777777777778,
+            "roc_auc": 0.5601851851851852
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 0.6333333333333333,
+            "brier_score": 0.42415152978215453,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.3333333333333333,
+            "roc_auc": 0.3333333333333333
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 4,
+            "average_precision": 0.12068160597572362,
+            "brier_score": 0.2855314785300086,
+            "pairs": 72,
+            "prevalence": 0.05555555555555555,
+            "recall_in_top_risk_20pct": 0.25,
+            "roc_auc": 0.7316176470588235
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.4037698412698413,
+            "brier_score": 0.31790357339039943,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.5,
+            "roc_auc": 0.7560975609756098
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.4630357861060418,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.430143121279598,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 459,
+          "average_precision": 0.2319569878576434,
+          "brier_score": 0.32271249854441864,
+          "pairs": 2136,
+          "prevalence": 0.2148876404494382,
+          "recall_in_top_risk_20pct": 0.23311546840958605,
+          "roc_auc": 0.5316566698235645
+        },
+        "source_macro": {
+          "average_precision": 0.39518876167352157,
+          "average_precision_sources": 10,
+          "brier_score": 0.33562402229148386,
+          "brier_score_sources": 13,
+          "prevalence": 0.2260152917453569,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.28405303386250563,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.5686147361380232,
+          "roc_auc_sources": 10
+        }
+      },
+      "semantic_calibration_fold_alphas": {
+        "baghishov_2026_application_specific_mlip": 0.01,
+        "bi_elena_2026_budget_crossover": 0.01,
+        "dale_2026_active_learning_failure": 0.01,
+        "espinosa_castaneda_2026_diversity": 0.01,
+        "haenseroth_dressler_2026_data_efficiency": 0.01,
+        "kim_2026_density_diversity": 0.01,
+        "kulichenko_2023_udd": 0.01,
+        "li_2023_redundancy": 0.01,
+        "qi_2024_direct_sampling": 0.01,
+        "varga_umbrich_2026_force_aware_ntk": 0.01,
+        "wang_2026_dataset_aware_entropy": 0.01,
+        "wong_yang_2026_umlip_bias": 0.01,
+        "zhang_2023_etal": 0.01
+      },
+      "semantic_relative_score": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.019679972608980828,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 34,
+            "average_precision": 0.7051324917405626,
+            "brier_score": 0.20536441356067928,
+            "pairs": 96,
+            "prevalence": 0.3541666666666667,
+            "recall_in_top_risk_20pct": 0.4117647058823529,
+            "roc_auc": 0.8984819734345351
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 39,
+            "average_precision": 0.3670646668253922,
+            "brier_score": 0.2238159359855138,
+            "pairs": 138,
+            "prevalence": 0.2826086956521739,
+            "recall_in_top_risk_20pct": 0.2564102564102564,
+            "roc_auc": 0.5357420357420357
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 218,
+            "average_precision": 0.5519777972397399,
+            "brier_score": 0.11820276778318181,
+            "pairs": 1248,
+            "prevalence": 0.17467948717948717,
+            "recall_in_top_risk_20pct": 0.6009174311926605,
+            "roc_auc": 0.8763071167720673
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3588811993260974,
+            "brier_score": 0.2706133949233693,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.14634146341463414,
+            "roc_auc": 0.5
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 9,
+            "average_precision": 0.5535914702581369,
+            "brier_score": 0.22920585914753963,
+            "pairs": 24,
+            "prevalence": 0.375,
+            "recall_in_top_risk_20pct": 0.2222222222222222,
+            "roc_auc": 0.6703703703703704
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 7,
+            "average_precision": 0.5856369820655535,
+            "brier_score": 0.3470928557240381,
+            "pairs": 12,
+            "prevalence": 0.5833333333333334,
+            "recall_in_top_risk_20pct": 0.14285714285714285,
+            "roc_auc": 0.4714285714285714
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 18,
+            "average_precision": 0.21339715464780817,
+            "brier_score": 0.14129367689565386,
+            "pairs": 114,
+            "prevalence": 0.15789473684210525,
+            "recall_in_top_risk_20pct": 0.3333333333333333,
+            "roc_auc": 0.4982638888888889
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 1.0,
+            "brier_score": 0.027131640014536048,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.6666666666666666,
+            "roc_auc": 1.0
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 4,
+            "average_precision": 0.160485347985348,
+            "brier_score": 0.09270883848558184,
+            "pairs": 72,
+            "prevalence": 0.05555555555555555,
+            "recall_in_top_risk_20pct": 0.75,
+            "roc_auc": 0.8088235294117647
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.4117324561403508,
+            "brier_score": 0.16254971820045613,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.75,
+            "roc_auc": 0.801829268292683
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.2371623005397255,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.001902497044639524,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 459,
+          "average_precision": 0.38019346326990905,
+          "brier_score": 0.15490296621942565,
+          "pairs": 2136,
+          "prevalence": 0.2148876404494382,
+          "recall_in_top_risk_20pct": 0.4335511982570806,
+          "roc_auc": 0.6809603984706584
+        },
+        "source_macro": {
+          "average_precision": 0.4907899566228989,
+          "average_precision_sources": 10,
+          "brier_score": 0.15974799007029966,
+          "brier_score_sources": 13,
+          "prevalence": 0.2260152917453569,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.42805132219792696,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.7061246754340916,
+          "roc_auc_sources": 10
+        }
+      },
+      "shuffled_pairing_control": {
+        "per_source": {
+          "baghishov_2026_application_specific_mlip": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.019679972608980828,
+            "pairs": 36,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "bi_elena_2026_budget_crossover": {
+            "adverse_pairs": 34,
+            "average_precision": 0.5239196588542567,
+            "brier_score": 0.24868610384621212,
+            "pairs": 96,
+            "prevalence": 0.3541666666666667,
+            "recall_in_top_risk_20pct": 0.35294117647058826,
+            "roc_auc": 0.6024667931688804
+          },
+          "dale_2026_active_learning_failure": {
+            "adverse_pairs": 39,
+            "average_precision": 0.3056894820215328,
+            "brier_score": 0.23997351639618802,
+            "pairs": 138,
+            "prevalence": 0.2826086956521739,
+            "recall_in_top_risk_20pct": 0.23076923076923078,
+            "roc_auc": 0.47617197617197615
+          },
+          "espinosa_castaneda_2026_diversity": {
+            "adverse_pairs": 218,
+            "average_precision": 0.18419124710728557,
+            "brier_score": 0.15523026378718777,
+            "pairs": 1248,
+            "prevalence": 0.17467948717948717,
+            "recall_in_top_risk_20pct": 0.22477064220183487,
+            "roc_auc": 0.5414892669457557
+          },
+          "haenseroth_dressler_2026_data_efficiency": {
+            "adverse_pairs": 123,
+            "average_precision": 0.3588811993260974,
+            "brier_score": 0.2706133949233693,
+            "pairs": 336,
+            "prevalence": 0.36607142857142855,
+            "recall_in_top_risk_20pct": 0.14634146341463414,
+            "roc_auc": 0.5
+          },
+          "kim_2026_density_diversity": {
+            "adverse_pairs": 9,
+            "average_precision": 0.4338103254769921,
+            "brier_score": 0.2724205936458282,
+            "pairs": 24,
+            "prevalence": 0.375,
+            "recall_in_top_risk_20pct": 0.2222222222222222,
+            "roc_auc": 0.5259259259259259
+          },
+          "kulichenko_2023_udd": {
+            "adverse_pairs": 7,
+            "average_precision": 0.7834776334776334,
+            "brier_score": 0.35585201567417585,
+            "pairs": 12,
+            "prevalence": 0.5833333333333334,
+            "recall_in_top_risk_20pct": 0.42857142857142855,
+            "roc_auc": 0.5714285714285714
+          },
+          "li_2023_redundancy": {
+            "adverse_pairs": 18,
+            "average_precision": 0.19908142118766872,
+            "brier_score": 0.14086840589454933,
+            "pairs": 114,
+            "prevalence": 0.15789473684210525,
+            "recall_in_top_risk_20pct": 0.16666666666666666,
+            "roc_auc": 0.5373263888888888
+          },
+          "qi_2024_direct_sampling": {
+            "adverse_pairs": 3,
+            "average_precision": 0.5555555555555555,
+            "brier_score": 0.25676841070845646,
+            "pairs": 6,
+            "prevalence": 0.5,
+            "recall_in_top_risk_20pct": 0.3333333333333333,
+            "roc_auc": 0.6666666666666666
+          },
+          "varga_umbrich_2026_force_aware_ntk": {
+            "adverse_pairs": 4,
+            "average_precision": 0.31180555555555556,
+            "brier_score": 0.10238470861661533,
+            "pairs": 72,
+            "prevalence": 0.05555555555555555,
+            "recall_in_top_risk_20pct": 0.25,
+            "roc_auc": 0.6323529411764706
+          },
+          "wang_2026_dataset_aware_entropy": {
+            "adverse_pairs": 4,
+            "average_precision": 0.11931333247122722,
+            "brier_score": 0.22537215633713206,
+            "pairs": 45,
+            "prevalence": 0.08888888888888889,
+            "recall_in_top_risk_20pct": 0.25,
+            "roc_auc": 0.5274390243902439
+          },
+          "wong_yang_2026_umlip_bias": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.2371623005397255,
+            "pairs": 5,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          },
+          "zhang_2023_etal": {
+            "adverse_pairs": 0,
+            "average_precision": null,
+            "brier_score": 0.001902497044639524,
+            "pairs": 4,
+            "prevalence": 0.0,
+            "recall_in_top_risk_20pct": null,
+            "roc_auc": null
+          }
+        },
+        "pooled": {
+          "adverse_pairs": 459,
+          "average_precision": 0.23420125708615896,
+          "brier_score": 0.18233471669698495,
+          "pairs": 2136,
+          "prevalence": 0.2148876404494382,
+          "recall_in_top_risk_20pct": 0.22004357298474944,
+          "roc_auc": 0.512212517684474
+        },
+        "source_macro": {
+          "average_precision": 0.37757254110338045,
+          "average_precision_sources": 10,
+          "brier_score": 0.19437802615562003,
+          "brier_score_sources": 13,
+          "prevalence": 0.2260152917453569,
+          "prevalence_sources": 13,
+          "recall_in_top_risk_20pct": 0.26056161636499386,
+          "recall_in_top_risk_20pct_sources": 10,
+          "roc_auc": 0.5581267554763378,
+          "roc_auc_sources": 10
+        }
+      }
+    }
+  ],
+  "primary": {
+    "fitted_logistic_ridge": {
+      "per_source": {
+        "baghishov_2026_application_specific_mlip": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.053362498439985445,
+          "pairs": 36,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        },
+        "bi_elena_2026_budget_crossover": {
+          "adverse_pairs": 38,
+          "average_precision": 0.741807498794406,
+          "brier_score": 0.23124542872869505,
+          "pairs": 96,
+          "prevalence": 0.3958333333333333,
+          "recall_in_top_risk_20pct": 0.47368421052631576,
+          "roc_auc": 0.7722323049001815
+        },
+        "dale_2026_active_learning_failure": {
+          "adverse_pairs": 48,
+          "average_precision": 0.3859508508457535,
+          "brier_score": 0.23577231926235603,
+          "pairs": 138,
+          "prevalence": 0.34782608695652173,
+          "recall_in_top_risk_20pct": 0.20833333333333334,
+          "roc_auc": 0.48935185185185187
+        },
+        "espinosa_castaneda_2026_diversity": {
+          "adverse_pairs": 276,
+          "average_precision": 0.5916101290856135,
+          "brier_score": 0.1549186863324328,
+          "pairs": 1248,
+          "prevalence": 0.22115384615384615,
+          "recall_in_top_risk_20pct": 0.5217391304347826,
+          "roc_auc": 0.8603059581320451
+        },
+        "haenseroth_dressler_2026_data_efficiency": {
+          "adverse_pairs": 123,
+          "average_precision": 0.3588811993260974,
+          "brier_score": 0.25764114843421737,
+          "pairs": 336,
+          "prevalence": 0.36607142857142855,
+          "recall_in_top_risk_20pct": 0.14634146341463414,
+          "roc_auc": 0.5
+        },
+        "kim_2026_density_diversity": {
+          "adverse_pairs": 11,
+          "average_precision": 0.7305785123966941,
+          "brier_score": 0.2112658974031395,
+          "pairs": 24,
+          "prevalence": 0.4583333333333333,
+          "recall_in_top_risk_20pct": 0.2727272727272727,
+          "roc_auc": 0.7622377622377622
+        },
+        "kulichenko_2023_udd": {
+          "adverse_pairs": 7,
+          "average_precision": 0.5376211090496804,
+          "brier_score": 0.3330303812634941,
+          "pairs": 12,
+          "prevalence": 0.5833333333333334,
+          "recall_in_top_risk_20pct": 0.14285714285714285,
+          "roc_auc": 0.35714285714285715
+        },
+        "li_2023_redundancy": {
+          "adverse_pairs": 24,
+          "average_precision": 0.23086746109174983,
+          "brier_score": 0.25851718538087687,
+          "pairs": 114,
+          "prevalence": 0.21052631578947367,
+          "recall_in_top_risk_20pct": 0.25,
+          "roc_auc": 0.4449074074074074
+        },
+        "qi_2024_direct_sampling": {
+          "adverse_pairs": 3,
+          "average_precision": 0.3833333333333333,
+          "brier_score": 0.49999999999999933,
+          "pairs": 6,
+          "prevalence": 0.5,
+          "recall_in_top_risk_20pct": 0.0,
+          "roc_auc": 0.5
+        },
+        "varga_umbrich_2026_force_aware_ntk": {
+          "adverse_pairs": 4,
+          "average_precision": 0.07630591117433223,
+          "brier_score": 0.08638853753858927,
+          "pairs": 72,
+          "prevalence": 0.05555555555555555,
+          "recall_in_top_risk_20pct": 0.25,
+          "roc_auc": 0.5441176470588235
+        },
+        "wang_2026_dataset_aware_entropy": {
+          "adverse_pairs": 4,
+          "average_precision": 0.4117324561403508,
+          "brier_score": 0.10377029312895494,
+          "pairs": 45,
+          "prevalence": 0.08888888888888889,
+          "recall_in_top_risk_20pct": 0.75,
+          "roc_auc": 0.801829268292683
+        },
+        "wong_yang_2026_umlip_bias": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.2318855685681322,
+          "pairs": 5,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        },
+        "zhang_2023_etal": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.008064566520665133,
+          "pairs": 4,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        }
+      },
+      "pooled": {
+        "adverse_pairs": 538,
+        "average_precision": 0.37265992070821624,
+        "brier_score": 0.18266955375727267,
+        "pairs": 2136,
+        "prevalence": 0.25187265917602997,
+        "recall_in_top_risk_20pct": 0.31226765799256506,
+        "roc_auc": 0.7156343198514872
+      },
+      "source_macro": {
+        "average_precision": 0.4448688461238011,
+        "average_precision_sources": 10,
+        "brier_score": 0.20506634700011828,
+        "brier_score_sources": 13,
+        "prevalence": 0.24827093245505497,
+        "prevalence_sources": 13,
+        "recall_in_top_risk_20pct": 0.3015682553293481,
+        "recall_in_top_risk_20pct_sources": 10,
+        "roc_auc": 0.6032125057023612,
+        "roc_auc_sources": 10
+      }
+    },
+    "fold_alphas": {
+      "baghishov_2026_application_specific_mlip": 100.0,
+      "bi_elena_2026_budget_crossover": 100.0,
+      "dale_2026_active_learning_failure": 100.0,
+      "espinosa_castaneda_2026_diversity": 100.0,
+      "haenseroth_dressler_2026_data_efficiency": 100.0,
+      "kim_2026_density_diversity": 100.0,
+      "kulichenko_2023_udd": 100.0,
+      "li_2023_redundancy": 100.0,
+      "qi_2024_direct_sampling": 100.0,
+      "varga_umbrich_2026_force_aware_ntk": 100.0,
+      "wang_2026_dataset_aware_entropy": 100.0,
+      "wong_yang_2026_umlip_bias": 100.0,
+      "zhang_2023_etal": 100.0
+    },
+    "margin": 0.1,
+    "prevalence_baseline": {
+      "per_source": {
+        "baghishov_2026_application_specific_mlip": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.06563356009070292,
+          "pairs": 36,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        },
+        "bi_elena_2026_budget_crossover": {
+          "adverse_pairs": 38,
+          "average_precision": 0.4398191272423106,
+          "brier_score": 0.2618704344482891,
+          "pairs": 96,
+          "prevalence": 0.3958333333333333,
+          "recall_in_top_risk_20pct": 0.2631578947368421,
+          "roc_auc": 0.5
+        },
+        "dale_2026_active_learning_failure": {
+          "adverse_pairs": 48,
+          "average_precision": 0.37148431474680293,
+          "brier_score": 0.23736592927522987,
+          "pairs": 138,
+          "prevalence": 0.34782608695652173,
+          "recall_in_top_risk_20pct": 0.25,
+          "roc_auc": 0.5
+        },
+        "espinosa_castaneda_2026_diversity": {
+          "adverse_pairs": 276,
+          "average_precision": 0.20352120160710946,
+          "brier_score": 0.17770473175878584,
+          "pairs": 1248,
+          "prevalence": 0.22115384615384615,
+          "recall_in_top_risk_20pct": 0.17028985507246377,
+          "roc_auc": 0.5
+        },
+        "haenseroth_dressler_2026_data_efficiency": {
+          "adverse_pairs": 123,
+          "average_precision": 0.3588811993260974,
+          "brier_score": 0.2504276895943562,
+          "pairs": 336,
+          "prevalence": 0.36607142857142855,
+          "recall_in_top_risk_20pct": 0.14634146341463414,
+          "roc_auc": 0.5
+        },
+        "kim_2026_density_diversity": {
+          "adverse_pairs": 11,
+          "average_precision": 0.4155293300695533,
+          "brier_score": 0.29186417620810384,
+          "pairs": 24,
+          "prevalence": 0.4583333333333333,
+          "recall_in_top_risk_20pct": 0.18181818181818182,
+          "roc_auc": 0.5
+        },
+        "kulichenko_2023_udd": {
+          "adverse_pairs": 7,
+          "average_precision": 0.8242424242424242,
+          "brier_score": 0.3541666666666667,
+          "pairs": 12,
+          "prevalence": 0.5833333333333334,
+          "recall_in_top_risk_20pct": 0.2857142857142857,
+          "roc_auc": 0.5
+        },
+        "li_2023_redundancy": {
+          "adverse_pairs": 24,
+          "average_precision": 0.17066607138780962,
+          "brier_score": 0.16811270516483806,
+          "pairs": 114,
+          "prevalence": 0.21052631578947367,
+          "recall_in_top_risk_20pct": 0.041666666666666664,
+          "roc_auc": 0.5
+        },
+        "qi_2024_direct_sampling": {
+          "adverse_pairs": 3,
+          "average_precision": 0.3833333333333333,
+          "brier_score": 0.3119145231325355,
+          "pairs": 6,
+          "prevalence": 0.5,
+          "recall_in_top_risk_20pct": 0.0,
+          "roc_auc": 0.5
+        },
+        "varga_umbrich_2026_force_aware_ntk": {
+          "adverse_pairs": 4,
+          "average_precision": 0.2172058823529412,
+          "brier_score": 0.093745305270116,
+          "pairs": 72,
+          "prevalence": 0.05555555555555555,
+          "recall_in_top_risk_20pct": 0.5,
+          "roc_auc": 0.5
+        },
+        "wang_2026_dataset_aware_entropy": {
+          "adverse_pairs": 4,
+          "average_precision": 0.09534632034632035,
+          "brier_score": 0.10870701128312657,
+          "pairs": 45,
+          "prevalence": 0.08888888888888889,
+          "recall_in_top_risk_20pct": 0.0,
+          "roc_auc": 0.5
+        },
+        "wong_yang_2026_umlip_bias": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.06373788553191573,
+          "pairs": 5,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        },
+        "zhang_2023_etal": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.0636781079168852,
+          "pairs": 4,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        }
+      },
+      "pooled": {
+        "adverse_pairs": 538,
+        "average_precision": 0.21508799713642818,
+        "brier_score": 0.19226780531462948,
+        "pairs": 2136,
+        "prevalence": 0.25187265917602997,
+        "recall_in_top_risk_20pct": 0.13568773234200743,
+        "roc_auc": 0.4269195695362698
+      },
+      "source_macro": {
+        "average_precision": 0.34800292046547027,
+        "average_precision_sources": 10,
+        "brier_score": 0.18837913279550395,
+        "brier_score_sources": 13,
+        "prevalence": 0.24827093245505497,
+        "prevalence_sources": 13,
+        "recall_in_top_risk_20pct": 0.18389883474230742,
+        "recall_in_top_risk_20pct_sources": 10,
+        "roc_auc": 0.5,
+        "roc_auc_sources": 10
+      }
+    },
+    "random_fingerprint_control": {
+      "per_source": {
+        "baghishov_2026_application_specific_mlip": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.2790114349298854,
+          "pairs": 36,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        },
+        "bi_elena_2026_budget_crossover": {
+          "adverse_pairs": 38,
+          "average_precision": 0.48841652758941984,
+          "brier_score": 0.2934885085313697,
+          "pairs": 96,
+          "prevalence": 0.3958333333333333,
+          "recall_in_top_risk_20pct": 0.21052631578947367,
+          "roc_auc": 0.5757713248638838
+        },
+        "dale_2026_active_learning_failure": {
+          "adverse_pairs": 48,
+          "average_precision": 0.41759083217540144,
+          "brier_score": 0.3594417215033891,
+          "pairs": 138,
+          "prevalence": 0.34782608695652173,
+          "recall_in_top_risk_20pct": 0.2916666666666667,
+          "roc_auc": 0.49930555555555556
+        },
+        "espinosa_castaneda_2026_diversity": {
+          "adverse_pairs": 276,
+          "average_precision": 0.22895549483899,
+          "brier_score": 0.3236354937756524,
+          "pairs": 1248,
+          "prevalence": 0.22115384615384615,
+          "recall_in_top_risk_20pct": 0.213768115942029,
+          "roc_auc": 0.5141759110156856
+        },
+        "haenseroth_dressler_2026_data_efficiency": {
+          "adverse_pairs": 123,
+          "average_precision": 0.3890457370397451,
+          "brier_score": 0.32356657781927795,
+          "pairs": 336,
+          "prevalence": 0.36607142857142855,
+          "recall_in_top_risk_20pct": 0.21138211382113822,
+          "roc_auc": 0.5354402839803046
+        },
+        "kim_2026_density_diversity": {
+          "adverse_pairs": 11,
+          "average_precision": 0.4095338805946192,
+          "brier_score": 0.381356424604031,
+          "pairs": 24,
+          "prevalence": 0.4583333333333333,
+          "recall_in_top_risk_20pct": 0.09090909090909091,
+          "roc_auc": 0.40559440559440557
+        },
+        "kulichenko_2023_udd": {
+          "adverse_pairs": 7,
+          "average_precision": 0.8523809523809522,
+          "brier_score": 0.18992286632568092,
+          "pairs": 12,
+          "prevalence": 0.5833333333333334,
+          "recall_in_top_risk_20pct": 0.42857142857142855,
+          "roc_auc": 0.7428571428571429
+        },
+        "li_2023_redundancy": {
+          "adverse_pairs": 24,
+          "average_precision": 0.33890323953536267,
+          "brier_score": 0.30219915297945293,
+          "pairs": 114,
+          "prevalence": 0.21052631578947367,
+          "recall_in_top_risk_20pct": 0.2916666666666667,
+          "roc_auc": 0.5550925925925926
+        },
+        "qi_2024_direct_sampling": {
+          "adverse_pairs": 3,
+          "average_precision": 0.6333333333333333,
+          "brier_score": 0.42415152978215453,
+          "pairs": 6,
+          "prevalence": 0.5,
+          "recall_in_top_risk_20pct": 0.3333333333333333,
+          "roc_auc": 0.3333333333333333
+        },
+        "varga_umbrich_2026_force_aware_ntk": {
+          "adverse_pairs": 4,
+          "average_precision": 0.12068160597572362,
+          "brier_score": 0.2855314785300086,
+          "pairs": 72,
+          "prevalence": 0.05555555555555555,
+          "recall_in_top_risk_20pct": 0.25,
+          "roc_auc": 0.7316176470588235
+        },
+        "wang_2026_dataset_aware_entropy": {
+          "adverse_pairs": 4,
+          "average_precision": 0.4037698412698413,
+          "brier_score": 0.31790357339039943,
+          "pairs": 45,
+          "prevalence": 0.08888888888888889,
+          "recall_in_top_risk_20pct": 0.5,
+          "roc_auc": 0.7560975609756098
+        },
+        "wong_yang_2026_umlip_bias": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.4630357861060418,
+          "pairs": 5,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        },
+        "zhang_2023_etal": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.430143121279598,
+          "pairs": 4,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        }
+      },
+      "pooled": {
+        "adverse_pairs": 538,
+        "average_precision": 0.27368898319252294,
+        "brier_score": 0.3219871967698405,
+        "pairs": 2136,
+        "prevalence": 0.25187265917602997,
+        "recall_in_top_risk_20pct": 0.22676579925650558,
+        "roc_auc": 0.5302853008639982
+      },
+      "source_macro": {
+        "average_precision": 0.4282611444733389,
+        "average_precision_sources": 10,
+        "brier_score": 0.33641443611976474,
+        "brier_score_sources": 13,
+        "prevalence": 0.24827093245505497,
+        "prevalence_sources": 13,
+        "recall_in_top_risk_20pct": 0.28218237316998274,
+        "recall_in_top_risk_20pct_sources": 10,
+        "roc_auc": 0.5649285757827337,
+        "roc_auc_sources": 10
+      }
+    },
+    "semantic_calibration_fold_alphas": {
+      "baghishov_2026_application_specific_mlip": 100.0,
+      "bi_elena_2026_budget_crossover": 100.0,
+      "dale_2026_active_learning_failure": 100.0,
+      "espinosa_castaneda_2026_diversity": 10.0,
+      "haenseroth_dressler_2026_data_efficiency": 100.0,
+      "kim_2026_density_diversity": 100.0,
+      "kulichenko_2023_udd": 100.0,
+      "li_2023_redundancy": 100.0,
+      "qi_2024_direct_sampling": 100.0,
+      "varga_umbrich_2026_force_aware_ntk": 100.0,
+      "wang_2026_dataset_aware_entropy": 100.0,
+      "wong_yang_2026_umlip_bias": 100.0,
+      "zhang_2023_etal": 100.0
+    },
+    "semantic_relative_score": {
+      "per_source": {
+        "baghishov_2026_application_specific_mlip": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.03508533183763629,
+          "pairs": 36,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        },
+        "bi_elena_2026_budget_crossover": {
+          "adverse_pairs": 38,
+          "average_precision": 0.8981506240956443,
+          "brier_score": 0.209669082099211,
+          "pairs": 96,
+          "prevalence": 0.3958333333333333,
+          "recall_in_top_risk_20pct": 0.47368421052631576,
+          "roc_auc": 0.9464609800362976
+        },
+        "dale_2026_active_learning_failure": {
+          "adverse_pairs": 48,
+          "average_precision": 0.3859508508457535,
+          "brier_score": 0.24617826120544994,
+          "pairs": 138,
+          "prevalence": 0.34782608695652173,
+          "recall_in_top_risk_20pct": 0.20833333333333334,
+          "roc_auc": 0.48935185185185187
+        },
+        "espinosa_castaneda_2026_diversity": {
+          "adverse_pairs": 276,
+          "average_precision": 0.5916101290856135,
+          "brier_score": 0.1393254660260157,
+          "pairs": 1248,
+          "prevalence": 0.22115384615384615,
+          "recall_in_top_risk_20pct": 0.5217391304347826,
+          "roc_auc": 0.8603059581320451
+        },
+        "haenseroth_dressler_2026_data_efficiency": {
+          "adverse_pairs": 123,
+          "average_precision": 0.3588811993260974,
+          "brier_score": 0.24813938109058353,
+          "pairs": 336,
+          "prevalence": 0.36607142857142855,
+          "recall_in_top_risk_20pct": 0.14634146341463414,
+          "roc_auc": 0.5
+        },
+        "kim_2026_density_diversity": {
+          "adverse_pairs": 11,
+          "average_precision": 0.7305785123966941,
+          "brier_score": 0.21069554608607452,
+          "pairs": 24,
+          "prevalence": 0.4583333333333333,
+          "recall_in_top_risk_20pct": 0.2727272727272727,
+          "roc_auc": 0.7587412587412588
+        },
+        "kulichenko_2023_udd": {
+          "adverse_pairs": 7,
+          "average_precision": 0.5856369820655535,
+          "brier_score": 0.31834261742526315,
+          "pairs": 12,
+          "prevalence": 0.5833333333333334,
+          "recall_in_top_risk_20pct": 0.14285714285714285,
+          "roc_auc": 0.4714285714285714
+        },
+        "li_2023_redundancy": {
+          "adverse_pairs": 24,
+          "average_precision": 0.23086746109174983,
+          "brier_score": 0.17526869440648493,
+          "pairs": 114,
+          "prevalence": 0.21052631578947367,
+          "recall_in_top_risk_20pct": 0.25,
+          "roc_auc": 0.4449074074074074
+        },
+        "qi_2024_direct_sampling": {
+          "adverse_pairs": 3,
+          "average_precision": 1.0,
+          "brier_score": 0.05379909331794589,
+          "pairs": 6,
+          "prevalence": 0.5,
+          "recall_in_top_risk_20pct": 0.6666666666666666,
+          "roc_auc": 1.0
+        },
+        "varga_umbrich_2026_force_aware_ntk": {
+          "adverse_pairs": 4,
+          "average_precision": 0.160485347985348,
+          "brier_score": 0.08479270446699706,
+          "pairs": 72,
+          "prevalence": 0.05555555555555555,
+          "recall_in_top_risk_20pct": 0.75,
+          "roc_auc": 0.8088235294117647
+        },
+        "wang_2026_dataset_aware_entropy": {
+          "adverse_pairs": 4,
+          "average_precision": 0.4117324561403508,
+          "brier_score": 0.16072351647399094,
+          "pairs": 45,
+          "prevalence": 0.08888888888888889,
+          "recall_in_top_risk_20pct": 0.75,
+          "roc_auc": 0.801829268292683
+        },
+        "wong_yang_2026_umlip_bias": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.21214651465729073,
+          "pairs": 5,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        },
+        "zhang_2023_etal": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.008981170907499923,
+          "pairs": 4,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        }
+      },
+      "pooled": {
+        "adverse_pairs": 538,
+        "average_precision": 0.4495575977689256,
+        "brier_score": 0.16677501778006587,
+        "pairs": 2136,
+        "prevalence": 0.25187265917602997,
+        "recall_in_top_risk_20pct": 0.4144981412639405,
+        "roc_auc": 0.7434374287562054
+      },
+      "source_macro": {
+        "average_precision": 0.5353893563032804,
+        "average_precision_sources": 10,
+        "brier_score": 0.16178056769234184,
+        "brier_score_sources": 13,
+        "prevalence": 0.24827093245505497,
+        "prevalence_sources": 13,
+        "recall_in_top_risk_20pct": 0.4182349219960148,
+        "recall_in_top_risk_20pct_sources": 10,
+        "roc_auc": 0.708184882530188,
+        "roc_auc_sources": 10
+      }
+    },
+    "shuffled_pairing_control": {
+      "per_source": {
+        "baghishov_2026_application_specific_mlip": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.03508533183763629,
+          "pairs": 36,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        },
+        "bi_elena_2026_budget_crossover": {
+          "adverse_pairs": 38,
+          "average_precision": 0.5468431407161235,
+          "brier_score": 0.2622736865326092,
+          "pairs": 96,
+          "prevalence": 0.3958333333333333,
+          "recall_in_top_risk_20pct": 0.3157894736842105,
+          "roc_auc": 0.5871143375680581
+        },
+        "dale_2026_active_learning_failure": {
+          "adverse_pairs": 48,
+          "average_precision": 0.3733494361985932,
+          "brier_score": 0.2468298147084189,
+          "pairs": 138,
+          "prevalence": 0.34782608695652173,
+          "recall_in_top_risk_20pct": 0.20833333333333334,
+          "roc_auc": 0.48935185185185187
+        },
+        "espinosa_castaneda_2026_diversity": {
+          "adverse_pairs": 276,
+          "average_precision": 0.22858787328623395,
+          "brier_score": 0.18011043748480482,
+          "pairs": 1248,
+          "prevalence": 0.22115384615384615,
+          "recall_in_top_risk_20pct": 0.21014492753623187,
+          "roc_auc": 0.5371264984791555
+        },
+        "haenseroth_dressler_2026_data_efficiency": {
+          "adverse_pairs": 123,
+          "average_precision": 0.3588811993260974,
+          "brier_score": 0.24813938109058353,
+          "pairs": 336,
+          "prevalence": 0.36607142857142855,
+          "recall_in_top_risk_20pct": 0.14634146341463414,
+          "roc_auc": 0.5
+        },
+        "kim_2026_density_diversity": {
+          "adverse_pairs": 11,
+          "average_precision": 0.4886544011544011,
+          "brier_score": 0.2868171786767096,
+          "pairs": 24,
+          "prevalence": 0.4583333333333333,
+          "recall_in_top_risk_20pct": 0.18181818181818182,
+          "roc_auc": 0.5034965034965035
+        },
+        "kulichenko_2023_udd": {
+          "adverse_pairs": 7,
+          "average_precision": 0.7834776334776334,
+          "brier_score": 0.3037197655042449,
+          "pairs": 12,
+          "prevalence": 0.5833333333333334,
+          "recall_in_top_risk_20pct": 0.42857142857142855,
+          "roc_auc": 0.5714285714285714
+        },
+        "li_2023_redundancy": {
+          "adverse_pairs": 24,
+          "average_precision": 0.24661986598739527,
+          "brier_score": 0.16876795219655524,
+          "pairs": 114,
+          "prevalence": 0.21052631578947367,
+          "recall_in_top_risk_20pct": 0.16666666666666666,
+          "roc_auc": 0.5444444444444444
+        },
+        "qi_2024_direct_sampling": {
+          "adverse_pairs": 3,
+          "average_precision": 0.5555555555555555,
+          "brier_score": 0.23397507877406287,
+          "pairs": 6,
+          "prevalence": 0.5,
+          "recall_in_top_risk_20pct": 0.3333333333333333,
+          "roc_auc": 0.6666666666666666
+        },
+        "varga_umbrich_2026_force_aware_ntk": {
+          "adverse_pairs": 4,
+          "average_precision": 0.31180555555555556,
+          "brier_score": 0.09496210671604685,
+          "pairs": 72,
+          "prevalence": 0.05555555555555555,
+          "recall_in_top_risk_20pct": 0.25,
+          "roc_auc": 0.6323529411764706
+        },
+        "wang_2026_dataset_aware_entropy": {
+          "adverse_pairs": 4,
+          "average_precision": 0.11931333247122722,
+          "brier_score": 0.21029167459460726,
+          "pairs": 45,
+          "prevalence": 0.08888888888888889,
+          "recall_in_top_risk_20pct": 0.25,
+          "roc_auc": 0.5274390243902439
+        },
+        "wong_yang_2026_umlip_bias": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.21214651465729073,
+          "pairs": 5,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        },
+        "zhang_2023_etal": {
+          "adverse_pairs": 0,
+          "average_precision": null,
+          "brier_score": 0.008981170907499923,
+          "pairs": 4,
+          "prevalence": 0.0,
+          "recall_in_top_risk_20pct": null,
+          "roc_auc": null
+        }
+      },
+      "pooled": {
+        "adverse_pairs": 538,
+        "average_precision": 0.2793755915405651,
+        "brier_score": 0.19533015875706577,
+        "pairs": 2136,
+        "prevalence": 0.25187265917602997,
+        "recall_in_top_risk_20pct": 0.22676579925650558,
+        "roc_auc": 0.5413062796897609
+      },
+      "source_macro": {
+        "average_precision": 0.4013087993728816,
+        "average_precision_sources": 10,
+        "brier_score": 0.19170000720623617,
+        "brier_score_sources": 13,
+        "prevalence": 0.24827093245505497,
+        "prevalence_sources": 13,
+        "recall_in_top_risk_20pct": 0.24909988083580203,
+        "recall_in_top_risk_20pct_sources": 10,
+        "roc_auc": 0.5559420839501966,
+        "roc_auc_sources": 10
+      }
+    }
+  },
+  "support": {
+    "candidate_reference_pairs": 2136,
+    "panels": 787,
+    "sources": 13
+  }
+}
