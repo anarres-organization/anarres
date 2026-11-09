@@ -3,7 +3,6 @@ import json
 import sys
 from pathlib import Path
 
-
 SCRIPT = Path(__file__).parent / "scripts" / "ingest_wong_yang_2026.py"
 SPEC = importlib.util.spec_from_file_location("ingest_wong_yang_2026", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)

@@ -96,9 +96,7 @@ def is_stable(frequencies_thz: np.ndarray) -> bool:
     frequencies_kelvin = frequencies_thz * 47.992
     gamma = frequencies_kelvin[0]
     return not (
-        np.any(gamma[:3] < -35.0)
-        or np.any(gamma[3:] < 0.0)
-        or np.any(frequencies_kelvin[1:] < 0.0)
+        np.any(gamma[:3] < -35.0) or np.any(gamma[3:] < 0.0) or np.any(frequencies_kelvin[1:] < 0.0)
     )
 
 
@@ -164,7 +162,7 @@ def evaluate(
         "force_set": force_set,
         "metrics": {
             "frequency_mae_thz": float(np.mean(np.abs(error))),
-            "frequency_rmse_thz": float(np.sqrt(np.mean(error ** 2))),
+            "frequency_rmse_thz": float(np.sqrt(np.mean(error**2))),
             "maximum_frequency_error_thz": float(
                 np.max(predicted_frequencies) - np.max(reference_frequencies)
             ),

@@ -47,9 +47,7 @@ def sha256(path: Path) -> str:
 
 
 def repository_revision(root: Path) -> str:
-    return subprocess.check_output(
-        ["git", "-C", str(root), "rev-parse", "HEAD"], text=True
-    ).strip()
+    return subprocess.check_output(["git", "-C", str(root), "rev-parse", "HEAD"], text=True).strip()
 
 
 def rdf_similarity(test_file: Path, reference_file: Path) -> float:
@@ -98,9 +96,11 @@ def training_configuration_count(root: Path, directory: str) -> int:
     files = sorted((root / "h2o_distilled_train_database" / directory).glob("*.extxyz"))
     if len(files) != 2:
         raise ValueError(f"expected two training files for {directory}")
-    return sum(path.read_text(encoding="utf-8").count("\nLattice=") + int(
-        path.read_text(encoding="utf-8").startswith("Lattice=")
-    ) for path in files)
+    return sum(
+        path.read_text(encoding="utf-8").count("\nLattice=")
+        + int(path.read_text(encoding="utf-8").startswith("Lattice="))
+        for path in files
+    )
 
 
 def ingest(
@@ -156,9 +156,7 @@ def ingest(
                         "pre_outcome_measurements": measurements(environment, temperature, density),
                         "outcome": {
                             "mean_rdf_similarity": float(np.mean(seed_scores)),
-                            "rdf_similarity_standard_deviation": float(
-                                np.std(seed_scores, ddof=1)
-                            ),
+                            "rdf_similarity_standard_deviation": float(np.std(seed_scores, ddof=1)),
                             "seed_scores": [float(value) for value in seed_scores],
                             "independent_training_seeds": len(seed_scores),
                         },

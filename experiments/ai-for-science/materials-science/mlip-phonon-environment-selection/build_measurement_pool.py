@@ -13,7 +13,6 @@ from pathlib import Path
 
 from audit_candidate_overlap import parse_atomic_number_spec, parse_reduced_formula, sha256
 
-
 SALT = "anarres-mlip-measurement-pool-v1"
 
 
@@ -98,8 +97,7 @@ def build(
     capacity = records_per_family * oversample_factor
     database_paths = sorted(omat_train_root.glob("*/train.aselmdb"))
     arguments = [
-        (path, excluded_compositions, supported_numbers, capacity)
-        for path in database_paths
+        (path, excluded_compositions, supported_numbers, capacity) for path in database_paths
     ]
     with ProcessPoolExecutor(max_workers=min(workers, len(arguments))) as executor:
         scans = list(executor.map(scan_source, arguments))
@@ -130,7 +128,9 @@ def build(
             "records": len(family_selected),
             "atoms": sum(row["natoms"] for row in family_selected),
             "parents": len({row["parent_id"] for row in family_selected}),
-            "source_records": dict(sorted(Counter(row["source"] for row in family_selected).items())),
+            "source_records": dict(
+                sorted(Counter(row["source"] for row in family_selected).items())
+            ),
         }
 
     selected.sort(key=lambda row: (row["source_family"], row["hash_score"]))

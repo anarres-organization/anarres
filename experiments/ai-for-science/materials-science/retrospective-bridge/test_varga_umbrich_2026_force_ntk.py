@@ -2,7 +2,6 @@ import importlib.util
 import json
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parent
 SPEC = importlib.util.spec_from_file_location(
     "ingest_varga_umbrich_2026_force_ntk",
@@ -31,13 +30,16 @@ def test_table_one_becomes_twelve_matched_multiarm_panels():
 
 def test_exact_table_values_and_winners_are_preserved():
     data = payload()
-    values = {
-        (arm["dataset"], arm["metric"], arm["environment"]): arm
-        for arm in data["arms"]
-    }
+    values = {(arm["dataset"], arm["metric"], arm["environment"]): arm for arm in data["arms"]}
     assert values[("t1x", "energy_rmse_auc", "ntk_energy")]["outcome"]["reported_error"] == 159.5
-    assert values[("pmechdb", "final_force_rmse", "committee_force")]["outcome"]["reported_error"] == 102.0
-    assert values[("rgd", "energy_rmse_auc", "activation")]["derived"]["panel_normalized_regret"] == 0.0
+    assert (
+        values[("pmechdb", "final_force_rmse", "committee_force")]["outcome"]["reported_error"]
+        == 102.0
+    )
+    assert (
+        values[("rgd", "energy_rmse_auc", "activation")]["derived"]["panel_normalized_regret"]
+        == 0.0
+    )
 
 
 def test_ingest_rejects_a_different_paper_file(tmp_path):

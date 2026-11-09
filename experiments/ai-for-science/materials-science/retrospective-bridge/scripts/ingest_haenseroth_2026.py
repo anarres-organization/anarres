@@ -9,7 +9,6 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-
 SOURCE_ID = "haenseroth_2026_generators"
 FORCE_THRESHOLD = 0.05
 ENERGY_THRESHOLD = 0.006
@@ -31,9 +30,7 @@ ZERO_SHOT_FORCE_MAE = {
 PATTERNS = {
     "force_mae_eV_per_A": re.compile(r"Mean absolute force error: ([0-9.eE+-]+)"),
     "relative_force_error": re.compile(r"Mean relative force error: ([0-9.eE+-]+)"),
-    "energy_mae_eV_per_atom": re.compile(
-        r"Mean absolute energy error per atom: ([0-9.eE+-]+)"
-    ),
+    "energy_mae_eV_per_atom": re.compile(r"Mean absolute energy error per atom: ([0-9.eE+-]+)"),
 }
 
 
@@ -79,7 +76,9 @@ def reconstruct(source_root: Path) -> dict:
                     "dft_label_budget": 2000,
                     "downstream_model": "MACE-MP-0 fine-tune",
                     "pre_outcome_measurements": {
-                        "generator_zero_shot_force_mae_eV_per_A": ZERO_SHOT_FORCE_MAE[system][generator],
+                        "generator_zero_shot_force_mae_eV_per_A": ZERO_SHOT_FORCE_MAE[system][
+                            generator
+                        ],
                         "measurement_source": "Supplementary Figure 10 exact annotation",
                     },
                     "outcome": outcomes

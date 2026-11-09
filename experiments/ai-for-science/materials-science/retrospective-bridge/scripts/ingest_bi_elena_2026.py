@@ -10,7 +10,6 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-
 SOURCE_ID = "bi_elena_2026_budget_crossover"
 SELECTORS = {
     "Random": {
@@ -115,7 +114,10 @@ def reconstruct(source_csv: Path) -> dict:
         "panel_count": len(by_panel),
         "arm_count": len(arms),
         "primary_outcome": "absolute percentage gap from the paired full-data force-error endpoint",
-        "normalization": "within dataset, retained-data budget, and force endpoint; lower absolute gap maps to higher utility",
+        "normalization": (
+            "within dataset, retained-data budget, and force endpoint; lower absolute gap maps "
+            "to higher utility"
+        ),
         "source_artifact": {
             "concept_doi": "10.5281/zenodo.22263567",
             "record_id": 22263568,
@@ -127,9 +129,18 @@ def reconstruct(source_csv: Path) -> dict:
             "source_csv_sha256": sha256(source_csv),
         },
         "interpretation_boundary": [
-            "The response witness is a retrospective scientific comparator that requires a full-data reference model.",
-            "Five-seed means are available for every arm; individual seeds are released only for selected contrasts.",
-            "Four force endpoints share held-out structures and are repeated views of two dataset-level contexts.",
+            (
+                "The response witness is a retrospective scientific comparator that requires a "
+                "full-data reference model."
+            ),
+            (
+                "Five-seed means are available for every arm; individual seeds are released only "
+                "for selected contrasts."
+            ),
+            (
+                "Four force endpoints share held-out structures and are repeated views of two "
+                "dataset-level contexts."
+            ),
         ],
         "arms": arms,
     }

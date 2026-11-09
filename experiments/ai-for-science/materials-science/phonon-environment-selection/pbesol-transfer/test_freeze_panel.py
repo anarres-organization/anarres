@@ -2,7 +2,6 @@ import importlib.util
 import unittest
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parent
 SPEC = importlib.util.spec_from_file_location("freeze_panel", ROOT / "freeze_panel.py")
 FREEZE = importlib.util.module_from_spec(SPEC)

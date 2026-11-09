@@ -2,7 +2,6 @@ import csv
 import importlib.util
 from pathlib import Path
 
-
 SCRIPT = Path(__file__).parent / "scripts" / "ingest_li_2023.py"
 SPEC = importlib.util.spec_from_file_location("li_ingest", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)
@@ -32,8 +31,14 @@ def test_reconstructs_matched_panels(tmp_path):
             active / f"bandgap_mp_rf_{method}.csv",
             active_fields,
             [
-                {"train_ratio": budget, "maes": error / 2, "rmse": error, "r2": 0.5, "train_size": 10}
-                for budget, error in zip((0.02, 0.10, 0.20), errors)
+                {
+                    "train_ratio": budget,
+                    "maes": error / 2,
+                    "rmse": error,
+                    "r2": 0.5,
+                    "train_size": 10,
+                }
+                for budget, error in zip((0.02, 0.10, 0.20), errors, strict=False)
             ],
         )
     _write(
@@ -49,7 +54,7 @@ def test_reconstructs_matched_panels(tmp_path):
                 "r2": 0.4,
                 "r2_std": 0.03,
             }
-            for budget, error in zip((0.02, 0.10, 0.20), (1.0, 0.8, 0.7))
+            for budget, error in zip((0.02, 0.10, 0.20), (1.0, 0.8, 0.7), strict=False)
         ],
     )
 

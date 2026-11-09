@@ -56,7 +56,7 @@ def auc(labels: list[bool], scores: list[float]) -> float:
         for position in range(start, stop):
             ranks[ordered[position]] = mean_rank
         start = stop
-    positive_rank_sum = sum(rank for rank, label in zip(ranks, labels) if label)
+    positive_rank_sum = sum(rank for rank, label in zip(ranks, labels, strict=False) if label)
     return (positive_rank_sum - positives * (positives + 1) / 2) / (positives * negatives)
 
 
@@ -92,8 +92,16 @@ def evaluate(rows: list[dict], k: int) -> dict:
         "top_k_stable_rate": sum(labels[index] for index in order[:k]) / k,
         "continuous_pairwise_concordance": concordance(targets, composite),
         "roc_auc": auc(labels, composite),
-        "brier_score": math.fsum((probability - float(label)) ** 2 for probability, label in zip(probabilities, labels)) / len(labels),
-        "minimum_frequency_mae_thz": math.fsum(abs(prediction - target) for prediction, target in zip(predictions, targets)) / len(targets),
+        "brier_score": math.fsum(
+            (probability - float(label)) ** 2
+            for probability, label in zip(probabilities, labels, strict=False)
+        )
+        / len(labels),
+        "minimum_frequency_mae_thz": math.fsum(
+            abs(prediction - target)
+            for prediction, target in zip(predictions, targets, strict=False)
+        )
+        / len(targets),
     }
 
 
@@ -134,7 +142,10 @@ def main() -> None:
     predictions_manifest = load_hashed(
         args.prediction_root / "PREDICTION_MANIFEST.json", "prediction_manifest_sha256"
     )
-    if predictions_manifest["external_labels_read"] or len(predictions_manifest["runs"]) != contract["expected_candidate_runs"]:
+    if (
+        predictions_manifest["external_labels_read"]
+        or len(predictions_manifest["runs"]) != contract["expected_candidate_runs"]
+    ):
         raise ValueError("The full label-blind prediction gate has not passed")
     for run in predictions_manifest["runs"]:
         completion = load_hashed(
@@ -148,20 +159,31 @@ def main() -> None:
             if sha256(path) != output["sha256"]:
                 raise ValueError(f"Prediction output changed: {run['run_id']} {output['panel']}")
     if {row["reference"] for row in predictions_manifest.get("references", [])} != {
-        "starting_pretrained", "full_dft_posttrained"
+        "starting_pretrained",
+        "full_dft_posttrained",
     }:
         raise ValueError("Both scientific reference predictions must complete before labels open")
     for reference in predictions_manifest["references"]:
         completion = load_hashed(
-            args.prediction_root / "_references" / reference["reference"] / "REFERENCE_COMPLETION.json",
+            args.prediction_root
+            / "_references"
+            / reference["reference"]
+            / "REFERENCE_COMPLETION.json",
             "reference_completion_sha256",
         )
         if completion["reference_completion_sha256"] != reference["reference_completion_sha256"]:
             raise ValueError(f"Reference completion changed: {reference['reference']}")
         for output in completion["panel_outputs"]:
-            path = args.prediction_root / "_references" / reference["reference"] / f"{output['panel']}_predictions.csv"
+            path = (
+                args.prediction_root
+                / "_references"
+                / reference["reference"]
+                / f"{output['panel']}_predictions.csv"
+            )
             if sha256(path) != output["sha256"]:
-                raise ValueError(f"Reference prediction changed: {reference['reference']} {output['panel']}")
+                raise ValueError(
+                    f"Reference prediction changed: {reference['reference']} {output['panel']}"
+                )
 
     labels = {}
     with ZipFile(args.archive) as archive:
@@ -182,12 +204,20 @@ def main() -> None:
     for reference in predictions_manifest["references"]:
         for panel in sorted(contract["panels"]):
             predictions = read_predictions(
-                args.prediction_root / "_references" / reference["reference"] / f"{panel}_predictions.csv"
+                args.prediction_root
+                / "_references"
+                / reference["reference"]
+                / f"{panel}_predictions.csv"
             )
             joined = join(labels[panel], predictions)
             if panel == "dft_pbe":
                 reference_results.append(
-                    {"reference": reference["reference"], "panel": panel, "source": "all", **evaluate(joined, 100)}
+                    {
+                        "reference": reference["reference"],
+                        "panel": panel,
+                        "source": "all",
+                        **evaluate(joined, 100),
+                    }
                 )
             else:
                 groups = defaultdict(list)
@@ -195,23 +225,46 @@ def main() -> None:
                     groups[row["model_key"]].append(row)
                 for source, source_rows in sorted(groups.items()):
                     reference_results.append(
-                        {"reference": reference["reference"], "panel": panel, "source": source, **evaluate(source_rows, 100)}
+                        {
+                            "reference": reference["reference"],
+                            "panel": panel,
+                            "source": source,
+                            **evaluate(source_rows, 100),
+                        }
                     )
     for run in predictions_manifest["runs"]:
         metadata = run_metadata[run["run_id"]]
         for panel in sorted(contract["panels"]):
-            predictions = read_predictions(args.prediction_root / run["run_id"] / f"{panel}_predictions.csv")
+            predictions = read_predictions(
+                args.prediction_root / run["run_id"] / f"{panel}_predictions.csv"
+            )
             joined = join(labels[panel], predictions)
             if panel == "dft_pbe":
                 metrics = evaluate(joined, 100)
-                results.append({"run_id": run["run_id"], **metadata, "panel": panel, "source": "all", **metrics})
+                results.append(
+                    {
+                        "run_id": run["run_id"],
+                        **metadata,
+                        "panel": panel,
+                        "source": "all",
+                        **metrics,
+                    }
+                )
             else:
                 groups = defaultdict(list)
                 for row in joined:
                     groups[row["model_key"]].append(row)
                 for source, source_rows in sorted(groups.items()):
                     metrics = evaluate(source_rows, 100)
-                    results.append({"run_id": run["run_id"], **metadata, "panel": panel, "source": source, **metrics})
+                    results.append(
+                        {
+                            "run_id": run["run_id"],
+                            **metadata,
+                            "panel": panel,
+                            "source": source,
+                            **metrics,
+                        }
+                    )
 
     dft = [row for row in results if row["panel"] == "dft_pbe"]
     starting_top100 = next(
@@ -227,17 +280,25 @@ def main() -> None:
     decisions = []
     predicted_order = contract["frozen_candidate_prediction"]["complete_order"]
     for budget, candidates in sorted(grouped.items()):
-        if set(candidates) != set(predicted_order) or any(len(values) != 2 for values in candidates.values()):
+        if set(candidates) != set(predicted_order) or any(
+            len(values) != 2 for values in candidates.values()
+        ):
             raise ValueError(f"Incomplete candidate-by-seed matrix at budget {budget}")
-        utilities = {candidate: math.fsum(values) / len(values) for candidate, values in candidates.items()}
+        utilities = {
+            candidate: math.fsum(values) / len(values) for candidate, values in candidates.items()
+        }
         best_value = max(utilities.values())
         best = sorted(candidate for candidate, value in utilities.items() if value == best_value)
         selected = predicted_order[0]
         seed_winners = []
         for seed_index in range(2):
-            seed_values = {candidate: candidates[candidate][seed_index] for candidate in predicted_order}
+            seed_values = {
+                candidate: candidates[candidate][seed_index] for candidate in predicted_order
+            }
             seed_best = max(seed_values.values())
-            seed_winners.append(sorted(candidate for candidate, value in seed_values.items() if value == seed_best))
+            seed_winners.append(
+                sorted(candidate for candidate, value in seed_values.items() if value == seed_best)
+            )
         decisions.append(
             {
                 "budget_structures": budget,
@@ -260,10 +321,16 @@ def main() -> None:
         "reference_metrics": reference_results,
         "candidate_decisions": decisions,
         "decision_summary": {
-            "best_candidate_accuracy": sum(row["predicted_best_correct"] for row in decisions) / len(decisions),
-            "mean_allocation_regret": math.fsum(row["allocation_regret"] for row in decisions) / len(decisions),
-            "mean_pairwise_order_accuracy": math.fsum(row["pairwise_order_accuracy"] for row in decisions) / len(decisions),
-            "seed_winner_agreement_rate": sum(row["seed_winner_agreement"] for row in decisions) / len(decisions),
+            "best_candidate_accuracy": sum(row["predicted_best_correct"] for row in decisions)
+            / len(decisions),
+            "mean_allocation_regret": math.fsum(row["allocation_regret"] for row in decisions)
+            / len(decisions),
+            "mean_pairwise_order_accuracy": math.fsum(
+                row["pairwise_order_accuracy"] for row in decisions
+            )
+            / len(decisions),
+            "seed_winner_agreement_rate": sum(row["seed_winner_agreement"] for row in decisions)
+            / len(decisions),
         },
     }
     summary["score_sha256"] = canonical_digest(summary)

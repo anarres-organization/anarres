@@ -9,7 +9,6 @@ import hashlib
 import json
 from pathlib import Path
 
-
 SALT = "anarres-mlip-phonon-target-roles-v1"
 ROLE_SIZES = {
     "checkpoint_qualification": 16,
@@ -54,7 +53,7 @@ def freeze_roles(alexandria_csv: Path, unseen_json: Path) -> dict:
     roles: dict[str, list[str]] = {}
     cursor = 0
     for role, size in ROLE_SIZES.items():
-        roles[role] = ranked[cursor:cursor + size]
+        roles[role] = ranked[cursor : cursor + size]
         cursor += size
     assert cursor == len(ranked)
     assert len(set().union(*(set(ids) for ids in roles.values()))) == len(ranked)
@@ -78,13 +77,15 @@ def freeze_roles(alexandria_csv: Path, unseen_json: Path) -> dict:
         },
         "roles": roles,
         "role_hashes": {
-            role: hashlib.sha256("\n".join(ids).encode()).hexdigest()
-            for role, ids in roles.items()
+            role: hashlib.sha256("\n".join(ids).encode()).hexdigest() for role, ids in roles.items()
         },
         "interpretation": [
             "Checkpoint qualification may use only the checkpoint_qualification outcomes.",
             "Candidate design and predictor development may use only the development outcomes.",
-            "Prospective outcomes remain unopened until candidate memberships, training contracts, and predictions are frozen.",
+            (
+                "Prospective outcomes remain unopened until candidate memberships, training "
+                "contracts, and predictions are frozen."
+            ),
         ],
     }
 

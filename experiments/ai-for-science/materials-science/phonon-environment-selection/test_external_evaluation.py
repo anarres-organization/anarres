@@ -8,7 +8,6 @@ import unittest
 import zipfile
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parent
 
 
@@ -60,9 +59,12 @@ class ExternalEvaluationTest(unittest.TestCase):
                 [
                     sys.executable,
                     str(ROOT / "scripts" / "prepare_external_inputs.py"),
-                    "--archive", str(archive),
-                    "--contract", str(contract_path),
-                    "--out", str(output),
+                    "--archive",
+                    str(archive),
+                    "--contract",
+                    str(contract_path),
+                    "--out",
+                    str(output),
                 ],
                 check=True,
                 capture_output=True,

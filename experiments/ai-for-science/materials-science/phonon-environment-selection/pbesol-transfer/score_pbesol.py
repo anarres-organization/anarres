@@ -53,24 +53,18 @@ def auc(labels: list[bool], scores: list[float]) -> float:
         for position in range(start, stop):
             ranks[ordered[position]] = mean_rank
         start = stop
-    positive_rank_sum = sum(rank for rank, label in zip(ranks, labels) if label)
-    return (positive_rank_sum - positives * (positives + 1) / 2) / (
-        positives * negatives
-    )
+    positive_rank_sum = sum(rank for rank, label in zip(ranks, labels, strict=False) if label)
+    return (positive_rank_sum - positives * (positives + 1) / 2) / (positives * negatives)
 
 
 def concordance(targets: list[float], scores: list[float]) -> float:
     credit = total = 0.0
     for left in range(len(scores)):
         for right in range(left + 1, len(scores)):
-            target_sign = (targets[left] > targets[right]) - (
-                targets[left] < targets[right]
-            )
+            target_sign = (targets[left] > targets[right]) - (targets[left] < targets[right])
             if target_sign == 0:
                 continue
-            score_sign = (scores[left] > scores[right]) - (
-                scores[left] < scores[right]
-            )
+            score_sign = (scores[left] > scores[right]) - (scores[left] < scores[right])
             total += 1
             credit += 0.5 if score_sign == 0 else float(score_sign == target_sign)
     if total == 0:
@@ -82,9 +76,7 @@ def evaluate(rows: list[dict], threshold: float, top_k: int) -> dict:
     labels = [float(row["min_frequency"]) > threshold for row in rows]
     targets = [float(row["min_frequency"]) for row in rows]
     composite = [float(row["composite_score"]) for row in rows]
-    probabilities = [
-        float(row["threshold_probability_minus_0p1"]) for row in rows
-    ]
+    probabilities = [float(row["threshold_probability_minus_0p1"]) for row in rows]
     predictions = [float(row["prediction"]) for row in rows]
     if not all(math.isfinite(value) for value in targets + composite + predictions):
         raise ValueError("A scored value is not finite")
@@ -92,9 +84,7 @@ def evaluate(rows: list[dict], threshold: float, top_k: int) -> dict:
         raise ValueError("Threshold probabilities must be finite and lie in [0, 1]")
     if top_k > len(rows):
         raise ValueError("Top-k exceeds the panel size")
-    order = sorted(
-        range(len(rows)), key=lambda index: (-composite[index], rows[index]["local_id"])
-    )
+    order = sorted(range(len(rows)), key=lambda index: (-composite[index], rows[index]["local_id"]))
     return {
         "records": len(rows),
         "stable_records": sum(labels),
@@ -105,12 +95,12 @@ def evaluate(rows: list[dict], threshold: float, top_k: int) -> dict:
         "roc_auc": auc(labels, composite),
         "brier_score": math.fsum(
             (probability - float(label)) ** 2
-            for probability, label in zip(probabilities, labels)
+            for probability, label in zip(probabilities, labels, strict=False)
         )
         / len(labels),
         "minimum_frequency_mae_thz": math.fsum(
             abs(prediction - target)
-            for prediction, target in zip(predictions, targets)
+            for prediction, target in zip(predictions, targets, strict=False)
         )
         / len(targets),
     }
@@ -267,9 +257,7 @@ def main() -> None:
         metadata = run_metadata[run["run_id"]]
         rows = join(
             labels,
-            read_predictions(
-                args.prediction_root / run["run_id"] / "pbesol_predictions.csv"
-            ),
+            read_predictions(args.prediction_root / run["run_id"] / "pbesol_predictions.csv"),
         )
         run_metrics.append({**metadata, **evaluate(rows, threshold, top_k)})
 
@@ -282,22 +270,16 @@ def main() -> None:
                 args.prediction_root / "_references" / name / "pbesol_predictions.csv"
             ),
         )
-        reference_metrics.append(
-            {"reference": name, **evaluate(rows, threshold, top_k)}
-        )
+        reference_metrics.append({"reference": name, **evaluate(rows, threshold, top_k)})
     starting = next(
         row["top_k_stable_rate"]
         for row in reference_metrics
         if row["reference"] == "starting_pretrained"
     )
     for row in run_metrics:
-        row["top100_utility_vs_starting_checkpoint"] = (
-            row["top_k_stable_rate"] - starting
-        )
+        row["top100_utility_vs_starting_checkpoint"] = row["top_k_stable_rate"] - starting
 
-    grouped: dict[int, dict[str, list[tuple[int, float]]]] = defaultdict(
-        lambda: defaultdict(list)
-    )
+    grouped: dict[int, dict[str, list[tuple[int, float]]]] = defaultdict(lambda: defaultdict(list))
     for row in run_metrics:
         grouped[int(row["budget_structures"])][row["candidate"]].append(
             (int(row["seed"]), row["top_k_stable_rate"])
@@ -307,17 +289,11 @@ def main() -> None:
     expected_candidates = set(contract["expected_candidates"])
     expected_seeds = set(contract["expected_seeds"])
     for budget, candidate_rows in sorted(grouped.items()):
-        order = contract["frozen_candidate_prediction"]["complete_order_by_budget"][
-            str(budget)
-        ]
-        predicted_best = contract["frozen_candidate_prediction"]["best_by_budget"][
-            str(budget)
-        ]
+        order = contract["frozen_candidate_prediction"]["complete_order_by_budget"][str(budget)]
+        predicted_best = contract["frozen_candidate_prediction"]["best_by_budget"][str(budget)]
         if set(candidate_rows) != expected_candidates or set(order) != expected_candidates:
             raise ValueError(f"Candidate set is incomplete at budget {budget}")
-        by_candidate = {
-            candidate: dict(sorted(rows)) for candidate, rows in candidate_rows.items()
-        }
+        by_candidate = {candidate: dict(sorted(rows)) for candidate, rows in candidate_rows.items()}
         if any(set(rows) != expected_seeds for rows in by_candidate.values()):
             raise ValueError(f"Seed matrix is incomplete at budget {budget}")
         means = {
@@ -330,14 +306,10 @@ def main() -> None:
         )
         seed_winners = {}
         for seed in sorted(expected_seeds):
-            seed_values = {
-                candidate: rows[seed] for candidate, rows in by_candidate.items()
-            }
+            seed_values = {candidate: rows[seed] for candidate, rows in by_candidate.items()}
             seed_best = max(seed_values.values())
             seed_winners[str(seed)] = sorted(
-                candidate
-                for candidate, value in seed_values.items()
-                if value == seed_best
+                candidate for candidate, value in seed_values.items() if value == seed_best
             )
         decisions.append(
             {
@@ -372,21 +344,15 @@ def main() -> None:
         "reference_metrics": reference_metrics,
         "candidate_decisions": decisions,
         "decision_summary": {
-            "best_candidate_accuracy": sum(
-                row["predicted_best_correct"] for row in decisions
-            )
+            "best_candidate_accuracy": sum(row["predicted_best_correct"] for row in decisions)
             / len(decisions),
-            "mean_allocation_regret": math.fsum(
-                row["allocation_regret"] for row in decisions
-            )
+            "mean_allocation_regret": math.fsum(row["allocation_regret"] for row in decisions)
             / len(decisions),
             "mean_pairwise_order_accuracy": math.fsum(
                 row["pairwise_order_accuracy"] for row in decisions
             )
             / len(decisions),
-            "seed_winner_agreement_rate": sum(
-                row["seed_winner_agreement"] for row in decisions
-            )
+            "seed_winner_agreement_rate": sum(row["seed_winner_agreement"] for row in decisions)
             / len(decisions),
         },
     }

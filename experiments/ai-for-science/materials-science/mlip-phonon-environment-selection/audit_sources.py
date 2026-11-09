@@ -14,16 +14,21 @@ from pathlib import Path
 
 import numpy as np
 
-
 OMAT_ARCHIVE_BYTES = 2_274_568_000
 OMAT_ARCHIVE_SHA256 = "789ecc1306575a1652806b339265d7659c57282eeb1b3e3b54ba0e1154938b81"
 OMAT_SPLIT_COUNTS = {"train": 1_009_850, "val": 107_732, "test": 53_727}
 OMAT_SUBDATASETS = {
-    "rattled-1000", "rattled-1000-subsampled",
-    "rattled-500", "rattled-500-subsampled",
-    "rattled-300", "rattled-300-subsampled", "rattled-relax",
-    "aimd-from-PBE-1000-npt", "aimd-from-PBE-1000-nvt",
-    "aimd-from-PBE-3000-npt", "aimd-from-PBE-3000-nvt",
+    "rattled-1000",
+    "rattled-1000-subsampled",
+    "rattled-500",
+    "rattled-500-subsampled",
+    "rattled-300",
+    "rattled-300-subsampled",
+    "rattled-relax",
+    "aimd-from-PBE-1000-npt",
+    "aimd-from-PBE-1000-nvt",
+    "aimd-from-PBE-3000-npt",
+    "aimd-from-PBE-3000-nvt",
 }
 PBE_CSV_BYTES = 1_451_555
 PBE_CSV_SHA256 = "5875695dc44166cf4f09888485c4cfebee03494f65b3e1b3b4b4381620e5d752"
@@ -119,8 +124,7 @@ def audit_alexandria(source_dir: Path) -> dict:
     with tarfile.open(archive, "r:gz") as handle:
         members = handle.getmembers()
         files = [
-            member for member in members
-            if member.isfile() and member.name.endswith(".extxyz")
+            member for member in members if member.isfile() and member.name.endswith(".extxyz")
         ]
         material_counts = Counter(member.name.split("/")[1] for member in files)
         assert set(material_counts) == ids
@@ -162,10 +166,20 @@ def audit(alexandria_dir: Path, omat_archive: Path, omat_root: Path) -> dict:
         "construction_reservoir": audit_omat(omat_archive, omat_root),
         "physical_target": audit_alexandria(alexandria_dir),
         "interpretation_boundary": [
-            "The two releases use PBE labels, but pseudopotential, Hubbard-correction, energy-reference, and stress-convention compatibility require record-level checks before training.",
-            "The OMat24 1M train split is the only construction reservoir; its validation and test splits remain available for training diagnostics.",
+            (
+                "The two releases use PBE labels, but pseudopotential, Hubbard-correction, "
+                "energy-reference, and stress-convention compatibility require record-level "
+                "checks before training."
+            ),
+            (
+                "The OMat24 1M train split is the only construction reservoir; its validation "
+                "and test splits remain available for training diagnostics."
+            ),
             "Alexandria material identities and displacement labels remain evaluation-only.",
-            "Starting-model pretraining exposure is distinct from overlap introduced by the new post-training experiment and will be reported separately.",
+            (
+                "Starting-model pretraining exposure is distinct from overlap introduced by the "
+                "new post-training experiment and will be reported separately."
+            ),
         ],
     }
 
@@ -179,12 +193,21 @@ def main() -> None:
     args = parser.parse_args()
     result = audit(args.alexandria_dir, args.omat_archive, args.omat_root)
     args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({
-        "status": result["status"],
-        "omat_train_records": result["construction_reservoir"]["split_record_counts"]["train"],
-        "alexandria_materials": result["physical_target"]["metadata"]["records"],
-        "alexandria_displacements": result["physical_target"]["displacements"]["extxyz_files"],
-    }, indent=2))
+    print(
+        json.dumps(
+            {
+                "status": result["status"],
+                "omat_train_records": result["construction_reservoir"]["split_record_counts"][
+                    "train"
+                ],
+                "alexandria_materials": result["physical_target"]["metadata"]["records"],
+                "alexandria_displacements": result["physical_target"]["displacements"][
+                    "extxyz_files"
+                ],
+            },
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

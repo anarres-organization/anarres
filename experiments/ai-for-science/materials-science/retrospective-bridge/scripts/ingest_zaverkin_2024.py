@@ -8,41 +8,176 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-
 SOURCE_ID = "zaverkin_2024_uncertainty_biased_md"
 
 # Exact means and standard deviations from Tables 1 and 2.  The main active-
 # learning experiments use a maximum dataset size of 512 configurations.
 ALANINE = {
-    "random_300K": {"temperature_K": 300, "coverage": (0.58, 0.03), "energy": (34.09, 6.29), "force": (0.191, 0.019), "selection": 0, "bias": 0, "hydrogen_bias": 0},
-    "random_600K": {"temperature_K": 600, "coverage": (0.76, 0.04), "energy": (31.44, 4.77), "force": (0.143, 0.015), "selection": 0, "bias": 0, "hydrogen_bias": 0},
-    "random_1200K": {"temperature_K": 1200, "coverage": (0.95, 0.01), "energy": (19.83, 4.62), "force": (0.116, 0.017), "selection": 0, "bias": 0, "hydrogen_bias": 0},
-    "uncertainty_300K": {"temperature_K": 300, "coverage": (0.58, 0.03), "energy": (30.29, 5.47), "force": (0.149, 0.019), "selection": 1, "bias": 0, "hydrogen_bias": 0},
-    "uncertainty_600K": {"temperature_K": 600, "coverage": (0.89, 0.00), "energy": (26.03, 2.23), "force": (0.116, 0.012), "selection": 1, "bias": 0, "hydrogen_bias": 0},
-    "uncertainty_1200K": {"temperature_K": 1200, "coverage": (0.97, 0.01), "energy": (1.47, 0.09), "force": (0.055, 0.002), "selection": 1, "bias": 0, "hydrogen_bias": 0},
-    "uncertainty_biased_300K_with_H": {"temperature_K": 300, "coverage": (0.87, 0.02), "energy": (5.09, 5.40), "force": (0.082, 0.016), "selection": 1, "bias": 1, "hydrogen_bias": 1},
-    "uncertainty_biased_300K_without_H": {"temperature_K": 300, "coverage": (0.94, 0.01), "energy": (1.97, 0.88), "force": (0.071, 0.003), "selection": 1, "bias": 1, "hydrogen_bias": 0},
+    "random_300K": {
+        "temperature_K": 300,
+        "coverage": (0.58, 0.03),
+        "energy": (34.09, 6.29),
+        "force": (0.191, 0.019),
+        "selection": 0,
+        "bias": 0,
+        "hydrogen_bias": 0,
+    },
+    "random_600K": {
+        "temperature_K": 600,
+        "coverage": (0.76, 0.04),
+        "energy": (31.44, 4.77),
+        "force": (0.143, 0.015),
+        "selection": 0,
+        "bias": 0,
+        "hydrogen_bias": 0,
+    },
+    "random_1200K": {
+        "temperature_K": 1200,
+        "coverage": (0.95, 0.01),
+        "energy": (19.83, 4.62),
+        "force": (0.116, 0.017),
+        "selection": 0,
+        "bias": 0,
+        "hydrogen_bias": 0,
+    },
+    "uncertainty_300K": {
+        "temperature_K": 300,
+        "coverage": (0.58, 0.03),
+        "energy": (30.29, 5.47),
+        "force": (0.149, 0.019),
+        "selection": 1,
+        "bias": 0,
+        "hydrogen_bias": 0,
+    },
+    "uncertainty_600K": {
+        "temperature_K": 600,
+        "coverage": (0.89, 0.00),
+        "energy": (26.03, 2.23),
+        "force": (0.116, 0.012),
+        "selection": 1,
+        "bias": 0,
+        "hydrogen_bias": 0,
+    },
+    "uncertainty_1200K": {
+        "temperature_K": 1200,
+        "coverage": (0.97, 0.01),
+        "energy": (1.47, 0.09),
+        "force": (0.055, 0.002),
+        "selection": 1,
+        "bias": 0,
+        "hydrogen_bias": 0,
+    },
+    "uncertainty_biased_300K_with_H": {
+        "temperature_K": 300,
+        "coverage": (0.87, 0.02),
+        "energy": (5.09, 5.40),
+        "force": (0.082, 0.016),
+        "selection": 1,
+        "bias": 1,
+        "hydrogen_bias": 1,
+    },
+    "uncertainty_biased_300K_without_H": {
+        "temperature_K": 300,
+        "coverage": (0.94, 0.01),
+        "energy": (1.97, 0.88),
+        "force": (0.071, 0.003),
+        "selection": 1,
+        "bias": 1,
+        "hydrogen_bias": 0,
+    },
 }
 
 MIL53 = {
     600: {
-        "random_0MPa": {"pressure_MPa": 0, "selection": 0, "bias": 0, "energy": (1.62, 0.52), "force": (0.062, 0.002), "stress": (145.3, 35.49)},
-        "random_250MPa": {"pressure_MPa": 250, "selection": 0, "bias": 0, "energy": (0.84, 0.09), "force": (0.057, 0.001), "stress": (63.8, 15.82)},
-        "uncertainty_0MPa": {"pressure_MPa": 0, "selection": 1, "bias": 0, "energy": (1.17, 0.36), "force": (0.058, 0.002), "stress": (90.81, 32.82)},
-        "uncertainty_250MPa": {"pressure_MPa": 250, "selection": 1, "bias": 0, "energy": (0.57, 0.05), "force": (0.052, 0.001), "stress": (42.72, 1.37)},
-        "uncertainty_biased_0MPa": {"pressure_MPa": 0, "selection": 1, "bias": 1, "energy": (0.57, 0.08), "force": (0.051, 0.001), "stress": (36.60, 1.46)},
+        "random_0MPa": {
+            "pressure_MPa": 0,
+            "selection": 0,
+            "bias": 0,
+            "energy": (1.62, 0.52),
+            "force": (0.062, 0.002),
+            "stress": (145.3, 35.49),
+        },
+        "random_250MPa": {
+            "pressure_MPa": 250,
+            "selection": 0,
+            "bias": 0,
+            "energy": (0.84, 0.09),
+            "force": (0.057, 0.001),
+            "stress": (63.8, 15.82),
+        },
+        "uncertainty_0MPa": {
+            "pressure_MPa": 0,
+            "selection": 1,
+            "bias": 0,
+            "energy": (1.17, 0.36),
+            "force": (0.058, 0.002),
+            "stress": (90.81, 32.82),
+        },
+        "uncertainty_250MPa": {
+            "pressure_MPa": 250,
+            "selection": 1,
+            "bias": 0,
+            "energy": (0.57, 0.05),
+            "force": (0.052, 0.001),
+            "stress": (42.72, 1.37),
+        },
+        "uncertainty_biased_0MPa": {
+            "pressure_MPa": 0,
+            "selection": 1,
+            "bias": 1,
+            "energy": (0.57, 0.08),
+            "force": (0.051, 0.001),
+            "stress": (36.60, 1.46),
+        },
     },
     300: {
-        "random_0MPa": {"pressure_MPa": 0, "selection": 0, "bias": 0, "energy": (1.04, 0.26), "force": (0.058, 0.001), "stress": (70.49, 6.61)},
-        "random_250MPa": {"pressure_MPa": 250, "selection": 0, "bias": 0, "energy": (0.58, 0.08), "force": (0.055, 0.002), "stress": (52.19, 2.22)},
-        "uncertainty_0MPa": {"pressure_MPa": 0, "selection": 1, "bias": 0, "energy": (0.88, 0.20), "force": (0.056, 0.001), "stress": (58.57, 5.94)},
-        "uncertainty_250MPa": {"pressure_MPa": 250, "selection": 1, "bias": 0, "energy": (0.48, 0.01), "force": (0.054, 0.000), "stress": (39.88, 1.76)},
-        "uncertainty_biased_0MPa": {"pressure_MPa": 0, "selection": 1, "bias": 1, "energy": (0.49, 0.09), "force": (0.052, 0.001), "stress": (33.89, 3.06)},
+        "random_0MPa": {
+            "pressure_MPa": 0,
+            "selection": 0,
+            "bias": 0,
+            "energy": (1.04, 0.26),
+            "force": (0.058, 0.001),
+            "stress": (70.49, 6.61),
+        },
+        "random_250MPa": {
+            "pressure_MPa": 250,
+            "selection": 0,
+            "bias": 0,
+            "energy": (0.58, 0.08),
+            "force": (0.055, 0.002),
+            "stress": (52.19, 2.22),
+        },
+        "uncertainty_0MPa": {
+            "pressure_MPa": 0,
+            "selection": 1,
+            "bias": 0,
+            "energy": (0.88, 0.20),
+            "force": (0.056, 0.001),
+            "stress": (58.57, 5.94),
+        },
+        "uncertainty_250MPa": {
+            "pressure_MPa": 250,
+            "selection": 1,
+            "bias": 0,
+            "energy": (0.48, 0.01),
+            "force": (0.054, 0.000),
+            "stress": (39.88, 1.76),
+        },
+        "uncertainty_biased_0MPa": {
+            "pressure_MPa": 0,
+            "selection": 1,
+            "bias": 1,
+            "energy": (0.49, 0.09),
+            "force": (0.052, 0.001),
+            "stress": (33.89, 3.06),
+        },
     },
 }
 
 
-def _base_measurements(*, temperature: int, selection: int, bias: int, coverage: float | None) -> dict:
+def _base_measurements(
+    *, temperature: int, selection: int, bias: int, coverage: float | None
+) -> dict:
     target_temperature = 1200 if coverage is not None else 600
     return {
         "uses_uncertainty_selection": selection,
@@ -68,16 +203,18 @@ def reconstruct() -> dict:
         for endpoint, unit in (("energy", "meV_per_atom"), ("force", "eV_per_angstrom")):
             mean, sd = values[endpoint]
             panel_id = f"{SOURCE_ID}:alanine_1200K_test:{endpoint}_rmse"
-            by_panel[panel_id].append({
-                "source_id": SOURCE_ID,
-                "panel_id": panel_id,
-                "system": "alanine_dipeptide",
-                "evaluation_distribution": "1200K_MD",
-                "environment": environment,
-                "endpoint": f"{endpoint}_rmse_{unit}",
-                "pre_outcome_measurements": measurements,
-                "outcome": {"mean_rmse": mean, "sd_across_runs": sd, "independent_runs": 5},
-            })
+            by_panel[panel_id].append(
+                {
+                    "source_id": SOURCE_ID,
+                    "panel_id": panel_id,
+                    "system": "alanine_dipeptide",
+                    "evaluation_distribution": "1200K_MD",
+                    "environment": environment,
+                    "endpoint": f"{endpoint}_rmse_{unit}",
+                    "pre_outcome_measurements": measurements,
+                    "outcome": {"mean_rmse": mean, "sd_across_runs": sd, "independent_runs": 5},
+                }
+            )
 
     for temperature, environments in MIL53.items():
         for environment, values in environments.items():
@@ -87,19 +224,25 @@ def reconstruct() -> dict:
                 bias=values["bias"],
                 coverage=None,
             ) | {"generation_pressure_MPa": values["pressure_MPa"]}
-            for endpoint, unit in (("energy", "meV_per_atom"), ("force", "eV_per_angstrom"), ("stress", "MPa")):
+            for endpoint, unit in (
+                ("energy", "meV_per_atom"),
+                ("force", "eV_per_angstrom"),
+                ("stress", "MPa"),
+            ):
                 mean, sd = values[endpoint]
                 panel_id = f"{SOURCE_ID}:mil53_generation_{temperature}K_600K_test:{endpoint}_rmse"
-                by_panel[panel_id].append({
-                    "source_id": SOURCE_ID,
-                    "panel_id": panel_id,
-                    "system": "MIL-53(Al)",
-                    "evaluation_distribution": "600K_first_principles_MD",
-                    "environment": environment,
-                    "endpoint": f"{endpoint}_rmse_{unit}",
-                    "pre_outcome_measurements": measurements,
-                    "outcome": {"mean_rmse": mean, "sd_across_runs": sd, "independent_runs": 3},
-                })
+                by_panel[panel_id].append(
+                    {
+                        "source_id": SOURCE_ID,
+                        "panel_id": panel_id,
+                        "system": "MIL-53(Al)",
+                        "evaluation_distribution": "600K_first_principles_MD",
+                        "environment": environment,
+                        "endpoint": f"{endpoint}_rmse_{unit}",
+                        "pre_outcome_measurements": measurements,
+                        "outcome": {"mean_rmse": mean, "sd_across_runs": sd, "independent_runs": 3},
+                    }
+                )
 
     arms = []
     for panel_arms in by_panel.values():
@@ -121,7 +264,10 @@ def reconstruct() -> dict:
         "panel_count": len(by_panel),
         "arm_count": len(arms),
         "primary_outcome": "mean terminal RMSE from primary-paper Tables 1 and 2",
-        "normalization": "negative RMSE, min-max normalized within physical system, acquisition-temperature context, and endpoint",
+        "normalization": (
+            "negative RMSE, min-max normalized within physical system, acquisition-temperature "
+            "context, and endpoint"
+        ),
         "matched_contract": {
             "maximum_training_and_validation_configurations": 512,
             "alanine_independent_runs": 5,
@@ -136,9 +282,16 @@ def reconstruct() -> dict:
             },
         },
         "interpretation_boundary": [
-            "These are adaptive environment-generation experiments, so acquisition and uncertainty-measurement cost is separate from the matched 512-configuration final training budget.",
+            (
+                "These are adaptive environment-generation experiments, so acquisition and "
+                "uncertainty-measurement cost is separate from the matched 512-configuration final "
+                "training budget."
+            ),
             "The 500-configuration metadynamics baseline is excluded from the matched panels.",
-            "Alanine coverage is measured directly in collective-variable space; the paper does not report the same scalar coverage coordinate for MIL-53(Al).",
+            (
+                "Alanine coverage is measured directly in collective-variable space; the paper "
+                "does not report the same scalar coverage coordinate for MIL-53(Al)."
+            ),
         ],
         "arms": arms,
     }

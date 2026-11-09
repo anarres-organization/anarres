@@ -3,7 +3,6 @@ import json
 import sys
 from pathlib import Path
 
-
 SCRIPT = Path(__file__).parent / "scripts" / "ingest_dale_2026.py"
 SPEC = importlib.util.spec_from_file_location("ingest_dale_2026", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)
@@ -41,9 +40,7 @@ def test_normalization_is_panel_local(tmp_path):
     for index, method in enumerate(MODULE.METHODS):
         path = tmp_path / "bandgap" / "F" / "0pt05" / method / "history_test.json"
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(
-            json.dumps({"loss": [index + 1], "mae": [index + 1], "rmse": [index + 1]})
-        )
+        path.write_text(json.dumps({"loss": [index + 1], "mae": [index + 1], "rmse": [index + 1]}))
     # Add the other 22 complete panels and the one known incomplete panel.
     for target in ("bandgap", "e_form"):
         for element in ("F", "Fe"):

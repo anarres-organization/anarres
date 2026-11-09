@@ -3,7 +3,6 @@ import importlib.util
 import json
 from pathlib import Path
 
-
 SCRIPT = Path(__file__).parent / "freeze_target_roles.py"
 SPEC = importlib.util.spec_from_file_location("freeze_target_roles", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)

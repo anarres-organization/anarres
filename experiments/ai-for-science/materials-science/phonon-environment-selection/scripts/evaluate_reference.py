@@ -11,7 +11,14 @@ import sys
 import time
 from pathlib import Path
 
-from evaluate_candidate import COMPONENTS, add_composite, load_hashed, score_batch, sha256, write_csv
+from evaluate_candidate import (
+    COMPONENTS,
+    add_composite,
+    load_hashed,
+    score_batch,
+    sha256,
+    write_csv,
+)
 
 
 def canonical_digest(payload: dict) -> str:
@@ -25,7 +32,9 @@ def main() -> None:
     parser.add_argument("--upstream-repo", type=Path, required=True)
     parser.add_argument("--evaluation-contract", type=Path, required=True)
     parser.add_argument("--graph-cache", type=Path, required=True)
-    parser.add_argument("--reference", choices=("starting_pretrained", "full_dft_posttrained"), required=True)
+    parser.add_argument(
+        "--reference", choices=("starting_pretrained", "full_dft_posttrained"), required=True
+    )
     parser.add_argument("--out-root", type=Path, required=True)
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--batch-size", type=int, default=128)
@@ -35,7 +44,9 @@ def main() -> None:
     cache = load_hashed(args.graph_cache / "GRAPH_CACHE_MANIFEST.json", "graph_cache_sha256")
     if cache["external_labels_read"]:
         raise ValueError("External labels were opened before reference prediction")
-    model_name = "phononscore_pretrain" if args.reference == "starting_pretrained" else "phononscore_dft"
+    model_name = (
+        "phononscore_pretrain" if args.reference == "starting_pretrained" else "phononscore_dft"
+    )
     model_dir = args.upstream_repo / "checkpoints" / model_name
     checkpoint = model_dir / "best_model.pt"
     model_config = model_dir / "phonon_score_geom_mdn_config.json"
@@ -69,12 +80,21 @@ def main() -> None:
             stem = args.graph_cache / panel / f"shard_{shard['shard_index']:04d}"
             graphs, _ = dgl.load_graphs(str(stem.with_suffix(".graphs.bin")))
             lines, _ = dgl.load_graphs(str(stem.with_suffix(".line_graphs.bin")))
-            lattices = torch.load(stem.with_suffix(".lattices.pt"), map_location="cpu", weights_only=True)
+            lattices = torch.load(
+                stem.with_suffix(".lattices.pt"), map_location="cpu", weights_only=True
+            )
             ids = json.loads(stem.with_suffix(".ids.json").read_text(encoding="utf-8"))
             for start in range(0, len(ids), args.batch_size):
                 stop = start + args.batch_size
                 rows.extend(
-                    score_batch(model, graphs[start:stop], lines[start:stop], lattices[start:stop], device, ids[start:stop])
+                    score_batch(
+                        model,
+                        graphs[start:stop],
+                        lines[start:stop],
+                        lattices[start:stop],
+                        device,
+                        ids[start:stop],
+                    )
                 )
         expected = contract["panels"][panel]["records"]
         if len(rows) != expected or len({row["local_id"] for row in rows}) != expected:

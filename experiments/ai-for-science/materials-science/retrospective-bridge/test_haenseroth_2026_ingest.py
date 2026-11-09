@@ -2,7 +2,6 @@ import importlib.util
 import json
 from pathlib import Path
 
-
 SCRIPT = Path(__file__).parent / "scripts" / "ingest_haenseroth_2026.py"
 SPEC = importlib.util.spec_from_file_location("haenseroth_ingest", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)

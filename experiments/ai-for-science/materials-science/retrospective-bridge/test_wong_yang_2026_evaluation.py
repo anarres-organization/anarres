@@ -4,7 +4,6 @@ from pathlib import Path
 
 import numpy as np
 
-
 SCRIPT = Path(__file__).parent / "scripts" / "evaluate_wong_yang_2026.py"
 SPEC = importlib.util.spec_from_file_location("evaluate_wong_yang_2026", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)

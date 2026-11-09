@@ -10,7 +10,6 @@ from pathlib import Path
 
 import numpy as np
 
-
 BUDGET_MODELS = {
     10: (
         "data/ChClCA_Finetuning/Naive/Finetuned_Models/N-10pts/10pts.model",
@@ -58,9 +57,7 @@ def summarize_predictions(records: list[dict]) -> dict:
         "energy_rmse_meV_per_atom": float(np.sqrt(np.mean(energy_errors**2))),
         "energy_bias_meV_per_atom": float(np.mean(energy_errors)),
         "force_component_mae_eV_per_A": float(np.mean(np.abs(force_component_errors))),
-        "force_component_rmse_eV_per_A": float(
-            np.sqrt(np.mean(force_component_errors**2))
-        ),
+        "force_component_rmse_eV_per_A": float(np.sqrt(np.mean(force_component_errors**2))),
         "force_vector_mae_eV_per_A": float(np.mean(force_vector_errors)),
         "force_vector_rmse_eV_per_A": float(np.sqrt(np.mean(force_vector_errors**2))),
     }

@@ -14,7 +14,6 @@ import tarfile
 from pathlib import Path
 from zipfile import ZipFile
 
-
 EXPECTED_SHARD_SHA256 = "7ecfe6261da217394c5db2985d925d7555e9ba19d28bd6143a4bbb1ba45c76dc"
 EXPECTED_SHARD_RECORDS = 1530
 SOURCE_SHARD_KEY = "mp_0860001-0880000.tar"
@@ -73,14 +72,18 @@ def parse_formula(formula: str) -> tuple[tuple[str, int], ...]:
                 raise ValueError(f"Unbalanced formula: {formula}")
             group = stack.pop()
             index += 1
-            multiplier = int(tokens[index]) if index < len(tokens) and tokens[index].isdigit() else 1
+            multiplier = (
+                int(tokens[index]) if index < len(tokens) and tokens[index].isdigit() else 1
+            )
             if multiplier != 1:
                 index += 1
             for element, count in group.items():
                 stack[-1][element] += count * multiplier
         elif re.fullmatch(r"[A-Z][a-z]?", token):
             index += 1
-            multiplier = int(tokens[index]) if index < len(tokens) and tokens[index].isdigit() else 1
+            multiplier = (
+                int(tokens[index]) if index < len(tokens) and tokens[index].isdigit() else 1
+            )
             if multiplier != 1:
                 index += 1
             stack[-1][token] += multiplier
@@ -189,7 +192,9 @@ def main() -> None:
     selected = [dict(row) for row in unique_compositions[:PANEL_SIZE]]
     for row in selected:
         row["starting_pretrain_id_overlap"] = row["material_id"] in pretrain_ids
-        row["starting_pretrain_composition_overlap"] = row["composition_key"] in pretrain_compositions
+        row["starting_pretrain_composition_overlap"] = (
+            row["composition_key"] in pretrain_compositions
+        )
         del row["composition_key"]
 
     payload = {
@@ -219,11 +224,15 @@ def main() -> None:
             "salt": SELECTION_SALT,
         },
         "starting_pretrain_overlap": {
-            "exact_ids_in_selected_panel": sum(row["starting_pretrain_id_overlap"] for row in selected),
+            "exact_ids_in_selected_panel": sum(
+                row["starting_pretrain_id_overlap"] for row in selected
+            ),
             "compositions_in_selected_panel": sum(
                 row["starting_pretrain_composition_overlap"] for row in selected
             ),
-            "interpretation": "reported overlap with the fixed starting model; PBEsol outcomes remain new",
+            "interpretation": (
+                "reported overlap with the fixed starting model; PBEsol outcomes remain new"
+            ),
         },
         "frozen_prediction": {
             "source": "complete two-seed ordering on the earlier PBE panel",

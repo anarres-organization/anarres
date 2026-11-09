@@ -21,7 +21,6 @@ import zlib
 from dataclasses import dataclass
 from pathlib import Path
 
-
 RECORD = "20754201"
 ARCHIVES = {
     1: ("paper1_add_data_part1.zip", "f582c8b1d9e05173e599714b9bb0d60a"),
@@ -169,9 +168,7 @@ def fetch(output: Path) -> dict:
     for part, (name, md5) in ARCHIVES.items():
         url = archive_url(name)
         size, members = central_directory(url)
-        archive_records.append(
-            {"part": part, "name": name, "bytes": size, "md5_from_zenodo": md5}
-        )
+        archive_records.append({"part": part, "name": name, "bytes": size, "md5_from_zenodo": md5})
         for member in members:
             match = TARGET.fullmatch(member.name)
             if not match:

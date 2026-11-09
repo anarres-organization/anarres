@@ -60,7 +60,7 @@ def main() -> None:
     if len(run_ids) != contract["expected_candidate_runs"]:
         raise ValueError("Launch matrix differs from the evaluation contract")
 
-    queues = [run_ids[index::len(devices)] for index in range(len(devices))]
+    queues = [run_ids[index :: len(devices)] for index in range(len(devices))]
 
     def run_queue(device: str, queue: list[str]) -> list[str]:
         completed = []
@@ -77,24 +77,39 @@ def main() -> None:
             command = [
                 sys.executable,
                 str(runner),
-                "--upstream-repo", str(args.upstream_repo),
-                "--evaluation-contract", str(args.evaluation_contract),
-                "--launch-dir", str(args.launch_dir),
-                "--training-root", str(args.training_root),
-                "--data-root", str(args.data_root),
-                "--graph-cache", str(args.graph_cache),
-                "--run-id", run_id,
-                "--out-root", str(args.out_root),
-                "--device", requested_device,
-                "--batch-size", str(args.batch_size),
+                "--upstream-repo",
+                str(args.upstream_repo),
+                "--evaluation-contract",
+                str(args.evaluation_contract),
+                "--launch-dir",
+                str(args.launch_dir),
+                "--training-root",
+                str(args.training_root),
+                "--data-root",
+                str(args.data_root),
+                "--graph-cache",
+                str(args.graph_cache),
+                "--run-id",
+                run_id,
+                "--out-root",
+                str(args.out_root),
+                "--device",
+                requested_device,
+                "--batch-size",
+                str(args.batch_size),
             ]
             with (log_dir / f"{run_id}.log").open("w", encoding="utf-8") as log:
-                subprocess.run(command, check=True, env=environment, stdout=log, stderr=subprocess.STDOUT)
+                subprocess.run(
+                    command, check=True, env=environment, stdout=log, stderr=subprocess.STDOUT
+                )
             completed.append(run_id)
         return completed
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(devices)) as executor:
-        futures = [executor.submit(run_queue, device, queue) for device, queue in zip(devices, queues)]
+        futures = [
+            executor.submit(run_queue, device, queue)
+            for device, queue in zip(devices, queues, strict=False)
+        ]
         completed = [run_id for future in futures for run_id in future.result()]
     reference_rows = []
     reference_device = devices[0]
@@ -111,16 +126,25 @@ def main() -> None:
         command = [
             sys.executable,
             str(reference_runner),
-            "--upstream-repo", str(args.upstream_repo),
-            "--evaluation-contract", str(args.evaluation_contract),
-            "--graph-cache", str(args.graph_cache),
-            "--reference", reference,
-            "--out-root", str(args.out_root),
-            "--device", requested_device,
-            "--batch-size", str(args.batch_size),
+            "--upstream-repo",
+            str(args.upstream_repo),
+            "--evaluation-contract",
+            str(args.evaluation_contract),
+            "--graph-cache",
+            str(args.graph_cache),
+            "--reference",
+            reference,
+            "--out-root",
+            str(args.out_root),
+            "--device",
+            requested_device,
+            "--batch-size",
+            str(args.batch_size),
         ]
         with (log_dir / f"reference_{reference}.log").open("w", encoding="utf-8") as log:
-            subprocess.run(command, check=True, env=environment, stdout=log, stderr=subprocess.STDOUT)
+            subprocess.run(
+                command, check=True, env=environment, stdout=log, stderr=subprocess.STDOUT
+            )
         completion = load_hashed(
             args.out_root / "_references" / reference / "REFERENCE_COMPLETION.json",
             "reference_completion_sha256",
@@ -140,7 +164,10 @@ def main() -> None:
             args.out_root / run_id / "PREDICTION_COMPLETION.json",
             "prediction_completion_sha256",
         )
-        if completion["external_labels_read"] or completion["status"] != "complete_external_predictions_labels_sealed":
+        if (
+            completion["external_labels_read"]
+            or completion["status"] != "complete_external_predictions_labels_sealed"
+        ):
             raise ValueError(f"Invalid prediction completion: {run_id}")
         rows.append(
             {
@@ -156,7 +183,9 @@ def main() -> None:
     manifest = {
         "schema_version": "1.0",
         "status": "all_candidate_predictions_complete_external_labels_sealed",
-        "evaluation_contract_sha256": hashlib.sha256(args.evaluation_contract.read_bytes()).hexdigest(),
+        "evaluation_contract_sha256": hashlib.sha256(
+            args.evaluation_contract.read_bytes()
+        ).hexdigest(),
         "graph_cache_sha256": load_hashed(
             args.graph_cache / "GRAPH_CACHE_MANIFEST.json", "graph_cache_sha256"
         )["graph_cache_sha256"],

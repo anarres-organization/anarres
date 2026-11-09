@@ -96,7 +96,9 @@ def main() -> None:
             )
     if len(materialized) != len(wanted):
         missing = sorted(set(wanted) - seen_members)
-        raise ValueError(f"Incomplete structure materialization: {len(materialized)}; missing={missing[:3]}")
+        raise ValueError(
+            f"Incomplete structure materialization: {len(materialized)}; missing={missing[:3]}"
+        )
     materialized.sort(key=lambda row: row["local_id"])
     manifest = {
         "schema_version": "1.0",

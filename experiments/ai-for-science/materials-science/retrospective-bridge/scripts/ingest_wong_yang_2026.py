@@ -8,7 +8,6 @@ import hashlib
 import json
 from pathlib import Path
 
-
 SOURCE_ID = "wong_yang_2026_umlip_bias"
 
 
@@ -26,9 +25,7 @@ def reconstruct(evaluation_path: Path, measurement_path: Path) -> dict:
     if evaluation["source_revision"] != measurement["source_revision"]:
         raise ValueError("evaluation and measurement revisions differ")
 
-    measured = {
-        (arm["panel_id"], arm["environment"]): arm for arm in measurement["arms"]
-    }
+    measured = {(arm["panel_id"], arm["environment"]): arm for arm in measurement["arms"]}
     arms = []
     for evaluated in evaluation["arms"]:
         key = (evaluated["panel_id"], evaluated["environment"])
@@ -77,11 +74,16 @@ def reconstruct(evaluation_path: Path, measurement_path: Path) -> dict:
         "panel_count": 5,
         "arm_count": 10,
         "primary_outcome": "independent-test energy MAE per atom",
-        "normalization": "within matched training-configuration budget; lower energy MAE maps to higher utility",
+        "normalization": (
+            "within matched training-configuration budget; lower energy MAE maps to higher utility"
+        ),
         "interpretation_boundary": [
             "The primary outcome follows the released independent-test energy analysis.",
             "Force errors are retained as target-specific sensitivity outcomes.",
-            "All pre-outcome measurements use the shared released starting potential on the exact training configurations.",
+            (
+                "All pre-outcome measurements use the shared released starting potential on the "
+                "exact training configurations."
+            ),
         ],
         "input_artifacts": {
             "evaluation_sha256": sha256(evaluation_path),

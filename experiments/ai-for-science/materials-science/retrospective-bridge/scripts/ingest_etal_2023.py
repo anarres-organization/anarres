@@ -11,7 +11,6 @@ import statistics
 from collections import defaultdict
 from pathlib import Path
 
-
 SOURCE_ID = "zhang_2023_etal"
 REVISION = "9cc7ca8e632a31dba366a309817d24de09404766"
 RESULT_SHA256 = "ca4efc2934ef9055b2fc631b3d703f01d6ecf4aef9d2590fb686f07a174f312b"
@@ -89,7 +88,7 @@ def ingest(repository: Path) -> dict:
             )
         utilities = [arm["outcome"]["mean_test_r2"] for arm in panel]
         low, high = min(utilities), max(utilities)
-        for arm, utility in zip(panel, utilities):
+        for arm, utility in zip(panel, utilities, strict=False):
             normalized = 0.5 if high == low else (utility - low) / (high - low)
             arm["derived"] = {
                 "native_utility": utility,
@@ -118,9 +117,19 @@ def ingest(repository: Path) -> dict:
             "results/info_entropy_evolution.csv": {"sha256": ENTROPY_SHA256},
         },
         "interpretation_boundary": [
-            "The release contains exact 30-fit histories for random forest and gradient boosting; other model families shown in the paper are not reconstructed from figures.",
-            "Bulk and shear modulus are repeated target views of one pair of selected training sets.",
-            "ET-AL uses formation-energy entropy to target underrepresented structure space before the downstream modulus models are fit.",
+            (
+                "The release contains exact 30-fit histories for random forest and gradient "
+                "boosting; other model families shown in the paper are not reconstructed from "
+                "figures."
+            ),
+            (
+                "Bulk and shear modulus are repeated target views of one pair of selected "
+                "training sets."
+            ),
+            (
+                "ET-AL uses formation-energy entropy to target underrepresented structure space "
+                "before the downstream modulus models are fit."
+            ),
         ],
         "arms": arms,
     }

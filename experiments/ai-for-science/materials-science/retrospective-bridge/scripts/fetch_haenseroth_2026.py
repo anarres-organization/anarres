@@ -19,10 +19,8 @@ import zlib
 from dataclasses import dataclass
 from pathlib import Path
 
-
 DEFAULT_URL = (
-    "https://zenodo.org/records/20792778/files/"
-    "dataset_2000__stride_100_finetune.zip?download=1"
+    "https://zenodo.org/records/20792778/files/dataset_2000__stride_100_finetune.zip?download=1"
 )
 ARCHIVE_MD5 = "9d3fedb04578eba7c64fed12055021f3"
 PREFIX = "dataset_2000__stride_100_finetune/"
@@ -44,7 +42,9 @@ class Member:
 
 def _range(url: str, start: int, end: int | None = None) -> tuple[bytes, str]:
     value = f"bytes={start}-" if end is None else f"bytes={start}-{end}"
-    request = urllib.request.Request(url, headers={"Range": value, "User-Agent": "anarres-source-audit/1"})
+    request = urllib.request.Request(
+        url, headers={"Range": value, "User-Agent": "anarres-source-audit/1"}
+    )
     with urllib.request.urlopen(request) as response:
         data = response.read()
         content_range = response.headers.get("Content-Range", "")

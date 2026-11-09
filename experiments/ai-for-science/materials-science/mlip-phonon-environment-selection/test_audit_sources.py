@@ -4,7 +4,6 @@ import json
 import tarfile
 from pathlib import Path
 
-
 SCRIPT = Path(__file__).parent / "audit_sources.py"
 SPEC = importlib.util.spec_from_file_location("mlip_source_audit", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)
@@ -15,12 +14,12 @@ SPEC.loader.exec_module(MODULE)
 def test_first_header_accepts_required_extxyz_schema(tmp_path):
     archive = tmp_path / "sample.tar.gz"
     payload = (
-        "2\n"
-        'Lattice="1 0 0 0 1 0 0 0 1" '
-        "Properties=species:S:1:pos:R:3:forces:R:3 "
-        'energy=-1.0 stress="0 0 0 0 0 0 0 0 0" pbc="T T T"\n'
-        "H 0 0 0 0 0 0\nH 0 0 0.5 0 0 0\n"
-    ).encode()
+        b"2\n"
+        b'Lattice="1 0 0 0 1 0 0 0 1" '
+        b"Properties=species:S:1:pos:R:3:forces:R:3 "
+        b'energy=-1.0 stress="0 0 0 0 0 0 0 0 0" pbc="T T T"\n'
+        b"H 0 0 0 0 0 0\nH 0 0 0.5 0 0 0\n"
+    )
     with tarfile.open(archive, "w:gz") as handle:
         info = tarfile.TarInfo("disp_struct/mp-test/disp_000.extxyz")
         info.size = len(payload)

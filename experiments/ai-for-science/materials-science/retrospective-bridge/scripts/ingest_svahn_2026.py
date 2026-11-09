@@ -10,13 +10,22 @@ import json
 import math
 from pathlib import Path
 
-
 SOURCE_ID = "svahn_2026_cluster_mlip_limits"
 TARGETS = {
-    "EC": {"temperature_K": 313, "density": 1.312, "diffusion": 8.0,
-           "mass_kg": 1.462303889780969e-23, "viscosity_Pa_s": 1.93e-3},
-    "EMC": {"temperature_K": 298, "density": 1.006, "diffusion": 18.3,
-            "mass_kg": 1.1582317925845882e-23, "viscosity_Pa_s": 0.65e-3},
+    "EC": {
+        "temperature_K": 313,
+        "density": 1.312,
+        "diffusion": 8.0,
+        "mass_kg": 1.462303889780969e-23,
+        "viscosity_Pa_s": 1.93e-3,
+    },
+    "EMC": {
+        "temperature_K": 298,
+        "density": 1.006,
+        "diffusion": 18.3,
+        "mass_kg": 1.1582317925845882e-23,
+        "viscosity_Pa_s": 0.65e-3,
+    },
 }
 KB = 1.380649e-23
 XI = 2.837298
@@ -36,7 +45,9 @@ def finite_size_correction(row: dict[str, str]) -> float:
     density_kg_m3 = float(row["Density /g*cm-3"]) * 1000.0
     box_length_m = (target["mass_kg"] / density_kg_m3) ** (1.0 / 3.0)
     correction_m2_s = (
-        XI * KB * target["temperature_K"]
+        XI
+        * KB
+        * target["temperature_K"]
         / (6.0 * math.pi * target["viscosity_Pa_s"] * box_length_m)
     )
     return correction_m2_s * 1e10
@@ -56,7 +67,8 @@ def reconstruct(source_csv: Path) -> dict:
     with source_csv.open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))
     selected = [
-        row for row in rows
+        row
+        for row in rows
         if row["Data set"] in {"Clusters-Small", "Clusters-Medium"}
         and row["Labels"] == "wB97X-D3"
         and int(row["Seed ID"]) == 1
@@ -69,10 +81,7 @@ def reconstruct(source_csv: Path) -> dict:
         composition = row["Composition"]
         sample = int(row["Sample ID"])
         density = float(row["Density /g*cm-3"])
-        corrected_diffusion = (
-            float(row["Diff. coeff. /1e6 cm2*s-1"])
-            + finite_size_correction(row)
-        )
+        corrected_diffusion = float(row["Diff. coeff. /1e6 cm2*s-1"]) + finite_size_correction(row)
         for endpoint, observed in (
             ("density_g_cm3", density),
             ("diffusion_1e-6_cm2_s", corrected_diffusion),
@@ -123,9 +132,18 @@ def reconstruct(source_csv: Path) -> dict:
             "restricted_csv_sha256": sha256(source_csv),
         },
         "interpretation_boundary": [
-            "The three arms at each budget use different random cluster identities but the same molecular composition.",
-            "No released pre-training measurement distinguishes the arms, so these panels estimate unresolved selection variability rather than predictor accuracy.",
-            "The diffusion endpoint applies the finite-size correction used in the released analysis notebook.",
+            (
+                "The three arms at each budget use different random cluster identities but the "
+                "same molecular composition."
+            ),
+            (
+                "No released pre-training measurement distinguishes the arms, so these panels "
+                "estimate unresolved selection variability rather than predictor accuracy."
+            ),
+            (
+                "The diffusion endpoint applies the finite-size correction used in the released "
+                "analysis notebook."
+            ),
         ],
         "arms": arms,
     }

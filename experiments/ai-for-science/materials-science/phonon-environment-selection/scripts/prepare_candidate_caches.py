@@ -39,8 +39,13 @@ def load_launch(path: Path) -> dict[str, Any]:
 
 
 def build_one(
-    *, split_rel: str, split_sha256: str, launch_dir: Path, upstream: Path,
-    data_root: Path, out_dir: Path,
+    *,
+    split_rel: str,
+    split_sha256: str,
+    launch_dir: Path,
+    upstream: Path,
+    data_root: Path,
+    out_dir: Path,
 ) -> dict[str, Any]:
     split_path = launch_dir / split_rel
     if sha256(split_path) != split_sha256:
@@ -53,16 +58,29 @@ def build_one(
     prefix = cache_dir / "lmdb" / "graphs_"
     ids_path = cache_dir / "lmdb" / "ids_train_val_test.json"
     command = [
-        sys.executable, "-m", "phononscore.training.build_lmdb",
-        "--alignn_src", str(upstream / "third_party" / "alignn-main"),
-        "--dataset_dir", str(data_root / "dft_posttrain"),
-        "--config", str(upstream / "configs" / "training_dft_posttrain.json"),
-        "--lmdb_prefix", str(prefix), "--ids_json", str(ids_path),
-        "--split_ids", str(split_path),
+        sys.executable,
+        "-m",
+        "phononscore.training.build_lmdb",
+        "--alignn_src",
+        str(upstream / "third_party" / "alignn-main"),
+        "--dataset_dir",
+        str(data_root / "dft_posttrain"),
+        "--config",
+        str(upstream / "configs" / "training_dft_posttrain.json"),
+        "--lmdb_prefix",
+        str(prefix),
+        "--ids_json",
+        str(ids_path),
+        "--split_ids",
+        str(split_path),
     ]
     environment = dict(os.environ)
     environment["PYTHONPATH"] = os.pathsep.join(
-        [str(upstream), str(upstream / "third_party" / "alignn-main"), environment.get("PYTHONPATH", "")]
+        [
+            str(upstream),
+            str(upstream / "third_party" / "alignn-main"),
+            environment.get("PYTHONPATH", ""),
+        ]
     )
     with (cache_dir / "build.log").open("w", encoding="utf-8") as log:
         subprocess.run(command, check=True, stdout=log, stderr=subprocess.STDOUT, env=environment)
@@ -98,9 +116,13 @@ def main() -> None:
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as executor:
         futures = [
             executor.submit(
-                build_one, split_rel=split_rel, split_sha256=digest,
-                launch_dir=args.launch_dir, upstream=args.upstream_repo,
-                data_root=args.data_root, out_dir=args.out_dir,
+                build_one,
+                split_rel=split_rel,
+                split_sha256=digest,
+                launch_dir=args.launch_dir,
+                upstream=args.upstream_repo,
+                data_root=args.data_root,
+                out_dir=args.out_dir,
             )
             for split_rel, digest in splits
         ]

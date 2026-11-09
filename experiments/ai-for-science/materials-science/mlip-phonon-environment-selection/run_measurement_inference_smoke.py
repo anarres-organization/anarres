@@ -10,7 +10,6 @@ from pathlib import Path
 
 import jax
 import jraph
-
 from nequix.data import AseDBDataset
 from nequix.model import load_model
 from nequix.train import evaluate

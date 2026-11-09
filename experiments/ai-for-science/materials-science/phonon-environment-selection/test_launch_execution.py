@@ -27,7 +27,7 @@ class LaunchExecutionTest(unittest.TestCase):
     def test_run_loader_rejects_changed_manifest(self):
         launch = json.loads((ROOT / "LAUNCH_MANIFEST.json").read_text(encoding="utf-8"))
         launch["runs"][0]["seed"] += 1
-        path = ROOT / "LAUNCH_MANIFEST.json"
+        ROOT / "LAUNCH_MANIFEST.json"
         stored = launch["launch_sha256"]
         payload = dict(launch)
         payload.pop("launch_sha256")

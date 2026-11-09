@@ -38,14 +38,10 @@ def test_reproduces_density_diversity_ordering_and_high_density_reversal():
     by_panel = {}
     for arm in data["arms"]:
         by_panel.setdefault(arm["panel_id"], {})[arm["environment"]] = arm
-    low_density = by_panel[
-        "kim_2026_density_diversity:h2o:T300:rho03:rdf_similarity"
-    ]
+    low_density = by_panel["kim_2026_density_diversity:h2o:T300:rho03:rdf_similarity"]
     assert low_density["density_diverse"]["outcome"]["mean_rdf_similarity"] > 0.98
     assert low_density["density_diverse"]["derived"]["panel_normalized_utility"] == 1.0
-    high_density = by_panel[
-        "kim_2026_density_diversity:h2o:T700:rho10:rdf_similarity"
-    ]
+    high_density = by_panel["kim_2026_density_diversity:h2o:T700:rho10:rdf_similarity"]
     assert (
         high_density["no_variance"]["outcome"]["mean_rdf_similarity"]
         > high_density["density_diverse"]["outcome"]["mean_rdf_similarity"]

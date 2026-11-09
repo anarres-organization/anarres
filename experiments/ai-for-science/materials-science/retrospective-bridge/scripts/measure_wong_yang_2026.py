@@ -10,7 +10,6 @@ from pathlib import Path
 
 import numpy as np
 
-
 DATASETS = {
     10: (
         "data/ChClCA_Finetuning/Naive/Finetuned_Models/N-10pts/10pt_dataset_raw.xyz",

@@ -8,7 +8,6 @@ import hashlib
 import json
 from pathlib import Path
 
-
 SOURCE_ID = "moerman_2026_atoms_that_matter"
 SELECTORS = ("v14", "DIRECT", "rdm1", "rdm2", "rdm3", "rdm4")
 METRICS = {
@@ -75,8 +74,10 @@ def reconstruct(source_json: Path) -> dict:
                     "endpoint": endpoint,
                     "candidate": selector,
                     "selector_family": (
-                        "EnvTok" if selector == "v14"
-                        else "DIRECT" if selector == "DIRECT"
+                        "EnvTok"
+                        if selector == "v14"
+                        else "DIRECT"
+                        if selector == "DIRECT"
                         else "random"
                     ),
                     "pre_outcome_measurements": selector_coordinates(selector),
@@ -106,10 +107,23 @@ def reconstruct(source_json: Path) -> dict:
             "sha256": sha256(source_json),
         },
         "interpretation_boundary": [
-            "EnvTok, DIRECT, and four random subsets hold the training budget near 6.5 million atoms and use the same MACE training pipeline.",
-            "Bulk and non-bulk MatPES outcomes remain separate because the preferred selector can change with the evaluation distribution.",
-            "The paper reports one trained model for EnvTok and DIRECT and four independently selected random subsets, so selector effects and training variation are not fully separated.",
-            "These released panels test matched-budget selection behavior but do not provide a new pre-outcome continuous measurement shared by all six arms.",
+            (
+                "EnvTok, DIRECT, and four random subsets hold the training budget near 6.5 "
+                "million atoms and use the same MACE training pipeline."
+            ),
+            (
+                "Bulk and non-bulk MatPES outcomes remain separate because the preferred "
+                "selector can change with the evaluation distribution."
+            ),
+            (
+                "The paper reports one trained model for EnvTok and DIRECT and four independently "
+                "selected random subsets, so selector effects and training variation are not "
+                "fully separated."
+            ),
+            (
+                "These released panels test matched-budget selection behavior but do not provide "
+                "a new pre-outcome continuous measurement shared by all six arms."
+            ),
         ],
         "arms": arms,
     }

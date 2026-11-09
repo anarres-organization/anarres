@@ -1,7 +1,6 @@
 import json
 from pathlib import Path
 
-
 PATH = Path(__file__).parent / "data" / "qi_2024_direct_panels.json"
 
 

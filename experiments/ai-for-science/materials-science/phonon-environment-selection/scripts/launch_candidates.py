@@ -46,9 +46,20 @@ def main() -> None:
 
     def run_one(run_id: str) -> str:
         command = [
-            sys.executable, str(runner), "--upstream-repo", str(args.upstream_repo),
-            "--launch-dir", str(args.launch_dir), "--cache-dir", str(args.cache_dir),
-            "--run-id", run_id, "--out-root", str(args.out_root), "--device", args.device,
+            sys.executable,
+            str(runner),
+            "--upstream-repo",
+            str(args.upstream_repo),
+            "--launch-dir",
+            str(args.launch_dir),
+            "--cache-dir",
+            str(args.cache_dir),
+            "--run-id",
+            run_id,
+            "--out-root",
+            str(args.out_root),
+            "--device",
+            args.device,
         ]
         with (log_dir / f"{run_id}.log").open("w", encoding="utf-8") as log:
             subprocess.run(command, check=True, stdout=log, stderr=subprocess.STDOUT)
@@ -63,7 +74,10 @@ def main() -> None:
     for run_id in sorted(completed_ids):
         path = args.out_root / run_id / "COMPLETION.json"
         completion = load_hashed(path, "completion_sha256")
-        if completion["run_id"] != run_id or completion["status"] != "complete_external_outcomes_sealed":
+        if (
+            completion["run_id"] != run_id
+            or completion["status"] != "complete_external_outcomes_sealed"
+        ):
             raise ValueError(f"Invalid completion record: {run_id}")
         completions.append(
             {

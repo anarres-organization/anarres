@@ -6,11 +6,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import math
 import statistics
 from collections import defaultdict
 from pathlib import Path
-
 
 METRICS = (
     "top_k_stable_rate",
@@ -33,7 +31,7 @@ def aggregate(rows: list[dict], keys: tuple[str, ...]) -> list[dict]:
         groups[tuple(row[key] for key in keys)].append(row)
     result = []
     for identity, values in sorted(groups.items()):
-        item = {key: value for key, value in zip(keys, identity)}
+        item = {key: value for key, value in zip(keys, identity, strict=False)}
         item["replicates"] = len(values)
         for metric in METRICS:
             item[metric] = statistics.fmean(float(row[metric]) for row in values)
@@ -67,9 +65,7 @@ def main() -> None:
         },
         "decision_summary": scored["decision_summary"],
         "candidate_decisions": scored["candidate_decisions"],
-        "dft_pbe_two_seed_means": aggregate(
-            dft, ("budget_structures", "candidate")
-        ),
+        "dft_pbe_two_seed_means": aggregate(dft, ("budget_structures", "candidate")),
         "mp20_two_seed_macro_means": aggregate(
             aggregate(mp20, ("run_id", "budget_structures", "candidate", "seed")),
             ("budget_structures", "candidate"),
@@ -81,10 +77,22 @@ def main() -> None:
         "candidate_composition": composition["candidates"],
         "source_pool_composition": composition["source_pool"],
         "interpretation": {
-            "prospective_result": "The frozen signal-plus-coverage point prediction missed the best candidate at all three budgets.",
-            "primary_panel": "Coverage leads at 256 and 512 structures; hash-uniform leads at 1024.",
-            "secondary_panel": "No candidate mean exceeds the starting checkpoint's macro Top-100 stable rate on MP20.",
-            "post_outcome_audit": "Signal-based candidates substantially shift the training-label distribution toward unstable structures; this is descriptive evidence for a missing distribution-matching constraint, not a prospective explanation test."
+            "prospective_result": (
+                "The frozen signal-plus-coverage point prediction missed the best candidate at "
+                "all three budgets."
+            ),
+            "primary_panel": (
+                "Coverage leads at 256 and 512 structures; hash-uniform leads at 1024."
+            ),
+            "secondary_panel": (
+                "No candidate mean exceeds the starting checkpoint's macro Top-100 stable rate "
+                "on MP20."
+            ),
+            "post_outcome_audit": (
+                "Signal-based candidates substantially shift the training-label distribution "
+                "toward unstable structures; this is descriptive evidence for a missing "
+                "distribution-matching constraint, not a prospective explanation test."
+            ),
         },
     }
     result["result_summary_sha256"] = canonical_digest(result)

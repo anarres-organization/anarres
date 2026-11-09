@@ -12,7 +12,6 @@ import sys
 import time
 from pathlib import Path
 
-
 COMPONENTS = ("prediction", "threshold_score", "pair_geometry_score")
 
 
@@ -60,7 +59,9 @@ def score_batch(model, graphs, line_graphs, lattices, device, ids):
 
     graph = dgl.batch(graphs).to(device)
     line_graph = dgl.batch(line_graphs).to(device)
-    lattice = torch.stack(lattices).to(device) if isinstance(lattices, list) else lattices.to(device)
+    lattice = (
+        torch.stack(lattices).to(device) if isinstance(lattices, list) else lattices.to(device)
+    )
     with torch.no_grad():
         out = model([graph, line_graph, lattice])
         threshold_probabilities = torch.sigmoid(out.threshold_logits).detach().cpu().tolist()
@@ -95,11 +96,10 @@ def moments(rows: list[dict]) -> dict:
 
 def add_composite(rows: list[dict], stats: dict) -> None:
     for row in rows:
-        z = {
-            key: (float(row[key]) - stats[key]["mean"]) / stats[key]["std"]
-            for key in COMPONENTS
-        }
-        row["composite_score"] = z["prediction"] + 0.5 * z["threshold_score"] + 0.2 * z["pair_geometry_score"]
+        z = {key: (float(row[key]) - stats[key]["mean"]) / stats[key]["std"] for key in COMPONENTS}
+        row["composite_score"] = (
+            z["prediction"] + 0.5 * z["threshold_score"] + 0.2 * z["pair_geometry_score"]
+        )
 
 
 def write_csv(path: Path, rows: list[dict]) -> None:
@@ -127,7 +127,9 @@ def main() -> None:
     started = time.time()
     contract = json.loads(args.evaluation_contract.read_text(encoding="utf-8"))
     launch = load_hashed(args.launch_dir / "LAUNCH_MANIFEST.json", "launch_sha256")
-    training = load_hashed(args.training_root / "TRAINING_MANIFEST.json", "training_manifest_sha256")
+    training = load_hashed(
+        args.training_root / "TRAINING_MANIFEST.json", "training_manifest_sha256"
+    )
     cache = load_hashed(args.graph_cache / "GRAPH_CACHE_MANIFEST.json", "graph_cache_sha256")
     if training["training_manifest_sha256"] != contract["training_manifest_sha256"]:
         raise ValueError("Training manifest differs from frozen evaluation contract")
@@ -183,7 +185,9 @@ def main() -> None:
             lines.append(line_graph)
             lattices.append(lattice)
         train_rows.extend(
-            score_batch(model, graphs, lines, lattices, device, [Path(value).stem for value in batch_ids])
+            score_batch(
+                model, graphs, lines, lattices, device, [Path(value).stem for value in batch_ids]
+            )
         )
     stats = moments(train_rows)
     stats_payload = {
@@ -197,7 +201,9 @@ def main() -> None:
     }
     stats_payload["normalization_sha256"] = canonical_digest(stats_payload)
     stats_path = output_dir / "NORMALIZATION.json"
-    stats_path.write_text(json.dumps(stats_payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    stats_path.write_text(
+        json.dumps(stats_payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
 
     panel_outputs = []
     for panel in sorted(contract["panels"]):
@@ -211,17 +217,30 @@ def main() -> None:
             stem = args.graph_cache / panel / f"shard_{shard['shard_index']:04d}"
             graphs, _ = dgl.load_graphs(str(stem.with_suffix(".graphs.bin")))
             lines, _ = dgl.load_graphs(str(stem.with_suffix(".line_graphs.bin")))
-            lattices = torch.load(stem.with_suffix(".lattices.pt"), map_location="cpu", weights_only=True)
+            lattices = torch.load(
+                stem.with_suffix(".lattices.pt"), map_location="cpu", weights_only=True
+            )
             ids = json.loads(stem.with_suffix(".ids.json").read_text(encoding="utf-8"))
             for start in range(0, len(ids), args.batch_size):
                 stop = start + args.batch_size
                 rows.extend(
-                    score_batch(model, graphs[start:stop], lines[start:stop], lattices[start:stop], device, ids[start:stop])
+                    score_batch(
+                        model,
+                        graphs[start:stop],
+                        lines[start:stop],
+                        lattices[start:stop],
+                        device,
+                        ids[start:stop],
+                    )
                 )
         expected = contract["panels"][panel]["records"]
         if len(rows) != expected or len({row["local_id"] for row in rows}) != expected:
             raise ValueError(f"Incomplete or duplicate predictions for {panel}")
-        if not all(math.isfinite(float(row[key])) for row in rows for key in (*COMPONENTS, "threshold_probability_minus_0p1")):
+        if not all(
+            math.isfinite(float(row[key]))
+            for row in rows
+            for key in (*COMPONENTS, "threshold_probability_minus_0p1")
+        ):
             raise ValueError(f"Non-finite predictions for {panel}")
         add_composite(rows, stats)
         rows.sort(key=lambda row: row["local_id"])

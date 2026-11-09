@@ -2,7 +2,6 @@ import importlib.util
 import sys
 from pathlib import Path
 
-
 SCRIPT = Path(__file__).parent / "scripts" / "ingest_zaverkin_2024.py"
 SPEC = importlib.util.spec_from_file_location("ingest_zaverkin_2024", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)
@@ -25,19 +24,23 @@ def test_reconstructs_matched_repeated_panels():
 def test_exact_primary_table_values_are_preserved():
     payload = MODULE.reconstruct()
     lookup = {(arm["panel_id"], arm["environment"]): arm for arm in payload["arms"]}
-    alanine = lookup[(
-        f"{MODULE.SOURCE_ID}:alanine_1200K_test:energy_rmse",
-        "uncertainty_1200K",
-    )]
+    alanine = lookup[
+        (
+            f"{MODULE.SOURCE_ID}:alanine_1200K_test:energy_rmse",
+            "uncertainty_1200K",
+        )
+    ]
     assert alanine["outcome"] == {
         "mean_rmse": 1.47,
         "sd_across_runs": 0.09,
         "independent_runs": 5,
     }
-    mil53 = lookup[(
-        f"{MODULE.SOURCE_ID}:mil53_generation_600K_600K_test:stress_rmse",
-        "uncertainty_biased_0MPa",
-    )]
+    mil53 = lookup[
+        (
+            f"{MODULE.SOURCE_ID}:mil53_generation_600K_600K_test:stress_rmse",
+            "uncertainty_biased_0MPa",
+        )
+    ]
     assert mil53["outcome"]["mean_rmse"] == 36.60
 
 

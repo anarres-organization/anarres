@@ -12,7 +12,6 @@ from pathlib import Path
 
 import numpy as np
 
-
 REVISION = "b982ccd33e981eab2f6527d56b407f9297b1cfb1"
 BUDGETS = (100, 200, 350, 500, 750, 1000, 1500, 2250, 3000)
 EXPECTED_SHA256 = {
@@ -27,9 +26,21 @@ EXPECTED_SHA256 = {
     3000: "64906d74c841db08a524ef3b88215633fa6071b5f5c607b89d3c53e7beb009db",
 }
 METHOD_COORDINATES = {
-    "Random": {"uses_descriptor_coverage": 0, "uses_energy_leverage": 0, "uses_force_block_leverage": 0},
-    "Leverage": {"uses_descriptor_coverage": 1, "uses_energy_leverage": 1, "uses_force_block_leverage": 0},
-    "Block Leverage": {"uses_descriptor_coverage": 1, "uses_energy_leverage": 0, "uses_force_block_leverage": 1},
+    "Random": {
+        "uses_descriptor_coverage": 0,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 0,
+    },
+    "Leverage": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 1,
+        "uses_force_block_leverage": 0,
+    },
+    "Block Leverage": {
+        "uses_descriptor_coverage": 1,
+        "uses_energy_leverage": 0,
+        "uses_force_block_leverage": 1,
+    },
 }
 ENDPOINTS = {
     "testing_energy_rmse": "Testing Energy RMSE",
@@ -49,7 +60,7 @@ def normalize(arms: list[dict]) -> None:
     utilities = [-arm["outcome"]["mean_rmse"] for arm in arms]
     low, high = min(utilities), max(utilities)
     span = high - low
-    for arm, native in zip(arms, utilities):
+    for arm, native in zip(arms, utilities, strict=False):
         normalized = 0.5 if np.isclose(span, 0.0) else (native - low) / span
         arm["derived"] = {
             "native_utility": native,
@@ -87,7 +98,9 @@ def ingest(repository: Path) -> dict:
                 panel.append(
                     {
                         "source_id": "baghishov_2026_application_specific_mlip",
-                        "panel_id": f"baghishov_2026_application_specific_mlip:budget_{budget}:{endpoint}",
+                        "panel_id": (
+                            f"baghishov_2026_application_specific_mlip:budget_{budget}:{endpoint}"
+                        ),
                         "training_configuration_count": budget,
                         "endpoint": endpoint,
                         "sampling_method": method,
@@ -111,7 +124,10 @@ def ingest(repository: Path) -> dict:
         "source_revision": REVISION,
         "panel_count": len(BUDGETS) * len(ENDPOINTS),
         "arm_count": len(output_arms),
-        "primary_outcome": "mean testing RMSE across 50 released realizations, evaluated separately for energy and forces",
+        "primary_outcome": (
+            "mean testing RMSE across 50 released realizations, evaluated separately for "
+            "energy and forces"
+        ),
         "normalization": "negative RMSE, min-max normalized within budget and endpoint",
         "matched_contract": {
             "candidate_pool_size": 10000,
@@ -123,7 +139,10 @@ def ingest(repository: Path) -> dict:
         "interpretation_boundary": [
             "Energy and force endpoints are repeated views of the same sampling decisions.",
             "The released files contain 50 realizations per method and budget.",
-            "Leverage scores use descriptor matrices and do not require DFT labels for the selected configurations.",
+            (
+                "Leverage scores use descriptor matrices and do not require DFT labels for the "
+                "selected configurations."
+            ),
         ],
         "arms": output_arms,
     }
@@ -135,7 +154,9 @@ def main() -> None:
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path(__file__).resolve().parents[1] / "data" / "baghishov_2026_leverage_panels.json",
+        default=Path(__file__).resolve().parents[1]
+        / "data"
+        / "baghishov_2026_leverage_panels.json",
     )
     args = parser.parse_args()
     result = ingest(args.repository)

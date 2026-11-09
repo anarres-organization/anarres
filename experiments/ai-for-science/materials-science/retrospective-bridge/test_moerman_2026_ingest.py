@@ -2,7 +2,6 @@ import importlib.util
 import json
 from pathlib import Path
 
-
 SCRIPT = Path(__file__).parent / "scripts" / "ingest_moerman_2026.py"
 SPEC = importlib.util.spec_from_file_location("moerman_ingest", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)
@@ -31,17 +30,12 @@ def test_reconstructs_matched_budget_selector_panels(tmp_path):
     assert payload["panel_count"] == 6
     assert payload["arm_count"] == 36
     assert payload["role"].endswith("excluded from predictive fitting")
-    assert {arm["selector_family"] for arm in payload["arms"]} == {
-        "EnvTok", "DIRECT", "random"
-    }
+    assert {arm["selector_family"] for arm in payload["arms"]} == {"EnvTok", "DIRECT", "random"}
     assert all(
         arm["pre_outcome_measurements"]["training_atom_count"] > 6_490_000
         for arm in payload["arms"]
     )
-    assert all(
-        0 <= arm["derived"]["panel_normalized_utility"] <= 1
-        for arm in payload["arms"]
-    )
+    assert all(0 <= arm["derived"]["panel_normalized_utility"] <= 1 for arm in payload["arms"])
 
 
 def test_checked_in_artifact_matches_reconstruction():

@@ -1,7 +1,6 @@
 import json
 from pathlib import Path
 
-
 PATH = Path(__file__).parent / "data" / "niblett_2025_architecture_compatibility.json"
 
 
@@ -13,10 +12,12 @@ def test_released_archive_identity_and_environment_counts():
     data = load()
     assert data["source_archive"]["bytes"] == 1_971_779_899
     assert data["source_archive"]["md5"] == "1cbf2ec5286bbd3cd30b15a8e01178f7"
-    assert {
-        name: env["configurations"]
-        for name, env in data["training_environments"].items()
-    } == {"OPLS": 203, "OPLS+SM": 803, "OPLS+VS": 223, "Full": 935}
+    assert {name: env["configurations"] for name, env in data["training_environments"].items()} == {
+        "OPLS": 203,
+        "OPLS+SM": 803,
+        "OPLS+VS": 223,
+        "Full": 935,
+    }
 
 
 def test_same_environment_order_is_architecture_dependent():
@@ -39,8 +40,14 @@ def test_active_learning_changes_deepmd_environment_order():
         for panel in data["panels"]
         if panel["architecture"] == "DeePMD" and panel["panel"].startswith("stability_")
     }
-    assert max(panels[("stability_ec_dec", False)], key=panels[("stability_ec_dec", False)].get) == "Full"
-    assert max(panels[("stability_ec_dec", True)], key=panels[("stability_ec_dec", True)].get) == "OPLS"
+    assert (
+        max(panels[("stability_ec_dec", False)], key=panels[("stability_ec_dec", False)].get)
+        == "Full"
+    )
+    assert (
+        max(panels[("stability_ec_dec", True)], key=panels[("stability_ec_dec", True)].get)
+        == "OPLS"
+    )
     assert max(panels[("stability_pc", False)], key=panels[("stability_pc", False)].get) == "Full"
     assert max(panels[("stability_pc", True)], key=panels[("stability_pc", True)].get) == "OPLS+SM"
 

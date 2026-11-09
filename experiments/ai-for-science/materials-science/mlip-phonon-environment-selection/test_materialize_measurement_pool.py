@@ -3,7 +3,6 @@ import json
 import tempfile
 from pathlib import Path
 
-
 SCRIPT = Path(__file__).parent / "materialize_measurement_pool.py"
 SPEC = importlib.util.spec_from_file_location("materialize_measurement_pool", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)
@@ -13,9 +12,7 @@ SPEC.loader.exec_module(MODULE)
 
 def test_selected_rows_takes_equal_family_prefixes():
     rows = [
-        {"source_family": family, "value": value}
-        for family in ("a", "b")
-        for value in range(3)
+        {"source_family": family, "value": value} for family in ("a", "b") for value in range(3)
     ]
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory) / "manifest.jsonl"

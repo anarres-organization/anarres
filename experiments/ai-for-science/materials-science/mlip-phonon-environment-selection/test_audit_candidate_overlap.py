@@ -1,8 +1,7 @@
-import importlib.util
 import bz2
+import importlib.util
 import tempfile
 from pathlib import Path
-
 
 SCRIPT = Path(__file__).parent / "audit_candidate_overlap.py"
 SPEC = importlib.util.spec_from_file_location("audit_candidate_overlap", SCRIPT)
@@ -25,7 +24,7 @@ def test_parent_space_group_parsing():
 
 
 def test_descriptor_text_is_stable():
-    descriptor = ((('O', 2), ('Si', 1)), 136)
+    descriptor = ((("O", 2), ("Si", 1)), 136)
     assert MODULE.descriptor_text(descriptor) == "O2Si1|spg136"
 
 
@@ -34,9 +33,33 @@ def test_atomic_number_spec_supports_ranges():
 
 
 def test_target_descriptor_streams_identity_fields():
-    document = """displacements:\n- atom: 1\nprimitive_cell:\n  lattice:\n  - - 1\n  points:\n  - coordinates:\n    - 0\n    mass: 16\n    symbol: O\n  - coordinates:\n    - 0.5\n    mass: 16\n    symbol: O\n  - coordinates:\n    - 0.25\n    mass: 28\n    symbol: Si\n  reciprocal_lattice:\n  - - 1\nspace_group:\n  Hall_symbol: x\n  number: 136\nsupercell:\n"""
+    document = """displacements:
+- atom: 1
+primitive_cell:
+  lattice:
+  - - 1
+  points:
+  - coordinates:
+    - 0
+    mass: 16
+    symbol: O
+  - coordinates:
+    - 0.5
+    mass: 16
+    symbol: O
+  - coordinates:
+    - 0.25
+    mass: 28
+    symbol: Si
+  reciprocal_lattice:
+  - - 1
+space_group:
+  Hall_symbol: x
+  number: 136
+supercell:
+"""
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory) / "target.yaml.bz2"
         with bz2.open(path, "wt", encoding="utf-8") as handle:
             handle.write(document)
-        assert MODULE.target_descriptor(path) == ((('O', 2), ('Si', 1)), 136)
+        assert MODULE.target_descriptor(path) == ((("O", 2), ("Si", 1)), 136)

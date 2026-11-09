@@ -120,9 +120,7 @@ def file_hash(path: Path, algorithm: str) -> str:
     return digest.hexdigest()
 
 
-def _curve(
-    path: Path, metric_names: tuple[str, ...]
-) -> tuple[float, int, int, int, float, float]:
+def _curve(path: Path, metric_names: tuple[str, ...]) -> tuple[float, int, int, int, float, float]:
     with path.open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))
     if not rows:
@@ -137,18 +135,13 @@ def _curve(
         fraction = float(row["train_ratio"])
         by_fraction[fraction].append(float(row[metric]))
         train_sizes[fraction].append(int(float(row["train_size"])))
-    points = sorted(
-        (fraction, statistics.fmean(by_fraction[fraction]))
-        for fraction in by_fraction
-    )
+    points = sorted((fraction, statistics.fmean(by_fraction[fraction])) for fraction in by_fraction)
     if len(points) < 2:
         raise ValueError(f"fewer than two curve points: {path}")
     width = points[-1][0] - points[0][0]
     area = sum(
         (right_x - left_x) * (left_y + right_y) / 2.0
-        for (left_x, left_y), (right_x, right_y) in zip(
-            points, points[1:], strict=False
-        )
+        for (left_x, left_y), (right_x, right_y) in zip(points, points[1:], strict=False)
     )
     first_fraction, last_fraction = points[0][0], points[-1][0]
     first_size = round(statistics.fmean(train_sizes[first_fraction]))
@@ -169,7 +162,8 @@ def _result_file(
     actual_target = "all" if policy_directory == random_directory else target
     directory = root / policy_directory / dataset / actual_target / seed
     matches = [
-        path for path in directory.glob("*.csv")
+        path
+        for path in directory.glob("*.csv")
         if "trainIndices" not in path.name and f"_{model}" in path.name
     ]
     if len(matches) != 1:

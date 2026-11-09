@@ -13,7 +13,6 @@ from collections import Counter, defaultdict
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
-
 FORMULA_TOKEN = re.compile(r"([A-Z][a-z]?)\s*([0-9]+(?:\.[0-9]+)?)")
 PARENT_SPACE_GROUP = re.compile(r"(?:^|_)spg([0-9]+)(?:_|$)")
 
@@ -176,9 +175,7 @@ def audit(
 ) -> dict:
     roles = json.loads(roles_path.read_text(encoding="utf-8"))["roles"]
     target_roles = {
-        material_id: role
-        for role, material_ids in roles.items()
-        for material_id in material_ids
+        material_id: role for role, material_ids in roles.items() for material_id in material_ids
     }
     target_descriptors = {}
     composition_targets = defaultdict(list)
@@ -222,9 +219,7 @@ def audit(
         source = row["source"]
         source_results[source] = {
             "records": row["records"],
-            "target_composition_overlap_records": row[
-                "target_composition_overlap_records"
-            ],
+            "target_composition_overlap_records": row["target_composition_overlap_records"],
             "target_composition_space_group_overlap_records": row[
                 "target_composition_space_group_overlap_records"
             ],
@@ -245,9 +240,7 @@ def audit(
         overlap_manifest_digest.update(
             f"{source}\t{row['target_overlap_record_sha256']}\n".encode()
         )
-        ineligible_manifest_digest.update(
-            f"{source}\t{row['ineligible_record_sha256']}\n".encode()
-        )
+        ineligible_manifest_digest.update(f"{source}\t{row['ineligible_record_sha256']}\n".encode())
         print(
             f"{source}: {row['records']} records, {row['ineligible_records']} ineligible",
             flush=True,

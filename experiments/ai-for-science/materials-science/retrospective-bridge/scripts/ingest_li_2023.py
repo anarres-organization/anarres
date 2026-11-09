@@ -14,7 +14,6 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-
 SOURCE_ID = "li_2023_redundancy"
 DEFAULT_BUDGETS = (0.02, 0.10, 0.20)
 ACTIVE_METHODS = ("QBC", "rfMaxUncertainty", "xgbMaxUncertainty")
@@ -88,7 +87,9 @@ def reconstruct(source_root: Path, budgets: tuple[float, ...] = DEFAULT_BUDGETS)
     active_root = id_root / "active_learning"
     random_root = id_root / "random_sampling"
     if not active_root.is_dir() or not random_root.is_dir():
-        raise FileNotFoundError("expected performance_on_ID_data active_learning and random_sampling")
+        raise FileNotFoundError(
+            "expected performance_on_ID_data active_learning and random_sampling"
+        )
 
     arms: list[dict] = []
     random_cache: dict[Path, list[dict[str, str]]] = {}

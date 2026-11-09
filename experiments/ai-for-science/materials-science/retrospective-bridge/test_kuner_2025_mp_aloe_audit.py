@@ -1,12 +1,7 @@
 import json
 from pathlib import Path
 
-
-DATA = (
-    Path(__file__).parent
-    / "data"
-    / "kuner_2025_mp_aloe_cost_sensitive_audit.json"
-)
+DATA = Path(__file__).parent / "data" / "kuner_2025_mp_aloe_cost_sensitive_audit.json"
 
 
 def test_mp_aloe_audit_preserves_reported_winners_and_cost_boundary():

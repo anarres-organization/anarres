@@ -43,9 +43,7 @@ def main() -> None:
     args = parser.parse_args()
     freeze = json.loads(args.freeze.read_text(encoding="utf-8"))
     manifest_rows = json.loads(args.training_manifest.read_text(encoding="utf-8"))
-    training = {
-        row["record_id"]: row for row in manifest_rows if row["role"] == "gradient_train"
-    }
+    training = {row["record_id"]: row for row in manifest_rows if row["role"] == "gradient_train"}
     measurement = {}
     with args.measurement.open(encoding="utf-8") as handle:
         for line in handle:

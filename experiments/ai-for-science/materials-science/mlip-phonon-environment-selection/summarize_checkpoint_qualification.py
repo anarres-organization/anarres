@@ -9,7 +9,6 @@ import json
 import statistics
 from pathlib import Path
 
-
 PRACTICAL_EQUIVALENCE = 0.05
 MINIMUM_SUCCESSES = 15
 
@@ -29,13 +28,9 @@ def summarize_backend(directory: Path, expected_ids: list[str]) -> dict:
         rows.append(row)
     maes = [row["metrics"]["frequency_mae_thz"] for row in rows]
     rmses = [row["metrics"]["frequency_rmse_thz"] for row in rows]
-    times = [
-        row["timing_seconds"]["total"] - row["timing_seconds"]["model_load"]
-        for row in rows
-    ]
+    times = [row["timing_seconds"]["total"] - row["timing_seconds"]["model_load"] for row in rows]
     stability = [
-        row["metrics"]["reference_stable"] == row["metrics"]["predicted_stable"]
-        for row in rows
+        row["metrics"]["reference_stable"] == row["metrics"]["predicted_stable"] for row in rows
     ]
     return {
         "successes": len(rows),
@@ -91,8 +86,7 @@ def summarize(roles_path: Path, results_root: Path) -> dict:
     roles = json.loads(roles_path.read_text(encoding="utf-8"))
     ids = roles["roles"]["checkpoint_qualification"]
     summaries = {
-        backend: summarize_backend(results_root / backend, ids)
-        for backend in ("mace", "nequix")
+        backend: summarize_backend(results_root / backend, ids) for backend in ("mace", "nequix")
     }
     selected, rationale = select_backend(summaries)
     return {

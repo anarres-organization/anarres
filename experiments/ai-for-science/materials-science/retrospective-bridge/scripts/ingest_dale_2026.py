@@ -8,7 +8,6 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-
 SOURCE_ID = "dale_2026_active_learning_failure"
 BUDGETS = {
     "0pt05": 0.05,
@@ -110,11 +109,12 @@ def reconstruct(raw: Path) -> dict:
     }
     if len(complete) != 23 or len(incomplete) != 1:
         raise ValueError(
-            f"expected 23 complete and one incomplete panel, got {len(complete)} and {len(incomplete)}"
+            "expected 23 complete and one incomplete panel, got "
+            f"{len(complete)} and {len(incomplete)}"
         )
 
     arms = []
-    for panel_id, panel_arms in complete.items():
+    for panel_arms in complete.values():
         values = [arm["outcome"]["final_ood_test_mae"] for arm in panel_arms]
         best, worst = min(values), max(values)
         span = worst - best
@@ -134,11 +134,17 @@ def reconstruct(raw: Path) -> dict:
         "panel_count": len(complete),
         "arm_count": len(arms),
         "primary_outcome": "final_ood_test_mae",
-        "normalization": "within target, omitted element, and acquisition budget; lower MAE maps to higher utility",
+        "normalization": (
+            "within target, omitted element, and acquisition budget; lower MAE maps to higher "
+            "utility"
+        ),
         "release_boundary": {
             "paper_reports_repetitions": 5,
             "exact_released_trajectory_count_per_arm": 1,
-            "interpretation": "The fitted artifact uses the exact released trajectory and does not reconstruct plotted error bars.",
+            "interpretation": (
+                "The fitted artifact uses the exact released trajectory and does not reconstruct "
+                "plotted error bars."
+            ),
         },
         "excluded_incomplete_panels": incomplete,
         "arms": arms,

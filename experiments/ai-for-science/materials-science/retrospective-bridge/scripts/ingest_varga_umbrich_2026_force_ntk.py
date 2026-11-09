@@ -8,7 +8,6 @@ import hashlib
 import json
 from pathlib import Path
 
-
 SOURCE_ID = "varga_umbrich_2026_force_aware_ntk"
 PAPER_PDF_SHA256 = "5dfb12e3c9dba05db026ace670883e29cdc6cb0aea106f46deb86aafa755fac8"
 DATASETS = ("rgd", "t1x", "pmechdb")
@@ -120,7 +119,9 @@ def ingest(*, paper_pdf: Path | None = None) -> dict:
         "source_version": "arXiv:2605.13788v2",
         "panel_count": len({arm["panel_id"] for arm in arms}),
         "arm_count": len(arms),
-        "primary_outcome": "energy or force RMSE area under the acquisition curve and final-round RMSE",
+        "primary_outcome": (
+            "energy or force RMSE area under the acquisition curve and final-round RMSE"
+        ),
         "normalization": "negative error min-max normalized within dataset and metric",
         "matched_contract": {
             "fixed_test_fraction": 0.20,
@@ -135,11 +136,28 @@ def ingest(*, paper_pdf: Path | None = None) -> dict:
             "arXiv_2605.13788v2.pdf": {"sha256": PAPER_PDF_SHA256},
         },
         "interpretation_boundary": [
-            "All seven acquisition arms share the downstream model, initial label count, labels per round, acquisition rounds, validation fraction, test fraction, and two-seed evaluation within each dataset.",
-            "The three datasets remain separate holdout groups because each defines a distinct candidate pool and downstream task.",
-            "The reported table contains two-seed means or midpoints rather than seed-level outcomes.",
-            "These reactive-benchmark experiments overlap the experimental family summarized by arXiv:2605.03964, so the earlier paired round-gain panels are superseded in pooled fitting rather than double counted.",
-            "The 200,000-structure OC20 experiment is excluded because exact arm-level numerical values are shown only in a figure.",
+            (
+                "All seven acquisition arms share the downstream model, initial label count, "
+                "labels per round, acquisition rounds, validation fraction, test fraction, and "
+                "two-seed evaluation within each dataset."
+            ),
+            (
+                "The three datasets remain separate holdout groups because each defines a "
+                "distinct candidate pool and downstream task."
+            ),
+            (
+                "The reported table contains two-seed means or midpoints rather than seed-level "
+                "outcomes."
+            ),
+            (
+                "These reactive-benchmark experiments overlap the experimental family summarized "
+                "by arXiv:2605.03964, so the earlier paired round-gain panels are superseded in "
+                "pooled fitting rather than double counted."
+            ),
+            (
+                "The 200,000-structure OC20 experiment is excluded because exact arm-level "
+                "numerical values are shown only in a figure."
+            ),
         ],
         "arms": arms,
     }

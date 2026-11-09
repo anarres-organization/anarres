@@ -68,27 +68,80 @@ def main() -> None:
     prefix = args.cache_dir / cache_id / "lmdb" / "graphs_"
     ids_path = args.cache_dir / cache_id / "lmdb" / "ids_train_val_test.json"
     command = [
-        sys.executable, "-m", "phononscore.training.train",
-        "--alignn_src", str(upstream / "third_party" / "alignn-main"),
-        "--config", str(upstream / "configs" / "training_dft_posttrain.json"),
-        "--lmdb_prefix", str(prefix), "--ids_json", str(ids_path),
-        "--out_dir", str(out_dir), "--epochs", "100", "--batch_size", "96",
-        "--num_workers", "0", "--learning_rate", "0.0003", "--weight_decay", "0.00001",
-        "--thresholds=-0.001,-0.01,-0.1,-1.0", "--reg_target_mode", "clip5",
-        "--beta", "0.6", "--alpha", "0.1", "--lambda_cls", "0.3",
-        "--lambda_rank", "0.3", "--lambda_ordinal", "0.02", "--lambda_mdn", "0.05",
-        "--lambda_geom_rank", "0.05", "--cls_loss", "balanced_bce",
-        "--rank_loss", "threshold_aware", "--max_rank_pairs", "4096",
-        "--mdn_hidden_dim", "128", "--mdn_gaussians", "10",
-        "--mdn_distance_max", "8.0", "--stable_threshold", "-0.1",
-        "--stable_tau", "0.2", "--seed", str(run["seed"]), "--save_every", "100",
-        "--device", args.device, "--restart_encoder",
+        sys.executable,
+        "-m",
+        "phononscore.training.train",
+        "--alignn_src",
+        str(upstream / "third_party" / "alignn-main"),
+        "--config",
+        str(upstream / "configs" / "training_dft_posttrain.json"),
+        "--lmdb_prefix",
+        str(prefix),
+        "--ids_json",
+        str(ids_path),
+        "--out_dir",
+        str(out_dir),
+        "--epochs",
+        "100",
+        "--batch_size",
+        "96",
+        "--num_workers",
+        "0",
+        "--learning_rate",
+        "0.0003",
+        "--weight_decay",
+        "0.00001",
+        "--thresholds=-0.001,-0.01,-0.1,-1.0",
+        "--reg_target_mode",
+        "clip5",
+        "--beta",
+        "0.6",
+        "--alpha",
+        "0.1",
+        "--lambda_cls",
+        "0.3",
+        "--lambda_rank",
+        "0.3",
+        "--lambda_ordinal",
+        "0.02",
+        "--lambda_mdn",
+        "0.05",
+        "--lambda_geom_rank",
+        "0.05",
+        "--cls_loss",
+        "balanced_bce",
+        "--rank_loss",
+        "threshold_aware",
+        "--max_rank_pairs",
+        "4096",
+        "--mdn_hidden_dim",
+        "128",
+        "--mdn_gaussians",
+        "10",
+        "--mdn_distance_max",
+        "8.0",
+        "--stable_threshold",
+        "-0.1",
+        "--stable_tau",
+        "0.2",
+        "--seed",
+        str(run["seed"]),
+        "--save_every",
+        "100",
+        "--device",
+        args.device,
+        "--restart_encoder",
         str(upstream / "checkpoints" / "phononscore_pretrain" / "best_model.pt"),
     ]
     contract = {
-        "schema_version": "1.0", "run": run, "launch_sha256": launch["launch_sha256"],
-        "cache_manifest_sha256": caches["cache_manifest_sha256"], "device": args.device,
-        "epochs": 100, "batch_size": 96, "external_test_labels_inspected": False,
+        "schema_version": "1.0",
+        "run": run,
+        "launch_sha256": launch["launch_sha256"],
+        "cache_manifest_sha256": caches["cache_manifest_sha256"],
+        "device": args.device,
+        "epochs": 100,
+        "batch_size": 96,
+        "external_test_labels_inspected": False,
     }
     contract["contract_sha256"] = canonical_digest(contract)
     (out_dir / "RUN_CONTRACT.json").write_text(
@@ -96,7 +149,11 @@ def main() -> None:
     )
     environment = dict(os.environ)
     environment["PYTHONPATH"] = os.pathsep.join(
-        [str(upstream), str(upstream / "third_party" / "alignn-main"), environment.get("PYTHONPATH", "")]
+        [
+            str(upstream),
+            str(upstream / "third_party" / "alignn-main"),
+            environment.get("PYTHONPATH", ""),
+        ]
     )
     started = time.time()
     with (out_dir / "train.log").open("w", encoding="utf-8") as log:
@@ -104,13 +161,20 @@ def main() -> None:
     history = json.loads((out_dir / "history.json").read_text(encoding="utf-8"))
     if len(history) != 100:
         raise ValueError(f"Expected 100 epochs, found {len(history)}")
-    required = ["best_model.pt", "current_model.pt", "test_metrics.json", "prediction_results_test_set.csv"]
+    required = [
+        "best_model.pt",
+        "current_model.pt",
+        "test_metrics.json",
+        "prediction_results_test_set.csv",
+    ]
     missing = [name for name in required if not (out_dir / name).is_file()]
     if missing:
         raise ValueError(f"Run outputs are incomplete: {missing}")
     completion = {
-        "schema_version": "1.0", "run_id": args.run_id,
-        "contract_sha256": contract["contract_sha256"], "epochs": len(history),
+        "schema_version": "1.0",
+        "run_id": args.run_id,
+        "contract_sha256": contract["contract_sha256"],
+        "epochs": len(history),
         "wall_seconds": time.time() - started,
         "output_sha256": {name: sha256(out_dir / name) for name in required},
         "status": "complete_external_outcomes_sealed",
