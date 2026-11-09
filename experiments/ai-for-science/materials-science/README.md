@@ -21,13 +21,13 @@ question:
 
 The MLIP phonon study is the current prospective workstream. Its next decision
 is which 12 development and four prospective environments to freeze from the
-48-candidate draft. Domain review is focused on four questions: whether the
-source families cover the physical regimes that matter for phonons, whether
-composition-level target exclusion is appropriate, whether both processed
-atoms and neighbor edges should define matched cost, and whether the proposed
-target-affinity and curvature measurements capture the relevant transfer
-mechanism. The complete measurement gate and candidate coordinates are linked
-from the [study page](mlip-phonon-environment-selection/).
+48-candidate draft. We are asking domain reviewers whether the source families
+cover the physical regimes that matter for phonons and whether the target
+exclusion rule is appropriately conservative. Their judgment will also guide
+how we match computational cost and whether the target-affinity and curvature
+measurements capture the relevant transfer mechanism. The complete measurement
+gate and candidate coordinates are linked from the [study
+page](mlip-phonon-environment-selection/).
 
 ## Purpose
 
@@ -75,14 +75,12 @@ measurements identify environments that underperform a matched reference. The
 fixed semantic score reaches 0.708 source-macro ROC AUC and recovers 41.8% of
 adverse choices in the highest-risk 20% of pairs. Flexible fitted models remain
 weaker than the compact scores in both audits. These results narrow the
-prospective hypothesis without opening the sealed phonon evaluation. Additional
-studies remain outside the predictor. They
-quantify random-subset variability, show architecture-dependent environment
-rankings, recover a sampling-rule reversal between scratch retraining and
-fine-tuning, compare pretrained fine-tuning with random initialization on
-matched surface datasets, and show how training-structure size changes phonon
-accuracy under several adaptation regimes. A catalysis audit further shows that
-MD and bond-breaking configurations have different value under scratch training
+prospective hypothesis without opening the sealed phonon evaluation.
+
+Additional studies characterize variation that remains outside the predictor.
+They show that environment rankings can depend on model architecture, training
+regime, structure size, and the physical target. A catalysis audit finds that MD
+and bond-breaking configurations have different value under scratch training
 and foundation-model fine-tuning. A matched-budget OMat24 audit finds that
 interpretable environment coverage leads on bulk MatPES outcomes, while
 pretrained latent-space coverage leads on non-bulk outcomes.
@@ -115,8 +113,8 @@ starting atomistic model + physical target + compute budget
 ## Frontier relevance
 
 The plan builds on current public work in atomistic foundation models, materials
-generation, task-level evaluation, and reinforcement learning. These components
-have different roles and should not be treated as one benchmark.
+generation, task-level evaluation, and reinforcement learning. Each component
+plays a different role in the study.
 
 | Component | Evidence of relevance | Role in the study |
 | --- | --- | --- |
@@ -155,10 +153,9 @@ MLIPs](https://www.nature.com/articles/s41524-024-01500-6) links errors in
 phonons, barriers, defects, surfaces, and high-energy states to biased sampling
 near equilibrium.
 
-The phonon target is a first diagnostic, not a universal definition of materials
-utility. A separately frozen replication should target catalytic transition
-states or reaction barriers after the first environment-utility loop is
-complete.
+We use phonons as the first physical diagnostic. A separately frozen
+replication should target catalytic transition states or reaction barriers after
+the first environment-utility loop is complete.
 
 ## Broader MLIP starting model and comparators
 
@@ -217,16 +214,12 @@ reservoir. They may vary:
   target-affinity-selected acquisition;
 - the balance of energy, force, and stress-bearing configurations.
 
-Coverage is not assigned one universal direction. Released OMat24 comparisons
-show that local-environment coverage can lead on bulk outcomes while latent-
-space coverage leads on non-bulk outcomes at the same training-atom budget.
-The candidate bank therefore crosses coverage type with target affinity and
-retains both as measured coordinates rather than treating either selector name
-as an ordered feature.
-
-These are predictive contrasts, not isolated causal interventions. Chemistry,
-geometry, force regime, and source can remain coupled even when their continuous
-measurements are reported separately.
+Released OMat24 comparisons show that local-environment coverage can lead on
+bulk outcomes while latent-space coverage leads on non-bulk outcomes at the
+same training-atom budget. The candidate bank therefore crosses coverage type
+with target affinity and retains both as measured coordinates. Chemistry,
+geometry, force regime, and source can remain coupled, which limits causal
+interpretation while preserving the predictive comparison.
 
 The current measurement-only draft contains 48 equal-atom candidate
 distributions. Before fine-tuning, the study will select 12 development and four
@@ -278,8 +271,8 @@ two training seeds, and three matched budgets. Every run uses:
 - matched processed-atom and optimizer-update budgets
 - the same disjoint physical evaluation panel.
 
-A third seed is reserved for decision-critical near ties or anomalous variance;
-it is not selected after seeing which result is preferable.
+A third seed is reserved for decision-critical near ties or anomalous variance.
+The trigger is fixed before results are compared.
 
 Compact predictors are fit with entire environments held out. The study does not
 train a high-capacity neural utility model on 12 independent environments.

@@ -13,11 +13,10 @@ Given one pretrained interatomic potential, a fixed post-training budget, and a
 named phonon target, can measurements made before post-training predict which
 configuration distribution will produce the greatest physical improvement?
 
-This experiment moves beyond the supervised phonon-scoring loop by fine-tuning
-an interatomic potential on energies, forces, and stresses, then evaluating the
-resulting potential on harmonic phonons and dynamical stability. The target is
-physical behavior under a fixed workflow rather than accuracy on the
-post-training labels alone.
+This experiment fine-tunes an interatomic potential on energies, forces, and
+stresses, then evaluates the resulting model on harmonic phonons and dynamical
+stability. This fixed workflow measures physical behavior beyond accuracy on
+the post-training labels.
 
 ## Source and target separation
 
@@ -37,11 +36,11 @@ qualification, 25 development, and 50 prospective targets. The complete 9,958-
 material release remains useful for retrospective comparison but does not define
 the prospective claim.
 
-The matching PBE+U level of theory is necessary but not sufficient for
-compatibility. Qualification also records pseudopotentials, energy references,
-stress conventions, element support, and structural overlap between the OMat24
-reservoir and the target. Incompatible examples remain separate or are excluded
-by a rule fixed before candidate construction.
+The shared PBE+U level of theory supports compatibility, while qualification
+also records pseudopotentials, energy references, stress conventions, element
+support, and structural overlap between the OMat24 reservoir and the target.
+Examples that fail this contract remain separate or are excluded by a rule
+fixed before candidate construction.
 
 Candidate construction excludes every OMat24 record with the same reduced
 composition as any frozen target. This chemistry-level rule is deliberately
@@ -117,8 +116,8 @@ support the 89-element inorganic domain. OMat24-trained checkpoints are strong
 deployment baselines but are not eligible as the primary starting point because
 they have already trained on the candidate reservoir. Nequix additionally
 provides analytical energy Hessians, which permits a direct curvature diagnostic.
-The checkpoint gate uses only the qualification targets and operational criteria;
-candidate post-training outcomes do not enter the choice.
+The checkpoint gate uses only the qualification targets and operational
+criteria. Candidate post-training outcomes do not enter the choice.
 
 Nequix-MP-1 is the selected checkpoint. The completed comparison and model
 hashes are recorded in
