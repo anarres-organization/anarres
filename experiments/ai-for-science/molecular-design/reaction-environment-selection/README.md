@@ -6,8 +6,8 @@ eight targets and the common synthesis environment are qualified. The
 structured reward adapter passes valid,
 malformed, filtered, timeout, repeat-call, batched, and RxnFlow v2.1 interface
 checks. Starting-policy oracle throughput, final target identity, the common
-QED warm start, and candidate memberships remain open. No training or evaluation
-outcome has been inspected for this study.
+QED warm start, and candidate memberships remain open. No target-training or
+evaluation outcome has been inspected for this study.
 
 ## Research question
 
@@ -199,6 +199,10 @@ records the CPU-only batch and RxnFlow interface checks.
 [`SYNTHESIS_ENVIRONMENT_QUALIFICATION.json`](SYNTHESIS_ENVIRONMENT_QUALIFICATION.json)
 and [`WARM_START_CONTRACT.json`](WARM_START_CONTRACT.json) fix the common action
 space and QED training recipe before the warm start is trained.
+[`WARM_START_INTERFACE_QUALIFICATION.json`](WARM_START_INTERFACE_QUALIFICATION.json)
+records a one-update CPU smoke of the complete environment, policy, optimizer,
+trajectory-generation, and checkpoint path. The claim-bearing 1,000-update warm
+start remains open.
 
 Audit local checkouts without reading target outcomes:
 

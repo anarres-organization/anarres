@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "RxnFlow QED warm-start interface smoke",
+  "qualification": "pass",
+  "contract": "WARM_START_CONTRACT.json",
+  "execution": {
+    "accelerator_used": false,
+    "updates": 1,
+    "online_trajectories": 2,
+    "replay_trajectories_per_update": 0,
+    "seed": 20261108,
+    "retrosynthesis_workers": 4,
+    "elapsed_seconds": 4.5
+  },
+  "loaded_environment": {
+    "action_space_libraries": 45,
+    "synthons": 5864,
+    "content_sha256": "def699e5d284061daaabe58953e57df4e14fe537e2b132a1d7d1ffff706a49b3"
+  },
+  "model": {
+    "parameters": 4675844,
+    "objectives": ["qed"]
+  },
+  "checks": {
+    "environment_loaded": true,
+    "model_initialized": true,
+    "finite_loss": true,
+    "valid_trajectories_generated": true,
+    "unique_trajectories_generated": true,
+    "optimizer_update_completed": true,
+    "checkpoint_written": true
+  },
+  "authorization": "The warm-start software path is qualified. This one-update CPU smoke does not authorize a target experiment or replace the frozen 1,000-update warm start.",
+  "sealed_boundary": {
+    "target_reward_evaluated": false,
+    "target_training_started": false,
+    "claim_bearing_warm_start_trained": false,
+    "candidate_memberships_frozen": false
+  }
+}

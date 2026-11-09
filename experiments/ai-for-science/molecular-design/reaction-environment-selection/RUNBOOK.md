@@ -123,6 +123,10 @@ its frozen replay bank is preloaded. Set `num_replay_insert: 0` so fresh online
 trajectories never replace the selected bank. Keep online and replay batch sizes
 identical across arms.
 
+`WARM_START_INTERFACE_QUALIFICATION.json` records the reduced one-update CPU
+smoke. The claim-bearing warm start must still use the frozen 1,000-update
+contract without target-reward checkpoint selection.
+
 ## 5. Measure the starting policy
 
 Generate two independent trajectory sweeps under the frozen target reward.
