@@ -198,6 +198,9 @@ unchanged. Failure produces an abstention or a new versioned protocol.
 Construct the six equal-size development banks from the eligible probe
 trajectories. Record memberships, rule parameters, hashes, bank overlap,
 scaffold overlap, reaction coverage, cost balance, and coordinate summaries.
+Use `scripts/qualify_development_banks.py` to reconstruct all six selectors on
+the independent confirmation view and apply the frozen bank-order correlation
+gate before accepting the construction-view memberships.
 Freeze the training and evaluation contracts before launching any development
 arm.
 
