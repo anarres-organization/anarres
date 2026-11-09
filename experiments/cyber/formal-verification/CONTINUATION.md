@@ -10,7 +10,7 @@ proceed.
 
 ## Current state
 
-The workstream has four completed foundations:
+The workstream has six completed foundations:
 
 1. The [public-evidence record](public-evidence/README.md) reconstructs
    decisions from VeruSyn, Re:Form, Formal Disco, and Vericoding. It also
@@ -39,6 +39,33 @@ The workstream has four completed foundations:
 
 No claim-bearing reinforcement-learning run has begun. Qualification and
 prospective repositories remain unopened.
+
+## Collaborator handoff
+
+The completed Leanstral and GPT-5.6 Sol outcomes are immutable evidence. Do not
+rerun them under the same identities, edit their frozen contracts, or treat the
+PrimePy result as an estimate of reliability. The repository split also remains
+fixed. Development repositories may be used for the next screen; qualification
+and prospective repositories must remain unopened.
+
+The immediate work has two phases:
+
+1. **Containment implementation.** Build the task-only execution boundary in
+   [CODEX_CONTAINMENT.md](CODEX_CONTAINMENT.md), exercise every negative
+   control through the model-facing command path, and emit a compact receipt
+   without credentials or machine-specific paths.
+2. **Development screen.** After containment passes, freeze a new protocol and
+   outcome-blind queue for one attempt in each mode on the four repositories in
+   `development-lifecycle-panel-v2.json`. The existing PrimePy qualification
+   remains separate from this screen. No screen attempt may begin before its
+   protocol, queue, runtime identity, task hashes, and grader preflight are
+   committed.
+
+The first collaborator deliverables are therefore a Codex-specific containment
+contract, its validator and negative tests, and one route-qualification receipt.
+They are infrastructure artifacts, not scientific results. A screen may be
+frozen only after those artifacts agree on the exact policy, harness, workspace,
+network, credential, reset, and grader boundaries.
 
 ## Why this advances production verification
 
@@ -69,10 +96,9 @@ The v5 Leanstral measurement and its budget-ladder follow-up are complete and
 remain unchanged. Their compact
 [result record](../../../data/formal-verification/vero/results/development-policy-measurement.v1.json)
 and [calibration result](../../../data/formal-verification/vero/results/development-budget-calibration.1m-v1.json)
-preserve the frozen inputs and outcomes. The next qualification must use a new
-policy, a new protocol version, and development repositories only.
-The [requalification design](POLICY_REQUALIFICATION.md) fixes the evidence,
-budget ladder, and stop rules that govern that revision.
+preserve the frozen inputs and outcomes. The
+[requalification design](POLICY_REQUALIFICATION.md) fixes the evidence, budget
+ladder, and stop rules that governed that revision.
 The [starting-policy selection](STARTING_POLICY_SELECTION.md) audits the
 released Vero, VeriSoftBench, and LeanLean evidence and selects GPT-5.6 Sol
 through Codex 0.154.0. The resulting one-attempt
@@ -86,14 +112,21 @@ passes all nine PrimePy specifications under fresh grading.
 - Implement and re-run the negative controls in the
   [containment requalification](CODEX_CONTAINMENT.md) before any new model
   attempt.
-- Freeze a small development-only screen across repositories and proof modes.
-  Exclude its outcomes from later environment comparisons.
+- Freeze one attempt for every repository and mode in the existing
+  `development-lifecycle-panel-v2.json`. Keep these screen outcomes separate
+  from the later repeated measurement and environment comparison.
 - Keep qualification and prospective repositories unopened until the screen
   establishes nonzero strict coverage in at least two development repositories.
 
 This stage establishes whether the supported policy and tightened interface
 produce measurable coverage beyond one excluded task. It cannot revise the v5
 outcome or convert either qualification into a candidate comparison.
+
+The screen passes only when every attempt reaches infrastructure-valid fresh
+grading, at least two repositories have nonzero strict coverage, pooled strict
+success remains below 80 percent, and no containment, marker, axiom, or
+fresh-build violation occurs. A pass authorizes design of repeated development
+measurement. It does not authorize environment ranking or downstream training.
 
 ### 2. Construct the candidate panel
 
@@ -182,6 +215,23 @@ are too unreliable, or the available budget cannot resolve a
 decision-relevant effect. Treat infrastructure failure as invalid execution,
 not reward zero. Report unresolved and negative results without changing the
 target or candidate panel after outcomes are observed.
+
+## Verification commands
+
+From the repository root, collaborators should run:
+
+```bash
+python -m unittest \
+  tests.integration.test_formal_verification_vero \
+  tests.integration.test_formal_verification_vero_sandbox \
+  tests.integration.test_formal_verification_release
+python tools/check_repo_hygiene.py
+python tools/check_prose_style.py
+```
+
+Before any public commit or archive, inspect the complete changed-file list and
+exclude credentials, raw model traces, machine-specific paths, temporary
+runtime state, and unreleased benchmark artifacts.
 
 ## Entry points
 

@@ -46,7 +46,9 @@ in [STARTING_POLICY_PROBE.md](STARTING_POLICY_PROBE.md). The next
 source-grounded budget ladder and the evidence required before testing a new
 starting policy. The audited
 [starting-policy selection](STARTING_POLICY_SELECTION.md) chooses GPT-5.6 Sol
-with Codex 0.154.0 for the next development-only support test. The
+with Codex 0.154.0 for the completed development-only support test. Its compact
+[result](../../../data/formal-verification/vero/results/development-policy-qualification.codex-sol-v1.json)
+records the 9/9 fresh-grade outcome and its scope. The
 [containment requalification](CODEX_CONTAINMENT.md) defines the task-only
 execution boundary and negative controls required after that support result. The
 [continuation guide](CONTINUATION.md) records the current execution boundary
