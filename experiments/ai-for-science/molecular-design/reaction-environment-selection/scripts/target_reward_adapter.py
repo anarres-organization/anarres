@@ -14,6 +14,7 @@ import subprocess
 import sys
 import tempfile
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
@@ -281,6 +282,57 @@ def score_smiles(
     }
 
 
+def score_batch(
+    prepared_target: Path,
+    smiles_list: list[str],
+    timeout_seconds: float = DEFAULT_TIMEOUT_SECONDS,
+    max_workers: int = 1,
+) -> list[dict[str, Any]]:
+    """Score a batch concurrently while preserving order and duplicate identity."""
+    if max_workers < 1:
+        raise ValueError("max_workers must be positive")
+    assessments = [molecule_assessment(smiles) for smiles in smiles_list]
+    unique_eligible = list(
+        dict.fromkeys(
+            smiles
+            for smiles, assessment in zip(smiles_list, assessments, strict=True)
+            if assessment["status"] == "eligible"
+        )
+    )
+    oracle_results: dict[str, dict[str, Any]] = {}
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = {
+            executor.submit(run_worker, prepared_target, smiles, timeout_seconds): smiles
+            for smiles in unique_eligible
+        }
+        try:
+            for future in as_completed(futures):
+                oracle_results[futures[future]] = future.result()
+        except Exception:
+            for future in futures:
+                future.cancel()
+            raise
+
+    results = []
+    for smiles, assessment in zip(smiles_list, assessments, strict=True):
+        if assessment["status"] == "scientific_zero":
+            results.append(assessment)
+            continue
+        oracle = oracle_results[smiles]
+        qed = assessment["metrics"]["qed"]
+        results.append(
+            {
+                "status": "ok",
+                "affinity": oracle["affinity"],
+                "qed": qed,
+                "reward": terminal_reward(oracle["affinity"], qed),
+                "metrics": assessment["metrics"],
+                "oracle_elapsed_seconds": oracle["elapsed_seconds"],
+            }
+        )
+    return results
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     commands = parser.add_subparsers(dest="command", required=True)
@@ -303,6 +355,13 @@ def build_parser() -> argparse.ArgumentParser:
     score.add_argument("--smiles", required=True)
     score.add_argument("--output", type=Path, required=True)
     score.add_argument("--timeout-seconds", type=float, default=DEFAULT_TIMEOUT_SECONDS)
+
+    batch = commands.add_parser("score-batch")
+    batch.add_argument("--prepared-target", type=Path, required=True)
+    batch.add_argument("--input", type=Path, required=True)
+    batch.add_argument("--output", type=Path, required=True)
+    batch.add_argument("--timeout-seconds", type=float, default=DEFAULT_TIMEOUT_SECONDS)
+    batch.add_argument("--max-workers", type=int, default=1)
     return parser
 
 
@@ -326,6 +385,32 @@ def main() -> int:
             args.exhaustiveness,
         )
         return 0
+    if args.command == "score-batch":
+        smiles_list = [
+            json.loads(line)["smiles"]
+            for line in args.input.read_text().splitlines()
+            if line.strip()
+        ]
+        try:
+            results = score_batch(
+                args.prepared_target,
+                smiles_list,
+                args.timeout_seconds,
+                args.max_workers,
+            )
+            return_code = 0
+        except OracleInfrastructureError as error:
+            results = [
+                {
+                    "status": "infrastructure_failure",
+                    "error": f"{type(error).__name__}: {error}",
+                }
+            ]
+            return_code = 2
+        args.output.write_text(
+            "".join(json.dumps(result, sort_keys=True) + "\n" for result in results)
+        )
+        return return_code
     try:
         result = score_smiles(args.prepared_target, args.smiles, args.timeout_seconds)
         return_code = 0

@@ -101,8 +101,10 @@ gate used by the official RxnFlow docking task. Final target identity and
 prepared target artifacts remain open until the starting-policy gate passes.
 `REWARD_ADAPTER_QUALIFICATION.json` verifies that malformed and filtered
 molecules remain scientific zeroes, timeouts remain infrastructure failures,
-and repeated valid calls are deterministic. Integrate the adapter with
-RxnFlow's batch reward interface and qualify throughput before training.
+and repeated valid calls are deterministic. `BATCH_REWARD_QUALIFICATION.json`
+verifies deduplicated batch scoring and the pinned RxnFlow v2.1 reward
+interface. Measure oracle throughput on the selected starting-policy
+distribution before training.
 
 The reward must provide adequate headroom under the common starting policy. A
 floor or saturation result stops the study before candidate construction.

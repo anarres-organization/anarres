@@ -44,7 +44,7 @@
       "pass": true
     }
   },
-  "authorization": "The adapter core is qualified. RxnFlow batch integration, throughput qualification, final target selection, and starting-policy headroom remain open before training.",
+  "authorization": "The adapter core is qualified. Batched scoring and the RxnFlow interface are qualified separately in BATCH_REWARD_QUALIFICATION.json. Starting-policy throughput, final target selection, and headroom remain open before training.",
   "sealed_boundary": {
     "training_outcomes_opened": false,
     "candidate_memberships_frozen": false,

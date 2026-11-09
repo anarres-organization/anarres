@@ -44,6 +44,40 @@ class TargetRewardAdapterTests(unittest.TestCase):
         ):
             MODULE.run_worker(Path("unused"), "CCO", 0.01)
 
+    def test_batch_requires_positive_worker_count(self):
+        with self.assertRaises(ValueError):
+            MODULE.score_batch(Path("unused"), [], max_workers=0)
+
+    def test_batch_preserves_order_and_deduplicates_oracle_calls(self):
+        def assess(smiles):
+            if smiles == "invalid":
+                return {
+                    "status": "scientific_zero",
+                    "reason": "invalid_molecule",
+                    "reward": 0.0,
+                }
+            return {"status": "eligible", "metrics": {"qed": 0.5}}
+
+        def dock(_target, smiles, _timeout):
+            return {
+                "affinity": -8.0 if smiles == "first" else -6.0,
+                "elapsed_seconds": 1.0,
+            }
+
+        with (
+            patch.object(MODULE, "molecule_assessment", side_effect=assess),
+            patch.object(MODULE, "run_worker", side_effect=dock) as worker,
+        ):
+            results = MODULE.score_batch(
+                Path("unused"),
+                ["first", "invalid", "second", "first"],
+                max_workers=2,
+            )
+
+        self.assertEqual(worker.call_count, 2)
+        self.assertEqual([result["reward"] for result in results], [4.0, 0.0, 3.0, 4.0])
+        self.assertEqual(results[1]["status"], "scientific_zero")
+
 
 if __name__ == "__main__":
     unittest.main()

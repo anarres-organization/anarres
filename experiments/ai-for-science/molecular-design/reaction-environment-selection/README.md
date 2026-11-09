@@ -2,10 +2,11 @@
 
 **Status:** RxnFlow, MolGenBench code, the Version4 archive, an eight-target
 qualification panel, its 24 structural fixtures, and reference docking on all
-eight targets are qualified. The structured reward adapter also passes valid,
-malformed, filtered, timeout, and repeat-call checks. RxnFlow batch integration,
-final target identity, the common warm start, and candidate memberships remain
-open. No training or evaluation outcome has been inspected for this study.
+eight targets are qualified. The structured reward adapter passes valid,
+malformed, filtered, timeout, repeat-call, batched, and RxnFlow v2.1 interface
+checks. Starting-policy oracle throughput, final target identity, the common
+warm start, and candidate memberships remain open. No training or evaluation
+outcome has been inspected for this study.
 
 ## Research question
 
@@ -179,18 +180,21 @@ P08254, O14757, Q07820, P00533, P21554, Q07343, P53350, and P16184. All 32
 reference-ligand docking calls succeeded under two seeds and two repeats. The
 same-seed repeats were exact, and the largest cross-seed affinity range was
 0.812 kcal/mol. P53350 took substantially longer than the other controls, so
-oracle wall time remains an explicit cost coordinate. No GPU training is
-justified until RxnFlow batch integration, oracle throughput, the common warm
-start, and starting-policy headroom pass their gates. The fixture, oracle, and
-adapter audits do not open training outcomes, published model results, or
-known-active collections.
+oracle wall time remains an explicit cost coordinate. The batched adapter also
+passes the pinned RxnFlow v2.1 reward interface with finite nonnegative
+`float32` output, exact duplicate reuse, and explicit zeroes for malformed or
+missing molecules. No GPU training is justified until starting-policy oracle
+throughput, the common warm start, and starting-policy headroom pass their
+gates. The fixture, oracle, and adapter audits do not open training outcomes,
+published model results, or known-active collections.
 
 ## Reproduction
 
 [`SOURCES.json`](SOURCES.json) records the pinned public inputs.
 [`SOURCE_AUDIT.json`](SOURCE_AUDIT.json) contains only source-code hashes and
 construction-fixture counts. [`PROTOCOL.json`](PROTOCOL.json) fixes the study
-structure while listing every open gate.
+structure while listing every open gate. [`BATCH_REWARD_QUALIFICATION.json`](BATCH_REWARD_QUALIFICATION.json)
+records the CPU-only batch and RxnFlow interface checks.
 
 Audit local checkouts without reading target outcomes:
 

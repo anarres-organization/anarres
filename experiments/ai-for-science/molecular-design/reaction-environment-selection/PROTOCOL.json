@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "study": "prospective-reaction-environment-selection",
-  "status": "source_oracle_and_reward_adapter_core_qualified_target_selection_and_candidate_freeze_open",
+  "status": "source_oracle_and_rxnflow_reward_interface_qualified_target_selection_and_candidate_freeze_open",
   "scientific_question": "Can measurements under one starting molecular graph policy predict which fixed replay experience bank will produce the greatest target-specific improvement at a matched generation and oracle budget?",
   "source": {
     "rxnflow_commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b",
@@ -185,7 +185,7 @@
   },
   "open_gates": [
     "final target and starting-policy qualification",
-    "RxnFlow batch integration and oracle throughput",
+    "starting-policy oracle throughput and cost gate",
     "common QED warm start",
     "starting-policy headroom",
     "two-view measurement reliability",
