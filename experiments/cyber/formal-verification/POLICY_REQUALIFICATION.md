@@ -6,6 +6,11 @@ prespecified 1-million-token escalation also produced zero strict support.
 Leanstral is therefore rejected as the starting policy for this Vero contract.
 Qualification and prospective repositories remain unopened.
 
+The subsequent [starting-policy selection](STARTING_POLICY_SELECTION.md)
+audits released Vero, VeriSoftBench, and LeanLean evidence. It selects GPT-5.6
+Sol with Codex 0.154.0 at xhigh reasoning for the next development-only support
+test. That selection does not revise the completed Leanstral result.
+
 ## Why the interaction contract must be requalified
 
 The v5 measurement produced 32 infrastructure-valid fresh grades and zero

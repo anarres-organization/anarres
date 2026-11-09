@@ -26,6 +26,9 @@ AUDIT = load_module("vero_audit_source", ADAPTER / "audit_source.py")
 RUNTIME = load_module("vero_audit_runtime", ADAPTER / "audit_runtime.py")
 LIFECYCLE = load_module("vero_audit_task_lifecycle", ADAPTER / "audit_task_lifecycle.py")
 PROBE = load_module("vero_validate_policy_probe", ADAPTER / "validate_policy_probe_protocol.py")
+CODEX_QUALIFICATION = load_module(
+    "vero_validate_codex_qualification", ADAPTER / "validate_codex_qualification.py"
+)
 REPETITION = load_module(
     "vero_validate_repetition_design", ADAPTER / "validate_repetition_design.py"
 )
@@ -218,6 +221,16 @@ class VeroDevelopmentResultTest(unittest.TestCase):
             measurement = DEVELOPMENT_RESULT["measurement"]["by_mode"][mode]
             self.assertEqual(measurement["rho_per_million_model_tokens"], 0.0)
             self.assertEqual(measurement["effective_coverage_H"], 0.0)
+
+
+class VeroCodexQualificationTest(unittest.TestCase):
+    def test_contract_is_frozen_and_development_only(self) -> None:
+        path = ADAPTER / "policy-codex-sol-qualification.v1.json"
+        contract = json.loads(path.read_text(encoding="utf-8"))
+        CODEX_QUALIFICATION.validate(contract, ADAPTER)
+        self.assertFalse(contract["execution_authorized"])
+        self.assertEqual(contract["qualification_design"]["benchmark_id"], "primepy")
+        self.assertEqual(contract["qualification_design"]["mode"], "proof")
 
 
 class VeroSourceAuditTest(unittest.TestCase):

@@ -42,7 +42,9 @@ development measurement, completed result, and support boundary are recorded
 in [STARTING_POLICY_PROBE.md](STARTING_POLICY_PROBE.md). The next
 [policy requalification](POLICY_REQUALIFICATION.md) records the completed
 source-grounded budget ladder and the evidence required before testing a new
-starting policy. The
+starting policy. The audited
+[starting-policy selection](STARTING_POLICY_SELECTION.md) chooses GPT-5.6 Sol
+with Codex 0.154.0 for the next development-only support test. The
 [continuation guide](CONTINUATION.md) records the current execution boundary
 and the path from candidate construction to prospective selection, regression
 forecasting, and production-code transfer.
@@ -208,8 +210,9 @@ calibration, risk--coverage, and cost are supporting metrics.
 6. Run oracle, no-op, statement-mutation, `sorry`, axiom, reset, and containment
    tests. The bounded OSS Verify and Vero controls are complete; selected
    production-task replay and model-facing controls remain.
-7. Qualify a revised development-only starting policy and interaction budget
-   after the completed Leanstral pass produced zero strict verified support.
+7. Qualify the selected GPT-5.6 Sol and Codex 0.154.0 policy on one excluded
+   development task after the completed Leanstral pass and budget ladder
+   produced zero strict verified support.
 8. Freeze candidate environments, predictions, uncertainty, and an a-priori
    power/cost decision before any downstream training outcome is opened.
 

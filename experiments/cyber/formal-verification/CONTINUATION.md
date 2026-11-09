@@ -64,9 +64,12 @@ preserve the frozen inputs and outcomes. The next qualification must use a new
 policy, a new protocol version, and development repositories only.
 The [requalification design](POLICY_REQUALIFICATION.md) fixes the evidence,
 budget ladder, and stop rules that govern that revision.
+The [starting-policy selection](STARTING_POLICY_SELECTION.md) audits the
+released Vero, VeriSoftBench, and LeanLean evidence and selects GPT-5.6 Sol
+through Codex 0.154.0 for one excluded development qualification.
 
-- Require released repository-level Lean evidence or a released Vero baseline
-  before allocating local qualification inference to another policy.
+- Preserve the selected GPT-5.6 Sol model, Codex 0.154.0 harness, xhigh
+  reasoning setting, native repository interface, and 90-minute Vero budget.
 - Distinguish a policy-support failure from an interaction-budget failure with
   a small qualification panel whose outcomes are excluded from later claims.
 - Require the agent to reach an edit and fresh build within the bounded run,

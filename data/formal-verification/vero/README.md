@@ -242,6 +242,14 @@ so the result blocks candidate ranking and downstream training under this
 starting-policy contract. Qualification and prospective repositories remain
 unopened.
 
+The next policy is frozen separately in
+[`policy-codex-sol-qualification.v1.json`](policy-codex-sol-qualification.v1.json).
+It binds GPT-5.6 Sol, Codex 0.154.0, xhigh reasoning, the excluded PrimePy
+proof-only task, and Vero's 90-minute budget. The record does not authorize its
+own execution. Prompt hashes, fresh-task containment, provider-only controller
+networking, and the execution-host grader must be bound in an immutable receipt
+before the one-attempt support test can begin.
+
 [`policy-budget-calibration.200k.v1.json`](policy-budget-calibration.200k.v1.json)
 freezes the first requalification stage after that result. It selects the
 smallest development repository, one proof-mode attempt, a 200,000-token

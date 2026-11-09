@@ -1,0 +1,93 @@
+{
+  "schema_version": "anarres.formal-verification-policy-qualification.v1",
+  "protocol_id": "vero-codex-sol-development-qualification-v1",
+  "status": "frozen_before_attempt_with_execution_gates_open",
+  "execution_authorized": false,
+  "scientific_role": "one excluded development-only support test; not an estimate of policy reliability, an environment comparison, or a downstream-utility test",
+  "source": {
+    "vero_id": "sunblaze-ucb/vero@0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+    "source_pin": "source-pin.json",
+    "source_pin_sha256": "670361cdebb1d9d77d1dcd51b4e754734c8d4357dbb1291700ef97f9dca8850e",
+    "repository_split": "repository-split.json",
+    "repository_split_sha256": "d6485d8d65295a1fb600fa6c2cfb99dba3e161686d339939e81eeee1df0efe5e",
+    "development_panel": "development-budget-calibration-panel.v1.json",
+    "development_panel_sha256": "3a495a9c6ffa19bcbc364f8413a113eff22c6df41a13994f49bfd6305acf10d1"
+  },
+  "starting_policy": {
+    "model_id": "gpt-5.6-sol",
+    "agent_harness": "openai/codex",
+    "agent_harness_version": "0.154.0",
+    "reasoning_effort": "xhigh",
+    "system_prompt": "native Codex default for the pinned harness version",
+    "system_prompt_sha256": null,
+    "task_prompt": "Vero-rendered PrimePy proof-only instruction",
+    "task_prompt_sha256": null,
+    "temperature": null,
+    "sampling_note": "use the native model and harness defaults; do not add an experimental sampling override"
+  },
+  "qualification_design": {
+    "benchmark_id": "primepy",
+    "mode": "proof",
+    "independent_attempts": 1,
+    "maximum_wall_seconds": 5400,
+    "scientific_retry_count": 0,
+    "maximum_infrastructure_retries": 1,
+    "task_network_access": false,
+    "controller_network_scope": "model provider only",
+    "workspace": "one freshly materialized Vero task",
+    "fresh_independent_grade": true,
+    "qualification_and_prospective_repositories_opened": false
+  },
+  "strict_outcome": {
+    "support_threshold": "at least one of nine PrimePy specifications passes fresh grading with approved axioms",
+    "reject": [
+      "sorry",
+      "unapproved axioms",
+      "changed specification statements",
+      "changed marker count",
+      "changed frozen source",
+      "missing fresh build",
+      "unresolved infrastructure failure"
+    ],
+    "record": [
+      "infrastructure_valid",
+      "fresh_grade_build_ok",
+      "specifications_passed",
+      "specifications_unfilled",
+      "specifications_failed",
+      "approved_axiom_check",
+      "unexpected_marker_count",
+      "input_tokens",
+      "output_tokens",
+      "tool_calls",
+      "wall_seconds"
+    ]
+  },
+  "required_before_execution": [
+    "record the exact native Codex system-prompt identity or provider-visible prompt hash",
+    "render the Vero task once and bind the task-prompt hash",
+    "qualify the pinned Vero runtime and fresh grader on the execution host",
+    "verify a fresh PrimePy task reset and one-task workspace containment",
+    "verify that the task has no external network access",
+    "verify that only the controller can reach the model provider",
+    "verify wall-time, process, memory, and output-recording controls",
+    "write an immutable execution receipt without credentials or machine-specific paths"
+  ],
+  "decision_after_attempt": {
+    "support_pass": "permit a separately frozen development-only screen under the same policy identity",
+    "support_fail": "stop and audit the policy-task interaction before selecting another policy or changing the task contract",
+    "never_authorized_by_this_result": [
+      "opening qualification repositories",
+      "opening prospective repositories",
+      "ranking training environments",
+      "downstream reinforcement learning"
+    ]
+  },
+  "evidence_basis": {
+    "selection_record": "../../../experiments/cyber/formal-verification/STARTING_POLICY_SELECTION.md",
+    "selection_record_status": "released repository-level evidence audited before this attempt",
+    "released_vero_primepy_reference": "GPT-5.5 xhigh with native Codex and Claude Opus 4.8 each pass all nine proof-only specifications under Vero's 90-minute contract",
+    "cross_benchmark_evidence": "GPT-5.6 Sol with Codex 0.154.0 has released repository-level Lean results in LeanLean and VeriSoftBench-Aristotle",
+    "non_equivalence_note": "released results select a plausible policy and establish task solvability; they are not counted as outcomes of this qualification"
+  }
+}
