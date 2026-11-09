@@ -134,6 +134,30 @@ and 76.1% and regret between 0.167 and 0.227. Varying the ridge penalty from
 0.212 to 0.224. The relationship is therefore not carried by one semantic
 coordinate or one regularization value.
 
+## Frozen source-level holdout
+
+We next froze the shared representation and its candidate rankings before
+extracting results from SNFinLLM, an independently reported Chinese financial
+model absent from feature design and fitting. The test changes model family,
+language, data pipeline, and evaluation targets. It therefore asks whether the
+semantic treatment coordinates transfer to a new experimental program.
+
+The frozen rule and both ridge models correctly predict that continued financial
+pretraining outperforms the original general base on FinEval and FinanceIQ. They
+do not predict the later stage effects. SFT trails continued pretraining on both
+shared benchmarks, and DPO improves only one of seven comparable targets over
+SFT. Across all seven target panels, the frozen ranking receives 41.2% pairwise
+ordering credit, 14.3% top-choice credit, and 0.783 normalized regret. The
+uninformed more-data baseline ties all candidates because comparable volume is
+unreported, giving 50.0%, 42.9%, and 0.504 respectively.
+
+This result narrows the transferable claim. Target-aligned domain adaptation is
+predictable from the current representation, while later post-training stages
+require a coordinate for objective--target alignment. DPO should receive quality
+credit only when its preference signal is connected to the evaluation target.
+The full freeze, extracted outcomes, scoring code, and result are in
+[`heldout-snfinllm/`](heldout-snfinllm/).
+
 Transfer is stronger when a study is known and the held-out group is a new
 model or target. The full ridge reaches 76.9% study-macro pair ordering and
 0.152 regret under model holdout, and 74.1% ordering and 0.162 regret under
@@ -154,6 +178,9 @@ python scripts/build_recovered_panels.py
 python scripts/analyze_expanded_bridge.py
 python scripts/render_expanded_summary.py
 python -m unittest test_expanded_bridge.py
+python heldout-snfinllm/freeze_predictions.py
+python heldout-snfinllm/score_holdout.py
+python -m unittest heldout-snfinllm/test_freeze.py heldout-snfinllm/test_score.py
 ```
 
 The script writes [`results/summary.json`](results/summary.json) and a manifest

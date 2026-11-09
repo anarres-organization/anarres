@@ -52,6 +52,24 @@ carry more decision information than volume alone. Because every outcome was
 already public, this remains retrospective evidence rather than prospective
 validation.
 
+### Frozen transfer to an untouched source
+
+We froze the shared representation and candidate rankings before extracting
+results from SNFinLLM, an independently reported Chinese financial model that
+did not enter feature design or fitting. The frozen methods correctly predict
+that continued financial pretraining improves on the original base across both
+public benchmarks. They do not predict the effects of later SFT and DPO. SFT
+trails continued pretraining on the two shared benchmarks, while DPO improves
+one of seven comparable targets over SFT and reduces the other six.
+
+Across seven target panels, the frozen ranking receives 41.2% pairwise ordering
+credit, 14.3% top-choice credit, and 0.783 normalized regret. This result
+identifies a specific missing coordinate. Data quality and objective--target
+alignment must be represented separately, because a generic preference stage
+does not imply that its feedback improves the target being predicted. The full
+freeze and scoring record are available in the
+[source-level holdout](retrospective-post-training/heldout-snfinllm/README.md).
+
 ### Executable workflow qualification
 
 Four stateful finance workflows passed strict generator checks across five seeds
@@ -89,22 +107,20 @@ controlled tool-surface ablation. Together they show why the prospective task
 must measure evidence, calculation, workflow orchestration, recovery, and
 controls in addition to final-answer accuracy.
 
-## The prospective tests
+## The next tests
 
-The first prospective experiment uses the qualified accounting workflows. It
-will compare matched finance-task distributions under one starting policy,
-trainer, tool contract, and budget. Candidate and held-out scenario identities
-will be committed before training. Candidate construction will not read
-trained-policy outcomes.
+The immediate next test revises the shared representation using only the scored
+SNFinLLM diagnosis, freezes it, and evaluates another excluded public study.
+This keeps the analysis model-agnostic and tests whether the new
+objective--target coordinate transfers beyond the study that motivated it.
 
-The first starting-policy qualification is complete. Qwen3-8B produced no
-executable completions and exhausted the interaction limit in 99.2% of valid
-episodes, so it is excluded from the training panel. The next step is the pinned
-Qwen3-30B-A3B policy under the same development-only gate. Candidate measurement
-begins only after a policy produces reliable tool use and non-degenerate task
-outcomes.
+The executable accounting panel remains the prospective extension. Four
+stateful workflows have passed source qualification, but no model has yet
+qualified as a non-degenerate starting policy. Training begins only after the
+chosen policy reliably uses tools and produces enough outcome variation to
+support a real environment decision.
 
-The comparison includes:
+That comparison will include:
 
 1. a source-proportional mixture
 2. a size-matched static-difficulty mixture
@@ -116,7 +132,7 @@ exception recall, ledger consistency, evidence provenance, approval violations,
 unauthorized state changes, tool cost, and generated tokens remain separately
 visible. A high aggregate score cannot erase a material-control failure.
 
-The next panel extends the same decision to post-trade reconciliation and
+An additional panel extends the same decision to post-trade reconciliation and
 exception handling. FINOS Common Domain Model provides lifecycle semantics,
 while RecBench, TradeOpsSim, and FinRCA-Bench inform the data and evaluation
 contract. None is yet admitted as the claim-bearing generator. The post-trade
@@ -132,10 +148,11 @@ would add an earlier decision point: measure candidate experience under the
 starting policy, estimate its finite-budget return, and train only after the
 selection and uncertainty are recorded.
 
-The present evidence supports that research direction but does not yet establish
-the selector. The decisive result will be the untouched prospective comparison,
-including whether the predictor changes a real allocation decision relative to
-the quality-aware and volume-based baselines.
+The present evidence supports domain adaptation while exposing a boundary for
+later post-training stages. A second source holdout will test whether an explicit
+objective--target coordinate repairs that failure. The prospective accounting
+comparison then asks whether the resulting measurements change a real allocation
+decision relative to transparent quality-aware and volume-based baselines.
 
 ## Questions for finance practitioners
 
@@ -154,6 +171,7 @@ change held-out outcomes after training begins.
 ## Inspect and reproduce
 
 - [Retrospective methods and interpretation](retrospective-post-training/README.md)
+- [Frozen source-level holdout](retrospective-post-training/heldout-snfinllm/README.md)
 - [Machine-readable panels](retrospective-post-training/data/panels.json)
 - [Source-recovered expansion](retrospective-post-training/data/recovered_panels.json)
 - [Machine-readable results](retrospective-post-training/results/summary.json)

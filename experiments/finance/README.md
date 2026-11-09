@@ -16,7 +16,7 @@ This program asks:
 completed evidence, the qualified accounting experiment, and the prospective
 post-trade extension in one page.
 
-The first studies focus on control-heavy finance operations. Reconciliation,
+The operational studies focus on control-heavy finance work. Reconciliation,
 settlement exceptions, collateral disputes, payment controls, and close
 workflows have planted truth, executable checks, stateful tools, and explicit
 authorization rules. They also create real allocation decisions between
@@ -34,7 +34,7 @@ across five generated seeds each. This establishes that the generators can
 support a prospective panel. It provides no evidence yet about which training
 mixture is best.
 
-The planned experiment will:
+Any prospective training experiment will:
 
 1. generate disjoint development, candidate, and held-out scenario partitions
 2. measure each candidate under one frozen starting policy and tool contract
@@ -48,8 +48,11 @@ The planned experiment will:
 The [retrospective post-training audit](retrospective-post-training/README.md)
 separately normalizes published finance interventions. It asks which recurring
 properties of training data and reward design predict improvement across prior
-studies. Because those outcomes are already public, this analysis can motivate
-measurements and baselines but cannot validate the prospective selector.
+studies. A frozen source-level holdout on SNFinLLM then tests the shared
+representation on a model family, language, pipeline, and target set excluded
+from feature design and fitting. It supports domain continued pretraining while
+showing that later SFT and DPO effects require explicit objective--target
+alignment.
 
 The [agent-systems evidence map](agent-systems-evidence/README.md) audits the
 workflow side of the decision. It separates post-training interventions from
@@ -102,5 +105,6 @@ with financial authority remain approval-gated.
 - [Post-trade source audit](environment-selection/POST_TRADE_SOURCE_AUDIT.md)
 - [Post-trade panel specification](environment-selection/POST_TRADE_PANEL_SPEC.md)
 - [Retrospective post-training audit](retrospective-post-training/README.md)
+- [Frozen SNFinLLM source holdout](retrospective-post-training/heldout-snfinllm/README.md)
 - [Expanded machine-readable results](retrospective-post-training/results/expanded_summary.json)
 - [Agent-systems evidence map](agent-systems-evidence/README.md)

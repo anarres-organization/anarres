@@ -59,23 +59,17 @@ def main() -> None:
 
     ranking_tiers = {}
     for method in ("practical_rule", "full_ridge", "compact_ridge", "more_data"):
-        scores = sorted(
-            {predictions[arm][method] for arm in predictions}, reverse=True
-        )
+        scores = sorted({predictions[arm][method] for arm in predictions}, reverse=True)
         ranking_tiers[method] = [
-            sorted(
-                arm
-                for arm in predictions
-                if predictions[arm][method] == score
-            )
+            sorted(arm for arm in predictions if predictions[arm][method] == score)
             for score in scores
         ]
     output = {
         "schema_version": 1,
         "status": "FROZEN_BEFORE_OUTCOME_EXTRACTION",
-        "representation_commit": json.loads((HERE / "FREEZE.json").read_text())[
-            "representation"
-        ]["git_commit"],
+        "representation_commit": json.loads((HERE / "FREEZE.json").read_text())["representation"][
+            "git_commit"
+        ],
         "candidate_file_sha256": hashlib.sha256(CANDIDATES.read_bytes()).hexdigest(),
         "predictions": predictions,
         "ranking_tiers": ranking_tiers,
