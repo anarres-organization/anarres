@@ -166,6 +166,22 @@ finance targets, and the visual-stage prediction has no matching visual outcome.
 The complete audit is in
 [`heldout-japanese-multimodal/`](heldout-japanese-multimodal/).
 
+## Strict task-level reliability tier
+
+The broad bridge includes sources whose target relationship is only partially
+reported. A stricter audit admits panels only when every candidate has an
+explicit target-alignment measurement and the model and target are identified.
+This leaves 79 panels, 241 arms, and seven studies. The already-fixed practical
+rule orders 81.6% of candidate pairs with 0.162 normalized regret, compared
+with 63.1% and 0.444 for choosing more data. With equal study weighting it
+reaches 83.6% ordering and 0.098 regret. It has lower regret in six studies,
+ties in one, and loses in none.
+
+The strict audit is the current high-confidence tier because its decision unit
+is a candidate--target pair rather than a stage-level label. It remains
+retrospective and requires an excluded-source test. The complete record is in
+[`strict-task-level/`](strict-task-level/).
+
 A derived alignment/interference coordinate does not improve the original
 sixteen-study source holdout. Against the corrected baseline, the fixed rule
 falls from 74.9% to 74.0% pairwise ordering with unchanged regret. The ridge
@@ -202,6 +218,8 @@ python heldout-japanese-multimodal/score_holdout.py
 python -m unittest heldout-japanese-multimodal/test_score.py
 python scripts/analyze_target_conditional_diagnostic.py
 python -m unittest test_target_conditional_diagnostic.py
+python strict-task-level/score.py
+python -m unittest strict-task-level/test_score.py
 ```
 
 The script writes [`results/summary.json`](results/summary.json) and a manifest

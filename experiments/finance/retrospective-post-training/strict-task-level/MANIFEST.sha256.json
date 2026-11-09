@@ -1,0 +1,7 @@
+{
+  "FEATURE_MAPPING.md": "dc132c9decfc8022deca6696e15cb4b927eb162eb17d50dfcc592815c39f3a2e",
+  "data/recovered_panels.json": "e2b9469f82712933034230dddd1e80d0cb38eee3b8fea52d6811579efff4197c",
+  "scripts/analyze_expanded_bridge.py": "0669994cc25b43257277c95f570eeb004c07fb1ac9da75f526b11d81429f03c6",
+  "strict-task-level/SCORE.json": "22ccd5ca707548c53de738623f4b8f9c6dde649a1526b002c55839cbf80a4e86",
+  "strict-task-level/score.py": "77f98deea38920456b351fcbe001a2e8ba59b8144451ace5ed587eab8a7fec54"
+}

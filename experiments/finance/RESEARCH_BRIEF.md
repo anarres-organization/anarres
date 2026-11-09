@@ -46,6 +46,14 @@ Within-panel rank normalization preserves the direction. The
 [normalization audit](retrospective-post-training/NORMALIZATION_AUDIT.md)
 records both weighting levels and the paired source comparison.
 
+A strict task-level audit narrows the evidence to seven studies in which every
+candidate has an explicit relationship to the evaluation target. Across 79
+panels and 241 arms, the fixed practical rule reaches 81.6% pair ordering and
+0.162 regret, compared with 63.1% and 0.444 for more data. With equal study
+weighting it reaches 83.6% ordering and 0.098 regret. This is the strongest
+current evidence for a model-agnostic relationship, although it remains
+retrospective and still needs an excluded-source test.
+
 The evidence suggests that task alignment, reasoning-data quality, capability
 retention, verifier design, policy-relative difficulty, and data composition
 carry more decision information than volume alone. Because every outcome was
