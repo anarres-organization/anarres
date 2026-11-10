@@ -141,6 +141,12 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     root = finance_root(repository_root(args.repository))
     qualification = read_object(root / "environment-selection/QWEN3_8B_QUALIFICATION.json")
     strict = read_object(root / "retrospective-post-training/strict-task-level/SCORE.json")
+    strict_rule = strict["evaluations"]["leave_one_source_out"]["practical_rule"]
+    regression = read_object(
+        root / "retrospective-post-training/results/regression_risk_summary.json"
+    )
+    regression_rule = regression["rules"]["practical_rule"]
+    finacumen = read_object(root / "retrospective-post-training/heldout-finacumen/SCORE.json")
     holdouts = sorted(
         path.parent.name
         for path in (root / "retrospective-post-training").glob("heldout-*/SCORE.json")
@@ -155,10 +161,22 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
             "frozen_holdout_verification",
         ],
         "prospective_environment_outcome_opened": False,
+        "evidence_stage": "retrospective_transfer_supported_native_prospective_pending",
         "released_starting_policy": qualification["policy_id"],
         "released_starting_policy_qualified": qualification["qualified"],
         "strict_retrospective_sources": strict["support"]["sources"],
         "strict_retrospective_panels": strict["support"]["panels"],
+        "strict_pairwise_ordering": strict_rule["pairwise_ordering"],
+        "strict_source_macro_pairwise_ordering": strict_rule["source_macro"]["pairwise_ordering"],
+        "strict_source_macro_mean_normalized_regret": strict_rule["source_macro"][
+            "mean_normalized_regret"
+        ],
+        "regression_risk_contrasts": regression["support"]["contrasts"],
+        "regression_risk_source_macro_roc_auc": regression_rule["source_macro_roc_auc"],
+        "regression_risk_eligible_sources": regression_rule["eligible_sources"],
+        "excluded_source_finacumen_pairwise_correct": finacumen["pairwise_correct"],
+        "excluded_source_finacumen_pairwise_scored": finacumen["pairwise_scored"],
+        "excluded_source_finacumen_pairwise_abstained": finacumen["pairwise_abstained"],
         "released_holdouts": holdouts,
     }
 
@@ -314,12 +332,20 @@ def compact_verification(repository: Path) -> dict[str, Any]:
     summary = read_object(retrospective / "results/summary.json")
     expanded = read_object(retrospective / "results/expanded_summary_corrected.json")
     strict = read_object(retrospective / "strict-task-level/SCORE.json")
+    regression = read_object(retrospective / "results/regression_risk_summary.json")
     if summary.get("status") != "retrospective_exploratory":
         raise FinanceCliError("compact retrospective summary has an unexpected status")
     if expanded.get("support", {}).get("sources") != 16:
         raise FinanceCliError("expanded retrospective support no longer contains 16 sources")
     if strict.get("support", {}).get("panels") != 79:
         raise FinanceCliError("strict task-level support no longer contains 79 panels")
+    if regression.get("support", {}).get("contrasts") != 165:
+        raise FinanceCliError("regression-risk audit no longer contains 165 contrasts")
+    if (
+        regression.get("rules", {}).get("practical_rule", {}).get("source_macro_roc_auc")
+        != 0.815183
+    ):
+        raise FinanceCliError("regression-risk audit no longer matches the released score")
 
     holdouts = []
     for directory in sorted(retrospective.glob("heldout-*")):
@@ -350,6 +376,9 @@ def compact_verification(repository: Path) -> dict[str, Any]:
         "starting_policy_qualified": qualification["qualified"],
         "retrospective_sources": expanded["support"]["sources"],
         "strict_panels": strict["support"]["panels"],
+        "regression_risk_source_macro_roc_auc": regression["rules"]["practical_rule"][
+            "source_macro_roc_auc"
+        ],
         "holdouts": holdouts,
     }
 

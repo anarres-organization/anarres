@@ -81,7 +81,9 @@ studies. A strict task-level tier reaches 81.6% candidate ordering across 79
 panels without using model identity. Five excluded-source tests then expose
 where successive representations transfer and where they fail. The
 capability-contract representation recovers all 33 scored FinAcumen candidate
-orderings across several targets and backbones. A table-blind FinHarmBench test
+orderings across several targets and backbones. A separate baseline-matched
+audit reaches 0.815 source-macro ROC AUC for intervention regressions, compared
+with 0.575 for data volume alone. A table-blind FinHarmBench test
 then qualifies safety alignment for two models and rejects a third whose benign
 helpfulness crosses the frozen guardrail. The earlier numerical-faithfulness
 failure remains an important boundary.

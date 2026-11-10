@@ -32,6 +32,14 @@ class FinanceCliTest(unittest.TestCase):
         self.assertIn("retrospective_reproduction", result["capabilities"])
         self.assertFalse(result["prospective_environment_outcome_opened"])
         self.assertGreaterEqual(result["strict_retrospective_sources"], 1)
+        self.assertEqual(result["strict_pairwise_ordering"], 0.815534)
+        self.assertEqual(result["strict_source_macro_pairwise_ordering"], 0.836357)
+        self.assertEqual(result["regression_risk_contrasts"], 165)
+        self.assertEqual(result["regression_risk_source_macro_roc_auc"], 0.815183)
+        self.assertEqual(result["regression_risk_eligible_sources"], 5)
+        self.assertEqual(result["excluded_source_finacumen_pairwise_correct"], 33)
+        self.assertEqual(result["excluded_source_finacumen_pairwise_scored"], 33)
+        self.assertEqual(result["excluded_source_finacumen_pairwise_abstained"], 4)
 
     def test_source_audit_uses_native_implementation(self) -> None:
         result = cli.command_audit_sources(type("Args", (), {"repository": ROOT})())
@@ -79,9 +87,10 @@ class FinanceCliTest(unittest.TestCase):
         result = cli.command_verify(args)
         self.assertEqual(result["status"], "pass")
         self.assertEqual(result["mode"], "compact")
-        self.assertEqual(result["manifest_artifacts"], 25)
+        self.assertEqual(result["manifest_artifacts"], 26)
         self.assertEqual(result["retrospective_sources"], 16)
         self.assertEqual(result["strict_panels"], 79)
+        self.assertEqual(result["regression_risk_source_macro_roc_auc"], 0.815183)
         self.assertFalse(result["starting_policy_qualified"])
         self.assertEqual(len(result["holdouts"]), 5)
 

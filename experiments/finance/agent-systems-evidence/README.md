@@ -97,6 +97,38 @@ general capability before and after refusal steering distillation. Its matched
 interventions show why a candidate should clear explicit harm and over-refusal
 guardrails before capability gains inform allocation.
 
+### Retained experience and procedural skills
+
+Finance agents can also improve through reusable procedures, tools, and memory.
+These interventions create environment decisions even when model weights remain
+fixed.
+
+- [FinSkillBench](https://arxiv.org/abs/2608.18099) evaluates 2,603 verifiable
+  investment-management episodes across portfolio construction, risk
+  management, and fundamental analysis. Curated procedural documents and tools
+  raise the reported mean score from 0.366 to 0.528. Skills generated within the
+  episode provide little benefit at higher cost, while a separate Hermes harness
+  reproduces the direction across all three domains.
+- [FinEvo-Bench](https://arxiv.org/abs/2608.06144) follows 120 professional
+  finance tasks across 20 business scenes and six domains. Paired controls show
+  gains of 9.33--19.37 points from retained experience across four agent
+  scaffolds. Skill-only evolution gives the strongest Claude Code result, and
+  rubric feedback outperforms reference-answer feedback across all four
+  scaffolds.
+- [Auditing Self-Evolution in Financial
+  Agents](https://arxiv.org/abs/2608.17684) evaluates retained experience in a
+  simulated e-banking system with sealed endpoints and state replay. Capability
+  gains can coincide with greater exposure to injected content and more
+  unauthorized state changes, so utility, exposure, and financial-state safety
+  remain separate outcomes.
+
+These results support candidate environments that vary the carrier of
+experience, the availability of executable procedures, feedback specificity,
+and control coverage. They also suggest measurements of operation support,
+recovery paths, retained-task coverage, and compliance burden before choosing
+which experience to preserve. These public outcomes guide the candidate design
+and do not qualify Anarres's prospective selector.
+
 ### Tool orchestration under operational constraints
 
 Tool access alone is not a sufficient environment description.
