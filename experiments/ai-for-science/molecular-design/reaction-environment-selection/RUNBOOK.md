@@ -240,7 +240,48 @@ the candidate-bank gate authorizes freezing the matched training and
 evaluation contracts. Preserve the Version 3 failure and the Version 4 pass as
 separate results. Neither result contains target-training outcomes.
 
-## 7. Instantiate and qualify the endpoint
+## 7. Materialize and smoke-test replay training
+
+The public sampler export omits internal states and backward route
+probabilities. Reconstruct them from the pinned synthesis environment rather
+than substituting approximate values. The materializer resolves each oriented
+synthon action against the action space available at that state, replays the
+route, and recomputes the backward probability over the same route set used by
+RxnFlow.
+
+```bash
+python scripts/materialize_replay_bank.py \
+  --env-dir /path/to/qualified-environment \
+  --samples /path/to/view_v3_20261122.jsonl \
+  --records /path/to/records_v3_20261122.jsonl \
+  --qualification DEVELOPMENT_BANK_QUALIFICATION_V4.json \
+  --bank hash_uniform \
+  --output /tmp/hash_uniform.replay.json
+```
+
+Before target training, compare reconstructed replay objects with fresh full
+trajectories produced by the pinned RxnFlow policy. Require exact states,
+actions, and products, and backward log probabilities within an absolute
+tolerance of `1e-12`. Then run the reduced interface smoke:
+
+```bash
+python scripts/smoke_replay_training.py \
+  --config /path/to/warm-start-config.yaml \
+  --env-dir /path/to/qualified-environment \
+  --warm-start /path/to/warm_start_weights.pt \
+  --replay-bank /tmp/hash_uniform.replay.json \
+  --prepared-target /path/to/prepared_Q07820 \
+  --output-dir /tmp/replay-training-smoke \
+  --report /tmp/REPLAY_TRAINING_SMOKE_V1.json
+```
+
+The smoke uses two online and two replay trajectories for one update. It must
+start with an empty optimizer and replay buffer, load the complete fixed bank,
+produce finite loss and gradient diagnostics, write a checkpoint, and preserve
+the replay-bank size. This is an interface qualification and cannot be scored
+as an environment outcome.
+
+## 8. Instantiate and qualify the endpoint
 
 Create the endpoint environment from `endpoint-environment.yml`. This matches
 the MolGenBench Version4 package pins and PoseCheck commit. Compute reference
@@ -271,7 +312,7 @@ infrastructure failure, zero unique qualifying molecules, or support that
 depends on a single molecule. Molecule-specific failures remain in the fixed
 attempt denominator.
 
-## 8. Freeze the prospective decision
+## 9. Freeze the prospective decision
 
 After all development arms are complete and scored, fit the operational and
 graph-aware predictors. Construct the two prospective banks without opening
