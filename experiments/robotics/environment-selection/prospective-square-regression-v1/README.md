@@ -1,6 +1,8 @@
 # Prospective environment and regression prediction on RoboMimic Square
 
-**Status:** measurement protocol frozen; candidate-policy outcomes unopened.
+**Status:** probe measurement qualified; candidate memberships, predictions,
+and the 15-run execution matrix are frozen; candidate-policy outcomes remain
+unopened.
 
 This study asks whether measurements from a reference robot policy can select
 a useful demonstration environment and identify where a trained policy may
@@ -28,6 +30,12 @@ test measures its success rate and allocation regret. The regression test asks
 whether the product of starting-policy failure probability and candidate
 coverage distance predicts candidate-minus-reference changes across eight
 predefined initial-state strata.
+
+The probe gate qualified with 616 successes and 152 failures across 768 fixed-
+state episodes, all eight strata populated, and no simulator exceptions.
+[`PROBE_MEASUREMENTS.json`](PROBE_MEASUREMENTS.json) records this measurement,
+while [`CANDIDATES.json`](CANDIDATES.json) fixes the six candidate/reference
+memberships and state-level regression-risk predictions.
 
 ## Why this test is separate from the Can release
 

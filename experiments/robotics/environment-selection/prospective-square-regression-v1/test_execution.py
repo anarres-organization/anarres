@@ -26,6 +26,29 @@ EXECUTION = load("square_freeze_execution", ROOT / "scripts/freeze_execution.py"
 
 
 class CandidateExecutionTest(unittest.TestCase):
+    def test_released_execution_freeze_binds_every_input_and_run(self) -> None:
+        freeze = json.loads((ROOT / "EXECUTION_FREEZE.json").read_text())
+        self.assertFalse(freeze["candidate_outcomes_opened"])
+        self.assertEqual(freeze["expected_candidate_runs"], 15)
+        self.assertEqual(freeze["expected_candidate_evaluation_episodes"], 3840)
+        for relative, expected in freeze["inputs"].items():
+            self.assertEqual(PREPARE.sha256(ROOT / relative), expected)
+        observed = {(row["candidate_id"], row["seed"]) for row in freeze["candidate_runs"]}
+        self.assertEqual(
+            observed,
+            {
+                (candidate, seed)
+                for candidate in (
+                    "random_50",
+                    "length_50",
+                    "coverage_50",
+                    "failure_coverage_50",
+                    "failure_coverage_short_50",
+                )
+                for seed in (3101, 3102, 3103)
+            },
+        )
+
     def test_execution_freeze_expands_the_exact_arm_seed_matrix(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
