@@ -146,8 +146,6 @@ def execute_agent(stage: Path, model: str | None, timeout_seconds: int) -> dict[
         "exec",
         "--cd",
         str(stage),
-        "--sandbox",
-        "workspace-write",
         "--approve-for-me",
         "--skip-git-repo-check",
         "--ephemeral",
