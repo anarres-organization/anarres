@@ -1,0 +1,12 @@
+{
+  "corrected_freeze": {
+    "freeze_sha256": "5e25bcf0655fda6f7512b37aa2f21b9a3a66c0232152e58980a45270d047d3bf",
+    "protocol_sha256": "ba307987ed94ebb4865428d313079e3af9d787cb810ae87e5bd70488ef54fead",
+    "sources_sha256": "6135e0cfb95fde2cf6d6c0d9d91606fe4b3527d9d5d9c3861c36fb2990565dc2"
+  },
+  "original_freeze_record_sha256": "d9065fc06cacb7a5ebced5b978a6f5d4bccb3256ef871d4f3c8dbd9f18751771",
+  "original_freeze_sha256": "9a259a1f3924c4231ba427e5f33b4c14cee1ce3c3a99f0f99092c33861528cca",
+  "reason": "The v1.4.1 source manifest was corrected without regenerating the serialized source digest. The original freeze record remains unchanged.",
+  "schema_version": "anarres.prospective-freeze-correction.v1",
+  "study_id": "prospective_cupid_can_v141_v2"
+}

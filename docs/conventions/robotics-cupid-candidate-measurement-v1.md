@@ -64,6 +64,22 @@ rank vectors from the three scoring checkpoints. It is shared by candidates
 from one freeze because it qualifies the measurement procedure, not an
 individual subset.
 
+## Candidate and probe context
+
+The profile retains measurements that qualify or describe the candidate without
+turning them into additional optimization coordinates. Candidate attributes
+record the frozen construction rule, operator-tier counts, whether the explicit
+tier-balance correction was applied, and the selected fraction of the 300-item
+pool. These fields preserve data-quality correction and exposure in their
+native forms.
+
+The scoring-policy failure rate is computed over the three declared 100-episode
+rollout panels and remains shared context for all five candidates. It records
+the policy weakness needed by the influence estimator rather than a
+candidate-specific outcome. Score missingness is the fraction of the expected
+900 demonstration-by-checkpoint influence values that are absent. Both fields
+retain explicit fraction units. They are not candidate-policy training results.
+
 ## Qualification and edge cases
 
 The closed-loop probe must contain both success and failure episodes at every

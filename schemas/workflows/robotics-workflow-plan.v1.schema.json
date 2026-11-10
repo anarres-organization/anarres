@@ -1,0 +1,269 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anarres.dev/schemas/workflows/robotics-workflow-plan.v1.schema.json",
+  "title": "Anarres robotics workflow plan v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plan_id",
+    "domain",
+    "study_id",
+    "phase",
+    "producer",
+    "inputs",
+    "execution",
+    "resource_contract",
+    "training_contract",
+    "evaluation_contract",
+    "release_gate",
+    "stages",
+    "candidate_runs",
+    "totals",
+    "scientific_boundary",
+    "plan_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "anarres.robotics-workflow-plan.v1"},
+    "plan_id": {"type": "string", "minLength": 1},
+    "domain": {"const": "robotics"},
+    "study_id": {"type": "string", "minLength": 1},
+    "phase": {"type": "string", "minLength": 1},
+    "producer": {"$ref": "#/$defs/identity"},
+    "inputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/input"}
+    },
+    "execution": {"$ref": "#/$defs/execution"},
+    "resource_contract": {"$ref": "#/$defs/resourceContract"},
+    "training_contract": {"$ref": "#/$defs/trainingContract"},
+    "evaluation_contract": {"$ref": "#/$defs/evaluationContract"},
+    "release_gate": {"$ref": "#/$defs/releaseGate"},
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/stage"}
+    },
+    "candidate_runs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/candidateRun"}
+    },
+    "totals": {"$ref": "#/$defs/totals"},
+    "scientific_boundary": {"$ref": "#/$defs/scientificBoundary"},
+    "plan_digest": {"$ref": "#/$defs/digest"}
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id", "revision"],
+      "properties": {
+        "kind": {"type": "string", "minLength": 1},
+        "id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1}
+      }
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "uri", "digest"],
+      "properties": {
+        "role": {"type": "string", "minLength": 1},
+        "uri": {"type": "string", "minLength": 1},
+        "digest": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "execution_started",
+        "submission_ready",
+        "submission_requires_explicit_command",
+        "scheduler",
+        "blockers"
+      ],
+      "properties": {
+        "mode": {"const": "plan_only"},
+        "execution_started": {"const": false},
+        "submission_ready": {"type": "boolean"},
+        "submission_requires_explicit_command": {"const": true},
+        "scheduler": {"type": ["string", "null"]},
+        "blockers": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "resourceContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accelerator",
+        "software_environment",
+        "adaptive_stopping",
+        "scheduler_specific_fields_present"
+      ],
+      "properties": {
+        "accelerator": {"type": "string", "minLength": 1},
+        "software_environment": {"type": "string", "minLength": 1},
+        "adaptive_stopping": {"type": "boolean"},
+        "scheduler_specific_fields_present": {"const": false}
+      }
+    },
+    "trainingContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "epochs",
+        "steps_per_epoch",
+        "batch_size",
+        "equal_optimizer_steps_across_arms",
+        "checkpoint_rule",
+        "adaptive_stopping"
+      ],
+      "properties": {
+        "epochs": {"type": "integer", "minimum": 1},
+        "steps_per_epoch": {"type": "integer", "minimum": 1},
+        "batch_size": {"type": "integer", "minimum": 1},
+        "equal_optimizer_steps_across_arms": {"const": true},
+        "checkpoint_rule": {"type": "string", "minLength": 1},
+        "adaptive_stopping": {"type": "boolean"}
+      }
+    },
+    "evaluationContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rollouts_per_policy",
+        "horizon",
+        "environment_seed",
+        "terminate_on_success",
+        "primary_outcome",
+        "primary_unit",
+        "paired_initial_conditions_across_arms"
+      ],
+      "properties": {
+        "rollouts_per_policy": {"type": "integer", "minimum": 1},
+        "horizon": {"type": "integer", "minimum": 1},
+        "environment_seed": {"type": "integer"},
+        "terminate_on_success": {"type": "boolean"},
+        "primary_outcome": {"type": "string", "minLength": 1},
+        "primary_unit": {"type": "string", "minLength": 1},
+        "paired_initial_conditions_across_arms": {"const": true}
+      }
+    },
+    "releaseGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expected_candidate_runs",
+        "expected_evaluation_episodes",
+        "require_all_arms_and_seeds",
+        "require_membership_hashes",
+        "require_checkpoint_hashes",
+        "require_outcome_file_hashes"
+      ],
+      "properties": {
+        "expected_candidate_runs": {"type": "integer", "minimum": 1},
+        "expected_evaluation_episodes": {"type": "integer", "minimum": 1},
+        "require_all_arms_and_seeds": {"const": true},
+        "require_membership_hashes": {"const": true},
+        "require_checkpoint_hashes": {"const": true},
+        "require_outcome_file_hashes": {"const": true}
+      }
+    },
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage_id",
+        "kind",
+        "depends_on",
+        "task_count",
+        "opens_candidate_outcomes"
+      ],
+      "properties": {
+        "stage_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "kind": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "depends_on": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}
+        },
+        "task_count": {"type": "integer", "minimum": 1},
+        "opens_candidate_outcomes": {"type": "boolean"}
+      }
+    },
+    "candidateRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_id",
+        "candidate_id",
+        "seed",
+        "demonstration_count",
+        "membership_sha256",
+        "optimizer_steps",
+        "evaluation_episodes",
+        "evaluation_horizon"
+      ],
+      "properties": {
+        "run_id": {"type": "string", "minLength": 1},
+        "candidate_id": {"type": "string", "minLength": 1},
+        "seed": {"type": "integer"},
+        "demonstration_count": {"type": "integer", "minimum": 1},
+        "membership_sha256": {"$ref": "#/$defs/digest"},
+        "optimizer_steps": {"type": "integer", "minimum": 1},
+        "evaluation_episodes": {"type": "integer", "minimum": 1},
+        "evaluation_horizon": {"type": "integer", "minimum": 1}
+      }
+    },
+    "totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_arms",
+        "training_seeds_per_arm",
+        "candidate_runs",
+        "optimizer_steps",
+        "evaluation_episodes"
+      ],
+      "properties": {
+        "candidate_arms": {"type": "integer", "minimum": 1},
+        "training_seeds_per_arm": {"type": "integer", "minimum": 1},
+        "candidate_runs": {"type": "integer", "minimum": 1},
+        "optimizer_steps": {"type": "integer", "minimum": 1},
+        "evaluation_episodes": {"type": "integer", "minimum": 1}
+      }
+    },
+    "scientificBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_outcomes_opened",
+        "frozen_point_prediction",
+        "primary_outcome",
+        "primary_unit",
+        "no_outcome_driven_revision",
+        "release_gate_precedes_scoring"
+      ],
+      "properties": {
+        "candidate_outcomes_opened": {"const": false},
+        "frozen_point_prediction": {"type": "string", "minLength": 1},
+        "primary_outcome": {"type": "string", "minLength": 1},
+        "primary_unit": {"type": "string", "minLength": 1},
+        "no_outcome_driven_revision": {"const": true},
+        "release_gate_precedes_scoring": {"const": true}
+      }
+    }
+  }
+}

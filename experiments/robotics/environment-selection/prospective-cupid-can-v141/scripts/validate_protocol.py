@@ -46,7 +46,23 @@ def main() -> None:
     freeze["freeze_sha256"] = hashlib.sha256(canonical_bytes(freeze)).hexdigest()
     frozen_path = ROOT / "FREEZE.json"
     if frozen_path.exists() and json.loads(frozen_path.read_text()) != freeze:
-        raise ValueError("serialized freeze digest does not match protocol and sources")
+        correction_path = ROOT / "FREEZE_CORRECTION.json"
+        if not correction_path.exists():
+            raise ValueError("serialized freeze digest does not match protocol and sources")
+        correction = json.loads(correction_path.read_text())
+        original_bytes = frozen_path.read_bytes()
+        original_freeze = json.loads(original_bytes)
+        if correction.get("schema_version") != "anarres.prospective-freeze-correction.v1":
+            raise ValueError("unsupported freeze-correction schema")
+        if correction.get("study_id") != protocol["study_id"]:
+            raise ValueError("freeze correction names a different study")
+        if correction.get("original_freeze_sha256") != original_freeze.get("freeze_sha256"):
+            raise ValueError("freeze correction does not bind the original freeze")
+        original_record_sha256 = hashlib.sha256(original_bytes).hexdigest()
+        if correction.get("original_freeze_record_sha256") != original_record_sha256:
+            raise ValueError("freeze correction does not bind the original record bytes")
+        if correction.get("corrected_freeze") != freeze:
+            raise ValueError("freeze correction does not match protocol and sources")
     print(json.dumps(freeze, indent=2, sort_keys=True))
 
 

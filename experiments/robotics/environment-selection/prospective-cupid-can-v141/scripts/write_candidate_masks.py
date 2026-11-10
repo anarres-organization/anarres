@@ -12,6 +12,8 @@ import h5py
 import numpy as np
 
 MASK_KEYS = {
+    "random_50": "anarres_random_50",
+    "length_50": "anarres_length_50",
     "cupid_50": "anarres_cupid_50",
     "cupid_tier_balanced_50": "anarres_cupid_tier_balanced_50",
 }
