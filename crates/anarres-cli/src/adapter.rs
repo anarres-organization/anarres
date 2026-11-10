@@ -243,10 +243,10 @@ fn executable_filenames(name: &str) -> Vec<OsString> {
     let base = format!("{ADAPTER_PREFIX}{name}");
     #[cfg(windows)]
     {
-        return [".exe", ".cmd", ".bat", ""]
+        [".exe", ".cmd", ".bat", ""]
             .into_iter()
             .map(|suffix| format!("{base}{suffix}").into())
-            .collect();
+            .collect()
     }
     #[cfg(not(windows))]
     {
