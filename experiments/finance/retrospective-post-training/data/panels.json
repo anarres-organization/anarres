@@ -23,7 +23,7 @@
       ]
     },
     {
-      "study_id": "oda_fin", "panel_id": "oda_rl_from_sft", "metric": "nine-benchmark average", "baseline": "sft", 
+      "study_id": "oda_fin", "panel_id": "oda_rl_from_sft", "metric": "nine-benchmark average", "baseline": "sft",
       "arms": [
         {"id":"sft","score":72.1,"features":[1,0,0,0,0,0,1,0,0]},
         {"id":"rule_1token_6k","score":73.3,"features":[1,0,0.5,1,0,0,1,1,0.24]},
