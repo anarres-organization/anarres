@@ -34,6 +34,12 @@ class LegalCliCommandTest(unittest.TestCase):
     def run_cli(self, directory: Path, *arguments: str) -> subprocess.CompletedProcess[str]:
         environment = os.environ.copy()
         environment["PATH"] = os.pathsep.join([str(directory), environment.get("PATH", "")])
+        source_paths = [
+            ROOT / "packages/legal/src",
+            ROOT / "packages/environments/src",
+            ROOT / "packages/core/src",
+        ]
+        environment["PYTHONPATH"] = os.pathsep.join(str(path) for path in source_paths)
         return subprocess.run(
             [str(BINARY), *arguments],
             cwd=directory,
