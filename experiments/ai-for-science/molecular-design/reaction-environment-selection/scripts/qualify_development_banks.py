@@ -92,6 +92,21 @@ def jaccard(first: set[str], second: set[str]) -> float:
     return len(first & second) / len(union) if union else 1.0
 
 
+def expected_view_seeds(
+    measurement_contract: dict[str, Any], bank_contract: dict[str, Any]
+) -> list[int]:
+    rule = bank_contract["confirmation_rule"]
+    construction_seed = int(rule["construction_view_seed"])
+    confirmation_seed = int(rule["confirmation_view_seed"])
+    if construction_seed != int(measurement_contract["sampling"]["construction_view_seed"]):
+        raise ValueError(
+            "bank contract construction seed does not match the qualified measurement contract"
+        )
+    if construction_seed == confirmation_seed:
+        raise ValueError("bank confirmation requires a distinct view seed")
+    return [construction_seed, confirmation_seed]
+
+
 def qualify(
     records_by_view: list[list[dict[str, Any]]],
     contract: dict[str, Any],
@@ -125,12 +140,16 @@ def qualify(
         }
         for first in names
     }
+    view_seeds = [
+        int(bank_contract["confirmation_rule"]["construction_view_seed"]),
+        int(bank_contract["confirmation_rule"]["confirmation_view_seed"]),
+    ]
     return {
         "schema_version": "1.0",
         "study": contract["study"],
         "scope": "development-bank construction and two-view confirmation",
         "qualification": "pass" if all(checks.values()) else "fail",
-        "view_seeds": contract["sampling"]["seeds"],
+        "view_seeds": view_seeds,
         "eligible_unique_products": [len(pool) for pool in pools],
         "bank_size": size,
         "construction_memberships": {
@@ -158,7 +177,9 @@ def main() -> None:
         raise ValueError("supply exactly two records files and two manifests")
     manifests = [read_json(path) for path in args.manifest]
     contract = read_json(args.contract)
-    if [manifest["view_seed"] for manifest in manifests] != contract["sampling"]["seeds"]:
+    bank_contract = read_json(args.bank_contract)
+    expected_seeds = expected_view_seeds(contract, bank_contract)
+    if [manifest["view_seed"] for manifest in manifests] != expected_seeds:
         raise ValueError("view seeds do not match the measurement contract")
     for records_path, manifest in zip(args.records, manifests, strict=True):
         if file_sha256(records_path) != manifest["output_sha256"]:
@@ -166,7 +187,7 @@ def main() -> None:
     result = qualify(
         [read_jsonl(path) for path in args.records],
         contract,
-        read_json(args.bank_contract),
+        bank_contract,
     )
     result["input_sha256"] = {
         path.name: file_sha256(path) for path in [*args.records, *args.manifest]

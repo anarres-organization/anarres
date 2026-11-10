@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "study": "prospective-reaction-environment-selection",
-  "status": "version_3_measurement_and_six_development_banks_qualified",
+  "status": "version_3_measurement_qualified_new_bank_confirmation_frozen",
   "scientific_question": "Can measurements under one starting molecular graph policy predict which fixed replay experience bank will produce the greatest target-specific improvement at a matched generation and oracle budget?",
   "source": {
     "rxnflow_commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b",
@@ -96,7 +96,7 @@
     "equal_bank_size_required": true,
     "membership_overlap_reported": true,
     "molecule_identity_and_scaffold_overlap_reported": true,
-    "membership_status": "six development memberships frozen; prospective memberships remain sealed until development outcomes are scored"
+    "membership_status": "construction-view memberships fixed; untouched version 2 confirmation remains open"
   },
   "measurement": {
     "probe_views": 2,
@@ -188,6 +188,7 @@
     "reason": "The first graph claim concerns environment measurement and selection. Multiplying the initial panel across architectures would confound that decision and dilute the prospective test."
   },
   "open_gates": [
+    "version 2 independent bank confirmation",
     "training schedule smoke qualification"
   ],
   "sealed_boundary": {
@@ -198,7 +199,7 @@
     "measurement_v2_reliability_result": "failed only the prespecified 0.90 unique-fraction gate in both views; all other per-view and two-view checks passed",
     "measurement_v3_views_drawn": true,
     "measurement_v3_reliability_passed": true,
-    "development_bank_confirmation_passed": true,
+    "development_bank_v1_result_non_authorizing": true,
     "development_training_started": false
   }
 }

@@ -1,0 +1,43 @@
+{
+  "schema_version": "2.0",
+  "study": "prospective-reaction-environment-selection",
+  "status": "frozen_after_v1_seed_binding_audit_before_new_confirmation_view",
+  "supersedes": "BANK_CONSTRUCTION_CONTRACT.json",
+  "source_measurement_contract": "MEASUREMENT_CONTRACT_V3.json",
+  "preserved_non_authorizing_result": "DEVELOPMENT_BANK_QUALIFICATION_V1.json",
+  "bank_size": 512,
+  "development_bank_order": [
+    "hash_uniform",
+    "reward_signal",
+    "validity_cost",
+    "scaffold_coverage",
+    "route_coverage",
+    "graph_embedding_coverage"
+  ],
+  "summary_coordinates": [
+    "mean_target_reward",
+    "mean_generated_action_count",
+    "mean_oracle_seconds",
+    "unique_scaffold_fraction",
+    "unique_ring_systems_per_record",
+    "unique_route_fraction",
+    "unique_reaction_families",
+    "embedding_mean_nearest_neighbor_distance"
+  ],
+  "confirmation_rule": {
+    "construction_view_seed": 20261122,
+    "confirmation_view_seed": 20261124,
+    "membership_source": "version 3 construction view only",
+    "procedure": "Retain the six construction-view memberships from seed 20261122. Independently reconstruct the six selectors on untouched seed 20261124 and compare the six-bank ordering for every summary coordinate.",
+    "rank_statistic": "Spearman correlation with average ranks for ties",
+    "minimum_correlation": 0.8,
+    "aggregate_gate": "Every finite nonconstant summary coordinate must pass. A coordinate that is constant in both views is recorded as stable with correlation 1.0; a coordinate constant in only one view fails.",
+    "failure_action": "abstain before development training or version a new protocol"
+  },
+  "revision_reason": "The version 1 bank contract bound seeds 20261120 and 20261121. Those views failed the measurement diversity gate and cannot authorize development banks. Version 2 binds the passing v3 construction view and a new untouched confirmation view while leaving every selector, coordinate, bank size, statistic, and threshold unchanged.",
+  "sealed_boundary": {
+    "confirmation_view_20261124_drawn": false,
+    "development_training_started": false,
+    "training_outcomes_opened": false
+  }
+}

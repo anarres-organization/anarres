@@ -30,6 +30,14 @@ class BankConfirmationTests(unittest.TestCase):
     def test_average_ranks_handles_ties(self):
         self.assertEqual(MODULE.average_ranks([1, 1, 3]).tolist(), [1.5, 1.5, 3.0])
 
+    def test_view_seeds_must_bind_to_qualified_construction_view(self):
+        measurement = {"sampling": {"construction_view_seed": 22}}
+        bank = {"confirmation_rule": {"construction_view_seed": 22, "confirmation_view_seed": 24}}
+        self.assertEqual(MODULE.expected_view_seeds(measurement, bank), [22, 24])
+        bank["confirmation_rule"]["construction_view_seed"] = 20
+        with self.assertRaisesRegex(ValueError, "does not match"):
+            MODULE.expected_view_seeds(measurement, bank)
+
 
 if __name__ == "__main__":
     unittest.main()

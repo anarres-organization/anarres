@@ -204,9 +204,12 @@ gate before accepting the construction-view memberships.
 Freeze the training and evaluation contracts before launching any development
 arm.
 
-`DEVELOPMENT_BANK_QUALIFICATION_V1.json` records the passing gate and the
-accepted construction-view memberships. Do not regenerate those memberships
-for development training.
+`DEVELOPMENT_BANK_QUALIFICATION_V1.json` preserves the first reconstruction,
+but its audit marks the result non-authorizing because the version 1 bank
+contract named the failed v2 view seeds. Follow
+`BANK_CONSTRUCTION_CONTRACT_V2.json`: retain the seed-20261122 construction
+memberships, reconstruct summaries on untouched seed 20261124, and require the
+same rank gate before development training.
 
 ## 7. Freeze the prospective decision
 

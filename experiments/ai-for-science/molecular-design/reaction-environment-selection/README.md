@@ -7,8 +7,9 @@ the 1,000-update QED warm start. Two frozen starting-policy views were scored
 against all eight targets. Every target passed the prespecified gates, and the
 outcome-blind hash rule selected Q07820. The structured reward adapter passes valid,
 malformed, filtered, timeout, repeat-call, batched, and RxnFlow v2.1 interface
-checks. Version 3 measurement and all six development-bank membership gates
-pass. The training-schedule smoke and every post-training outcome remain open.
+checks. Version 3 measurement passes. The six construction-view memberships
+are fixed, while a new independent bank-confirmation view remains open. The
+training-schedule smoke and every post-training outcome also remain open.
 No target-training or evaluation outcome has been inspected for this study.
 The selected-target measurement extractor is qualified on the frozen 64-record
 view with byte-identical graph representations across two independent runs.
@@ -23,10 +24,11 @@ fraction in both views. That failed gate is preserved. Version 3 replaces the
 fraction-only condition with an absolute support requirement of 2,048 unique
 products and a 0.80 fraction floor, then tests both on two new independent views
 before any bank membership or training outcome exists.
-Those new views contain 3,367 and 3,436 unique canonical products. Every v3
-per-view and two-view check passes. The six 512-member banks also pass the
-independent confirmation gate across all eight frozen summary coordinates,
-with rank correlations from 0.812 to 1.000.
+Those new views contain 3,367 and 3,436 unique canonical products, and every v3
+per-view and two-view check passes. A subsequent audit found that the original
+bank contract still named the failed v2 view seeds. Its bank-summary result is
+preserved as non-authorizing. Version 2 binds the passing construction view and
+a new untouched confirmation seed without changing the selectors or gate.
 
 ## Research question
 
@@ -258,8 +260,12 @@ records the passing independent-view gate.
 development-bank summaries and confirmation statistic before measurement
 reliability is scored.
 [`DEVELOPMENT_BANK_QUALIFICATION_V1.json`](DEVELOPMENT_BANK_QUALIFICATION_V1.json)
-records the frozen construction memberships, independent confirmation
-reconstructions, coordinate summaries, input hashes, and passing rank gate.
+records the construction memberships and first confirmation reconstruction.
+[`DEVELOPMENT_BANK_QUALIFICATION_AUDIT_V1.json`](DEVELOPMENT_BANK_QUALIFICATION_AUDIT_V1.json)
+marks that result non-authorizing because its view seeds do not match the
+version 1 bank contract. [`BANK_CONSTRUCTION_CONTRACT_V2.json`](BANK_CONSTRUCTION_CONTRACT_V2.json)
+retains every selector and threshold while binding the qualified construction
+view and a new untouched confirmation seed.
 
 Audit local checkouts without reading target outcomes:
 

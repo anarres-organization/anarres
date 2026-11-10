@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "bank-confirmation seed binding audit",
+  "audited_result": "DEVELOPMENT_BANK_QUALIFICATION_V1.json",
+  "audited_contract": "BANK_CONSTRUCTION_CONTRACT.json",
+  "measurement_contract": "MEASUREMENT_CONTRACT_V3.json",
+  "audit_status": "non_authorizing_seed_binding_mismatch",
+  "finding": {
+    "bank_contract_seeds": [
+      20261120,
+      20261121
+    ],
+    "result_seeds": [
+      20261122,
+      20261123
+    ],
+    "scientific_interpretation": "The result shows stable bank summaries on the v3 views but does not satisfy the frozen version 1 bank-contract identity. It cannot authorize development training."
+  },
+  "corrective_action": {
+    "contract": "BANK_CONSTRUCTION_CONTRACT_V2.json",
+    "construction_view_seed": 20261122,
+    "new_confirmation_view_seed": 20261124,
+    "unchanged_elements": "bank membership rules, bank size, summary coordinates, rank statistic, threshold, and failure action"
+  },
+  "sealed_boundary": {
+    "development_training_started": false,
+    "training_outcomes_opened": false
+  }
+}
