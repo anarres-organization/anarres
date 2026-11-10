@@ -8,10 +8,10 @@ against all eight targets. Every target passed the prespecified gates, and the
 outcome-blind hash rule selected Q07820. The structured reward adapter passes valid,
 malformed, filtered, timeout, repeat-call, batched, and RxnFlow v2.1 interface
 checks. Version 3 measurement passes. The six construction-view memberships
-are fixed. The untouched bank-confirmation view remains unchanged while its
-target scores are recomputed under the version 3 reward contract. The training
-schedule smoke and every post-training outcome also remain open.
-No target-training or evaluation outcome has been inspected for this study.
+are recorded, but the independent bank-confirmation gate fails for generated
+action cost, oracle time, and scaffold coverage. Development training is not
+authorized. No target-training or evaluation outcome has been inspected for
+this study.
 The selected-target measurement extractor is qualified on the frozen 64-record
 view with byte-identical graph representations across two independent runs.
 The first large-batch scoring attempt stopped on a molecule-specific conformer
@@ -35,6 +35,11 @@ outside the pinned Vina atom-type domain. The failure is preserved. Version 3
 keeps the exact sampled view and records only Vina's exact unsupported-atom-
 type error as scientific ineligibility; every other parser, receptor,
 toolchain, process, and timeout failure remains an infrastructure failure.
+The unchanged view then completes with no infrastructure failures. Five of the
+eight bank-order coordinates pass, while generated-action cost, oracle time,
+and scaffold coverage reach Spearman correlations of 0.371, 0.657, and 0.735,
+below the frozen 0.8 threshold. This result triggers the prespecified
+abstention before development training.
 
 ## Research question
 
@@ -281,6 +286,9 @@ preserves the unsupported-boron failure and the unchanged view identity.
 [`BANK_CONSTRUCTION_CONTRACT_V3.json`](BANK_CONSTRUCTION_CONTRACT_V3.json)
 freeze the narrow eligibility revision while retaining the sampled records,
 memberships, selectors, coordinates, and confirmation threshold.
+[`DEVELOPMENT_BANK_QUALIFICATION_V3.json`](DEVELOPMENT_BANK_QUALIFICATION_V3.json)
+records the failed independent-view gate and the six non-authorizing
+construction memberships.
 
 Audit local checkouts without reading target outcomes:
 

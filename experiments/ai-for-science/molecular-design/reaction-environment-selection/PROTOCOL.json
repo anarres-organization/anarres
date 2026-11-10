@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "study": "prospective-reaction-environment-selection",
-  "status": "version_3_measurement_qualified_version_3_bank_confirmation_scoring",
+  "status": "version_3_measurement_qualified_version_3_bank_confirmation_failed_abstain",
   "scientific_question": "Can measurements under one starting molecular graph policy predict which fixed replay experience bank will produce the greatest target-specific improvement at a matched generation and oracle budget?",
   "source": {
     "rxnflow_commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b",
@@ -96,7 +96,7 @@
     "equal_bank_size_required": true,
     "membership_overlap_reported": true,
     "molecule_identity_and_scaffold_overlap_reported": true,
-    "membership_status": "construction-view memberships fixed; the unchanged untouched confirmation view is being rescored under the version 3 unsupported-atom-type rule"
+    "membership_status": "construction-view memberships recorded but not authorized because three of eight bank-order coordinates failed independent-view confirmation"
   },
   "measurement": {
     "probe_views": 2,
@@ -188,8 +188,7 @@
     "reason": "The first graph claim concerns environment measurement and selection. Multiplying the initial panel across architectures would confound that decision and dilute the prospective test."
   },
   "open_gates": [
-    "version 3 independent bank confirmation",
-    "training schedule smoke qualification"
+    "new versioned measurement or bank-construction protocol before any development training"
   ],
   "sealed_boundary": {
     "training_or_evaluation_outcomes_inspected": false,
@@ -202,6 +201,12 @@
     "development_bank_v1_result_non_authorizing": true,
     "bank_confirmation_v2_scoring_failed_on_unsupported_boron_atom_type": true,
     "bank_confirmation_view_20261124_redrawn": false,
+    "development_bank_v3_confirmation_passed": false,
+    "development_bank_v3_failed_coordinates": [
+      "mean_generated_action_count",
+      "mean_oracle_seconds",
+      "unique_scaffold_fraction"
+    ],
     "development_training_started": false
   }
 }

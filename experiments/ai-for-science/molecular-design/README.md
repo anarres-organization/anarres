@@ -70,6 +70,7 @@ and wet-lab evidence.
 
 The current public artifacts qualify the pinned source revisions, Version4
 archive and target fixtures, docking oracle, QED warm start, Q07820 target, and
-two-view version 3 measurement. Construction-view bank memberships are fixed,
-while their untouched confirmation view remains open. No claim-bearing target
+two-view version 3 measurement. The independent development-bank confirmation
+fails for generated-action cost, oracle time, and scaffold coverage, so the
+recorded construction memberships do not authorize target training. No target
 training or evaluation outcome has been opened.

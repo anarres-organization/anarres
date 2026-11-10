@@ -217,6 +217,13 @@ retain the seed-20261122 memberships, and require the same rank gate before
 development training. Do not redraw either view or change a selector,
 coordinate, bank size, statistic, or threshold.
 
+`DEVELOPMENT_BANK_QUALIFICATION_V3.json` records the completed result. Target
+reward, graph-embedding coverage, reaction-family coverage, ring-system
+coverage, and route coverage pass. Generated-action cost, oracle time, and
+scaffold coverage fail the frozen 0.8 rank-correlation gate. Stop here. The six
+construction memberships are useful measurement records but cannot authorize
+the training schedule smoke or a development arm under this protocol.
+
 ## 7. Freeze the prospective decision
 
 After all development arms are complete and scored, fit the operational and
