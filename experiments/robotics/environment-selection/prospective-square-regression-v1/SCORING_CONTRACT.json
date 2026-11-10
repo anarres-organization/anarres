@@ -5,7 +5,7 @@
   "candidate_outcomes_opened": false,
   "bound_inputs": {
     "PROTOCOL.json": "d8d3bfb5de49ab8976c702caf37c9bdd96a1a9425c1b01987f495cb961a4ec07",
-    "scripts/score_candidate_results.py": "e5933edb67d858db5b49cb8a27b151659be1cde630899f94a25fa77e4d9a3680"
+    "scripts/score_candidate_results.py": "5af1525d85719c821b5dd14d9e6ea1d95e23073a4f7cc241efa34d385da04b74"
   },
   "comparison_arms": [
     "all_data_reference",

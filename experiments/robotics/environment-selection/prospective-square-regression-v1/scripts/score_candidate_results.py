@@ -150,9 +150,17 @@ def main() -> None:
         or candidates["study_id"] != protocol["study_id"]
     ):
         raise ValueError("study identities do not match")
+    if set(scoring["comparison_arms"]) != set(candidates["candidates"]):
+        raise ValueError("scoring arms differ from the frozen candidate panel")
 
     candidate_blobs = [read_evaluation(path, protocol) for path in args.candidate_evaluations]
     probe_blobs = [read_evaluation(path, protocol) for path in args.probe_evaluations]
+    expected_state_bank = candidates["inputs"]["state_bank_sha256"]
+    if any(
+        blob.get("state_bank_sha256") != expected_state_bank
+        for blob in candidate_blobs + probe_blobs
+    ):
+        raise ValueError("evaluation state bank differs from the candidate freeze")
     candidate_ids = [arm for arm in scoring["comparison_arms"] if arm != "all_data_reference"]
     expected_candidate_pairs = {
         (candidate_id, seed)
@@ -204,10 +212,26 @@ def main() -> None:
         for left, right in combinations(scoring["comparison_arms"], 2)
     ]
 
-    state_strata = np.asarray(
-        [row["stratum"] for row in candidates["state_regression_risk"][candidate_ids[0]]],
-        dtype=np.int64,
-    )
+    expected_state_ids = list(range(states))
+    state_strata = None
+    for candidate_id in candidate_ids:
+        risk_rows = candidates["state_regression_risk"][candidate_id]
+        if [row["state_id"] for row in risk_rows] != expected_state_ids:
+            raise ValueError(f"risk rows are incomplete for {candidate_id}")
+        observed_strata = np.asarray([row["stratum"] for row in risk_rows], dtype=np.int64)
+        if state_strata is None:
+            state_strata = observed_strata
+        elif not np.array_equal(state_strata, observed_strata):
+            raise ValueError("state strata differ across candidate risk records")
+    assert state_strata is not None
+    for blob in candidate_blobs + probe_blobs:
+        by_state = {}
+        for row in blob["records"]:
+            by_state.setdefault(row["state_id"], row["stratum"])
+            if by_state[row["state_id"]] != row["stratum"]:
+                raise ValueError("an evaluation changes a state stratum across replicates")
+        if [by_state[state_id] for state_id in expected_state_ids] != state_strata.tolist():
+            raise ValueError("evaluation strata differ from the candidate freeze")
     rows = regression_rows(candidate_state, probe_state, candidates, state_strata, candidate_ids)
     tail_rows = len(rows) // 4
     regression = summarize_regression(rows, tail_rows)
@@ -265,9 +289,13 @@ def main() -> None:
             "candidates_sha256": sha256(args.candidates),
             "scoring_contract_sha256": sha256(args.scoring_contract),
             "candidate_evaluations": {
-                path.name: sha256(path) for path in args.candidate_evaluations
+                f"{blob['policy_id']}__seed-{blob['training_seed']}": sha256(path)
+                for path, blob in zip(args.candidate_evaluations, candidate_blobs, strict=True)
             },
-            "probe_evaluations": {path.name: sha256(path) for path in args.probe_evaluations},
+            "probe_evaluations": {
+                f"all_data_probe__seed-{blob['training_seed']}": sha256(path)
+                for path, blob in zip(args.probe_evaluations, probe_blobs, strict=True)
+            },
         },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
