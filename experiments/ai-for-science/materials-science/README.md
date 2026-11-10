@@ -15,7 +15,7 @@ question:
 | [Supervised phonon selection](phonon-environment-selection/) | Complete | The frozen signal-plus-coverage rule missed the best candidate at all three PBE budgets, establishing that the initial measurements were insufficient. |
 | [Independent PBEsol transfer](phonon-environment-selection/pbesol-transfer/) | Complete | The transferred ordering selected the best candidate at two of three budgets, while no post-trained candidate improved absolute Top-100 stability over the starting checkpoint. |
 | [Retrospective materials bridge](retrospective-bridge/) | Validated | Sixteen public studies provide 804 matched decisions and 3,002 candidate arms. A separate harm audit reaches 0.708 source-macro ROC AUC and captures 41.8% of adverse choices in the highest-risk 20% of pairs. |
-| [MLIP phonon study](mlip-phonon-environment-selection/) | Final panel frozen | The starting model and target roles are frozen, 80,000 structures have been measured, and 16 training environments match both atom and graph-edge budgets without opening any candidate training outcome. |
+| [MLIP phonon study](mlip-phonon-environment-selection/) | Prospective test scored | The learned signal-density selector missed the best environment at all four budgets. Deterministic baselines selected it at every budget, and the post-test audit identifies unsupported extrapolation as the main failure. |
 
 ## Reproduce the released checks
 
@@ -32,17 +32,16 @@ This command installs the locked materials test dependencies in the local
 and current MLIP study tests. Model training and phonon simulation runtimes
 remain separate from the CLI and test environment.
 
-## Next step: matched post-training
+## Next step: support-aware selection
 
-The MLIP phonon study is the current prospective workstream. Its next decision
-is whether measurements from the frozen starting model predict matched
-post-training utility. The 16-environment panel contains 12 development and
-four prospective environments at identical atom and graph-edge budgets. The
-next gate trains each environment under one fixed contract, fits the predictor
-on complete development environments, and opens the prospective outcomes only
-after the forecast is serialized. The complete measurement record, candidate
-coordinates, and membership hashes are linked from the [study
-page](mlip-phonon-environment-selection/).
+The first MLIP prospective test is complete. The 16-environment panel contains
+12 development and four prospective environments at identical atom and
+graph-edge budgets. Development results favored a signal-density predictor,
+but its frozen choice extrapolated below the measured development range and was
+the worst prospective environment at every budget. The next gate expands
+development support and freezes an abstention rule before another candidate
+family is evaluated. The complete measurement record, forecasts, outcomes, and
+support audit are linked from the [study page](mlip-phonon-environment-selection/).
 
 ## Purpose
 
@@ -89,8 +88,8 @@ relative-harm audit holds out 13 complete studies and tests whether the same
 measurements identify environments that underperform a matched reference. The
 fixed semantic score reaches 0.708 source-macro ROC AUC and recovers 41.8% of
 adverse choices in the highest-risk 20% of pairs. Flexible fitted models remain
-weaker than the compact scores in both audits. These results narrow the
-prospective hypothesis without opening the sealed phonon evaluation.
+weaker than the compact scores in both audits. These results narrowed the
+prospective hypothesis before the MLIP evaluation was opened.
 
 Additional studies characterize variation that remains outside the predictor.
 They show that environment rankings can depend on model architecture, training
@@ -236,11 +235,12 @@ with target affinity and retains both as measured coordinates. Chemistry,
 geometry, force regime, and source can remain coupled, which limits causal
 interpretation while preserving the predictive comparison.
 
-The current measurement-only draft contains 48 equal-atom candidate
-distributions. Before fine-tuning, the study will select 12 development and four
-prospective environments that span the measured coordinates, limit pairwise
-overlap, preserve multiple source families, and avoid one source label acting
-as a proxy for every coordinate.
+The released bank contains 48 equal-atom candidate distributions. The frozen
+panel assigns 12 to development and four to the prospective test. Those 16
+environments span the measured coordinates, limit pairwise overlap, and retain
+multiple physical source families. The prospective result shows that the
+development panel did not fully separate source regime from signal density,
+which now defines the next design requirement.
 
 ## Broader MLIP pre-training measurements
 
@@ -249,8 +249,8 @@ must pass independent-view reliability and collinearity checks.
 
 ### Primary operational coordinates
 
-- **Admitted supervision density $\rho$:** usable energy, force, and stress
-  gradient mass per atom and per unit of acquisition or training cost.
+- **Supervision density $\rho$:** weighted starting-model energy, force, and
+  stress residual per atom and per unit of acquisition or training cost.
 - **Effective coverage $H$:** concentration-adjusted support over frozen local
   atomic-environment embeddings, elements, chemical systems, prototypes, and
   force regimes.
@@ -276,8 +276,8 @@ prediction, and change at least one prespecified decision.
 
 ## Broader MLIP experiment
 
-The initial experiment uses 12 development and four prospective environments,
-two training seeds, and three matched budgets. Every run uses:
+The completed experiment uses 12 development and four prospective environments,
+two training seeds, and four matched passes. Every run uses:
 
 - the same starting checkpoint
 - one pinned energy-force-stress loss and observable weighting
@@ -285,9 +285,6 @@ two training seeds, and three matched budgets. Every run uses:
 - the same optimizer, precision, batching, and checkpoint schedule
 - matched processed-atom and optimizer-update budgets
 - the same disjoint physical evaluation panel.
-
-A third seed is reserved for decision-critical near ties or anomalous variance.
-The trigger is fixed before results are compared.
 
 Compact predictors are fit with entire environments held out. The study does not
 train a high-capacity neural utility model on 12 independent environments.
@@ -317,17 +314,17 @@ Prediction and decision quality are reported separately:
 - environment, target-structure, and training-seed uncertainty as distinct
   quantities.
 
-The primary prospective test freezes the selector on the 12 development
-environments and evaluates the four untouched environments without refitting.
-Low retrospective error alone is insufficient.
+The primary prospective test froze the selector on the 12 development
+environments and evaluated the four untouched environments without refitting.
+Its failure demonstrates why low retrospective error alone is insufficient.
 
 ## Qualification gates
 
-Qualification uses construction and development data only. It cannot inspect
+Qualification used construction and development data only. It did not inspect
 prospective post-training outcomes or replace environments based on downstream
 utility.
 
-Before post-training begins, the launch packet must establish:
+The completed launch packet established:
 
 1. **Source identity and license.** Record stable versions, source licenses,
    dataset identities, preprocessing code, and content hashes.
@@ -422,16 +419,22 @@ atomistic simulation, catalysis, or synthesis. The first result should be stated
 in terms of the frozen starting model, source family, physical target, and
 compute range.
 
-The immediate deliverables are:
+The completed research loop releases:
 
 - a source, version, license, and level-of-theory registry
 - a content-addressed partition and contamination report
 - a starting-model and target qualification report
-- at least 40 measured candidate-environment specifications
+- 48 measured candidate-environment specifications
 - a frozen 12-development/4-prospective panel
 - matched fine-tuning and physical-evaluation contracts
 - compact prediction, decision, uncertainty, and cost results
-- a prospective score record that preserves the chronology of every freeze.
+- a prospective score record that preserves the chronology of every freeze
+- a post-test audit that identifies unsupported extrapolation and source-regime
+  confounding without modifying the frozen forecast.
+
+The next loop expands development support across source regime and signal
+density, treats the untouched starting checkpoint as an allocation option, and
+freezes abstention before opening another candidate family.
 
 The public claim remains proportional to the evidence. The study either shows
 that measurements made before fine-tuning improve a real atomistic-environment

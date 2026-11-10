@@ -26,7 +26,7 @@ evidence and remains specific to the study, policy, target, and budget.
 | Formal verification | Real Vero profiles | Installable Vero development adapter with a separate support report | Positive external training-environment grids across Dafny and Verus; local Vero support and containment qualification remain pre-RL |
 | Robotics | Real Can v1.4.1 candidate profiles | Installable CUPID candidate-measurement and result adapter | Prospective PushT and Can results, plus retrospective multi-source records |
 | Legal reasoning | Real SylloGym policy-response profiles | Installable SylloGym mixture adapter with a separate LAB regression report | Prospective SylloGym and separate LAB regression-risk records |
-| Materials science | Real MLIP candidate profiles | Installable cost-matched-panel adapter | Supervised phonon tests released; final MLIP panel frozen and candidate outcomes unopened |
+| Materials science | Real MLIP candidate profiles | Installable cost-matched-panel adapter | Supervised phonon tests and a scored MLIP prospective test; the learned selector missed while deterministic baselines succeeded |
 | Vulnerability exploitation | Public qualification protocol and released scaffold study | Not yet available | Policy-relative measurement released; no environment comparison |
 | Agentic systems | Public research protocols | Concrete domains use their own adapters | Domain experiments remain study-specific |
 | Molecular design | Real Q07820 reaction-bank profiles | Installable RxnFlow development adapter | Selector-fidelity confirmation passed; matched target-training outcomes remain unopened |
