@@ -23,9 +23,132 @@ PREPARE = load("square_prepare_candidates", ROOT / "scripts/prepare_candidate_da
 sys.modules["prepare_candidate_dataset"] = PREPARE
 SCORE = load("square_score_candidates", ROOT / "scripts/score_candidate_results.py")
 EXECUTION = load("square_freeze_execution", ROOT / "scripts/freeze_execution.py")
+GATE = load("square_gate_candidates", ROOT / "scripts/gate_candidate_results.py")
 
 
 class CandidateExecutionTest(unittest.TestCase):
+    def test_release_gate_binds_completed_artifacts_and_detects_tampering(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            candidates = root / "CANDIDATES.json"
+            protocol = root / "PROTOCOL.json"
+            prepared = root / "prepared.hdf5"
+            runs = root / "runs"
+            run = runs / "candidate_a__seed-1"
+            checkpoint = run / "checkpoint" / "last.pth"
+            checkpoint.parent.mkdir(parents=True)
+            candidates.write_text("{}\n")
+            protocol.write_text(
+                json.dumps({"evaluation": {"states": 2, "rollout_replicates_per_state": 2}})
+            )
+            prepared.write_bytes(b"prepared")
+            checkpoint.write_bytes(b"checkpoint")
+            checkpoint_hash = PREPARE.sha256(checkpoint)
+            execution = root / "EXECUTION_FREEZE.json"
+            execution_blob = {
+                "study_id": "square-test",
+                "candidate_outcomes_opened": False,
+                "expected_candidate_runs": 1,
+                "expected_candidate_evaluation_episodes": 4,
+                "inputs": {
+                    "CANDIDATES.json": PREPARE.sha256(candidates),
+                    "PROTOCOL.json": PREPARE.sha256(protocol),
+                },
+                "candidate_runs": [
+                    {
+                        "run_id": run.name,
+                        "candidate_id": "candidate_a",
+                        "seed": 1,
+                        "membership_sha256": "membership",
+                    }
+                ],
+            }
+            execution.write_text(json.dumps(execution_blob))
+            contract = {
+                "study_id": "square-test",
+                "candidate_id": "candidate_a",
+                "seed": 1,
+                "candidate_membership_sha256": "membership",
+                "candidates_sha256": PREPARE.sha256(candidates),
+                "protocol_sha256": PREPARE.sha256(protocol),
+                "prepared_dataset_sha256": PREPARE.sha256(prepared),
+            }
+            (run / "TASK_CONTRACT.json").write_text(json.dumps(contract))
+            (run / "TRAIN_COMPLETE").touch()
+            (run / "checkpoint.sha256").write_text(f"{checkpoint_hash}  {checkpoint}\n")
+            evaluation = run / "evaluation.json"
+            records = [
+                {
+                    "state_id": state_id,
+                    "replicate": replicate,
+                    "success": False,
+                    "exception": None,
+                }
+                for state_id in range(2)
+                for replicate in range(2)
+            ]
+            evaluation.write_text(
+                json.dumps(
+                    {
+                        "study_id": "square-test",
+                        "policy_id": "candidate_a",
+                        "training_seed": 1,
+                        "checkpoint_sha256": checkpoint_hash,
+                        "episodes": 4,
+                        "exceptions": 0,
+                        "records": records,
+                    }
+                )
+            )
+            (run / "evaluation.sha256").write_text(f"{PREPARE.sha256(evaluation)}  {evaluation}\n")
+            (run / "EVAL_COMPLETE").touch()
+
+            result = GATE.gate_record(execution, candidates, protocol, prepared, runs)
+            self.assertEqual(result["status"], "CANDIDATE_RESULTS_COMPLETE__OUTCOMES_UNOPENED")
+            self.assertEqual(result["evaluation_episodes"], 4)
+            evaluation.write_text(evaluation.read_text() + " ")
+            with self.assertRaisesRegex(ValueError, "evaluation hash mismatch"):
+                GATE.gate_record(execution, candidates, protocol, prepared, runs)
+
+    def test_release_gate_rejects_an_incomplete_matrix(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            candidates = root / "CANDIDATES.json"
+            protocol = root / "PROTOCOL.json"
+            prepared = root / "prepared.hdf5"
+            runs = root / "runs"
+            runs.mkdir()
+            candidates.write_text("{}\n")
+            protocol.write_text(
+                json.dumps({"evaluation": {"states": 2, "rollout_replicates_per_state": 2}})
+            )
+            prepared.write_bytes(b"prepared")
+            execution = root / "EXECUTION_FREEZE.json"
+            execution.write_text(
+                json.dumps(
+                    {
+                        "study_id": "square-test",
+                        "candidate_outcomes_opened": False,
+                        "expected_candidate_runs": 1,
+                        "expected_candidate_evaluation_episodes": 4,
+                        "inputs": {
+                            "CANDIDATES.json": PREPARE.sha256(candidates),
+                            "PROTOCOL.json": PREPARE.sha256(protocol),
+                        },
+                        "candidate_runs": [
+                            {
+                                "run_id": "candidate_a__seed-1",
+                                "candidate_id": "candidate_a",
+                                "seed": 1,
+                                "membership_sha256": "membership",
+                            }
+                        ],
+                    }
+                )
+            )
+            with self.assertRaisesRegex(ValueError, "run directories differ"):
+                GATE.gate_record(execution, candidates, protocol, prepared, runs)
+
     def test_released_execution_freeze_binds_every_input_and_run(self) -> None:
         freeze = json.loads((ROOT / "EXECUTION_FREEZE.json").read_text())
         self.assertFalse(freeze["candidate_outcomes_opened"])

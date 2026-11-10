@@ -55,7 +55,9 @@ regression test, allocation regret, whole-policy bootstrap, and integrity gate.
 Scripts in this directory materialize candidate memberships and the sealed
 execution matrix without opening candidate outcomes. The generated
 `EXECUTION_FREEZE.json` binds qualified memberships to all 15 candidate runs
-before candidate training begins.
+before candidate training begins. After execution, `gate_candidate_results.py`
+checks the complete run matrix, task identities, artifact hashes, evaluation
+coverage, and simulator exceptions before any candidate outcome is scored.
 
 Verify the outcome-blind freeze with:
 
