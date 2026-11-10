@@ -5,7 +5,7 @@ UV_CACHE_DIR ?= .uv-cache
 export PYTHONPATH
 export UV_CACHE_DIR
 
-.PHONY: setup format lint test rust-format rust-lint rust-test schemas hygiene prose check study-check study-check-extended materials-check release-smoke adapter-smoke example clean
+.PHONY: setup format lint test rust-format rust-lint rust-test schemas hygiene prose check study-check study-check-extended materials-check release-smoke adapter-smoke benchmark example clean
 
 setup:
 	uv sync --all-packages --dev
@@ -63,6 +63,10 @@ release-smoke:
 
 adapter-smoke:
 	$(PYTHON) tools/smoke_adapter_installation.py --binary target/release/anarres
+
+benchmark:
+	mkdir -p target/benchmarks
+	$(PYTHON) tools/benchmark_cli.py --binary target/release/anarres --output target/benchmarks/cli.json
 
 example:
 	mkdir -p .anarres/example

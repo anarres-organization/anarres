@@ -76,7 +76,8 @@ that directory to uninstall a standalone installation. Package-manager installs
 should instead be updated or removed through the same package manager.
 
 Before creating a release, maintainers update the crate version and changelog,
-run `make check` and `make release-smoke`, and inspect the generated plan:
+run `make check`, `make release-smoke`, and `make benchmark`, then inspect the
+generated plan:
 
 ```bash
 dist generate
