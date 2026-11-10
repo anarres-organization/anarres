@@ -13,7 +13,7 @@ you intend to inspect.
 
 Clone the repository and install an adapter with
 [`uv tool install`](https://docs.astral.sh/uv/guides/tools/). The repository's
-workspace lock resolves the shared Anarres packages.
+workspace metadata resolves the shared Anarres packages from the checkout.
 
 ```bash
 git clone https://github.com/anarres-organization/anarres.git
