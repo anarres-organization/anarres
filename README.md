@@ -29,6 +29,40 @@ The project provides:
 - **Reusable adapters and packages** for domain runtimes, environment coordinates, provenance, and evaluation.
 - **Versioned schemas** that keep data and experiment contracts interoperable across domains.
 
+## Install the CLI
+
+Tagged releases provide a native binary without requiring Python or Rust:
+
+```bash
+curl --proto '=https' --tlsv1.2 -LsSf \
+  https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.sh | sh
+```
+
+Restart your shell if the installer updates `PATH`, then verify the installation:
+
+```bash
+anarres --version
+```
+
+Windows, archive, checksum, and source-install options are documented in the
+[CLI release guide](docs/releases.md).
+
+Run the complete local workflow on the bundled CPU-only fixture:
+
+```bash
+git clone --depth 1 https://github.com/anarres-organization/anarres.git
+cd anarres
+anarres qualify examples/environment-processing/probe.json
+mkdir -p .anarres/example
+anarres measure examples/environment-processing/probe.json \
+  --output .anarres/example/environment.json
+anarres validate .anarres/example/environment.json
+```
+
+This fixture demonstrates the command contract rather than a scientific result.
+The [CLI guide](docs/cli.md) covers candidate comparison, domain adapters, JSON
+output, shell completions, and record schemas.
+
 ## Research program
 
 | Area | Question | Status |
@@ -42,19 +76,6 @@ The project provides:
 | [Robotics](experiments/robotics/README.md) | Which environments help robots improve across diverse embodied tasks? | First evidence release available |
 | [Legal reasoning](experiments/legal/README.md) | Can policy-relative measurements guide legal training-mixture selection? | Native adapter and evidence release available |
 | [Agentic finance](experiments/finance/README.md) | Which finance-task distributions improve held-out work under fixed training and control budgets? | Native CLI workflow and retrospective evidence available |
-
-## Install the CLI
-
-Tagged releases provide a native binary without requiring Python or Rust:
-
-```bash
-curl --proto '=https' --tlsv1.2 -LsSf \
-  https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.sh | sh
-anarres --version
-```
-
-Windows, Homebrew, archive, checksum, and source-install options are documented
-in the [CLI release guide](docs/releases.md).
 
 ## Develop the repository
 
@@ -74,10 +95,7 @@ Install the native command from the repository:
 
 ```bash
 cargo install --path crates/anarres-cli --locked
-anarres qualify examples/environment-processing/probe.json
-anarres measure examples/environment-processing/probe.json \
-  --output .anarres/example/environment.json --force
-anarres validate .anarres/example/environment.json
+anarres --version
 ```
 
 The command also compares candidate panels with `anarres design`. See the
