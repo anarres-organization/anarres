@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "contract": "q07820-qualifying-hit-v1",
+  "status": "frozen_before_target_training_or_trained_policy_evaluation",
+  "target_id": "Q07820",
+  "purpose": "Define the primary target-specific outcome from public reference controls without reading a development-bank or prospective-bank training outcome.",
+  "denominator": "all generated molecular attempts in the fixed evaluation sample",
+  "deduplication": "canonical isomeric SMILES; a qualifying molecule is counted once",
+  "primary_outcome": "number of unique qualifying molecules divided by the fixed number of generated attempts",
+  "gates": {
+    "molecular_validity": "RDKit-readable single-component molecule",
+    "docking_affinity": {
+      "comparison": "less_than_or_equal",
+      "threshold": "median finite Vina affinity among the public Q07820 reference actives"
+    },
+    "qed": {
+      "comparison": "greater_than",
+      "threshold": 0.5
+    },
+    "synthetic_accessibility": {
+      "comparison": "less_than",
+      "threshold": 5.0
+    },
+    "chemical_filters": "pass every MolGenBench medchem filter",
+    "posebusters": "pass every boolean check in the MolGenBench docked-pose configuration",
+    "strain_energy": {
+      "comparison": "less_than_or_equal",
+      "threshold": "75th percentile among finite Q07820 reference-active docked poses"
+    },
+    "clash_score": {
+      "comparison": "less_than_or_equal",
+      "threshold": "75th percentile among finite Q07820 reference-active docked poses"
+    },
+    "interaction_score": {
+      "comparison": "greater_than_or_equal",
+      "threshold": "median finite MolGenBench interaction score among Q07820 reference actives"
+    }
+  },
+  "metric_eligibility": {
+    "pose_dependent_metrics": "MolGenBench native eligibility, including fewer than 15 rotatable bonds",
+    "missing_gate_value": "does not qualify",
+    "molecule_specific_scientific_failure": "retained in the denominator and does not qualify",
+    "infrastructure_failure": "invalidates the affected evaluation shard and is not converted to a scientific zero"
+  },
+  "supporting_outcomes": [
+    "raw unique-hit count",
+    "novel qualifying-hit rate at maximum Morgan-fingerprint Tanimoto similarity below 0.4 to the warm-start construction corpus",
+    "Vina affinity",
+    "QED",
+    "synthetic accessibility",
+    "chemical-filter pass rate",
+    "PoseBusters all-valid rate",
+    "strain energy",
+    "clash score",
+    "interaction score",
+    "molecular diversity",
+    "Bemis-Murcko scaffold diversity",
+    "known-active molecule and scaffold recovery as an oracle audit"
+  ],
+  "qualification_rule": "Run the complete endpoint on an independently sampled starting-policy panel before freezing the matched evaluation size. The endpoint qualifies only with nonzero unique hits, complete infrastructure-valid scoring, and enough support to compare two training seeds without relying on one molecule.",
+  "chronology": {
+    "public_reference_controls_opened": "2026-11-10",
+    "development_training_outcomes_available": false,
+    "prospective_training_outcomes_available": false,
+    "trained_policy_evaluation_outcomes_available": false
+  },
+  "basis": [
+    "MolGenBench Version4 target, docking, pose, interaction, and chemical-filter metrics",
+    "the established molecular hit-ratio convention of docking better than the median known active with QED above 0.5 and SA below 5",
+    "target-relative reference distributions for pose strain, clash, and interaction gates"
+  ]
+}

@@ -1,0 +1,23 @@
+name: anarres-molecular-endpoint
+channels:
+  - conda-forge
+  - mx
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - openbabel
+  - reduce
+  - pip
+  - pip:
+      - EFGs
+      - rdkit==2025.9.1
+      - prolif==2.0.3
+      - mdanalysis==2.7.0
+      - posebusters==0.3.1
+      - spyrmsd
+      - joblib
+      - medchem
+      - setuptools<81
+      - git+https://github.com/cch1999/posecheck.git@57a1938d3c77eec0f930cf9fdf3f640393e5898c

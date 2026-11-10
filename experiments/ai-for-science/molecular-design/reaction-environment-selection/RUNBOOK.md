@@ -281,7 +281,38 @@ produce finite loss and gradient diagnostics, write a checkpoint, and preserve
 the replay-bank size. This is an interface qualification and cannot be scored
 as an environment outcome.
 
-## 8. Freeze the prospective decision
+## 8. Instantiate and qualify the endpoint
+
+Create the endpoint environment from `endpoint-environment.yml`. This matches
+the MolGenBench Version4 package pins and PoseCheck commit. Compute reference
+pose metrics once per target, then derive the target-relative thresholds:
+
+```bash
+python scripts/compute_reference_pose_metrics.py \
+  --sdf /path/to/Q07820_reference_active_molecules_vina_docked.sdf \
+  --protein /path/to/Q07820_prep.pdb \
+  --pocket /path/to/Q07820_prep.pdb \
+  --output /tmp/Q07820_reference_pose_metrics.csv \
+  --jobs 16
+
+python scripts/derive_qualifying_hit_thresholds.py \
+  --contract QUALIFYING_HIT_CONTRACT_V1.json \
+  --docked-actives /path/to/Q07820_reference_active_molecules_vina_docked.sdf \
+  --interactions /path/to/Q07820_reference_active_molecules_vina_docked_interaction_scores.csv \
+  --strain /tmp/Q07820_reference_pose_metrics.csv \
+  --clashes /tmp/Q07820_reference_pose_metrics.csv \
+  --output /tmp/Q07820_REFERENCE_THRESHOLDS_V1.json
+```
+
+The committed threshold artifact records the source archive, evaluator and
+PoseCheck revisions, input hashes, finite support, and missingness. Recomputed
+output must match it before candidate evaluation. Score a fixed starting-policy
+sample with `scripts/score_qualifying_hits.py`. Stop if the panel has any
+infrastructure failure, zero unique qualifying molecules, or support that
+depends on a single molecule. Molecule-specific failures remain in the fixed
+attempt denominator.
+
+## 9. Freeze the prospective decision
 
 After all development arms are complete and scored, fit the operational and
 graph-aware predictors. Construct the two prospective banks without opening

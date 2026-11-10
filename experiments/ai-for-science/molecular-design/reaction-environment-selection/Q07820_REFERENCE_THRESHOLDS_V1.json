@@ -1,0 +1,117 @@
+{
+  "candidate_or_trained_policy_outcomes_read": false,
+  "contract": "q07820-qualifying-hit-v1",
+  "inputs": {
+    "contract": {
+      "license": "Apache-2.0",
+      "media_type": "application/json",
+      "path": "QUALIFYING_HIT_CONTRACT_V1.json",
+      "producing_run": "q07820-qualifying-hit-contract-v1",
+      "sha256": "f904ae4b2eb1788958312ed920f02f88362eccb5822e3905a0eeeeaee30a9414",
+      "size_bytes": 3568,
+      "uri": "release://molecular-design/QUALIFYING_HIT_CONTRACT_V1.json"
+    },
+    "docked_reference_actives": {
+      "license": "CC BY 4.0",
+      "media_type": "chemical/x-mdl-sdfile",
+      "path": "Q07820_reference_active_molecules_vina_docked.sdf",
+      "producing_run": "MolGenBench-Version4",
+      "sha256": "b3fe8a30f56a6be9513f729b2f21d118f64a8415a9dacebd423d3a018078643d",
+      "size_bytes": 3642223,
+      "uri": "https://doi.org/10.5281/zenodo.20233505#Q07820-reference-docked-actives"
+    },
+    "reference_clashes": {
+      "license": "CC BY 4.0",
+      "media_type": "text/csv",
+      "path": "Q07820_reference_pose_metrics_pinned_v1.csv",
+      "producing_run": "q07820-reference-pose-metrics-v1",
+      "sha256": "70119c47779a86f6296c3a5a4c2b6fad71b1ffde3ee46c56bc4355ee5be95d0b",
+      "size_bytes": 896976,
+      "uri": "derived://q07820-reference-pose-metrics-v1"
+    },
+    "reference_interactions": {
+      "license": "CC BY 4.0",
+      "media_type": "text/csv",
+      "path": "Q07820_reference_active_molecules_vina_docked_interaction_scores.csv",
+      "producing_run": "MolGenBench-Version4",
+      "sha256": "8acaf90857bf8a2ca9e51468ca5e417db606861aa5cb4edc77112b655b24684e",
+      "size_bytes": 448141,
+      "uri": "https://doi.org/10.5281/zenodo.20233505#Q07820-reference-interactions"
+    },
+    "reference_strain": {
+      "license": "CC BY 4.0",
+      "media_type": "text/csv",
+      "path": "Q07820_reference_pose_metrics_pinned_v1.csv",
+      "producing_run": "q07820-reference-pose-metrics-v1",
+      "sha256": "70119c47779a86f6296c3a5a4c2b6fad71b1ffde3ee46c56bc4355ee5be95d0b",
+      "size_bytes": 896976,
+      "uri": "derived://q07820-reference-pose-metrics-v1"
+    }
+  },
+  "instantiated_thresholds": {
+    "all_chemical_filters_required": true,
+    "all_posebusters_checks_required": true,
+    "clash_score_maximum": 6.0,
+    "interaction_score_minimum": 0.7397176181706568,
+    "qed_strictly_greater_than": 0.5,
+    "strain_energy_maximum": 153.64,
+    "synthetic_accessibility_strictly_less_than": 5.0,
+    "vina_affinity_maximum": -8.84
+  },
+  "reference_summaries": {
+    "clash_score": {
+      "finite": 1083,
+      "maximum": 32.0,
+      "median": 4.0,
+      "minimum": 0.0,
+      "p25": 2.0,
+      "p75": 6.0,
+      "rows": 1131
+    },
+    "interaction_score": {
+      "finite": 973,
+      "maximum": 1.0,
+      "median": 0.7397176181706568,
+      "minimum": 0.0,
+      "p25": 0.0,
+      "p75": 0.9318600368324126,
+      "rows": 973
+    },
+    "posebusters_all_valid": {
+      "pass_fraction": 0.9681697612732095,
+      "passed": 1095,
+      "present": 1131,
+      "rows": 1131
+    },
+    "strain_energy": {
+      "finite": 1109,
+      "maximum": 2223761.45,
+      "median": 92.35,
+      "minimum": 4.719999999999999,
+      "p25": 54.540000000000006,
+      "p75": 153.64,
+      "rows": 1131
+    },
+    "vina_affinity": {
+      "finite": 1127,
+      "maximum": 11.257,
+      "median": -8.84,
+      "minimum": -11.545,
+      "p25": -9.513,
+      "p75": -7.9775,
+      "rows": 1131
+    }
+  },
+  "schema_version": "1.0",
+  "source": {
+    "archive_sha256": "e52ab106f35c1376fe181a7172caaf11da86c2ba21f89af9236ddadc17cdfb43",
+    "dataset": "MolGenBench Version4",
+    "evaluator_commit": "f7b6cec1892cb575dc3adee4f5a71ee16ef04c39",
+    "license": "CC BY 4.0",
+    "posecheck_commit": "57a1938d3c77eec0f930cf9fdf3f640393e5898c",
+    "producing_run": "q07820-reference-pose-metrics-v1",
+    "record": "https://doi.org/10.5281/zenodo.20233505"
+  },
+  "status": "reference_thresholds_instantiated_before_trained_policy_evaluation",
+  "target_id": "Q07820"
+}
