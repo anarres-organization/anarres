@@ -65,6 +65,67 @@
       },
       "role": "public model-by-task outcomes across Dafny, Lean, and Verus",
       "redistribution": "no upstream task specifications, model outputs, or full result table redistributed. This release contains compact aggregate facts only"
+    },
+    {
+      "name": "LeanLean",
+      "paper": "https://files.sri.inf.ethz.ch/website/papers/rognvaldsson2026leanlean.pdf",
+      "repository": "https://github.com/eth-sri/lean-lean",
+      "revision": "55097cfe752717cd5ac9aca09a18b335d9c5bb7a",
+      "repository_license": "MIT",
+      "result_artifacts": [
+        {
+          "path": "results/paper/data/leaderboard.csv",
+          "sha256": "78a8055ae84dbb9940176dab19f343a6ff0f8c0a2c428afca58985592c9c5219",
+          "size_bytes": 1123,
+          "media_type": "text/csv"
+        },
+        {
+          "path": "results/paper/data/benchmark-repository-results.csv",
+          "sha256": "5498bf2bf6b4eac7a4132ec5d68515491e05dcde49202a55546f29fc3081bec5",
+          "size_bytes": 362476,
+          "media_type": "text/csv"
+        }
+      ],
+      "role": "repository-level policy support, compression, cost, duration, budget checkpoints, and action traces under a pinned comparator",
+      "redistribution": "no repositories, model outputs, or full upstream result tables redistributed. This release contains compact numeric facts only"
+    },
+    {
+      "name": "Forall VeriSoftBench",
+      "paper": "https://arxiv.org/abs/2610.00885",
+      "repository": "https://github.com/astrio-labs/forall-verisoftbench",
+      "revision": "bac4c6482fca597d965f9c18e78abacf0ad6204e",
+      "repository_license": "Apache-2.0 for the metadata and analysis release; benchmark repositories retain their original licenses",
+      "result_artifacts": [
+        {
+          "path": "reported_results.csv",
+          "sha256": "bc327e2e2558e21e0cf4954595d527cabcf1a379c4bb5addc80dee2e7178ce7e",
+          "size_bytes": 1344,
+          "media_type": "text/csv"
+        },
+        {
+          "path": "results.csv",
+          "sha256": "7355c4d7c44ce93f3999819a815ad0ed1e17880d11a38f029fb299423fe620a4",
+          "size_bytes": 230628,
+          "media_type": "text/csv"
+        },
+        {
+          "path": "reports/summary.json",
+          "sha256": "7a7f80ef09b61a956f66e6254460d9d1c69659be87bbdf55dde05532cfaee197",
+          "size_bytes": 11728,
+          "media_type": "application/json"
+        }
+      ],
+      "role": "task-level policy and harness outcomes, resource totals, axiom-audit coverage, and independent-checker coverage on the 100-task Aristotle subset",
+      "redistribution": "no solution proofs, transcripts, compiler diagnostics, private harness code, or full upstream result tables redistributed. This release contains compact numeric facts only"
+    },
+    {
+      "name": "Vero",
+      "paper": "https://arxiv.org/abs/2608.13522",
+      "repository": "https://github.com/sunblaze-ucb/vero",
+      "revision": "0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+      "repository_license": "Apache-2.0 for Vero-authored benchmark infrastructure; benchmark instances retain identified source-specific licenses",
+      "role": "repository-level code-and-proof and proof-only outcomes, specification coverage, trajectories, cost, and formal benchmark-audit evidence",
+      "redistribution": "no benchmark repository, model artifact, trajectory, or paper asset redistributed. This release contains compact paper facts only"
     }
   ]
 }

@@ -28,6 +28,7 @@ accuracy as a substitute for production-code verification.
 | Re:Form reward integrity | Use raw verifier success to choose among three RL reward environments | The rule chooses the wrong semantic winner at all five model scales, with 14.78 points of mean specification-superiority regret | Verifier acceptance alone is unsafe for environment selection |
 | Formal Disco data generation | Prefer the generation environment with broader verified feature coverage | Formal Disco data beats SAFE at Pass@1 and Pass@32 under the same SFT pipeline | Verified diversity and feature coverage are useful data-environment measurements |
 | Vericoding policy support | Measure which tasks are supported across models and verification languages | 2,847 of 6,121 tasks with at least eight model outcomes have both successes and failures | Candidate support is policy- and language-dependent |
+| Repository policy support | Compare released agents without combining their native objectives | Opus 5 leads LeanLean compression, GPT-5.6 Luna has the lowest reported LeanLean cost, and GPT-5.5 xhigh leads Vero repository completion | A starting policy must be selected for a specific harness, task contract, verifier, and budget |
 | Anthropic and Theorem production workflow | Prove properties of compiled OSS-Fuzz binaries under a token budget | 239 entry points across 123 libraries were proved. Newer models and shared proofs reduced token use. | Real-code proof completion, cost, reuse, and patch integrity define the frontier target |
 
 ## VeruSyn: target-matched training data
@@ -91,6 +92,31 @@ policy. It does not measure downstream utility. It does show that candidate
 qualification must be repeated for the intended starting policy and
 verification language instead of treating task difficulty as fixed.
 
+## Repository-level policy evidence
+
+The released repository studies provide a stronger policy screen than a single
+local qualification. LeanLean publishes comparator-checked outcomes, cost, and
+duration for six policies over 64 repositories. Opus 5 with Claude Code has the
+highest mean compression and 64 valid submissions, while GPT-5.6 Luna with
+Codex has the lowest reported mean cost. GPT-5.6 Sol is faster than Opus 5 but
+has lower compression and higher reported mean cost.
+
+Vero uses a different objective: complete every specification in a repository
+within 90 minutes. GPT-5.5 xhigh with Codex leads both modes, fully solving 27
+of 43 code-and-proof repositories and 25 of 43 proof-only repositories. The
+Forall VeriSoftBench release adds 1,300 task records across 13 configurations,
+but its reported acceptance, retained artifacts, axiom audits, and independent
+checks have different coverage and must remain separate.
+
+These sources rule out a universal model ranking. Leanstral, for example,
+returns valid LeanLean submissions on 53 repositories but has zero strict
+success in the separately released Anarres Vero development measurement.
+GPT-5.6 Sol remains one executable, source-supported Vero qualification policy.
+Later protocols may select a different model from source-pinned evidence.
+After process containment is qualified, a small development-only panel should
+compare candidate policies under one matched Vero contract before repeated
+environment measurement.
+
 ## Anthropic-aligned evaluation contract
 
 The production target has four parts:
@@ -131,6 +157,8 @@ source-linked facts.
 - [`data/formal-disco.json`](data/formal-disco.json): generation and downstream
   comparisons
 - [`data/vericoding.json`](data/vericoding.json): compact policy-support facts
+- [`data/policy-support.json`](data/policy-support.json): repository-level
+  policy, harness, cost, and validity evidence
 - [`results/summary.json`](results/summary.json): deterministic derived result
 - [`scripts/reproduce.py`](scripts/reproduce.py): standard-library analysis
 - [`test_reproduce.py`](test_reproduce.py): scientific-integrity checks
@@ -140,8 +168,9 @@ source-linked facts.
 ## Boundaries
 
 The sources vary different objects. VeruSyn and Formal Disco study training
-data, Re:Form studies reward design, Vericoding studies inference support, and
-Anthropic studies production proof construction. Their native outcomes remain
-separate. The combined evidence motivates an environment-selection workflow,
-but it does not establish one universal selector or authorize pooling their
-scores.
+data, Re:Form studies reward design, Vericoding studies inference support,
+LeanLean studies proof compression, Vero studies complete repository closure,
+and Anthropic studies production proof construction. Their native outcomes
+remain separate. The combined evidence motivates an environment-selection
+workflow, but it does not establish one universal selector, one universal
+starting policy, or a valid reason to pool their scores.

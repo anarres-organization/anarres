@@ -1,6 +1,6 @@
 # Formal-verification continuation guide
 
-**Status date:** 2026-11-09
+**Status date:** 2026-11-10
 
 The next scientific milestone is a development screen under a tightened task
 sandbox, followed by a prospective comparison of qualified formal-verification
@@ -48,24 +48,29 @@ PrimePy result as an estimate of reliability. The repository split also remains
 fixed. Development repositories may be used for the next screen; qualification
 and prospective repositories must remain unopened.
 
-The immediate work has two phases:
+The immediate work has three phases:
 
 1. **Containment implementation.** Build the task-only execution boundary in
    [CODEX_CONTAINMENT.md](CODEX_CONTAINMENT.md), exercise every negative
    control through the model-facing command path, and emit a compact receipt
    without credentials or machine-specific paths.
-2. **Development screen.** After containment passes, freeze a new protocol and
-   outcome-blind queue for one attempt in each mode on the four repositories in
-   `development-lifecycle-panel-v2.json`. The existing PrimePy qualification
-   remains separate from this screen. No screen attempt may begin before its
-   protocol, queue, runtime identity, task hashes, and grader preflight are
-   committed.
+2. **Public policy audit.** Complete the source-pinned policy-support matrix
+   from released LeanLean, Vero, Forall VeriSoftBench, Vericoding, FVSpec, and
+   VeriBench evidence. Preserve each source's objective and verifier rather
+   than pooling its scores.
+3. **Development screen.** After containment passes and a policy is selected,
+   freeze a new protocol and outcome-blind queue for one attempt in each mode
+   on the four repositories in `development-lifecycle-panel-v2.json`. The existing
+   PrimePy qualification remains separate from this screen. No screen attempt
+   may begin before its protocol, queue, runtime identity, task hashes, and
+   grader preflight are committed.
 
-The first collaborator deliverables are therefore a Codex-specific containment
-contract, its validator and negative tests, and one route-qualification receipt.
-They are infrastructure artifacts, not scientific results. A screen may be
-frozen only after those artifacts agree on the exact policy, harness, workspace,
-network, credential, reset, and grader boundaries.
+The first collaborator deliverables are therefore the public policy matrix, a
+Codex-specific containment contract with validator and negative tests, and one
+route-qualification receipt. The containment artifacts are infrastructure
+evidence rather than scientific outcomes. A screen may be frozen only after
+the selected route agrees on the exact policy, harness, workspace, network,
+credential, reset, and grader boundaries.
 
 ## Why this advances production verification
 
@@ -90,7 +95,7 @@ cannot establish utility.
 
 ## Next execution steps
 
-### 1. Tighten containment and run the development screen
+### 1. Tighten containment and select the development-screen policy
 
 The v5 Leanstral measurement and its budget-ladder follow-up are complete and
 remain unchanged. Their compact
@@ -99,26 +104,34 @@ and [calibration result](../../../data/formal-verification/vero/results/developm
 preserve the frozen inputs and outcomes. The
 [requalification design](POLICY_REQUALIFICATION.md) fixes the evidence, budget
 ladder, and stop rules that governed that revision.
-The [starting-policy selection](STARTING_POLICY_SELECTION.md) audits the
-released Vero, VeriSoftBench, and LeanLean evidence and selects GPT-5.6 Sol
-through Codex 0.154.0. The resulting one-attempt
+The [starting-policy selection](STARTING_POLICY_SELECTION.md) used the released
+Vero, VeriSoftBench, and LeanLean evidence to select GPT-5.6 Sol through Codex
+0.154.0 for one excluded qualification. The resulting one-attempt
 [qualification result](../../../data/formal-verification/vero/results/development-policy-qualification.codex-sol-v1.json)
 passes all nine PrimePy specifications under fresh grading.
 
-- Preserve the GPT-5.6 Sol model, Codex 0.154.0 harness, xhigh reasoning
-  setting, native repository interface, and 90-minute Vero budget.
+- Treat GPT-5.6 Sol as one supported and executable candidate rather than a
+  required model. The public policy record shows that Opus 5 leads LeanLean
+  compression, GPT-5.6 Luna has the lowest reported LeanLean cost, and GPT-5.5
+  xhigh leads Vero repository completion.
+- Nominate a small policy panel from released repository evidence, executable
+  routes, cost, and reproducibility. Any new candidate receives its own
+  excluded development qualification under the same Vero task and grader.
 - Restrict task reads and writes to the freshly rendered workspace while
   keeping controller authentication outside the artifact and fresh grader.
 - Implement and re-run the negative controls in the
   [containment requalification](CODEX_CONTAINMENT.md) before any new model
   attempt.
+- Select the development-screen policy under a frozen rule. After selection,
+  preserve its model, harness, reasoning setting, native repository interface,
+  and 90-minute Vero budget through the screen and repeated measurement.
 - Freeze one attempt for every repository and mode in the existing
   `development-lifecycle-panel-v2.json`. Keep these screen outcomes separate
   from the later repeated measurement and environment comparison.
 - Keep qualification and prospective repositories unopened until the screen
   establishes nonzero strict coverage in at least two development repositories.
 
-This stage establishes whether the supported policy and tightened interface
+This stage establishes whether a source-supported policy and tightened interface
 produce measurable coverage beyond one excluded task. It cannot revise the v5
 outcome or convert either qualification into a candidate comparison.
 

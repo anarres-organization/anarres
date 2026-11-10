@@ -8,6 +8,12 @@ released repository-level Lean evidence before allocating another benchmark
 run. It does not open qualification or prospective repositories, rank training
 environments, or authorize downstream training.
 
+This selection is local to one Vero development qualification. It does not
+identify a universally best formal-verification model or require later
+protocols to use GPT-5.6 Sol. A new protocol may select another policy from
+source-pinned evidence, but its model, harness, reasoning setting, and budget
+must then remain fixed from measurement through the corresponding evaluation.
+
 ## Selection criteria
 
 A candidate must satisfy all of the following conditions:
@@ -92,6 +98,14 @@ no valid scored slot. Changing the starting policy is therefore better
 supported than extending the same interaction budget again. GPT-5.6 Sol also
 keeps the next test close to two released precedents: native Codex on Vero and
 the same model-harness pair on repository-scale Lean studies.
+
+The broader public record does not produce one policy ranking. Opus 5 leads
+LeanLean compression, GPT-5.6 Luna has the lowest reported mean LeanLean cost,
+and GPT-5.5 xhigh leads Vero repository completion. These contracts measure
+different capabilities. The GPT-5.6 Sol decision therefore reflects released
+repository support and an executable pinned route, not model unanimity. Before
+repeated measurement, a new development-only screen should compare a small
+candidate panel under the same Vero task, grader, containment, and budget.
 
 ## Qualification outcome
 

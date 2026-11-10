@@ -37,6 +37,8 @@ Three corrections are necessary before experiment design:
 | Re:Form | Three Dafny RL reward environments across five model scales | Reward-integrity falsification and cross-scale environment evidence | Training-seed support is incomplete and the repository has no identified top-level license at the pinned revision |
 | Formal Disco | Specialized and monolithic generation systems, feature-entropy measurements, and matched downstream SFT results | Verified-diversity measurement and training-data comparison | Released run checkpoints and failed generations remain incomplete |
 | Vericoding | 55,397 model-task outcomes over 6,336 tasks, nine models, and three formal languages | Broad policy-support and cross-language diagnostic | Cross-model disagreement is not a repeated-policy measurement or downstream training outcome |
+| LeanLean | Comparator-checked compression, cost, duration, checkpoints, and action summaries for six policies over 64 Lean repositories | Repository-level policy and cost screen before new inference | Compression is a different objective from filling Vero proof slots or closing a verified repository |
+| Forall VeriSoftBench | 1,300 task records across 13 configurations on the 100-task Aristotle subset, with partial axiom-audit and independent-checker coverage | Policy, harness, reasoning-effort, and cost screen | Reported totals, retained artifacts, axiom audits, and independent checks have different coverage; proofs and transcripts are withheld |
 | VCVio | Apache-2.0 Lean library for cryptographic games, primitives, protocols, implementations, oracle semantics, probability, and program logic | Leading cryptographic training-environment candidate; historical repository tasks; proof-reuse and curriculum studies | Must reconstruct gold historical tasks without future-lemma leakage; existing unresolved `sorry` declarations are not gold outcomes |
 | dalek-lean-bench | 249-theorem history, 146 theorem--proof pairs, chronology-aware proof injection, and a real Rust-to-Lean verification repository | Independent cryptographic target/candidate and validation of the historical-task builder | Must pin an immutable release and audit task identities, source licenses, and agent harness |
 | VeriSoftBench | 500 Lean tasks from 23 repositories with project and local dependencies | Repository-scale external target and possible disjoint candidate family | Pin code/data and verify that training and evaluation repositories can be separated without dependency leakage |
@@ -61,6 +63,13 @@ Accuracy@K panels with 0.25 points of mean regret. Formal Disco provides a
 second positive data-environment comparison. Re:Form provides the required
 falsification: choosing the arm with the highest raw verifier success misses
 the best specification-superiority arm at all five model scales.
+
+The repository-policy record adds LeanLean, Vero, and Forall VeriSoftBench
+without pooling their scores. Opus 5 leads LeanLean compression, GPT-5.6 Luna
+has the lowest reported mean LeanLean cost, and GPT-5.5 xhigh leads Vero
+repository completion. The reversal shows why a model must be selected for a
+specific harness, objective, verifier, and budget. GPT-5.6 Sol remains one
+locally executable Vero qualification policy rather than a universal default.
 
 These are retrospective results. They justify target match, verified feature
 coverage, semantic reward integrity, reliability, and cost as candidate
