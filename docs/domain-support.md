@@ -27,8 +27,8 @@ evidence and remains specific to the study, policy, target, and budget.
 | Robotics | Real Can v1.4.1 candidate profiles | Installable CUPID candidate-measurement adapter | Prospective PushT and retrospective multi-source records; Can candidate outcomes remain sealed |
 | Legal reasoning | Real SylloGym policy-response profiles | Installable SylloGym mixture adapter | Prospective SylloGym and separate LAB regression-risk records |
 | Materials science | Real MLIP candidate profiles | Installable MLIP candidate-bank adapter | Supervised phonon tests released; final cost-matched panel pending and MLIP outcomes unopened |
-| Vulnerability exploitation | Public qualification protocol | Not yet available | No qualified environment comparison |
-| Agentic systems | Public research protocols | Not yet available | Domain experiments remain study-specific |
+| Vulnerability exploitation | Public qualification protocol and released scaffold study | Not yet available | Policy-relative measurement released; no environment comparison |
+| Agentic systems | Public research protocols | Concrete domains use their own adapters | Domain experiments remain study-specific |
 | Molecular design | Real Q07820 reaction-bank profiles | Installable RxnFlow development adapter | Independent bank confirmation failed; no target training authorized |
 | Agentic finance | Real Business Bench qualification profile | Installable starting-policy qualification adapter | Frozen retrospective source tests; no prospective environment outcome opened |
 
@@ -48,4 +48,6 @@ A domain moves to native-adapter status only when its checked-in workflow:
 - retains the originating scientific record as authoritative
 
 Predictive status requires a separate outcome-bearing experiment. Synthetic
-fixtures never satisfy that requirement.
+fixtures never satisfy that requirement. Umbrella programs do not receive
+placeholder adapters; their concrete studies expose domain-specific commands
+when a stable native producer is available.
