@@ -23,6 +23,8 @@ the highest observed mean. Its advantage over the two controls was less than
 half a percentage point, and the training-seed intervals crossed zero.
 The release also includes a native adapter that projects the complete
 outcome-blind pre-training measurement into compatible environment profiles.
+The installed `anarres-legal` command exposes that projection without changing
+the study's measurement or decision rules.
 
 The LAB record covers 15 checkpoints, 180 tasks, and 34 practice areas. It
 tests whether task and workflow structure available before continued training

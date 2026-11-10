@@ -90,10 +90,9 @@ chronology before projecting the three mixtures into the shared Anarres profile
 contract.
 
 ```bash
-PYTHONPATH=packages/core/src:packages/environments/src \
-  uv run python \
-  experiments/legal/environment-selection/scripts/export_environment_profiles.py \
-  --output-dir /tmp/syllogym-profiles
+uv tool install ./packages/legal
+anarres adapter doctor legal
+anarres legal profile --repository . --output-dir /tmp/syllogym-profiles
 
 cargo run --quiet -p anarres-cli -- qualify \
   /tmp/syllogym-profiles/frozen_policy_response_allocation.profile-input.json
@@ -105,6 +104,8 @@ cargo run --quiet -p anarres-cli -- measure \
 The profiles contain no downstream outcomes. They preserve the measured
 candidate properties and provenance needed for comparison, while the released
 decision record remains authoritative for prospective interpretation.
+`anarres legal status` reports the SylloGym and LAB evidence as separate
+scientific objects. LAB regression-risk results are never profile inputs.
 
 ## Files
 

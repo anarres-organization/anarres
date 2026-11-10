@@ -8,6 +8,7 @@ members = [
     "anarres-environments",
     "anarres-evaluation",
     "anarres-finance",
+    "anarres-legal",
     "anarres-robotics",
     "anarres-workspace",
 ]
@@ -43,6 +44,17 @@ requires-dist = [{ name = "anarres-core", editable = "packages/core" }]
 name = "anarres-finance"
 version = "0.1.0"
 source = { editable = "packages/finance" }
+dependencies = [
+    { name = "anarres-environments" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "anarres-environments", editable = "packages/environments" }]
+
+[[package]]
+name = "anarres-legal"
+version = "0.1.0"
+source = { editable = "packages/legal" }
 dependencies = [
     { name = "anarres-environments" },
 ]

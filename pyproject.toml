@@ -16,6 +16,7 @@ members = [
   "packages/environments",
   "packages/evaluation",
   "packages/finance",
+  "packages/legal",
   "experiments/robotics/environment-selection/prospective-cupid-can-v141",
 ]
 
@@ -24,6 +25,7 @@ anarres-core = { workspace = true }
 anarres-environments = { workspace = true }
 anarres-evaluation = { workspace = true }
 anarres-finance = { workspace = true }
+anarres-legal = { workspace = true }
 anarres-robotics = { workspace = true }
 
 [tool.ruff]
