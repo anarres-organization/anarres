@@ -67,11 +67,11 @@ The immediate work has three phases:
    grader preflight are committed.
 
 The first collaborator deliverables are therefore the public policy matrix, a
-Codex-specific containment contract with validator and negative tests, and one
-route-qualification receipt. The containment artifacts are infrastructure
-evidence rather than scientific outcomes. A screen may be frozen only after
-the selected route agrees on the exact policy, harness, workspace, network,
-credential, reset, and grader boundaries.
+task-only containment contract with validator and negative tests for each
+selected route, and one route-qualification receipt. The containment artifacts
+are infrastructure evidence rather than scientific outcomes. A screen may be
+frozen only after the selected route agrees on the exact policy, harness,
+workspace, network, credential, reset, and grader boundaries.
 
 ## Why this advances production verification
 

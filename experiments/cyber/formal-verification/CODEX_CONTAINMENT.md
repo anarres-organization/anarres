@@ -1,6 +1,7 @@
 # Codex containment requalification
 
-**Status:** design only. This record does not authorize another model attempt.
+**Status:** route design plus an unqualified local-model implementation. This
+record does not authorize another model attempt.
 
 The excluded PrimePy qualification establishes strict task support for
 GPT-5.6 Sol with Codex 0.154.0. Vero's fresh grader passes all nine
@@ -18,6 +19,28 @@ should be mounted into that environment. See the official
 [self-hosted sandbox](https://developers.openai.com/api/docs/guides/agents-api/environments/self-hosted)
 and [sandbox-agent](https://developers.openai.com/api/docs/guides/agents/sandboxes)
 guides.
+
+## Route status
+
+Two containment routes are currently distinct:
+
+1. The repository implements an agent-socket Docker boundary for Vibe with
+   local inference. Its contract, server, and negative-test harness are present,
+   but remain unqualified. The frozen controller and inference records bind
+   this implementation to Leanstral, which has already failed the Vero support
+   screen. This implementation cannot be used to claim containment of the
+   completed GPT-5.6 Sol qualification.
+2. OpenAI's self-hosted Agents API route can keep the Codex harness outside a
+   task-only environment and connect `codex exec-server` from inside that
+   environment. Only a restricted environment key enters the sandbox. This
+   route has not been implemented or qualified here. It also differs from the
+   Codex CLI 0.154 harness used for the completed PrimePy support result, so it
+   requires a new excluded route qualification before scientific measurement.
+
+The development-screen policy must be selected only after candidate routes
+have passed their own support and containment controls. A policy result cannot
+be transferred across a different harness merely because the model name is the
+same.
 
 ## Required boundary
 
@@ -73,9 +96,9 @@ tests.
 The preferred implementation uses a separate harness and self-hosted sandbox
 because it gives the task a narrow workspace without exposing controller state.
 That route is admissible only if the selected model, reasoning setting,
-interaction semantics, and usage accounting can be bound exactly. If the route
-changes the policy or harness identity, it requires a new excluded support
-qualification before the development screen.
+interaction semantics, executor revision, and usage accounting can be bound
+exactly. If the route changes the policy or harness identity, it requires a new
+excluded support qualification before the development screen.
 
 The direct local Codex route remains useful for the completed support result.
 Repeated measurement through that route requires an operating-system or
