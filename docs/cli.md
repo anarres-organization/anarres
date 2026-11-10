@@ -266,6 +266,7 @@ anarres finance audit-sources
 anarres finance profile --output-dir .anarres/finance
 anarres finance score-holdout finharmbench
 anarres finance verify
+anarres finance verify --exhaustive
 anarres finance reproduce --output-dir .anarres/finance-reproduction
 ```
 
@@ -273,9 +274,12 @@ anarres finance reproduce --output-dir .anarres/finance-reproduction
 `audit-sources` validates immutable source revisions and generator preflight.
 `profile` converts the completed starting-policy qualification into a shared
 profile input. `score-holdout` reruns one frozen source test from its released
-decision contract. `verify` reruns every released finance check in an isolated
-copy, and `reproduce` exports the regenerated retrospective, strict-transfer,
-and frozen-holdout artifacts without modifying checked-in evidence.
+decision contract. `verify` quickly validates source pins, qualification
+artifacts, compact retrospective summaries, and frozen holdout identities.
+`verify --exhaustive` reruns every released finance check in an isolated copy.
+`reproduce` performs the same exhaustive replay and exports the regenerated
+retrospective, strict-transfer, and frozen-holdout artifacts without modifying
+checked-in evidence.
 
 New policy-attempt records use the same native gate:
 

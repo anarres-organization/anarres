@@ -182,6 +182,16 @@ is a candidate--target pair rather than a stage-level label. It remains
 retrospective and requires an excluded-source test. The complete record is in
 [`strict-task-level/`](strict-task-level/).
 
+The same fixed rule also provides a useful regression-risk signal. We compare
+165 treatments with their explicit study-matched baselines across 44 panels and
+eight sources. Five sources contain both regressions and improvements, allowing
+within-source discrimination to be measured. The rule reaches 0.815
+source-macro ROC AUC, compared with 0.575 for data volume alone. Source-macro
+performance is primary because one study contributes most of the contrasts.
+This secondary audit shows that the representation can flag task-level downside
+as well as rank candidate utility, while remaining retrospective. The released
+result is [`results/regression_risk_summary.json`](results/regression_risk_summary.json).
+
 That excluded-source test was frozen on numerical faithfulness in financial
 summarization. Its content-alignment prediction fails: at matched volume,
 financial QA and numeracy training raises overt hallucination from 64.6% to
@@ -253,6 +263,8 @@ python scripts/analyze_target_conditional_diagnostic.py
 python -m unittest test_target_conditional_diagnostic.py
 python strict-task-level/score.py
 python -m unittest strict-task-level/test_score.py
+python scripts/analyze_regression_risk.py
+python test_regression_risk.py
 python heldout-numerical-hallucination/score_holdout.py
 python -m unittest heldout-numerical-hallucination/test_score.py
 python heldout-finacumen/score_holdout.py

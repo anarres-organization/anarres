@@ -11,7 +11,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-SCRIPT = ROOT / "scripts" / "analyze_expanded_bridge.py"
+SCRIPT = ROOT / "scripts" / "reproduce_expanded_bridge.py"
 SUMMARY = ROOT / "results" / "expanded_summary.json"
 MANIFEST = ROOT / "results" / "EXPANDED_MANIFEST.sha256.json"
 
@@ -117,6 +117,7 @@ class ExpandedBridgeTests(unittest.TestCase):
                 "data/recovered_panels.json",
                 "scripts/build_recovered_panels.py",
                 "scripts/analyze_expanded_bridge.py",
+                "scripts/reproduce_expanded_bridge.py",
                 "results/expanded_summary.json",
             },
         )
