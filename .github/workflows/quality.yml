@@ -31,6 +31,8 @@ jobs:
         run: make setup
       - name: Run fast checks
         run: make check
+      - name: Reproduce compact study records
+        run: make study-check
       - name: Exercise the release binary
         run: make release-smoke adapter-smoke
       - name: Check minimum Rust version

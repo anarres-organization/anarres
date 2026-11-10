@@ -47,6 +47,16 @@ class LegalCliTest(unittest.TestCase):
             )
         )
 
+    def test_regression_report_reproduces_lab_without_becoming_a_profile(self) -> None:
+        args = type("Args", (), {"repository": ROOT})()
+        result = cli.command_regressions(args)
+        self.assertEqual(result["status"], "released_reproduced")
+        self.assertEqual(result["role"], "separate_task_regression_evaluation")
+        self.assertFalse(result["profile_input"])
+        self.assertEqual(result["support"]["severe_regressions"], 27)
+        self.assertEqual(result["metrics"]["static"]["top_20pct_recall"], 0.37037037037)
+        self.assertEqual(len(result["artifacts"]), 4)
+
     def test_verify_is_byte_deterministic(self) -> None:
         args = type("Args", (), {"repository": ROOT})()
         first = cli.command_verify(args)

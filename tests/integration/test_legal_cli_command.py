@@ -73,6 +73,20 @@ class LegalCliCommandTest(unittest.TestCase):
             self.assertFalse(result["lab"]["profile_input"])
             self.assertFalse(result["syllogym"]["candidate_training_outcomes_used_by_adapter"])
 
+            regressions = self.run_cli(
+                directory,
+                "legal",
+                "regressions",
+                "--repository",
+                str(ROOT),
+                "--json",
+            )
+            self.assertEqual(regressions.returncode, 0, regressions.stderr)
+            regression_report = json.loads(regressions.stdout)
+            self.assertEqual(regression_report["status"], "released_reproduced")
+            self.assertFalse(regression_report["profile_input"])
+            self.assertEqual(regression_report["support"]["severe_regressions"], 27)
+
 
 if __name__ == "__main__":
     unittest.main()

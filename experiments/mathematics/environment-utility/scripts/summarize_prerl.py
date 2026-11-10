@@ -62,7 +62,7 @@ def main() -> None:
     rows = [summarize(path) for path in sorted(INPUT.glob("*/*.json"))]
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     with OUTPUT.open("w", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
     print(f"wrote {OUTPUT.relative_to(ROOT)} ({len(rows)} cells)")
