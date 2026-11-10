@@ -232,8 +232,11 @@ an element supported by Nequix-MP-1, leaving 1,009,741 eligible records.
 
 [`MEASUREMENT_POOL_SUMMARY.json`](MEASUREMENT_POOL_SUMMARY.json) records the
 outcome-blind measurement pool. The complete 80,000-record manifest is retained
-by its SHA-256 hash. Rebuilding the manifest independently produces the same
-bytes, and neither training labels nor target outcomes enter membership.
+by its SHA-256 hash. A repeated construction run from the pinned native source
+under the recorded environment produced the same bytes. The native manifest is
+not committed, so a checkout verifies its recorded identity rather than
+independently rebuilding it. Neither training labels nor target outcomes enter
+membership.
 
 The exact-record materialization and model-input path also passed a bounded
 smoke test. It copied the first 64 frozen records from each source family,
@@ -279,8 +282,16 @@ represents every selector two or three times. Twelve environments are assigned
 to development, while four environments from distinct sources and selectors
 remain prospective. The split uses only pre-training coordinates and frozen
 hash rules. Candidate-training and protected phonon outcomes remain sealed.
-Independent regeneration produces identical bytes. The frozen artifact has
-SHA-256 `b5d26ea2dbecac0e530e80d470b6079a7ebee46600633f119eb6d94b9048dd52`.
+Regeneration from the recorded native inputs under the locked Python, NumPy,
+SciPy, platform, and solver environment produced identical bytes. The MILPs
+can admit multiple solutions, so this byte-identity claim is scoped to that
+environment. The compact
+[`PANEL_REGENERATION_RECEIPT.json`](PANEL_REGENERATION_RECEIPT.json) records the
+command, input identities, code and lock hashes, environment, and reproduced
+artifact hash. Because the native measurement shards are represented by hashes
+rather than committed, a checkout can verify the receipt but cannot rerun the
+panel construction without those files. The frozen artifact has SHA-256
+`b5d26ea2dbecac0e530e80d470b6079a7ebee46600633f119eb6d94b9048dd52`.
 
 ## CLI profiles
 

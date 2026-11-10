@@ -1,0 +1,64 @@
+{
+  "artifact": "anarres_mlip_panel_regeneration_receipt_v1",
+  "status": "completed_locked_environment_regeneration",
+  "claim_scope": "Byte-identical regeneration is established only for the recorded native inputs, code, dependency lock, platform, and solver environment. The repository checkout records hashes for the native measurement and target files but does not contain those files.",
+  "original_artifact": {
+    "path": "FINAL_COST_MATCHED_PANEL.json",
+    "sha256": "b5d26ea2dbecac0e530e80d470b6079a7ebee46600633f119eb6d94b9048dd52",
+    "bytes": 887178,
+    "candidate_count": 16,
+    "git_commit": "f5ee57b9b1c205d72492b387d352fa1199074882"
+  },
+  "input_identity": {
+    "recorded_in": "FINAL_COST_MATCHED_PANEL.json#/inputs",
+    "canonical_json_sha256": "f3bd38a1e06a5494957cb0673eb0783b1ac73fed2915cebfc0ddf5e2c824f215",
+    "canonicalization": "json.dumps(inputs, sort_keys=True, separators=(',', ':'))",
+    "manifest_sha256": "6ba4b7c44b792af1479decda417fbb7206271c56b9c668b69e6b316c829709c4",
+    "measurement_shards": 8,
+    "measurement_records": 80000,
+    "target_role_sha256": "3af598f1cf652e4918f37a2359242b29d89ed3fea40f12125cbbdc66ab73169f",
+    "target_yaml_files": 16
+  },
+  "code_and_lock": {
+    "construct_cost_matched_panel.py_sha256": "6ca7bd5d052408877c64818c79a2147029186b310d30b31ad6ebee51ca6230f5",
+    "construct_candidate_bank.py_sha256": "f2bb1374c063f334258e6f8adf188c54cfa58e1cd3ed166134ab15a2318e51fb",
+    "pyproject.toml_sha256": "2e085922b3996903632bb949267cf3beae41fc6e6a031327ed1bad7b220a59d4",
+    "uv.lock_sha256": "d1657bea53837ffc697bcc1c81c745c998ccf5a4da25a7a6abf6b82b96d2e0e6"
+  },
+  "locked_environment": {
+    "python_implementation": "CPython",
+    "python_version": "3.11.7",
+    "platform": "macOS-26.4-arm64-arm-64bit",
+    "machine": "arm64",
+    "byteorder": "little",
+    "numpy_version": "2.4.6",
+    "scipy_version": "1.17.1",
+    "solver_entrypoint": "scipy.optimize.milp",
+    "solver_note": "The mixed-integer programs may have multiple feasible or optimal solutions. Exact membership and byte identity are therefore asserted only for this locked environment."
+  },
+  "command": [
+    "uv", "run", "--locked", "--python", "3.11", "--group", "materials-test",
+    "python", "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/construct_cost_matched_panel.py",
+    "--manifest", "$MEASUREMENT_MANIFEST",
+    "--measurements",
+    "$MEASUREMENT_DIR/records_0_10000.jsonl",
+    "$MEASUREMENT_DIR/records_10000_20000.jsonl",
+    "$MEASUREMENT_DIR/records_20000_30000.jsonl",
+    "$MEASUREMENT_DIR/records_30000_40000.jsonl",
+    "$MEASUREMENT_DIR/records_40000_50000.jsonl",
+    "$MEASUREMENT_DIR/records_50000_60000.jsonl",
+    "$MEASUREMENT_DIR/records_60000_70000.jsonl",
+    "$MEASUREMENT_DIR/records_70000_80000.jsonl",
+    "--target-roles", "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/TARGET_ROLES.json",
+    "--target-yaml-dir", "$QUALIFICATION_TARGET_YAML_DIR",
+    "--atom-budget", "50000", "--edge-budget", "2100000",
+    "--time-limit-seconds", "60",
+    "--output", "regenerated_FINAL_COST_MATCHED_PANEL.json"
+  ],
+  "regeneration_result": {
+    "sha256": "b5d26ea2dbecac0e530e80d470b6079a7ebee46600633f119eb6d94b9048dd52",
+    "bytes": 887178,
+    "byte_identical_to_original": true
+  },
+  "checkout_verification_boundary": "Without the native 80,000-record measurement shards and 16 target YAML files, a checkout can verify the released artifact, code, lock, receipt, and recorded hashes but cannot independently execute the panel MILPs."
+}
