@@ -1,0 +1,100 @@
+name: Release CLI
+
+on:
+  push:
+    tags:
+      - "cli-v*"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.target }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            target: x86_64-unknown-linux-gnu
+            archive: tar.gz
+          - runner: macos-14
+            target: aarch64-apple-darwin
+            archive: tar.gz
+          - runner: windows-2025
+            target: x86_64-pc-windows-msvc
+            archive: zip
+    runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install Rust target
+        run: rustup target add ${{ matrix.target }}
+      - name: Verify tag matches CLI version
+        shell: bash
+        run: |
+          expected="$(cargo run --quiet -p anarres-cli -- --version | awk '{print "cli-v" $2}')"
+          test "${GITHUB_REF_NAME}" = "${expected}"
+      - name: Test CLI
+        run: cargo test -p anarres-cli --locked
+      - name: Build release binary
+        run: cargo build -p anarres-cli --release --locked --target ${{ matrix.target }}
+      - name: Package Unix binary
+        if: matrix.archive == 'tar.gz'
+        shell: bash
+        run: |
+          "target/${{ matrix.target }}/release/anarres" --version
+          package="anarres-${GITHUB_REF_NAME}-${{ matrix.target }}"
+          mkdir -p "dist/${package}"
+          cp "target/${{ matrix.target }}/release/anarres" "dist/${package}/"
+          cp LICENSE README.md docs/cli.md "dist/${package}/"
+          cp crates/anarres-cli/CHANGELOG.md "dist/${package}/CLI_CHANGELOG.md"
+          tar -C dist -czf "dist/${package}.tar.gz" "${package}"
+          shasum -a 256 "dist/${package}.tar.gz" > "dist/${package}.tar.gz.sha256"
+      - name: Package Windows binary
+        if: matrix.archive == 'zip'
+        shell: pwsh
+        run: |
+          & "target/${{ matrix.target }}/release/anarres.exe" --version
+          $package = "anarres-$env:GITHUB_REF_NAME-${{ matrix.target }}"
+          New-Item -ItemType Directory -Force -Path "dist/$package" | Out-Null
+          Copy-Item "target/${{ matrix.target }}/release/anarres.exe" "dist/$package/"
+          Copy-Item -Path LICENSE,README.md,docs/cli.md -Destination "dist/$package/"
+          Copy-Item crates/anarres-cli/CHANGELOG.md "dist/$package/CLI_CHANGELOG.md"
+          Compress-Archive -Path "dist/$package" -DestinationPath "dist/$package.zip"
+          $digest = (Get-FileHash "dist/$package.zip" -Algorithm SHA256).Hash.ToLower()
+          "$digest  $package.zip" | Set-Content "dist/$package.zip.sha256" -NoNewline
+      - name: Attest release archives
+        uses: actions/attest@v4
+        with:
+          subject-path: dist/*.${{ matrix.archive }}
+      - name: Upload release archives
+        uses: actions/upload-artifact@v6
+        with:
+          name: anarres-${{ matrix.target }}
+          path: |
+            dist/*.tar.gz
+            dist/*.tar.gz.sha256
+            dist/*.zip
+            dist/*.zip.sha256
+          if-no-files-found: error
+
+  publish:
+    name: Publish GitHub release
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: anarres-*
+          path: release
+          merge-multiple: true
+      - name: Publish release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${GITHUB_REF_NAME}" release/* --verify-tag --generate-notes

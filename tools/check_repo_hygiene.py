@@ -18,6 +18,7 @@ SKIP_DIRECTORIES = {
     ".uv-cache",
     ".venv",
     "__pycache__",
+    "target",
 }
 FORBIDDEN_NAMES = {".env", "credentials.json"}
 FORBIDDEN_SUFFIXES = {

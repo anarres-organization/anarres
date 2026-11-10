@@ -1,0 +1,186 @@
+# Anarres CLI
+
+The `anarres` command turns measured evidence into content-addressed environment
+records and compares compatible candidates without changing remote state. The
+command is a native Rust binary. Model inference, simulators, sandboxes, and
+other domain runtimes remain in adapters that emit versioned records.
+
+## Install from source
+
+Install Rust with [rustup](https://rustup.rs/), clone this repository, and run:
+
+```bash
+cargo install --path crates/anarres-cli --locked
+anarres --version
+```
+
+For repository development, `cargo run -p anarres-cli --` can replace
+`anarres` in the examples below. Tagged binary releases and their verification
+procedure are described in the [release guide](releases.md).
+
+## Five-minute example
+
+The bundled policy-probe fixture runs without a model server or GPU:
+
+```bash
+anarres qualify examples/environment-processing/probe.json
+mkdir -p .anarres/example
+anarres measure examples/environment-processing/probe.json \
+  --output .anarres/example/environment.json
+anarres validate .anarres/example/environment.json
+```
+
+`qualify` separates usable task groups from repair and quarantine cases.
+`measure` writes a deterministic record with source, policy, contract,
+coordinate, and digest information. `validate` recomputes its integrity checks.
+The fixture is synthetic and demonstrates software behavior rather than a
+scientific result.
+
+## Commands
+
+| Command | Purpose | Accepted records |
+| --- | --- | --- |
+| `qualify` | Check whether measured evidence is ready for comparison | Policy-probe input or profile input |
+| `measure` | Normalize evidence into a content-addressed record | Policy-probe input or profile input |
+| `design` | Compare candidates and audit panel compatibility | Two or more manifests or profiles of one type |
+| `validate` | Check structure, semantics, and content integrity | Any supported input or measured record |
+
+Run `anarres <command> --help` for the complete arguments of one command.
+
+### Qualify task groups
+
+```bash
+anarres qualify examples/environment-processing/probe.json
+```
+
+For grouped policy probes, qualification checks task identities and probe
+fields, then separates admitted, reserve, repair, and quarantine groups.
+Infrastructure failures are reported as repair work rather than scientific
+reward zero. For cross-domain profiles, the command reports each adapter-owned
+qualification check and whether all error-level checks pass.
+
+### Measure an environment
+
+```bash
+anarres measure examples/environment-processing/probe.json \
+  --output .anarres/example/environment.json
+```
+
+The grouped-probe path computes usable signal density and effective task
+coverage from one frozen policy probe. A cross-domain profile instead retains
+the adapter's own named coordinates. Both output types record their source,
+starting subject, measurement contract, provenance, and content digests.
+
+Writes are atomic, and an existing destination is preserved unless `--force`
+is supplied. Use `--force` only when intentionally regenerating a derived
+record from reviewed input.
+
+### Design a candidate panel
+
+```bash
+anarres design .anarres/candidates/*.json
+```
+
+`design` audits whether candidates can be interpreted together. Grouped-probe
+manifests must share the starting policy and probe contract. Cross-domain
+profiles must share the domain, starting subject, producer revision,
+measurement contract, and complete coordinate definitions. A changed unit,
+estimator, definition revision, or adapter revision makes the panel
+incompatible.
+
+The command reports candidate values and observed ranges. It does not infer an
+optimal environment or assume that a coordinate direction predicts downstream
+utility.
+
+### Validate records
+
+```bash
+anarres validate \
+  examples/environment-processing/probe.json \
+  .anarres/example/environment.json
+```
+
+`validate` checks supported record structure, semantic constraints, content
+integrity, task identity, status counts, and coordinate ranges. Multiple files
+can be checked in one invocation.
+
+## Cross-domain profiles
+
+Some studies do not use grouped binary-reward probes. A robotics study may
+measure target relevance, policy weakness, episode coverage, and action cost.
+A materials study may measure starting-model residuals, chemical-system
+coverage, and reference-label cost. Domain adapters preserve those measurements
+without forcing them into $\rho$ and $H$.
+
+```bash
+anarres qualify examples/environment-profiles/robotics-a.profile-input.json
+anarres measure examples/environment-profiles/robotics-a.profile-input.json \
+  --output .anarres/robotics-a.profile.json
+anarres measure examples/environment-profiles/robotics-b.profile-input.json \
+  --output .anarres/robotics-b.profile.json
+anarres design \
+  .anarres/robotics-a.profile.json \
+  .anarres/robotics-b.profile.json
+```
+
+Profiles record the domain, starting subject, adapter revision, measurement
+contract, qualification checks, named coordinates, versioned definitions,
+units, estimators, uncertainty, and role-labelled artifact references. The
+profile is an interoperable projection. The native study record remains the
+authority for scientific interpretation.
+
+The [domain integration matrix](domain-support.md) distinguishes schema
+conformance, native adapters, and predictive evidence. The [domain adapter
+guide](architecture/domain-adapters.md) defines the runtime boundary, and the
+[adapter authoring guide](architecture/adapter-authoring.md) documents the
+Python construction interface and promotion requirements.
+
+## Automation
+
+Terminal output is intended for people. Add `--json` for deterministic,
+machine-readable output:
+
+```bash
+anarres qualify examples/environment-processing/probe.json --json
+anarres design .anarres/candidates/*.json --json
+```
+
+Structured data is written to standard output. Errors are written to standard
+error. Successful commands exit with status 0; invalid input, incompatible
+candidate panels, failed validation, and write failures exit nonzero. The CLI
+performs no network calls and sends no telemetry.
+
+## Record contracts
+
+Grouped probes use:
+
+- [`probe-input.v1`](../schemas/environments/probe-input.v1.schema.json)
+- [`environment-manifest.v1`](../schemas/environments/environment-manifest.v1.schema.json)
+
+Cross-domain profiles use:
+
+- [`environment-profile-input.v1`](../schemas/environments/environment-profile-input.v1.schema.json)
+- [`environment-profile.v1`](../schemas/environments/environment-profile.v1.schema.json)
+
+Unknown fields and unsupported schema versions are rejected. A change in
+meaning, unit, or estimator requires a new coordinate definition revision
+rather than a silent reinterpretation of an existing field.
+
+## Troubleshooting
+
+**The output file already exists.** Inspect or validate the existing record.
+Pass `--force` only when replacement is intended.
+
+**`design` reports incompatible candidates.** Run `anarres validate` on every
+record, then compare the compatibility fields reported by `design --json`.
+Candidates from different subjects, contracts, producer revisions, or
+coordinate definitions belong in separate panels.
+
+**A profile is valid but not ready.** Structural validity and scientific
+readiness are separate. Inspect the error-level qualification checks with
+`anarres qualify <profile-input> --json` and repair the native evidence rather
+than editing the measured profile.
+
+**A runtime failure appears as reward zero.** Stop the adapter workflow. Native
+adapters must preserve infrastructure, verifier, missingness, and invalid-data
+states instead of converting them into ordinary unsuccessful outcomes.

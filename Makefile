@@ -1,21 +1,33 @@
 PYTHON ?= uv run python
+CARGO ?= cargo
 PYTHONPATH := packages/core/src:packages/environments/src:packages/evaluation/src
 UV_CACHE_DIR ?= .uv-cache
 export PYTHONPATH
 export UV_CACHE_DIR
 
-.PHONY: setup format lint test schemas hygiene prose check example clean
+.PHONY: setup format lint test rust-format rust-lint rust-test schemas hygiene prose check example clean
 
 setup:
 	uv sync --all-packages --dev
+	$(CARGO) fetch --locked
 
 format:
 	uv run ruff format .
 	uv run ruff check --fix .
+	$(CARGO) fmt --all
 
 lint:
 	uv run ruff format --check .
 	uv run ruff check .
+
+rust-format:
+	$(CARGO) fmt --all -- --check
+
+rust-lint:
+	$(CARGO) clippy --workspace --all-targets -- -D warnings
+
+rust-test:
+	$(CARGO) test --workspace
 
 test:
 	$(PYTHON) -m unittest discover -s packages/core/tests -p 'test_*.py'
@@ -32,13 +44,13 @@ hygiene:
 prose:
 	$(PYTHON) tools/check_prose_style.py
 
-check: lint test schemas hygiene prose
+check: lint rust-format rust-lint test rust-test schemas hygiene prose
 
 example:
 	mkdir -p .anarres/example
-	$(PYTHON) -m anarres.environments.cli probe examples/environment-processing/probe.json --output .anarres/example/environment.json
+	$(CARGO) run --quiet -p anarres-cli -- measure examples/environment-processing/probe.json --output .anarres/example/environment.json --force
 	@echo "Wrote .anarres/example/environment.json"
 
 clean:
 	find . -type d -name __pycache__ -prune -exec rm -r {} +
-	rm -rf .pytest_cache .ruff_cache .anarres
+	rm -rf .pytest_cache .ruff_cache .anarres target

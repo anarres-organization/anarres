@@ -17,7 +17,10 @@ make check
 make example
 ```
 
-The default checks are CPU-only. GPU, sandbox, and full-domain integration tests run separately in trusted environments.
+The native CLI requires a Rust toolchain with `rustfmt` and `clippy`. Python
+adapters require Python 3.11 or newer and `uv`. The default checks are CPU-only.
+GPU, sandbox, and full-domain integration tests run separately in trusted
+environments.
 
 ## Pull requests
 

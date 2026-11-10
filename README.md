@@ -25,7 +25,8 @@ The project provides:
 
 - **Research releases** that connect measurements made before RL to downstream learning curves.
 - **[Environment processing](data/environment-processing/README.md)** for turning heterogeneous task sources into verified, policy-measured candidate banks.
-- **Reusable packages** for qualification, environment coordinates, provenance, and evaluation.
+- **A native CLI** for qualification, measurement, candidate design, validation, and local observability.
+- **Reusable adapters and packages** for domain runtimes, environment coordinates, provenance, and evaluation.
 - **Versioned schemas** that keep data and experiment contracts interoperable across domains.
 
 ## Research program
@@ -44,7 +45,7 @@ The project provides:
 
 ## Get started
 
-The reference environment-processing path is CPU-only. It requires Python 3.11 or newer, [`uv`](https://docs.astral.sh/uv/), and `make`.
+The reference environment-processing path is CPU-only. Repository development requires Rust, Python 3.11 or newer, [`uv`](https://docs.astral.sh/uv/), and `make`.
 
 ```bash
 git clone https://github.com/anarres-organization/anarres.git
@@ -54,16 +55,21 @@ make check
 make example
 ```
 
-The example classifies task groups without conflating infrastructure failures with reward zero, computes ρ and H from a frozen policy probe, and writes a content-addressed environment manifest to `.anarres/example/environment.json`.
+The example classifies task groups without conflating infrastructure failures with reward zero, computes ρ and H from a frozen policy probe, and writes a content-addressed environment manifest to `.anarres/example/environment.json`. Cross-domain profiles preserve native measurements for domains where grouped binary-reward probes do not apply.
 
-To run the processor directly:
+Install the native command from the repository:
 
 ```bash
-PYTHONPATH=packages/core/src:packages/environments/src:packages/evaluation/src \
-  python -m anarres.environments.cli probe \
-  examples/environment-processing/probe.json \
-  --output .anarres/example/environment.json
+cargo install --path crates/anarres-cli --locked
+anarres qualify examples/environment-processing/probe.json
+anarres measure examples/environment-processing/probe.json \
+  --output .anarres/example/environment.json --force
+anarres validate .anarres/example/environment.json
 ```
+
+The command also compares candidate panels with `anarres design`. See the
+[CLI guide](docs/cli.md) for the complete workflow, JSON output, and exit-code
+contract.
 
 ## Inspect a study record
 
@@ -81,6 +87,7 @@ The audit checks prompt counts and disjointness, configuration coverage, evaluat
 ## Repository map
 
 ```text
+crates/       Native command-line and systems components
 packages/     Reusable libraries with maintained interfaces
 data/         Environment acquisition, qualification, and construction
 experiments/  Domain-organized research and released evidence
@@ -98,6 +105,15 @@ Large model weights and checkpoints are distributed through versioned artifact s
 - [Environment-processing design](data/environment-processing/DESIGN.md)
 - [Environment-processing implementation plan](data/environment-processing/ROADMAP.md)
 - [Repository architecture](docs/architecture/repository.md)
+- [Domain adapter guide](docs/architecture/domain-adapters.md)
+- [Adapter authoring guide](docs/architecture/adapter-authoring.md)
+- [Scientific preservation guide](docs/architecture/scientific-preservation.md)
+- [Measurement conventions](docs/conventions/README.md)
+- [Domain integration status](docs/domain-support.md)
+- [CLI guide](docs/cli.md)
+- [CLI release process](docs/releases.md)
+- [Native CLI RFC](docs/rfcs/0001-native-cli.md)
+- [Cross-domain profile RFC](docs/rfcs/0002-cross-domain-environment-profiles.md)
 - [Reproducibility standard](docs/standards/reproducibility.md)
 - [Artifact standard](docs/standards/artifacts.md)
 - [Writing standard](docs/standards/writing.md)

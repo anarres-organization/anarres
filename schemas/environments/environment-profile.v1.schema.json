@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anarres.science/schemas/environments/environment-profile.v1.schema.json",
+  "title": "Anarres environment profile v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "environment_id",
+    "domain",
+    "subject",
+    "producer",
+    "source",
+    "measurement_contract",
+    "qualification_checks",
+    "qualification_summary",
+    "ready",
+    "coordinates",
+    "input_digest",
+    "profile_digest"
+  ],
+  "properties": {
+    "schema_version": {"const": "anarres.environment-profile.v1"},
+    "environment_id": {"type": "string", "minLength": 1},
+    "domain": {"type": "string", "minLength": 1},
+    "subject": {"$ref": "environment-profile-input.v1.schema.json#/$defs/versionedIdentity"},
+    "producer": {
+      "$ref": "environment-profile-input.v1.schema.json#/$defs/versionedIdentity"
+    },
+    "source": {"$ref": "environment-profile-input.v1.schema.json#/$defs/source"},
+    "measurement_contract": {
+      "$ref": "environment-profile-input.v1.schema.json#/$defs/measurementContract"
+    },
+    "qualification_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "environment-profile-input.v1.schema.json#/$defs/qualificationCheck"
+      }
+    },
+    "qualification_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["passed", "failed", "unknown", "warnings"],
+      "properties": {
+        "passed": {"type": "integer", "minimum": 0},
+        "failed": {"type": "integer", "minimum": 0},
+        "unknown": {"type": "integer", "minimum": 0},
+        "warnings": {"type": "integer", "minimum": 0}
+      }
+    },
+    "ready": {"type": "boolean"},
+    "coordinates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "environment-profile-input.v1.schema.json#/$defs/coordinate"}
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "$ref": "environment-profile-input.v1.schema.json#/$defs/profileArtifact"
+      }
+    },
+    "attributes": {
+      "type": "object",
+      "additionalProperties": {"type": ["string", "number", "boolean"]}
+    },
+    "input_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "profile_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

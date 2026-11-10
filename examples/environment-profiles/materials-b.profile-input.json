@@ -1,0 +1,87 @@
+{
+  "schema_version": "anarres.environment-profile-input.v1",
+  "environment_id": "synthetic-materials-candidate-b",
+  "domain": "materials-interatomic-potentials",
+  "subject": {
+    "kind": "interatomic-potential",
+    "id": "synthetic-starting-potential",
+    "revision": "fixture-v1"
+  },
+  "producer": {
+    "kind": "domain-adapter",
+    "id": "synthetic-materials-adapter",
+    "revision": "fixture-v1"
+  },
+  "source": {
+    "uri": "fixture://materials/candidate-b",
+    "revision": "fixture-v1",
+    "license": "CC0-1.0"
+  },
+  "measurement_contract": {
+    "kind": "starting-model-residual-audit",
+    "id": "synthetic-force-residual-probe",
+    "revision": "v1",
+    "repetitions": 1,
+    "cost_unit": "reference_structures"
+  },
+  "qualification_checks": [
+    {
+      "check_id": "labels-complete",
+      "category": "measurement",
+      "status": "pass",
+      "severity": "error",
+      "summary": "Every retained structure has valid reference energies and forces."
+    },
+    {
+      "check_id": "source-license-recorded",
+      "category": "source",
+      "status": "pass",
+      "severity": "error",
+      "summary": "The source revision and license are recorded."
+    }
+  ],
+  "coordinates": [
+    {
+      "name": "force_residual_rmse",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/materials-residual-audit-v1.md#force_residual_rmse",
+        "revision": "v1-development"
+      },
+      "role": "signal",
+      "value": 0.27,
+      "unit": "electronvolt_per_angstrom",
+      "direction": "contextual",
+      "estimator": "root mean squared starting-model force residual",
+      "sample_count": 240
+    },
+    {
+      "name": "chemical_system_coverage",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/materials-residual-audit-v1.md#chemical_system_coverage",
+        "revision": "v1-development"
+      },
+      "role": "coverage",
+      "value": 0.81,
+      "unit": "normalized_effective_system_count",
+      "direction": "higher",
+      "estimator": "normalized effective count over chemical-system labels",
+      "sample_count": 240
+    },
+    {
+      "name": "reference_label_cost",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/materials-residual-audit-v1.md#reference_label_cost",
+        "revision": "v1-development"
+      },
+      "role": "cost",
+      "value": 240.0,
+      "unit": "reference_structures",
+      "direction": "lower",
+      "estimator": "count of structures requiring reference labels",
+      "sample_count": 240
+    }
+  ],
+  "attributes": {
+    "synthetic_fixture": true
+  }
+}

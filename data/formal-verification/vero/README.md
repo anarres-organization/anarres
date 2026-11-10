@@ -270,6 +270,21 @@ than the intended task-only boundary, although no reference proof or protected
 repository was accessed. Repeated measurement remains blocked until the task
 sandbox is tightened and requalified.
 
+Project the completed measurement into the shared Anarres profile contract
+without changing that interpretation:
+
+```bash
+uv run python data/formal-verification/vero/export_environment_profiles.py \
+  --output-dir /tmp/vero-profiles
+anarres qualify /tmp/vero-profiles/vero-development-proof-v5.profile-input.json
+```
+
+The adapter emits separate `proof` and `codeproof` profiles because their
+native rewards are not interchangeable. Both preserve exact zero signal and
+coverage, positive measured token cost, released evidence digests, and the
+failed support gate. They are valid negative measurements but remain unready
+for candidate ranking or downstream training.
+
 [`policy-budget-calibration.200k.v1.json`](policy-budget-calibration.200k.v1.json)
 freezes the first requalification stage after that result. It selects the
 smallest development repository, one proof-mode attempt, a 200,000-token
