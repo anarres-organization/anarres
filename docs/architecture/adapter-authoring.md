@@ -54,6 +54,28 @@ anarres adapter doctor robotics
 anarres robotics --help
 ```
 
+The native CLI launches a workflow adapter once. It prefixes domain arguments
+with a version-and-identity handshake:
+
+```text
+--anarres-adapter-protocol 2 --anarres-adapter-name robotics
+```
+
+Python adapters consume it before argument parsing with the shared helper:
+
+```python
+from anarres.core import consume_adapter_invocation
+
+arguments = consume_adapter_invocation(sys.argv[1:], expected_name="robotics")
+parsed = parser().parse_args(arguments)
+```
+
+The helper leaves direct adapter invocations unchanged. It rejects a malformed
+handshake, an unsupported protocol, or the wrong adapter identity before the
+workflow opens study artifacts. Full descriptor validation remains available
+through `anarres adapter doctor robotics` rather than adding a second process to
+every workflow invocation.
+
 Adapters write structured results to standard output, diagnostics to standard
 error, and return nonzero for invalid inputs or incomplete workflows. They must
 accept literal forwarded arguments and must not rely on the caller's current
@@ -133,8 +155,9 @@ An adapter test should also verify:
 5. preservation of units, estimators, sample counts, and uncertainty
 6. incompatibility after a coordinate definition or adapter revision changes
 7. descriptor conformance and protocol compatibility
-8. installation and execution outside a repository checkout
-9. deterministic structured output and nonzero error propagation
+8. runtime-handshake rejection for the wrong protocol or adapter identity
+9. installation and execution outside a repository checkout
+10. deterministic structured output and nonzero error propagation
 
 ## Promotion policy
 

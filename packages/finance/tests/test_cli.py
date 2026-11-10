@@ -18,7 +18,7 @@ class FinanceCliTest(unittest.TestCase):
         Draft202012Validator(schema).validate(descriptor)
         self.assertEqual(descriptor["schema_version"], "anarres.adapter-descriptor.v1")
         self.assertEqual(descriptor["name"], "finance")
-        self.assertEqual(descriptor["protocol_version"], 1)
+        self.assertEqual(descriptor["protocol_version"], 2)
         self.assertEqual(descriptor["executable"], "anarres-finance")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
         self.assertEqual(

@@ -28,6 +28,11 @@ environments.
 reproducer changes tracked artifacts. Use `make study-check-extended` before a
 release that changes an exhaustive study workflow.
 
+Changes to routing, validation, serialization, adapter dispatch, or startup
+behavior should also run `make benchmark` against a release build. The
+[performance guide](docs/performance.md) describes the workloads and how to
+interpret results across machines.
+
 ## Pull requests
 
 A pull request should explain:
