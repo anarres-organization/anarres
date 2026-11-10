@@ -19,12 +19,14 @@ must produce byte-identical output across samples. The report records the Git
 revision, binary size, platform, architecture, Python version, sample count,
 median latency, p95 latency, and minimum latency.
 
-The default p95 limits are broad regression guards, not cross-machine
-performance claims. Shared CI runners, operating systems, filesystems, power
-states, and background work can materially affect short-process measurements.
-Compare changes on the same quiet machine with the same release build and
-benchmark parameters. Use a profiler after a representative command shows a
-repeatable regression.
+The default limits are broad regression guards, not cross-machine performance
+claims. Native paths use a p95 guard. Adapter paths spawn another process and
+use a median guard because isolated scheduler delays can dominate their p95 on
+shared runners; their p95 remains in the report for diagnosis. Operating
+systems, filesystems, power states, and background work can materially affect
+short-process measurements. Compare changes on the same quiet machine with the
+same release build and benchmark parameters. Use a profiler after a
+representative command shows a repeatable regression.
 
 The native binary owns startup-sensitive shared operations such as routing,
 hashing, validation, and deterministic serialization. Domain adapters remain in

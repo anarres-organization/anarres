@@ -39,12 +39,14 @@ jobs:
           report = json.loads(Path("target/benchmarks/cli.json").read_text())
           print("## Anarres CLI performance")
           print()
-          print("| Scenario | Median (ms) | p95 (ms) | Limit (ms) |")
+          print("| Scenario | Median (ms) | p95 (ms) | Guard |")
           print("|---|---:|---:|---:|")
           for name, metric in report["metrics"].items():
+              guard = metric["guard"]
               print(
                   f"| `{name}` | {metric['median_ms']:.3f} | "
-                  f"{metric['p95_ms']:.3f} | {metric['maximum_p95_ms']:.1f} |"
+                  f"{metric['p95_ms']:.3f} | {guard['metric']} "
+                  f"≤ {guard['maximum_ms']:.1f} ms |"
               )
           print()
           print(f"Binary size: {report['binary']['size_bytes']:,} bytes")

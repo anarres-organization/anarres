@@ -80,7 +80,7 @@ def main() -> int:
     parser.add_argument("--warmups", type=int, default=3)
     parser.add_argument("--samples", type=int, default=20)
     parser.add_argument("--max-native-p95-ms", type=float, default=50.0)
-    parser.add_argument("--max-adapter-p95-ms", type=float, default=200.0)
+    parser.add_argument("--max-adapter-median-ms", type=float, default=200.0)
     parser.add_argument("--max-binary-bytes", type=int, default=2_000_000)
     arguments = parser.parse_args()
 
@@ -136,14 +136,16 @@ def main() -> int:
             f"binary size: {binary_size} bytes exceeds {arguments.max_binary_bytes} bytes"
         )
     for name, metric in metrics.items():
-        limit = (
-            arguments.max_native_p95_ms
-            if name.startswith("native.") or name.startswith("adapter.list")
-            else arguments.max_adapter_p95_ms
-        )
-        metric["maximum_p95_ms"] = limit
-        if metric["p95_ms"] > limit:
-            violations.append(f"{name}: {metric['p95_ms']:.2f} ms exceeds {limit:.2f} ms")
+        if name.startswith("native.") or name.startswith("adapter.list"):
+            guard_metric = "p95_ms"
+            limit = arguments.max_native_p95_ms
+        else:
+            guard_metric = "median_ms"
+            limit = arguments.max_adapter_median_ms
+        metric["guard"] = {"metric": guard_metric, "maximum_ms": limit}
+        observed = metric[guard_metric]
+        if observed > limit:
+            violations.append(f"{name}: {guard_metric} {observed:.2f} ms exceeds {limit:.2f} ms")
 
     report = {
         "schema_version": "anarres.performance-report.v1",
