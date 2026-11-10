@@ -20,15 +20,12 @@ permissions:
 jobs:
   rust-audit:
     runs-on: ubuntu-24.04
-    permissions:
-      checks: write
-      contents: read
-      issues: write
     steps:
       - uses: actions/checkout@v7
-      - uses: rustsec/audit-check@v2.0.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install cargo-audit
+        run: cargo install cargo-audit --version 0.22.2 --locked
+      - name: Audit Rust dependencies
+        run: cargo audit --file Cargo.lock
 
   codeql:
     runs-on: ubuntu-24.04
