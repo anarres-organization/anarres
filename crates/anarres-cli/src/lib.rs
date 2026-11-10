@@ -252,7 +252,7 @@ fn command_finance(args: FinanceArgs) -> Result<i32, String> {
     }
 
     let (repository, script) = find_finance_adapter().ok_or_else(|| {
-        "finance adapter not found; install anarres-finance or run inside the Anarres repository"
+        "finance adapter not found. Install anarres-finance or run inside the Anarres repository"
             .to_owned()
     })?;
     let python = std::env::var_os("PYTHON").unwrap_or_else(|| "python3".into());

@@ -170,6 +170,17 @@ adapter may be installed as a package, while repository builds discover the
 checked-in implementation without adding finance dependencies to the Rust
 core. No finance command performs a network call.
 
+For a standalone installation from a repository checkout, install both pieces:
+
+```bash
+cargo install --path crates/anarres-cli --locked
+uv tool install ./packages/finance
+```
+
+The workspace source map installs the finance adapter together with its shared
+environment-profile dependencies. Repository development does not require the
+second command because `anarres finance` discovers the checked-in adapter.
+
 ## Automation
 
 Terminal output is intended for people. Add `--json` for deterministic,
