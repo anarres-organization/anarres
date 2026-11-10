@@ -177,6 +177,14 @@ with 63.1% and 0.444 for choosing more data. With equal study weighting it
 reaches 83.6% ordering and 0.098 regret. It has lower regret in six studies,
 ties in one, and loses in none.
 
+The score margin adds a calibrated abstention option. With each threshold
+selected from the other six sources, the 0.85 training-precision operating point
+orders 90.4% of 235 decided held-out pairs while retaining 76.1% coverage. Its
+equal-source accuracy is 89.6%, and every source retains decisions. Data volume
+reaches 61.0% accuracy on 100 decisions from one source and abstains on the
+other six under the same procedure. The full sensitivity is included in the
+[`strict task-level audit`](strict-task-level/README.md).
+
 The strict audit is the current high-confidence tier because its decision unit
 is a candidate--target pair rather than a stage-level label. It remains
 retrospective and requires an excluded-source test. The complete record is in
@@ -263,6 +271,8 @@ python scripts/analyze_target_conditional_diagnostic.py
 python -m unittest test_target_conditional_diagnostic.py
 python strict-task-level/score.py
 python -m unittest strict-task-level/test_score.py
+python strict-task-level/score_selective.py
+python strict-task-level/test_selective.py
 python scripts/analyze_regression_risk.py
 python test_regression_risk.py
 python heldout-numerical-hallucination/score_holdout.py

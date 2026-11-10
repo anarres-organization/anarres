@@ -93,6 +93,8 @@ class FinanceCliCommandTest(unittest.TestCase):
             generic_status = json.loads(generic.stdout)
             self.assertFalse(generic_status["prospective_environment_outcome_opened"])
             self.assertEqual(generic_status["strict_pairwise_ordering"], 0.815534)
+            self.assertEqual(generic_status["selective_pairwise_accuracy"], 0.904255)
+            self.assertEqual(generic_status["selective_pairwise_coverage"], 0.760518)
             self.assertEqual(generic_status["regression_risk_source_macro_roc_auc"], 0.815183)
             self.assertEqual(generic_status["excluded_source_finacumen_pairwise_correct"], 33)
 

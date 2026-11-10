@@ -78,8 +78,10 @@ The [retrospective post-training audit](retrospective-post-training/README.md)
 separately normalizes published finance interventions. It asks which recurring
 properties of training data and reward design predict improvement across prior
 studies. A strict task-level tier reaches 81.6% candidate ordering across 79
-panels without using model identity. Five excluded-source tests then expose
-where successive representations transfer and where they fail. The
+panels without using model identity. A source-held-out confidence filter raises
+accuracy to 90.4% over 235 decided pairs at 76.1% coverage. Five excluded-source
+tests then expose where successive representations transfer and where they
+fail. The
 capability-contract representation recovers all 33 scored FinAcumen candidate
 orderings across several targets and backbones. A separate baseline-matched
 audit reaches 0.815 source-macro ROC AUC for intervention regressions, compared

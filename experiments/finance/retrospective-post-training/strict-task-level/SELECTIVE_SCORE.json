@@ -1,0 +1,485 @@
+{
+  "interpretation": "The fixed practical rule supports a higher-precision decide-or-abstain mode. The source-held-out retrospective audit calibrates the abstention threshold without using outcomes from the source being scored.",
+  "method": {
+    "confidence": "absolute difference between fixed rule scores",
+    "heldout_outcomes_used_for_threshold": false,
+    "heldout_unit": "source",
+    "threshold_selection": "maximum training-fold coverage subject to the target training precision",
+    "tie_credit": 0.5
+  },
+  "rules": {
+    "more_data": {
+      "operating_points": {
+        "target_0.80": {
+          "correct_credit": 67.0,
+          "coverage": 0.343042,
+          "decided_pairs": 106,
+          "folds": [
+            {
+              "correct_credit": 0.0,
+              "decided_pairs": 0,
+              "source": "dianjin_r1_2025",
+              "test_pairs": 75,
+              "threshold_available": false
+            },
+            {
+              "correct_credit": 0,
+              "decided_pairs": 0,
+              "source": "financial_advice_grpo_2026",
+              "test_pairs": 1,
+              "threshold": 0.6,
+              "threshold_available": true,
+              "training_decided_pairs": 76,
+              "training_precision": 0.828947
+            },
+            {
+              "correct_credit": 0,
+              "decided_pairs": 0,
+              "source": "findap_2025",
+              "test_pairs": 35,
+              "threshold": 0.6,
+              "threshold_available": true,
+              "training_decided_pairs": 76,
+              "training_precision": 0.828947
+            },
+            {
+              "correct_credit": 6.0,
+              "decided_pairs": 6,
+              "source": "finlmm_r1_2025",
+              "test_pairs": 51,
+              "threshold": 0.6,
+              "threshold_available": true,
+              "training_decided_pairs": 70,
+              "training_precision": 0.814286
+            },
+            {
+              "correct_credit": 0,
+              "decided_pairs": 0,
+              "source": "okochi_japanese_finance_2026",
+              "test_pairs": 4,
+              "threshold": 0.6,
+              "threshold_available": true,
+              "training_decided_pairs": 76,
+              "training_precision": 0.828947
+            },
+            {
+              "correct_credit": 61.0,
+              "decided_pairs": 100,
+              "source": "phogat2024_financial_qa",
+              "test_pairs": 120,
+              "threshold": 0.2,
+              "threshold_available": true,
+              "training_decided_pairs": 90,
+              "training_precision": 0.827778
+            },
+            {
+              "correct_credit": 0,
+              "decided_pairs": 0,
+              "source": "select2know_2025",
+              "test_pairs": 23,
+              "threshold": 0.6,
+              "threshold_available": true,
+              "training_decided_pairs": 76,
+              "training_precision": 0.828947
+            }
+          ],
+          "heldout_pairs": 309,
+          "selective_pairwise_accuracy": 0.632075,
+          "source_macro_selective_accuracy": 0.805,
+          "sources_with_decisions": 2,
+          "target_training_precision": 0.8
+        },
+        "target_0.85": {
+          "correct_credit": 61.0,
+          "coverage": 0.323625,
+          "decided_pairs": 100,
+          "folds": [
+            {
+              "correct_credit": 0.0,
+              "decided_pairs": 0,
+              "source": "dianjin_r1_2025",
+              "test_pairs": 75,
+              "threshold_available": false
+            },
+            {
+              "correct_credit": 0.0,
+              "decided_pairs": 0,
+              "source": "financial_advice_grpo_2026",
+              "test_pairs": 1,
+              "threshold_available": false
+            },
+            {
+              "correct_credit": 0.0,
+              "decided_pairs": 0,
+              "source": "findap_2025",
+              "test_pairs": 35,
+              "threshold_available": false
+            },
+            {
+              "correct_credit": 0.0,
+              "decided_pairs": 0,
+              "source": "finlmm_r1_2025",
+              "test_pairs": 51,
+              "threshold_available": false
+            },
+            {
+              "correct_credit": 0.0,
+              "decided_pairs": 0,
+              "source": "okochi_japanese_finance_2026",
+              "test_pairs": 4,
+              "threshold_available": false
+            },
+            {
+              "correct_credit": 61.0,
+              "decided_pairs": 100,
+              "source": "phogat2024_financial_qa",
+              "test_pairs": 120,
+              "threshold": 0.4,
+              "threshold_available": true,
+              "training_decided_pairs": 60,
+              "training_precision": 0.858333
+            },
+            {
+              "correct_credit": 0.0,
+              "decided_pairs": 0,
+              "source": "select2know_2025",
+              "test_pairs": 23,
+              "threshold_available": false
+            }
+          ],
+          "heldout_pairs": 309,
+          "selective_pairwise_accuracy": 0.61,
+          "source_macro_selective_accuracy": 0.61,
+          "sources_with_decisions": 1,
+          "target_training_precision": 0.85
+        },
+        "target_0.90": {
+          "correct_credit": 30.0,
+          "coverage": 0.12945,
+          "decided_pairs": 40,
+          "folds": [
+            {
+              "correct_credit": 0.0,
+              "decided_pairs": 0,
+              "source": "dianjin_r1_2025",
+              "test_pairs": 75,
+              "threshold_available": false
+            },
+            {
+              "correct_credit": 0.0,
+              "decided_pairs": 0,
+              "source": "financial_advice_grpo_2026",
+              "test_pairs": 1,
+              "threshold_available": false
+            },
+            {
+              "correct_credit": 0.0,
+              "decided_pairs": 0,
+              "source": "findap_2025",
+              "test_pairs": 35,
+              "threshold_available": false
+            },
+            {
+              "correct_credit": 0.0,
+              "decided_pairs": 0,
+              "source": "finlmm_r1_2025",
+              "test_pairs": 51,
+              "threshold_available": false
+            },
+            {
+              "correct_credit": 0.0,
+              "decided_pairs": 0,
+              "source": "okochi_japanese_finance_2026",
+              "test_pairs": 4,
+              "threshold_available": false
+            },
+            {
+              "correct_credit": 30.0,
+              "decided_pairs": 40,
+              "source": "phogat2024_financial_qa",
+              "test_pairs": 120,
+              "threshold": 0.6,
+              "threshold_available": true,
+              "training_decided_pairs": 36,
+              "training_precision": 0.916667
+            },
+            {
+              "correct_credit": 0.0,
+              "decided_pairs": 0,
+              "source": "select2know_2025",
+              "test_pairs": 23,
+              "threshold_available": false
+            }
+          ],
+          "heldout_pairs": 309,
+          "selective_pairwise_accuracy": 0.75,
+          "source_macro_selective_accuracy": 0.75,
+          "sources_with_decisions": 1,
+          "target_training_precision": 0.9
+        }
+      },
+      "unfiltered_pairwise_accuracy": 0.631068
+    },
+    "practical_rule": {
+      "operating_points": {
+        "target_0.80": {
+          "correct_credit": 242.0,
+          "coverage": 0.935275,
+          "decided_pairs": 289,
+          "folds": [
+            {
+              "correct_credit": 56.5,
+              "decided_pairs": 75,
+              "source": "dianjin_r1_2025",
+              "test_pairs": 75,
+              "threshold": 0.0,
+              "threshold_available": true,
+              "training_decided_pairs": 234,
+              "training_precision": 0.83547
+            },
+            {
+              "correct_credit": 1.0,
+              "decided_pairs": 1,
+              "source": "financial_advice_grpo_2026",
+              "test_pairs": 1,
+              "threshold": 0.0,
+              "threshold_available": true,
+              "training_decided_pairs": 308,
+              "training_precision": 0.814935
+            },
+            {
+              "correct_credit": 26.0,
+              "decided_pairs": 35,
+              "source": "findap_2025",
+              "test_pairs": 35,
+              "threshold": 0.0,
+              "threshold_available": true,
+              "training_decided_pairs": 274,
+              "training_precision": 0.824818
+            },
+            {
+              "correct_credit": 42.0,
+              "decided_pairs": 51,
+              "source": "finlmm_r1_2025",
+              "test_pairs": 51,
+              "threshold": 0.0,
+              "threshold_available": true,
+              "training_decided_pairs": 258,
+              "training_precision": 0.813953
+            },
+            {
+              "correct_credit": 3.0,
+              "decided_pairs": 4,
+              "source": "okochi_japanese_finance_2026",
+              "test_pairs": 4,
+              "threshold": 0.0,
+              "threshold_available": true,
+              "training_decided_pairs": 305,
+              "training_precision": 0.816393
+            },
+            {
+              "correct_credit": 92.0,
+              "decided_pairs": 100,
+              "source": "phogat2024_financial_qa",
+              "test_pairs": 120,
+              "threshold": 0.006680915,
+              "threshold_available": true,
+              "training_decided_pairs": 169,
+              "training_precision": 0.828402
+            },
+            {
+              "correct_credit": 21.5,
+              "decided_pairs": 23,
+              "source": "select2know_2025",
+              "test_pairs": 23,
+              "threshold": 0.0,
+              "threshold_available": true,
+              "training_decided_pairs": 286,
+              "training_precision": 0.805944
+            }
+          ],
+          "heldout_pairs": 309,
+          "selective_pairwise_accuracy": 0.83737,
+          "source_macro_selective_accuracy": 0.846357,
+          "sources_with_decisions": 7,
+          "target_training_precision": 0.8
+        },
+        "target_0.85": {
+          "correct_credit": 212.5,
+          "coverage": 0.760518,
+          "decided_pairs": 235,
+          "folds": [
+            {
+              "correct_credit": 36.0,
+              "decided_pairs": 39,
+              "source": "dianjin_r1_2025",
+              "test_pairs": 75,
+              "threshold": 0.2,
+              "threshold_available": true,
+              "training_decided_pairs": 196,
+              "training_precision": 0.90051
+            },
+            {
+              "correct_credit": 1.0,
+              "decided_pairs": 1,
+              "source": "financial_advice_grpo_2026",
+              "test_pairs": 1,
+              "threshold": 0.006680915,
+              "threshold_available": true,
+              "training_decided_pairs": 268,
+              "training_precision": 0.86194
+            },
+            {
+              "correct_credit": 26.0,
+              "decided_pairs": 35,
+              "source": "findap_2025",
+              "test_pairs": 35,
+              "threshold": 0.006680915,
+              "threshold_available": true,
+              "training_decided_pairs": 234,
+              "training_precision": 0.880342
+            },
+            {
+              "correct_credit": 33.0,
+              "decided_pairs": 33,
+              "source": "finlmm_r1_2025",
+              "test_pairs": 51,
+              "threshold": 0.05370409,
+              "threshold_available": true,
+              "training_decided_pairs": 231,
+              "training_precision": 0.852814
+            },
+            {
+              "correct_credit": 3.0,
+              "decided_pairs": 4,
+              "source": "okochi_japanese_finance_2026",
+              "test_pairs": 4,
+              "threshold": 0.006680915,
+              "threshold_available": true,
+              "training_decided_pairs": 265,
+              "training_precision": 0.864151
+            },
+            {
+              "correct_credit": 92.0,
+              "decided_pairs": 100,
+              "source": "phogat2024_financial_qa",
+              "test_pairs": 120,
+              "threshold": 0.078952877,
+              "threshold_available": true,
+              "training_decided_pairs": 161,
+              "training_precision": 0.850932
+            },
+            {
+              "correct_credit": 21.5,
+              "decided_pairs": 23,
+              "source": "select2know_2025",
+              "test_pairs": 23,
+              "threshold": 0.006680915,
+              "threshold_available": true,
+              "training_decided_pairs": 246,
+              "training_precision": 0.855691
+            }
+          ],
+          "heldout_pairs": 309,
+          "selective_pairwise_accuracy": 0.904255,
+          "source_macro_selective_accuracy": 0.895817,
+          "sources_with_decisions": 7,
+          "target_training_precision": 0.85
+        },
+        "target_0.90": {
+          "correct_credit": 136.5,
+          "coverage": 0.491909,
+          "decided_pairs": 152,
+          "folds": [
+            {
+              "correct_credit": 36.0,
+              "decided_pairs": 39,
+              "source": "dianjin_r1_2025",
+              "test_pairs": 75,
+              "threshold": 0.2,
+              "threshold_available": true,
+              "training_decided_pairs": 196,
+              "training_precision": 0.90051
+            },
+            {
+              "correct_credit": 1.0,
+              "decided_pairs": 1,
+              "source": "financial_advice_grpo_2026",
+              "test_pairs": 1,
+              "threshold": 0.130247428,
+              "threshold_available": true,
+              "training_decided_pairs": 245,
+              "training_precision": 0.9
+            },
+            {
+              "correct_credit": 26.0,
+              "decided_pairs": 35,
+              "source": "findap_2025",
+              "test_pairs": 35,
+              "threshold": 0.083333333,
+              "threshold_available": true,
+              "training_decided_pairs": 225,
+              "training_precision": 0.902222
+            },
+            {
+              "correct_credit": 10.0,
+              "decided_pairs": 10,
+              "source": "finlmm_r1_2025",
+              "test_pairs": 51,
+              "threshold": 0.376433486,
+              "threshold_available": true,
+              "training_decided_pairs": 147,
+              "training_precision": 0.901361
+            },
+            {
+              "correct_credit": 3.0,
+              "decided_pairs": 4,
+              "source": "okochi_japanese_finance_2026",
+              "test_pairs": 4,
+              "threshold": 0.130247428,
+              "threshold_available": true,
+              "training_decided_pairs": 242,
+              "training_precision": 0.902893
+            },
+            {
+              "correct_credit": 39.0,
+              "decided_pairs": 40,
+              "source": "phogat2024_financial_qa",
+              "test_pairs": 120,
+              "threshold": 0.780904609,
+              "threshold_available": true,
+              "training_decided_pairs": 26,
+              "training_precision": 0.980769
+            },
+            {
+              "correct_credit": 21.5,
+              "decided_pairs": 23,
+              "source": "select2know_2025",
+              "test_pairs": 23,
+              "threshold": 0.2,
+              "threshold_available": true,
+              "training_decided_pairs": 212,
+              "training_precision": 0.900943
+            }
+          ],
+          "heldout_pairs": 309,
+          "selective_pairwise_accuracy": 0.898026,
+          "source_macro_selective_accuracy": 0.903674,
+          "sources_with_decisions": 7,
+          "target_training_precision": 0.9
+        }
+      },
+      "unfiltered_pairwise_accuracy": 0.815534
+    }
+  },
+  "schema_version": 1,
+  "status": "RETROSPECTIVE_SOURCE_HELDOUT_SELECTIVE_AUDIT",
+  "support": {
+    "arms": 241,
+    "candidate_pairs": 309,
+    "models": 14,
+    "panels": 79,
+    "sources": 7,
+    "targets": 53
+  }
+}

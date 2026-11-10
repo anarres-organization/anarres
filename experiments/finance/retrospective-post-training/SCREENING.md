@@ -62,9 +62,23 @@ controls.
 These studies remain in the evidence map, but are excluded from the current fit
 until their intervention identities and comparable outcomes can be recovered.
 
-- [FinLCR](https://www.amazon.science/publications/finlcr-scaling-financial-long-context-reasoning-via-curriculum-reinforcement-learning)
-  studies difficulty-aware curriculum RL across context lengths. Exact
-  candidate-level outcomes and a public task manifest still require recovery.
+- [CDF-GC](https://aclanthology.org/2025.emnlp-main.1121/)
+  compares grammatical-complexity selection with random, length, perplexity,
+  and full-data continual-pretraining controls. The reported 20\% selection
+  arms and two backbones are promising matched panels. Admission requires a
+  source-native extraction that keeps finance gain, general retention, and
+  selection cost separate.
+- [TELLME](https://aclanthology.org/2026.findings-eacl.84/)
+  compares quiz-enhanced continual pretraining with CPT, instruction tuning,
+  and instruction-pretraining baselines across several model families. Its
+  finance and long-term-retention outcomes can support separate panels after
+  the training mixtures and evaluation families are encoded from the primary
+  tables.
+- [FinToolSyn](https://aclanthology.org/2026.findings-acl.746/)
+  reports controlled training ablations for forward-synthesized financial
+  tool-use dialogues and dynamic tool retrieval. It is a strong candidate for
+  the agentic-finance bridge once dialogue composition, retrieval conditions,
+  training volume, and tool-calling outcomes are recovered arm by arm.
 - [QianfanHuijin](https://arxiv.org/abs/2512.24314)
   reports progressive financial SFT, reasoning RL, agentic RL, and general RL.
   The stages change objectives and capabilities together, so the headline

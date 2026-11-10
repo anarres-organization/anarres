@@ -24,5 +24,7 @@
   "retrospective-post-training/results/regression_risk_summary.json": "c95d0323f0922647f093979a9c8349c1e06a90f07a6e8bbbf4d11f1693772333",
   "retrospective-post-training/results/summary.json": "325f7227f0b60ce094b9f310a5b0b3fd59a0cd1d571bef502d621d038c8b6dd4",
   "retrospective-post-training/results/target_conditional_diagnostic.json": "5f0946bb3013ef3c2370efc3af6b38dc8411748da2d7e77ee6afd17dc4f7181a",
+  "retrospective-post-training/strict-task-level/SELECTIVE_MANIFEST.sha256.json": "f316611353d0fcf02b90f0143190c239dff9ca1cf327826442447f36a5b80cb5",
+  "retrospective-post-training/strict-task-level/SELECTIVE_SCORE.json": "d3f6c30da18a78fb88f05093de2a223db57205277f6adc398018dfaafc2952c6",
   "retrospective-post-training/strict-task-level/SCORE.json": "22ccd5ca707548c53de738623f4b8f9c6dde649a1526b002c55839cbf80a4e86"
 }
