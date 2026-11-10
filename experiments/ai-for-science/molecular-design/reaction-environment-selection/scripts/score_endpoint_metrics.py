@@ -52,6 +52,20 @@ def chemical_filter_pass(value: Any) -> bool:
     return bool(isinstance(value, dict) and bool(value.get("ChemFilter", False)))
 
 
+def verify_chemical_filter_runtime(finder: Any = None) -> dict[str, str]:
+    """Require the complete pinned Lilly runtime before scoring any molecule."""
+
+    if finder is None:
+        from medchem.structural.lilly_demerits._lilly import find_lilly_binaries
+
+        finder = find_lilly_binaries
+    binaries = finder()
+    expected = {"mc_first_pass", "tsubstructure", "iwdemerit"}
+    if set(binaries) != expected:
+        raise RuntimeError("the Lilly chemical-filter runtime is incomplete")
+    return {name: sha256_file(Path(path)) for name, path in sorted(binaries.items())}
+
+
 def initialize_pose_workers(protein_path: str, clash_protein: Any) -> None:
     from molgenbench.metrics.basic import ChemFilterMetric, QEDMetric, SAMetric, ValidMetric
     from molgenbench.metrics.conformer import PoseBusterMetric
@@ -333,6 +347,7 @@ def main() -> int:
         raise ValueError("docking records do not match the frozen attempt count")
     if any(row.get("infrastructure_status") != "ok" for row in docking_records):
         raise RuntimeError("docking panel contains infrastructure failures")
+    chemical_filter_runtime = verify_chemical_filter_runtime()
 
     unique_pose_paths: dict[str, str] = {}
     for row in docking_records:
@@ -397,6 +412,7 @@ def main() -> int:
             sorted(Counter(row["docking_status"] for row in rows).items())
         ),
         "reference_interaction_validation": reference_validation,
+        "chemical_filter_runtime_sha256": chemical_filter_runtime,
         "inputs": {
             "docking_records_sha256": sha256_file(args.docking_records),
             "protein_sha256": sha256_file(args.protein),

@@ -80,6 +80,17 @@ def test_normalizes_non_python_chemical_filter_boolean() -> None:
     assert MODULE.chemical_filter_pass(False) is False
 
 
+def test_requires_complete_chemical_filter_runtime(tmp_path: Path) -> None:
+    binaries = {}
+    for name in ("mc_first_pass", "tsubstructure", "iwdemerit"):
+        path = tmp_path / name
+        path.write_text(name)
+        binaries[name] = str(path)
+
+    hashes = MODULE.verify_chemical_filter_runtime(lambda: binaries)
+    assert set(hashes) == set(binaries)
+
+
 def test_interaction_preparation_preserves_retained_record_identities() -> None:
     class Metric:
         @staticmethod

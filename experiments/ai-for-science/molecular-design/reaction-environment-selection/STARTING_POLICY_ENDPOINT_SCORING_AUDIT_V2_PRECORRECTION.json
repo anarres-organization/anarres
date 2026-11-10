@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "study": "prospective-reaction-environment-selection",
   "audit": "q07820-starting-policy-endpoint-v2-precorrection-scoring",
-  "status": "preserved_non_authorizing_producer_mapping_failure",
+  "status": "preserved_non_authorizing_missing_runtime_failure",
   "contract": "q07820-starting-policy-endpoint-qualification-v2",
   "artifacts": {
     "endpoint_metrics_sha256": "44bc044359b5f074d502c21f047e42d6e2098e0475cc9a593e5fce5d4eb164d2",
@@ -16,9 +16,9 @@
     "authorizes_matched_training": false
   },
   "diagnosis": {
-    "native_return": "MolGenBench ChemFilterMetric returns a mapping whose ChemFilter value is a scalar Boolean compatible with truth-value conversion.",
-    "producer_error": "The compatibility producer required object identity with the Python singleton True. Non-Python Boolean scalars therefore became false even when the native metric passed.",
-    "correction": "Normalize the native ChemFilter scalar by Boolean value. No threshold, sample, pose, endpoint metric, or gate is changed."
+    "native_behavior": "MolGenBench ChemFilterMetric catches chemical-filter exceptions and returns false.",
+    "runtime_failure": "The isolated endpoint environment lacked Medchem's optional checksum-pinned Lilly 2.1 command-line tools, so every Lilly filter call raised ImportError and every molecule was recorded as a chemical-filter failure.",
+    "correction": "Install the pinned Lilly runtime and require its three compatible executables before scoring. No threshold, sample, pose, endpoint metric, or gate is changed."
   },
   "claim_boundary": {
     "precorrection_result_is_claim_bearing": false,

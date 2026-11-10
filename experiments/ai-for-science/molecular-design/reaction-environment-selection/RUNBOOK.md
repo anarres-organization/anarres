@@ -284,8 +284,16 @@ as an environment outcome.
 ## 8. Instantiate and qualify the endpoint
 
 Create the endpoint environment from `endpoint-environment.yml`. This matches
-the MolGenBench Version4 package pins and PoseCheck commit. Compute reference
-pose metrics once per target, then derive the target-relative thresholds:
+the MolGenBench Version4 package pins and PoseCheck commit. Install Medchem's
+checksum-pinned Lilly 2.1 tools inside the environment before scoring:
+
+```bash
+medchem install-lilly
+```
+
+The endpoint producer checks all three executables before scoring and stops if
+the optional runtime is absent or incompatible. Compute reference pose metrics
+once per target, then derive the target-relative thresholds:
 
 ```bash
 python scripts/compute_reference_pose_metrics.py \
