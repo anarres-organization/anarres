@@ -102,6 +102,35 @@
       "task_records": 1300,
       "axiom_audits": 761,
       "independent_checker_records": 400,
+      "same_policy_boundary_evidence": {
+        "configuration": "GPT-5.6 Sol xhigh with Codex",
+        "configuration_id": "codex_sol_xhigh",
+        "target_protocol": "Pass@8, r=3",
+        "maximum_samples": 8,
+        "actor_compilation_limit_per_sample": 3,
+        "retained_accepted_tasks": 97,
+        "retained_not_accepted_tasks": 3,
+        "tasks_solved_after_sample_one": 15,
+        "boundary_tasks": [
+          {"task_id": 29, "repository": "ArkLib", "solved_on_sample": 2},
+          {"task_id": 123, "repository": "clean", "solved_on_sample": 2},
+          {"task_id": 129, "repository": "clean", "solved_on_sample": 5},
+          {"task_id": 136, "repository": "clean", "solved_on_sample": 2},
+          {"task_id": 138, "repository": "clean", "solved_on_sample": 2},
+          {"task_id": 139, "repository": "clean", "solved_on_sample": 5},
+          {"task_id": 140, "repository": "clean", "solved_on_sample": 3},
+          {"task_id": 145, "repository": "clean", "solved_on_sample": 2},
+          {"task_id": 165, "repository": "clean", "solved_on_sample": 2},
+          {"task_id": 277, "repository": "lean-formal-reasoning-program", "solved_on_sample": 6},
+          {"task_id": 281, "repository": "lean-formal-reasoning-program", "solved_on_sample": 2},
+          {"task_id": 356, "repository": "LeroyCompilerVerificationCourse", "solved_on_sample": 2},
+          {"task_id": 357, "repository": "LeroyCompilerVerificationCourse", "solved_on_sample": 2},
+          {"task_id": 361, "repository": "LeroyCompilerVerificationCourse", "solved_on_sample": 2},
+          {"task_id": 447, "repository": "VCV-io", "solved_on_sample": 2}
+        ],
+        "not_accepted_task_ids": [121, 122, 128],
+        "interpretation": "A successful sample index above one establishes at least one unsuccessful sample before a successful sample for the same policy and task. These records identify a nondegenerate qualification panel but do not expose every sample outcome or per-sample token cost."
+      },
       "selected_reported_results": [
         {
           "policy": "Opus 5 xhigh with Claude Code",

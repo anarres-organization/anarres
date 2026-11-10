@@ -108,6 +108,17 @@ Forall VeriSoftBench release adds 1,300 task records across 13 configurations,
 but its reported acceptance, retained artifacts, axiom audits, and independent
 checks have different coverage and must remain separate.
 
+The same release also identifies a usable boundary regime without new
+inference. GPT-5.6 Sol at xhigh reasoning through Codex accepts 97 of the 100
+retained tasks under a Pass@8 protocol. Fifteen tasks are first solved on
+samples 2--6, establishing at least one unsuccessful sample before a successful
+sample for the same policy and task. These tasks span ArkLib, clean, the Lean
+Formal Reasoning Program, the Leroy compiler-verification course, and VCV-io.
+They provide a source-pinned panel for nondegenerate policy qualification. The
+release withholds the individual failed samples and per-sample token cost, so
+it cannot by itself estimate signal density, effective coverage, or downstream
+training utility.
+
 These sources rule out a universal model ranking. Leanstral, for example,
 returns valid LeanLean submissions on 53 repositories but has zero strict
 success in the separately released Anarres Vero development measurement.

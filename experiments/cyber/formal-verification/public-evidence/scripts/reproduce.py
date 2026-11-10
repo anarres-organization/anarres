@@ -122,6 +122,12 @@ def policy_support_score(data: dict[str, object]) -> dict[str, object]:
     vero = data["sources"]["vero"]
     vero_policies = vero["reported_policies"]
     forall = data["sources"]["forall_verisoftbench"]
+    boundary = forall["same_policy_boundary_evidence"]
+
+    if boundary["tasks_solved_after_sample_one"] != len(boundary["boundary_tasks"]):
+        raise ValueError("Forall same-policy boundary-task count is inconsistent")
+    if any(task["solved_on_sample"] <= 1 for task in boundary["boundary_tasks"]):
+        raise ValueError("Forall boundary task lacks an earlier unsuccessful sample")
 
     compression_leader = max(leanlean_policies, key=lambda row: row["mean_compression_percent"])
     cost_leader = min(leanlean_policies, key=lambda row: row["mean_cost_usd"])
@@ -139,6 +145,11 @@ def policy_support_score(data: dict[str, object]) -> dict[str, object]:
         "vero_proof_only_leader": vero_proof_leader["policy"],
         "forall_configurations": forall["configurations"],
         "forall_subset_tasks": forall["subset_tasks"],
+        "forall_same_policy_boundary_configuration": boundary["configuration"],
+        "forall_same_policy_boundary_tasks": boundary["tasks_solved_after_sample_one"],
+        "forall_same_policy_boundary_repositories": len(
+            {task["repository"] for task in boundary["boundary_tasks"]}
+        ),
         "uniform_policy_leader_across_contracts": False,
     }
 

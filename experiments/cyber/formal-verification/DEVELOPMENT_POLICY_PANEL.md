@@ -24,6 +24,15 @@ The pinned source revisions and native-contract values are preserved in the
 [public policy-support record](public-evidence/data/policy-support.json) and
 [starting-policy audit](STARTING_POLICY_SELECTION.md).
 
+The Forall VeriSoftBench release provides the strongest direct support for a
+nondegenerate task panel. Under GPT-5.6 Sol at xhigh reasoning through Codex,
+15 tasks are first solved after sample one in a Pass@8 run. Each therefore has
+at least one unsuccessful and one successful attempt under the same policy and
+task. These task identities should seed the first repeated-measurement panel
+once their public repositories, fresh checker, and model-facing containment are
+qualified. PrimePy remains a route check because its 9/9 outcome is too easy to
+measure a useful success boundary.
+
 The wider source audit does not yield one policy ranking. Opus 5 leads LeanLean
 compression, GPT-5.5 xhigh leads Vero repository completion, and Luna is the
 lowest-cost reported LeanLean policy. GPT-5.5 is unavailable through the
