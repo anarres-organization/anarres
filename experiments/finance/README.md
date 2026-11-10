@@ -110,6 +110,15 @@ tool and scaffold ablations, and identifies reconciliation, spreadsheet work,
 evidence-grounded research, and workflow orchestration as the strongest public
 task families.
 
+The [adaptive environment-generation
+protocol](adaptive-environment-generation/README.md) turns this evidence into a
+repeated decision loop. It first tests whether pre-outcome measurements can
+select, reject, or abstain among released skill, procedure, and feedback
+interventions with one complete source held out. A native two-round study then
+generates candidates from typed failures, freezes admission decisions, and
+scores later target and protected cases. This path tests environment
+improvement before incurring the cost of matched model-weight training.
+
 The primary prospective outcome is held-out executable task completion.
 Allocation regret measures the cost of choosing a candidate other than the
 observed best arm.
@@ -166,3 +175,4 @@ with financial authority remain approval-gated.
 - [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
 - [Corrected expanded machine-readable results](retrospective-post-training/results/expanded_summary_corrected.json)
 - [Agent-systems evidence map](agent-systems-evidence/README.md)
+- [Adaptive environment-generation protocol](adaptive-environment-generation/README.md)

@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "study_id": "finance_adaptive_environment_generation_v1",
+  "status": "PROTOCOL_DRAFT__OUTCOMES_NOT_NORMALIZED",
+  "question": "Can pre-outcome measurements predict which task, skill, or feedback proposal improves later financial work without creating a protected-case or control regression?",
+  "decision_unit": "candidate experience carrier by target contract",
+  "phases": [
+    "normalize released intervention panels",
+    "fit and score with complete source holdout",
+    "freeze one untouched source or panel before outcome extraction",
+    "run a two-round native skill-or-task proposal loop",
+    "compare with matched model-weight training when warranted"
+  ],
+  "candidate_types": [
+    "procedural_documentation",
+    "executable_tool",
+    "combined_documentation_and_tool",
+    "retained_skill",
+    "retained_memory",
+    "feedback_carrier",
+    "scoped_skill_patch",
+    "generated_task_set"
+  ],
+  "pre_outcome_measurements": [
+    "target_coverage",
+    "failure_mode_coverage",
+    "executable_support",
+    "verifier_reliability",
+    "scope_specificity",
+    "protected_case_coverage",
+    "policy_relative_failure_rate",
+    "evidence_and_temporal_requirements",
+    "authorization_surface",
+    "untrusted_content_exposure",
+    "measurement_and_validation_cost"
+  ],
+  "decision_outputs": [
+    "promote",
+    "reject",
+    "abstain"
+  ],
+  "primary_metrics": [
+    "source_held_out_pair_ordering",
+    "normalized_allocation_regret",
+    "regression_precision",
+    "guardrail_violation_rate",
+    "abstention_coverage",
+    "net_utility_after_measurement_and_validation_cost"
+  ],
+  "baselines": [
+    "retain_all",
+    "latest_proposal",
+    "more_experience",
+    "starting_performance",
+    "source_native_practical_rule",
+    "no_update"
+  ],
+  "guardrails": [
+    "protected_case_regression",
+    "evidence_provenance",
+    "unsupported_claims",
+    "harmful_artifact_revision",
+    "injected_content_exposure",
+    "unauthorized_financial_state_change",
+    "artifact_executor_compatibility"
+  ],
+  "freeze_requirements": [
+    "candidate identities and provenance",
+    "development target protected and negative-control partitions",
+    "pre-outcome measurements",
+    "selection and abstention rule",
+    "target and guardrail evaluators",
+    "cost accounting",
+    "completeness and identity gate"
+  ],
+  "success_gate": {
+    "bridge": "improve source-held-out ordering or regret over transparent baselines without weakening guardrail decisions",
+    "native_loop": "improve later-case utility over retain-all latest-proposal and no-update controls in two consecutive frozen rounds",
+    "claim_boundary": "no general environment-optimizer claim from one source family or one successful round"
+  }
+}

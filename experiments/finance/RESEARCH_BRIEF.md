@@ -153,6 +153,22 @@ controls in addition to final-answer accuracy.
 
 ## The next tests
 
+The lowest-cost next test turns released longitudinal finance studies into a
+source-held-out decision bridge. FinSkillBench, FinEvo-Bench, FINSKILLOPS,
+FilingLoop, and the financial-agent self-evolution audit expose repeated choices
+about procedures, tools, feedback, retained experience, and skill admission.
+The bridge will predict promotion, rejection, regression, and abstention while
+keeping capability, control, and cost outcomes separate. Its rule will be fit
+without the held-out source's downstream outcomes.
+
+The [adaptive environment-generation
+protocol](adaptive-environment-generation/README.md) follows with two native
+rounds on a released verifiable task family. Typed failures generate candidate
+tasks or skills, qualification removes invalid proposals, and decisions are
+frozen before later target and protected cases are opened. This tests the
+complete improvement loop without requiring model-weight updates in the first
+instance.
+
 The first excluded-source test of the capability-contract representation uses
 FinAcumen's controlled financial-tool and experience-memory interventions. The
 representation recovers all 33 scored candidate orderings across 16 nested
@@ -182,7 +198,8 @@ The result supports the representation in financial long-context work while
 leaving retrieval and summarization unscored because the paper does not report
 their matched ablations.
 
-The executable accounting panel remains the prospective extension. Four
+The executable accounting panel remains the model-weight prospective
+extension. Four
 stateful workflows have passed source qualification, but no model has yet
 qualified as a non-degenerate starting policy. Training begins only after the
 chosen policy reliably uses tools and produces enough outcome variation to

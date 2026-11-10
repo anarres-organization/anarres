@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "audited_on": "2026-11-10",
+  "sources": [
+    {
+      "id": "finskillbench",
+      "title": "FinSkillBench: Evaluating AI Agents and Domain Skills for Investment Management",
+      "authors": ["Jermyn Zhen Yong Bek", "Zhuang Qiang Bok", "Zhongtian Sun"],
+      "url": "https://arxiv.org/abs/2608.18099",
+      "revision": "arXiv:2608.18099v1",
+      "role": "released intervention panels for curated and self-generated skills",
+      "status": "primary_source_audited"
+    },
+    {
+      "id": "knowledge_or_calculator",
+      "title": "Knowledge or Calculator? Decomposing the Skill Premium in Verifiable Financial Agent Workflows",
+      "authors": ["Jermyn Zhen Yong Bek", "Zhuang Qiang Bok", "Zhongtian Sun"],
+      "url": "https://arxiv.org/abs/2610.03564",
+      "revision": "arXiv:2610.03564v1",
+      "role": "released decomposition of procedural documents and executable tools",
+      "status": "primary_source_audited"
+    },
+    {
+      "id": "finevo_bench",
+      "title": "FinEvo-Bench: A Longitudinal Benchmark for Self-Evolving Agents in Professional Financial Workflows",
+      "authors": ["Bo Deng", "Kang Zhou", "Lifan Guo", "Chongyang Tao", "Xuanren Chen", "Chenggang Xie", "Renzhao Liang", "Feng Chen", "Chi Zhang"],
+      "url": "https://arxiv.org/abs/2608.06144",
+      "revision": "arXiv:2608.06144v2",
+      "role": "released longitudinal interventions for retained experience and feedback carriers",
+      "status": "primary_source_audited"
+    },
+    {
+      "id": "finskillops",
+      "title": "FINSKILLOPS: A Self-Evolving Multi-Agent System for SEC Filing QA",
+      "authors": ["Yanzhang Ma", "Zhenghan Tai", "Hanwei Wu", "Sizhe Guan", "Jianliang Lei", "Hailin He", "Chaolong Jiang", "Jijun Chi", "Tung Sum Thomas Kwok", "Bohuai Xiao", "Jingrui Tian", "Xinlu Wu", "Xingao Zhan", "Peng Lu", "Muzhi Li", "Yihong Wu", "Liheng Ma", "Sicheng Lyu", "Tianshuo Yan", "Junhao Zhu", "Yaqian Xu", "Lei Ding", "Yufei Cui", "Ziquan Liu", "Boyu Han", "Hengli Liu", "Ling Zhou", "Xinyu Wang"],
+      "url": "https://arxiv.org/abs/2609.19680",
+      "revision": "arXiv:2609.19680v1",
+      "role": "released skill proposal admission and protected-case regression evidence",
+      "status": "primary_source_audited"
+    },
+    {
+      "id": "filingloop",
+      "title": "FilingLoop: Evaluating and Evolving LLM Agents for Corporate Disclosure Review and Revision",
+      "authors": ["Wentao Zhang", "Yilei Zhao", "Guangyan Gan", "Shuo Sun", "Lin William Cong"],
+      "url": "https://arxiv.org/abs/2610.37905",
+      "revision": "arXiv:2610.37905v1",
+      "role": "released cross-case procedural learning and artifact-level guardrails",
+      "status": "primary_source_audited"
+    },
+    {
+      "id": "auditing_financial_self_evolution",
+      "title": "Auditing Self-Evolution in Financial Agents: Capability Gains, Security Drift, and Execution-Interface Mismatch",
+      "authors": ["Jialong Li", "Jialing Zhu"],
+      "url": "https://arxiv.org/abs/2608.17684",
+      "revision": "arXiv:2608.17684v1",
+      "role": "released capability and financial-state safety audit",
+      "status": "primary_source_audited"
+    }
+  ]
+}

@@ -171,9 +171,18 @@ finance project.
 
 ## Experimental consequence
 
-The next strong result is an independently assembled candidate-set decision.
-The candidate bank should be committed before training, measured under the
-starting policy, and scored against source-proportional, more-data,
-static-difficulty, and practical quality-aware rules. A new composition must be
-held out from model construction. The outcome vector must preserve operational
-controls and measurement cost instead of collapsing them into one score.
+The shortest next test uses the released longitudinal studies as a
+source-held-out decision bridge. It asks which procedure, tool, feedback type,
+or scoped skill should be promoted on later financial work. Candidate
+measurements and the selection rule must be fixed without using the held-out
+source's downstream outcomes. Promotion, rejection, regression, and abstention
+remain separate decisions, while capability, control, and cost outcomes remain
+separate endpoints.
+
+The [adaptive environment-generation
+protocol](../adaptive-environment-generation/README.md) then repeats this
+decision over two native rounds. Failures produce candidate tasks or skills,
+qualification removes invalid or unsafe proposals, and sealed target and
+protected cases determine whether the selected update helped. This lower-cost
+loop precedes the larger accounting training panel. Model-weight training
+remains the stronger causal test once the selection rule has earned that cost.
