@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "holdout_id": "profinagent_component_holdout_v1",
+  "frozen_on": "2026-11-10",
+  "status": "PREDICTIONS_FROZEN__OUTCOMES_UNOPENED",
+  "admissible_evidence_before_freeze": [
+    "paper title and bibliographic metadata",
+    "abstract description of ProFinR, the Financial Tool Universe, DAG planning, and case-based memory",
+    "abstract-level aggregate comparison with state-of-the-art baselines"
+  ],
+  "excluded_until_after_freeze": [
+    "component ablation tables",
+    "per-task result tables",
+    "detailed error analysis",
+    "repository result artifacts"
+  ],
+  "scoring_rules": [
+    "score only matched component comparisons reported by the source",
+    "leave a prediction unscored when the required ablation is absent",
+    "preserve accuracy and latency as separate outcomes",
+    "do not revise a prediction after outcome extraction"
+  ]
+}

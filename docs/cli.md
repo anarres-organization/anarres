@@ -264,6 +264,7 @@ After installation, the direct generic form exposes its released workflows:
 ```bash
 anarres finance status
 anarres finance audit-sources
+anarres finance decide candidate-panel.json
 anarres finance profile --output-dir .anarres/finance
 anarres finance score-holdout finharmbench
 anarres finance verify
@@ -281,6 +282,15 @@ artifacts, compact retrospective summaries, and frozen holdout identities.
 `reproduce` performs the same exhaustive replay and exports the regenerated
 retrospective, strict-transfer, and frozen-holdout artifacts without modifying
 checked-in evidence.
+
+`decide` validates a complete finance candidate panel, applies the released
+practical rule, and returns either one selected environment or an abstention
+set. An optional `baseline_id` adds improvement or regression directions. The
+fixed 0.2 margin is the largest threshold selected across the source-held-out
+0.85-precision calibration folds. Its released retrospective operating point
+has 90.3% pairwise accuracy at 75.4% coverage across seven sources. The command
+does not convert that retrospective operating point into a prospective
+guarantee.
 
 New policy-attempt records use the same native gate:
 

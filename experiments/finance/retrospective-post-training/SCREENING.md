@@ -74,11 +74,6 @@ until their intervention identities and comparable outcomes can be recovered.
   finance and long-term-retention outcomes can support separate panels after
   the training mixtures and evaluation families are encoded from the primary
   tables.
-- [FinToolSyn](https://aclanthology.org/2026.findings-acl.746/)
-  reports controlled training ablations for forward-synthesized financial
-  tool-use dialogues and dynamic tool retrieval. It is a strong candidate for
-  the agentic-finance bridge once dialogue composition, retrieval conditions,
-  training volume, and tool-calling outcomes are recovered arm by arm.
 - [QianfanHuijin](https://arxiv.org/abs/2512.24314)
   reports progressive financial SFT, reasoning RL, agentic RL, and general RL.
   The stages change objectives and capabilities together, so the headline
@@ -113,6 +108,16 @@ and shows large harness effects. FinRCA-Bench separates retrieval from root-caus
 reasoning in reconciliation. TradeOpsSim and Business Bench provide executable
 workflow patterns. These sources shape the prospective task and evaluation
 contract without entering the retrospective post-training fit.
+
+FinToolSyn is evaluated separately as an excluded-source capability-contract
+test. Its four controlled Qwen3-8B arms are not added to the fitted bridge, so
+one paper remains one source-level test.
+
+LongFinanceQA is also kept outside the fitted bridge. Component predictions
+were frozen after reading the abstract but before opening the paper's ablation
+tables. Its result is therefore labeled an outcome-separated component test,
+not a prospective study. The disclosed headline gains are excluded from its
+score.
 
 ## Admission rule
 

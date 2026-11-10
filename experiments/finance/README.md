@@ -29,6 +29,7 @@ The released workflow is then available through the generic adapter interface:
 ```bash
 anarres finance status
 anarres finance audit-sources
+anarres finance decide candidate-panel.json
 anarres finance verify
 anarres finance verify --exhaustive
 anarres finance reproduce --output-dir .anarres/finance-reproduction
@@ -44,6 +45,14 @@ interface. Commands shown here assume the repository root is the current
 directory. Use `--repository /path/to/anarres` when invoking released evidence
 from another directory. The direct `anarres-finance` executable accepts the
 same commands and explicit repository path.
+
+`decide` accepts a complete
+[`anarres.finance-candidate-panel.v1`](../../schemas/finance-candidate-panel.v1.schema.json)
+record. It applies the released practical rule and selects a candidate only
+when the top margin clears the conservative 0.2 threshold. Otherwise it returns
+the unresolved candidate set. When a baseline is supplied, the same threshold
+produces improvement, regression, or abstention directions. This operation is
+retrospectively calibrated and requires prospective validation on new panels.
 
 The operational studies focus on control-heavy finance work. Reconciliation,
 settlement exceptions, collateral disputes, payment controls, and close
@@ -79,7 +88,7 @@ separately normalizes published finance interventions. It asks which recurring
 properties of training data and reward design predict improvement across prior
 studies. A strict task-level tier reaches 81.6% candidate ordering across 79
 panels without using model identity. A source-held-out confidence filter raises
-accuracy to 90.4% over 235 decided pairs at 76.1% coverage. Five excluded-source
+accuracy to 90.4% over 235 decided pairs at 76.1% coverage. Seven source-level
 tests then expose where successive representations transfer and where they
 fail. The
 capability-contract representation recovers all 33 scored FinAcumen candidate
@@ -88,13 +97,27 @@ audit reaches 0.815 source-macro ROC AUC for intervention regressions, compared
 with 0.575 for data volume alone. A table-blind FinHarmBench test
 then qualifies safety alignment for two models and rejects a third whose benign
 helpfulness crosses the frozen guardrail. The earlier numerical-faithfulness
-failure remains an important boundary.
+failure remains an important boundary. On FinToolSyn's controlled agentic
+ablation, the capability-contract representation gets all nine high-confidence
+directions and all three improvement or regression calls correct.
+In a separately frozen LongFinanceQA test, 24 of 25 matched component
+comparisons follow the predicted direction across reasoning supervision,
+multi-source tasks, property extraction, and simpler-context retention.
 
 The [agent-systems evidence map](agent-systems-evidence/README.md) audits the
 workflow side of the decision. It separates post-training interventions from
 tool and scaffold ablations, and identifies reconciliation, spreadsheet work,
 evidence-grounded research, and workflow orchestration as the strongest public
 task families.
+
+The [adaptive environment-generation
+protocol](adaptive-environment-generation/README.md) turns this evidence into a
+repeated decision loop. It first tests whether pre-outcome measurements can
+select, reject, or abstain among released skill, procedure, and feedback
+interventions with one complete source held out. A native two-round study then
+generates candidates from typed failures, freezes admission decisions, and
+scores later target and protected cases. This path tests environment
+improvement before incurring the cost of matched model-weight training.
 
 The primary prospective outcome is held-out executable task completion.
 Allocation regret measures the cost of choosing a candidate other than the
@@ -147,6 +170,9 @@ with financial authority remain approval-gated.
 - [Numerical-faithfulness source holdout](retrospective-post-training/heldout-numerical-hallucination/README.md)
 - [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
 - [Financial safety capability-contract holdout](retrospective-post-training/heldout-finharmbench/README.md)
+- [Agentic tool-environment holdout](retrospective-post-training/heldout-fintoolsyn/README.md)
+- [Long-context component test](retrospective-post-training/heldout-longfinanceqa/RESULT.md)
 - [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
 - [Corrected expanded machine-readable results](retrospective-post-training/results/expanded_summary_corrected.json)
 - [Agent-systems evidence map](agent-systems-evidence/README.md)
+- [Adaptive environment-generation protocol](adaptive-environment-generation/README.md)

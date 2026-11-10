@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "feature_names": [
+    "procedure_match",
+    "execution_match",
+    "feedback_locality",
+    "validated_resource",
+    "protected_gate",
+    "interface_match",
+    "dynamic_reuse",
+    "resource_burden"
+  ],
+  "feature_rule": {
+    "procedure_match": 1.2,
+    "execution_match": 1.2,
+    "feedback_locality": 0.6,
+    "validated_resource": 0.5,
+    "protected_gate": 0.5,
+    "interface_match": 0.4,
+    "dynamic_reuse": 0.4,
+    "resource_burden": -0.3
+  },
+  "panels": [
+    {
+      "source_id": "knowledge_or_calculator",
+      "panel_id": "resource_overall",
+      "baseline": "no_skill",
+      "target": "all_investment_workflows",
+      "arms": [
+        {"id": "no_skill", "features": [0, 0, 0, 0, 0, 1, 0, 0], "utility": 0.366},
+        {"id": "docs_only", "features": [0.25, 0, 0, 1, 0, 1, 0, 0.2], "utility": 0.422},
+        {"id": "tools_only", "features": [0, 1, 0, 1, 0, 1, 0, 0.2], "utility": 0.561},
+        {"id": "curated", "features": [0.25, 1, 0, 1, 0, 0.8, 0, 1], "utility": 0.528}
+      ]
+    },
+    {
+      "source_id": "knowledge_or_calculator",
+      "panel_id": "resource_risk_identification",
+      "baseline": "no_skill",
+      "target": "risk_identification",
+      "arms": [
+        {"id": "no_skill", "features": [0, 0, 0, 0, 0, 1, 0, 0], "utility": 0.023},
+        {"id": "docs_only", "features": [1, 0, 0, 1, 0, 1, 0, 0.2], "utility": 0.382},
+        {"id": "tools_only", "features": [0, 0.1, 0, 1, 0, 1, 0, 0.2], "utility": 0.029},
+        {"id": "curated", "features": [1, 0.1, 0, 1, 0, 0.8, 0, 0.8], "utility": 0.332}
+      ]
+    },
+    {
+      "source_id": "knowledge_or_calculator",
+      "panel_id": "resource_stress_testing",
+      "baseline": "no_skill",
+      "target": "stress_testing",
+      "arms": [
+        {"id": "no_skill", "features": [0, 0, 0, 0, 0, 1, 0, 0], "utility": 0.017},
+        {"id": "docs_only", "features": [0.1, 0, 0, 1, 0, 1, 0, 0.2], "utility": 0.086},
+        {"id": "tools_only", "features": [0, 1, 0, 1, 0, 1, 0, 0.2], "utility": 0.469},
+        {"id": "curated", "features": [0.1, 1, 0, 1, 0, 0.8, 0, 0.8], "utility": 0.281}
+      ]
+    },
+    {
+      "source_id": "knowledge_or_calculator",
+      "panel_id": "resource_constrained_optimization",
+      "baseline": "no_skill",
+      "target": "constrained_optimization",
+      "arms": [
+        {"id": "no_skill", "features": [0, 0, 0, 0, 0, 1, 0, 0], "utility": 0.148},
+        {"id": "docs_only", "features": [0.1, 0, 0, 1, 0, 1, 0, 0.2], "utility": 0.176},
+        {"id": "tools_only", "features": [0, 1, 0, 1, 0, 1, 0, 0.2], "utility": 0.629},
+        {"id": "curated", "features": [0.1, 1, 0, 1, 0, 0.8, 0, 0.8], "utility": 0.505}
+      ]
+    },
+    {
+      "source_id": "finevo_bench",
+      "panel_id": "experience_carrier",
+      "baseline": "no_evolution",
+      "target": "later_professional_tasks",
+      "arms": [
+        {"id": "no_evolution", "features": [0, 0, 0, 0, 0, 1, 0, 0], "utility": 71.58, "compliance_issues": 0.55},
+        {"id": "fixed_expert_skill", "features": [0.8, 0, 0, 1, 0, 1, 0, 0.2], "utility": 86.67, "compliance_issues": 0.13},
+        {"id": "memory_and_skills", "features": [0.8, 0, 0.8, 0.5, 0, 0.6, 1, 1], "utility": 89.47, "compliance_issues": 0.11},
+        {"id": "memory_only", "features": [0.7, 0, 0.8, 0.5, 0, 0.8, 1, 0.5], "utility": 90.42, "compliance_issues": 0.09},
+        {"id": "skill_only", "features": [1, 0, 1, 0.8, 0, 1, 1, 0.7], "utility": 93.71, "compliance_issues": 0.05}
+      ]
+    },
+    {
+      "source_id": "finevo_bench",
+      "panel_id": "feedback_claude_code",
+      "baseline": "reference_answer",
+      "target": "later_professional_tasks",
+      "arms": [
+        {"id": "reference_answer", "features": [0.4, 0, 0.2, 1, 0, 1, 1, 0.5], "utility": 0},
+        {"id": "diagnostic_feedback", "features": [1, 0, 1, 1, 0, 1, 1, 0.5], "utility": 6.38}
+      ]
+    },
+    {
+      "source_id": "finevo_bench",
+      "panel_id": "feedback_codex",
+      "baseline": "reference_answer",
+      "target": "later_professional_tasks",
+      "arms": [
+        {"id": "reference_answer", "features": [0.4, 0, 0.2, 1, 0, 1, 1, 0.5], "utility": 0},
+        {"id": "diagnostic_feedback", "features": [1, 0, 1, 1, 0, 1, 1, 0.5], "utility": 7.22}
+      ]
+    },
+    {
+      "source_id": "finevo_bench",
+      "panel_id": "feedback_generic_agent",
+      "baseline": "reference_answer",
+      "target": "later_professional_tasks",
+      "arms": [
+        {"id": "reference_answer", "features": [0.4, 0, 0.2, 1, 0, 1, 1, 0.5], "utility": 0},
+        {"id": "diagnostic_feedback", "features": [1, 0, 1, 1, 0, 1, 1, 0.5], "utility": 3.95}
+      ]
+    },
+    {
+      "source_id": "finevo_bench",
+      "panel_id": "feedback_letta",
+      "baseline": "reference_answer",
+      "target": "later_professional_tasks",
+      "arms": [
+        {"id": "reference_answer", "features": [0.4, 0, 0.2, 1, 0, 1, 1, 0.5], "utility": 0},
+        {"id": "diagnostic_feedback", "features": [1, 0, 1, 1, 0, 1, 1, 0.5], "utility": 7.93}
+      ]
+    },
+    {
+      "source_id": "finskillops",
+      "panel_id": "components_in_house",
+      "baseline": "without_skill_evolution",
+      "target": "sec_filing_qa",
+      "arms": [
+        {"id": "full", "features": [1, 0, 1, 1, 1, 1, 1, 0.8], "utility": 4.55, "protected_regressions": 0},
+        {"id": "without_skill_evolution", "features": [0.4, 0, 0.2, 1, 1, 1, 0, 0.2], "utility": 3.70, "protected_regressions": 0},
+        {"id": "without_protected_gate", "features": [1, 0, 1, 0.6, 0, 1, 1, 0.5], "utility": 4.32, "protected_regressions": 3},
+        {"id": "without_failure_taxonomy", "features": [0.6, 0, 0.5, 0.8, 1, 1, 0.5, 0.5], "utility": 4.08, "protected_regressions": 0}
+      ]
+    },
+    {
+      "source_id": "finskillops",
+      "panel_id": "components_financebench",
+      "baseline": "without_skill_evolution",
+      "target": "financebench",
+      "arms": [
+        {"id": "full", "features": [1, 0, 1, 1, 1, 1, 1, 0.8], "utility": 3.49},
+        {"id": "without_skill_evolution", "features": [0.4, 0, 0.2, 1, 1, 1, 0, 0.2], "utility": 3.15},
+        {"id": "without_protected_gate", "features": [1, 0, 1, 0.6, 0, 1, 1, 0.5], "utility": 3.38},
+        {"id": "without_failure_taxonomy", "features": [0.6, 0, 0.5, 0.8, 1, 1, 0.5, 0.5], "utility": 3.28}
+      ]
+    },
+    {
+      "source_id": "finskillops",
+      "panel_id": "components_finder",
+      "baseline": "without_skill_evolution",
+      "target": "finder",
+      "arms": [
+        {"id": "full", "features": [1, 0, 1, 1, 1, 1, 1, 0.8], "utility": 2.88},
+        {"id": "without_skill_evolution", "features": [0.4, 0, 0.2, 1, 1, 1, 0, 0.2], "utility": 2.68},
+        {"id": "without_protected_gate", "features": [1, 0, 1, 0.6, 0, 1, 1, 0.5], "utility": 2.79},
+        {"id": "without_failure_taxonomy", "features": [0.6, 0, 0.5, 0.8, 1, 1, 0.5, 0.5], "utility": 2.70}
+      ]
+    },
+    {
+      "source_id": "filingloop",
+      "panel_id": "requirement_accuracy",
+      "baseline": "fixed",
+      "target": "later_disclosure_cases",
+      "arms": [
+        {"id": "fixed", "features": [0.5, 0, 0, 1, 0.5, 1, 0, 0.3], "utility": 24.28},
+        {"id": "evolving", "features": [1, 0, 1, 1, 0.5, 1, 1, 0.8], "utility": 27.96}
+      ]
+    },
+    {
+      "source_id": "filingloop",
+      "panel_id": "comment_accuracy",
+      "baseline": "fixed",
+      "target": "later_disclosure_cases",
+      "arms": [
+        {"id": "fixed", "features": [0.5, 0, 0, 1, 0.5, 1, 0, 0.3], "utility": 16.90},
+        {"id": "evolving", "features": [1, 0, 1, 1, 0.5, 1, 1, 0.8], "utility": 20.75}
+      ]
+    },
+    {
+      "source_id": "filingloop",
+      "panel_id": "task_accuracy",
+      "baseline": "fixed",
+      "target": "later_disclosure_cases",
+      "arms": [
+        {"id": "fixed", "features": [0.5, 0, 0, 1, 0.5, 1, 0, 0.3], "utility": 3.95},
+        {"id": "evolving", "features": [1, 0, 1, 1, 0.5, 1, 1, 0.8], "utility": 5.00}
+      ]
+    },
+    {
+      "source_id": "filingloop",
+      "panel_id": "company_accuracy",
+      "baseline": "fixed",
+      "target": "later_disclosure_cases",
+      "arms": [
+        {"id": "fixed", "features": [0.5, 0, 0, 1, 0.5, 1, 0, 0.3], "utility": 1.04},
+        {"id": "evolving", "features": [1, 0, 1, 1, 0.5, 1, 1, 0.8], "utility": 2.08}
+      ]
+    },
+    {
+      "source_id": "auditing_financial_self_evolution",
+      "panel_id": "benign_utility",
+      "baseline": "static",
+      "target": "ebanking_benign_tasks",
+      "arms": [
+        {"id": "static", "features": [0, 0, 0, 1, 0, 1, 0, 0], "utility": 0.741, "unauthorized_state": 0.583},
+        {"id": "skillopt", "features": [0.8, 0, 0.8, 0.8, 0, 1, 1, 0.5], "utility": 0.837, "unauthorized_state": 0.685},
+        {"id": "reasoningbank", "features": [1, 0, 1, 0.7, 0, 1, 1, 0.5], "utility": 0.859, "unauthorized_state": 0.595},
+        {"id": "awm_literal", "features": [0.8, 0, 0.8, 0.5, 0, 0, 1, 0.8], "utility": 0.319, "unauthorized_state": 0.217}
+      ]
+    }
+  ]
+}

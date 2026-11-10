@@ -38,18 +38,98 @@ class FinanceCliTest(unittest.TestCase):
         self.assertEqual(result["selective_source_macro_accuracy"], 0.895817)
         self.assertEqual(result["selective_pairwise_coverage"], 0.760518)
         self.assertEqual(result["selective_decided_pairs"], 235)
+        self.assertEqual(result["candidate_decision_threshold"], 0.2)
+        self.assertEqual(result["candidate_decision_retrospective_accuracy"], 0.903433)
+        self.assertEqual(result["candidate_decision_retrospective_coverage"], 0.754045)
         self.assertEqual(result["regression_risk_contrasts"], 165)
         self.assertEqual(result["regression_risk_source_macro_roc_auc"], 0.815183)
         self.assertEqual(result["regression_risk_eligible_sources"], 5)
         self.assertEqual(result["excluded_source_finacumen_pairwise_correct"], 33)
         self.assertEqual(result["excluded_source_finacumen_pairwise_scored"], 33)
         self.assertEqual(result["excluded_source_finacumen_pairwise_abstained"], 4)
+        self.assertEqual(result["excluded_source_fintoolsyn_directional_correct"], 9)
+        self.assertEqual(result["excluded_source_fintoolsyn_directional_scored"], 9)
+        self.assertEqual(result["excluded_source_fintoolsyn_regression_correct"], 3)
+        self.assertEqual(result["excluded_source_fintoolsyn_regression_scored"], 3)
+        self.assertEqual(result["outcome_separated_longfinanceqa_directional_correct"], 24)
+        self.assertEqual(result["outcome_separated_longfinanceqa_directional_scored"], 25)
+        self.assertEqual(result["outcome_separated_longfinanceqa_families_supported"], 4)
+        self.assertEqual(result["outcome_separated_longfinanceqa_families_scored"], 4)
 
     def test_source_audit_uses_native_implementation(self) -> None:
         result = cli.command_audit_sources(type("Args", (), {"repository": ROOT})())
         self.assertEqual(result["status"], "pass")
         self.assertEqual(result["generator_trials_passed"], 20)
         self.assertFalse(result["scientific_outcomes_opened"])
+
+    def test_candidate_decision_selects_or_abstains_and_reports_regression(self) -> None:
+        weights = json.loads(
+            (
+                ROOT
+                / "experiments/finance/retrospective-post-training/results/expanded_summary.json"
+            ).read_text()
+        )["practical_rule_weights"]
+        zero = {name: 0.0 for name in weights}
+        aligned = {**zero, "target_alignment": 1.0}
+        nearby = {**zero, "target_alignment": 0.9}
+        panel = {
+            "schema_version": "anarres.finance-candidate-panel.v1",
+            "target_id": "test-target",
+            "baseline_id": "base",
+            "candidates": [
+                {"candidate_id": "base", "features": zero},
+                {"candidate_id": "aligned", "features": aligned},
+                {"candidate_id": "nearby", "features": nearby},
+            ],
+        }
+        schema = json.loads((ROOT / "schemas/finance-candidate-panel.v1.schema.json").read_text())
+        Draft202012Validator(schema).validate(panel)
+        with tempfile.TemporaryDirectory() as directory:
+            input_path = Path(directory) / "panel.json"
+            input_path.write_text(json.dumps(panel), encoding="utf-8")
+            args = type(
+                "Args",
+                (),
+                {"repository": ROOT, "input": input_path, "output": None, "force": False},
+            )()
+            result = cli.command_decide(args)
+
+        self.assertEqual(result["decision"], "abstain")
+        self.assertEqual(result["candidate_set"], ["aligned", "nearby"])
+        self.assertEqual(result["threshold"], 0.2)
+        directions = {
+            row["candidate_id"]: row["direction"] for row in result["regression_directions"]
+        }
+        self.assertEqual(directions, {"aligned": "improve", "nearby": "improve"})
+        self.assertEqual(result["evidence"]["pairwise_accuracy"], 0.903433)
+
+    def test_candidate_decision_rejects_fields_outside_the_schema(self) -> None:
+        weights = json.loads(
+            (
+                ROOT
+                / "experiments/finance/retrospective-post-training/results/expanded_summary.json"
+            ).read_text()
+        )["practical_rule_weights"]
+        features = {name: 0.0 for name in weights}
+        panel = {
+            "schema_version": "anarres.finance-candidate-panel.v1",
+            "target_id": "test-target",
+            "unexpected": True,
+            "candidates": [
+                {"candidate_id": "first", "features": features},
+                {"candidate_id": "second", "features": features},
+            ],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            input_path = Path(directory) / "panel.json"
+            input_path.write_text(json.dumps(panel), encoding="utf-8")
+            args = type(
+                "Args",
+                (),
+                {"repository": ROOT, "input": input_path, "output": None, "force": False},
+            )()
+            with self.assertRaisesRegex(cli.FinanceCliError, "unsupported fields"):
+                cli.command_decide(args)
 
     def test_profile_command_exports_native_record(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -91,14 +171,22 @@ class FinanceCliTest(unittest.TestCase):
         result = cli.command_verify(args)
         self.assertEqual(result["status"], "pass")
         self.assertEqual(result["mode"], "compact")
-        self.assertEqual(result["manifest_artifacts"], 28)
+        self.assertEqual(result["manifest_artifacts"], 38)
         self.assertEqual(result["retrospective_sources"], 16)
         self.assertEqual(result["strict_panels"], 79)
         self.assertEqual(result["selective_pairwise_accuracy"], 0.904255)
         self.assertEqual(result["selective_pairwise_coverage"], 0.760518)
         self.assertEqual(result["regression_risk_source_macro_roc_auc"], 0.815183)
+        self.assertEqual(result["fintoolsyn_directional_correct"], 9)
+        self.assertEqual(result["fintoolsyn_directional_scored"], 9)
+        self.assertEqual(result["fintoolsyn_regression_correct"], 3)
+        self.assertEqual(result["fintoolsyn_regression_scored"], 3)
+        self.assertEqual(result["longfinanceqa_directional_correct"], 24)
+        self.assertEqual(result["longfinanceqa_directional_scored"], 25)
+        self.assertEqual(result["longfinanceqa_families_supported"], 4)
+        self.assertEqual(result["longfinanceqa_families_scored"], 4)
         self.assertFalse(result["starting_policy_qualified"])
-        self.assertEqual(len(result["holdouts"]), 5)
+        self.assertEqual(len(result["holdouts"]), 7)
 
     def test_manifest_verification_rejects_changed_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

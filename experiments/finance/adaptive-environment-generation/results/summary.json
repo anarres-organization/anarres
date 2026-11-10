@@ -1,0 +1,380 @@
+{
+  "evaluations": {
+    "always_update": {
+      "decisions": [
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "tools_only",
+          "panel_id": "resource_overall",
+          "selected": "tools_only"
+        },
+        {
+          "normalized_regret": 0.983287,
+          "observed_best": "docs_only",
+          "panel_id": "resource_risk_identification",
+          "selected": "tools_only"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "tools_only",
+          "panel_id": "resource_stress_testing",
+          "selected": "tools_only"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "tools_only",
+          "panel_id": "resource_constrained_optimization",
+          "selected": "tools_only"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "skill_only",
+          "panel_id": "experience_carrier",
+          "selected": "skill_only"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "diagnostic_feedback",
+          "panel_id": "feedback_claude_code",
+          "selected": "diagnostic_feedback"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "diagnostic_feedback",
+          "panel_id": "feedback_codex",
+          "selected": "diagnostic_feedback"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "diagnostic_feedback",
+          "panel_id": "feedback_generic_agent",
+          "selected": "diagnostic_feedback"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "diagnostic_feedback",
+          "panel_id": "feedback_letta",
+          "selected": "diagnostic_feedback"
+        },
+        {
+          "normalized_regret": 0.270588,
+          "observed_best": "full",
+          "panel_id": "components_in_house",
+          "selected": "without_protected_gate"
+        },
+        {
+          "normalized_regret": 0.323529,
+          "observed_best": "full",
+          "panel_id": "components_financebench",
+          "selected": "without_protected_gate"
+        },
+        {
+          "normalized_regret": 0.45,
+          "observed_best": "full",
+          "panel_id": "components_finder",
+          "selected": "without_protected_gate"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "evolving",
+          "panel_id": "requirement_accuracy",
+          "selected": "evolving"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "evolving",
+          "panel_id": "comment_accuracy",
+          "selected": "evolving"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "evolving",
+          "panel_id": "task_accuracy",
+          "selected": "evolving"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "evolving",
+          "panel_id": "company_accuracy",
+          "selected": "evolving"
+        },
+        {
+          "normalized_regret": 0.040741,
+          "observed_best": "reasoningbank",
+          "panel_id": "benign_utility",
+          "selected": "skillopt"
+        }
+      ],
+      "mean_normalized_regret": 0.121656,
+      "pairwise_comparisons": 66,
+      "pairwise_ordering": 0.757576,
+      "panels": 17,
+      "top_choice_accuracy": 0.705882
+    },
+    "fixed_practical_rule": {
+      "decisions": [
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "tools_only",
+          "panel_id": "resource_overall",
+          "selected": "tools_only"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "docs_only",
+          "panel_id": "resource_risk_identification",
+          "selected": "docs_only"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "tools_only",
+          "panel_id": "resource_stress_testing",
+          "selected": "tools_only"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "tools_only",
+          "panel_id": "resource_constrained_optimization",
+          "selected": "tools_only"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "skill_only",
+          "panel_id": "experience_carrier",
+          "selected": "skill_only"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "diagnostic_feedback",
+          "panel_id": "feedback_claude_code",
+          "selected": "diagnostic_feedback"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "diagnostic_feedback",
+          "panel_id": "feedback_codex",
+          "selected": "diagnostic_feedback"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "diagnostic_feedback",
+          "panel_id": "feedback_generic_agent",
+          "selected": "diagnostic_feedback"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "diagnostic_feedback",
+          "panel_id": "feedback_letta",
+          "selected": "diagnostic_feedback"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "full",
+          "panel_id": "components_in_house",
+          "selected": "full"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "full",
+          "panel_id": "components_financebench",
+          "selected": "full"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "full",
+          "panel_id": "components_finder",
+          "selected": "full"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "evolving",
+          "panel_id": "requirement_accuracy",
+          "selected": "evolving"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "evolving",
+          "panel_id": "comment_accuracy",
+          "selected": "evolving"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "evolving",
+          "panel_id": "task_accuracy",
+          "selected": "evolving"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "evolving",
+          "panel_id": "company_accuracy",
+          "selected": "evolving"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "reasoningbank",
+          "panel_id": "benign_utility",
+          "selected": "reasoningbank"
+        }
+      ],
+      "mean_normalized_regret": 0.0,
+      "pairwise_comparisons": 66,
+      "pairwise_ordering": 0.984848,
+      "panels": 17,
+      "top_choice_accuracy": 1.0
+    },
+    "leave_one_source_out_ridge": {
+      "decisions": [
+        {
+          "normalized_regret": 0.169231,
+          "observed_best": "tools_only",
+          "panel_id": "resource_overall",
+          "selected": "curated"
+        },
+        {
+          "normalized_regret": 0.139276,
+          "observed_best": "docs_only",
+          "panel_id": "resource_risk_identification",
+          "selected": "curated"
+        },
+        {
+          "normalized_regret": 0.415929,
+          "observed_best": "tools_only",
+          "panel_id": "resource_stress_testing",
+          "selected": "curated"
+        },
+        {
+          "normalized_regret": 0.257796,
+          "observed_best": "tools_only",
+          "panel_id": "resource_constrained_optimization",
+          "selected": "curated"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "skill_only",
+          "panel_id": "experience_carrier",
+          "selected": "skill_only"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "diagnostic_feedback",
+          "panel_id": "feedback_claude_code",
+          "selected": "diagnostic_feedback"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "diagnostic_feedback",
+          "panel_id": "feedback_codex",
+          "selected": "diagnostic_feedback"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "diagnostic_feedback",
+          "panel_id": "feedback_generic_agent",
+          "selected": "diagnostic_feedback"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "diagnostic_feedback",
+          "panel_id": "feedback_letta",
+          "selected": "diagnostic_feedback"
+        },
+        {
+          "normalized_regret": 0.270588,
+          "observed_best": "full",
+          "panel_id": "components_in_house",
+          "selected": "without_protected_gate"
+        },
+        {
+          "normalized_regret": 0.323529,
+          "observed_best": "full",
+          "panel_id": "components_financebench",
+          "selected": "without_protected_gate"
+        },
+        {
+          "normalized_regret": 0.45,
+          "observed_best": "full",
+          "panel_id": "components_finder",
+          "selected": "without_protected_gate"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "evolving",
+          "panel_id": "requirement_accuracy",
+          "selected": "evolving"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "evolving",
+          "panel_id": "comment_accuracy",
+          "selected": "evolving"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "evolving",
+          "panel_id": "task_accuracy",
+          "selected": "evolving"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "evolving",
+          "panel_id": "company_accuracy",
+          "selected": "evolving"
+        },
+        {
+          "normalized_regret": 0.0,
+          "observed_best": "reasoningbank",
+          "panel_id": "benign_utility",
+          "selected": "reasoningbank"
+        }
+      ],
+      "mean_normalized_regret": 0.119197,
+      "pairwise_comparisons": 66,
+      "pairwise_ordering": 0.80303,
+      "panels": 17,
+      "top_choice_accuracy": 0.588235
+    }
+  },
+  "guardrail_audit": {
+    "blocked_decisions": 1,
+    "decisions": [
+      {
+        "baseline_value": 0.55,
+        "decision": "eligible",
+        "guardrail": "compliance_issues",
+        "panel_id": "experience_carrier",
+        "selected": "skill_only",
+        "selected_value": 0.05
+      },
+      {
+        "baseline_value": 0,
+        "decision": "eligible",
+        "guardrail": "protected_regressions",
+        "panel_id": "components_in_house",
+        "selected": "full",
+        "selected_value": 0
+      },
+      {
+        "baseline_value": 0.583,
+        "decision": "block",
+        "guardrail": "unauthorized_state",
+        "panel_id": "benign_utility",
+        "selected": "reasoningbank",
+        "selected_value": 0.595
+      }
+    ],
+    "panels_with_comparable_guardrail": 3
+  },
+  "interpretation": [
+    "outcomes were public before this bridge and the feature representation was designed with access to the source papers",
+    "complete source holdout tests coefficient transfer but does not make this a prospective result",
+    "source-native utilities are normalized only within matched decision panels",
+    "capability and guardrail outcomes remain separate and a guardrail regression blocks promotion"
+  ],
+  "schema_version": 1,
+  "status": "RETROSPECTIVE_PRIMARY_SOURCE_BRIDGE",
+  "support": {
+    "arms": 53,
+    "panels": 17,
+    "sources": 5
+  }
+}

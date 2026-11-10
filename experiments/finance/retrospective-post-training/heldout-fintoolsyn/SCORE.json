@@ -1,0 +1,150 @@
+{
+  "abstentions": [
+    {
+      "candidates": [
+        "base",
+        "static",
+        "full"
+      ],
+      "reason": "The representation does not quantify the tradeoff between starting-policy retention and target-aligned forward supervision on this source-native metric.",
+      "target": "non_tool_score"
+    }
+  ],
+  "appendix_metric_sensitivity": {
+    "metric": "non-tool overall accuracy",
+    "note": "The appendix reports accuracy rather than the source-native non-tool score used in the primary ablation table. It is retained as a metric sensitivity and does not replace the primary target.",
+    "values": {
+      "base": 50.05,
+      "full": 57.64,
+      "reverse": 43.01,
+      "static": 56.49
+    }
+  },
+  "best_candidate_correct": 2,
+  "best_candidate_scored": 2,
+  "best_candidates": [
+    {
+      "correct": true,
+      "observed": "full",
+      "predicted": "full",
+      "target": "balanced_average"
+    },
+    {
+      "correct": true,
+      "observed": "full",
+      "predicted": "full",
+      "target": "tool_call_score"
+    }
+  ],
+  "comparisons": [
+    {
+      "basis": "dynamic retrieval coverage",
+      "comparison": "static",
+      "correct": true,
+      "observed_margin": 0.93,
+      "preferred": "full",
+      "target": "balanced_average"
+    },
+    {
+      "basis": "forward behavioral alignment",
+      "comparison": "base",
+      "correct": true,
+      "observed_margin": 4.53,
+      "preferred": "static",
+      "target": "balanced_average"
+    },
+    {
+      "basis": "reverse-synthesis contract mismatch",
+      "comparison": "reverse",
+      "correct": true,
+      "observed_margin": 10.89,
+      "preferred": "base",
+      "target": "balanced_average"
+    },
+    {
+      "basis": "dynamic retrieval robustness",
+      "comparison": "static",
+      "correct": true,
+      "observed_margin": 2.47,
+      "preferred": "full",
+      "target": "tool_call_score"
+    },
+    {
+      "basis": "forward supervision alignment",
+      "comparison": "reverse",
+      "correct": true,
+      "observed_margin": 1.83,
+      "preferred": "static",
+      "target": "tool_call_score"
+    },
+    {
+      "basis": "direct tool-call supervision",
+      "comparison": "base",
+      "correct": true,
+      "observed_margin": 15.96,
+      "preferred": "reverse",
+      "target": "tool_call_score"
+    },
+    {
+      "basis": "starting-policy behavior retention",
+      "comparison": "reverse",
+      "correct": true,
+      "observed_margin": 37.74,
+      "preferred": "base",
+      "target": "non_tool_score"
+    },
+    {
+      "basis": "forward clarification and rejection supervision",
+      "comparison": "reverse",
+      "correct": true,
+      "observed_margin": 29.02,
+      "preferred": "static",
+      "target": "non_tool_score"
+    },
+    {
+      "basis": "forward clarification and rejection supervision",
+      "comparison": "reverse",
+      "correct": true,
+      "observed_margin": 28.39,
+      "preferred": "full",
+      "target": "non_tool_score"
+    }
+  ],
+  "directional_accuracy": 1.0,
+  "directional_correct": 9,
+  "directional_scored": 9,
+  "interpretation": "The pre-existing capability-contract representation recovers every high-confidence FinToolSyn comparison, including the reverse-synthesis regression on balanced and non-tool behavior. The result is one retrospective excluded-source test.",
+  "regression_correct": 3,
+  "regression_scored": 3,
+  "regressions": [
+    {
+      "baseline": "base",
+      "candidate": "reverse",
+      "correct": true,
+      "direction": "regress",
+      "observed_direction": "regress",
+      "observed_margin": -10.89,
+      "target": "balanced_average"
+    },
+    {
+      "baseline": "base",
+      "candidate": "reverse",
+      "correct": true,
+      "direction": "regress",
+      "observed_direction": "regress",
+      "observed_margin": -37.74,
+      "target": "non_tool_score"
+    },
+    {
+      "baseline": "base",
+      "candidate": "reverse",
+      "correct": true,
+      "direction": "improve",
+      "observed_direction": "improve",
+      "observed_margin": 15.96,
+      "target": "tool_call_score"
+    }
+  ],
+  "schema_version": 1,
+  "status": "SCORED_PREEXISTING_REPRESENTATION_SOURCE_HOLDOUT"
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anarres.org/schemas/finance-candidate-panel.v1.schema.json",
+  "title": "Anarres finance candidate panel",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "target_id", "candidates"],
+  "properties": {
+    "schema_version": {"const": "anarres.finance-candidate-panel.v1"},
+    "target_id": {"type": "string", "minLength": 1},
+    "baseline_id": {"type": "string", "minLength": 1},
+    "candidates": {
+      "type": "array",
+      "minItems": 2,
+      "items": {"$ref": "#/$defs/candidate"}
+    }
+  },
+  "$defs": {
+    "coordinate": {"type": "number", "minimum": 0, "maximum": 1},
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidate_id", "features"],
+      "properties": {
+        "candidate_id": {"type": "string", "minLength": 1},
+        "features": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "target_alignment",
+            "quality_control",
+            "retention_control",
+            "verifier_alignment",
+            "policy_relative_selection",
+            "source_diversity",
+            "human_labeled_fraction",
+            "domain_specific_selection",
+            "transcript_refinement",
+            "qa_refinement",
+            "feedback_locality",
+            "efficient_rollout",
+            "curriculum_progression"
+          ],
+          "properties": {
+            "target_alignment": {"$ref": "#/$defs/coordinate"},
+            "quality_control": {"$ref": "#/$defs/coordinate"},
+            "retention_control": {"$ref": "#/$defs/coordinate"},
+            "verifier_alignment": {"$ref": "#/$defs/coordinate"},
+            "policy_relative_selection": {"$ref": "#/$defs/coordinate"},
+            "source_diversity": {"$ref": "#/$defs/coordinate"},
+            "human_labeled_fraction": {"$ref": "#/$defs/coordinate"},
+            "domain_specific_selection": {"$ref": "#/$defs/coordinate"},
+            "transcript_refinement": {"$ref": "#/$defs/coordinate"},
+            "qa_refinement": {"$ref": "#/$defs/coordinate"},
+            "feedback_locality": {"$ref": "#/$defs/coordinate"},
+            "efficient_rollout": {"$ref": "#/$defs/coordinate"},
+            "curriculum_progression": {"$ref": "#/$defs/coordinate"}
+          }
+        }
+      }
+    }
+  }
+}

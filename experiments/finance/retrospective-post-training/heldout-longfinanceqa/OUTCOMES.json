@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "source_id": "longfinanceqa_2025",
+  "source_locations": {
+    "supervised_cot_ablation": "Table 5",
+    "property_extraction_ablation": "Table 6"
+  },
+  "supervised_cot_ablation": {
+    "set1_10k_50k": {
+      "answer_only": {"single_source": 93.39, "comparison": 68.67, "clustering": 79.38, "chain_reasoning": 83.80, "overall": 79.82},
+      "cot": {"single_source": 97.30, "comparison": 90.17, "clustering": 72.88, "chain_reasoning": 94.00, "overall": 85.42}
+    },
+    "set2_50k_100k": {
+      "answer_only": {"single_source": 82.12, "comparison": 40.40, "clustering": 11.24, "chain_reasoning": 50.25, "overall": 38.11},
+      "cot": {"single_source": 91.25, "comparison": 76.27, "clustering": 66.02, "chain_reasoning": 96.12, "overall": 78.19}
+    },
+    "set3_100k_200k": {
+      "answer_only": {"single_source": 59.58, "comparison": 30.43, "clustering": 5.47, "chain_reasoning": 37.43, "overall": 29.46},
+      "cot": {"single_source": 94.17, "comparison": 63.76, "clustering": 51.83, "chain_reasoning": 88.66, "overall": 70.00}
+    },
+    "set4_200k_250k": {
+      "answer_only": {"single_source": 43.37, "comparison": 22.00, "clustering": 5.60, "chain_reasoning": 17.20, "overall": 22.14},
+      "cot": {"single_source": 71.48, "comparison": 56.50, "clustering": 46.83, "chain_reasoning": 76.00, "overall": 60.92}
+    }
+  },
+  "property_extraction_ablation": {
+    "set1_10k_50k": {"without_property_extraction": 60.52, "full_pai": 78.69},
+    "set2_50k_100k": {"without_property_extraction": 57.69, "full_pai": 69.62},
+    "set3_100k_200k": {"without_property_extraction": 54.89, "full_pai": 68.95},
+    "set4_200k_250k": {"without_property_extraction": 37.99, "full_pai": 58.12},
+    "overall": {"without_property_extraction": 54.56, "full_pai": 69.58}
+  },
+  "unreported_controls": [
+    "pai_without_property_based_retrieval",
+    "pai_without_intermediate_summarization"
+  ]
+}

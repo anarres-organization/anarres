@@ -14,3 +14,8 @@ executable that produced it.
 Workflow plans under `schemas/workflows/` describe deterministic, outcome-blind
 execution plans. They do not authorize submission to a scheduler or replace a
 domain runtime.
+
+Domain decision schemas retain the inputs needed by evidence-bound adapters.
+[`finance-candidate-panel.v1.schema.json`](finance-candidate-panel.v1.schema.json)
+describes complete finance candidate panels for ranking, baseline comparison,
+and abstention.

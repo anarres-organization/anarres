@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "source_id": "longfinanceqa_2025",
+  "prediction_basis": [
+    "supervision alignment favors reasoning traces that match the target's multi-step behavior",
+    "property-conditioned retrieval improves evidence coverage in long financial documents",
+    "intermediate summarization preserves retrieved evidence across multi-source reasoning",
+    "retention on simpler targets remains a separate constraint"
+  ],
+  "component_predictions": [
+    {
+      "prediction_id": "cot_vs_answer_only_finance",
+      "preferred": "longfinanceqa_with_intermediate_reasoning",
+      "comparison": "matched_questions_with_brief_answers_only",
+      "target": "financial_long_context",
+      "direction": "improve"
+    },
+    {
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "preferred": "longfinanceqa_with_intermediate_reasoning",
+      "comparison": "matched_questions_with_brief_answers_only",
+      "target": "multi_source_long_context",
+      "direction": "improve"
+    },
+    {
+      "prediction_id": "property_extraction_component",
+      "preferred": "full_pai",
+      "comparison": "pai_without_property_extraction",
+      "target": "long_context_reasoning",
+      "direction": "improve"
+    },
+    {
+      "prediction_id": "property_retrieval_component",
+      "preferred": "full_pai",
+      "comparison": "pai_without_property_based_retrieval",
+      "target": "long_context_reasoning",
+      "direction": "improve"
+    },
+    {
+      "prediction_id": "intermediate_summarization_component",
+      "preferred": "full_pai",
+      "comparison": "pai_without_intermediate_summarization",
+      "target": "long_context_reasoning",
+      "direction": "improve"
+    }
+  ],
+  "regression_prediction": {
+    "prediction_id": "simple_context_retention",
+    "candidate": "longfinanceqa_with_intermediate_reasoning",
+    "baseline": "matched_questions_with_brief_answers_only",
+    "target": "single_source_or_short_context",
+    "direction": "no_regression"
+  },
+  "abstentions": [
+    "the overall gains disclosed in the abstract",
+    "exact effect magnitudes",
+    "comparisons that change model, data volume, and supervision together",
+    "generalization beyond financial document reasoning"
+  ]
+}

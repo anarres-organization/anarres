@@ -132,6 +132,29 @@ def source_heldout_selective(records: list[dict], target_precision: float) -> di
     }
 
 
+def conservative_deployment_point(records: list[dict], operating_point: dict) -> dict:
+    """Use the largest source-held-out threshold as one fixed deployment rule."""
+
+    thresholds = [
+        fold["threshold"] for fold in operating_point["folds"] if fold.get("threshold_available")
+    ]
+    threshold = max(thresholds)
+    decided = [record for record in records if record["margin"] >= threshold]
+    correct_credit = sum(record["correct_credit"] for record in decided)
+    return {
+        "threshold": threshold,
+        "derivation": "maximum threshold selected across source-held-out calibration folds",
+        "target_training_precision": operating_point["target_training_precision"],
+        "candidate_pairs": len(records),
+        "decided_pairs": len(decided),
+        "coverage": round(len(decided) / len(records), 6),
+        "correct_credit": correct_credit,
+        "pairwise_accuracy": round(correct_credit / len(decided), 6),
+        "sources_with_decisions": len({record["source"] for record in decided}),
+        "outcome_use": "retrospective calibration; requires prospective validation",
+    }
+
+
 def analyze() -> dict:
     strict = load_strict()
     bridge = strict.load_analysis()
@@ -142,14 +165,18 @@ def analyze() -> dict:
     }
     output_rules = {}
     for name, records in rules.items():
+        operating_points = {
+            f"target_{target:.2f}": source_heldout_selective(records, target)
+            for target in TARGET_PRECISIONS
+        }
         output_rules[name] = {
             "unfiltered_pairwise_accuracy": round(
                 sum(record["correct_credit"] for record in records) / len(records), 6
             ),
-            "operating_points": {
-                f"target_{target:.2f}": source_heldout_selective(records, target)
-                for target in TARGET_PRECISIONS
-            },
+            "operating_points": operating_points,
+            "conservative_deployment_point": conservative_deployment_point(
+                records, operating_points["target_0.85"]
+            ),
         }
 
     return {

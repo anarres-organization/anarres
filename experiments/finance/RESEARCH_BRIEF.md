@@ -153,6 +153,22 @@ controls in addition to final-answer accuracy.
 
 ## The next tests
 
+The lowest-cost next test turns released longitudinal finance studies into a
+source-held-out decision bridge. FinSkillBench, FinEvo-Bench, FINSKILLOPS,
+FilingLoop, and the financial-agent self-evolution audit expose repeated choices
+about procedures, tools, feedback, retained experience, and skill admission.
+The bridge will predict promotion, rejection, regression, and abstention while
+keeping capability, control, and cost outcomes separate. Its rule will be fit
+without the held-out source's downstream outcomes.
+
+The [adaptive environment-generation
+protocol](adaptive-environment-generation/README.md) follows with two native
+rounds on a released verifiable task family. Typed failures generate candidate
+tasks or skills, qualification removes invalid proposals, and decisions are
+frozen before later target and protected cases are opened. This tests the
+complete improvement loop without requiring model-weight updates in the first
+instance.
+
 The first excluded-source test of the capability-contract representation uses
 FinAcumen's controlled financial-tool and experience-memory interventions. The
 representation recovers all 33 scored candidate orderings across 16 nested
@@ -161,10 +177,29 @@ description, but it remains one retrospective source. A second test freezes a
 safety-constrained decision before extracting FinHarmBench's numerical table.
 It accepts the intervention for two models and rejects it for WiroAI because
 benign helpfulness falls beyond the fixed guardrail. The next source should
-test a new workflow contract and continue reporting decisions, regret, and
-abstention separately.
+test a new workflow contract and continue reporting decisions, regressions,
+and abstention separately.
 
-The executable accounting panel remains the prospective extension. Four
+FinToolSyn provides that agentic-finance test. Under a shared Qwen3-8B training
+contract, it varies reverse or forward dialogue synthesis and static or dynamic
+tool retrieval. The pre-existing capability-contract representation gets all
+nine high-confidence directions correct, selects the best candidate on both
+targets where it makes a selection, and correctly predicts three improvement
+or regression directions. In particular, reverse synthesis improves tool-call
+performance while reducing the balanced average and non-tool score relative to
+the base. The audit abstains where the source-native non-tool metrics support
+different orderings.
+
+A separate outcome-separated test examines LongFinanceQA. Before opening its
+component tables, we froze predictions about intermediate reasoning,
+multi-source transfer, property extraction, and simpler-context retention.
+Twenty-four of 25 matched task-band comparisons follow the predicted direction.
+The result supports the representation in financial long-context work while
+leaving retrieval and summarization unscored because the paper does not report
+their matched ablations.
+
+The executable accounting panel remains the model-weight prospective
+extension. Four
 stateful workflows have passed source qualification, but no model has yet
 qualified as a non-degenerate starting policy. Training begins only after the
 chosen policy reliably uses tools and produces enough outcome variation to
@@ -227,6 +262,8 @@ change held-out outcomes after training begins.
 - [Numerical-faithfulness source holdout](retrospective-post-training/heldout-numerical-hallucination/README.md)
 - [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
 - [Financial safety capability-contract holdout](retrospective-post-training/heldout-finharmbench/README.md)
+- [Agentic tool-environment holdout](retrospective-post-training/heldout-fintoolsyn/README.md)
+- [Long-context component test](retrospective-post-training/heldout-longfinanceqa/RESULT.md)
 - [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
 - [Machine-readable panels](retrospective-post-training/data/panels.json)
 - [Source-recovered expansion](retrospective-post-training/data/recovered_panels.json)

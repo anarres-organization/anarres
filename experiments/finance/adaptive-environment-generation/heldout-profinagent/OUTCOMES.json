@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "holdout_id": "profinagent_component_holdout_v1",
+  "source_table": "Table 5 and Figure 4",
+  "accuracy_cells": [
+    {"model": "Qwen3-4B-Instruct-2507", "level": "L1", "baseline": 4.32, "tool_use": 31.73, "dag_only": 37.50, "cbm_only": 30.28, "full": 40.30},
+    {"model": "Qwen3-4B-Instruct-2507", "level": "L2", "baseline": 0.00, "tool_use": 13.08, "dag_only": 17.28, "cbm_only": 14.13, "full": 28.79},
+    {"model": "Qwen3-4B-Instruct-2507", "level": "L3", "baseline": 0.00, "tool_use": 3.87, "dag_only": 3.10, "cbm_only": 0.75, "full": 13.17},
+    {"model": "Qwen3-32B", "level": "L1", "baseline": 5.28, "tool_use": 40.38, "dag_only": 44.71, "cbm_only": 45.67, "full": 48.60},
+    {"model": "Qwen3-32B", "level": "L2", "baseline": 0.00, "tool_use": 23.03, "dag_only": 25.13, "cbm_only": 26.17, "full": 32.40},
+    {"model": "Qwen3-32B", "level": "L3", "baseline": 0.00, "tool_use": 7.75, "dag_only": 10.85, "cbm_only": 6.20, "full": 19.37},
+    {"model": "DeepSeek-R1", "level": "L1", "baseline": 17.78, "tool_use": 43.75, "dag_only": 51.44, "cbm_only": 53.36, "full": 62.50},
+    {"model": "DeepSeek-R1", "level": "L2", "baseline": 13.08, "tool_use": 30.89, "dag_only": 42.40, "cbm_only": 39.79, "full": 53.90},
+    {"model": "DeepSeek-R1", "level": "L3", "baseline": 29.45, "tool_use": 21.70, "dag_only": 33.33, "cbm_only": 31.78, "full": 54.26}
+  ],
+  "latency_seconds": {
+    "model": "DeepSeek-R1",
+    "sequential": 42579.9,
+    "dag": 22547.2,
+    "reported_reduction": 0.471
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "split_id": "qfbench_risk_transfer_v1",
+  "selection_basis": "workflow tags and difficulty only",
+  "shared_protected": [
+    {
+      "task_id": "ewma-portfolio-risk-decomposition",
+      "task_toml_sha256": "de7efa9fcff43c990f20b9a2d2c20cdf12e321ea91b842ac5d0fab5dd725bacf",
+      "instruction_sha256": "f2140b4d41fa382d170bf06462cf8ce5902e9fedd6fb46aeb751efb314d2ffb8"
+    },
+    {
+      "task_id": "smith-tail-index",
+      "task_toml_sha256": "2148e9e562ddf396d625d6e5ed5f6d3adc9672622700ba5955150e3bb96bb49b",
+      "instruction_sha256": "4d025e8aac93a66b37333cdc047f509ffdd8f1d1406fc7e718d4ac21e5914ce9"
+    }
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "development": [
+        {
+          "task_id": "historical-var-data-prep",
+          "task_toml_sha256": "82d038fd64fec75d22632a4fcb4f91fdb0ca7b900fbcc025b9268b60dbc6ce9b",
+          "instruction_sha256": "4336279d91b6a34b71e313953fd95c4b7ad9065c694c76e2df8f3acbdec71f0a"
+        },
+        {
+          "task_id": "var-es-estimation",
+          "task_toml_sha256": "a8c2be46f3ddda6096cc948b0ca74fe34ca1e25d7993008818321d9aaa9b1b9a",
+          "instruction_sha256": "d43c7dae0c81bfb0eae65321785582f8524e3f5484774a9425a4943993cdf394"
+        }
+      ],
+      "target": [
+        {
+          "task_id": "standard-var-methods",
+          "task_toml_sha256": "5872e75f66dc7c8dd16aabe4ed1199a3aa503b3e734deb482a207cf8b620e504",
+          "instruction_sha256": "c5467ef2cc2ded48439e87dc98424c4fbb1fd8c94708ed6d74461e211ad6707c"
+        },
+        {
+          "task_id": "evt-pot-var",
+          "task_toml_sha256": "f805c379d10a9d29898e4929cb7af3630d2caa7155afd7aa7e3d96082423e024",
+          "instruction_sha256": "e6603ea1bad9b2aefb75a6b2a369546369dc1b5cf7093db47152b3b81589af96"
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "development": [
+        {
+          "task_id": "dcc-garch-portfolio-var",
+          "task_toml_sha256": "78ccf4199ca17e06011df92ea7ab591e2730051576b6bb88ec8c35d745cab8c6",
+          "instruction_sha256": "31c1755e709114411dac328d99ce7bd4ea0e8c88e8880f9c470994751dc1cb50"
+        },
+        {
+          "task_id": "credit-migration-matrix",
+          "task_toml_sha256": "1c24158ad4965b156ee5531841d124147bacbbc3f18089835a29b493062e5bf9",
+          "instruction_sha256": "cd5591ee8241b38a9a4dac9469da994d37dad867461a86a4dc2ac7882ebceb55"
+        }
+      ],
+      "target": [
+        {
+          "task_id": "credit-portfolio-var-cvar",
+          "task_toml_sha256": "1fc405dd3e2779739907d4c9448626b190a0d6076ee26eab7a4f732faad4e0cc",
+          "instruction_sha256": "58bad4e1ab405107200cac1512b8bb0cc56ef1ae0efd63af562b1765d750c2dd"
+        },
+        {
+          "task_id": "creditmetrics-portfolio-var",
+          "task_toml_sha256": "6b5bf46c90be8092e9c91e43807e935f9ead6bed5aacb711a745a721ff5b4cc9",
+          "instruction_sha256": "5776f3a8e0348b38137cd5caa34626c56f5a38d8aaf641a18f87b499ba85a48d"
+        }
+      ]
+    }
+  ]
+}
