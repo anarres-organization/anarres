@@ -111,8 +111,10 @@ coverage, positive model cost, infrastructure failures, and the failed
 readiness gates. Comparable candidate profiles remain unavailable until a
 starting policy qualifies and the native candidate bank is measured.
 
-Cyber, molecular-design, and additional agent studies can add profile producers
-when their native measurement artifacts contain the required values,
-definitions, qualification states, and source revisions. Each producer should
-first remain beside its experiment and satisfy the
+The Vero formal-verification, molecular reaction-bank, SylloGym legal, Can
+robotics, MLIP materials, and Business Bench finance studies now have native
+profile producers at their respective evidence boundaries. Their profiles
+establish record and measurement conformance. Predictive or allocation evidence
+still requires the outcome protocol defined by each study. Additional producers
+should first remain beside their experiment and satisfy the
 [adapter conformance workflow](adapter-authoring.md).

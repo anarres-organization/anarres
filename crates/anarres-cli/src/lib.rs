@@ -1,9 +1,9 @@
 use std::collections::{BTreeMap, BTreeSet};
+use std::ffi::OsString;
 use std::fs;
 use std::fs::OpenOptions;
 use std::io::{self, Write};
 use std::path::{Path, PathBuf};
-use std::process::Command as ProcessCommand;
 use std::sync::atomic::{AtomicU64, Ordering};
 
 use clap::{Args, Parser, Subcommand};
@@ -11,6 +11,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 
+mod adapter;
 mod profile;
 
 use profile::{
@@ -46,16 +47,53 @@ enum Command {
     Design(DesignArgs),
     /// Check supported records and content integrity.
     Validate(ValidateArgs),
-    /// Run the agentic-finance domain adapter.
-    Finance(FinanceArgs),
+    /// Discover, inspect, and run installed domain adapters.
+    Adapter(AdapterArgs),
+    /// Run an installed domain adapter by name.
+    #[command(external_subcommand)]
+    External(Vec<OsString>),
+}
+
+#[derive(Debug, Args)]
+struct AdapterArgs {
+    #[command(subcommand)]
+    command: AdapterCommand,
+}
+
+#[derive(Debug, Subcommand)]
+enum AdapterCommand {
+    /// List installed adapters found on PATH.
+    List(AdapterListArgs),
+    /// Validate an installed adapter and its protocol descriptor.
+    Doctor(AdapterDoctorArgs),
+    /// Run an installed adapter with explicit arguments.
+    Run(AdapterRunArgs),
+}
+
+#[derive(Debug, Args)]
+struct AdapterListArgs {
+    /// Print a machine-readable report.
+    #[arg(long)]
+    json: bool,
+}
+
+#[derive(Debug, Args)]
+struct AdapterDoctorArgs {
+    /// Installed adapter name.
+    name: String,
+    /// Print a machine-readable report.
+    #[arg(long)]
+    json: bool,
 }
 
 #[derive(Debug, Args)]
 #[command(trailing_var_arg = true, disable_help_flag = true)]
-struct FinanceArgs {
-    /// Arguments passed to the finance adapter.
+struct AdapterRunArgs {
+    /// Installed adapter name.
+    name: String,
+    /// Arguments passed to the adapter.
     #[arg(num_args = 0.., allow_hyphen_values = true)]
-    arguments: Vec<String>,
+    arguments: Vec<OsString>,
 }
 
 #[derive(Debug, Args)]
@@ -237,54 +275,22 @@ fn execute(command: Command) -> Result<i32, String> {
         Command::Measure(args) => command_measure(args),
         Command::Design(args) => command_design(args),
         Command::Validate(args) => command_validate(args),
-        Command::Finance(args) => command_finance(args),
-    }
-}
-
-fn command_finance(args: FinanceArgs) -> Result<i32, String> {
-    match ProcessCommand::new("anarres-finance")
-        .args(&args.arguments)
-        .status()
-    {
-        Ok(status) => return Ok(status.code().unwrap_or(1)),
-        Err(error) if error.kind() == io::ErrorKind::NotFound => {}
-        Err(error) => return Err(format!("failed to start anarres-finance: {error}")),
-    }
-
-    let (repository, script) = find_finance_adapter().ok_or_else(|| {
-        "finance adapter not found. Install anarres-finance or run inside the Anarres repository"
-            .to_owned()
-    })?;
-    let python = std::env::var_os("PYTHON").unwrap_or_else(|| "python3".into());
-    let mut python_paths = vec![
-        repository.join("packages/core/src"),
-        repository.join("packages/environments/src"),
-        repository.join("packages/evaluation/src"),
-        repository.join("packages/finance/src"),
-    ];
-    if let Some(existing) = std::env::var_os("PYTHONPATH") {
-        python_paths.extend(std::env::split_paths(&existing));
-    }
-    let python_path = std::env::join_paths(python_paths)
-        .map_err(|error| format!("invalid PYTHONPATH for finance adapter: {error}"))?;
-    let status = ProcessCommand::new(python)
-        .arg(script)
-        .args(&args.arguments)
-        .env("PYTHONPATH", python_path)
-        .status()
-        .map_err(|error| format!("failed to start finance adapter: {error}"))?;
-    Ok(status.code().unwrap_or(1))
-}
-
-fn find_finance_adapter() -> Option<(PathBuf, PathBuf)> {
-    let current = std::env::current_dir().ok()?;
-    for candidate in current.ancestors() {
-        let script = candidate.join("packages/finance/src/anarres/finance/cli.py");
-        if script.is_file() {
-            return Some((candidate.to_owned(), script));
+        Command::Adapter(args) => match args.command {
+            AdapterCommand::List(args) => adapter::list(args.json),
+            AdapterCommand::Doctor(args) => adapter::doctor(&args.name, args.json),
+            AdapterCommand::Run(args) => adapter::run(&args.name, &args.arguments),
+        },
+        Command::External(mut arguments) => {
+            if arguments.is_empty() {
+                return Err("missing adapter name".to_owned());
+            }
+            let name = arguments.remove(0).into_string().map_err(|_| {
+                "adapter names must contain valid UTF-8 lowercase letters, digits, and hyphens"
+                    .to_owned()
+            })?;
+            adapter::run(&name, &arguments)
         }
     }
-    None
 }
 
 fn command_qualify(args: InputArgs) -> Result<i32, String> {

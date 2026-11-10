@@ -20,6 +20,32 @@ class FinanceCliError(ValueError):
     """Raised when a finance workflow cannot run from released evidence."""
 
 
+def adapter_descriptor() -> dict[str, Any]:
+    """Describe the installed adapter without opening study artifacts."""
+
+    return {
+        "schema_version": "anarres.adapter-descriptor.v1",
+        "name": "finance",
+        "version": "0.1.0",
+        "protocol_version": 1,
+        "domain": "agentic-finance",
+        "executable": "anarres-finance",
+        "profile_schema_versions": ["anarres.environment-profile-input.v1"],
+        "capabilities": [
+            "audit-sources",
+            "profile",
+            "qualify-policy",
+            "reproduce",
+            "score-holdout",
+            "status",
+            "verify",
+        ],
+        "measurement_contracts": [
+            "finance.business-bench-starting-policy-qualification.v1",
+        ],
+    }
+
+
 def repository_root(explicit: Path | None = None) -> Path:
     starts = [explicit.resolve()] if explicit is not None else [Path.cwd().resolve()]
     starts.append(Path(__file__).resolve())
@@ -379,6 +405,9 @@ def parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
+    if sys.argv[1:] == ["--anarres-adapter-descriptor"]:
+        print(json.dumps(adapter_descriptor(), indent=2, sort_keys=True))
+        return
     arguments = parser().parse_args()
     try:
         output = arguments.handler(arguments)

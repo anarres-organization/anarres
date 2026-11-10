@@ -44,9 +44,38 @@ scientific result.
 | `measure` | Normalize evidence into a content-addressed record | Policy-probe input or profile input |
 | `design` | Compare candidates and audit panel compatibility | Two or more manifests or profiles of one type |
 | `validate` | Check structure, semantics, and content integrity | Any supported input or measured record |
-| `finance` | Run released agentic-finance audits and reproductions | Finance-native records and released evidence |
+| `adapter` | Discover, inspect, and run installed domain adapters | Local adapter executables and descriptors |
 
 Run `anarres <command> --help` for the complete arguments of one command.
+
+### Work with domain adapters
+
+Domain runtimes are installed separately from the native binary. An adapter is
+a standalone executable named `anarres-<name>` on `PATH`:
+
+```bash
+anarres adapter list
+anarres adapter doctor finance
+anarres adapter run finance -- status --json
+```
+
+The shorter form uses the same generic discovery and compatibility checks:
+
+```bash
+anarres finance status --json
+```
+
+`adapter list` reports the executable selected for each name and any shadowed
+copies later on `PATH`. `adapter doctor` validates the adapter's versioned
+descriptor without opening study artifacts. `adapter run` validates that
+descriptor and forwards arguments literally without a shell. Built-in commands
+always take precedence over adapter names.
+
+The CLI does not download adapters, search a repository checkout, or import an
+adapter's libraries. Install domain tools through their documented package or
+binary distribution. The
+[adapter authoring guide](architecture/adapter-authoring.md) defines the
+descriptor and release requirements.
 
 ### Qualify task groups
 
@@ -136,10 +165,18 @@ guide](architecture/domain-adapters.md) defines the runtime boundary, and the
 [adapter authoring guide](architecture/adapter-authoring.md) documents the
 Python construction interface and promotion requirements.
 
-## Agentic-finance workflow
+## Example adapter: agentic finance
 
-The finance adapter is available through the main command while retaining its
-domain-native Python implementation:
+The finance adapter retains its domain-native Python implementation and is
+installed separately from the Rust binary:
+
+```bash
+cargo install --path crates/anarres-cli --locked
+uv tool install ./packages/finance
+anarres adapter doctor finance
+```
+
+After installation, the direct generic form exposes its released workflows:
 
 ```bash
 anarres finance status
@@ -165,21 +202,9 @@ anarres finance qualify-policy qualification-attempts.jsonl \
   --output qualification-summary.json
 ```
 
-The Rust binary delegates these commands to the `anarres-finance` adapter. The
-adapter may be installed as a package, while repository builds discover the
-checked-in implementation without adding finance dependencies to the Rust
-core. No finance command performs a network call.
-
-For a standalone installation from a repository checkout, install both pieces:
-
-```bash
-cargo install --path crates/anarres-cli --locked
-uv tool install ./packages/finance
-```
-
-The workspace source map installs the finance adapter together with its shared
-environment-profile dependencies. Repository development does not require the
-second command because `anarres finance` discovers the checked-in adapter.
+The native CLI resolves `anarres-finance` through the same protocol used by
+every other domain. Finance dependencies remain isolated from the Rust core,
+and no finance command performs a network call.
 
 ## Automation
 
@@ -207,6 +232,10 @@ Cross-domain profiles use:
 
 - [`environment-profile-input.v1`](../schemas/environments/environment-profile-input.v1.schema.json)
 - [`environment-profile.v1`](../schemas/environments/environment-profile.v1.schema.json)
+
+Installed adapters describe their compatibility with:
+
+- [`adapter-descriptor.v1`](../schemas/adapters/adapter-descriptor.v1.schema.json)
 
 Unknown fields and unsupported schema versions are rejected. A change in
 meaning, unit, or estimator requires a new coordinate definition revision

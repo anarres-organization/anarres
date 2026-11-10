@@ -114,6 +114,7 @@ Large model weights and checkpoints are distributed through versioned artifact s
 - [CLI release process](docs/releases.md)
 - [Native CLI RFC](docs/rfcs/0001-native-cli.md)
 - [Cross-domain profile RFC](docs/rfcs/0002-cross-domain-environment-profiles.md)
+- [External adapter RFC](docs/rfcs/0003-external-adapter-protocol.md)
 - [Reproducibility standard](docs/standards/reproducibility.md)
 - [Artifact standard](docs/standards/artifacts.md)
 - [Writing standard](docs/standards/writing.md)

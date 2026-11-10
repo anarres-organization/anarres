@@ -1,0 +1,18 @@
+{
+  "capabilities": [
+    "profile",
+    "verify"
+  ],
+  "domain": "demonstration-domain",
+  "executable": "anarres-demo",
+  "measurement_contracts": [
+    "demo.measurement.v1"
+  ],
+  "name": "demo",
+  "profile_schema_versions": [
+    "anarres.environment-profile-input.v1"
+  ],
+  "protocol_version": 1,
+  "schema_version": "anarres.adapter-descriptor.v1",
+  "version": "0.1.0"
+}

@@ -4,6 +4,11 @@ Anarres publishes native CLI archives from tags named `cli-v<version>`. Each
 release contains the binary, license, README, CLI guide, a SHA-256 checksum, and
 GitHub build-provenance attestation.
 
+Domain adapters are released independently from the native binary. The CLI
+discovers installed `anarres-<name>` executables and validates their versioned
+descriptor before execution. A CLI archive therefore does not bundle Python,
+simulators, model runtimes, or domain evidence.
+
 Supported release targets are:
 
 - Linux x86-64 using the GNU C library

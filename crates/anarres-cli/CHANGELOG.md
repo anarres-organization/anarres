@@ -12,3 +12,5 @@ records.
   compatibility checks, and content integrity.
 - Add deterministic JSON output and nonzero exits for invalid records and
   incompatible candidate panels.
+- Add a versioned external-adapter protocol with local discovery, compatibility
+  checks, and literal argument forwarding.

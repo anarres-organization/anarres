@@ -26,6 +26,36 @@ The adapter owns:
 The native CLI independently validates the resulting record. It owns neither
 the domain formula nor the scientific interpretation.
 
+## Executable contract
+
+A maintained command-line adapter installs an executable named
+`anarres-<name>`. It must answer the descriptor query without opening native
+study artifacts or performing network access:
+
+```bash
+anarres-robotics --anarres-adapter-descriptor
+```
+
+The response follows
+[`anarres.adapter-descriptor.v1`](../../schemas/adapters/adapter-descriptor.v1.schema.json)
+and declares the adapter name and version, protocol version, domain, executable,
+supported profile schemas, capabilities, and measurement contracts. Lists are
+sorted and contain no duplicates. The descriptor's executable and name must
+match the installed filename.
+
+Users can inspect an installation before running a workflow:
+
+```bash
+anarres adapter doctor robotics
+anarres robotics --help
+```
+
+Adapters write structured results to standard output, diagnostics to standard
+error, and return nonzero for invalid inputs or incomplete workflows. They must
+accept literal forwarded arguments and must not rely on the caller's current
+working directory. Large runtimes and scientific dependencies remain in the
+adapter package rather than the Rust core.
+
 ## Python interface
 
 The `anarres-environments` package provides small construction helpers:
@@ -98,6 +128,9 @@ An adapter test should also verify:
 4. preservation of infrastructure and verifier failures
 5. preservation of units, estimators, sample counts, and uncertainty
 6. incompatibility after a coordinate definition or adapter revision changes
+7. descriptor conformance and protocol compatibility
+8. installation and execution outside a repository checkout
+9. deterministic structured output and nonzero error propagation
 
 ## Promotion policy
 

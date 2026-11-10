@@ -62,9 +62,13 @@ def main() -> int:
         }
         Draft202012Validator(profile_schema, registry=registry).validate(profile)
 
+    adapter_descriptor = load(ROOT / "examples/adapters/demo.descriptor.json")
+    adapter_schema = load(ROOT / "schemas/adapters/adapter-descriptor.v1.schema.json")
+    Draft202012Validator(adapter_schema, registry=registry).validate(adapter_descriptor)
+
     print(
         f"validated {len(schema_paths)} schemas, the environment-processing fixture, "
-        f"and {len(profile_inputs)} cross-domain profile fixtures"
+        f"{len(profile_inputs)} cross-domain profile fixtures, and the adapter descriptor"
     )
     return 0
 

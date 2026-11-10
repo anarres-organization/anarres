@@ -9,6 +9,14 @@ ROOT = Path(__file__).resolve().parents[3]
 
 
 class FinanceCliTest(unittest.TestCase):
+    def test_adapter_descriptor_is_stable_and_side_effect_free(self) -> None:
+        descriptor = cli.adapter_descriptor()
+        self.assertEqual(descriptor["schema_version"], "anarres.adapter-descriptor.v1")
+        self.assertEqual(descriptor["name"], "finance")
+        self.assertEqual(descriptor["protocol_version"], 1)
+        self.assertEqual(descriptor["executable"], "anarres-finance")
+        self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
+
     def test_status_reports_released_capabilities(self) -> None:
         result = cli.command_status(type("Args", (), {"repository": ROOT})())
         self.assertEqual(result["domain"], "agentic-finance")

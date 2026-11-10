@@ -38,6 +38,32 @@ fn run(arguments: &[&str]) -> Output {
         .expect("CLI process starts")
 }
 
+fn run_with_path(arguments: &[&str], path: &Path) -> Output {
+    Command::new(binary())
+        .args(arguments)
+        .env("PATH", path)
+        .output()
+        .expect("CLI process starts")
+}
+
+#[cfg(unix)]
+fn write_fake_adapter(directory: &Path, name: &str, version: &str) -> PathBuf {
+    use std::os::unix::fs::PermissionsExt;
+
+    let path = directory.join(format!("anarres-{name}"));
+    let descriptor = format!(
+        r#"{{"schema_version":"anarres.adapter-descriptor.v1","name":"{name}","version":"{version}","protocol_version":1,"domain":"test-{name}","executable":"anarres-{name}","profile_schema_versions":["anarres.environment-profile-input.v1"],"capabilities":["profile","verify"],"measurement_contracts":["test.{name}.v1"]}}"#
+    );
+    let script = format!(
+        "#!/bin/sh\nif [ \"$1\" = \"--anarres-adapter-descriptor\" ]; then\n  printf '%s\\n' '{descriptor}'\n  exit 0\nfi\nprintf '%s\\n' \"$@\"\nif [ \"$1\" = \"fail\" ]; then exit 23; fi\n"
+    );
+    fs::write(&path, script).expect("fake adapter is written");
+    let mut permissions = fs::metadata(&path).unwrap().permissions();
+    permissions.set_mode(0o755);
+    fs::set_permissions(&path, permissions).unwrap();
+    path
+}
+
 fn write_probe_variant(path: &Path, environment_id: &str) {
     let mut probe: Value = serde_json::from_slice(&fs::read(fixture()).expect("fixture is read"))
         .expect("fixture is JSON");
@@ -392,22 +418,194 @@ fn unknown_schema_is_reported_as_unsupported() {
     fs::remove_dir_all(directory).expect("temporary directory is removed");
 }
 
+#[cfg(unix)]
 #[test]
-fn finance_status_runs_the_domain_adapter() {
-    let output = run(&["finance", "status", "--json"]);
+fn adapter_list_and_doctor_use_the_versioned_descriptor() {
+    let directory = temporary_directory();
+    write_fake_adapter(&directory, "finance", "0.1.0");
+
+    let listed = run_with_path(&["adapter", "list", "--json"], &directory);
+    assert!(
+        listed.status.success(),
+        "{}",
+        String::from_utf8_lossy(&listed.stderr)
+    );
+    let list: Value = serde_json::from_slice(&listed.stdout).expect("list is JSON");
+    assert_eq!(list["schema_version"], "anarres.adapter-list.v1");
+    assert_eq!(list["adapters"][0]["name"], "finance");
+
+    let checked = run_with_path(&["adapter", "doctor", "finance", "--json"], &directory);
+    assert!(
+        checked.status.success(),
+        "{}",
+        String::from_utf8_lossy(&checked.stderr)
+    );
+    let doctor: Value = serde_json::from_slice(&checked.stdout).expect("doctor is JSON");
+    assert_eq!(doctor["schema_version"], "anarres.adapter-doctor.v1");
+    assert_eq!(doctor["valid"], true);
+    assert_eq!(doctor["descriptor"]["domain"], "test-finance");
+
+    fs::remove_dir_all(directory).unwrap();
+}
+
+#[cfg(unix)]
+#[test]
+fn direct_and_explicit_adapter_invocation_forward_arguments() {
+    let directory = temporary_directory();
+    write_fake_adapter(&directory, "finance", "0.1.0");
+
+    let direct = run_with_path(&["finance", "status", "--json"], &directory);
+    assert!(
+        direct.status.success(),
+        "{}",
+        String::from_utf8_lossy(&direct.stderr)
+    );
+    assert_eq!(String::from_utf8_lossy(&direct.stdout), "status\n--json\n");
+
+    let explicit = run_with_path(
+        &["adapter", "run", "finance", "--", "profile", "--json"],
+        &directory,
+    );
+    assert!(explicit.status.success());
+    assert_eq!(
+        String::from_utf8_lossy(&explicit.stdout),
+        "profile\n--json\n"
+    );
+
+    let help = run_with_path(&["finance", "--help"], &directory);
+    assert!(help.status.success());
+    assert_eq!(String::from_utf8_lossy(&help.stdout), "--help\n");
+
+    fs::remove_dir_all(directory).unwrap();
+}
+
+#[cfg(unix)]
+#[test]
+fn adapter_exit_codes_and_literal_arguments_are_preserved() {
+    let directory = temporary_directory();
+    write_fake_adapter(&directory, "finance", "0.1.0");
+    let marker = directory.join("must-not-exist");
+    let payload = format!("$(touch {})", marker.display());
+
+    let literal = run_with_path(&["finance", &payload], &directory);
+    assert!(literal.status.success());
+    assert_eq!(
+        String::from_utf8_lossy(&literal.stdout),
+        format!("{payload}\n")
+    );
+    assert!(!marker.exists());
+
+    let failed = run_with_path(&["finance", "fail"], &directory);
+    assert_eq!(failed.status.code(), Some(23));
+
+    fs::remove_dir_all(directory).unwrap();
+}
+
+#[cfg(unix)]
+#[test]
+fn invalid_missing_and_incompatible_adapters_fail_cleanly() {
+    let directory = temporary_directory();
+    let missing = run_with_path(&["adapter", "doctor", "missing", "--json"], &directory);
+    assert_eq!(missing.status.code(), Some(1));
+    let report: Value = serde_json::from_slice(&missing.stdout).expect("failure is JSON");
+    assert_eq!(report["valid"], false);
+
+    let invalid = run_with_path(&["../finance", "status"], &directory);
+    assert_eq!(invalid.status.code(), Some(1));
+    assert!(String::from_utf8_lossy(&invalid.stderr).contains("invalid adapter name"));
+
+    let path = write_fake_adapter(&directory, "future", "0.1.0");
+    let body = fs::read_to_string(&path)
+        .unwrap()
+        .replace("\"protocol_version\":1", "\"protocol_version\":99");
+    fs::write(&path, body).unwrap();
+    let incompatible = run_with_path(&["adapter", "doctor", "future", "--json"], &directory);
+    assert_eq!(incompatible.status.code(), Some(1));
+    let report: Value = serde_json::from_slice(&incompatible.stdout).expect("failure is JSON");
+    assert!(
+        report["errors"][0]
+            .as_str()
+            .unwrap()
+            .contains("protocol 99")
+    );
+
+    fs::remove_dir_all(directory).unwrap();
+}
+
+#[cfg(unix)]
+#[test]
+fn malformed_descriptors_fail_before_the_adapter_workflow_runs() {
+    use std::os::unix::fs::PermissionsExt;
+
+    let directory = temporary_directory();
+    let path = directory.join("anarres-broken");
+    fs::write(
+        &path,
+        "#!/bin/sh\nif [ \"$1\" = \"--anarres-adapter-descriptor\" ]; then printf 'not-json\\n'; exit 0; fi\ntouch workflow-ran\n",
+    )
+    .unwrap();
+    let mut permissions = fs::metadata(&path).unwrap().permissions();
+    permissions.set_mode(0o755);
+    fs::set_permissions(&path, permissions).unwrap();
+
+    let output = run_with_path(&["broken", "profile"], &directory);
+    assert_eq!(output.status.code(), Some(1));
+    assert!(String::from_utf8_lossy(&output.stderr).contains("invalid descriptor JSON"));
+    assert!(!directory.join("workflow-ran").exists());
+
+    fs::remove_dir_all(directory).unwrap();
+}
+
+#[cfg(unix)]
+#[test]
+fn built_in_commands_take_precedence_over_adapter_names() {
+    let directory = temporary_directory();
+    write_fake_adapter(&directory, "validate", "0.1.0");
+
+    let output = run_with_path(
+        &["validate", fixture().to_str().unwrap(), "--json"],
+        &directory,
+    );
     assert!(
         output.status.success(),
         "{}",
         String::from_utf8_lossy(&output.stderr)
     );
-    let report: Value = serde_json::from_slice(&output.stdout).expect("stdout is JSON");
-    assert_eq!(report["domain"], "agentic-finance");
-    assert_eq!(report["prospective_environment_outcome_opened"], false);
-    assert!(
-        report["capabilities"]
-            .as_array()
+    let report: Value = serde_json::from_slice(&output.stdout).expect("built-in output is JSON");
+    assert_eq!(report["valid"], true);
+
+    fs::remove_dir_all(directory).unwrap();
+}
+
+#[cfg(unix)]
+#[test]
+fn adapter_list_reports_shadowed_executables_in_path_order() {
+    let root = temporary_directory();
+    let first = root.join("first");
+    let second = root.join("second");
+    fs::create_dir_all(&first).unwrap();
+    fs::create_dir_all(&second).unwrap();
+    let selected = write_fake_adapter(&first, "finance", "0.1.0");
+    let shadowed = write_fake_adapter(&second, "finance", "0.2.0");
+    let path = std::env::join_paths([&first, &second]).unwrap();
+
+    let listed = run_with_path(&["adapter", "list", "--json"], Path::new(&path));
+    assert!(listed.status.success());
+    let report: Value = serde_json::from_slice(&listed.stdout).expect("list is JSON");
+    assert_eq!(
+        report["adapters"][0]["path"],
+        fs::canonicalize(selected)
             .unwrap()
-            .iter()
-            .any(|capability| capability == "retrospective_reproduction")
+            .to_string_lossy()
+            .as_ref()
     );
+    assert_eq!(
+        report["adapters"][0]["shadowed_paths"][0],
+        fs::canonicalize(shadowed)
+            .unwrap()
+            .to_string_lossy()
+            .as_ref()
+    );
+
+    fs::remove_dir_all(root).unwrap();
 }

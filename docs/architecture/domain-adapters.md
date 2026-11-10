@@ -42,11 +42,23 @@ Warnings remain visible without changing the underlying measurement. Adapters
 must never convert a runtime failure, missing label, or invalid verifier result
 into an ordinary unsuccessful outcome.
 
-The core protocol is a JSON file, not a dynamically loaded plugin. This keeps
-the native binary small, allows adapters to use the best language and libraries
-for their domain, and provides a stable boundary for containers and workflow
-systems. A plugin discovery mechanism can be added later if multiple maintained
-adapters require it.
+The scientific protocol is a JSON record, and the runtime boundary is a
+standalone executable rather than a dynamically loaded library. Installed
+adapters use the name `anarres-<name>` and publish a side-effect-free versioned
+descriptor. This keeps the native binary small, allows adapters to use the best
+language and libraries for their domain, and provides a stable boundary for
+containers and workflow systems.
+
+```bash
+anarres adapter list
+anarres adapter doctor robotics
+anarres adapter run robotics -- profile --output-dir profiles
+```
+
+The shorter `anarres robotics ...` form uses the same generic discovery path.
+The CLI resolves an exact executable on `PATH`, validates its descriptor, and
+forwards arguments without a shell. It does not download adapters or search a
+repository checkout implicitly.
 
 Adding a domain measurement does not require changing the Rust binary. An
 adapter publishes a measurement convention, emits the coordinate with that
@@ -105,6 +117,8 @@ Synthetic cross-domain fixtures live in
 [`examples/environment-profiles`](../../examples/environment-profiles/README.md).
 The [adapter authoring guide](adapter-authoring.md) documents the Python
 construction interface, conformance workflow, and promotion policy.
+The [external adapter RFC](../rfcs/0003-external-adapter-protocol.md) defines
+discovery, compatibility, and execution.
 The [scientific preservation guide](scientific-preservation.md) explains how
 profiles relate to the legal and robotics releases.
 
