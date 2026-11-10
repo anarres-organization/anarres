@@ -27,7 +27,7 @@ anarres-environments = { workspace = true }
 anarres-evaluation = { workspace = true }
 anarres-finance = { workspace = true }
 anarres-legal = { workspace = true }
-anarres-materials-adapter = { workspace = true }
+anarres-materials = { workspace = true }
 anarres-robotics = { workspace = true }
 
 [tool.ruff]
