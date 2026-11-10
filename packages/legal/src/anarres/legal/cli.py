@@ -12,6 +12,8 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
+from anarres.core import consume_adapter_invocation
+
 
 class LegalCliError(ValueError):
     """Raised when released legal evidence cannot support a command."""
@@ -24,7 +26,7 @@ def adapter_descriptor() -> dict[str, Any]:
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "legal",
         "version": "0.2.0",
-        "protocol_version": 1,
+        "protocol_version": 2,
         "domain": "legal-procedural-reasoning",
         "executable": "anarres-legal",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
@@ -327,11 +329,13 @@ def parser() -> argparse.ArgumentParser:
 
 
 def main() -> None:
-    if sys.argv[1:] == ["--anarres-adapter-descriptor"]:
+    raw_arguments = sys.argv[1:]
+    if raw_arguments == ["--anarres-adapter-descriptor"]:
         print(json.dumps(adapter_descriptor(), indent=2, sort_keys=True))
         return
-    arguments = parser().parse_args()
     try:
+        raw_arguments = consume_adapter_invocation(raw_arguments, expected_name="legal")
+        arguments = parser().parse_args(raw_arguments)
         output = arguments.handler(arguments)
         print_result(output, arguments.json)
     except FileExistsError as error:

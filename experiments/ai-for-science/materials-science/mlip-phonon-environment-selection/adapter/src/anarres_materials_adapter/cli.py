@@ -12,6 +12,8 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
+from anarres.core import consume_adapter_invocation
+
 
 class MaterialsCliError(ValueError):
     """Raised when the released materials adapter cannot run."""
@@ -24,7 +26,7 @@ def adapter_descriptor() -> dict[str, Any]:
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "materials",
         "version": "0.5.0",
-        "protocol_version": 1,
+        "protocol_version": 2,
         "domain": "materials-interatomic-potentials",
         "executable": "anarres-materials",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
@@ -131,9 +133,17 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     training_result = exporter.read_object(training_qualification_result_path(repository))
     starting_targets = exporter.read_object(starting_targets_path(repository))
     final_contract = exporter.read_object(final_training_contract_path(repository))
-    target_features = exporter.read_object(target_regression_features_path(repository))
     modeling_protocol = exporter.read_object(development_modeling_protocol_path(repository))
     authorization = exporter.read_object(prospective_authorization_path(repository))
+    target_features_file = target_regression_features_path(repository)
+    expected_target_features = modeling_protocol.get("inputs", {}).get(
+        "target_regression_features_sha256"
+    )
+    modeling_protocol_frozen = (
+        modeling_protocol.get("status") == "frozen_before_development_outcome_analysis"
+    )
+    target_features_bound = expected_target_features == sha256(target_features_file)
+    target_features_frozen = modeling_protocol_frozen and target_features_bound
     candidates = bank.get("candidates")
     if not isinstance(candidates, list):
         raise MaterialsCliError("candidate panel has no candidate list")
@@ -163,10 +173,8 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "starting_target_features_complete": starting_targets.get("status")
         == "complete_before_candidate_training",
         "final_training_contract_status": final_contract.get("status"),
-        "target_regression_features_frozen": target_features.get("status")
-        == "frozen_before_development_outcome_analysis",
-        "development_modeling_protocol_frozen": modeling_protocol.get("status")
-        == "frozen_before_development_outcome_analysis",
+        "target_regression_features_frozen": target_features_frozen,
+        "development_modeling_protocol_frozen": modeling_protocol_frozen,
         "prospective_predictions_frozen": authorization.get("status")
         == "prospective_predictions_frozen",
         "predictive_evidence_available": False,
@@ -466,11 +474,13 @@ def print_result(value: dict[str, Any], as_json: bool) -> None:
 
 
 def main() -> None:
-    if sys.argv[1:] == ["--anarres-adapter-descriptor"]:
+    raw_arguments = sys.argv[1:]
+    if raw_arguments == ["--anarres-adapter-descriptor"]:
         print(json.dumps(adapter_descriptor(), indent=2, sort_keys=True))
         return
-    arguments = parser().parse_args()
     try:
+        raw_arguments = consume_adapter_invocation(raw_arguments, expected_name="materials")
+        arguments = parser().parse_args(raw_arguments)
         output = arguments.handler(arguments)
         print_result(output, arguments.json)
     except FileExistsError as error:

@@ -147,11 +147,12 @@ anarres finance status --json
 
 `adapter list` reports the executable selected for each name and any shadowed
 copies later on `PATH`. `adapter doctor` validates the adapter's versioned
-descriptor without opening study artifacts. `adapter run` validates that
-descriptor and forwards arguments literally without a shell. Built-in commands
-always take precedence over adapter names. Descriptor queries must finish in
-five seconds and stay below 256 KiB of output, preventing a faulty adapter from
-blocking CLI discovery.
+descriptor without opening study artifacts. `adapter run` launches the adapter
+once with a versioned runtime handshake and forwards domain arguments literally
+without a shell. The adapter validates the protocol and identity before opening
+study artifacts. Built-in commands always take precedence over adapter names.
+Descriptor queries must finish in five seconds and stay below 256 KiB of output,
+preventing a faulty adapter from blocking installation audits.
 
 The CLI does not download adapters, search a repository checkout, or import an
 adapter's libraries. The [adapter installation guide](adapters.md) gives the
