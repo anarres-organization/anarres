@@ -7,6 +7,7 @@ import argparse
 import json
 import os
 import platform
+import shutil
 import statistics
 import subprocess
 import tempfile
@@ -108,6 +109,20 @@ def main() -> int:
         ],
     }
     for adapter in ADAPTERS:
+        executable = shutil.which(f"anarres-{adapter}")
+        if executable is None:
+            parser.error(f"adapter executable not found on PATH: anarres-{adapter}")
+        scenarios[f"adapter.descriptor.{adapter}"] = [
+            executable,
+            "--anarres-adapter-descriptor",
+        ]
+        scenarios[f"adapter.direct_status.{adapter}"] = [
+            executable,
+            "status",
+            "--repository",
+            str(repository),
+            "--json",
+        ]
         scenarios[f"adapter.status.{adapter}"] = [
             str(binary),
             adapter,
@@ -166,6 +181,16 @@ def main() -> int:
             "samples": arguments.samples,
         },
         "metrics": metrics,
+        "derived": {
+            "adapter_dispatch_overhead_median_ms": {
+                adapter: round(
+                    metrics[f"adapter.status.{adapter}"]["median_ms"]
+                    - metrics[f"adapter.direct_status.{adapter}"]["median_ms"],
+                    3,
+                )
+                for adapter in ADAPTERS
+            }
+        },
         "violations": violations,
     }
     rendered = json.dumps(report, indent=2, sort_keys=True) + "\n"

@@ -2,8 +2,10 @@
 
 Anarres measures the paths users invoke rather than isolated implementation
 details. The performance suite covers native startup, qualification and
-validation, adapter discovery, protocol inspection, and status commands for all
-maintained domain adapters.
+validation, adapter discovery, protocol inspection, descriptor startup, direct
+adapter execution, and Rust-dispatched status commands for all maintained
+domain adapters. The report derives the median dispatch overhead from the direct
+and routed measurements.
 
 Run the suite against a release build:
 

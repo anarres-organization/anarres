@@ -49,6 +49,15 @@ jobs:
                   f"≤ {guard['maximum_ms']:.1f} ms |"
               )
           print()
+          print("### Adapter dispatch overhead")
+          print()
+          print("| Adapter | Median overhead (ms) |")
+          print("|---|---:|")
+          for name, value in report["derived"][
+              "adapter_dispatch_overhead_median_ms"
+          ].items():
+              print(f"| `{name}` | {value:.3f} |")
+          print()
           print(f"Binary size: {report['binary']['size_bytes']:,} bytes")
           PY
       - uses: actions/upload-artifact@v7
