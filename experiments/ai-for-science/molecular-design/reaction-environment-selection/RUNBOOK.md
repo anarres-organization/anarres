@@ -204,6 +204,10 @@ gate before accepting the construction-view memberships.
 Freeze the training and evaluation contracts before launching any development
 arm.
 
+`DEVELOPMENT_BANK_QUALIFICATION_V1.json` records the passing gate and the
+accepted construction-view memberships. Do not regenerate those memberships
+for development training.
+
 ## 7. Freeze the prospective decision
 
 After all development arms are complete and scored, fit the operational and
