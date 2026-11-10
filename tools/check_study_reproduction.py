@@ -59,9 +59,13 @@ CHECKS = (
         "test_reproduce.py",
     ),
     python_check(
-        "robotics Square measurement freeze",
+        "robotics Square prospective contract",
         "experiments/robotics/environment-selection/prospective-square-regression-v1",
-        "test_freeze.py",
+        "-m",
+        "unittest",
+        "discover",
+        "-p",
+        "test_*.py",
     ),
     python_check(
         "legal prospective SylloGym",
