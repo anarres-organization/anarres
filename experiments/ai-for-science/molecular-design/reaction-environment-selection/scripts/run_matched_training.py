@@ -46,6 +46,99 @@ def validate_replay_artifact(artifact: dict[str, Any], contract: dict[str, Any],
     expected_qualification = contract["inputs"]["bank_qualification"]["sha256"]
     if artifact.get("source", {}).get("qualification_sha256") != expected_qualification:
         raise ValueError("replay artifact is not derived from the frozen qualification")
+    items = artifact.get("items")
+    if not isinstance(items, list) or len(items) != artifact["item_count"]:
+        raise ValueError("replay artifact item payload is incomplete")
+    if canonical_json_sha256(items) != artifact.get("items_sha256"):
+        raise ValueError("replay artifact item hash does not match its payload")
+
+
+def validate_prepared_target(prepared_target: Path) -> dict[str, str]:
+    manifest_path = prepared_target / "target_manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    receptor = prepared_target / manifest["receptor_pdbqt"]
+    reference = prepared_target / manifest["reference_ligand"]
+    receptor_sha256 = sha256_file(receptor)
+    reference_sha256 = sha256_file(reference)
+    if receptor_sha256 != manifest["fixture_sha256"]["prepared_receptor"]:
+        raise ValueError("prepared receptor hash does not match the target manifest")
+    if reference_sha256 != manifest["fixture_sha256"]["reference_ligand"]:
+        raise ValueError("reference ligand hash does not match the target manifest")
+    return {
+        "manifest_sha256": sha256_file(manifest_path),
+        "prepared_receptor_sha256": receptor_sha256,
+        "reference_ligand_sha256": reference_sha256,
+    }
+
+
+def preflight_inputs(
+    *,
+    contract_path: Path,
+    config_path: Path,
+    env_dir: Path,
+    warm_start: Path,
+    replay_bank: Path,
+    prepared_target: Path,
+    arm: str,
+    seed: int,
+    retrosynthesis_workers: int,
+    reward_workers: int,
+) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    if contract_path.resolve() != DEFAULT_CONTRACT.resolve():
+        raise ValueError("claim-bearing runs require the released matched contract")
+    verification = verify_matched_contract()
+    contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    validate_arm_and_seed(contract, arm, seed)
+
+    config_sha256 = sha256_file(config_path)
+    if config_sha256 != contract["inputs"]["training_config"]["sha256"]:
+        raise ValueError("training configuration differs from the frozen contract")
+    warm_start_sha256 = sha256_file(warm_start)
+    if warm_start_sha256 != contract["starting_policy"]["weights_only_sha256"]:
+        raise ValueError("warm-start weights differ from the frozen starting policy")
+    artifact = json.loads(replay_bank.read_text(encoding="utf-8"))
+    validate_replay_artifact(artifact, contract, arm)
+    if reward_workers < 1 or retrosynthesis_workers < 0:
+        raise ValueError("worker counts are invalid")
+    if not env_dir.is_dir():
+        raise ValueError("reaction environment directory does not exist")
+    target_identity = validate_prepared_target(prepared_target)
+    result = {
+        "schema_version": "1.0",
+        "study": contract["study"],
+        "contract": contract["contract"],
+        "status": "ready",
+        "claim_boundary": (
+            "This preflight verifies frozen inputs for one matched development trajectory. "
+            "It does not run training or inspect endpoint outcomes."
+        ),
+        "arm": arm,
+        "seed": seed,
+        "workers": {
+            "retrosynthesis": retrosynthesis_workers,
+            "reward": reward_workers,
+        },
+        "checks": {
+            "contract_verified": verification["status"] == "verified",
+            "arm_and_seed_frozen": True,
+            "training_configuration_frozen": True,
+            "warm_start_frozen": True,
+            "replay_bank_frozen": True,
+            "prepared_target_verified": True,
+            "reaction_environment_present": True,
+        },
+        "artifact_sha256": {
+            "contract": sha256_file(contract_path),
+            "configuration": config_sha256,
+            "warm_start": warm_start_sha256,
+            "replay_bank": sha256_file(replay_bank),
+            "replay_items": artifact["items_sha256"],
+            "prepared_target": target_identity,
+        },
+    }
+    if not all(result["checks"].values()):
+        raise RuntimeError(f"matched training preflight failed: {result['checks']}")
+    return contract, artifact, result
 
 
 def configure(config_path: Path, env_dir: Path) -> Any:
@@ -79,21 +172,18 @@ def run_training(
     from rxnflow.trainer import RxnFlowTrainer
     from rxnflow_target_reward import MolecularTargetReward
 
-    if contract_path.resolve() != DEFAULT_CONTRACT.resolve():
-        raise ValueError("claim-bearing runs require the released matched contract")
-    verification = verify_matched_contract()
-    contract = json.loads(contract_path.read_text(encoding="utf-8"))
-    validate_arm_and_seed(contract, arm, seed)
-
-    config_reference = contract["inputs"]["training_config"]
-    if sha256_file(config_path) != config_reference["sha256"]:
-        raise ValueError("training configuration differs from the frozen contract")
-    if sha256_file(warm_start) != contract["starting_policy"]["weights_only_sha256"]:
-        raise ValueError("warm-start weights differ from the frozen starting policy")
-    artifact = json.loads(replay_bank.read_text(encoding="utf-8"))
-    validate_replay_artifact(artifact, contract, arm)
-    if reward_workers < 1 or retrosynthesis_workers < 0:
-        raise ValueError("worker counts are invalid")
+    contract, artifact, preflight = preflight_inputs(
+        contract_path=contract_path,
+        config_path=config_path,
+        env_dir=env_dir,
+        warm_start=warm_start,
+        replay_bank=replay_bank,
+        prepared_target=prepared_target,
+        arm=arm,
+        seed=seed,
+        retrosynthesis_workers=retrosynthesis_workers,
+        reward_workers=reward_workers,
+    )
 
     config = configure(config_path, env_dir)
     training = contract["training"]
@@ -151,7 +241,7 @@ def run_training(
         str(step): output_dir / "checkpoints" / f"step_{step:06d}.ckpt" for step in required_steps
     }
     checks = {
-        "contract_verified": verification["status"] == "verified",
+        "contract_verified": preflight["checks"]["contract_verified"],
         "completed_frozen_updates": trainer.step == maximum_updates,
         "training_records_complete": count_jsonl(log_path) == expected_updates,
         "online_samples_complete": count_jsonl(sample_path)
@@ -244,11 +334,27 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--retrosynthesis-workers", type=int, default=4)
     parser.add_argument("--reward-workers", type=int, default=16)
     parser.add_argument("--resume-from", type=Path)
+    parser.add_argument("--preflight-only", action="store_true")
     return parser
 
 
 def main() -> None:
     args = build_parser().parse_args()
+    if args.preflight_only:
+        _, _, result = preflight_inputs(
+            contract_path=args.contract,
+            config_path=args.config,
+            env_dir=args.env_dir,
+            warm_start=args.warm_start,
+            replay_bank=args.replay_bank,
+            prepared_target=args.prepared_target,
+            arm=args.arm,
+            seed=args.seed,
+            retrosynthesis_workers=args.retrosynthesis_workers,
+            reward_workers=args.reward_workers,
+        )
+        print(json.dumps(result, indent=2, sort_keys=True))
+        return
     manifest = run_training(
         contract_path=args.contract,
         config_path=args.config,

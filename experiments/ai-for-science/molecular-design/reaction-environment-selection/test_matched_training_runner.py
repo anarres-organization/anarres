@@ -35,12 +35,51 @@ def test_unfrozen_arm_or_seed_is_rejected(arm: str, seed: int) -> None:
 
 def test_replay_artifact_must_bind_frozen_qualification() -> None:
     frozen = contract()
+    items = [{"x": 1}, {"x": 2}]
     artifact = {
         "bank": "hash_uniform",
-        "item_count": 512,
+        "item_count": len(items),
+        "items": items,
+        "items_sha256": MODULE.canonical_json_sha256(items),
         "source": {"qualification_sha256": frozen["inputs"]["bank_qualification"]["sha256"]},
     }
+    frozen["development_panel"]["bank_size"] = len(items)
     MODULE.validate_replay_artifact(artifact, frozen, "hash_uniform")
     artifact["source"]["qualification_sha256"] = "0" * 64
     with pytest.raises(ValueError, match="frozen qualification"):
         MODULE.validate_replay_artifact(artifact, frozen, "hash_uniform")
+
+
+def test_replay_artifact_payload_hash_is_verified() -> None:
+    frozen = contract()
+    frozen["development_panel"]["bank_size"] = 1
+    artifact = {
+        "bank": "hash_uniform",
+        "item_count": 1,
+        "items": [{"x": 1}],
+        "items_sha256": "0" * 64,
+        "source": {"qualification_sha256": frozen["inputs"]["bank_qualification"]["sha256"]},
+    }
+    with pytest.raises(ValueError, match="item hash"):
+        MODULE.validate_replay_artifact(artifact, frozen, "hash_uniform")
+
+
+def test_prepared_target_hashes_are_verified(tmp_path: Path) -> None:
+    receptor = tmp_path / "receptor.pdbqt"
+    reference = tmp_path / "reference_ligand.sdf"
+    receptor.write_text("receptor\n")
+    reference.write_text("reference\n")
+    manifest = {
+        "receptor_pdbqt": receptor.name,
+        "reference_ligand": reference.name,
+        "fixture_sha256": {
+            "prepared_receptor": MODULE.sha256_file(receptor),
+            "reference_ligand": MODULE.sha256_file(reference),
+        },
+    }
+    (tmp_path / "target_manifest.json").write_text(json.dumps(manifest))
+    identity = MODULE.validate_prepared_target(tmp_path)
+    assert identity["prepared_receptor_sha256"] == MODULE.sha256_file(receptor)
+    receptor.write_text("changed\n")
+    with pytest.raises(ValueError, match="prepared receptor hash"):
+        MODULE.validate_prepared_target(tmp_path)

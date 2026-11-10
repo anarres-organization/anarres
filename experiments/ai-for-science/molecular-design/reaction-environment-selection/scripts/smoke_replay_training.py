@@ -109,7 +109,10 @@ def run_smoke(
         ),
         "status": "pass" if all(checks.values()) else "fail",
         "claim_boundary": (
-            "This reduced smoke qualifies the replay-training interface. It is not "
+            "This one-update smoke qualifies the frozen batch and replay-training "
+            "interface. It is not a target-training outcome or evidence of bank utility."
+            if full_batch
+            else "This reduced smoke qualifies the replay-training interface. It is not "
             "a target-training outcome or evidence of bank utility."
         ),
         "seed": seed,
