@@ -9,7 +9,6 @@ import json
 import math
 from pathlib import Path
 
-
 HERE = Path(__file__).resolve().parent
 DEFAULT_PANEL = HERE / "FINAL_COST_MATCHED_PANEL.json"
 DEFAULT_ROLES = HERE / "TARGET_ROLES.json"
@@ -41,9 +40,7 @@ def build_protocol(panel_path: Path, roles_path: Path) -> dict:
         "effective_signal_coverage": [
             candidate["effective_signal_coverage"] for candidate in candidates
         ],
-        "mean_target_affinity": [
-            candidate["mean_target_affinity"] for candidate in candidates
-        ],
+        "mean_target_affinity": [candidate["mean_target_affinity"] for candidate in candidates],
     }
     standardized = {name: zscores(values) for name, values in coordinates.items()}
 
@@ -55,9 +52,7 @@ def build_protocol(panel_path: Path, roles_path: Path) -> dict:
                 "candidate_id": candidate["candidate_id"],
                 "role": candidate["role"],
                 "score": score,
-                "coordinates": {
-                    name: coordinates[name][index] for name in coordinates
-                },
+                "coordinates": {name: coordinates[name][index] for name in coordinates},
                 "standardized_coordinates": {
                     name: standardized[name][index] for name in standardized
                 },

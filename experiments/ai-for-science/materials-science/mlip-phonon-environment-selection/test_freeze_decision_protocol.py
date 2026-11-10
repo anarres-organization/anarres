@@ -2,14 +2,11 @@ from pathlib import Path
 
 from freeze_decision_protocol import build_protocol
 
-
 HERE = Path(__file__).resolve().parent
 
 
 def test_protocol_freezes_selection_and_regression_without_outcomes():
-    protocol = build_protocol(
-        HERE / "FINAL_COST_MATCHED_PANEL.json", HERE / "TARGET_ROLES.json"
-    )
+    protocol = build_protocol(HERE / "FINAL_COST_MATCHED_PANEL.json", HERE / "TARGET_ROLES.json")
 
     assert protocol["status"] == "frozen_before_candidate_training_outcomes"
     assert protocol["outcome_boundary"] == {
@@ -36,10 +33,6 @@ def test_protocol_freezes_selection_and_regression_without_outcomes():
 
 
 def test_protocol_is_deterministic():
-    first = build_protocol(
-        HERE / "FINAL_COST_MATCHED_PANEL.json", HERE / "TARGET_ROLES.json"
-    )
-    second = build_protocol(
-        HERE / "FINAL_COST_MATCHED_PANEL.json", HERE / "TARGET_ROLES.json"
-    )
+    first = build_protocol(HERE / "FINAL_COST_MATCHED_PANEL.json", HERE / "TARGET_ROLES.json")
+    second = build_protocol(HERE / "FINAL_COST_MATCHED_PANEL.json", HERE / "TARGET_ROLES.json")
     assert first == second

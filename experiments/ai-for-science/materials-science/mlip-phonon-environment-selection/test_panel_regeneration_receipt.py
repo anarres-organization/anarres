@@ -2,7 +2,6 @@ import hashlib
 import json
 from pathlib import Path
 
-
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[3]
 
@@ -21,21 +20,19 @@ def test_regeneration_receipt_matches_released_artifacts():
     assert receipt["regeneration_result"]["sha256"] == sha256(panel_path)
     assert receipt["regeneration_result"]["byte_identical_to_original"] is True
 
-    canonical_inputs = json.dumps(
-        panel["inputs"], sort_keys=True, separators=(",", ":")
-    ).encode()
-    assert hashlib.sha256(canonical_inputs).hexdigest() == receipt["input_identity"][
-        "canonical_json_sha256"
-    ]
-    assert panel["inputs"]["manifest_sha256"] == receipt["input_identity"][
-        "manifest_sha256"
-    ]
-    assert len(panel["inputs"]["measurement_sha256"]) == receipt["input_identity"][
-        "measurement_shards"
-    ]
-    assert len(panel["inputs"]["target_yaml_sha256"]) == receipt["input_identity"][
-        "target_yaml_files"
-    ]
+    canonical_inputs = json.dumps(panel["inputs"], sort_keys=True, separators=(",", ":")).encode()
+    assert (
+        hashlib.sha256(canonical_inputs).hexdigest()
+        == receipt["input_identity"]["canonical_json_sha256"]
+    )
+    assert panel["inputs"]["manifest_sha256"] == receipt["input_identity"]["manifest_sha256"]
+    assert (
+        len(panel["inputs"]["measurement_sha256"])
+        == receipt["input_identity"]["measurement_shards"]
+    )
+    assert (
+        len(panel["inputs"]["target_yaml_sha256"]) == receipt["input_identity"]["target_yaml_files"]
+    )
 
 
 def test_regeneration_receipt_pins_code_and_solver_environment():
@@ -49,12 +46,13 @@ def test_regeneration_receipt_pins_code_and_solver_environment():
     assert locked["platform"] == "macOS-26.4-arm64-arm-64bit"
     assert "multiple" in locked["solver_note"].lower()
 
-    assert sha256(HERE / "construct_cost_matched_panel.py") == code[
-        "construct_cost_matched_panel.py_sha256"
-    ]
-    assert sha256(HERE / "construct_candidate_bank.py") == code[
-        "construct_candidate_bank.py_sha256"
-    ]
+    assert (
+        sha256(HERE / "construct_cost_matched_panel.py")
+        == code["construct_cost_matched_panel.py_sha256"]
+    )
+    assert (
+        sha256(HERE / "construct_candidate_bank.py") == code["construct_candidate_bank.py_sha256"]
+    )
     assert sha256(ROOT / "pyproject.toml") == code["pyproject.toml_sha256"]
     assert sha256(ROOT / "uv.lock") == code["uv.lock_sha256"]
 
