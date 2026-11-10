@@ -363,6 +363,12 @@ clashes, and interactions. It reconstructs the native interaction-weight map
 from the pinned reference fingerprints and verifies every released reference
 score before candidate scoring. The frozen thresholds remain unchanged.
 
+Finally, score the endpoint records with `scripts/score_qualifying_hits.py` and
+apply `scripts/apply_starting_policy_endpoint_gate.py` to the resulting score
+and the frozen starting-policy contract. The compact gate record is the only
+artifact that authorizes matched training. A failed gate remains a scientific
+result and stops the study before training.
+
 ## 9. Freeze the prospective decision
 
 After all development arms are complete and scored, fit the operational and
