@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "source_id": "finlcr_2026",
+  "prediction_basis": [
+    "curriculum progression aligns training difficulty with the policy's changing capability",
+    "difficulty-aware selection concentrates updates on informative examples",
+    "long-context exposure directly matches the target's context requirement",
+    "retention must be evaluated separately from target improvement"
+  ],
+  "component_predictions": [
+    {
+      "prediction_id": "staged_context_aggregate",
+      "preferred": "staged_context_curriculum",
+      "comparison": "same_recipe_without_staged_context",
+      "target": "aggregate_financial_reasoning",
+      "direction": "improve"
+    },
+    {
+      "prediction_id": "difficulty_sampling_aggregate",
+      "preferred": "difficulty_aware_sampling",
+      "comparison": "same_recipe_with_uniform_sampling",
+      "target": "aggregate_financial_reasoning",
+      "direction": "improve"
+    },
+    {
+      "prediction_id": "difficulty_sampling_hard_subset",
+      "preferred": "difficulty_aware_sampling",
+      "comparison": "same_recipe_with_uniform_sampling",
+      "target": "highest_difficulty_subset",
+      "direction": "improve"
+    },
+    {
+      "prediction_id": "staged_context_long_subset",
+      "preferred": "staged_context_curriculum",
+      "comparison": "same_recipe_without_staged_context",
+      "target": "longest_context_subset",
+      "direction": "improve"
+    }
+  ],
+  "regression_prediction": {
+    "prediction_id": "easy_short_retention",
+    "candidate": "full_curriculum",
+    "baseline": "same_model_non_curriculum_training",
+    "target": "shortest_context_or_easiest_subset",
+    "direction": "no_regression"
+  },
+  "abstentions": [
+    "exact effect magnitudes",
+    "unmatched comparisons that change model, data volume, and curriculum together",
+    "cross-model transfer",
+    "comparisons disclosed in the abstract before the freeze"
+  ]
+}
