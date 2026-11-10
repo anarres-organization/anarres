@@ -56,7 +56,7 @@ def inspect_task(
     lab_root: Path,
     path: Path,
     source_revision: str,
-    document_cache: dict[Path, tuple[int, dict[str, int]]],
+    document_cache: dict[Path, tuple[int, dict[str, int], str]],
 ) -> dict[str, Any]:
     task = read_object(path)
     relative = path.relative_to(lab_root / "tasks")
@@ -134,8 +134,16 @@ def inspect_task(
             else []
         )
         extensions = collections.Counter(item.suffix.lower() or "<none>" for item in document_files)
-        document_cache[document_root] = (len(document_files), dict(sorted(extensions.items())))
-    document_count, document_extensions = document_cache[document_root]
+        document_identity = "".join(
+            f"{item.relative_to(document_root).as_posix()}\t{sha256(item)}\n"
+            for item in document_files
+        )
+        document_cache[document_root] = (
+            len(document_files),
+            dict(sorted(extensions.items())),
+            hashlib.sha256(document_identity.encode()).hexdigest(),
+        )
+    document_count, document_extensions, document_set_sha256 = document_cache[document_root]
     unscoped = sorted(set(deliverables) - referenced_deliverables)
     return {
         "schema_version": "anarres.legal-lab-workflow-component.v1",
@@ -159,6 +167,7 @@ def inspect_task(
         "explicit_source_reference_count": len(explicit_sources),
         "document_count": document_count,
         "document_extensions": document_extensions,
+        "document_set_sha256": f"sha256:{document_set_sha256}",
         "multi_artifact": len(deliverables) > 1,
         "unscoped_deliverables": unscoped,
         "source_revision": source_revision,
@@ -171,7 +180,7 @@ def inspect_task(
 def build(lab_root: Path, source_revision: str) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     if not source_revision.strip():
         raise LabIntakeError("source revision must be non-empty")
-    document_cache: dict[Path, tuple[int, dict[str, int]]] = {}
+    document_cache: dict[Path, tuple[int, dict[str, int], str]] = {}
     rows = [
         inspect_task(lab_root, path, source_revision, document_cache)
         for path in task_paths(lab_root)
@@ -184,7 +193,10 @@ def build(lab_root: Path, source_revision: str) -> tuple[dict[str, Any], list[di
     tasks_with_documents = sum(row["document_count"] > 0 for row in rows)
     status = "qualified" if tasks_with_documents == len(rows) else "incomplete_matter_files"
     task_set_digest = hashlib.sha256(
-        "".join(f"{row['task_id']}\t{row['task_spec_sha256']}\n" for row in rows).encode()
+        "".join(
+            (f"{row['task_id']}\t{row['task_spec_sha256']}\t{row['document_set_sha256']}\n")
+            for row in rows
+        ).encode()
     ).hexdigest()
     summary = {
         "schema_version": "anarres.legal-lab-workflow-intake.v1",
@@ -195,6 +207,7 @@ def build(lab_root: Path, source_revision: str) -> tuple[dict[str, Any], list[di
             "revision": source_revision,
             "license": "MIT",
             "task_set_sha256": f"sha256:{task_set_digest}",
+            "identity_includes_matter_documents": True,
         },
         "support": {
             "tasks": len(rows),

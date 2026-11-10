@@ -10,7 +10,7 @@ anarres legal lab-intake \
   --output-dir /path/to/intake
 ```
 
-The command emits a compact summary and one JSONL row per task. It validates the fields needed to define a LAB-shaped target, while preserving fields that must come from later run artifacts or a supplemental legal contract.
+The command emits a compact summary and one JSONL row per task. Its content address covers both task specifications and matter-document bytes. It validates the fields needed to define a LAB-shaped target, while preserving fields that must come from later run artifacts or a supplemental legal contract.
 
 The intake is model agnostic. Model and checkpoint identity enter with the run artifacts, not the target representation. The output is not an environment profile and contains no policy measurement, judge verdict, or downstream outcome. It cannot support a training-utility claim by itself.
 

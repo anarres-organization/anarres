@@ -51,20 +51,28 @@ def optional_manifest(path: Path | None) -> dict[str, dict[str, Any]]:
 
 def dual_score(scores: dict[str, Any]) -> dict[str, Any]:
     judges = scores.get("judges")
-    if not isinstance(judges, list) or not judges:
-        raise LabRunAuditError("scores_dual.json has no judges")
+    if (
+        not isinstance(judges, list)
+        or len(judges) != 2
+        or any(not isinstance(judge, str) or not judge.strip() for judge in judges)
+        or len(set(judges)) != 2
+    ):
+        raise LabRunAuditError("scores_dual.json must identify two distinct judges")
     criterion_pass = scores.get("dual_criterion_pass")
     all_pass_score = scores.get("dual_all_pass_rate")
     if not isinstance(criterion_pass, (int, float)) or not 0 <= criterion_pass <= 1:
         raise LabRunAuditError("scores_dual.json has invalid dual_criterion_pass")
     if not isinstance(all_pass_score, (int, float)) or not 0 <= all_pass_score <= 1:
         raise LabRunAuditError("scores_dual.json has invalid dual_all_pass_rate")
+    strict_all_pass = scores.get("all_pass")
+    if not isinstance(strict_all_pass, bool):
+        raise LabRunAuditError("scores_dual.json has invalid all_pass")
     return {
         "judge_profile": scores.get("judge_profile", "unlabeled-dual"),
         "judges": judges,
         "criterion_pass_rate": float(criterion_pass),
         "all_pass_score": float(all_pass_score),
-        "strict_all_pass": bool(scores.get("all_pass", False)),
+        "strict_all_pass": strict_all_pass,
     }
 
 
@@ -75,9 +83,12 @@ def single_score(scores: dict[str, Any]) -> dict[str, Any]:
         raise LabRunAuditError("scores.json has invalid criterion counts")
     if not 0 <= passed <= total:
         raise LabRunAuditError("scores.json has inconsistent criterion counts")
+    judge = scores.get("judge_model")
+    if not isinstance(judge, str) or not judge.strip():
+        raise LabRunAuditError("scores.json has no judge identity")
     return {
         "judge_profile": "single-judge",
-        "judges": [scores.get("judge_model", "unknown")],
+        "judges": [judge],
         "criterion_pass_rate": passed / total,
         "all_pass_score": float(passed == total),
         "strict_all_pass": passed == total,
@@ -110,16 +121,26 @@ def inspect_run(
     if not metrics_path.is_file():
         invalid_reasons.append("missing_metrics")
     else:
-        metrics = read_object(metrics_path)
-        if metrics.get("finished_cleanly") is False:
-            invalid_reasons.append("run_not_finished_cleanly")
+        try:
+            metrics = read_object(metrics_path)
+        except LabRunAuditError:
+            invalid_reasons.append("invalid_metrics")
+        else:
+            if metrics.get("finished_cleanly") is not True:
+                invalid_reasons.append("run_not_finished_cleanly")
     score_path: Path | None = None
     if dual_path.is_file():
         score_path = dual_path
-        score = dual_score(read_object(dual_path))
+        try:
+            score = dual_score(read_object(dual_path))
+        except LabRunAuditError:
+            invalid_reasons.append("invalid_judge_score")
     elif single_path.is_file():
         score_path = single_path
-        score = single_score(read_object(single_path))
+        try:
+            score = single_score(read_object(single_path))
+        except LabRunAuditError:
+            invalid_reasons.append("invalid_judge_score")
     else:
         invalid_reasons.append("missing_judge_score")
 
