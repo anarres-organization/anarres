@@ -257,9 +257,11 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
             status["final_training_contract_status"],
             "frozen_before_final_candidate_training",
         )
+        self.assertTrue(status["target_regression_features_frozen"])
+        self.assertTrue(status["development_modeling_protocol_frozen"])
         self.assertEqual(
             status["next_gate"],
-            "freeze the final training contract and train development environments",
+            "score development environments and freeze prospective predictions",
         )
 
     def test_adapter_reports_frozen_decision_and_regression_protocol(self) -> None:
@@ -283,6 +285,9 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         self.assertEqual(report["training_qualification"]["selected_learning_rate"], 1e-4)
         self.assertEqual(report["final_training_contract"]["development_environments"], 12)
         self.assertEqual(report["final_training_contract"]["prospective_environments"], 4)
+        self.assertEqual(report["development_modeling"]["target_feature_pairs"], 1200)
+        self.assertEqual(len(report["development_modeling"]["aggregate_predictors"]), 4)
+        self.assertEqual(len(report["development_modeling"]["regression_models"]), 5)
         self.assertTrue(all(value is False for value in report["outcome_boundary"].values()))
 
     def test_adapter_runs_outside_the_repository_and_core_doctor_accepts_it(self) -> None:

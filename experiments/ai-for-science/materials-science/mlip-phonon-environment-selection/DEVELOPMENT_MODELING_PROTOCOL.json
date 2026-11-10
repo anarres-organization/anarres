@@ -1,0 +1,130 @@
+{
+  "artifact": "anarres_mlip_development_modeling_protocol_v1",
+  "status": "frozen_before_development_outcome_analysis",
+  "inputs": {
+    "decision_and_regression_protocol_sha256": "4a9ea7080028c0a3ec45dbd2e4aca9edd0f522c6e8414368d0e3eb1767ca62a9",
+    "final_training_contract_sha256": "dc03758366f0a817143cb57071e6f48da1ea8492698f06f505b1f58268983c0a",
+    "starting_checkpoint_targets_sha256": "1f328306728656ac2e62b95dee1fa8959effb2aeffa0c2ef24929e3bb29b263c",
+    "target_regression_features_sha256": "46d0cfc1cc157c6f55b586e2c6db8fb74138e1bd0a45de84edc5a1c9916faa8d"
+  },
+  "aggregate_utility": {
+    "unit": "environment by pass, averaged across the two frozen training seeds and 25 development targets",
+    "definition": "Starting-checkpoint mean frequency MAE minus trained-checkpoint mean frequency MAE in THz; positive values indicate improvement.",
+    "budget": "completed equal-cost passes over one 50000-atom, 2100000-edge environment",
+    "candidate_predictors": {
+      "signal_density_only": [
+        "log_signal_density"
+      ],
+      "effective_coverage_only": [
+        "effective_signal_coverage"
+      ],
+      "target_affinity_only": [
+        "mean_target_affinity"
+      ],
+      "signal_coverage_affinity": [
+        "log_signal_density",
+        "effective_signal_coverage",
+        "mean_target_affinity"
+      ]
+    },
+    "response_surface": "Four pass-specific intercepts plus s(pass) times standardized environment coordinates, where s(pass)=pass/(pass+1).",
+    "standardization": "Fit mean and population standard deviation inside each training fold.",
+    "cross_validation": "Leave one complete development environment out, preserving both seeds and all checkpoints inside the held-out unit.",
+    "selection_rule": "Select the candidate with the lowest leave-one-environment-out curve RMSE. Break exact ties by higher pairwise rank accuracy, then lower allocation regret, then fewer coordinates.",
+    "metrics": [
+      "curve_rmse_thz",
+      "pairwise_environment_ordering",
+      "best_environment_decision",
+      "allocation_regret_thz"
+    ],
+    "decision_baselines": [
+      "equal_weight_signal_coverage_affinity",
+      "fixed_source_family_selected_inside_each_training_fold",
+      "fixed_selection_rule_selected_inside_each_training_fold",
+      "hash_uniform",
+      "random_choice_expectation"
+    ],
+    "uncertainty": "Calibrate a curve-level empirical envelope from each held-out environment's maximum absolute residual and report observed two-seed differences separately."
+  },
+  "target_regressions": {
+    "primary_label": {
+      "name": "frequency_error_regression",
+      "definition": "The seed-mean commensurate-phonon frequency MAE exceeds 1.05 times the starting-checkpoint MAE for the same material.",
+      "rationale": "The five-percent boundary matches the practical-equivalence band fixed for starting-checkpoint qualification."
+    },
+    "secondary_labels": [
+      {
+        "name": "stability_regression",
+        "definition": "The starting checkpoint classifies dynamical stability correctly and a majority of prespecified training seeds classify it incorrectly."
+      },
+      {
+        "name": "validity_regression",
+        "definition": "The starting checkpoint completes the released phonon workflow and a majority of prespecified training seeds fail it."
+      }
+    ],
+    "checkpoint": "pass 4",
+    "seed_aggregation": "Two-seed mean for frequency error; majority rule for binary stability and validity endpoints.",
+    "candidate_models": {
+      "starting_error_only": [
+        "log_starting_frequency_mae"
+      ],
+      "environment_only": [
+        "log_signal_density",
+        "effective_signal_coverage",
+        "mean_target_affinity"
+      ],
+      "starting_plus_support": [
+        "log_starting_frequency_mae",
+        "starting_predicted_stability_margin_kelvin",
+        "element_distribution_overlap",
+        "record_fraction_containing_all_target_elements",
+        "top_five_percent_element_set_jaccard"
+      ],
+      "full_numeric": [
+        "log_starting_frequency_mae",
+        "starting_predicted_stability_margin_kelvin",
+        "target_element_count",
+        "target_unitcell_atoms",
+        "log_signal_density",
+        "effective_signal_coverage",
+        "mean_target_affinity",
+        "element_distribution_overlap",
+        "record_fraction_containing_all_target_elements",
+        "top_five_percent_element_set_jaccard"
+      ],
+      "full_with_environment_labels": [
+        "full_numeric",
+        "one_hot_source_family",
+        "one_hot_selection_rule"
+      ]
+    },
+    "estimator": "L2-regularized logistic regression with penalty strengths 0.1, 1, and 10 selected inside each outer training fold.",
+    "primary_cross_validation": "Leave one complete development environment out.",
+    "secondary_cross_validation": [
+      "leave one target material out",
+      "leave one target element set out"
+    ],
+    "selection_rule": "Select the candidate with the lowest leave-one-environment-out Brier score. Break exact ties by higher average precision, then higher ROC AUC, then fewer features.",
+    "metrics": [
+      "roc_auc",
+      "average_precision",
+      "brier_score",
+      "recall_in_the_top_risk_20_percent",
+      "source_and_environment_macro_averages"
+    ],
+    "negative_controls": [
+      "starting_checkpoint_error_only",
+      "candidate_identity_only",
+      "permuted_regression_labels"
+    ]
+  },
+  "prospective_freeze": {
+    "aggregate": "Serialize four curves, rankings, uncertainty, and the selected environment at every pass.",
+    "regressions": "Serialize one probability for each of 200 prospective environment-target pairs before prospective training.",
+    "authorization": "Prospective training requires a separate artifact that binds this protocol, selected models, predictions, and the final training contract."
+  },
+  "outcome_boundary": {
+    "development_candidate_training_outcomes_used": false,
+    "prospective_candidate_training_outcomes_used": false
+  }
+}

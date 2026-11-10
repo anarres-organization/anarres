@@ -23,7 +23,7 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "materials",
-        "version": "0.3.0",
+        "version": "0.4.0",
         "protocol_version": 1,
         "domain": "materials-interatomic-potentials",
         "executable": "anarres-materials",
@@ -83,6 +83,14 @@ def final_training_contract_path(repository: Path) -> Path:
     return study_root(repository) / "FINAL_TRAINING_CONTRACT.json"
 
 
+def target_regression_features_path(repository: Path) -> Path:
+    return study_root(repository) / "TARGET_REGRESSION_FEATURES.json"
+
+
+def development_modeling_protocol_path(repository: Path) -> Path:
+    return study_root(repository) / "DEVELOPMENT_MODELING_PROTOCOL.json"
+
+
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -111,6 +119,8 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     training_result = exporter.read_object(training_qualification_result_path(repository))
     starting_targets = exporter.read_object(starting_targets_path(repository))
     final_contract = exporter.read_object(final_training_contract_path(repository))
+    target_features = exporter.read_object(target_regression_features_path(repository))
+    modeling_protocol = exporter.read_object(development_modeling_protocol_path(repository))
     candidates = bank.get("candidates")
     if not isinstance(candidates, list):
         raise MaterialsCliError("candidate panel has no candidate list")
@@ -140,8 +150,12 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "starting_target_features_complete": starting_targets.get("status")
         == "complete_before_candidate_training",
         "final_training_contract_status": final_contract.get("status"),
+        "target_regression_features_frozen": target_features.get("status")
+        == "frozen_before_development_outcome_analysis",
+        "development_modeling_protocol_frozen": modeling_protocol.get("status")
+        == "frozen_before_development_outcome_analysis",
         "predictive_evidence_available": False,
-        "next_gate": "freeze the final training contract and train development environments",
+        "next_gate": "score development environments and freeze prospective predictions",
     }
 
 
@@ -157,6 +171,8 @@ def command_protocol(args: argparse.Namespace) -> dict[str, Any]:
     training_result_file = training_qualification_result_path(repository)
     starting_targets_file = starting_targets_path(repository)
     final_contract_file = final_training_contract_path(repository)
+    target_features_file = target_regression_features_path(repository)
+    modeling_protocol_file = development_modeling_protocol_path(repository)
     bank = exporter.read_object(bank_path)
     protocol = exporter.read_object(protocol_file)
     receipt = exporter.read_object(receipt_file)
@@ -164,6 +180,8 @@ def command_protocol(args: argparse.Namespace) -> dict[str, Any]:
     training_result = exporter.read_object(training_result_file)
     starting_targets = exporter.read_object(starting_targets_file)
     final_contract = exporter.read_object(final_contract_file)
+    target_features = exporter.read_object(target_features_file)
+    modeling_protocol = exporter.read_object(modeling_protocol_file)
 
     expected_bank = protocol.get("inputs", {}).get("candidate_panel", {}).get("sha256")
     if expected_bank != sha256(bank_path):
@@ -202,6 +220,17 @@ def command_protocol(args: argparse.Namespace) -> dict[str, Any]:
         raise MaterialsCliError("final training contract does not bind training qualification")
     if any(final_contract.get("outcome_boundary", {}).values()):
         raise MaterialsCliError("final training contract crosses the sealed outcome boundary")
+    if any(target_features.get("outcome_boundary", {}).values()):
+        raise MaterialsCliError("target regression features cross the sealed outcome boundary")
+    modeling_inputs = modeling_protocol.get("inputs", {})
+    if modeling_inputs.get("final_training_contract_sha256") != sha256(final_contract_file):
+        raise MaterialsCliError("modeling protocol does not bind the final training contract")
+    if modeling_inputs.get("starting_checkpoint_targets_sha256") != sha256(starting_targets_file):
+        raise MaterialsCliError("modeling protocol does not bind starting target features")
+    if modeling_inputs.get("target_regression_features_sha256") != sha256(target_features_file):
+        raise MaterialsCliError("modeling protocol does not bind target regression features")
+    if any(modeling_protocol.get("outcome_boundary", {}).values()):
+        raise MaterialsCliError("modeling protocol crosses the sealed outcome boundary")
     return {
         "schema_version": "anarres.materials-decision-protocol-report.v1",
         "status": protocol["status"],
@@ -260,6 +289,23 @@ def command_protocol(args: argparse.Namespace) -> dict[str, Any]:
             "passes": final_contract["environment_budget"]["passes"],
             "starting_target_features": starting_targets["counts"],
         },
+        "development_modeling": {
+            "status": modeling_protocol["status"],
+            "aggregate_predictors": sorted(
+                modeling_protocol["aggregate_utility"]["candidate_predictors"]
+            ),
+            "aggregate_cross_validation": modeling_protocol["aggregate_utility"][
+                "cross_validation"
+            ],
+            "regression_models": sorted(
+                modeling_protocol["target_regressions"]["candidate_models"]
+            ),
+            "regression_cross_validation": modeling_protocol["target_regressions"][
+                "primary_cross_validation"
+            ],
+            "prospective_freeze": modeling_protocol["prospective_freeze"],
+            "target_feature_pairs": target_features["counts"]["candidate_target_pairs"],
+        },
         "outcome_boundary": boundary,
         "predictive_evidence_available": False,
         "artifacts": {
@@ -270,6 +316,8 @@ def command_protocol(args: argparse.Namespace) -> dict[str, Any]:
             "training_qualification_result": f"sha256:{sha256(training_result_file)}",
             "starting_checkpoint_targets": f"sha256:{sha256(starting_targets_file)}",
             "final_training_contract": f"sha256:{sha256(final_contract_file)}",
+            "target_regression_features": f"sha256:{sha256(target_features_file)}",
+            "development_modeling_protocol": f"sha256:{sha256(modeling_protocol_file)}",
         },
     }
 

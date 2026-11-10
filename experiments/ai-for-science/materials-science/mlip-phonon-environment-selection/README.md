@@ -6,7 +6,8 @@ measurement sweep has passed integrity checks. The final 16-environment panel
 matches both processed atoms and graph-edge cost. Development and prospective
 roles are frozen. The environment-selection and target-regression scoring rules
 are also fixed. The E/F/S training contract has passed its discarded-candidate
-qualification, while final candidate-training outcomes remain sealed.
+qualification. Development training is complete and scoring is underway, while
+prospective candidate-training outcomes remain sealed.
 
 ## Research question
 
@@ -232,8 +233,18 @@ inputs for later regression prediction, not post-training outcomes.
 panel, target roles, starting-target features, qualification result, Nequix
 patch, and configuration generator. It fixes four equal-cost passes, two data-
 order seeds, checkpoints after every pass, and the development-to-prospective
-sequence. Development training can now begin without reopening any design
-choice.
+sequence.
+
+[`TARGET_REGRESSION_FEATURES.json`](TARGET_REGRESSION_FEATURES.json) records
+1,200 candidate-target feature rows without using candidate-training outcomes.
+They combine each target's starting-checkpoint state with chemical support and
+nearest-neighbor affinity to each candidate environment.
+
+[`DEVELOPMENT_MODELING_PROTOCOL.json`](DEVELOPMENT_MODELING_PROTOCOL.json)
+binds those features to the complete-environment cross-validation, model
+selection, uncertainty, allocation-baseline, and regression-control rules. The
+four prospective utility curves and 200 target-regression probabilities will be
+serialized before prospective training is authorized.
 
 ## Qualification completed
 
