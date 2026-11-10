@@ -91,6 +91,39 @@ class NativeQFBenchRunnerTest(unittest.TestCase):
             )
             self.assertTrue((run_task.record_root(stage) / "STAGE_MANIFEST.json").is_file())
 
+    def test_prepare_supports_tasks_without_data_directory(self) -> None:
+        task_id = "var-es-estimation"
+        instruction = b"Compute the estimates.\n"
+        task_toml = b"[agent]\ntimeout_sec = 10\n"
+        with tempfile.TemporaryDirectory() as temporary:
+            qfbench = Path(temporary) / "qfbench"
+            task = qfbench / "tasks" / task_id
+            (task / "environment").mkdir(parents=True)
+            (task / "instruction.md").write_bytes(instruction)
+            (task / "task.toml").write_bytes(task_toml)
+            stage = Path(temporary) / "stage"
+            row = {
+                "task_id": task_id,
+                "partition": "development",
+                "round": 1,
+                "task_toml_sha256": hashlib.sha256(task_toml).hexdigest(),
+                "instruction_sha256": hashlib.sha256(instruction).hexdigest(),
+            }
+            with (
+                mock.patch.object(run_task, "frozen_tasks", return_value={task_id: row}),
+                mock.patch.object(
+                    run_task,
+                    "run_checked",
+                    return_value=mock.Mock(
+                        stdout=json.loads(run_task.SOURCE_PATH.read_text())["commit"]
+                    ),
+                ),
+            ):
+                manifest = run_task.prepare_stage(qfbench, task_id, stage, None)
+            self.assertFalse(manifest["source_has_data_directory"])
+            self.assertTrue((stage / "data").is_dir())
+            self.assertEqual(list((stage / "data").iterdir()), [])
+
 
 if __name__ == "__main__":
     unittest.main()

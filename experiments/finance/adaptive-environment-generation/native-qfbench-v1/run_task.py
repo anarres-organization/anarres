@@ -108,7 +108,11 @@ def prepare_stage(
         raise RuntimeError(f"Refusing to overwrite existing stage: {stage}")
     stage.mkdir(parents=True)
     shutil.copy2(task_root / "instruction.md", stage / "instruction.md")
-    shutil.copytree(task_root / "environment" / "data", stage / "data")
+    source_data = task_root / "environment" / "data"
+    if source_data.is_dir():
+        shutil.copytree(source_data, stage / "data")
+    else:
+        (stage / "data").mkdir()
     (stage / "output").mkdir()
 
     candidate_sha256 = None
@@ -128,6 +132,7 @@ def prepare_stage(
         "task_toml_sha256": row["task_toml_sha256"],
         "instruction_sha256": row["instruction_sha256"],
         "candidate_sha256": candidate_sha256,
+        "source_has_data_directory": source_data.is_dir(),
         "agent_visible_entries": sorted(path.name for path in stage.iterdir()),
     }
     records = record_root(stage)
