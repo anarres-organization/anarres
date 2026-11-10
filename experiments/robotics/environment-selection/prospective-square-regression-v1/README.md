@@ -41,15 +41,17 @@ treating measurement as free.
 [`PROTOCOL.json`](PROTOCOL.json) fixes the chronology, candidates, prediction,
 training budget, state-bank construction, and scoring rules. [`SOURCES.json`](SOURCES.json)
 records the source revisions and dataset identity. [`FREEZE.json`](FREEZE.json)
-binds both records to the released fixed-state bank. Scripts in this directory
-materialize the state bank and candidate memberships without opening candidate
-outcomes.
+binds both records to the released fixed-state bank.
+[`SCORING_CONTRACT.json`](SCORING_CONTRACT.json) fixes the candidate-by-stratum
+regression test, allocation regret, whole-policy bootstrap, and integrity gate.
+Scripts in this directory materialize candidate memberships and the sealed
+execution matrix without opening candidate outcomes.
 
 Verify the outcome-blind freeze with:
 
 ```bash
 python scripts/verify_freeze.py
-python -m unittest test_freeze.py
+python -m unittest discover -p 'test_*.py'
 ```
 
 ## Scope

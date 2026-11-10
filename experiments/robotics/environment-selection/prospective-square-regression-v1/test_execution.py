@@ -5,6 +5,7 @@ import unittest
 from pathlib import Path
 
 import h5py
+import numpy as np
 
 ROOT = Path(__file__).parent
 
@@ -18,9 +19,36 @@ def load(name: str, path: Path):
 
 
 PREPARE = load("square_prepare_candidates", ROOT / "scripts/prepare_candidate_dataset.py")
+SCORE = load("square_score_candidates", ROOT / "scripts/score_candidate_results.py")
 
 
 class CandidateExecutionTest(unittest.TestCase):
+    def test_scoring_contract_binds_protocol_and_implementation(self) -> None:
+        contract = json.loads((ROOT / "SCORING_CONTRACT.json").read_text())
+        self.assertFalse(contract["candidate_outcomes_opened"])
+        self.assertEqual(
+            PREPARE.sha256(ROOT / "PROTOCOL.json"), contract["bound_inputs"]["PROTOCOL.json"]
+        )
+        self.assertEqual(
+            PREPARE.sha256(ROOT / "scripts/score_candidate_results.py"),
+            contract["bound_inputs"]["scripts/score_candidate_results.py"],
+        )
+
+    def test_regression_summary_preserves_the_frozen_direction(self) -> None:
+        rows = [
+            {
+                "candidate_id": "a",
+                "stratum": index,
+                "frozen_risk": float(index),
+                "observed_change": float(-index),
+            }
+            for index in range(8)
+        ]
+        summary = SCORE.summarize_regression(rows, 2)
+        self.assertAlmostEqual(summary["spearman_risk_vs_success_change"], -1.0)
+        self.assertLess(summary["high_minus_low_risk_success_change"], 0.0)
+        np.testing.assert_array_equal(SCORE.ranks(np.asarray([2.0, 1.0, 1.0])), [2.0, 0.5, 0.5])
+
     def test_prepared_masks_are_bound_to_frozen_memberships(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

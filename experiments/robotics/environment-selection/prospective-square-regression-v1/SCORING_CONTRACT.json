@@ -1,0 +1,50 @@
+{
+  "schema_version": "anarres.robotics-square-scoring-contract.v1",
+  "study_id": "prospective_square_regression_v1",
+  "status": "SCORING_CONTRACT_FROZEN__CANDIDATE_OUTCOMES_UNOPENED",
+  "candidate_outcomes_opened": false,
+  "bound_inputs": {
+    "PROTOCOL.json": "d8d3bfb5de49ab8976c702caf37c9bdd96a1a9425c1b01987f495cb961a4ec07",
+    "scripts/score_candidate_results.py": "e5933edb67d858db5b49cb8a27b151659be1cde630899f94a25fa77e4d9a3680"
+  },
+  "comparison_arms": [
+    "all_data_reference",
+    "random_50",
+    "length_50",
+    "coverage_50",
+    "failure_coverage_50",
+    "failure_coverage_short_50"
+  ],
+  "point_prediction": "failure_coverage_short_50",
+  "aggregate_decision": {
+    "arm_estimate": "mean closed-loop success rate across the three frozen training seeds",
+    "allocation_regret": "highest arm estimate minus the point-prediction estimate",
+    "all_data_reference": "the three opened all-data probe policies",
+    "half_data_arms": "the fifteen unopened candidate policies"
+  },
+  "regression_test": {
+    "unit": "candidate-by-frozen-state-stratum",
+    "rows": 40,
+    "risk": "mean frozen state-level product of probe failure probability and candidate coverage distance within each candidate-stratum row",
+    "observed_change": "candidate closed-loop success minus all-data probe success on the same frozen states and replicates",
+    "primary_association": "Spearman rank correlation between frozen risk and observed change; the predicted direction is negative",
+    "tail_contrast": "mean observed change in the ten highest-risk rows minus the ten lowest-risk rows; the predicted direction is negative",
+    "tie_breaking": "risk, then candidate id, then numeric stratum"
+  },
+  "uncertainty": {
+    "method": "whole-policy bootstrap",
+    "resamples": 20000,
+    "random_seed": 20261110,
+    "candidate_resampling": "resample the three common candidate seed indices jointly across candidate arms",
+    "probe_resampling": "resample the three probe policy indices independently",
+    "interval": "2.5th and 97.5th percentiles",
+    "episode_level_standard_errors": false
+  },
+  "integrity": {
+    "required_candidate_policies": 15,
+    "required_probe_policies": 3,
+    "required_episodes_per_policy": 256,
+    "required_exceptions": 0,
+    "adaptive_seed_replacement": false
+  }
+}
