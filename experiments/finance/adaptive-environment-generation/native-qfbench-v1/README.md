@@ -61,4 +61,3 @@ The QF-Bench source, task partition, candidate types, measurement rubric, and
 success criteria are frozen. The pinned sandbox builds locally, and the oracle
 passes the `historical-var-data-prep` smoke task. No model-generated development
 or target outcome has entered the experiment record.
-
