@@ -1,0 +1,80 @@
+{
+  "adjacent_stage_audit": {
+    "continued_pretraining_over_base": {
+      "later_stage_losses": 0,
+      "later_stage_wins": 2,
+      "reported_targets": 2,
+      "ties": 0
+    },
+    "dpo_over_sft": {
+      "later_stage_losses": 6,
+      "later_stage_wins": 1,
+      "reported_targets": 7,
+      "ties": 0
+    },
+    "sft_over_continued_pretraining": {
+      "later_stage_losses": 2,
+      "later_stage_wins": 0,
+      "reported_targets": 2,
+      "ties": 0
+    }
+  },
+  "interpretation": "The representation transfers to continued financial pretraining but does not predict the target-specific effects of later SFT and DPO stages. Generic preference optimization should not receive data-quality credit without evidence that its feedback objective aligns with the scored target.",
+  "metrics": {
+    "compact_ridge": {
+      "mean_native_regret_percentage_points": 1.7514285714285722,
+      "mean_normalized_regret": 0.7831403940886698,
+      "pairwise_comparisons": 17,
+      "pairwise_correct_credit": 7.0,
+      "pairwise_ordering_credit": 0.4117647058823529,
+      "panels": 7,
+      "top_choice_credit": 0.14285714285714285
+    },
+    "full_ridge": {
+      "mean_native_regret_percentage_points": 1.7514285714285722,
+      "mean_normalized_regret": 0.7831403940886698,
+      "pairwise_comparisons": 17,
+      "pairwise_correct_credit": 7.0,
+      "pairwise_ordering_credit": 0.4117647058823529,
+      "panels": 7,
+      "top_choice_credit": 0.14285714285714285
+    },
+    "more_data": {
+      "mean_native_regret_percentage_points": 1.3357142857142859,
+      "mean_normalized_regret": 0.5038423645320196,
+      "pairwise_comparisons": 17,
+      "pairwise_correct_credit": 8.5,
+      "pairwise_ordering_credit": 0.5,
+      "panels": 7,
+      "top_choice_credit": 0.42857142857142855
+    },
+    "practical_rule": {
+      "mean_native_regret_percentage_points": 1.7514285714285722,
+      "mean_normalized_regret": 0.7831403940886698,
+      "pairwise_comparisons": 17,
+      "pairwise_correct_credit": 7.0,
+      "pairwise_ordering_credit": 0.4117647058823529,
+      "panels": 7,
+      "top_choice_credit": 0.14285714285714285
+    }
+  },
+  "prediction_sha256": "4d343446e884c404ae9840a47f19e84452c15ebebe9a233228d23eb782c2ffc5",
+  "schema_version": 1,
+  "source": {
+    "authors": [
+      "Shujuan Zhao",
+      "Lingfeng Qiao",
+      "Kangyang Luo",
+      "Qian-Wen Zhang",
+      "Junru Lu",
+      "Di Yin"
+    ],
+    "evidence": "Table 1 and Sections 4.2--4.4",
+    "id": "snfinllm_2024_holdout",
+    "released": "2024-08-05",
+    "title": "SNFinLLM: Systematic and Nuanced Financial Domain Adaptation of Chinese Large Language Models",
+    "url": "https://arxiv.org/abs/2408.02302",
+    "version": "arXiv:2408.02302v1"
+  },
+  "status": "SCORED_SOURCE_LEVEL_HOLDOUT"
+}

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "title": "When Financial Fine-tuning Fails: A Three-Level Detectability Analysis of Numerical Hallucination in Domain-Adapted Language Models",
+  "authors": ["Xiaodong Li", "Peiwei Liu"],
+  "arxiv": "arXiv:2609.04806v1",
+  "url": "https://arxiv.org/abs/2609.04806v1",
+  "publisher_doi": "10.1016/j.neucom.2026.135011",
+  "evidence": ["Table 1", "Table 6", "Table 7", "Table 11"],
+  "audit_note": "Official arXiv record and publisher metadata were verified after the prediction freeze."
+}

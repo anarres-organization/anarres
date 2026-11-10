@@ -12,22 +12,29 @@ This program asks:
 > distribution that improves held-out work at a fixed training budget while
 > preserving material controls?
 
-The first study focuses on accounting and finance operations. This setting
-supports generated scenarios with planted truth, executable checks, stateful
-tools, and explicit authorization rules. It also creates a real allocation
-decision between candidate training mixtures rather than a retrospective
-comparison of benchmark scores.
+**Start here:** the [finance research brief](RESEARCH_BRIEF.md) summarizes the
+completed evidence, the qualified accounting experiment, and the prospective
+post-trade extension in one page.
+
+The operational studies focus on control-heavy finance work. Reconciliation,
+settlement exceptions, collateral disputes, payment controls, and close
+workflows have planted truth, executable checks, stateful tools, and explicit
+authorization rules. They also create real allocation decisions between
+candidate training mixtures rather than retrospective comparisons of benchmark
+scores.
 
 ## Research path
 
-The [environment-selection study](environment-selection/README.md) begins with
+The [domain-priority audit](DOMAIN_PRIORITIES.md) identifies reconciliation and
+exception handling as the primary operational target. The
+[environment-selection study](environment-selection/README.md) begins with
 source qualification. Four stateful Business Bench workflows passed strict
 reference, null-agent, negative-control, handbook, and state-determinism checks
 across five generated seeds each. This establishes that the generators can
 support a prospective panel. It provides no evidence yet about which training
 mixture is best.
 
-The planned experiment will:
+Any prospective training experiment will:
 
 1. generate disjoint development, candidate, and held-out scenario partitions
 2. measure each candidate under one frozen starting policy and tool contract
@@ -38,8 +45,27 @@ The planned experiment will:
 5. train every arm under the same optimization contract
 6. open the held-out outcomes only after completeness and identity checks pass.
 
-The primary outcome is held-out executable task completion. Allocation regret
-measures the cost of choosing a candidate other than the observed best arm.
+The [retrospective post-training audit](retrospective-post-training/README.md)
+separately normalizes published finance interventions. It asks which recurring
+properties of training data and reward design predict improvement across prior
+studies. A strict task-level tier reaches 81.6% candidate ordering across 79
+panels without using model identity. Five excluded-source tests then expose
+where successive representations transfer and where they fail. The
+capability-contract representation recovers all 33 scored FinAcumen candidate
+orderings across several targets and backbones. A table-blind FinHarmBench test
+then qualifies safety alignment for two models and rejects a third whose benign
+helpfulness crosses the frozen guardrail. The earlier numerical-faithfulness
+failure remains an important boundary.
+
+The [agent-systems evidence map](agent-systems-evidence/README.md) audits the
+workflow side of the decision. It separates post-training interventions from
+tool and scaffold ablations, and identifies reconciliation, spreadsheet work,
+evidence-grounded research, and workflow orchestration as the strongest public
+task families.
+
+The primary prospective outcome is held-out executable task completion.
+Allocation regret measures the cost of choosing a candidate other than the
+observed best arm.
 Ledger integrity, authorization violations, evidence provenance, and
 unauthorized state changes remain separate guardrails. A high aggregate score
 cannot erase a material-control failure.
@@ -65,8 +91,29 @@ distinct endpoints.
 
 ## Scope
 
-The first panel covers generated accounting workflows under one agent harness,
-starting policy, and training contract. It will not establish a universal
-finance-task selector. Investment research, underwriting, market analysis,
-spreadsheet modeling, and money movement require separate candidate panels and
-evaluation contracts. Actions with financial authority remain approval-gated.
+The generator-qualified panel covers accounting workflows under one agent
+harness, starting policy, and training contract. A post-trade panel will require
+its own lifecycle model, discrepancy generator, and precision-first evaluation.
+Neither panel can establish a universal finance-task selector. Investment
+research, underwriting, market analysis, spreadsheet modeling, and money
+movement require separate candidate panels and evaluation contracts. Actions
+with financial authority remain approval-gated.
+
+## Public artifacts
+
+- [Research brief](RESEARCH_BRIEF.md)
+- [Finance domain-priority audit](DOMAIN_PRIORITIES.md)
+- [Prospective environment-selection protocol](environment-selection/README.md)
+- [Starting-policy qualification](environment-selection/STARTING_POLICY_QUALIFICATION.md)
+- [Post-trade source audit](environment-selection/POST_TRADE_SOURCE_AUDIT.md)
+- [Post-trade panel specification](environment-selection/POST_TRADE_PANEL_SPEC.md)
+- [Retrospective post-training audit](retrospective-post-training/README.md)
+- [Frozen SNFinLLM source holdout](retrospective-post-training/heldout-snfinllm/README.md)
+- [Frozen Japanese financial-document holdout](retrospective-post-training/heldout-japanese-multimodal/README.md)
+- [Strict task-level transfer audit](retrospective-post-training/strict-task-level/README.md)
+- [Numerical-faithfulness source holdout](retrospective-post-training/heldout-numerical-hallucination/README.md)
+- [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
+- [Financial safety capability-contract holdout](retrospective-post-training/heldout-finharmbench/README.md)
+- [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
+- [Corrected expanded machine-readable results](retrospective-post-training/results/expanded_summary_corrected.json)
+- [Agent-systems evidence map](agent-systems-evidence/README.md)

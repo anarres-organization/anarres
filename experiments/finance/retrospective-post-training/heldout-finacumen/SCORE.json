@@ -1,0 +1,183 @@
+{
+  "family_scores": {
+    "benchmark_transfer": {
+      "mean_normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_accuracy": 1.0,
+      "pairwise_correct": 6,
+      "pairwise_scored": 6,
+      "panels": 6
+    },
+    "component_ablation": {
+      "mean_normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_accuracy": 1.0,
+      "pairwise_correct": 3,
+      "pairwise_scored": 3,
+      "panels": 1
+    },
+    "cross_backbone": {
+      "mean_normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_accuracy": 1.0,
+      "pairwise_correct": 6,
+      "pairwise_scored": 6,
+      "panels": 4
+    },
+    "memory_contract_ablation": {
+      "mean_normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_accuracy": 1.0,
+      "pairwise_correct": 10,
+      "pairwise_scored": 10,
+      "panels": 1
+    },
+    "memory_representation": {
+      "mean_normalized_regret": 0.0,
+      "pairwise_abstained": 4,
+      "pairwise_accuracy": 1.0,
+      "pairwise_correct": 8,
+      "pairwise_scored": 8,
+      "panels": 4
+    }
+  },
+  "interpretation": "The V4 capability-contract representation recovers the controlled ordering within this excluded source and transfers across its reported backbones. The nested panels provide one source-level test rather than independent study replications.",
+  "mean_normalized_regret": 0.0,
+  "pairwise_abstained": 4,
+  "pairwise_accuracy": 1.0,
+  "pairwise_correct": 33,
+  "pairwise_scored": 33,
+  "panel_scores": [
+    {
+      "family": "component_ablation",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_correct": 3,
+      "pairwise_scored": 3,
+      "panel_id": "finmmr_easy_components_qwen3vl8b"
+    },
+    {
+      "family": "memory_contract_ablation",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_correct": 10,
+      "pairwise_scored": 10,
+      "panel_id": "memory_field_contract_macro"
+    },
+    {
+      "family": "benchmark_transfer",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_correct": 1,
+      "pairwise_scored": 1,
+      "panel_id": "bizbench_full_vs_base"
+    },
+    {
+      "family": "benchmark_transfer",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_correct": 1,
+      "pairwise_scored": 1,
+      "panel_id": "finmmr_easy_full_vs_base"
+    },
+    {
+      "family": "benchmark_transfer",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_correct": 1,
+      "pairwise_scored": 1,
+      "panel_id": "finmmr_medium_full_vs_base"
+    },
+    {
+      "family": "benchmark_transfer",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_correct": 1,
+      "pairwise_scored": 1,
+      "panel_id": "finmmr_hard_full_vs_base"
+    },
+    {
+      "family": "benchmark_transfer",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_correct": 1,
+      "pairwise_scored": 1,
+      "panel_id": "fintmmbench_full_vs_base"
+    },
+    {
+      "family": "benchmark_transfer",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_correct": 1,
+      "pairwise_scored": 1,
+      "panel_id": "finmme_full_vs_base"
+    },
+    {
+      "family": "memory_representation",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 1,
+      "pairwise_correct": 2,
+      "pairwise_scored": 2,
+      "panel_id": "finmmr_easy_memory_representation"
+    },
+    {
+      "family": "memory_representation",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 1,
+      "pairwise_correct": 2,
+      "pairwise_scored": 2,
+      "panel_id": "finmmr_medium_memory_representation"
+    },
+    {
+      "family": "memory_representation",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 1,
+      "pairwise_correct": 2,
+      "pairwise_scored": 2,
+      "panel_id": "fintmmbench_memory_representation"
+    },
+    {
+      "family": "memory_representation",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 1,
+      "pairwise_correct": 2,
+      "pairwise_scored": 2,
+      "panel_id": "finmme_memory_representation"
+    },
+    {
+      "family": "cross_backbone",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_correct": 1,
+      "pairwise_scored": 1,
+      "panel_id": "bizbench_glm46v"
+    },
+    {
+      "family": "cross_backbone",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_correct": 1,
+      "pairwise_scored": 1,
+      "panel_id": "bizbench_gpt4omini"
+    },
+    {
+      "family": "cross_backbone",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_correct": 1,
+      "pairwise_scored": 1,
+      "panel_id": "bizbench_gemini25flashlite"
+    },
+    {
+      "family": "cross_backbone",
+      "normalized_regret": 0.0,
+      "pairwise_abstained": 0,
+      "pairwise_correct": 3,
+      "pairwise_scored": 3,
+      "panel_id": "bizbench_qwen3vl235b_components"
+    }
+  ],
+  "panels": 16,
+  "schema_version": 1,
+  "status": "SCORED_PREEXISTING_REPRESENTATION_SOURCE_HOLDOUT"
+}

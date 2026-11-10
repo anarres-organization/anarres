@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "source_id": "finharmbench_2026",
+  "title": "FinHarmBench: Financial Jailbreak Benchmark and Unsupervised Safety Fine-Tuning via Refusal Steering Distillation",
+  "authors": [
+    "Yubin Choi",
+    "Yujin Yang",
+    "Subin Kim",
+    "Seokil Ham",
+    "Seungju Cho",
+    "Jungmin Son",
+    "Youngjun Kwak",
+    "Changick Kim"
+  ],
+  "venue": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics, Industry Track",
+  "pages": "1714-1726",
+  "doi": "10.18653/v1/2026.acl-industry.117",
+  "url": "https://aclanthology.org/2026.acl-industry.117/"
+}

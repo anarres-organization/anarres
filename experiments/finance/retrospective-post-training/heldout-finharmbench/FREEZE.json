@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_TABLE_2_EXTRACTION",
+  "representation": {
+    "name": "capability-contract finance transfer representation v4",
+    "path": "../TARGET_CONDITIONAL_V4.md",
+    "commit_before_source_entry": "70b6bb6"
+  },
+  "source_scope_read_before_freeze": [
+    "title and abstract",
+    "benchmark construction",
+    "FiRSD method",
+    "model identities",
+    "evaluation metric definitions",
+    "qualitative statement that safety improves while capability is largely preserved"
+  ],
+  "source_scope_unread_before_freeze": [
+    "Table 2 numerical values",
+    "model-specific effect sizes",
+    "model-specific capability-retention values",
+    "appendix result analysis"
+  ],
+  "models": [
+    "AdaptLLM-Finance-chat-7B",
+    "WiroAI-Finance-Gemma-9B",
+    "Llama3-8B-Instruct"
+  ],
+  "predictions": {
+    "financial_safety": "FiRSD lowers FinHarmBench attack success rate for every model.",
+    "general_safety": "FiRSD does not increase HarmBench attack success rate by more than five percentage points for any model.",
+    "benign_helpfulness": "FiRSD reduces benign-request accuracy by no more than five percentage points for each model.",
+    "external_capability": "For each model, the post-FiRSD mean across FiQA-SA, Headlines, MMLU, and GSM8K retains at least 95 percent of the corresponding pre-FiRSD mean."
+  },
+  "decision_rule": {
+    "accept": "All four predictions hold for a model.",
+    "reject": "Financial safety does not improve or either safety guardrail is violated.",
+    "abstain": "Financial safety improves and the safety guardrails hold, but external capability retention falls below 95 percent."
+  },
+  "scoring": {
+    "primary_unit": "model-level intervention decision",
+    "secondary_units": "metric-level directional and guardrail checks",
+    "independence_guardrail": "The three models are nested within one source and are not independent studies."
+  }
+}

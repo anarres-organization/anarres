@@ -13,6 +13,50 @@
       "outcome_use": "none"
     },
     {
+      "id": "qwen3_8b",
+      "name": "Qwen3-8B",
+      "url": "https://huggingface.co/Qwen/Qwen3-8B",
+      "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+      "license": "Apache-2.0",
+      "access": "public model repository",
+      "role": "starting_policy_qualification_candidate",
+      "status": "qualification_failed_under_fixed_contract",
+      "outcome_use": "development qualification only"
+    },
+    {
+      "id": "qwen3_30b_a3b_instruct_2507",
+      "name": "Qwen3-30B-A3B-Instruct-2507",
+      "url": "https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507",
+      "revision": "0d7cf23991f47feeb3a57ecb4c9cee8ea4a17bfe",
+      "license": "Apache-2.0",
+      "access": "public model repository",
+      "role": "starting_policy_qualification_candidate",
+      "status": "pinned_not_yet_qualified",
+      "outcome_use": "development qualification only"
+    },
+    {
+      "id": "qwen3_coder_30b_a3b_instruct",
+      "name": "Qwen3-Coder-30B-A3B-Instruct",
+      "url": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+      "revision": "b2cff646eb4bb1d68355c01b18ae02e7cf42d120",
+      "license": "Apache-2.0",
+      "access": "public model repository",
+      "role": "starting_policy_qualification_candidate",
+      "status": "pinned_not_yet_qualified",
+      "outcome_use": "development qualification only"
+    },
+    {
+      "id": "nemo_rl",
+      "name": "NVIDIA NeMo RL",
+      "url": "https://github.com/NVIDIA-NeMo/RL",
+      "revision": "ccbcd4cc5442784f6af2288dd99021560480b8f2",
+      "license": "Apache-2.0",
+      "access": "public repository",
+      "role": "multi_turn_training_runtime_candidate",
+      "status": "source_audited_integration_not_yet_qualified",
+      "outcome_use": "none"
+    },
+    {
       "id": "secondstate_fab",
       "name": "Finance Agent Benchmark",
       "url": "https://github.com/SecondState-ai/finance-agents-benchmark",
@@ -77,6 +121,94 @@
       "role": "external_design_target",
       "status": "documentation_audited",
       "outcome_use": "no construction use"
+    },
+    {
+      "id": "finos_common_domain_model",
+      "name": "FINOS Common Domain Model",
+      "url": "https://github.com/finos/common-domain-model",
+      "revision": "3865246388d045f96dfa7a8ce1c0672efe6fa8cf",
+      "license": "Community Specification License 1.0",
+      "access": "public repository",
+      "role": "post_trade_representation_candidate",
+      "status": "representation_audited_generator_not_qualified",
+      "outcome_use": "none"
+    },
+    {
+      "id": "recbench",
+      "name": "RecBench",
+      "url": "https://huggingface.co/datasets/end-close/recbench",
+      "revision": "8cf65de21434a480cb3a499e3c39246c9e8b744a",
+      "license": "CC BY 4.0 dataset",
+      "access": "public dataset repository",
+      "role": "external_reconciliation_design_target",
+      "status": "dataset_audited_generator_and_evaluator_absent_from_snapshot",
+      "outcome_use": "external only"
+    },
+    {
+      "id": "boe_fca_ai_survey_2026",
+      "name": "Artificial intelligence in UK financial services 2026",
+      "url": "https://www.bankofengland.co.uk/report/2026/artificial-intelligence-in-uk-financial-services-2026",
+      "revision": null,
+      "license": "public report; Bank of England terms apply",
+      "access": "public report",
+      "role": "domain_priority_evidence",
+      "status": "documentation_audited",
+      "outcome_use": "none"
+    },
+    {
+      "id": "dtcc_accelerated_settlement",
+      "name": "DTCC accelerated settlement resources",
+      "url": "https://www.dtcc.com/initiatives/accelerated-settlement/faqs-and-resources",
+      "revision": null,
+      "license": "public documentation; DTCC terms apply",
+      "access": "public documentation",
+      "role": "domain_priority_evidence",
+      "status": "documentation_audited",
+      "outcome_use": "none"
+    },
+    {
+      "id": "isda_collateral_management_sop",
+      "name": "ISDA Collateral Management Suggested Operational Practices",
+      "url": "https://www.isda.org/collateral-management-sop/",
+      "revision": null,
+      "license": "public documentation; ISDA terms apply",
+      "access": "public documentation",
+      "role": "domain_priority_evidence",
+      "status": "documentation_audited",
+      "outcome_use": "none"
+    },
+    {
+      "id": "bis_ai_cash_management",
+      "name": "AI agents for cash management in payment systems",
+      "url": "https://www.bis.org/publications/working-paper-1310-ai-agents-cash-management-payment-systems",
+      "revision": "2025-11-26",
+      "license": "public working paper; BIS terms apply",
+      "access": "public working paper",
+      "role": "domain_priority_evidence",
+      "status": "documentation_audited",
+      "outcome_use": "none"
+    },
+    {
+      "id": "tradeopssim_agentenv",
+      "name": "TradeOpsSim AgentEnv",
+      "url": "https://huggingface.co/datasets/AlexSchwartzman/TradeOpsSim-AgentEnv",
+      "revision": "c1c6f00303590f146a20bec690b5b648d19e3824",
+      "license": "Apache-2.0",
+      "access": "public dataset repository with executable bundles",
+      "role": "external_reconciliation_design_target",
+      "status": "source_audited_authored_fixtures_not_heldout_benchmark",
+      "outcome_use": "external only"
+    },
+    {
+      "id": "finrca_bench",
+      "name": "FinRCA-Bench",
+      "url": "https://arxiv.org/abs/2608.18534",
+      "revision": "arXiv:2608.18534v1",
+      "license": "public paper; reusable benchmark repository not identified",
+      "access": "public paper",
+      "role": "external_reconciliation_design_target",
+      "status": "documentation_audited_code_release_not_identified",
+      "outcome_use": "external only"
     }
   ]
 }
