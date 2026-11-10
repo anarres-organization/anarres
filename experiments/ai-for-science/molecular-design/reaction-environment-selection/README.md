@@ -40,6 +40,14 @@ eight bank-order coordinates pass, while generated-action cost, oracle time,
 and scaffold coverage reach Spearman correlations of 0.371, 0.657, and 0.735,
 below the frozen 0.8 threshold. This result triggers the prespecified
 abstention before development training.
+The version 3 result is preserved as the current scientific result. A
+pre-training diagnostic shows that all eight intended selector contrasts pass
+in both frozen views, while the failed statistic also ranks banks that were not
+designed to optimize each coordinate. Median or size-normalized oracle time and
+generic Murcko scaffolds do not repair that complete ordering. Version 4 keeps
+the construction memberships, selectors, estimators, and runtime unchanged. It
+freezes a selector-fidelity gate against the neutral hash bank before drawing
+one new confirmation view. Development training remains unauthorized.
 
 ## CLI projection
 
@@ -317,6 +325,17 @@ memberships, selectors, coordinates, and confirmation threshold.
 [`DEVELOPMENT_BANK_QUALIFICATION_V3.json`](DEVELOPMENT_BANK_QUALIFICATION_V3.json)
 records the failed independent-view gate and the six non-authorizing
 construction memberships.
+[`BANK_CONFIRMATION_DIAGNOSTIC_V1.json`](BANK_CONFIRMATION_DIAGNOSTIC_V1.json)
+records the sealed pre-training diagnosis. The action-count failure is driven
+by incidental ordering among near-tied banks, realized oracle time remains a
+runtime-specific cost, and exact scaffold uniqueness is nearly saturated.
+[`BANK_CONSTRUCTION_CONTRACT_V4.json`](BANK_CONSTRUCTION_CONTRACT_V4.json)
+freezes eight strict selector-versus-neutral contrasts and untouched seed
+20261125 before that view is sampled. The scaffold diagnostic follows RDKit's
+[generic Murcko scaffold](https://www.rdkit.org/docs/source/rdkit.Chem.Scaffolds.MurckoScaffold.html)
+definition. Oracle time remains descriptive because Vina search work depends
+on ligand size and flexibility under a fixed exhaustiveness setting, as
+documented in the [Vina FAQ](https://autodock-vina.readthedocs.io/en/latest/faq.html).
 
 Audit local checkouts without reading target outcomes:
 

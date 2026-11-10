@@ -224,6 +224,16 @@ scaffold coverage fail the frozen 0.8 rank-correlation gate. Stop here. The six
 construction memberships are useful measurement records but cannot authorize
 the training schedule smoke or a development arm under this protocol.
 
+`BANK_CONFIRMATION_DIAGNOSTIC_V1.json` diagnoses that failure without reading
+training outcomes. All eight intended selector-versus-neutral contrasts pass
+in both views. Alternative oracle-time and scaffold summaries do not recover
+the complete six-bank ordering. Follow `BANK_CONSTRUCTION_CONTRACT_V4.json`,
+which retains the seed-20261122 construction memberships and every estimator,
+selector, and runtime setting. Generate untouched seed 20261125 once, rebuild
+the six banks on that view, and require all eight strict selector-fidelity
+checks in both views. Preserve the descriptive full-order correlations. A
+failed selector-fidelity check returns the study to abstention.
+
 ## 7. Freeze the prospective decision
 
 After all development arms are complete and scored, fit the operational and
