@@ -3,7 +3,7 @@
 Anarres publishes native CLI artifacts from tags named
 `anarres-cli-v<version>`. The release workflow is generated and validated by
 `dist` and produces platform archives, checksums, shell and PowerShell
-installers, a Homebrew formula, and a source archive.
+installers, and a source archive.
 
 Domain adapters are released independently from the native binary. The CLI
 discovers installed `anarres-<name>` executables and validates their versioned
@@ -77,7 +77,7 @@ dist generate
 dist plan --tag anarres-cli-v0.1.0
 ```
 
-A signed `anarres-cli-v<version>` tag starts the release workflow. Pull
+A versioned `anarres-cli-v<version>` tag starts the release workflow. Pull
 requests exercise the same artifact graph without publishing. Consumers can
 compare downloads with `sha256.sum` and verify the published build provenance
 with the GitHub CLI:

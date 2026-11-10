@@ -9,7 +9,6 @@ body:
       options:
         - Shell installer
         - PowerShell installer
-        - Homebrew formula
         - Platform archive
         - Source installation
     validations:
