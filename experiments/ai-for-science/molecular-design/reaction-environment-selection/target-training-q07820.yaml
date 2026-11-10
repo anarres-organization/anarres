@@ -1,0 +1,53 @@
+# Resolved matched Q07820 target-training configuration for RxnFlow v2.1.0.
+# The runner supplies the qualified environment, target reward, warm-start
+# weights, frozen replay bank, training seed, and 625-update stop.
+env_dir: /path/to/prepared/rxnflow-example-5k-env-v21
+
+reward:
+  beta: "32"
+  moo_scalarization: mul
+  moo_preference: none
+  property_penalty_ratio: 0.2
+  settings: {}
+
+generation:
+  max_atoms: 50
+  min_synthons: 2
+  max_synthons: 3
+  min_reactions: 1
+  max_reactions: 3
+
+subsampling:
+  sampling_ratio: 0.2
+  min_sampling: 50
+  importance_temp: 1.0
+
+model:
+  state_dim: 256
+  num_state_layers: 4
+  synthon_dim: 256
+  num_synthon_layers: 2
+  hidden_dim: 256
+  num_action_layers: 3
+
+property_penalty:
+  mw: 500
+
+training:
+  log_every: 10
+  checkpoint_every: 200
+  num_online: 64
+  num_replay: 64
+  ema_decay: 0.99
+  replay_capacity: 512
+  num_replay_insert: 0
+  replay_insert_priority: uniform
+  learning_rate: 0.0001
+  learning_rate_logZ: 0.01
+  lr_decay_steps: 5000
+  weight_decay: 1.0e-8
+  grad_clip: 100.0
+  reward_floor: 1.0e-5
+  loss_fn: huber
+  random_action_prob: 0.05
+  backward_synthon_penalty: 100.0

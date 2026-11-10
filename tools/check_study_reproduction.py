@@ -87,6 +87,11 @@ CHECKS = (
         "experiments/ai-for-science/molecular-design/reaction-environment-selection",
         "scripts/verify_qualifying_hit_contract.py",
     ),
+    python_check(
+        "molecular matched training contract",
+        "experiments/ai-for-science/molecular-design/reaction-environment-selection",
+        "scripts/verify_matched_training_contract.py",
+    ),
     StudyCheck(
         "formal-verification adapter",
         ROOT,

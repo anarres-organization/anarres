@@ -60,6 +60,14 @@ probability. A reduced one-update smoke starts from the weights-only warm
 start, loads all 512 hash-uniform trajectories, retains a fixed replay bank,
 and produces a finite target-training loss. These checks qualify the replay
 interface but do not establish downstream bank utility.
+The independent starting-policy endpoint gate also passes. Among 4,096 fixed
+attempts, 22 qualify under the complete MolGenBench endpoint, representing 16
+unique molecules with no infrastructure failure. The largest repeated molecule
+contributes four qualifying attempts, or 18.2\%, below the frozen 25\% cap. This
+result establishes enough endpoint support to proceed to the matched training
+and evaluation contract. That contract is now frozen with six development
+banks, two seeds, and checkpoints at 12,800, 25,600, and 40,000 target-oracle
+attempts. No target-training outcome has been opened.
 
 ## CLI projection
 
@@ -84,9 +92,11 @@ anarres measure .anarres/molecular-q07820/q07820-hash_uniform.profile-input.json
 ```
 
 Each profile preserves the native contracts and artifact digests. The profiles
-are schema-valid and carry the passing selector-fidelity qualification. This
-gate authorizes freezing matched training and evaluation contracts; it does
-not itself establish predictive utility or open target-training outcomes.
+are schema-valid and carry the passing selector-fidelity qualification. CLI
+training authorization requires both that bank confirmation and the independent
+starting-policy endpoint gate, together with the frozen matched contract.
+Neither qualification result establishes predictive utility or opens
+target-training outcomes.
 The adapter accepts an explicit `--repository` path, so the installed command
 can run outside the checkout without searching for mutable evidence.
 
@@ -241,17 +251,26 @@ metrics do not qualify. An infrastructure failure invalidates the affected
 panel instead of becoming a molecular failure.
 
 The pose summaries use MolGenBench's published package versions and PoseCheck
-commit and cover all 1,131 docked reference-active records. Starting-policy
-endpoint qualification remains the next gate before a matched training
-schedule can be frozen.
+commit and cover all 1,131 docked reference-active records. The independent
+starting-policy endpoint then passes with 22 qualifying attempts and 16 unique
+qualifying molecules among 4,096 attempts, with zero infrastructure failures.
 
-[`STARTING_POLICY_ENDPOINT_QUALIFICATION_CONTRACT_V1.json`](STARTING_POLICY_ENDPOINT_QUALIFICATION_CONTRACT_V1.json)
-freezes that gate before drawing its independent sample. It uses 4,096 attempts
-from the unchanged weights-only policy under seed 20261126. The endpoint must
-produce at least 16 qualifying attempts and eight unique qualifying molecules,
-without infrastructure failure or dependence on one repeated molecule. A
-passing result fixes 4,096 evaluation attempts per policy, seed, and checkpoint
-for the matched study. A failed result stops the study before target training.
+[`STARTING_POLICY_ENDPOINT_QUALIFICATION_CONTRACT_V2.json`](STARTING_POLICY_ENDPOINT_QUALIFICATION_CONTRACT_V2.json)
+preserves the independent 4,096-attempt sample under seed 20261126 and records
+the final molecule-specific failure semantics. The hash-linked
+[`STARTING_POLICY_ENDPOINT_QUALIFICATION_RESULT_V2.json`](STARTING_POLICY_ENDPOINT_QUALIFICATION_RESULT_V2.json)
+passes every frozen check and fixes 4,096 evaluation attempts per policy, seed,
+and checkpoint for the matched study.
+
+[`MATCHED_TRAINING_EVALUATION_CONTRACT_V1.json`](MATCHED_TRAINING_EVALUATION_CONTRACT_V1.json)
+then freezes the six development arms, training seeds 20261108 and 20261109,
+and target-oracle checkpoints at 12,800, 25,600, and 40,000 attempts. Each
+update combines 64 fresh online trajectories with 64 trajectories sampled
+uniformly from the fixed 512-item bank. Online trajectories never enter replay.
+The maximum follows RxnFlow's published 40,000-oracle target-specific budget,
+while the two earlier checkpoints expose finite-budget behavior. Every policy,
+seed, and checkpoint receives 4,096 endpoint attempts under common random
+numbers across arms.
 
 ## Frontier alignment
 
