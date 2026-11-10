@@ -1,0 +1,14 @@
+{
+  "candidate_policies_trained": 0,
+  "candidate_policy_outcomes_opened": false,
+  "checkpoint_sha256": "599ad3be6a2af91a4dd1dd2c9aae7e6d0812eb7ebbfe0bb3f6ef67afeb2c5a8b",
+  "episodes": 100,
+  "failures": 5,
+  "freeze_sha256": "9a259a1f3924c4231ba427e5f33b4c14cee1ce3c3a99f0f99092c33861528cca",
+  "gate_artifact_sha256": "39db6c8210784d0e318369ffefb5c4ea2edcc495714bf67df99cacbba0a30580",
+  "outcome_log_sha256": "2b1f8dc4c0490462080145c8d3f130d4475317edaf8edbd760fb20a65f2e76a6",
+  "passed": true,
+  "status": "QUALIFICATION_PASSED__INFLUENCE_MEASUREMENT_ALLOWED",
+  "study_id": "prospective_cupid_can_v141_v2",
+  "successes": 95
+}

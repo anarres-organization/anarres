@@ -277,13 +277,22 @@ without changing that interpretation:
 uv run python data/formal-verification/vero/export_environment_profiles.py \
   --output-dir /tmp/vero-profiles
 anarres qualify /tmp/vero-profiles/vero-development-proof-v5.profile-input.json
+anarres measure /tmp/vero-profiles/vero-development-proof-v5.profile-input.json \
+  --output /tmp/vero-profiles/vero-development-proof-v5.profile.json
+anarres validate \
+  /tmp/vero-profiles/vero-development-proof-v5.profile-input.json \
+  /tmp/vero-profiles/vero-development-proof-v5.profile.json
 ```
 
 The adapter emits separate `proof` and `codeproof` profiles because their
 native rewards are not interchangeable. Both preserve exact zero signal and
 coverage, positive measured token cost, released evidence digests, and the
 failed support gate. They are valid negative measurements but remain unready
-for candidate ranking or downstream training.
+for candidate ranking or downstream training. `anarres qualify` therefore
+reports `ready: false`, while `anarres measure` and `anarres validate` retain
+the negative record as valid evidence. `anarres design` rejects the pair
+because the modes have different native measurement contracts and unresolved
+support checks.
 
 [`policy-budget-calibration.200k.v1.json`](policy-budget-calibration.200k.v1.json)
 freezes the first requalification stage after that result. It selects the

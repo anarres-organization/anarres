@@ -63,6 +63,10 @@ def validate_inputs(
         raise AdapterError("Vero development result is not complete")
     if protocol.get("schema_version") != "anarres.formal-verification-policy-probe.v5":
         raise AdapterError("result requires the v5 policy-probe contract")
+    for field in ("source_id", "repository", "commit", "license"):
+        value = source.get(field)
+        if not isinstance(value, str) or not value.strip():
+            raise AdapterError(f"source pin is missing a nonempty {field}")
     frozen = result.get("frozen_inputs", {}).get("policy_probe_protocol", {})
     if frozen.get("sha256") != sha256(protocol_path):
         raise AdapterError("result does not match the checked-in policy-probe protocol")

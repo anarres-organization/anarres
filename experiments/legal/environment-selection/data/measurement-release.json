@@ -1,0 +1,40 @@
+{
+  "schema_version": "anarres.legal-syllogym-measurement-release.v1",
+  "release_id": "syllogym-policy-response-measurement-v1",
+  "status": "complete_outcome_blind_pretraining_measurement",
+  "subject": {
+    "kind": "policy-agent",
+    "id": "unsloth/Qwen3-4B-unsloth-bnb-4bit",
+    "revision": "bbe12ebf9362b3bcbf44e826e4c98910f2c02e72",
+    "weight_sha256": "c2059ddbe07963f57b58953c6c4799b53b544b05fa63b8306ec0818ce312a8c3"
+  },
+  "source": {
+    "uri": "https://github.com/eliot-gtn/syllogym",
+    "revision": "87b0427fa0b98bef8ee62568169bcc218d3eef7c",
+    "license": "Apache-2.0"
+  },
+  "measurement_contract": {
+    "kind": "component-policy-response-probe",
+    "id": "syllogym-stage-a-policy-response-v1",
+    "revision": "v1",
+    "independent_attempts_per_generator": 256,
+    "generators": 14,
+    "cost_unit": "generated_tokens"
+  },
+  "native_artifacts": {
+    "pretraining-task-measurements.json": "d32c12c46ba68f18ca44a0b3150f6de91f28edac86dfdb62ec214cbe903f2b55",
+    "selector-freeze.json": "14c187e006bfb3fedb2a00614bb06a249b7d2f640dc3385046a0bc712f3794bc",
+    "frozen-decision.json": "c602dc7714b99781a16bf9afe18569d9bac75e4cfd64d36b4b5fde1203c5ac8b",
+    "SOURCES.json": "e27f805a7b20accf7d8e62a0ba964cead095f4fc1a47612f3d6761dbc4c8d194"
+  },
+  "candidate_ids": [
+    "published_depth_weighted_control",
+    "uniform_14_task_control",
+    "frozen_policy_response_allocation"
+  ],
+  "outcome_boundary": {
+    "candidate_training_outcomes_used": false,
+    "target_evaluation_outcomes_used": false,
+    "outcomes_artifact_is_not_an_adapter_input": true
+  }
+}

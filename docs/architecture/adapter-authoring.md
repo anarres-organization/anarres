@@ -107,8 +107,11 @@ independent consumer, conformance tests, and a documented migration policy.
 Changing a coordinate's meaning, unit, or estimator creates a new definition
 revision. It never silently changes an existing profile.
 
-The current compact SylloGym and prospective PushT releases contain their
-decision records and downstream outcomes, but not the complete per-candidate
-pre-training measurement vectors. They therefore remain authoritative evidence
-records and are not backfilled into environment profiles. A future release can
-add profiles when the native measurement artifacts are published.
+The SylloGym release now includes its complete outcome-blind component
+measurements and frozen candidate weights. Its study-local adapter projects
+those native records into three compatible profiles without reading downstream
+outcomes. The prospective PushT release still omits complete per-candidate
+pre-training vectors and remains an authoritative evidence record rather than a
+profile producer. The prospective Can v1.4.1 study publishes a separate
+pre-outcome candidate-measurement record and native adapter because its complete
+vectors and frozen identities are available.
