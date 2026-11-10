@@ -43,11 +43,21 @@ abstention before development training.
 
 ## CLI projection
 
-The native adapter exports the six construction-view banks as Anarres
-environment profiles with eight reaction-bank coordinates:
+Install the native CLI and molecular adapter from a repository checkout:
 
 ```bash
-python scripts/export_environment_profiles.py --output-dir .anarres/molecular-q07820
+cargo install --path crates/anarres-cli --locked
+uv tool install ./experiments/ai-for-science/molecular-design/reaction-environment-selection
+anarres adapter doctor molecular
+```
+
+The adapter exports the six construction-view banks as Anarres environment
+profiles with eight reaction-bank coordinates:
+
+```bash
+anarres molecular status --repository . --json
+anarres molecular profile --repository . \
+  --output-dir .anarres/molecular-q07820
 anarres qualify .anarres/molecular-q07820/q07820-hash_uniform.profile-input.json --json
 anarres measure .anarres/molecular-q07820/q07820-hash_uniform.profile-input.json \
   --output .anarres/molecular-q07820/q07820-hash_uniform.profile.json
@@ -56,6 +66,8 @@ anarres measure .anarres/molecular-q07820/q07820-hash_uniform.profile-input.json
 Each profile preserves the native contracts and artifact digests. The profiles
 are schema-valid, but their failed bank-confirmation check keeps them unready
 for comparison or design. CLI conformance does not authorize target training.
+The adapter accepts an explicit `--repository` path, so the installed command
+can run outside the checkout without searching for mutable evidence.
 
 ## Research question
 

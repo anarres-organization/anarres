@@ -75,3 +75,7 @@ two-view version 3 measurement. The independent development-bank confirmation
 fails for generated-action cost, oracle time, and scaffold coverage, so the
 recorded construction memberships do not authorize target training. No target
 training or evaluation outcome has been opened.
+
+An installable `anarres-molecular` adapter exposes the native qualification
+status and deterministic profile export without changing this evidence
+boundary. See the [study CLI projection](reaction-environment-selection/README.md#cli-projection).

@@ -1,0 +1,17 @@
+[project]
+name = "anarres-molecular"
+version = "0.1.0"
+description = "Anarres adapter for the released Q07820 reaction-bank study"
+requires-python = ">=3.11"
+dependencies = ["anarres-environments"]
+license = { text = "Apache-2.0" }
+
+[project.scripts]
+anarres-molecular = "anarres_molecular_adapter.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/anarres_molecular_adapter"]
