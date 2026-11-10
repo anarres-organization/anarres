@@ -31,13 +31,13 @@ class ExternalChecksTest(unittest.TestCase):
         self.assertEqual(score["advantage_over_semantic_only_pp"], 23.75)
 
     def test_released_summary_is_reproduced(self) -> None:
-        expected = json.loads((ROOT / "results" / "summary.json").read_text())
+        expected = (ROOT / "results" / "summary.json").read_text()
         observed = {
             "greenball_initiation": MODULE.greenball_score(self.greenball),
             "guild": MODULE.guild_score(self.guild),
             "sole_r1": MODULE.sole_score(self.sole),
         }
-        self.assertEqual(observed, expected)
+        self.assertEqual(MODULE.canonical_json(observed), expected)
 
     def test_guild_miss_is_retained(self) -> None:
         task = next(row for row in self.guild["tasks"] if row["task"] == "pink-cup-sink")
