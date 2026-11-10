@@ -12,6 +12,7 @@ dev = [
 
 [tool.uv.workspace]
 members = [
+  "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter",
   "packages/core",
   "packages/environments",
   "packages/evaluation",
@@ -26,6 +27,7 @@ anarres-environments = { workspace = true }
 anarres-evaluation = { workspace = true }
 anarres-finance = { workspace = true }
 anarres-legal = { workspace = true }
+anarres-materials-adapter = { workspace = true }
 anarres-robotics = { workspace = true }
 
 [tool.ruff]

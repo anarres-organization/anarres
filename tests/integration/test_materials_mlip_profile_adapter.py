@@ -1,6 +1,7 @@
 import hashlib
 import importlib.util
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -14,10 +15,15 @@ from referencing import Registry, Resource
 ROOT = Path(__file__).resolve().parents[2]
 STUDY = ROOT / "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection"
 SCRIPT = STUDY / "export_environment_profiles.py"
+ADAPTER_CLI = STUDY / "adapter/src/anarres_materials_adapter/cli.py"
 SPEC = importlib.util.spec_from_file_location("materials_mlip_profile_adapter", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
+CLI_SPEC = importlib.util.spec_from_file_location("materials_mlip_adapter_cli", ADAPTER_CLI)
+assert CLI_SPEC is not None and CLI_SPEC.loader is not None
+CLI_MODULE = importlib.util.module_from_spec(CLI_SPEC)
+CLI_SPEC.loader.exec_module(CLI_MODULE)
 
 CANDIDATES = [
     "aimd-from-PBE-1000-npt__hash_uniform",
@@ -102,6 +108,25 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
                 self.assertEqual(checks["final-panel-pending"]["severity"], "warning")
                 self.assertEqual(len(payload["artifacts"]), 7)
                 self.assertNotIn("uncertainty", payload["coordinates"][0])
+                coordinates = {
+                    coordinate["name"]: coordinate for coordinate in payload["coordinates"]
+                }
+                self.assertEqual(
+                    set(coordinates),
+                    {
+                        "chemical_system_entropy",
+                        "effective_signal_coverage",
+                        "mean_target_affinity",
+                        "neighbor_edges_per_atom",
+                        "processed_atom_budget",
+                        "signal_density_per_atom",
+                    },
+                )
+                self.assertEqual(
+                    coordinates["signal_density_per_atom"]["unit"],
+                    "loss_weighted_residual_per_atom",
+                )
+                self.assertEqual(coordinates["processed_atom_budget"]["unit"], "processed_atoms")
 
                 measured = (
                     temporary
@@ -201,6 +226,87 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
             self.export(output)
             with self.assertRaises(FileExistsError):
                 self.export(output)
+
+    def test_adapter_descriptor_and_status_preserve_the_study_boundary(self) -> None:
+        descriptor = CLI_MODULE.adapter_descriptor()
+        self.assertEqual(descriptor["schema_version"], "anarres.adapter-descriptor.v1")
+        self.assertEqual(descriptor["name"], "materials")
+        self.assertEqual(descriptor["protocol_version"], 1)
+        self.assertEqual(
+            descriptor["measurement_contracts"],
+            ["materials.mlip-phonon-candidate-measurement.v1"],
+        )
+        self.assertEqual(descriptor["capabilities"], sorted(descriptor["capabilities"]))
+
+        args = type("Args", (), {"repository": ROOT})()
+        status = CLI_MODULE.command_status(args)
+        self.assertEqual(status["candidate_count"], 48)
+        self.assertTrue(status["measurements_complete"])
+        self.assertFalse(status["candidate_outcomes_opened"])
+        self.assertFalse(status["final_training_panel_frozen"])
+        self.assertFalse(status["predictive_evidence_available"])
+
+    def test_adapter_runs_outside_the_repository_and_core_doctor_accepts_it(self) -> None:
+        if sys.platform == "win32":
+            self.skipTest("executable wrapper fixture uses POSIX permissions")
+        with tempfile.TemporaryDirectory() as directory:
+            temporary = Path(directory)
+            executable = temporary / "anarres-materials"
+            executable.write_text(
+                f"#!{sys.executable}\n"
+                "import runpy\n"
+                f"runpy.run_path({str(ADAPTER_CLI)!r}, run_name='__main__')\n"
+            )
+            executable.chmod(0o755)
+            environment = os.environ.copy()
+            environment["PATH"] = os.pathsep.join([str(temporary), environment.get("PATH", "")])
+            environment["PYTHONPATH"] = os.pathsep.join(
+                [
+                    str(ROOT / "packages/core/src"),
+                    str(ROOT / "packages/environments/src"),
+                    environment.get("PYTHONPATH", ""),
+                ]
+            )
+
+            doctor = subprocess.run(
+                [str(self.cli), "adapter", "doctor", "materials", "--json"],
+                cwd=temporary,
+                env=environment,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            report = json.loads(doctor.stdout)
+            self.assertTrue(report["valid"])
+            self.assertEqual(report["descriptor"]["domain"], "materials-interatomic-potentials")
+
+            status = subprocess.run(
+                [
+                    str(self.cli),
+                    "materials",
+                    "status",
+                    "--repository",
+                    str(ROOT),
+                    "--json",
+                ],
+                cwd=temporary,
+                env=environment,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(status.returncode, 0, status.stderr)
+            payload = json.loads(status.stdout)
+            self.assertEqual(payload["candidate_count"], 48)
+            self.assertFalse(payload["candidate_outcomes_opened"])
+
+    def test_adapter_verify_reuses_the_native_exporter(self) -> None:
+        args = type("Args", (), {"repository": ROOT})()
+        report = CLI_MODULE.command_verify(args)
+        self.assertEqual(report["status"], "pass")
+        self.assertTrue(report["deterministic"])
+        self.assertTrue(report["candidate_outcomes_sealed"])
+        self.assertFalse(report["final_training_panel_frozen"])
 
 
 if __name__ == "__main__":

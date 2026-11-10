@@ -274,13 +274,18 @@ profiles expose only measurements made before candidate training. Phonon
 outcomes, forecasts, and candidate rankings remain in their native study
 records.
 
-After `make setup`, install the native command as described in the
-[CLI guide](../../../../docs/cli.md), then export two candidates and run the
-complete path from the repository root:
+After `make setup`, install the native command and the study-local adapter from
+the repository root:
 
 ```bash
-uv run python \
-  experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/export_environment_profiles.py \
+cargo install --path crates/anarres-cli --locked
+uv tool install \
+  ./experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter
+
+anarres adapter doctor materials
+anarres materials status --repository .
+anarres materials profile \
+  --repository . \
   --output-dir .anarres/materials-mlip \
   --candidate-id aimd-from-PBE-1000-npt__hash_uniform \
   --candidate-id aimd-from-PBE-1000-npt__low_signal
@@ -306,6 +311,12 @@ Omitting `--candidate-id` exports all 48 candidates. The corresponding
 defines every coordinate, unit, estimator, and edge case. The final training
 panel remains unfrozen because processed atoms are matched while neighbor-edge
 cost still varies across candidates.
+
+The adapter can be invoked from outside the checkout by passing the repository
+explicitly with `--repository`. Its `status` and `verify` commands preserve the
+same measurement-only boundary and do not open candidate-training or protected
+phonon outcomes. The generic installation and execution contract is documented
+in the [CLI guide](../../../../docs/cli.md).
 
 ## Primary sources
 
