@@ -112,4 +112,6 @@ measurements and frozen candidate weights. Its study-local adapter projects
 those native records into three compatible profiles without reading downstream
 outcomes. The prospective PushT release still omits complete per-candidate
 pre-training vectors and remains an authoritative evidence record rather than a
-profile producer.
+profile producer. The prospective Can v1.4.1 study publishes a separate
+pre-outcome candidate-measurement record and native adapter because its complete
+vectors and frozen identities are available.

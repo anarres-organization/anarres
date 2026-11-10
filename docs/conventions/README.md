@@ -27,5 +27,6 @@ Current conventions:
 - [Formal-verification grouped probe v1](formal-verification-grouped-probe-v1.md)
 - [Legal policy-response measurement v1](legal-policy-response-v1.md)
 - [Robotics episode probe v1](robotics-episode-probe-v1.md)
+- [Robotics CUPID candidate measurement v1](robotics-cupid-candidate-measurement-v1.md)
 - [Materials residual audit v1](materials-residual-audit-v1.md)
 - [Materials MLIP candidate measurement v1](materials-mlip-candidate-measurement-v1.md)

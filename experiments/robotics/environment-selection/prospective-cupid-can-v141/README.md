@@ -1,8 +1,9 @@
 # Prospective closed-loop curation on RoboMimic Can v1.4.1
 
 **Status:** closed-loop qualification passed with 95 successes and 5 failures
-across 100 episodes. Influence measurement is the next stage, and no candidate
-policy has been trained.
+across 100 episodes. Three-checkpoint influence measurement passed its frozen
+reliability gate, and five candidate sets were serialized before their policy
+outcomes opened.
 
 This study tests whether target-sensitive measurements from a robot policy can
 choose a useful training subset before any candidate policy is trained. It uses
@@ -44,9 +45,40 @@ the completeness and identity checks. The machine-readable contract is in
 [`PROTOCOL.json`](PROTOCOL.json), and source revisions and artifact hashes are
 in [`SOURCES.json`](SOURCES.json).
 
+## Native CLI profiles
+
+[`PROFILE_MEASUREMENTS.json`](PROFILE_MEASUREMENTS.json) is a compact public
+record derived from the three native CUPID score files and the frozen candidate
+memberships. It contains no candidate-policy outcomes or machine-specific
+paths. The adapter exports one profile per candidate with CUPID rank position,
+operator-tier coverage, demonstration length, and cross-checkpoint rank
+reliability:
+
+```bash
+uv run python \
+  experiments/robotics/environment-selection/prospective-cupid-can-v141/export_environment_profiles.py \
+  --output-dir .anarres/can-v141
+
+cargo run --quiet -p anarres-cli -- qualify \
+  .anarres/can-v141/can-v141-cupid_50.profile-input.json
+
+for profile in .anarres/can-v141/*.profile-input.json; do
+  cargo run --quiet -p anarres-cli -- measure "$profile" \
+    --output "${profile%.profile-input.json}.profile.json"
+done
+
+cargo run --quiet -p anarres-cli -- design \
+  .anarres/can-v141/*.profile.json
+```
+
+The adapter verifies the protocol, source, qualification, checkpoint, score,
+and membership identities before export. CLI compatibility means that the five
+candidates share one scientific contract. It does not reveal which candidate
+performs best after training.
+
 ## Scope
 
 This is one simulated manipulation task, one policy family, and one fixed
-training budget. The qualification gate protects the influence measurement. It
-does not establish selector performance, which requires the complete candidate
-comparison.
+training budget. Qualification and native CLI conformance protect the
+measurement and comparison boundary. Selector performance requires the
+complete, separately gated candidate comparison.
