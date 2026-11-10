@@ -121,6 +121,17 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def prospective_boundaries_opened(outcomes: dict[str, Any]) -> bool:
+    boundary = outcomes.get("prospective_boundary")
+    return isinstance(boundary, dict) and all(
+        boundary.get(key) is True
+        for key in (
+            "prospective_candidate_training_outcomes_used",
+            "prospective_target_outcomes_used",
+        )
+    )
+
+
 def load_exporter(repository: Path) -> ModuleType:
     path = exporter_path(repository)
     if not path.is_file():
@@ -176,7 +187,7 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "candidate_count": len(candidates),
         "measurement_records": validation.get("records"),
         "measurements_complete": validation.get("status") == "complete",
-        "candidate_outcomes_opened": all(outcomes.get("prospective_boundary", {}).values()),
+        "candidate_outcomes_opened": prospective_boundaries_opened(outcomes),
         "final_training_panel_frozen": checks["final-panel-frozen"]["status"] == "pass",
         "decision_protocol_frozen": protocol.get("status")
         == "frozen_before_candidate_training_outcomes",
@@ -426,7 +437,7 @@ def command_results(args: argparse.Namespace) -> dict[str, Any]:
     for key, value in required.items():
         if expected.get(key) != value:
             raise MaterialsCliError(f"prospective score does not bind {key}")
-    if not all(outcomes.get("prospective_boundary", {}).values()):
+    if not prospective_boundaries_opened(outcomes):
         raise MaterialsCliError("prospective outcomes have not opened both protected boundaries")
     if audit.get("inputs", {}).get("prospective_prediction_score_sha256") != sha256(score_file):
         raise MaterialsCliError("post-prospective audit does not bind the scored test")

@@ -82,6 +82,26 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
             candidate_ids=CANDIDATES,
         )
 
+    def test_prospective_boundary_requires_both_named_openings(self) -> None:
+        complete = {
+            "prospective_boundary": {
+                "prospective_candidate_training_outcomes_used": True,
+                "prospective_target_outcomes_used": True,
+            }
+        }
+        self.assertTrue(CLI_MODULE.prospective_boundaries_opened(complete))
+        self.assertFalse(CLI_MODULE.prospective_boundaries_opened({}))
+        self.assertFalse(CLI_MODULE.prospective_boundaries_opened({"prospective_boundary": {}}))
+        self.assertFalse(
+            CLI_MODULE.prospective_boundaries_opened(
+                {
+                    "prospective_boundary": {
+                        "prospective_candidate_training_outcomes_used": True,
+                    }
+                }
+            )
+        )
+
     def cli_run(self, *arguments: str, check: bool = True) -> subprocess.CompletedProcess:
         return subprocess.run(
             [str(self.cli), *arguments],
