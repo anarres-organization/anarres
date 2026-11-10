@@ -1,0 +1,4 @@
+# Locked Python dependencies used for the byte-identical panel regeneration.
+# The platform and interpreter build remain recorded in PANEL_REGENERATION_RECEIPT.json.
+numpy==2.4.6
+scipy==1.17.1

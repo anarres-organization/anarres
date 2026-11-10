@@ -1,0 +1,175 @@
+{
+  "artifact": "anarres_mlip_training_qualification_result_v1",
+  "status": "complete_before_final_candidate_training",
+  "protocol_sha256": "13f8fc254547a37d553a21b656ba6f271d6fc3c6a5b61220763d0bdb624a903b",
+  "qualification_environment": {
+    "candidate_id": "aimd-from-PBE-1000-npt__hash_uniform",
+    "source": "CANDIDATE_BANK_DRAFT.json",
+    "included_in_final_panel": false,
+    "atoms": 50000,
+    "neighbor_edges": 2073926,
+    "membership_sha256": "dee2ffe8863f723ad2b81e443be5d50538a697947e8f025dc12517ba8f65e469"
+  },
+  "starting_checkpoint": {
+    "name": "Nequix-MP-1",
+    "sha256": "1647af8e627e1afa11e2bfadeab0797326513a521afd7dd01606a96f56783eee"
+  },
+  "baseline": {
+    "artifact_sha256": "03d3efedaca2b42122f435ced5401e14f6398beb8383c51d62ec24529599b498",
+    "dataset_sha256": "9cdea0daf8fb7abf6ac78c0c1f65388f795fd063e9e33e0611431bb85cbb2ff3",
+    "model_sha256": "1647af8e627e1afa11e2bfadeab0797326513a521afd7dd01606a96f56783eee",
+    "records": {
+      "total": 5883,
+      "training": 5589,
+      "validation": 294
+    },
+    "split": {
+      "validation_fraction": 0.05,
+      "validation_seed": 42
+    },
+    "loss_contract": {
+      "energy_weight": 0.0,
+      "force_weight": 20.0,
+      "stress_weight": 5.0,
+      "loss_type": "mae"
+    },
+    "metrics": {
+      "loss": 5.256242275238037,
+      "energy_mae_per_atom": 0.09415490180253983,
+      "force_mae": 0.12817981839179993,
+      "stress_mae_per_atom": 0.0008824956021271646
+    }
+  },
+  "runs": [
+    {
+      "learning_rate": 1e-05,
+      "passed": true,
+      "heldout_loss": 5.153079986572266,
+      "relative_loss_change": -0.019626623596055492,
+      "force_mae": 0.12558095157146454,
+      "stress_mae_per_atom": 0.0008751574205234647,
+      "checkpoint_sha256": "e60af421140f3bde3cefc18fba961141fcd722927946b3886a52625ff8e577a0",
+      "evaluation": {
+        "artifact_sha256": "44aeb4d0b995e5b3b06cd49553ea599e225453e4695ef26fce64ca3f09e71285",
+        "dataset_sha256": "9cdea0daf8fb7abf6ac78c0c1f65388f795fd063e9e33e0611431bb85cbb2ff3",
+        "model_sha256": "e60af421140f3bde3cefc18fba961141fcd722927946b3886a52625ff8e577a0",
+        "records": {
+          "total": 5883,
+          "training": 5589,
+          "validation": 294
+        },
+        "split": {
+          "validation_fraction": 0.05,
+          "validation_seed": 42
+        },
+        "loss_contract": {
+          "energy_weight": 0.0,
+          "force_weight": 20.0,
+          "stress_weight": 5.0,
+          "loss_type": "mae"
+        },
+        "metrics": {
+          "loss": 5.153079986572266,
+          "energy_mae_per_atom": 0.08830966800451279,
+          "force_mae": 0.12558095157146454,
+          "stress_mae_per_atom": 0.0008751574205234647
+        }
+      },
+      "gradient_norm": {
+        "artifact_sha256": "2f8d1a598d649418d734caa50aed39394f029a083ff3e0cb1980c061f955e796",
+        "observations": 9,
+        "minimum": 3.45772647857666,
+        "maximum": 5.470597743988037
+      }
+    },
+    {
+      "learning_rate": 3e-05,
+      "passed": true,
+      "heldout_loss": 5.0303874015808105,
+      "relative_loss_change": -0.042968885723023154,
+      "force_mae": 0.12255523353815079,
+      "stress_mae_per_atom": 0.000872432254254818,
+      "checkpoint_sha256": "b088bc9dccc115eb5f07e541b7252e7c31f50f8fe85005751738c05b9bd78d70",
+      "evaluation": {
+        "artifact_sha256": "9fb78df4e1cd893a01b34108b156a95c81935262347bfcf3116d3a783a8637c0",
+        "dataset_sha256": "9cdea0daf8fb7abf6ac78c0c1f65388f795fd063e9e33e0611431bb85cbb2ff3",
+        "model_sha256": "b088bc9dccc115eb5f07e541b7252e7c31f50f8fe85005751738c05b9bd78d70",
+        "records": {
+          "total": 5883,
+          "training": 5589,
+          "validation": 294
+        },
+        "split": {
+          "validation_fraction": 0.05,
+          "validation_seed": 42
+        },
+        "loss_contract": {
+          "energy_weight": 0.0,
+          "force_weight": 20.0,
+          "stress_weight": 5.0,
+          "loss_type": "mae"
+        },
+        "metrics": {
+          "loss": 5.0303874015808105,
+          "energy_mae_per_atom": 0.08200430870056152,
+          "force_mae": 0.12255523353815079,
+          "stress_mae_per_atom": 0.000872432254254818
+        }
+      },
+      "gradient_norm": {
+        "artifact_sha256": "f4b619652b96e80aa6ac127ba8283ec9998e08ceca0a208660c389ad3aa0851b",
+        "observations": 9,
+        "minimum": 3.454918146133423,
+        "maximum": 5.259980201721191
+      }
+    },
+    {
+      "learning_rate": 0.0001,
+      "passed": true,
+      "heldout_loss": 4.813174247741699,
+      "relative_loss_change": -0.08429368440332652,
+      "force_mae": 0.11749498546123505,
+      "stress_mae_per_atom": 0.0008495550137013197,
+      "checkpoint_sha256": "378d377ecf6f0ff22708f1192df2937bd52775226c2588e927516aeaff209dd7",
+      "evaluation": {
+        "artifact_sha256": "337cf965912ee278e78456abd018d429bc9e61ed6bcee1093fa0e3fc2dd39fcc",
+        "dataset_sha256": "9cdea0daf8fb7abf6ac78c0c1f65388f795fd063e9e33e0611431bb85cbb2ff3",
+        "model_sha256": "378d377ecf6f0ff22708f1192df2937bd52775226c2588e927516aeaff209dd7",
+        "records": {
+          "total": 5883,
+          "training": 5589,
+          "validation": 294
+        },
+        "split": {
+          "validation_fraction": 0.05,
+          "validation_seed": 42
+        },
+        "loss_contract": {
+          "energy_weight": 0.0,
+          "force_weight": 20.0,
+          "stress_weight": 5.0,
+          "loss_type": "mae"
+        },
+        "metrics": {
+          "loss": 4.813174247741699,
+          "energy_mae_per_atom": 0.0724262148141861,
+          "force_mae": 0.11749498546123505,
+          "stress_mae_per_atom": 0.0008495550137013197
+        }
+      },
+      "gradient_norm": {
+        "artifact_sha256": "07ada16f7dbdde8af0c5749b5c0990daf227317ee431283a6150dc06ea46ccb2",
+        "observations": 9,
+        "minimum": 3.442450523376465,
+        "maximum": 5.755014896392822
+      }
+    }
+  ],
+  "selection_rule": "Choose the largest learning rate whose loss, gradient norm, parameters, and reloaded checkpoint remain finite and whose held-out E/F/S validation loss does not exceed the starting checkpoint. Break ties by lower validation loss.",
+  "selected_learning_rate": 0.0001,
+  "selected_checkpoint_sha256": "378d377ecf6f0ff22708f1192df2937bd52775226c2588e927516aeaff209dd7",
+  "outcome_boundary": {
+    "phonon_target_outcomes_used": false,
+    "final_candidate_training_outcomes_used": false
+  }
+}

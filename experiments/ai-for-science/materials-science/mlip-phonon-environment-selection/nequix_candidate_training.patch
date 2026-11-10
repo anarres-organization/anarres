@@ -1,0 +1,96 @@
+diff --git a/nequix/train.py b/nequix/train.py
+index 299d0d7..7fb0f5f 100644
+--- a/nequix/train.py
++++ b/nequix/train.py
+@@ -187,6 +187,8 @@ def train(config_path: str):
+         )
+     if "valid_frac" in config:
+-        train_dataset, val_dataset = train_dataset.split(valid_frac=config["valid_frac"])
++        train_dataset, val_dataset = train_dataset.split(
++            valid_frac=config["valid_frac"], seed=config.get("validation_seed", 42)
++        )
+     else:
+         assert "valid_path" in config, "valid_path must be specified if valid_frac is not provided"
+         val_dataset = AseDBDataset(
+@@ -220,6 +222,7 @@ def train(config_path: str):
+     train_loader = DataLoader(
+         train_dataset,
+         batch_size=config["batch_size"],
++        seed=config.get("seed", 0),
+         shuffle=True,
+         max_n_nodes=stats["max_n_nodes"],
+         max_n_edges=stats["max_n_edges"],
+@@ -265,9 +268,9 @@ def train(config_path: str):
+         kernel=config["kernel"],
+     )
++    checkpoint_config = dict(config)
+     if "finetune_from" in config and Path(config["finetune_from"]).exists():
+-        if "atom_energies" in config:
+-            # TODO
+-            raise NotImplementedError("Updating atom energies not implemented for JAX backend")
+-        model, _ = load_model(config["finetune_from"])
++        model, base_model_config = load_model(config["finetune_from"])
++        for key in ("shift", "scale", "avg_n_neighbors"):
++            checkpoint_config[key] = base_model_config[key]
+ 
+     param_count = sum(p.size for p in jax.tree.flatten(eqx.filter(model, eqx.is_array))[0])
+@@ -306,5 +306,8 @@ def train(config_path: str):
+     opt_state = optim.init(eqx.filter(model, eqx.is_array))
+ 
+-    model = jax.device_put_replicated(model, list(jax.devices()))
+-    opt_state = jax.device_put_replicated(opt_state, list(jax.devices()))
++    devices = list(jax.devices())
++    if len(devices) != 1:
++        raise ValueError("candidate fine-tuning requires exactly one visible device")
++    model = jax.tree.map(lambda x: jax.device_put(x[None], devices[0]), model)
++    opt_state = jax.tree.map(lambda x: jax.device_put(x[None], devices[0]), opt_state)
+     ema_model = jax.tree.map(lambda x: x.copy(), model)  # copy model
+@@ -422,5 +421,25 @@ def train(config_path: str):
+             wandb_run_id=wandb_run_id,
+         )
+ 
++        if "checkpoint_dir" in config:
++            checkpoint_dir = Path(config["checkpoint_dir"])
++            checkpoint_dir.mkdir(parents=True, exist_ok=True)
++            save_model(
++                checkpoint_dir / f"epoch_{epoch + 1:04d}.nqx",
++                ema_model_single,
++                checkpoint_config,
++            )
++            save_training_state(
++                checkpoint_dir / f"epoch_{epoch + 1:04d}.state.pkl",
++                model,
++                ema_model,
++                optim,
++                opt_state,
++                step,
++                epoch + 1,
++                best_val_loss,
++                wandb_run_id=wandb_run_id,
++            )
++
+         if "state_path" in config:
+             save_training_state(
+                 config["state_path"],
+diff --git a/nequix/data.py b/nequix/data.py
+--- a/nequix/data.py
++++ b/nequix/data.py
+@@ -257,9 +257,15 @@ class DataLoader:
+         if self._started:
+             return
+ 
+-        # NB: we can use fork here, only because we are not using jax
+-        # in the workers (data is just numpy arrays)
+-        # multiprocessing.set_start_method("spawn", force=True)
++        # Avoid inheriting an open LMDB handle. Each worker reopens it lazily.
++        dataset = self.dataset
++        while hasattr(dataset, "base"):
++            dataset = dataset.base
++        for database in getattr(dataset, "dbs", []):
++            if getattr(database, "_env", None) is not None:
++                database._env.close()
++                database._env = None
++        # Fork is safe here because workers only construct NumPy graph records.
+         self._started = True
+         self.index_queue = multiprocessing.Queue()
+         self.output_queue = multiprocessing.Queue()

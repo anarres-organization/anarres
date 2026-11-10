@@ -54,9 +54,13 @@ def test_regeneration_receipt_pins_code_and_solver_environment():
         sha256(HERE / "construct_candidate_bank.py") == code["construct_candidate_bank.py_sha256"]
     )
     assert sha256(ROOT / "pyproject.toml") == code["pyproject.toml_sha256"]
-    assert sha256(ROOT / "uv.lock") == code["uv.lock_sha256"]
+    assert (
+        sha256(HERE / "PANEL_REGENERATION_REQUIREMENTS.txt")
+        == code["PANEL_REGENERATION_REQUIREMENTS.txt_sha256"]
+    )
 
     command = receipt["command"]
-    assert "--locked" in command
-    assert command[command.index("--python") + 1] == "3.11"
+    assert "--no-project" in command
+    assert command[command.index("--python") + 1] == "3.11.7"
+    assert "--with-requirements" in command
     assert command[command.index("--time-limit-seconds") + 1] == "60"

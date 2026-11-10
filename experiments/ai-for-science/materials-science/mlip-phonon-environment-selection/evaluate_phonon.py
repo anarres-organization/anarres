@@ -93,11 +93,19 @@ def commensurate_frequencies(phonon) -> np.ndarray:
 
 def is_stable(frequencies_thz: np.ndarray) -> bool:
     """Use the released benchmark's stability rule, converted from kelvin to THz."""
+    return stability_margin_kelvin(frequencies_thz) >= 0.0
+
+
+def stability_margin_kelvin(frequencies_thz: np.ndarray) -> float:
+    """Return signed distance to the released dynamical-stability boundary."""
     frequencies_kelvin = frequencies_thz * 47.992
     gamma = frequencies_kelvin[0]
-    return not (
-        np.any(gamma[:3] < -35.0) or np.any(gamma[3:] < 0.0) or np.any(frequencies_kelvin[1:] < 0.0)
-    )
+    margins = [float(np.min(gamma[:3] + 35.0))]
+    if gamma.size > 3:
+        margins.append(float(np.min(gamma[3:])))
+    if frequencies_kelvin.shape[0] > 1:
+        margins.append(float(np.min(frequencies_kelvin[1:])))
+    return min(margins)
 
 
 def load_calculator(backend: str, model_path: Path):
@@ -168,6 +176,8 @@ def evaluate(
             ),
             "reference_stable": is_stable(reference_frequencies),
             "predicted_stable": is_stable(predicted_frequencies),
+            "reference_stability_margin_kelvin": stability_margin_kelvin(reference_frequencies),
+            "predicted_stability_margin_kelvin": stability_margin_kelvin(predicted_frequencies),
             "commensurate_qpoints": int(reference_frequencies.shape[0]),
             "modes_per_qpoint": int(reference_frequencies.shape[1]),
         },

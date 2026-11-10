@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import importlib.util
 import json
 import sys
@@ -22,12 +23,12 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "materials",
-        "version": "0.2.0",
+        "version": "0.3.0",
         "protocol_version": 1,
         "domain": "materials-interatomic-potentials",
         "executable": "anarres-materials",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
-        "capabilities": ["profile", "status", "verify"],
+        "capabilities": ["decision-protocol", "profile", "status", "verify"],
         "measurement_contracts": [
             "materials.mlip-phonon-candidate-measurement.v2",
         ],
@@ -58,6 +59,34 @@ def exporter_path(repository: Path) -> Path:
     return study_root(repository) / "export_environment_profiles.py"
 
 
+def protocol_path(repository: Path) -> Path:
+    return study_root(repository) / "DECISION_AND_REGRESSION_PROTOCOL.json"
+
+
+def receipt_path(repository: Path) -> Path:
+    return study_root(repository) / "PANEL_REGENERATION_RECEIPT.json"
+
+
+def training_qualification_path(repository: Path) -> Path:
+    return study_root(repository) / "TRAINING_QUALIFICATION_PROTOCOL.json"
+
+
+def training_qualification_result_path(repository: Path) -> Path:
+    return study_root(repository) / "TRAINING_QUALIFICATION_RESULT.json"
+
+
+def starting_targets_path(repository: Path) -> Path:
+    return study_root(repository) / "STARTING_CHECKPOINT_TARGETS.json"
+
+
+def final_training_contract_path(repository: Path) -> Path:
+    return study_root(repository) / "FINAL_TRAINING_CONTRACT.json"
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def load_exporter(repository: Path) -> ModuleType:
     path = exporter_path(repository)
     if not path.is_file():
@@ -77,6 +106,11 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     exporter = load_exporter(repository)
     bank = exporter.read_object(exporter.DEFAULT_BANK)
     validation = exporter.read_object(exporter.DEFAULT_VALIDATION)
+    protocol = exporter.read_object(protocol_path(repository))
+    training_qualification = exporter.read_object(training_qualification_path(repository))
+    training_result = exporter.read_object(training_qualification_result_path(repository))
+    starting_targets = exporter.read_object(starting_targets_path(repository))
+    final_contract = exporter.read_object(final_training_contract_path(repository))
     candidates = bank.get("candidates")
     if not isinstance(candidates, list):
         raise MaterialsCliError("candidate panel has no candidate list")
@@ -97,7 +131,146 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "measurements_complete": validation.get("status") == "complete",
         "candidate_outcomes_opened": checks["candidate-outcomes-sealed"]["status"] != "pass",
         "final_training_panel_frozen": checks["final-panel-frozen"]["status"] == "pass",
+        "decision_protocol_frozen": protocol.get("status")
+        == "frozen_before_candidate_training_outcomes",
+        "regression_protocol_frozen": "target_regression_prediction" in protocol,
+        "training_qualification_protocol_status": training_qualification.get("status"),
+        "training_qualification_status": training_result.get("status"),
+        "selected_learning_rate": training_result.get("selected_learning_rate"),
+        "starting_target_features_complete": starting_targets.get("status")
+        == "complete_before_candidate_training",
+        "final_training_contract_status": final_contract.get("status"),
         "predictive_evidence_available": False,
+        "next_gate": "freeze the final training contract and train development environments",
+    }
+
+
+def command_protocol(args: argparse.Namespace) -> dict[str, Any]:
+    """Report the frozen pre-outcome decision and regression contract."""
+
+    repository = repository_root(args.repository)
+    exporter = load_exporter(repository)
+    bank_path = exporter.DEFAULT_BANK
+    protocol_file = protocol_path(repository)
+    receipt_file = receipt_path(repository)
+    training_file = training_qualification_path(repository)
+    training_result_file = training_qualification_result_path(repository)
+    starting_targets_file = starting_targets_path(repository)
+    final_contract_file = final_training_contract_path(repository)
+    bank = exporter.read_object(bank_path)
+    protocol = exporter.read_object(protocol_file)
+    receipt = exporter.read_object(receipt_file)
+    training = exporter.read_object(training_file)
+    training_result = exporter.read_object(training_result_file)
+    starting_targets = exporter.read_object(starting_targets_file)
+    final_contract = exporter.read_object(final_contract_file)
+
+    expected_bank = protocol.get("inputs", {}).get("candidate_panel", {}).get("sha256")
+    if expected_bank != sha256(bank_path):
+        raise MaterialsCliError("decision protocol does not bind the released candidate panel")
+    if receipt.get("original_artifact", {}).get("sha256") != expected_bank:
+        raise MaterialsCliError("regeneration receipt does not bind the released candidate panel")
+
+    boundary = protocol.get("outcome_boundary")
+    if not isinstance(boundary, dict) or any(boundary.values()):
+        raise MaterialsCliError("decision protocol crosses the sealed outcome boundary")
+
+    ranking = protocol.get("literature_derived_baseline", {}).get("ranking")
+    if not isinstance(ranking, list):
+        raise MaterialsCliError("decision protocol has no baseline ranking")
+    candidate_ids = {candidate["candidate_id"] for candidate in bank["candidates"]}
+    if {item.get("candidate_id") for item in ranking} != candidate_ids:
+        raise MaterialsCliError("decision protocol ranking does not cover the frozen panel")
+
+    selection = protocol["prospective_environment_selection"]
+    regressions = protocol["target_regression_prediction"]
+    if training.get("qualification_environment", {}).get("included_in_final_panel") is not False:
+        raise MaterialsCliError("training qualification consumes a final candidate")
+    if training.get("qualification_grid", {}).get("uses_phonon_target_outcomes") is not False:
+        raise MaterialsCliError("training qualification uses a protected phonon outcome")
+    if training_result.get("protocol_sha256") != sha256(training_file):
+        raise MaterialsCliError("training result does not bind the frozen qualification protocol")
+    if any(training_result.get("outcome_boundary", {}).values()):
+        raise MaterialsCliError("training qualification crosses the sealed outcome boundary")
+    if final_contract.get("inputs", {}).get("starting_checkpoint_targets_sha256") != sha256(
+        starting_targets_file
+    ):
+        raise MaterialsCliError("final training contract does not bind starting target features")
+    if final_contract.get("inputs", {}).get("training_qualification_result_sha256") != sha256(
+        training_result_file
+    ):
+        raise MaterialsCliError("final training contract does not bind training qualification")
+    if any(final_contract.get("outcome_boundary", {}).values()):
+        raise MaterialsCliError("final training contract crosses the sealed outcome boundary")
+    return {
+        "schema_version": "anarres.materials-decision-protocol-report.v1",
+        "status": protocol["status"],
+        "evidence_tier": "frozen_pre_outcome_protocol",
+        "candidate_panel": {
+            "candidates": len(candidate_ids),
+            "development_environments": selection["development_environments"],
+            "prospective_environments": selection["prospective_environments"],
+            "development_targets": selection["development_targets"],
+            "prospective_targets": selection["prospective_targets"],
+        },
+        "baseline": {
+            "name": protocol["literature_derived_baseline"]["name"],
+            "purpose": protocol["literature_derived_baseline"]["purpose"],
+            "formula": protocol["literature_derived_baseline"]["formula"],
+            "ranking": [
+                {
+                    "rank": item["rank"],
+                    "candidate_id": item["candidate_id"],
+                    "role": item["role"],
+                    "score": item["score"],
+                }
+                for item in ranking
+            ],
+        },
+        "selection_evaluation": {
+            "sequence": selection["sequence"],
+            "candidate_predictors": selection["candidate_predictors"],
+            "decision_baselines": selection["decision_baselines"],
+            "primary_metrics": selection["primary_metrics"],
+        },
+        "regression_evaluation": {
+            "question": regressions["question"],
+            "unit": regressions["unit"],
+            "primary_endpoint": regressions["primary_endpoint"],
+            "secondary_endpoints": regressions["secondary_endpoints"],
+            "metrics": regressions["metrics"],
+            "negative_controls": regressions["negative_controls"],
+        },
+        "training_qualification": {
+            "protocol_status": training["status"],
+            "result_status": training_result["status"],
+            "candidate_id": training["qualification_environment"]["candidate_id"],
+            "included_in_final_panel": False,
+            "learning_rates": training["qualification_grid"]["learning_rates"],
+            "selected_learning_rate": training_result["selected_learning_rate"],
+            "selected_checkpoint_sha256": training_result["selected_checkpoint_sha256"],
+            "uses_phonon_target_outcomes": False,
+            "claim_training": training["proposed_claim_training_after_qualification"],
+        },
+        "final_training_contract": {
+            "status": final_contract["status"],
+            "development_environments": len(final_contract["environments"]["development"]),
+            "prospective_environments": len(final_contract["environments"]["prospective"]),
+            "training_seeds": final_contract["randomization"]["training_seeds"],
+            "passes": final_contract["environment_budget"]["passes"],
+            "starting_target_features": starting_targets["counts"],
+        },
+        "outcome_boundary": boundary,
+        "predictive_evidence_available": False,
+        "artifacts": {
+            "candidate_panel": f"sha256:{sha256(bank_path)}",
+            "decision_protocol": f"sha256:{sha256(protocol_file)}",
+            "regeneration_receipt": f"sha256:{sha256(receipt_file)}",
+            "training_qualification": f"sha256:{sha256(training_file)}",
+            "training_qualification_result": f"sha256:{sha256(training_result_file)}",
+            "starting_checkpoint_targets": f"sha256:{sha256(starting_targets_file)}",
+            "final_training_contract": f"sha256:{sha256(final_contract_file)}",
+        },
     }
 
 
@@ -179,6 +352,13 @@ def parser() -> argparse.ArgumentParser:
     profile.add_argument("--candidate-id", action="append")
     profile.add_argument("--force", action="store_true")
     profile.set_defaults(handler=command_profile)
+
+    protocol = commands.add_parser(
+        "protocol",
+        help="Report the frozen pre-outcome environment-selection and regression protocol.",
+    )
+    add_common(protocol)
+    protocol.set_defaults(handler=command_protocol)
 
     verify = commands.add_parser("verify", help="Verify the released profile adapter.")
     add_common(verify)

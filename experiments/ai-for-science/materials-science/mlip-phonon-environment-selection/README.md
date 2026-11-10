@@ -5,8 +5,8 @@ outcome-blind target roles are frozen, and the complete 80,000-record
 measurement sweep has passed integrity checks. The final 16-environment panel
 matches both processed atoms and graph-edge cost. Development and prospective
 roles are frozen. The environment-selection and target-regression scoring rules
-are also fixed, while candidate-training and protected phonon outcomes remain
-sealed.
+are also fixed. The E/F/S training contract has passed its discarded-candidate
+qualification, while final candidate-training outcomes remain sealed.
 
 ## Research question
 
@@ -18,6 +18,13 @@ This experiment fine-tunes an interatomic potential on energies, forces, and
 stresses, then evaluates the resulting model on harmonic phonons and dynamical
 stability. This fixed workflow measures physical behavior beyond accuracy on
 the post-training labels.
+
+The released study now supports three pre-outcome operations. The CLI exports
+continuous profiles for all 16 candidate environments, reports the frozen
+environment-selection and target-regression protocol, and verifies the artifact
+chain that binds those measurements to the final training contract. Predictive
+performance remains unreported until development training, predictor selection,
+and the prospective test are complete.
 
 ## Source and target separation
 
@@ -190,6 +197,44 @@ runtime, and starting model. Full candidate training begins only after the
 candidate bank, overlap exclusions, environment memberships, seed policy, and
 evaluation matrix are frozen within the available compute and storage budget.
 
+[`materialize_candidate_environment.py`](materialize_candidate_environment.py)
+turns a frozen candidate into an ASE-LMDB training database. It indexes the
+measured 80,000-record pool, preserves the serialized membership order, and
+verifies the candidate's membership hash and atom budget before writing any
+training data. This keeps the data consumed by fine-tuning identical to the
+environment described by the released pre-training measurements.
+
+[`TRAINING_QUALIFICATION_PROTOCOL.json`](TRAINING_QUALIFICATION_PROTOCOL.json)
+records the next gate. Three learning rates are tested on one discarded
+measurement-only candidate, with no phonon target used for selection. The
+qualified contract then trains each final environment for four matched passes
+with two data-order seeds and saves one checkpoint per pass. The accompanying
+Nequix patch exposes the existing loader seed and per-epoch checkpoint state
+without changing the upstream loss or optimizer.
+
+[`TRAINING_QUALIFICATION_RESULT.json`](TRAINING_QUALIFICATION_RESULT.json)
+closes that gate. All three learning rates produced finite gradients and
+reloadable checkpoints under the frozen E/F/S contract. Relative to the
+starting checkpoint's 5.256 held-out loss, the reloaded checkpoints reached
+5.153, 5.030, and 4.813 at learning rates $10^{-5}$, $3\times10^{-5}$, and
+$10^{-4}$. The prespecified rule therefore selects $10^{-4}$. The discarded
+candidate is absent from the final panel, and no phonon target or final-candidate
+training outcome enters this choice.
+
+[`STARTING_CHECKPOINT_TARGETS.json`](STARTING_CHECKPOINT_TARGETS.json) records
+the pre-training target features for all 25 development and 50 prospective
+materials. Each record includes starting frequency error, dynamical-stability
+classification, signed distance to the released stability boundary, and
+workflow validity under one shared model and phonon contract. These are model
+inputs for later regression prediction, not post-training outcomes.
+
+[`FINAL_TRAINING_CONTRACT.json`](FINAL_TRAINING_CONTRACT.json) binds the frozen
+panel, target roles, starting-target features, qualification result, Nequix
+patch, and configuration generator. It fixes four equal-cost passes, two data-
+order seeds, checkpoints after every pass, and the development-to-prospective
+sequence. Development training can now begin without reopening any design
+choice.
+
 ## Qualification completed
 
 [`SOURCE_QUALIFICATION.json`](SOURCE_QUALIFICATION.json) records the first
@@ -313,6 +358,7 @@ uv tool install \
 
 anarres adapter doctor materials
 anarres materials status --repository .
+anarres materials protocol --repository . --json
 anarres materials profile \
   --repository . \
   --output-dir .anarres/materials-mlip \
@@ -340,6 +386,14 @@ Omitting `--candidate-id` exports all 16 final candidates. The corresponding
 defines every coordinate, unit, estimator, and edge case. The earlier
 [development convention](../../../../docs/conventions/materials-mlip-candidate-measurement-v1.md)
 remains available for the 48-candidate measurement bank.
+
+`anarres materials protocol` reports the frozen outcome-blind baseline,
+development-to-prospective fitting sequence, selection metrics, regression
+endpoints, negative controls, and bound artifact hashes. It does not open a
+candidate outcome or present the baseline ranking as validated predictive
+evidence. After the development environments are trained, the same adapter will
+expose a fitted forecast only after that forecast receives its own frozen
+artifact and validation record.
 
 The adapter can be invoked from outside the checkout by passing the repository
 explicitly with `--repository`. Its `status` and `verify` commands preserve the

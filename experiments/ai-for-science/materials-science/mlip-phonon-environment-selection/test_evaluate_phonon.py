@@ -33,3 +33,11 @@ def test_stability_rule_matches_released_thresholds():
     rejected_acoustic = stable.copy()
     rejected_acoustic[0, 0] = -35.1 / 47.992
     assert not MODULE.is_stable(rejected_acoustic)
+
+
+def test_stability_margin_is_signed_distance_to_boundary():
+    frequencies = np.array([[0.0, 0.0, 0.0, 0.5], [0.2, 0.3, 0.4, 1.1]])
+    assert MODULE.stability_margin_kelvin(frequencies) == pytest.approx(0.2 * 47.992)
+
+    frequencies[1, 0] = -0.05
+    assert MODULE.stability_margin_kelvin(frequencies) == pytest.approx(-0.05 * 47.992)
