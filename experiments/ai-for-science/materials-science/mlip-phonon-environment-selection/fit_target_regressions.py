@@ -173,6 +173,26 @@ def metrics(labels: np.ndarray, probabilities: np.ndarray) -> dict:
     }
 
 
+def macro_metrics(labels: np.ndarray, probabilities: np.ndarray, groups: list[str]) -> dict:
+    per_group = []
+    for group in sorted(set(groups)):
+        indices = [index for index, value in enumerate(groups) if value == group]
+        per_group.append(metrics(labels[indices], probabilities[indices]))
+    names = (
+        "roc_auc",
+        "average_precision",
+        "brier_score",
+        "recall_in_top_risk_20_percent",
+        "positive_rate",
+    )
+    return {
+        name: float(np.mean([row[name] for row in per_group if row[name] is not None]))
+        if any(row[name] is not None for row in per_group)
+        else None
+        for name in names
+    } | {"groups": len(per_group)}
+
+
 def grouped_predictions(
     rows: list[dict],
     labels: np.ndarray,
@@ -351,6 +371,7 @@ def fit(
     selected_probabilities = prediction_sets[selected["name"]]
     target_groups = [row["target_material_id"] for row in rows]
     chemistry_groups = ["-".join(row["target_descriptor"]["elements"]) for row in rows]
+    source_groups = [row["source_family"] for row in rows]
     secondary = {}
     for name, groups in (
         ("leave_one_target_material_out", target_groups),
@@ -401,6 +422,12 @@ def fit(
             "name": selected["name"],
             "features": selected["features"],
             "primary_cross_validation": selected["metrics"],
+            "primary_macro_metrics": {
+                "environment": macro_metrics(
+                    labels_array, selected_probabilities, environment_groups
+                ),
+                "source_family": macro_metrics(labels_array, selected_probabilities, source_groups),
+            },
             "secondary_cross_validation": secondary,
             "penalty": selected_penalty,
             "fit": final_model,

@@ -81,3 +81,11 @@ def test_candidate_identity_design_uses_one_column_per_training_candidate():
     matrix = MODULE.design(rows, candidates, state)
     assert state["categories"]["candidate_id"] == ["a", "b"]
     assert matrix.shape == (2, 3)
+
+
+def test_macro_metrics_weight_groups_equally():
+    labels = np.asarray([0.0, 1.0, 0.0, 0.0])
+    probabilities = np.asarray([0.1, 0.9, 0.8, 0.8])
+    report = MODULE.macro_metrics(labels, probabilities, ["large", "large", "small", "small"])
+    assert report["groups"] == 2
+    assert np.isclose(report["brier_score"], 0.325)
