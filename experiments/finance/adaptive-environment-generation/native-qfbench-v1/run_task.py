@@ -63,6 +63,17 @@ def frozen_tasks() -> dict[str, dict[str, Any]]:
     return indexed
 
 
+def authorize_current_stage(task_id: str) -> dict[str, Any]:
+    row = frozen_tasks().get(task_id)
+    if row is None:
+        raise RuntimeError(f"Task {task_id!r} is not in the frozen split")
+    if row.get("partition") != "development" or row.get("round") != 1:
+        raise RuntimeError(
+            f"Task {task_id!r} remains sealed until a versioned authorization opens its stage"
+        )
+    return row
+
+
 def verify_source(qfbench_root: Path, task_id: str) -> tuple[Path, dict[str, Any]]:
     source = json.loads(SOURCE_PATH.read_text())
     actual_commit = run_checked(
@@ -113,6 +124,7 @@ def prepare_stage(
         "partition": row["partition"],
         "round": row.get("round"),
         "qfbench_commit": json.loads(SOURCE_PATH.read_text())["commit"],
+        "runner_sha256": sha256_file(Path(__file__)),
         "task_toml_sha256": row["task_toml_sha256"],
         "instruction_sha256": row["instruction_sha256"],
         "candidate_sha256": candidate_sha256,
@@ -275,14 +287,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--stage", type=Path, required=True)
     parser.add_argument("--candidate", type=Path)
     parser.add_argument("--model")
-    parser.add_argument(
-        "action", choices=("prepare", "execute", "verify", "run"), default="run", nargs="?"
-    )
+    parser.add_argument("action", choices=("prepare", "execute", "verify", "run"))
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
+    authorize_current_stage(args.task_id)
     if args.action in {"prepare", "run"}:
         prepare_stage(args.qfbench_root, args.task_id, args.stage, args.candidate)
     if args.action in {"execute", "run"}:

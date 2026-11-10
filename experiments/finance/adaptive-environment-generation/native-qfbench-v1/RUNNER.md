@@ -27,6 +27,10 @@ Pass `--candidate /path/to/SKILL.md` to evaluate a frozen candidate resource.
 The source repository must be at the commit recorded in `SOURCE.json`, and the
 task must match the hashes in `TASK_SPLIT.json`.
 
+This release opens only the two round-one development tasks. Target, protected,
+and round-two tasks remain sealed until a versioned authorization records the
+preceding decision and opens the next stage.
+
 Before any model execution, the bridge was checked in both directions on the
 development smoke task. The source oracle output receives reward 1.0, and an
 empty output directory receives reward 0.0.

@@ -22,6 +22,17 @@ class NativeQFBenchRunnerTest(unittest.TestCase):
             indexed["ewma-portfolio-risk-decomposition"]["partition"], "shared_protected"
         )
 
+    def test_only_round_one_development_tasks_are_currently_authorized(self) -> None:
+        authorized = run_task.authorize_current_stage("historical-var-data-prep")
+        self.assertEqual(authorized["round"], 1)
+        for task_id in (
+            "standard-var-methods",
+            "ewma-portfolio-risk-decomposition",
+            "dcc-garch-portfolio-var",
+        ):
+            with self.assertRaisesRegex(RuntimeError, "remains sealed"):
+                run_task.authorize_current_stage(task_id)
+
     def test_prepare_exposes_only_agent_visible_inputs(self) -> None:
         task_id = "historical-var-data-prep"
         instruction = b"Do the task.\n"
@@ -59,6 +70,10 @@ class NativeQFBenchRunnerTest(unittest.TestCase):
             self.assertEqual(
                 manifest["agent_visible_entries"],
                 ["data", "instruction.md", "output"],
+            )
+            self.assertEqual(
+                manifest["runner_sha256"],
+                run_task.sha256_file(Path(run_task.__file__)),
             )
             self.assertFalse((stage / "tests").exists())
             self.assertFalse((stage / "solution").exists())
