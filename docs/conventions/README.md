@@ -25,6 +25,7 @@ and digest.
 Current conventions:
 
 - [Formal-verification grouped probe v1](formal-verification-grouped-probe-v1.md)
+- [Finance-operations policy qualification v1](finance-operations-policy-qualification-v1.md)
 - [Legal policy-response measurement v1](legal-policy-response-v1.md)
 - [Robotics episode probe v1](robotics-episode-probe-v1.md)
 - [Materials residual audit v1](materials-residual-audit-v1.md)

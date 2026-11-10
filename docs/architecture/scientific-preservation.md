@@ -42,6 +42,22 @@ termination and truncation, and simulator or hardware validity. Candidate
 profiles may expose a compatible subset of measurements for comparison, while
 the native prospective protocol and outcome record remain authoritative.
 
+## Agentic finance
+
+The finance program separates starting-policy qualification, candidate
+measurement, training outcomes, material-control outcomes, and retrospective
+cross-source analyses. A qualification profile may expose executable
+completion, tool-protocol reliability, mixed-scenario coverage, control
+violations, truncation, and realized cost under one pinned operations contract.
+Candidate ranking begins only after the native decision rule has been frozen
+and tested.
+
+Infrastructure-invalid episodes remain distinct from failed finance work, and
+control violations remain visible even when executable completion improves.
+Published post-training comparisons can support the finance research program
+without becoming pre-training coordinates for the prospective operations
+study.
+
 ## Evolution
 
 New domain functionality normally requires a new adapter or measurement
@@ -69,6 +85,12 @@ They remain evidence releases rather than environment-profile producers. The
 LAB regression-risk record is a predictor evaluation over tasks, not a candidate
 environment measurement, and remains a separate scientific object. The CLI
 does not infer missing coordinates from any of these outcomes.
+
+The Business Bench finance adapter projects one completed Qwen3-8B
+starting-policy qualification. It preserves zero completion, zero mixed-group
+coverage, positive model cost, infrastructure failures, and the failed
+readiness gates. Comparable candidate profiles remain unavailable until a
+starting policy qualifies and the native candidate bank is measured.
 
 Materials, robotics, legal, cyber, and agent studies can add profile producers
 when their native measurement artifacts contain the required values,

@@ -135,3 +135,25 @@ python scripts/commit_panel.py verify private-panel.json panel-commitment.json
 
 [`PROTOCOL.json`](PROTOCOL.json) records the preflight contract and the gates
 that must be resolved before a prospective freeze.
+
+## Export the CLI profile
+
+The released Qwen3-8B qualification summary can be projected into the shared
+environment-profile contract without changing its native estimand:
+
+```bash
+python export_environment_profile.py --output-dir .anarres/finance
+anarres qualify \
+  .anarres/finance/business-bench-qwen3-8b-development.profile-input.json
+anarres measure \
+  .anarres/finance/business-bench-qwen3-8b-development.profile-input.json \
+  --output .anarres/finance/business-bench-qwen3-8b-development.profile.json
+anarres validate \
+  .anarres/finance/business-bench-qwen3-8b-development.profile-input.json \
+  .anarres/finance/business-bench-qwen3-8b-development.profile.json
+```
+
+The profile is intentionally unready. It preserves the zero completion and
+mixed-group measurements, the truncation and protocol failures, three
+infrastructure-invalid episodes, and the exact model and source revisions. It
+does not infer candidate coordinates from retrospective training outcomes.

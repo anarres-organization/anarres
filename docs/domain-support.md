@@ -30,7 +30,7 @@ evidence and remains specific to the study, policy, target, and budget.
 | Vulnerability exploitation | Public qualification protocol | Not yet available | No qualified environment comparison |
 | Agentic systems | Public research protocols | Not yet available | Domain experiments remain study-specific |
 | Molecular design | Public prospective protocol | Not yet available | No prospective environment outcome opened |
-| Agentic finance | Public source-qualification and study design | Not yet available | No prospective environment outcome opened |
+| Agentic finance | Real Business Bench qualification profile | Starting-policy qualification adapter | Frozen retrospective source tests; no prospective environment outcome opened |
 
 The profile schema can transport additional namespaced coordinates without a
 Rust change. That extensibility is not evidence that an unlisted adapter works
