@@ -16,7 +16,15 @@ This program asks:
 completed evidence, the qualified accounting experiment, and the prospective
 post-trade extension in one page.
 
-The released workflow is available through the Anarres CLI:
+Install the native CLI and finance adapter from a repository checkout:
+
+```bash
+cargo install --path crates/anarres-cli --locked
+uv tool install ./packages/finance
+anarres adapter doctor finance
+```
+
+The released workflow is then available through the generic adapter interface:
 
 ```bash
 anarres finance status
@@ -27,7 +35,10 @@ anarres finance reproduce --output-dir .anarres/finance-reproduction
 
 The command also scores new starting-policy records, exports qualification
 profiles, and reruns individual frozen holdouts. See the [CLI
-guide](../../docs/cli.md#agentic-finance-workflow) for the complete interface.
+guide](../../docs/cli.md#example-adapter-agentic-finance) for the complete
+interface. Commands shown here assume the repository root is the current
+directory. Use `--repository /path/to/anarres` when invoking released evidence
+from another directory.
 
 The operational studies focus on control-heavy finance work. Reconciliation,
 settlement exceptions, collateral disputes, payment controls, and close
