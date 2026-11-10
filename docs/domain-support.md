@@ -26,7 +26,7 @@ evidence and remains specific to the study, policy, target, and budget.
 | Formal verification | Real Vero profiles | Vero development adapter | Negative support qualification; no RL authorized |
 | Robotics | Robotics profile fixtures | Pending complete native pre-training vectors | Prospective PushT and retrospective multi-source records |
 | Legal reasoning | Legal policy-response fixtures | Pending complete native pre-training vectors | Prospective SylloGym and LAB regression-risk records |
-| Materials science | Materials residual fixtures | Candidate measurement in progress | Prospective study in progress |
+| Materials science | Real MLIP candidate profiles | MLIP candidate-bank adapter | Supervised phonon tests released; MLIP outcomes remain unopened |
 | Vulnerability exploitation | Public qualification protocol | Not yet available | No qualified environment comparison |
 | Agentic systems | Public research protocols | Not yet available | Domain experiments remain study-specific |
 | Molecular design | Public prospective protocol | Not yet available | No prospective environment outcome opened |
