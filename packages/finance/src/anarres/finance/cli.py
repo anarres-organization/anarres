@@ -153,7 +153,6 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     )
     regression_rule = regression["rules"]["practical_rule"]
     finacumen = read_object(root / "retrospective-post-training/heldout-finacumen/SCORE.json")
-    finlcr = read_object(root / "retrospective-post-training/heldout-finlcr/SCORE.json")
     fintoolsyn = read_object(root / "retrospective-post-training/heldout-fintoolsyn/SCORE.json")
     holdouts = sorted(
         path.parent.name
@@ -194,10 +193,6 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "excluded_source_finacumen_pairwise_correct": finacumen["pairwise_correct"],
         "excluded_source_finacumen_pairwise_scored": finacumen["pairwise_scored"],
         "excluded_source_finacumen_pairwise_abstained": finacumen["pairwise_abstained"],
-        "outcome_separated_finlcr_component_correct": finlcr["component_correct"],
-        "outcome_separated_finlcr_component_scored": finlcr["component_scored"],
-        "outcome_separated_finlcr_regression_correct": finlcr["regression_correct"],
-        "outcome_separated_finlcr_regression_scored": finlcr["regression_scored"],
         "excluded_source_fintoolsyn_directional_correct": fintoolsyn["directional_correct"],
         "excluded_source_fintoolsyn_directional_scored": fintoolsyn["directional_scored"],
         "excluded_source_fintoolsyn_regression_correct": fintoolsyn["regression_correct"],
@@ -488,7 +483,6 @@ def compact_verification(repository: Path) -> dict[str, Any]:
     strict = read_object(retrospective / "strict-task-level/SCORE.json")
     selective = read_object(retrospective / "strict-task-level/SELECTIVE_SCORE.json")
     regression = read_object(retrospective / "results/regression_risk_summary.json")
-    finlcr = read_object(retrospective / "heldout-finlcr/SCORE.json")
     fintoolsyn = read_object(retrospective / "heldout-fintoolsyn/SCORE.json")
     if summary.get("status") != "retrospective_exploratory":
         raise FinanceCliError("compact retrospective summary has an unexpected status")
@@ -517,10 +511,6 @@ def compact_verification(repository: Path) -> dict[str, Any]:
         raise FinanceCliError("FinToolSyn holdout no longer matches the released score")
     if (fintoolsyn.get("regression_correct"), fintoolsyn.get("regression_scored")) != (3, 3):
         raise FinanceCliError("FinToolSyn regression audit no longer matches the release")
-    if (finlcr.get("component_correct"), finlcr.get("component_scored")) != (3, 3):
-        raise FinanceCliError("FinLCR component audit no longer matches the released score")
-    if (finlcr.get("regression_correct"), finlcr.get("regression_scored")) != (1, 1):
-        raise FinanceCliError("FinLCR retention audit no longer matches the released score")
 
     holdouts = []
     for directory in sorted(retrospective.glob("heldout-*")):
@@ -556,10 +546,6 @@ def compact_verification(repository: Path) -> dict[str, Any]:
         "regression_risk_source_macro_roc_auc": regression["rules"]["practical_rule"][
             "source_macro_roc_auc"
         ],
-        "finlcr_component_correct": finlcr["component_correct"],
-        "finlcr_component_scored": finlcr["component_scored"],
-        "finlcr_regression_correct": finlcr["regression_correct"],
-        "finlcr_regression_scored": finlcr["regression_scored"],
         "fintoolsyn_directional_correct": fintoolsyn["directional_correct"],
         "fintoolsyn_directional_scored": fintoolsyn["directional_scored"],
         "fintoolsyn_regression_correct": fintoolsyn["regression_correct"],

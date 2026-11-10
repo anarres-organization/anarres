@@ -244,16 +244,6 @@ an unmeasured tradeoff between starting-policy retention and forward
 supervision. The source record, predictions, outcomes, and score are in
 [`heldout-fintoolsyn/`](heldout-fintoolsyn/).
 
-FinLCR tests curriculum components under an outcome-separated chronology. The
-prediction record was committed before its PDF and ablation table were opened,
-while the recipe-level claim disclosed in the abstract was excluded from
-scoring. All three reported matched component directions are correct, and the
-combined recipe preserves short-context performance as predicted. The isolated
-components regress relative to naive GSPO, while their combination improves
-both short- and long-context averages. This interaction is retained as a limit
-on additive interpretation. The freeze and score are in
-[`heldout-finlcr/`](heldout-finlcr/).
-
 A derived alignment/interference coordinate does not improve the original
 sixteen-study source holdout. Against the corrected baseline, the fixed rule
 falls from 74.9% to 74.0% pairwise ordering with unchanged regret. The ridge
@@ -304,8 +294,6 @@ python heldout-finharmbench/score_holdout.py
 python -m unittest heldout-finharmbench/test_score.py
 python heldout-fintoolsyn/score_holdout.py
 python heldout-fintoolsyn/test_score.py
-python heldout-finlcr/score_holdout.py
-python -m unittest heldout-finlcr/test_score.py
 ```
 
 The script writes [`results/summary.json`](results/summary.json) and a manifest

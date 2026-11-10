@@ -174,16 +174,6 @@ performance while reducing the balanced average and non-tool score relative to
 the base. The audit abstains where the source-native non-tool metrics support
 different orderings.
 
-FinLCR provides an outcome-separated component test. We committed predictions
-before opening its PDF or ablation table, excluding the recipe-level claim that
-was already visible in the abstract. All three reported matched component
-directions are correct, and the combined curriculum preserves short-context
-performance as predicted. Staged context training and difficulty-aware sampling
-each regress relative to naive GSPO when used alone, while their combination
-improves both short- and long-context averages. The interaction supports joint
-environment design and limits any independently additive interpretation of the
-components.
-
 The executable accounting panel remains the prospective extension. Four
 stateful workflows have passed source qualification, but no model has yet
 qualified as a non-degenerate starting policy. Training begins only after the
@@ -248,7 +238,6 @@ change held-out outcomes after training begins.
 - [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
 - [Financial safety capability-contract holdout](retrospective-post-training/heldout-finharmbench/README.md)
 - [Agentic tool-environment holdout](retrospective-post-training/heldout-fintoolsyn/README.md)
-- [Curriculum-RL component result](retrospective-post-training/heldout-finlcr/SCORED_README.md)
 - [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
 - [Machine-readable panels](retrospective-post-training/data/panels.json)
 - [Source-recovered expansion](retrospective-post-training/data/recovered_panels.json)

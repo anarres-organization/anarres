@@ -99,8 +99,6 @@ class FinanceCliCommandTest(unittest.TestCase):
             self.assertEqual(generic_status["excluded_source_finacumen_pairwise_correct"], 33)
             self.assertEqual(generic_status["excluded_source_fintoolsyn_directional_correct"], 9)
             self.assertEqual(generic_status["excluded_source_fintoolsyn_regression_correct"], 3)
-            self.assertEqual(generic_status["outcome_separated_finlcr_component_correct"], 3)
-            self.assertEqual(generic_status["outcome_separated_finlcr_regression_correct"], 1)
 
             direct = self.run_direct(
                 directory,
@@ -134,7 +132,7 @@ class FinanceCliCommandTest(unittest.TestCase):
             self.assertEqual(verify.returncode, 0, verify.stderr)
             verify_result = json.loads(verify.stdout)
             self.assertEqual(verify_result["mode"], "compact")
-            self.assertEqual(len(verify_result["holdouts"]), 7)
+            self.assertEqual(len(verify_result["holdouts"]), 6)
 
             candidate_panel = {
                 "schema_version": "anarres.finance-candidate-panel.v1",
