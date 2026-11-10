@@ -1,0 +1,174 @@
+{
+  "artifact": "repository_formal_verification_policy_support_v1",
+  "evidence_status": "retrospective cross-source policy-support audit",
+  "sources": {
+    "leanlean": {
+      "revision": "55097cfe752717cd5ac9aca09a18b335d9c5bb7a",
+      "contract": "compress 64 real Lean repositories within 12 hours while preserving protected theorems under the Palomar Comparator",
+      "reported_policies": [
+        {
+          "policy": "Opus 5 with Claude Code",
+          "valid_submissions": 64,
+          "repositories": 64,
+          "mean_compression_percent": 48.30241032109049,
+          "mean_cost_usd": 63.524579734374996,
+          "mean_duration_hours": 8.794584331597223
+        },
+        {
+          "policy": "GPT-5.6 Sol with Codex",
+          "valid_submissions": 63,
+          "repositories": 64,
+          "mean_compression_percent": 37.768558583487724,
+          "mean_cost_usd": 135.513376725,
+          "mean_duration_hours": 4.4542802734375
+        },
+        {
+          "policy": "Gemini 3.8 Flash with Antigravity",
+          "valid_submissions": 61,
+          "repositories": 64,
+          "mean_compression_percent": 21.729096822844866,
+          "mean_cost_usd": 25.22968428859375,
+          "mean_duration_hours": 3.9269121397569444
+        },
+        {
+          "policy": "Muse Spark 1.3 with Muse Code",
+          "valid_submissions": 63,
+          "repositories": 64,
+          "mean_compression_percent": 17.44265728718681,
+          "mean_cost_usd": 18.804115392187498,
+          "mean_duration_hours": 3.245277387152778
+        },
+        {
+          "policy": "GPT-5.6 Luna with Codex",
+          "valid_submissions": 63,
+          "repositories": 64,
+          "mean_compression_percent": 13.081796549714406,
+          "mean_cost_usd": 2.318174045,
+          "mean_duration_hours": 1.7000535590277779
+        },
+        {
+          "policy": "Leanstral 1.5 with Mistral Vibe",
+          "valid_submissions": 53,
+          "repositories": 64,
+          "mean_compression_percent": 0.5939767709848285,
+          "mean_cost_usd": 4.5460024,
+          "mean_duration_hours": 0.9772917107583774
+        }
+      ]
+    },
+    "vero": {
+      "revision": "0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+      "contract": "fully close every specification in each of 43 multi-module Lean repositories within 90 minutes",
+      "reported_policies": [
+        {
+          "policy": "GPT-5.5 xhigh with Codex 0.140.0",
+          "code_and_proof_full_solves": 27,
+          "proof_only_full_solves": 25,
+          "repositories": 43,
+          "code_and_proof_cost_usd": 2865,
+          "proof_only_cost_usd": 2964
+        },
+        {
+          "policy": "GPT-5.5 medium with Codex 0.140.0",
+          "code_and_proof_full_solves": 2,
+          "proof_only_full_solves": 6,
+          "repositories": 43,
+          "code_and_proof_cost_usd": 928,
+          "proof_only_cost_usd": 1094
+        },
+        {
+          "policy": "Claude Opus 4.8 with Claude Code 2.1.191",
+          "code_and_proof_full_solves": 8,
+          "proof_only_full_solves": 10,
+          "repositories": 43,
+          "code_and_proof_cost_usd": 1983,
+          "proof_only_cost_usd": 2279
+        },
+        {
+          "policy": "Claude Sonnet 5 with Claude Code 2.1.191",
+          "code_and_proof_full_solves": 2,
+          "proof_only_full_solves": 2,
+          "repositories": 43,
+          "code_and_proof_cost_usd": 633,
+          "proof_only_cost_usd": 791
+        }
+      ]
+    },
+    "forall_verisoftbench": {
+      "revision": "bac4c6482fca597d965f9c18e78abacf0ad6204e",
+      "contract": "100-task Aristotle subset of VeriSoftBench with source-specific acceptance, axiom-audit, and independent-checker coverage",
+      "subset_tasks": 100,
+      "configurations": 13,
+      "task_records": 1300,
+      "axiom_audits": 761,
+      "independent_checker_records": 400,
+      "same_policy_boundary_evidence": {
+        "configuration": "GPT-5.6 Sol xhigh with Codex",
+        "configuration_id": "codex_sol_xhigh",
+        "target_protocol": "Pass@8, r=3",
+        "maximum_samples": 8,
+        "actor_compilation_limit_per_sample": 3,
+        "retained_accepted_tasks": 97,
+        "retained_not_accepted_tasks": 3,
+        "tasks_solved_after_sample_one": 15,
+        "boundary_tasks": [
+          {"task_id": 29, "repository": "ArkLib", "solved_on_sample": 2},
+          {"task_id": 123, "repository": "clean", "solved_on_sample": 2},
+          {"task_id": 129, "repository": "clean", "solved_on_sample": 5},
+          {"task_id": 136, "repository": "clean", "solved_on_sample": 2},
+          {"task_id": 138, "repository": "clean", "solved_on_sample": 2},
+          {"task_id": 139, "repository": "clean", "solved_on_sample": 5},
+          {"task_id": 140, "repository": "clean", "solved_on_sample": 3},
+          {"task_id": 145, "repository": "clean", "solved_on_sample": 2},
+          {"task_id": 165, "repository": "clean", "solved_on_sample": 2},
+          {"task_id": 277, "repository": "lean-formal-reasoning-program", "solved_on_sample": 6},
+          {"task_id": 281, "repository": "lean-formal-reasoning-program", "solved_on_sample": 2},
+          {"task_id": 356, "repository": "LeroyCompilerVerificationCourse", "solved_on_sample": 2},
+          {"task_id": 357, "repository": "LeroyCompilerVerificationCourse", "solved_on_sample": 2},
+          {"task_id": 361, "repository": "LeroyCompilerVerificationCourse", "solved_on_sample": 2},
+          {"task_id": 447, "repository": "VCV-io", "solved_on_sample": 2}
+        ],
+        "not_accepted_task_ids": [121, 122, 128],
+        "interpretation": "A successful sample index above one establishes at least one unsuccessful sample before a successful sample for the same policy and task. These records identify a nondegenerate qualification panel but do not expose every sample outcome or per-sample token cost."
+      },
+      "selected_reported_results": [
+        {
+          "policy": "Opus 5 xhigh with Claude Code",
+          "reported_rules": 100,
+          "reported_strict": 89,
+          "reported_cost_usd": 135
+        },
+        {
+          "policy": "Forall-Lean-Agent with Opus 5 xhigh",
+          "reported_rules": 100,
+          "reported_strict": 96,
+          "reported_cost_usd": 111
+        },
+        {
+          "policy": "GPT-5.6 Sol xhigh with Codex",
+          "reported_rules": 97,
+          "reported_strict": 86,
+          "reported_cost_usd": 68
+        },
+        {
+          "policy": "Forall-Lean-Agent with GPT-5.6 Sol xhigh and Codex",
+          "reported_rules": 100,
+          "reported_strict": 88,
+          "reported_cost_usd": 85
+        }
+      ],
+      "release_boundary": "reported totals, retained artifacts, axiom audits, and independent checks have different coverage; the release withholds solution proofs, transcripts, compiler diagnostics, and private harness code"
+    }
+  },
+  "cross_source_findings": [
+    "no policy is uniformly strongest across repository compression, repository completion, strict theorem acceptance, cost, and runtime",
+    "model identity is inseparable from the agent harness, reasoning setting, task contract, verifier, and interaction budget",
+    "Leanstral has valid LeanLean submissions but zero strict support in the separately released Anarres Vero development measurement",
+    "released outcomes can screen policy support and cost before new inference, but they do not provide repeated attempts under one matched contract or downstream training utility"
+  ],
+  "selection_boundary": {
+    "current_qualification": "GPT-5.6 Sol with Codex 0.154.0 is one locally executable, source-supported Vero qualification policy",
+    "not_established": "the audit does not identify a universally best formal-verification policy or require GPT-5.6 for a later protocol",
+    "next_decision": "after containment qualification, compare a small policy panel on a new development-only support screen under one matched Vero contract before freezing repeated measurement"
+  }
+}

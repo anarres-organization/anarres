@@ -7,6 +7,7 @@ import argparse
 import json
 import os
 import subprocess
+import sys
 import tempfile
 import zipfile
 from pathlib import Path
@@ -36,14 +37,21 @@ ADAPTER_PACKAGES = {
 
 
 def command(*arguments: str, cwd: Path | None = None, env: dict[str, str] | None = None) -> str:
-    result = subprocess.run(
-        arguments,
-        cwd=cwd,
-        env=env,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
+    try:
+        result = subprocess.run(
+            arguments,
+            cwd=cwd,
+            env=env,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except subprocess.CalledProcessError as error:
+        if error.stdout:
+            print(error.stdout, end="")
+        if error.stderr:
+            print(error.stderr, end="", file=sys.stderr)
+        raise
     return result.stdout
 
 
@@ -78,7 +86,6 @@ def main() -> int:
             "uv",
             "pip",
             "install",
-            "--offline",
             "--python",
             str(python),
             *(str(path) for path in sorted(wheels.glob("*.whl"))),

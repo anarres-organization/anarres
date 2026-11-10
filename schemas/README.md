@@ -10,3 +10,7 @@ The adapter descriptor under `schemas/adapters/` governs compatibility between
 the native CLI and separately installed domain tools. Environment records under
 `schemas/environments/` preserve measured evidence independently of the
 executable that produced it.
+
+Workflow plans under `schemas/workflows/` describe deterministic, outcome-blind
+execution plans. They do not authorize submission to a scheduler or replace a
+domain runtime.

@@ -304,6 +304,30 @@ The generic and direct forms execute the same native finance command. The
 repository path supplies released evidence. The installed adapter contains no
 fallback copy of study artifacts.
 
+## Example adapter: robotics planning
+
+The robotics adapter can convert the frozen Can v1.4.1 protocol into a portable
+workflow plan before any candidate outcome is opened:
+
+```bash
+uv tool install \
+  ./experiments/robotics/environment-selection/prospective-cupid-can-v141
+anarres robotics status --repository .
+anarres robotics plan --repository . \
+  --output .anarres/can-v141.plan.json
+```
+
+The plan records five candidate arms, five seeds per arm, and 25 candidate runs
+with matched training and evaluation tasks. It also retains stage dependencies,
+exact input digests, workload totals, and the release gate that precedes
+scoring. The record is deterministic and content-addressed. Planning performs
+no training, simulator execution, network request, or scheduler submission.
+
+The current plan reports `submission_ready: false` because the public study has
+not yet released a portable training entrypoint, immutable runtime image, or
+scheduler binding. Those execution details belong behind an explicit future
+submission command rather than being inferred from a local machine.
+
 ## Automation
 
 Terminal output is intended for people. Add `--json` for deterministic,

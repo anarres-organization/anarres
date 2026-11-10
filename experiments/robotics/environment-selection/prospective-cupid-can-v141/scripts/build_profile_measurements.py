@@ -21,7 +21,7 @@ from freeze_candidates import (
     top_set,
 )
 
-SCHEMA = "anarres.robotics-cupid-candidate-measurements.v1"
+SCHEMA = "anarres.robotics-cupid-candidate-measurements.v2"
 
 
 def sha256(path: Path) -> str:
@@ -84,6 +84,19 @@ def main() -> None:
     for score in scores[1:]:
         if score["demos"] != names or score["demo_lengths"] != lengths:
             raise ValueError("score files use different demonstrations or lengths")
+    score_value_counts = [len(score["scores"][CANONICAL_KEY]) for score in scores]
+    if any(count != len(names) for count in score_value_counts):
+        raise ValueError("every scoring checkpoint must cover every demonstration")
+    checkpoint_outcome_support = []
+    for score in scores:
+        outcomes = [int(value) for value in score["test"]["success"]]
+        checkpoint_outcome_support.append(
+            {
+                "episodes": len(outcomes),
+                "failures": len(outcomes) - sum(outcomes),
+                "successes": sum(outcomes),
+            }
+        )
 
     ranks = [ordinal_ranks(score["scores"][CANONICAL_KEY], names) for score in scores]
     pairwise_spearman = [
@@ -166,8 +179,12 @@ def main() -> None:
         },
         "measurement": {
             "canonical_aggregation": CANONICAL_KEY,
+            "checkpoint_outcome_support": checkpoint_outcome_support,
             "scoring_checkpoints": len(scores),
             "demonstrations": len(names),
+            "expected_score_values": len(scores) * len(names),
+            "observed_score_values": sum(score_value_counts),
+            "score_missingness_rate": 0.0,
             "pairwise_spearman": pairwise_spearman,
             "mean_pairwise_spearman": mean_spearman,
             "pairwise_top_half_jaccard": pairwise_jaccard,

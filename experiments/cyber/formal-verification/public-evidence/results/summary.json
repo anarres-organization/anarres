@@ -16,6 +16,22 @@
     "top_choice_total": 2,
     "verified_yield_advantage_pp": 6.8
   },
+  "policy_support": {
+    "forall_configurations": 13,
+    "forall_same_policy_boundary_configuration": "GPT-5.6 Sol xhigh with Codex",
+    "forall_same_policy_boundary_repositories": 5,
+    "forall_same_policy_boundary_tasks": 15,
+    "forall_subset_tasks": 100,
+    "leanlean_compression_leader": "Opus 5 with Claude Code",
+    "leanlean_cost_leader": "GPT-5.6 Luna with Codex",
+    "leanlean_policies": 6,
+    "leanlean_repositories": 64,
+    "uniform_policy_leader_across_contracts": false,
+    "vero_code_and_proof_leader": "GPT-5.5 xhigh with Codex 0.140.0",
+    "vero_policies": 4,
+    "vero_proof_only_leader": "GPT-5.5 xhigh with Codex 0.140.0",
+    "vero_repositories": 43
+  },
   "reform": {
     "raw_verifier_mean_semantic_regret_pp": 14.78,
     "raw_verifier_top_choice_correct": 0,

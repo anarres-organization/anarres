@@ -34,12 +34,16 @@ that one selector is generally superior. The retrospective analysis finds that a
 simple practical rule beats an uninformed choice, while a fitted linear model
 does not yet add reliable value under held-out-context evaluation.
 
-The next [prospective closed-loop curation
-panel](environment-selection/prospective-cupid-can/README.md) is now frozen at
-the measurement stage. It uses success-labelled policy rollouts to construct a
-new candidate bank, then tests one recommendation against full-data, random,
-length-based, and unconstrained influence controls under matched training and
-evaluation budgets.
+The corrected [prospective closed-loop curation
+panel](environment-selection/prospective-cupid-can-v141/README.md) has completed
+its three-checkpoint influence measurement and frozen five candidate sets. It
+uses success-labelled policy rollouts to compare one recommendation with
+full-data, random, length-based, and unconstrained influence controls under
+matched training and evaluation budgets. Candidate-policy outcomes remain
+sealed behind the study's completeness and identity gate. Its domain adapter
+now prepares the exact candidate masks, binds the 25-run matrix to local or
+Slurm execution, locks the Python environment, and verifies every checkpoint
+and evaluation log before that gate can pass.
 
 ## What is measured
 
