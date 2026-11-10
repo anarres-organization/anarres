@@ -199,6 +199,13 @@ def main() -> None:
     result["input_sha256"] = {
         path.name: file_sha256(path) for path in [*args.records, *args.manifest]
     }
+    result["source_sha256"] = {
+        f"view_{manifest['view_seed']}_samples": manifest["samples_sha256"]
+        for manifest in manifests
+    } | {
+        f"view_{manifest['view_seed']}_scores": manifest["scores_sha256"]
+        for manifest in manifests
+    }
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"qualification": result["qualification"]}))
 
