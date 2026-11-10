@@ -23,3 +23,8 @@ hosting = "github"
 github-attestations = true
 # Whether to install an updater program
 install-updater = false
+
+[dist.github-custom-runners]
+# GitHub's native Apple Silicon image is unavailable to this organization.
+# Rust cross-compiles the arm64 binary on the supported Intel macOS runner.
+aarch64-apple-darwin = "macos-15-intel"
