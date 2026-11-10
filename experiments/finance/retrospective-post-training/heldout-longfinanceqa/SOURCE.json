@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "source_id": "longfinanceqa_2025",
+  "title": "Facilitating Long Context Understanding via Supervised Chain-of-Thought Reasoning",
+  "authors": [
+    "Jingyang Lin",
+    "Andy Wong",
+    "Tian Xia",
+    "Shenghua He",
+    "Hui Wei",
+    "Mei Han",
+    "Jiebo Luo"
+  ],
+  "url": "https://aclanthology.org/2025.emnlp-main.615/",
+  "doi": "10.18653/v1/2025.emnlp-main.615",
+  "source_status": "peer_reviewed_emnlp_2025",
+  "visible_before_freeze": [
+    "title, authors, venue, DOI, and abstract",
+    "LongFinanceQA contains intermediate chain-of-thought reasoning",
+    "PAI contains property extraction, retrieval, and summarization stages",
+    "the abstract discloses a 20-point PAI gain and a 28-point LongFinanceQA fine-tuning gain"
+  ],
+  "not_opened_before_freeze": [
+    "PDF",
+    "component ablation tables",
+    "matched answer-only comparisons",
+    "subset-level outcomes"
+  ],
+  "repository_provenance": {
+    "present_in_current_finance_sources": false,
+    "present_in_repository_history": false,
+    "searched_terms": [
+      "LongFinanceQA",
+      "Facilitating Long Context Understanding via Supervised Chain-of-Thought Reasoning",
+      "2025.emnlp-main.615"
+    ]
+  }
+}
