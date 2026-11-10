@@ -16,7 +16,7 @@ records.
   checks, and literal argument forwarding.
 - Add bounded adapter descriptor discovery with timeout and output limits.
 - Add generated completions for Bash, Zsh, Fish, and PowerShell.
-- Add cross-platform archives, installers, checksums, and a generated Homebrew
-  formula artifact through the versioned release workflow.
+- Add cross-platform archives, installers, checksums, and a Homebrew formula
+  published through the official tap.
 - Reserve `anarres-<name>` executables for protocol-conforming adapters and use
   the native `anarres measure` command for environment processing.

@@ -20,6 +20,12 @@ Restart your shell if the installer updates `PATH`, then verify the installation
 anarres --version
 ```
 
+Homebrew users can install the same release from the official tap:
+
+```bash
+brew install anarres-organization/tap/anarres
+```
+
 The installer can be inspected before execution:
 
 ```bash
@@ -33,9 +39,9 @@ Windows users can run the corresponding PowerShell installer:
 powershell -ExecutionPolicy ByPass -c "irm https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.ps1 | iex"
 ```
 
-Every release also includes platform archives, SHA-256 checksums, and build
-attestations. See the [release guide](releases.md) for verification, pinned
-versions, and supported platforms.
+Every release also includes platform archives, SHA-256 checksums, a Homebrew
+formula, and build attestations. See the [release guide](releases.md) for
+verification, pinned versions, and supported platforms.
 
 ### Install from source
 

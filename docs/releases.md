@@ -3,7 +3,7 @@
 Anarres publishes native CLI artifacts from tags named
 `anarres-cli-v<version>`. The release workflow is generated and validated by
 `dist` and produces platform archives, checksums, shell and PowerShell
-installers, and a source archive.
+installers, a Homebrew formula, and a source archive.
 
 Domain adapters are released independently from the native binary. The CLI
 discovers installed `anarres-<name>` executables and validates their versioned
@@ -15,6 +15,12 @@ Supported release targets are:
 - Linux x86-64 and ARM64 using the GNU C library
 - macOS Apple silicon and x86-64
 - Windows x86-64
+
+Install with Homebrew on macOS or Linux:
+
+```bash
+brew install anarres-organization/tap/anarres
+```
 
 Install the latest release on macOS or Linux:
 
@@ -76,6 +82,12 @@ run `make check` and `make release-smoke`, and inspect the generated plan:
 dist generate
 dist plan --tag anarres-cli-v0.1.0
 ```
+
+After the GitHub release passes its artifact checks, copy the generated
+`anarres.rb` into the official
+[`homebrew-tap`](https://github.com/anarres-organization/homebrew-tap), run its
+macOS and Linux checks, and merge that update before advertising the new
+Homebrew version.
 
 A versioned `anarres-cli-v<version>` tag starts the release workflow. Pull
 requests exercise the same artifact graph without publishing. Consumers can
