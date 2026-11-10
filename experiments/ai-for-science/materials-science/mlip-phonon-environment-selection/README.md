@@ -2,10 +2,10 @@
 
 **Status:** source artifacts and the starting checkpoint are qualified, the
 outcome-blind target roles are frozen, and the complete 80,000-record
-measurement sweep has passed integrity checks. A 48-environment, equal-atom
-candidate bank is published as a measurement-only draft, and final candidate
-selection is in progress. No claim-bearing model has been trained and no
-prospective environment outcome has been opened.
+measurement sweep has passed integrity checks. The final 16-environment panel
+matches both processed atoms and graph-edge cost. Development and prospective
+roles are frozen, while candidate-training and protected phonon outcomes remain
+sealed.
 
 ## Research question
 
@@ -95,8 +95,8 @@ force, and stress outcomes, while latent-space coverage leads on the
 corresponding non-bulk outcomes. Coverage type and target affinity therefore
 remain separate measured coordinates.
 
-Each candidate must satisfy a common processed-atom budget and a bounded range
-of neighbor-edge cost. Material identities are split before configurations are
+Each final candidate satisfies a common processed-atom budget and exact
+neighbor-edge cost. Material identities are split before configurations are
 sampled. Pairwise overlap, chemical-system support, prototype support, force
 regime, and source composition are serialized before training.
 
@@ -256,18 +256,25 @@ per atom, so the final development and prospective panel must tighten or match
 this coordinate before memberships are frozen. The draft uses no candidate
 training outcome and no development or prospective phonon outcome.
 
-Before the final panel is frozen, we are evaluating whether the source families
-cover the physical regimes that matter for phonons, whether composition-level
-exclusion is appropriately conservative, and whether processed atoms and
-neighbor edges define the right cost contract. We also welcome feedback on
-whether the target-affinity and curvature measurements capture the relevant
-transfer mechanism. The bank remains editable until these questions are
-resolved and the final membership hashes are serialized.
+[`verify_candidate_bank.py`](verify_candidate_bank.py) independently rebuilds
+the draft from all 80,000 native measurement records. The released audit
+recovers every candidate identity, ordered record membership, and membership
+hash exactly; recomputed floating coordinates agree within $1.3\times10^{-13}$.
+
+[`FINAL_COST_MATCHED_PANEL.json`](FINAL_COST_MATCHED_PANEL.json) freezes 16
+training environments at exactly 50,000 atoms and 2,100,000 Nequix neighbor
+edges each. The panel contains two candidates from every source family and
+represents every selector two or three times. Twelve environments are assigned
+to development, while four environments from distinct sources and selectors
+remain prospective. The split uses only pre-training coordinates and frozen
+hash rules. Candidate-training and protected phonon outcomes remain sealed.
+Independent regeneration produces identical bytes. The frozen artifact has
+SHA-256 `b5d26ea2dbecac0e530e80d470b6079a7ebee46600633f119eb6d94b9048dd52`.
 
 ## CLI profiles
 
 [`export_environment_profiles.py`](export_environment_profiles.py) projects
-the released candidate-bank measurements into content-addressed Anarres
+the frozen panel measurements into content-addressed Anarres
 profiles. It verifies the exact source, model, target-role, overlap,
 measurement, and candidate-bank artifacts before writing any output. The
 profiles expose only measurements made before candidate training. Phonon
@@ -287,30 +294,30 @@ anarres materials status --repository .
 anarres materials profile \
   --repository . \
   --output-dir .anarres/materials-mlip \
-  --candidate-id aimd-from-PBE-1000-npt__hash_uniform \
-  --candidate-id aimd-from-PBE-1000-npt__low_signal
+  --candidate-id aimd-from-PBE-1000-npt__high_signal \
+  --candidate-id aimd-from-PBE-1000-npt__target_affinity
 
 anarres qualify \
-  .anarres/materials-mlip/aimd-from-PBE-1000-npt__hash_uniform.profile-input.json
+  .anarres/materials-mlip/aimd-from-PBE-1000-npt__high_signal.profile-input.json
 anarres measure \
-  .anarres/materials-mlip/aimd-from-PBE-1000-npt__hash_uniform.profile-input.json \
-  --output .anarres/materials-mlip/hash-uniform.profile.json
+  .anarres/materials-mlip/aimd-from-PBE-1000-npt__high_signal.profile-input.json \
+  --output .anarres/materials-mlip/high-signal.profile.json
 anarres measure \
-  .anarres/materials-mlip/aimd-from-PBE-1000-npt__low_signal.profile-input.json \
-  --output .anarres/materials-mlip/low-signal.profile.json
+  .anarres/materials-mlip/aimd-from-PBE-1000-npt__target_affinity.profile-input.json \
+  --output .anarres/materials-mlip/target-affinity.profile.json
 anarres design \
-  .anarres/materials-mlip/hash-uniform.profile.json \
-  .anarres/materials-mlip/low-signal.profile.json
+  .anarres/materials-mlip/high-signal.profile.json \
+  .anarres/materials-mlip/target-affinity.profile.json
 anarres validate \
-  .anarres/materials-mlip/hash-uniform.profile.json \
-  .anarres/materials-mlip/low-signal.profile.json
+  .anarres/materials-mlip/high-signal.profile.json \
+  .anarres/materials-mlip/target-affinity.profile.json
 ```
 
-Omitting `--candidate-id` exports all 48 candidates. The corresponding
-[measurement convention](../../../../docs/conventions/materials-mlip-candidate-measurement-v1.md)
-defines every coordinate, unit, estimator, and edge case. The final training
-panel remains unfrozen because processed atoms are matched while neighbor-edge
-cost still varies across candidates.
+Omitting `--candidate-id` exports all 16 final candidates. The corresponding
+[measurement convention](../../../../docs/conventions/materials-mlip-candidate-measurement-v2.md)
+defines every coordinate, unit, estimator, and edge case. The earlier
+[development convention](../../../../docs/conventions/materials-mlip-candidate-measurement-v1.md)
+remains available for the 48-candidate measurement bank.
 
 The adapter can be invoked from outside the checkout by passing the repository
 explicitly with `--repository`. Its `status` and `verify` commands preserve the
