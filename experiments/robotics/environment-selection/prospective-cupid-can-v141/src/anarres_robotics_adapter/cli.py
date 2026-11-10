@@ -23,12 +23,12 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "robotics",
-        "version": "0.2.0",
+        "version": "0.3.0",
         "protocol_version": 1,
         "domain": "robotics",
         "executable": "anarres-robotics",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
-        "capabilities": ["profile", "results", "status", "verify"],
+        "capabilities": ["plan", "profile", "results", "status", "verify"],
         "measurement_contracts": [
             "robotics.cupid-can-v141-candidate-measurement.v1",
         ],
@@ -78,6 +78,8 @@ def native_paths(repository: Path) -> dict[str, Path]:
         "protocol": root / "PROTOCOL.json",
         "sources": root / "SOURCES.json",
         "qualification": root / "QUALIFICATION.json",
+        "freeze": root / "FREEZE.json",
+        "freeze_correction": root / "FREEZE_CORRECTION.json",
     }
 
 
@@ -99,6 +101,7 @@ def validate_native(repository: Path) -> tuple[ModuleType, dict[str, Any]]:
     return native, {
         "measurements": measurements,
         "protocol": protocol,
+        "sources": sources,
         "qualification": qualification,
     }
 
@@ -146,6 +149,227 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return f"sha256:{digest.hexdigest()}"
+
+
+def sha256_object(value: dict[str, Any]) -> str:
+    payload = json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return f"sha256:{hashlib.sha256(payload).hexdigest()}"
+
+
+def build_workflow_plan(repository: Path) -> dict[str, Any]:
+    _, records = validate_native(repository)
+    paths = native_paths(repository)
+    protocol = records["protocol"]
+    measurements = records["measurements"]
+    qualification = records["qualification"]
+
+    if measurements["outcomes_read"] is not False:
+        raise RoboticsCliError("candidate outcomes must remain sealed while planning")
+    if qualification.get("passed") is not True:
+        raise RoboticsCliError("closed-loop qualification did not pass")
+    if measurements["measurement"]["reliability_gate_passed"] is not True:
+        raise RoboticsCliError("influence measurement did not pass its reliability gate")
+
+    candidates = measurements["candidates"]
+    protocol_candidates = protocol["candidates"]
+    candidate_ids = [candidate["id"] for candidate in protocol_candidates]
+    if set(candidate_ids) != set(candidates):
+        raise RoboticsCliError("candidate identities differ between protocol and measurement")
+
+    seeds = protocol["training"]["seeds"]
+    steps_per_run = protocol["training"]["epochs"] * protocol["training"]["steps_per_epoch"]
+    candidate_runs = []
+    for candidate in protocol_candidates:
+        candidate_id = candidate["id"]
+        measured = candidates[candidate_id]
+        for seed in seeds:
+            candidate_runs.append(
+                {
+                    "run_id": f"{candidate_id}__seed-{seed}",
+                    "candidate_id": candidate_id,
+                    "seed": seed,
+                    "demonstration_count": candidate["count"],
+                    "membership_sha256": f"sha256:{measured['membership_sha256']}",
+                    "optimizer_steps": steps_per_run,
+                    "evaluation_episodes": protocol["evaluation"]["rollouts_per_policy"],
+                    "evaluation_horizon": protocol["evaluation"]["horizon"],
+                }
+            )
+
+    expected_runs = protocol["release_gate"]["expected_candidate_runs"]
+    expected_episodes = protocol["release_gate"]["expected_evaluation_episodes"]
+    if len(candidate_runs) != expected_runs:
+        raise RoboticsCliError("planned run count differs from the frozen release gate")
+    if sum(run["evaluation_episodes"] for run in candidate_runs) != expected_episodes:
+        raise RoboticsCliError("planned evaluation count differs from the frozen release gate")
+
+    plan: dict[str, Any] = {
+        "schema_version": "anarres.robotics-workflow-plan.v1",
+        "plan_id": "prospective-cupid-can-v141-candidate-comparison",
+        "domain": "robotics",
+        "study_id": protocol["study_id"],
+        "phase": "candidate_training_and_evaluation",
+        "producer": {
+            "kind": "domain-adapter",
+            "id": "anarres-robotics",
+            "revision": adapter_descriptor()["version"],
+        },
+        "inputs": [
+            {
+                "role": "protocol",
+                "uri": "release://prospective-cupid-can-v141/PROTOCOL.json",
+                "digest": sha256_file(paths["protocol"]),
+            },
+            {
+                "role": "sources",
+                "uri": "release://prospective-cupid-can-v141/SOURCES.json",
+                "digest": sha256_file(paths["sources"]),
+            },
+            {
+                "role": "qualification",
+                "uri": "release://prospective-cupid-can-v141/QUALIFICATION.json",
+                "digest": sha256_file(paths["qualification"]),
+            },
+            {
+                "role": "pre_outcome_measurements",
+                "uri": "release://prospective-cupid-can-v141/PROFILE_MEASUREMENTS.json",
+                "digest": sha256_file(paths["measurements"]),
+            },
+            {
+                "role": "original_freeze",
+                "uri": "release://prospective-cupid-can-v141/FREEZE.json",
+                "digest": sha256_file(paths["freeze"]),
+            },
+            {
+                "role": "freeze_correction",
+                "uri": "release://prospective-cupid-can-v141/FREEZE_CORRECTION.json",
+                "digest": sha256_file(paths["freeze_correction"]),
+            },
+        ],
+        "execution": {
+            "mode": "plan_only",
+            "execution_started": False,
+            "submission_ready": False,
+            "submission_requires_explicit_command": True,
+            "scheduler": None,
+            "blockers": [
+                "portable_candidate_training_entrypoint_not_released",
+                "immutable_runtime_image_not_frozen",
+                "scheduler_binding_not_selected",
+            ],
+        },
+        "resource_contract": {
+            "accelerator": protocol["training"]["hardware_rule"],
+            "software_environment": "fixed_across_all_candidate_runs",
+            "adaptive_stopping": protocol["training"]["adaptive_stopping"],
+            "scheduler_specific_fields_present": False,
+        },
+        "training_contract": {
+            "epochs": protocol["training"]["epochs"],
+            "steps_per_epoch": protocol["training"]["steps_per_epoch"],
+            "batch_size": protocol["training"]["batch_size"],
+            "equal_optimizer_steps_across_arms": protocol["training"][
+                "equal_optimizer_steps_across_arms"
+            ],
+            "checkpoint_rule": protocol["training"]["checkpoint_rule"],
+            "adaptive_stopping": protocol["training"]["adaptive_stopping"],
+        },
+        "evaluation_contract": {
+            "rollouts_per_policy": protocol["evaluation"]["rollouts_per_policy"],
+            "horizon": protocol["evaluation"]["horizon"],
+            "environment_seed": protocol["evaluation"]["environment_seed"],
+            "terminate_on_success": protocol["evaluation"]["terminate_on_success"],
+            "primary_outcome": protocol["evaluation"]["primary_outcome"],
+            "primary_unit": protocol["evaluation"]["primary_unit"],
+            "paired_initial_conditions_across_arms": protocol["evaluation"][
+                "paired_initial_conditions_across_arms"
+            ],
+        },
+        "release_gate": {
+            "expected_candidate_runs": expected_runs,
+            "expected_evaluation_episodes": expected_episodes,
+            "require_all_arms_and_seeds": protocol["release_gate"]["require_all_arms_and_seeds"],
+            "require_membership_hashes": protocol["release_gate"]["require_membership_hashes"],
+            "require_checkpoint_hashes": protocol["release_gate"]["require_checkpoint_hashes"],
+            "require_outcome_file_hashes": protocol["release_gate"]["require_outcome_file_hashes"],
+        },
+        "stages": [
+            {
+                "stage_id": "preflight",
+                "kind": "validate_frozen_inputs",
+                "depends_on": [],
+                "task_count": 1,
+                "opens_candidate_outcomes": False,
+            },
+            {
+                "stage_id": "train",
+                "kind": "candidate_policy_training",
+                "depends_on": ["preflight"],
+                "task_count": expected_runs,
+                "opens_candidate_outcomes": False,
+            },
+            {
+                "stage_id": "evaluate",
+                "kind": "paired_closed_loop_evaluation",
+                "depends_on": ["train"],
+                "task_count": expected_runs,
+                "opens_candidate_outcomes": False,
+            },
+            {
+                "stage_id": "release_gate",
+                "kind": "completeness_and_identity_gate",
+                "depends_on": ["evaluate"],
+                "task_count": 1,
+                "opens_candidate_outcomes": False,
+            },
+            {
+                "stage_id": "score",
+                "kind": "prospective_decision_scoring",
+                "depends_on": ["release_gate"],
+                "task_count": 1,
+                "opens_candidate_outcomes": True,
+            },
+        ],
+        "candidate_runs": candidate_runs,
+        "totals": {
+            "candidate_arms": len(candidate_ids),
+            "training_seeds_per_arm": len(seeds),
+            "candidate_runs": expected_runs,
+            "optimizer_steps": expected_runs * steps_per_run,
+            "evaluation_episodes": expected_episodes,
+        },
+        "scientific_boundary": {
+            "candidate_outcomes_opened": False,
+            "frozen_point_prediction": measurements["decision"],
+            "primary_outcome": protocol["evaluation"]["primary_outcome"],
+            "primary_unit": protocol["evaluation"]["primary_unit"],
+            "no_outcome_driven_revision": protocol["decision"]["no_outcome_driven_revision"],
+            "release_gate_precedes_scoring": True,
+        },
+    }
+    plan["plan_digest"] = sha256_object(plan)
+    return plan
+
+
+def command_plan(args: argparse.Namespace) -> dict[str, Any]:
+    repository = repository_root(args.repository)
+    plan = build_workflow_plan(repository)
+    output = args.output.resolve()
+    if output.exists() and not args.force:
+        raise FileExistsError(output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(plan, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return {
+        "status": "planned",
+        "plan": str(output),
+        "plan_digest": plan["plan_digest"],
+        "candidate_runs": plan["totals"]["candidate_runs"],
+        "evaluation_episodes": plan["totals"]["evaluation_episodes"],
+        "submission_ready": plan["execution"]["submission_ready"],
+        "blockers": plan["execution"]["blockers"],
+        "execution_started": False,
+        "candidate_outcomes_opened": False,
+    }
 
 
 def load_pusht_reproducer(repository: Path) -> ModuleType:
@@ -224,6 +448,8 @@ def command_profile(args: argparse.Namespace) -> dict[str, Any]:
 
 def command_verify(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
+    first_plan = build_workflow_plan(repository)
+    second_plan = build_workflow_plan(repository)
     with tempfile.TemporaryDirectory(prefix="anarres-robotics-verify-") as directory:
         root = Path(directory)
         first = export_profiles(repository, root / "first")
@@ -237,6 +463,9 @@ def command_verify(args: argparse.Namespace) -> dict[str, Any]:
         "profile_count": len(first),
         "nonempty_profiles": all(size > 0 for size in sizes),
         "deterministic_profiles": deterministic,
+        "deterministic_plan": first_plan == second_plan,
+        "planned_candidate_runs": first_plan["totals"]["candidate_runs"],
+        "submission_ready": first_plan["execution"]["submission_ready"],
         "candidate_outcomes_opened": False,
     }
 
@@ -256,6 +485,14 @@ def parser() -> argparse.ArgumentParser:
     status = commands.add_parser("status", help="Show measurement and sealing status.")
     add_common(status)
     status.set_defaults(handler=command_status)
+
+    plan = commands.add_parser(
+        "plan", help="Write a deterministic candidate-comparison workflow plan."
+    )
+    add_common(plan)
+    plan.add_argument("--output", type=Path, required=True)
+    plan.add_argument("--force", action="store_true")
+    plan.set_defaults(handler=command_plan)
 
     profile = commands.add_parser("profile", help="Export native candidate profile inputs.")
     add_common(profile)

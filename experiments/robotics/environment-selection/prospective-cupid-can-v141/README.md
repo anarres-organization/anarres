@@ -89,6 +89,7 @@ uv tool install \
   ./experiments/robotics/environment-selection/prospective-cupid-can-v141
 anarres adapter doctor robotics
 anarres robotics status --repository .
+anarres robotics plan --repository . --output .anarres/can-v141.plan.json
 anarres robotics profile --repository . --output-dir .anarres/can-v141
 anarres robotics verify --repository .
 anarres robotics results --repository .
@@ -96,10 +97,14 @@ anarres robotics results --repository .
 
 `anarres-robotics` retains the Python implementation and robotics-specific
 records. The Rust CLI discovers it through the generic adapter protocol without
-importing robotics dependencies. The descriptor, Can `status`, `profile`, and
-`verify` commands do not open candidate-policy outcomes. The separate `results`
-command recomputes the already released PushT score and states its narrow claim:
-correct abstention in that panel is not selector superiority.
+importing robotics dependencies. The `plan` command writes a deterministic
+five-arm, 25-run execution plan without starting a simulator or scheduler. It
+also records the portable-entrypoint, runtime-image, and scheduler bindings that
+remain required before submission. The descriptor and Can `status`, `plan`,
+`profile`, and `verify` commands do not open candidate-policy outcomes. The
+separate `results` command recomputes the already released PushT score and
+states its narrow claim: correct abstention in that panel is not selector
+superiority.
 
 ## Scope
 

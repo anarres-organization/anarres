@@ -46,7 +46,7 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
         )
         Draft202012Validator(schema).validate(descriptor)
         self.assertEqual(descriptor["name"], "robotics")
-        self.assertEqual(descriptor["version"], "0.2.0")
+        self.assertEqual(descriptor["version"], "0.3.0")
         self.assertEqual(descriptor["executable"], "anarres-robotics")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
         self.assertEqual(
@@ -89,6 +89,76 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             self.assertIn("operator_tier_effective_coverage", report["profile_coordinates"])
             self.assertIn("starting_policy_failure_rate", report["profile_context"])
 
+            plan_path = outside / "can-v141.plan.json"
+            planned = self.run_adapter(
+                [
+                    "plan",
+                    "--repository",
+                    str(ROOT),
+                    "--output",
+                    str(plan_path),
+                    "--json",
+                ],
+                outside,
+            )
+            self.assertEqual(planned.returncode, 0, planned.stderr)
+            plan_report = json.loads(planned.stdout)
+            self.assertFalse(plan_report["execution_started"])
+            self.assertFalse(plan_report["submission_ready"])
+            self.assertFalse(plan_report["candidate_outcomes_opened"])
+            self.assertEqual(plan_report["candidate_runs"], 25)
+
+            plan = json.loads(plan_path.read_text())
+            schema = json.loads(
+                (ROOT / "schemas/workflows/robotics-workflow-plan.v1.schema.json").read_text()
+            )
+            Draft202012Validator(schema).validate(plan)
+            recorded_digest = plan.pop("plan_digest")
+            self.assertEqual(recorded_digest, CLI.sha256_object(plan))
+            self.assertEqual(plan["totals"]["candidate_arms"], 5)
+            self.assertEqual(plan["totals"]["candidate_runs"], 25)
+            self.assertEqual(plan["totals"]["optimizer_steps"], 1_250_000)
+            self.assertEqual(plan["totals"]["evaluation_episodes"], 2_500)
+            self.assertEqual(len(plan["candidate_runs"]), 25)
+            self.assertFalse(plan["execution"]["submission_ready"])
+            self.assertIsNone(plan["execution"]["scheduler"])
+            self.assertEqual(
+                [stage["stage_id"] for stage in plan["stages"]],
+                ["preflight", "train", "evaluate", "release_gate", "score"],
+            )
+            self.assertFalse(plan["stages"][-2]["opens_candidate_outcomes"])
+            self.assertTrue(plan["stages"][-1]["opens_candidate_outcomes"])
+            self.assertFalse(plan["scientific_boundary"]["candidate_outcomes_opened"])
+
+            repeated_plan = outside / "can-v141-repeated.plan.json"
+            repeated = self.run_adapter(
+                [
+                    "plan",
+                    "--repository",
+                    str(ROOT),
+                    "--output",
+                    str(repeated_plan),
+                    "--json",
+                ],
+                outside,
+            )
+            self.assertEqual(repeated.returncode, 0, repeated.stderr)
+            self.assertEqual(plan_path.read_bytes(), repeated_plan.read_bytes())
+
+            refused = self.run_adapter(
+                [
+                    "plan",
+                    "--repository",
+                    str(ROOT),
+                    "--output",
+                    str(plan_path),
+                    "--json",
+                ],
+                outside,
+            )
+            self.assertNotEqual(refused.returncode, 0)
+            self.assertIn("already exists", refused.stderr)
+
             output = outside / "profiles"
             profiled = self.run_adapter(
                 [
@@ -111,6 +181,9 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             verification = json.loads(verified.stdout)
             self.assertEqual(verification["status"], "pass")
             self.assertTrue(verification["deterministic_profiles"])
+            self.assertTrue(verification["deterministic_plan"])
+            self.assertEqual(verification["planned_candidate_runs"], 25)
+            self.assertFalse(verification["submission_ready"])
 
             results = self.run_adapter(["results", "--repository", str(ROOT), "--json"], outside)
             self.assertEqual(results.returncode, 0, results.stderr)

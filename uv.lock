@@ -104,7 +104,7 @@ requires-dist = [{ name = "anarres-environments", editable = "packages/environme
 
 [[package]]
 name = "anarres-robotics"
-version = "0.1.0"
+version = "0.3.0"
 source = { editable = "experiments/robotics/environment-selection/prospective-cupid-can-v141" }
 dependencies = [
     { name = "anarres-environments" },
