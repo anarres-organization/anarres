@@ -136,17 +136,16 @@ def prepare_stage(
     return manifest
 
 
-def execute_agent(stage: Path, model: str | None, timeout_seconds: int) -> dict[str, Any]:
-    records = record_root(stage)
-    if not (records / "STAGE_MANIFEST.json").is_file():
-        raise RuntimeError("Stage is missing STAGE_MANIFEST.json")
-
+def agent_command(stage: Path, records: Path, model: str | None) -> list[str]:
     command = [
         "codex",
         "exec",
         "--cd",
         str(stage),
         "--approve-for-me",
+        "--strict-config",
+        "--config",
+        "shell_environment_policy.inherit=none",
         "--skip-git-repo-check",
         "--ephemeral",
         "--ignore-user-config",
@@ -160,6 +159,15 @@ def execute_agent(stage: Path, model: str | None, timeout_seconds: int) -> dict[
     if model:
         command.extend(["--model", model])
     command.append(AGENT_PROMPT)
+    return command
+
+
+def execute_agent(stage: Path, model: str | None, timeout_seconds: int) -> dict[str, Any]:
+    records = record_root(stage)
+    if not (records / "STAGE_MANIFEST.json").is_file():
+        raise RuntimeError("Stage is missing STAGE_MANIFEST.json")
+
+    command = agent_command(stage, records, model)
 
     start = time.time()
     timed_out = False

@@ -13,6 +13,14 @@ import run_task
 
 
 class NativeQFBenchRunnerTest(unittest.TestCase):
+    def test_agent_command_preserves_sandbox_and_scrubs_shell_environment(self) -> None:
+        stage = Path("/tmp/stage")
+        command = run_task.agent_command(stage, Path("/tmp/records"), None)
+        self.assertIn("--approve-for-me", command)
+        self.assertIn("--strict-config", command)
+        self.assertIn("shell_environment_policy.inherit=none", command)
+        self.assertNotIn("--dangerously-bypass-approvals-and-sandbox", command)
+
     def test_frozen_task_index_covers_all_partitions(self) -> None:
         indexed = run_task.frozen_tasks()
         self.assertEqual(len(indexed), 10)
