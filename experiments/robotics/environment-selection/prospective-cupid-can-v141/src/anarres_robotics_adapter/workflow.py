@@ -256,18 +256,31 @@ def runtime_fingerprint(python: str) -> dict[str, Any]:
     return result
 
 
-def visible_accelerators() -> list[str]:
+def visible_accelerators(python: str) -> list[str]:
     result = subprocess.run(
-        ["nvidia-smi", "--query-gpu=name", "--format=csv,noheader"],
+        [
+            python,
+            "-c",
+            (
+                "import json,torch;"
+                "print(json.dumps([torch.cuda.get_device_name(i) "
+                "for i in range(torch.cuda.device_count())]))"
+            ),
+        ],
         text=True,
         capture_output=True,
         check=False,
     )
     if result.returncode != 0:
-        raise WorkflowError("nvidia-smi could not identify the allocated accelerator")
-    names = [line.strip() for line in result.stdout.splitlines() if line.strip()]
+        raise WorkflowError("the bound Python runtime could not inspect its CUDA allocation")
+    try:
+        names = json.loads(result.stdout)
+    except json.JSONDecodeError as error:
+        raise WorkflowError("the bound Python runtime returned invalid CUDA metadata") from error
+    if not isinstance(names, list) or any(not isinstance(name, str) for name in names):
+        raise WorkflowError("the bound Python runtime returned invalid CUDA metadata")
     if not names:
-        raise WorkflowError("no NVIDIA accelerator is visible")
+        raise WorkflowError("no CUDA accelerator is visible to the bound Python runtime")
     return names
 
 
@@ -343,9 +356,23 @@ run_phase() {{
   phase=$1
   worker=0
   pids=""
+  expected={shlex.quote(accelerator_name.strip())}
   for gpu in {gpu_words}; do
-    if nvidia-smi --id="$gpu" --query-compute-apps=pid \
-        --format=csv,noheader,nounits | grep -q '[0-9]'; then
+    observed=$(nvidia-smi --id="$gpu" --query-gpu=name \
+        --format=csv,noheader 2>/dev/null) || {{
+      echo "gpu $gpu is unavailable" >&2
+      return 43
+    }}
+    if [ "$observed" != "$expected" ]; then
+      echo "gpu $gpu is $observed, expected $expected" >&2
+      return 43
+    fi
+    running=$(nvidia-smi --id="$gpu" --query-compute-apps=pid \
+        --format=csv,noheader,nounits 2>/dev/null) || {{
+      echo "could not inspect compute processes on gpu $gpu" >&2
+      return 43
+    }}
+    if printf '%s\n' "$running" | grep -q '[0-9]'; then
       echo "gpu $gpu already has a compute process" >&2
       return 44
     fi
@@ -550,7 +577,7 @@ def run_task(bundle: Path, task_index: int, stage: str, execute: bool) -> dict[s
         or observed_runtime["missing_modules"]
     ):
         raise WorkflowError("execution runtime differs from the bound runtime lock")
-    accelerator_names = visible_accelerators()
+    accelerator_names = visible_accelerators(task["train_argv"][0])
     if any(name != provenance["accelerator_name"] for name in accelerator_names):
         raise WorkflowError(
             "allocated accelerator differs from the bundle contract: "

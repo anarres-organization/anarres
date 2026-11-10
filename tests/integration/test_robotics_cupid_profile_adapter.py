@@ -317,14 +317,52 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             self.assertIn("--array=0-24%4", launcher)
             local_launcher = (local_bundle / "run-local.sh").read_text()
             self.assertIn("for gpu in 0 2", local_launcher)
+            self.assertIn("expected='NVIDIA A40'", local_launcher)
+            self.assertIn('observed=$(nvidia-smi --id="$gpu" --query-gpu=name', local_launcher)
+            self.assertIn('if [ "$observed" != "$expected" ]', local_launcher)
+            self.assertIn(
+                'running=$(nvidia-smi --id="$gpu" --query-compute-apps=pid', local_launcher
+            )
             self.assertIn('CUDA_VISIBLE_DEVICES="$gpu"', local_launcher)
             self.assertIn("run_phase train", local_launcher)
             self.assertIn("run_phase evaluate", local_launcher)
+            fake_bin = temporary / "fake-bin"
+            fake_bin.mkdir()
+            fake_smi = fake_bin / "nvidia-smi"
+            fake_smi.write_text(
+                "#!/bin/sh\n"
+                "[ \"$1\" = '--id=0' ] || exit 9\n"
+                "[ \"$2\" = '--query-gpu=name' ] && echo 'NVIDIA A40'\n"
+                "exit 0\n"
+            )
+            fake_smi.chmod(0o755)
+            environment = os.environ.copy()
+            environment["PATH"] = str(fake_bin)
+            unavailable = subprocess.run(
+                [str(local_bundle / "run-local.sh")],
+                cwd=local_bundle,
+                env=environment,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(unavailable.returncode, 43)
+            self.assertIn("gpu 2 is unavailable", unavailable.stderr)
             tasks_path = bundle / "tasks.jsonl"
             original_tasks = tasks_path.read_text()
             tasks_path.write_text(original_tasks.replace('"seed": 1', '"seed": 999', 1))
             with self.assertRaisesRegex(CLI.workflow.WorkflowError, "bound tasks artifact differs"):
                 CLI.workflow.validate_bundle(bundle)
+
+    def test_accelerator_check_uses_the_bound_python_runtime(self) -> None:
+        completed = subprocess.CompletedProcess(
+            args=[], returncode=0, stdout='["NVIDIA A40"]\n', stderr=""
+        )
+        with mock.patch.object(CLI.workflow.subprocess, "run", return_value=completed) as run:
+            self.assertEqual(CLI.workflow.visible_accelerators("/runtime/python"), ["NVIDIA A40"])
+        command = run.call_args.args[0]
+        self.assertEqual(command[0], "/runtime/python")
+        self.assertIn("torch.cuda.get_device_name", command[2])
 
     def test_release_gate_precedes_prospective_scoring(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
