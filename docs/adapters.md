@@ -55,7 +55,7 @@ new training outcome.
 | Robotics | `anarres robotics` | Can v1.4.1 pre-outcome candidate measurements |
 | Legal reasoning | `anarres legal` | SylloGym candidate profiles and a separate LAB regression report |
 | Materials science | `anarres materials` | MLIP candidate measurements; outcomes remain unopened |
-| Molecular design | `anarres molecular` | Reaction-bank measurements with a failed confirmation gate |
+| Molecular design | `anarres molecular` | Qualified Q07820 reaction-bank measurements; training outcomes remain sealed |
 | Agentic finance | `anarres finance` | Starting-policy qualification and released retrospective checks |
 
 Use `status` to inspect the released stage, `profile` to export supported

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "study": "prospective-reaction-environment-selection",
-  "status": "version_3_measurement_qualified_version_3_bank_confirmation_failed_abstain",
+  "status": "version_3_failure_preserved_version_4_selector_fidelity_gate_frozen_before_new_view",
   "scientific_question": "Can measurements under one starting molecular graph policy predict which fixed replay experience bank will produce the greatest target-specific improvement at a matched generation and oracle budget?",
   "source": {
     "rxnflow_commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b",
@@ -188,7 +188,7 @@
     "reason": "The first graph claim concerns environment measurement and selection. Multiplying the initial panel across architectures would confound that decision and dilute the prospective test."
   },
   "open_gates": [
-    "new versioned measurement or bank-construction protocol before any development training"
+    "untouched version 4 selector-fidelity confirmation before any development training"
   ],
   "sealed_boundary": {
     "training_or_evaluation_outcomes_inspected": false,
@@ -207,6 +207,9 @@
       "mean_oracle_seconds",
       "unique_scaffold_fraction"
     ],
+    "bank_confirmation_diagnostic_completed_without_training_outcomes": true,
+    "bank_construction_contract_v4_frozen": true,
+    "bank_confirmation_view_20261125_drawn": false,
     "development_training_started": false
   }
 }
