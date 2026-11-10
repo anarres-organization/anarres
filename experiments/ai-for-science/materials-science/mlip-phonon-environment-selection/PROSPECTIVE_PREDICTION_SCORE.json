@@ -1,0 +1,87 @@
+{
+  "artifact": "anarres_mlip_prospective_prediction_score_v1",
+  "status": "prospective_test_scored",
+  "inputs": {
+    "prospective_authorization_sha256": "606d5f6121de7e6e50901142332518e0d3f43804d42edf905e63bc3b0fb08554",
+    "aggregate_utility_fit_sha256": "276540c68570b74b6efffb8480f1406af310cd34c52060b37a5a29ee674c4a9a",
+    "target_regression_fit_sha256": "63127e3dd582facf49f94a14c9c4c3293a38308a3de45c7ba0d85021bac1ad1c",
+    "prospective_outcomes_sha256": "0f6aa71b3e7c48ecdf4df5c5450710fb6814272e4196b2df35f1ea90a8908b1f"
+  },
+  "aggregate_utility": {
+    "curve_rmse_thz": 0.13043483107571474,
+    "pairwise_rank_accuracy": 0.4583333333333333,
+    "best_environment_decisions": 0.0,
+    "decision_count": 4,
+    "mean_allocation_regret_thz": 0.13544131683709992,
+    "empirical_envelope_coverage": 0.75,
+    "covered_points": 12,
+    "curve_points": 16
+  },
+  "allocation_baselines": [
+    {
+      "name": "equal_weight_signal_coverage_affinity",
+      "applicable": true,
+      "best_environment_decisions": 4.0,
+      "decision_count": 4,
+      "mean_allocation_regret_thz": 0.0
+    },
+    {
+      "name": "fixed_selection_rule_selected_on_development",
+      "applicable": true,
+      "best_environment_decisions": 4.0,
+      "decision_count": 4,
+      "mean_allocation_regret_thz": 0.0
+    },
+    {
+      "name": "fixed_source_family_selected_on_development",
+      "applicable": true,
+      "best_environment_decisions": 4.0,
+      "decision_count": 4,
+      "mean_allocation_regret_thz": 0.0
+    },
+    {
+      "name": "hash_uniform",
+      "applicable": false
+    },
+    {
+      "name": "random_choice_expectation",
+      "applicable": true,
+      "best_environment_decisions": 1.0,
+      "decision_count": 4,
+      "mean_allocation_regret_thz": 0.08124523637884709
+    }
+  ],
+  "target_regressions": {
+    "roc_auc": 0.49374833732375634,
+    "average_precision": 0.8812064704477569,
+    "brier_score": 0.18960510613805964,
+    "recall_in_top_risk_20_percent": 0.2011173184357542,
+    "positive_rate": 0.895,
+    "examples": 200,
+    "environment_macro": {
+      "roc_auc": 0.357809127351218,
+      "average_precision": 0.8811545434725163,
+      "brier_score": 0.18960510613805964,
+      "recall_in_top_risk_20_percent": 0.19158700791448247,
+      "positive_rate": 0.895,
+      "groups": 4
+    },
+    "source_family_macro": {
+      "roc_auc": 0.357809127351218,
+      "average_precision": 0.8811545434725163,
+      "brier_score": 0.18960510613805964,
+      "recall_in_top_risk_20_percent": 0.19158700791448247,
+      "positive_rate": 0.895,
+      "groups": 4
+    },
+    "stability_regressions": 8,
+    "validity_regressions": 0
+  },
+  "counts": {
+    "environments": 4,
+    "training_seeds": 2,
+    "checkpoints": 4,
+    "targets": 50,
+    "evaluation_records": 1600
+  }
+}

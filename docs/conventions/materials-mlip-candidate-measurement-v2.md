@@ -58,8 +58,8 @@ otherwise. Its unit is `fraction`, and its direction is contextual.
 Arithmetic mean of each retained structure's maximum element-set Jaccard
 similarity to the 16 checkpoint-qualification targets. Only element identities
 from the qualification split enter this measurement. Development and
-prospective phonon outcomes remain sealed. Its unit is `fraction`, and its
-direction is contextual.
+prospective phonon outcomes did not enter its construction. Its unit is
+`fraction`, and its direction is contextual.
 
 ## `neighbor_edges_per_atom`
 
