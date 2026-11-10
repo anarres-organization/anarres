@@ -24,9 +24,9 @@ the post-training labels.
 The released study now supports three pre-outcome operations. The CLI exports
 continuous profiles for all 16 candidate environments, reports the frozen
 environment-selection and target-regression protocol, and verifies the artifact
-chain that binds those measurements to the final training contract. Predictive
-performance remains unreported until development training, predictor selection,
-and the prospective test are complete.
+chain that binds those measurements to the final training contract. Development
+performance is reported below, while prospective performance remains sealed
+until the frozen candidate experiment is complete.
 
 ## Source and target separation
 
@@ -255,8 +255,10 @@ prediction and decision quality remain separate results.
 
 [`TARGET_REGRESSION_FIT.json`](TARGET_REGRESSION_FIT.json) selects the full
 numeric target model. It reaches 0.845 ROC AUC, 0.911 average precision, and
-0.161 Brier score when each complete environment is held out. Starting
-frequency error alone reaches 0.149 ROC AUC under the same split.
+0.161 Brier score when predictions from complete held-out environments are
+pooled. The environment-macro ROC AUC is 0.597, which reports discrimination
+within each held-out environment before averaging across the 12 folds. Starting
+frequency error alone reaches 0.149 pooled ROC AUC under the same split.
 
 [`PROSPECTIVE_TRAINING_AUTHORIZATION.json`](PROSPECTIVE_TRAINING_AUTHORIZATION.json)
 binds four utility curves, 16 budget points, and 200 target-regression
