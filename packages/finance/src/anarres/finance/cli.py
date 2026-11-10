@@ -142,6 +142,10 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     qualification = read_object(root / "environment-selection/QWEN3_8B_QUALIFICATION.json")
     strict = read_object(root / "retrospective-post-training/strict-task-level/SCORE.json")
     strict_rule = strict["evaluations"]["leave_one_source_out"]["practical_rule"]
+    selective = read_object(
+        root / "retrospective-post-training/strict-task-level/SELECTIVE_SCORE.json"
+    )
+    selective_rule = selective["rules"]["practical_rule"]["operating_points"]["target_0.85"]
     regression = read_object(
         root / "retrospective-post-training/results/regression_risk_summary.json"
     )
@@ -159,6 +163,7 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
             "environment_profile_export",
             "retrospective_reproduction",
             "frozen_holdout_verification",
+            "selective_environment_comparison",
         ],
         "prospective_environment_outcome_opened": False,
         "evidence_stage": "retrospective_transfer_supported_native_prospective_pending",
@@ -171,6 +176,10 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "strict_source_macro_mean_normalized_regret": strict_rule["source_macro"][
             "mean_normalized_regret"
         ],
+        "selective_pairwise_accuracy": selective_rule["selective_pairwise_accuracy"],
+        "selective_source_macro_accuracy": selective_rule["source_macro_selective_accuracy"],
+        "selective_pairwise_coverage": selective_rule["coverage"],
+        "selective_decided_pairs": selective_rule["decided_pairs"],
         "regression_risk_contrasts": regression["support"]["contrasts"],
         "regression_risk_source_macro_roc_auc": regression_rule["source_macro_roc_auc"],
         "regression_risk_eligible_sources": regression_rule["eligible_sources"],
@@ -332,6 +341,7 @@ def compact_verification(repository: Path) -> dict[str, Any]:
     summary = read_object(retrospective / "results/summary.json")
     expanded = read_object(retrospective / "results/expanded_summary_corrected.json")
     strict = read_object(retrospective / "strict-task-level/SCORE.json")
+    selective = read_object(retrospective / "strict-task-level/SELECTIVE_SCORE.json")
     regression = read_object(retrospective / "results/regression_risk_summary.json")
     if summary.get("status") != "retrospective_exploratory":
         raise FinanceCliError("compact retrospective summary has an unexpected status")
@@ -339,6 +349,16 @@ def compact_verification(repository: Path) -> dict[str, Any]:
         raise FinanceCliError("expanded retrospective support no longer contains 16 sources")
     if strict.get("support", {}).get("panels") != 79:
         raise FinanceCliError("strict task-level support no longer contains 79 panels")
+    selective_rule = (
+        selective.get("rules", {})
+        .get("practical_rule", {})
+        .get("operating_points", {})
+        .get("target_0.85", {})
+    )
+    if selective_rule.get("selective_pairwise_accuracy") != 0.904255:
+        raise FinanceCliError("selective audit no longer matches the released accuracy")
+    if selective_rule.get("coverage") != 0.760518:
+        raise FinanceCliError("selective audit no longer matches the released coverage")
     if regression.get("support", {}).get("contrasts") != 165:
         raise FinanceCliError("regression-risk audit no longer contains 165 contrasts")
     if (
@@ -376,6 +396,8 @@ def compact_verification(repository: Path) -> dict[str, Any]:
         "starting_policy_qualified": qualification["qualified"],
         "retrospective_sources": expanded["support"]["sources"],
         "strict_panels": strict["support"]["panels"],
+        "selective_pairwise_accuracy": selective_rule["selective_pairwise_accuracy"],
+        "selective_pairwise_coverage": selective_rule["coverage"],
         "regression_risk_source_macro_roc_auc": regression["rules"]["practical_rule"][
             "source_macro_roc_auc"
         ],

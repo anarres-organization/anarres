@@ -54,6 +54,12 @@ weighting it reaches 83.6% ordering and 0.098 regret. This is the strongest
 current evidence for a model-agnostic relationship, although it remains
 retrospective and still needs an excluded-source test.
 
+A source-held-out confidence filter raises ordering accuracy to 90.4% over 235
+decided pairs while retaining 76.1% coverage. Thresholds are learned from the
+other six sources in every fold, and equal-source accuracy is 89.6%. This adds
+an explicit abstention action when candidate scores are too close for the
+available evidence.
+
 The fixed rule also predicts whether an intervention will regress relative to
 its study-matched baseline. Across 165 treatment contrasts, it reaches 0.815
 source-macro ROC AUC on the five sources with both regressions and improvements,
