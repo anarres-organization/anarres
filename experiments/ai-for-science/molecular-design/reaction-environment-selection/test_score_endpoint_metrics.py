@@ -67,3 +67,20 @@ def test_flattens_native_interaction_columns() -> None:
         "LEU15.A_HBAcceptor": True,
         "GLY16.A_VdWContact": False,
     }
+
+
+def test_interaction_preparation_preserves_retained_record_identities() -> None:
+    class Metric:
+        @staticmethod
+        def _prepare_ligands(records):
+            return [] if records == ["drop"] else records
+
+        @staticmethod
+        def _filter_ligands(ligands):
+            return ligands
+
+    records = [("keep-a", "a"), ("drop", "drop"), ("keep-b", "b")]
+    assert MODULE.interaction_ready_records(Metric(), records) == [
+        ("keep-a", "a"),
+        ("keep-b", "b"),
+    ]

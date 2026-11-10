@@ -156,6 +156,20 @@ def flatten_interaction_row(row: Any) -> dict[str, bool]:
     }
 
 
+def interaction_ready_records(
+    metric: Any,
+    records: list[tuple[str, Any]],
+) -> list[tuple[str, Any]]:
+    """Preserve identities for records retained by MolGenBench preparation."""
+
+    ready: list[tuple[str, Any]] = []
+    for smiles, record in records:
+        prepared = metric._filter_ligands(metric._prepare_ligands([record]))
+        if len(prepared) == 1:
+            ready.append((smiles, record))
+    return ready
+
+
 def interaction_reference_map(
     reference_scores_path: Path,
 ) -> tuple[dict[str, float], dict[str, Any]]:
@@ -205,8 +219,9 @@ def score_interaction_batch(
         )
         if molecule is not None and metric._filterMol(molecule):
             eligible.append((smiles, molecule))
-    records = [
-        MoleculeRecord(
+    records: list[tuple[str, Any]] = []
+    for smiles, molecule in eligible:
+        record = MoleculeRecord(
             id=smiles,
             smiles=smiles,
             uniprot="Q07820",
@@ -215,14 +230,14 @@ def score_interaction_batch(
             rdkit_mol=molecule,
             metadata={"protein_path": protein_path},
         )
-        for smiles, molecule in eligible
-    ]
+        records.append((smiles, record))
+    records = interaction_ready_records(metric, records)
     if not records:
         return scores
-    frame = metric._compute_fp_df(records, protein_path)
+    frame = metric._compute_fp_df([record for _, record in records], protein_path)
     if len(frame) != len(records):
         raise RuntimeError("candidate interaction rows do not match eligible molecules")
-    for (smiles, _), (_, row) in zip(eligible, frame.iterrows(), strict=True):
+    for (smiles, _), (_, row) in zip(records, frame.iterrows(), strict=True):
         flat = flatten_interaction_row(row)
         scores[smiles] = finite_number(metric.getInteractionScores(flat, reference_map))
     return scores
