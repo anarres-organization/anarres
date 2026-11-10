@@ -231,7 +231,7 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         descriptor = CLI_MODULE.adapter_descriptor()
         self.assertEqual(descriptor["schema_version"], "anarres.adapter-descriptor.v1")
         self.assertEqual(descriptor["name"], "materials")
-        self.assertEqual(descriptor["protocol_version"], 1)
+        self.assertEqual(descriptor["protocol_version"], 2)
         self.assertEqual(
             descriptor["measurement_contracts"],
             ["materials.mlip-phonon-candidate-measurement.v2"],
@@ -265,6 +265,56 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
             status["next_gate"],
             "freeze support-aware abstention and expand development support",
         )
+
+    def test_status_validates_large_feature_artifact_without_deserializing_it(self) -> None:
+        exporter = CLI_MODULE.load_exporter(ROOT)
+        target_features = CLI_MODULE.target_regression_features_path(ROOT).resolve()
+        opened: list[Path] = []
+
+        class ExporterProxy:
+            DEFAULT_BANK = exporter.DEFAULT_BANK
+            DEFAULT_VALIDATION = exporter.DEFAULT_VALIDATION
+
+            @staticmethod
+            def read_object(path: Path):
+                resolved = Path(path).resolve()
+                opened.append(resolved)
+                if resolved == target_features:
+                    raise AssertionError("status deserialized the large target-feature artifact")
+                return exporter.read_object(path)
+
+            @staticmethod
+            def export_profiles(**kwargs):
+                return exporter.export_profiles(**kwargs)
+
+        original_loader = CLI_MODULE.load_exporter
+        try:
+            CLI_MODULE.load_exporter = lambda _repository: ExporterProxy()
+            args = type("Args", (), {"repository": ROOT})()
+            status = CLI_MODULE.command_status(args)
+        finally:
+            CLI_MODULE.load_exporter = original_loader
+
+        self.assertTrue(status["target_regression_features_frozen"])
+        self.assertNotIn(target_features, opened)
+
+    def test_status_rejects_an_unbound_target_feature_artifact(self) -> None:
+        original_sha256 = CLI_MODULE.sha256
+        target_features = CLI_MODULE.target_regression_features_path(ROOT).resolve()
+
+        def changed_digest(path: Path) -> str:
+            if Path(path).resolve() == target_features:
+                return "0" * 64
+            return original_sha256(path)
+
+        try:
+            CLI_MODULE.sha256 = changed_digest
+            args = type("Args", (), {"repository": ROOT})()
+            status = CLI_MODULE.command_status(args)
+        finally:
+            CLI_MODULE.sha256 = original_sha256
+
+        self.assertFalse(status["target_regression_features_frozen"])
 
     def test_adapter_reports_frozen_decision_and_regression_protocol(self) -> None:
         args = type("Args", (), {"repository": ROOT})()

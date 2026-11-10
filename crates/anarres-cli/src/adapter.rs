@@ -13,8 +13,10 @@ use serde::{Deserialize, Serialize};
 pub(crate) const ADAPTER_DESCRIPTOR_SCHEMA: &str = "anarres.adapter-descriptor.v1";
 const ADAPTER_LIST_SCHEMA: &str = "anarres.adapter-list.v1";
 const ADAPTER_DOCTOR_SCHEMA: &str = "anarres.adapter-doctor.v1";
-const ADAPTER_PROTOCOL_VERSION: u64 = 1;
+const ADAPTER_PROTOCOL_VERSION: u64 = 2;
 const ADAPTER_PREFIX: &str = "anarres-";
+const ADAPTER_PROTOCOL_FLAG: &str = "--anarres-adapter-protocol";
+const ADAPTER_NAME_FLAG: &str = "--anarres-adapter-name";
 const DESCRIPTOR_TIMEOUT: Duration = Duration::from_secs(5);
 const DESCRIPTOR_OUTPUT_LIMIT: usize = 256 * 1024;
 
@@ -155,8 +157,11 @@ pub(crate) fn doctor(name: &str, as_json: bool) -> Result<i32, String> {
 pub(crate) fn run(name: &str, arguments: &[OsString]) -> Result<i32, String> {
     validate_adapter_name(name)?;
     let adapter = resolve_adapter(name)?;
-    read_descriptor(&adapter)?;
     let status = Command::new(&adapter.path)
+        .arg(ADAPTER_PROTOCOL_FLAG)
+        .arg(ADAPTER_PROTOCOL_VERSION.to_string())
+        .arg(ADAPTER_NAME_FLAG)
+        .arg(name)
         .args(arguments)
         .status()
         .map_err(|error| format!("failed to start adapter '{name}': {error}"))?;
@@ -617,7 +622,7 @@ mod tests {
             schema_version: ADAPTER_DESCRIPTOR_SCHEMA.into(),
             name: "finance".into(),
             version: "0.1.0".into(),
-            protocol_version: 1,
+            protocol_version: 2,
             domain: "agentic-finance".into(),
             executable: "anarres-finance".into(),
             profile_schema_versions: vec!["anarres.environment-profile-input.v1".into()],

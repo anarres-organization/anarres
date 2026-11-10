@@ -1,0 +1,67 @@
+name: Performance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cli-benchmarks:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+      - uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-performance-${{ hashFiles('Cargo.lock') }}
+      - name: Install workspace
+        run: make setup
+      - name: Build release binary
+        run: cargo build --release --locked -p anarres-cli
+      - name: Benchmark user-facing commands
+        run: make benchmark
+      - name: Publish summary
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+
+          report = json.loads(Path("target/benchmarks/cli.json").read_text())
+          print("## Anarres CLI performance")
+          print()
+          print("| Scenario | Median (ms) | p95 (ms) | Guard |")
+          print("|---|---:|---:|---:|")
+          for name, metric in report["metrics"].items():
+              guard = metric["guard"]
+              print(
+                  f"| `{name}` | {metric['median_ms']:.3f} | "
+                  f"{metric['p95_ms']:.3f} | {guard['metric']} "
+                  f"≤ {guard['maximum_ms']:.1f} ms |"
+              )
+          print()
+          print("### Adapter dispatch overhead")
+          print()
+          print("| Adapter | Median overhead (ms) |")
+          print("|---|---:|")
+          for name, value in report["derived"][
+              "adapter_dispatch_overhead_median_ms"
+          ].items():
+              print(f"| `{name}` | {value:.3f} |")
+          print()
+          print(f"Binary size: {report['binary']['size_bytes']:,} bytes")
+          PY
+      - uses: actions/upload-artifact@v7
+        with:
+          name: anarres-cli-performance-${{ github.sha }}
+          path: target/benchmarks/cli.json
+          retention-days: 30

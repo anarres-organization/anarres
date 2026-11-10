@@ -3,7 +3,7 @@ name = "anarres-molecular"
 version = "0.2.0"
 description = "Anarres adapter for the released Q07820 reaction-bank study"
 requires-python = ">=3.11"
-dependencies = ["anarres-environments"]
+dependencies = ["anarres-core", "anarres-environments"]
 license = { text = "Apache-2.0" }
 
 [project.scripts]

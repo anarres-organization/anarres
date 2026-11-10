@@ -56,8 +56,11 @@ anarres adapter run robotics -- profile --output-dir profiles
 ```
 
 The shorter `anarres robotics ...` form uses the same generic discovery path.
-The CLI resolves an exact executable on `PATH`, validates its descriptor, and
-forwards arguments without a shell. It does not download adapters or search a
+The CLI resolves an exact executable on `PATH` and forwards a versioned runtime
+handshake plus the domain arguments without a shell. The adapter validates the
+protocol and identity before opening study artifacts. `adapter doctor` performs
+the full descriptor audit. This single-launch path avoids paying adapter startup
+twice for routine commands. The CLI does not download adapters or search a
 repository checkout implicitly.
 
 Adding a domain measurement does not require changing the Rust binary. An

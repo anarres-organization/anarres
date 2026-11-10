@@ -3,7 +3,7 @@ name = "anarres-legal"
 version = "0.2.0"
 description = "Domain adapter for released Anarres legal-reasoning studies"
 requires-python = ">=3.11"
-dependencies = ["anarres-environments"]
+dependencies = ["anarres-core", "anarres-environments"]
 license = { text = "Apache-2.0" }
 
 [project.scripts]
