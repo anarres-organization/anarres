@@ -38,7 +38,11 @@ Three corrections are necessary before experiment design:
 | VeriBench | The launch corpus reports 884 paired tasks; an unmerged Harbor v1.3 candidate pins 896 prove-first tasks at `c9dfd8e3b535` | Held-out autoformalization target after a prove-first release is qualified | Qualify the task manifest, evaluator, container, semantic scorer, and licenses; do not use v1.0--v1.2 scores as proof success |
 | VeruSyn | Controlled Part 1, Part 2, combined, teacher, and data-scale comparisons with VerusBench and VeruSAGE outcomes | Retrospective training-data decision panels and source of system-proof candidates | Public tables support compact decisions, but training-seed uncertainty and exact generation-token accounting are incomplete |
 | Re:Form | Three Dafny RL reward environments across five model scales | Reward-integrity falsification and cross-scale environment evidence | Training-seed support is incomplete and the repository has no identified top-level license at the pinned revision |
+| DafnySynth | Fixed-step augmentation comparisons over two starting models and four human-data fractions | Positive training-environment grid and source of annotation candidates | Released result JSONs omit the pure-synthetic arms and differ from several paper-table endpoints; both records must remain separate |
 | Formal Disco | Specialized and monolithic generation systems, feature-entropy measurements, and matched downstream SFT results | Verified-diversity measurement and training-data comparison | Released run checkpoints and failed generations remain incomplete |
+| ATLAS | Qwen2.5-Coder-7B gains 23 points on DafnyBench and 50 points on DafnySynthesis after training on more than 19,000 examples extracted from 2,700 verified programs | Independent positive evidence for verifier-filtered synthetic data | Public outcome summaries do not yet provide the crossed candidate grid needed for an allocation audit |
+| InvBench | Fine-tuning and sampling comparisons measure invariant correctness and the resulting reduction in verifier runtime | Candidate source for utility definitions that include verification speed | No crossed candidate grid or released raw outcome set has yet been admitted for an allocation audit |
+| LeanContext | Crossed training and inference views over 129,826 Lean targets; dependency prioritization improves Pass@32 by 1.40 and 1.70 points on two backbones | Controlled context-environment candidate and source of independently matched context panels | The repository releases construction and analysis code but not the model outcome files needed for an independent score audit |
 | Vericoding | 55,397 model-task outcomes over 6,336 tasks, nine models, and three formal languages | Broad policy-support and cross-language diagnostic | Cross-model disagreement is not a repeated-policy measurement or downstream training outcome |
 | LeanLean | Comparator-checked compression, cost, duration, checkpoints, and action summaries for six policies over 64 Lean repositories | Repository-level policy and cost screen before new inference | Compression is a different objective from filling Vero proof slots or closing a verified repository |
 | Forall VeriSoftBench | 1,300 task records across 13 configurations on the 100-task Aristotle subset, with partial axiom-audit and independent-checker coverage | Policy, harness, reasoning-effort, and cost screen | Reported totals, retained artifacts, axiom audits, and independent checks have different coverage; proofs and transcripts are withheld |
@@ -59,11 +63,18 @@ legal and robotics analyses. It retains native outcomes, scores choices within
 comparable panels, and keeps retrospective evidence distinct from prospective
 tests.
 
-The strongest current decision panel comes from VeruSyn. A target-matched rule
+The strongest repeated positive intervention comes from DafnySynth. Adding
+verifier-filtered synthetic annotations improves seven of eight matched settings
+and ties the eighth across two starting models and four human-data fractions,
+with a 15.8-point mean gain in the paper table. The pinned result JSONs preserve
+the direction in every available comparison, although several endpoints differ
+and the pure-synthetic arms are absent. The strongest current decision panel
+comes from VeruSyn. A target-matched rule
 chooses Part 1 data for algorithmic proofs and combined Part 1 plus Part 2 data
 for system proofs. It selects the observed best arm in seven of eight nested
 Accuracy@K panels with 0.25 points of mean regret. Formal Disco provides a
-second positive data-environment comparison. Re:Form provides the required
+second positive family across Dafny and Verus annotation and Dafny lemma
+proving. Re:Form provides the required
 falsification: choosing the arm with the highest raw verifier success misses
 the best specification-superiority arm at all five model scales.
 
@@ -270,7 +281,11 @@ The defensible contribution is therefore:
   <https://github.com/harbor-framework/harbor-datasets/pull/148>
 - VeruSyn: <https://arxiv.org/abs/2602.04910>
 - Re:Form: <https://arxiv.org/abs/2507.16331>
+- DafnySynth: <https://arxiv.org/abs/2411.15143>
 - Formal Disco: <https://arxiv.org/abs/2607.04631>
+- ATLAS: <https://arxiv.org/abs/2512.10173>
+- InvBench: <https://arxiv.org/abs/2509.21629>
+- LeanContext: <https://arxiv.org/abs/2611.08277>
 - Vericoding Benchmark: <https://arxiv.org/abs/2509.22908>
 - VCVio: <https://github.com/Verified-zkEVM/VCVio>
 - dalek-lean-bench: <https://github.com/Beneficial-AI-Foundation/dalek-lean-bench>

@@ -1,0 +1,59 @@
+{
+  "artifact": "dafny_synth_training_environment_compact_record_v1",
+  "evidence_status": "retrospective external evidence",
+  "chronology": {
+    "chronologically_prospective": false,
+    "outcomes_available_when_rule_was_recorded": true
+  },
+  "environment_measurements": {
+    "compilable_synthetic_programs": 699,
+    "fully_verified_synthetic_programs": 46,
+    "extracted_annotations": 1107,
+    "syntactically_unique_annotations": 923,
+    "annotation_types": {
+      "invariants": 678,
+      "assertions": 281,
+      "decreases_clauses": 148
+    }
+  },
+  "downstream_contract": {
+    "models": [
+      "Llama 3.1 8B",
+      "CodeLlama 7B"
+    ],
+    "training_method": "LoRA supervised fine-tuning",
+    "gradient_steps": 1500,
+    "target": "83 held-out DafnyBench methods that fail after human annotations are removed",
+    "outcome": "percentage verified after at most five greedy annotation-search iterations",
+    "compute_matching": "all fine-tuning runs use 1,500 gradient steps"
+  },
+  "practical_rule": "at a fixed DafnyBench fraction, prefer the environment augmented with verifier-filtered DafnySynth annotations",
+  "paper_panels": [
+    {"model": "Llama 3.1 8B", "dafnybench_fraction_percent": 0, "without_synth_percent": 15.7, "with_synth_percent": 27.7},
+    {"model": "Llama 3.1 8B", "dafnybench_fraction_percent": 25, "without_synth_percent": 15.7, "with_synth_percent": 41.0},
+    {"model": "Llama 3.1 8B", "dafnybench_fraction_percent": 50, "without_synth_percent": 20.5, "with_synth_percent": 43.4},
+    {"model": "Llama 3.1 8B", "dafnybench_fraction_percent": 100, "without_synth_percent": 15.7, "with_synth_percent": 50.6},
+    {"model": "CodeLlama 7B", "dafnybench_fraction_percent": 0, "without_synth_percent": 6.0, "with_synth_percent": 20.5},
+    {"model": "CodeLlama 7B", "dafnybench_fraction_percent": 25, "without_synth_percent": 20.5, "with_synth_percent": 31.3},
+    {"model": "CodeLlama 7B", "dafnybench_fraction_percent": 50, "without_synth_percent": 28.9, "with_synth_percent": 34.9},
+    {"model": "CodeLlama 7B", "dafnybench_fraction_percent": 100, "without_synth_percent": 39.8, "with_synth_percent": 39.8}
+  ],
+  "repository_result_audit": {
+    "interpretation": "the pinned result JSONs preserve the same positive direction for every available fraction-matched comparison, although several endpoint values differ from the paper table and the repository does not contain a pure-DafnySynth result file",
+    "panels": [
+      {"model": "Llama 3.1 8B", "dafnybench_fraction_percent": 25, "without_synth_percent": 19.277108, "with_synth_percent": 40.963855},
+      {"model": "Llama 3.1 8B", "dafnybench_fraction_percent": 50, "without_synth_percent": 20.481928, "with_synth_percent": 40.963855},
+      {"model": "Llama 3.1 8B", "dafnybench_fraction_percent": 100, "without_synth_percent": 15.662651, "with_synth_percent": 45.783133},
+      {"model": "CodeLlama 7B", "dafnybench_fraction_percent": 25, "without_synth_percent": 20.481928, "with_synth_percent": 33.73494},
+      {"model": "CodeLlama 7B", "dafnybench_fraction_percent": 50, "without_synth_percent": 28.915663, "with_synth_percent": 37.349398},
+      {"model": "CodeLlama 7B", "dafnybench_fraction_percent": 100, "without_synth_percent": 39.759036, "with_synth_percent": 39.759036}
+    ]
+  },
+  "claim_boundary": [
+    "the augmentation rule is retrospective",
+    "fractions within a model reuse one held-out panel and are not independent studies",
+    "the experiment concerns two related Llama-family starting models, one Dafny annotation task, and one verifier",
+    "the current repository result JSONs and the paper table differ at several endpoints, so both audits are reported separately",
+    "verified synthetic augmentation is a measured environment intervention, not a universal claim that synthetic data is always beneficial"
+  ]
+}

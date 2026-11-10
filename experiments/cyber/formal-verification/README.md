@@ -1,14 +1,17 @@
 # Predictable utility of formal-verification environments
 
-**Status:** the public-evidence bridge is released. The OSS Verify release
-indexes and checker bootstrap are qualified. Vero's source structure, pinned
-Lean runtime, reference build, bounded grader controls, and repository-
-disjoint split are also qualified. Leanstral failed the frozen support screen
-and budget ladder. The replacement GPT-5.6 Sol policy passes all nine PrimePy
-specifications in one excluded development attempt under fresh grading. This
-establishes task support, not reliability. A broader-than-intended task
-sandbox remains to be corrected before repeated measurement. No claim-bearing
-reinforcement-learning run is authorized.
+**Status:** the public-evidence bridge now contains positive downstream
+training comparisons across Dafny and Verus, together with reward-integrity
+and policy-support boundaries. In the densest released grid, verifier-filtered
+DafnySynth augmentation improves seven of eight matched paper comparisons and
+ties the eighth across two starting models and four human-data fractions. The
+OSS Verify release indexes and checker bootstrap are qualified. Vero's source
+structure, pinned Lean runtime, reference build, bounded grader controls, and
+repository-disjoint split are also qualified. Leanstral failed the frozen
+support screen and budget ladder, while GPT-5.6 Sol passes all nine PrimePy
+specifications in one excluded development attempt under fresh grading. A
+broader-than-intended task sandbox remains to be corrected before repeated
+measurement. No claim-bearing reinforcement-learning run is authorized.
 
 This workstream asks a narrower question than benchmark construction:
 
@@ -23,13 +26,14 @@ policy-relative properties of a verification environment predict downstream
 utility before full training is run.
 
 The [public-evidence record](public-evidence/README.md) reconstructs decisions
-from VeruSyn, Re:Form, Formal Disco, and Vericoding, then audits repository
-policy evidence from LeanLean, Vero, and Forall VeriSoftBench. It places these
-results against Anthropic and Theorem's production verification workflow while
-preserving each source's native outcome. The evidence shows that target-matched
-training data and verified feature coverage can improve downstream proof
-synthesis, raw verifier success can select a semantically weaker reward
-environment, and no starting policy leads every repository contract.
+from DafnySynth, VeruSyn, Re:Form, Formal Disco, and Vericoding, then audits
+repository policy evidence from LeanLean, Vero, and Forall VeriSoftBench. It
+places these results against Anthropic and Theorem's production verification
+workflow while preserving each source's native outcome. The evidence shows
+that verifier-filtered augmentation, target-matched training data, and verified
+feature coverage can improve downstream proof synthesis. It also shows that
+raw verifier success can select a semantically weaker reward environment and
+that no starting policy leads every repository contract.
 
 The detailed protocol is in [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md). The dated
 source assessment and role of each public artifact are in
@@ -61,8 +65,10 @@ forecasting, and production-code transfer.
 ## Public evidence before new training
 
 The workstream begins with released interventions rather than a new model run.
-The public record contains five complementary checks:
+The public record contains six complementary checks:
 
+- DafnySynth compares verifier-filtered synthetic augmentation across two
+  starting models and four human-data fractions under a fixed training budget.
 - VeruSyn compares target-matched training-data environments for algorithmic
   and real-system Verus proofs.
 - Re:Form shows that the reward environment with the highest verifier success
