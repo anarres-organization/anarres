@@ -323,6 +323,25 @@ canonical molecule contributing more than one quarter of qualifying attempts.
 Only a passing result authorizes fixing 4,096 evaluation attempts per policy,
 seed, and checkpoint in the matched contract.
 
+Preserve the docked poses with the deterministic endpoint producer before
+running the MolGenBench pose metrics:
+
+```bash
+python scripts/dock_endpoint_panel.py panel \
+  --samples /path/to/starting_policy_seed20261126.jsonl \
+  --prepared-target /path/to/prepared_Q07820 \
+  --attempts 4096 \
+  --sample-seed 20261126 \
+  --output-dir /path/to/endpoint-docking \
+  --output-records /path/to/endpoint-docking/attempts.jsonl \
+  --report /path/to/endpoint-docking/report.json
+```
+
+The producer docks each unique canonical molecule once under the frozen seed,
+maps duplicate molecules back to their original attempts, and records missing
+or molecule-specific failures without retrying them. Any timeout, receptor,
+toolchain, process, or pose-conversion failure invalidates the panel.
+
 ## 9. Freeze the prospective decision
 
 After all development arms are complete and scored, fit the operational and
