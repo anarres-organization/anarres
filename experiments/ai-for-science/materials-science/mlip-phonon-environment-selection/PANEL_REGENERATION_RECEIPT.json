@@ -23,7 +23,8 @@
     "construct_cost_matched_panel.py_sha256": "6ca7bd5d052408877c64818c79a2147029186b310d30b31ad6ebee51ca6230f5",
     "construct_candidate_bank.py_sha256": "f2bb1374c063f334258e6f8adf188c54cfa58e1cd3ed166134ab15a2318e51fb",
     "pyproject.toml_sha256": "2e085922b3996903632bb949267cf3beae41fc6e6a031327ed1bad7b220a59d4",
-    "uv.lock_sha256": "d1657bea53837ffc697bcc1c81c745c998ccf5a4da25a7a6abf6b82b96d2e0e6"
+    "PANEL_REGENERATION_REQUIREMENTS.txt_sha256": "45ce859158ccfb422e8386d20276b1cfbaeed2749cd08b77d091fe844f55d4d5",
+    "source_workspace_uv.lock_sha256": "d1657bea53837ffc697bcc1c81c745c998ccf5a4da25a7a6abf6b82b96d2e0e6"
   },
   "locked_environment": {
     "python_implementation": "CPython",
@@ -37,7 +38,8 @@
     "solver_note": "The mixed-integer programs may have multiple feasible or optimal solutions. Exact membership and byte identity are therefore asserted only for this locked environment."
   },
   "command": [
-    "uv", "run", "--locked", "--python", "3.11", "--group", "materials-test",
+    "uv", "run", "--no-project", "--python", "3.11.7", "--with-requirements",
+    "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/PANEL_REGENERATION_REQUIREMENTS.txt",
     "python", "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/construct_cost_matched_panel.py",
     "--manifest", "$MEASUREMENT_MANIFEST",
     "--measurements",

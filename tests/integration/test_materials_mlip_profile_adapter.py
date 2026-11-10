@@ -244,7 +244,59 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         self.assertTrue(status["measurements_complete"])
         self.assertFalse(status["candidate_outcomes_opened"])
         self.assertTrue(status["final_training_panel_frozen"])
+        self.assertTrue(status["decision_protocol_frozen"])
+        self.assertTrue(status["regression_protocol_frozen"])
         self.assertFalse(status["predictive_evidence_available"])
+        self.assertEqual(
+            status["training_qualification_status"],
+            "complete_before_final_candidate_training",
+        )
+        self.assertEqual(status["selected_learning_rate"], 1e-4)
+        self.assertTrue(status["starting_target_features_complete"])
+        self.assertEqual(
+            status["final_training_contract_status"],
+            "frozen_before_final_candidate_training",
+        )
+        self.assertTrue(status["target_regression_features_frozen"])
+        self.assertTrue(status["development_modeling_protocol_frozen"])
+        self.assertTrue(status["prospective_predictions_frozen"])
+        self.assertEqual(
+            status["next_gate"],
+            "run and score the authorized prospective environments",
+        )
+
+    def test_adapter_reports_frozen_decision_and_regression_protocol(self) -> None:
+        args = type("Args", (), {"repository": ROOT})()
+        report = CLI_MODULE.command_protocol(args)
+
+        self.assertEqual(report["schema_version"], "anarres.materials-decision-protocol-report.v1")
+        self.assertEqual(report["evidence_tier"], "frozen_pre_outcome_protocol")
+        self.assertFalse(report["predictive_evidence_available"])
+        self.assertEqual(report["candidate_panel"]["candidates"], 16)
+        self.assertEqual(report["candidate_panel"]["development_environments"], 12)
+        self.assertEqual(report["candidate_panel"]["prospective_environments"], 4)
+        self.assertEqual(len(report["baseline"]["ranking"]), 16)
+        self.assertEqual(
+            report["regression_evaluation"]["primary_endpoint"]["name"],
+            "frequency_error_regression",
+        )
+        self.assertFalse(report["training_qualification"]["included_in_final_panel"])
+        self.assertFalse(report["training_qualification"]["uses_phonon_target_outcomes"])
+        self.assertEqual(report["training_qualification"]["learning_rates"], [1e-5, 3e-5, 1e-4])
+        self.assertEqual(report["training_qualification"]["selected_learning_rate"], 1e-4)
+        self.assertEqual(report["final_training_contract"]["development_environments"], 12)
+        self.assertEqual(report["final_training_contract"]["prospective_environments"], 4)
+        self.assertEqual(report["development_modeling"]["target_feature_pairs"], 1200)
+        self.assertEqual(len(report["development_modeling"]["aggregate_predictors"]), 4)
+        self.assertEqual(len(report["development_modeling"]["regression_models"]), 5)
+        self.assertEqual(report["development_results"]["aggregate_model"], "signal_density_only")
+        self.assertEqual(report["development_results"]["regression_model"], "full_numeric")
+        self.assertEqual(report["prospective_freeze"]["forecast_counts"]["environment_curves"], 4)
+        self.assertEqual(
+            report["prospective_freeze"]["forecast_counts"]["target_regression_probabilities"],
+            200,
+        )
+        self.assertTrue(all(value is False for value in report["outcome_boundary"].values()))
 
     def test_adapter_runs_outside_the_repository_and_core_doctor_accepts_it(self) -> None:
         if sys.platform == "win32":

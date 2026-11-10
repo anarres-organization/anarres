@@ -1,0 +1,3245 @@
+{
+  "artifact": "anarres_mlip_target_regression_fit_v1",
+  "status": "selected_on_development_before_prospective_training",
+  "inputs": {
+    "candidate_panel_sha256": "b5d26ea2dbecac0e530e80d470b6079a7ebee46600633f119eb6d94b9048dd52",
+    "development_modeling_protocol_sha256": "db1f4b8246dbed8065173794c99148b10104489f28e57e924466aeea974f72b0",
+    "development_outcomes_sha256": "796593d3b56354ae62dc513c7075f16658c0835c46d8888c94489d3eebd29d60",
+    "target_regression_features_sha256": "46d0cfc1cc157c6f55b586e2c6db8fb74138e1bd0a45de84edc5a1c9916faa8d"
+  },
+  "model_comparison": [
+    {
+      "name": "full_numeric",
+      "features": [
+        "log_starting_frequency_mae",
+        "starting_predicted_stability_margin_kelvin",
+        "target_element_count",
+        "target_unitcell_atoms",
+        "log_signal_density",
+        "effective_signal_coverage",
+        "mean_target_affinity",
+        "element_distribution_overlap",
+        "record_fraction_containing_all_target_elements",
+        "top_five_percent_element_set_jaccard"
+      ],
+      "metrics": {
+        "roc_auc": 0.8452659336285387,
+        "average_precision": 0.9105631037152685,
+        "brier_score": 0.16133945962771895,
+        "recall_in_top_risk_20_percent": 0.2914572864321608,
+        "positive_rate": 0.6633333333333333,
+        "examples": 300
+      },
+      "outer_fold_penalties": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "full_with_environment_labels",
+      "features": [
+        "log_starting_frequency_mae",
+        "starting_predicted_stability_margin_kelvin",
+        "target_element_count",
+        "target_unitcell_atoms",
+        "log_signal_density",
+        "effective_signal_coverage",
+        "mean_target_affinity",
+        "element_distribution_overlap",
+        "record_fraction_containing_all_target_elements",
+        "top_five_percent_element_set_jaccard",
+        "one_hot_source_family",
+        "one_hot_selection_rule"
+      ],
+      "metrics": {
+        "roc_auc": 0.8479526344594258,
+        "average_precision": 0.9120845437139088,
+        "brier_score": 0.16154735356603042,
+        "recall_in_top_risk_20_percent": 0.2914572864321608,
+        "positive_rate": 0.6633333333333333,
+        "examples": 300
+      },
+      "outer_fold_penalties": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "environment_only",
+      "features": [
+        "log_signal_density",
+        "effective_signal_coverage",
+        "mean_target_affinity"
+      ],
+      "metrics": {
+        "roc_auc": 0.8215334096223693,
+        "average_precision": 0.9044412885068921,
+        "brier_score": 0.17099964496071426,
+        "recall_in_top_risk_20_percent": 0.2914572864321608,
+        "positive_rate": 0.6633333333333333,
+        "examples": 300
+      },
+      "outer_fold_penalties": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "starting_plus_support",
+      "features": [
+        "log_starting_frequency_mae",
+        "starting_predicted_stability_margin_kelvin",
+        "element_distribution_overlap",
+        "record_fraction_containing_all_target_elements",
+        "top_five_percent_element_set_jaccard"
+      ],
+      "metrics": {
+        "roc_auc": 0.4782327478979054,
+        "average_precision": 0.6872820990124424,
+        "brier_score": 0.23069969962374348,
+        "recall_in_top_risk_20_percent": 0.23115577889447236,
+        "positive_rate": 0.6633333333333333,
+        "examples": 300
+      },
+      "outer_fold_penalties": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    {
+      "name": "starting_error_only",
+      "features": [
+        "log_starting_frequency_mae"
+      ],
+      "metrics": {
+        "roc_auc": 0.14871386636151052,
+        "average_precision": 0.4859157067920438,
+        "brier_score": 0.23882844041859475,
+        "recall_in_top_risk_20_percent": 0.08040201005025126,
+        "positive_rate": 0.6633333333333333,
+        "examples": 300
+      },
+      "outer_fold_penalties": [
+        10.0,
+        1.0,
+        10.0,
+        0.1,
+        1.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0
+      ]
+    }
+  ],
+  "negative_controls": {
+    "starting_checkpoint_error_only": {
+      "evaluation": "leave_one_environment_out",
+      "metrics": {
+        "roc_auc": 0.14871386636151052,
+        "average_precision": 0.4859157067920438,
+        "brier_score": 0.23882844041859475,
+        "recall_in_top_risk_20_percent": 0.08040201005025126,
+        "positive_rate": 0.6633333333333333,
+        "examples": 300
+      }
+    },
+    "candidate_identity_only": {
+      "evaluation": "leave_one_target_material_out",
+      "metrics": {
+        "roc_auc": 0.7622020996069456,
+        "average_precision": 0.859345001751438,
+        "brier_score": 0.205616866364667,
+        "recall_in_top_risk_20_percent": 0.2864321608040201,
+        "positive_rate": 0.6633333333333333,
+        "examples": 300
+      },
+      "outer_fold_penalties": [
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1,
+        0.1
+      ]
+    },
+    "permuted_regression_labels": {
+      "evaluation": "leave_one_environment_out",
+      "permutation_seed": 0,
+      "metrics_against_permuted_labels": {
+        "roc_auc": 0.4117120254739042,
+        "average_precision": 0.6234382867204042,
+        "brier_score": 0.22411544105161876,
+        "recall_in_top_risk_20_percent": 0.17587939698492464,
+        "positive_rate": 0.6633333333333333,
+        "examples": 300
+      },
+      "outer_fold_penalties": [
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0,
+        10.0
+      ]
+    }
+  },
+  "selected_model": {
+    "name": "full_numeric",
+    "features": [
+      "log_starting_frequency_mae",
+      "starting_predicted_stability_margin_kelvin",
+      "target_element_count",
+      "target_unitcell_atoms",
+      "log_signal_density",
+      "effective_signal_coverage",
+      "mean_target_affinity",
+      "element_distribution_overlap",
+      "record_fraction_containing_all_target_elements",
+      "top_five_percent_element_set_jaccard"
+    ],
+    "primary_cross_validation": {
+      "roc_auc": 0.8452659336285387,
+      "average_precision": 0.9105631037152685,
+      "brier_score": 0.16133945962771895,
+      "recall_in_top_risk_20_percent": 0.2914572864321608,
+      "positive_rate": 0.6633333333333333,
+      "examples": 300
+    },
+    "primary_macro_metrics": {
+      "environment": {
+        "roc_auc": 0.5973209241738654,
+        "average_precision": 0.7970398217654356,
+        "brier_score": 0.16133945962771892,
+        "recall_in_top_risk_20_percent": 0.27194715007215015,
+        "positive_rate": 0.6633333333333333,
+        "groups": 12
+      },
+      "source_family": {
+        "roc_auc": 0.554351116767359,
+        "average_precision": 0.8287348551850995,
+        "brier_score": 0.14836627417279022,
+        "recall_in_top_risk_20_percent": 0.2585159575526117,
+        "positive_rate": 0.7175,
+        "groups": 8
+      }
+    },
+    "secondary_cross_validation": {
+      "leave_one_target_material_out": {
+        "metrics": {
+          "roc_auc": 0.7489427334693268,
+          "average_precision": 0.8642666444556244,
+          "brier_score": 0.1961572211081769,
+          "recall_in_top_risk_20_percent": 0.2914572864321608,
+          "positive_rate": 0.6633333333333333,
+          "examples": 300
+        },
+        "outer_fold_penalties": [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      "leave_one_target_element_set_out": {
+        "metrics": {
+          "roc_auc": 0.7464550475148017,
+          "average_precision": 0.8632327922326177,
+          "brier_score": 0.19735837226058559,
+          "recall_in_top_risk_20_percent": 0.2914572864321608,
+          "positive_rate": 0.6633333333333333,
+          "examples": 300
+        },
+        "outer_fold_penalties": [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      }
+    },
+    "penalty": 0.1,
+    "fit": {
+      "definition": [
+        "log_starting_frequency_mae",
+        "starting_predicted_stability_margin_kelvin",
+        "target_element_count",
+        "target_unitcell_atoms",
+        "log_signal_density",
+        "effective_signal_coverage",
+        "mean_target_affinity",
+        "element_distribution_overlap",
+        "record_fraction_containing_all_target_elements",
+        "top_five_percent_element_set_jaccard"
+      ],
+      "numeric_names": [
+        "log_starting_frequency_mae",
+        "starting_predicted_stability_margin_kelvin",
+        "target_element_count",
+        "target_unitcell_atoms",
+        "log_signal_density",
+        "effective_signal_coverage",
+        "mean_target_affinity",
+        "element_distribution_overlap",
+        "record_fraction_containing_all_target_elements",
+        "top_five_percent_element_set_jaccard"
+      ],
+      "means": {
+        "log_starting_frequency_mae": -1.413586432418922,
+        "starting_predicted_stability_margin_kelvin": 27.53140201280333,
+        "target_element_count": 3.36,
+        "target_unitcell_atoms": 36.24,
+        "log_signal_density": 2.2215772797394777,
+        "effective_signal_coverage": 0.44077631866495554,
+        "mean_target_affinity": 0.18721021058246848,
+        "element_distribution_overlap": 0.07479380000000001,
+        "record_fraction_containing_all_target_elements": 0.0001702986922044323,
+        "top_five_percent_element_set_jaccard": 0.23570179244719383
+      },
+      "scales": {
+        "log_starting_frequency_mae": 0.660988294597694,
+        "starting_predicted_stability_margin_kelvin": 22.477828587730386,
+        "target_element_count": 0.8428523002282191,
+        "target_unitcell_atoms": 30.32263840763201,
+        "log_signal_density": 0.49680399467216035,
+        "effective_signal_coverage": 0.2919700374281026,
+        "mean_target_affinity": 0.016075115972448532,
+        "element_distribution_overlap": 0.03017514712850074,
+        "record_fraction_containing_all_target_elements": 0.0005567236502981852,
+        "top_five_percent_element_set_jaccard": 0.02284800443353126
+      },
+      "categories": {},
+      "coefficients": [
+        0.8561748056057352,
+        -0.018196470787089445,
+        -0.21284539381950662,
+        0.1523971451414851,
+        0.13249341217753066,
+        0.8982252794500999,
+        0.003921010445866764,
+        -0.03619223714086376,
+        0.08408160355395418,
+        0.08148208933996438,
+        0.19200840832260177
+      ],
+      "penalty": 0.1
+    }
+  },
+  "development_predictions": [
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-3887",
+      "observed": true,
+      "predicted_probability": 0.6115487696098975
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-4122",
+      "observed": true,
+      "predicted_probability": 0.6050277128210533
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-553973",
+      "observed": true,
+      "predicted_probability": 0.6906445110282344
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-557452",
+      "observed": true,
+      "predicted_probability": 0.5463052187158092
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-558023",
+      "observed": false,
+      "predicted_probability": 0.6131671801458637
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-558347",
+      "observed": false,
+      "predicted_probability": 0.7408523442017755
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-625056",
+      "observed": false,
+      "predicted_probability": 0.5325836562113272
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-626878",
+      "observed": true,
+      "predicted_probability": 0.5380888172706496
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-626902",
+      "observed": false,
+      "predicted_probability": 0.5325516810917699
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-6425",
+      "observed": false,
+      "predicted_probability": 0.7207551123077324
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-7339",
+      "observed": false,
+      "predicted_probability": 0.574331167427135
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-754668",
+      "observed": false,
+      "predicted_probability": 0.5738331016117576
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-867129",
+      "observed": true,
+      "predicted_probability": 0.6328068877809605
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-867133",
+      "observed": true,
+      "predicted_probability": 0.5823450586355292
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-867168",
+      "observed": false,
+      "predicted_probability": 0.49535998698709355
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-867194",
+      "observed": false,
+      "predicted_probability": 0.4880833594425242
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-867286",
+      "observed": true,
+      "predicted_probability": 0.485141997924559
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-867328",
+      "observed": true,
+      "predicted_probability": 0.5389021962712903
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-867329",
+      "observed": true,
+      "predicted_probability": 0.8329962885681106
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-867607",
+      "observed": true,
+      "predicted_probability": 0.6290986177057056
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-867699",
+      "observed": false,
+      "predicted_probability": 0.5159945250444562
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-867712",
+      "observed": false,
+      "predicted_probability": 0.49519553828325197
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-867757",
+      "observed": false,
+      "predicted_probability": 0.5769795472743886
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-867839",
+      "observed": false,
+      "predicted_probability": 0.5707693367284883
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+      "target_material_id": "mp-867953",
+      "observed": true,
+      "predicted_probability": 0.5674758765884874
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-3887",
+      "observed": true,
+      "predicted_probability": 0.5067349661582345
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-4122",
+      "observed": false,
+      "predicted_probability": 0.5450231333970385
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-553973",
+      "observed": false,
+      "predicted_probability": 0.7042830703797137
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-557452",
+      "observed": false,
+      "predicted_probability": 0.4777939032196604
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-558023",
+      "observed": false,
+      "predicted_probability": 0.5816433805878168
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-558347",
+      "observed": false,
+      "predicted_probability": 0.7420152255734787
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-625056",
+      "observed": false,
+      "predicted_probability": 0.46727396638950475
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-626878",
+      "observed": true,
+      "predicted_probability": 0.5119156924673965
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-626902",
+      "observed": false,
+      "predicted_probability": 0.46718785660280554
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-6425",
+      "observed": false,
+      "predicted_probability": 0.6582995475180491
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-7339",
+      "observed": false,
+      "predicted_probability": 0.5506665599508886
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-754668",
+      "observed": false,
+      "predicted_probability": 0.4658647266932359
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-867129",
+      "observed": true,
+      "predicted_probability": 0.6272219173784461
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-867133",
+      "observed": true,
+      "predicted_probability": 0.5181861750783956
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-867168",
+      "observed": false,
+      "predicted_probability": 0.4182438475566924
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-867194",
+      "observed": false,
+      "predicted_probability": 0.3632578296689719
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-867286",
+      "observed": true,
+      "predicted_probability": 0.38798601602844096
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-867328",
+      "observed": false,
+      "predicted_probability": 0.4536910529205502
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-867329",
+      "observed": true,
+      "predicted_probability": 0.8417629448811299
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-867607",
+      "observed": true,
+      "predicted_probability": 0.5591642176957888
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-867699",
+      "observed": false,
+      "predicted_probability": 0.41801216866890656
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-867712",
+      "observed": false,
+      "predicted_probability": 0.4680293309486007
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-867757",
+      "observed": false,
+      "predicted_probability": 0.5597387108954108
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-867839",
+      "observed": false,
+      "predicted_probability": 0.48977643094836304
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+      "target_material_id": "mp-867953",
+      "observed": false,
+      "predicted_probability": 0.5400821529060903
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-3887",
+      "observed": true,
+      "predicted_probability": 0.4604797844251881
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-4122",
+      "observed": false,
+      "predicted_probability": 0.46240656969359006
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-553973",
+      "observed": true,
+      "predicted_probability": 0.569277965642802
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-557452",
+      "observed": false,
+      "predicted_probability": 0.43892511999324874
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-558023",
+      "observed": false,
+      "predicted_probability": 0.5269216473347705
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-558347",
+      "observed": true,
+      "predicted_probability": 0.5997209355697828
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-625056",
+      "observed": false,
+      "predicted_probability": 0.44142259525558436
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-626878",
+      "observed": true,
+      "predicted_probability": 0.44844337641764787
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-626902",
+      "observed": false,
+      "predicted_probability": 0.44134964453851744
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-6425",
+      "observed": false,
+      "predicted_probability": 0.561987496944496
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-7339",
+      "observed": false,
+      "predicted_probability": 0.46631892626805943
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-754668",
+      "observed": false,
+      "predicted_probability": 0.41510405850242765
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-867129",
+      "observed": true,
+      "predicted_probability": 0.5863180776524436
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-867133",
+      "observed": false,
+      "predicted_probability": 0.45107965542157236
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-867168",
+      "observed": false,
+      "predicted_probability": 0.445632408542114
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-867194",
+      "observed": false,
+      "predicted_probability": 0.40672862932329884
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-867286",
+      "observed": true,
+      "predicted_probability": 0.381999171568084
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-867328",
+      "observed": false,
+      "predicted_probability": 0.4153717326766078
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-867329",
+      "observed": true,
+      "predicted_probability": 0.739816762873403
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-867607",
+      "observed": true,
+      "predicted_probability": 0.5211774781724425
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-867699",
+      "observed": false,
+      "predicted_probability": 0.3867672891622171
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-867712",
+      "observed": false,
+      "predicted_probability": 0.4140515840586966
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-867757",
+      "observed": false,
+      "predicted_probability": 0.4834589549907708
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-867839",
+      "observed": false,
+      "predicted_probability": 0.47845203630865923
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+      "target_material_id": "mp-867953",
+      "observed": false,
+      "predicted_probability": 0.4549719318363466
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-3887",
+      "observed": true,
+      "predicted_probability": 0.4255801460318331
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-4122",
+      "observed": false,
+      "predicted_probability": 0.4335596992458776
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-553973",
+      "observed": true,
+      "predicted_probability": 0.49770091652949394
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-557452",
+      "observed": false,
+      "predicted_probability": 0.39141030079332345
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-558023",
+      "observed": false,
+      "predicted_probability": 0.4940510520283811
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-558347",
+      "observed": false,
+      "predicted_probability": 0.5854151769271129
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-625056",
+      "observed": false,
+      "predicted_probability": 0.4127774648535878
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-626878",
+      "observed": true,
+      "predicted_probability": 0.3903117088225726
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-626902",
+      "observed": false,
+      "predicted_probability": 0.41266319610887003
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-6425",
+      "observed": false,
+      "predicted_probability": 0.5714356237916096
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-7339",
+      "observed": false,
+      "predicted_probability": 0.44155527187575344
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-754668",
+      "observed": false,
+      "predicted_probability": 0.3595358836104055
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-867129",
+      "observed": true,
+      "predicted_probability": 0.5965626472080418
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-867133",
+      "observed": false,
+      "predicted_probability": 0.42789512879797176
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-867168",
+      "observed": false,
+      "predicted_probability": 0.39618464896993477
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-867194",
+      "observed": false,
+      "predicted_probability": 0.3131808659773868
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-867286",
+      "observed": true,
+      "predicted_probability": 0.34201592620614313
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-867328",
+      "observed": true,
+      "predicted_probability": 0.38432499315241353
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-867329",
+      "observed": true,
+      "predicted_probability": 0.7415551084012104
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-867607",
+      "observed": true,
+      "predicted_probability": 0.5221811638212058
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-867699",
+      "observed": false,
+      "predicted_probability": 0.3620732843662187
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-867712",
+      "observed": false,
+      "predicted_probability": 0.3846874759618811
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-867757",
+      "observed": false,
+      "predicted_probability": 0.4484995959640435
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-867839",
+      "observed": false,
+      "predicted_probability": 0.4545883824586443
+    },
+    {
+      "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+      "target_material_id": "mp-867953",
+      "observed": false,
+      "predicted_probability": 0.41140779378341347
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-3887",
+      "observed": true,
+      "predicted_probability": 0.7289558995129273
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-4122",
+      "observed": true,
+      "predicted_probability": 0.6261892738605441
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-553973",
+      "observed": true,
+      "predicted_probability": 0.8585328539223995
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-557452",
+      "observed": true,
+      "predicted_probability": 0.6350009163567019
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-558023",
+      "observed": true,
+      "predicted_probability": 0.663340513886621
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-558347",
+      "observed": true,
+      "predicted_probability": 0.7374547178849238
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-625056",
+      "observed": false,
+      "predicted_probability": 0.7025042107775681
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-626878",
+      "observed": false,
+      "predicted_probability": 0.595877880263685
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-626902",
+      "observed": false,
+      "predicted_probability": 0.7024209642662959
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-6425",
+      "observed": true,
+      "predicted_probability": 0.7279253482278113
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-7339",
+      "observed": false,
+      "predicted_probability": 0.6328433544806755
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-754668",
+      "observed": false,
+      "predicted_probability": 0.6043283419186909
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-867129",
+      "observed": true,
+      "predicted_probability": 0.7323006939514898
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-867133",
+      "observed": true,
+      "predicted_probability": 0.6036636912572294
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-867168",
+      "observed": false,
+      "predicted_probability": 0.6052373275631884
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-867194",
+      "observed": false,
+      "predicted_probability": 0.6065406335697591
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-867286",
+      "observed": true,
+      "predicted_probability": 0.6224141567983528
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-867328",
+      "observed": true,
+      "predicted_probability": 0.6165452038124111
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-867329",
+      "observed": true,
+      "predicted_probability": 0.8455437685192725
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-867607",
+      "observed": false,
+      "predicted_probability": 0.6250700168372612
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-867699",
+      "observed": true,
+      "predicted_probability": 0.6996202077446326
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-867712",
+      "observed": true,
+      "predicted_probability": 0.6281883834994318
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-867757",
+      "observed": false,
+      "predicted_probability": 0.6567864566813604
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-867839",
+      "observed": true,
+      "predicted_probability": 0.5983525193026092
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+      "target_material_id": "mp-867953",
+      "observed": false,
+      "predicted_probability": 0.6549168038170793
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-3887",
+      "observed": true,
+      "predicted_probability": 0.6086313726244688
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-4122",
+      "observed": true,
+      "predicted_probability": 0.5713396377100012
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-553973",
+      "observed": true,
+      "predicted_probability": 0.7086718341910434
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-557452",
+      "observed": true,
+      "predicted_probability": 0.5539134198541494
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-558023",
+      "observed": true,
+      "predicted_probability": 0.6617405966334711
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-558347",
+      "observed": false,
+      "predicted_probability": 0.8364539401122241
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-625056",
+      "observed": false,
+      "predicted_probability": 0.48615249526038007
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-626878",
+      "observed": false,
+      "predicted_probability": 0.4695522007115332
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-626902",
+      "observed": false,
+      "predicted_probability": 0.48609664861555385
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-6425",
+      "observed": false,
+      "predicted_probability": 0.7199733452794319
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-7339",
+      "observed": true,
+      "predicted_probability": 0.6411860921709754
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-754668",
+      "observed": false,
+      "predicted_probability": 0.5210986465605568
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-867129",
+      "observed": true,
+      "predicted_probability": 0.619832516725438
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-867133",
+      "observed": true,
+      "predicted_probability": 0.6699376607252444
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-867168",
+      "observed": false,
+      "predicted_probability": 0.525052039268689
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-867194",
+      "observed": false,
+      "predicted_probability": 0.5418394525612796
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-867286",
+      "observed": true,
+      "predicted_probability": 0.4188984388257639
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-867328",
+      "observed": true,
+      "predicted_probability": 0.5210105565733819
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-867329",
+      "observed": true,
+      "predicted_probability": 0.8859088596232043
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-867607",
+      "observed": false,
+      "predicted_probability": 0.6223145644214303
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-867699",
+      "observed": false,
+      "predicted_probability": 0.476657940264219
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-867712",
+      "observed": false,
+      "predicted_probability": 0.6619716494171892
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-867757",
+      "observed": false,
+      "predicted_probability": 0.6350916943833675
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-867839",
+      "observed": false,
+      "predicted_probability": 0.5717102403712601
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+      "target_material_id": "mp-867953",
+      "observed": false,
+      "predicted_probability": 0.6813129369499318
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-3887",
+      "observed": true,
+      "predicted_probability": 0.681094735461986
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-4122",
+      "observed": true,
+      "predicted_probability": 0.6531970827645646
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-553973",
+      "observed": true,
+      "predicted_probability": 0.7899800454817816
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-557452",
+      "observed": true,
+      "predicted_probability": 0.5989774634592225
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-558023",
+      "observed": true,
+      "predicted_probability": 0.6637778952119501
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-558347",
+      "observed": true,
+      "predicted_probability": 0.7454403273102491
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-625056",
+      "observed": false,
+      "predicted_probability": 0.5991294895201033
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-626878",
+      "observed": false,
+      "predicted_probability": 0.56651244239151
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-626902",
+      "observed": false,
+      "predicted_probability": 0.5991330666250685
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-6425",
+      "observed": true,
+      "predicted_probability": 0.8291926164433642
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-7339",
+      "observed": true,
+      "predicted_probability": 0.617660495349417
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-754668",
+      "observed": false,
+      "predicted_probability": 0.5730089546500109
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-867129",
+      "observed": true,
+      "predicted_probability": 0.7936982424396811
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-867133",
+      "observed": true,
+      "predicted_probability": 0.6200426787141988
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-867168",
+      "observed": false,
+      "predicted_probability": 0.642486538114255
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-867194",
+      "observed": false,
+      "predicted_probability": 0.5575728625262558
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-867286",
+      "observed": true,
+      "predicted_probability": 0.5688226384010912
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-867328",
+      "observed": true,
+      "predicted_probability": 0.6916845333101634
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-867329",
+      "observed": true,
+      "predicted_probability": 0.8512225557836093
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-867607",
+      "observed": false,
+      "predicted_probability": 0.6427461643370493
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-867699",
+      "observed": true,
+      "predicted_probability": 0.6121578791336506
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-867712",
+      "observed": true,
+      "predicted_probability": 0.5982831745118894
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-867757",
+      "observed": false,
+      "predicted_probability": 0.6234881540960844
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-867839",
+      "observed": false,
+      "predicted_probability": 0.6178201274805427
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+      "target_material_id": "mp-867953",
+      "observed": true,
+      "predicted_probability": 0.5996289435146892
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-3887",
+      "observed": true,
+      "predicted_probability": 0.9388868984705542
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-4122",
+      "observed": true,
+      "predicted_probability": 0.9089656495994227
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-553973",
+      "observed": true,
+      "predicted_probability": 0.9483101719196225
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-557452",
+      "observed": true,
+      "predicted_probability": 0.917478813871425
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-558023",
+      "observed": true,
+      "predicted_probability": 0.9263897009130458
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-558347",
+      "observed": true,
+      "predicted_probability": 0.9528863925535893
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-625056",
+      "observed": true,
+      "predicted_probability": 0.912528944873307
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-626878",
+      "observed": true,
+      "predicted_probability": 0.9149812477556123
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-626902",
+      "observed": true,
+      "predicted_probability": 0.9125370147519517
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-6425",
+      "observed": true,
+      "predicted_probability": 0.960572492629069
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-7339",
+      "observed": true,
+      "predicted_probability": 0.9155071044499195
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-754668",
+      "observed": false,
+      "predicted_probability": 0.9337793343414633
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-867129",
+      "observed": true,
+      "predicted_probability": 0.937620116932558
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-867133",
+      "observed": true,
+      "predicted_probability": 0.9171797766276809
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-867168",
+      "observed": true,
+      "predicted_probability": 0.8857555268302164
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-867194",
+      "observed": true,
+      "predicted_probability": 0.8755744996114891
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-867286",
+      "observed": true,
+      "predicted_probability": 0.8724223268564235
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-867328",
+      "observed": true,
+      "predicted_probability": 0.8736281876715581
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-867329",
+      "observed": true,
+      "predicted_probability": 0.9747152843165606
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-867607",
+      "observed": true,
+      "predicted_probability": 0.9098578194427994
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-867699",
+      "observed": true,
+      "predicted_probability": 0.9008162650527493
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-867712",
+      "observed": true,
+      "predicted_probability": 0.9327738251654292
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-867757",
+      "observed": true,
+      "predicted_probability": 0.9339458444367436
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-867839",
+      "observed": true,
+      "predicted_probability": 0.9052055538898879
+    },
+    {
+      "candidate_id": "rattled-1000__hash_uniform",
+      "target_material_id": "mp-867953",
+      "observed": true,
+      "predicted_probability": 0.889580519028249
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-3887",
+      "observed": true,
+      "predicted_probability": 0.8340248762722131
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-4122",
+      "observed": true,
+      "predicted_probability": 0.7832015309843625
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-553973",
+      "observed": true,
+      "predicted_probability": 0.8134565557713506
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-557452",
+      "observed": true,
+      "predicted_probability": 0.7888205460304594
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-558023",
+      "observed": true,
+      "predicted_probability": 0.8075053667830638
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-558347",
+      "observed": true,
+      "predicted_probability": 0.8779763200491222
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-625056",
+      "observed": true,
+      "predicted_probability": 0.7841467372830158
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-626878",
+      "observed": true,
+      "predicted_probability": 0.7892879386727355
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-626902",
+      "observed": true,
+      "predicted_probability": 0.7841214055123849
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-6425",
+      "observed": true,
+      "predicted_probability": 0.8971831515508553
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-7339",
+      "observed": true,
+      "predicted_probability": 0.7824191490368605
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-754668",
+      "observed": true,
+      "predicted_probability": 0.8003138681138671
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-867129",
+      "observed": true,
+      "predicted_probability": 0.8434401521464229
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-867133",
+      "observed": true,
+      "predicted_probability": 0.7741287416759967
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-867168",
+      "observed": true,
+      "predicted_probability": 0.7003822131547833
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-867194",
+      "observed": true,
+      "predicted_probability": 0.698379847382046
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-867286",
+      "observed": true,
+      "predicted_probability": 0.6785175363461075
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-867328",
+      "observed": true,
+      "predicted_probability": 0.7041358634920238
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-867329",
+      "observed": true,
+      "predicted_probability": 0.9373725107396387
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-867607",
+      "observed": true,
+      "predicted_probability": 0.7871928256677216
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-867699",
+      "observed": true,
+      "predicted_probability": 0.7539297387643011
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-867712",
+      "observed": true,
+      "predicted_probability": 0.8445382002421948
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-867757",
+      "observed": true,
+      "predicted_probability": 0.8413339088894657
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-867839",
+      "observed": true,
+      "predicted_probability": 0.7811044066962043
+    },
+    {
+      "candidate_id": "rattled-1000__low_signal",
+      "target_material_id": "mp-867953",
+      "observed": true,
+      "predicted_probability": 0.7296247283524059
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-3887",
+      "observed": true,
+      "predicted_probability": 0.8331779558125266
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-4122",
+      "observed": true,
+      "predicted_probability": 0.8252214795839701
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-553973",
+      "observed": true,
+      "predicted_probability": 0.9112489742376655
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-557452",
+      "observed": true,
+      "predicted_probability": 0.8014123581187219
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-558023",
+      "observed": true,
+      "predicted_probability": 0.8147923213503957
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-558347",
+      "observed": true,
+      "predicted_probability": 0.9426885337383536
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-625056",
+      "observed": true,
+      "predicted_probability": 0.8420434783199372
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-626878",
+      "observed": true,
+      "predicted_probability": 0.8992567591268554
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-626902",
+      "observed": true,
+      "predicted_probability": 0.8420199514483656
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-6425",
+      "observed": true,
+      "predicted_probability": 0.9112505536654519
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-7339",
+      "observed": true,
+      "predicted_probability": 0.8512489337330386
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-754668",
+      "observed": true,
+      "predicted_probability": 0.8467050179353944
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-867129",
+      "observed": true,
+      "predicted_probability": 0.8572362226926826
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-867133",
+      "observed": true,
+      "predicted_probability": 0.8528114573191506
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-867168",
+      "observed": true,
+      "predicted_probability": 0.7446562196149686
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-867194",
+      "observed": true,
+      "predicted_probability": 0.7388153969677539
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-867286",
+      "observed": true,
+      "predicted_probability": 0.7533626525096184
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-867328",
+      "observed": true,
+      "predicted_probability": 0.7877995552473259
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-867329",
+      "observed": true,
+      "predicted_probability": 0.9656411938886615
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-867607",
+      "observed": true,
+      "predicted_probability": 0.8221220149595202
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-867699",
+      "observed": true,
+      "predicted_probability": 0.7441532162141068
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-867712",
+      "observed": true,
+      "predicted_probability": 0.8089438288259001
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-867757",
+      "observed": true,
+      "predicted_probability": 0.8970596363466904
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-867839",
+      "observed": true,
+      "predicted_probability": 0.8287186275875263
+    },
+    {
+      "candidate_id": "rattled-300__low_signal",
+      "target_material_id": "mp-867953",
+      "observed": true,
+      "predicted_probability": 0.8111756814013407
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-3887",
+      "observed": true,
+      "predicted_probability": 0.90897446630291
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-4122",
+      "observed": true,
+      "predicted_probability": 0.918855176350515
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-553973",
+      "observed": true,
+      "predicted_probability": 0.9362116699151712
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-557452",
+      "observed": true,
+      "predicted_probability": 0.8981892770359475
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-558023",
+      "observed": true,
+      "predicted_probability": 0.9031582794948525
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-558347",
+      "observed": true,
+      "predicted_probability": 0.9656419913490754
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-625056",
+      "observed": true,
+      "predicted_probability": 0.9051128367937206
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-626878",
+      "observed": true,
+      "predicted_probability": 0.9208387811957515
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-626902",
+      "observed": true,
+      "predicted_probability": 0.9051200560335657
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-6425",
+      "observed": true,
+      "predicted_probability": 0.949834969175965
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-7339",
+      "observed": true,
+      "predicted_probability": 0.9246080718124019
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-754668",
+      "observed": false,
+      "predicted_probability": 0.9317512018823942
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-867129",
+      "observed": true,
+      "predicted_probability": 0.9164511797666771
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-867133",
+      "observed": true,
+      "predicted_probability": 0.9318375010085326
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-867168",
+      "observed": true,
+      "predicted_probability": 0.8506971967005539
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-867194",
+      "observed": true,
+      "predicted_probability": 0.8473953528799917
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-867286",
+      "observed": true,
+      "predicted_probability": 0.8626665955553074
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-867328",
+      "observed": true,
+      "predicted_probability": 0.8789771598314886
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-867329",
+      "observed": true,
+      "predicted_probability": 0.9772605962693914
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-867607",
+      "observed": true,
+      "predicted_probability": 0.9050695087302711
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-867699",
+      "observed": true,
+      "predicted_probability": 0.86573620153584
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-867712",
+      "observed": true,
+      "predicted_probability": 0.8933066738182845
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-867757",
+      "observed": true,
+      "predicted_probability": 0.9322885261983187
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-867839",
+      "observed": true,
+      "predicted_probability": 0.9105189285052232
+    },
+    {
+      "candidate_id": "rattled-500__coverage",
+      "target_material_id": "mp-867953",
+      "observed": true,
+      "predicted_probability": 0.8810701217123806
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-3887",
+      "observed": true,
+      "predicted_probability": 0.6449405230068314
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-4122",
+      "observed": true,
+      "predicted_probability": 0.6533294629166305
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-553973",
+      "observed": true,
+      "predicted_probability": 0.7742325541999059
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-557452",
+      "observed": true,
+      "predicted_probability": 0.6114549947140546
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-558023",
+      "observed": true,
+      "predicted_probability": 0.6835084262699588
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-558347",
+      "observed": true,
+      "predicted_probability": 0.7672047943794096
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-625056",
+      "observed": true,
+      "predicted_probability": 0.5955340814160177
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-626878",
+      "observed": true,
+      "predicted_probability": 0.5719327071848059
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-626902",
+      "observed": true,
+      "predicted_probability": 0.5955216334559995
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-6425",
+      "observed": true,
+      "predicted_probability": 0.7868804309260873
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-7339",
+      "observed": true,
+      "predicted_probability": 0.632300034175428
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-754668",
+      "observed": true,
+      "predicted_probability": 0.6239016798896561
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-867129",
+      "observed": true,
+      "predicted_probability": 0.7488937419129853
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-867133",
+      "observed": true,
+      "predicted_probability": 0.6150887975823743
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-867168",
+      "observed": true,
+      "predicted_probability": 0.5729825309091305
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-867194",
+      "observed": true,
+      "predicted_probability": 0.5305233738195636
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-867286",
+      "observed": true,
+      "predicted_probability": 0.5387488789436634
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-867328",
+      "observed": true,
+      "predicted_probability": 0.5673171237089909
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-867329",
+      "observed": true,
+      "predicted_probability": 0.8767078133758197
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-867607",
+      "observed": true,
+      "predicted_probability": 0.6619617324212973
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-867699",
+      "observed": true,
+      "predicted_probability": 0.5942366892680323
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-867712",
+      "observed": false,
+      "predicted_probability": 0.578958490648548
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-867757",
+      "observed": true,
+      "predicted_probability": 0.6886767625651303
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-867839",
+      "observed": true,
+      "predicted_probability": 0.6266562333434803
+    },
+    {
+      "candidate_id": "rattled-relax__signal_coverage_affinity",
+      "target_material_id": "mp-867953",
+      "observed": true,
+      "predicted_probability": 0.6298123630135903
+    }
+  ],
+  "prospective_predictions": [
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-613442",
+      "frequency_error_regression_probability": 0.4896582114703826
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867203",
+      "frequency_error_regression_probability": 0.48129415860314656
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867929",
+      "frequency_error_regression_probability": 0.562073944658616
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867943",
+      "frequency_error_regression_probability": 0.48971955199247774
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867730",
+      "frequency_error_regression_probability": 0.5527111940456602
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-626369",
+      "frequency_error_regression_probability": 0.48088897546471854
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-619456",
+      "frequency_error_regression_probability": 0.7955376121036882
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-561394",
+      "frequency_error_regression_probability": 0.5820964557567242
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-771888",
+      "frequency_error_regression_probability": 0.44948261589143346
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-684708",
+      "frequency_error_regression_probability": 0.6880995865485104
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867674",
+      "frequency_error_regression_probability": 0.5027572908259681
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-625837",
+      "frequency_error_regression_probability": 0.425697649937702
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-643770",
+      "frequency_error_regression_probability": 0.9512288113313266
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-552806",
+      "frequency_error_regression_probability": 0.501929174174548
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-626557",
+      "frequency_error_regression_probability": 0.6980709641111473
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-6799",
+      "frequency_error_regression_probability": 0.5486878368809363
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867964",
+      "frequency_error_regression_probability": 0.7381624895503017
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867192",
+      "frequency_error_regression_probability": 0.47272737046435565
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-769396",
+      "frequency_error_regression_probability": 0.4904959459957787
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-561623",
+      "frequency_error_regression_probability": 0.43514835363595467
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867132",
+      "frequency_error_regression_probability": 0.632166566944418
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867528",
+      "frequency_error_regression_probability": 0.5865867696069241
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-4748",
+      "frequency_error_regression_probability": 0.912496912819366
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867322",
+      "frequency_error_regression_probability": 0.5731230525682116
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-614491",
+      "frequency_error_regression_probability": 0.5992169282816333
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867335",
+      "frequency_error_regression_probability": 0.5587190511673391
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867884",
+      "frequency_error_regression_probability": 0.6693376072802084
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-42160",
+      "frequency_error_regression_probability": 0.8959811605249595
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-627016",
+      "frequency_error_regression_probability": 0.5595599894144311
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-625052",
+      "frequency_error_regression_probability": 0.7125243744549266
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867355",
+      "frequency_error_regression_probability": 0.52537720536991
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-625917",
+      "frequency_error_regression_probability": 0.44747652690438056
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-556062",
+      "frequency_error_regression_probability": 0.6810303800490459
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-978857",
+      "frequency_error_regression_probability": 0.4797770100047867
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-3033",
+      "frequency_error_regression_probability": 0.4912486158860253
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867615",
+      "frequency_error_regression_probability": 0.5153394781514098
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-23151",
+      "frequency_error_regression_probability": 0.633193754813625
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-646925",
+      "frequency_error_regression_probability": 0.47072164552277307
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867300",
+      "frequency_error_regression_probability": 0.47216760050136825
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-569349",
+      "frequency_error_regression_probability": 0.6526661861399936
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-6929",
+      "frequency_error_regression_probability": 0.8358368416411207
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-769284",
+      "frequency_error_regression_probability": 0.5066817032569318
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-11695",
+      "frequency_error_regression_probability": 0.5925769731381095
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867371",
+      "frequency_error_regression_probability": 0.5559531050931884
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-555153",
+      "frequency_error_regression_probability": 0.703762488585232
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-8426",
+      "frequency_error_regression_probability": 0.7000063092141365
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-6643",
+      "frequency_error_regression_probability": 0.5703768982048243
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-656662",
+      "frequency_error_regression_probability": 0.5085152787073131
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-632394",
+      "frequency_error_regression_probability": 0.7007424036993876
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-772812",
+      "frequency_error_regression_probability": 0.43856033386651644
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-613442",
+      "frequency_error_regression_probability": 0.9023963023366464
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867203",
+      "frequency_error_regression_probability": 0.8696359342434226
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867929",
+      "frequency_error_regression_probability": 0.8725896970864409
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867943",
+      "frequency_error_regression_probability": 0.8872441413509122
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867730",
+      "frequency_error_regression_probability": 0.9231782944688874
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-626369",
+      "frequency_error_regression_probability": 0.9015719785647355
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-619456",
+      "frequency_error_regression_probability": 0.9766494922178185
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-561394",
+      "frequency_error_regression_probability": 0.9370924387858031
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-771888",
+      "frequency_error_regression_probability": 0.8722166627224477
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-684708",
+      "frequency_error_regression_probability": 0.9365444554685627
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867674",
+      "frequency_error_regression_probability": 0.8998260272398476
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-625837",
+      "frequency_error_regression_probability": 0.9073021097213159
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-643770",
+      "frequency_error_regression_probability": 0.9930136063275612
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-552806",
+      "frequency_error_regression_probability": 0.9266242443424432
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-626557",
+      "frequency_error_regression_probability": 0.9584869174468219
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-6799",
+      "frequency_error_regression_probability": 0.8918985690816441
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867964",
+      "frequency_error_regression_probability": 0.9233342253109718
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867192",
+      "frequency_error_regression_probability": 0.8753254017469236
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-769396",
+      "frequency_error_regression_probability": 0.9176316789004774
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-561623",
+      "frequency_error_regression_probability": 0.893228310818756
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867132",
+      "frequency_error_regression_probability": 0.9126318183388087
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867528",
+      "frequency_error_regression_probability": 0.9552388871819157
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-4748",
+      "frequency_error_regression_probability": 0.989946475443949
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867322",
+      "frequency_error_regression_probability": 0.8781987235388987
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-614491",
+      "frequency_error_regression_probability": 0.8944064522776836
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867335",
+      "frequency_error_regression_probability": 0.9041705411918054
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867884",
+      "frequency_error_regression_probability": 0.9293587052794191
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-42160",
+      "frequency_error_regression_probability": 0.9801848239440027
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-627016",
+      "frequency_error_regression_probability": 0.931151602314085
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-625052",
+      "frequency_error_regression_probability": 0.9630013594574205
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867355",
+      "frequency_error_regression_probability": 0.9043727629716145
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-625917",
+      "frequency_error_regression_probability": 0.9036567832176414
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-556062",
+      "frequency_error_regression_probability": 0.9439324852989791
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-978857",
+      "frequency_error_regression_probability": 0.8884304823975846
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-3033",
+      "frequency_error_regression_probability": 0.8860804717611214
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867615",
+      "frequency_error_regression_probability": 0.9401027074306614
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-23151",
+      "frequency_error_regression_probability": 0.9425790495752291
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-646925",
+      "frequency_error_regression_probability": 0.9018160021972331
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867300",
+      "frequency_error_regression_probability": 0.8863155146728289
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-569349",
+      "frequency_error_regression_probability": 0.9065475841344971
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-6929",
+      "frequency_error_regression_probability": 0.9830050556177984
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-769284",
+      "frequency_error_regression_probability": 0.8828933090439406
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-11695",
+      "frequency_error_regression_probability": 0.8827779347423276
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867371",
+      "frequency_error_regression_probability": 0.9001216054269283
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-555153",
+      "frequency_error_regression_probability": 0.955204162133523
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-8426",
+      "frequency_error_regression_probability": 0.935241904440537
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-6643",
+      "frequency_error_regression_probability": 0.9223104729200431
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-656662",
+      "frequency_error_regression_probability": 0.8912897375970611
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-632394",
+      "frequency_error_regression_probability": 0.9575798349864626
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-772812",
+      "frequency_error_regression_probability": 0.8889274758560641
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-613442",
+      "frequency_error_regression_probability": 0.8888223421941841
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867203",
+      "frequency_error_regression_probability": 0.8722643192926766
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867929",
+      "frequency_error_regression_probability": 0.887351349785807
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867943",
+      "frequency_error_regression_probability": 0.8792906056561448
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867730",
+      "frequency_error_regression_probability": 0.9107773726623191
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-626369",
+      "frequency_error_regression_probability": 0.9061202844526309
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-619456",
+      "frequency_error_regression_probability": 0.9767447862994759
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-561394",
+      "frequency_error_regression_probability": 0.9337287463411764
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-771888",
+      "frequency_error_regression_probability": 0.8883565923144663
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-684708",
+      "frequency_error_regression_probability": 0.9265292412127337
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867674",
+      "frequency_error_regression_probability": 0.9097924024661843
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-625837",
+      "frequency_error_regression_probability": 0.9128844020556354
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-643770",
+      "frequency_error_regression_probability": 0.9929045824928661
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-552806",
+      "frequency_error_regression_probability": 0.9207435193586235
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-626557",
+      "frequency_error_regression_probability": 0.9602322445966652
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-6799",
+      "frequency_error_regression_probability": 0.8983109442474191
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867964",
+      "frequency_error_regression_probability": 0.9307696843772297
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867192",
+      "frequency_error_regression_probability": 0.8775873666101708
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-769396",
+      "frequency_error_regression_probability": 0.9213945497387594
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-561623",
+      "frequency_error_regression_probability": 0.8897701232639044
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867132",
+      "frequency_error_regression_probability": 0.9186723563895139
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867528",
+      "frequency_error_regression_probability": 0.9543287613581918
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-4748",
+      "frequency_error_regression_probability": 0.9910216016306972
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867322",
+      "frequency_error_regression_probability": 0.8824035840036597
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-614491",
+      "frequency_error_regression_probability": 0.9014675534455407
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867335",
+      "frequency_error_regression_probability": 0.910069736292735
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867884",
+      "frequency_error_regression_probability": 0.9371619151395645
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-42160",
+      "frequency_error_regression_probability": 0.9805775729786708
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-627016",
+      "frequency_error_regression_probability": 0.931325298274251
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-625052",
+      "frequency_error_regression_probability": 0.9599318715795317
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867355",
+      "frequency_error_regression_probability": 0.9134508864299041
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-625917",
+      "frequency_error_regression_probability": 0.8961112258336247
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-556062",
+      "frequency_error_regression_probability": 0.9495619579592692
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-978857",
+      "frequency_error_regression_probability": 0.8932090924769347
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-3033",
+      "frequency_error_regression_probability": 0.892847990213014
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867615",
+      "frequency_error_regression_probability": 0.9319782381127938
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-23151",
+      "frequency_error_regression_probability": 0.9465137203285052
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-646925",
+      "frequency_error_regression_probability": 0.8923326803904673
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867300",
+      "frequency_error_regression_probability": 0.8856333247748878
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-569349",
+      "frequency_error_regression_probability": 0.9135106361860897
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-6929",
+      "frequency_error_regression_probability": 0.9847012303539754
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-769284",
+      "frequency_error_regression_probability": 0.8906572844320249
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-11695",
+      "frequency_error_regression_probability": 0.8933223586955034
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867371",
+      "frequency_error_regression_probability": 0.8979542153864055
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-555153",
+      "frequency_error_regression_probability": 0.9542511918534696
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-8426",
+      "frequency_error_regression_probability": 0.9380607832185013
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-6643",
+      "frequency_error_regression_probability": 0.9239409636810438
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-656662",
+      "frequency_error_regression_probability": 0.8935118440432092
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-632394",
+      "frequency_error_regression_probability": 0.9592738495793689
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-772812",
+      "frequency_error_regression_probability": 0.8937987739559058
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-613442",
+      "frequency_error_regression_probability": 0.33533095668833757
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867203",
+      "frequency_error_regression_probability": 0.2734615881345612
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867929",
+      "frequency_error_regression_probability": 0.24753023823053982
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867943",
+      "frequency_error_regression_probability": 0.26039408671646497
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867730",
+      "frequency_error_regression_probability": 0.31576596497551496
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-626369",
+      "frequency_error_regression_probability": 0.29845683202532686
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-619456",
+      "frequency_error_regression_probability": 0.6298992918659235
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-561394",
+      "frequency_error_regression_probability": 0.4585323994519383
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-771888",
+      "frequency_error_regression_probability": 0.2957991779624088
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-684708",
+      "frequency_error_regression_probability": 0.3283119179272426
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867674",
+      "frequency_error_regression_probability": 0.321238059093063
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-625837",
+      "frequency_error_regression_probability": 0.26214498717084167
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-643770",
+      "frequency_error_regression_probability": 0.8808892890969725
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-552806",
+      "frequency_error_regression_probability": 0.34593312327625575
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-626557",
+      "frequency_error_regression_probability": 0.5189473523404351
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-6799",
+      "frequency_error_regression_probability": 0.25001162688981526
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867964",
+      "frequency_error_regression_probability": 0.42685624016399737
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867192",
+      "frequency_error_regression_probability": 0.293145676544698
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-769396",
+      "frequency_error_regression_probability": 0.3591449310581741
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-561623",
+      "frequency_error_regression_probability": 0.32751614727724887
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867132",
+      "frequency_error_regression_probability": 0.417750884051504
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867528",
+      "frequency_error_regression_probability": 0.4137182682143468
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-4748",
+      "frequency_error_regression_probability": 0.8417792675443879
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867322",
+      "frequency_error_regression_probability": 0.26762680002448813
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-614491",
+      "frequency_error_regression_probability": 0.34523234968651134
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867335",
+      "frequency_error_regression_probability": 0.32378848917659364
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867884",
+      "frequency_error_regression_probability": 0.407631685737379
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-42160",
+      "frequency_error_regression_probability": 0.7075655655696584
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-627016",
+      "frequency_error_regression_probability": 0.3299222843754313
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-625052",
+      "frequency_error_regression_probability": 0.5503150766742596
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867355",
+      "frequency_error_regression_probability": 0.43491669523535326
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-625917",
+      "frequency_error_regression_probability": 0.28536975892181254
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-556062",
+      "frequency_error_regression_probability": 0.505318703028008
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-978857",
+      "frequency_error_regression_probability": 0.3375997064211142
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-3033",
+      "frequency_error_regression_probability": 0.30055012595625097
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867615",
+      "frequency_error_regression_probability": 0.3743297381897632
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-23151",
+      "frequency_error_regression_probability": 0.42622343563995957
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-646925",
+      "frequency_error_regression_probability": 0.3111561005788247
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867300",
+      "frequency_error_regression_probability": 0.2635885481605717
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-569349",
+      "frequency_error_regression_probability": 0.3477430176864576
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-6929",
+      "frequency_error_regression_probability": 0.6739350450388407
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-769284",
+      "frequency_error_regression_probability": 0.27847652181844207
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-11695",
+      "frequency_error_regression_probability": 0.31649831828975233
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867371",
+      "frequency_error_regression_probability": 0.30977918427880197
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-555153",
+      "frequency_error_regression_probability": 0.5071717132785214
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-8426",
+      "frequency_error_regression_probability": 0.4149146896521539
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-6643",
+      "frequency_error_regression_probability": 0.3333660544502618
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-656662",
+      "frequency_error_regression_probability": 0.29002540867076765
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-632394",
+      "frequency_error_regression_probability": 0.5117397738189212
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-772812",
+      "frequency_error_regression_probability": 0.2706503147599477
+    }
+  ],
+  "prospective_boundary": {
+    "prospective_candidate_training_outcomes_used": false,
+    "prospective_target_outcomes_used": false
+  }
+}

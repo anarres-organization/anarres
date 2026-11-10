@@ -1,0 +1,140 @@
+{
+  "artifact": "anarres_mlip_final_training_contract_v1",
+  "status": "frozen_before_final_candidate_training",
+  "inputs": {
+    "candidate_panel_sha256": "b5d26ea2dbecac0e530e80d470b6079a7ebee46600633f119eb6d94b9048dd52",
+    "target_roles_sha256": "3af598f1cf652e4918f37a2359242b29d89ed3fea40f12125cbbdc66ab73169f",
+    "starting_checkpoint_targets_sha256": "1f328306728656ac2e62b95dee1fa8959effb2aeffa0c2ef24929e3bb29b263c",
+    "training_qualification_protocol_sha256": "13f8fc254547a37d553a21b656ba6f271d6fc3c6a5b61220763d0bdb624a903b",
+    "training_qualification_result_sha256": "702f844316fda9008547c4c1bf0f3b253c2e629cfae0e96f80f16b8d4808f216",
+    "nequix_patch_sha256": "fa4c8a8633987edb1c5ff1d43b6b3a395ab6a8e571893660786579d834f623ee",
+    "config_generator_sha256": "2eeb2e3332d91f92cb5e18267e1181fc45ff6b1285db30a59ba86a8c19fa5b5f"
+  },
+  "starting_checkpoint": {
+    "name": "Nequix-MP-1",
+    "sha256": "1647af8e627e1afa11e2bfadeab0797326513a521afd7dd01606a96f56783eee"
+  },
+  "environment_budget": {
+    "atoms_per_pass": 50000,
+    "neighbor_edges_per_pass": 2100000,
+    "passes": 4,
+    "checkpoints_after_passes": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "optimization": {
+    "optimizer": "adamw",
+    "learning_rate": 0.0001,
+    "weight_decay": 0.001,
+    "warmup_epochs": 0.1,
+    "warmup_factor": 0.2,
+    "gradient_clip_norm": 100.0,
+    "batch_size": 64,
+    "ema_decay": 0.999,
+    "energy_weight": 0.0,
+    "force_weight": 20.0,
+    "stress_weight": 5.0,
+    "loss_type": "mae",
+    "precision": "upstream Nequix v0.4.5 defaults"
+  },
+  "randomization": {
+    "training_seeds": [
+      0,
+      1
+    ],
+    "validation_fraction": 0.05,
+    "validation_seed": 42,
+    "python_hash_seed": 0
+  },
+  "environments": {
+    "development": [
+      {
+        "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+        "membership_sha256": "057da2c9d04b93bb8305369744efe5d36fcf84b3d40fe2cb9ea926def2de57e2"
+      },
+      {
+        "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+        "membership_sha256": "0d319dc1905665f29a158d3597c37e8cac23d1eb0f25a8b5d17b0c0e6a15682e"
+      },
+      {
+        "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+        "membership_sha256": "435a22055a9626fd982a98ab8e607f74c99d5fb45e604c2f11addbecbfc1f3d9"
+      },
+      {
+        "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+        "membership_sha256": "fa5ef0e8f7c9877108f1f66d9b18143862464014c0bd49e7149b54c68789376e"
+      },
+      {
+        "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+        "membership_sha256": "a9f5ee603b5ae598ee356ee270084428b820149be98406b52ce2bf9d16a75bce"
+      },
+      {
+        "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+        "membership_sha256": "8d825503ba9f81af99bfd6908e1e3eb2500c73d179b0b2ab73c467c57e1dc9fc"
+      },
+      {
+        "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+        "membership_sha256": "e737f02b22a9cde39e9f9c07705c17cb4e733b68ceb5cb1870f87c884fcd9be4"
+      },
+      {
+        "candidate_id": "rattled-1000__hash_uniform",
+        "membership_sha256": "aa74bbdc5301cba4fe6950b9f497ef0cd98ad25b4ca5a25ff10202008ed994be"
+      },
+      {
+        "candidate_id": "rattled-1000__low_signal",
+        "membership_sha256": "8b7d81816aef1ecd1c41360ebcb6a7ee05d45f3650914bb0bfa30d01cf35900e"
+      },
+      {
+        "candidate_id": "rattled-300__low_signal",
+        "membership_sha256": "3d383da85b3e57bac9cfd166170208cb4759124a598da7ea4b7630f03d31d7d6"
+      },
+      {
+        "candidate_id": "rattled-500__coverage",
+        "membership_sha256": "acd16234639e8b78fd421076032cb447bae542b119aba0af44e3e00864d9a3f3"
+      },
+      {
+        "candidate_id": "rattled-relax__signal_coverage_affinity",
+        "membership_sha256": "71eeabed0be5543615fd2439e8e3f77e8c5cb62288809d5a4c81c57ecf9191f0"
+      }
+    ],
+    "prospective": [
+      {
+        "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+        "membership_sha256": "3f080ce3d21b38930a5853a239f19c0af2eb2266d4deb8474b02dabb7e7c7313"
+      },
+      {
+        "candidate_id": "rattled-300__coverage",
+        "membership_sha256": "54ffb392a7a7793362c7d197c10bb24d5a52cb26628b6e489df313a629a918fa"
+      },
+      {
+        "candidate_id": "rattled-500__signal_coverage_affinity",
+        "membership_sha256": "b106b27c2a8c26a6edb4c7a6e2da16e62b4e3911a5c398dda205d6f9ae3d9b51"
+      },
+      {
+        "candidate_id": "rattled-relax__low_signal",
+        "membership_sha256": "e253db9b966eab567ce8f56c254e9ac5a09feb1c0e934ac56bcf9acef2d1ce42"
+      }
+    ]
+  },
+  "execution": {
+    "upstream_repository": "https://github.com/atomicarchitects/nequix",
+    "upstream_commit": "da0fb241f417dad1afafa4e723ad867667ee7445",
+    "upstream_version": "0.4.5",
+    "layout": "one visible B200 per trajectory",
+    "checkpoint_contents": "EMA model plus resumable optimizer state",
+    "failure_policy": "Retry infrastructure failures with the identical task. Retain scientific failures and never replace a seed from outcome information."
+  },
+  "evaluation_sequence": [
+    "train and score every development environment under both seeds",
+    "fit and select aggregate-utility and target-regression predictors using only development outcomes",
+    "serialize predictions, uncertainty, rankings, and artifact hashes for all prospective environments",
+    "only then train and score the prospective environments"
+  ],
+  "outcome_boundary": {
+    "development_candidate_training_outcomes_used": false,
+    "prospective_candidate_training_outcomes_used": false
+  }
+}

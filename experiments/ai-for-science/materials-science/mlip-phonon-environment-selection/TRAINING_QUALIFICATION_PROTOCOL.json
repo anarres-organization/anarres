@@ -1,0 +1,56 @@
+{
+  "artifact": "anarres_mlip_training_qualification_protocol_v1",
+  "status": "qualification_in_progress_before_final_candidate_training",
+  "purpose": "Qualify one fixed E/F/S fine-tuning contract without opening any final development or prospective environment outcome.",
+  "qualification_environment": {
+    "candidate_id": "aimd-from-PBE-1000-npt__hash_uniform",
+    "source": "CANDIDATE_BANK_DRAFT.json",
+    "included_in_final_panel": false,
+    "atoms": 50000,
+    "neighbor_edges": 2073926,
+    "membership_sha256": "dee2ffe8863f723ad2b81e443be5d50538a697947e8f025dc12517ba8f65e469"
+  },
+  "starting_checkpoint": {
+    "name": "Nequix-MP-1",
+    "sha256": "1647af8e627e1afa11e2bfadeab0797326513a521afd7dd01606a96f56783eee"
+  },
+  "label_contract": {
+    "energy_weight": 0.0,
+    "force_weight": 20.0,
+    "stress_weight": 5.0,
+    "loss_type": "mae",
+    "rationale": "The environments contain OMat24 energy, force, and stress labels. Energy is excluded because cross-release energy-reference compatibility remains unresolved; force and stress use the same contract as the completed pre-training measurement sweep. Phonons are held-out physical outcomes, not training labels."
+  },
+  "qualification_grid": {
+    "optimizer": "adamw",
+    "learning_rates": [
+      1e-05,
+      3e-05,
+      0.0001
+    ],
+    "epochs": 1,
+    "training_seed": 0,
+    "validation_fraction": 0.05,
+    "validation_seed": 42,
+    "selection_rule": "Choose the largest learning rate whose loss, gradient norm, parameters, and reloaded checkpoint remain finite and whose held-out E/F/S validation loss does not exceed the starting checkpoint. Break ties by lower validation loss.",
+    "uses_phonon_target_outcomes": false
+  },
+  "proposed_claim_training_after_qualification": {
+    "passes_over_each_environment": 4,
+    "checkpoint_after_each_pass": true,
+    "training_seeds": [0, 1],
+    "matched_budget": "Each final environment contains exactly 50000 atoms and 2100000 Nequix neighbor edges per pass.",
+    "development_environments": 12,
+    "prospective_environments": 4,
+    "prospective_boundary": "Train and score the 12 development environments first, fit the frozen predictor and regression-risk model, serialize predictions for the four prospective environments, and only then train or inspect those four outcomes."
+  },
+  "implementation": {
+    "upstream_repository": "https://github.com/atomicarchitects/nequix",
+    "upstream_commit": "da0fb241f417dad1afafa4e723ad867667ee7445",
+    "upstream_version": "0.4.5",
+    "execution_layout": "one visible B200 per training trajectory",
+    "patch": "nequix_candidate_training.patch",
+    "python_hash_seed": 0,
+    "notes": "The patch exposes the existing data-loader seed and writes one model and resumable state per epoch. It does not change the loss or optimizer implementation."
+  }
+}
