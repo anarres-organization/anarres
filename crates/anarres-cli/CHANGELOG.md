@@ -17,6 +17,6 @@ records.
 - Add bounded adapter descriptor discovery with timeout and output limits.
 - Add generated completions for Bash, Zsh, Fish, and PowerShell.
 - Add cross-platform archives, installers, checksums, and a Homebrew formula
-  through the versioned release workflow.
+  published through the official tap.
 - Reserve `anarres-<name>` executables for protocol-conforming adapters and use
   the native `anarres measure` command for environment processing.

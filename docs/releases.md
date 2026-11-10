@@ -16,6 +16,12 @@ Supported release targets are:
 - macOS Apple silicon and x86-64
 - Windows x86-64
 
+Install with Homebrew on macOS or Linux:
+
+```bash
+brew install anarres-organization/tap/anarres
+```
+
 Install the latest release on macOS or Linux:
 
 ```bash
@@ -77,7 +83,13 @@ dist generate
 dist plan --tag anarres-cli-v0.1.0
 ```
 
-A signed `anarres-cli-v<version>` tag starts the release workflow. Pull
+After the GitHub release passes its artifact checks, copy the generated
+`anarres.rb` into the official
+[`homebrew-tap`](https://github.com/anarres-organization/homebrew-tap), run its
+macOS and Linux checks, and merge that update before advertising the new
+Homebrew version.
+
+A versioned `anarres-cli-v<version>` tag starts the release workflow. Pull
 requests exercise the same artifact graph without publishing. Consumers can
 compare downloads with `sha256.sum` and verify the published build provenance
 with the GitHub CLI:
