@@ -234,6 +234,12 @@ the six banks on that view, and require all eight strict selector-fidelity
 checks in both views. Preserve the descriptive full-order correlations. A
 failed selector-fidelity check returns the study to abstention.
 
+`DEVELOPMENT_BANK_QUALIFICATION_V4.json` records the completed untouched
+confirmation. All eight selector-versus-neutral checks pass in both views, so
+the candidate-bank gate authorizes freezing the matched training and
+evaluation contracts. Preserve the Version 3 failure and the Version 4 pass as
+separate results. Neither result contains target-training outcomes.
+
 ## 7. Freeze the prospective decision
 
 After all development arms are complete and scored, fit the operational and

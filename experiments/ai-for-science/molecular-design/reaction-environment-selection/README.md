@@ -8,10 +8,12 @@ against all eight targets. Every target passed the prespecified gates, and the
 outcome-blind hash rule selected Q07820. The structured reward adapter passes valid,
 malformed, filtered, timeout, repeat-call, batched, and RxnFlow v2.1 interface
 checks. Version 3 measurement passes. The six construction-view memberships
-are recorded, but the independent bank-confirmation gate fails for generated
-action cost, oracle time, and scaffold coverage. Development training is not
-authorized. No target-training or evaluation outcome has been inspected for
-this study.
+are recorded. The complete-order Version 3 confirmation fails for generated
+action cost, oracle time, and scaffold coverage, while the frozen Version 4
+selector-fidelity confirmation passes all eight checks in both independent
+views. The candidate-bank gate now authorizes freezing the matched training
+and evaluation contracts. No target-training or evaluation outcome has been
+inspected for this study.
 The selected-target measurement extractor is qualified on the frozen 64-record
 view with byte-identical graph representations across two independent runs.
 The first large-batch scoring attempt stopped on a molecule-specific conformer
@@ -40,14 +42,17 @@ eight bank-order coordinates pass, while generated-action cost, oracle time,
 and scaffold coverage reach Spearman correlations of 0.371, 0.657, and 0.735,
 below the frozen 0.8 threshold. This result triggers the prespecified
 abstention before development training.
-The version 3 result is preserved as the current scientific result. A
+The version 3 failure remains preserved. A
 pre-training diagnostic shows that all eight intended selector contrasts pass
 in both frozen views, while the failed statistic also ranks banks that were not
 designed to optimize each coordinate. Median or size-normalized oracle time and
 generic Murcko scaffolds do not repair that complete ordering. Version 4 keeps
 the construction memberships, selectors, estimators, and runtime unchanged. It
 freezes a selector-fidelity gate against the neutral hash bank before drawing
-one new confirmation view. Development training remains unauthorized.
+one new confirmation view. That untouched view produces 4,029 valid scores and
+67 molecule-specific scientific zeroes with no infrastructure failure. All
+eight selector-fidelity checks pass in both views, authorizing the next
+pre-outcome step without opening a target-training result.
 
 ## CLI projection
 
@@ -72,8 +77,9 @@ anarres measure .anarres/molecular-q07820/q07820-hash_uniform.profile-input.json
 ```
 
 Each profile preserves the native contracts and artifact digests. The profiles
-are schema-valid, but their failed bank-confirmation check keeps them unready
-for comparison or design. CLI conformance does not authorize target training.
+are schema-valid and carry the passing selector-fidelity qualification. This
+gate authorizes freezing matched training and evaluation contracts; it does
+not itself establish predictive utility or open target-training outcomes.
 The adapter accepts an explicit `--repository` path, so the installed command
 can run outside the checkout without searching for mutable evidence.
 
@@ -336,6 +342,10 @@ freezes eight strict selector-versus-neutral contrasts and untouched seed
 definition. Oracle time remains descriptive because Vina search work depends
 on ligand size and flexibility under a fixed exhaustiveness setting, as
 documented in the [Vina FAQ](https://autodock-vina.readthedocs.io/en/latest/faq.html).
+[`DEVELOPMENT_BANK_QUALIFICATION_V4.json`](DEVELOPMENT_BANK_QUALIFICATION_V4.json)
+records the untouched selector-fidelity result. All eight checks pass in both
+independent views, while the earlier complete-order failure remains preserved
+as a separate scientific result.
 
 Audit local checkouts without reading target outcomes:
 
