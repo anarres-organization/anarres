@@ -158,7 +158,7 @@ def flatten_interaction_row(row: Any) -> dict[str, bool]:
 
 def interaction_reference_map(
     reference_scores_path: Path,
-) -> tuple[Any, dict[str, float], dict[str, Any]]:
+) -> tuple[dict[str, float], dict[str, Any]]:
     import pandas as pd
     from molgenbench.metrics.conformer import InteractionScoreMetric
 
@@ -180,58 +180,70 @@ def interaction_reference_map(
     )
     if maximum_error > 1e-12:
         raise RuntimeError("reference interaction scores do not reproduce")
-    return (
-        metric,
-        reference_map,
-        {
-            "rows": len(frame),
-            "features": len(reference_map),
-            "maximum_absolute_reproduction_error": maximum_error,
-        },
-    )
+    return reference_map, {
+        "rows": len(frame),
+        "features": len(reference_map),
+        "maximum_absolute_reproduction_error": maximum_error,
+    }
+
+
+def score_interaction_batch(
+    work: tuple[list[tuple[str, str]], str, dict[str, float]],
+) -> dict[str, float | None]:
+    from molgenbench.io.types import MoleculeRecord
+    from molgenbench.metrics.conformer import InteractionScoreMetric
+    from rdkit import Chem
+
+    batch, protein_path, reference_map = work
+    metric = InteractionScoreMetric()
+    scores: dict[str, float | None] = {smiles: None for smiles, _ in batch}
+    eligible: list[tuple[str, Any]] = []
+    for smiles, pose_path in batch:
+        molecule = next(
+            (mol for mol in Chem.SDMolSupplier(pose_path, removeHs=False) if mol is not None),
+            None,
+        )
+        if molecule is not None and metric._filterMol(molecule):
+            eligible.append((smiles, molecule))
+    records = [
+        MoleculeRecord(
+            id=smiles,
+            smiles=smiles,
+            uniprot="Q07820",
+            series=None,
+            round="starting-policy",
+            rdkit_mol=molecule,
+            metadata={"protein_path": protein_path},
+        )
+        for smiles, molecule in eligible
+    ]
+    if not records:
+        return scores
+    frame = metric._compute_fp_df(records, protein_path)
+    if len(frame) != len(records):
+        raise RuntimeError("candidate interaction rows do not match eligible molecules")
+    for (smiles, _), (_, row) in zip(eligible, frame.iterrows(), strict=True):
+        flat = flatten_interaction_row(row)
+        scores[smiles] = finite_number(metric.getInteractionScores(flat, reference_map))
+    return scores
 
 
 def compute_interaction_scores(
     tasks: list[tuple[str, str]],
     protein_path: Path,
-    metric: Any,
     reference_map: dict[str, float],
     batch_size: int,
+    jobs: int,
 ) -> dict[str, float | None]:
-    from molgenbench.io.types import MoleculeRecord
-    from rdkit import Chem
-
     scores: dict[str, float | None] = {smiles: None for smiles, _ in tasks}
-    for start in range(0, len(tasks), batch_size):
-        batch = tasks[start : start + batch_size]
-        eligible: list[tuple[str, Any]] = []
-        for smiles, pose_path in batch:
-            molecule = next(
-                (mol for mol in Chem.SDMolSupplier(pose_path, removeHs=False) if mol is not None),
-                None,
-            )
-            if molecule is not None and metric._filterMol(molecule):
-                eligible.append((smiles, molecule))
-        records = [
-            MoleculeRecord(
-                id=smiles,
-                smiles=smiles,
-                uniprot="Q07820",
-                series=None,
-                round="starting-policy",
-                rdkit_mol=molecule,
-                metadata={"protein_path": str(protein_path)},
-            )
-            for smiles, molecule in eligible
-        ]
-        if not records:
-            continue
-        frame = metric._compute_fp_df(records, str(protein_path))
-        if len(frame) != len(records):
-            raise RuntimeError("candidate interaction rows do not match eligible molecules")
-        for (smiles, _), (_, row) in zip(eligible, frame.iterrows(), strict=True):
-            flat = flatten_interaction_row(row)
-            scores[smiles] = finite_number(metric.getInteractionScores(flat, reference_map))
+    batches = [
+        (tasks[start : start + batch_size], str(protein_path), reference_map)
+        for start in range(0, len(tasks), batch_size)
+    ]
+    context = multiprocessing.get_context("fork")
+    with context.Pool(processes=jobs) as pool:
+        for result in pool.imap_unordered(score_interaction_batch, batches):
+            scores.update(result)
     return scores
 
 
@@ -280,6 +292,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--reference-interaction-scores", type=Path, required=True)
     parser.add_argument("--attempts", type=int, required=True)
     parser.add_argument("--jobs", type=int, default=8)
+    parser.add_argument("--interaction-jobs", type=int, default=8)
     parser.add_argument("--interaction-batch-size", type=int, default=128)
     parser.add_argument("--output-records", type=Path, required=True)
     parser.add_argument("--report", type=Path, required=True)
@@ -324,15 +337,15 @@ def main() -> int:
     if len(unique_metrics) != len(tasks):
         raise RuntimeError("pose metric results do not cover every docked molecule")
 
-    interaction_metric, reference_map, reference_validation = interaction_reference_map(
+    reference_map, reference_validation = interaction_reference_map(
         args.reference_interaction_scores,
     )
     interaction_scores = compute_interaction_scores(
         tasks,
         args.protein,
-        interaction_metric,
         reference_map,
         args.interaction_batch_size,
+        args.interaction_jobs,
     )
     rows = expand_endpoint_records(docking_records, unique_metrics, interaction_scores)
     write_jsonl(args.output_records, rows)
