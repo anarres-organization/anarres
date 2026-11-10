@@ -231,7 +231,7 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         descriptor = CLI_MODULE.adapter_descriptor()
         self.assertEqual(descriptor["schema_version"], "anarres.adapter-descriptor.v1")
         self.assertEqual(descriptor["name"], "materials")
-        self.assertEqual(descriptor["protocol_version"], 1)
+        self.assertEqual(descriptor["protocol_version"], 2)
         self.assertEqual(
             descriptor["measurement_contracts"],
             ["materials.mlip-phonon-candidate-measurement.v2"],

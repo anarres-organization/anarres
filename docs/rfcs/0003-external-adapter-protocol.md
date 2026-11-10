@@ -31,7 +31,23 @@ anarres-<name> --anarres-adapter-descriptor
 The command prints one `anarres.adapter-descriptor.v1` JSON object. The
 descriptor identifies the adapter, protocol version, domain, executable,
 supported profile schemas, capabilities, and native measurement contracts.
-The CLI validates the descriptor before forwarding a workflow command.
+`adapter doctor` validates the complete descriptor. A workflow command launches
+the adapter once and prefixes the forwarded arguments with the runtime protocol
+version and expected adapter name:
+
+```text
+--anarres-adapter-protocol 2 --anarres-adapter-name <name>
+```
+
+The adapter validates and removes this handshake before parsing its own
+arguments. Direct adapter invocation remains supported. An adapter that does
+not implement the selected runtime protocol rejects the unknown arguments
+before opening study artifacts.
+
+Protocol 2 introduces this single-launch handshake. Protocol 1 adapters used a
+separate descriptor process before each workflow and are intentionally
+incompatible with a protocol 2 native CLI. Reinstalling the adapter updates both
+its descriptor and runtime entrypoint.
 
 The management interface is:
 
@@ -54,8 +70,9 @@ languages follow the same executable protocol.
 
 New domains can add commands without changing or releasing the Rust core.
 Adapters retain their own dependencies, tests, and scientific contracts. The
-descriptor permits compatibility checks without opening study artifacts or
-running a measurement.
+descriptor permits a complete installation audit without opening study
+artifacts or running a measurement. The runtime handshake preserves protocol
+and identity checks without paying for a second adapter process on each command.
 
 Executable discovery inherits the user's `PATH` trust boundary. `adapter list`
 reports shadowed names, and `adapter doctor` shows the exact executable selected

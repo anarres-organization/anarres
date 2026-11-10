@@ -30,6 +30,7 @@ rust-test:
 	$(CARGO) test --workspace
 
 test:
+	$(CARGO) build --quiet -p anarres-cli
 	$(PYTHON) -m unittest discover -s packages/core/tests -p 'test_*.py'
 	$(PYTHON) -m unittest discover -s packages/environments/tests -p 'test_*.py'
 	$(PYTHON) -m unittest discover -s packages/evaluation/tests -p 'test_*.py'
