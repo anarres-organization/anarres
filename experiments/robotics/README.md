@@ -40,7 +40,10 @@ its three-checkpoint influence measurement and frozen five candidate sets. It
 uses success-labelled policy rollouts to compare one recommendation with
 full-data, random, length-based, and unconstrained influence controls under
 matched training and evaluation budgets. Candidate-policy outcomes remain
-sealed behind the study's completeness and identity gate.
+sealed behind the study's completeness and identity gate. Its domain adapter
+now prepares the exact candidate masks, binds the 25-run matrix to local or
+Slurm execution, locks the Python environment, and verifies every checkpoint
+and evaluation log before that gate can pass.
 
 ## What is measured
 

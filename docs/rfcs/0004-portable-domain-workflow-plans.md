@@ -24,16 +24,18 @@ plan records the frozen inputs, stage dependencies, task matrix, aggregate
 workload, resource contract, release gate, and outcome-access boundary. Creating
 a plan performs no training, evaluation, network request, or scheduler action.
 
-The first implementation is `anarres robotics plan`. It describes the frozen
-RoboMimic Can v1.4.1 candidate comparison and makes its current execution
-blockers explicit. The command does not manufacture an executable entrypoint
-where the public study does not yet provide one.
+The first implementation covers the frozen RoboMimic Can v1.4.1 candidate
+comparison. `plan` records the scientific workload without binding it to a
+machine. `prepare` verifies the official source artifact and writes the frozen
+candidate masks to a copy. `bundle` binds that plan to a pinned CuraEval
+checkout, an exact Python environment, and either local or Slurm execution.
+`run-task --execute` is the explicit mutation boundary, and `gate` verifies all
+checkpoint and log identities before results may be scored.
 
-Submission remains a separate, explicit operation. A future executor may bind
-one validated plan to Ray Jobs, Slurm, Kubernetes, or another scheduler, but the
-scheduler-specific record must remain separate from the scientific plan. The
-executor must preserve plan and artifact digests, isolate runs, expose status
-and logs, and keep candidate outcomes sealed until the release gate passes.
+Submission remains a separate, explicit operation. Scheduler-specific records
+remain outside the scientific plan. The released executor supports a sequential
+local launcher and dependency-linked Slurm arrays. Additional backends can bind
+the same task manifest without changing the frozen candidate comparison.
 
 The plan generator remains in the Python domain adapter because it interprets
 robotics-specific protocol fields and runs once per experiment. Simulator and
@@ -46,14 +48,15 @@ and cross-language conformance tests exist.
 
 Users can inspect the exact candidate matrix and workload before committing
 compute. Automation can consume one stable JSON record without depending on a
-particular cluster. The command cannot accidentally launch an expensive run,
-and a scientifically complete plan does not imply that the runtime is portable
-or ready for submission.
+particular cluster. Planning and bundling cannot accidentally launch an
+expensive run. A bundle records the complete package freeze and refuses to run
+if that environment changes. The prepared dataset, CuraEval revision, candidate
+memberships, checkpoints, and evaluation logs are checked by digest.
 
-The first robotics plan remains intentionally blocked until the repository
-contains a portable candidate-training entrypoint, an immutable runtime image,
-and a selected scheduler binding. Adding those pieces changes execution
-readiness, not the frozen candidates or prospective decision.
+The plan remains unbound by design and therefore reports the runtime and
+scheduler choices as blockers. A successful bundle resolves both for one
+execution target. This changes execution readiness without changing the frozen
+candidates or prospective decision.
 
 ## References
 

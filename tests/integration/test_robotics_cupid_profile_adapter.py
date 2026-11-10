@@ -7,7 +7,9 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
+from anarres_robotics_adapter import cli as CLI
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 
@@ -18,11 +20,6 @@ SPEC = importlib.util.spec_from_file_location("robotics_cupid_profile_adapter", 
 assert SPEC is not None and SPEC.loader is not None
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
-CLI_PATH = STUDY / "src/anarres_robotics_adapter/cli.py"
-CLI_SPEC = importlib.util.spec_from_file_location("anarres_robotics_cli", CLI_PATH)
-assert CLI_SPEC is not None and CLI_SPEC.loader is not None
-CLI = importlib.util.module_from_spec(CLI_SPEC)
-CLI_SPEC.loader.exec_module(CLI)
 
 
 class RoboticsCupidProfileAdapterTest(unittest.TestCase):
@@ -46,7 +43,7 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
         )
         Draft202012Validator(schema).validate(descriptor)
         self.assertEqual(descriptor["name"], "robotics")
-        self.assertEqual(descriptor["version"], "0.3.0")
+        self.assertEqual(descriptor["version"], "0.4.0")
         self.assertEqual(descriptor["executable"], "anarres-robotics")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
         self.assertEqual(
@@ -120,6 +117,7 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             self.assertEqual(plan["totals"]["optimizer_steps"], 1_250_000)
             self.assertEqual(plan["totals"]["evaluation_episodes"], 2_500)
             self.assertEqual(len(plan["candidate_runs"]), 25)
+            self.assertEqual(plan["inputs"][0]["role"], "frozen_candidates")
             self.assertFalse(plan["execution"]["submission_ready"])
             self.assertIsNone(plan["execution"]["scheduler"])
             self.assertEqual(
@@ -200,6 +198,179 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             repeated = self.run_adapter(["results", "--repository", str(ROOT), "--json"], outside)
             self.assertEqual(repeated.returncode, 0, repeated.stderr)
             self.assertEqual(results.stdout, repeated.stdout)
+
+    def test_frozen_candidates_are_complete_and_prepare_writes_every_mask(self) -> None:
+        candidates_path = STUDY / "CANDIDATES.json"
+        self.assertEqual(
+            hashlib.sha256(candidates_path.read_bytes()).hexdigest(),
+            "3b3b34e544dd5a1ce0740fb534a7fb0f5213f89173e657e6889b9e9e16ff5c8f",
+        )
+        frozen = CLI.workflow.read_candidates(candidates_path)
+        self.assertEqual(set(frozen["candidates"]), {"all_data", *CLI.workflow.MASK_KEYS})
+        with tempfile.TemporaryDirectory() as directory:
+            temporary = Path(directory)
+            source = temporary / "source.hdf5"
+            output = temporary / "prepared.hdf5"
+            import h5py
+
+            with h5py.File(source, "w") as dataset:
+                data = dataset.create_group("data")
+                for index in range(300):
+                    data.create_group(f"demo_{index}")
+            digest = hashlib.sha256(source.read_bytes()).hexdigest()
+            with mock.patch.object(CLI.workflow, "SOURCE_DATASET_SHA256", digest):
+                report = CLI.workflow.prepare_dataset(source, output, candidates_path)
+                self.assertFalse(report["candidate_outcomes_opened"])
+                CLI.workflow.validate_prepared_dataset(output, candidates_path)
+            with h5py.File(output, "r") as dataset:
+                self.assertEqual(set(dataset["mask"]), set(CLI.workflow.MASK_KEYS.values()))
+                for candidate_id, mask_key in CLI.workflow.MASK_KEYS.items():
+                    self.assertEqual(
+                        len(dataset["mask"][mask_key]),
+                        frozen["candidates"][candidate_id]["count"],
+                    )
+
+    def test_run_task_requires_explicit_execution(self) -> None:
+        with self.assertRaisesRegex(CLI.workflow.WorkflowError, "requires --execute"):
+            CLI.workflow.run_task(Path("unused"), 0, "train", False)
+        with self.assertRaisesRegex(CLI.workflow.WorkflowError, "requires --execute"):
+            CLI.workflow.submit_bundle(Path("unused"), False)
+
+    def test_bundle_binds_exact_tasks_without_starting_execution(self) -> None:
+        candidates_path = STUDY / "CANDIDATES.json"
+        with tempfile.TemporaryDirectory() as directory:
+            temporary = Path(directory)
+            source = temporary / "source.hdf5"
+            prepared = temporary / "prepared.hdf5"
+            curaeval = temporary / "curaeval"
+            (curaeval / "scripts").mkdir(parents=True)
+            (curaeval / "scripts/run_dp.py").write_text("# fixture\n")
+            import h5py
+
+            with h5py.File(source, "w") as dataset:
+                data = dataset.create_group("data")
+                for index in range(300):
+                    data.create_group(f"demo_{index}")
+            source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
+            runtime = {
+                "executable": sys.executable,
+                "python": sys.version,
+                "platform": "fixture",
+                "host_platform": "fixture",
+                "missing_modules": [],
+                "packages": ["fixture==1"],
+                "packages_sha256": hashlib.sha256(b"fixture==1\n").hexdigest(),
+            }
+            plan = CLI.build_workflow_plan(ROOT)
+            plan_path = temporary / "plan.json"
+            plan_path.write_text(json.dumps(plan))
+            bundle = temporary / "bundle"
+            with (
+                mock.patch.object(CLI.workflow, "SOURCE_DATASET_SHA256", source_digest),
+                mock.patch.object(CLI.workflow, "validate_curaeval_checkout"),
+                mock.patch.object(CLI.workflow, "runtime_fingerprint", return_value=runtime),
+            ):
+                CLI.workflow.prepare_dataset(source, prepared, candidates_path)
+                report = CLI.workflow.write_bundle(
+                    plan_path,
+                    prepared,
+                    candidates_path,
+                    curaeval,
+                    bundle,
+                    sys.executable,
+                    "slurm",
+                    4,
+                    "NVIDIA A40",
+                )
+            self.assertFalse(report["execution_started"])
+            self.assertEqual(report["task_count"], 25)
+            self.assertEqual(
+                json.loads((bundle / "BUNDLE.json").read_text())["accelerator_name"],
+                "NVIDIA A40",
+            )
+            tasks = [json.loads(line) for line in (bundle / "tasks.jsonl").read_text().splitlines()]
+            self.assertEqual(len(tasks), 25)
+            by_candidate = {task["candidate_id"]: task for task in tasks}
+            self.assertEqual(by_candidate["all_data"]["filter_key"], "none")
+            self.assertEqual(
+                by_candidate["cupid_tier_balanced_50"]["filter_key"],
+                "anarres_cupid_tier_balanced_50",
+            )
+            launcher = (bundle / "submit-slurm.sh").read_text()
+            self.assertIn("--dependency=afterok:$TRAIN", launcher)
+            self.assertIn("--array=0-24%4", launcher)
+
+    def test_release_gate_precedes_prospective_scoring(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            bundle = Path(directory)
+            plan = CLI.build_workflow_plan(ROOT)
+            tasks = CLI.workflow.task_records(
+                plan,
+                bundle / "prepared.hdf5",
+                bundle / "CuraEval",
+                bundle,
+                sys.executable,
+            )
+            runtime_digest = "sha256:" + "a" * 64
+            provenance = {
+                "plan_digest": plan["plan_digest"],
+                "backend": "local",
+                "runtime_sha256": runtime_digest,
+                "accelerator_name": "NVIDIA A40",
+                "frozen_point_prediction": "cupid_tier_balanced_50",
+                "expected_evaluation_episodes": 2500,
+            }
+            (bundle / "BUNDLE.json").write_text(json.dumps(provenance))
+            (bundle / "tasks.jsonl").write_text("".join(json.dumps(task) + "\n" for task in tasks))
+            candidate_rates = {
+                "all_data": 0.50,
+                "random_50": 0.45,
+                "length_50": 0.55,
+                "cupid_50": 0.60,
+                "cupid_tier_balanced_50": 0.65,
+            }
+            for task in tasks:
+                run_root = Path(task["run_root"])
+                checkpoint = run_root / "training/models/last.pth"
+                checkpoint.parent.mkdir(parents=True)
+                checkpoint.write_bytes(task["run_id"].encode())
+                checkpoint_digest = f"sha256:{CLI.workflow.file_sha256(checkpoint)}"
+                logs = {
+                    "TRAIN_COMPLETE.json": (run_root / "train.log", "training complete\n"),
+                    "EVALUATION_COMPLETE.json": (
+                        run_root / "evaluation.log",
+                        "Average Rollout Stats\n"
+                        + json.dumps(
+                            {
+                                "Success_Rate": candidate_rates[task["candidate_id"]],
+                                "Horizon": 400,
+                            }
+                        )
+                        + "\n",
+                    ),
+                }
+                for record_name, (log_path, content) in logs.items():
+                    log_path.write_text(content)
+                    stage = "train" if record_name.startswith("TRAIN") else "evaluate"
+                    record = {
+                        "plan_digest": plan["plan_digest"],
+                        "run_id": task["run_id"],
+                        "stage": stage,
+                        "runtime_sha256": runtime_digest,
+                        "accelerator_name": "NVIDIA A40",
+                        "log_sha256": f"sha256:{CLI.workflow.file_sha256(log_path)}",
+                        "checkpoint_sha256": checkpoint_digest,
+                    }
+                    (run_root / record_name).write_text(json.dumps(record))
+            with self.assertRaisesRegex(CLI.workflow.WorkflowError, "requires a passing"):
+                CLI.workflow.score_bundle(bundle)
+            gate = CLI.workflow.release_gate(bundle)
+            self.assertFalse(gate["candidate_outcomes_opened"])
+            result = CLI.workflow.score_bundle(bundle)
+            self.assertTrue(result["candidate_outcomes_opened"])
+            self.assertTrue(result["prediction_is_observed_best"])
+            self.assertEqual(result["allocation_regret_pp"], 0.0)
+            self.assertEqual(result["observed_best"], ["cupid_tier_balanced_50"])
 
     def export(
         self,

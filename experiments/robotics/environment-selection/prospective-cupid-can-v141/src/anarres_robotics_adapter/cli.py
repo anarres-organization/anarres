@@ -12,6 +12,8 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
+from . import workflow
+
 
 class RoboticsCliError(ValueError):
     """Raised when a released robotics workflow cannot be verified."""
@@ -23,12 +25,24 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "robotics",
-        "version": "0.3.0",
+        "version": "0.4.0",
         "protocol_version": 1,
         "domain": "robotics",
         "executable": "anarres-robotics",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
-        "capabilities": ["plan", "profile", "results", "status", "verify"],
+        "capabilities": [
+            "bundle",
+            "gate",
+            "plan",
+            "prepare",
+            "profile",
+            "results",
+            "run-task",
+            "score",
+            "status",
+            "submit",
+            "verify",
+        ],
         "measurement_contracts": [
             "robotics.cupid-can-v141-candidate-measurement.v1",
         ],
@@ -80,6 +94,7 @@ def native_paths(repository: Path) -> dict[str, Path]:
         "qualification": root / "QUALIFICATION.json",
         "freeze": root / "FREEZE.json",
         "freeze_correction": root / "FREEZE_CORRECTION.json",
+        "candidates": root / "CANDIDATES.json",
     }
 
 
@@ -216,6 +231,11 @@ def build_workflow_plan(repository: Path) -> dict[str, Any]:
         },
         "inputs": [
             {
+                "role": "frozen_candidates",
+                "uri": "release://prospective-cupid-can-v141/CANDIDATES.json",
+                "digest": sha256_file(paths["candidates"]),
+            },
+            {
                 "role": "protocol",
                 "uri": "release://prospective-cupid-can-v141/PROTOCOL.json",
                 "digest": sha256_file(paths["protocol"]),
@@ -253,8 +273,7 @@ def build_workflow_plan(repository: Path) -> dict[str, Any]:
             "submission_requires_explicit_command": True,
             "scheduler": None,
             "blockers": [
-                "portable_candidate_training_entrypoint_not_released",
-                "immutable_runtime_image_not_frozen",
+                "runtime_environment_not_bound",
                 "scheduler_binding_not_selected",
             ],
         },
@@ -370,6 +389,48 @@ def command_plan(args: argparse.Namespace) -> dict[str, Any]:
         "execution_started": False,
         "candidate_outcomes_opened": False,
     }
+
+
+def command_prepare(args: argparse.Namespace) -> dict[str, Any]:
+    repository = repository_root(args.repository)
+    validate_native(repository)
+    return workflow.prepare_dataset(
+        args.dataset.resolve(),
+        args.output.resolve(),
+        native_paths(repository)["candidates"],
+    )
+
+
+def command_bundle(args: argparse.Namespace) -> dict[str, Any]:
+    repository = repository_root(args.repository)
+    validate_native(repository)
+    return workflow.write_bundle(
+        plan_path=args.plan.resolve(),
+        dataset=args.dataset.resolve(),
+        candidates_path=native_paths(repository)["candidates"],
+        curaeval=args.curaeval.resolve(),
+        output=args.output.resolve(),
+        python=args.python,
+        backend=args.backend,
+        max_parallel=args.max_parallel,
+        accelerator_name=args.accelerator_name,
+    )
+
+
+def command_run_task(args: argparse.Namespace) -> dict[str, Any]:
+    return workflow.run_task(args.bundle.resolve(), args.task_index, args.stage, args.execute)
+
+
+def command_submit(args: argparse.Namespace) -> dict[str, Any]:
+    return workflow.submit_bundle(args.bundle.resolve(), args.execute)
+
+
+def command_gate(args: argparse.Namespace) -> dict[str, Any]:
+    return workflow.release_gate(args.bundle.resolve())
+
+
+def command_score(args: argparse.Namespace) -> dict[str, Any]:
+    return workflow.score_bundle(args.bundle.resolve())
 
 
 def load_pusht_reproducer(repository: Path) -> ModuleType:
@@ -493,6 +554,60 @@ def parser() -> argparse.ArgumentParser:
     plan.add_argument("--output", type=Path, required=True)
     plan.add_argument("--force", action="store_true")
     plan.set_defaults(handler=command_plan)
+
+    prepare = commands.add_parser(
+        "prepare", help="Copy the pinned Can dataset and write all frozen candidate masks."
+    )
+    add_common(prepare)
+    prepare.add_argument("--dataset", type=Path, required=True)
+    prepare.add_argument("--output", type=Path, required=True)
+    prepare.set_defaults(handler=command_prepare)
+
+    bundle = commands.add_parser(
+        "bundle", help="Bind a plan to prepared data, CuraEval, and a scheduler backend."
+    )
+    add_common(bundle)
+    bundle.add_argument("--plan", type=Path, required=True)
+    bundle.add_argument("--dataset", type=Path, required=True)
+    bundle.add_argument("--curaeval", type=Path, required=True)
+    bundle.add_argument("--output", type=Path, required=True)
+    bundle.add_argument("--python", default=sys.executable)
+    bundle.add_argument("--backend", choices=["local", "slurm"], default="local")
+    bundle.add_argument("--max-parallel", type=int, default=1)
+    bundle.add_argument("--accelerator-name", required=True)
+    bundle.set_defaults(handler=command_bundle)
+
+    run_task_parser = commands.add_parser(
+        "run-task", help="Execute one training or evaluation task from a bound bundle."
+    )
+    run_task_parser.add_argument("--bundle", type=Path, required=True)
+    run_task_parser.add_argument("--task-index", type=int, required=True)
+    run_task_parser.add_argument("--stage", choices=["train", "evaluate"], required=True)
+    run_task_parser.add_argument("--execute", action="store_true")
+    run_task_parser.add_argument("--json", action="store_true")
+    run_task_parser.set_defaults(handler=command_run_task)
+
+    submit = commands.add_parser(
+        "submit", help="Start a bound local or Slurm workflow after explicit confirmation."
+    )
+    submit.add_argument("--bundle", type=Path, required=True)
+    submit.add_argument("--execute", action="store_true")
+    submit.add_argument("--json", action="store_true")
+    submit.set_defaults(handler=command_submit)
+
+    gate = commands.add_parser(
+        "gate", help="Verify that every frozen training and evaluation task completed."
+    )
+    gate.add_argument("--bundle", type=Path, required=True)
+    gate.add_argument("--json", action="store_true")
+    gate.set_defaults(handler=command_gate)
+
+    score = commands.add_parser(
+        "score", help="Open and score outcomes only after the release gate passes."
+    )
+    score.add_argument("--bundle", type=Path, required=True)
+    score.add_argument("--json", action="store_true")
+    score.set_defaults(handler=command_score)
 
     profile = commands.add_parser("profile", help="Export native candidate profile inputs.")
     add_common(profile)
