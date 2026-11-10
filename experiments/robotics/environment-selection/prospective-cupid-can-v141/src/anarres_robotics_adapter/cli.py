@@ -418,6 +418,7 @@ def command_bundle(args: argparse.Namespace) -> dict[str, Any]:
         backend=args.backend,
         max_parallel=args.max_parallel,
         accelerator_name=args.accelerator_name,
+        gpu_indices=[int(value) for value in args.gpu_indices.split(",") if value.strip()],
     )
 
 
@@ -579,6 +580,11 @@ def parser() -> argparse.ArgumentParser:
     bundle.add_argument("--backend", choices=["local", "slurm"], default="local")
     bundle.add_argument("--max-parallel", type=int, default=1)
     bundle.add_argument("--accelerator-name", required=True)
+    bundle.add_argument(
+        "--gpu-indices",
+        default="0",
+        help="Comma-separated GPU indices for the local worker pool.",
+    )
     bundle.set_defaults(handler=command_bundle)
 
     run_task_parser = commands.add_parser(

@@ -100,8 +100,8 @@ anarres robotics bundle --repository . \
   --dataset /work/can-v141-prepared.hdf5 \
   --curaeval /src/CuraEval \
   --python /opt/curaeval/bin/python \
-  --accelerator-name "NVIDIA A40" \
-  --backend slurm --max-parallel 4 \
+  --accelerator-name "NVIDIA B200" \
+  --backend local --gpu-indices 0,1 \
   --output /work/can-v141-bundle
 anarres robotics submit --bundle /work/can-v141-bundle --execute
 anarres robotics gate --bundle /work/can-v141-bundle
@@ -118,6 +118,9 @@ importing robotics dependencies. The workflow uses CuraEval revision
 dataset hash, and writes all four subset masks while leaving the all-data arm
 unfiltered. The bound task matrix contains five arms and five seeds, or 25
 equal-budget runs.
+
+Training-time rollouts are disabled, matching the claim-bearing execution. Each
+final checkpoint is evaluated separately under the frozen 100-episode contract.
 
 `plan`, `prepare`, and `bundle` do not start training. A generated launcher
 calls `run-task --execute` for each training task and then for the matching

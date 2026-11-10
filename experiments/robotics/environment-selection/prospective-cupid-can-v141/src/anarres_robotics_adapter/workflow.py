@@ -209,7 +209,7 @@ def task_records(
                     "--batch_size",
                     str(plan["training_contract"]["batch_size"]),
                     "--rollout_n",
-                    "50",
+                    "0",
                     "--horizon",
                     str(run["evaluation_horizon"]),
                     "--fast",
@@ -281,6 +281,7 @@ def write_bundle(
     backend: str,
     max_parallel: int,
     accelerator_name: str,
+    gpu_indices: list[int],
 ) -> dict[str, Any]:
     if output.exists():
         raise FileExistsError(output)
@@ -294,6 +295,10 @@ def write_bundle(
         raise WorkflowError("backend must be local or slurm")
     if max_parallel < 1:
         raise WorkflowError("max_parallel must be at least one")
+    if backend == "local" and not gpu_indices:
+        raise WorkflowError("local execution requires at least one GPU index")
+    if len(set(gpu_indices)) != len(gpu_indices) or any(index < 0 for index in gpu_indices):
+        raise WorkflowError("GPU indices must be unique non-negative integers")
     if not accelerator_name.strip():
         raise WorkflowError("accelerator_name must identify the fixed GPU model")
     runtime = runtime_fingerprint(python)
@@ -319,14 +324,45 @@ def write_bundle(
         f"--bundle {shlex.quote(str(output.resolve()))}"
     )
     if backend == "local":
+        gpu_words = " ".join(str(index) for index in gpu_indices)
+        worker_count = len(gpu_indices)
         body = f"""#!/bin/sh
 set -eu
-for i in $(seq 0 {len(records) - 1}); do
-  {cli_prefix} --task-index "$i" --stage train --execute
-done
-for i in $(seq 0 {len(records) - 1}); do
-  {cli_prefix} --task-index "$i" --stage evaluate --execute
-done
+run_worker() {{
+  phase=$1
+  worker=$2
+  gpu=$3
+  i=$worker
+  while [ "$i" -lt {len(records)} ]; do
+    CUDA_VISIBLE_DEVICES="$gpu" {cli_prefix} \
+      --task-index "$i" --stage "$phase" --execute
+    i=$((i + {worker_count}))
+  done
+}}
+run_phase() {{
+  phase=$1
+  worker=0
+  pids=""
+  for gpu in {gpu_words}; do
+    if nvidia-smi --id="$gpu" --query-compute-apps=pid \
+        --format=csv,noheader,nounits | grep -q '[0-9]'; then
+      echo "gpu $gpu already has a compute process" >&2
+      return 44
+    fi
+  done
+  for gpu in {gpu_words}; do
+    run_worker "$phase" "$worker" "$gpu" &
+    pids="$pids $!"
+    worker=$((worker + 1))
+  done
+  status=0
+  for pid in $pids; do
+    wait "$pid" || status=1
+  done
+  return "$status"
+}}
+run_phase train
+run_phase evaluate
 """
     else:
         train_wrap = shlex.quote(
@@ -359,6 +395,7 @@ sbatch --array=0-{len(records) - 1}%{max_parallel} --dependency=afterok:$TRAIN \
         "expected_evaluation_episodes": plan["totals"]["evaluation_episodes"],
         "python_executable": python,
         "accelerator_name": accelerator_name.strip(),
+        "gpu_indices": gpu_indices if backend == "local" else [],
         "runtime_sha256": f"sha256:{file_sha256(output / 'RUNTIME.json')}",
         "bound_files": {
             "plan": f"sha256:{file_sha256(normalized_plan)}",
@@ -394,6 +431,13 @@ def validate_bundle(bundle: Path, *, check_dataset: bool = False) -> tuple[dict,
     backend = provenance.get("backend")
     if backend not in {"local", "slurm"}:
         raise WorkflowError("execution bundle has an invalid backend")
+    gpu_indices = provenance.get("gpu_indices")
+    if not isinstance(gpu_indices, list) or any(
+        not isinstance(index, int) or index < 0 for index in gpu_indices
+    ):
+        raise WorkflowError("execution bundle has invalid GPU indices")
+    if backend == "local" and not gpu_indices:
+        raise WorkflowError("local execution bundle has no GPU workers")
     paths = {
         "plan": bundle / "PLAN.json",
         "runtime": bundle / "RUNTIME.json",

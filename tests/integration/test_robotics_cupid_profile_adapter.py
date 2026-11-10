@@ -281,6 +281,20 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
                     "slurm",
                     4,
                     "NVIDIA A40",
+                    [],
+                )
+                local_bundle = temporary / "local-bundle"
+                CLI.workflow.write_bundle(
+                    plan_path,
+                    prepared,
+                    candidates_path,
+                    curaeval,
+                    local_bundle,
+                    sys.executable,
+                    "local",
+                    2,
+                    "NVIDIA A40",
+                    [0, 2],
                 )
             self.assertFalse(report["execution_started"])
             self.assertEqual(report["task_count"], 25)
@@ -292,6 +306,8 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             self.assertEqual(len(tasks), 25)
             by_candidate = {task["candidate_id"]: task for task in tasks}
             self.assertEqual(by_candidate["all_data"]["filter_key"], "none")
+            rollout_index = by_candidate["all_data"]["train_argv"].index("--rollout_n")
+            self.assertEqual(by_candidate["all_data"]["train_argv"][rollout_index + 1], "0")
             self.assertEqual(
                 by_candidate["cupid_tier_balanced_50"]["filter_key"],
                 "anarres_cupid_tier_balanced_50",
@@ -299,6 +315,11 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             launcher = (bundle / "submit-slurm.sh").read_text()
             self.assertIn("--dependency=afterok:$TRAIN", launcher)
             self.assertIn("--array=0-24%4", launcher)
+            local_launcher = (local_bundle / "run-local.sh").read_text()
+            self.assertIn("for gpu in 0 2", local_launcher)
+            self.assertIn('CUDA_VISIBLE_DEVICES="$gpu"', local_launcher)
+            self.assertIn("run_phase train", local_launcher)
+            self.assertIn("run_phase evaluate", local_launcher)
             tasks_path = bundle / "tasks.jsonl"
             original_tasks = tasks_path.read_text()
             tasks_path.write_text(original_tasks.replace('"seed": 1', '"seed": 999', 1))
@@ -341,6 +362,7 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
                 ),
                 "runtime_sha256": runtime_digest,
                 "accelerator_name": "NVIDIA A40",
+                "gpu_indices": [0],
                 "frozen_point_prediction": "cupid_tier_balanced_50",
                 "expected_evaluation_episodes": 2500,
                 "bound_files": {

@@ -33,8 +33,9 @@ checkout, an exact Python environment, and either local or Slurm execution.
 checkpoint and log identities before results may be scored.
 
 Submission remains a separate, explicit operation. Scheduler-specific records
-remain outside the scientific plan. The released executor supports a sequential
-local launcher and dependency-linked Slurm arrays. Additional backends can bind
+remain outside the scientific plan. The released executor supports a
+deterministic multi-GPU local launcher and dependency-linked Slurm arrays.
+Additional backends can bind
 the same task manifest without changing the frozen candidate comparison.
 
 The plan generator remains in the Python domain adapter because it interprets
