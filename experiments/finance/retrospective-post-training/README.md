@@ -244,6 +244,18 @@ an unmeasured tradeoff between starting-policy retention and forward
 supervision. The source record, predictions, outcomes, and score are in
 [`heldout-fintoolsyn/`](heldout-fintoolsyn/).
 
+LongFinanceQA provides an outcome-separated component test in financial
+long-context reasoning. We froze six directional hypotheses after reading only
+the paper's abstract, then opened its component tables. Four hypotheses have
+matched controls. Across their 25 reported task-band comparisons, 24 follow the
+frozen direction. Intermediate reasoning improves every overall context band,
+11 of 12 multi-source comparisons, and every single-source comparison. Full
+PAI also outperforms its property-extraction ablation in every reported band
+and in the aggregate. Retrieval and summarization are not separately ablated,
+so those predictions remain unscored. The freeze, table extraction, scorer,
+and result are in [`heldout-longfinanceqa/`](heldout-longfinanceqa/). This is
+one source-level test rather than 25 independent studies.
+
 A derived alignment/interference coordinate does not improve the original
 sixteen-study source holdout. Against the corrected baseline, the fixed rule
 falls from 74.9% to 74.0% pairwise ordering with unchanged regret. The ridge
@@ -294,6 +306,8 @@ python heldout-finharmbench/score_holdout.py
 python -m unittest heldout-finharmbench/test_score.py
 python heldout-fintoolsyn/score_holdout.py
 python heldout-fintoolsyn/test_score.py
+python heldout-longfinanceqa/score_holdout.py
+python heldout-longfinanceqa/test_score.py
 ```
 
 The script writes [`results/summary.json`](results/summary.json) and a manifest

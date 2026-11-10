@@ -113,6 +113,12 @@ FinToolSyn is evaluated separately as an excluded-source capability-contract
 test. Its four controlled Qwen3-8B arms are not added to the fitted bridge, so
 one paper remains one source-level test.
 
+LongFinanceQA is also kept outside the fitted bridge. Component predictions
+were frozen after reading the abstract but before opening the paper's ablation
+tables. Its result is therefore labeled an outcome-separated component test,
+not a prospective study. The disclosed headline gains are excluded from its
+score.
+
 ## Admission rule
 
 A new study enters the model only when one trained intervention remains one

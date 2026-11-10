@@ -88,7 +88,7 @@ separately normalizes published finance interventions. It asks which recurring
 properties of training data and reward design predict improvement across prior
 studies. A strict task-level tier reaches 81.6% candidate ordering across 79
 panels without using model identity. A source-held-out confidence filter raises
-accuracy to 90.4% over 235 decided pairs at 76.1% coverage. Six excluded-source
+accuracy to 90.4% over 235 decided pairs at 76.1% coverage. Seven source-level
 tests then expose where successive representations transfer and where they
 fail. The
 capability-contract representation recovers all 33 scored FinAcumen candidate
@@ -100,6 +100,9 @@ helpfulness crosses the frozen guardrail. The earlier numerical-faithfulness
 failure remains an important boundary. On FinToolSyn's controlled agentic
 ablation, the capability-contract representation gets all nine high-confidence
 directions and all three improvement or regression calls correct.
+In a separately frozen LongFinanceQA test, 24 of 25 matched component
+comparisons follow the predicted direction across reasoning supervision,
+multi-source tasks, property extraction, and simpler-context retention.
 
 The [agent-systems evidence map](agent-systems-evidence/README.md) audits the
 workflow side of the decision. It separates post-training interventions from
@@ -159,6 +162,7 @@ with financial authority remain approval-gated.
 - [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
 - [Financial safety capability-contract holdout](retrospective-post-training/heldout-finharmbench/README.md)
 - [Agentic tool-environment holdout](retrospective-post-training/heldout-fintoolsyn/README.md)
+- [Long-context component test](retrospective-post-training/heldout-longfinanceqa/RESULT.md)
 - [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
 - [Corrected expanded machine-readable results](retrospective-post-training/results/expanded_summary_corrected.json)
 - [Agent-systems evidence map](agent-systems-evidence/README.md)

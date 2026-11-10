@@ -154,6 +154,9 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     regression_rule = regression["rules"]["practical_rule"]
     finacumen = read_object(root / "retrospective-post-training/heldout-finacumen/SCORE.json")
     fintoolsyn = read_object(root / "retrospective-post-training/heldout-fintoolsyn/SCORE.json")
+    longfinanceqa = read_object(
+        root / "retrospective-post-training/heldout-longfinanceqa/SCORE.json"
+    )
     holdouts = sorted(
         path.parent.name
         for path in (root / "retrospective-post-training").glob("heldout-*/SCORE.json")
@@ -197,6 +200,18 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "excluded_source_fintoolsyn_directional_scored": fintoolsyn["directional_scored"],
         "excluded_source_fintoolsyn_regression_correct": fintoolsyn["regression_correct"],
         "excluded_source_fintoolsyn_regression_scored": fintoolsyn["regression_scored"],
+        "outcome_separated_longfinanceqa_directional_correct": longfinanceqa[
+            "directional_correct"
+        ],
+        "outcome_separated_longfinanceqa_directional_scored": longfinanceqa[
+            "directional_scored"
+        ],
+        "outcome_separated_longfinanceqa_families_supported": longfinanceqa[
+            "prediction_families_supported"
+        ],
+        "outcome_separated_longfinanceqa_families_scored": longfinanceqa[
+            "prediction_families_scored"
+        ],
         "released_holdouts": holdouts,
     }
 
@@ -484,6 +499,7 @@ def compact_verification(repository: Path) -> dict[str, Any]:
     selective = read_object(retrospective / "strict-task-level/SELECTIVE_SCORE.json")
     regression = read_object(retrospective / "results/regression_risk_summary.json")
     fintoolsyn = read_object(retrospective / "heldout-fintoolsyn/SCORE.json")
+    longfinanceqa = read_object(retrospective / "heldout-longfinanceqa/SCORE.json")
     if summary.get("status") != "retrospective_exploratory":
         raise FinanceCliError("compact retrospective summary has an unexpected status")
     if expanded.get("support", {}).get("sources") != 16:
@@ -511,6 +527,16 @@ def compact_verification(repository: Path) -> dict[str, Any]:
         raise FinanceCliError("FinToolSyn holdout no longer matches the released score")
     if (fintoolsyn.get("regression_correct"), fintoolsyn.get("regression_scored")) != (3, 3):
         raise FinanceCliError("FinToolSyn regression audit no longer matches the release")
+    if (
+        longfinanceqa.get("directional_correct"),
+        longfinanceqa.get("directional_scored"),
+    ) != (24, 25):
+        raise FinanceCliError("LongFinanceQA component test no longer matches the release")
+    if (
+        longfinanceqa.get("prediction_families_supported"),
+        longfinanceqa.get("prediction_families_scored"),
+    ) != (4, 4):
+        raise FinanceCliError("LongFinanceQA family score no longer matches the release")
 
     holdouts = []
     for directory in sorted(retrospective.glob("heldout-*")):
@@ -550,6 +576,10 @@ def compact_verification(repository: Path) -> dict[str, Any]:
         "fintoolsyn_directional_scored": fintoolsyn["directional_scored"],
         "fintoolsyn_regression_correct": fintoolsyn["regression_correct"],
         "fintoolsyn_regression_scored": fintoolsyn["regression_scored"],
+        "longfinanceqa_directional_correct": longfinanceqa["directional_correct"],
+        "longfinanceqa_directional_scored": longfinanceqa["directional_scored"],
+        "longfinanceqa_families_supported": longfinanceqa["prediction_families_supported"],
+        "longfinanceqa_families_scored": longfinanceqa["prediction_families_scored"],
         "holdouts": holdouts,
     }
 

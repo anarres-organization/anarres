@@ -174,6 +174,14 @@ performance while reducing the balanced average and non-tool score relative to
 the base. The audit abstains where the source-native non-tool metrics support
 different orderings.
 
+A separate outcome-separated test examines LongFinanceQA. Before opening its
+component tables, we froze predictions about intermediate reasoning,
+multi-source transfer, property extraction, and simpler-context retention.
+Twenty-four of 25 matched task-band comparisons follow the predicted direction.
+The result supports the representation in financial long-context work while
+leaving retrieval and summarization unscored because the paper does not report
+their matched ablations.
+
 The executable accounting panel remains the prospective extension. Four
 stateful workflows have passed source qualification, but no model has yet
 qualified as a non-degenerate starting policy. Training begins only after the
@@ -238,6 +246,7 @@ change held-out outcomes after training begins.
 - [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
 - [Financial safety capability-contract holdout](retrospective-post-training/heldout-finharmbench/README.md)
 - [Agentic tool-environment holdout](retrospective-post-training/heldout-fintoolsyn/README.md)
+- [Long-context component test](retrospective-post-training/heldout-longfinanceqa/RESULT.md)
 - [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
 - [Machine-readable panels](retrospective-post-training/data/panels.json)
 - [Source-recovered expansion](retrospective-post-training/data/recovered_panels.json)
