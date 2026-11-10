@@ -64,6 +64,15 @@ CHECKS = (
         "test_reproduce.py",
     ),
     python_check(
+        "robotics Square prospective contract",
+        "experiments/robotics/environment-selection/prospective-square-regression-v1",
+        "-m",
+        "unittest",
+        "discover",
+        "-p",
+        "test_*.py",
+    ),
+    python_check(
         "legal prospective SylloGym",
         "experiments/legal/environment-selection",
         "test_reproduce.py",

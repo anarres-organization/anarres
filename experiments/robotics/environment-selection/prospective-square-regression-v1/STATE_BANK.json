@@ -1,0 +1,27 @@
+{
+  "candidate_outcomes_opened": false,
+  "environment_seed": 20261110,
+  "feature": "initial square-nut x, y, cos(yaw), and sin(yaw)",
+  "model_xml_sha256": "b1107530c7948e411db8ee0b4add36da54c384e674e815c70efa269a45b96311",
+  "schema_version": "anarres.robotics-fixed-state-bank.v1",
+  "source_dataset_sha256": "d3e871e4f25b3da6aea9f332613772e7bdfad9f586b97ce41cd7ccfb758c62dd",
+  "state_bank_sha256": "428fd56c8ec99bdacc49fae3dfc001ac2be40f6ff527633e9861d8980fa37fd7",
+  "state_dimension": 45,
+  "states": 128,
+  "stratum_counts": {
+    "0": 20,
+    "1": 13,
+    "2": 18,
+    "3": 13,
+    "4": 9,
+    "5": 22,
+    "6": 17,
+    "7": 16
+  },
+  "stratum_medians": {
+    "orientation_offset": 0.41773784253936286,
+    "x": -0.11281404807492407,
+    "y": 0.1710077543981772
+  },
+  "study_id": "prospective_square_regression_v1"
+}
