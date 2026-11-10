@@ -23,7 +23,7 @@ evidence and remains specific to the study, policy, target, and budget.
 | Program | Profile or native-path conformance | Native adapter | Predictive evidence |
 | --- | --- | --- | --- |
 | Mathematics | Grouped-probe path and reference conformance | Native grouped-probe processor | Four-scale environment-utility release |
-| Formal verification | Real Vero profiles | Installable Vero development adapter | Negative support qualification; no RL authorized |
+| Formal verification | Real Vero profiles | Installable Vero development adapter with a separate support report | Negative grouped measurement; one-attempt task support passed with containment follow-up; no RL authorized |
 | Robotics | Real Can v1.4.1 candidate profiles | Installable CUPID candidate-measurement adapter | Prospective PushT and retrospective multi-source records; Can candidate outcomes remain sealed |
 | Legal reasoning | Real SylloGym policy-response profiles | Installable SylloGym mixture adapter with a separate LAB regression report | Prospective SylloGym and separate LAB regression-risk records |
 | Materials science | Real MLIP candidate profiles | Installable MLIP candidate-bank adapter | Supervised phonon tests released; final cost-matched panel pending and MLIP outcomes unopened |
