@@ -76,6 +76,22 @@ and membership identities before export. CLI compatibility means that the five
 candidates share one scientific contract. It does not reveal which candidate
 performs best after training.
 
+The study-local command can be installed independently from the native CLI:
+
+```bash
+uv tool install \
+  ./experiments/robotics/environment-selection/prospective-cupid-can-v141
+anarres adapter doctor robotics
+anarres robotics status --repository .
+anarres robotics profile --repository . --output-dir .anarres/can-v141
+anarres robotics verify --repository .
+```
+
+`anarres-robotics` retains the Python implementation and robotics-specific
+records. The Rust CLI discovers it through the generic adapter protocol without
+importing robotics dependencies. The descriptor and `status` command do not
+open candidate-policy outcomes.
+
 ## Scope
 
 This is one simulated manipulation task, one policy family, and one fixed

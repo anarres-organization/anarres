@@ -24,7 +24,7 @@ evidence and remains specific to the study, policy, target, and budget.
 | --- | --- | --- | --- |
 | Mathematics | Grouped-probe path and reference conformance | Native grouped-probe processor | Four-scale environment-utility release |
 | Formal verification | Real Vero profiles | Vero development adapter | Negative support qualification; no RL authorized |
-| Robotics | Real Can v1.4.1 candidate profiles | Native CUPID candidate-measurement adapter | Prospective PushT and retrospective multi-source records; Can candidate outcomes remain sealed |
+| Robotics | Real Can v1.4.1 candidate profiles | Installable CUPID candidate-measurement adapter | Prospective PushT and retrospective multi-source records; Can candidate outcomes remain sealed |
 | Legal reasoning | Real SylloGym policy-response profiles | SylloGym mixture adapter | Prospective SylloGym and LAB regression-risk records |
 | Materials science | Real MLIP candidate profiles | MLIP candidate-bank adapter | Supervised phonon tests released; MLIP outcomes remain unopened |
 | Vulnerability exploitation | Public qualification protocol | Not yet available | No qualified environment comparison |

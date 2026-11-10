@@ -1,6 +1,9 @@
 import hashlib
 import importlib.util
 import json
+import os
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -15,9 +18,81 @@ SPEC = importlib.util.spec_from_file_location("robotics_cupid_profile_adapter", 
 assert SPEC is not None and SPEC.loader is not None
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
+CLI_PATH = STUDY / "src/anarres_robotics_adapter/cli.py"
+CLI_SPEC = importlib.util.spec_from_file_location("anarres_robotics_cli", CLI_PATH)
+assert CLI_SPEC is not None and CLI_SPEC.loader is not None
+CLI = importlib.util.module_from_spec(CLI_SPEC)
+CLI_SPEC.loader.exec_module(CLI)
 
 
 class RoboticsCupidProfileAdapterTest(unittest.TestCase):
+    def test_adapter_descriptor_matches_the_shared_contract(self) -> None:
+        descriptor = CLI.adapter_descriptor()
+        schema = json.loads(
+            (ROOT / "schemas/adapters/adapter-descriptor.v1.schema.json").read_text()
+        )
+        Draft202012Validator(schema).validate(descriptor)
+        self.assertEqual(descriptor["name"], "robotics")
+        self.assertEqual(descriptor["executable"], "anarres-robotics")
+        self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
+        self.assertEqual(
+            descriptor["measurement_contracts"],
+            ["robotics.cupid-can-v141-candidate-measurement.v1"],
+        )
+
+    def run_adapter(self, arguments: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
+        source_paths = [
+            STUDY / "src",
+            ROOT / "packages/core/src",
+            ROOT / "packages/environments/src",
+        ]
+        environment = os.environ.copy()
+        environment["PYTHONPATH"] = os.pathsep.join(str(path) for path in source_paths)
+        return subprocess.run(
+            [sys.executable, "-m", "anarres_robotics_adapter.cli", *arguments],
+            cwd=cwd,
+            env=environment,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+    def test_adapter_runs_outside_the_repository_with_an_explicit_checkout(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            outside = Path(directory)
+            descriptor = self.run_adapter(["--anarres-adapter-descriptor"], outside)
+            self.assertEqual(descriptor.returncode, 0, descriptor.stderr)
+            self.assertEqual(json.loads(descriptor.stdout)["name"], "robotics")
+
+            status = self.run_adapter(["status", "--repository", str(ROOT), "--json"], outside)
+            self.assertEqual(status.returncode, 0, status.stderr)
+            report = json.loads(status.stdout)
+            self.assertTrue(report["qualification_passed"])
+            self.assertTrue(report["measurement_reliability_passed"])
+            self.assertFalse(report["candidate_outcomes_opened"])
+            self.assertEqual(report["candidate_count"], 5)
+
+            output = outside / "profiles"
+            profiled = self.run_adapter(
+                [
+                    "profile",
+                    "--repository",
+                    str(ROOT),
+                    "--output-dir",
+                    str(output),
+                    "--json",
+                ],
+                outside,
+            )
+            self.assertEqual(profiled.returncode, 0, profiled.stderr)
+            profile_report = json.loads(profiled.stdout)
+            self.assertEqual(profile_report["profile_count"], 5)
+            self.assertFalse(profile_report["candidate_outcomes_opened"])
+
+            verified = self.run_adapter(["verify", "--repository", str(ROOT), "--json"], outside)
+            self.assertEqual(verified.returncode, 0, verified.stderr)
+            self.assertEqual(json.loads(verified.stdout)["status"], "pass")
+
     def export(
         self,
         output: Path,
