@@ -44,6 +44,16 @@ class TargetRewardAdapterTests(unittest.TestCase):
         ):
             MODULE.run_worker(Path("unused"), "CCO", 0.01)
 
+    def test_exact_unsupported_atom_type_error_is_scientific_ineligibility(self):
+        error = TypeError(
+            "PDBQT parsing error: Atom type B is not a valid AutoDock type "
+            "(atom types are case-sensitive)."
+        )
+        self.assertEqual(MODULE.unsupported_autodock_atom_type(error), "B")
+
+    def test_other_parser_errors_remain_infrastructure_failures(self):
+        self.assertIsNone(MODULE.unsupported_autodock_atom_type(TypeError("other parse failure")))
+
     def test_batch_requires_positive_worker_count(self):
         with self.assertRaises(ValueError):
             MODULE.score_batch(Path("unused"), [], max_workers=0)
@@ -96,6 +106,25 @@ class TargetRewardAdapterTests(unittest.TestCase):
         self.assertEqual(result["reason"], "ligand_conformer_failure")
         self.assertEqual(result["reward"], 0.0)
         self.assertEqual(result["oracle_elapsed_seconds"], 0.25)
+
+    def test_batch_preserves_oracle_unsupported_atom_type(self):
+        assessment = {"status": "eligible", "metrics": {"qed": 0.5}}
+        failure = {
+            "status": "scientific_zero",
+            "reason": "oracle_unsupported_atom_type",
+            "atom_type": "B",
+            "reward": 0.0,
+            "elapsed_seconds": 0.25,
+        }
+        with (
+            patch.object(MODULE, "molecule_assessment", return_value=assessment),
+            patch.object(MODULE, "run_worker", return_value=failure),
+        ):
+            result = MODULE.score_batch(Path("unused"), ["B(O)O"])[0]
+        self.assertEqual(result["status"], "scientific_zero")
+        self.assertEqual(result["reason"], "oracle_unsupported_atom_type")
+        self.assertEqual(result["atom_type"], "B")
+        self.assertEqual(result["reward"], 0.0)
 
 
 if __name__ == "__main__":

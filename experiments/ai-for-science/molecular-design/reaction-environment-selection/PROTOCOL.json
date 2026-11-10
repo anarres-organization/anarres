@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "study": "prospective-reaction-environment-selection",
-  "status": "version_3_measurement_qualified_new_bank_confirmation_frozen",
+  "status": "version_3_measurement_qualified_version_3_bank_confirmation_scoring",
   "scientific_question": "Can measurements under one starting molecular graph policy predict which fixed replay experience bank will produce the greatest target-specific improvement at a matched generation and oracle budget?",
   "source": {
     "rxnflow_commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b",
@@ -29,7 +29,7 @@
     "qualification_panel_sha256": "d4024f9a65aba7a4d3027be4b67aedac7080bb3b545c1fa4378bab2d0a294fe7",
     "selected_target": "Q07820",
     "selection_result": "TARGET_SELECTION_RESULT.json",
-    "target_reward_contract": "TARGET_REWARD_CONTRACT_V2.json",
+    "target_reward_contract": "TARGET_REWARD_CONTRACT_V3.json",
     "selection_uses_outcomes": false,
     "reference_active_outcomes_sealed_until_scoring": true,
     "identity_status": "Q07820 selected by the frozen outcome-blind hash rule after all eight panel targets passed oracle and starting-policy qualification"
@@ -96,11 +96,11 @@
     "equal_bank_size_required": true,
     "membership_overlap_reported": true,
     "molecule_identity_and_scaffold_overlap_reported": true,
-    "membership_status": "construction-view memberships fixed; untouched version 2 confirmation remains open"
+    "membership_status": "construction-view memberships fixed; the unchanged untouched confirmation view is being rescored under the version 3 unsupported-atom-type rule"
   },
   "measurement": {
     "probe_views": 2,
-    "current_contract": "MEASUREMENT_CONTRACT_V3.json",
+    "current_contract": "MEASUREMENT_CONTRACT_V4.json",
     "operational_coordinates": [
       "reward signal",
       "measurement reliability",
@@ -188,7 +188,7 @@
     "reason": "The first graph claim concerns environment measurement and selection. Multiplying the initial panel across architectures would confound that decision and dilute the prospective test."
   },
   "open_gates": [
-    "version 2 independent bank confirmation",
+    "version 3 independent bank confirmation",
     "training schedule smoke qualification"
   ],
   "sealed_boundary": {
@@ -200,6 +200,8 @@
     "measurement_v3_views_drawn": true,
     "measurement_v3_reliability_passed": true,
     "development_bank_v1_result_non_authorizing": true,
+    "bank_confirmation_v2_scoring_failed_on_unsupported_boron_atom_type": true,
+    "bank_confirmation_view_20261124_redrawn": false,
     "development_training_started": false
   }
 }

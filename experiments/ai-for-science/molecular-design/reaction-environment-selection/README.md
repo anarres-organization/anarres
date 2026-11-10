@@ -8,8 +8,9 @@ against all eight targets. Every target passed the prespecified gates, and the
 outcome-blind hash rule selected Q07820. The structured reward adapter passes valid,
 malformed, filtered, timeout, repeat-call, batched, and RxnFlow v2.1 interface
 checks. Version 3 measurement passes. The six construction-view memberships
-are fixed, while a new independent bank-confirmation view remains open. The
-training-schedule smoke and every post-training outcome also remain open.
+are fixed. The untouched bank-confirmation view remains unchanged while its
+target scores are recomputed under the version 3 reward contract. The training
+schedule smoke and every post-training outcome also remain open.
 No target-training or evaluation outcome has been inspected for this study.
 The selected-target measurement extractor is qualified on the frozen 64-record
 view with byte-identical graph representations across two independent runs.
@@ -29,6 +30,11 @@ per-view and two-view check passes. A subsequent audit found that the original
 bank contract still named the failed v2 view seeds. Its bank-summary result is
 preserved as non-authorizing. Version 2 binds the passing construction view and
 a new untouched confirmation seed without changing the selectors or gate.
+The first scoring attempt on that view encountered three boronic-acid products
+outside the pinned Vina atom-type domain. The failure is preserved. Version 3
+keeps the exact sampled view and records only Vina's exact unsupported-atom-
+type error as scientific ineligibility; every other parser, receptor,
+toolchain, process, and timeout failure remains an infrastructure failure.
 
 ## Research question
 
@@ -188,6 +194,8 @@ Primary sources:
 - [MolGenBench paper](https://www.nature.com/articles/s41467-026-78105-8),
   [source](https://github.com/Intelligent-Drug-Discovery-Lab/MolGenBench),
   and [Version4 data record](https://doi.org/10.5281/zenodo.20233505)
+- [AutoDock Vina atom-type table](https://github.com/ccsb-scripps/AutoDock-Vina/blob/develop/src/lib/atom_constants.h)
+  and [boron-support issue](https://github.com/ccsb-scripps/AutoDock-Vina/issues/171)
 - [HSX](https://www.biorxiv.org/content/10.64898/2026.10.01.755933v1.full)
 - [OpenAI cell-free protein synthesis study](https://openai.com/index/gpt-5-lowers-protein-synthesis-cost/)
 - [Anthropic drug-development collaborations](https://www.anthropic.com/research/early-progress-drug-development)
@@ -266,6 +274,13 @@ marks that result non-authorizing because its view seeds do not match the
 version 1 bank contract. [`BANK_CONSTRUCTION_CONTRACT_V2.json`](BANK_CONSTRUCTION_CONTRACT_V2.json)
 retains every selector and threshold while binding the qualified construction
 view and a new untouched confirmation seed.
+[`BANK_CONFIRMATION_SCORING_AUDIT_V2.json`](BANK_CONFIRMATION_SCORING_AUDIT_V2.json)
+preserves the unsupported-boron failure and the unchanged view identity.
+[`TARGET_REWARD_CONTRACT_V3.json`](TARGET_REWARD_CONTRACT_V3.json),
+[`MEASUREMENT_CONTRACT_V4.json`](MEASUREMENT_CONTRACT_V4.json), and
+[`BANK_CONSTRUCTION_CONTRACT_V3.json`](BANK_CONSTRUCTION_CONTRACT_V3.json)
+freeze the narrow eligibility revision while retaining the sampled records,
+memberships, selectors, coordinates, and confirmation threshold.
 
 Audit local checkouts without reading target outcomes:
 

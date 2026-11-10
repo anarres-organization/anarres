@@ -207,9 +207,15 @@ arm.
 `DEVELOPMENT_BANK_QUALIFICATION_V1.json` preserves the first reconstruction,
 but its audit marks the result non-authorizing because the version 1 bank
 contract named the failed v2 view seeds. Follow
-`BANK_CONSTRUCTION_CONTRACT_V2.json`: retain the seed-20261122 construction
-memberships, reconstruct summaries on untouched seed 20261124, and require the
-same rank gate before development training.
+`BANK_CONSTRUCTION_CONTRACT_V2.json` binds the seed-20261122 construction
+memberships to untouched seed 20261124. Its first scoring attempt exposed three
+boronic-acid products outside the pinned Vina atom-type domain and produced no
+bank-confirmation result. Preserve that failure and follow
+`TARGET_REWARD_CONTRACT_V3.json`, `MEASUREMENT_CONTRACT_V4.json`, and
+`BANK_CONSTRUCTION_CONTRACT_V3.json`. Rescore the exact seed-20261124 view,
+retain the seed-20261122 memberships, and require the same rank gate before
+development training. Do not redraw either view or change a selector,
+coordinate, bank size, statistic, or threshold.
 
 ## 7. Freeze the prospective decision
 

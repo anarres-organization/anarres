@@ -9,6 +9,7 @@ import hashlib
 import io
 import json
 import math
+import re
 import shutil
 import subprocess
 import sys
@@ -32,6 +33,15 @@ class OracleInfrastructureError(RuntimeError):
 
 class LigandConformerFailure(ValueError):
     """A valid molecule cannot produce a deterministic docking conformer."""
+
+
+def unsupported_autodock_atom_type(error: TypeError) -> str | None:
+    """Return an unsupported ligand atom type from Vina's exact parser error."""
+    match = re.search(
+        r"PDBQT parsing error: Atom type ([^\s]+) is not a valid AutoDock type",
+        str(error),
+    )
+    return match.group(1) if match else None
 
 
 def sha256_file(path: Path) -> str:
@@ -217,14 +227,34 @@ def docking_worker(
                 + "\n"
             )
             return
-        affinity = dock_once(
-            receptor,
-            ligand_pdbqt,
-            manifest["box_center_angstrom"],
-            manifest["box_size_angstrom"],
-            seed,
-            exhaustiveness,
-        )
+        try:
+            affinity = dock_once(
+                receptor,
+                ligand_pdbqt,
+                manifest["box_center_angstrom"],
+                manifest["box_size_angstrom"],
+                seed,
+                exhaustiveness,
+            )
+        except TypeError as error:
+            atom_type = unsupported_autodock_atom_type(error)
+            if atom_type is None:
+                raise
+            output.write_text(
+                json.dumps(
+                    {
+                        "status": "scientific_zero",
+                        "reason": "oracle_unsupported_atom_type",
+                        "atom_type": atom_type,
+                        "reward": 0.0,
+                        "elapsed_seconds": round(time.monotonic() - started, 6),
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+                + "\n"
+            )
+            return
     result = {
         "status": "ok",
         "affinity": affinity,
@@ -282,7 +312,10 @@ def run_worker(
         except json.JSONDecodeError as error:
             raise OracleInfrastructureError("docking worker produced invalid JSON") from error
         if result.get("status") == "scientific_zero":
-            if result.get("reason") != "ligand_conformer_failure":
+            if result.get("reason") not in {
+                "ligand_conformer_failure",
+                "oracle_unsupported_atom_type",
+            }:
                 raise OracleInfrastructureError("worker returned an unknown scientific zero")
             return result
         if result.get("status") != "ok" or not math.isfinite(result.get("affinity", math.nan)):
