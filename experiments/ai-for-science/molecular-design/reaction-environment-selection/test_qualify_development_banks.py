@@ -38,6 +38,11 @@ class BankConfirmationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "does not match"):
             MODULE.expected_view_seeds(measurement, bank)
 
+    def test_result_schema_tracks_bank_contract_revision(self):
+        self.assertEqual(MODULE.result_schema_version({"schema_version": "2.0"}), "2.0")
+        with self.assertRaisesRegex(ValueError, "required"):
+            MODULE.result_schema_version({})
+
 
 if __name__ == "__main__":
     unittest.main()

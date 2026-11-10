@@ -107,6 +107,13 @@ def expected_view_seeds(
     return [construction_seed, confirmation_seed]
 
 
+def result_schema_version(bank_contract: dict[str, Any]) -> str:
+    version = str(bank_contract.get("schema_version", ""))
+    if not version:
+        raise ValueError("bank contract schema version is required")
+    return version
+
+
 def qualify(
     records_by_view: list[list[dict[str, Any]]],
     contract: dict[str, Any],
@@ -145,7 +152,7 @@ def qualify(
         int(bank_contract["confirmation_rule"]["confirmation_view_seed"]),
     ]
     return {
-        "schema_version": "1.0",
+        "schema_version": result_schema_version(bank_contract),
         "study": contract["study"],
         "scope": "development-bank construction and two-view confirmation",
         "qualification": "pass" if all(checks.values()) else "fail",
