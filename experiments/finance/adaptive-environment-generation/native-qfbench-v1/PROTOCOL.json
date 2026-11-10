@@ -3,13 +3,15 @@
   "experiment_id": "native_qfbench_improvement_loop_v1",
   "source_id": "qfbench_d2fc28b",
   "agent_contract": {
-    "agent": "Harbor codex agent",
-    "model": "recorded from the resolved Harbor job configuration",
+    "agent": "Codex CLI in a clean staged workspace",
+    "model": "recorded from the Codex execution record",
     "attempts_per_task_condition": 1,
-    "network": "benchmark environment remains air-gapped",
+    "network": "the staged task workspace has no benchmark network dependency; only the host CLI reaches its inference service",
     "task_timeout": "source-native",
     "temperature": "agent-native default",
-    "candidate_delivery": "Harbor extra instruction path"
+    "candidate_delivery": "candidate resource copied into the staged workspace as SKILL.md",
+    "credential_boundary": "model credentials remain on the host and are never copied into benchmark containers",
+    "verification": "agent outputs alone are copied into the source-native Harbor verifier container"
   },
   "candidate_types": [
     {
