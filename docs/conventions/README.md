@@ -31,3 +31,4 @@ Current conventions:
 - [Robotics CUPID candidate measurement v1](robotics-cupid-candidate-measurement-v1.md)
 - [Materials residual audit v1](materials-residual-audit-v1.md)
 - [Materials MLIP candidate measurement v1](materials-mlip-candidate-measurement-v1.md)
+- [Molecular reaction-bank measurement v1](molecular-reaction-bank-v1.md)

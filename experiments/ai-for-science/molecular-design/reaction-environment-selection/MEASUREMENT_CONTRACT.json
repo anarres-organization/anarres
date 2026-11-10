@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "selected-target measurement and development-bank construction",
+  "status": "frozen_before_selected_target_measurement",
+  "selected_target": "Q07820",
+  "starting_policy_artifact_sha256": "effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a",
+  "sampling": {
+    "attempts_per_view": 4096,
+    "batch_size": 128,
+    "seeds": [
+      20261120,
+      20261121
+    ],
+    "construction_view_seed": 20261120,
+    "confirmation_view_seed": 20261121,
+    "reward_exponent_beta": 32.0,
+    "softmax_temperature": 1.0,
+    "invalid_attempts_are_not_retried": true
+  },
+  "record_identity": "SHA-256 of molecular-measurement-v1|view_seed|returned_index|canonical_smiles|canonical_trajectory_json",
+  "target_reward": "TARGET_REWARD_CONTRACT.json",
+  "operational_coordinates": [
+    "target reward",
+    "reward eligibility and oracle completion",
+    "generated molecular-action count",
+    "oracle wall time",
+    "valid and unique product fractions"
+  ],
+  "graph_coordinates": {
+    "scaffold": "achiral Bemis-Murcko scaffold SMILES, with acyclic molecules assigned an explicit sentinel",
+    "ring_system": "canonical SMILES for each connected component of rings sharing at least one atom",
+    "route": "ordered reaction-name sequence, reaction-family support, and reaction depth",
+    "molecular_graph": "heavy atoms, bonds, rings, hetero atoms, and connectivity summaries",
+    "representation": "terminal-molecule state embedding from the frozen RxnFlow GINE encoder before condition concatenation",
+    "representation_preprocessing": "center on the eligible construction view, deterministic full SVD, retain at most 32 nonzero components, divide by singular-value scale, then L2-normalize"
+  },
+  "per_view_gates": {
+    "minimum_returned_valid_fraction": 0.95,
+    "minimum_unique_canonical_smiles_fraction": 0.9,
+    "minimum_reward_eligible_fraction": 0.9,
+    "minimum_oracle_completion_fraction": 0.99,
+    "minimum_positive_reward_fraction": 0.75,
+    "minimum_reward_p90_minus_p10": 1.0,
+    "maximum_median_oracle_seconds": 30.0,
+    "maximum_p95_oracle_seconds": 120.0
+  },
+  "two_view_gates": {
+    "maximum_absolute_returned_valid_fraction_difference": 0.03,
+    "maximum_absolute_unique_fraction_difference": 0.03,
+    "maximum_absolute_reward_eligible_fraction_difference": 0.03,
+    "maximum_absolute_positive_reward_fraction_difference": 0.05,
+    "maximum_absolute_median_reward_difference": 0.25,
+    "maximum_absolute_reward_spread_difference": 0.35,
+    "maximum_absolute_mean_reaction_depth_difference": 0.1,
+    "maximum_reaction_family_js_divergence": 0.05,
+    "maximum_absolute_scaffold_singleton_fraction_difference": 0.05,
+    "minimum_graph_embedding_centroid_cosine_similarity": 0.995,
+    "maximum_relative_graph_embedding_effective_rank_difference": 0.1
+  },
+  "development_banks": {
+    "bank_size": 512,
+    "eligible_pool": "unique canonical products with successful selected-target reward and finite graph coordinates in the construction view",
+    "duplicate_rule": "retain the lowest record-identity hash for each canonical product",
+    "hash_uniform": "select the 512 lowest SHA-256 values of development-hash-v1|record_id",
+    "reward_signal": "rank by target reward descending, limit each scaffold to eight records and each exact route signature to 64 records, then fill any remainder in reward order",
+    "validity_cost": "rank eligible records by generated-action count, oracle wall time, and record hash in ascending order",
+    "scaffold_coverage": "greedily maximize new Bemis-Murcko scaffolds and ring-system signatures, then scaffold rarity, with record hash as the final tie-breaker",
+    "route_coverage": "greedily maximize reaction-family and reaction-depth coverage using inverse eligible-pool frequency, with record hash as the final tie-breaker",
+    "graph_embedding_coverage": "greedy farthest-first traversal in the frozen normalized representation, initialized by the record nearest the eligible-pool centroid and tied by record hash"
+  },
+  "confirmation": {
+    "membership_source": "construction view only",
+    "confirmation_view_role": "repeat the measurements and independently reconstruct development-bank summaries without contributing members",
+    "minimum_spearman_bank_coordinate_rank_correlation": 0.8,
+    "failure_action": "abstain before candidate freeze or version a new protocol"
+  },
+  "sealed_boundary": {
+    "development_training_started": false,
+    "development_outcomes_available": false,
+    "prospective_bank_memberships_defined": false,
+    "published_target_rankings_or_known_active_results_used": false
+  }
+}

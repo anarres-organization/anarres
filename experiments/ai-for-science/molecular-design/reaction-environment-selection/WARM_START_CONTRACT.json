@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "common QED warm start",
+  "status": "frozen_before_training",
+  "source_precedent": {
+    "rxnflow_version": "2.1.0",
+    "rxnflow_commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b",
+    "example": "examples/qed.py",
+    "configuration": "configs/qed.yaml"
+  },
+  "environment": {
+    "qualification": "SYNTHESIS_ENVIRONMENT_QUALIFICATION.json",
+    "content_sha256": "def699e5d284061daaabe58953e57df4e14fe537e2b132a1d7d1ffff706a49b3"
+  },
+  "execution": {
+    "training_updates": 1000,
+    "seed": 20261108,
+    "device": "one CUDA accelerator",
+    "retrosynthesis_workers": 4,
+    "checkpoint_every": 1000,
+    "selection_rule": "Use the completed 1,000-update checkpoint if integrity and sampling gates pass. Do not select among intermediate checkpoints using target reward."
+  },
+  "reward": {
+    "objective": "QED",
+    "beta": 32.0,
+    "property_penalty": {
+      "molecular_weight": 500.0,
+      "smoothing_ratio": 0.2
+    }
+  },
+  "generation": {
+    "max_atoms": 50,
+    "min_synthons": 2,
+    "max_synthons": 3,
+    "min_reactions": 1,
+    "max_reactions": 3,
+    "action_sampling_ratio": 0.2,
+    "minimum_sampled_actions": 50,
+    "importance_temperature": 1.0
+  },
+  "model": {
+    "state_dimension": 256,
+    "state_layers": 4,
+    "synthon_dimension": 256,
+    "synthon_layers": 2,
+    "hidden_dimension": 256,
+    "action_layers": 3
+  },
+  "optimization": {
+    "online_trajectories_per_update": 64,
+    "replay_trajectories_per_update": 64,
+    "replay_capacity": 100000,
+    "replay_insertions_per_update": "all online trajectories",
+    "replay_insert_priority": "uniform",
+    "ema_decay": 0.99,
+    "policy_learning_rate": 0.0001,
+    "log_partition_learning_rate": 0.01,
+    "learning_rate_half_life_updates": 5000,
+    "weight_decay": 1e-8,
+    "gradient_clip": 100.0,
+    "reward_floor": 1e-5,
+    "loss": "Huber",
+    "random_action_probability": 0.05,
+    "backward_synthon_penalty": 100.0
+  },
+  "transfer_boundary": {
+    "export": "policy and exponential-moving-average sampling-model weights",
+    "exclude": [
+      "QED optimizer state",
+      "QED scheduler state",
+      "QED replay state",
+      "QED random-number state"
+    ]
+  },
+  "sealed_boundary": {
+    "training_outcomes_opened": false,
+    "target_reward_used_for_checkpoint_selection": false,
+    "candidate_memberships_frozen": false
+  }
+}

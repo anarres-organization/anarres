@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "status": "frozen_before_measurement_reliability_results",
+  "source_contract": "MEASUREMENT_CONTRACT.json",
+  "bank_size": 512,
+  "development_bank_order": [
+    "hash_uniform",
+    "reward_signal",
+    "validity_cost",
+    "scaffold_coverage",
+    "route_coverage",
+    "graph_embedding_coverage"
+  ],
+  "summary_coordinates": [
+    "mean_target_reward",
+    "mean_generated_action_count",
+    "mean_oracle_seconds",
+    "unique_scaffold_fraction",
+    "unique_ring_systems_per_record",
+    "unique_route_fraction",
+    "unique_reaction_families",
+    "embedding_mean_nearest_neighbor_distance"
+  ],
+  "confirmation_rule": {
+    "construction_view_seed": 20261120,
+    "confirmation_view_seed": 20261121,
+    "membership_source": "construction view only",
+    "procedure": "Independently reconstruct the six development selectors on the confirmation view, summarize both sets of six banks, and compare the six-bank ordering for every summary coordinate.",
+    "rank_statistic": "Spearman correlation with average ranks for ties",
+    "minimum_correlation": 0.8,
+    "aggregate_gate": "Every finite nonconstant summary coordinate must pass. A coordinate that is constant in both views is recorded as stable with correlation 1.0; a coordinate constant in only one view fails.",
+    "failure_action": "abstain before freezing candidate memberships or version a new protocol"
+  },
+  "sealed_boundary": {
+    "measurement_reliability_result_available": false,
+    "development_bank_memberships_frozen": false,
+    "target_training_started": false,
+    "training_outcomes_opened": false
+  }
+}

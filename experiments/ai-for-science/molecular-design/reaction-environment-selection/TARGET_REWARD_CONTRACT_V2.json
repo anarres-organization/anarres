@@ -1,0 +1,57 @@
+{
+  "schema_version": "2.0",
+  "study": "prospective-reaction-environment-selection",
+  "status": "frozen_after_v1_large_batch_preparation_failure_before_candidate_measurement_or_training",
+  "supersedes": "TARGET_REWARD_CONTRACT.json",
+  "scope": "target-specific terminal reward for RxnFlow training and selected-target measurement",
+  "selected_target": "Q07820",
+  "formula": {
+    "docking_component": "max(-vina_affinity, 0)",
+    "drug_likeness_component": "QED",
+    "terminal_reward": "max(-vina_affinity, 0) * QED",
+    "larger_is_better": true,
+    "finite_nonnegative_required": true
+  },
+  "eligibility": {
+    "valid_rdkit_molecule": true,
+    "maximum_exact_molecular_weight": 500.0,
+    "maximum_hydrogen_bond_donors": 5,
+    "maximum_hydrogen_bond_acceptors": 10,
+    "maximum_logp": 5.0,
+    "maximum_tpsa": 140.0,
+    "maximum_rotatable_bonds": 10,
+    "ineligible_scientific_reward": 0.0
+  },
+  "docking": {
+    "implementation": "MolGenBench pinned in ORACLE_CONTRACT.json",
+    "seed": 20261108,
+    "exhaustiveness": 8,
+    "pose_count": 1,
+    "reference_ligand_defines_box": true,
+    "box_buffer_angstrom": 5.0,
+    "per_molecule_timeout_seconds": 300
+  },
+  "ligand_preparation": {
+    "first_attempt": "ETKDGv3 with the frozen docking seed",
+    "fallback_attempt": "ETKDGv3 with deterministic random coordinates and the same frozen seed",
+    "fallback_exhaustion": "scientific zero with reason ligand_conformer_failure"
+  },
+  "failure_semantics": {
+    "invalid_molecule": "scientific zero with explicit reason",
+    "eligibility_filter_failure": "scientific zero with explicit reason",
+    "molecule_specific_conformer_failure_after_fallback": "scientific zero with explicit reason",
+    "receptor_preparation_failure": "infrastructure failure",
+    "ligand_toolchain_or_output_failure": "infrastructure failure",
+    "docking_timeout": "infrastructure failure",
+    "docking_process_failure": "infrastructure failure",
+    "batch_policy": "preserve molecule-specific scientific zeroes; abort the affected batch on any infrastructure failure"
+  },
+  "revision_reason": "The first 4,096-attempt view exposed valid molecules for which deterministic conformer embedding failed. No candidate measurement, membership, or post-training outcome existed. Version 2 separates this molecule-specific pose failure from unavailable oracle infrastructure while retaining strict failure semantics for the receptor, toolchain, process, and timeout.",
+  "fixed_across_arms": true,
+  "sealed_boundary": {
+    "candidate_measurement_completed": false,
+    "candidate_memberships_frozen": false,
+    "target_training_started": false,
+    "training_outcomes_opened": false
+  }
+}

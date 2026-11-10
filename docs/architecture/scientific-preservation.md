@@ -58,6 +58,24 @@ Published post-training comparisons can support the finance research program
 without becoming pre-training coordinates for the prospective operations
 study.
 
+## Molecular design
+
+The molecular program measures fixed replay banks under one RxnFlow starting
+policy, synthesis environment, Q07820 oracle, and bank-size contract. Candidate
+profiles expose the native construction-view summaries for target reward,
+generated actions, oracle time, scaffold and ring-system coverage, route and
+reaction coverage, and distance in the frozen graph representation. The
+independent view qualifies the stability of the six-bank ordering and does not
+contribute members or get averaged into those coordinates.
+
+Molecule-specific eligibility, conformer, and pinned-oracle atom-type failures
+remain explicit scientific zeroes in the native probe and are excluded from the
+eligible bank pool. Every other parser, receptor, toolchain, docking-process,
+and timeout failure remains an infrastructure failure. Profiles link the native
+qualification records and preserve target-training outcomes as a separate
+scientific object. A compatible six-bank panel therefore establishes
+measurement conformance, not predictive or allocation evidence.
+
 ## Evolution
 
 New domain functionality normally requires a new adapter or measurement

@@ -29,7 +29,7 @@ evidence and remains specific to the study, policy, target, and budget.
 | Materials science | Real MLIP candidate profiles | MLIP candidate-bank adapter | Supervised phonon tests released; MLIP outcomes remain unopened |
 | Vulnerability exploitation | Public qualification protocol | Not yet available | No qualified environment comparison |
 | Agentic systems | Public research protocols | Not yet available | Domain experiments remain study-specific |
-| Molecular design | Public prospective protocol | Not yet available | No prospective environment outcome opened |
+| Molecular design | Real Q07820 reaction-bank profiles | RxnFlow development adapter | Independent bank confirmation failed; no target training authorized |
 | Agentic finance | Real Business Bench qualification profile | Starting-policy qualification adapter | Frozen retrospective source tests; no prospective environment outcome opened |
 
 The profile schema can transport additional namespaced coordinates without a

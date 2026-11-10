@@ -1,0 +1,17 @@
+name: anarres-molecular-oracle
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy=2.4.6
+  - openbabel=3.2.1
+  - pandas=3.1.1
+  - rdkit=2025.09.1
+  - scipy=1.17.1
+  - pip
+  - pip:
+      - joblib==1.6.0
+      - meeko==0.1.dev3
+      - pdb2pqr==3.8.0
+      - vina==1.2.7
+      - git+https://github.com/Valdes-Tresanco-MS/AutoDockTools_py3@a62a5d98116f1590183b58a9ad732b997cf2579c

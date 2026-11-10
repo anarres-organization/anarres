@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "audit_status": "non_authorizing_unsupported_ligand_atom_type",
+  "scope": "first scoring attempt for untouched bank-confirmation view 20261124",
+  "view_seed": 20261124,
+  "input_records": 4096,
+  "input_sha256": "d8add88e01907a9a199c1c2e82bc781727c72ebe79f9b6d46bd0db4e75b67d5d",
+  "failed_output_sha256": "d0c098cb45368b7b7daf9051e45cff4acbbe3c8703682de3890265c5f2816bea",
+  "reward_adapter_sha256": "b117b99434bd39dc319286ebd2794dea08abf489ca7adce2ee0be6b31c526c00",
+  "failure": {
+    "record_position": 2088,
+    "atom_type": "B",
+    "message": "PDBQT parsing error: Atom type B is not a valid AutoDock type",
+    "classification_under_v2": "infrastructure_failure"
+  },
+  "view_element_audit": {
+    "construction_view_20261122_boron_records": 0,
+    "reliability_view_20261123_boron_records": 0,
+    "bank_confirmation_view_20261124_boron_records": 3
+  },
+  "resolution": {
+    "sampled_view_redrawn": false,
+    "memberships_changed": false,
+    "selectors_or_thresholds_changed": false,
+    "new_contract": "TARGET_REWARD_CONTRACT_V3.json",
+    "rule": "Only Vina's exact unsupported-atom-type parser error becomes a molecule-specific scientific zero. Every other ligand parser, receptor, toolchain, process, and timeout failure remains an infrastructure failure."
+  },
+  "sealed_boundary": {
+    "bank_confirmation_result_existed_at_revision": false,
+    "development_training_started": false,
+    "training_outcomes_opened": false
+  }
+}

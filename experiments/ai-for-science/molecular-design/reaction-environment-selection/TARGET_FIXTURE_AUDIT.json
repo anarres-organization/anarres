@@ -1,0 +1,245 @@
+{
+  "archive_sha256": "e52ab106f35c1376fe181a7172caaf11da86c2ba21f89af9236ddadc17cdfb43",
+  "qualification": "target_fixture_structure_pass_oracle_behavior_open",
+  "schema_version": "1.0",
+  "scope": "structural integrity of the frozen target fixture triplets",
+  "sealed_boundary": {
+    "opened_fixture_files": 24,
+    "opened_member_kinds": [
+      "target receptor PDB",
+      "target pocket PDB",
+      "reference ligand SDF"
+    ],
+    "outcome_file_contents_read": false,
+    "published_model_results_read": false,
+    "reference_active_contents_read": false
+  },
+  "study": "prospective-reaction-environment-selection",
+  "target_panel_sha256": "d4024f9a65aba7a4d3027be4b67aedac7080bb3b545c1fa4378bab2d0a294fe7",
+  "targets": [
+    {
+      "files": {
+        "lig": {
+          "archive_member": "MolGenBench_Version4/P08254/P08254_lig.sdf",
+          "molecule_records": 1,
+          "sha256": "1231be4872f231097ee0203359dfc93f5f6f558331858bd8cfb6d5068774b269",
+          "size_bytes": 6522
+        },
+        "pocket10": {
+          "archive_member": "MolGenBench_Version4/P08254/P08254_pocket10.pdb",
+          "coordinate_records": 471,
+          "heteroatom_records": 0,
+          "sha256": "2f2e5057e5375ad4cbe74b7d3f480031f9f0534a6a0a9793a1762c5b223a48c7",
+          "size_bytes": 45165,
+          "unique_residue_keys": 58
+        },
+        "prep": {
+          "archive_member": "MolGenBench_Version4/P08254/P08254_prep.pdb",
+          "coordinate_records": 5294,
+          "heteroatom_records": 0,
+          "sha256": "6cd1db921d57b2c3b5058268a51a2cc9780a9a210fb737b3021abf48ea50fa51",
+          "size_bytes": 428985,
+          "unique_residue_keys": 342
+        }
+      },
+      "fixture_integrity": "pass",
+      "target_id": "P08254"
+    },
+    {
+      "files": {
+        "lig": {
+          "archive_member": "MolGenBench_Version4/O14757/O14757_lig.sdf",
+          "molecule_records": 1,
+          "sha256": "8c59e68a8f67fa88291a0d90af5696bf496731ecebcfafc607bb06381e31fa23",
+          "size_bytes": 5136
+        },
+        "pocket10": {
+          "archive_member": "MolGenBench_Version4/O14757/O14757_pocket10.pdb",
+          "coordinate_records": 495,
+          "heteroatom_records": 0,
+          "sha256": "703e0b7df28681415a861da4c885644525096643d31bdb41c23058fb32347801",
+          "size_bytes": 47135,
+          "unique_residue_keys": 63
+        },
+        "prep": {
+          "archive_member": "MolGenBench_Version4/O14757/O14757_prep.pdb",
+          "coordinate_records": 8156,
+          "heteroatom_records": 0,
+          "sha256": "2398e8826b9b15abae4e699b9f85f1c2335edad6ebfae9e3d3193b205b5a6dc1",
+          "size_bytes": 660807,
+          "unique_residue_keys": 503
+        }
+      },
+      "fixture_integrity": "pass",
+      "target_id": "O14757"
+    },
+    {
+      "files": {
+        "lig": {
+          "archive_member": "MolGenBench_Version4/Q07820/Q07820_lig.sdf",
+          "molecule_records": 1,
+          "sha256": "3c42ada78f11c5bd98ac257f711cf464ea8b2c915cebfeed06c87c4ee44f70b8",
+          "size_bytes": 7210
+        },
+        "pocket10": {
+          "archive_member": "MolGenBench_Version4/Q07820/Q07820_pocket10.pdb",
+          "coordinate_records": 583,
+          "heteroatom_records": 0,
+          "sha256": "054f2de87850c2706d2cd02af52b03f6bb90e356fac658e0eaa8001253881075",
+          "size_bytes": 55569,
+          "unique_residue_keys": 73
+        },
+        "prep": {
+          "archive_member": "MolGenBench_Version4/Q07820/Q07820_prep.pdb",
+          "coordinate_records": 9507,
+          "heteroatom_records": 0,
+          "sha256": "fddf7ca4581e1fa946a886eff3308911b0dbd8d5e82fcec2d650b345d714a1da",
+          "size_bytes": 770402,
+          "unique_residue_keys": 601
+        }
+      },
+      "fixture_integrity": "pass",
+      "target_id": "Q07820"
+    },
+    {
+      "files": {
+        "lig": {
+          "archive_member": "MolGenBench_Version4/P00533/P00533_lig.sdf",
+          "molecule_records": 1,
+          "sha256": "4a5246b340f8a1493cecd828fc032fa65d8927cdcda85f69ef49d03850eb2b31",
+          "size_bytes": 6716
+        },
+        "pocket10": {
+          "archive_member": "MolGenBench_Version4/P00533/P00533_pocket10.pdb",
+          "coordinate_records": 549,
+          "heteroatom_records": 0,
+          "sha256": "afb2133dabf6262e570737a4cc777296dcf2dacf19305082e36dc125d0a1121e",
+          "size_bytes": 52213,
+          "unique_residue_keys": 70
+        },
+        "prep": {
+          "archive_member": "MolGenBench_Version4/P00533/P00533_prep.pdb",
+          "coordinate_records": 4889,
+          "heteroatom_records": 0,
+          "sha256": "1fa8f16bbfece8053c4faa8071d5efc0a9199709177b1a29fe82c723b30981bf",
+          "size_bytes": 396098,
+          "unique_residue_keys": 303
+        }
+      },
+      "fixture_integrity": "pass",
+      "target_id": "P00533"
+    },
+    {
+      "files": {
+        "lig": {
+          "archive_member": "MolGenBench_Version4/P21554/P21554_lig.sdf",
+          "molecule_records": 1,
+          "sha256": "1a5c2788d6ba7ecc84bdbc054336ec08e0f80eee2516cd49c5eb16d5dd6dc59f",
+          "size_bytes": 5691
+        },
+        "pocket10": {
+          "archive_member": "MolGenBench_Version4/P21554/P21554_pocket10.pdb",
+          "coordinate_records": 741,
+          "heteroatom_records": 0,
+          "sha256": "806aba05520a714cf0352e77d4e3f8d2be4a479cc255deefc18f2630469e8cfb",
+          "size_bytes": 70669,
+          "unique_residue_keys": 95
+        },
+        "prep": {
+          "archive_member": "MolGenBench_Version4/P21554/P21554_prep.pdb",
+          "coordinate_records": 6863,
+          "heteroatom_records": 0,
+          "sha256": "a4e8e9cb57bf782216fc34cfccebce3e67ac1b4404009aa82e1e5cfe1fdab2c2",
+          "size_bytes": 555992,
+          "unique_residue_keys": 439
+        }
+      },
+      "fixture_integrity": "pass",
+      "target_id": "P21554"
+    },
+    {
+      "files": {
+        "lig": {
+          "archive_member": "MolGenBench_Version4/Q07343/Q07343_lig.sdf",
+          "molecule_records": 1,
+          "sha256": "c68aee4a0ad7e0e2eb87f3ea874e1f21fd528f3256f9473db2ac67d3e674e33a",
+          "size_bytes": 4948
+        },
+        "pocket10": {
+          "archive_member": "MolGenBench_Version4/Q07343/Q07343_pocket10.pdb",
+          "coordinate_records": 726,
+          "heteroatom_records": 0,
+          "sha256": "fcaa33e25d7faa3eacfb7fcd2359beaf5d12070c97c0af3c5c58afec54522df1",
+          "size_bytes": 69370,
+          "unique_residue_keys": 88
+        },
+        "prep": {
+          "archive_member": "MolGenBench_Version4/Q07343/Q07343_prep.pdb",
+          "coordinate_records": 5347,
+          "heteroatom_records": 0,
+          "sha256": "57482be36babf5c1fc3792d95673cc979fc6f4e6b9dcb26c4e934fb02448d0a3",
+          "size_bytes": 433196,
+          "unique_residue_keys": 335
+        }
+      },
+      "fixture_integrity": "pass",
+      "target_id": "Q07343"
+    },
+    {
+      "files": {
+        "lig": {
+          "archive_member": "MolGenBench_Version4/P53350/P53350_lig.sdf",
+          "molecule_records": 1,
+          "sha256": "eb6c9730820adaf7b7b33edb231af5f25ee34e3e10361d5aeba7f1b111e5d4a1",
+          "size_bytes": 11590
+        },
+        "pocket10": {
+          "archive_member": "MolGenBench_Version4/P53350/P53350_pocket10.pdb",
+          "coordinate_records": 597,
+          "heteroatom_records": 0,
+          "sha256": "f9115f48ecc2083d31e8df7854c4c44f1750395ddca696c1ea5cf9a593663b31",
+          "size_bytes": 48546,
+          "unique_residue_keys": 68
+        },
+        "prep": {
+          "archive_member": "MolGenBench_Version4/P53350/P53350_prep.pdb",
+          "coordinate_records": 3552,
+          "heteroatom_records": 0,
+          "sha256": "5f46870279bd3f023ceefab222ba14657fd9d2502c33fb1572c671cd54d3f1a8",
+          "size_bytes": 288033,
+          "unique_residue_keys": 212
+        }
+      },
+      "fixture_integrity": "pass",
+      "target_id": "P53350"
+    },
+    {
+      "files": {
+        "lig": {
+          "archive_member": "MolGenBench_Version4/P16184/P16184_lig.sdf",
+          "molecule_records": 1,
+          "sha256": "391b7d8eebaf6ee95096e7e8bff26ea1167f0fbb48e97542147efdde757d4ac9",
+          "size_bytes": 4661
+        },
+        "pocket10": {
+          "archive_member": "MolGenBench_Version4/P16184/P16184_pocket10.pdb",
+          "coordinate_records": 627,
+          "heteroatom_records": 0,
+          "sha256": "006568acd77976c2499408b27ddd1e0762aaa509b9c7369bb50f12842f6ec8c5",
+          "size_bytes": 59868,
+          "unique_residue_keys": 75
+        },
+        "prep": {
+          "archive_member": "MolGenBench_Version4/P16184/P16184_prep.pdb",
+          "coordinate_records": 3380,
+          "heteroatom_records": 0,
+          "sha256": "cb139022f4d2908e1358ff2aa7f1cafa79c333b6f68955f4332f8b9ef8d87f33",
+          "size_bytes": 273869,
+          "unique_residue_keys": 206
+        }
+      },
+      "fixture_integrity": "pass",
+      "target_id": "P16184"
+    }
+  ]
+}
