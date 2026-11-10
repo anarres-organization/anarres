@@ -342,6 +342,24 @@ maps duplicate molecules back to their original attempts, and records missing
 or molecule-specific failures without retrying them. Any timeout, receptor,
 toolchain, process, or pose-conversion failure invalidates the panel.
 
+Compute the full native endpoint record from those preserved poses:
+
+```bash
+python scripts/score_endpoint_metrics.py \
+  --docking-records /path/to/endpoint-docking/attempts.jsonl \
+  --protein /path/to/Q07820_prep.pdb \
+  --pocket /path/to/Q07820_pocket10.pdb \
+  --reference-actives /path/to/Q07820_reference_active_molecules_vina_docked.sdf \
+  --attempts 4096 \
+  --output-records /path/to/endpoint-metrics.jsonl \
+  --report /path/to/endpoint-metrics-report.json
+```
+
+This compatibility producer calls the pinned MolGenBench metric definitions
+directly. It preserves the original-molecule contract for validity, QED, SA,
+and chemistry filters, and the docked-pose contract for PoseBusters, strain,
+clashes, and interactions. The frozen thresholds remain unchanged.
+
 ## 9. Freeze the prospective decision
 
 After all development arms are complete and scored, fit the operational and
