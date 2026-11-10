@@ -11,7 +11,7 @@
   },
   "artifact": "formal_verification_public_evidence_summary_v1",
   "formal_disco": {
-    "mean_allocation_regret_pp": 0,
+    "mean_allocation_regret_pp": 0.0,
     "top_choice_correct": 2,
     "top_choice_total": 2,
     "verified_yield_advantage_pp": 6.8

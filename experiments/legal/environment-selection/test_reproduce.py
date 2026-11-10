@@ -41,7 +41,10 @@ class ProspectiveSylloGymTest(unittest.TestCase):
         self.assertIn("after training launch", chronology["sesoi_and_interpretation"])
 
     def test_summary_reproduces(self) -> None:
-        self.assertEqual(MODULE.compute(self.outcomes, self.freeze), self.expected)
+        expected = (ROOT / "results" / "summary.json").read_text()
+        self.assertEqual(
+            MODULE.canonical_json(MODULE.compute(self.outcomes, self.freeze)), expected
+        )
 
     def test_result_is_abstention(self) -> None:
         self.assertEqual(self.expected["decision"], "abstain")

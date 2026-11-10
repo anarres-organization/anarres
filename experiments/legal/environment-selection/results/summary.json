@@ -7,18 +7,32 @@
   "artifact": "prospective_syllogym_environment_selection_summary_v1",
   "contrasts": {
     "policy_response_minus_published": {
-      "deltas": [2.0, -0.888889, 0.0],
+      "deltas": [
+        2.0,
+        -0.888889,
+        0.0
+      ],
       "mean": 0.37037,
       "positive_seeds": 1,
       "sd": 1.479628,
-      "t95": [-3.305231, 4.045971]
+      "t95": [
+        -3.305231,
+        4.045971
+      ]
     },
     "policy_response_minus_uniform": {
-      "deltas": [2.222222, 0.333333, -1.222222],
+      "deltas": [
+        2.222222,
+        0.333333,
+        -1.222222
+      ],
       "mean": 0.444444,
       "positive_seeds": 2,
       "sd": 1.724908,
-      "t95": [-3.840465, 4.729354]
+      "t95": [
+        -3.840465,
+        4.729354
+      ]
     }
   },
   "decision": "abstain",

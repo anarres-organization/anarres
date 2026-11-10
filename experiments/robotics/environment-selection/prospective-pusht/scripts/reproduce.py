@@ -14,6 +14,11 @@ EXPECTED = ROOT / "results" / "summary.json"
 T_CRITICAL_DF2_95 = 4.302652729911275
 
 
+def canonical_json(value: dict[str, object]) -> str:
+    """Serialize one released artifact in its byte-stable form."""
+    return json.dumps(value, indent=2, sort_keys=True) + "\n"
+
+
 def rounded(value: float) -> float:
     """Round derived values for a stable, readable public artifact."""
     return round(value, 6)
@@ -76,10 +81,10 @@ def main() -> None:
     """Print the recomputed summary and verify the committed result."""
     data = json.loads(INPUT.read_text())
     actual = compute(data)
-    expected = json.loads(EXPECTED.read_text())
-    if actual != expected:
-        raise SystemExit("recomputed summary does not match results/summary.json")
-    print(json.dumps(actual, indent=2, sort_keys=True))
+    serialized = canonical_json(actual)
+    if serialized != EXPECTED.read_text():
+        raise SystemExit("recomputed summary does not byte-match results/summary.json")
+    print(serialized, end="")
 
 
 if __name__ == "__main__":
