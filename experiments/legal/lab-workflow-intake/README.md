@@ -14,6 +14,18 @@ The command emits a compact summary and one JSONL row per task. It validates the
 
 The intake is model agnostic. Model and checkpoint identity enter with the run artifacts, not the target representation. The output is not an environment profile and contains no policy measurement, judge verdict, or downstream outcome. It cannot support a training-utility claim by itself.
 
+Native LAB runs can then be audited without assuming a provider-specific model name:
+
+```bash
+anarres legal lab-runs \
+  --repository /path/to/anarres \
+  --results-root /path/to/harvey-labs/results \
+  --run-manifest /path/to/run-manifest.json \
+  --output-dir /path/to/run-audit
+```
+
+The optional manifest binds each native run ID to policy, intervention, checkpoint, seed, and role. The audit reports criterion pass, all-pass, practice-area support, document coverage, tool behavior, latency, and tokens. Missing metrics, incomplete runs, and missing judge scores remain infrastructure-invalid records and never become legal failures.
+
 ## Frontier legal experiment
 
 A complete experiment joins three records without collapsing them:

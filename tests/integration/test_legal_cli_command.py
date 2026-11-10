@@ -134,6 +134,49 @@ class LegalCliCommandTest(unittest.TestCase):
             self.assertFalse(intake_report["profile_input"])
             self.assertFalse(intake_report["outcomes_artifact_read"])
 
+            run_dir = directory / "lab-results/run-1"
+            run_dir.mkdir(parents=True)
+            (run_dir / "config.json").write_text(
+                json.dumps(
+                    {
+                        "run_id": "run-1",
+                        "model": "provider/model-a",
+                        "task": "litigation/draft-case-memo",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (run_dir / "metrics.json").write_text(
+                json.dumps({"finished_cleanly": True, "finish_reason": "finish_tool"}),
+                encoding="utf-8",
+            )
+            (run_dir / "scores.json").write_text(
+                json.dumps(
+                    {
+                        "judge_model": "judge-a",
+                        "n_passed": 1,
+                        "n_criteria": 1,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            run_audit = self.run_cli(
+                directory,
+                "legal",
+                "lab-runs",
+                "--repository",
+                str(ROOT),
+                "--results-root",
+                str(directory / "lab-results"),
+                "--output-dir",
+                str(directory / "run-audit"),
+                "--json",
+            )
+            self.assertEqual(run_audit.returncode, 0, run_audit.stderr)
+            run_report = json.loads(run_audit.stdout)
+            self.assertEqual(run_report["support"]["valid_scored_runs"], 1)
+            self.assertEqual(run_report["support"]["infrastructure_invalid_runs"], 0)
+
 
 if __name__ == "__main__":
     unittest.main()
