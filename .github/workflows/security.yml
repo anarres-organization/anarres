@@ -2,10 +2,6 @@ name: Security
 
 on:
   pull_request:
-    paths:
-      - "Cargo.toml"
-      - "Cargo.lock"
-      - "crates/**/Cargo.toml"
   push:
     branches: [main]
   schedule:
