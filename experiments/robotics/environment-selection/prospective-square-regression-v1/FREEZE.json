@@ -7,7 +7,12 @@
     "PROTOCOL.json": "d8d3bfb5de49ab8976c702caf37c9bdd96a1a9425c1b01987f495cb961a4ec07",
     "SOURCES.json": "556b118c6343957948127aa5476064ee301be2fdcc527751a711676837678be1",
     "STATE_BANK.json": "7d3a2da8a5e4b55dcfbb9b41dd6b3ef09e54c4bad598bfcd11aef7d7432acf57",
-    "STATE_BANK.hdf5": "428fd56c8ec99bdacc49fae3dfc001ac2be40f6ff527633e9861d8980fa37fd7"
+    "STATE_BANK.hdf5": "428fd56c8ec99bdacc49fae3dfc001ac2be40f6ff527633e9861d8980fa37fd7",
+    "scripts/aggregate_probe_measurements.py": "43199bc0344515c4eb879db9ecd001741d13fb15f4dc8fbc0be7b482120ae9df",
+    "scripts/build_state_bank.py": "608777b83f5e19443ef6d4461d2dc89a61aa90bd0eba83dcb7be67cde1a12e8d",
+    "scripts/evaluate_fixed_states.py": "7b4793a7df57d868653d1d01ad07029fb79eb736a7e63cdd21fa11c26e68122c",
+    "scripts/freeze_candidates.py": "0f9c10148cda8fd884938464cbe4fbc04af63d2486d30d51ce36f727b367e6ca",
+    "scripts/run_probe_task.sh": "e129ebd137c61c7df376d18b06afe715af901804d374e6e32f0c9bbb0c5245f0"
   },
   "next_authorized_stage": "train and evaluate the three all-data probe policies"
 }
