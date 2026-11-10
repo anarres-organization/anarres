@@ -5,7 +5,7 @@ UV_CACHE_DIR ?= .uv-cache
 export PYTHONPATH
 export UV_CACHE_DIR
 
-.PHONY: setup format lint test rust-format rust-lint rust-test schemas hygiene prose check release-smoke example clean
+.PHONY: setup format lint test rust-format rust-lint rust-test schemas hygiene prose check release-smoke adapter-smoke example clean
 
 setup:
 	uv sync --all-packages --dev
@@ -51,6 +51,9 @@ check: lint rust-format rust-lint test rust-test schemas hygiene prose
 release-smoke:
 	$(CARGO) build --release --locked -p anarres-cli
 	$(PYTHON) tools/smoke_cli_release.py --binary target/release/anarres --max-startup-ms 50
+
+adapter-smoke:
+	$(PYTHON) tools/smoke_adapter_installation.py --binary target/release/anarres
 
 example:
 	mkdir -p .anarres/example

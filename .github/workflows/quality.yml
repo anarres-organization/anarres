@@ -32,6 +32,6 @@ jobs:
       - name: Run fast checks
         run: make check
       - name: Exercise the release binary
-        run: make release-smoke
+        run: make release-smoke adapter-smoke
       - name: Check minimum Rust version
         run: cargo +1.85.1 check --workspace --locked

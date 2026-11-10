@@ -45,7 +45,7 @@ def main() -> int:
 
     version = run(binary, "--version").stdout.strip()
     run(binary, "--help")
-    for shell in ("bash", "zsh", "fish", "powershell"):
+    for shell in ("bash", "elvish", "zsh", "fish", "powershell"):
         completion = run(binary, "generate-shell-completion", shell).stdout
         if "anarres" not in completion:
             raise SystemExit(f"{shell} completion omitted the command name")

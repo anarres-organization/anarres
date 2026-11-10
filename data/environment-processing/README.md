@@ -52,7 +52,7 @@ The [design document](DESIGN.md) defines the qualification and measurement contr
 
 - `anarres.environments.qualification` classifies probe groups using explicit fixture, verifier, infrastructure, and reward-variation outcomes.
 - `anarres.environments.metrics` computes usable signal density ρ and normalized effective coverage H.
-- `anarres-env probe` converts a frozen policy-probe record into a content-addressed environment manifest.
+- `anarres measure` converts a frozen policy-probe record into a content-addressed environment manifest.
 - JSON Schemas define probe inputs and environment manifests.
 
 The next implementation layer adds source adapters, deterministic acquisition, deduplication, multi-view reliability, candidate construction, overlap audits, and independent confirmation.

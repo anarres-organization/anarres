@@ -54,6 +54,6 @@ gh attestation verify anarres-cli-aarch64-apple-darwin.tar.xz \
 ```
 
 The release is accepted only when the native archives, installers, completion
-generation, built-in fixture workflow, and startup budget pass in continuous
-integration. Platform support expands only after the corresponding target is
-built and tested there.
+generation, built-in fixture workflow, startup budget, and clean installation
+of every maintained domain adapter pass in continuous integration. Platform
+support expands only after the corresponding target is built and tested there.

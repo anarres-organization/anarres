@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 import re
 import sys
+import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,6 +55,7 @@ CONTENT_PATTERNS = {
     "Kerberos runtime configuration": re.compile(r"\bKRB5CCNAME\b"),
 }
 SELF = Path("tools/check_repo_hygiene.py")
+ADAPTER_DESCRIPTOR_QUERY = "--anarres-adapter-descriptor"
 
 
 def candidates() -> list[Path]:
@@ -85,10 +87,44 @@ def inspect(path: Path) -> list[str]:
     return problems
 
 
+def inspect_adapter_entry_points() -> list[str]:
+    """Keep the external-adapter executable namespace protocol-safe."""
+    problems: list[str] = []
+    for pyproject in ROOT.rglob("pyproject.toml"):
+        if any(part in SKIP_DIRECTORIES for part in pyproject.relative_to(ROOT).parts):
+            continue
+        project = tomllib.loads(pyproject.read_text(encoding="utf-8"))
+        scripts = project.get("project", {}).get("scripts", {})
+        for executable, entry_point in scripts.items():
+            if not executable.startswith("anarres-"):
+                continue
+            module = entry_point.partition(":")[0]
+            relative_module = Path(*module.split(".")).with_suffix(".py")
+            candidates = [
+                pyproject.parent / "src" / relative_module,
+                pyproject.parent / relative_module,
+            ]
+            implementation = next((path for path in candidates if path.is_file()), None)
+            if implementation is None:
+                problems.append(
+                    f"adapter entry point has no importable module: {executable} in "
+                    f"{pyproject.relative_to(ROOT)}"
+                )
+                continue
+            source = implementation.read_text(encoding="utf-8", errors="replace")
+            if ADAPTER_DESCRIPTOR_QUERY not in source:
+                problems.append(
+                    f"executable reserves the adapter namespace without implementing the "
+                    f"descriptor protocol: {executable} in {pyproject.relative_to(ROOT)}"
+                )
+    return problems
+
+
 def main() -> int:
     problems: list[str] = []
     for path in candidates():
         problems.extend(inspect(path))
+    problems.extend(inspect_adapter_entry_points())
 
     if problems:
         print("\n".join(problems), file=sys.stderr)

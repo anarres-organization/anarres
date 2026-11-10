@@ -48,7 +48,7 @@ fn run_with_path(arguments: &[&str], path: &Path) -> Output {
 
 #[test]
 fn shell_completions_are_generated_for_supported_shells() {
-    for shell in ["bash", "zsh", "fish", "powershell"] {
+    for shell in ["bash", "elvish", "zsh", "fish", "powershell"] {
         let output = run(&["generate-shell-completion", shell]);
         assert!(
             output.status.success(),

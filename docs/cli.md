@@ -49,9 +49,9 @@ anarres generate-shell-completion zsh > ~/.zfunc/_anarres
 anarres generate-shell-completion fish > ~/.config/fish/completions/anarres.fish
 ```
 
-PowerShell users can generate a script with
-`anarres generate-shell-completion powershell` and source it from their
-profile.
+PowerShell and Elvish users can generate scripts with
+`anarres generate-shell-completion powershell` or
+`anarres generate-shell-completion elvish` and source them from their profiles.
 
 ## Five-minute example
 
