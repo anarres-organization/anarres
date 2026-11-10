@@ -10,7 +10,9 @@ import sys
 from pathlib import Path
 
 
-def tasks(contract_path: Path, worker_index: int, worker_count: int) -> list[dict]:
+def tasks(
+    contract_path: Path, worker_index: int, worker_count: int, role: str = "development"
+) -> list[dict]:
     if worker_count <= 0 or not 0 <= worker_index < worker_count:
         raise ValueError("worker index must be in [0, worker count)")
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
@@ -20,7 +22,7 @@ def tasks(contract_path: Path, worker_index: int, worker_count: int) -> list[dic
             "seed": seed,
             "epoch": epoch,
         }
-        for candidate in contract["environments"]["development"]
+        for candidate in contract["environments"][role]
         for seed in contract["randomization"]["training_seeds"]
         for epoch in contract["environment_budget"]["checkpoints_after_passes"]
     ]
@@ -36,17 +38,18 @@ def main() -> None:
     parser.add_argument("--evaluate-script", type=Path, required=True)
     parser.add_argument("--panel-script", type=Path, required=True)
     parser.add_argument("--output-root", type=Path, required=True)
+    parser.add_argument("--role", choices=["development", "prospective"], default="development")
     parser.add_argument("--worker-index", type=int, default=0)
     parser.add_argument("--worker-count", type=int, default=1)
     args = parser.parse_args()
 
-    for task in tasks(args.contract, args.worker_index, args.worker_count):
+    for task in tasks(args.contract, args.worker_index, args.worker_count, args.role):
         candidate_id = task["candidate_id"]
         seed = task["seed"]
         epoch = task["epoch"]
         model = (
             args.training_root
-            / "development"
+            / args.role
             / candidate_id
             / f"seed_{seed}"
             / "checkpoints"
@@ -62,7 +65,7 @@ def main() -> None:
                 "--target-roles",
                 str(args.target_roles),
                 "--role",
-                "development",
+                args.role,
                 "--target-yaml-dir",
                 str(args.target_yaml_dir),
                 "--model",

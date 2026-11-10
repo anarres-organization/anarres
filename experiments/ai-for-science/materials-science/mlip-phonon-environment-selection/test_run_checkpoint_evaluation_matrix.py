@@ -26,3 +26,23 @@ def test_worker_shards_cover_checkpoint_matrix_once(tmp_path):
         (task["candidate_id"], task["seed"], task["epoch"]) for shard in shards for task in shard
     }
     assert len(observed) == 8
+
+
+def test_prospective_role_uses_only_prospective_environments(tmp_path):
+    contract = tmp_path / "contract.json"
+    contract.write_text(
+        json.dumps(
+            {
+                "environments": {
+                    "development": [{"candidate_id": "development"}],
+                    "prospective": [{"candidate_id": "heldout"}],
+                },
+                "randomization": {"training_seeds": [0, 1]},
+                "environment_budget": {"checkpoints_after_passes": [1, 2]},
+            }
+        ),
+        encoding="utf-8",
+    )
+    tasks = MODULE.tasks(contract, 0, 1, "prospective")
+    assert {task["candidate_id"] for task in tasks} == {"heldout"}
+    assert len(tasks) == 4
