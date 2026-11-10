@@ -49,6 +49,32 @@ class LegalCliCommandTest(unittest.TestCase):
             check=False,
         )
 
+    def make_lab(self, root: Path) -> Path:
+        task = root / "tasks/litigation/draft-case-memo"
+        (task / "documents").mkdir(parents=True)
+        (task / "documents/record.txt").write_text("fixture", encoding="utf-8")
+        (task / "task.json").write_text(
+            json.dumps(
+                {
+                    "title": "Draft a case memo",
+                    "work_type": "draft",
+                    "tags": ["litigation"],
+                    "instructions": "Review the record and draft the memo.",
+                    "deliverables": {"memo.docx": "memo.docx"},
+                    "criteria": [
+                        {
+                            "id": "C-001",
+                            "title": "Grounds the conclusion",
+                            "match_criteria": "PASS if the conclusion is grounded in the record.",
+                            "deliverables": ["memo.docx"],
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        return root
+
     def test_doctor_and_direct_command_work_outside_checkout(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
@@ -86,6 +112,159 @@ class LegalCliCommandTest(unittest.TestCase):
             self.assertEqual(regression_report["status"], "released_reproduced")
             self.assertFalse(regression_report["profile_input"])
             self.assertEqual(regression_report["support"]["severe_regressions"], 27)
+
+            lab_root = self.make_lab(directory / "harvey-lab")
+            intake = self.run_cli(
+                directory,
+                "legal",
+                "lab-intake",
+                "--repository",
+                str(ROOT),
+                "--lab-root",
+                str(lab_root),
+                "--source-revision",
+                "fixture-revision",
+                "--output-dir",
+                str(directory / "intake"),
+                "--json",
+            )
+            self.assertEqual(intake.returncode, 0, intake.stderr)
+            intake_report = json.loads(intake.stdout)
+            self.assertEqual(intake_report["task_count"], 1)
+            self.assertFalse(intake_report["profile_input"])
+            self.assertFalse(intake_report["outcomes_artifact_read"])
+            first_summary = json.loads(
+                (directory / "intake/lab-workflow-summary.json").read_text(encoding="utf-8")
+            )
+            first_digest = first_summary["source"]["task_set_sha256"]
+            (lab_root / "tasks/litigation/draft-case-memo/documents/record.txt").write_text(
+                "changed fixture",
+                encoding="utf-8",
+            )
+            second_intake = self.run_cli(
+                directory,
+                "legal",
+                "lab-intake",
+                "--repository",
+                str(ROOT),
+                "--lab-root",
+                str(lab_root),
+                "--source-revision",
+                "fixture-revision",
+                "--output-dir",
+                str(directory / "intake-2"),
+                "--json",
+            )
+            self.assertEqual(second_intake.returncode, 0, second_intake.stderr)
+            second_summary = json.loads(
+                (directory / "intake-2/lab-workflow-summary.json").read_text(encoding="utf-8")
+            )
+            self.assertNotEqual(first_digest, second_summary["source"]["task_set_sha256"])
+
+            run_dir = directory / "lab-results/run-1"
+            run_dir.mkdir(parents=True)
+            (run_dir / "config.json").write_text(
+                json.dumps(
+                    {
+                        "run_id": "run-1",
+                        "model": "provider/model-a",
+                        "task": "litigation/draft-case-memo",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (run_dir / "metrics.json").write_text(
+                json.dumps({"finished_cleanly": True, "finish_reason": "finish_tool"}),
+                encoding="utf-8",
+            )
+            (run_dir / "scores.json").write_text(
+                json.dumps(
+                    {
+                        "judge_model": "judge-a",
+                        "n_passed": 1,
+                        "n_criteria": 1,
+                    }
+                ),
+                encoding="utf-8",
+            )
+            unfinished_dir = directory / "lab-results/run-2"
+            unfinished_dir.mkdir(parents=True)
+            (unfinished_dir / "config.json").write_text(
+                json.dumps(
+                    {
+                        "run_id": "run-2",
+                        "model": "provider/model-a",
+                        "task": "litigation/draft-case-memo",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (unfinished_dir / "metrics.json").write_text(
+                json.dumps({"finish_reason": "finish_tool"}),
+                encoding="utf-8",
+            )
+            (unfinished_dir / "scores.json").write_text(
+                json.dumps({"judge_model": "judge-a", "n_passed": 1, "n_criteria": 1}),
+                encoding="utf-8",
+            )
+            malformed_score_dir = directory / "lab-results/run-3"
+            malformed_score_dir.mkdir(parents=True)
+            (malformed_score_dir / "config.json").write_text(
+                json.dumps(
+                    {
+                        "run_id": "run-3",
+                        "model": "provider/model-a",
+                        "task": "litigation/draft-case-memo",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (malformed_score_dir / "metrics.json").write_text(
+                json.dumps({"finished_cleanly": True, "finish_reason": "finish_tool"}),
+                encoding="utf-8",
+            )
+            (malformed_score_dir / "scores_dual.json").write_text(
+                json.dumps(
+                    {
+                        "judges": ["judge-a", "judge-a"],
+                        "dual_criterion_pass": 1.0,
+                        "dual_all_pass_rate": 1.0,
+                        "all_pass": "false",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            run_audit = self.run_cli(
+                directory,
+                "legal",
+                "lab-runs",
+                "--repository",
+                str(ROOT),
+                "--results-root",
+                str(directory / "lab-results"),
+                "--output-dir",
+                str(directory / "run-audit"),
+                "--json",
+            )
+            self.assertEqual(run_audit.returncode, 0, run_audit.stderr)
+            run_report = json.loads(run_audit.stdout)
+            self.assertEqual(run_report["support"]["valid_scored_runs"], 1)
+            self.assertEqual(run_report["support"]["infrastructure_invalid_runs"], 2)
+            rows = [
+                json.loads(line)
+                for line in (directory / "run-audit/lab-run-audit-rows.jsonl")
+                .read_text(encoding="utf-8")
+                .splitlines()
+            ]
+            by_id = {row["run_id"]: row for row in rows}
+            self.assertIn(
+                "run_not_finished_cleanly",
+                by_id["run-2"]["infrastructure_invalid_reasons"],
+            )
+            self.assertIn(
+                "invalid_judge_score",
+                by_id["run-3"]["infrastructure_invalid_reasons"],
+            )
 
 
 if __name__ == "__main__":
