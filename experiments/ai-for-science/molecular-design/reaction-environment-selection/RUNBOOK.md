@@ -332,6 +332,7 @@ python scripts/dock_endpoint_panel.py panel \
   --prepared-target /path/to/prepared_Q07820 \
   --attempts 4096 \
   --sample-seed 20261126 \
+  --contract q07820-starting-policy-endpoint-qualification-v2 \
   --output-dir /path/to/endpoint-docking \
   --output-records /path/to/endpoint-docking/attempts.jsonl \
   --report /path/to/endpoint-docking/report.json
@@ -340,7 +341,14 @@ python scripts/dock_endpoint_panel.py panel \
 The producer docks each unique canonical molecule once under the frozen seed,
 maps duplicate molecules back to their original attempts, and records missing
 or molecule-specific failures without retrying them. Any timeout, receptor,
-toolchain, process, or pose-conversion failure invalidates the panel.
+toolchain, process, or unclassified conversion failure invalidates the panel.
+
+The preserved v1 endpoint execution exposed one narrower case: 11 molecules
+completed Vina docking but produced invalid-valence poses that RDKit could not
+represent as valid 3D molecules. The frozen v2 contract classifies only that
+exact condition as a scientific zero. It reruns the complete unchanged sample;
+all broader Open Babel, receptor, Vina, process, timeout, and toolchain failures
+remain infrastructure failures.
 
 Compute the full native endpoint record from those preserved poses:
 
@@ -352,6 +360,7 @@ python scripts/score_endpoint_metrics.py \
   --reference-actives /path/to/Q07820_reference_active_molecules_vina_docked.sdf \
   --reference-interaction-scores /path/to/Q07820_reference_active_molecules_vina_docked_interaction_scores.csv \
   --attempts 4096 \
+  --contract q07820-starting-policy-endpoint-qualification-v2 \
   --output-records /path/to/endpoint-metrics.jsonl \
   --report /path/to/endpoint-metrics-report.json
 ```

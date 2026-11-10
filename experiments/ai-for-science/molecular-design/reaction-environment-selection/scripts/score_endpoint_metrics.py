@@ -291,6 +291,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--reference-actives", type=Path, required=True)
     parser.add_argument("--reference-interaction-scores", type=Path, required=True)
     parser.add_argument("--attempts", type=int, required=True)
+    parser.add_argument(
+        "--contract",
+        default="q07820-starting-policy-endpoint-qualification-v1",
+    )
     parser.add_argument("--jobs", type=int, default=8)
     parser.add_argument("--interaction-jobs", type=int, default=8)
     parser.add_argument("--interaction-batch-size", type=int, default=128)
@@ -363,7 +367,7 @@ def main() -> int:
     }
     report = {
         "schema_version": "1.0",
-        "contract": "q07820-starting-policy-endpoint-qualification-v1",
+        "contract": args.contract,
         "status": "complete",
         "attempts": len(rows),
         "unique_docked_molecules": len(tasks),

@@ -58,6 +58,14 @@ def test_gate_fails_concentrated_support() -> None:
     assert result["checks"]["maximum_single_molecule_fraction"] is False
 
 
+def test_gate_accepts_the_revised_execution_contract() -> None:
+    revised = contract()
+    revised["contract"] = "q07820-starting-policy-endpoint-qualification-v2"
+    result = MODULE.apply_gate(score(["A", "A", "B", "B"]), revised)
+    assert result["contract"] == revised["contract"]
+    assert result["status"] == "passed"
+
+
 def test_validates_hash_linked_evidence_chain(tmp_path: Path) -> None:
     sample = tmp_path / "sample.jsonl"
     sample.write_text(json.dumps({"smiles": "CCO"}) + "\n")

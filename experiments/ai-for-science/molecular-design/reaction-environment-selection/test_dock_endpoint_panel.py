@@ -43,3 +43,32 @@ def test_marks_infrastructure_failure(monkeypatch) -> None:
         {"CCO": {"status": "infrastructure_failure", "reason": "timeout"}},
     )
     assert records[0]["infrastructure_status"] == "failure"
+
+
+def test_panel_accepts_an_explicit_contract(monkeypatch) -> None:
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            str(SCRIPT),
+            "panel",
+            "--samples",
+            "samples.jsonl",
+            "--prepared-target",
+            "target",
+            "--attempts",
+            "1",
+            "--sample-seed",
+            "7",
+            "--contract",
+            "q07820-starting-policy-endpoint-qualification-v2",
+            "--output-dir",
+            "output",
+            "--output-records",
+            "records.jsonl",
+            "--report",
+            "report.json",
+        ],
+    )
+    args = MODULE.build_parser().parse_args()
+    assert args.contract == "q07820-starting-policy-endpoint-qualification-v2"

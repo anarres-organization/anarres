@@ -23,6 +23,10 @@ from target_reward_adapter import (
 )
 
 
+class InvalidDockedPose(ValueError):
+    """A molecule-specific Vina pose cannot form a valid 3D RDKit molecule."""
+
+
 def canonical_smiles(smiles: str) -> str | None:
     from rdkit import Chem
 
@@ -48,7 +52,7 @@ def pdbqt_pose_to_molecule(pose: str) -> Any:
         raise OracleInfrastructureError("Open Babel cannot read the docked PDBQT pose")
     converted = Chem.MolFromPDBBlock(conversion.WriteString(molecule), removeHs=False)
     if converted is None or converted.GetNumConformers() != 1:
-        raise OracleInfrastructureError("docked pose conversion produced no 3D molecule")
+        raise InvalidDockedPose("docked pose conversion produced no valid 3D molecule")
     return converted
 
 
@@ -98,7 +102,13 @@ def dock_one(
         affinity = float(vina.energies(n_poses=1)[0][0])
         if not math.isfinite(affinity):
             raise OracleInfrastructureError("Vina returned a non-finite affinity")
-        pose = pdbqt_pose_to_molecule(vina.poses(n_poses=1))
+        try:
+            pose = pdbqt_pose_to_molecule(vina.poses(n_poses=1))
+        except InvalidDockedPose:
+            return {
+                "status": "scientific_zero",
+                "reason": "invalid_docked_pose",
+            }
         pose.SetProp("_Name", molecule_key(smiles))
         pose.SetProp("canonical_smiles", smiles)
         pose.SetDoubleProp("vina_dock", affinity)
@@ -275,7 +285,7 @@ def run_panel(args: argparse.Namespace) -> int:
     infrastructure_failures = sum(item["infrastructure_status"] != "ok" for item in attempts)
     report = {
         "schema_version": "1.0",
-        "contract": "q07820-starting-policy-endpoint-qualification-v1",
+        "contract": args.contract,
         "status": "complete" if infrastructure_failures == 0 else "invalid",
         "sample_seed": args.sample_seed,
         "attempts": args.attempts,
@@ -315,6 +325,10 @@ def build_parser() -> argparse.ArgumentParser:
     panel.add_argument("--prepared-target", type=Path, required=True)
     panel.add_argument("--attempts", type=int, required=True)
     panel.add_argument("--sample-seed", type=int, required=True)
+    panel.add_argument(
+        "--contract",
+        default="q07820-starting-policy-endpoint-qualification-v1",
+    )
     panel.add_argument("--seed", type=int, default=20261108)
     panel.add_argument("--exhaustiveness", type=int, default=8)
     panel.add_argument("--timeout-seconds", type=float, default=300.0)

@@ -20,7 +20,10 @@ def sha256_file(path: Path) -> str:
 
 
 def apply_gate(score: dict[str, Any], contract: dict[str, Any]) -> dict[str, Any]:
-    if contract.get("contract") != "q07820-starting-policy-endpoint-qualification-v1":
+    if contract.get("contract") not in {
+        "q07820-starting-policy-endpoint-qualification-v1",
+        "q07820-starting-policy-endpoint-qualification-v2",
+    }:
         raise ValueError("unexpected starting-policy endpoint contract")
     if score.get("contract") != contract["qualifying_hit_contract"]:
         raise ValueError("qualifying-hit score uses the wrong endpoint contract")

@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "contract": "q07820-starting-policy-endpoint-qualification-v2",
+  "status": "frozen_after_invalid_v1_execution_before_v2_endpoint_scoring",
+  "purpose": "Repeat the unchanged starting-policy endpoint qualification after separating a deterministic invalid docked pose from infrastructure failure.",
+  "target_id": "Q07820",
+  "predecessor": {
+    "contract": "STARTING_POLICY_ENDPOINT_QUALIFICATION_CONTRACT_V1.json",
+    "contract_sha256": "3652bf2ee97c3a126b6023cdbecd210e18423e748f37084472eb7629a8202da3",
+    "execution_audit": "STARTING_POLICY_ENDPOINT_EXECUTION_AUDIT_V1.json",
+    "invalid_execution_report_sha256": "7442cab20691b957599b26fa9a591f2e28487ccd260a7ccd4e0d1cbd39271451"
+  },
+  "qualifying_hit_contract": "q07820-qualifying-hit-v1",
+  "inputs": {
+    "starting_policy_sha256": "effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a",
+    "synthesis_environment_content_sha256": "def699e5d284061daaabe58953e57df4e14fe537e2b132a1d7d1ffff706a49b3",
+    "endpoint_contract_sha256": "f904ae4b2eb1788958312ed920f02f88362eccb5822e3905a0eeeeaee30a9414",
+    "endpoint_thresholds_sha256": "96ff6d59166cb5b2ff3c3dfe8765dc738f02aa081393a5b3fd6a11ea36b17e82",
+    "starting_policy_sample_sha256": "00e07d8ad6897185f97dd4cc22da73d7e537db3d05ffc05e763b86cca63018d2"
+  },
+  "sample": {
+    "independent_seed": 20261126,
+    "attempts": 4096,
+    "batch_size": 128,
+    "sample_is_reused_byte_for_byte": true,
+    "resampling_or_replacement": "forbidden"
+  },
+  "endpoint_execution": {
+    "attempt_denominator": 4096,
+    "duplicate_molecule": "retained as an attempt but docked once and counted once in the unique qualifying-hit numerator",
+    "ligand_conformer_failure": "scientific zero",
+    "unsupported_autodock_atom_type": "scientific zero",
+    "invalid_docked_pose": "scientific zero only when Vina completed and the resulting pose cannot form a valid three-dimensional RDKit molecule",
+    "infrastructure_failure": "receptor, Open Babel input, Vina process, non-finite affinity, timeout, toolchain, or any other unclassified failure invalidates the panel",
+    "missing_gate_value": "does not qualify",
+    "retry_scope": "The complete 4096-attempt panel is rerun under the revised producer. No failed molecule is selectively promoted."
+  },
+  "revision_reason": "The preserved v1 execution produced 11 unique worker failures affecting 14 attempts. Independent exact reruns reproduced one failure class for all 11 molecules: Vina completed, but RDKit rejected the converted docked pose for invalid valence. No qualifying-hit gate or target-training outcome was opened. Version 2 treats this exact molecule-specific invalid pose as a scientific zero while leaving every broader infrastructure failure fatal.",
+  "pass_gate": {
+    "required_infrastructure_failures": 0,
+    "minimum_qualifying_attempts": 16,
+    "minimum_unique_qualifying_molecules": 8,
+    "maximum_fraction_of_qualifying_attempts_from_one_canonical_molecule": 0.25,
+    "pass_action": "Freeze 4096 generated attempts per policy, seed, and evaluation checkpoint in the matched training and evaluation contract.",
+    "failure_action": "Preserve the result and stop before matched target training."
+  },
+  "sealed_boundary": {
+    "starting_policy_endpoint_sample_drawn": true,
+    "v1_invalid_execution_preserved": true,
+    "v2_starting_policy_endpoint_result_exists": false,
+    "matched_training_contract_frozen": false,
+    "development_training_started": false,
+    "development_or_prospective_training_outcomes_opened": false
+  }
+}
