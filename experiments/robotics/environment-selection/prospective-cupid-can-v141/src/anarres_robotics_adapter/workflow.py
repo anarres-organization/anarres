@@ -43,6 +43,11 @@ def object_sha256(value: dict[str, Any]) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def argv_sha256(argv: list[str]) -> str:
+    payload = json.dumps(argv, separators=(",", ":")).encode()
+    return hashlib.sha256(payload).hexdigest()
+
+
 def demo_number(name: str) -> int:
     prefix, separator, suffix = name.rpartition("_")
     if prefix != "demo" or separator != "_" or not suffix.isdigit():
@@ -106,6 +111,7 @@ def prepare_dataset(source: Path, output: Path, candidates_path: Path) -> dict[s
     except Exception:
         output.unlink(missing_ok=True)
         raise
+    output.chmod(0o444)
     return {
         "status": "prepared",
         "dataset": str(output),
@@ -297,6 +303,8 @@ def write_bundle(
         )
     output.mkdir(parents=True)
     records = task_records(plan, dataset.resolve(), curaeval.resolve(), output.resolve(), python)
+    normalized_plan = output / "PLAN.json"
+    normalized_plan.write_text(json.dumps(plan, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     manifest = output / "tasks.jsonl"
     manifest.write_text(
         "".join(json.dumps(record, sort_keys=True) + "\n" for record in records),
@@ -304,25 +312,6 @@ def write_bundle(
     )
     (output / "RUNTIME.json").write_text(
         json.dumps(runtime, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
-    provenance = {
-        "schema_version": "anarres.robotics-execution-bundle.v1",
-        "plan_digest": plan["plan_digest"],
-        "backend": backend,
-        "task_count": len(records),
-        "dataset_sha256": f"sha256:{file_sha256(dataset)}",
-        "candidate_freeze_sha256": f"sha256:{file_sha256(candidates_path)}",
-        "curaeval_revision": CURAEVAL_REVISION,
-        "frozen_point_prediction": plan["scientific_boundary"]["frozen_point_prediction"],
-        "expected_evaluation_episodes": plan["totals"]["evaluation_episodes"],
-        "python_executable": python,
-        "accelerator_name": accelerator_name.strip(),
-        "runtime_sha256": f"sha256:{file_sha256(output / 'RUNTIME.json')}",
-        "execution_started": False,
-        "candidate_outcomes_opened": False,
-    }
-    (output / "BUNDLE.json").write_text(
-        json.dumps(provenance, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
     launcher = output / ("run-local.sh" if backend == "local" else "submit-slurm.sh")
     cli_prefix = (
@@ -356,6 +345,34 @@ sbatch --array=0-{len(records) - 1}%{max_parallel} --dependency=afterok:$TRAIN \
 """
     launcher.write_text(body, encoding="utf-8")
     launcher.chmod(0o755)
+    provenance = {
+        "schema_version": "anarres.robotics-execution-bundle.v1",
+        "plan_digest": plan["plan_digest"],
+        "backend": backend,
+        "task_count": len(records),
+        "dataset": str(dataset.resolve()),
+        "dataset_sha256": f"sha256:{file_sha256(dataset)}",
+        "curaeval": str(curaeval.resolve()),
+        "candidate_freeze_sha256": f"sha256:{file_sha256(candidates_path)}",
+        "curaeval_revision": CURAEVAL_REVISION,
+        "frozen_point_prediction": plan["scientific_boundary"]["frozen_point_prediction"],
+        "expected_evaluation_episodes": plan["totals"]["evaluation_episodes"],
+        "python_executable": python,
+        "accelerator_name": accelerator_name.strip(),
+        "runtime_sha256": f"sha256:{file_sha256(output / 'RUNTIME.json')}",
+        "bound_files": {
+            "plan": f"sha256:{file_sha256(normalized_plan)}",
+            "runtime": f"sha256:{file_sha256(output / 'RUNTIME.json')}",
+            "tasks": f"sha256:{file_sha256(manifest)}",
+            "launcher": f"sha256:{file_sha256(launcher)}",
+        },
+        "execution_started": False,
+        "candidate_outcomes_opened": False,
+    }
+    provenance["bundle_digest"] = f"sha256:{object_sha256(provenance)}"
+    (output / "BUNDLE.json").write_text(
+        json.dumps(provenance, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     return {
         "status": "bundled",
         "bundle": str(output),
@@ -367,18 +384,72 @@ sbatch --array=0-{len(records) - 1}%{max_parallel} --dependency=afterok:$TRAIN \
     }
 
 
-def load_task(bundle: Path, task_index: int) -> tuple[dict[str, Any], dict[str, Any]]:
+def validate_bundle(bundle: Path, *, check_dataset: bool = False) -> tuple[dict, dict, list[dict]]:
     provenance = json.loads((bundle / "BUNDLE.json").read_text(encoding="utf-8"))
-    lines = (bundle / "tasks.jsonl").read_text(encoding="utf-8").splitlines()
-    if task_index < 0 or task_index >= len(lines):
+    recorded_digest = provenance.get("bundle_digest")
+    unsigned = dict(provenance)
+    unsigned.pop("bundle_digest", None)
+    if recorded_digest != f"sha256:{object_sha256(unsigned)}":
+        raise WorkflowError("execution bundle digest mismatch")
+    backend = provenance.get("backend")
+    if backend not in {"local", "slurm"}:
+        raise WorkflowError("execution bundle has an invalid backend")
+    paths = {
+        "plan": bundle / "PLAN.json",
+        "runtime": bundle / "RUNTIME.json",
+        "tasks": bundle / "tasks.jsonl",
+        "launcher": bundle / ("run-local.sh" if backend == "local" else "submit-slurm.sh"),
+    }
+    for role, path in paths.items():
+        expected = provenance.get("bound_files", {}).get(role)
+        if not path.is_file() or expected != f"sha256:{file_sha256(path)}":
+            raise WorkflowError(f"bound {role} artifact differs from the execution bundle")
+    plan = json.loads(paths["plan"].read_text(encoding="utf-8"))
+    validate_plan(plan)
+    if plan["plan_digest"] != provenance.get("plan_digest"):
+        raise WorkflowError("bound plan differs from the execution bundle")
+    tasks = [json.loads(line) for line in paths["tasks"].read_text(encoding="utf-8").splitlines()]
+    if len(tasks) != provenance.get("task_count") or len(tasks) != plan["totals"]["candidate_runs"]:
+        raise WorkflowError("bound task count differs from the frozen plan")
+    if sum(task["evaluation_episodes"] for task in tasks) != plan["totals"]["evaluation_episodes"]:
+        raise WorkflowError("bound evaluation count differs from the frozen plan")
+    expected_tasks = task_records(
+        plan,
+        Path(provenance["dataset"]),
+        Path(provenance["curaeval"]),
+        bundle,
+        provenance["python_executable"],
+    )
+    if tasks != expected_tasks:
+        raise WorkflowError("bound tasks differ from the frozen plan")
+    if provenance.get("runtime_sha256") != provenance.get("bound_files", {}).get("runtime"):
+        raise WorkflowError("runtime identity differs within the execution bundle")
+    frozen_input = next(
+        (item["digest"] for item in plan["inputs"] if item["role"] == "frozen_candidates"),
+        None,
+    )
+    if provenance.get("candidate_freeze_sha256") != frozen_input:
+        raise WorkflowError("candidate identity differs within the execution bundle")
+    if check_dataset:
+        dataset = Path(provenance["dataset"])
+        if not dataset.is_file() or provenance.get("dataset_sha256") != (
+            f"sha256:{file_sha256(dataset)}"
+        ):
+            raise WorkflowError("prepared dataset differs from the execution bundle")
+    return provenance, plan, tasks
+
+
+def load_task(bundle: Path, task_index: int) -> tuple[dict[str, Any], dict[str, Any]]:
+    provenance, _, tasks = validate_bundle(bundle)
+    if task_index < 0 or task_index >= len(tasks):
         raise WorkflowError("task index is outside the execution bundle")
-    return provenance, json.loads(lines[task_index])
+    return provenance, tasks[task_index]
 
 
 def submit_bundle(bundle: Path, execute: bool) -> dict[str, Any]:
     if not execute:
         raise WorkflowError("submission requires --execute")
-    provenance = json.loads((bundle / "BUNDLE.json").read_text(encoding="utf-8"))
+    provenance, _, _ = validate_bundle(bundle, check_dataset=True)
     backend = provenance["backend"]
     launcher = bundle / ("run-local.sh" if backend == "local" else "submit-slurm.sh")
     if not launcher.is_file():
@@ -405,6 +476,22 @@ def find_checkpoint(run_root: Path) -> Path:
     if len(checkpoints) != 1:
         raise WorkflowError(f"expected one final checkpoint, found {len(checkpoints)}")
     return checkpoints[0]
+
+
+def evaluation_argv(task: dict[str, Any], checkpoint: Path) -> list[str]:
+    return [
+        task["train_argv"][0],
+        "-m",
+        "robomimic.scripts.run_trained_agent",
+        "--agent",
+        str(checkpoint),
+        "--n_rollouts",
+        str(task["evaluation_episodes"]),
+        "--horizon",
+        str(task["evaluation_horizon"]),
+        "--seed",
+        str(task["evaluation_seed"]),
+    ]
 
 
 def run_task(bundle: Path, task_index: int, stage: str, execute: bool) -> dict[str, Any]:
@@ -439,19 +526,7 @@ def run_task(bundle: Path, task_index: int, stage: str, execute: bool) -> dict[s
         checkpoint = find_checkpoint(run_root)
         if train_record.get("checkpoint_sha256") != f"sha256:{file_sha256(checkpoint)}":
             raise WorkflowError("final checkpoint differs from its training completion record")
-        argv = [
-            task["train_argv"][0],
-            "-m",
-            "robomimic.scripts.run_trained_agent",
-            "--agent",
-            str(checkpoint),
-            "--n_rollouts",
-            str(task["evaluation_episodes"]),
-            "--horizon",
-            str(task["evaluation_horizon"]),
-            "--seed",
-            str(task["evaluation_seed"]),
-        ]
+        argv = evaluation_argv(task, checkpoint)
         log_path = run_root / "evaluation.log"
         record_path = run_root / "EVALUATION_COMPLETE.json"
     else:
@@ -478,6 +553,8 @@ def run_task(bundle: Path, task_index: int, stage: str, execute: bool) -> dict[s
         "log_sha256": f"sha256:{file_sha256(log_path)}",
         "runtime_sha256": provenance["runtime_sha256"],
         "accelerator_name": provenance["accelerator_name"],
+        "task_sha256": f"sha256:{object_sha256(task)}",
+        "command_sha256": f"sha256:{argv_sha256(argv)}",
     }
     if stage == "train":
         checkpoint = find_checkpoint(run_root)
@@ -485,13 +562,13 @@ def run_task(bundle: Path, task_index: int, stage: str, execute: bool) -> dict[s
         record["checkpoint_sha256"] = f"sha256:{file_sha256(checkpoint)}"
     else:
         record["checkpoint_sha256"] = f"sha256:{file_sha256(checkpoint)}"
+        record["evaluation_episodes"] = task["evaluation_episodes"]
     record_path.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
     return {"status": "complete", **record}
 
 
 def gate_record(bundle: Path) -> dict[str, Any]:
-    provenance = json.loads((bundle / "BUNDLE.json").read_text(encoding="utf-8"))
-    tasks = [json.loads(line) for line in (bundle / "tasks.jsonl").read_text().splitlines()]
+    provenance, _, tasks = validate_bundle(bundle, check_dataset=True)
     records = []
     for task in tasks:
         run_root = Path(task["run_root"])
@@ -508,12 +585,26 @@ def gate_record(bundle: Path) -> dict[str, Any]:
                 raise WorkflowError(f"runtime identity mismatch: {path}")
             if record.get("accelerator_name") != provenance["accelerator_name"]:
                 raise WorkflowError(f"accelerator identity mismatch: {path}")
+            if record.get("task_sha256") != f"sha256:{object_sha256(task)}":
+                raise WorkflowError(f"task identity mismatch: {path}")
             log_path = run_root / ("train.log" if name.startswith("TRAIN") else "evaluation.log")
             if record.get("log_sha256") != f"sha256:{file_sha256(log_path)}":
                 raise WorkflowError(f"log identity mismatch: {path}")
             checkpoint = find_checkpoint(run_root)
             if record.get("checkpoint_sha256") != f"sha256:{file_sha256(checkpoint)}":
                 raise WorkflowError(f"checkpoint identity mismatch: {path}")
+            expected_argv = (
+                task["train_argv"]
+                if name.startswith("TRAIN")
+                else evaluation_argv(task, checkpoint)
+            )
+            if record.get("command_sha256") != f"sha256:{argv_sha256(expected_argv)}":
+                raise WorkflowError(f"command identity mismatch: {path}")
+            if (
+                name.startswith("EVALUATION")
+                and record.get("evaluation_episodes") != task["evaluation_episodes"]
+            ):
+                raise WorkflowError(f"evaluation count mismatch: {path}")
             records.append({"path": str(path), "sha256": f"sha256:{file_sha256(path)}"})
     gate = {
         "schema_version": "anarres.robotics-release-gate.v1",
@@ -563,8 +654,7 @@ def score_bundle(bundle: Path) -> dict[str, Any]:
     expected_gate = gate_record(bundle)
     if observed_gate != expected_gate:
         raise WorkflowError("release gate no longer matches the completed artifacts")
-    provenance = json.loads((bundle / "BUNDLE.json").read_text(encoding="utf-8"))
-    tasks = [json.loads(line) for line in (bundle / "tasks.jsonl").read_text().splitlines()]
+    provenance, _, tasks = validate_bundle(bundle, check_dataset=True)
     rates: dict[str, list[float]] = {}
     for task in tasks:
         rate = parse_success_rate(Path(task["run_root"]) / "evaluation.log")

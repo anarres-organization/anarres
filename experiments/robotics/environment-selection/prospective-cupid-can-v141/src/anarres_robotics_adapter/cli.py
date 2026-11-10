@@ -404,6 +404,10 @@ def command_prepare(args: argparse.Namespace) -> dict[str, Any]:
 def command_bundle(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
     validate_native(repository)
+    provided_plan = json.loads(args.plan.read_text(encoding="utf-8"))
+    expected_plan = build_workflow_plan(repository)
+    if provided_plan != expected_plan:
+        raise RoboticsCliError("workflow plan differs from the current frozen study contract")
     return workflow.write_bundle(
         plan_path=args.plan.resolve(),
         dataset=args.dataset.resolve(),

@@ -299,6 +299,11 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             launcher = (bundle / "submit-slurm.sh").read_text()
             self.assertIn("--dependency=afterok:$TRAIN", launcher)
             self.assertIn("--array=0-24%4", launcher)
+            tasks_path = bundle / "tasks.jsonl"
+            original_tasks = tasks_path.read_text()
+            tasks_path.write_text(original_tasks.replace('"seed": 1', '"seed": 999', 1))
+            with self.assertRaisesRegex(CLI.workflow.WorkflowError, "bound tasks artifact differs"):
+                CLI.workflow.validate_bundle(bundle)
 
     def test_release_gate_precedes_prospective_scoring(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -311,17 +316,42 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
                 bundle,
                 sys.executable,
             )
-            runtime_digest = "sha256:" + "a" * 64
+            plan_path = bundle / "PLAN.json"
+            runtime_path = bundle / "RUNTIME.json"
+            tasks_path = bundle / "tasks.jsonl"
+            launcher_path = bundle / "run-local.sh"
+            dataset_path = bundle / "prepared.hdf5"
+            plan_path.write_text(json.dumps(plan, indent=2, sort_keys=True) + "\n")
+            runtime_path.write_text("{}\n")
+            runtime_digest = f"sha256:{CLI.workflow.file_sha256(runtime_path)}"
+            tasks_path.write_text("".join(json.dumps(task) + "\n" for task in tasks))
+            launcher_path.write_text("#!/bin/sh\nexit 0\n")
+            dataset_path.write_bytes(b"fixture")
             provenance = {
+                "schema_version": "anarres.robotics-execution-bundle.v1",
                 "plan_digest": plan["plan_digest"],
                 "backend": "local",
+                "task_count": len(tasks),
+                "dataset": str(dataset_path),
+                "dataset_sha256": f"sha256:{CLI.workflow.file_sha256(dataset_path)}",
+                "curaeval": str(bundle / "CuraEval"),
+                "python_executable": sys.executable,
+                "candidate_freeze_sha256": next(
+                    item["digest"] for item in plan["inputs"] if item["role"] == "frozen_candidates"
+                ),
                 "runtime_sha256": runtime_digest,
                 "accelerator_name": "NVIDIA A40",
                 "frozen_point_prediction": "cupid_tier_balanced_50",
                 "expected_evaluation_episodes": 2500,
+                "bound_files": {
+                    "plan": f"sha256:{CLI.workflow.file_sha256(plan_path)}",
+                    "runtime": f"sha256:{CLI.workflow.file_sha256(runtime_path)}",
+                    "tasks": f"sha256:{CLI.workflow.file_sha256(tasks_path)}",
+                    "launcher": f"sha256:{CLI.workflow.file_sha256(launcher_path)}",
+                },
             }
+            provenance["bundle_digest"] = f"sha256:{CLI.workflow.object_sha256(provenance)}"
             (bundle / "BUNDLE.json").write_text(json.dumps(provenance))
-            (bundle / "tasks.jsonl").write_text("".join(json.dumps(task) + "\n" for task in tasks))
             candidate_rates = {
                 "all_data": 0.50,
                 "random_50": 0.45,
@@ -358,9 +388,18 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
                         "stage": stage,
                         "runtime_sha256": runtime_digest,
                         "accelerator_name": "NVIDIA A40",
+                        "task_sha256": f"sha256:{CLI.workflow.object_sha256(task)}",
                         "log_sha256": f"sha256:{CLI.workflow.file_sha256(log_path)}",
                         "checkpoint_sha256": checkpoint_digest,
                     }
+                    argv = (
+                        task["train_argv"]
+                        if stage == "train"
+                        else CLI.workflow.evaluation_argv(task, checkpoint)
+                    )
+                    record["command_sha256"] = f"sha256:{CLI.workflow.argv_sha256(argv)}"
+                    if stage == "evaluate":
+                        record["evaluation_episodes"] = task["evaluation_episodes"]
                     (run_root / record_name).write_text(json.dumps(record))
             with self.assertRaisesRegex(CLI.workflow.WorkflowError, "requires a passing"):
                 CLI.workflow.score_bundle(bundle)
