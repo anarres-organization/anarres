@@ -350,6 +350,7 @@ python scripts/score_endpoint_metrics.py \
   --protein /path/to/Q07820_prep.pdb \
   --pocket /path/to/Q07820_pocket10.pdb \
   --reference-actives /path/to/Q07820_reference_active_molecules_vina_docked.sdf \
+  --reference-interaction-scores /path/to/Q07820_reference_active_molecules_vina_docked_interaction_scores.csv \
   --attempts 4096 \
   --output-records /path/to/endpoint-metrics.jsonl \
   --report /path/to/endpoint-metrics-report.json
@@ -358,7 +359,9 @@ python scripts/score_endpoint_metrics.py \
 This compatibility producer calls the pinned MolGenBench metric definitions
 directly. It preserves the original-molecule contract for validity, QED, SA,
 and chemistry filters, and the docked-pose contract for PoseBusters, strain,
-clashes, and interactions. The frozen thresholds remain unchanged.
+clashes, and interactions. It reconstructs the native interaction-weight map
+from the pinned reference fingerprints and verifies every released reference
+score before candidate scoring. The frozen thresholds remain unchanged.
 
 ## 9. Freeze the prospective decision
 

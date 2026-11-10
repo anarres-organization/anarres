@@ -157,33 +157,38 @@ def flatten_interaction_row(row: Any) -> dict[str, bool]:
 
 
 def interaction_reference_map(
-    protein_path: Path,
-    pocket_path: Path,
-    reference_active_path: Path,
-) -> tuple[Any, dict[str, float]]:
-    from molgenbench.io.reader import read_sdf_to_records
+    reference_scores_path: Path,
+) -> tuple[Any, dict[str, float], dict[str, Any]]:
+    import pandas as pd
     from molgenbench.metrics.conformer import InteractionScoreMetric
 
     metric = InteractionScoreMetric()
-    records = read_sdf_to_records(
-        "Q07820",
-        None,
-        reference_active_path,
-        str(protein_path),
-        str(pocket_path),
-        str(reference_active_path),
-        None,
-        "reference",
-    )
-    frame = metric._compute_fp_df(records, str(protein_path))
-    if frame.empty:
-        raise RuntimeError("reference interaction fingerprint is empty")
-    flattened = frame.copy()
-    flattened.columns = [f"{residue}_{interaction}" for (_, residue, interaction) in frame.columns]
-    reference_map = metric.getInteractionMap(flattened)
+    frame = pd.read_csv(reference_scores_path)
+    if frame.empty or "InteractionScore" not in frame:
+        raise RuntimeError("reference interaction score table is empty or malformed")
+    fingerprints = frame.drop(columns=["InteractionScore"])
+    reference_map = metric.getInteractionMap(fingerprints)
     if not reference_map or not math.isclose(sum(reference_map.values()), 1.0):
         raise RuntimeError("reference interaction map is empty or unnormalized")
-    return metric, reference_map
+    reproduced = [
+        metric.getInteractionScores(row.to_dict(), reference_map)
+        for _, row in fingerprints.iterrows()
+    ]
+    maximum_error = max(
+        abs(float(expected) - observed)
+        for expected, observed in zip(frame["InteractionScore"], reproduced, strict=True)
+    )
+    if maximum_error > 1e-12:
+        raise RuntimeError("reference interaction scores do not reproduce")
+    return (
+        metric,
+        reference_map,
+        {
+            "rows": len(frame),
+            "features": len(reference_map),
+            "maximum_absolute_reproduction_error": maximum_error,
+        },
+    )
 
 
 def compute_interaction_scores(
@@ -272,6 +277,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--protein", type=Path, required=True)
     parser.add_argument("--pocket", type=Path, required=True)
     parser.add_argument("--reference-actives", type=Path, required=True)
+    parser.add_argument("--reference-interaction-scores", type=Path, required=True)
     parser.add_argument("--attempts", type=int, required=True)
     parser.add_argument("--jobs", type=int, default=8)
     parser.add_argument("--interaction-batch-size", type=int, default=128)
@@ -318,10 +324,8 @@ def main() -> int:
     if len(unique_metrics) != len(tasks):
         raise RuntimeError("pose metric results do not cover every docked molecule")
 
-    interaction_metric, reference_map = interaction_reference_map(
-        args.protein,
-        args.pocket,
-        args.reference_actives,
+    interaction_metric, reference_map, reference_validation = interaction_reference_map(
+        args.reference_interaction_scores,
     )
     interaction_scores = compute_interaction_scores(
         tasks,
@@ -354,12 +358,13 @@ def main() -> int:
         "docking_status_by_attempt": dict(
             sorted(Counter(row["docking_status"] for row in rows).items())
         ),
-        "reference_interaction_features": len(reference_map),
+        "reference_interaction_validation": reference_validation,
         "inputs": {
             "docking_records_sha256": sha256_file(args.docking_records),
             "protein_sha256": sha256_file(args.protein),
             "pocket_sha256": sha256_file(args.pocket),
             "reference_actives_sha256": sha256_file(args.reference_actives),
+            "reference_interaction_scores_sha256": sha256_file(args.reference_interaction_scores),
         },
         "output_records_sha256": sha256_file(args.output_records),
     }
