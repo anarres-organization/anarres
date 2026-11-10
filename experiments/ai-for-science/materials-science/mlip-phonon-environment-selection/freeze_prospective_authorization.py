@@ -64,6 +64,7 @@ def freeze(
         "aggregate_model": aggregate["selected_model"]["name"],
         "regression_model": regressions["selected_model"]["name"],
         "decisions": decisions,
+        "baseline_decisions": aggregate["prospective_baseline_decisions"],
         "forecast_counts": {
             "environment_curves": len(curves),
             "environment_budget_points": sum(len(item["curve"]) for item in curves),

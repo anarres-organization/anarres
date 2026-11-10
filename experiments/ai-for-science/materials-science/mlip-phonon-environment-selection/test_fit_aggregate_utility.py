@@ -54,3 +54,27 @@ def test_allocation_baselines_score_all_prespecified_rules():
         "hash_uniform",
         "random_choice_expectation",
     }
+
+
+def test_prospective_baseline_decisions_are_frozen_without_outcomes():
+    rows = [
+        {"candidate_id": "source-a__coverage", "pass": 1, "utility_thz": 0.2},
+        {"candidate_id": "source-b__target_affinity", "pass": 1, "utility_thz": 0.1},
+    ]
+    ranking = [
+        {"candidate_id": "source-a__coverage", "rank": 1},
+        {"candidate_id": "source-b__target_affinity", "rank": 2},
+        {"candidate_id": "source-a__low_signal", "rank": 3},
+    ]
+    result = MODULE.freeze_prospective_baselines(
+        rows,
+        ["source-b__target_affinity", "source-a__low_signal"],
+        [1],
+        ranking,
+    )
+    equal_weight = next(
+        row for row in result if row["name"] == "equal_weight_signal_coverage_affinity"
+    )
+    hash_uniform = next(row for row in result if row["name"] == "hash_uniform")
+    assert equal_weight["selected_candidates"] == ["source-b__target_affinity"]
+    assert hash_uniform["applicable"] is False

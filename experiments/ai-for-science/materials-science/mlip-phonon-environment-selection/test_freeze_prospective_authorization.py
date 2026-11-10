@@ -28,6 +28,13 @@ def test_authorization_binds_forecasts_without_outcomes(tmp_path):
                 "prospective_target_outcomes_used": False,
             },
             "selected_model": {"name": "joint"},
+            "prospective_baseline_decisions": [
+                {
+                    "name": "random_choice_expectation",
+                    "pass": 1,
+                    "selected_candidates": ["a", "b", "c", "d"],
+                }
+            ],
             "prospective_forecast": [
                 {
                     "candidate_id": candidate,
@@ -61,4 +68,5 @@ def test_authorization_binds_forecasts_without_outcomes(tmp_path):
         "target_regression_probabilities": 200,
     }
     assert [row["selected_candidate"] for row in result["decisions"]] == ["d"] * 4
+    assert result["baseline_decisions"][0]["name"] == "random_choice_expectation"
     assert not any(result["outcome_boundary"].values())

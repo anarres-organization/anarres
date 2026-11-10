@@ -209,6 +209,74 @@ def group_utility_mean(rows: list[dict], field_index: int, value: str, fallback:
     return float(np.mean(matches)) if matches else fallback
 
 
+def freeze_prospective_baselines(
+    rows: list[dict],
+    prospective_ids: list[str],
+    passes: list[int],
+    baseline_ranking: list[dict],
+) -> list[dict]:
+    rank_by_id = {row["candidate_id"]: row["rank"] for row in baseline_ranking}
+    records = []
+    for epoch in passes:
+        training_rows = [row for row in rows if row["pass"] == epoch]
+        global_mean = float(np.mean([row["utility_thz"] for row in training_rows]))
+        source_scores = {
+            candidate_id: group_utility_mean(
+                training_rows, 0, candidate_id.split("__", 1)[0], global_mean
+            )
+            for candidate_id in prospective_ids
+        }
+        rule_scores = {
+            candidate_id: group_utility_mean(
+                training_rows, 1, candidate_id.split("__", 1)[1], global_mean
+            )
+            for candidate_id in prospective_ids
+        }
+
+        def winners(scores: dict[str, float]) -> list[str]:
+            best = max(scores.values())
+            return sorted(candidate_id for candidate_id, score in scores.items() if score == best)
+
+        hash_uniform = sorted(
+            candidate_id
+            for candidate_id in prospective_ids
+            if candidate_id.split("__", 1)[1] == "hash_uniform"
+        )
+        records.extend(
+            [
+                {
+                    "name": "equal_weight_signal_coverage_affinity",
+                    "pass": epoch,
+                    "selected_candidates": [
+                        min(prospective_ids, key=lambda item: (rank_by_id[item], item))
+                    ],
+                },
+                {
+                    "name": "fixed_source_family_selected_on_development",
+                    "pass": epoch,
+                    "selected_candidates": winners(source_scores),
+                },
+                {
+                    "name": "fixed_selection_rule_selected_on_development",
+                    "pass": epoch,
+                    "selected_candidates": winners(rule_scores),
+                },
+                {
+                    "name": "hash_uniform",
+                    "pass": epoch,
+                    "selected_candidates": hash_uniform,
+                    "applicable": bool(hash_uniform),
+                },
+                {
+                    "name": "random_choice_expectation",
+                    "pass": epoch,
+                    "selected_candidates": prospective_ids,
+                },
+            ]
+        )
+    return records
+
+
 def cross_validate(
     rows: list[dict], candidates: dict[str, dict], features: list[str], passes: list[int]
 ) -> tuple[list[dict], dict]:
@@ -314,6 +382,8 @@ def fit(
         )
         for rank, item in enumerate(ranking, start=1):
             next(point for point in item["curve"] if point["pass"] == epoch)["rank"] = rank
+    baseline_ranking = decision["literature_derived_baseline"]["ranking"]
+    prospective_ids = sorted(item["candidate_id"] for item in prospective)
     return {
         "artifact": "anarres_mlip_aggregate_utility_fit_v1",
         "status": "selected_on_development_before_prospective_training",
@@ -333,7 +403,10 @@ def fit(
             "fit": final_model,
         },
         "prospective_forecast": prospective,
-        "baseline_ranking": decision["literature_derived_baseline"]["ranking"],
+        "baseline_ranking": baseline_ranking,
+        "prospective_baseline_decisions": freeze_prospective_baselines(
+            rows, prospective_ids, passes, baseline_ranking
+        ),
         "prospective_boundary": {
             "prospective_candidate_training_outcomes_used": False,
             "prospective_target_outcomes_used": False,

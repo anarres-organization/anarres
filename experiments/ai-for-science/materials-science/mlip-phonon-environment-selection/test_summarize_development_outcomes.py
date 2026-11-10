@@ -68,3 +68,61 @@ def test_summary_uses_seed_mean_regression_and_equal_cost_utility(tmp_path):
     assert summary["seed_mean_curves"][0]["utility_thz"] == pytest.approx(-0.1)
     assert summary["target_regressions"][0]["frequency_error_regression"] is True
     assert summary["counts"]["evaluation_records"] == 2
+
+
+def test_prospective_summary_marks_the_opened_boundary(tmp_path):
+    contract = tmp_path / "contract.json"
+    contract.write_text(
+        json.dumps(
+            {
+                "environments": {"prospective": [{"candidate_id": "heldout"}]},
+                "randomization": {"training_seeds": [0, 1]},
+                "environment_budget": {"checkpoints_after_passes": [1]},
+            }
+        ),
+        encoding="utf-8",
+    )
+    roles = tmp_path / "roles.json"
+    roles.write_text(json.dumps({"roles": {"prospective": ["mp-2"]}}), encoding="utf-8")
+    starting = tmp_path / "starting.json"
+    starting.write_text(
+        json.dumps(
+            {
+                "targets": [
+                    {
+                        "material_id": "mp-2",
+                        "role": "prospective",
+                        "frequency_mae_thz": 1.0,
+                        "reference_stable": True,
+                        "predicted_stable": True,
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    root = tmp_path / "results"
+    for seed in (0, 1):
+        output = root / "heldout" / f"seed_{seed}" / "epoch_0001" / "mp-2.json"
+        output.parent.mkdir(parents=True)
+        output.write_text(
+            json.dumps(
+                {
+                    "material_id": "mp-2",
+                    "backend": "nequix",
+                    "model_sha256": f"model-{seed}",
+                    "metrics": {
+                        "frequency_mae_thz": 0.9,
+                        "frequency_rmse_thz": 0.9,
+                        "reference_stability_margin_kelvin": 1.0,
+                        "predicted_stability_margin_kelvin": 1.0,
+                        "reference_stable": True,
+                        "predicted_stable": True,
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+    summary = MODULE.summarize_role(contract, roles, starting, root, "prospective")
+    assert all(summary["prospective_boundary"].values())
+    assert summary["counts"]["evaluation_records"] == 2

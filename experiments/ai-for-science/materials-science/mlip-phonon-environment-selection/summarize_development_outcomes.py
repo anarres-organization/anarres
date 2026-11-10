@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate and compact the frozen development checkpoint evaluation matrix."""
+"""Validate and compact a frozen checkpoint evaluation matrix."""
 
 from __future__ import annotations
 
@@ -35,21 +35,22 @@ def load_result(path: Path, material_id: str) -> dict:
     return result
 
 
-def summarize(
+def summarize_role(
     contract_path: Path,
     roles_path: Path,
     starting_targets_path: Path,
     evaluation_root: Path,
+    role: str,
 ) -> dict:
+    if role not in ("development", "prospective"):
+        raise ValueError(f"unsupported outcome role: {role}")
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
     roles = json.loads(roles_path.read_text(encoding="utf-8"))
     starting = json.loads(starting_targets_path.read_text(encoding="utf-8"))
-    development_targets = roles["roles"]["development"]
-    starting_by_id = {
-        row["material_id"]: row for row in starting["targets"] if row["role"] == "development"
-    }
-    if set(starting_by_id) != set(development_targets):
-        raise ValueError("starting checkpoint does not cover the development targets")
+    targets = roles["roles"][role]
+    starting_by_id = {row["material_id"]: row for row in starting["targets"] if row["role"] == role}
+    if set(starting_by_id) != set(targets):
+        raise ValueError(f"starting checkpoint does not cover the {role} targets")
     baseline_mean = sum(row["frequency_mae_thz"] for row in starting_by_id.values()) / len(
         starting_by_id
     )
@@ -57,14 +58,14 @@ def summarize(
     seed_rows = []
     target_final = defaultdict(dict)
     expected_files = set()
-    for candidate in contract["environments"]["development"]:
+    for candidate in contract["environments"][role]:
         candidate_id = candidate["candidate_id"]
         for seed in contract["randomization"]["training_seeds"]:
             for epoch in contract["environment_budget"]["checkpoints_after_passes"]:
                 errors = []
                 correct_stability = 0
                 model_digests = set()
-                for material_id in development_targets:
+                for material_id in targets:
                     path = (
                         evaluation_root
                         / candidate_id
@@ -98,7 +99,7 @@ def summarize(
                         "model_sha256": model_digests.pop(),
                         "mean_frequency_mae_thz": mean_error,
                         "utility_thz": baseline_mean - mean_error,
-                        "stability_accuracy": correct_stability / len(development_targets),
+                        "stability_accuracy": correct_stability / len(targets),
                     }
                 )
 
@@ -150,18 +151,18 @@ def summarize(
         )
 
     return {
-        "artifact": "anarres_mlip_development_outcomes_v1",
-        "status": "complete_development_only",
+        "artifact": f"anarres_mlip_{role}_outcomes_v1",
+        "status": f"complete_{role}_only",
         "inputs": {
             "final_training_contract_sha256": sha256(contract_path),
             "target_roles_sha256": sha256(roles_path),
             "starting_checkpoint_targets_sha256": sha256(starting_targets_path),
         },
         "counts": {
-            "environments": len(contract["environments"]["development"]),
+            "environments": len(contract["environments"][role]),
             "training_seeds": len(contract["randomization"]["training_seeds"]),
             "checkpoints": len(contract["environment_budget"]["checkpoints_after_passes"]),
-            "targets": len(development_targets),
+            "targets": len(targets),
             "evaluation_records": len(expected_files),
         },
         "baseline_mean_frequency_mae_thz": baseline_mean,
@@ -169,10 +170,25 @@ def summarize(
         "seed_mean_curves": mean_rows,
         "target_regressions": target_rows,
         "prospective_boundary": {
-            "prospective_candidate_training_outcomes_used": False,
-            "prospective_target_outcomes_used": False,
+            "prospective_candidate_training_outcomes_used": role == "prospective",
+            "prospective_target_outcomes_used": role == "prospective",
         },
     }
+
+
+def summarize(
+    contract_path: Path,
+    roles_path: Path,
+    starting_targets_path: Path,
+    evaluation_root: Path,
+) -> dict:
+    return summarize_role(
+        contract_path,
+        roles_path,
+        starting_targets_path,
+        evaluation_root,
+        "development",
+    )
 
 
 def main() -> None:
@@ -181,13 +197,15 @@ def main() -> None:
     parser.add_argument("--target-roles", type=Path, required=True)
     parser.add_argument("--starting-targets", type=Path, required=True)
     parser.add_argument("--evaluation-root", type=Path, required=True)
+    parser.add_argument("--role", choices=["development", "prospective"], default="development")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    result = summarize(
+    result = summarize_role(
         args.contract,
         args.target_roles,
         args.starting_targets,
         args.evaluation_root,
+        args.role,
     )
     args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
 
