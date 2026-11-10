@@ -115,6 +115,45 @@ def vericoding_score(data: dict[str, object]) -> dict[str, object]:
     }
 
 
+def policy_support_score(data: dict[str, object]) -> dict[str, object]:
+    """Preserve contract-specific policy leaders without pooling scores."""
+    leanlean = data["sources"]["leanlean"]
+    leanlean_policies = leanlean["reported_policies"]
+    vero = data["sources"]["vero"]
+    vero_policies = vero["reported_policies"]
+    forall = data["sources"]["forall_verisoftbench"]
+    boundary = forall["same_policy_boundary_evidence"]
+
+    if boundary["tasks_solved_after_sample_one"] != len(boundary["boundary_tasks"]):
+        raise ValueError("Forall same-policy boundary-task count is inconsistent")
+    if any(task["solved_on_sample"] <= 1 for task in boundary["boundary_tasks"]):
+        raise ValueError("Forall boundary task lacks an earlier unsuccessful sample")
+
+    compression_leader = max(leanlean_policies, key=lambda row: row["mean_compression_percent"])
+    cost_leader = min(leanlean_policies, key=lambda row: row["mean_cost_usd"])
+    vero_code_leader = max(vero_policies, key=lambda row: row["code_and_proof_full_solves"])
+    vero_proof_leader = max(vero_policies, key=lambda row: row["proof_only_full_solves"])
+
+    return {
+        "leanlean_policies": len(leanlean_policies),
+        "leanlean_repositories": leanlean_policies[0]["repositories"],
+        "leanlean_compression_leader": compression_leader["policy"],
+        "leanlean_cost_leader": cost_leader["policy"],
+        "vero_policies": len(vero_policies),
+        "vero_repositories": vero_policies[0]["repositories"],
+        "vero_code_and_proof_leader": vero_code_leader["policy"],
+        "vero_proof_only_leader": vero_proof_leader["policy"],
+        "forall_configurations": forall["configurations"],
+        "forall_subset_tasks": forall["subset_tasks"],
+        "forall_same_policy_boundary_configuration": boundary["configuration"],
+        "forall_same_policy_boundary_tasks": boundary["tasks_solved_after_sample_one"],
+        "forall_same_policy_boundary_repositories": len(
+            {task["repository"] for task in boundary["boundary_tasks"]}
+        ),
+        "uniform_policy_leader_across_contracts": False,
+    }
+
+
 def compute() -> dict[str, object]:
     """Compute the released cross-source summary."""
     anthropic = load("anthropic-oss-fuzz.json")
@@ -133,6 +172,7 @@ def compute() -> dict[str, object]:
             ],
         },
         "formal_disco": formal_disco_score(load("formal-disco.json")),
+        "policy_support": policy_support_score(load("policy-support.json")),
         "reform": reform_score(load("reform.json")),
         "vericoding": vericoding_score(load("vericoding.json")),
         "verusyn": verusyn_score(load("verusyn.json")),

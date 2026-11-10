@@ -37,6 +37,7 @@ class VeroProfileAdapterTest(unittest.TestCase):
         self.assertEqual(descriptor["name"], "formal")
         self.assertEqual(descriptor["executable"], "anarres-formal")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
+        self.assertIn("qualification-report", descriptor["capabilities"])
         self.assertEqual(
             descriptor["measurement_contracts"],
             [
@@ -76,6 +77,7 @@ class VeroProfileAdapterTest(unittest.TestCase):
             self.assertFalse(report["support_gate_passed"])
             self.assertFalse(report["profile_ready"])
             self.assertFalse(report["downstream_training_authorized"])
+            self.assertTrue(report["qualification_report_available"])
             self.assertEqual(report["infrastructure_valid_attempts"], 32)
             self.assertEqual(report["infrastructure_errors"], 0)
             for measured in report["mode_measurements"].values():
@@ -112,6 +114,26 @@ class VeroProfileAdapterTest(unittest.TestCase):
             verification = json.loads(verified.stdout)
             self.assertEqual(verification["status"], "pass")
             self.assertFalse(verification["profiles_ready"])
+            self.assertTrue(verification["qualification_support_passed"])
+            self.assertFalse(verification["repeated_measurement_authorized"])
+
+            qualification = self.run_adapter(
+                ["qualification", "--repository", str(ROOT), "--json"], outside
+            )
+            self.assertEqual(qualification.returncode, 0, qualification.stderr)
+            qualification_report = json.loads(qualification.stdout)
+            self.assertEqual(qualification_report["status"], "released_reproduced")
+            self.assertFalse(qualification_report["profile_input"])
+            self.assertEqual(qualification_report["strict_support"]["passed_specifications"], 9)
+            self.assertTrue(qualification_report["strict_support"]["support_threshold_passed"])
+            self.assertFalse(qualification_report["containment"]["task_only_boundary_passed"])
+            self.assertFalse(qualification_report["decision"]["repeated_measurement_authorized"])
+            self.assertFalse(qualification_report["decision"]["candidate_ranking_authorized"])
+            self.assertFalse(qualification_report["decision"]["downstream_training_authorized"])
+            self.assertEqual(
+                set(qualification_report["artifacts"]),
+                {"execution", "infrastructure_retry", "protocol", "result"},
+            )
 
     def export(self, output: Path) -> list[Path]:
         return MODULE.export_profiles(
@@ -322,6 +344,26 @@ class FormalCliCommandTest(unittest.TestCase):
             report = json.loads(status.stdout)
             self.assertFalse(report["support_gate_passed"])
             self.assertFalse(report["candidate_ranking_authorized"])
+
+            qualification = subprocess.run(
+                [
+                    str(BINARY),
+                    "formal",
+                    "qualification",
+                    "--repository",
+                    str(ROOT),
+                    "--json",
+                ],
+                cwd=directory,
+                env=environment,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(qualification.returncode, 0, qualification.stderr)
+            report = json.loads(qualification.stdout)
+            self.assertFalse(report["profile_input"])
+            self.assertEqual(report["strict_support"]["passed_specifications"], 9)
 
 
 if __name__ == "__main__":
