@@ -282,8 +282,10 @@ the replay-bank size. This is an interface qualification and cannot be scored
 as an environment outcome.
 
 Before claim-bearing execution, repeat the smoke with `--num-online 64
---num-replay 64` on the intended accelerator and runtime. This exercises the
-frozen batch shape without changing the one-update interface-only scope.
+--num-replay 64 --device cuda` on the intended accelerator and runtime. This
+exercises the frozen batch shape without changing the one-update interface-only
+scope. Set the retrosynthesis and reward worker counts explicitly to the values
+planned for the matched runs.
 
 After the endpoint gate passes and the matched contract is frozen, run each
 development arm with the contract-enforcing entry point:

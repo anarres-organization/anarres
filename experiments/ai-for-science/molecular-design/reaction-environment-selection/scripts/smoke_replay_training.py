@@ -50,19 +50,26 @@ def run_smoke(
     seed: int,
     num_online: int,
     num_replay: int,
+    device: str,
+    retrosynthesis_workers: int,
+    reward_workers: int,
 ) -> dict[str, Any]:
     from rxnflow.trainer import RxnFlowTrainer
     from rxnflow_target_reward import MolecularTargetReward
 
     config = configure_smoke(config_path, env_dir, num_online=num_online, num_replay=num_replay)
-    reward = MolecularTargetReward(str(prepared_target), timeout_seconds=300.0, max_workers=2)
+    if retrosynthesis_workers < 0 or reward_workers < 1:
+        raise ValueError("smoke worker counts are invalid")
+    reward = MolecularTargetReward(
+        str(prepared_target), timeout_seconds=300.0, max_workers=reward_workers
+    )
     trainer = RxnFlowTrainer(
         config,
         reward,
         seed=seed,
         output_dir=output_dir,
-        device="cpu",
-        num_workers=0,
+        device=device,
+        num_workers=retrosynthesis_workers,
     )
     initial = {
         "step": trainer.step,
@@ -91,10 +98,15 @@ def run_smoke(
         and record["num_replay"] == num_replay,
         "checkpoint_exists": checkpoint.is_file(),
     }
+    full_batch = num_online == 64 and num_replay == 64
     report = {
         "schema_version": "1.0",
         "study": "prospective-reaction-environment-selection",
-        "scope": "reduced replay-materialization and one-update interface smoke",
+        "scope": (
+            "full-batch replay-materialization and one-update interface smoke"
+            if full_batch
+            else "reduced replay-materialization and one-update interface smoke"
+        ),
         "status": "pass" if all(checks.values()) else "fail",
         "claim_boundary": (
             "This reduced smoke qualifies the replay-training interface. It is not "
@@ -122,6 +134,12 @@ def run_smoke(
             "checkpoint": sha256_file(checkpoint),
         },
     }
+    if full_batch or device != "cpu" or retrosynthesis_workers != 0 or reward_workers != 2:
+        report["execution"] = {
+            "device": device,
+            "retrosynthesis_workers": retrosynthesis_workers,
+            "reward_workers": reward_workers,
+        }
     report_path.parent.mkdir(parents=True, exist_ok=True)
     temporary = report_path.with_suffix(report_path.suffix + ".tmp")
     temporary.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
@@ -143,6 +161,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--seed", type=int, default=20261110)
     parser.add_argument("--num-online", type=int, default=2)
     parser.add_argument("--num-replay", type=int, default=2)
+    parser.add_argument("--device", default="cpu")
+    parser.add_argument("--retrosynthesis-workers", type=int, default=0)
+    parser.add_argument("--reward-workers", type=int, default=2)
     return parser
 
 
@@ -159,6 +180,9 @@ def main() -> None:
         seed=args.seed,
         num_online=args.num_online,
         num_replay=args.num_replay,
+        device=args.device,
+        retrosynthesis_workers=args.retrosynthesis_workers,
+        reward_workers=args.reward_workers,
     )
     print(f"replay-training smoke {report['status']}: loss={report['observed']['loss']:.6f}")
 
