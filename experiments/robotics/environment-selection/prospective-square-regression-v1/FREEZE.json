@@ -1,0 +1,13 @@
+{
+  "schema_version": "anarres.robotics-square-measurement-freeze.v1",
+  "study_id": "prospective_square_regression_v1",
+  "status": "MEASUREMENT_AND_STATE_BANK_FROZEN__CANDIDATE_OUTCOMES_UNOPENED",
+  "candidate_outcomes_opened": false,
+  "artifacts": {
+    "PROTOCOL.json": "d8d3bfb5de49ab8976c702caf37c9bdd96a1a9425c1b01987f495cb961a4ec07",
+    "SOURCES.json": "556b118c6343957948127aa5476064ee301be2fdcc527751a711676837678be1",
+    "STATE_BANK.json": "7d3a2da8a5e4b55dcfbb9b41dd6b3ef09e54c4bad598bfcd11aef7d7432acf57",
+    "STATE_BANK.hdf5": "428fd56c8ec99bdacc49fae3dfc001ac2be40f6ff527633e9861d8980fa37fd7"
+  },
+  "next_authorized_stage": "train and evaluate the three all-data probe policies"
+}

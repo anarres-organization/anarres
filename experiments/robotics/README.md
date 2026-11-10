@@ -45,6 +45,13 @@ now prepares the exact candidate masks, binds the 25-run matrix to local or
 Slurm execution, locks the Python environment, and verifies every checkpoint
 and evaluation log before that gate can pass.
 
+The [Square environment and regression
+study](environment-selection/prospective-square-regression-v1/README.md)
+extends this design to paired initial states. Its frozen protocol uses three
+all-data probe policies to measure policy weakness, constructs candidate
+datasets from failure-weighted state coverage, and predicts both aggregate
+success and stratum-level regressions before candidate outcomes are opened.
+
 ## What is measured
 
 The current representation keeps the following concepts separate:
