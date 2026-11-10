@@ -219,7 +219,8 @@ anarres design .anarres/candidates/*.json --json
 Structured data is written to standard output. Errors are written to standard
 error. Successful commands exit with status 0; invalid input, incompatible
 candidate panels, failed validation, and write failures exit nonzero. The CLI
-performs no network calls and sends no telemetry.
+built-ins perform no network calls and send no telemetry. Installed adapters
+retain their own documented runtime and network contract.
 
 ## Record contracts
 

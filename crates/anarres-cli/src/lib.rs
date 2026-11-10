@@ -29,7 +29,8 @@ static NEXT_TEMPORARY_FILE: AtomicU64 = AtomicU64::new(0);
     version,
     about = "Measure, compare, and validate learning environments",
     long_about = "Measure, compare, and validate learning environments.\n\n\
-        Commands operate on versioned local records and write no network state.",
+        Built-in commands operate on versioned local records and write no network state.\n\
+        Installed adapters run under their own documented contracts.",
     arg_required_else_help = true
 )]
 struct Cli {
