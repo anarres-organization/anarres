@@ -17,6 +17,7 @@ def test_committed_matched_training_contract_is_verified() -> None:
     assert result["development_arms"] == 6
     assert result["training_seeds"] == 2
     assert result["maximum_target_oracle_attempts"] == 40000
+    assert result["full_batch_cpu_training_smoke"] == "pass"
     assert result["development_or_prospective_outcomes_opened"] is False
 
 

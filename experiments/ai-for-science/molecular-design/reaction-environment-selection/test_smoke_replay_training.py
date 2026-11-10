@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import sys
 from pathlib import Path
 from types import SimpleNamespace
@@ -47,3 +48,12 @@ def test_configure_smoke_uses_requested_batch(monkeypatch: pytest.MonkeyPatch) -
 def test_configure_smoke_rejects_empty_batch() -> None:
     with pytest.raises(ValueError, match="positive"):
         MODULE.configure_smoke(Path("config.yaml"), Path("env"), num_online=0, num_replay=64)
+
+
+def test_released_full_batch_cpu_smoke_preserves_interface_boundary() -> None:
+    report = json.loads((ROOT / "FULL_BATCH_CPU_TRAINING_SMOKE_V1.json").read_text())
+    assert report["status"] == "pass"
+    assert report["execution"]["device"] == "cpu"
+    assert report["smoke_batch"] == {"online": 64, "replay": 64, "updates": 1}
+    assert all(report["checks"].values())
+    assert "not a target-training outcome" in report["claim_boundary"]

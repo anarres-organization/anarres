@@ -60,6 +60,11 @@ probability. A reduced one-update smoke starts from the weights-only warm
 start, loads all 512 hash-uniform trajectories, retains a fixed replay bank,
 and produces a finite target-training loss. These checks qualify the replay
 interface but do not establish downstream bank utility.
+A separate CPU smoke exercises the frozen batch of 64 online and 64 replay
+trajectories in one update with four retrosynthesis workers and 16 reward
+workers. It preserves the
+512-item replay bank and produces finite loss and gradient diagnostics. The
+accelerator smoke remains a runtime gate before claim-bearing training.
 The independent starting-policy endpoint gate also passes. Among 4,096 fixed
 attempts, 22 qualify under the complete MolGenBench endpoint, representing 16
 unique molecules with no infrastructure failure. The largest repeated molecule
@@ -400,7 +405,9 @@ as a separate scientific result.
 records exact reconstruction of complete replay trajectories from the frozen
 probe export. [`REPLAY_TRAINING_SMOKE_V1.json`](REPLAY_TRAINING_SMOKE_V1.json)
 records the reduced target-training interface smoke with online replay
-insertion disabled.
+insertion disabled. [`FULL_BATCH_CPU_TRAINING_SMOKE_V1.json`](FULL_BATCH_CPU_TRAINING_SMOKE_V1.json)
+records the same one-update interface check at the frozen batch size of 64
+online and 64 replay trajectories on CPU.
 
 Audit local checkouts without reading target outcomes:
 

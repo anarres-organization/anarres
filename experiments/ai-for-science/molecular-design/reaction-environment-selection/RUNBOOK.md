@@ -299,16 +299,19 @@ python scripts/run_matched_training.py \
   --prepared-target /path/to/prepared_Q07820 \
   --output-dir /path/to/run-output \
   --arm hash_uniform \
-  --seed 20261108
+  --seed 20261108 \
+  --preflight-only
 ```
 
 The runner accepts only the six frozen development arms and two frozen seeds.
-It checks the configuration, starting-policy weights, bank size, bank identity,
-and qualification digest before training. It also verifies the complete log,
-online-sample count, immutable replay content, and required checkpoints before
-writing `MATCHED_TRAINING_RUN.json`. To continue an interrupted run, provide a
-full checkpoint through `--resume-from`; optimizer, scheduler, replay, and
-random-number state are restored from that checkpoint.
+The preflight checks the released contract, configuration, starting-policy
+weights, complete replay payload, prepared target, bank identity, and
+qualification digest without loading the trainer. Run it for every arm and
+seed, then remove `--preflight-only` to train. The runner also verifies the
+complete log, online-sample count, immutable replay content, and required
+checkpoints before writing `MATCHED_TRAINING_RUN.json`. To continue an
+interrupted run, provide a full checkpoint through `--resume-from`; optimizer,
+scheduler, replay, and random-number state are restored from that checkpoint.
 
 ## 8. Instantiate and qualify the endpoint
 

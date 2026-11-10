@@ -67,6 +67,7 @@ def verify() -> dict[str, Any]:
         (ROOT / "STARTING_POLICY_ENDPOINT_QUALIFICATION_RESULT_V2.json").read_text()
     )
     replay_smoke = json.loads((ROOT / "REPLAY_TRAINING_SMOKE_V1.json").read_text())
+    full_batch_smoke = json.loads((ROOT / "FULL_BATCH_CPU_TRAINING_SMOKE_V1.json").read_text())
     if bank_result.get("qualification") != "pass":
         raise ValueError("development bank qualification did not pass")
     if bank_result.get("bank_size") != contract["development_panel"]["bank_size"]:
@@ -75,6 +76,21 @@ def verify() -> dict[str, Any]:
         raise ValueError("starting-policy endpoint does not authorize matched training")
     if replay_smoke.get("status") != "pass":
         raise ValueError("replay training smoke did not pass")
+    if full_batch_smoke.get("status") != "pass" or not all(
+        full_batch_smoke.get("checks", {}).values()
+    ):
+        raise ValueError("full-batch CPU training smoke did not pass")
+    if full_batch_smoke.get("smoke_batch") != {
+        "online": training["online_trajectories_per_update"],
+        "replay": training["replay_trajectories_per_update"],
+        "updates": 1,
+    }:
+        raise ValueError("full-batch CPU smoke differs from the frozen batch shape")
+    if (
+        full_batch_smoke.get("artifact_sha256", {}).get("warm_start")
+        != contract["starting_policy"]["weights_only_sha256"]
+    ):
+        raise ValueError("full-batch CPU smoke uses a different starting policy")
 
     authorization = contract["authorization"]
     if not all(
@@ -105,6 +121,7 @@ def verify() -> dict[str, Any]:
         "evaluation_attempts_per_policy_seed_checkpoint": evaluation[
             "attempts_per_policy_seed_checkpoint"
         ],
+        "full_batch_cpu_training_smoke": "pass",
         "development_or_prospective_outcomes_opened": False,
     }
 
