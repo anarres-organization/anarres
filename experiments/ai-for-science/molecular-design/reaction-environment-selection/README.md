@@ -53,6 +53,13 @@ one new confirmation view. That untouched view produces 4,029 valid scores and
 67 molecule-specific scientific zeroes with no infrastructure failure. All
 eight selector-fidelity checks pass in both views, authorizing the next
 pre-outcome step without opening a target-training result.
+The frozen probe exports have now been reconstructed into complete RxnFlow
+replay objects. A fresh-trajectory golden test matches states, actions,
+products, and backward route probabilities, including a nonzero route
+probability. A reduced one-update smoke starts from the weights-only warm
+start, loads all 512 hash-uniform trajectories, retains a fixed replay bank,
+and produces a finite target-training loss. These checks qualify the replay
+interface but do not establish downstream bank utility.
 
 ## CLI projection
 
@@ -346,6 +353,11 @@ documented in the [Vina FAQ](https://autodock-vina.readthedocs.io/en/latest/faq.
 records the untouched selector-fidelity result. All eight checks pass in both
 independent views, while the earlier complete-order failure remains preserved
 as a separate scientific result.
+[`REPLAY_MATERIALIZER_QUALIFICATION_V1.json`](REPLAY_MATERIALIZER_QUALIFICATION_V1.json)
+records exact reconstruction of complete replay trajectories from the frozen
+probe export. [`REPLAY_TRAINING_SMOKE_V1.json`](REPLAY_TRAINING_SMOKE_V1.json)
+records the reduced target-training interface smoke with online replay
+insertion disabled.
 
 Audit local checkouts without reading target outcomes:
 

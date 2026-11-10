@@ -1,0 +1,38 @@
+{
+  "artifact_type": "anarres.rxnflow-replay-materializer-qualification.v1",
+  "claim_boundary": "This qualification establishes exact replay-object reconstruction from the frozen probe export. It is not a target-training outcome or evidence of bank utility.",
+  "construction_bank": {
+    "bank": "hash_uniform",
+    "item_count": 512,
+    "items_sha256": "fadeb61c97f87af5946f2a274bdd78ecf61bdef95b31a932d1fea38533b5e3d6",
+    "record_ids_sha256": "e02868e8ef95d62be18e9a782cab704c5218e45e30eb2a7022951ce0ce3c772b"
+  },
+  "golden_equivalence": {
+    "fresh_attempts": 128,
+    "fresh_valid_trajectories": 128,
+    "nonzero_backward_probability_observed": true,
+    "representative_backward_log_probabilities": [
+      0.0,
+      -0.6931471805599454
+    ],
+    "required_exact_fields": [
+      "states",
+      "actions",
+      "products"
+    ],
+    "required_float_tolerance": {
+      "absolute": 1e-12,
+      "field": "backward_log_probability",
+      "relative": 0.0
+    },
+    "status": "pass"
+  },
+  "schema_version": "1.0",
+  "source_sha256": {
+    "development_bank_qualification": "50792a7c66a6e6e43c680c163e70df11bf8e77a7f8af6638905d5cf3ed7b26c0",
+    "probe_records": "9014e2628a6d0f18c1fb2a79a6cb07e20b2206cf13d324286f2d297c27491383",
+    "probe_samples": "87c330abb0a7a4354fe6e8f59c9e5f984ae9265701bacdf1872f46237b06ec2b"
+  },
+  "status": "pass",
+  "study": "prospective-reaction-environment-selection"
+}
