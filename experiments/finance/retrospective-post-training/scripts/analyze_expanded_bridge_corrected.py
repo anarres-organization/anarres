@@ -10,16 +10,17 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 V2 = ROOT / "scripts" / "analyze_expanded_bridge.py"
+REPRODUCER = ROOT / "scripts" / "reproduce_expanded_bridge.py"
 OUT = ROOT / "results" / "expanded_summary_corrected.json"
 MANIFEST = ROOT / "results" / "EXPANDED_CORRECTED_MANIFEST.sha256.json"
 
 
 def load_v2():
-    spec = importlib.util.spec_from_file_location("finance_bridge_v2", V2)
-    module = importlib.util.module_from_spec(spec)
-    assert spec.loader is not None
-    spec.loader.exec_module(module)
-    return module
+    specification = importlib.util.spec_from_file_location("finance_bridge_reproducer", REPRODUCER)
+    module = importlib.util.module_from_spec(specification)
+    assert specification.loader is not None
+    specification.loader.exec_module(module)
+    return module.load_bridge()
 
 
 def corrected_rows(bridge) -> list[dict]:
@@ -141,6 +142,7 @@ def main() -> None:
         bridge.INITIAL,
         bridge.RECOVERED,
         V2,
+        REPRODUCER,
         Path(__file__),
         OUT,
     ]

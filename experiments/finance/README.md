@@ -30,11 +30,15 @@ The released workflow is then available through the generic adapter interface:
 anarres finance status
 anarres finance audit-sources
 anarres finance verify
+anarres finance verify --exhaustive
 anarres finance reproduce --output-dir .anarres/finance-reproduction
 ```
 
-The command also scores new starting-policy records, exports qualification
-profiles, and reruns individual frozen holdouts. See the [CLI
+The normal verification path checks the released source pins, qualification
+artifacts, compact summaries, and frozen holdout identities. The exhaustive
+path reruns every finance test in an isolated copy. The command also scores new
+starting-policy records, exports qualification profiles, and reruns individual
+frozen holdouts. See the [CLI
 guide](../../docs/cli.md#example-adapter-agentic-finance) for the complete
 interface. Commands shown here assume the repository root is the current
 directory. Use `--repository /path/to/anarres` when invoking released evidence
@@ -77,7 +81,9 @@ studies. A strict task-level tier reaches 81.6% candidate ordering across 79
 panels without using model identity. Five excluded-source tests then expose
 where successive representations transfer and where they fail. The
 capability-contract representation recovers all 33 scored FinAcumen candidate
-orderings across several targets and backbones. A table-blind FinHarmBench test
+orderings across several targets and backbones. A separate baseline-matched
+audit reaches 0.815 source-macro ROC AUC for intervention regressions, compared
+with 0.575 for data volume alone. A table-blind FinHarmBench test
 then qualifies safety alignment for two models and rejects a third whose benign
 helpfulness crosses the frozen guardrail. The earlier numerical-faithfulness
 failure remains an important boundary.

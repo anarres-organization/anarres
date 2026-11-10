@@ -2,7 +2,7 @@
 # admitted experiment input. Copy this template into a versioned registry only
 # after every required field is resolved and the referenced bytes are hashed.
 schema_version: 1
-audit_date: "2026-11-07"
+audit_date: "2026-11-10"
 
 required_artifact_fields:
   - uri
@@ -16,17 +16,18 @@ required_artifact_fields:
 sources:
   - source_id: veribench
     uri: https://ehersch.github.io/veribench-blog/
-    code_uri: null
-    immutable_revision: null
-    revision_status: pin_required
+    code_uri: https://github.com/brando90/harbor-datasets/tree/c9dfd8e3b535f58184440aa02d37c148d145a82c/datasets/veribench_v1_3
+    immutable_revision: c9dfd8e3b535f58184440aa02d37c148d145a82c
+    revision_status: task_candidate_pinned_upstream_pr_unmerged
     license: unknown
     proposed_role: held_out_autoformalization_target
     admission: blocked
     blockers:
-      - public_repository_link_returns_404
+      - prove_first_candidate_not_merged_or_released
       - evaluator_not_pinned
       - task_license_not_recovered
-      - task_manifest_not_recovered
+      - semantic_judge_not_independently_qualified
+      - task_manifest_not_independently_reproduced
 
   - source_id: vcvio
     uri: https://github.com/Verified-zkEVM/VCVio
@@ -71,23 +72,27 @@ sources:
     license: Apache-2.0_with_benchmark_specific_upstream_licenses
     source_pin: ../../../data/formal-verification/vero/source-pin.json
     proposed_role: repository_construction_external_target
-    admission: runtime_qualified_policy_measurement_pending
+    admission: runtime_qualified_single_task_policy_support_containment_pending
     blockers:
       - model_facing_process_containment_not_qualified
-      - starting_policy_probe_and_resource_accounting_not_run
+      - multi_repository_development_screen_not_run
+      - repeated_policy_measurement_not_authorized
     frozen_split: ../../../data/formal-verification/vero/repository-split.json
     qualified_lifecycle_panel: ../../../data/formal-verification/vero/development-lifecycle-panel-v2.json
 
   - source_id: fvspec
-    uri: https://fvspec.galois.com/
-    immutable_revision: null
-    revision_status: pin_required
-    license: unknown
+    uri: https://github.com/GaloisInc/fvspec
+    project_uri: https://fvspec.galois.com/
+    immutable_revision: d680df4b00c68064db5a35994a89782aa4f637fb
+    revision_status: source_pinned_candidate_audit_pending
+    license: MIT_OR_Apache-2.0_with_upstream_source_terms_to_audit
     proposed_role: real_code_lean_candidate
     admission: blocked
     blockers:
-      - source_and_derived_task_licenses_not_audited
+      - upstream_source_licenses_not_uniformly_resolved
       - translation_validity_not_audited
+      - stub_implementation_samples_not_filtered
+      - axiom_consistency_and_vacuity_not_audited
       - repository_group_split_not_frozen
 
   - source_id: vericontest

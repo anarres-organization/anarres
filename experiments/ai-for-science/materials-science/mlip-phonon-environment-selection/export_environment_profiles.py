@@ -19,7 +19,7 @@ from anarres.environments import (
 )
 
 STUDY = Path(__file__).resolve().parent
-DEFAULT_BANK = STUDY / "CANDIDATE_BANK_DRAFT.json"
+DEFAULT_BANK = STUDY / "FINAL_COST_MATCHED_PANEL.json"
 DEFAULT_VALIDATION = STUDY / "FULL_MEASUREMENT_VALIDATION.json"
 DEFAULT_SOURCE = STUDY / "SOURCE_QUALIFICATION.json"
 DEFAULT_CHECKPOINT = STUDY / "CHECKPOINT_QUALIFICATION.json"
@@ -28,15 +28,15 @@ DEFAULT_TARGET_ROLES = STUDY / "TARGET_ROLES.json"
 DEFAULT_POOL = STUDY / "MEASUREMENT_POOL_SUMMARY.json"
 CONVENTION_URI = (
     "https://github.com/anarres-organization/anarres/blob/main/"
-    "docs/conventions/materials-mlip-candidate-measurement-v1.md"
+    "docs/conventions/materials-mlip-candidate-measurement-v2.md"
 )
 ADAPTER_ID = "materials.mlip-phonon-candidate-measurement"
-ADAPTER_REVISION = "v1"
+ADAPTER_REVISION = "v2"
 MODEL_SHA256 = "1647af8e627e1afa11e2bfadeab0797326513a521afd7dd01606a96f56783eee"
 OMAT24_SHA256 = "789ecc1306575a1652806b339265d7659c57282eeb1b3e3b54ba0e1154938b81"
 EXPECTED_DIGESTS = {
-    "CANDIDATE_BANK_DRAFT.json": (
-        "0b2e170a6eb6d0971d4adfed3865ead92c87063b08525a6bc3a2401178b86864"
+    "FINAL_COST_MATCHED_PANEL.json": (
+        "b5d26ea2dbecac0e530e80d470b6079a7ebee46600633f119eb6d94b9048dd52"
     ),
     "FULL_MEASUREMENT_VALIDATION.json": (
         "a119444de6a8dbe57866d5a7c052f75221c07d97183feff78ce6a15f648d755c"
@@ -116,19 +116,21 @@ def validate_inputs(
     for path in paths:
         require_digest(path)
 
-    if bank.get("artifact") != "anarres_mlip_candidate_bank_draft_v1":
-        raise AdapterError("unsupported MLIP candidate-bank artifact")
-    if bank.get("status") != "measurement_only_draft__no_candidate_outcomes_observed":
-        raise AdapterError("candidate bank is not the released measurement-only draft")
+    if bank.get("artifact") != "anarres_mlip_cost_matched_panel_v1":
+        raise AdapterError("unsupported MLIP final-panel artifact")
+    if bank.get("status") != "frozen_pretraining__candidate_outcomes_sealed":
+        raise AdapterError("candidate panel is not frozen with outcomes sealed")
     construction = bank.get("construction", {})
     if construction.get("uses_candidate_training_outcomes") is not False:
         raise AdapterError("candidate construction used candidate training outcomes")
     if construction.get("uses_development_or_prospective_target_outcomes") is not False:
         raise AdapterError("candidate construction used protected target outcomes")
     if construction.get("atom_budget_per_candidate") != 50_000:
-        raise AdapterError("candidate bank does not use the frozen 50,000-atom budget")
+        raise AdapterError("candidate panel does not use the frozen 50,000-atom budget")
+    if construction.get("neighbor_edge_budget_per_candidate") != 2_100_000:
+        raise AdapterError("candidate panel does not use the frozen graph-edge budget")
     if construction.get("maximum_records_per_parent") != 1:
-        raise AdapterError("candidate bank does not preserve the one-record parent cap")
+        raise AdapterError("candidate panel does not preserve the one-record parent cap")
 
     if source.get("status") != "qualified":
         raise AdapterError("OMat24 and Alexandria sources are not qualified")
@@ -148,7 +150,7 @@ def validate_inputs(
         raise AdapterError("target roles are not frozen")
     target_digest = sha256(target_roles_path)
     if bank.get("inputs", {}).get("target_roles_sha256") != target_digest:
-        raise AdapterError("candidate bank does not match the frozen target roles")
+        raise AdapterError("candidate panel does not match the frozen target roles")
     if checkpoint.get("panel", {}).get("role_manifest_sha256") != target_digest:
         raise AdapterError("checkpoint qualification does not match the target roles")
     if overlap.get("status") != "complete":
@@ -162,22 +164,27 @@ def validate_inputs(
         raise AdapterError("measurement validation uses a different starting model")
     manifest_digest = validation.get("manifest_sha256")
     if bank.get("inputs", {}).get("manifest_sha256") != manifest_digest:
-        raise AdapterError("candidate bank does not match the validated measurement manifest")
+        raise AdapterError("candidate panel does not match the validated measurement manifest")
     if pool.get("status") != "complete":
         raise AdapterError("measurement-pool construction is incomplete")
     if pool.get("pool", {}).get("manifest_sha256") != manifest_digest:
         raise AdapterError("measurement-pool summary uses a different manifest")
     if bank.get("inputs", {}).get("measurement_sha256") != validation.get("measurement_sha256"):
-        raise AdapterError("candidate bank does not match the validated measurement shards")
+        raise AdapterError("candidate panel does not match the validated measurement shards")
 
     candidates = bank.get("candidates")
-    if not isinstance(candidates, list) or len(candidates) != 48:
-        raise AdapterError("released candidate bank must contain exactly 48 candidates")
+    if not isinstance(candidates, list) or len(candidates) != 16:
+        raise AdapterError("released final panel must contain exactly 16 candidates")
     candidate_ids = [candidate.get("candidate_id") for candidate in candidates]
     if any(not isinstance(value, str) or not value for value in candidate_ids):
-        raise AdapterError("candidate bank contains an invalid candidate identity")
+        raise AdapterError("candidate panel contains an invalid candidate identity")
     if len(set(candidate_ids)) != len(candidate_ids):
         raise AdapterError("candidate identities are not unique")
+    roles = [candidate.get("role") for candidate in candidates]
+    if roles.count("development") != 12 or roles.count("prospective") != 4:
+        raise AdapterError(
+            "final panel must contain 12 development and four prospective candidates"
+        )
     for candidate in candidates:
         candidate_id = candidate["candidate_id"]
         records = candidate.get("records")
@@ -192,11 +199,15 @@ def validate_inputs(
             raise AdapterError(f"{candidate_id} has invalid or repeated record indices")
         if candidate.get("atoms") != 50_000:
             raise AdapterError(f"{candidate_id} is not matched to 50,000 atoms")
+        if candidate.get("neighbor_edges") != 2_100_000:
+            raise AdapterError(f"{candidate_id} is not matched to 2,100,000 neighbor edges")
         if candidate.get("parents") != records:
             raise AdapterError(f"{candidate_id} violates the one-record parent cap")
         membership = candidate.get("membership_sha256")
         if not isinstance(membership, str) or len(membership) != 64:
             raise AdapterError(f"{candidate_id} has an invalid membership digest")
+        if candidate.get("role") not in {"development", "prospective"}:
+            raise AdapterError(f"{candidate_id} has an invalid frozen role")
         for field in (
             "signal_density_per_atom",
             "effective_signal_coverage",
@@ -205,6 +216,11 @@ def validate_inputs(
             "neighbor_edges_per_atom",
         ):
             finite_number(candidate, field)
+    panel_audit = bank.get("panel_audit", {})
+    if panel_audit.get("candidate_count") != 16:
+        raise AdapterError("final-panel audit does not preserve the candidate count")
+    if panel_audit.get("role_counts") != {"development": 12, "prospective": 4}:
+        raise AdapterError("final-panel audit does not preserve the frozen role counts")
 
 
 def export_profiles(
@@ -220,7 +236,7 @@ def export_profiles(
     candidate_ids: list[str] | None = None,
     force: bool = False,
 ) -> list[Path]:
-    """Export compatible profiles from the released 48-candidate bank."""
+    """Export compatible profiles from the released 16-candidate final panel."""
 
     paths = [
         bank_path,
@@ -267,11 +283,11 @@ def export_profiles(
 
     artifacts = [
         local_artifact(
-            role="native-measurements",
+            role="final-training-panel",
             path=bank_path,
             uri=(
                 "repo://experiments/ai-for-science/materials-science/"
-                "mlip-phonon-environment-selection/CANDIDATE_BANK_DRAFT.json"
+                "mlip-phonon-environment-selection/FINAL_COST_MATCHED_PANEL.json"
             ),
             media_type="application/json",
             license_id="CC-BY-4.0",
@@ -364,8 +380,8 @@ def export_profiles(
             },
             measurement_contract={
                 "kind": "starting-model-atomistic-residual-audit",
-                "id": "materials.mlip-phonon-candidate-measurement.v1",
-                "revision": "v1",
+                "id": "materials.mlip-phonon-candidate-measurement.v2",
+                "revision": "v2",
                 "repetitions": 1,
                 "cost_unit": "processed_atoms",
             },
@@ -422,21 +438,18 @@ def export_profiles(
                     summary="The candidate has 50,000 atoms and one record per parent.",
                 ),
                 qualification_check(
-                    check_id="final-panel-pending",
+                    check_id="final-panel-frozen",
                     category="measurement",
-                    status="unknown",
-                    severity="warning",
-                    summary=(
-                        "The measurement profile is comparable, but the final cost-matched "
-                        "training panel is not frozen."
-                    ),
+                    status="pass",
+                    severity="error",
+                    summary="The final panel matches atom and neighbor-edge budgets exactly.",
                 ),
             ],
             coordinates=[
                 coordinate(
                     name="signal_density_per_atom",
                     definition_uri=f"{CONVENTION_URI}#signal_density_per_atom",
-                    definition_revision="v1-development",
+                    definition_revision="v2-frozen",
                     role="signal",
                     value=finite_number(candidate, "signal_density_per_atom"),
                     unit="loss_weighted_residual_per_atom",
@@ -447,7 +460,7 @@ def export_profiles(
                 coordinate(
                     name="effective_signal_coverage",
                     definition_uri=f"{CONVENTION_URI}#effective_signal_coverage",
-                    definition_revision="v1-development",
+                    definition_revision="v2-frozen",
                     role="coverage",
                     value=finite_number(candidate, "effective_signal_coverage"),
                     unit="fraction",
@@ -458,7 +471,7 @@ def export_profiles(
                 coordinate(
                     name="chemical_system_entropy",
                     definition_uri=f"{CONVENTION_URI}#chemical_system_entropy",
-                    definition_revision="v1-development",
+                    definition_revision="v2-frozen",
                     role="coverage",
                     value=finite_number(candidate, "chemical_system_entropy"),
                     unit="fraction",
@@ -469,7 +482,7 @@ def export_profiles(
                 coordinate(
                     name="mean_target_affinity",
                     definition_uri=f"{CONVENTION_URI}#mean_target_affinity",
-                    definition_revision="v1-development",
+                    definition_revision="v2-frozen",
                     role="target_affinity",
                     value=finite_number(candidate, "mean_target_affinity"),
                     unit="fraction",
@@ -480,7 +493,7 @@ def export_profiles(
                 coordinate(
                     name="neighbor_edges_per_atom",
                     definition_uri=f"{CONVENTION_URI}#neighbor_edges_per_atom",
-                    definition_revision="v1-development",
+                    definition_revision="v2-frozen",
                     role="cost",
                     value=finite_number(candidate, "neighbor_edges_per_atom"),
                     unit="neighbor_edges_per_atom",
@@ -491,7 +504,7 @@ def export_profiles(
                 coordinate(
                     name="processed_atom_budget",
                     definition_uri=f"{CONVENTION_URI}#processed_atom_budget",
-                    definition_revision="v1-development",
+                    definition_revision="v2-frozen",
                     role="cost",
                     value=float(candidate["atoms"]),
                     unit="processed_atoms",
@@ -509,7 +522,9 @@ def export_profiles(
                 "chemical_systems": candidate["chemical_systems"],
                 "parent_prototypes": candidate["parent_prototypes"],
                 "membership_sha256": candidate["membership_sha256"],
-                "candidate_bank_status": bank["status"],
+                "panel_role": candidate["role"],
+                "ranked_prefix_fraction": candidate["ranked_prefix_fraction"],
+                "candidate_panel_status": bank["status"],
             },
         )
         profiles.append(profile)

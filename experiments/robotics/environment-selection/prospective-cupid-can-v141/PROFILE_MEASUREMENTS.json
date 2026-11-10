@@ -79,9 +79,28 @@
   "decision": "cupid_tier_balanced_50",
   "measurement": {
     "canonical_aggregation": "sum_of_sum-net-all",
+    "checkpoint_outcome_support": [
+      {
+        "episodes": 100,
+        "failures": 9,
+        "successes": 91
+      },
+      {
+        "episodes": 100,
+        "failures": 4,
+        "successes": 96
+      },
+      {
+        "episodes": 100,
+        "failures": 9,
+        "successes": 91
+      }
+    ],
     "demonstrations": 300,
+    "expected_score_values": 900,
     "mean_pairwise_spearman": 0.21357941014159412,
     "mean_pairwise_top_half_jaccard": 0.4130048684677908,
+    "observed_score_values": 900,
     "pairwise_spearman": [
       0.26948877209746774,
       0.17696952188357648,
@@ -93,6 +112,7 @@
       0.41509433962264153
     ],
     "reliability_gate_passed": true,
+    "score_missingness_rate": 0.0,
     "scoring_checkpoints": 3
   },
   "native_inputs": {
@@ -108,7 +128,7 @@
   },
   "outcomes_read": false,
   "prepared_dataset_sha256": "eb00660546abd5f4ca4dd3497569095be68e4455b921fe46363d458645bb9312",
-  "schema_version": "anarres.robotics-cupid-candidate-measurements.v1",
+  "schema_version": "anarres.robotics-cupid-candidate-measurements.v2",
   "source_dataset_sha256": "b6ceaed84c0335613a5001c900493b226481c132c792ec2cbdb99cb12c62baf0",
   "status": "PRE_OUTCOME_MEASUREMENTS_COMPLETE__CANDIDATE_OUTCOMES_UNOPENED",
   "study_id": "prospective_cupid_can_v141_v2",

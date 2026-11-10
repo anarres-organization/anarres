@@ -26,17 +26,17 @@ CLI_MODULE = importlib.util.module_from_spec(CLI_SPEC)
 CLI_SPEC.loader.exec_module(CLI_MODULE)
 
 CANDIDATES = [
-    "aimd-from-PBE-1000-npt__hash_uniform",
-    "aimd-from-PBE-1000-npt__low_signal",
+    "aimd-from-PBE-1000-npt__high_signal",
+    "aimd-from-PBE-1000-npt__target_affinity",
 ]
 EXPECTED_PROFILE_DIGESTS = {
-    "aimd-from-PBE-1000-npt__hash_uniform": (
-        "sha256:498ae6352e2f4ef3d377da58f5ce59e3fae3bd11cdf1b3ea415a4eefc31f8660",
-        "sha256:4ddee981ba1de131278f49cddc2fc0f86d337d6e7035b90041887f378c830bb7",
+    "aimd-from-PBE-1000-npt__high_signal": (
+        "sha256:3e4a5a5bb9e2a0c5638fda2bd4593f9e65f010d1f775327644f5b7a32233b68d",
+        "sha256:9280030e6d126b4696afc8b01f7db65af0ce3220a9c96543e5c1461745a192d8",
     ),
-    "aimd-from-PBE-1000-npt__low_signal": (
-        "sha256:9ad790cbf55446ae727a60cfb13eba7cde90e4c3e306702e07f22afbabd6c394",
-        "sha256:0c606858d190d86f11a81740f1874ffb39a433daf1b8a4f67167a838168a3b69",
+    "aimd-from-PBE-1000-npt__target_affinity": (
+        "sha256:4edbc5905a80226f3047c28cb25c02eea8f34cf1b1d0a679c5c92ba1688bd20c",
+        "sha256:a59cdd4c409071da6ab9073a37c2d0f4fd324501e226cd2050e89d3e850a341c",
     ),
 }
 
@@ -104,8 +104,8 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
                 checks = {check["check_id"]: check for check in payload["qualification_checks"]}
                 self.assertEqual(checks["measurements-complete"]["status"], "pass")
                 self.assertEqual(checks["candidate-outcomes-sealed"]["status"], "pass")
-                self.assertEqual(checks["final-panel-pending"]["status"], "unknown")
-                self.assertEqual(checks["final-panel-pending"]["severity"], "warning")
+                self.assertEqual(checks["final-panel-frozen"]["status"], "pass")
+                self.assertEqual(checks["final-panel-frozen"]["severity"], "error")
                 self.assertEqual(len(payload["artifacts"]), 7)
                 self.assertNotIn("uncertainty", payload["coordinates"][0])
                 coordinates = {
@@ -168,8 +168,8 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
             self.assertEqual(
                 [file_sha256(path) for path in first],
                 [
-                    "8eb317d7e363db79a35cf3fd04cbb30a18d4a8a40b548619596235ce38e2edf6",
-                    "450ae4bec5c1986fbea392d1edee03e3a1ece0fa8bad0a25f2c2d2470b0f31f8",
+                    "cea3c0aae6883b74d092fbd0a3fa494efdc444541e7be5db15a6ae1c6f994083",
+                    "5d24cceb8db6e1ca3e9fa6570d27070aa9ea6ca9f1af9ec705b98441423f12d2",
                 ],
             )
 
@@ -234,16 +234,16 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         self.assertEqual(descriptor["protocol_version"], 1)
         self.assertEqual(
             descriptor["measurement_contracts"],
-            ["materials.mlip-phonon-candidate-measurement.v1"],
+            ["materials.mlip-phonon-candidate-measurement.v2"],
         )
         self.assertEqual(descriptor["capabilities"], sorted(descriptor["capabilities"]))
 
         args = type("Args", (), {"repository": ROOT})()
         status = CLI_MODULE.command_status(args)
-        self.assertEqual(status["candidate_count"], 48)
+        self.assertEqual(status["candidate_count"], 16)
         self.assertTrue(status["measurements_complete"])
         self.assertFalse(status["candidate_outcomes_opened"])
-        self.assertFalse(status["final_training_panel_frozen"])
+        self.assertTrue(status["final_training_panel_frozen"])
         self.assertFalse(status["predictive_evidence_available"])
 
     def test_adapter_runs_outside_the_repository_and_core_doctor_accepts_it(self) -> None:
@@ -297,16 +297,19 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
             )
             self.assertEqual(status.returncode, 0, status.stderr)
             payload = json.loads(status.stdout)
-            self.assertEqual(payload["candidate_count"], 48)
+            self.assertEqual(payload["candidate_count"], 16)
             self.assertFalse(payload["candidate_outcomes_opened"])
 
     def test_adapter_verify_reuses_the_native_exporter(self) -> None:
         args = type("Args", (), {"repository": ROOT})()
         report = CLI_MODULE.command_verify(args)
         self.assertEqual(report["status"], "pass")
+        self.assertEqual(report["profiles_checked"], 16)
         self.assertTrue(report["deterministic"])
+        self.assertEqual(report["measurement_records"], 80_000)
+        self.assertEqual(report["measurement_shards_pinned"], 8)
         self.assertTrue(report["candidate_outcomes_sealed"])
-        self.assertFalse(report["final_training_panel_frozen"])
+        self.assertTrue(report["final_training_panel_frozen"])
 
 
 if __name__ == "__main__":

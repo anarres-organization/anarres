@@ -1,6 +1,6 @@
 # Formal-verification source landscape
 
-**Audit date:** 2026-11-08
+**Audit date:** 2026-11-10
 
 This document records public evidence relevant to the formal-verification
 environment-utility study. It distinguishes benchmark relevance from executable
@@ -11,10 +11,13 @@ not be combined without preserving their contracts.
 
 Three corrections are necessary before experiment design:
 
-1. VeriBench v1.3 contains **896** prove-first Python-to-Lean tasks. Versions
-   1.0 through 1.2 preserve the earlier study but instructed agents to insert
-   `sorry` placeholders and used a compile-oriented success contract. Those
-   versions cannot support a proof-completion claim.
+1. The VeriBench launch corpus reports **884** paired Python-to-Lean tasks. A
+   separate, unmerged Harbor v1.3 candidate at commit `c9dfd8e3b535` contains
+   **896** prove-first tasks. Versions 1.0 through 1.2 preserve the earlier
+   study but instructed agents to insert `sorry` placeholders and used a
+   compile-oriented success contract. Those versions cannot support a
+   proof-completion claim, and the v1.3 candidate still requires release and
+   evaluator qualification.
 2. Cryptographic formal-verification benchmarks now exist. CrypFormBench covers
    700 instances over seven formal languages, CryptoFormalEval studies
    Tamarin-guided protocol-vulnerability analysis, and dalek-lean-bench exposes
@@ -32,16 +35,22 @@ Three corrections are necessary before experiment design:
 
 | Source | Public evidence | Proposed role | Current blocker |
 | --- | --- | --- | --- |
-| VeriBench | Public v1.3 contains 896 prove-first Python-to-Lean tasks; earlier versions preserve compile-oriented historical contracts | Held-out autoformalization target after v1.3 qualification | Pin the v1.3 task commit, evaluator, container, scorer, and license; do not use v1.0--v1.2 scores as proof success |
+| VeriBench | The launch corpus reports 884 paired tasks; an unmerged Harbor v1.3 candidate pins 896 prove-first tasks at `c9dfd8e3b535` | Held-out autoformalization target after a prove-first release is qualified | Qualify the task manifest, evaluator, container, semantic scorer, and licenses; do not use v1.0--v1.2 scores as proof success |
 | VeruSyn | Controlled Part 1, Part 2, combined, teacher, and data-scale comparisons with VerusBench and VeruSAGE outcomes | Retrospective training-data decision panels and source of system-proof candidates | Public tables support compact decisions, but training-seed uncertainty and exact generation-token accounting are incomplete |
 | Re:Form | Three Dafny RL reward environments across five model scales | Reward-integrity falsification and cross-scale environment evidence | Training-seed support is incomplete and the repository has no identified top-level license at the pinned revision |
+| DafnySynth | Fixed-step augmentation comparisons over two starting models and four human-data fractions | Positive training-environment grid and source of annotation candidates | Released result JSONs omit the pure-synthetic arms and differ from several paper-table endpoints; both records must remain separate |
 | Formal Disco | Specialized and monolithic generation systems, feature-entropy measurements, and matched downstream SFT results | Verified-diversity measurement and training-data comparison | Released run checkpoints and failed generations remain incomplete |
+| ATLAS | Qwen2.5-Coder-7B gains 23 points on DafnyBench and 50 points on DafnySynthesis after training on more than 19,000 examples extracted from 2,700 verified programs | Independent positive evidence for verifier-filtered synthetic data | Public outcome summaries do not yet provide the crossed candidate grid needed for an allocation audit |
+| InvBench | Fine-tuning and sampling comparisons measure invariant correctness and the resulting reduction in verifier runtime | Candidate source for utility definitions that include verification speed | No crossed candidate grid or released raw outcome set has yet been admitted for an allocation audit |
+| LeanContext | Crossed training and inference views over 129,826 Lean targets; dependency prioritization improves Pass@32 by 1.40 and 1.70 points on two backbones | Controlled context-environment candidate and source of independently matched context panels | The repository releases construction and analysis code but not the model outcome files needed for an independent score audit |
 | Vericoding | 55,397 model-task outcomes over 6,336 tasks, nine models, and three formal languages | Broad policy-support and cross-language diagnostic | Cross-model disagreement is not a repeated-policy measurement or downstream training outcome |
+| LeanLean | Comparator-checked compression, cost, duration, checkpoints, and action summaries for six policies over 64 Lean repositories | Repository-level policy and cost screen before new inference | Compression is a different objective from filling Vero proof slots or closing a verified repository |
+| Forall VeriSoftBench | 1,300 task records across 13 configurations on the 100-task Aristotle subset, with partial axiom-audit and independent-checker coverage | Policy, harness, reasoning-effort, and cost screen | Reported totals, retained artifacts, axiom audits, and independent checks have different coverage; proofs and transcripts are withheld |
 | VCVio | Apache-2.0 Lean library for cryptographic games, primitives, protocols, implementations, oracle semantics, probability, and program logic | Leading cryptographic training-environment candidate; historical repository tasks; proof-reuse and curriculum studies | Must reconstruct gold historical tasks without future-lemma leakage; existing unresolved `sorry` declarations are not gold outcomes |
 | dalek-lean-bench | 249-theorem history, 146 theorem--proof pairs, chronology-aware proof injection, and a real Rust-to-Lean verification repository | Independent cryptographic target/candidate and validation of the historical-task builder | Must pin an immutable release and audit task identities, source licenses, and agent harness |
 | VeriSoftBench | 500 Lean tasks from 23 repositories with project and local dependencies | Repository-scale external target and possible disjoint candidate family | Pin code/data and verify that training and evaluation repositories can be separated without dependency leakage |
-| Vero | 43 active multi-module Lean repositories with 743 APIs and 2,705 specifications | Repository-level candidate and external target | Source structure, runtime controls, and a repository-disjoint split are qualified; policy support remains pending |
-| FVSpec | 9,415 Lean challenges derived from 11,039 property-based tests from 333 repositories | Broad real-code specification/proof candidate; source of scalable task diversity | Audit translation quality, source-license propagation, repository grouping, and specification validity |
+| Vero | 43 active multi-module Lean repositories with 743 APIs and 2,705 specifications | Repository-level candidate and external target | Source structure, runtime controls, and a repository-disjoint split are qualified; one excluded task establishes policy support, while containment and multi-repository coverage remain pending |
+| FVSpec | 9,415 Lean challenges derived from 11,039 property-based tests from 333 repositories | Broad real-code specification/proof candidate; source of scalable task diversity | Filter the 41% of samples with stub implementations and audit translation quality, source-license propagation, repository grouping, axiom use, and specification validity |
 | VeriContest | Current release reports 1,006 verified-programming problems in Verus and Dafny, with a fixed 300-problem Lite split | Later cross-tool target for specification, code, proof, and end-to-end generation | Pin one release, task list, toolchains, large test artifacts, and per-source licenses before use |
 | Anthropic/Theorem OSS Verify | Public Rocq statements and proofs for compiled RISC-V OSS-Fuzz targets plus Linux-process semantics | Primary frontier reference; bounded source candidate; later external transfer target; source of hypotheses about proof reuse, test-to-spec conversion, and cost | Release indexes and checker bootstrap are qualified; proof replay, reset, rejection tests, and cost measurement remain pending |
 | CrypFormBench | 700 instances, 677 schemes, seven verifier languages, five task types, 160 properties | Cryptography landscape and multi-tool diagnostic | Composite scores and heterogeneous verifier languages are not directly comparable to Lean repository utility |
@@ -54,13 +63,27 @@ legal and robotics analyses. It retains native outcomes, scores choices within
 comparable panels, and keeps retrospective evidence distinct from prospective
 tests.
 
-The strongest current decision panel comes from VeruSyn. A target-matched rule
+The strongest repeated positive intervention comes from DafnySynth. Adding
+verifier-filtered synthetic annotations improves seven of eight matched settings
+and ties the eighth across two starting models and four human-data fractions,
+with a 15.8-point mean gain in the paper table. The pinned result JSONs preserve
+the direction in every available comparison, although several endpoints differ
+and the pure-synthetic arms are absent. The strongest current decision panel
+comes from VeruSyn. A target-matched rule
 chooses Part 1 data for algorithmic proofs and combined Part 1 plus Part 2 data
 for system proofs. It selects the observed best arm in seven of eight nested
 Accuracy@K panels with 0.25 points of mean regret. Formal Disco provides a
-second positive data-environment comparison. Re:Form provides the required
+second positive family across Dafny and Verus annotation and Dafny lemma
+proving. Re:Form provides the required
 falsification: choosing the arm with the highest raw verifier success misses
 the best specification-superiority arm at all five model scales.
+
+The repository-policy record adds LeanLean, Vero, and Forall VeriSoftBench
+without pooling their scores. Opus 5 leads LeanLean compression, GPT-5.6 Luna
+has the lowest reported mean LeanLean cost, and GPT-5.5 xhigh leads Vero
+repository completion. The reversal shows why a model must be selected for a
+specific harness, objective, verifier, and budget. GPT-5.6 Sol remains one
+locally executable Vero qualification policy rather than a universal default.
 
 These are retrospective results. They justify target match, verified feature
 coverage, semantic reward integrity, reliability, and cost as candidate
@@ -68,10 +91,9 @@ measurements. They do not establish a prospective selector.
 
 ## VeriBench
 
-The current prove-first release treats autoformalization as more than
-compilation. It separates executable behavior, preconditions, property
-theorems, bundled correctness, and implementation equivalence. Its evaluation
-combines:
+The launch corpus treats autoformalization as more than compilation. It
+separates executable behavior, preconditions, property theorems, bundled
+correctness, and implementation equivalence. Its evaluation combines:
 
 - successful Lean compilation
 - nontrivial formal content
@@ -89,14 +111,16 @@ issues. The evaluator must therefore be independently qualified. A target score
 should retain its compilation, proof-completeness, and semantic-coverage
 components rather than relying on one scalar.
 
-The version history matters. VeriBench v1.0 through v1.2 instructed the agent to
-use `sorry` placeholders and preserved a compile-oriented contract. Version
-1.3 changes the instruction to require every theorem to be proved and assigns
-zero credit to `sorry`. Only v1.3 is eligible for a new proof-completion study.
+The version history matters. VeriBench v1.0 through v1.2 instructed the agent
+to use `sorry` placeholders and preserved a compile-oriented contract. An
+unmerged Harbor v1.3 candidate changes the instruction to require every
+theorem to be proved and assigns zero credit to `sorry`. Its 896 task
+directories are distinct from the 884-task launch corpus and remain a release
+candidate rather than a qualified benchmark version.
 
-**Admission decision:** prove-first target candidate. The v1.3 task commit,
-evaluator, container, scorer, license, and task identities must be pinned and
-qualified before use.
+**Admission decision:** prove-first target candidate. Commit `c9dfd8e3b535`
+pins the Harbor task directories, but the release status, evaluator, container,
+semantic scorer, licenses, and task identities must be qualified before use.
 
 ## Vero
 
@@ -118,9 +142,10 @@ success label.
 **Admission decision:** runtime-qualified repository-level candidate. The
 pinned Lean runtime, bounded grader controls, clean reference builds, and
 repository-disjoint split are qualified. A four-language development panel also
-passes no-op, clean-reset, manifest-marker, and timeout controls. Starting-
-policy support, model-facing process containment, and resource measurements
-remain required before it can enter a claim-bearing environment comparison.
+passes no-op, clean-reset, manifest-marker, and timeout controls. One excluded
+GPT-5.6 Sol attempt establishes support on all nine PrimePy specifications.
+Task-only model-facing containment and a multi-repository development screen
+remain required before Vero can enter a claim-bearing environment comparison.
 
 ## VCVio
 
@@ -252,11 +277,15 @@ The defensible contribution is therefore:
 ## Sources
 
 - VeriBench launch draft: <https://ehersch.github.io/veribench-blog/>
-- VeriBench v1.3 Harbor release history:
+- VeriBench v1.3 Harbor candidate history:
   <https://github.com/harbor-framework/harbor-datasets/pull/148>
 - VeruSyn: <https://arxiv.org/abs/2602.04910>
 - Re:Form: <https://arxiv.org/abs/2507.16331>
+- DafnySynth: <https://arxiv.org/abs/2411.15143>
 - Formal Disco: <https://arxiv.org/abs/2607.04631>
+- ATLAS: <https://arxiv.org/abs/2512.10173>
+- InvBench: <https://arxiv.org/abs/2509.21629>
+- LeanContext: <https://arxiv.org/abs/2611.08277>
 - Vericoding Benchmark: <https://arxiv.org/abs/2509.22908>
 - VCVio: <https://github.com/Verified-zkEVM/VCVio>
 - dalek-lean-bench: <https://github.com/Beneficial-AI-Foundation/dalek-lean-bench>
@@ -267,7 +296,8 @@ The defensible contribution is therefore:
   <https://github.com/theorem-labs/rocq-linux-process-semantics>
 - VeriSoftBench: <https://utopia-group.github.io/VeriSoftBench/>
 - Vero: <https://github.com/sunblaze-ucb/vero> and <https://vero.verina.io/>
-- FVSpec: <https://fvspec.galois.com/>
+- FVSpec: <https://fvspec.galois.com/> and
+  <https://github.com/GaloisInc/fvspec/tree/d680df4b00c68064db5a35994a89782aa4f637fb>
 - VeriContest: <https://github.com/HIPREL-Group/VeriContest>
 - CrypFormBench: <https://arxiv.org/abs/2606.25561>
 - CryptoFormalEval: <https://arxiv.org/abs/2411.13627>

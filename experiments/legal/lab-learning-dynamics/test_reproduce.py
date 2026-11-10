@@ -20,8 +20,8 @@ class LabLearningDynamicsTest(unittest.TestCase):
         self.summary = MODULE.compute()
 
     def test_released_summary_is_reproduced(self) -> None:
-        expected = json.loads((ROOT / "results" / "summary.json").read_text())
-        self.assertEqual(self.summary, expected)
+        expected = (ROOT / "results" / "summary.json").read_text()
+        self.assertEqual(MODULE.canonical_json(self.summary), expected)
 
     def test_nested_support_is_explicit(self) -> None:
         support = self.risk["support"]

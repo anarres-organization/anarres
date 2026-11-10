@@ -41,7 +41,8 @@ class ProspectivePushTTest(unittest.TestCase):
         self.assertEqual(len(chronology["frozen_candidate_set"]), 2)
 
     def test_summary_reproduces(self) -> None:
-        self.assertEqual(MODULE.compute(self.data), self.expected)
+        expected = (ROOT / "results" / "summary.json").read_text()
+        self.assertEqual(MODULE.canonical_json(MODULE.compute(self.data)), expected)
 
     def test_claim_is_abstention_not_superiority(self) -> None:
         self.assertTrue(self.expected["abstention_correct"])

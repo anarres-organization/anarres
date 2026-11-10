@@ -266,6 +266,7 @@ anarres finance audit-sources
 anarres finance profile --output-dir .anarres/finance
 anarres finance score-holdout finharmbench
 anarres finance verify
+anarres finance verify --exhaustive
 anarres finance reproduce --output-dir .anarres/finance-reproduction
 ```
 
@@ -273,9 +274,12 @@ anarres finance reproduce --output-dir .anarres/finance-reproduction
 `audit-sources` validates immutable source revisions and generator preflight.
 `profile` converts the completed starting-policy qualification into a shared
 profile input. `score-holdout` reruns one frozen source test from its released
-decision contract. `verify` reruns every released finance check in an isolated
-copy, and `reproduce` exports the regenerated retrospective, strict-transfer,
-and frozen-holdout artifacts without modifying checked-in evidence.
+decision contract. `verify` quickly validates source pins, qualification
+artifacts, compact retrospective summaries, and frozen holdout identities.
+`verify --exhaustive` reruns every released finance check in an isolated copy.
+`reproduce` performs the same exhaustive replay and exports the regenerated
+retrospective, strict-transfer, and frozen-holdout artifacts without modifying
+checked-in evidence.
 
 New policy-attempt records use the same native gate:
 
@@ -299,6 +303,30 @@ anarres-finance audit-sources --repository /path/to/anarres --json
 The generic and direct forms execute the same native finance command. The
 repository path supplies released evidence. The installed adapter contains no
 fallback copy of study artifacts.
+
+## Example adapter: robotics planning
+
+The robotics adapter can convert the frozen Can v1.4.1 protocol into a portable
+workflow plan before any candidate outcome is opened:
+
+```bash
+uv tool install \
+  ./experiments/robotics/environment-selection/prospective-cupid-can-v141
+anarres robotics status --repository .
+anarres robotics plan --repository . \
+  --output .anarres/can-v141.plan.json
+```
+
+The plan records five candidate arms, five seeds per arm, and 25 candidate runs
+with matched training and evaluation tasks. It also retains stage dependencies,
+exact input digests, workload totals, and the release gate that precedes
+scoring. The record is deterministic and content-addressed. Planning performs
+no training, simulator execution, network request, or scheduler submission.
+
+The current plan reports `submission_ready: false` because the public study has
+not yet released a portable training entrypoint, immutable runtime image, or
+scheduler binding. Those execution details belong behind an explicit future
+submission command rather than being inferred from a local machine.
 
 ## Automation
 

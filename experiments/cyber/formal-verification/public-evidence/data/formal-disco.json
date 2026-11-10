@@ -17,6 +17,12 @@
       "maximum_program_lines": 128
     }
   },
+  "generation_context_ablation": {
+    "measurement": "distinct tracked Dafny language features at matched LLM-call budget",
+    "with_documentation_snippets": 30,
+    "without_documentation_snippets": 26,
+    "tracked_features": 30
+  },
   "downstream_contract": {
     "base_model": "Qwen2.5-Coder-32B-Instruct",
     "training_method": "matched LoRA SFT pipeline",
@@ -28,9 +34,16 @@
     {"budget_k": 1, "outcomes_percent": {"formal_disco": 43.0, "safe": 40.9}},
     {"budget_k": 32, "outcomes_percent": {"formal_disco": 59.1, "safe": 51.0}}
   ],
+  "base_model_transfer": [
+    {"language": "Dafny", "task": "annotation", "budget_k": 16, "base_percent": 19.5, "formal_disco_percent": 40.4},
+    {"language": "Verus", "task": "annotation", "budget_k": 1, "base_percent": 8.7, "formal_disco_percent": 43.0},
+    {"language": "Dafny", "task": "lemma proving", "budget_k": 1, "base_percent": 4.5, "formal_disco_percent": 25.5},
+    {"language": "Dafny", "task": "lemma proving", "budget_k": 32, "base_percent": 20.7, "formal_disco_percent": 39.8}
+  ],
   "claim_boundary": [
     "the practical rule is retrospective",
     "the two sampling budgets are nested evaluations of the same trained arms",
+    "the base-model transfer rows span different tasks and sampling budgets and are not pooled into one performance estimate",
     "the downstream comparison concerns one model and one Verus benchmark",
     "generation efficiency and downstream utility are different endpoints"
   ]

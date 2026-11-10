@@ -93,6 +93,11 @@ CHECKS = (
         ("anarres-robotics", "verify", "--repository", str(ROOT), "--json"),
     ),
     StudyCheck(
+        "robotics prospective PushT report",
+        ROOT,
+        ("anarres-robotics", "results", "--repository", str(ROOT), "--json"),
+    ),
+    StudyCheck(
         "legal adapter",
         ROOT,
         ("anarres-legal", "verify", "--repository", str(ROOT), "--json"),
@@ -108,14 +113,21 @@ CHECKS = (
         ("anarres-molecular", "verify", "--repository", str(ROOT), "--json"),
     ),
     StudyCheck(
-        "finance source audit",
+        "finance compact verification",
         ROOT,
-        ("anarres-finance", "audit-sources", "--repository", str(ROOT), "--json"),
+        ("anarres-finance", "verify", "--repository", str(ROOT), "--json"),
     ),
     StudyCheck(
         "finance exhaustive isolated reproduction",
         ROOT,
-        ("anarres-finance", "verify", "--repository", str(ROOT), "--json"),
+        (
+            "anarres-finance",
+            "verify",
+            "--exhaustive",
+            "--repository",
+            str(ROOT),
+            "--json",
+        ),
         extended=True,
     ),
 )

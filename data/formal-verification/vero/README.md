@@ -277,6 +277,7 @@ without changing that interpretation:
 uv tool install ./data/formal-verification/vero
 anarres adapter doctor formal
 anarres formal status --repository /path/to/anarres
+anarres formal qualification --repository /path/to/anarres
 anarres formal verify --repository /path/to/anarres
 anarres formal profile --repository /path/to/anarres \
   --output-dir /tmp/vero-profiles
@@ -301,6 +302,12 @@ reports `ready: false`, while `anarres measure` and `anarres validate` retain
 the negative record as valid evidence. `anarres design` rejects the pair
 because the modes have different native measurement contracts and unresolved
 support checks.
+
+`anarres formal qualification` reports the separate GPT-5.6 development
+support test. It reproduces the strict 9/9 PrimePy result, realized cost,
+artifact hashes, and containment finding without adding any outcome to the
+Leanstral profiles. The one-attempt result establishes task support but does
+not authorize repeated measurement, candidate ranking, or downstream training.
 
 [`policy-budget-calibration.200k.v1.json`](policy-budget-calibration.200k.v1.json)
 freezes the first requalification stage after that result. It selects the

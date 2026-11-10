@@ -92,6 +92,9 @@ class FinanceCliCommandTest(unittest.TestCase):
             self.assertEqual(generic.returncode, 0, generic.stderr)
             generic_status = json.loads(generic.stdout)
             self.assertFalse(generic_status["prospective_environment_outcome_opened"])
+            self.assertEqual(generic_status["strict_pairwise_ordering"], 0.815534)
+            self.assertEqual(generic_status["regression_risk_source_macro_roc_auc"], 0.815183)
+            self.assertEqual(generic_status["excluded_source_finacumen_pairwise_correct"], 33)
 
             direct = self.run_direct(
                 directory,
@@ -113,6 +116,19 @@ class FinanceCliCommandTest(unittest.TestCase):
             )
             self.assertEqual(audit.returncode, 0, audit.stderr)
             self.assertFalse(json.loads(audit.stdout)["scientific_outcomes_opened"])
+
+            verify = self.run_generic(
+                directory,
+                "finance",
+                "verify",
+                "--repository",
+                str(ROOT),
+                "--json",
+            )
+            self.assertEqual(verify.returncode, 0, verify.stderr)
+            verify_result = json.loads(verify.stdout)
+            self.assertEqual(verify_result["mode"], "compact")
+            self.assertEqual(len(verify_result["holdouts"]), 5)
 
             profile_dir = directory / "profile"
             profile = self.run_generic(

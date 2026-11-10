@@ -51,7 +51,7 @@ new training outcome.
 
 | Adapter | Command | Current released boundary |
 | --- | --- | --- |
-| Formal verification | `anarres formal` | Negative development qualification; RL remains blocked |
+| Formal verification | `anarres formal` | Negative grouped measurement plus a separate one-attempt support pass; containment requalification and RL remain blocked |
 | Robotics | `anarres robotics` | Can v1.4.1 pre-outcome candidate measurements |
 | Legal reasoning | `anarres legal` | SylloGym candidate profiles and a separate LAB regression report |
 | Materials science | `anarres materials` | MLIP candidate measurements; outcomes remain unopened |

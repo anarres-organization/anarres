@@ -1,14 +1,17 @@
 # Predictable utility of formal-verification environments
 
-**Status:** the public-evidence bridge is released. The OSS Verify release
-indexes and checker bootstrap are qualified. Vero's source structure, pinned
-Lean runtime, reference build, bounded grader controls, and repository-
-disjoint split are also qualified. Leanstral failed the frozen support screen
-and budget ladder. The replacement GPT-5.6 Sol policy passes all nine PrimePy
-specifications in one excluded development attempt under fresh grading. This
-establishes task support, not reliability. A broader-than-intended task
-sandbox remains to be corrected before repeated measurement. No claim-bearing
-reinforcement-learning run is authorized.
+**Status:** the public-evidence bridge now contains positive downstream
+training comparisons across Dafny and Verus, together with reward-integrity
+and policy-support boundaries. In the densest released grid, verifier-filtered
+DafnySynth augmentation improves seven of eight matched paper comparisons and
+ties the eighth across two starting models and four human-data fractions. The
+OSS Verify release indexes and checker bootstrap are qualified. Vero's source
+structure, pinned Lean runtime, reference build, bounded grader controls, and
+repository-disjoint split are also qualified. Leanstral failed the frozen
+support screen and budget ladder, while GPT-5.6 Sol passes all nine PrimePy
+specifications in one excluded development attempt under fresh grading. A
+broader-than-intended task sandbox remains to be corrected before repeated
+measurement. No claim-bearing reinforcement-learning run is authorized.
 
 This workstream asks a narrower question than benchmark construction:
 
@@ -22,13 +25,15 @@ is universally best. The long-term scientific objective is to learn which
 policy-relative properties of a verification environment predict downstream
 utility before full training is run.
 
-The first [public-evidence record](public-evidence/README.md) reconstructs
-decisions from VeruSyn, Re:Form, Formal Disco, and Vericoding, then places them
-against Anthropic and Theorem's production verification workflow. It preserves
-each source's native outcome. The evidence shows that target-matched training
-data and verified feature coverage can improve downstream proof synthesis,
-while raw verifier success can select a semantically weaker reward
-environment.
+The [public-evidence record](public-evidence/README.md) reconstructs decisions
+from DafnySynth, VeruSyn, Re:Form, Formal Disco, and Vericoding, then audits
+repository policy evidence from LeanLean, Vero, and Forall VeriSoftBench. It
+places these results against Anthropic and Theorem's production verification
+workflow while preserving each source's native outcome. The evidence shows
+that verifier-filtered augmentation, target-matched training data, and verified
+feature coverage can improve downstream proof synthesis. It also shows that
+raw verifier success can select a semantically weaker reward environment and
+that no starting policy leads every repository contract.
 
 The detailed protocol is in [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md). The dated
 source assessment and role of each public artifact are in
@@ -51,6 +56,8 @@ with Codex 0.154.0 for the completed development-only support test. Its compact
 records the 9/9 fresh-grade outcome and its scope. The
 [containment requalification](CODEX_CONTAINMENT.md) defines the task-only
 execution boundary and negative controls required after that support result. The
+[development-policy panel](DEVELOPMENT_POLICY_PANEL.md) specifies the matched
+Sol/Luna route screen and its stop rule without authorizing inference. The
 [continuation guide](CONTINUATION.md) records the current execution boundary
 and the path from candidate construction to prospective selection, regression
 forecasting, and production-code transfer.
@@ -58,8 +65,10 @@ forecasting, and production-code transfer.
 ## Public evidence before new training
 
 The workstream begins with released interventions rather than a new model run.
-The public record contains four complementary checks:
+The public record contains six complementary checks:
 
+- DafnySynth compares verifier-filtered synthetic augmentation across two
+  starting models and four human-data fractions under a fixed training budget.
 - VeruSyn compares target-matched training-data environments for algorithmic
   and real-system Verus proofs.
 - Re:Form shows that the reward environment with the highest verifier success
@@ -68,6 +77,8 @@ The public record contains four complementary checks:
   downstream Verus performance under a matched SFT pipeline.
 - Vericoding measures how candidate support changes across policies and formal
   languages.
+- LeanLean, Vero, and Forall VeriSoftBench show that policy rankings change
+  with the harness, objective, verifier, budget, and cost measure.
 
 These studies do not share one numerical outcome. They establish the decision
 structure and failure modes that a prospective environment comparison must
@@ -197,9 +208,10 @@ calibration, risk--coverage, and cost are supporting metrics.
 
 ## Immediate deliverables
 
-1. Maintain the source-pinned public-evidence record and add a broader
-   retrospective bridge only when released measurements and outcomes form
-   comparable candidate panels.
+1. Maintain the source-pinned public-evidence record and repository-policy
+   matrix from released LeanLean, Vero, Forall VeriSoftBench, and Vericoding
+   artifacts. Keep FVSpec and VeriBench as candidate task sources until their
+   evaluator, outcome, and release boundaries are qualified.
 2. Pin every admitted executable source and record its license and content
    manifest. The OSS Verify `v2026.11.1` index and checker metadata are
    complete. Vero's source structure, bounded runtime qualification, and
@@ -217,8 +229,10 @@ calibration, risk--coverage, and cost are supporting metrics.
    tests. The bounded OSS Verify and Vero controls are complete; selected
    production-task replay and model-facing controls remain.
 7. Tighten the task sandbox after GPT-5.6 Sol and Codex 0.154.0 passed all nine
-   PrimePy specifications in one excluded development attempt. Then freeze a
-   fresh development-only support screen under the same policy identity.
+   PrimePy specifications in one excluded development attempt. Treat that pair
+   as one qualified candidate, compare any additional executable policies under
+   the same excluded Vero contract, and freeze one policy identity before a
+   fresh development-only support screen.
 8. Freeze candidate environments, predictions, uncertainty, and an a-priori
    power/cost decision before any downstream training outcome is opened.
 

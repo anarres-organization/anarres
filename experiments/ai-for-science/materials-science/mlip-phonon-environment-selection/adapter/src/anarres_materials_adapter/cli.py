@@ -22,14 +22,14 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "materials",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "protocol_version": 1,
         "domain": "materials-interatomic-potentials",
         "executable": "anarres-materials",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
         "capabilities": ["profile", "status", "verify"],
         "measurement_contracts": [
-            "materials.mlip-phonon-candidate-measurement.v1",
+            "materials.mlip-phonon-candidate-measurement.v2",
         ],
     }
 
@@ -79,7 +79,7 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     validation = exporter.read_object(exporter.DEFAULT_VALIDATION)
     candidates = bank.get("candidates")
     if not isinstance(candidates, list):
-        raise MaterialsCliError("candidate bank has no candidate list")
+        raise MaterialsCliError("candidate panel has no candidate list")
     first_candidate = sorted(candidate["candidate_id"] for candidate in candidates)[0]
     with tempfile.TemporaryDirectory(prefix="anarres-materials-status-") as directory:
         output = exporter.export_profiles(
@@ -91,12 +91,12 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         }
     return {
         "domain": "materials-interatomic-potentials",
-        "candidate_bank_status": bank.get("status"),
+        "candidate_panel_status": bank.get("status"),
         "candidate_count": len(candidates),
         "measurement_records": validation.get("records"),
         "measurements_complete": validation.get("status") == "complete",
         "candidate_outcomes_opened": checks["candidate-outcomes-sealed"]["status"] != "pass",
-        "final_training_panel_frozen": checks["final-panel-pending"]["status"] == "pass",
+        "final_training_panel_frozen": checks["final-panel-frozen"]["status"] == "pass",
         "predictive_evidence_available": False,
     }
 
@@ -120,29 +120,40 @@ def command_verify(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
     exporter = load_exporter(repository)
     bank = exporter.read_object(exporter.DEFAULT_BANK)
+    validation = exporter.read_object(exporter.DEFAULT_VALIDATION)
     candidate_ids = sorted(candidate["candidate_id"] for candidate in bank["candidates"])
-    selected = [candidate_ids[0], candidate_ids[-1]]
     with tempfile.TemporaryDirectory(prefix="anarres-materials-verify-") as directory:
         root = Path(directory)
-        first = exporter.export_profiles(output_dir=root / "first", candidate_ids=selected)
-        second = exporter.export_profiles(output_dir=root / "second", candidate_ids=selected)
+        first = exporter.export_profiles(output_dir=root / "first", candidate_ids=candidate_ids)
+        second = exporter.export_profiles(output_dir=root / "second", candidate_ids=candidate_ids)
         stable = [path.read_bytes() for path in first] == [path.read_bytes() for path in second]
         if not stable:
             raise MaterialsCliError("materials profile export is not deterministic")
-        checks = {
-            check["check_id"]: check
-            for check in json.loads(first[0].read_text(encoding="utf-8"))["qualification_checks"]
-        }
-        if checks["candidate-outcomes-sealed"]["status"] != "pass":
-            raise MaterialsCliError("candidate outcome seal did not pass")
-        if checks["final-panel-pending"]["status"] != "unknown":
-            raise MaterialsCliError("final panel status was not preserved")
+        observed_ids = []
+        for path in first:
+            profile = json.loads(path.read_text(encoding="utf-8"))
+            observed_ids.append(profile["environment_id"])
+            checks = {check["check_id"]: check for check in profile["qualification_checks"]}
+            if checks["measurements-complete"]["status"] != "pass":
+                raise MaterialsCliError("full measurement status was not preserved")
+            if checks["candidate-outcomes-sealed"]["status"] != "pass":
+                raise MaterialsCliError("candidate outcome seal did not pass")
+            if checks["final-panel-frozen"]["status"] != "pass":
+                raise MaterialsCliError("final panel seal did not pass")
+        if observed_ids != candidate_ids:
+            raise MaterialsCliError("materials profile export omitted or reordered candidates")
+
+    measurement_shards = validation.get("measurement_sha256")
+    if not isinstance(measurement_shards, dict) or len(measurement_shards) != 8:
+        raise MaterialsCliError("full measurement shard identities were not preserved")
     return {
         "status": "pass",
-        "profiles_checked": len(selected),
+        "profiles_checked": len(candidate_ids),
         "deterministic": True,
+        "measurement_records": validation["records"],
+        "measurement_shards_pinned": len(measurement_shards),
         "candidate_outcomes_sealed": True,
-        "final_training_panel_frozen": False,
+        "final_training_panel_frozen": True,
     }
 
 

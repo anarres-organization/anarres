@@ -1,0 +1,51 @@
+{
+  "baseline_arm_ids": [
+    "base",
+    "base_1p7b",
+    "base_4b",
+    "baseline"
+  ],
+  "estimand": "whether a treatment scores below its explicit study-matched baseline",
+  "interpretation": "The fixed finance rule identifies regression risk across sources better than the data-volume proxy. Source-macro AUC is primary because one source supplies most treatment contrasts. This is a retrospective secondary audit.",
+  "prediction_inputs": "the fixed practical-rule features. Outcomes enter labels only",
+  "rules": {
+    "more_data": {
+      "eligible_sources": 5,
+      "per_source_roc_auc": {
+        "data_centric_finance": 0.5,
+        "dianjin_r1_2025": null,
+        "fin_sd_2026": 0.5,
+        "financial_advice_grpo_2026": null,
+        "fino1": 1.0,
+        "oda_fin": 0.375,
+        "quanteval": null,
+        "shin_kim_2026_speech_sft": 0.5
+      },
+      "pooled_roc_auc": 0.853095,
+      "source_macro_roc_auc": 0.575
+    },
+    "practical_rule": {
+      "eligible_sources": 5,
+      "per_source_roc_auc": {
+        "data_centric_finance": 1.0,
+        "dianjin_r1_2025": null,
+        "fin_sd_2026": 0.75,
+        "financial_advice_grpo_2026": null,
+        "fino1": 1.0,
+        "oda_fin": 0.75,
+        "quanteval": null,
+        "shin_kim_2026_speech_sft": 0.575914
+      },
+      "pooled_roc_auc": 0.669206,
+      "source_macro_roc_auc": 0.815183
+    }
+  },
+  "schema_version": 1,
+  "status": "RETROSPECTIVE_REGRESSION_RISK_AUDIT",
+  "support": {
+    "admitted_panels": 44,
+    "contrasts": 165,
+    "regressions": 105,
+    "sources": 8
+  }
+}
