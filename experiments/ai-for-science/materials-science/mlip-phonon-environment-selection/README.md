@@ -4,7 +4,8 @@
 outcome-blind target roles are frozen, and the complete 80,000-record
 measurement sweep has passed integrity checks. The final 16-environment panel
 matches both processed atoms and graph-edge cost. Development and prospective
-roles are frozen, while candidate-training and protected phonon outcomes remain
+roles are frozen. The environment-selection and target-regression scoring rules
+are also fixed, while candidate-training and protected phonon outcomes remain
 sealed.
 
 ## Research question
@@ -72,6 +73,16 @@ The study advances through five gates.
 A failed gate produces a bounded qualification result. Candidate thresholds,
 environment membership, and evaluation fixtures are not repaired after
 post-training outcomes are observed.
+
+[`DECISION_AND_REGRESSION_PROTOCOL.json`](DECISION_AND_REGRESSION_PROTOCOL.json)
+fixes the next decision before candidate training. It records a literature-
+derived baseline ranking, the development-to-prospective fitting sequence, and
+the metrics used to separate curve prediction from allocation quality. It also
+defines a target-level regression as phonon-frequency error that increases by
+more than the five-percent practical-equivalence boundary relative to the
+common starting checkpoint. Stability and workflow-validity regressions remain
+separate endpoints. The regression model uses only starting-checkpoint,
+candidate, and target measurements available before candidate training.
 
 ## Candidate bank
 
