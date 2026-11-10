@@ -200,12 +200,8 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "excluded_source_fintoolsyn_directional_scored": fintoolsyn["directional_scored"],
         "excluded_source_fintoolsyn_regression_correct": fintoolsyn["regression_correct"],
         "excluded_source_fintoolsyn_regression_scored": fintoolsyn["regression_scored"],
-        "outcome_separated_longfinanceqa_directional_correct": longfinanceqa[
-            "directional_correct"
-        ],
-        "outcome_separated_longfinanceqa_directional_scored": longfinanceqa[
-            "directional_scored"
-        ],
+        "outcome_separated_longfinanceqa_directional_correct": longfinanceqa["directional_correct"],
+        "outcome_separated_longfinanceqa_directional_scored": longfinanceqa["directional_scored"],
         "outcome_separated_longfinanceqa_families_supported": longfinanceqa[
             "prediction_families_supported"
         ],
