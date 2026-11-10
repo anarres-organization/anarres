@@ -132,15 +132,21 @@ def evaluate(
     distance: float,
     fmax: float,
     max_steps: int,
+    *,
+    calculator=None,
+    model_digest: str | None = None,
 ) -> dict:
     started = time.perf_counter()
     reference = phonopy.load(yaml_path)
     reference.produce_force_constants()
     starting_atoms = atoms_from_phonopy(reference.unitcell)
 
-    load_started = time.perf_counter()
-    calculator = load_calculator(backend, model_path)
-    model_load_seconds = time.perf_counter() - load_started
+    if calculator is None:
+        load_started = time.perf_counter()
+        calculator = load_calculator(backend, model_path)
+        model_load_seconds = time.perf_counter() - load_started
+    else:
+        model_load_seconds = 0.0
 
     relaxed, relaxation = relax_unitcell(starting_atoms, calculator, fmax, max_steps)
     predicted, force_set = calculate_phonons(reference, relaxed, calculator, distance)
@@ -153,7 +159,7 @@ def evaluate(
         "artifact": "anarres_mlip_phonon_evaluation_v1",
         "material_id": yaml_path.name.removesuffix(".yaml.bz2"),
         "backend": backend,
-        "model_sha256": sha256(model_path),
+        "model_sha256": model_digest or sha256(model_path),
         "workflow": {
             "distance_angstrom": distance,
             "relaxation_fmax_ev_per_angstrom": fmax,
