@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "source_id": "finlcr_2026",
+  "source_location": "Table 2",
+  "metrics": {
+    "avg_short": "average accuracy over short-context benchmarks",
+    "avg_long": "average accuracy over long-context benchmarks",
+    "avg": "overall average accuracy"
+  },
+  "arms": {
+    "short_only": {"avg_short": 70.44, "avg_long": 41.81, "avg": 56.13},
+    "long_only": {"avg_short": 70.29, "avg_long": 40.06, "avg": 55.18},
+    "naive_gspo": {"avg_short": 71.42, "avg_long": 39.32, "avg": 55.37},
+    "s2l_only": {"avg_short": 68.57, "avg_long": 40.48, "avg": 54.52},
+    "das_only": {"avg_short": 67.97, "avg_long": 38.71, "avg": 53.33},
+    "s2l_and_das": {"avg_short": 72.79, "avg_long": 42.62, "avg": 57.70},
+    "s2l_and_das_tau_0_2_0_7": {"avg_short": 73.57, "avg_long": 43.90, "avg": 58.74},
+    "s2l_and_das_tau_0_3_0_8": {"avg_short": 73.01, "avg_long": 44.39, "avg": 58.70}
+  },
+  "unreported_matching_targets": [
+    "highest-difficulty subset under matched curriculum-component ablations"
+  ],
+  "source_note": "S2L and DAS each underperform naive GSPO on overall average when used alone, while their combination outperforms naive GSPO and both single-component arms."
+}

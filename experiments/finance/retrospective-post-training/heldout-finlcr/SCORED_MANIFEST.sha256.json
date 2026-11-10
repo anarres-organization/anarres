@@ -1,0 +1,9 @@
+{
+  "CONTRACT.json": "8619878e0e2fee7d84c40f050d1411d6e284ad39a3b23e4faf37a8df40bdee61",
+  "FREEZE_MANIFEST.sha256.json": "60d324b33600bec79f360aa2943fe5ab24f437b28fd849acd005010ad3adb842",
+  "OUTCOMES.json": "0a3b882fd2c2d66af0f1517a5cefabe771ee89860ac02bf5aa00fd381be8fee3",
+  "PREDICTIONS.json": "9723a6d26b041ceb00cfc7c9861f740fc055a04e955c6cae7e17aa8ccd9deeaa",
+  "SCORE.json": "b1ca84392083828fccc3e122a9eda779132c420df5186db7d1223896632e8866",
+  "SOURCE.json": "d864c6073e48a081d11eea9d2b02a7ef10a076f42889bfa0b90e619be22137e0",
+  "score_holdout.py": "33eca3dc11cd979b2773ff1ce7bdd21420817ee8e5ecd72e3bb5fea828ef5aa5"
+}
