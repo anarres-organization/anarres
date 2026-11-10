@@ -29,7 +29,7 @@ CONVENTION_URI = (
     "docs/conventions/robotics-cupid-candidate-measurement-v1.md"
 )
 ADAPTER_ID = "robotics.cupid-can-v141-candidate-measurement"
-ADAPTER_REVISION = "v1"
+ADAPTER_REVISION = "v2"
 EXPECTED_SOURCE_DIGEST = "b6ceaed84c0335613a5001c900493b226481c132c792ec2cbdb99cb12c62baf0"
 
 
@@ -71,7 +71,7 @@ def validate_inputs(
     protocol_path: Path,
     qualification_path: Path,
 ) -> dict[str, Any]:
-    if measurements.get("schema_version") != "anarres.robotics-cupid-candidate-measurements.v1":
+    if measurements.get("schema_version") != "anarres.robotics-cupid-candidate-measurements.v2":
         raise AdapterError("unsupported robotics measurement schema")
     if measurements.get("outcomes_read") is not False:
         raise AdapterError("candidate outcomes were opened before profile export")
@@ -100,9 +100,27 @@ def validate_inputs(
     if len(checkpoints) != 3 or any(len(item) != 64 for item in checkpoints):
         raise AdapterError("measurement lacks three scoring-checkpoint identities")
     candidates = measurements.get("candidates", {})
-    expected_candidates = {item["id"] for item in protocol.get("candidates", [])}
+    protocol_candidates = {
+        item["id"]: item for item in protocol.get("candidates", []) if isinstance(item, dict)
+    }
+    expected_candidates = set(protocol_candidates)
     if set(candidates) != expected_candidates:
         raise AdapterError("measurement candidate set differs from the frozen protocol")
+    measurement = measurements.get("measurement", {})
+    expected_scores = measurement.get("expected_score_values")
+    observed_scores = measurement.get("observed_score_values")
+    missingness = measurement.get("score_missingness_rate")
+    if expected_scores != 900 or observed_scores != expected_scores or missingness != 0.0:
+        raise AdapterError("candidate measurement does not preserve complete score exposure")
+    support = measurement.get("checkpoint_outcome_support")
+    if not isinstance(support, list) or len(support) != 3:
+        raise AdapterError("measurement lacks three checkpoint outcome-support records")
+    for checkpoint in support:
+        episodes = checkpoint.get("episodes")
+        successes = checkpoint.get("successes")
+        failures = checkpoint.get("failures")
+        if episodes != 100 or successes + failures != episodes or min(successes, failures) <= 0:
+            raise AdapterError("checkpoint outcome support is incomplete or degenerate")
     for candidate_id, candidate in candidates.items():
         if candidate.get("count", 0) <= 0 or len(candidate.get("membership_sha256", "")) != 64:
             raise AdapterError(f"invalid candidate identity: {candidate_id}")
@@ -158,9 +176,14 @@ def export_profiles(
 
     reliability_passed = measurements["measurement"]["reliability_gate_passed"]
     qualification_passed = qualification.get("passed") is True
+    protocol_candidates = {item["id"]: item for item in protocol["candidates"]}
+    support = measurements["measurement"]["checkpoint_outcome_support"]
+    support_episodes = sum(item["episodes"] for item in support)
+    support_failures = sum(item["failures"] for item in support)
     profiles = []
     for candidate_id in sorted(measurements["candidates"]):
         candidate = measurements["candidates"][candidate_id]
+        construction = protocol_candidates[candidate_id]["construction"]
         values = candidate["coordinates"]
         profiles.append(
             build_profile_input(
@@ -308,9 +331,19 @@ def export_profiles(
                 attributes={
                     "candidate_id": candidate_id,
                     "candidate_count": int(candidate["count"]),
+                    "candidate_construction": construction,
+                    "tier_balance_constraint_applied": candidate_id == "cupid_tier_balanced_50",
+                    "better_tier_count": int(candidate["tier_counts"]["better"]),
+                    "okay_tier_count": int(candidate["tier_counts"]["okay"]),
+                    "worse_tier_count": int(candidate["tier_counts"]["worse"]),
                     "membership_sha256": candidate["membership_sha256"],
                     "selected_fraction": candidate["count"]
                     / measurements["measurement"]["demonstrations"],
+                    "selected_fraction_unit": "fraction_of_demonstration_pool",
+                    "starting_policy_failure_rate": support_failures / support_episodes,
+                    "starting_policy_failure_rate_unit": "fraction_of_scoring_rollouts",
+                    "score_missingness_rate": measurements["measurement"]["score_missingness_rate"],
+                    "score_missingness_rate_unit": "fraction_of_expected_scores",
                     "frozen_point_prediction": candidate_id == measurements["decision"],
                     "candidate_outcomes_opened": False,
                 },

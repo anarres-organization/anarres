@@ -45,6 +45,10 @@ the completeness and identity checks. The machine-readable contract is in
 [`PROTOCOL.json`](PROTOCOL.json), and source revisions and artifact hashes are
 in [`SOURCES.json`](SOURCES.json).
 
+The original `FREEZE.json` remains byte-for-byte unchanged.
+`FREEZE_CORRECTION.json` records the source-manifest digest for the corrected
+v1.4.1 dataset reference, and the validator checks both records.
+
 ## Native CLI profiles
 
 [`PROFILE_MEASUREMENTS.json`](PROFILE_MEASUREMENTS.json) is a compact public
@@ -52,7 +56,9 @@ record derived from the three native CUPID score files and the frozen candidate
 memberships. It contains no candidate-policy outcomes or machine-specific
 paths. The adapter exports one profile per candidate with CUPID rank position,
 operator-tier coverage, demonstration length, and cross-checkpoint rank
-reliability:
+reliability. Profile attributes retain the construction rule, tier-balance
+correction, selected exposure, scoring-policy failure rate, and zero score
+missingness without presenting them as additional fitted coordinates:
 
 ```bash
 uv run python \
@@ -85,12 +91,15 @@ anarres adapter doctor robotics
 anarres robotics status --repository .
 anarres robotics profile --repository . --output-dir .anarres/can-v141
 anarres robotics verify --repository .
+anarres robotics results --repository .
 ```
 
 `anarres-robotics` retains the Python implementation and robotics-specific
 records. The Rust CLI discovers it through the generic adapter protocol without
-importing robotics dependencies. The descriptor and `status` command do not
-open candidate-policy outcomes.
+importing robotics dependencies. The descriptor, Can `status`, `profile`, and
+`verify` commands do not open candidate-policy outcomes. The separate `results`
+command recomputes the already released PushT score and states its narrow claim:
+correct abstention in that panel is not selector superiority.
 
 ## Scope
 

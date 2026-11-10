@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import importlib.util
 import json
 import sys
@@ -22,12 +23,12 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "robotics",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "protocol_version": 1,
         "domain": "robotics",
         "executable": "anarres-robotics",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
-        "capabilities": ["profile", "status", "verify"],
+        "capabilities": ["profile", "results", "status", "verify"],
         "measurement_contracts": [
             "robotics.cupid-can-v141-candidate-measurement.v1",
         ],
@@ -52,6 +53,10 @@ def repository_root(explicit: Path | None = None) -> Path:
 
 def study_root(repository: Path) -> Path:
     return repository / "experiments/robotics/environment-selection/prospective-cupid-can-v141"
+
+
+def pusht_root(repository: Path) -> Path:
+    return repository / "experiments/robotics/environment-selection/prospective-pusht"
 
 
 def load_native_adapter(repository: Path) -> ModuleType:
@@ -113,11 +118,83 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
             measurements["measurement"]["reliability_gate_passed"] is True
         ),
         "candidate_outcomes_opened": measurements["outcomes_read"],
+        "selector_performance_validated": False,
+        "profile_coordinates": [
+            "mean_cupid_rank_percentile",
+            "operator_tier_effective_coverage",
+            "mean_demonstration_action_steps",
+            "measurement_rank_reliability",
+        ],
+        "profile_context": [
+            "candidate_construction",
+            "tier_balance_constraint_applied",
+            "selected_fraction",
+            "starting_policy_failure_rate",
+            "score_missingness_rate",
+        ],
         "profile_ready": (
             qualification.get("passed") is True
             and measurements["measurement"]["reliability_gate_passed"] is True
             and measurements["outcomes_read"] is False
         ),
+    }
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return f"sha256:{digest.hexdigest()}"
+
+
+def load_pusht_reproducer(repository: Path) -> ModuleType:
+    path = pusht_root(repository) / "scripts/reproduce.py"
+    specification = importlib.util.spec_from_file_location(
+        "anarres_robotics_pusht_reproducer", path
+    )
+    if specification is None or specification.loader is None:
+        raise RoboticsCliError(f"cannot load PushT reproducer: {path}")
+    module = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(module)
+    return module
+
+
+def command_results(args: argparse.Namespace) -> dict[str, Any]:
+    repository = repository_root(args.repository)
+    root = pusht_root(repository)
+    outcomes_path = root / "data/outcomes.json"
+    summary_path = root / "results/summary.json"
+    reproducer_path = root / "scripts/reproduce.py"
+    reproducer = load_pusht_reproducer(repository)
+    outcomes = json.loads(outcomes_path.read_text(encoding="utf-8"))
+    observed = reproducer.compute(outcomes)
+    expected = json.loads(summary_path.read_text(encoding="utf-8"))
+    if observed != expected:
+        raise RoboticsCliError("recomputed PushT result differs from the released summary")
+    return {
+        "study_id": observed["artifact"],
+        "domain": "robotics",
+        "study": "prospective-pusht",
+        "status": "released_prospective_result",
+        "profile_input": False,
+        "candidate_outcomes_opened": True,
+        "frozen_action": observed["frozen_action"],
+        "observed_best": observed["observed_best"],
+        "abstention_correct": observed["abstention_correct"],
+        "independent_training_seeds": observed["independent_training_seeds"],
+        "means": observed["means"],
+        "arm_regret_pp": observed["arm_regret_pp"],
+        "contrasts": observed["contrasts"],
+        "claim_boundary": (
+            "The frozen abstention set retained the observed best arm in one PushT panel; "
+            "correct abstention is not selector superiority."
+        ),
+        "artifacts": {
+            "outcomes": sha256_file(outcomes_path),
+            "summary": sha256_file(summary_path),
+            "reproducer": sha256_file(reproducer_path),
+        },
     }
 
 
@@ -148,12 +225,18 @@ def command_profile(args: argparse.Namespace) -> dict[str, Any]:
 def command_verify(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
     with tempfile.TemporaryDirectory(prefix="anarres-robotics-verify-") as directory:
-        outputs = export_profiles(repository, Path(directory))
-        sizes = [path.stat().st_size for path in outputs]
+        root = Path(directory)
+        first = export_profiles(repository, root / "first")
+        second = export_profiles(repository, root / "second")
+        deterministic = [path.read_bytes() for path in first] == [
+            path.read_bytes() for path in second
+        ]
+        sizes = [path.stat().st_size for path in first]
     return {
         "status": "pass",
-        "profile_count": len(outputs),
+        "profile_count": len(first),
         "nonempty_profiles": all(size > 0 for size in sizes),
+        "deterministic_profiles": deterministic,
         "candidate_outcomes_opened": False,
     }
 
@@ -179,6 +262,12 @@ def parser() -> argparse.ArgumentParser:
     profile.add_argument("--output-dir", type=Path, required=True)
     profile.add_argument("--force", action="store_true")
     profile.set_defaults(handler=command_profile)
+
+    results = commands.add_parser(
+        "results", help="Recompute the released prospective PushT decision report."
+    )
+    add_common(results)
+    results.set_defaults(handler=command_results)
 
     verify = commands.add_parser("verify", help="Validate records and deterministic export.")
     add_common(verify)

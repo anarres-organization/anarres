@@ -26,6 +26,19 @@ CLI_SPEC.loader.exec_module(CLI)
 
 
 class RoboticsCupidProfileAdapterTest(unittest.TestCase):
+    def test_protocol_freeze_lineage_validates(self) -> None:
+        result = subprocess.run(
+            [sys.executable, str(STUDY / "scripts/validate_protocol.py")],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        freeze = json.loads(result.stdout)
+        correction = json.loads((STUDY / "FREEZE_CORRECTION.json").read_text())
+        self.assertEqual(freeze, correction["corrected_freeze"])
+
     def test_adapter_descriptor_matches_the_shared_contract(self) -> None:
         descriptor = CLI.adapter_descriptor()
         schema = json.loads(
@@ -33,6 +46,7 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
         )
         Draft202012Validator(schema).validate(descriptor)
         self.assertEqual(descriptor["name"], "robotics")
+        self.assertEqual(descriptor["version"], "0.2.0")
         self.assertEqual(descriptor["executable"], "anarres-robotics")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
         self.assertEqual(
@@ -70,7 +84,10 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             self.assertTrue(report["qualification_passed"])
             self.assertTrue(report["measurement_reliability_passed"])
             self.assertFalse(report["candidate_outcomes_opened"])
+            self.assertFalse(report["selector_performance_validated"])
             self.assertEqual(report["candidate_count"], 5)
+            self.assertIn("operator_tier_effective_coverage", report["profile_coordinates"])
+            self.assertIn("starting_policy_failure_rate", report["profile_context"])
 
             output = outside / "profiles"
             profiled = self.run_adapter(
@@ -91,7 +108,25 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
 
             verified = self.run_adapter(["verify", "--repository", str(ROOT), "--json"], outside)
             self.assertEqual(verified.returncode, 0, verified.stderr)
-            self.assertEqual(json.loads(verified.stdout)["status"], "pass")
+            verification = json.loads(verified.stdout)
+            self.assertEqual(verification["status"], "pass")
+            self.assertTrue(verification["deterministic_profiles"])
+
+            results = self.run_adapter(["results", "--repository", str(ROOT), "--json"], outside)
+            self.assertEqual(results.returncode, 0, results.stderr)
+            result = json.loads(results.stdout)
+            self.assertFalse(result["profile_input"])
+            self.assertTrue(result["candidate_outcomes_opened"])
+            self.assertTrue(result["abstention_correct"])
+            self.assertEqual(result["observed_best"], "diversity_only_retain_25")
+            self.assertIn("not selector superiority", result["claim_boundary"])
+            self.assertEqual(set(result["artifacts"]), {"outcomes", "reproducer", "summary"})
+            self.assertTrue(
+                all(value.startswith("sha256:") for value in result["artifacts"].values())
+            )
+            repeated = self.run_adapter(["results", "--repository", str(ROOT), "--json"], outside)
+            self.assertEqual(repeated.returncode, 0, repeated.stderr)
+            self.assertEqual(results.stdout, repeated.stdout)
 
     def export(
         self,
@@ -130,12 +165,46 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
                 self.assertEqual(profile["domain"], "robotics")
                 self.assertFalse(profile["attributes"]["candidate_outcomes_opened"])
                 self.assertEqual(len(profile["coordinates"]), 4)
+                attributes = profile["attributes"]
+                self.assertEqual(attributes["score_missingness_rate"], 0.0)
+                self.assertEqual(
+                    attributes["score_missingness_rate_unit"], "fraction_of_expected_scores"
+                )
+                self.assertGreater(attributes["starting_policy_failure_rate"], 0.0)
+                self.assertEqual(
+                    attributes["starting_policy_failure_rate_unit"],
+                    "fraction_of_scoring_rollouts",
+                )
+                self.assertIn(attributes["selected_fraction"], {0.5, 1.0})
+                self.assertEqual(
+                    attributes["selected_fraction_unit"], "fraction_of_demonstration_pool"
+                )
+                self.assertIsInstance(attributes["candidate_construction"], str)
+                self.assertEqual(
+                    attributes["better_tier_count"]
+                    + attributes["okay_tier_count"]
+                    + attributes["worse_tier_count"],
+                    attributes["candidate_count"],
+                )
                 self.assertTrue(
                     all(check["status"] == "pass" for check in profile["qualification_checks"])
                 )
             selected = [p for p in profiles if p["attributes"]["frozen_point_prediction"]]
             self.assertEqual(len(selected), 1)
             self.assertEqual(selected[0]["attributes"]["candidate_id"], "cupid_tier_balanced_50")
+            self.assertTrue(selected[0]["attributes"]["tier_balance_constraint_applied"])
+
+            coordinates = {item["name"]: item for item in selected[0]["coordinates"]}
+            self.assertEqual(coordinates["mean_cupid_rank_percentile"]["unit"], "rank_percentile")
+            self.assertEqual(coordinates["operator_tier_effective_coverage"]["unit"], "fraction")
+            self.assertEqual(
+                coordinates["mean_demonstration_action_steps"]["unit"],
+                "action_steps_per_demonstration",
+            )
+            self.assertEqual(
+                coordinates["measurement_rank_reliability"]["unit"],
+                "spearman_correlation",
+            )
 
     def test_native_artifact_digests_are_exact_and_output_is_deterministic(self) -> None:
         expected_measurement = hashlib.sha256(MODULE.DEFAULT_MEASUREMENTS.read_bytes()).hexdigest()
@@ -205,6 +274,17 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             modified.write_text(json.dumps(measurements))
             with self.assertRaisesRegex(MODULE.AdapterError, "outcomes were opened"):
                 self.export(temporary / "profiles-b", measurements=modified)
+
+    def test_incomplete_score_exposure_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            temporary = Path(directory)
+            measurements = json.loads(MODULE.DEFAULT_MEASUREMENTS.read_text())
+            measurements["measurement"]["observed_score_values"] = 899
+            measurements["measurement"]["score_missingness_rate"] = 1 / 900
+            modified = temporary / "incomplete.json"
+            modified.write_text(json.dumps(measurements))
+            with self.assertRaisesRegex(MODULE.AdapterError, "complete score exposure"):
+                self.export(temporary / "profiles", measurements=modified)
 
     def test_failed_qualification_remains_failed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
