@@ -151,3 +151,10 @@ bridge is retrospective and does not qualify the selector. A separately frozen
 prediction families correct. The two central component comparisons transfer
 across all nine reported model-by-complexity cells, while two broader
 generalizations fail. The native two-round result remains open.
+
+The native path is now frozen on a ten-task
+[QF-Bench risk-transfer panel](native-qfbench-v1/README.md). The external
+benchmark provides air-gapped execution, reference solutions, deterministic
+unit-test verifiers, and complete trajectory and cost records. Its source pin,
+task split, candidate resource types, decision rubric, and success criteria are
+fixed before any model-generated development or target outcome is opened.
