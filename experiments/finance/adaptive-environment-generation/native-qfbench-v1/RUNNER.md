@@ -6,6 +6,8 @@ instruction, task data, an empty output directory, and an optional candidate
 resource. Tests and reference solutions never enter the agent workspace.
 
 The host Codex CLI writes task artifacts into the staged output directory.
+Automatic approval retains the CLI's workspace-write sandbox for generated
+commands.
 After the agent exits, the runner copies only those artifacts into a fresh
 task image and invokes the source-native verifier. QF-Bench's verifier
 bootstrap retains its normal network access, while the agent receives no
