@@ -23,8 +23,8 @@ class EvidenceRecordTest(unittest.TestCase):
         return json.loads((ROOT / "data" / name).read_text())
 
     def test_reproduces_committed_summary(self) -> None:
-        expected = json.loads((ROOT / "results" / "summary.json").read_text())
-        self.assertEqual(MODULE.compute(), expected)
+        expected = (ROOT / "results" / "summary.json").read_text()
+        self.assertEqual(MODULE.canonical_json(MODULE.compute()), expected)
 
     def test_no_retrospective_record_is_labeled_prospective(self) -> None:
         for name in ("verusyn.json", "reform.json", "formal-disco.json"):
