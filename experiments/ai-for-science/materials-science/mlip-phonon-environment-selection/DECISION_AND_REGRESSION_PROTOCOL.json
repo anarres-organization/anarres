@@ -1,0 +1,376 @@
+{
+  "artifact": "anarres_mlip_decision_and_regression_protocol_v1",
+  "status": "frozen_before_candidate_training_outcomes",
+  "inputs": {
+    "candidate_panel": {
+      "path": "FINAL_COST_MATCHED_PANEL.json",
+      "sha256": "b5d26ea2dbecac0e530e80d470b6079a7ebee46600633f119eb6d94b9048dd52",
+      "status": "frozen_pretraining__candidate_outcomes_sealed"
+    },
+    "target_roles": {
+      "path": "TARGET_ROLES.json",
+      "sha256": "3af598f1cf652e4918f37a2359242b29d89ed3fea40f12125cbbdc66ab73169f",
+      "role_hashes": {
+        "checkpoint_qualification": "93cc09aeede1d2ee48b47268d83946602d4ef228fc3d6e828fe21821f320e704",
+        "development": "503bcc8699bd8616e98fb515f06d7f90c5e427ecc858948b06e11343e2314522",
+        "prospective": "6e2588c07e1119f41d59eaeec542fe890e95c3727028a26420766de7f479b106"
+      }
+    }
+  },
+  "literature_derived_baseline": {
+    "name": "equal_weight_signal_coverage_affinity",
+    "purpose": "A fixed, outcome-blind comparator derived from the pooled retrospective bridge; it is not the development-fitted prospective predictor.",
+    "formula": "mean(z(log(signal_density_per_atom)), z(effective_signal_coverage), z(mean_target_affinity))",
+    "standardization_population": "all 16 frozen candidate environments",
+    "uses_candidate_training_outcomes": false,
+    "ranking": [
+      {
+        "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+        "role": "prospective",
+        "score": 0.9129348526760902,
+        "coordinates": {
+          "log_signal_density": 1.9430469936853774,
+          "effective_signal_coverage": 0.7337372379309387,
+          "mean_target_affinity": 0.22596098680435847
+        },
+        "standardized_coordinates": {
+          "log_signal_density": -0.5475557903086017,
+          "effective_signal_coverage": 1.10345679385331,
+          "mean_target_affinity": 2.1829035544835627
+        },
+        "rank": 1
+      },
+      {
+        "candidate_id": "rattled-1000__low_signal",
+        "role": "development",
+        "score": 0.733347749992776,
+        "coordinates": {
+          "log_signal_density": 2.6021616876736164,
+          "effective_signal_coverage": 0.7996543577831031,
+          "mean_target_affinity": 0.19212557603686684
+        },
+        "standardized_coordinates": {
+          "log_signal_density": 0.6169350691091003,
+          "effective_signal_coverage": 1.3352212069274136,
+          "mean_target_affinity": 0.24788697394181353
+        },
+        "rank": 2
+      },
+      {
+        "candidate_id": "aimd-from-PBE-3000-nvt__signal_coverage_affinity",
+        "role": "development",
+        "score": 0.6277718837776405,
+        "coordinates": {
+          "log_signal_density": 2.1353618710530355,
+          "effective_signal_coverage": 0.7203914233208704,
+          "mean_target_affinity": 0.20588133131236563
+        },
+        "standardized_coordinates": {
+          "log_signal_density": -0.20778348835978447,
+          "effective_signal_coverage": 1.0565329461937747,
+          "mean_target_affinity": 1.0345661934989312
+        },
+        "rank": 3
+      },
+      {
+        "candidate_id": "rattled-300__low_signal",
+        "role": "development",
+        "score": 0.5566319471838201,
+        "coordinates": {
+          "log_signal_density": 2.7207409590211626,
+          "effective_signal_coverage": 0.7480920302057665,
+          "mean_target_affinity": 0.182362275683724
+        },
+        "standardized_coordinates": {
+          "log_signal_density": 0.8264349920513324,
+          "effective_signal_coverage": 1.1539282042219308,
+          "mean_target_affinity": -0.31046735472180254
+        },
+        "rank": 4
+      },
+      {
+        "candidate_id": "aimd-from-PBE-1000-nvt__target_affinity",
+        "role": "development",
+        "score": 0.09745683385775772,
+        "coordinates": {
+          "log_signal_density": 1.602293668082198,
+          "effective_signal_coverage": 0.4146899930035903,
+          "mean_target_affinity": 0.2133250311332776
+        },
+        "standardized_coordinates": {
+          "log_signal_density": -1.1495817147802034,
+          "effective_signal_coverage": -0.018312446509954824,
+          "mean_target_affinity": 1.4602646628634315
+        },
+        "rank": 5
+      },
+      {
+        "candidate_id": "aimd-from-PBE-3000-npt__high_signal",
+        "role": "development",
+        "score": 0.07056873710761258,
+        "coordinates": {
+          "log_signal_density": 2.152793991430249,
+          "effective_signal_coverage": 0.810679815707199,
+          "mean_target_affinity": 0.17056233708436763
+        },
+        "standardized_coordinates": {
+          "log_signal_density": -0.17698529037590474,
+          "effective_signal_coverage": 1.3739866868267516,
+          "mean_target_affinity": -0.9852951851280091
+        },
+        "rank": 6
+      },
+      {
+        "candidate_id": "aimd-from-PBE-3000-nvt__hash_uniform",
+        "role": "development",
+        "score": 0.03786752442248431,
+        "coordinates": {
+          "log_signal_density": 1.9134487345561824,
+          "effective_signal_coverage": 0.7143660156192143,
+          "mean_target_affinity": 0.18216242661448243
+        },
+        "standardized_coordinates": {
+          "log_signal_density": -0.5998485134491954,
+          "effective_signal_coverage": 1.035347629198153,
+          "mean_target_affinity": -0.32189654248150457
+        },
+        "rank": 7
+      },
+      {
+        "candidate_id": "rattled-500__coverage",
+        "role": "development",
+        "score": 0.004754767351132967,
+        "coordinates": {
+          "log_signal_density": 2.998838057800912,
+          "effective_signal_coverage": 0.23762834852381778,
+          "mean_target_affinity": 0.17620427198578717
+        },
+        "standardized_coordinates": {
+          "log_signal_density": 1.3177630302719134,
+          "effective_signal_coverage": -0.6408607041223154,
+          "mean_target_affinity": -0.6626380240961991
+        },
+        "rank": 8
+      },
+      {
+        "candidate_id": "rattled-500__signal_coverage_affinity",
+        "role": "prospective",
+        "score": -0.06454658918092841,
+        "coordinates": {
+          "log_signal_density": 3.0573976446126077,
+          "effective_signal_coverage": 0.12342158639902728,
+          "mean_target_affinity": 0.17778125870231037
+        },
+        "standardized_coordinates": {
+          "log_signal_density": 1.4212231779449582,
+          "effective_signal_coverage": -1.0424113673234585,
+          "mean_target_affinity": -0.5724515781642849
+        },
+        "rank": 9
+      },
+      {
+        "candidate_id": "rattled-1000__hash_uniform",
+        "role": "development",
+        "score": -0.0721537278707652,
+        "coordinates": {
+          "log_signal_density": 3.053923095009974,
+          "effective_signal_coverage": 0.12022123091313183,
+          "mean_target_affinity": 0.17768630503332974
+        },
+        "standardized_coordinates": {
+          "log_signal_density": 1.4150845175725455,
+          "effective_signal_coverage": -1.0536638084568175,
+          "mean_target_affinity": -0.5778818927280236
+        },
+        "rank": 10
+      },
+      {
+        "candidate_id": "rattled-300__coverage",
+        "role": "prospective",
+        "score": -0.10550554577176867,
+        "coordinates": {
+          "log_signal_density": 3.0313897003514048,
+          "effective_signal_coverage": 0.13796713129429766,
+          "mean_target_affinity": 0.17554185576395315
+        },
+        "standardized_coordinates": {
+          "log_signal_density": 1.3752736434547495,
+          "effective_signal_coverage": -0.991269271263194,
+          "mean_target_affinity": -0.7005210095068615
+        },
+        "rank": 11
+      },
+      {
+        "candidate_id": "aimd-from-PBE-1000-npt__target_affinity",
+        "role": "development",
+        "score": -0.258764836304221,
+        "coordinates": {
+          "log_signal_density": 1.628091732120991,
+          "effective_signal_coverage": 0.11210468653544675,
+          "mean_target_affinity": 0.21244453760963117
+        },
+        "standardized_coordinates": {
+          "log_signal_density": -1.1040029861645992,
+          "effective_signal_coverage": -1.0822015562847414,
+          "mean_target_affinity": 1.4099100335366777
+        },
+        "rank": 12
+      },
+      {
+        "candidate_id": "rattled-relax__signal_coverage_affinity",
+        "role": "development",
+        "score": -0.2670716517075429,
+        "coordinates": {
+          "log_signal_density": 2.2941305410977426,
+          "effective_signal_coverage": 0.016116726714388466,
+          "mean_target_affinity": 0.1973341209355577
+        },
+        "standardized_coordinates": {
+          "log_signal_density": 0.07272105313396882,
+          "effective_signal_coverage": -1.4196949604262112,
+          "mean_target_affinity": 0.5457589521696138
+        },
+        "rank": 13
+      },
+      {
+        "candidate_id": "aimd-from-PBE-1000-nvt__coverage",
+        "role": "development",
+        "score": -0.6183864404252657,
+        "coordinates": {
+          "log_signal_density": 1.6556673994580973,
+          "effective_signal_coverage": 0.4315535091565193,
+          "mean_target_affinity": 0.17308799177832612
+        },
+        "standardized_coordinates": {
+          "log_signal_density": -1.0552836769923224,
+          "effective_signal_coverage": 0.04097963015108169,
+          "mean_target_affinity": -0.8408552744345564
+        },
+        "rank": 14
+      },
+      {
+        "candidate_id": "rattled-relax__low_signal",
+        "role": "prospective",
+        "score": -0.6817877096751067,
+        "coordinates": {
+          "log_signal_density": 1.3567522478434617,
+          "effective_signal_coverage": 0.4339312632118316,
+          "mean_target_affinity": 0.17885035499727012
+        },
+        "standardized_coordinates": {
+          "log_signal_density": -1.5833920092318563,
+          "effective_signal_coverage": 0.04933980690485919,
+          "mean_target_affinity": -0.5113109266983232
+        },
+        "rank": 15
+      },
+      {
+        "candidate_id": "aimd-from-PBE-1000-npt__high_signal",
+        "role": "development",
+        "score": -0.9731177954337115,
+        "coordinates": {
+          "log_signal_density": 1.9014756195695734,
+          "effective_signal_coverage": 0.16381768649641903,
+          "mean_target_affinity": 0.16334632178190603
+        },
+        "standardized_coordinates": {
+          "log_signal_density": -0.621002013876106,
+          "effective_signal_coverage": -0.9003787898905821,
+          "mean_target_affinity": -1.3979725825344462
+        },
+        "rank": 16
+      }
+    ]
+  },
+  "prospective_environment_selection": {
+    "development_environments": 12,
+    "prospective_environments": 4,
+    "development_targets": 25,
+    "prospective_targets": 50,
+    "sequence": [
+      "train and score the 12 development environments",
+      "fit compact predictors using complete-environment holdouts",
+      "select one predictor without opening prospective-environment outcomes",
+      "serialize prospective predictions, rankings, uncertainty, and artifact hashes",
+      "train and score the four prospective environments"
+    ],
+    "candidate_predictors": [
+      "signal_density_only",
+      "effective_coverage_only",
+      "target_affinity_only",
+      "signal_coverage_affinity"
+    ],
+    "decision_baselines": [
+      "equal_weight_signal_coverage_affinity",
+      "fixed_source_family_selected_inside_each_training_fold",
+      "fixed_selection_rule_selected_inside_each_training_fold",
+      "hash_uniform",
+      "random_choice_expectation"
+    ],
+    "primary_metrics": [
+      "whole_curve_phonon_frequency_error",
+      "pairwise_environment_ordering",
+      "best_environment_decision",
+      "allocation_regret"
+    ],
+    "guardrails": [
+      "environment membership and target roles remain fixed",
+      "all coordinates are measured before candidate post-training",
+      "complete environments, not checkpoints or targets, define selection holdouts",
+      "curve prediction and allocation decisions are reported separately",
+      "measurement and reference-label cost are reported alongside training cost"
+    ]
+  },
+  "target_regression_prediction": {
+    "question": "Which target materials become worse than the common starting checkpoint after training on an environment, even when aggregate phonon performance improves?",
+    "unit": "target_material_by_environment_at_a_prespecified_checkpoint",
+    "primary_endpoint": {
+      "name": "frequency_error_regression",
+      "definition": "The seed-mean commensurate-phonon frequency MAE exceeds 1.05 times the starting-checkpoint MAE for the same material.",
+      "rationale": "The five-percent boundary matches the practical-equivalence band fixed for starting-checkpoint qualification."
+    },
+    "secondary_endpoints": [
+      {
+        "name": "stability_regression",
+        "definition": "The starting checkpoint classifies dynamical stability correctly and a majority of prespecified training seeds classify it incorrectly."
+      },
+      {
+        "name": "validity_regression",
+        "definition": "The starting checkpoint completes the released phonon workflow and a majority of prespecified training seeds fail it."
+      }
+    ],
+    "pretraining_features": [
+      "starting_checkpoint_target_error_and_stability_margin",
+      "candidate_signal_density",
+      "candidate_effective_coverage",
+      "candidate_target_affinity",
+      "target_element_and_structure_descriptors",
+      "target_specific_chemical_support_in_the_candidate",
+      "target_specific_nearest_neighbor_affinity_to_the_candidate",
+      "source_regime_and_selection_rule"
+    ],
+    "development_evaluation": [
+      "leave_one_environment_out",
+      "leave_one_target_material_out",
+      "leave_one_chemical_system_out"
+    ],
+    "prospective_test": "Freeze target-level probabilities on all 50 prospective materials for each of the four prospective environments before opening their outcomes.",
+    "metrics": [
+      "roc_auc",
+      "average_precision",
+      "brier_score",
+      "recall_in_the_top_risk_20_percent",
+      "source_and_environment_macro_averages"
+    ],
+    "negative_controls": [
+      "starting_checkpoint_error_only",
+      "candidate_identity_only",
+      "permuted_regression_labels"
+    ]
+  },
+  "outcome_boundary": {
+    "candidate_training_outcomes_used": false,
+    "development_target_outcomes_used": false,
+    "prospective_target_outcomes_used": false
+  }
+}
