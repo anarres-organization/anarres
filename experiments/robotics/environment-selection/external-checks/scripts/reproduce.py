@@ -9,6 +9,12 @@ import statistics
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+EXPECTED = ROOT / "results" / "summary.json"
+
+
+def canonical_json(value: dict[str, object]) -> str:
+    """Serialize one released artifact in its byte-stable form."""
+    return json.dumps(value, indent=2, sort_keys=True) + "\n"
 
 
 def guild_score(data: dict[str, object]) -> dict[str, object]:
@@ -107,7 +113,7 @@ if __name__ == "__main__":
         "guild": guild_score(guild),
         "sole_r1": sole_score(sole),
     }
-    expected = json.loads((ROOT / "results" / "summary.json").read_text())
-    if observed != expected:
-        raise SystemExit("recomputed robotics summary does not match the released result")
-    print(json.dumps(observed, indent=2, sort_keys=True))
+    serialized = canonical_json(observed)
+    if serialized != EXPECTED.read_text():
+        raise SystemExit("recomputed robotics summary does not byte-match the released result")
+    print(serialized, end="")

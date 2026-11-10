@@ -8,6 +8,12 @@ import statistics
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+EXPECTED = ROOT / "results" / "summary.json"
+
+
+def canonical_json(value: dict[str, object]) -> str:
+    """Serialize one released artifact in its byte-stable form."""
+    return json.dumps(value, indent=2, sort_keys=True) + "\n"
 
 
 def load(name: str) -> dict[str, object]:
@@ -136,10 +142,10 @@ def compute() -> dict[str, object]:
 def main() -> None:
     """Print the recomputed summary and verify the committed result."""
     actual = compute()
-    expected = json.loads((ROOT / "results" / "summary.json").read_text())
-    if actual != expected:
-        raise SystemExit("recomputed evidence summary does not match results/summary.json")
-    print(json.dumps(actual, indent=2, sort_keys=True))
+    serialized = canonical_json(actual)
+    if serialized != EXPECTED.read_text():
+        raise SystemExit("recomputed evidence summary does not byte-match results/summary.json")
+    print(serialized, end="")
 
 
 if __name__ == "__main__":
