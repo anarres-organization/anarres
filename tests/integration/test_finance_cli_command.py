@@ -114,6 +114,19 @@ class FinanceCliCommandTest(unittest.TestCase):
             self.assertEqual(audit.returncode, 0, audit.stderr)
             self.assertFalse(json.loads(audit.stdout)["scientific_outcomes_opened"])
 
+            verify = self.run_generic(
+                directory,
+                "finance",
+                "verify",
+                "--repository",
+                str(ROOT),
+                "--json",
+            )
+            self.assertEqual(verify.returncode, 0, verify.stderr)
+            verify_result = json.loads(verify.stdout)
+            self.assertEqual(verify_result["mode"], "compact")
+            self.assertEqual(len(verify_result["holdouts"]), 5)
+
             profile_dir = directory / "profile"
             profile = self.run_generic(
                 directory,

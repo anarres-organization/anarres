@@ -74,6 +74,27 @@ class FinanceCliTest(unittest.TestCase):
             ],
         )
 
+    def test_compact_verify_checks_released_finance_evidence(self) -> None:
+        args = type("Args", (), {"repository": ROOT, "exhaustive": False})()
+        result = cli.command_verify(args)
+        self.assertEqual(result["status"], "pass")
+        self.assertEqual(result["mode"], "compact")
+        self.assertEqual(result["manifest_artifacts"], 25)
+        self.assertEqual(result["retrospective_sources"], 16)
+        self.assertEqual(result["strict_panels"], 79)
+        self.assertFalse(result["starting_policy_qualified"])
+        self.assertEqual(len(result["holdouts"]), 5)
+
+    def test_manifest_verification_rejects_changed_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            artifact = root / "artifact.json"
+            artifact.write_text("{}\n", encoding="utf-8")
+            manifest = root / "manifest.json"
+            manifest.write_text(json.dumps({"artifact.json": "0" * 64}) + "\n", encoding="utf-8")
+            with self.assertRaises(cli.FinanceCliError):
+                cli.verify_manifest(root, manifest)
+
     def test_zero_signal_record_preserves_cost_and_fails_readiness(self) -> None:
         rows = []
         for scenario in range(2):

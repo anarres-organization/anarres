@@ -81,6 +81,24 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def verify_manifest(root: Path, manifest_path: Path) -> dict[str, Any]:
+    manifest = read_object(manifest_path)
+    checked = []
+    for relative, expected in sorted(manifest.items()):
+        if not isinstance(relative, str) or not isinstance(expected, str):
+            raise FinanceCliError(f"invalid manifest entry in {manifest_path}")
+        path = root / relative
+        if not path.is_file():
+            raise FinanceCliError(f"manifest artifact is missing: {path}")
+        actual = sha256(path)
+        if actual != expected:
+            raise FinanceCliError(
+                f"manifest digest mismatch for {relative}: expected {expected}, found {actual}"
+            )
+        checked.append(relative)
+    return {"manifest": str(manifest_path.relative_to(root)), "artifacts": checked}
+
+
 def write_json(path: Path, value: dict[str, Any], force: bool = False) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists() and not force:
@@ -208,6 +226,8 @@ def finance_test_paths(root: Path) -> list[Path]:
 
 def run_finance_tests(root: Path) -> dict[str, Any]:
     records = []
+    environment = os.environ.copy()
+    environment["PYTHONHASHSEED"] = "0"
     for test in finance_test_paths(root):
         relative = test.relative_to(root)
         completed = subprocess.run(
@@ -216,6 +236,7 @@ def run_finance_tests(root: Path) -> dict[str, Any]:
             capture_output=True,
             text=True,
             check=False,
+            env=environment,
         )
         records.append(
             {
@@ -248,16 +269,96 @@ def isolated_reproduction(
     copied = Path(temporary.name) / "finance"
     shutil.copytree(finance_root(repository), copied)
     report = run_finance_tests(copied)
-    report["artifacts"] = {
-        str(path.relative_to(copied)): f"sha256:{sha256(path)}" for path in claim_artifacts(copied)
-    }
+    artifacts = {}
+    original = finance_root(repository)
+    for path in claim_artifacts(copied):
+        relative = path.relative_to(copied)
+        original_path = original / relative
+        if not original_path.is_file():
+            raise FinanceCliError(f"released claim artifact is missing: {relative}")
+        regenerated_digest = sha256(path)
+        released_digest = sha256(original_path)
+        if regenerated_digest != released_digest:
+            raise FinanceCliError(
+                "regenerated claim artifact differs from the release: "
+                f"{relative} (released {released_digest}, regenerated {regenerated_digest})"
+            )
+        artifacts[str(relative)] = f"sha256:{regenerated_digest}"
+    report["artifacts"] = artifacts
     return report, copied, temporary
 
 
-def command_verify(args: argparse.Namespace) -> dict[str, Any]:
-    report, _, temporary = isolated_reproduction(repository_root(args.repository))
+def exhaustive_verification(repository: Path) -> dict[str, Any]:
+    """Run every released finance test in an isolated evidence copy."""
+
+    report, _, temporary = isolated_reproduction(repository)
     temporary.cleanup()
+    report["mode"] = "exhaustive"
     return report
+
+
+def compact_verification(repository: Path) -> dict[str, Any]:
+    """Validate released finance evidence without regenerating every artifact."""
+
+    root = finance_root(repository)
+    manifest = verify_manifest(root, root / "COMPACT_VERIFICATION_MANIFEST.sha256.json")
+    source_audit = command_audit_sources(type("Args", (), {"repository": repository})())
+
+    qualification = read_object(root / "environment-selection/QWEN3_8B_QUALIFICATION.json")
+    if qualification.get("status") != "qualification_complete":
+        raise FinanceCliError("starting-policy qualification is not complete")
+    if qualification.get("qualified") is not False:
+        raise FinanceCliError("released Qwen3-8B qualification must preserve its failed gate")
+
+    retrospective = root / "retrospective-post-training"
+    summary = read_object(retrospective / "results/summary.json")
+    expanded = read_object(retrospective / "results/expanded_summary_corrected.json")
+    strict = read_object(retrospective / "strict-task-level/SCORE.json")
+    if summary.get("status") != "retrospective_exploratory":
+        raise FinanceCliError("compact retrospective summary has an unexpected status")
+    if expanded.get("support", {}).get("sources") != 16:
+        raise FinanceCliError("expanded retrospective support no longer contains 16 sources")
+    if strict.get("support", {}).get("panels") != 79:
+        raise FinanceCliError("strict task-level support no longer contains 79 panels")
+
+    holdouts = []
+    for directory in sorted(retrospective.glob("heldout-*")):
+        score = read_object(directory / "SCORE.json")
+        identity_files = [
+            name
+            for name in ("SOURCE.json", "FREEZE.json", "CONTRACT.json", "PREDICTIONS.json")
+            if (directory / name).is_file()
+        ]
+        if not identity_files:
+            raise FinanceCliError(f"frozen holdout has no identity record: {directory.name}")
+        if not isinstance(score.get("status"), str) or not score["status"]:
+            raise FinanceCliError(f"frozen holdout has no score status: {directory.name}")
+        holdouts.append(
+            {
+                "holdout": directory.name,
+                "identity_files": identity_files,
+                "score_status": score["status"],
+            }
+        )
+
+    return {
+        "status": "pass",
+        "mode": "compact",
+        "manifest_artifacts": len(manifest["artifacts"]),
+        "source_pins": source_audit["sources"],
+        "starting_policy": qualification["policy_id"],
+        "starting_policy_qualified": qualification["qualified"],
+        "retrospective_sources": expanded["support"]["sources"],
+        "strict_panels": strict["support"]["panels"],
+        "holdouts": holdouts,
+    }
+
+
+def command_verify(args: argparse.Namespace) -> dict[str, Any]:
+    repository = repository_root(args.repository)
+    if getattr(args, "exhaustive", False):
+        return exhaustive_verification(repository)
+    return compact_verification(repository)
 
 
 def command_score_holdout(args: argparse.Namespace) -> dict[str, Any]:
@@ -278,12 +379,15 @@ def command_score_holdout(args: argparse.Namespace) -> dict[str, Any]:
         if not tests:
             raise FinanceCliError(f"finance holdout has no released scoring test: {args.name}")
         for test in tests:
+            environment = os.environ.copy()
+            environment["PYTHONHASHSEED"] = "0"
             completed = subprocess.run(
                 [sys.executable, test.name],
                 cwd=holdout,
                 capture_output=True,
                 text=True,
                 check=False,
+                env=environment,
             )
             if completed.returncode != 0:
                 detail = completed.stderr.strip() or completed.stdout.strip()
@@ -384,8 +488,13 @@ def parser() -> argparse.ArgumentParser:
     profile.add_argument("--force", action="store_true")
     profile.set_defaults(handler=command_profile)
 
-    verify = commands.add_parser("verify", help="Re-run released finance checks in isolation.")
+    verify = commands.add_parser("verify", help="Validate released finance evidence.")
     add_common(verify)
+    verify.add_argument(
+        "--exhaustive",
+        action="store_true",
+        help="copy the study and re-run every released finance test",
+    )
     verify.set_defaults(handler=command_verify)
 
     holdout = commands.add_parser("score-holdout", help="Re-score one frozen finance holdout.")

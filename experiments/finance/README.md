@@ -30,11 +30,15 @@ The released workflow is then available through the generic adapter interface:
 anarres finance status
 anarres finance audit-sources
 anarres finance verify
+anarres finance verify --exhaustive
 anarres finance reproduce --output-dir .anarres/finance-reproduction
 ```
 
-The command also scores new starting-policy records, exports qualification
-profiles, and reruns individual frozen holdouts. See the [CLI
+The normal verification path checks the released source pins, qualification
+artifacts, compact summaries, and frozen holdout identities. The exhaustive
+path reruns every finance test in an isolated copy. The command also scores new
+starting-policy records, exports qualification profiles, and reruns individual
+frozen holdouts. See the [CLI
 guide](../../docs/cli.md#example-adapter-agentic-finance) for the complete
 interface. Commands shown here assume the repository root is the current
 directory. Use `--repository /path/to/anarres` when invoking released evidence
