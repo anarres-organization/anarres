@@ -12,6 +12,7 @@ dev = [
 
 [tool.uv.workspace]
 members = [
+  "data/formal-verification/vero",
   "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter",
   "experiments/ai-for-science/molecular-design/reaction-environment-selection",
   "packages/core",
@@ -23,6 +24,7 @@ members = [
 ]
 
 [tool.uv.sources]
+anarres-formal = { workspace = true }
 anarres-core = { workspace = true }
 anarres-environments = { workspace = true }
 anarres-evaluation = { workspace = true }

@@ -274,6 +274,14 @@ Project the completed measurement into the shared Anarres profile contract
 without changing that interpretation:
 
 ```bash
+uv tool install ./data/formal-verification/vero
+anarres adapter doctor formal
+anarres formal status --repository /path/to/anarres
+anarres formal verify --repository /path/to/anarres
+anarres formal profile --repository /path/to/anarres \
+  --output-dir /tmp/vero-profiles
+
+# The native exporter remains available for repository development.
 uv run python data/formal-verification/vero/export_environment_profiles.py \
   --output-dir /tmp/vero-profiles
 anarres qualify /tmp/vero-profiles/vero-development-proof-v5.profile-input.json
