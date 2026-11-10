@@ -10,7 +10,7 @@ proceed.
 
 ## Current state
 
-The workstream has six completed foundations:
+The workstream has seven completed foundations:
 
 1. The [public-evidence record](public-evidence/README.md) reconstructs
    decisions from VeruSyn, Re:Form, Formal Disco, and Vericoding. It also
@@ -36,6 +36,11 @@ The workstream has six completed foundations:
    was readable and a temporary write outside the rendered task was possible.
    No reference proof or protected repository was accessed. Repeated
    measurement remains blocked until the sandbox matches the intended boundary.
+7. The public Forall VeriSoftBench release identifies a nondegenerate policy
+   boundary under GPT-5.6 Sol at xhigh reasoning through Codex. Fifteen of its
+   100 tasks are first solved on samples 2--6 under a Pass@8 contract, so each
+   has at least one unsuccessful sample before a successful sample for the same
+   policy and task. These tasks span five real Lean repositories.
 
 No claim-bearing reinforcement-learning run has begun. Qualification and
 prospective repositories remain unopened.
@@ -59,19 +64,23 @@ The immediate work has three phases:
    Keep FVSpec and VeriBench as candidate task sources until their evaluator,
    outcome, and release boundaries are qualified. Preserve each source's
    objective and verifier rather than pooling its scores.
-3. **Development screen.** After containment passes and a policy is selected,
-   freeze a new protocol and outcome-blind queue for one attempt in each mode
-   on the four repositories in `development-lifecycle-panel-v2.json`. The existing
-   PrimePy qualification remains separate from this screen. No screen attempt
-   may begin before its protocol, queue, runtime identity, task hashes, and
-   grader preflight are committed.
+3. **Development screen.** Qualify the public VeriSoftBench boundary tasks under
+   a task workspace that excludes the released ground-truth proof. Begin with
+   task IDs 29, 129, 277, 356, and 447, one from each represented repository,
+   then extend to all 15 source-backed boundary tasks. Keep this theorem-level
+   screen separate from the repository-level Vero screen. No attempt may begin
+   before its protocol, queue, runtime identity, task hashes, and checker
+   preflight are committed.
 
 The first collaborator deliverables are therefore the public policy matrix, a
-task-only containment contract with validator and negative tests for each
-selected route, and one route-qualification receipt. The containment artifacts
-are infrastructure evidence rather than scientific outcomes. A screen may be
-frozen only after the selected route agrees on the exact policy, harness,
-workspace, network, credential, reset, and grader boundaries.
+sanitized VeriSoftBench materializer, a task-only containment contract with
+validator and negative tests, and one route-qualification receipt. The
+materializer must remove `ground_truth_proof` from model-visible records and
+replace the target theorem body in the model workspace while retaining an
+independent checker copy. The containment artifacts are infrastructure evidence
+rather than scientific outcomes. A screen may be frozen only after the selected
+route agrees on the exact policy, harness, workspace, network, credential,
+reset, and checker boundaries.
 
 ## Why this advances production verification
 
@@ -139,6 +148,22 @@ passes all nine PrimePy specifications under fresh grading.
 This stage establishes whether a source-supported policy and tightened interface
 produce measurable coverage beyond one excluded task. It cannot revise the v5
 outcome or convert either qualification into a candidate comparison.
+
+The quickest nonzero route is the source-backed VeriSoftBench boundary panel,
+not another Leanstral run. Its 15 tasks are recorded in the public
+policy-support artifact. Start with one task from each represented repository:
+29, 129, 277, 356, and 447. For every task, materialize a fresh model workspace
+from the pinned repository, replace the target theorem body, and omit the
+dataset's `ground_truth_proof` field. The independent checker retains the pinned
+repository and evaluates only the submitted proof under the task's Lean
+toolchain. Oracle, no-op, `sorry`, statement-mutation, reset, and path-escape
+controls must pass before inference.
+
+This five-task route check is development-only because the tasks were selected
+from released outcomes. If it reproduces both strict successes and failures,
+freeze repeated attempts over all 15 boundary tasks to estimate usable support
+and cost. A later prospective panel must use tasks excluded from this selection
+process.
 
 The screen passes only when every attempt reaches infrastructure-valid fresh
 grading, at least two repositories have nonzero strict coverage, pooled strict
