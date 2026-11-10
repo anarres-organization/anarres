@@ -22,15 +22,17 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def configure_smoke(config_path: Path, env_dir: Path) -> Any:
+def configure_smoke(config_path: Path, env_dir: Path, *, num_online: int, num_replay: int) -> Any:
+    if num_online < 1 or num_replay < 1:
+        raise ValueError("smoke batch sizes must be positive")
     from rxnflow.config import Config
 
     config = Config.from_file(config_path)
     config.env_dir = str(env_dir)
     config.training.log_every = 1
     config.training.checkpoint_every = 1
-    config.training.num_online = 2
-    config.training.num_replay = 2
+    config.training.num_online = num_online
+    config.training.num_replay = num_replay
     config.training.replay_capacity = 512
     config.training.num_replay_insert = 0
     return config
@@ -46,11 +48,13 @@ def run_smoke(
     output_dir: Path,
     report_path: Path,
     seed: int,
+    num_online: int,
+    num_replay: int,
 ) -> dict[str, Any]:
     from rxnflow.trainer import RxnFlowTrainer
     from rxnflow_target_reward import MolecularTargetReward
 
-    config = configure_smoke(config_path, env_dir)
+    config = configure_smoke(config_path, env_dir, num_online=num_online, num_replay=num_replay)
     reward = MolecularTargetReward(str(prepared_target), timeout_seconds=300.0, max_workers=2)
     trainer = RxnFlowTrainer(
         config,
@@ -83,7 +87,8 @@ def run_smoke(
         "replay_bank_unchanged": replay_size_after == replay_size_before,
         "one_update_complete": trainer.step == 1,
         "finite_loss": math.isfinite(float(record["loss"])),
-        "matched_smoke_batch": record["num_online"] == 2 and record["num_replay"] == 2,
+        "matched_smoke_batch": record["num_online"] == num_online
+        and record["num_replay"] == num_replay,
         "checkpoint_exists": checkpoint.is_file(),
     }
     report = {
@@ -99,7 +104,11 @@ def run_smoke(
         "bank": artifact["bank"],
         "bank_item_count": artifact["item_count"],
         "warm_start": warm_identity,
-        "smoke_batch": {"online": 2, "replay": 2, "updates": 1},
+        "smoke_batch": {
+            "online": num_online,
+            "replay": num_replay,
+            "updates": 1,
+        },
         "observed": {
             "loss": record["loss"],
             "policy_grad_norm": record["policy_grad_norm"],
@@ -132,6 +141,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--report", type=Path, required=True)
     parser.add_argument("--seed", type=int, default=20261110)
+    parser.add_argument("--num-online", type=int, default=2)
+    parser.add_argument("--num-replay", type=int, default=2)
     return parser
 
 
@@ -146,6 +157,8 @@ def main() -> None:
         output_dir=args.output_dir,
         report_path=args.report,
         seed=args.seed,
+        num_online=args.num_online,
+        num_replay=args.num_replay,
     )
     print(f"replay-training smoke {report['status']}: loss={report['observed']['loss']:.6f}")
 

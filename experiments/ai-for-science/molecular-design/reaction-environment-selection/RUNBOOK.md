@@ -281,6 +281,33 @@ produce finite loss and gradient diagnostics, write a checkpoint, and preserve
 the replay-bank size. This is an interface qualification and cannot be scored
 as an environment outcome.
 
+Before claim-bearing execution, repeat the smoke with `--num-online 64
+--num-replay 64` on the intended accelerator and runtime. This exercises the
+frozen batch shape without changing the one-update interface-only scope.
+
+After the endpoint gate passes and the matched contract is frozen, run each
+development arm with the contract-enforcing entry point:
+
+```bash
+python scripts/run_matched_training.py \
+  --config target-training-q07820.yaml \
+  --env-dir /path/to/qualified-environment \
+  --warm-start /path/to/warm_start_weights.pt \
+  --replay-bank /path/to/hash_uniform.replay.json \
+  --prepared-target /path/to/prepared_Q07820 \
+  --output-dir /path/to/run-output \
+  --arm hash_uniform \
+  --seed 20261108
+```
+
+The runner accepts only the six frozen development arms and two frozen seeds.
+It checks the configuration, starting-policy weights, bank size, bank identity,
+and qualification digest before training. It also verifies the complete log,
+online-sample count, immutable replay content, and required checkpoints before
+writing `MATCHED_TRAINING_RUN.json`. To continue an interrupted run, provide a
+full checkpoint through `--resume-from`; optimizer, scheduler, replay, and
+random-number state are restored from that checkpoint.
+
 ## 8. Instantiate and qualify the endpoint
 
 Create the endpoint environment from `endpoint-environment.yml`. This matches
