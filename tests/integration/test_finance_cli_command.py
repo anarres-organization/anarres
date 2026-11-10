@@ -97,6 +97,8 @@ class FinanceCliCommandTest(unittest.TestCase):
             self.assertEqual(generic_status["selective_pairwise_coverage"], 0.760518)
             self.assertEqual(generic_status["regression_risk_source_macro_roc_auc"], 0.815183)
             self.assertEqual(generic_status["excluded_source_finacumen_pairwise_correct"], 33)
+            self.assertEqual(generic_status["excluded_source_fintoolsyn_directional_correct"], 9)
+            self.assertEqual(generic_status["excluded_source_fintoolsyn_regression_correct"], 3)
 
             direct = self.run_direct(
                 directory,
@@ -130,7 +132,67 @@ class FinanceCliCommandTest(unittest.TestCase):
             self.assertEqual(verify.returncode, 0, verify.stderr)
             verify_result = json.loads(verify.stdout)
             self.assertEqual(verify_result["mode"], "compact")
-            self.assertEqual(len(verify_result["holdouts"]), 5)
+            self.assertEqual(len(verify_result["holdouts"]), 6)
+
+            candidate_panel = {
+                "schema_version": "anarres.finance-candidate-panel.v1",
+                "target_id": "integration-target",
+                "baseline_id": "baseline",
+                "candidates": [
+                    {
+                        "candidate_id": "baseline",
+                        "features": {
+                            "target_alignment": 0.0,
+                            "quality_control": 0.0,
+                            "retention_control": 0.0,
+                            "verifier_alignment": 0.0,
+                            "policy_relative_selection": 0.0,
+                            "source_diversity": 0.0,
+                            "human_labeled_fraction": 0.0,
+                            "domain_specific_selection": 0.0,
+                            "transcript_refinement": 0.0,
+                            "qa_refinement": 0.0,
+                            "feedback_locality": 0.0,
+                            "efficient_rollout": 0.0,
+                            "curriculum_progression": 0.0,
+                        },
+                    },
+                    {
+                        "candidate_id": "targeted",
+                        "features": {
+                            "target_alignment": 1.0,
+                            "quality_control": 1.0,
+                            "retention_control": 1.0,
+                            "verifier_alignment": 1.0,
+                            "policy_relative_selection": 1.0,
+                            "source_diversity": 1.0,
+                            "human_labeled_fraction": 1.0,
+                            "domain_specific_selection": 1.0,
+                            "transcript_refinement": 1.0,
+                            "qa_refinement": 1.0,
+                            "feedback_locality": 1.0,
+                            "efficient_rollout": 1.0,
+                            "curriculum_progression": 1.0,
+                        },
+                    },
+                ],
+            }
+            panel_path = directory / "candidate-panel.json"
+            panel_path.write_text(json.dumps(candidate_panel), encoding="utf-8")
+            decision = self.run_generic(
+                directory,
+                "finance",
+                "decide",
+                str(panel_path),
+                "--repository",
+                str(ROOT),
+                "--json",
+            )
+            self.assertEqual(decision.returncode, 0, decision.stderr)
+            decision_result = json.loads(decision.stdout)
+            self.assertEqual(decision_result["decision"], "select")
+            self.assertEqual(decision_result["selected_candidate"], "targeted")
+            self.assertEqual(decision_result["threshold"], 0.2)
 
             profile_dir = directory / "profile"
             profile = self.run_generic(

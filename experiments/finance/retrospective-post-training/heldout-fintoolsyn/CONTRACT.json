@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "status": "PREEXISTING_REPRESENTATION_EXCLUDED_SOURCE",
+  "representation": {
+    "name": "capability-contract finance transfer representation v4",
+    "path": "../TARGET_CONDITIONAL_V4.md",
+    "source_used_for_representation_design": false,
+    "source_used_for_model_fitting": false
+  },
+  "chronology": {
+    "source_public_before_scoring": true,
+    "outcome_blind_source_extraction": false,
+    "claim_label": "retrospective excluded-source test of a pre-existing representation"
+  },
+  "prediction_basis": {
+    "forward_synthesis": [
+      "supervision alignment",
+      "behavioral-contract alignment",
+      "quality control"
+    ],
+    "dynamic_retrieval": [
+      "candidate coverage",
+      "retrieval robustness",
+      "deployment-environment alignment"
+    ],
+    "reverse_synthesis_risk": [
+      "explicit tool-conditioned queries mismatch implicit user intent",
+      "tool-use supervision omits abstention and clarification behavior"
+    ]
+  },
+  "scoring": {
+    "primary": "directional accuracy on prespecified high-confidence comparisons",
+    "best_candidate": "balanced average and tool-call targets only",
+    "regressions": "score the predicted reverse-synthesis regression against the shared base",
+    "abstention": "do not order base, static, and full on the non-tool target where retention and target-aligned supervision compete",
+    "independence_guardrail": "The nested metrics provide one source-level test."
+  }
+}

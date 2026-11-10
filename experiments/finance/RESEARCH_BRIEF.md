@@ -161,8 +161,18 @@ description, but it remains one retrospective source. A second test freezes a
 safety-constrained decision before extracting FinHarmBench's numerical table.
 It accepts the intervention for two models and rejects it for WiroAI because
 benign helpfulness falls beyond the fixed guardrail. The next source should
-test a new workflow contract and continue reporting decisions, regret, and
-abstention separately.
+test a new workflow contract and continue reporting decisions, regressions,
+and abstention separately.
+
+FinToolSyn provides that agentic-finance test. Under a shared Qwen3-8B training
+contract, it varies reverse or forward dialogue synthesis and static or dynamic
+tool retrieval. The pre-existing capability-contract representation gets all
+nine high-confidence directions correct, selects the best candidate on both
+targets where it makes a selection, and correctly predicts three improvement
+or regression directions. In particular, reverse synthesis improves tool-call
+performance while reducing the balanced average and non-tool score relative to
+the base. The audit abstains where the source-native non-tool metrics support
+different orderings.
 
 The executable accounting panel remains the prospective extension. Four
 stateful workflows have passed source qualification, but no model has yet
@@ -227,6 +237,7 @@ change held-out outcomes after training begins.
 - [Numerical-faithfulness source holdout](retrospective-post-training/heldout-numerical-hallucination/README.md)
 - [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
 - [Financial safety capability-contract holdout](retrospective-post-training/heldout-finharmbench/README.md)
+- [Agentic tool-environment holdout](retrospective-post-training/heldout-fintoolsyn/README.md)
 - [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
 - [Machine-readable panels](retrospective-post-training/data/panels.json)
 - [Source-recovered expansion](retrospective-post-training/data/recovered_panels.json)

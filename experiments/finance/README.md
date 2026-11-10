@@ -29,6 +29,7 @@ The released workflow is then available through the generic adapter interface:
 ```bash
 anarres finance status
 anarres finance audit-sources
+anarres finance decide candidate-panel.json
 anarres finance verify
 anarres finance verify --exhaustive
 anarres finance reproduce --output-dir .anarres/finance-reproduction
@@ -44,6 +45,14 @@ interface. Commands shown here assume the repository root is the current
 directory. Use `--repository /path/to/anarres` when invoking released evidence
 from another directory. The direct `anarres-finance` executable accepts the
 same commands and explicit repository path.
+
+`decide` accepts a complete
+[`anarres.finance-candidate-panel.v1`](../../schemas/finance-candidate-panel.v1.schema.json)
+record. It applies the released practical rule and selects a candidate only
+when the top margin clears the conservative 0.2 threshold. Otherwise it returns
+the unresolved candidate set. When a baseline is supplied, the same threshold
+produces improvement, regression, or abstention directions. This operation is
+retrospectively calibrated and requires prospective validation on new panels.
 
 The operational studies focus on control-heavy finance work. Reconciliation,
 settlement exceptions, collateral disputes, payment controls, and close
@@ -79,7 +88,7 @@ separately normalizes published finance interventions. It asks which recurring
 properties of training data and reward design predict improvement across prior
 studies. A strict task-level tier reaches 81.6% candidate ordering across 79
 panels without using model identity. A source-held-out confidence filter raises
-accuracy to 90.4% over 235 decided pairs at 76.1% coverage. Five excluded-source
+accuracy to 90.4% over 235 decided pairs at 76.1% coverage. Six excluded-source
 tests then expose where successive representations transfer and where they
 fail. The
 capability-contract representation recovers all 33 scored FinAcumen candidate
@@ -88,7 +97,9 @@ audit reaches 0.815 source-macro ROC AUC for intervention regressions, compared
 with 0.575 for data volume alone. A table-blind FinHarmBench test
 then qualifies safety alignment for two models and rejects a third whose benign
 helpfulness crosses the frozen guardrail. The earlier numerical-faithfulness
-failure remains an important boundary.
+failure remains an important boundary. On FinToolSyn's controlled agentic
+ablation, the capability-contract representation gets all nine high-confidence
+directions and all three improvement or regression calls correct.
 
 The [agent-systems evidence map](agent-systems-evidence/README.md) audits the
 workflow side of the decision. It separates post-training interventions from
@@ -147,6 +158,7 @@ with financial authority remain approval-gated.
 - [Numerical-faithfulness source holdout](retrospective-post-training/heldout-numerical-hallucination/README.md)
 - [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
 - [Financial safety capability-contract holdout](retrospective-post-training/heldout-finharmbench/README.md)
+- [Agentic tool-environment holdout](retrospective-post-training/heldout-fintoolsyn/README.md)
 - [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
 - [Corrected expanded machine-readable results](retrospective-post-training/results/expanded_summary_corrected.json)
 - [Agent-systems evidence map](agent-systems-evidence/README.md)

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source_id": "fintoolsyn_2026",
+  "primary_table": {
+    "balanced_average": {"base": 50.40, "reverse": 39.51, "static": 54.93, "full": 55.86},
+    "tool_call_score": {"base": 48.05, "reverse": 64.01, "static": 65.84, "full": 68.31},
+    "non_tool_score": {"base": 52.75, "reverse": 15.01, "static": 44.03, "full": 43.40}
+  },
+  "appendix_sensitivity": {
+    "metric": "non-tool overall accuracy",
+    "values": {"base": 50.05, "reverse": 43.01, "static": 56.49, "full": 57.64},
+    "note": "The appendix reports accuracy rather than the source-native non-tool score used in the primary ablation table. It is retained as a metric sensitivity and does not replace the primary target."
+  },
+  "shared_training_contract": {
+    "model": "Qwen3-8B",
+    "mode": "function calling",
+    "adaptation": "LoRA on all linear modules",
+    "epochs": 1,
+    "global_batch_size": 128,
+    "maximum_sequence_length": 32768
+  }
+}

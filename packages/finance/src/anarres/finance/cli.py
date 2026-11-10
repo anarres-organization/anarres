@@ -33,6 +33,7 @@ def adapter_descriptor() -> dict[str, Any]:
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
         "capabilities": [
             "audit-sources",
+            "decide",
             "profile",
             "qualify-policy",
             "reproduce",
@@ -146,11 +147,13 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         root / "retrospective-post-training/strict-task-level/SELECTIVE_SCORE.json"
     )
     selective_rule = selective["rules"]["practical_rule"]["operating_points"]["target_0.85"]
+    deployment = selective["rules"]["practical_rule"]["conservative_deployment_point"]
     regression = read_object(
         root / "retrospective-post-training/results/regression_risk_summary.json"
     )
     regression_rule = regression["rules"]["practical_rule"]
     finacumen = read_object(root / "retrospective-post-training/heldout-finacumen/SCORE.json")
+    fintoolsyn = read_object(root / "retrospective-post-training/heldout-fintoolsyn/SCORE.json")
     holdouts = sorted(
         path.parent.name
         for path in (root / "retrospective-post-training").glob("heldout-*/SCORE.json")
@@ -164,6 +167,7 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
             "retrospective_reproduction",
             "frozen_holdout_verification",
             "selective_environment_comparison",
+            "candidate_decision",
         ],
         "prospective_environment_outcome_opened": False,
         "evidence_stage": "retrospective_transfer_supported_native_prospective_pending",
@@ -180,12 +184,19 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "selective_source_macro_accuracy": selective_rule["source_macro_selective_accuracy"],
         "selective_pairwise_coverage": selective_rule["coverage"],
         "selective_decided_pairs": selective_rule["decided_pairs"],
+        "candidate_decision_threshold": deployment["threshold"],
+        "candidate_decision_retrospective_accuracy": deployment["pairwise_accuracy"],
+        "candidate_decision_retrospective_coverage": deployment["coverage"],
         "regression_risk_contrasts": regression["support"]["contrasts"],
         "regression_risk_source_macro_roc_auc": regression_rule["source_macro_roc_auc"],
         "regression_risk_eligible_sources": regression_rule["eligible_sources"],
         "excluded_source_finacumen_pairwise_correct": finacumen["pairwise_correct"],
         "excluded_source_finacumen_pairwise_scored": finacumen["pairwise_scored"],
         "excluded_source_finacumen_pairwise_abstained": finacumen["pairwise_abstained"],
+        "excluded_source_fintoolsyn_directional_correct": fintoolsyn["directional_correct"],
+        "excluded_source_fintoolsyn_directional_scored": fintoolsyn["directional_scored"],
+        "excluded_source_fintoolsyn_regression_correct": fintoolsyn["regression_correct"],
+        "excluded_source_fintoolsyn_regression_scored": fintoolsyn["regression_scored"],
         "released_holdouts": holdouts,
     }
 
@@ -205,6 +216,135 @@ def command_audit_sources(args: argparse.Namespace) -> dict[str, Any]:
         "generator_trials_total": preflight["workflow_seed_trials"],
         "scientific_outcomes_opened": preflight["scientific_outcomes_opened"],
     }
+
+
+def command_decide(args: argparse.Namespace) -> dict[str, Any]:
+    """Rank a measured finance candidate panel with calibrated abstention."""
+
+    repository = repository_root(args.repository)
+    root = finance_root(repository) / "retrospective-post-training"
+    bridge = read_object(root / "results/expanded_summary.json")
+    selective = read_object(root / "strict-task-level/SELECTIVE_SCORE.json")
+    weights = bridge["practical_rule_weights"]
+    calibration = selective["rules"]["practical_rule"]["conservative_deployment_point"]
+    threshold = calibration["threshold"]
+    panel = read_object(args.input)
+    if panel.get("schema_version") != "anarres.finance-candidate-panel.v1":
+        raise FinanceCliError("unsupported finance candidate-panel schema")
+    unexpected_panel_fields = sorted(
+        set(panel) - {"schema_version", "target_id", "baseline_id", "candidates"}
+    )
+    if unexpected_panel_fields:
+        raise FinanceCliError(f"candidate panel has unsupported fields: {unexpected_panel_fields}")
+    target_id = panel.get("target_id")
+    if not isinstance(target_id, str) or not target_id:
+        raise FinanceCliError("candidate panel requires a non-empty target_id")
+    candidates = panel.get("candidates")
+    if not isinstance(candidates, list) or len(candidates) < 2:
+        raise FinanceCliError("candidate panel must contain at least two candidates")
+
+    scores: dict[str, float] = {}
+    for candidate in candidates:
+        if not isinstance(candidate, dict) or not isinstance(candidate.get("candidate_id"), str):
+            raise FinanceCliError("every candidate requires a string candidate_id")
+        unexpected_candidate_fields = sorted(set(candidate) - {"candidate_id", "features"})
+        if unexpected_candidate_fields:
+            raise FinanceCliError(
+                f"candidate has unsupported fields: {unexpected_candidate_fields}"
+            )
+        candidate_id = candidate["candidate_id"]
+        if not candidate_id or candidate_id in scores:
+            raise FinanceCliError("candidate_id values must be non-empty and unique")
+        features = candidate.get("features")
+        if not isinstance(features, dict):
+            raise FinanceCliError(f"candidate {candidate_id} requires a features object")
+        missing = sorted(set(weights) - set(features))
+        if missing:
+            raise FinanceCliError(f"candidate {candidate_id} is missing features: {missing}")
+        unexpected = sorted(set(features) - set(weights))
+        if unexpected:
+            raise FinanceCliError(
+                f"candidate {candidate_id} has unsupported features: {unexpected}"
+            )
+        for name in weights:
+            value = features[name]
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                raise FinanceCliError(f"candidate {candidate_id} feature {name} is not numeric")
+            if not 0 <= value <= 1:
+                raise FinanceCliError(f"candidate {candidate_id} feature {name} is outside [0, 1]")
+        scores[candidate_id] = round(sum(weights[name] * features[name] for name in weights), 9)
+
+    ordered = sorted(scores, key=lambda candidate_id: (-scores[candidate_id], candidate_id))
+    leader = ordered[0]
+    candidate_set = [
+        candidate_id
+        for candidate_id in ordered
+        if scores[leader] - scores[candidate_id] < threshold
+    ]
+    pairwise = []
+    for index, left in enumerate(sorted(scores)):
+        for right in sorted(scores)[index + 1 :]:
+            margin = scores[left] - scores[right]
+            pairwise.append(
+                {
+                    "left": left,
+                    "right": right,
+                    "margin": round(margin, 9),
+                    "decision": (
+                        "abstain" if abs(margin) < threshold else left if margin > 0 else right
+                    ),
+                }
+            )
+
+    baseline_id = panel.get("baseline_id")
+    regressions = []
+    if baseline_id is not None:
+        if not isinstance(baseline_id, str) or not baseline_id:
+            raise FinanceCliError("baseline_id must be a non-empty string")
+        if baseline_id not in scores:
+            raise FinanceCliError("baseline_id is absent from the candidate panel")
+        for candidate_id in ordered:
+            if candidate_id == baseline_id:
+                continue
+            margin = scores[candidate_id] - scores[baseline_id]
+            regressions.append(
+                {
+                    "candidate_id": candidate_id,
+                    "baseline_id": baseline_id,
+                    "margin": round(margin, 9),
+                    "direction": (
+                        "improve"
+                        if margin >= threshold
+                        else "regress"
+                        if margin <= -threshold
+                        else "abstain"
+                    ),
+                }
+            )
+
+    result = {
+        "schema_version": "anarres.finance-candidate-decision.v1",
+        "target_id": target_id,
+        "decision": "select" if len(candidate_set) == 1 else "abstain",
+        "selected_candidate": leader if len(candidate_set) == 1 else None,
+        "candidate_set": candidate_set,
+        "threshold": threshold,
+        "candidate_scores": [
+            {"candidate_id": candidate_id, "score": scores[candidate_id]}
+            for candidate_id in ordered
+        ],
+        "pairwise_decisions": pairwise,
+        "regression_directions": regressions,
+        "evidence": {
+            "status": "retrospective_calibration_requires_prospective_validation",
+            "pairwise_accuracy": calibration["pairwise_accuracy"],
+            "coverage": calibration["coverage"],
+            "sources_with_decisions": calibration["sources_with_decisions"],
+        },
+    }
+    if args.output is not None:
+        write_json(args.output, result, force=args.force)
+    return result
 
 
 def command_qualify_policy(args: argparse.Namespace) -> dict[str, Any]:
@@ -343,6 +483,7 @@ def compact_verification(repository: Path) -> dict[str, Any]:
     strict = read_object(retrospective / "strict-task-level/SCORE.json")
     selective = read_object(retrospective / "strict-task-level/SELECTIVE_SCORE.json")
     regression = read_object(retrospective / "results/regression_risk_summary.json")
+    fintoolsyn = read_object(retrospective / "heldout-fintoolsyn/SCORE.json")
     if summary.get("status") != "retrospective_exploratory":
         raise FinanceCliError("compact retrospective summary has an unexpected status")
     if expanded.get("support", {}).get("sources") != 16:
@@ -366,6 +507,10 @@ def compact_verification(repository: Path) -> dict[str, Any]:
         != 0.815183
     ):
         raise FinanceCliError("regression-risk audit no longer matches the released score")
+    if (fintoolsyn.get("directional_correct"), fintoolsyn.get("directional_scored")) != (9, 9):
+        raise FinanceCliError("FinToolSyn holdout no longer matches the released score")
+    if (fintoolsyn.get("regression_correct"), fintoolsyn.get("regression_scored")) != (3, 3):
+        raise FinanceCliError("FinToolSyn regression audit no longer matches the release")
 
     holdouts = []
     for directory in sorted(retrospective.glob("heldout-*")):
@@ -401,6 +546,10 @@ def compact_verification(repository: Path) -> dict[str, Any]:
         "regression_risk_source_macro_roc_auc": regression["rules"]["practical_rule"][
             "source_macro_roc_auc"
         ],
+        "fintoolsyn_directional_correct": fintoolsyn["directional_correct"],
+        "fintoolsyn_directional_scored": fintoolsyn["directional_scored"],
+        "fintoolsyn_regression_correct": fintoolsyn["regression_correct"],
+        "fintoolsyn_regression_scored": fintoolsyn["regression_scored"],
         "holdouts": holdouts,
     }
 
@@ -517,6 +666,15 @@ def parser() -> argparse.ArgumentParser:
     sources = commands.add_parser("audit-sources", help="Validate source pins and preflight.")
     add_common(sources)
     sources.set_defaults(handler=command_audit_sources)
+
+    decide = commands.add_parser(
+        "decide", help="Rank a measured finance candidate panel or abstain."
+    )
+    add_common(decide)
+    decide.add_argument("input", type=Path)
+    decide.add_argument("--output", type=Path)
+    decide.add_argument("--force", action="store_true")
+    decide.set_defaults(handler=command_decide)
 
     qualify = commands.add_parser("qualify-policy", help="Score one native policy-attempt record.")
     add_common(qualify)

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "source_id": "fintoolsyn_2026",
+  "comparisons": [
+    {"target": "balanced_average", "preferred": "full", "comparison": "static", "basis": "dynamic retrieval coverage"},
+    {"target": "balanced_average", "preferred": "static", "comparison": "base", "basis": "forward behavioral alignment"},
+    {"target": "balanced_average", "preferred": "base", "comparison": "reverse", "basis": "reverse-synthesis contract mismatch"},
+    {"target": "tool_call_score", "preferred": "full", "comparison": "static", "basis": "dynamic retrieval robustness"},
+    {"target": "tool_call_score", "preferred": "static", "comparison": "reverse", "basis": "forward supervision alignment"},
+    {"target": "tool_call_score", "preferred": "reverse", "comparison": "base", "basis": "direct tool-call supervision"},
+    {"target": "non_tool_score", "preferred": "base", "comparison": "reverse", "basis": "starting-policy behavior retention"},
+    {"target": "non_tool_score", "preferred": "static", "comparison": "reverse", "basis": "forward clarification and rejection supervision"},
+    {"target": "non_tool_score", "preferred": "full", "comparison": "reverse", "basis": "forward clarification and rejection supervision"}
+  ],
+  "best_candidate_predictions": {
+    "balanced_average": "full",
+    "tool_call_score": "full"
+  },
+  "regression_predictions": [
+    {"target": "balanced_average", "candidate": "reverse", "baseline": "base", "direction": "regress"},
+    {"target": "non_tool_score", "candidate": "reverse", "baseline": "base", "direction": "regress"},
+    {"target": "tool_call_score", "candidate": "reverse", "baseline": "base", "direction": "improve"}
+  ],
+  "abstentions": [
+    {
+      "target": "non_tool_score",
+      "candidates": ["base", "static", "full"],
+      "reason": "The representation does not quantify the tradeoff between starting-policy retention and target-aligned forward supervision on this source-native metric."
+    }
+  ]
+}

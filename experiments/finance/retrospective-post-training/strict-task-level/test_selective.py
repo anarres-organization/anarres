@@ -38,6 +38,13 @@ def test_released_score_matches_analysis() -> None:
     assert selective["sources_with_decisions"] == 7
     assert observed["method"]["heldout_outcomes_used_for_threshold"] is False
 
+    deployment = practical["conservative_deployment_point"]
+    assert deployment["threshold"] == 0.2
+    assert deployment["decided_pairs"] == 233
+    assert deployment["coverage"] == 0.754045
+    assert deployment["pairwise_accuracy"] == 0.903433
+    assert deployment["sources_with_decisions"] == 7
+
     volume = observed["rules"]["more_data"]["operating_points"]["target_0.85"]
     assert selective["selective_pairwise_accuracy"] > volume["selective_pairwise_accuracy"]
 

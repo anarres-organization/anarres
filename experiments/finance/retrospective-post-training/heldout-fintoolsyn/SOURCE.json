@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "source_id": "fintoolsyn_2026",
+  "title": "FinToolSyn: A forward synthesis Framework for Financial Tool-Use Dialogue Data with Dynamic Tool Retrieval",
+  "authors": [
+    "Caishuang Huang",
+    "Yang Qiao",
+    "Rongyu Zhang",
+    "Junjie Ye",
+    "Pu Lu",
+    "Wenxi Wu",
+    "Meng Zhou",
+    "Xiku Du",
+    "Tao Gui",
+    "Qi Zhang",
+    "Xuanjing Huang"
+  ],
+  "url": "https://aclanthology.org/2026.findings-acl.746/",
+  "doi": "10.18653/v1/2026.findings-acl.746",
+  "source_status": "peer_reviewed_findings_acl_2026",
+  "evidence": [
+    "Ablation study",
+    "Detailed Tool-Call Performance for Ablation Models",
+    "Non-Tool-Call Performance for Ablation Models"
+  ],
+  "audit_note": "The scored arms share Qwen3-8B, function-calling mode, LoRA hyperparameters, one epoch, and global batch size 128. The study did not enter representation design or fitting."
+}

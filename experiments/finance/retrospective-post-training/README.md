@@ -233,6 +233,17 @@ how one model-agnostic contract can produce different model-level decisions
 without making model identity a feature. The freeze and score are in
 [`heldout-finharmbench/`](heldout-finharmbench/).
 
+FinToolSyn then tests the same capability-contract representation in an
+agentic tool environment. The study holds the Qwen3-8B training contract fixed
+while varying reverse or forward dialogue synthesis and static or dynamic tool
+retrieval. All nine high-confidence directional comparisons are correct, as
+are both best-candidate decisions and all three improvement or regression
+calls. Reverse synthesis improves tool calling while regressing on the balanced
+average and non-tool behavior. The audit abstains from comparisons that require
+an unmeasured tradeoff between starting-policy retention and forward
+supervision. The source record, predictions, outcomes, and score are in
+[`heldout-fintoolsyn/`](heldout-fintoolsyn/).
+
 A derived alignment/interference coordinate does not improve the original
 sixteen-study source holdout. Against the corrected baseline, the fixed rule
 falls from 74.9% to 74.0% pairwise ordering with unchanged regret. The ridge
@@ -281,6 +292,8 @@ python heldout-finacumen/score_holdout.py
 python -m unittest heldout-finacumen/test_score.py
 python heldout-finharmbench/score_holdout.py
 python -m unittest heldout-finharmbench/test_score.py
+python heldout-fintoolsyn/score_holdout.py
+python heldout-fintoolsyn/test_score.py
 ```
 
 The script writes [`results/summary.json`](results/summary.json) and a manifest
