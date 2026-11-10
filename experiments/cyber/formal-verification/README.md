@@ -52,6 +52,8 @@ with Codex 0.154.0 for the completed development-only support test. Its compact
 records the 9/9 fresh-grade outcome and its scope. The
 [containment requalification](CODEX_CONTAINMENT.md) defines the task-only
 execution boundary and negative controls required after that support result. The
+[development-policy panel](DEVELOPMENT_POLICY_PANEL.md) specifies the matched
+Sol/Luna route screen and its stop rule without authorizing inference. The
 [continuation guide](CONTINUATION.md) records the current execution boundary
 and the path from candidate construction to prospective selection, regression
 forecasting, and production-code transfer.

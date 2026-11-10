@@ -118,6 +118,10 @@ passes all nine PrimePy specifications under fresh grading.
 - Nominate a small policy panel from released repository evidence, executable
   routes, cost, and reproducibility. Any new candidate receives its own
   excluded development qualification under the same Vero task and grader.
+- Use the candidate and stop rules in
+  [DEVELOPMENT_POLICY_PANEL.md](DEVELOPMENT_POLICY_PANEL.md). The first matched
+  route screen compares GPT-5.6 Sol and GPT-5.6 Luna at xhigh reasoning through
+  the same self-hosted Codex environment.
 - Restrict task reads and writes to the freshly rendered workspace while
   keeping controller authentication outside the artifact and fresh grader.
 - Implement and re-run the negative controls in the
