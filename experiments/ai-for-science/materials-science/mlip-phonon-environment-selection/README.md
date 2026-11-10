@@ -274,8 +274,9 @@ profiles expose only measurements made before candidate training. Phonon
 outcomes, forecasts, and candidate rankings remain in their native study
 records.
 
-After `make setup`, export two candidates and run the complete CLI path from the
-repository root:
+After `make setup`, install the native command as described in the
+[CLI guide](../../../../docs/cli.md), then export two candidates and run the
+complete path from the repository root:
 
 ```bash
 uv run python \
@@ -284,18 +285,18 @@ uv run python \
   --candidate-id aimd-from-PBE-1000-npt__hash_uniform \
   --candidate-id aimd-from-PBE-1000-npt__low_signal
 
-cargo run --quiet -p anarres-cli -- qualify \
+anarres qualify \
   .anarres/materials-mlip/aimd-from-PBE-1000-npt__hash_uniform.profile-input.json
-cargo run --quiet -p anarres-cli -- measure \
+anarres measure \
   .anarres/materials-mlip/aimd-from-PBE-1000-npt__hash_uniform.profile-input.json \
   --output .anarres/materials-mlip/hash-uniform.profile.json
-cargo run --quiet -p anarres-cli -- measure \
+anarres measure \
   .anarres/materials-mlip/aimd-from-PBE-1000-npt__low_signal.profile-input.json \
   --output .anarres/materials-mlip/low-signal.profile.json
-cargo run --quiet -p anarres-cli -- design \
+anarres design \
   .anarres/materials-mlip/hash-uniform.profile.json \
   .anarres/materials-mlip/low-signal.profile.json
-cargo run --quiet -p anarres-cli -- validate \
+anarres validate \
   .anarres/materials-mlip/hash-uniform.profile.json \
   .anarres/materials-mlip/low-signal.profile.json
 ```
