@@ -1,0 +1,424 @@
+{
+  "artifact": "anarres_mlip_post_prospective_audit_v1",
+  "status": "exploratory_post_prospective_audit",
+  "evidence_boundary": {
+    "frozen_forecast_modified": false,
+    "prospective_score_modified": false,
+    "support_guard_prespecified": false,
+    "interpretation": "Support-restricted decisions are retrospective sensitivities. They are not prospective results."
+  },
+  "inputs": {
+    "candidate_panel_sha256": "b5d26ea2dbecac0e530e80d470b6079a7ebee46600633f119eb6d94b9048dd52",
+    "development_outcomes_sha256": "796593d3b56354ae62dc513c7075f16658c0835c46d8888c94489d3eebd29d60",
+    "aggregate_utility_fit_sha256": "276540c68570b74b6efffb8480f1406af310cd34c52060b37a5a29ee674c4a9a",
+    "target_regression_fit_sha256": "63127e3dd582facf49f94a14c9c4c3293a38308a3de45c7ba0d85021bac1ad1c",
+    "prospective_outcomes_sha256": "0f6aa71b3e7c48ecdf4df5c5450710fb6814272e4196b2df35f1ea90a8908b1f",
+    "prospective_prediction_score_sha256": "23f422ba5b38f512deb14a0b00b00e0d992f9066f09384cd2b475b015eea0ae0"
+  },
+  "selected_model": {
+    "name": "signal_density_only",
+    "features": [
+      "log_signal_density"
+    ],
+    "budget_intercept_by_pass": {
+      "1": -0.07000920283611674,
+      "2": -0.07875302246081652,
+      "3": -0.07847125663562052,
+      "4": -0.07819858130013263
+    },
+    "environment_coefficient": {
+      "feature": "log_signal_density",
+      "coefficient": -0.11863882997917802
+    }
+  },
+  "development_leave_source_family_out": {
+    "status": "exploratory_post_prospective_sensitivity",
+    "folds": [
+      {
+        "heldout_source_family": "aimd-from-PBE-1000-npt",
+        "curve_points": 8,
+        "curve_rmse_thz": 0.039180904495
+      },
+      {
+        "heldout_source_family": "aimd-from-PBE-1000-nvt",
+        "curve_points": 8,
+        "curve_rmse_thz": 0.020431699617
+      },
+      {
+        "heldout_source_family": "aimd-from-PBE-3000-npt",
+        "curve_points": 4,
+        "curve_rmse_thz": 0.030020187573
+      },
+      {
+        "heldout_source_family": "aimd-from-PBE-3000-nvt",
+        "curve_points": 8,
+        "curve_rmse_thz": 0.02574545967
+      },
+      {
+        "heldout_source_family": "rattled-1000",
+        "curve_points": 8,
+        "curve_rmse_thz": 0.038481182353
+      },
+      {
+        "heldout_source_family": "rattled-300",
+        "curve_points": 4,
+        "curve_rmse_thz": 0.016900577621
+      },
+      {
+        "heldout_source_family": "rattled-500",
+        "curve_points": 4,
+        "curve_rmse_thz": 0.083002670763
+      },
+      {
+        "heldout_source_family": "rattled-relax",
+        "curve_points": 4,
+        "curve_rmse_thz": 0.211191550037
+      }
+    ],
+    "largest_error_fold": "rattled-relax"
+  },
+  "development_coordinate_support": {
+    "signal_density_per_atom": {
+      "minimum": 4.964406075480963,
+      "maximum": 21.19834462727066
+    },
+    "effective_signal_coverage": {
+      "minimum": 0.016116726714388466,
+      "maximum": 0.810679815707199
+    },
+    "mean_target_affinity": {
+      "minimum": 0.16334632178190603,
+      "maximum": 0.2133250311332776
+    }
+  },
+  "prospective_support": [
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "selected_model_coordinate": "log_signal_density",
+      "signal_density_per_atom": 6.979986576852358,
+      "standardized_log_signal_density": -0.5606442159103454,
+      "inside_development_signal_density_range": true,
+      "relative_gap_below_development_minimum": 0.0
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "selected_model_coordinate": "log_signal_density",
+      "signal_density_per_atom": 20.72601553599529,
+      "standardized_log_signal_density": 1.63004410048337,
+      "inside_development_signal_density_range": true,
+      "relative_gap_below_development_minimum": 0.0
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "selected_model_coordinate": "log_signal_density",
+      "signal_density_per_atom": 21.27212743395413,
+      "standardized_log_signal_density": 1.6823946140463002,
+      "inside_development_signal_density_range": false,
+      "relative_gap_below_development_minimum": 0.0
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "selected_model_coordinate": "log_signal_density",
+      "signal_density_per_atom": 3.8835599576869013,
+      "standardized_log_signal_density": -1.7407771297545869,
+      "inside_development_signal_density_range": false,
+      "relative_gap_below_development_minimum": 0.21771911913739792
+    }
+  ],
+  "prospective_score": {
+    "artifact": "anarres_mlip_prospective_prediction_score_v1",
+    "status": "prospective_test_scored",
+    "inputs": {
+      "prospective_authorization_sha256": "606d5f6121de7e6e50901142332518e0d3f43804d42edf905e63bc3b0fb08554",
+      "aggregate_utility_fit_sha256": "276540c68570b74b6efffb8480f1406af310cd34c52060b37a5a29ee674c4a9a",
+      "target_regression_fit_sha256": "63127e3dd582facf49f94a14c9c4c3293a38308a3de45c7ba0d85021bac1ad1c",
+      "prospective_outcomes_sha256": "0f6aa71b3e7c48ecdf4df5c5450710fb6814272e4196b2df35f1ea90a8908b1f"
+    },
+    "aggregate_utility": {
+      "curve_rmse_thz": 0.13043483107571474,
+      "pairwise_rank_accuracy": 0.4583333333333333,
+      "best_environment_decisions": 0.0,
+      "decision_count": 4,
+      "mean_allocation_regret_thz": 0.13544131683709992,
+      "empirical_envelope_coverage": 0.75,
+      "covered_points": 12,
+      "curve_points": 16
+    },
+    "allocation_baselines": [
+      {
+        "name": "equal_weight_signal_coverage_affinity",
+        "applicable": true,
+        "best_environment_decisions": 4.0,
+        "decision_count": 4,
+        "mean_allocation_regret_thz": 0.0
+      },
+      {
+        "name": "fixed_selection_rule_selected_on_development",
+        "applicable": true,
+        "best_environment_decisions": 4.0,
+        "decision_count": 4,
+        "mean_allocation_regret_thz": 0.0
+      },
+      {
+        "name": "fixed_source_family_selected_on_development",
+        "applicable": true,
+        "best_environment_decisions": 4.0,
+        "decision_count": 4,
+        "mean_allocation_regret_thz": 0.0
+      },
+      {
+        "name": "hash_uniform",
+        "applicable": false
+      },
+      {
+        "name": "random_choice_expectation",
+        "applicable": true,
+        "best_environment_decisions": 1.0,
+        "decision_count": 4,
+        "mean_allocation_regret_thz": 0.08124523637884709
+      }
+    ],
+    "target_regressions": {
+      "roc_auc": 0.49374833732375634,
+      "average_precision": 0.8812064704477569,
+      "brier_score": 0.18960510613805964,
+      "recall_in_top_risk_20_percent": 0.2011173184357542,
+      "positive_rate": 0.895,
+      "examples": 200,
+      "environment_macro": {
+        "roc_auc": 0.357809127351218,
+        "average_precision": 0.8811545434725163,
+        "brier_score": 0.18960510613805964,
+        "recall_in_top_risk_20_percent": 0.19158700791448247,
+        "positive_rate": 0.895,
+        "groups": 4
+      },
+      "source_family_macro": {
+        "roc_auc": 0.357809127351218,
+        "average_precision": 0.8811545434725163,
+        "brier_score": 0.18960510613805964,
+        "recall_in_top_risk_20_percent": 0.19158700791448247,
+        "positive_rate": 0.895,
+        "groups": 4
+      },
+      "stability_regressions": 8,
+      "validity_regressions": 0
+    },
+    "counts": {
+      "environments": 4,
+      "training_seeds": 2,
+      "checkpoints": 4,
+      "targets": 50,
+      "evaluation_records": 1600
+    }
+  },
+  "curve_comparison": [
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "curve": [
+        {
+          "pass": 1,
+          "predicted_utility_thz": -0.036752115931018216,
+          "observed_utility_thz": -0.03161202021928544,
+          "residual_thz": 0.005140095711732774
+        },
+        {
+          "pass": 2,
+          "predicted_utility_thz": -0.034410239920685155,
+          "observed_utility_thz": -0.03556774387949724,
+          "residual_thz": -0.0011575039588120825
+        },
+        {
+          "pass": 3,
+          "predicted_utility_thz": -0.02858562627797273,
+          "observed_utility_thz": -0.034162397608696604,
+          "residual_thz": -0.005576771330723873
+        },
+        {
+          "pass": 4,
+          "predicted_utility_thz": -0.024987242251974996,
+          "observed_utility_thz": -0.03368050338677753,
+          "residual_thz": -0.008693261134802531
+        }
+      ]
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "curve": [
+        {
+          "pass": 1,
+          "predicted_utility_thz": -0.16670246528402108,
+          "observed_utility_thz": -0.10515457838890443,
+          "residual_thz": 0.061547886895116644
+        },
+        {
+          "pass": 2,
+          "predicted_utility_thz": -0.20767737239135564,
+          "observed_utility_thz": -0.12880878667189385,
+          "residual_thz": 0.07886858571946179
+        },
+        {
+          "pass": 3,
+          "predicted_utility_thz": -0.22351115030747704,
+          "observed_utility_thz": -0.13361926308584313,
+          "residual_thz": 0.08989188722163391
+        },
+        {
+          "pass": 4,
+          "predicted_utility_thz": -0.23290780121677962,
+          "observed_utility_thz": -0.13723374055647794,
+          "residual_thz": 0.09567406066030168
+        }
+      ]
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "curve": [
+        {
+          "pass": 1,
+          "predicted_utility_thz": -0.16980786712297866,
+          "observed_utility_thz": -0.09869502844409778,
+          "residual_thz": 0.07111283867888088
+        },
+        {
+          "pass": 2,
+          "predicted_utility_thz": -0.21181790817663237,
+          "observed_utility_thz": -0.1330894367583577,
+          "residual_thz": 0.07872847141827469
+        },
+        {
+          "pass": 3,
+          "predicted_utility_thz": -0.22816925306591337,
+          "observed_utility_thz": -0.1452943346627895,
+          "residual_thz": 0.08287491840312389
+        },
+        {
+          "pass": 4,
+          "predicted_utility_thz": -0.23787644415911172,
+          "observed_utility_thz": -0.14630867633330333,
+          "residual_thz": 0.09156776782580839
+        }
+      ]
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "curve": [
+        {
+          "pass": 1,
+          "predicted_utility_thz": 0.03325267812818124,
+          "observed_utility_thz": -0.18471401536588464,
+          "residual_thz": -0.2179666934940659
+        },
+        {
+          "pass": 2,
+          "predicted_utility_thz": 0.058929485491580766,
+          "observed_utility_thz": -0.15848499085084738,
+          "residual_thz": -0.21741447634242816
+        },
+        {
+          "pass": 3,
+          "predicted_utility_thz": 0.07642156481082646,
+          "observed_utility_thz": -0.1683191171374743,
+          "residual_thz": -0.24474068194830076
+        },
+        {
+          "pass": 4,
+          "predicted_utility_thz": 0.08702042824274414,
+          "observed_utility_thz": -0.1652698090884501,
+          "residual_thz": -0.25229023733119427
+        }
+      ]
+    }
+  ],
+  "error_attribution": [
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "share_of_total_squared_error": 0.802047526885549
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "share_of_total_squared_error": 0.10007817884515302
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "share_of_total_squared_error": 0.0973804379909727
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "share_of_total_squared_error": 0.0004938562783253432
+    }
+  ],
+  "decision_audit": {
+    "abstention_rule": "Abstain when the frozen predicted winner lies outside the development range of any selected model coordinate.",
+    "would_abstain_at_all_budgets": true,
+    "decisions": [
+      {
+        "pass": 1,
+        "frozen_predicted_best": "rattled-relax__low_signal",
+        "observed_best": "aimd-from-PBE-3000-npt__target_affinity",
+        "predicted_best_inside_development_support": false,
+        "post_hoc_support_restricted_best": "aimd-from-PBE-3000-npt__target_affinity",
+        "post_hoc_support_restricted_regret_thz": 0.0
+      },
+      {
+        "pass": 2,
+        "frozen_predicted_best": "rattled-relax__low_signal",
+        "observed_best": "aimd-from-PBE-3000-npt__target_affinity",
+        "predicted_best_inside_development_support": false,
+        "post_hoc_support_restricted_best": "aimd-from-PBE-3000-npt__target_affinity",
+        "post_hoc_support_restricted_regret_thz": 0.0
+      },
+      {
+        "pass": 3,
+        "frozen_predicted_best": "rattled-relax__low_signal",
+        "observed_best": "aimd-from-PBE-3000-npt__target_affinity",
+        "predicted_best_inside_development_support": false,
+        "post_hoc_support_restricted_best": "aimd-from-PBE-3000-npt__target_affinity",
+        "post_hoc_support_restricted_regret_thz": 0.0
+      },
+      {
+        "pass": 4,
+        "frozen_predicted_best": "rattled-relax__low_signal",
+        "observed_best": "aimd-from-PBE-3000-npt__target_affinity",
+        "predicted_best_inside_development_support": false,
+        "post_hoc_support_restricted_best": "aimd-from-PBE-3000-npt__target_affinity",
+        "post_hoc_support_restricted_regret_thz": 0.0
+      }
+    ]
+  },
+  "target_regression_by_environment": [
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "targets": 50,
+      "observed_regressions": 36,
+      "observed_regression_rate": 0.72,
+      "mean_predicted_probability": 0.590363826905
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "targets": 50,
+      "observed_regressions": 46,
+      "observed_regression_rate": 0.92,
+      "mean_predicted_probability": 0.918145304271
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "targets": 50,
+      "observed_regressions": 47,
+      "observed_regression_rate": 0.94,
+      "mean_predicted_probability": 0.919919159168
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "targets": 50,
+      "observed_regressions": 50,
+      "observed_regression_rate": 1.0,
+      "mean_predicted_probability": 0.390559868236
+    }
+  ],
+  "observed_boundary": {
+    "all_prospective_environment_budget_utilities_negative": true,
+    "selected_environment_worst_at_all_budgets": true,
+    "no_training_option_best_at_all_budgets": true
+  }
+}

@@ -1,0 +1,2443 @@
+{
+  "artifact": "anarres_mlip_prospective_outcomes_v1",
+  "status": "complete_prospective_only",
+  "inputs": {
+    "final_training_contract_sha256": "dc03758366f0a817143cb57071e6f48da1ea8492698f06f505b1f58268983c0a",
+    "target_roles_sha256": "3af598f1cf652e4918f37a2359242b29d89ed3fea40f12125cbbdc66ab73169f",
+    "starting_checkpoint_targets_sha256": "1f328306728656ac2e62b95dee1fa8959effb2aeffa0c2ef24929e3bb29b263c"
+  },
+  "counts": {
+    "environments": 4,
+    "training_seeds": 2,
+    "checkpoints": 4,
+    "targets": 50,
+    "evaluation_records": 1600
+  },
+  "baseline_mean_frequency_mae_thz": 0.30240350497278357,
+  "seed_level_curves": [
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "seed": 0,
+      "pass": 1,
+      "model_sha256": "734835a7a87d01465295223475b1fa9c93f045655374c568c75c7d768b17f966",
+      "mean_frequency_mae_thz": 0.339386617287633,
+      "utility_thz": -0.03698311231484941,
+      "stability_accuracy": 0.96
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "seed": 0,
+      "pass": 2,
+      "model_sha256": "30a35f5c7ff3611c035d6564c4f7c5d27c0bc71c52e63d11b8f40caf9a81327a",
+      "mean_frequency_mae_thz": 0.34088320327198296,
+      "utility_thz": -0.038479698299199394,
+      "stability_accuracy": 0.92
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "seed": 0,
+      "pass": 3,
+      "model_sha256": "bcacc3ffdcc8d9e91611f5e53d9f5a7748a64604765a632d46fdb223bef5a84c",
+      "mean_frequency_mae_thz": 0.3384482039180423,
+      "utility_thz": -0.036044698945258746,
+      "stability_accuracy": 0.92
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "seed": 0,
+      "pass": 4,
+      "model_sha256": "98c53fe22c318b950ab80bb773d3bcc89fc6c4042cc92d0d5d6f0b2306c63438",
+      "mean_frequency_mae_thz": 0.33759506925926813,
+      "utility_thz": -0.03519156428648457,
+      "stability_accuracy": 0.92
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "seed": 1,
+      "pass": 1,
+      "model_sha256": "1957e7f001dfae4429e10b8ac78c0f5957fb6bea56d9da924ebd7ab049875232",
+      "mean_frequency_mae_thz": 0.32864443309650504,
+      "utility_thz": -0.026240928123721474,
+      "stability_accuracy": 0.96
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "seed": 1,
+      "pass": 2,
+      "model_sha256": "5fe69239ca3e4dc74a33cc2460bfc33258bc95c962cd37338f748806518bdc36",
+      "mean_frequency_mae_thz": 0.33505929443257865,
+      "utility_thz": -0.03265578945979508,
+      "stability_accuracy": 0.94
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "seed": 1,
+      "pass": 3,
+      "model_sha256": "5134ff35144b3867c751d59c5c19707f1b82e2168292712b861140ab39e03ee1",
+      "mean_frequency_mae_thz": 0.334683601244918,
+      "utility_thz": -0.03228009627213446,
+      "stability_accuracy": 0.94
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "seed": 1,
+      "pass": 4,
+      "model_sha256": "3369e02ece3071b64d8522c1a00f9003a1ae9ca0c0b07ce08d1a28f0784880d1",
+      "mean_frequency_mae_thz": 0.33457294745985405,
+      "utility_thz": -0.03216944248707049,
+      "stability_accuracy": 0.92
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "seed": 0,
+      "pass": 1,
+      "model_sha256": "25c565027e58fc66fea7d43f634ca68bf070501906376bb31ce9b20b3829f4da",
+      "mean_frequency_mae_thz": 0.4076058017262894,
+      "utility_thz": -0.10520229675350584,
+      "stability_accuracy": 0.96
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "seed": 0,
+      "pass": 2,
+      "model_sha256": "5ffe86a9ef3ad0692e7a9cbbce185e788139e3327987dabe1eb371bf4f4365bd",
+      "mean_frequency_mae_thz": 0.4318474721148312,
+      "utility_thz": -0.12944396714204764,
+      "stability_accuracy": 0.96
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "seed": 0,
+      "pass": 3,
+      "model_sha256": "e8223a08e48e0a8fd8d0d668131e065f3a74f3dac381d0554a6dd690789f3334",
+      "mean_frequency_mae_thz": 0.44259091794848365,
+      "utility_thz": -0.1401874129757001,
+      "stability_accuracy": 0.94
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "seed": 0,
+      "pass": 4,
+      "model_sha256": "0d1b5a54aae5211bb93e8aed7f6ec2decc06b52db09873a6c4846834091313c4",
+      "mean_frequency_mae_thz": 0.4435026771534902,
+      "utility_thz": -0.1410991721807066,
+      "stability_accuracy": 0.94
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "seed": 1,
+      "pass": 1,
+      "model_sha256": "3b3d58c6b398f9ca47886830625093d19293aca81ac87e2999092cb14d3f4dac",
+      "mean_frequency_mae_thz": 0.4075103649970866,
+      "utility_thz": -0.10510686002430303,
+      "stability_accuracy": 0.94
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "seed": 1,
+      "pass": 2,
+      "model_sha256": "846d435d156e993a619c0206e113f4883e652a4fb3a129e2d9b1fcb064e68ad7",
+      "mean_frequency_mae_thz": 0.43057711117452363,
+      "utility_thz": -0.12817360620174006,
+      "stability_accuracy": 0.96
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "seed": 1,
+      "pass": 3,
+      "model_sha256": "54f9c0d7d1d8a9fd677f21f6ffe067eb3c8d628dbc1730fb7e9d180c28e7d76a",
+      "mean_frequency_mae_thz": 0.42945461816876973,
+      "utility_thz": -0.12705111319598617,
+      "stability_accuracy": 0.96
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "seed": 1,
+      "pass": 4,
+      "model_sha256": "06ccf7de1e5125da1b6ca6f873955d1a47f3fdc059e0d14fb5285bd8235c1e08",
+      "mean_frequency_mae_thz": 0.43577181390503283,
+      "utility_thz": -0.13336830893224927,
+      "stability_accuracy": 0.94
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "seed": 0,
+      "pass": 1,
+      "model_sha256": "78e365c1813e0b72041b438b88756d9da044c8f0525ea50ef12816d11f7472f3",
+      "mean_frequency_mae_thz": 0.40575761787317577,
+      "utility_thz": -0.1033541129003922,
+      "stability_accuracy": 0.96
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "seed": 0,
+      "pass": 2,
+      "model_sha256": "cd7353fc362851d48936231cdf41653b891c6c55823b077052e4d1bb959ccb61",
+      "mean_frequency_mae_thz": 0.43796408959033045,
+      "utility_thz": -0.1355605846175469,
+      "stability_accuracy": 0.96
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "seed": 0,
+      "pass": 3,
+      "model_sha256": "d3b187b9d43b288d59f0fc7da5af38bb60349d04adc19272c9d9689dab99afac",
+      "mean_frequency_mae_thz": 0.4506929070045517,
+      "utility_thz": -0.14828940203176816,
+      "stability_accuracy": 0.96
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "seed": 0,
+      "pass": 4,
+      "model_sha256": "ea52633c83b77281ec3cf3d65b0876ce4f2667bf479d24bcc1c14de773335da0",
+      "mean_frequency_mae_thz": 0.4518982972259217,
+      "utility_thz": -0.1494947922531381,
+      "stability_accuracy": 0.98
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "seed": 1,
+      "pass": 1,
+      "model_sha256": "9f1f8e7c70072e27dca4c34a81b81a8c1f1d0f2545b3405736a0e25edf064faf",
+      "mean_frequency_mae_thz": 0.3964394489605869,
+      "utility_thz": -0.09403594398780335,
+      "stability_accuracy": 0.94
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "seed": 1,
+      "pass": 2,
+      "model_sha256": "c90494be261616378e492ce8b13b4857d778aea592a6ff00ab9f7862f192ea26",
+      "mean_frequency_mae_thz": 0.43302179387195205,
+      "utility_thz": -0.1306182888991685,
+      "stability_accuracy": 0.94
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "seed": 1,
+      "pass": 3,
+      "model_sha256": "6804e7317b3883a49fb42af6c27a11ffe24b21993596ba914df5b5477ca6211d",
+      "mean_frequency_mae_thz": 0.4447027722665944,
+      "utility_thz": -0.14229926729381082,
+      "stability_accuracy": 0.96
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "seed": 1,
+      "pass": 4,
+      "model_sha256": "e441578de2c3395a54ffd89eebf5661985af9037e7314b8fe92bf0fd30ee8928",
+      "mean_frequency_mae_thz": 0.4455260653862521,
+      "utility_thz": -0.14312256041346855,
+      "stability_accuracy": 0.98
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "seed": 0,
+      "pass": 1,
+      "model_sha256": "cd46edfc464db256e3a31ab8afc73242e2dbe401a11f002aad19e6b62bd26cd5",
+      "mean_frequency_mae_thz": 0.4848788800231052,
+      "utility_thz": -0.18247537505032163,
+      "stability_accuracy": 0.96
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "seed": 0,
+      "pass": 2,
+      "model_sha256": "4d79cc38fa6ec306f0173334e94c8df6b56fa1aa0f04fb888176347ca584d182",
+      "mean_frequency_mae_thz": 0.46027331326458365,
+      "utility_thz": -0.15786980829180008,
+      "stability_accuracy": 0.92
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "seed": 0,
+      "pass": 3,
+      "model_sha256": "b5bdf430c9cb85f4b3e5c59ae2205e243443d1c4997018e2630892cee33ff6f4",
+      "mean_frequency_mae_thz": 0.4693333648064724,
+      "utility_thz": -0.16692985983368885,
+      "stability_accuracy": 0.92
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "seed": 0,
+      "pass": 4,
+      "model_sha256": "348f297a14f5f4211492c28bb13c60a6d19983bcd885b5c4114546e30753528b",
+      "mean_frequency_mae_thz": 0.4663462080457992,
+      "utility_thz": -0.16394270307301562,
+      "stability_accuracy": 0.92
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "seed": 1,
+      "pass": 1,
+      "model_sha256": "0e3057bd619f816ace18739780e07e5f05114849f3052d589013f1733ffcacbf",
+      "mean_frequency_mae_thz": 0.4893561606542312,
+      "utility_thz": -0.18695265568144764,
+      "stability_accuracy": 0.94
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "seed": 1,
+      "pass": 2,
+      "model_sha256": "d4eb429d39b8b67aa6b4faa8bbdf435c5da43bd4ac77dce3de31b1b7524365a0",
+      "mean_frequency_mae_thz": 0.46150367838267825,
+      "utility_thz": -0.15910017340989469,
+      "stability_accuracy": 0.92
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "seed": 1,
+      "pass": 3,
+      "model_sha256": "00ff1a0a64b9afa0cab58e071d64fb6ab265d451859116dadc8c391bf0673fa5",
+      "mean_frequency_mae_thz": 0.4721118794140433,
+      "utility_thz": -0.16970837444125975,
+      "stability_accuracy": 0.92
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "seed": 1,
+      "pass": 4,
+      "model_sha256": "81b819922dfa3bd8fd8d6101049935efa1a92d8c1531a8316eea539069ce3d1b",
+      "mean_frequency_mae_thz": 0.46900042007666815,
+      "utility_thz": -0.16659691510388458,
+      "stability_accuracy": 0.92
+    }
+  ],
+  "seed_mean_curves": [
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "pass": 1,
+      "mean_frequency_mae_thz": 0.334015525192069,
+      "utility_thz": -0.03161202021928544,
+      "stability_accuracy": 0.96,
+      "absolute_seed_utility_gap_thz": 0.010742184191127935
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "pass": 2,
+      "mean_frequency_mae_thz": 0.3379712488522808,
+      "utility_thz": -0.03556774387949724,
+      "stability_accuracy": 0.9299999999999999,
+      "absolute_seed_utility_gap_thz": 0.005823908839404313
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "pass": 3,
+      "mean_frequency_mae_thz": 0.33656590258148017,
+      "utility_thz": -0.034162397608696604,
+      "stability_accuracy": 0.9299999999999999,
+      "absolute_seed_utility_gap_thz": 0.0037646026731242843
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "pass": 4,
+      "mean_frequency_mae_thz": 0.3360840083595611,
+      "utility_thz": -0.03368050338677753,
+      "stability_accuracy": 0.92,
+      "absolute_seed_utility_gap_thz": 0.003022121799414079
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "pass": 1,
+      "mean_frequency_mae_thz": 0.407558083361688,
+      "utility_thz": -0.10515457838890443,
+      "stability_accuracy": 0.95,
+      "absolute_seed_utility_gap_thz": 9.543672920281354e-05
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "pass": 2,
+      "mean_frequency_mae_thz": 0.43121229164467745,
+      "utility_thz": -0.12880878667189385,
+      "stability_accuracy": 0.96,
+      "absolute_seed_utility_gap_thz": 0.00127036094030758
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "pass": 3,
+      "mean_frequency_mae_thz": 0.4360227680586267,
+      "utility_thz": -0.13361926308584313,
+      "stability_accuracy": 0.95,
+      "absolute_seed_utility_gap_thz": 0.013136299779713922
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "pass": 4,
+      "mean_frequency_mae_thz": 0.43963724552926153,
+      "utility_thz": -0.13723374055647794,
+      "stability_accuracy": 0.94,
+      "absolute_seed_utility_gap_thz": 0.0077308632484573425
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "pass": 1,
+      "mean_frequency_mae_thz": 0.40109853341688134,
+      "utility_thz": -0.09869502844409778,
+      "stability_accuracy": 0.95,
+      "absolute_seed_utility_gap_thz": 0.009318168912588853
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "pass": 2,
+      "mean_frequency_mae_thz": 0.4354929417311413,
+      "utility_thz": -0.1330894367583577,
+      "stability_accuracy": 0.95,
+      "absolute_seed_utility_gap_thz": 0.004942295718378398
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "pass": 3,
+      "mean_frequency_mae_thz": 0.4476978396355731,
+      "utility_thz": -0.1452943346627895,
+      "stability_accuracy": 0.96,
+      "absolute_seed_utility_gap_thz": 0.005990134737957342
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "pass": 4,
+      "mean_frequency_mae_thz": 0.4487121813060869,
+      "utility_thz": -0.14630867633330333,
+      "stability_accuracy": 0.98,
+      "absolute_seed_utility_gap_thz": 0.006372231839669562
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "pass": 1,
+      "mean_frequency_mae_thz": 0.4871175203386682,
+      "utility_thz": -0.18471401536588464,
+      "stability_accuracy": 0.95,
+      "absolute_seed_utility_gap_thz": 0.004477280631126013
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "pass": 2,
+      "mean_frequency_mae_thz": 0.46088849582363095,
+      "utility_thz": -0.15848499085084738,
+      "stability_accuracy": 0.92,
+      "absolute_seed_utility_gap_thz": 0.0012303651180946007
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "pass": 3,
+      "mean_frequency_mae_thz": 0.47072262211025784,
+      "utility_thz": -0.1683191171374743,
+      "stability_accuracy": 0.92,
+      "absolute_seed_utility_gap_thz": 0.002778514607570892
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "pass": 4,
+      "mean_frequency_mae_thz": 0.4676733140612337,
+      "utility_thz": -0.1652698090884501,
+      "stability_accuracy": 0.92,
+      "absolute_seed_utility_gap_thz": 0.002654212030868963
+    }
+  ],
+  "target_regressions": [
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-11695",
+      "starting_frequency_mae_thz": 0.5964472346994925,
+      "trained_frequency_mae_thz": 0.6158602387769226,
+      "frequency_error_ratio": 1.032547730877168,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-23151",
+      "starting_frequency_mae_thz": 0.09898151895726567,
+      "trained_frequency_mae_thz": 0.12493153496262796,
+      "frequency_error_ratio": 1.2621703150116939,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-3033",
+      "starting_frequency_mae_thz": 0.1684452934491836,
+      "trained_frequency_mae_thz": 0.18874107869487602,
+      "frequency_error_ratio": 1.1204888829489037,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-42160",
+      "starting_frequency_mae_thz": 0.07280216368025541,
+      "trained_frequency_mae_thz": 0.0978864532112905,
+      "frequency_error_ratio": 1.3445541761808677,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-4748",
+      "starting_frequency_mae_thz": 0.19937409940583825,
+      "trained_frequency_mae_thz": 0.22321702366926688,
+      "frequency_error_ratio": 1.1195888750569094,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-552806",
+      "starting_frequency_mae_thz": 0.12035673641416289,
+      "trained_frequency_mae_thz": 0.1523935938905521,
+      "frequency_error_ratio": 1.2661825040365526,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-555153",
+      "starting_frequency_mae_thz": 0.17461198258226576,
+      "trained_frequency_mae_thz": 0.24326879669523782,
+      "frequency_error_ratio": 1.393196463940414,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-556062",
+      "starting_frequency_mae_thz": 0.24615727743863647,
+      "trained_frequency_mae_thz": 0.2577632787809029,
+      "frequency_error_ratio": 1.0471487232188763,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-561394",
+      "starting_frequency_mae_thz": 0.20860346174534117,
+      "trained_frequency_mae_thz": 0.24255101643631577,
+      "frequency_error_ratio": 1.1627372547269474,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-561623",
+      "starting_frequency_mae_thz": 0.27938082278265747,
+      "trained_frequency_mae_thz": 0.30107548302944076,
+      "frequency_error_ratio": 1.077652646415393,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-569349",
+      "starting_frequency_mae_thz": 0.4403346808287112,
+      "trained_frequency_mae_thz": 0.49572762608055204,
+      "frequency_error_ratio": 1.1257973710987088,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-613442",
+      "starting_frequency_mae_thz": 0.19657290910983818,
+      "trained_frequency_mae_thz": 0.267045106592226,
+      "frequency_error_ratio": 1.3585041184032658,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-614491",
+      "starting_frequency_mae_thz": 0.46168863455939935,
+      "trained_frequency_mae_thz": 0.5133052985482206,
+      "frequency_error_ratio": 1.111799728486018,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-619456",
+      "starting_frequency_mae_thz": 0.06065296443450857,
+      "trained_frequency_mae_thz": 0.09304090419436406,
+      "frequency_error_ratio": 1.5339877458887785,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-625052",
+      "starting_frequency_mae_thz": 0.11542462899686592,
+      "trained_frequency_mae_thz": 0.19691642819627653,
+      "frequency_error_ratio": 1.7060174237304528,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-625837",
+      "starting_frequency_mae_thz": 0.36973354743149417,
+      "trained_frequency_mae_thz": 0.2687913312665791,
+      "frequency_error_ratio": 0.7269865911109458,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-625917",
+      "starting_frequency_mae_thz": 0.40312976828648756,
+      "trained_frequency_mae_thz": 0.5101091082689346,
+      "frequency_error_ratio": 1.2653719680319448,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-626369",
+      "starting_frequency_mae_thz": 0.2432427732253751,
+      "trained_frequency_mae_thz": 0.22226189709774366,
+      "frequency_error_ratio": 0.9137451203609172,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-626557",
+      "starting_frequency_mae_thz": 0.5150404067774211,
+      "trained_frequency_mae_thz": 0.5193599037371732,
+      "frequency_error_ratio": 1.008386714717742,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-627016",
+      "starting_frequency_mae_thz": 0.19782878683309874,
+      "trained_frequency_mae_thz": 0.2939939149964057,
+      "frequency_error_ratio": 1.4861028048685256,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-632394",
+      "starting_frequency_mae_thz": 0.33503670894272064,
+      "trained_frequency_mae_thz": 0.3929122079339913,
+      "frequency_error_ratio": 1.1727437544796482,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-643770",
+      "starting_frequency_mae_thz": 0.873015909770332,
+      "trained_frequency_mae_thz": 1.006367681781048,
+      "frequency_error_ratio": 1.1527483869633,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-646925",
+      "starting_frequency_mae_thz": 0.3028198761870312,
+      "trained_frequency_mae_thz": 0.41913619086354637,
+      "frequency_error_ratio": 1.384110568107737,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-656662",
+      "starting_frequency_mae_thz": 0.41772062428557916,
+      "trained_frequency_mae_thz": 0.4432659967790946,
+      "frequency_error_ratio": 1.0611542045289368,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-6643",
+      "starting_frequency_mae_thz": 0.1970877886990303,
+      "trained_frequency_mae_thz": 0.20654771355780424,
+      "frequency_error_ratio": 1.0479985336545636,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-6799",
+      "starting_frequency_mae_thz": 0.8290389031680201,
+      "trained_frequency_mae_thz": 0.8968907425666709,
+      "frequency_error_ratio": 1.0818439751613194,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-684708",
+      "starting_frequency_mae_thz": 0.17290233210611108,
+      "trained_frequency_mae_thz": 0.20835059454153348,
+      "frequency_error_ratio": 1.2050189954272428,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-6929",
+      "starting_frequency_mae_thz": 0.3081237316586676,
+      "trained_frequency_mae_thz": 0.3229441499057958,
+      "frequency_error_ratio": 1.0480989184680716,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-769284",
+      "starting_frequency_mae_thz": 0.41618856743655774,
+      "trained_frequency_mae_thz": 0.36562494651021094,
+      "frequency_error_ratio": 0.8785079051118949,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-769396",
+      "starting_frequency_mae_thz": 0.15184781613843476,
+      "trained_frequency_mae_thz": 0.1814253958038389,
+      "frequency_error_ratio": 1.1947843598780454,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-771888",
+      "starting_frequency_mae_thz": 0.04550518916193746,
+      "trained_frequency_mae_thz": 0.06403345931065357,
+      "frequency_error_ratio": 1.4071682920112762,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-772812",
+      "starting_frequency_mae_thz": 0.07412622302026105,
+      "trained_frequency_mae_thz": 0.09997250844832395,
+      "frequency_error_ratio": 1.348679379239359,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-8426",
+      "starting_frequency_mae_thz": 0.06875828263750788,
+      "trained_frequency_mae_thz": 0.058764092543558716,
+      "frequency_error_ratio": 0.8546474735758263,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867132",
+      "starting_frequency_mae_thz": 0.35608194518884606,
+      "trained_frequency_mae_thz": 0.46393585539092774,
+      "frequency_error_ratio": 1.302890701590843,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867192",
+      "starting_frequency_mae_thz": 0.22517673049997075,
+      "trained_frequency_mae_thz": 0.23249500266461184,
+      "frequency_error_ratio": 1.0325001262270395,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867203",
+      "starting_frequency_mae_thz": 0.32850031484922676,
+      "trained_frequency_mae_thz": 0.3122836120645898,
+      "frequency_error_ratio": 0.950634133205991,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867300",
+      "starting_frequency_mae_thz": 0.17778534451969394,
+      "trained_frequency_mae_thz": 0.20476244367869098,
+      "frequency_error_ratio": 1.1517397242831153,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867322",
+      "starting_frequency_mae_thz": 0.15402574112885492,
+      "trained_frequency_mae_thz": 0.19592946071899792,
+      "frequency_error_ratio": 1.272056600948845,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867335",
+      "starting_frequency_mae_thz": 0.36992686626599197,
+      "trained_frequency_mae_thz": 0.3514168034707266,
+      "frequency_error_ratio": 0.9499629129884395,
+      "frequency_error_regression": false,
+      "stability_regression": true,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867355",
+      "starting_frequency_mae_thz": 0.3625834207071604,
+      "trained_frequency_mae_thz": 0.4135448520061486,
+      "frequency_error_ratio": 1.1405509143236505,
+      "frequency_error_regression": true,
+      "stability_regression": true,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867371",
+      "starting_frequency_mae_thz": 0.22982392694802736,
+      "trained_frequency_mae_thz": 0.22605417283077994,
+      "frequency_error_ratio": 0.9835972077959493,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867528",
+      "starting_frequency_mae_thz": 0.17877702634936585,
+      "trained_frequency_mae_thz": 0.2665383981153115,
+      "frequency_error_ratio": 1.4908984871156905,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867615",
+      "starting_frequency_mae_thz": 0.20769788689384275,
+      "trained_frequency_mae_thz": 0.2724934798770834,
+      "frequency_error_ratio": 1.3119704006250124,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867674",
+      "starting_frequency_mae_thz": 0.05369419413268149,
+      "trained_frequency_mae_thz": 0.06663676269193049,
+      "frequency_error_ratio": 1.24104223498107,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867730",
+      "starting_frequency_mae_thz": 0.07108976307542836,
+      "trained_frequency_mae_thz": 0.13680359274502146,
+      "frequency_error_ratio": 1.9243782343158011,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867884",
+      "starting_frequency_mae_thz": 0.242043191878025,
+      "trained_frequency_mae_thz": 0.2738452495578302,
+      "frequency_error_ratio": 1.1313900111507018,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867929",
+      "starting_frequency_mae_thz": 0.15819589503671821,
+      "trained_frequency_mae_thz": 0.2162762626508591,
+      "frequency_error_ratio": 1.3671420652265351,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867943",
+      "starting_frequency_mae_thz": 1.9110153555784046,
+      "trained_frequency_mae_thz": 1.83633094982294,
+      "frequency_error_ratio": 0.9609189923370031,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-867964",
+      "starting_frequency_mae_thz": 0.43870166229978463,
+      "trained_frequency_mae_thz": 0.4859678813280397,
+      "frequency_error_ratio": 1.1077411441307827,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "aimd-from-PBE-3000-npt__target_affinity",
+      "target_material_id": "mp-978857",
+      "starting_frequency_mae_thz": 0.2940743384366645,
+      "trained_frequency_mae_thz": 0.35440994069158593,
+      "frequency_error_ratio": 1.2051712589941475,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-11695",
+      "starting_frequency_mae_thz": 0.5964472346994925,
+      "trained_frequency_mae_thz": 0.7273827353912918,
+      "frequency_error_ratio": 1.2195257066750733,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-23151",
+      "starting_frequency_mae_thz": 0.09898151895726567,
+      "trained_frequency_mae_thz": 0.23306333948301247,
+      "frequency_error_ratio": 2.354614699170613,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-3033",
+      "starting_frequency_mae_thz": 0.1684452934491836,
+      "trained_frequency_mae_thz": 0.2599658282284132,
+      "frequency_error_ratio": 1.543324974567125,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-42160",
+      "starting_frequency_mae_thz": 0.07280216368025541,
+      "trained_frequency_mae_thz": 0.19013040856365027,
+      "frequency_error_ratio": 2.611603817143354,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-4748",
+      "starting_frequency_mae_thz": 0.19937409940583825,
+      "trained_frequency_mae_thz": 0.2748893716204023,
+      "frequency_error_ratio": 1.3787616969285867,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-552806",
+      "starting_frequency_mae_thz": 0.12035673641416289,
+      "trained_frequency_mae_thz": 0.2599411681429081,
+      "frequency_error_ratio": 2.1597558714820693,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-555153",
+      "starting_frequency_mae_thz": 0.17461198258226576,
+      "trained_frequency_mae_thz": 0.3912719292037762,
+      "frequency_error_ratio": 2.2408080099510603,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-556062",
+      "starting_frequency_mae_thz": 0.24615727743863647,
+      "trained_frequency_mae_thz": 0.37203923379750514,
+      "frequency_error_ratio": 1.511388319162123,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-561394",
+      "starting_frequency_mae_thz": 0.20860346174534117,
+      "trained_frequency_mae_thz": 0.32528323651528046,
+      "frequency_error_ratio": 1.5593376725089039,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-561623",
+      "starting_frequency_mae_thz": 0.27938082278265747,
+      "trained_frequency_mae_thz": 0.2894521973427252,
+      "frequency_error_ratio": 1.036048911517104,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-569349",
+      "starting_frequency_mae_thz": 0.4403346808287112,
+      "trained_frequency_mae_thz": 0.6030766279901507,
+      "frequency_error_ratio": 1.3695869397685385,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-613442",
+      "starting_frequency_mae_thz": 0.19657290910983818,
+      "trained_frequency_mae_thz": 0.32047010338406073,
+      "frequency_error_ratio": 1.6302862120486452,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-614491",
+      "starting_frequency_mae_thz": 0.46168863455939935,
+      "trained_frequency_mae_thz": 0.6443629849029991,
+      "frequency_error_ratio": 1.395665686069856,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-619456",
+      "starting_frequency_mae_thz": 0.06065296443450857,
+      "trained_frequency_mae_thz": 0.18927577605310109,
+      "frequency_error_ratio": 3.120635204194775,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-625052",
+      "starting_frequency_mae_thz": 0.11542462899686592,
+      "trained_frequency_mae_thz": 0.6030080557484188,
+      "frequency_error_ratio": 5.22425812401608,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-625837",
+      "starting_frequency_mae_thz": 0.36973354743149417,
+      "trained_frequency_mae_thz": 0.3515243369095996,
+      "frequency_error_ratio": 0.9507504508357645,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-625917",
+      "starting_frequency_mae_thz": 0.40312976828648756,
+      "trained_frequency_mae_thz": 0.5276218601369516,
+      "frequency_error_ratio": 1.308813939440941,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-626369",
+      "starting_frequency_mae_thz": 0.2432427732253751,
+      "trained_frequency_mae_thz": 0.44082958370234315,
+      "frequency_error_ratio": 1.8123029015702563,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-626557",
+      "starting_frequency_mae_thz": 0.5150404067774211,
+      "trained_frequency_mae_thz": 0.6764517032381772,
+      "frequency_error_ratio": 1.3133954041988616,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-627016",
+      "starting_frequency_mae_thz": 0.19782878683309874,
+      "trained_frequency_mae_thz": 0.25882022619532885,
+      "frequency_error_ratio": 1.3083041671467484,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-632394",
+      "starting_frequency_mae_thz": 0.33503670894272064,
+      "trained_frequency_mae_thz": 0.2610681129589939,
+      "frequency_error_ratio": 0.7792224135165656,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-643770",
+      "starting_frequency_mae_thz": 0.873015909770332,
+      "trained_frequency_mae_thz": 0.7919840165307275,
+      "frequency_error_ratio": 0.9071816534696121,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-646925",
+      "starting_frequency_mae_thz": 0.3028198761870312,
+      "trained_frequency_mae_thz": 0.47220972812677986,
+      "frequency_error_ratio": 1.559374946164789,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-656662",
+      "starting_frequency_mae_thz": 0.41772062428557916,
+      "trained_frequency_mae_thz": 0.5659250215060777,
+      "frequency_error_ratio": 1.3547931047789898,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-6643",
+      "starting_frequency_mae_thz": 0.1970877886990303,
+      "trained_frequency_mae_thz": 0.33415866278338435,
+      "frequency_error_ratio": 1.6954813131201796,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-6799",
+      "starting_frequency_mae_thz": 0.8290389031680201,
+      "trained_frequency_mae_thz": 1.121421716825573,
+      "frequency_error_ratio": 1.3526768316182336,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-684708",
+      "starting_frequency_mae_thz": 0.17290233210611108,
+      "trained_frequency_mae_thz": 0.48632867271353486,
+      "frequency_error_ratio": 2.8127363395831604,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-6929",
+      "starting_frequency_mae_thz": 0.3081237316586676,
+      "trained_frequency_mae_thz": 0.39977204230016394,
+      "frequency_error_ratio": 1.297439960720138,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-769284",
+      "starting_frequency_mae_thz": 0.41618856743655774,
+      "trained_frequency_mae_thz": 0.6228869465634663,
+      "frequency_error_ratio": 1.496645980450717,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-769396",
+      "starting_frequency_mae_thz": 0.15184781613843476,
+      "trained_frequency_mae_thz": 0.21063768702814828,
+      "frequency_error_ratio": 1.387163097795998,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-771888",
+      "starting_frequency_mae_thz": 0.04550518916193746,
+      "trained_frequency_mae_thz": 0.21001754183029928,
+      "frequency_error_ratio": 4.615243793030251,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-772812",
+      "starting_frequency_mae_thz": 0.07412622302026105,
+      "trained_frequency_mae_thz": 0.2190560243572935,
+      "frequency_error_ratio": 2.9551758531851613,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-8426",
+      "starting_frequency_mae_thz": 0.06875828263750788,
+      "trained_frequency_mae_thz": 0.09852046325443975,
+      "frequency_error_ratio": 1.4328522975746414,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867132",
+      "starting_frequency_mae_thz": 0.35608194518884606,
+      "trained_frequency_mae_thz": 0.5786451302001084,
+      "frequency_error_ratio": 1.6250336138026522,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867192",
+      "starting_frequency_mae_thz": 0.22517673049997075,
+      "trained_frequency_mae_thz": 0.2538233378731899,
+      "frequency_error_ratio": 1.127218328952613,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867203",
+      "starting_frequency_mae_thz": 0.32850031484922676,
+      "trained_frequency_mae_thz": 0.4627672846082985,
+      "frequency_error_ratio": 1.4087270656671878,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867300",
+      "starting_frequency_mae_thz": 0.17778534451969394,
+      "trained_frequency_mae_thz": 0.28221514324083874,
+      "frequency_error_ratio": 1.5873926166595622,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867322",
+      "starting_frequency_mae_thz": 0.15402574112885492,
+      "trained_frequency_mae_thz": 0.4753803051406361,
+      "frequency_error_ratio": 3.0863692111238876,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867335",
+      "starting_frequency_mae_thz": 0.36992686626599197,
+      "trained_frequency_mae_thz": 0.41435707806846167,
+      "frequency_error_ratio": 1.1201053934009828,
+      "frequency_error_regression": true,
+      "stability_regression": true,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867355",
+      "starting_frequency_mae_thz": 0.3625834207071604,
+      "trained_frequency_mae_thz": 0.4864365632096288,
+      "frequency_error_ratio": 1.3415852337123217,
+      "frequency_error_regression": true,
+      "stability_regression": true,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867371",
+      "starting_frequency_mae_thz": 0.22982392694802736,
+      "trained_frequency_mae_thz": 0.3704585869686358,
+      "frequency_error_ratio": 1.6119234924238839,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867528",
+      "starting_frequency_mae_thz": 0.17877702634936585,
+      "trained_frequency_mae_thz": 0.3129721131999904,
+      "frequency_error_ratio": 1.7506282523593422,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867615",
+      "starting_frequency_mae_thz": 0.20769788689384275,
+      "trained_frequency_mae_thz": 0.40819932158388367,
+      "frequency_error_ratio": 1.9653513460756582,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867674",
+      "starting_frequency_mae_thz": 0.05369419413268149,
+      "trained_frequency_mae_thz": 0.0687610576386892,
+      "frequency_error_ratio": 1.2806050775019848,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867730",
+      "starting_frequency_mae_thz": 0.07108976307542836,
+      "trained_frequency_mae_thz": 0.2033622643270055,
+      "frequency_error_ratio": 2.8606406257287995,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867884",
+      "starting_frequency_mae_thz": 0.242043191878025,
+      "trained_frequency_mae_thz": 0.40656154560213714,
+      "frequency_error_ratio": 1.6797065947098373,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867929",
+      "starting_frequency_mae_thz": 0.15819589503671821,
+      "trained_frequency_mae_thz": 0.49777145594280164,
+      "frequency_error_ratio": 3.14655102667023,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867943",
+      "starting_frequency_mae_thz": 1.9110153555784046,
+      "trained_frequency_mae_thz": 2.075185212520613,
+      "frequency_error_ratio": 1.085907136467001,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-867964",
+      "starting_frequency_mae_thz": 0.43870166229978463,
+      "trained_frequency_mae_thz": 0.6032402131011845,
+      "frequency_error_ratio": 1.375057960662486,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-300__coverage",
+      "target_material_id": "mp-978857",
+      "starting_frequency_mae_thz": 0.2940743384366645,
+      "trained_frequency_mae_thz": 0.34887831990799434,
+      "frequency_error_ratio": 1.1863609785290161,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-11695",
+      "starting_frequency_mae_thz": 0.5964472346994925,
+      "trained_frequency_mae_thz": 0.7286406145917066,
+      "frequency_error_ratio": 1.2216346597009826,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-23151",
+      "starting_frequency_mae_thz": 0.09898151895726567,
+      "trained_frequency_mae_thz": 0.2469631219832802,
+      "frequency_error_ratio": 2.4950427573242653,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-3033",
+      "starting_frequency_mae_thz": 0.1684452934491836,
+      "trained_frequency_mae_thz": 0.29787768529368674,
+      "frequency_error_ratio": 1.768394231706748,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-42160",
+      "starting_frequency_mae_thz": 0.07280216368025541,
+      "trained_frequency_mae_thz": 0.20277531242325686,
+      "frequency_error_ratio": 2.7852923893009423,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-4748",
+      "starting_frequency_mae_thz": 0.19937409940583825,
+      "trained_frequency_mae_thz": 0.3234927792329838,
+      "frequency_error_ratio": 1.6225416450634058,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-552806",
+      "starting_frequency_mae_thz": 0.12035673641416289,
+      "trained_frequency_mae_thz": 0.28945723903520953,
+      "frequency_error_ratio": 2.4049940839135937,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-555153",
+      "starting_frequency_mae_thz": 0.17461198258226576,
+      "trained_frequency_mae_thz": 0.4017086760526414,
+      "frequency_error_ratio": 2.3005790903461194,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-556062",
+      "starting_frequency_mae_thz": 0.24615727743863647,
+      "trained_frequency_mae_thz": 0.4038037986507992,
+      "frequency_error_ratio": 1.6404300650890233,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-561394",
+      "starting_frequency_mae_thz": 0.20860346174534117,
+      "trained_frequency_mae_thz": 0.3440218461643545,
+      "frequency_error_ratio": 1.649166525262794,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-561623",
+      "starting_frequency_mae_thz": 0.27938082278265747,
+      "trained_frequency_mae_thz": 0.3181801059220424,
+      "frequency_error_ratio": 1.1388759713459953,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-569349",
+      "starting_frequency_mae_thz": 0.4403346808287112,
+      "trained_frequency_mae_thz": 0.5807020379016101,
+      "frequency_error_ratio": 1.318774248734456,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-613442",
+      "starting_frequency_mae_thz": 0.19657290910983818,
+      "trained_frequency_mae_thz": 0.3319695517024285,
+      "frequency_error_ratio": 1.6887858718972069,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-614491",
+      "starting_frequency_mae_thz": 0.46168863455939935,
+      "trained_frequency_mae_thz": 0.606106361527802,
+      "frequency_error_ratio": 1.3128032967634646,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-619456",
+      "starting_frequency_mae_thz": 0.06065296443450857,
+      "trained_frequency_mae_thz": 0.18699552599885666,
+      "frequency_error_ratio": 3.0830401735890316,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-625052",
+      "starting_frequency_mae_thz": 0.11542462899686592,
+      "trained_frequency_mae_thz": 0.5212818148762827,
+      "frequency_error_ratio": 4.516209576817759,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-625837",
+      "starting_frequency_mae_thz": 0.36973354743149417,
+      "trained_frequency_mae_thz": 0.2834151945468662,
+      "frequency_error_ratio": 0.7665390292975203,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-625917",
+      "starting_frequency_mae_thz": 0.40312976828648756,
+      "trained_frequency_mae_thz": 0.510280505280443,
+      "frequency_error_ratio": 1.2657971338842133,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-626369",
+      "starting_frequency_mae_thz": 0.2432427732253751,
+      "trained_frequency_mae_thz": 0.4245010399340992,
+      "frequency_error_ratio": 1.745174314144085,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-626557",
+      "starting_frequency_mae_thz": 0.5150404067774211,
+      "trained_frequency_mae_thz": 0.7567667342032832,
+      "frequency_error_ratio": 1.4693346856770522,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-627016",
+      "starting_frequency_mae_thz": 0.19782878683309874,
+      "trained_frequency_mae_thz": 0.45307085286471005,
+      "frequency_error_ratio": 2.2902170109699465,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-632394",
+      "starting_frequency_mae_thz": 0.33503670894272064,
+      "trained_frequency_mae_thz": 0.2563895519908269,
+      "frequency_error_ratio": 0.7652580900759158,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-643770",
+      "starting_frequency_mae_thz": 0.873015909770332,
+      "trained_frequency_mae_thz": 0.8492005969568798,
+      "frequency_error_ratio": 0.9727206428348855,
+      "frequency_error_regression": false,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-646925",
+      "starting_frequency_mae_thz": 0.3028198761870312,
+      "trained_frequency_mae_thz": 0.49003634130777796,
+      "frequency_error_ratio": 1.618243648594308,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-656662",
+      "starting_frequency_mae_thz": 0.41772062428557916,
+      "trained_frequency_mae_thz": 0.5879664025612155,
+      "frequency_error_ratio": 1.4075589482008577,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-6643",
+      "starting_frequency_mae_thz": 0.1970877886990303,
+      "trained_frequency_mae_thz": 0.39000856949763146,
+      "frequency_error_ratio": 1.9788570974998736,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-6799",
+      "starting_frequency_mae_thz": 0.8290389031680201,
+      "trained_frequency_mae_thz": 1.1265445302607615,
+      "frequency_error_ratio": 1.3588560512128902,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-684708",
+      "starting_frequency_mae_thz": 0.17290233210611108,
+      "trained_frequency_mae_thz": 0.4749774801972328,
+      "frequency_error_ratio": 2.747085446515184,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-6929",
+      "starting_frequency_mae_thz": 0.3081237316586676,
+      "trained_frequency_mae_thz": 0.38698355941621565,
+      "frequency_error_ratio": 1.2559355857889816,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-769284",
+      "starting_frequency_mae_thz": 0.41618856743655774,
+      "trained_frequency_mae_thz": 0.6694667289356651,
+      "frequency_error_ratio": 1.6085658793059376,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-769396",
+      "starting_frequency_mae_thz": 0.15184781613843476,
+      "trained_frequency_mae_thz": 0.24280901693686346,
+      "frequency_error_ratio": 1.599028705921607,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-771888",
+      "starting_frequency_mae_thz": 0.04550518916193746,
+      "trained_frequency_mae_thz": 0.18521734329090767,
+      "frequency_error_ratio": 4.070246640043233,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-772812",
+      "starting_frequency_mae_thz": 0.07412622302026105,
+      "trained_frequency_mae_thz": 0.2886420710308527,
+      "frequency_error_ratio": 3.893926592643978,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-8426",
+      "starting_frequency_mae_thz": 0.06875828263750788,
+      "trained_frequency_mae_thz": 0.0822472512050677,
+      "frequency_error_ratio": 1.1961795444873655,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867132",
+      "starting_frequency_mae_thz": 0.35608194518884606,
+      "trained_frequency_mae_thz": 0.6077388252684104,
+      "frequency_error_ratio": 1.7067386692299142,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867192",
+      "starting_frequency_mae_thz": 0.22517673049997075,
+      "trained_frequency_mae_thz": 0.24913760897589082,
+      "frequency_error_ratio": 1.106409212100729,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867203",
+      "starting_frequency_mae_thz": 0.32850031484922676,
+      "trained_frequency_mae_thz": 0.4386991293529642,
+      "frequency_error_ratio": 1.33546030101772,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867300",
+      "starting_frequency_mae_thz": 0.17778534451969394,
+      "trained_frequency_mae_thz": 0.2985084626150091,
+      "frequency_error_ratio": 1.67903863741672,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867322",
+      "starting_frequency_mae_thz": 0.15402574112885492,
+      "trained_frequency_mae_thz": 0.4445377989255753,
+      "frequency_error_ratio": 2.8861266673190924,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867335",
+      "starting_frequency_mae_thz": 0.36992686626599197,
+      "trained_frequency_mae_thz": 0.4170057273324891,
+      "frequency_error_ratio": 1.1272653201474845,
+      "frequency_error_regression": true,
+      "stability_regression": true,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867355",
+      "starting_frequency_mae_thz": 0.3625834207071604,
+      "trained_frequency_mae_thz": 0.4613505221371569,
+      "frequency_error_ratio": 1.2723982835105014,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867371",
+      "starting_frequency_mae_thz": 0.22982392694802736,
+      "trained_frequency_mae_thz": 0.3684429623506245,
+      "frequency_error_ratio": 1.6031531931570582,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867528",
+      "starting_frequency_mae_thz": 0.17877702634936585,
+      "trained_frequency_mae_thz": 0.32881738594070536,
+      "frequency_error_ratio": 1.8392597340674568,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867615",
+      "starting_frequency_mae_thz": 0.20769788689384275,
+      "trained_frequency_mae_thz": 0.4437006927184461,
+      "frequency_error_ratio": 2.1362792821538314,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867674",
+      "starting_frequency_mae_thz": 0.05369419413268149,
+      "trained_frequency_mae_thz": 0.06335523892679663,
+      "frequency_error_ratio": 1.1799271774196318,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867730",
+      "starting_frequency_mae_thz": 0.07108976307542836,
+      "trained_frequency_mae_thz": 0.22690122129895418,
+      "frequency_error_ratio": 3.191756611401352,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867884",
+      "starting_frequency_mae_thz": 0.242043191878025,
+      "trained_frequency_mae_thz": 0.3855273668647424,
+      "frequency_error_ratio": 1.5928040110255393,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867929",
+      "starting_frequency_mae_thz": 0.15819589503671821,
+      "trained_frequency_mae_thz": 0.4622342490850223,
+      "frequency_error_ratio": 2.921910514667495,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867943",
+      "starting_frequency_mae_thz": 1.9110153555784046,
+      "trained_frequency_mae_thz": 2.0863223541760147,
+      "frequency_error_ratio": 1.091735002592143,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-867964",
+      "starting_frequency_mae_thz": 0.43870166229978463,
+      "trained_frequency_mae_thz": 0.5674980964758634,
+      "frequency_error_ratio": 1.2935854710485832,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-500__signal_coverage_affinity",
+      "target_material_id": "mp-978857",
+      "starting_frequency_mae_thz": 0.2940743384366645,
+      "trained_frequency_mae_thz": 0.3433311810854388,
+      "frequency_error_ratio": 1.1674979289611933,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-11695",
+      "starting_frequency_mae_thz": 0.5964472346994925,
+      "trained_frequency_mae_thz": 0.7921042369906373,
+      "frequency_error_ratio": 1.3280374036602292,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-23151",
+      "starting_frequency_mae_thz": 0.09898151895726567,
+      "trained_frequency_mae_thz": 0.2754339904479026,
+      "frequency_error_ratio": 2.7826809827682943,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-3033",
+      "starting_frequency_mae_thz": 0.1684452934491836,
+      "trained_frequency_mae_thz": 0.2761151336122808,
+      "frequency_error_ratio": 1.6391976763398195,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-42160",
+      "starting_frequency_mae_thz": 0.07280216368025541,
+      "trained_frequency_mae_thz": 0.24390644190028848,
+      "frequency_error_ratio": 3.350263640123625,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-4748",
+      "starting_frequency_mae_thz": 0.19937409940583825,
+      "trained_frequency_mae_thz": 0.38377966574025835,
+      "frequency_error_ratio": 1.924922379004964,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-552806",
+      "starting_frequency_mae_thz": 0.12035673641416289,
+      "trained_frequency_mae_thz": 0.21880871689119238,
+      "frequency_error_ratio": 1.8180014132174842,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-555153",
+      "starting_frequency_mae_thz": 0.17461198258226576,
+      "trained_frequency_mae_thz": 0.36263958836643717,
+      "frequency_error_ratio": 2.0768310570873054,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-556062",
+      "starting_frequency_mae_thz": 0.24615727743863647,
+      "trained_frequency_mae_thz": 0.4042775224446149,
+      "frequency_error_ratio": 1.6423545411749834,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-561394",
+      "starting_frequency_mae_thz": 0.20860346174534117,
+      "trained_frequency_mae_thz": 0.35425986840358153,
+      "frequency_error_ratio": 1.6982453955440813,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-561623",
+      "starting_frequency_mae_thz": 0.27938082278265747,
+      "trained_frequency_mae_thz": 0.3609868397985765,
+      "frequency_error_ratio": 1.2920959864142283,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-569349",
+      "starting_frequency_mae_thz": 0.4403346808287112,
+      "trained_frequency_mae_thz": 0.5813513152248198,
+      "frequency_error_ratio": 1.3202487574467558,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-613442",
+      "starting_frequency_mae_thz": 0.19657290910983818,
+      "trained_frequency_mae_thz": 0.31896782423851144,
+      "frequency_error_ratio": 1.6226438611654426,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-614491",
+      "starting_frequency_mae_thz": 0.46168863455939935,
+      "trained_frequency_mae_thz": 0.5939314538311093,
+      "frequency_error_ratio": 1.2864329103485783,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-619456",
+      "starting_frequency_mae_thz": 0.06065296443450857,
+      "trained_frequency_mae_thz": 0.23464968035009603,
+      "frequency_error_ratio": 3.868725668033331,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-625052",
+      "starting_frequency_mae_thz": 0.11542462899686592,
+      "trained_frequency_mae_thz": 0.40973967765623587,
+      "frequency_error_ratio": 3.5498461742282172,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-625837",
+      "starting_frequency_mae_thz": 0.36973354743149417,
+      "trained_frequency_mae_thz": 0.47676839773509216,
+      "frequency_error_ratio": 1.2894918544642744,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-625917",
+      "starting_frequency_mae_thz": 0.40312976828648756,
+      "trained_frequency_mae_thz": 0.5915719821262746,
+      "frequency_error_ratio": 1.4674480245920936,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-626369",
+      "starting_frequency_mae_thz": 0.2432427732253751,
+      "trained_frequency_mae_thz": 0.5560441802868588,
+      "frequency_error_ratio": 2.285963825003999,
+      "frequency_error_regression": true,
+      "stability_regression": true,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-626557",
+      "starting_frequency_mae_thz": 0.5150404067774211,
+      "trained_frequency_mae_thz": 0.6404278744200209,
+      "frequency_error_ratio": 1.2434517097932998,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-627016",
+      "starting_frequency_mae_thz": 0.19782878683309874,
+      "trained_frequency_mae_thz": 0.38645343835682566,
+      "frequency_error_ratio": 1.9534742367037967,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-632394",
+      "starting_frequency_mae_thz": 0.33503670894272064,
+      "trained_frequency_mae_thz": 0.6142960986808033,
+      "frequency_error_ratio": 1.8335187825219057,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-643770",
+      "starting_frequency_mae_thz": 0.873015909770332,
+      "trained_frequency_mae_thz": 1.1323546972139078,
+      "frequency_error_ratio": 1.2970607803834882,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-646925",
+      "starting_frequency_mae_thz": 0.3028198761870312,
+      "trained_frequency_mae_thz": 0.480919817580447,
+      "frequency_error_ratio": 1.5881382148225158,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-656662",
+      "starting_frequency_mae_thz": 0.41772062428557916,
+      "trained_frequency_mae_thz": 0.56739236892415,
+      "frequency_error_ratio": 1.3583058530915297,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-6643",
+      "starting_frequency_mae_thz": 0.1970877886990303,
+      "trained_frequency_mae_thz": 0.3335075080676069,
+      "frequency_error_ratio": 1.6921774315348428,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-6799",
+      "starting_frequency_mae_thz": 0.8290389031680201,
+      "trained_frequency_mae_thz": 1.176166388772824,
+      "frequency_error_ratio": 1.4187107315209453,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-684708",
+      "starting_frequency_mae_thz": 0.17290233210611108,
+      "trained_frequency_mae_thz": 0.3931857681921041,
+      "frequency_error_ratio": 2.2740339207848503,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-6929",
+      "starting_frequency_mae_thz": 0.3081237316586676,
+      "trained_frequency_mae_thz": 0.35974398102447647,
+      "frequency_error_ratio": 1.1675309106764702,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-769284",
+      "starting_frequency_mae_thz": 0.41618856743655774,
+      "trained_frequency_mae_thz": 0.5498972799641737,
+      "frequency_error_ratio": 1.3212695470016678,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-769396",
+      "starting_frequency_mae_thz": 0.15184781613843476,
+      "trained_frequency_mae_thz": 0.34060345543956294,
+      "frequency_error_ratio": 2.243057978055119,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-771888",
+      "starting_frequency_mae_thz": 0.04550518916193746,
+      "trained_frequency_mae_thz": 0.14031081362737907,
+      "frequency_error_ratio": 3.0834024912644735,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-772812",
+      "starting_frequency_mae_thz": 0.07412622302026105,
+      "trained_frequency_mae_thz": 0.2434782109704077,
+      "frequency_error_ratio": 3.2846434237430038,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-8426",
+      "starting_frequency_mae_thz": 0.06875828263750788,
+      "trained_frequency_mae_thz": 0.07368488590366373,
+      "frequency_error_ratio": 1.0716510517304336,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867132",
+      "starting_frequency_mae_thz": 0.35608194518884606,
+      "trained_frequency_mae_thz": 0.5323656416021838,
+      "frequency_error_ratio": 1.495064966913295,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867192",
+      "starting_frequency_mae_thz": 0.22517673049997075,
+      "trained_frequency_mae_thz": 0.24832396754212882,
+      "frequency_error_ratio": 1.1027958661215267,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867203",
+      "starting_frequency_mae_thz": 0.32850031484922676,
+      "trained_frequency_mae_thz": 0.4295293420334398,
+      "frequency_error_ratio": 1.3075462111218457,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867300",
+      "starting_frequency_mae_thz": 0.17778534451969394,
+      "trained_frequency_mae_thz": 0.27343723384677665,
+      "frequency_error_ratio": 1.5380189778043656,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867322",
+      "starting_frequency_mae_thz": 0.15402574112885492,
+      "trained_frequency_mae_thz": 0.34881354740131165,
+      "frequency_error_ratio": 2.264644499321065,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867335",
+      "starting_frequency_mae_thz": 0.36992686626599197,
+      "trained_frequency_mae_thz": 0.403940270944112,
+      "frequency_error_ratio": 1.0919462947404934,
+      "frequency_error_regression": true,
+      "stability_regression": true,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867355",
+      "starting_frequency_mae_thz": 0.3625834207071604,
+      "trained_frequency_mae_thz": 0.5478278935022205,
+      "frequency_error_ratio": 1.5109016634951777,
+      "frequency_error_regression": true,
+      "stability_regression": true,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867371",
+      "starting_frequency_mae_thz": 0.22982392694802736,
+      "trained_frequency_mae_thz": 0.3267127217223734,
+      "frequency_error_ratio": 1.4215783624489917,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867528",
+      "starting_frequency_mae_thz": 0.17877702634936585,
+      "trained_frequency_mae_thz": 0.4667994176360811,
+      "frequency_error_ratio": 2.611070489134674,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867615",
+      "starting_frequency_mae_thz": 0.20769788689384275,
+      "trained_frequency_mae_thz": 0.34497173775161466,
+      "frequency_error_ratio": 1.660930416340415,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867674",
+      "starting_frequency_mae_thz": 0.05369419413268149,
+      "trained_frequency_mae_thz": 0.06397997261069993,
+      "frequency_error_ratio": 1.191562209735408,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867730",
+      "starting_frequency_mae_thz": 0.07108976307542836,
+      "trained_frequency_mae_thz": 0.20436366832613778,
+      "frequency_error_ratio": 2.874727098320778,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867884",
+      "starting_frequency_mae_thz": 0.242043191878025,
+      "trained_frequency_mae_thz": 0.35804995046663857,
+      "frequency_error_ratio": 1.4792812294719444,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867929",
+      "starting_frequency_mae_thz": 0.15819589503671821,
+      "trained_frequency_mae_thz": 0.37087071977965225,
+      "frequency_error_ratio": 2.3443763802693547,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867943",
+      "starting_frequency_mae_thz": 1.9110153555784046,
+      "trained_frequency_mae_thz": 2.6375395616061703,
+      "frequency_error_ratio": 1.3801770634165675,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-867964",
+      "starting_frequency_mae_thz": 0.43870166229978463,
+      "trained_frequency_mae_thz": 0.5619667518493373,
+      "frequency_error_ratio": 1.280977028679048,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    },
+    {
+      "candidate_id": "rattled-relax__low_signal",
+      "target_material_id": "mp-978857",
+      "starting_frequency_mae_thz": 0.2940743384366645,
+      "trained_frequency_mae_thz": 0.3964142012576829,
+      "frequency_error_ratio": 1.3480067773511615,
+      "frequency_error_regression": true,
+      "stability_regression": false,
+      "validity_regression": false
+    }
+  ],
+  "prospective_boundary": {
+    "prospective_candidate_training_outcomes_used": true,
+    "prospective_target_outcomes_used": true
+  }
+}

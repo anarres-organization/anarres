@@ -315,10 +315,10 @@ The generic and direct forms execute the same native finance command. The
 repository path supplies released evidence. The installed adapter contains no
 fallback copy of study artifacts.
 
-## Example adapter: robotics planning
+## Example adapter: robotics planning and scoring
 
-The robotics adapter can convert the frozen Can v1.4.1 protocol into a portable
-workflow plan before any candidate outcome is opened:
+The robotics adapter converts the frozen Can v1.4.1 protocol into a portable
+workflow plan and recomputes the released prospective result:
 
 ```bash
 uv tool install \
@@ -326,6 +326,7 @@ uv tool install \
 anarres robotics status --repository .
 anarres robotics plan --repository . \
   --output .anarres/can-v141.plan.json
+anarres robotics can-results --repository . --json
 ```
 
 The plan records five candidate arms, five seeds per arm, and 25 candidate runs
@@ -334,10 +335,11 @@ exact input digests, workload totals, and the release gate that precedes
 scoring. The record is deterministic and content-addressed. Planning performs
 no training, simulator execution, network request, or scheduler submission.
 
-The current plan reports `submission_ready: false` because the public study has
-not yet released a portable training entrypoint, immutable runtime image, or
-scheduler binding. Those execution details belong behind an explicit future
-submission command rather than being inferred from a local machine.
+The released plan reconstructs the original pre-outcome workload. `prepare`
+binds the exact candidate masks to the pinned dataset, while `bundle` records a
+CuraEval checkout, Python environment, accelerator type, and local or Slurm
+launcher. Execution remains behind explicit `submit --execute`; scoring remains
+behind the completeness and identity gate.
 
 ## Automation
 

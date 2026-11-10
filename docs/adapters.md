@@ -52,9 +52,9 @@ new training outcome.
 | Adapter | Command | Current released boundary |
 | --- | --- | --- |
 | Formal verification | `anarres formal` | Negative grouped measurement plus a separate one-attempt support pass; containment requalification and RL remain blocked |
-| Robotics | `anarres robotics` | Can v1.4.1 pre-outcome candidate measurements |
+| Robotics | `anarres robotics` | Can v1.4.1 candidate measurements and prospective result |
 | Legal reasoning | `anarres legal` | SylloGym candidate profiles and a separate LAB regression report |
-| Materials science | `anarres materials` | MLIP candidate measurements and frozen decision protocol; outcomes remain unopened |
+| Materials science | `anarres materials` | MLIP candidate measurements, frozen protocol, and scored prospective result |
 | Molecular design | `anarres molecular` | Qualified Q07820 reaction-bank measurements; training outcomes remain sealed |
 | Agentic finance | `anarres finance` | Starting-policy qualification and released retrospective checks |
 
