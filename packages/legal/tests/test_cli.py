@@ -9,6 +9,35 @@ ROOT = Path(__file__).resolve().parents[3]
 
 
 class LegalCliTest(unittest.TestCase):
+    def make_lab(self, root: Path) -> Path:
+        task = root / "tasks/corporate-ma/review-change-of-control"
+        (task / "documents").mkdir(parents=True)
+        (task / "documents/material-contract.txt").write_text("fixture", encoding="utf-8")
+        (task / "task.json").write_text(
+            json.dumps(
+                {
+                    "title": "Review change-of-control provisions",
+                    "work_type": "review",
+                    "tags": ["M&A", "contract-review"],
+                    "instructions": "Review the matter documents and write the requested memo.",
+                    "deliverables": {"memo.docx": "memo.docx"},
+                    "criteria": [
+                        {
+                            "id": "C-001",
+                            "title": "Identifies consent requirement",
+                            "match_criteria": (
+                                "PASS if the memo identifies the consent requirement."
+                            ),
+                            "deliverables": ["memo.docx"],
+                            "sources": ["material-contract.txt"],
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        return root
+
     def test_descriptor_is_sorted_and_side_effect_free(self) -> None:
         descriptor = cli.adapter_descriptor()
         self.assertEqual(descriptor["schema_version"], "anarres.adapter-descriptor.v1")
@@ -22,6 +51,8 @@ class LegalCliTest(unittest.TestCase):
         self.assertFalse(result["syllogym"]["candidate_training_outcomes_used_by_adapter"])
         self.assertEqual(result["lab"]["role"], "separate_task_regression_evaluation")
         self.assertFalse(result["lab"]["profile_input"])
+        self.assertTrue(result["lab"]["workflow_intake_available"])
+        self.assertFalse(result["lab"]["workflow_intake_reads_outcomes"])
 
     def test_profile_reuses_outcome_blind_exporter(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -56,6 +87,36 @@ class LegalCliTest(unittest.TestCase):
         self.assertEqual(result["support"]["severe_regressions"], 27)
         self.assertEqual(result["metrics"]["static"]["top_20pct_recall"], 0.37037037037)
         self.assertEqual(len(result["artifacts"]), 4)
+
+    def test_lab_intake_is_model_agnostic_and_outcome_blind(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            lab_root = self.make_lab(root / "lab")
+            output = root / "intake"
+            args = type(
+                "Args",
+                (),
+                {
+                    "repository": ROOT,
+                    "lab_root": lab_root,
+                    "source_revision": "fixture-revision",
+                    "output_dir": output,
+                    "force": False,
+                },
+            )()
+            result = cli.command_lab_intake(args)
+            summary = json.loads((output / "lab-workflow-summary.json").read_text())
+            row = json.loads((output / "lab-workflow-components.jsonl").read_text())
+        self.assertEqual(result["status"], "qualified")
+        self.assertEqual(result["task_count"], 1)
+        self.assertFalse(result["profile_input"])
+        self.assertFalse(result["outcomes_artifact_read"])
+        self.assertFalse(result["model_responses_read"])
+        self.assertNotIn("model", row)
+        self.assertEqual(summary["evaluation_contract"]["headline"], "task_all_pass")
+        self.assertEqual(
+            summary["evaluation_contract"]["independent_unit"], "training_intervention"
+        )
 
     def test_verify_is_byte_deterministic(self) -> None:
         args = type("Args", (), {"repository": ROOT})()

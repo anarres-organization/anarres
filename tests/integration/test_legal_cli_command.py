@@ -49,6 +49,32 @@ class LegalCliCommandTest(unittest.TestCase):
             check=False,
         )
 
+    def make_lab(self, root: Path) -> Path:
+        task = root / "tasks/litigation/draft-case-memo"
+        (task / "documents").mkdir(parents=True)
+        (task / "documents/record.txt").write_text("fixture", encoding="utf-8")
+        (task / "task.json").write_text(
+            json.dumps(
+                {
+                    "title": "Draft a case memo",
+                    "work_type": "draft",
+                    "tags": ["litigation"],
+                    "instructions": "Review the record and draft the memo.",
+                    "deliverables": {"memo.docx": "memo.docx"},
+                    "criteria": [
+                        {
+                            "id": "C-001",
+                            "title": "Grounds the conclusion",
+                            "match_criteria": "PASS if the conclusion is grounded in the record.",
+                            "deliverables": ["memo.docx"],
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        return root
+
     def test_doctor_and_direct_command_work_outside_checkout(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             directory = Path(temporary)
@@ -86,6 +112,27 @@ class LegalCliCommandTest(unittest.TestCase):
             self.assertEqual(regression_report["status"], "released_reproduced")
             self.assertFalse(regression_report["profile_input"])
             self.assertEqual(regression_report["support"]["severe_regressions"], 27)
+
+            lab_root = self.make_lab(directory / "harvey-lab")
+            intake = self.run_cli(
+                directory,
+                "legal",
+                "lab-intake",
+                "--repository",
+                str(ROOT),
+                "--lab-root",
+                str(lab_root),
+                "--source-revision",
+                "fixture-revision",
+                "--output-dir",
+                str(directory / "intake"),
+                "--json",
+            )
+            self.assertEqual(intake.returncode, 0, intake.stderr)
+            intake_report = json.loads(intake.stdout)
+            self.assertEqual(intake_report["task_count"], 1)
+            self.assertFalse(intake_report["profile_input"])
+            self.assertFalse(intake_report["outcomes_artifact_read"])
 
 
 if __name__ == "__main__":

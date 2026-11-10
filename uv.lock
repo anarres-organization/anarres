@@ -67,7 +67,7 @@ requires-dist = [{ name = "anarres-environments", editable = "packages/environme
 
 [[package]]
 name = "anarres-legal"
-version = "0.1.1"
+version = "0.2.0"
 source = { editable = "packages/legal" }
 dependencies = [
     { name = "anarres-environments" },
