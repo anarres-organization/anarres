@@ -1,6 +1,6 @@
 # Formal-verification continuation guide
 
-**Status date:** 2026-11-09
+**Status date:** 2026-11-10
 
 The next scientific milestone is a development screen under a tightened task
 sandbox, followed by a prospective comparison of qualified formal-verification
@@ -10,11 +10,14 @@ proceed.
 
 ## Current state
 
-The workstream has six completed foundations:
+The workstream has seven completed foundations:
 
 1. The [public-evidence record](public-evidence/README.md) reconstructs
-   decisions from VeruSyn, Re:Form, Formal Disco, and Vericoding. It also
-   records the production target established by Anthropic and Theorem.
+   decisions from DafnySynth, VeruSyn, Re:Form, Formal Disco, and Vericoding.
+   DafnySynth provides the densest positive grid: verifier-filtered synthetic
+   augmentation improves seven of eight matched paper comparisons and ties the
+   eighth across two starting models and four human-data fractions. The record
+   also preserves the production target established by Anthropic and Theorem.
 2. The OSS Verify adapter preserves statement, source, checker, and entry-point
    identities. Vero has a pinned source revision, repository-disjoint split,
    fresh grader, lifecycle controls, and a completed 32-attempt development
@@ -36,6 +39,11 @@ The workstream has six completed foundations:
    was readable and a temporary write outside the rendered task was possible.
    No reference proof or protected repository was accessed. Repeated
    measurement remains blocked until the sandbox matches the intended boundary.
+7. The public Forall VeriSoftBench release identifies a nondegenerate policy
+   boundary under GPT-5.6 Sol at xhigh reasoning through Codex. Fifteen of its
+   100 tasks are first solved on samples 2--6 under a Pass@8 contract, so each
+   has at least one unsuccessful sample before a successful sample for the same
+   policy and task. These tasks span five real Lean repositories.
 
 No claim-bearing reinforcement-learning run has begun. Qualification and
 prospective repositories remain unopened.
@@ -48,24 +56,36 @@ PrimePy result as an estimate of reliability. The repository split also remains
 fixed. Development repositories may be used for the next screen; qualification
 and prospective repositories must remain unopened.
 
-The immediate work has two phases:
+The immediate work has three phases:
 
 1. **Containment implementation.** Build the task-only execution boundary in
    [CODEX_CONTAINMENT.md](CODEX_CONTAINMENT.md), exercise every negative
    control through the model-facing command path, and emit a compact receipt
    without credentials or machine-specific paths.
-2. **Development screen.** After containment passes, freeze a new protocol and
-   outcome-blind queue for one attempt in each mode on the four repositories in
-   `development-lifecycle-panel-v2.json`. The existing PrimePy qualification
-   remains separate from this screen. No screen attempt may begin before its
-   protocol, queue, runtime identity, task hashes, and grader preflight are
-   committed.
+2. **Public evidence audit.** Maintain the source-pinned training-environment
+   and policy-support records. Preserve the positive DafnySynth, VeruSyn, and
+   Formal Disco comparisons alongside the Re:Form falsification and the
+   LeanLean, Vero, Forall VeriSoftBench, and Vericoding policy evidence. Keep
+   FVSpec and VeriBench as candidate task sources until their evaluator,
+   outcome, and release boundaries are qualified. Preserve each source's
+   objective and verifier rather than pooling its scores.
+3. **Development screen.** Qualify the public VeriSoftBench boundary tasks under
+   a task workspace that excludes the released ground-truth proof. Begin with
+   task IDs 29, 129, 277, 356, and 447, one from each represented repository,
+   then extend to all 15 source-backed boundary tasks. Keep this theorem-level
+   screen separate from the repository-level Vero screen. No attempt may begin
+   before its protocol, queue, runtime identity, task hashes, and checker
+   preflight are committed.
 
-The first collaborator deliverables are therefore a Codex-specific containment
-contract, its validator and negative tests, and one route-qualification receipt.
-They are infrastructure artifacts, not scientific results. A screen may be
-frozen only after those artifacts agree on the exact policy, harness, workspace,
-network, credential, reset, and grader boundaries.
+The first collaborator deliverables are therefore the public policy matrix, a
+sanitized VeriSoftBench materializer, a task-only containment contract with
+validator and negative tests, and one route-qualification receipt. The
+materializer must remove `ground_truth_proof` from model-visible records and
+replace the target theorem body in the model workspace while retaining an
+independent checker copy. The containment artifacts are infrastructure evidence
+rather than scientific outcomes. A screen may be frozen only after the selected
+route agrees on the exact policy, harness, workspace, network, credential,
+reset, and checker boundaries.
 
 ## Why this advances production verification
 
@@ -90,7 +110,7 @@ cannot establish utility.
 
 ## Next execution steps
 
-### 1. Tighten containment and run the development screen
+### 1. Tighten containment and select the development-screen policy
 
 The v5 Leanstral measurement and its budget-ladder follow-up are complete and
 remain unchanged. Their compact
@@ -99,28 +119,56 @@ and [calibration result](../../../data/formal-verification/vero/results/developm
 preserve the frozen inputs and outcomes. The
 [requalification design](POLICY_REQUALIFICATION.md) fixes the evidence, budget
 ladder, and stop rules that governed that revision.
-The [starting-policy selection](STARTING_POLICY_SELECTION.md) audits the
-released Vero, VeriSoftBench, and LeanLean evidence and selects GPT-5.6 Sol
-through Codex 0.154.0. The resulting one-attempt
+The [starting-policy selection](STARTING_POLICY_SELECTION.md) used the released
+Vero, VeriSoftBench, and LeanLean evidence to select GPT-5.6 Sol through Codex
+0.154.0 for one excluded qualification. The resulting one-attempt
 [qualification result](../../../data/formal-verification/vero/results/development-policy-qualification.codex-sol-v1.json)
 passes all nine PrimePy specifications under fresh grading.
 
-- Preserve the GPT-5.6 Sol model, Codex 0.154.0 harness, xhigh reasoning
-  setting, native repository interface, and 90-minute Vero budget.
+- Treat GPT-5.6 Sol as one supported and executable candidate rather than a
+  required model. The public policy record shows that Opus 5 leads LeanLean
+  compression, GPT-5.6 Luna has the lowest reported LeanLean cost, and GPT-5.5
+  xhigh leads Vero repository completion.
+- Nominate a small policy panel from released repository evidence, executable
+  routes, cost, and reproducibility. Any new candidate receives its own
+  excluded development qualification under the same Vero task and grader.
+- Use the candidate and stop rules in
+  [DEVELOPMENT_POLICY_PANEL.md](DEVELOPMENT_POLICY_PANEL.md). The first matched
+  route screen compares GPT-5.6 Sol and GPT-5.6 Luna at xhigh reasoning through
+  the same self-hosted Codex environment.
 - Restrict task reads and writes to the freshly rendered workspace while
   keeping controller authentication outside the artifact and fresh grader.
 - Implement and re-run the negative controls in the
   [containment requalification](CODEX_CONTAINMENT.md) before any new model
   attempt.
+- Select the development-screen policy under a frozen rule. After selection,
+  preserve its model, harness, reasoning setting, native repository interface,
+  and 90-minute Vero budget through the screen and repeated measurement.
 - Freeze one attempt for every repository and mode in the existing
   `development-lifecycle-panel-v2.json`. Keep these screen outcomes separate
   from the later repeated measurement and environment comparison.
 - Keep qualification and prospective repositories unopened until the screen
   establishes nonzero strict coverage in at least two development repositories.
 
-This stage establishes whether the supported policy and tightened interface
+This stage establishes whether a source-supported policy and tightened interface
 produce measurable coverage beyond one excluded task. It cannot revise the v5
 outcome or convert either qualification into a candidate comparison.
+
+The quickest nonzero route is the source-backed VeriSoftBench boundary panel,
+not another Leanstral run. Its 15 tasks are recorded in the public
+policy-support artifact. Start with one task from each represented repository:
+29, 129, 277, 356, and 447. For every task, materialize a fresh model workspace
+from the pinned repository, replace the target theorem body, and omit the
+dataset's `ground_truth_proof` field. The independent checker retains the pinned
+repository and evaluates only the submitted proof under the task's Lean
+toolchain. Oracle, no-op, `sorry`, statement-mutation, reset, and path-escape
+controls must pass before inference.
+
+This five-task route check is development-only because the tasks were selected
+from released outcomes. If it reproduces both strict successes and failures,
+freeze repeated attempts over all 15 boundary tasks to estimate usable support
+and cost. A later prospective panel must use tasks excluded from this selection
+process.
 
 The screen passes only when every attempt reaches infrastructure-valid fresh
 grading, at least two repositories have nonzero strict coverage, pooled strict

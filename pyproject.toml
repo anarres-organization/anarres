@@ -9,6 +9,14 @@ dev = [
   "jsonschema>=4.23",
   "ruff>=0.9",
 ]
+materials-test = [
+  "ase>=3.26",
+  "numpy>=2.0",
+  "phonopy>=2.43",
+  "pytest>=8.3",
+  "pyyaml>=6.0",
+  "scipy>=1.14",
+]
 
 [tool.uv.workspace]
 members = [

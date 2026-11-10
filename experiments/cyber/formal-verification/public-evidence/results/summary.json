@@ -10,11 +10,50 @@
     "tokens_per_attempt": 5000000
   },
   "artifact": "formal_verification_public_evidence_summary_v1",
+  "dafny_synth": {
+    "paper_table": {
+      "comparisons": 8,
+      "cross_model_pairwise_rank_accuracy": 0.732143,
+      "mean_allocation_regret_pp": 0,
+      "mean_gain_pp": 15.8,
+      "minimum_gain_pp": 0.0,
+      "noninferior_choices": 8,
+      "strict_improvements": 7
+    },
+    "repository_result_audit": {
+      "comparisons": 6,
+      "mean_allocation_regret_pp": 0,
+      "mean_gain_pp": 15.662651,
+      "minimum_gain_pp": 0.0,
+      "noninferior_choices": 6,
+      "strict_improvements": 5
+    }
+  },
   "formal_disco": {
-    "mean_allocation_regret_pp": 0,
+    "base_model_transfer_comparisons": 4,
+    "base_model_transfer_strict_improvements": 4,
+    "documentation_feature_coverage_gain": 4,
+    "mean_allocation_regret_pp": 0.0,
+    "minimum_base_model_transfer_gain_pp": 19.1,
     "top_choice_correct": 2,
     "top_choice_total": 2,
     "verified_yield_advantage_pp": 6.8
+  },
+  "policy_support": {
+    "forall_configurations": 13,
+    "forall_same_policy_boundary_configuration": "GPT-5.6 Sol xhigh with Codex",
+    "forall_same_policy_boundary_repositories": 5,
+    "forall_same_policy_boundary_tasks": 15,
+    "forall_subset_tasks": 100,
+    "leanlean_compression_leader": "Opus 5 with Claude Code",
+    "leanlean_cost_leader": "GPT-5.6 Luna with Codex",
+    "leanlean_policies": 6,
+    "leanlean_repositories": 64,
+    "uniform_policy_leader_across_contracts": false,
+    "vero_code_and_proof_leader": "GPT-5.5 xhigh with Codex 0.140.0",
+    "vero_policies": 4,
+    "vero_proof_only_leader": "GPT-5.5 xhigh with Codex 0.140.0",
+    "vero_repositories": 43
   },
   "reform": {
     "raw_verifier_mean_semantic_regret_pp": 14.78,

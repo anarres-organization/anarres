@@ -1,9 +1,10 @@
 {
   "FEATURE_MAPPING.md": "dc132c9decfc8022deca6696e15cb4b927eb162eb17d50dfcc592815c39f3a2e",
   "SOURCES.json": "37e4a464dde001c9d8496c94d9730ad6c49df3ab52bc0264135233df22781d77",
-  "data/panels.json": "234d35d1639fecfbe75b07f7e31e6ca39eceeb44a598ff6afe3228390cd9bfac",
+  "data/panels.json": "5c76b577bb708d25fc7c7e4de18631c0faff372c85de933b60c244e840a73f78",
   "data/recovered_panels.json": "e2b9469f82712933034230dddd1e80d0cb38eee3b8fea52d6811579efff4197c",
   "results/expanded_summary_corrected.json": "dfe56970cbbbbead4d5fb42d6e37b79770710c0f5cb9ba74e1c3ac67248f6ea0",
   "scripts/analyze_expanded_bridge.py": "0669994cc25b43257277c95f570eeb004c07fb1ac9da75f526b11d81429f03c6",
-  "scripts/analyze_expanded_bridge_corrected.py": "265d0dd69b3de227e7619cd475a76b57cbea7d27417a1349d64c11006f9fd70a"
+  "scripts/analyze_expanded_bridge_corrected.py": "8abf7092e07b06c791d2a820f85f167f86c7be0c122549882ecc25983b2a6814",
+  "scripts/reproduce_expanded_bridge.py": "28e9bdb7a31b821b8440415b0bfe4cf13471e3e16e676c2717d3983e4c223f27"
 }

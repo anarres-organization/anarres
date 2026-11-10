@@ -23,13 +23,23 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "legal",
-        "version": "0.1.1",
+        "version": "0.2.0",
         "protocol_version": 1,
         "domain": "legal-procedural-reasoning",
         "executable": "anarres-legal",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
-        "capabilities": ["profile", "regression-report", "status", "verify"],
-        "measurement_contracts": ["syllogym-stage-a-policy-response-v1"],
+        "capabilities": [
+            "lab-run-audit",
+            "lab-workflow-intake",
+            "profile",
+            "regression-report",
+            "status",
+            "verify",
+        ],
+        "measurement_contracts": [
+            "harvey-lab-workflow-intake-v1",
+            "syllogym-stage-a-policy-response-v1",
+        ],
     }
 
 
@@ -83,6 +93,26 @@ def load_lab_reproducer(repository: Path) -> ModuleType:
     return module
 
 
+def load_lab_intake(repository: Path) -> ModuleType:
+    path = repository / "experiments/legal/lab-workflow-intake/scripts/build.py"
+    specification = importlib.util.spec_from_file_location("anarres_legal_lab_intake", path)
+    if specification is None or specification.loader is None:
+        raise LegalCliError(f"cannot load the LAB workflow intake: {path}")
+    module = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(module)
+    return module
+
+
+def load_lab_run_audit(repository: Path) -> ModuleType:
+    path = repository / "experiments/legal/lab-workflow-intake/scripts/audit_runs.py"
+    specification = importlib.util.spec_from_file_location("anarres_legal_lab_run_audit", path)
+    if specification is None or specification.loader is None:
+        raise LegalCliError(f"cannot load the LAB run audit: {path}")
+    module = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(module)
+    return module
+
+
 def evidence_paths(repository: Path) -> dict[str, Path]:
     study = repository / "experiments/legal/environment-selection"
     return {
@@ -115,6 +145,9 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
             "profile_input": False,
             "result_record_available": True,
             "checkpoint_count": lab["checkpoint_count"],
+            "workflow_intake_available": True,
+            "workflow_intake_reads_outcomes": False,
+            "run_audit_available": True,
         },
     }
 
@@ -189,6 +222,39 @@ def command_regressions(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def command_lab_intake(args: argparse.Namespace) -> dict[str, Any]:
+    repository = repository_root(args.repository)
+    intake = load_lab_intake(repository)
+    summary, rows = intake.build(args.lab_root.resolve(), args.source_revision)
+    outputs = intake.write(summary, rows, args.output_dir.resolve(), args.force)
+    return {
+        "status": summary["status"],
+        "task_count": summary["support"]["tasks"],
+        "practice_area_count": summary["support"]["practice_areas"],
+        "profile_input": False,
+        "outcomes_artifact_read": False,
+        "model_responses_read": False,
+        "outputs": [str(path) for path in outputs],
+        "output_digests": {path.name: f"sha256:{sha256(path)}" for path in outputs},
+        "claim_boundary": summary["claim_boundary"],
+    }
+
+
+def command_lab_runs(args: argparse.Namespace) -> dict[str, Any]:
+    repository = repository_root(args.repository)
+    audit = load_lab_run_audit(repository)
+    summary, rows = audit.build(args.results_root.resolve(), args.run_manifest)
+    outputs = audit.write(summary, rows, args.output_dir.resolve(), args.force)
+    return {
+        "status": summary["status"],
+        "support": summary["support"],
+        "profile_input": False,
+        "outputs": [str(path) for path in outputs],
+        "output_digests": {path.name: f"sha256:{sha256(path)}" for path in outputs},
+        "claim_boundary": summary["claim_boundary"],
+    }
+
+
 def print_result(value: dict[str, Any], as_json: bool) -> None:
     if as_json:
         print(json.dumps(value, indent=2, sort_keys=True))
@@ -229,6 +295,28 @@ def parser() -> argparse.ArgumentParser:
     )
     add_common(regressions)
     regressions.set_defaults(handler=command_regressions)
+
+    lab_intake = commands.add_parser(
+        "lab-intake",
+        help="Validate and inventory an outcome-blind Harvey LAB checkout.",
+    )
+    add_common(lab_intake)
+    lab_intake.add_argument("--lab-root", type=Path, required=True)
+    lab_intake.add_argument("--source-revision", required=True)
+    lab_intake.add_argument("--output-dir", type=Path, required=True)
+    lab_intake.add_argument("--force", action="store_true")
+    lab_intake.set_defaults(handler=command_lab_intake)
+
+    lab_runs = commands.add_parser(
+        "lab-runs",
+        help="Audit model-agnostic LAB run, judge, behavior, and cost records.",
+    )
+    add_common(lab_runs)
+    lab_runs.add_argument("--results-root", type=Path, required=True)
+    lab_runs.add_argument("--run-manifest", type=Path)
+    lab_runs.add_argument("--output-dir", type=Path, required=True)
+    lab_runs.add_argument("--force", action="store_true")
+    lab_runs.set_defaults(handler=command_lab_runs)
 
     verify = commands.add_parser(
         "verify", help="Verify and deterministically regenerate SylloGym profiles."

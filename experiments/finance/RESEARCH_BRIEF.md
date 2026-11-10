@@ -54,6 +54,12 @@ weighting it reaches 83.6% ordering and 0.098 regret. This is the strongest
 current evidence for a model-agnostic relationship, although it remains
 retrospective and still needs an excluded-source test.
 
+The fixed rule also predicts whether an intervention will regress relative to
+its study-matched baseline. Across 165 treatment contrasts, it reaches 0.815
+source-macro ROC AUC on the five sources with both regressions and improvements,
+compared with 0.575 for data volume alone. This adds regression risk as a second
+released outcome alongside candidate ordering.
+
 The first excluded-source test of that stricter relationship examines numerical
 faithfulness in financial summarization. Its prediction fails. Financial QA and
 numeracy training increases overt hallucination from 64.6% to 90.8% at matched
