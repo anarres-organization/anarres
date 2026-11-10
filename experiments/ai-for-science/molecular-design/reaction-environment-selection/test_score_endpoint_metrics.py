@@ -69,6 +69,17 @@ def test_flattens_native_interaction_columns() -> None:
     }
 
 
+def test_normalizes_non_python_chemical_filter_boolean() -> None:
+    class Truthy:
+        @staticmethod
+        def __bool__() -> bool:
+            return True
+
+    assert MODULE.chemical_filter_pass({"ChemFilter": Truthy()}) is True
+    assert MODULE.chemical_filter_pass({"ChemFilter": False}) is False
+    assert MODULE.chemical_filter_pass(False) is False
+
+
 def test_interaction_preparation_preserves_retained_record_identities() -> None:
     class Metric:
         @staticmethod

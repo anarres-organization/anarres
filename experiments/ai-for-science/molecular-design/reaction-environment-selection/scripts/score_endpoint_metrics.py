@@ -46,6 +46,12 @@ def finite_number(value: Any) -> float | None:
     return number if math.isfinite(number) else None
 
 
+def chemical_filter_pass(value: Any) -> bool:
+    """Normalize MolGenBench's scalar Boolean without requiring Python identity."""
+
+    return bool(isinstance(value, dict) and bool(value.get("ChemFilter", False)))
+
+
 def initialize_pose_workers(protein_path: str, clash_protein: Any) -> None:
     from molgenbench.metrics.basic import ChemFilterMetric, QEDMetric, SAMetric, ValidMetric
     from molgenbench.metrics.conformer import PoseBusterMetric
@@ -103,7 +109,7 @@ def score_unique_pose(task: tuple[str, str]) -> tuple[str, dict[str, Any]]:
     qed = finite_number(_METRICS["qed"].compute(base_record))
     sa = finite_number(_METRICS["sa"].compute(base_record))
     chem = _METRICS["chem"].compute(base_record)
-    chemical_filters_pass = bool(isinstance(chem, dict) and chem.get("ChemFilter") is True)
+    chemical_filters_pass = chemical_filter_pass(chem)
 
     pose_record = MoleculeRecord(
         id=canonical_smiles,
