@@ -45,7 +45,9 @@ binds both records to the released fixed-state bank.
 [`SCORING_CONTRACT.json`](SCORING_CONTRACT.json) fixes the candidate-by-stratum
 regression test, allocation regret, whole-policy bootstrap, and integrity gate.
 Scripts in this directory materialize candidate memberships and the sealed
-execution matrix without opening candidate outcomes.
+execution matrix without opening candidate outcomes. The generated
+`EXECUTION_FREEZE.json` binds qualified memberships to all 15 candidate runs
+before candidate training begins.
 
 Verify the outcome-blind freeze with:
 
