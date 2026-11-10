@@ -140,7 +140,8 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
             measurements["measurement"]["reliability_gate_passed"] is True
         ),
         "candidate_outcomes_opened": released,
-        "selector_performance_validated": released,
+        "prospective_result_scored": released,
+        "selector_superiority_established": False,
         "profile_coordinates": [
             "mean_cupid_rank_percentile",
             "operator_tier_effective_coverage",
