@@ -6,7 +6,8 @@ use std::io::{self, Write};
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicU64, Ordering};
 
-use clap::{Args, Parser, Subcommand};
+use clap::{Args, CommandFactory, Parser, Subcommand};
+use clap_complete::{Shell, generate};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
@@ -50,6 +51,8 @@ enum Command {
     Validate(ValidateArgs),
     /// Discover, inspect, and run installed domain adapters.
     Adapter(AdapterArgs),
+    /// Generate a completion script for a supported shell.
+    GenerateShellCompletion(CompletionArgs),
     /// Run an installed domain adapter by name.
     #[command(external_subcommand)]
     External(Vec<OsString>),
@@ -59,6 +62,12 @@ enum Command {
 struct AdapterArgs {
     #[command(subcommand)]
     command: AdapterCommand,
+}
+
+#[derive(Debug, Args)]
+struct CompletionArgs {
+    /// Shell to generate completions for.
+    shell: Shell,
 }
 
 #[derive(Debug, Subcommand)]
@@ -281,6 +290,11 @@ fn execute(command: Command) -> Result<i32, String> {
             AdapterCommand::Doctor(args) => adapter::doctor(&args.name, args.json),
             AdapterCommand::Run(args) => adapter::run(&args.name, &args.arguments),
         },
+        Command::GenerateShellCompletion(args) => {
+            let mut command = Cli::command();
+            generate(args.shell, &mut command, "anarres", &mut io::stdout());
+            Ok(0)
+        }
         Command::External(mut arguments) => {
             if arguments.is_empty() {
                 return Err("missing adapter name".to_owned());

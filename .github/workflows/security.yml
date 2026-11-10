@@ -1,6 +1,11 @@
 name: Security
 
 on:
+  pull_request:
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "crates/**/Cargo.toml"
   push:
     branches: [main]
   schedule:
@@ -13,6 +18,18 @@ permissions:
   security-events: write
 
 jobs:
+  rust-audit:
+    runs-on: ubuntu-24.04
+    permissions:
+      checks: write
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: rustsec/audit-check@v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
   codeql:
     runs-on: ubuntu-24.04
     steps:

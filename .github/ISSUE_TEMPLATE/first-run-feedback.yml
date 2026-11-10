@@ -1,0 +1,47 @@
+name: First-run feedback
+description: Report installation and first-use friction
+title: "[First run]: "
+labels: [feedback]
+body:
+  - type: dropdown
+    attributes:
+      label: Installation method
+      options:
+        - Shell installer
+        - PowerShell installer
+        - Homebrew formula
+        - Platform archive
+        - Source installation
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Platform and CLI version
+      description: Include the operating system, architecture, and output of `anarres --version`.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Task attempted
+      description: What were you trying to qualify, measure, design, or validate?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: First point of friction
+      description: Include the command and the smallest safe output needed to understand the issue.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Time to first validated record
+      description: An estimate is sufficient. Write "not reached" if the workflow did not complete.
+  - type: textarea
+    attributes:
+      label: What would have made the next step clear?
+  - type: checkboxes
+    attributes:
+      label: Safety
+      options:
+        - label: This report contains no credentials, private evidence, or machine-specific secrets.
+          required: true

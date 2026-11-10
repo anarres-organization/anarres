@@ -14,3 +14,7 @@ records.
   incompatible candidate panels.
 - Add a versioned external-adapter protocol with local discovery, compatibility
   checks, and literal argument forwarding.
+- Add bounded adapter descriptor discovery with timeout and output limits.
+- Add generated completions for Bash, Zsh, Fish, and PowerShell.
+- Add cross-platform archives, installers, checksums, and a Homebrew formula
+  through the versioned release workflow.

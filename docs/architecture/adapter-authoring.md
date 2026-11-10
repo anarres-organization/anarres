@@ -43,6 +43,10 @@ supported profile schemas, capabilities, and measurement contracts. Lists are
 sorted and contain no duplicates. The descriptor's executable and name must
 match the installed filename.
 
+The descriptor query is part of discovery rather than the scientific workflow.
+It must return within five seconds, write no more than 256 KiB across either
+output stream, avoid network access, and leave study artifacts unopened.
+
 Users can inspect an installation before running a workflow:
 
 ```bash

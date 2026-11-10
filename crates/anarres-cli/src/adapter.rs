@@ -2,8 +2,11 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::env;
 use std::ffi::OsString;
 use std::fs;
+use std::io::{self, Read};
 use std::path::{Path, PathBuf};
-use std::process::{Command, ExitStatus};
+use std::process::{Command, ExitStatus, Stdio};
+use std::thread;
+use std::time::{Duration, Instant};
 
 use serde::{Deserialize, Serialize};
 
@@ -12,6 +15,8 @@ const ADAPTER_LIST_SCHEMA: &str = "anarres.adapter-list.v1";
 const ADAPTER_DOCTOR_SCHEMA: &str = "anarres.adapter-doctor.v1";
 const ADAPTER_PROTOCOL_VERSION: u64 = 1;
 const ADAPTER_PREFIX: &str = "anarres-";
+const DESCRIPTOR_TIMEOUT: Duration = Duration::from_secs(5);
+const DESCRIPTOR_OUTPUT_LIMIT: usize = 256 * 1024;
 
 #[derive(Clone, Debug, Deserialize, Serialize, PartialEq)]
 #[serde(deny_unknown_fields)]
@@ -255,16 +260,7 @@ fn executable_filenames(name: &str) -> Vec<OsString> {
 }
 
 fn read_descriptor(adapter: &ResolvedAdapter) -> Result<AdapterDescriptor, String> {
-    let output = Command::new(&adapter.path)
-        .arg("--anarres-adapter-descriptor")
-        .output()
-        .map_err(|error| {
-            format!(
-                "failed to query adapter '{}' at {}: {error}",
-                adapter.name,
-                display_path(&adapter.path)
-            )
-        })?;
+    let output = descriptor_output(adapter, DESCRIPTOR_TIMEOUT)?;
     if !output.status.success() {
         let detail = String::from_utf8_lossy(&output.stderr).trim().to_owned();
         return Err(if detail.is_empty() {
@@ -285,6 +281,108 @@ fn read_descriptor(adapter: &ResolvedAdapter) -> Result<AdapterDescriptor, Strin
         })?;
     validate_descriptor(adapter, &descriptor)?;
     Ok(descriptor)
+}
+
+fn descriptor_output(
+    adapter: &ResolvedAdapter,
+    timeout: Duration,
+) -> Result<std::process::Output, String> {
+    let mut child = Command::new(&adapter.path)
+        .arg("--anarres-adapter-descriptor")
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+        .map_err(|error| {
+            format!(
+                "failed to query adapter '{}' at {}: {error}",
+                adapter.name,
+                display_path(&adapter.path)
+            )
+        })?;
+    let stdout = child
+        .stdout
+        .take()
+        .ok_or_else(|| format!("failed to capture adapter '{}' stdout", adapter.name))?;
+    let stderr = child
+        .stderr
+        .take()
+        .ok_or_else(|| format!("failed to capture adapter '{}' stderr", adapter.name))?;
+    let stdout_reader = thread::spawn(move || read_capped(stdout, DESCRIPTOR_OUTPUT_LIMIT));
+    let stderr_reader = thread::spawn(move || read_capped(stderr, DESCRIPTOR_OUTPUT_LIMIT));
+    let deadline = Instant::now() + timeout;
+
+    let status = loop {
+        match child.try_wait() {
+            Ok(Some(status)) => break status,
+            Ok(None) if Instant::now() < deadline => thread::sleep(Duration::from_millis(5)),
+            Ok(None) => {
+                let _ = child.kill();
+                let _ = child.wait();
+                return Err(format!(
+                    "adapter '{}' descriptor timed out after {:.1} seconds",
+                    adapter.name,
+                    timeout.as_secs_f64()
+                ));
+            }
+            Err(error) => {
+                let _ = child.kill();
+                let _ = child.wait();
+                return Err(format!(
+                    "failed while waiting for adapter '{}' descriptor: {error}",
+                    adapter.name
+                ));
+            }
+        }
+    };
+    let (stdout, stdout_exceeded) = join_reader(stdout_reader, deadline, &adapter.name, "stdout")?;
+    let (stderr, stderr_exceeded) = join_reader(stderr_reader, deadline, &adapter.name, "stderr")?;
+    if stdout_exceeded || stderr_exceeded {
+        return Err(format!(
+            "adapter '{}' descriptor output exceeded {} bytes",
+            adapter.name, DESCRIPTOR_OUTPUT_LIMIT
+        ));
+    }
+    Ok(std::process::Output {
+        status,
+        stdout,
+        stderr,
+    })
+}
+
+fn read_capped<R: Read>(mut reader: R, limit: usize) -> io::Result<(Vec<u8>, bool)> {
+    let mut output = Vec::new();
+    let mut exceeded = false;
+    let mut buffer = [0_u8; 8192];
+    loop {
+        let count = reader.read(&mut buffer)?;
+        if count == 0 {
+            break;
+        }
+        let available = limit.saturating_sub(output.len());
+        output.extend_from_slice(&buffer[..count.min(available)]);
+        exceeded |= count > available;
+    }
+    Ok((output, exceeded))
+}
+
+fn join_reader(
+    reader: thread::JoinHandle<io::Result<(Vec<u8>, bool)>>,
+    deadline: Instant,
+    adapter: &str,
+    stream: &str,
+) -> Result<(Vec<u8>, bool), String> {
+    while !reader.is_finished() && Instant::now() < deadline {
+        thread::sleep(Duration::from_millis(5));
+    }
+    if !reader.is_finished() {
+        return Err(format!(
+            "adapter '{adapter}' descriptor {stream} remained open after the process exited"
+        ));
+    }
+    reader
+        .join()
+        .map_err(|_| format!("adapter '{adapter}' descriptor {stream} reader panicked"))?
+        .map_err(|error| format!("failed to read adapter '{adapter}' descriptor {stream}: {error}"))
 }
 
 fn validate_descriptor(
@@ -453,6 +551,40 @@ impl From<&ResolvedAdapter> for AdapterInstallation {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    static NEXT_TEST_FILE: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
+
+    #[test]
+    fn descriptor_output_is_capped() {
+        let (output, exceeded) = read_capped(&b"abcdef"[..], 4).expect("read succeeds");
+        assert_eq!(output, b"abcd");
+        assert!(exceeded);
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn descriptor_query_times_out() {
+        use std::os::unix::fs::PermissionsExt;
+
+        let path = env::temp_dir().join(format!(
+            "anarres-adapter-timeout-{}-{}",
+            std::process::id(),
+            NEXT_TEST_FILE.fetch_add(1, std::sync::atomic::Ordering::Relaxed)
+        ));
+        fs::write(&path, "#!/bin/sh\nwhile :; do :; done\n").expect("write test adapter");
+        let mut permissions = fs::metadata(&path).expect("adapter metadata").permissions();
+        permissions.set_mode(0o700);
+        fs::set_permissions(&path, permissions).expect("mark adapter executable");
+        let adapter = ResolvedAdapter {
+            name: "timeout".into(),
+            path: path.clone(),
+            shadowed_paths: Vec::new(),
+        };
+        let error = descriptor_output(&adapter, Duration::from_millis(25))
+            .expect_err("descriptor should time out");
+        fs::remove_file(path).expect("remove test adapter");
+        assert!(error.contains("timed out"));
+    }
 
     #[test]
     fn adapter_names_are_strict_slugs() {

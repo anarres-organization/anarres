@@ -46,6 +46,27 @@ fn run_with_path(arguments: &[&str], path: &Path) -> Output {
         .expect("CLI process starts")
 }
 
+#[test]
+fn shell_completions_are_generated_for_supported_shells() {
+    for shell in ["bash", "zsh", "fish", "powershell"] {
+        let output = run(&["generate-shell-completion", shell]);
+        assert!(
+            output.status.success(),
+            "{shell}: {}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+        let completion = String::from_utf8(output.stdout).expect("completion is UTF-8");
+        assert!(
+            completion.contains("anarres"),
+            "{shell} completion has command name"
+        );
+        assert!(
+            completion.contains("qualify"),
+            "{shell} completion has built-ins"
+        );
+    }
+}
+
 #[cfg(unix)]
 fn write_fake_adapter(directory: &Path, name: &str, version: &str) -> PathBuf {
     use std::os::unix::fs::PermissionsExt;

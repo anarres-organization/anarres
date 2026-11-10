@@ -5,7 +5,22 @@ records and compares compatible candidates without changing remote state. The
 command is a native Rust binary. Model inference, simulators, sandboxes, and
 other domain runtimes remain in adapters that emit versioned records.
 
-## Install from source
+## Install
+
+Tagged releases provide a native binary without a Python or Rust runtime:
+
+```bash
+curl --proto '=https' --tlsv1.2 -LsSf \
+  https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.sh | sh
+anarres --version
+```
+
+Windows users can run the corresponding PowerShell installer from the latest
+release. Every release also includes platform archives, SHA-256 checksums, and
+a Homebrew formula. See the [release guide](releases.md) for verification and
+supported platforms.
+
+### Install from source
 
 Install Rust with [rustup](https://rustup.rs/), clone this repository, and run:
 
@@ -15,8 +30,28 @@ anarres --version
 ```
 
 For repository development, `cargo run -p anarres-cli --` can replace
-`anarres` in the examples below. Tagged binary releases and their verification
-procedure are described in the [release guide](releases.md).
+`anarres` in the examples below.
+
+### Shell completions
+
+Generate completions from the installed binary so they always match its
+command contract:
+
+```bash
+# bash
+anarres generate-shell-completion bash > ~/.local/share/bash-completion/completions/anarres
+
+# zsh
+mkdir -p ~/.zfunc
+anarres generate-shell-completion zsh > ~/.zfunc/_anarres
+
+# fish
+anarres generate-shell-completion fish > ~/.config/fish/completions/anarres.fish
+```
+
+PowerShell users can generate a script with
+`anarres generate-shell-completion powershell` and source it from their
+profile.
 
 ## Five-minute example
 
@@ -69,7 +104,9 @@ anarres finance status --json
 copies later on `PATH`. `adapter doctor` validates the adapter's versioned
 descriptor without opening study artifacts. `adapter run` validates that
 descriptor and forwards arguments literally without a shell. Built-in commands
-always take precedence over adapter names.
+always take precedence over adapter names. Descriptor queries must finish in
+five seconds and stay below 256 KiB of output, preventing a faulty adapter from
+blocking CLI discovery.
 
 The CLI does not download adapters, search a repository checkout, or import an
 adapter's libraries. Install domain tools through their documented package or

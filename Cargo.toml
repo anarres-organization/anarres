@@ -12,3 +12,8 @@ rust-version = "1.85"
 codegen-units = 1
 lto = "thin"
 strip = true
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
