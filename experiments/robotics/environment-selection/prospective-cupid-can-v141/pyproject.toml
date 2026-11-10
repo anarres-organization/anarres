@@ -1,6 +1,6 @@
 [project]
 name = "anarres-robotics"
-version = "0.4.0"
+version = "0.5.0"
 description = "Anarres adapter for the released CUPID Can v1.4.1 study"
 requires-python = ">=3.11"
 dependencies = ["anarres-core", "anarres-environments", "h5py>=3.8"]

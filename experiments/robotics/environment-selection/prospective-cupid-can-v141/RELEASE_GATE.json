@@ -1,0 +1,132 @@
+{
+  "candidate_runs": 25,
+  "evaluation_episodes": 2500,
+  "records": [
+    {
+      "checkpoint_sha256": "02f16d997ece50c74f42917e6261430c1dc37041e3ad6a1bd664e67c6dd4e1b4",
+      "name": "dp_can_all_data_seed1101",
+      "outcome_sha256": "cbceabff34a43dd77fa357aaea693753bf31e13bce4c6afedc87e1e80734599b"
+    },
+    {
+      "checkpoint_sha256": "fb72360bc1106c43f6621f535a086bea7a436f95d991efb2d11cc3fb435d926b",
+      "name": "dp_can_all_data_seed1102",
+      "outcome_sha256": "c8b0443a28a4380ce5e270dcc2e5959a336965dfbe882768dde3e8af43a52662"
+    },
+    {
+      "checkpoint_sha256": "d179dcda079bf26efa4f191ba1597b785262ed011129a933c77417b72074b414",
+      "name": "dp_can_all_data_seed1103",
+      "outcome_sha256": "879ec5bbaa7dcd47fa858760de852f5fa5c79726add3ea8c566ad8e68a5d434d"
+    },
+    {
+      "checkpoint_sha256": "52c52e6276f022b23b2752f11eb40dba38da4e9801296579abe0c3a9babf0e49",
+      "name": "dp_can_all_data_seed1104",
+      "outcome_sha256": "2c60e9dee33be7b3eab54e9b27e4638bb7faaf48d26c2efb9e4a95d7dacdf836"
+    },
+    {
+      "checkpoint_sha256": "4ac90693f35a69b3fed2127b92f3baf95ec810ac7abf338ecdfbfb550b61342a",
+      "name": "dp_can_all_data_seed1105",
+      "outcome_sha256": "37ecef147d9d815cf9c321dcd73de6d4e4ad6bc42c77a9ea3d647a5bee925656"
+    },
+    {
+      "checkpoint_sha256": "7fda9b00c97e10ab3594ab5e6247b3746436feb2e8aaeee11e65330c6915979e",
+      "name": "dp_can_random_50_seed1101",
+      "outcome_sha256": "d40247566a28f70fe5b7eb15ddb0a7fe8da5dcb428f8457c9f0a715dbd0b45a5"
+    },
+    {
+      "checkpoint_sha256": "4b82f41aa339752151a29a762555559f36739327ce57edb6f5223a26cc2aebdb",
+      "name": "dp_can_random_50_seed1102",
+      "outcome_sha256": "022eebd83a708f8614f380d6e962806cf91f289f7c37b8fae3c5417c5334be0f"
+    },
+    {
+      "checkpoint_sha256": "6997df0d4962d277f1e8256b1a8996cca1a10a2028c502343d55949190ee6d74",
+      "name": "dp_can_random_50_seed1103",
+      "outcome_sha256": "c1dda626e889a70bc4bed3c8c848c15b5f0361b7a86c82d6a2999b8b139e9c3e"
+    },
+    {
+      "checkpoint_sha256": "f931b3ca37673b698b4b003a581d130b17d48b094ac907bd82513bc43f81de00",
+      "name": "dp_can_random_50_seed1104",
+      "outcome_sha256": "53439ec28229c9a44742b12d23ef1fee89da01c0cdbb94fd0d43ce5aec836837"
+    },
+    {
+      "checkpoint_sha256": "4826a255b35117befa1c1028be1713c3a0192cf2c5149acdfcbf02bef9d6b574",
+      "name": "dp_can_random_50_seed1105",
+      "outcome_sha256": "9be4633003be15c85cdc38cdfdb69e85887378ee729feb287ffaaa30a712b5eb"
+    },
+    {
+      "checkpoint_sha256": "13084d28aab3993b24f1d1834a381a044e814bc20d3954cd5da54371f2c9ad0c",
+      "name": "dp_can_length_50_seed1101",
+      "outcome_sha256": "01e46b2356c322a429d68e2ed68f0d7440715311da6c1ed618a8cd26f3f748c7"
+    },
+    {
+      "checkpoint_sha256": "96f53bc80034513b1e4b7a228119f772c23f20630fed0ad6aceb92549c840a39",
+      "name": "dp_can_length_50_seed1102",
+      "outcome_sha256": "92be37a4a053d7b7c727f3937b0250359586f8593b370f1e16713746f71ddc52"
+    },
+    {
+      "checkpoint_sha256": "54a1ebc2161c38f157f4295f9bd3face7838f9e1557886a6194d51884872d132",
+      "name": "dp_can_length_50_seed1103",
+      "outcome_sha256": "46646ba536cc11690493103e88ec0f3dc0e04cd3bdd842d9dc725473a58537d6"
+    },
+    {
+      "checkpoint_sha256": "3983c2b7ee6d0ea23b323574b063f0fb7d5826e4690bfe731f47de5652d87a09",
+      "name": "dp_can_length_50_seed1104",
+      "outcome_sha256": "6614ea542fe3fe8d0b83b7d34ba0ca0a2b9d7560416cd721e3b8b8b1ff74134c"
+    },
+    {
+      "checkpoint_sha256": "fb221dd803575ac5d02d4976d18a7d3d9355f2eb37ca79ddd6d4c921cc973469",
+      "name": "dp_can_length_50_seed1105",
+      "outcome_sha256": "2732efffe0f7161915aec4566155321f61f0615a1368fc23fccf38d94125e80b"
+    },
+    {
+      "checkpoint_sha256": "65e821bdeac2060a9c804b83ebd822c95edbae2680d431e3a281e0d286250c6e",
+      "name": "dp_can_cupid_50_seed1101",
+      "outcome_sha256": "07684204d0b23cb216c808cd26d11c2caba443e1caa4b1edfb616829a03d8d05"
+    },
+    {
+      "checkpoint_sha256": "44060a324cb84bc3cdeba002ecf4be8b159481e1c06ee251dbee3b31901a15bf",
+      "name": "dp_can_cupid_50_seed1102",
+      "outcome_sha256": "92bcf3f5bc522c85a5dc1dc9c73c262c411a70d015f45775d9e39f7d183489ff"
+    },
+    {
+      "checkpoint_sha256": "6a9010839c16e57c343932bc2d5460e617f4e2af75b65d0717cfed48b1bb1b95",
+      "name": "dp_can_cupid_50_seed1103",
+      "outcome_sha256": "202b9de954010042717bed3b9f5d2b62d01b8e2c28fdad3a871bfa0f0f4baf3c"
+    },
+    {
+      "checkpoint_sha256": "ce3466a5b0ef90816f70edbbb053fb24be09a577cc2fe08b1e6d7292b7e276bb",
+      "name": "dp_can_cupid_50_seed1104",
+      "outcome_sha256": "2e57fa3ca6ab656afd16d49bca6f1697974e22ef7f0837f37ee73c437073e615"
+    },
+    {
+      "checkpoint_sha256": "ea770b414b3dd7cdf649ee0cae7fd75236aa7b45d4e10de7485b3fc3b7623f56",
+      "name": "dp_can_cupid_50_seed1105",
+      "outcome_sha256": "0f5400d8261034c73941e9e6c3e47499371b8e5d7322972c050800076d1900cd"
+    },
+    {
+      "checkpoint_sha256": "c367c68ab2c69f21c828668d0a58812b768555b621051bf2ee53b1e87fb05e85",
+      "name": "dp_can_cupid_tier_balanced_50_seed1101",
+      "outcome_sha256": "239bf0e8156d3740880b6679c5165432dec35c5054cd777f5f79df33444ac4bc"
+    },
+    {
+      "checkpoint_sha256": "f57835a5eab887a04ef4d4a0fcf4bee3abb272a31108ffbd76c991690314b9ac",
+      "name": "dp_can_cupid_tier_balanced_50_seed1102",
+      "outcome_sha256": "96a714993518a2bf069c40ba4af4080639fdc4a1dae014338e7eb7c2c03adaa9"
+    },
+    {
+      "checkpoint_sha256": "4b892c6ee72d4fefcca3a2694959a174c0de2ab57710e9de1ea32df970b3397a",
+      "name": "dp_can_cupid_tier_balanced_50_seed1103",
+      "outcome_sha256": "ada5787d2701e69003e5723b4747062d270744d5efd7e307588c362ab1d10507"
+    },
+    {
+      "checkpoint_sha256": "5af6e2ffa5e9c5321a9c7a35e08dfbc434f77bec99de46de889cc5070134e9f1",
+      "name": "dp_can_cupid_tier_balanced_50_seed1104",
+      "outcome_sha256": "a8b17668861f0ec9ed7901c44b4cbc58cdca6f60869cf97d72ac85bec6f398b8"
+    },
+    {
+      "checkpoint_sha256": "129527ab2cb3f70ffc1ae1c7ebab4c2b5b7fba9c5343706812a7fecbc094b9a1",
+      "name": "dp_can_cupid_tier_balanced_50_seed1105",
+      "outcome_sha256": "700500ad813b67c245ba7e8fa873bf7b5b43d05ecbe597bf8021d2badebe9f8c"
+    }
+  ],
+  "status": "RELEASE_GATE_PASSED__OUTCOMES_MAY_BE_OPENED"
+}
