@@ -1,0 +1,215 @@
+{
+  "artifact": "anarres_mlip_prospective_training_authorization_v1",
+  "status": "prospective_predictions_frozen",
+  "final_training_contract_sha256": "dc03758366f0a817143cb57071e6f48da1ea8492698f06f505b1f58268983c0a",
+  "development_modeling_protocol_sha256": "db1f4b8246dbed8065173794c99148b10104489f28e57e924466aeea974f72b0",
+  "aggregate_utility_fit_sha256": "276540c68570b74b6efffb8480f1406af310cd34c52060b37a5a29ee674c4a9a",
+  "target_regression_fit_sha256": "63127e3dd582facf49f94a14c9c4c3293a38308a3de45c7ba0d85021bac1ad1c",
+  "aggregate_model": "signal_density_only",
+  "regression_model": "full_numeric",
+  "decisions": [
+    {
+      "pass": 1,
+      "selected_candidate": "rattled-relax__low_signal",
+      "ranking": [
+        "rattled-relax__low_signal",
+        "aimd-from-PBE-3000-npt__target_affinity",
+        "rattled-300__coverage",
+        "rattled-500__signal_coverage_affinity"
+      ],
+      "predicted_margin_thz": 0.07000479405919946
+    },
+    {
+      "pass": 2,
+      "selected_candidate": "rattled-relax__low_signal",
+      "ranking": [
+        "rattled-relax__low_signal",
+        "aimd-from-PBE-3000-npt__target_affinity",
+        "rattled-300__coverage",
+        "rattled-500__signal_coverage_affinity"
+      ],
+      "predicted_margin_thz": 0.09333972541226593
+    },
+    {
+      "pass": 3,
+      "selected_candidate": "rattled-relax__low_signal",
+      "ranking": [
+        "rattled-relax__low_signal",
+        "aimd-from-PBE-3000-npt__target_affinity",
+        "rattled-300__coverage",
+        "rattled-500__signal_coverage_affinity"
+      ],
+      "predicted_margin_thz": 0.10500719108879919
+    },
+    {
+      "pass": 4,
+      "selected_candidate": "rattled-relax__low_signal",
+      "ranking": [
+        "rattled-relax__low_signal",
+        "aimd-from-PBE-3000-npt__target_affinity",
+        "rattled-300__coverage",
+        "rattled-500__signal_coverage_affinity"
+      ],
+      "predicted_margin_thz": 0.11200767049471913
+    }
+  ],
+  "baseline_decisions": [
+    {
+      "name": "equal_weight_signal_coverage_affinity",
+      "pass": 1,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity"
+      ]
+    },
+    {
+      "name": "fixed_source_family_selected_on_development",
+      "pass": 1,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity"
+      ]
+    },
+    {
+      "name": "fixed_selection_rule_selected_on_development",
+      "pass": 1,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity"
+      ]
+    },
+    {
+      "name": "hash_uniform",
+      "pass": 1,
+      "selected_candidates": [],
+      "applicable": false
+    },
+    {
+      "name": "random_choice_expectation",
+      "pass": 1,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity",
+        "rattled-300__coverage",
+        "rattled-500__signal_coverage_affinity",
+        "rattled-relax__low_signal"
+      ]
+    },
+    {
+      "name": "equal_weight_signal_coverage_affinity",
+      "pass": 2,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity"
+      ]
+    },
+    {
+      "name": "fixed_source_family_selected_on_development",
+      "pass": 2,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity"
+      ]
+    },
+    {
+      "name": "fixed_selection_rule_selected_on_development",
+      "pass": 2,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity"
+      ]
+    },
+    {
+      "name": "hash_uniform",
+      "pass": 2,
+      "selected_candidates": [],
+      "applicable": false
+    },
+    {
+      "name": "random_choice_expectation",
+      "pass": 2,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity",
+        "rattled-300__coverage",
+        "rattled-500__signal_coverage_affinity",
+        "rattled-relax__low_signal"
+      ]
+    },
+    {
+      "name": "equal_weight_signal_coverage_affinity",
+      "pass": 3,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity"
+      ]
+    },
+    {
+      "name": "fixed_source_family_selected_on_development",
+      "pass": 3,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity"
+      ]
+    },
+    {
+      "name": "fixed_selection_rule_selected_on_development",
+      "pass": 3,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity"
+      ]
+    },
+    {
+      "name": "hash_uniform",
+      "pass": 3,
+      "selected_candidates": [],
+      "applicable": false
+    },
+    {
+      "name": "random_choice_expectation",
+      "pass": 3,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity",
+        "rattled-300__coverage",
+        "rattled-500__signal_coverage_affinity",
+        "rattled-relax__low_signal"
+      ]
+    },
+    {
+      "name": "equal_weight_signal_coverage_affinity",
+      "pass": 4,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity"
+      ]
+    },
+    {
+      "name": "fixed_source_family_selected_on_development",
+      "pass": 4,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity"
+      ]
+    },
+    {
+      "name": "fixed_selection_rule_selected_on_development",
+      "pass": 4,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity"
+      ]
+    },
+    {
+      "name": "hash_uniform",
+      "pass": 4,
+      "selected_candidates": [],
+      "applicable": false
+    },
+    {
+      "name": "random_choice_expectation",
+      "pass": 4,
+      "selected_candidates": [
+        "aimd-from-PBE-3000-npt__target_affinity",
+        "rattled-300__coverage",
+        "rattled-500__signal_coverage_affinity",
+        "rattled-relax__low_signal"
+      ]
+    }
+  ],
+  "forecast_counts": {
+    "environment_curves": 4,
+    "environment_budget_points": 16,
+    "target_regression_probabilities": 200
+  },
+  "outcome_boundary": {
+    "prospective_candidate_training_outcomes_used": false,
+    "prospective_target_outcomes_used": false
+  }
+}

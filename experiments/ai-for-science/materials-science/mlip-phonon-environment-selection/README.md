@@ -6,7 +6,8 @@ measurement sweep has passed integrity checks. The final 16-environment panel
 matches both processed atoms and graph-edge cost. Development and prospective
 roles are frozen. The environment-selection and target-regression scoring rules
 are also fixed. The E/F/S training contract has passed its discarded-candidate
-qualification. Development training is complete and scoring is underway, while
+qualification. Development training, scoring, and model selection are complete.
+The prospective curves and regression probabilities are frozen, while
 prospective candidate-training outcomes remain sealed.
 
 ## Research question
@@ -243,8 +244,27 @@ nearest-neighbor affinity to each candidate environment.
 [`DEVELOPMENT_MODELING_PROTOCOL.json`](DEVELOPMENT_MODELING_PROTOCOL.json)
 binds those features to the complete-environment cross-validation, model
 selection, uncertainty, allocation-baseline, and regression-control rules. The
-four prospective utility curves and 200 target-regression probabilities will be
-serialized before prospective training is authorized.
+development matrix contains 2,400 physical evaluations across 12 environments,
+two seeds, four checkpoints, and 25 targets.
+
+[`AGGREGATE_UTILITY_FIT.json`](AGGREGATE_UTILITY_FIT.json) selects the
+signal-density response surface. In leave-one-environment-out evaluation, it
+achieves 0.071 THz curve RMSE, 85.6% pairwise ordering accuracy, and 0.005 THz
+mean allocation regret. Exact best-environment recovery is 0/4, so curve
+prediction and decision quality remain separate results.
+
+[`TARGET_REGRESSION_FIT.json`](TARGET_REGRESSION_FIT.json) selects the full
+numeric target model. It reaches 0.845 ROC AUC, 0.911 average precision, and
+0.161 Brier score when each complete environment is held out. Starting
+frequency error alone reaches 0.149 ROC AUC under the same split.
+
+[`PROSPECTIVE_TRAINING_AUTHORIZATION.json`](PROSPECTIVE_TRAINING_AUTHORIZATION.json)
+binds four utility curves, 16 budget points, and 200 target-regression
+probabilities before prospective training. The selected model predicts
+`rattled-relax__low_signal` at every pass, while the deterministic allocation
+baselines select `aimd-from-PBE-3000-npt__target_affinity`. The held-out run
+therefore tests a decision on which the learned predictor and simple rules
+disagree.
 
 ## Qualification completed
 

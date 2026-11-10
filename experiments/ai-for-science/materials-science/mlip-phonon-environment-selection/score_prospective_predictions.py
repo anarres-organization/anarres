@@ -73,7 +73,7 @@ def score(
             baseline_scores.append({"name": name, "applicable": False})
             continue
         regrets = []
-        wins = 0
+        wins = 0.0
         for decision in decisions:
             epoch_rows = [row for row in curve_rows if row["pass"] == decision["pass"]]
             best = max(row["observed"] for row in epoch_rows)
@@ -84,7 +84,9 @@ def score(
             ]
             regrets.append(best - float(np.mean(selected)))
             winners = {row["candidate_id"] for row in epoch_rows if row["observed"] == best}
-            wins += int(bool(winners & set(decision["selected_candidates"])))
+            wins += len(winners & set(decision["selected_candidates"])) / len(
+                decision["selected_candidates"]
+            )
         baseline_scores.append(
             {
                 "name": name,

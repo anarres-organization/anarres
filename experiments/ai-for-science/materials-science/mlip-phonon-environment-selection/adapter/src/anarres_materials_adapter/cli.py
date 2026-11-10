@@ -23,7 +23,7 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "materials",
-        "version": "0.4.0",
+        "version": "0.5.0",
         "protocol_version": 1,
         "domain": "materials-interatomic-potentials",
         "executable": "anarres-materials",
@@ -91,6 +91,18 @@ def development_modeling_protocol_path(repository: Path) -> Path:
     return study_root(repository) / "DEVELOPMENT_MODELING_PROTOCOL.json"
 
 
+def aggregate_fit_path(repository: Path) -> Path:
+    return study_root(repository) / "AGGREGATE_UTILITY_FIT.json"
+
+
+def regression_fit_path(repository: Path) -> Path:
+    return study_root(repository) / "TARGET_REGRESSION_FIT.json"
+
+
+def prospective_authorization_path(repository: Path) -> Path:
+    return study_root(repository) / "PROSPECTIVE_TRAINING_AUTHORIZATION.json"
+
+
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -121,6 +133,7 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     final_contract = exporter.read_object(final_training_contract_path(repository))
     target_features = exporter.read_object(target_regression_features_path(repository))
     modeling_protocol = exporter.read_object(development_modeling_protocol_path(repository))
+    authorization = exporter.read_object(prospective_authorization_path(repository))
     candidates = bank.get("candidates")
     if not isinstance(candidates, list):
         raise MaterialsCliError("candidate panel has no candidate list")
@@ -154,8 +167,10 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         == "frozen_before_development_outcome_analysis",
         "development_modeling_protocol_frozen": modeling_protocol.get("status")
         == "frozen_before_development_outcome_analysis",
+        "prospective_predictions_frozen": authorization.get("status")
+        == "prospective_predictions_frozen",
         "predictive_evidence_available": False,
-        "next_gate": "score development environments and freeze prospective predictions",
+        "next_gate": "run and score the authorized prospective environments",
     }
 
 
@@ -173,6 +188,9 @@ def command_protocol(args: argparse.Namespace) -> dict[str, Any]:
     final_contract_file = final_training_contract_path(repository)
     target_features_file = target_regression_features_path(repository)
     modeling_protocol_file = development_modeling_protocol_path(repository)
+    aggregate_file = aggregate_fit_path(repository)
+    regression_file = regression_fit_path(repository)
+    authorization_file = prospective_authorization_path(repository)
     bank = exporter.read_object(bank_path)
     protocol = exporter.read_object(protocol_file)
     receipt = exporter.read_object(receipt_file)
@@ -182,6 +200,9 @@ def command_protocol(args: argparse.Namespace) -> dict[str, Any]:
     final_contract = exporter.read_object(final_contract_file)
     target_features = exporter.read_object(target_features_file)
     modeling_protocol = exporter.read_object(modeling_protocol_file)
+    aggregate = exporter.read_object(aggregate_file)
+    regression = exporter.read_object(regression_file)
+    authorization = exporter.read_object(authorization_file)
 
     expected_bank = protocol.get("inputs", {}).get("candidate_panel", {}).get("sha256")
     if expected_bank != sha256(bank_path):
@@ -231,6 +252,12 @@ def command_protocol(args: argparse.Namespace) -> dict[str, Any]:
         raise MaterialsCliError("modeling protocol does not bind target regression features")
     if any(modeling_protocol.get("outcome_boundary", {}).values()):
         raise MaterialsCliError("modeling protocol crosses the sealed outcome boundary")
+    if authorization.get("aggregate_utility_fit_sha256") != sha256(aggregate_file):
+        raise MaterialsCliError("prospective authorization does not bind the aggregate fit")
+    if authorization.get("target_regression_fit_sha256") != sha256(regression_file):
+        raise MaterialsCliError("prospective authorization does not bind the regression fit")
+    if any(authorization.get("outcome_boundary", {}).values()):
+        raise MaterialsCliError("prospective authorization crosses the sealed outcome boundary")
     return {
         "schema_version": "anarres.materials-decision-protocol-report.v1",
         "status": protocol["status"],
@@ -306,6 +333,17 @@ def command_protocol(args: argparse.Namespace) -> dict[str, Any]:
             "prospective_freeze": modeling_protocol["prospective_freeze"],
             "target_feature_pairs": target_features["counts"]["candidate_target_pairs"],
         },
+        "development_results": {
+            "aggregate_model": aggregate["selected_model"]["name"],
+            "aggregate_cross_validation": aggregate["selected_model"]["cross_validation"],
+            "regression_model": regression["selected_model"]["name"],
+            "regression_cross_validation": regression["selected_model"]["primary_cross_validation"],
+        },
+        "prospective_freeze": {
+            "status": authorization["status"],
+            "decisions": authorization["decisions"],
+            "forecast_counts": authorization["forecast_counts"],
+        },
         "outcome_boundary": boundary,
         "predictive_evidence_available": False,
         "artifacts": {
@@ -318,6 +356,9 @@ def command_protocol(args: argparse.Namespace) -> dict[str, Any]:
             "final_training_contract": f"sha256:{sha256(final_contract_file)}",
             "target_regression_features": f"sha256:{sha256(target_features_file)}",
             "development_modeling_protocol": f"sha256:{sha256(modeling_protocol_file)}",
+            "aggregate_utility_fit": f"sha256:{sha256(aggregate_file)}",
+            "target_regression_fit": f"sha256:{sha256(regression_file)}",
+            "prospective_training_authorization": f"sha256:{sha256(authorization_file)}",
         },
     }
 

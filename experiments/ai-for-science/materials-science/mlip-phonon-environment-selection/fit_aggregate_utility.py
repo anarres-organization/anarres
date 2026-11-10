@@ -103,9 +103,9 @@ def decision_metrics(predictions: list[dict]) -> dict:
         observed_best = max(rows, key=lambda row: (row["observed"], row["candidate_id"]))
         selected_observed = sum(row["observed"] for row in predicted_best) / len(predicted_best)
         regrets.append(observed_best["observed"] - selected_observed)
-        wins += int(
-            any(row["candidate_id"] == observed_best["candidate_id"] for row in predicted_best)
-        )
+        wins += sum(
+            row["candidate_id"] == observed_best["candidate_id"] for row in predicted_best
+        ) / len(predicted_best)
     return {
         "curve_rmse_thz": math.sqrt(sum(squared) / len(squared)),
         "pairwise_rank_accuracy": rank_correct / rank_total,
@@ -179,9 +179,11 @@ def allocation_baselines(
                     }
                 )
 
-    results = [
-        {"name": name, "metrics": decision_metrics(values)} for name, values in predictions.items()
-    ]
+    results = []
+    for name, values in predictions.items():
+        result = decision_metrics(values)
+        result.pop("curve_rmse_thz")
+        results.append({"name": name, "metrics": result})
     random_regrets = []
     for epoch in passes:
         observed = [row["utility_thz"] for row in rows if row["pass"] == epoch]
