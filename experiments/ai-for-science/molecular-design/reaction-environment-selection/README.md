@@ -245,6 +245,14 @@ commit and cover all 1,131 docked reference-active records. Starting-policy
 endpoint qualification remains the next gate before a matched training
 schedule can be frozen.
 
+[`STARTING_POLICY_ENDPOINT_QUALIFICATION_CONTRACT_V1.json`](STARTING_POLICY_ENDPOINT_QUALIFICATION_CONTRACT_V1.json)
+freezes that gate before drawing its independent sample. It uses 4,096 attempts
+from the unchanged weights-only policy under seed 20261126. The endpoint must
+produce at least 16 qualifying attempts and eight unique qualifying molecules,
+without infrastructure failure or dependence on one repeated molecule. A
+passing result fixes 4,096 evaluation attempts per policy, seed, and checkpoint
+for the matched study. A failed result stops the study before target training.
+
 ## Frontier alignment
 
 RxnFlow provides a maintained synthesis-aware molecular policy, and its public

@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "contract": "q07820-starting-policy-endpoint-qualification-v1",
+  "status": "frozen_before_sampling_or_endpoint_scoring",
+  "purpose": "Test whether the frozen qualifying-hit endpoint has enough starting-policy support for matched trained-policy comparisons without inspecting a target-training outcome.",
+  "target_id": "Q07820",
+  "inputs": {
+    "starting_policy": {
+      "source": "WARM_START_QUALIFICATION.json",
+      "sha256": "effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a"
+    },
+    "synthesis_environment": {
+      "source": "SYNTHESIS_ENVIRONMENT_QUALIFICATION.json",
+      "content_sha256": "def699e5d284061daaabe58953e57df4e14fe537e2b132a1d7d1ffff706a49b3"
+    },
+    "endpoint_contract": {
+      "source": "QUALIFYING_HIT_CONTRACT_V1.json",
+      "sha256": "f904ae4b2eb1788958312ed920f02f88362eccb5822e3905a0eeeeaee30a9414"
+    },
+    "endpoint_thresholds": {
+      "source": "Q07820_REFERENCE_THRESHOLDS_V1.json",
+      "sha256": "96ff6d59166cb5b2ff3c3dfe8765dc738f02aa081393a5b3fd6a11ea36b17e82"
+    }
+  },
+  "sampling": {
+    "independent_seed": 20261126,
+    "attempts": 4096,
+    "batch_size": 128,
+    "reward_exponent_beta": "fixed(32.0)",
+    "objective_preference": "none; the one-dimensional output metadata records the implied weight [1.0]",
+    "softmax_temperature": 1.0,
+    "random_action_probability": 0.0,
+    "invalid_attempts_are_not_retried": true,
+    "sample_is_drawn_once": true,
+    "separation": "The seed is distinct from target-selection, measurement-reliability, bank-construction, and bank-confirmation views."
+  },
+  "execution_qualification": {
+    "accelerator": "one CUDA device; hardware identity is recorded but is not a scientific factor",
+    "rxnflow_version": "2.1.0",
+    "python_version": "3.11.15",
+    "torch_version": "2.13.0+cu130",
+    "rdkit_version": "2025.09.1",
+    "b200_compatibility_smoke": {
+      "seed": 20261109,
+      "attempts": 16,
+      "returned_valid": 16,
+      "repeated_output_sha256": "dcd88374e99a213b18a070c8a60f04ff4668c40aba477d6cc9fc2595ea16e387",
+      "byte_identical_repeats": true,
+      "claim_bearing": false
+    }
+  },
+  "endpoint_execution": {
+    "attempt_denominator": 4096,
+    "invalid_or_missing_trajectory": "scientific zero retained in the fixed attempt denominator",
+    "duplicate_molecule": "retained as an attempt but counted once in the unique qualifying-hit numerator",
+    "molecule_specific_failure": "scientific zero retained in the fixed attempt denominator",
+    "infrastructure_failure": "invalidates the panel and is not converted to scientific zero",
+    "missing_gate_value": "does not qualify",
+    "resampling_or_replacement": "forbidden"
+  },
+  "qualification_rule": {
+    "required_infrastructure_failures": 0,
+    "minimum_qualifying_attempts": 16,
+    "minimum_unique_qualifying_molecules": 8,
+    "maximum_fraction_of_qualifying_attempts_from_one_canonical_molecule": 0.25,
+    "pass_action": "Freeze 4096 generated attempts per policy, seed, and evaluation checkpoint in the matched training and evaluation contract.",
+    "failure_action": "Preserve the result and stop before matched target training. A revised endpoint or larger evaluation design requires a new versioned contract."
+  },
+  "sealed_boundary": {
+    "starting_policy_endpoint_sample_drawn": false,
+    "starting_policy_endpoint_result_exists": false,
+    "matched_training_contract_frozen": false,
+    "development_training_started": false,
+    "development_or_prospective_training_outcomes_opened": false
+  }
+}

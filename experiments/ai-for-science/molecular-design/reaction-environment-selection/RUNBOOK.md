@@ -312,6 +312,17 @@ infrastructure failure, zero unique qualifying molecules, or support that
 depends on a single molecule. Molecule-specific failures remain in the fixed
 attempt denominator.
 
+Follow `STARTING_POLICY_ENDPOINT_QUALIFICATION_CONTRACT_V1.json` for the
+starting-policy panel. Draw seed 20261126 exactly once for 4,096 attempts with
+the frozen weights, synthesis environment, beta, temperature, and checkpoint
+preference. Invalid attempts are not retried. Run the full endpoint on every
+returned molecule and retain any missing attempts as scientific zeroes in the
+fixed denominator. Require zero infrastructure failures, at least 16
+qualifying attempts, at least eight unique qualifying molecules, and no single
+canonical molecule contributing more than one quarter of qualifying attempts.
+Only a passing result authorizes fixing 4,096 evaluation attempts per policy,
+seed, and checkpoint in the matched contract.
+
 ## 9. Freeze the prospective decision
 
 After all development arms are complete and scored, fit the operational and
