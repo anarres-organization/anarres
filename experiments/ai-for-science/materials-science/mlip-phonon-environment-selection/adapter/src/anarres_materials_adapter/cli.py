@@ -23,12 +23,12 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "materials",
-        "version": "0.5.0",
+        "version": "0.6.0",
         "protocol_version": 1,
         "domain": "materials-interatomic-potentials",
         "executable": "anarres-materials",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
-        "capabilities": ["decision-protocol", "profile", "status", "verify"],
+        "capabilities": ["decision-protocol", "profile", "results", "status", "verify"],
         "measurement_contracts": [
             "materials.mlip-phonon-candidate-measurement.v2",
         ],
@@ -103,6 +103,18 @@ def prospective_authorization_path(repository: Path) -> Path:
     return study_root(repository) / "PROSPECTIVE_TRAINING_AUTHORIZATION.json"
 
 
+def prospective_outcomes_path(repository: Path) -> Path:
+    return study_root(repository) / "PROSPECTIVE_OUTCOMES.json"
+
+
+def prospective_score_path(repository: Path) -> Path:
+    return study_root(repository) / "PROSPECTIVE_PREDICTION_SCORE.json"
+
+
+def post_prospective_audit_path(repository: Path) -> Path:
+    return study_root(repository) / "POST_PROSPECTIVE_AUDIT.json"
+
+
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -134,6 +146,8 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     target_features = exporter.read_object(target_regression_features_path(repository))
     modeling_protocol = exporter.read_object(development_modeling_protocol_path(repository))
     authorization = exporter.read_object(prospective_authorization_path(repository))
+    outcomes = exporter.read_object(prospective_outcomes_path(repository))
+    score = exporter.read_object(prospective_score_path(repository))
     candidates = bank.get("candidates")
     if not isinstance(candidates, list):
         raise MaterialsCliError("candidate panel has no candidate list")
@@ -152,7 +166,7 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "candidate_count": len(candidates),
         "measurement_records": validation.get("records"),
         "measurements_complete": validation.get("status") == "complete",
-        "candidate_outcomes_opened": checks["candidate-outcomes-sealed"]["status"] != "pass",
+        "candidate_outcomes_opened": all(outcomes.get("prospective_boundary", {}).values()),
         "final_training_panel_frozen": checks["final-panel-frozen"]["status"] == "pass",
         "decision_protocol_frozen": protocol.get("status")
         == "frozen_before_candidate_training_outcomes",
@@ -169,8 +183,9 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         == "frozen_before_development_outcome_analysis",
         "prospective_predictions_frozen": authorization.get("status")
         == "prospective_predictions_frozen",
-        "predictive_evidence_available": False,
-        "next_gate": "run and score the authorized prospective environments",
+        "prospective_test_status": score.get("status"),
+        "predictive_evidence_available": score.get("status") == "prospective_test_scored",
+        "next_gate": "freeze support-aware abstention and expand development support",
     }
 
 
@@ -378,6 +393,65 @@ def command_profile(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def command_results(args: argparse.Namespace) -> dict[str, Any]:
+    """Report the scored prospective test and its post-test support audit."""
+
+    repository = repository_root(args.repository)
+    exporter = load_exporter(repository)
+    authorization_file = prospective_authorization_path(repository)
+    aggregate_file = aggregate_fit_path(repository)
+    regression_file = regression_fit_path(repository)
+    outcomes_file = prospective_outcomes_path(repository)
+    score_file = prospective_score_path(repository)
+    audit_file = post_prospective_audit_path(repository)
+    score = exporter.read_object(score_file)
+    outcomes = exporter.read_object(outcomes_file)
+    audit = exporter.read_object(audit_file)
+
+    expected = score.get("inputs", {})
+    required = {
+        "prospective_authorization_sha256": sha256(authorization_file),
+        "aggregate_utility_fit_sha256": sha256(aggregate_file),
+        "target_regression_fit_sha256": sha256(regression_file),
+        "prospective_outcomes_sha256": sha256(outcomes_file),
+    }
+    for key, value in required.items():
+        if expected.get(key) != value:
+            raise MaterialsCliError(f"prospective score does not bind {key}")
+    if not all(outcomes.get("prospective_boundary", {}).values()):
+        raise MaterialsCliError("prospective outcomes have not opened both protected boundaries")
+    if audit.get("inputs", {}).get("prospective_prediction_score_sha256") != sha256(score_file):
+        raise MaterialsCliError("post-prospective audit does not bind the scored test")
+    evidence = audit.get("evidence_boundary", {})
+    if evidence.get("frozen_forecast_modified") is not False:
+        raise MaterialsCliError("post-prospective audit does not preserve the frozen forecast")
+    if evidence.get("support_guard_prespecified") is not False:
+        raise MaterialsCliError("post-prospective support guard has an invalid evidence label")
+
+    return {
+        "schema_version": "anarres.materials-prospective-results.v1",
+        "status": score["status"],
+        "evidence_tier": "prospective_test_scored",
+        "counts": score["counts"],
+        "aggregate_utility": score["aggregate_utility"],
+        "allocation_baselines": score["allocation_baselines"],
+        "target_regressions": score["target_regressions"],
+        "observed_boundary": audit["observed_boundary"],
+        "post_prospective_diagnostic": {
+            "evidence_tier": audit["status"],
+            "support_guard_prespecified": False,
+            "would_abstain_at_all_budgets": audit["decision_audit"]["would_abstain_at_all_budgets"],
+            "error_attribution": audit["error_attribution"],
+        },
+        "artifacts": {
+            "prospective_authorization": f"sha256:{sha256(authorization_file)}",
+            "prospective_outcomes": f"sha256:{sha256(outcomes_file)}",
+            "prospective_prediction_score": f"sha256:{sha256(score_file)}",
+            "post_prospective_audit": f"sha256:{sha256(audit_file)}",
+        },
+    }
+
+
 def command_verify(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
     exporter = load_exporter(repository)
@@ -408,14 +482,18 @@ def command_verify(args: argparse.Namespace) -> dict[str, Any]:
     measurement_shards = validation.get("measurement_sha256")
     if not isinstance(measurement_shards, dict) or len(measurement_shards) != 8:
         raise MaterialsCliError("full measurement shard identities were not preserved")
+    result = command_results(args)
     return {
         "status": "pass",
         "profiles_checked": len(candidate_ids),
         "deterministic": True,
         "measurement_records": validation["records"],
         "measurement_shards_pinned": len(measurement_shards),
-        "candidate_outcomes_sealed": True,
+        "candidate_outcomes_sealed": False,
+        "profile_outcome_boundary_preserved": True,
         "final_training_panel_frozen": True,
+        "prospective_test_status": result["status"],
+        "prospective_result_chain_valid": True,
     }
 
 
@@ -448,6 +526,13 @@ def parser() -> argparse.ArgumentParser:
     )
     add_common(protocol)
     protocol.set_defaults(handler=command_protocol)
+
+    results = commands.add_parser(
+        "results",
+        help="Report the scored prospective test and post-test support audit.",
+    )
+    add_common(results)
+    results.set_defaults(handler=command_results)
 
     verify = commands.add_parser("verify", help="Verify the released profile adapter.")
     add_common(verify)

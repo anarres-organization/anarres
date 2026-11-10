@@ -242,11 +242,12 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         status = CLI_MODULE.command_status(args)
         self.assertEqual(status["candidate_count"], 16)
         self.assertTrue(status["measurements_complete"])
-        self.assertFalse(status["candidate_outcomes_opened"])
+        self.assertTrue(status["candidate_outcomes_opened"])
         self.assertTrue(status["final_training_panel_frozen"])
         self.assertTrue(status["decision_protocol_frozen"])
         self.assertTrue(status["regression_protocol_frozen"])
-        self.assertFalse(status["predictive_evidence_available"])
+        self.assertTrue(status["predictive_evidence_available"])
+        self.assertEqual(status["prospective_test_status"], "prospective_test_scored")
         self.assertEqual(
             status["training_qualification_status"],
             "complete_before_final_candidate_training",
@@ -262,7 +263,7 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         self.assertTrue(status["prospective_predictions_frozen"])
         self.assertEqual(
             status["next_gate"],
-            "run and score the authorized prospective environments",
+            "freeze support-aware abstention and expand development support",
         )
 
     def test_adapter_reports_frozen_decision_and_regression_protocol(self) -> None:
@@ -297,6 +298,19 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
             200,
         )
         self.assertTrue(all(value is False for value in report["outcome_boundary"].values()))
+
+    def test_adapter_reports_scored_prospective_result_and_evidence_boundary(self) -> None:
+        args = type("Args", (), {"repository": ROOT})()
+        report = CLI_MODULE.command_results(args)
+
+        self.assertEqual(report["schema_version"], "anarres.materials-prospective-results.v1")
+        self.assertEqual(report["evidence_tier"], "prospective_test_scored")
+        self.assertEqual(report["counts"]["evaluation_records"], 1600)
+        self.assertEqual(report["aggregate_utility"]["best_environment_decisions"], 0.0)
+        self.assertAlmostEqual(report["target_regressions"]["roc_auc"], 0.4937483373)
+        diagnostic = report["post_prospective_diagnostic"]
+        self.assertFalse(diagnostic["support_guard_prespecified"])
+        self.assertTrue(diagnostic["would_abstain_at_all_budgets"])
 
     def test_adapter_runs_outside_the_repository_and_core_doctor_accepts_it(self) -> None:
         if sys.platform == "win32":
@@ -350,7 +364,7 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
             self.assertEqual(status.returncode, 0, status.stderr)
             payload = json.loads(status.stdout)
             self.assertEqual(payload["candidate_count"], 16)
-            self.assertFalse(payload["candidate_outcomes_opened"])
+            self.assertTrue(payload["candidate_outcomes_opened"])
 
     def test_adapter_verify_reuses_the_native_exporter(self) -> None:
         args = type("Args", (), {"repository": ROOT})()
@@ -360,8 +374,11 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         self.assertTrue(report["deterministic"])
         self.assertEqual(report["measurement_records"], 80_000)
         self.assertEqual(report["measurement_shards_pinned"], 8)
-        self.assertTrue(report["candidate_outcomes_sealed"])
+        self.assertFalse(report["candidate_outcomes_sealed"])
+        self.assertTrue(report["profile_outcome_boundary_preserved"])
         self.assertTrue(report["final_training_panel_frozen"])
+        self.assertEqual(report["prospective_test_status"], "prospective_test_scored")
+        self.assertTrue(report["prospective_result_chain_valid"])
 
 
 if __name__ == "__main__":

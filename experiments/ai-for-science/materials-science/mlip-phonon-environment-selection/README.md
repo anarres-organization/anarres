@@ -1,14 +1,12 @@
 # Predicting MLIP post-training utility for phonons
 
-**Status:** source artifacts and the starting checkpoint are qualified, the
-outcome-blind target roles are frozen, and the complete 80,000-record
-measurement sweep has passed integrity checks. The final 16-environment panel
-matches both processed atoms and graph-edge cost. Development and prospective
-roles are frozen. The environment-selection and target-regression scoring rules
-are also fixed. The E/F/S training contract has passed its discarded-candidate
-qualification. Development training, scoring, and model selection are complete.
-The prospective curves and regression probabilities are frozen, while
-prospective candidate-training outcomes remain sealed.
+**Status:** the complete development and prospective sequence is scored. The
+study contains 16 equal-cost environments, 32 training trajectories, and 4,000
+physical phonon evaluations. Development model selection produced promising
+held-out-environment results, but the frozen learned predictor failed on the
+four prospective environments. Prespecified deterministic baselines selected
+the best prospective environment at every budget. The released audit traces
+the miss to an unsupported extrapolation by the selected signal-density model.
 
 ## Research question
 
@@ -21,12 +19,11 @@ stresses, then evaluates the resulting model on harmonic phonons and dynamical
 stability. This fixed workflow measures physical behavior beyond accuracy on
 the post-training labels.
 
-The released study now supports three pre-outcome operations. The CLI exports
-continuous profiles for all 16 candidate environments, reports the frozen
-environment-selection and target-regression protocol, and verifies the artifact
-chain that binds those measurements to the final training contract. Development
-performance is reported below, while prospective performance remains sealed
-until the frozen candidate experiment is complete.
+The released study supports both pre-outcome measurement and scored-result
+inspection. The CLI exports continuous profiles for all 16 candidate
+environments, reports the frozen environment-selection and target-regression
+protocol, and verifies the artifact chain from measurements through the
+prospective score. The frozen forecast remains unchanged.
 
 ## Source and target separation
 
@@ -268,6 +265,33 @@ baselines select `aimd-from-PBE-3000-npt__target_affinity`. The held-out run
 therefore tests a decision on which the learned predictor and simple rules
 disagree.
 
+## Prospective result
+
+[`PROSPECTIVE_OUTCOMES.json`](PROSPECTIVE_OUTCOMES.json) records all 1,600
+prospective evaluations across four environments, two training seeds, four
+checkpoints, and 50 untouched materials. Every environment reduces aggregate
+phonon utility relative to the common starting checkpoint. The target-affinity
+AIMD environment is least harmful at all four budgets.
+
+[`PROSPECTIVE_PREDICTION_SCORE.json`](PROSPECTIVE_PREDICTION_SCORE.json) scores
+the frozen forecasts. The learned aggregate predictor reaches 0.130 THz curve
+RMSE, 45.8% pairwise ordering accuracy, 0/4 best-environment decisions, and
+0.135 THz mean allocation regret. Each applicable deterministic baseline
+selects the target-affinity AIMD environment at all four budgets and has zero
+regret. The target-level regression model reaches 0.494 ROC AUC on 200
+environment-material pairs. Regression prevalence is 89.5%, so its 0.881
+average precision does not indicate useful discrimination.
+
+[`POST_PROSPECTIVE_AUDIT.json`](POST_PROSPECTIVE_AUDIT.json) preserves this
+failed test and examines its boundary. The selected model learned a negative
+signal-density coefficient from development data. Its predicted winner has
+signal density 21.8% below the development minimum, and that environment
+accounts for 80.2% of prospective squared curve error. A support guard would
+therefore have abstained at every budget. This guard was specified only after
+the prospective result and is recorded as an exploratory sensitivity, not a
+prospective success. The next test must freeze support-aware abstention and
+expand the development panel before evaluating another candidate family.
+
 ## Qualification completed
 
 [`SOURCE_QUALIFICATION.json`](SOURCE_QUALIFICATION.json) records the first
@@ -392,6 +416,7 @@ uv tool install \
 anarres adapter doctor materials
 anarres materials status --repository .
 anarres materials protocol --repository . --json
+anarres materials results --repository . --json
 anarres materials profile \
   --repository . \
   --output-dir .anarres/materials-mlip \
@@ -422,17 +447,15 @@ remains available for the 48-candidate measurement bank.
 
 `anarres materials protocol` reports the frozen outcome-blind baseline,
 development-to-prospective fitting sequence, selection metrics, regression
-endpoints, negative controls, and bound artifact hashes. It does not open a
-candidate outcome or present the baseline ranking as validated predictive
-evidence. After the development environments are trained, the same adapter will
-expose a fitted forecast only after that forecast receives its own frozen
-artifact and validation record.
+endpoints, negative controls, and bound artifact hashes. `anarres materials
+results` verifies and reports the scored prospective test. It keeps the frozen
+result separate from the exploratory support audit.
 
 The adapter can be invoked from outside the checkout by passing the repository
-explicitly with `--repository`. Its `status` and `verify` commands preserve the
-same measurement-only boundary and do not open candidate-training or protected
-phonon outcomes. The generic installation and execution contract is documented
-in the [CLI guide](../../../../docs/cli.md).
+explicitly with `--repository`. Its `profile` command preserves the original
+pre-training measurement boundary, while `results` opens only the released
+prospective score and its labeled post-test audit. The generic installation and
+execution contract is documented in the [CLI guide](../../../../docs/cli.md).
 
 ## Primary sources
 
