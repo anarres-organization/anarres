@@ -1,0 +1,6552 @@
+{
+  "candidate_outcomes_opened": false,
+  "candidates": {
+    "all_data_reference": {
+      "count": 300,
+      "failure_weighted_mean_state_coverage_distance": 0.4012709619329193,
+      "mean_action_steps": 269.10333333333335,
+      "mean_state_coverage_distance": 0.3964935212902816,
+      "members": [
+        "demo_0",
+        "demo_1",
+        "demo_2",
+        "demo_3",
+        "demo_4",
+        "demo_5",
+        "demo_6",
+        "demo_7",
+        "demo_8",
+        "demo_9",
+        "demo_10",
+        "demo_11",
+        "demo_12",
+        "demo_13",
+        "demo_14",
+        "demo_15",
+        "demo_16",
+        "demo_17",
+        "demo_18",
+        "demo_19",
+        "demo_20",
+        "demo_21",
+        "demo_22",
+        "demo_23",
+        "demo_24",
+        "demo_25",
+        "demo_26",
+        "demo_27",
+        "demo_28",
+        "demo_29",
+        "demo_30",
+        "demo_31",
+        "demo_32",
+        "demo_33",
+        "demo_34",
+        "demo_35",
+        "demo_36",
+        "demo_37",
+        "demo_38",
+        "demo_39",
+        "demo_40",
+        "demo_41",
+        "demo_42",
+        "demo_43",
+        "demo_44",
+        "demo_45",
+        "demo_46",
+        "demo_47",
+        "demo_48",
+        "demo_49",
+        "demo_50",
+        "demo_51",
+        "demo_52",
+        "demo_53",
+        "demo_54",
+        "demo_55",
+        "demo_56",
+        "demo_57",
+        "demo_58",
+        "demo_59",
+        "demo_60",
+        "demo_61",
+        "demo_62",
+        "demo_63",
+        "demo_64",
+        "demo_65",
+        "demo_66",
+        "demo_67",
+        "demo_68",
+        "demo_69",
+        "demo_70",
+        "demo_71",
+        "demo_72",
+        "demo_73",
+        "demo_74",
+        "demo_75",
+        "demo_76",
+        "demo_77",
+        "demo_78",
+        "demo_79",
+        "demo_80",
+        "demo_81",
+        "demo_82",
+        "demo_83",
+        "demo_84",
+        "demo_85",
+        "demo_86",
+        "demo_87",
+        "demo_88",
+        "demo_89",
+        "demo_90",
+        "demo_91",
+        "demo_92",
+        "demo_93",
+        "demo_94",
+        "demo_95",
+        "demo_96",
+        "demo_97",
+        "demo_98",
+        "demo_99",
+        "demo_100",
+        "demo_101",
+        "demo_102",
+        "demo_103",
+        "demo_104",
+        "demo_105",
+        "demo_106",
+        "demo_107",
+        "demo_108",
+        "demo_109",
+        "demo_110",
+        "demo_111",
+        "demo_112",
+        "demo_113",
+        "demo_114",
+        "demo_115",
+        "demo_116",
+        "demo_117",
+        "demo_118",
+        "demo_119",
+        "demo_120",
+        "demo_121",
+        "demo_122",
+        "demo_123",
+        "demo_124",
+        "demo_125",
+        "demo_126",
+        "demo_127",
+        "demo_128",
+        "demo_129",
+        "demo_130",
+        "demo_131",
+        "demo_132",
+        "demo_133",
+        "demo_134",
+        "demo_135",
+        "demo_136",
+        "demo_137",
+        "demo_138",
+        "demo_139",
+        "demo_140",
+        "demo_141",
+        "demo_142",
+        "demo_143",
+        "demo_144",
+        "demo_145",
+        "demo_146",
+        "demo_147",
+        "demo_148",
+        "demo_149",
+        "demo_150",
+        "demo_151",
+        "demo_152",
+        "demo_153",
+        "demo_154",
+        "demo_155",
+        "demo_156",
+        "demo_157",
+        "demo_158",
+        "demo_159",
+        "demo_160",
+        "demo_161",
+        "demo_162",
+        "demo_163",
+        "demo_164",
+        "demo_165",
+        "demo_166",
+        "demo_167",
+        "demo_168",
+        "demo_169",
+        "demo_170",
+        "demo_171",
+        "demo_172",
+        "demo_173",
+        "demo_174",
+        "demo_175",
+        "demo_176",
+        "demo_177",
+        "demo_178",
+        "demo_179",
+        "demo_180",
+        "demo_181",
+        "demo_182",
+        "demo_183",
+        "demo_184",
+        "demo_185",
+        "demo_186",
+        "demo_187",
+        "demo_188",
+        "demo_189",
+        "demo_190",
+        "demo_191",
+        "demo_192",
+        "demo_193",
+        "demo_194",
+        "demo_195",
+        "demo_196",
+        "demo_197",
+        "demo_198",
+        "demo_199",
+        "demo_200",
+        "demo_201",
+        "demo_202",
+        "demo_203",
+        "demo_204",
+        "demo_205",
+        "demo_206",
+        "demo_207",
+        "demo_208",
+        "demo_209",
+        "demo_210",
+        "demo_211",
+        "demo_212",
+        "demo_213",
+        "demo_214",
+        "demo_215",
+        "demo_216",
+        "demo_217",
+        "demo_218",
+        "demo_219",
+        "demo_220",
+        "demo_221",
+        "demo_222",
+        "demo_223",
+        "demo_224",
+        "demo_225",
+        "demo_226",
+        "demo_227",
+        "demo_228",
+        "demo_229",
+        "demo_230",
+        "demo_231",
+        "demo_232",
+        "demo_233",
+        "demo_234",
+        "demo_235",
+        "demo_236",
+        "demo_237",
+        "demo_238",
+        "demo_239",
+        "demo_240",
+        "demo_241",
+        "demo_242",
+        "demo_243",
+        "demo_244",
+        "demo_245",
+        "demo_246",
+        "demo_247",
+        "demo_248",
+        "demo_249",
+        "demo_250",
+        "demo_251",
+        "demo_252",
+        "demo_253",
+        "demo_254",
+        "demo_255",
+        "demo_256",
+        "demo_257",
+        "demo_258",
+        "demo_259",
+        "demo_260",
+        "demo_261",
+        "demo_262",
+        "demo_263",
+        "demo_264",
+        "demo_265",
+        "demo_266",
+        "demo_267",
+        "demo_268",
+        "demo_269",
+        "demo_270",
+        "demo_271",
+        "demo_272",
+        "demo_273",
+        "demo_274",
+        "demo_275",
+        "demo_276",
+        "demo_277",
+        "demo_278",
+        "demo_279",
+        "demo_280",
+        "demo_281",
+        "demo_282",
+        "demo_283",
+        "demo_284",
+        "demo_285",
+        "demo_286",
+        "demo_287",
+        "demo_288",
+        "demo_289",
+        "demo_290",
+        "demo_291",
+        "demo_292",
+        "demo_293",
+        "demo_294",
+        "demo_295",
+        "demo_296",
+        "demo_297",
+        "demo_298",
+        "demo_299"
+      ],
+      "membership_sha256": "f53125efd5b673995e7985e1d111d5507840e71e81bd6fbdac84cdb1247c94e6",
+      "tier_counts": {
+        "better": 100,
+        "okay": 100,
+        "worse": 100
+      }
+    },
+    "coverage_50": {
+      "count": 150,
+      "failure_weighted_mean_state_coverage_distance": 0.4012709619329193,
+      "mean_action_steps": 271.86,
+      "mean_state_coverage_distance": 0.3964935212902816,
+      "members": [
+        "demo_0",
+        "demo_1",
+        "demo_2",
+        "demo_3",
+        "demo_4",
+        "demo_5",
+        "demo_6",
+        "demo_7",
+        "demo_8",
+        "demo_9",
+        "demo_10",
+        "demo_11",
+        "demo_12",
+        "demo_19",
+        "demo_22",
+        "demo_27",
+        "demo_34",
+        "demo_36",
+        "demo_39",
+        "demo_41",
+        "demo_42",
+        "demo_45",
+        "demo_46",
+        "demo_47",
+        "demo_48",
+        "demo_49",
+        "demo_50",
+        "demo_51",
+        "demo_52",
+        "demo_53",
+        "demo_54",
+        "demo_55",
+        "demo_56",
+        "demo_57",
+        "demo_58",
+        "demo_59",
+        "demo_60",
+        "demo_61",
+        "demo_62",
+        "demo_63",
+        "demo_64",
+        "demo_65",
+        "demo_66",
+        "demo_67",
+        "demo_68",
+        "demo_69",
+        "demo_70",
+        "demo_71",
+        "demo_72",
+        "demo_73",
+        "demo_74",
+        "demo_75",
+        "demo_76",
+        "demo_77",
+        "demo_78",
+        "demo_79",
+        "demo_80",
+        "demo_81",
+        "demo_83",
+        "demo_88",
+        "demo_92",
+        "demo_95",
+        "demo_97",
+        "demo_100",
+        "demo_101",
+        "demo_102",
+        "demo_103",
+        "demo_104",
+        "demo_105",
+        "demo_106",
+        "demo_107",
+        "demo_108",
+        "demo_109",
+        "demo_110",
+        "demo_111",
+        "demo_112",
+        "demo_113",
+        "demo_114",
+        "demo_115",
+        "demo_116",
+        "demo_117",
+        "demo_118",
+        "demo_119",
+        "demo_120",
+        "demo_121",
+        "demo_122",
+        "demo_123",
+        "demo_124",
+        "demo_125",
+        "demo_126",
+        "demo_127",
+        "demo_138",
+        "demo_140",
+        "demo_147",
+        "demo_150",
+        "demo_152",
+        "demo_154",
+        "demo_156",
+        "demo_157",
+        "demo_159",
+        "demo_162",
+        "demo_163",
+        "demo_164",
+        "demo_166",
+        "demo_168",
+        "demo_169",
+        "demo_171",
+        "demo_174",
+        "demo_175",
+        "demo_183",
+        "demo_184",
+        "demo_185",
+        "demo_186",
+        "demo_189",
+        "demo_191",
+        "demo_193",
+        "demo_196",
+        "demo_197",
+        "demo_206",
+        "demo_214",
+        "demo_215",
+        "demo_222",
+        "demo_225",
+        "demo_226",
+        "demo_231",
+        "demo_236",
+        "demo_237",
+        "demo_241",
+        "demo_246",
+        "demo_247",
+        "demo_248",
+        "demo_250",
+        "demo_254",
+        "demo_257",
+        "demo_259",
+        "demo_260",
+        "demo_263",
+        "demo_266",
+        "demo_267",
+        "demo_269",
+        "demo_275",
+        "demo_278",
+        "demo_279",
+        "demo_280",
+        "demo_282",
+        "demo_286",
+        "demo_288",
+        "demo_293",
+        "demo_296",
+        "demo_299"
+      ],
+      "membership_sha256": "f76dd0c9fd44470df642203050c92c86c888f8ba5b2d420ab37a407b23123af9",
+      "tier_counts": {
+        "better": 50,
+        "okay": 50,
+        "worse": 50
+      }
+    },
+    "failure_coverage_50": {
+      "count": 150,
+      "failure_weighted_mean_state_coverage_distance": 0.4012709619329193,
+      "mean_action_steps": 271.05333333333334,
+      "mean_state_coverage_distance": 0.3964935212902816,
+      "members": [
+        "demo_0",
+        "demo_1",
+        "demo_2",
+        "demo_3",
+        "demo_4",
+        "demo_5",
+        "demo_6",
+        "demo_7",
+        "demo_8",
+        "demo_9",
+        "demo_10",
+        "demo_11",
+        "demo_12",
+        "demo_19",
+        "demo_22",
+        "demo_27",
+        "demo_34",
+        "demo_36",
+        "demo_39",
+        "demo_41",
+        "demo_42",
+        "demo_45",
+        "demo_46",
+        "demo_47",
+        "demo_48",
+        "demo_49",
+        "demo_50",
+        "demo_51",
+        "demo_52",
+        "demo_53",
+        "demo_54",
+        "demo_55",
+        "demo_56",
+        "demo_57",
+        "demo_58",
+        "demo_59",
+        "demo_60",
+        "demo_61",
+        "demo_62",
+        "demo_63",
+        "demo_64",
+        "demo_65",
+        "demo_66",
+        "demo_67",
+        "demo_68",
+        "demo_69",
+        "demo_70",
+        "demo_71",
+        "demo_72",
+        "demo_73",
+        "demo_74",
+        "demo_75",
+        "demo_76",
+        "demo_77",
+        "demo_78",
+        "demo_79",
+        "demo_80",
+        "demo_81",
+        "demo_83",
+        "demo_88",
+        "demo_92",
+        "demo_95",
+        "demo_97",
+        "demo_100",
+        "demo_101",
+        "demo_102",
+        "demo_103",
+        "demo_104",
+        "demo_105",
+        "demo_106",
+        "demo_107",
+        "demo_108",
+        "demo_109",
+        "demo_110",
+        "demo_111",
+        "demo_112",
+        "demo_113",
+        "demo_114",
+        "demo_115",
+        "demo_116",
+        "demo_117",
+        "demo_118",
+        "demo_119",
+        "demo_120",
+        "demo_121",
+        "demo_122",
+        "demo_123",
+        "demo_124",
+        "demo_125",
+        "demo_126",
+        "demo_127",
+        "demo_138",
+        "demo_140",
+        "demo_147",
+        "demo_150",
+        "demo_152",
+        "demo_154",
+        "demo_156",
+        "demo_157",
+        "demo_159",
+        "demo_162",
+        "demo_163",
+        "demo_164",
+        "demo_166",
+        "demo_168",
+        "demo_169",
+        "demo_171",
+        "demo_174",
+        "demo_175",
+        "demo_183",
+        "demo_184",
+        "demo_185",
+        "demo_186",
+        "demo_189",
+        "demo_191",
+        "demo_193",
+        "demo_196",
+        "demo_197",
+        "demo_206",
+        "demo_214",
+        "demo_215",
+        "demo_222",
+        "demo_225",
+        "demo_226",
+        "demo_231",
+        "demo_236",
+        "demo_237",
+        "demo_241",
+        "demo_246",
+        "demo_247",
+        "demo_248",
+        "demo_250",
+        "demo_254",
+        "demo_257",
+        "demo_260",
+        "demo_263",
+        "demo_266",
+        "demo_267",
+        "demo_269",
+        "demo_275",
+        "demo_278",
+        "demo_279",
+        "demo_280",
+        "demo_282",
+        "demo_286",
+        "demo_288",
+        "demo_291",
+        "demo_293",
+        "demo_296",
+        "demo_299"
+      ],
+      "membership_sha256": "acf7a4c89c422b3d8c7e67a12407b4c598c54004262413803bf3de881214be84",
+      "tier_counts": {
+        "better": 50,
+        "okay": 50,
+        "worse": 50
+      }
+    },
+    "failure_coverage_short_50": {
+      "count": 150,
+      "failure_weighted_mean_state_coverage_distance": 0.4380565461318525,
+      "mean_action_steps": 231.35333333333332,
+      "mean_state_coverage_distance": 0.4336529291488712,
+      "members": [
+        "demo_0",
+        "demo_1",
+        "demo_2",
+        "demo_3",
+        "demo_4",
+        "demo_5",
+        "demo_6",
+        "demo_7",
+        "demo_8",
+        "demo_9",
+        "demo_10",
+        "demo_11",
+        "demo_12",
+        "demo_13",
+        "demo_14",
+        "demo_15",
+        "demo_16",
+        "demo_17",
+        "demo_18",
+        "demo_19",
+        "demo_20",
+        "demo_21",
+        "demo_22",
+        "demo_27",
+        "demo_32",
+        "demo_33",
+        "demo_34",
+        "demo_36",
+        "demo_39",
+        "demo_40",
+        "demo_41",
+        "demo_42",
+        "demo_45",
+        "demo_46",
+        "demo_47",
+        "demo_48",
+        "demo_49",
+        "demo_52",
+        "demo_53",
+        "demo_54",
+        "demo_57",
+        "demo_58",
+        "demo_62",
+        "demo_63",
+        "demo_65",
+        "demo_66",
+        "demo_67",
+        "demo_68",
+        "demo_69",
+        "demo_70",
+        "demo_72",
+        "demo_74",
+        "demo_75",
+        "demo_76",
+        "demo_77",
+        "demo_78",
+        "demo_79",
+        "demo_80",
+        "demo_81",
+        "demo_84",
+        "demo_85",
+        "demo_86",
+        "demo_87",
+        "demo_88",
+        "demo_92",
+        "demo_93",
+        "demo_94",
+        "demo_95",
+        "demo_97",
+        "demo_98",
+        "demo_99",
+        "demo_100",
+        "demo_102",
+        "demo_104",
+        "demo_105",
+        "demo_106",
+        "demo_107",
+        "demo_108",
+        "demo_109",
+        "demo_110",
+        "demo_111",
+        "demo_112",
+        "demo_113",
+        "demo_114",
+        "demo_116",
+        "demo_117",
+        "demo_119",
+        "demo_120",
+        "demo_121",
+        "demo_122",
+        "demo_123",
+        "demo_124",
+        "demo_125",
+        "demo_126",
+        "demo_127",
+        "demo_128",
+        "demo_129",
+        "demo_131",
+        "demo_133",
+        "demo_134",
+        "demo_135",
+        "demo_136",
+        "demo_137",
+        "demo_138",
+        "demo_140",
+        "demo_147",
+        "demo_148",
+        "demo_152",
+        "demo_156",
+        "demo_157",
+        "demo_162",
+        "demo_163",
+        "demo_164",
+        "demo_165",
+        "demo_166",
+        "demo_185",
+        "demo_186",
+        "demo_189",
+        "demo_196",
+        "demo_197",
+        "demo_200",
+        "demo_202",
+        "demo_203",
+        "demo_206",
+        "demo_214",
+        "demo_215",
+        "demo_219",
+        "demo_222",
+        "demo_225",
+        "demo_231",
+        "demo_236",
+        "demo_237",
+        "demo_241",
+        "demo_242",
+        "demo_246",
+        "demo_248",
+        "demo_250",
+        "demo_252",
+        "demo_254",
+        "demo_260",
+        "demo_263",
+        "demo_266",
+        "demo_275",
+        "demo_278",
+        "demo_279",
+        "demo_280",
+        "demo_286",
+        "demo_288",
+        "demo_293",
+        "demo_296"
+      ],
+      "membership_sha256": "6276c88ad011d36081a09aaa0bf61a9808cac966163e45bce8b8283a850f6df6",
+      "tier_counts": {
+        "better": 50,
+        "okay": 50,
+        "worse": 50
+      }
+    },
+    "length_50": {
+      "count": 150,
+      "failure_weighted_mean_state_coverage_distance": 0.4995838237158911,
+      "mean_action_steps": 186.07333333333332,
+      "mean_state_coverage_distance": 0.49714065252139134,
+      "members": [
+        "demo_0",
+        "demo_1",
+        "demo_2",
+        "demo_3",
+        "demo_4",
+        "demo_5",
+        "demo_6",
+        "demo_7",
+        "demo_8",
+        "demo_9",
+        "demo_10",
+        "demo_11",
+        "demo_12",
+        "demo_13",
+        "demo_14",
+        "demo_15",
+        "demo_16",
+        "demo_17",
+        "demo_18",
+        "demo_19",
+        "demo_20",
+        "demo_21",
+        "demo_22",
+        "demo_23",
+        "demo_24",
+        "demo_25",
+        "demo_26",
+        "demo_27",
+        "demo_28",
+        "demo_29",
+        "demo_30",
+        "demo_31",
+        "demo_32",
+        "demo_33",
+        "demo_34",
+        "demo_35",
+        "demo_36",
+        "demo_37",
+        "demo_38",
+        "demo_39",
+        "demo_40",
+        "demo_41",
+        "demo_42",
+        "demo_43",
+        "demo_44",
+        "demo_45",
+        "demo_46",
+        "demo_47",
+        "demo_48",
+        "demo_49",
+        "demo_76",
+        "demo_84",
+        "demo_104",
+        "demo_105",
+        "demo_106",
+        "demo_107",
+        "demo_110",
+        "demo_111",
+        "demo_112",
+        "demo_113",
+        "demo_114",
+        "demo_116",
+        "demo_117",
+        "demo_119",
+        "demo_120",
+        "demo_121",
+        "demo_122",
+        "demo_123",
+        "demo_124",
+        "demo_125",
+        "demo_127",
+        "demo_129",
+        "demo_131",
+        "demo_133",
+        "demo_134",
+        "demo_135",
+        "demo_137",
+        "demo_139",
+        "demo_140",
+        "demo_141",
+        "demo_143",
+        "demo_144",
+        "demo_146",
+        "demo_148",
+        "demo_149",
+        "demo_152",
+        "demo_153",
+        "demo_154",
+        "demo_155",
+        "demo_156",
+        "demo_157",
+        "demo_160",
+        "demo_161",
+        "demo_162",
+        "demo_163",
+        "demo_164",
+        "demo_165",
+        "demo_166",
+        "demo_167",
+        "demo_168",
+        "demo_169",
+        "demo_170",
+        "demo_172",
+        "demo_173",
+        "demo_174",
+        "demo_175",
+        "demo_176",
+        "demo_177",
+        "demo_181",
+        "demo_182",
+        "demo_185",
+        "demo_186",
+        "demo_187",
+        "demo_189",
+        "demo_190",
+        "demo_191",
+        "demo_192",
+        "demo_193",
+        "demo_194",
+        "demo_195",
+        "demo_196",
+        "demo_197",
+        "demo_198",
+        "demo_199",
+        "demo_207",
+        "demo_209",
+        "demo_213",
+        "demo_215",
+        "demo_216",
+        "demo_218",
+        "demo_219",
+        "demo_220",
+        "demo_227",
+        "demo_233",
+        "demo_236",
+        "demo_238",
+        "demo_240",
+        "demo_244",
+        "demo_246",
+        "demo_248",
+        "demo_250",
+        "demo_252",
+        "demo_256",
+        "demo_263",
+        "demo_268",
+        "demo_272",
+        "demo_273",
+        "demo_279",
+        "demo_294",
+        "demo_296"
+      ],
+      "membership_sha256": "e2958bb184339277590f7e7067d8845b21abbf26488a59adfe16676c0d8e7fba",
+      "tier_counts": {
+        "better": 89,
+        "okay": 43,
+        "worse": 18
+      }
+    },
+    "random_50": {
+      "count": 150,
+      "failure_weighted_mean_state_coverage_distance": 0.5170058064757802,
+      "mean_action_steps": 286.9066666666667,
+      "mean_state_coverage_distance": 0.5289758609904013,
+      "members": [
+        "demo_0",
+        "demo_1",
+        "demo_2",
+        "demo_4",
+        "demo_5",
+        "demo_6",
+        "demo_11",
+        "demo_13",
+        "demo_14",
+        "demo_15",
+        "demo_16",
+        "demo_20",
+        "demo_24",
+        "demo_25",
+        "demo_27",
+        "demo_29",
+        "demo_30",
+        "demo_31",
+        "demo_39",
+        "demo_41",
+        "demo_47",
+        "demo_51",
+        "demo_54",
+        "demo_55",
+        "demo_56",
+        "demo_58",
+        "demo_59",
+        "demo_60",
+        "demo_61",
+        "demo_64",
+        "demo_68",
+        "demo_75",
+        "demo_77",
+        "demo_78",
+        "demo_79",
+        "demo_80",
+        "demo_82",
+        "demo_83",
+        "demo_87",
+        "demo_90",
+        "demo_91",
+        "demo_93",
+        "demo_94",
+        "demo_96",
+        "demo_98",
+        "demo_99",
+        "demo_100",
+        "demo_103",
+        "demo_104",
+        "demo_105",
+        "demo_108",
+        "demo_110",
+        "demo_115",
+        "demo_116",
+        "demo_118",
+        "demo_119",
+        "demo_120",
+        "demo_121",
+        "demo_123",
+        "demo_125",
+        "demo_128",
+        "demo_130",
+        "demo_131",
+        "demo_132",
+        "demo_136",
+        "demo_140",
+        "demo_142",
+        "demo_145",
+        "demo_147",
+        "demo_148",
+        "demo_149",
+        "demo_150",
+        "demo_153",
+        "demo_154",
+        "demo_155",
+        "demo_157",
+        "demo_158",
+        "demo_160",
+        "demo_161",
+        "demo_165",
+        "demo_169",
+        "demo_170",
+        "demo_172",
+        "demo_173",
+        "demo_174",
+        "demo_177",
+        "demo_181",
+        "demo_183",
+        "demo_185",
+        "demo_188",
+        "demo_189",
+        "demo_191",
+        "demo_194",
+        "demo_195",
+        "demo_197",
+        "demo_198",
+        "demo_200",
+        "demo_201",
+        "demo_202",
+        "demo_203",
+        "demo_206",
+        "demo_208",
+        "demo_209",
+        "demo_211",
+        "demo_212",
+        "demo_215",
+        "demo_216",
+        "demo_220",
+        "demo_221",
+        "demo_222",
+        "demo_223",
+        "demo_224",
+        "demo_225",
+        "demo_226",
+        "demo_228",
+        "demo_229",
+        "demo_235",
+        "demo_237",
+        "demo_239",
+        "demo_245",
+        "demo_246",
+        "demo_248",
+        "demo_250",
+        "demo_251",
+        "demo_252",
+        "demo_253",
+        "demo_254",
+        "demo_256",
+        "demo_257",
+        "demo_260",
+        "demo_262",
+        "demo_264",
+        "demo_266",
+        "demo_268",
+        "demo_269",
+        "demo_272",
+        "demo_274",
+        "demo_277",
+        "demo_278",
+        "demo_279",
+        "demo_282",
+        "demo_283",
+        "demo_284",
+        "demo_287",
+        "demo_288",
+        "demo_291",
+        "demo_293",
+        "demo_295",
+        "demo_296",
+        "demo_299"
+      ],
+      "membership_sha256": "461a7ac7a0cf829ba84bcf98700804874a0a10a6694b5fc5364e97088f63edb7",
+      "tier_counts": {
+        "better": 46,
+        "okay": 53,
+        "worse": 51
+      }
+    }
+  },
+  "decision": {
+    "if_qualification_fails": "ABSTAIN_MEASUREMENT_UNINFORMATIVE",
+    "no_outcome_driven_revision": true,
+    "point_prediction_if_qualification_passes": "failure_coverage_short_50",
+    "primary_comparators": [
+      "random_50",
+      "length_50",
+      "coverage_50",
+      "failure_coverage_50",
+      "all_data_reference"
+    ],
+    "regression_prediction": "candidate-by-stratum regression risk increases with the product of probe-policy failure probability and candidate coverage distance"
+  },
+  "inputs": {
+    "dataset_sha256": "d3e871e4f25b3da6aea9f332613772e7bdfad9f586b97ce41cd7ccfb758c62dd",
+    "probe_measurements_sha256": "74d885e4d64fd49eacd6e4a3f84ca2aaf51b7f7ec80d4595d77f4e8567c7e49d",
+    "protocol_sha256": "d8d3bfb5de49ab8976c702caf37c9bdd96a1a9425c1b01987f495cb961a4ec07",
+    "state_bank_manifest_sha256": "7d3a2da8a5e4b55dcfbb9b41dd6b3ef09e54c4bad598bfcd11aef7d7432acf57",
+    "state_bank_sha256": "428fd56c8ec99bdacc49fae3dfc001ac2be40f6ff527633e9861d8980fa37fd7"
+  },
+  "schema_version": "anarres.robotics-square-candidates.v1",
+  "state_regression_risk": {
+    "all_data_reference": [
+      {
+        "coverage_distance": 0.16582327865601,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02072790983200125,
+        "state_id": 0,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3815655879463976,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0476956984932997,
+        "state_id": 1,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5436126229088436,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.4077094671816327,
+        "state_id": 2,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.1293227170196554,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.016165339627456924,
+        "state_id": 3,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.3655699851659262,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.045696248145740775,
+        "state_id": 4,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3489560002407323,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08723900006018308,
+        "state_id": 5,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.4081656074996609,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.20408280374983045,
+        "state_id": 6,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.3198842580610789,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03998553225763486,
+        "state_id": 7,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.6445466826083963,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.24170500597814862,
+        "state_id": 8,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.342867225553436,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0428584031941795,
+        "state_id": 9,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.38728711069493005,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.048410888836866256,
+        "state_id": 10,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.4114179702479122,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1542817388429671,
+        "state_id": 11,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.38666771264235567,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.14500039224088337,
+        "state_id": 12,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5984693045577296,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0748086630697162,
+        "state_id": 13,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.4114670603261512,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0514333825407689,
+        "state_id": 14,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.6476978122262117,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.16192445305655292,
+        "state_id": 15,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.27707093490372053,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.17316933431482534,
+        "state_id": 16,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4236889930968651,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.15888337241132441,
+        "state_id": 17,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.11933427611104001,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.029833569027760003,
+        "state_id": 18,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3891864795609773,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09729661989024432,
+        "state_id": 19,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5853634536570322,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07317043170712903,
+        "state_id": 20,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.40321390160072784,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05040173770009098,
+        "state_id": 21,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.20907616542127852,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.10453808271063926,
+        "state_id": 22,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3829337047065473,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04786671308831841,
+        "state_id": 23,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.40583293196414566,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05072911649551821,
+        "state_id": 24,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.23149979664001383,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.11574989832000691,
+        "state_id": 25,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.46753795307149043,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.23376897653574522,
+        "state_id": 26,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.6814532303516426,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08518165379395533,
+        "state_id": 27,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.8200313414798869,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.41001567073994344,
+        "state_id": 28,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.1622473056954384,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.1216854792715788,
+        "state_id": 29,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3194662058418868,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0798665514604717,
+        "state_id": 30,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5223536256924877,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06529420321156096,
+        "state_id": 31,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5211279701136982,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2605639850568491,
+        "state_id": 32,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.24882217338952853,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.06220554334738213,
+        "state_id": 33,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.14563850883987822,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.036409627209969556,
+        "state_id": 34,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.44512962575813697,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.16692360965930136,
+        "state_id": 35,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.6884890559188342,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08606113198985428,
+        "state_id": 36,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5790460077594611,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.28952300387973057,
+        "state_id": 37,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.27795563358851266,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03474445419856408,
+        "state_id": 38,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.7039090876311114,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.43994317976944464,
+        "state_id": 39,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5045106575286707,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1261276643821677,
+        "state_id": 40,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.6274503619833539,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.2352938857437577,
+        "state_id": 41,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.27359782666356774,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.17099864166472983,
+        "state_id": 42,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.23916136360033233,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.08968551135012462,
+        "state_id": 43,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.21595914354721144,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02699489294340143,
+        "state_id": 44,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.44647756620894163,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11161939155223541,
+        "state_id": 45,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.19664310605819033,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.04916077651454758,
+        "state_id": 46,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.22840041416438286,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.08565015531164358,
+        "state_id": 47,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.3825794449600023,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09564486124000057,
+        "state_id": 48,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3444261550230492,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04305326937788115,
+        "state_id": 49,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.3954062185915851,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1482773319718444,
+        "state_id": 50,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4520389711512869,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05650487139391086,
+        "state_id": 51,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.23798465587572593,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02974808198446574,
+        "state_id": 52,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.35325503522917584,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.26494127642188187,
+        "state_id": 53,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.4998954233229956,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.18746078374612335,
+        "state_id": 54,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.5566021048541171,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.13915052621352927,
+        "state_id": 55,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.5333202505496479,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06666503131870599,
+        "state_id": 56,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.146835146765259,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.018354393345657374,
+        "state_id": 57,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3814380796014588,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0953595199003647,
+        "state_id": 58,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.5914270723496486,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.14785676808741216,
+        "state_id": 59,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.6315451100788669,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15788627751971673,
+        "state_id": 60,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.3423964794806816,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0855991198701704,
+        "state_id": 61,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.44566258612714593,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.16712346979767972,
+        "state_id": 62,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.8690711964396141,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.10863389955495176,
+        "state_id": 63,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.28214579371778925,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.035268224214723656,
+        "state_id": 64,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.0967133067019293,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.03626749001322349,
+        "state_id": 65,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.27349634957913715,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.034187043697392144,
+        "state_id": 66,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.44269345432574736,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05533668179071842,
+        "state_id": 67,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.384393443019676,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1441475411323785,
+        "state_id": 68,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.46396389654069,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05799548706758625,
+        "state_id": 69,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.3798462678170148,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04748078347712685,
+        "state_id": 70,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.607477779759823,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.22780416740993362,
+        "state_id": 71,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.5372293056103569,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06715366320129461,
+        "state_id": 72,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.5003488312544824,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1876308117204309,
+        "state_id": 73,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.28740347402674,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0359254342533425,
+        "state_id": 74,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.47193011384885636,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11798252846221409,
+        "state_id": 75,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.36356640824878317,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.13633740309329367,
+        "state_id": 76,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4949082515805837,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.12372706289514593,
+        "state_id": 77,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.32371215462000713,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04046401932750089,
+        "state_id": 78,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5268976142894836,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.19758660535855632,
+        "state_id": 79,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5830995088697712,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0728874386087214,
+        "state_id": 80,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6839731375034147,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.17099328437585368,
+        "state_id": 81,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.2807769973310373,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03509712466637966,
+        "state_id": 82,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5846373680827174,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07307967101033967,
+        "state_id": 83,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3322488425058549,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04153110531323186,
+        "state_id": 84,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.29077577893228396,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.036346972366535495,
+        "state_id": 85,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.06294268060452617,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.00786783507556577,
+        "state_id": 86,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3049585712538159,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03811982140672699,
+        "state_id": 87,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6160159207182637,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15400398017956593,
+        "state_id": 88,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.2615485067035252,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.09808069001382194,
+        "state_id": 89,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5000064884224236,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1250016221056059,
+        "state_id": 90,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.06715168375322839,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.05036376281492129,
+        "state_id": 91,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.36235709028630414,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04529463628578802,
+        "state_id": 92,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.07565265828753405,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.018913164571883512,
+        "state_id": 93,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.15425433998881308,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.019281792498601635,
+        "state_id": 94,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.18391165233089107,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.022988956541361384,
+        "state_id": 95,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.43574264524592565,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05446783065574071,
+        "state_id": 96,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3485979791708003,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04357474739635004,
+        "state_id": 97,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.35923380298558927,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08980845074639732,
+        "state_id": 98,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.7465228349558735,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.4665767718474209,
+        "state_id": 99,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.4972801100115534,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.12432002750288836,
+        "state_id": 100,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.30345553355722127,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.07586388338930532,
+        "state_id": 101,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.3580086420393872,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0895021605098468,
+        "state_id": 102,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5496290272845963,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06870362841057454,
+        "state_id": 103,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5093564051701391,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.19100865193880218,
+        "state_id": 104,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.7481686544070797,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.5611264908053097,
+        "state_id": 105,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.2894944107194279,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.10856040401978545,
+        "state_id": 106,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.07853215306791457,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.039266076533957285,
+        "state_id": 107,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.3736607068913746,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09341517672284365,
+        "state_id": 108,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.24417335888368946,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.030521669860461183,
+        "state_id": 109,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5002183999793506,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2501091999896753,
+        "state_id": 110,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.32232298233698203,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08058074558424551,
+        "state_id": 111,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.4317660203471216,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2158830101735608,
+        "state_id": 112,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.19575427377741678,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.024469284222177097,
+        "state_id": 113,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.32949098805015087,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04118637350626886,
+        "state_id": 114,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.11467127025492468,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.08600345269119351,
+        "state_id": 115,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.639397632000911,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15984940800022776,
+        "state_id": 116,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3864876767477377,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04831095959346721,
+        "state_id": 117,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.17045792823755093,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.021307241029693866,
+        "state_id": 118,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.15171152023930146,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.037927880059825364,
+        "state_id": 119,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.554940703479164,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0693675879348955,
+        "state_id": 120,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.7826167888077609,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09782709860097011,
+        "state_id": 121,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.18532086725268748,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.023165108406585935,
+        "state_id": 122,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.36952360878387014,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.13857135329395132,
+        "state_id": 123,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.7299739850808723,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09124674813510904,
+        "state_id": 124,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.3390331174510071,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04237913968137589,
+        "state_id": 125,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.48760475129963404,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.24380237564981702,
+        "state_id": 126,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.03717060681884034,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.009292651704710084,
+        "state_id": 127,
+        "stratum": 1
+      }
+    ],
+    "coverage_50": [
+      {
+        "coverage_distance": 0.16582327865601,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02072790983200125,
+        "state_id": 0,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3815655879463976,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0476956984932997,
+        "state_id": 1,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5436126229088436,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.4077094671816327,
+        "state_id": 2,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.1293227170196554,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.016165339627456924,
+        "state_id": 3,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.3655699851659262,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.045696248145740775,
+        "state_id": 4,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3489560002407323,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08723900006018308,
+        "state_id": 5,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.4081656074996609,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.20408280374983045,
+        "state_id": 6,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.3198842580610789,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03998553225763486,
+        "state_id": 7,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.6445466826083963,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.24170500597814862,
+        "state_id": 8,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.342867225553436,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0428584031941795,
+        "state_id": 9,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.38728711069493005,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.048410888836866256,
+        "state_id": 10,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.4114179702479122,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1542817388429671,
+        "state_id": 11,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.38666771264235567,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.14500039224088337,
+        "state_id": 12,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5984693045577296,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0748086630697162,
+        "state_id": 13,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.4114670603261512,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0514333825407689,
+        "state_id": 14,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.6476978122262117,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.16192445305655292,
+        "state_id": 15,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.27707093490372053,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.17316933431482534,
+        "state_id": 16,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4236889930968651,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.15888337241132441,
+        "state_id": 17,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.11933427611104001,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.029833569027760003,
+        "state_id": 18,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3891864795609773,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09729661989024432,
+        "state_id": 19,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5853634536570322,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07317043170712903,
+        "state_id": 20,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.40321390160072784,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05040173770009098,
+        "state_id": 21,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.20907616542127852,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.10453808271063926,
+        "state_id": 22,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3829337047065473,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04786671308831841,
+        "state_id": 23,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.40583293196414566,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05072911649551821,
+        "state_id": 24,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.23149979664001383,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.11574989832000691,
+        "state_id": 25,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.46753795307149043,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.23376897653574522,
+        "state_id": 26,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.6814532303516426,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08518165379395533,
+        "state_id": 27,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.8200313414798869,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.41001567073994344,
+        "state_id": 28,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.1622473056954384,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.1216854792715788,
+        "state_id": 29,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3194662058418868,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0798665514604717,
+        "state_id": 30,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5223536256924877,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06529420321156096,
+        "state_id": 31,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5211279701136982,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2605639850568491,
+        "state_id": 32,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.24882217338952853,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.06220554334738213,
+        "state_id": 33,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.14563850883987822,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.036409627209969556,
+        "state_id": 34,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.44512962575813697,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.16692360965930136,
+        "state_id": 35,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.6884890559188342,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08606113198985428,
+        "state_id": 36,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5790460077594611,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.28952300387973057,
+        "state_id": 37,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.27795563358851266,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03474445419856408,
+        "state_id": 38,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.7039090876311114,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.43994317976944464,
+        "state_id": 39,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5045106575286707,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1261276643821677,
+        "state_id": 40,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.6274503619833539,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.2352938857437577,
+        "state_id": 41,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.27359782666356774,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.17099864166472983,
+        "state_id": 42,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.23916136360033233,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.08968551135012462,
+        "state_id": 43,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.21595914354721144,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02699489294340143,
+        "state_id": 44,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.44647756620894163,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11161939155223541,
+        "state_id": 45,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.19664310605819033,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.04916077651454758,
+        "state_id": 46,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.22840041416438286,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.08565015531164358,
+        "state_id": 47,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.3825794449600023,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09564486124000057,
+        "state_id": 48,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3444261550230492,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04305326937788115,
+        "state_id": 49,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.3954062185915851,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1482773319718444,
+        "state_id": 50,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4520389711512869,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05650487139391086,
+        "state_id": 51,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.23798465587572593,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02974808198446574,
+        "state_id": 52,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.35325503522917584,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.26494127642188187,
+        "state_id": 53,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.4998954233229956,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.18746078374612335,
+        "state_id": 54,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.5566021048541171,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.13915052621352927,
+        "state_id": 55,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.5333202505496479,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06666503131870599,
+        "state_id": 56,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.146835146765259,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.018354393345657374,
+        "state_id": 57,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3814380796014588,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0953595199003647,
+        "state_id": 58,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.5914270723496486,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.14785676808741216,
+        "state_id": 59,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.6315451100788669,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15788627751971673,
+        "state_id": 60,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.3423964794806816,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0855991198701704,
+        "state_id": 61,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.44566258612714593,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.16712346979767972,
+        "state_id": 62,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.8690711964396141,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.10863389955495176,
+        "state_id": 63,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.28214579371778925,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.035268224214723656,
+        "state_id": 64,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.0967133067019293,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.03626749001322349,
+        "state_id": 65,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.27349634957913715,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.034187043697392144,
+        "state_id": 66,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.44269345432574736,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05533668179071842,
+        "state_id": 67,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.384393443019676,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1441475411323785,
+        "state_id": 68,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.46396389654069,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05799548706758625,
+        "state_id": 69,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.3798462678170148,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04748078347712685,
+        "state_id": 70,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.607477779759823,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.22780416740993362,
+        "state_id": 71,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.5372293056103569,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06715366320129461,
+        "state_id": 72,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.5003488312544824,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1876308117204309,
+        "state_id": 73,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.28740347402674,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0359254342533425,
+        "state_id": 74,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.47193011384885636,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11798252846221409,
+        "state_id": 75,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.36356640824878317,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.13633740309329367,
+        "state_id": 76,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4949082515805837,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.12372706289514593,
+        "state_id": 77,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.32371215462000713,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04046401932750089,
+        "state_id": 78,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5268976142894836,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.19758660535855632,
+        "state_id": 79,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5830995088697712,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0728874386087214,
+        "state_id": 80,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6839731375034147,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.17099328437585368,
+        "state_id": 81,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.2807769973310373,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03509712466637966,
+        "state_id": 82,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5846373680827174,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07307967101033967,
+        "state_id": 83,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3322488425058549,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04153110531323186,
+        "state_id": 84,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.29077577893228396,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.036346972366535495,
+        "state_id": 85,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.06294268060452617,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.00786783507556577,
+        "state_id": 86,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3049585712538159,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03811982140672699,
+        "state_id": 87,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6160159207182637,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15400398017956593,
+        "state_id": 88,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.2615485067035252,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.09808069001382194,
+        "state_id": 89,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5000064884224236,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1250016221056059,
+        "state_id": 90,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.06715168375322839,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.05036376281492129,
+        "state_id": 91,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.36235709028630414,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04529463628578802,
+        "state_id": 92,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.07565265828753405,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.018913164571883512,
+        "state_id": 93,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.15425433998881308,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.019281792498601635,
+        "state_id": 94,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.18391165233089107,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.022988956541361384,
+        "state_id": 95,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.43574264524592565,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05446783065574071,
+        "state_id": 96,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3485979791708003,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04357474739635004,
+        "state_id": 97,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.35923380298558927,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08980845074639732,
+        "state_id": 98,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.7465228349558735,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.4665767718474209,
+        "state_id": 99,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.4972801100115534,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.12432002750288836,
+        "state_id": 100,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.30345553355722127,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.07586388338930532,
+        "state_id": 101,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.3580086420393872,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0895021605098468,
+        "state_id": 102,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5496290272845963,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06870362841057454,
+        "state_id": 103,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5093564051701391,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.19100865193880218,
+        "state_id": 104,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.7481686544070797,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.5611264908053097,
+        "state_id": 105,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.2894944107194279,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.10856040401978545,
+        "state_id": 106,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.07853215306791457,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.039266076533957285,
+        "state_id": 107,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.3736607068913746,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09341517672284365,
+        "state_id": 108,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.24417335888368946,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.030521669860461183,
+        "state_id": 109,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5002183999793506,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2501091999896753,
+        "state_id": 110,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.32232298233698203,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08058074558424551,
+        "state_id": 111,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.4317660203471216,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2158830101735608,
+        "state_id": 112,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.19575427377741678,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.024469284222177097,
+        "state_id": 113,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.32949098805015087,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04118637350626886,
+        "state_id": 114,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.11467127025492468,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.08600345269119351,
+        "state_id": 115,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.639397632000911,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15984940800022776,
+        "state_id": 116,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3864876767477377,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04831095959346721,
+        "state_id": 117,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.17045792823755093,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.021307241029693866,
+        "state_id": 118,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.15171152023930146,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.037927880059825364,
+        "state_id": 119,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.554940703479164,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0693675879348955,
+        "state_id": 120,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.7826167888077609,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09782709860097011,
+        "state_id": 121,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.18532086725268748,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.023165108406585935,
+        "state_id": 122,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.36952360878387014,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.13857135329395132,
+        "state_id": 123,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.7299739850808723,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09124674813510904,
+        "state_id": 124,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.3390331174510071,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04237913968137589,
+        "state_id": 125,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.48760475129963404,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.24380237564981702,
+        "state_id": 126,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.03717060681884034,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.009292651704710084,
+        "state_id": 127,
+        "stratum": 1
+      }
+    ],
+    "failure_coverage_50": [
+      {
+        "coverage_distance": 0.16582327865601,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02072790983200125,
+        "state_id": 0,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3815655879463976,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0476956984932997,
+        "state_id": 1,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5436126229088436,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.4077094671816327,
+        "state_id": 2,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.1293227170196554,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.016165339627456924,
+        "state_id": 3,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.3655699851659262,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.045696248145740775,
+        "state_id": 4,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3489560002407323,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08723900006018308,
+        "state_id": 5,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.4081656074996609,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.20408280374983045,
+        "state_id": 6,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.3198842580610789,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03998553225763486,
+        "state_id": 7,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.6445466826083963,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.24170500597814862,
+        "state_id": 8,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.342867225553436,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0428584031941795,
+        "state_id": 9,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.38728711069493005,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.048410888836866256,
+        "state_id": 10,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.4114179702479122,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1542817388429671,
+        "state_id": 11,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.38666771264235567,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.14500039224088337,
+        "state_id": 12,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5984693045577296,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0748086630697162,
+        "state_id": 13,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.4114670603261512,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0514333825407689,
+        "state_id": 14,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.6476978122262117,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.16192445305655292,
+        "state_id": 15,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.27707093490372053,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.17316933431482534,
+        "state_id": 16,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4236889930968651,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.15888337241132441,
+        "state_id": 17,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.11933427611104001,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.029833569027760003,
+        "state_id": 18,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3891864795609773,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09729661989024432,
+        "state_id": 19,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5853634536570322,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07317043170712903,
+        "state_id": 20,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.40321390160072784,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05040173770009098,
+        "state_id": 21,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.20907616542127852,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.10453808271063926,
+        "state_id": 22,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3829337047065473,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04786671308831841,
+        "state_id": 23,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.40583293196414566,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05072911649551821,
+        "state_id": 24,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.23149979664001383,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.11574989832000691,
+        "state_id": 25,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.46753795307149043,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.23376897653574522,
+        "state_id": 26,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.6814532303516426,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08518165379395533,
+        "state_id": 27,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.8200313414798869,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.41001567073994344,
+        "state_id": 28,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.1622473056954384,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.1216854792715788,
+        "state_id": 29,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3194662058418868,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0798665514604717,
+        "state_id": 30,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5223536256924877,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06529420321156096,
+        "state_id": 31,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5211279701136982,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2605639850568491,
+        "state_id": 32,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.24882217338952853,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.06220554334738213,
+        "state_id": 33,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.14563850883987822,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.036409627209969556,
+        "state_id": 34,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.44512962575813697,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.16692360965930136,
+        "state_id": 35,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.6884890559188342,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08606113198985428,
+        "state_id": 36,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5790460077594611,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.28952300387973057,
+        "state_id": 37,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.27795563358851266,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03474445419856408,
+        "state_id": 38,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.7039090876311114,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.43994317976944464,
+        "state_id": 39,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5045106575286707,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1261276643821677,
+        "state_id": 40,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.6274503619833539,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.2352938857437577,
+        "state_id": 41,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.27359782666356774,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.17099864166472983,
+        "state_id": 42,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.23916136360033233,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.08968551135012462,
+        "state_id": 43,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.21595914354721144,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02699489294340143,
+        "state_id": 44,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.44647756620894163,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11161939155223541,
+        "state_id": 45,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.19664310605819033,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.04916077651454758,
+        "state_id": 46,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.22840041416438286,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.08565015531164358,
+        "state_id": 47,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.3825794449600023,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09564486124000057,
+        "state_id": 48,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3444261550230492,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04305326937788115,
+        "state_id": 49,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.3954062185915851,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1482773319718444,
+        "state_id": 50,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4520389711512869,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05650487139391086,
+        "state_id": 51,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.23798465587572593,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02974808198446574,
+        "state_id": 52,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.35325503522917584,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.26494127642188187,
+        "state_id": 53,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.4998954233229956,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.18746078374612335,
+        "state_id": 54,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.5566021048541171,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.13915052621352927,
+        "state_id": 55,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.5333202505496479,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06666503131870599,
+        "state_id": 56,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.146835146765259,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.018354393345657374,
+        "state_id": 57,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3814380796014588,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0953595199003647,
+        "state_id": 58,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.5914270723496486,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.14785676808741216,
+        "state_id": 59,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.6315451100788669,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15788627751971673,
+        "state_id": 60,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.3423964794806816,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0855991198701704,
+        "state_id": 61,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.44566258612714593,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.16712346979767972,
+        "state_id": 62,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.8690711964396141,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.10863389955495176,
+        "state_id": 63,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.28214579371778925,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.035268224214723656,
+        "state_id": 64,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.0967133067019293,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.03626749001322349,
+        "state_id": 65,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.27349634957913715,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.034187043697392144,
+        "state_id": 66,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.44269345432574736,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05533668179071842,
+        "state_id": 67,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.384393443019676,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1441475411323785,
+        "state_id": 68,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.46396389654069,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05799548706758625,
+        "state_id": 69,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.3798462678170148,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04748078347712685,
+        "state_id": 70,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.607477779759823,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.22780416740993362,
+        "state_id": 71,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.5372293056103569,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06715366320129461,
+        "state_id": 72,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.5003488312544824,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1876308117204309,
+        "state_id": 73,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.28740347402674,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0359254342533425,
+        "state_id": 74,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.47193011384885636,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11798252846221409,
+        "state_id": 75,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.36356640824878317,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.13633740309329367,
+        "state_id": 76,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4949082515805837,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.12372706289514593,
+        "state_id": 77,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.32371215462000713,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04046401932750089,
+        "state_id": 78,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5268976142894836,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.19758660535855632,
+        "state_id": 79,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5830995088697712,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0728874386087214,
+        "state_id": 80,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6839731375034147,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.17099328437585368,
+        "state_id": 81,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.2807769973310373,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03509712466637966,
+        "state_id": 82,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5846373680827174,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07307967101033967,
+        "state_id": 83,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3322488425058549,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04153110531323186,
+        "state_id": 84,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.29077577893228396,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.036346972366535495,
+        "state_id": 85,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.06294268060452617,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.00786783507556577,
+        "state_id": 86,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3049585712538159,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03811982140672699,
+        "state_id": 87,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6160159207182637,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15400398017956593,
+        "state_id": 88,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.2615485067035252,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.09808069001382194,
+        "state_id": 89,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5000064884224236,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1250016221056059,
+        "state_id": 90,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.06715168375322839,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.05036376281492129,
+        "state_id": 91,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.36235709028630414,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04529463628578802,
+        "state_id": 92,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.07565265828753405,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.018913164571883512,
+        "state_id": 93,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.15425433998881308,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.019281792498601635,
+        "state_id": 94,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.18391165233089107,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.022988956541361384,
+        "state_id": 95,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.43574264524592565,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05446783065574071,
+        "state_id": 96,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3485979791708003,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04357474739635004,
+        "state_id": 97,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.35923380298558927,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08980845074639732,
+        "state_id": 98,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.7465228349558735,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.4665767718474209,
+        "state_id": 99,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.4972801100115534,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.12432002750288836,
+        "state_id": 100,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.30345553355722127,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.07586388338930532,
+        "state_id": 101,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.3580086420393872,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0895021605098468,
+        "state_id": 102,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5496290272845963,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06870362841057454,
+        "state_id": 103,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5093564051701391,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.19100865193880218,
+        "state_id": 104,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.7481686544070797,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.5611264908053097,
+        "state_id": 105,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.2894944107194279,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.10856040401978545,
+        "state_id": 106,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.07853215306791457,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.039266076533957285,
+        "state_id": 107,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.3736607068913746,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09341517672284365,
+        "state_id": 108,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.24417335888368946,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.030521669860461183,
+        "state_id": 109,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5002183999793506,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2501091999896753,
+        "state_id": 110,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.32232298233698203,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08058074558424551,
+        "state_id": 111,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.4317660203471216,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2158830101735608,
+        "state_id": 112,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.19575427377741678,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.024469284222177097,
+        "state_id": 113,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.32949098805015087,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04118637350626886,
+        "state_id": 114,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.11467127025492468,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.08600345269119351,
+        "state_id": 115,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.639397632000911,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15984940800022776,
+        "state_id": 116,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3864876767477377,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04831095959346721,
+        "state_id": 117,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.17045792823755093,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.021307241029693866,
+        "state_id": 118,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.15171152023930146,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.037927880059825364,
+        "state_id": 119,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.554940703479164,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0693675879348955,
+        "state_id": 120,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.7826167888077609,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09782709860097011,
+        "state_id": 121,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.18532086725268748,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.023165108406585935,
+        "state_id": 122,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.36952360878387014,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.13857135329395132,
+        "state_id": 123,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.7299739850808723,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09124674813510904,
+        "state_id": 124,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.3390331174510071,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04237913968137589,
+        "state_id": 125,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.48760475129963404,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.24380237564981702,
+        "state_id": 126,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.03717060681884034,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.009292651704710084,
+        "state_id": 127,
+        "stratum": 1
+      }
+    ],
+    "failure_coverage_short_50": [
+      {
+        "coverage_distance": 0.16582327865601,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02072790983200125,
+        "state_id": 0,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3815655879463976,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0476956984932997,
+        "state_id": 1,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5436126229088436,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.4077094671816327,
+        "state_id": 2,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.1293227170196554,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.016165339627456924,
+        "state_id": 3,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.3655699851659262,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.045696248145740775,
+        "state_id": 4,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3489560002407323,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08723900006018308,
+        "state_id": 5,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5802034151252875,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.29010170756264375,
+        "state_id": 6,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.3198842580610789,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03998553225763486,
+        "state_id": 7,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.6445466826083963,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.24170500597814862,
+        "state_id": 8,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.342867225553436,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0428584031941795,
+        "state_id": 9,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.38728711069493005,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.048410888836866256,
+        "state_id": 10,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5512855585770664,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.2067320844663999,
+        "state_id": 11,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.38666771264235567,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.14500039224088337,
+        "state_id": 12,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5984693045577296,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0748086630697162,
+        "state_id": 13,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.4114670603261512,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0514333825407689,
+        "state_id": 14,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.6476978122262117,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.16192445305655292,
+        "state_id": 15,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.27707093490372053,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.17316933431482534,
+        "state_id": 16,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4236889930968651,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.15888337241132441,
+        "state_id": 17,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.11933427611104001,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.029833569027760003,
+        "state_id": 18,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3891864795609773,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09729661989024432,
+        "state_id": 19,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5853634536570322,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07317043170712903,
+        "state_id": 20,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5210653547339333,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06513316934174167,
+        "state_id": 21,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.20907616542127852,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.10453808271063926,
+        "state_id": 22,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3829337047065473,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04786671308831841,
+        "state_id": 23,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.7178032774163896,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0897254096770487,
+        "state_id": 24,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.7717479822148252,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.3858739911074126,
+        "state_id": 25,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.46753795307149043,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.23376897653574522,
+        "state_id": 26,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.6814532303516426,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08518165379395533,
+        "state_id": 27,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.8788027223861837,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.43940136119309187,
+        "state_id": 28,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.1622473056954384,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.1216854792715788,
+        "state_id": 29,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.4059875256817532,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1014968814204383,
+        "state_id": 30,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.6236510792959642,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07795638491199552,
+        "state_id": 31,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5211279701136982,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2605639850568491,
+        "state_id": 32,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.24882217338952853,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.06220554334738213,
+        "state_id": 33,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.14563850883987822,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.036409627209969556,
+        "state_id": 34,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.44512962575813697,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.16692360965930136,
+        "state_id": 35,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.6884890559188342,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08606113198985428,
+        "state_id": 36,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5790460077594611,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.28952300387973057,
+        "state_id": 37,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.3686751449289162,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04608439311611452,
+        "state_id": 38,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.7039090876311114,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.43994317976944464,
+        "state_id": 39,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5045106575286707,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1261276643821677,
+        "state_id": 40,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.6274503619833539,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.2352938857437577,
+        "state_id": 41,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.27359782666356774,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.17099864166472983,
+        "state_id": 42,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.23916136360033233,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.08968551135012462,
+        "state_id": 43,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.21595914354721144,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02699489294340143,
+        "state_id": 44,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.44647756620894163,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11161939155223541,
+        "state_id": 45,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.19664310605819033,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.04916077651454758,
+        "state_id": 46,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.22840041416438286,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.08565015531164358,
+        "state_id": 47,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.3825794449600023,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09564486124000057,
+        "state_id": 48,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3444261550230492,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04305326937788115,
+        "state_id": 49,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5554548006322726,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.20829555023710222,
+        "state_id": 50,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4520389711512869,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05650487139391086,
+        "state_id": 51,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.23798465587572593,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02974808198446574,
+        "state_id": 52,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.4958438912427603,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.3718829184320702,
+        "state_id": 53,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.4998954233229956,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.18746078374612335,
+        "state_id": 54,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.5566021048541171,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.13915052621352927,
+        "state_id": 55,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.5333202505496479,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06666503131870599,
+        "state_id": 56,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.3072680726677664,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0384085090834708,
+        "state_id": 57,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.4331036232297851,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.10827590580744627,
+        "state_id": 58,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.5914270723496486,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.14785676808741216,
+        "state_id": 59,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.6315451100788669,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15788627751971673,
+        "state_id": 60,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.3423964794806816,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0855991198701704,
+        "state_id": 61,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.44566258612714593,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.16712346979767972,
+        "state_id": 62,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.8690711964396141,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.10863389955495176,
+        "state_id": 63,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.28214579371778925,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.035268224214723656,
+        "state_id": 64,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5004917900309604,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.18768442126161017,
+        "state_id": 65,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.27349634957913715,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.034187043697392144,
+        "state_id": 66,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.44269345432574736,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05533668179071842,
+        "state_id": 67,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.384393443019676,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1441475411323785,
+        "state_id": 68,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.46396389654069,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05799548706758625,
+        "state_id": 69,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.3798462678170148,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04748078347712685,
+        "state_id": 70,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.607477779759823,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.22780416740993362,
+        "state_id": 71,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.6189302592174453,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07736628240218066,
+        "state_id": 72,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.5003488312544824,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1876308117204309,
+        "state_id": 73,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.28740347402674,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0359254342533425,
+        "state_id": 74,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.47193011384885636,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11798252846221409,
+        "state_id": 75,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.4553840637196938,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.17076902389488519,
+        "state_id": 76,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4949082515805837,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.12372706289514593,
+        "state_id": 77,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5627157588701088,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0703394698587636,
+        "state_id": 78,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.6489482193800765,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.24335558226752868,
+        "state_id": 79,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.6657378470532518,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08321723088165647,
+        "state_id": 80,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6839731375034147,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.17099328437585368,
+        "state_id": 81,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.2807769973310373,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03509712466637966,
+        "state_id": 82,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5846373680827174,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07307967101033967,
+        "state_id": 83,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3322488425058549,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04153110531323186,
+        "state_id": 84,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.29077577893228396,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.036346972366535495,
+        "state_id": 85,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.06294268060452617,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.00786783507556577,
+        "state_id": 86,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3049585712538159,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03811982140672699,
+        "state_id": 87,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6160159207182637,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15400398017956593,
+        "state_id": 88,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.2615485067035252,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.09808069001382194,
+        "state_id": 89,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5000064884224236,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1250016221056059,
+        "state_id": 90,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.06715168375322839,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.05036376281492129,
+        "state_id": 91,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.36235709028630414,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04529463628578802,
+        "state_id": 92,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.07565265828753405,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.018913164571883512,
+        "state_id": 93,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.15425433998881308,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.019281792498601635,
+        "state_id": 94,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.6829905861390191,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08537382326737739,
+        "state_id": 95,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.43574264524592565,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05446783065574071,
+        "state_id": 96,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3485979791708003,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04357474739635004,
+        "state_id": 97,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.35923380298558927,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08980845074639732,
+        "state_id": 98,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.7465228349558735,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.4665767718474209,
+        "state_id": 99,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.8274350334267763,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.20685875835669407,
+        "state_id": 100,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.30345553355722127,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.07586388338930532,
+        "state_id": 101,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.44988981582085846,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11247245395521462,
+        "state_id": 102,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.6007623380661801,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07509529225827251,
+        "state_id": 103,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5134713201289064,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.19255174504833988,
+        "state_id": 104,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.7481686544070797,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.5611264908053097,
+        "state_id": 105,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3241934602403711,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.12157254759013916,
+        "state_id": 106,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.07853215306791457,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.039266076533957285,
+        "state_id": 107,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.3736607068913746,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09341517672284365,
+        "state_id": 108,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.24417335888368946,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.030521669860461183,
+        "state_id": 109,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5002183999793506,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2501091999896753,
+        "state_id": 110,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.32232298233698203,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08058074558424551,
+        "state_id": 111,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.44658810343667504,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.22329405171833752,
+        "state_id": 112,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.19575427377741678,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.024469284222177097,
+        "state_id": 113,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.32949098805015087,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04118637350626886,
+        "state_id": 114,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.11467127025492468,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.08600345269119351,
+        "state_id": 115,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.639397632000911,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15984940800022776,
+        "state_id": 116,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5288591128712034,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06610738910890042,
+        "state_id": 117,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.4480903031424502,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05601128789280627,
+        "state_id": 118,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.15171152023930146,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.037927880059825364,
+        "state_id": 119,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.7104461156732096,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0888057644591512,
+        "state_id": 120,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.7826167888077609,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09782709860097011,
+        "state_id": 121,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.18532086725268748,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.023165108406585935,
+        "state_id": 122,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.36952360878387014,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.13857135329395132,
+        "state_id": 123,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.7299739850808723,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09124674813510904,
+        "state_id": 124,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.3390331174510071,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04237913968137589,
+        "state_id": 125,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.48760475129963404,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.24380237564981702,
+        "state_id": 126,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.03717060681884034,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.009292651704710084,
+        "state_id": 127,
+        "stratum": 1
+      }
+    ],
+    "length_50": [
+      {
+        "coverage_distance": 0.16582327865601,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02072790983200125,
+        "state_id": 0,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3815655879463976,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0476956984932997,
+        "state_id": 1,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5436126229088436,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.4077094671816327,
+        "state_id": 2,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.1293227170196554,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.016165339627456924,
+        "state_id": 3,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.3655699851659262,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.045696248145740775,
+        "state_id": 4,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3489560002407323,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08723900006018308,
+        "state_id": 5,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5802034151252875,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.29010170756264375,
+        "state_id": 6,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.3458795471987034,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.043234943399837925,
+        "state_id": 7,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.6445466826083963,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.24170500597814862,
+        "state_id": 8,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.7426797018002765,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09283496272503457,
+        "state_id": 9,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.38728711069493005,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.048410888836866256,
+        "state_id": 10,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5512855585770664,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.2067320844663999,
+        "state_id": 11,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.6807666877914997,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.25528750792181243,
+        "state_id": 12,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.6546158553899611,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08182698192374514,
+        "state_id": 13,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.4114670603261512,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0514333825407689,
+        "state_id": 14,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.6476978122262117,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.16192445305655292,
+        "state_id": 15,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.7386006664108693,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.46162541650679334,
+        "state_id": 16,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4236889930968651,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.15888337241132441,
+        "state_id": 17,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.11933427611104001,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.029833569027760003,
+        "state_id": 18,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3891864795609773,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09729661989024432,
+        "state_id": 19,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.7870118360991448,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0983764795123931,
+        "state_id": 20,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.40321390160072784,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05040173770009098,
+        "state_id": 21,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.20907616542127852,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.10453808271063926,
+        "state_id": 22,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3829337047065473,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04786671308831841,
+        "state_id": 23,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.7178032774163896,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0897254096770487,
+        "state_id": 24,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.7717479822148252,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.3858739911074126,
+        "state_id": 25,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.6715492717838307,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.33577463589191536,
+        "state_id": 26,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 1.0659262493843804,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.13324078117304755,
+        "state_id": 27,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.8788027223861837,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.43940136119309187,
+        "state_id": 28,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.1622473056954384,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.1216854792715788,
+        "state_id": 29,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.6029354847712854,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15073387119282136,
+        "state_id": 30,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.6192471229979523,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07740589037474403,
+        "state_id": 31,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5211279701136982,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2605639850568491,
+        "state_id": 32,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.8154962898578326,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.20387407246445816,
+        "state_id": 33,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.14563850883987822,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.036409627209969556,
+        "state_id": 34,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.44512962575813697,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.16692360965930136,
+        "state_id": 35,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.8333740203759782,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.10417175254699727,
+        "state_id": 36,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5790460077594611,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.28952300387973057,
+        "state_id": 37,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.27795563358851266,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03474445419856408,
+        "state_id": 38,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.7039090876311114,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.43994317976944464,
+        "state_id": 39,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.7001604169392798,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.17504010423481994,
+        "state_id": 40,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.7447316598974553,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.27927437246154574,
+        "state_id": 41,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.27359782666356774,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.17099864166472983,
+        "state_id": 42,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.23916136360033233,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.08968551135012462,
+        "state_id": 43,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.21595914354721144,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02699489294340143,
+        "state_id": 44,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.44647756620894163,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11161939155223541,
+        "state_id": 45,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.19664310605819033,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.04916077651454758,
+        "state_id": 46,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.22840041416438286,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.08565015531164358,
+        "state_id": 47,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.3825794449600023,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09564486124000057,
+        "state_id": 48,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3444261550230492,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04305326937788115,
+        "state_id": 49,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.723911232344591,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.27146671212922163,
+        "state_id": 50,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4520389711512869,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05650487139391086,
+        "state_id": 51,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.23798465587572593,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02974808198446574,
+        "state_id": 52,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.4958438912427603,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.3718829184320702,
+        "state_id": 53,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.4998954233229956,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.18746078374612335,
+        "state_id": 54,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.5566021048541171,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.13915052621352927,
+        "state_id": 55,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.5333202505496479,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06666503131870599,
+        "state_id": 56,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.3072680726677664,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0384085090834708,
+        "state_id": 57,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.4331036232297851,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.10827590580744627,
+        "state_id": 58,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.5914270723496486,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.14785676808741216,
+        "state_id": 59,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.6315451100788669,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15788627751971673,
+        "state_id": 60,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.3423964794806816,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0855991198701704,
+        "state_id": 61,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.44566258612714593,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.16712346979767972,
+        "state_id": 62,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.8690711964396141,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.10863389955495176,
+        "state_id": 63,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.31292933392802225,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03911616674100278,
+        "state_id": 64,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.7350212011349742,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.2756329504256153,
+        "state_id": 65,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.27349634957913715,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.034187043697392144,
+        "state_id": 66,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.8674535685433588,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.10843169606791984,
+        "state_id": 67,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.384393443019676,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1441475411323785,
+        "state_id": 68,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.8601846023324582,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.10752307529155727,
+        "state_id": 69,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.998303916945907,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.12478798961823838,
+        "state_id": 70,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.607477779759823,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.22780416740993362,
+        "state_id": 71,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.5372293056103569,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06715366320129461,
+        "state_id": 72,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.5003488312544824,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1876308117204309,
+        "state_id": 73,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.30476407053895677,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.038095508817369596,
+        "state_id": 74,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.6979782663853054,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.17449456659632634,
+        "state_id": 75,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6844735660431566,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.2566775872661837,
+        "state_id": 76,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4949082515805837,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.12372706289514593,
+        "state_id": 77,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5755217021098497,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0719402127637312,
+        "state_id": 78,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5268976142894836,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.19758660535855632,
+        "state_id": 79,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.6657378470532518,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08321723088165647,
+        "state_id": 80,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6839731375034147,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.17099328437585368,
+        "state_id": 81,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.2807769973310373,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03509712466637966,
+        "state_id": 82,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.7075401260302635,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08844251575378294,
+        "state_id": 83,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3322488425058549,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04153110531323186,
+        "state_id": 84,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5990329249036621,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07487911561295776,
+        "state_id": 85,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.06294268060452617,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.00786783507556577,
+        "state_id": 86,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3049585712538159,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.03811982140672699,
+        "state_id": 87,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6160159207182637,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15400398017956593,
+        "state_id": 88,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.2615485067035252,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.09808069001382194,
+        "state_id": 89,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5000064884224236,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1250016221056059,
+        "state_id": 90,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.17841779716523895,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.1338133478739292,
+        "state_id": 91,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5092717375688415,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06365896719610518,
+        "state_id": 92,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.07565265828753405,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.018913164571883512,
+        "state_id": 93,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.15425433998881308,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.019281792498601635,
+        "state_id": 94,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.6829905861390191,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08537382326737739,
+        "state_id": 95,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5620894397774912,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0702611799721864,
+        "state_id": 96,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.4713046129500233,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05891307661875291,
+        "state_id": 97,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.7819162046531184,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1954790511632796,
+        "state_id": 98,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.7465228349558735,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.4665767718474209,
+        "state_id": 99,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.4972801100115534,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.12432002750288836,
+        "state_id": 100,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.30345553355722127,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.07586388338930532,
+        "state_id": 101,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.44988981582085846,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11247245395521462,
+        "state_id": 102,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5496290272845963,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06870362841057454,
+        "state_id": 103,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5134713201289064,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.19255174504833988,
+        "state_id": 104,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.7481686544070797,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.5611264908053097,
+        "state_id": 105,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.2894944107194279,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.10856040401978545,
+        "state_id": 106,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.07853215306791457,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.039266076533957285,
+        "state_id": 107,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.3736607068913746,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09341517672284365,
+        "state_id": 108,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.24417335888368946,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.030521669860461183,
+        "state_id": 109,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.6006929347076855,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.30034646735384274,
+        "state_id": 110,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.32232298233698203,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08058074558424551,
+        "state_id": 111,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.44658810343667504,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.22329405171833752,
+        "state_id": 112,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.19575427377741678,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.024469284222177097,
+        "state_id": 113,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.32949098805015087,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04118637350626886,
+        "state_id": 114,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.39862919678245456,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.29897189758684095,
+        "state_id": 115,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.6774880657895709,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.16937201644739272,
+        "state_id": 116,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.7732519066705817,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09665648833382272,
+        "state_id": 117,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.17045792823755093,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.021307241029693866,
+        "state_id": 118,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.606984096036385,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15174602400909626,
+        "state_id": 119,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.7104461156732096,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0888057644591512,
+        "state_id": 120,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.8746409344153819,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.10933011680192274,
+        "state_id": 121,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.18532086725268748,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.023165108406585935,
+        "state_id": 122,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.36952360878387014,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.13857135329395132,
+        "state_id": 123,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.7299739850808723,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09124674813510904,
+        "state_id": 124,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.6150198166813592,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0768774770851699,
+        "state_id": 125,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5091331536730063,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.25456657683650313,
+        "state_id": 126,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.793475442972663,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.19836886074316576,
+        "state_id": 127,
+        "stratum": 1
+      }
+    ],
+    "random_50": [
+      {
+        "coverage_distance": 0.16582327865601,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02072790983200125,
+        "state_id": 0,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3815655879463976,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0476956984932997,
+        "state_id": 1,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5436126229088436,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.4077094671816327,
+        "state_id": 2,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.429081447049827,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05363518088122837,
+        "state_id": 3,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.6754130294223856,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0844266286777982,
+        "state_id": 4,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.9289716577317723,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.23224291443294307,
+        "state_id": 5,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.4081656074996609,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.20408280374983045,
+        "state_id": 6,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5034660656828037,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06293325821035047,
+        "state_id": 7,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.6445466826083963,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.24170500597814862,
+        "state_id": 8,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.7426797018002765,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09283496272503457,
+        "state_id": 9,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.38728711069493005,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.048410888836866256,
+        "state_id": 10,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.4114179702479122,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1542817388429671,
+        "state_id": 11,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.7181148197684063,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.26929305741315235,
+        "state_id": 12,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.6546158553899611,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08182698192374514,
+        "state_id": 13,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.4114670603261512,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0514333825407689,
+        "state_id": 14,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.7006231545852813,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.17515578864632034,
+        "state_id": 15,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.6769164081694184,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.42307275510588654,
+        "state_id": 16,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4236889930968651,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.15888337241132441,
+        "state_id": 17,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.11933427611104001,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.029833569027760003,
+        "state_id": 18,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.6686087675557738,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.16715219188894345,
+        "state_id": 19,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5853634536570322,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07317043170712903,
+        "state_id": 20,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.40321390160072784,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05040173770009098,
+        "state_id": 21,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3366753998683809,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.16833769993419045,
+        "state_id": 22,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3829337047065473,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04786671308831841,
+        "state_id": 23,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.40583293196414566,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05072911649551821,
+        "state_id": 24,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.23149979664001383,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.11574989832000691,
+        "state_id": 25,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.46753795307149043,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.23376897653574522,
+        "state_id": 26,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.6814532303516426,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08518165379395533,
+        "state_id": 27,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.8200313414798869,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.41001567073994344,
+        "state_id": 28,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.25526243599226833,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.19144682699420124,
+        "state_id": 29,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3194662058418868,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0798665514604717,
+        "state_id": 30,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5223536256924877,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06529420321156096,
+        "state_id": 31,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6252645729576145,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.31263228647880725,
+        "state_id": 32,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.24882217338952853,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.06220554334738213,
+        "state_id": 33,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.46549180140310004,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11637295035077501,
+        "state_id": 34,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.44512962575813697,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.16692360965930136,
+        "state_id": 35,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.8305939310484012,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.10382424138105015,
+        "state_id": 36,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5790460077594611,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.28952300387973057,
+        "state_id": 37,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.9795928326577427,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.12244910408221783,
+        "state_id": 38,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.753522493916235,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.47095155869764693,
+        "state_id": 39,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5045106575286707,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1261276643821677,
+        "state_id": 40,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.6274503619833539,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.2352938857437577,
+        "state_id": 41,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.27359782666356774,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.17099864166472983,
+        "state_id": 42,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5313263515135334,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.199247381817575,
+        "state_id": 43,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.21595914354721144,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.02699489294340143,
+        "state_id": 44,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.5369047810772601,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.13422619526931504,
+        "state_id": 45,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.19664310605819033,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.04916077651454758,
+        "state_id": 46,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.22840041416438286,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.08565015531164358,
+        "state_id": 47,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.5913237405516619,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.14783093513791548,
+        "state_id": 48,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3444261550230492,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04305326937788115,
+        "state_id": 49,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.3954062185915851,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.1482773319718444,
+        "state_id": 50,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.848330120615139,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.10604126507689238,
+        "state_id": 51,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5571413714214545,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06964267142768181,
+        "state_id": 52,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.35325503522917584,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.26494127642188187,
+        "state_id": 53,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.8238148220587284,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.30893055827202315,
+        "state_id": 54,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 1.1423618698427513,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.28559046746068784,
+        "state_id": 55,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 1.3446783632827277,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.16808479541034096,
+        "state_id": 56,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.35081119706838293,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.043851399633547866,
+        "state_id": 57,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.3814380796014588,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0953595199003647,
+        "state_id": 58,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.6906980786304121,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.17267451965760303,
+        "state_id": 59,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.8840212183033727,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.22100530457584316,
+        "state_id": 60,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.5804293974389668,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1451073493597417,
+        "state_id": 61,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.44566258612714593,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.16712346979767972,
+        "state_id": 62,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.8931048938863246,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.11163811173579058,
+        "state_id": 63,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.7005358645795565,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08756698307244457,
+        "state_id": 64,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.41946997659186575,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.15730124122194966,
+        "state_id": 65,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.27349634957913715,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.034187043697392144,
+        "state_id": 66,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.44269345432574736,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05533668179071842,
+        "state_id": 67,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 1.1967637504152255,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.44878640640570955,
+        "state_id": 68,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.8601846023324582,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.10752307529155727,
+        "state_id": 69,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 1.035482709492696,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.129435338686587,
+        "state_id": 70,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.607477779759823,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.22780416740993362,
+        "state_id": 71,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.5372293056103569,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06715366320129461,
+        "state_id": 72,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.6540524687652068,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.24526967578695258,
+        "state_id": 73,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.44311905027993065,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05538988128499133,
+        "state_id": 74,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.47193011384885636,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11798252846221409,
+        "state_id": 75,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.4553840637196938,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.17076902389488519,
+        "state_id": 76,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.4949082515805837,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.12372706289514593,
+        "state_id": 77,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.32371215462000713,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04046401932750089,
+        "state_id": 78,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5528538466104855,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.20732019247893207,
+        "state_id": 79,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5830995088697712,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.0728874386087214,
+        "state_id": 80,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.7735853577068773,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.19339633942671933,
+        "state_id": 81,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.42173215230712785,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05271651903839098,
+        "state_id": 82,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5846373680827174,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.07307967101033967,
+        "state_id": 83,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.3322488425058549,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04153110531323186,
+        "state_id": 84,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.4241752213043697,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05302190266304621,
+        "state_id": 85,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.06294268060452617,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.00786783507556577,
+        "state_id": 86,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.46384911397393913,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05798113924674239,
+        "state_id": 87,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6343617763558848,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.1585904440889712,
+        "state_id": 88,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.2615485067035252,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.09808069001382194,
+        "state_id": 89,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.6882057004823574,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.17205142512058935,
+        "state_id": 90,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.17841779716523895,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.1338133478739292,
+        "state_id": 91,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.421653993142981,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05270674914287263,
+        "state_id": 92,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.3228002030193556,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0807000507548389,
+        "state_id": 93,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.64773430314232,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.08096678789279,
+        "state_id": 94,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.18391165233089107,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.022988956541361384,
+        "state_id": 95,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.43574264524592565,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.05446783065574071,
+        "state_id": 96,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.752900363959729,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09411254549496613,
+        "state_id": 97,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.35923380298558927,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.08980845074639732,
+        "state_id": 98,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.7465228349558735,
+        "probe_failure_probability": 0.625,
+        "regression_risk": 0.4665767718474209,
+        "state_id": 99,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.9419064386099572,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.2354766096524893,
+        "state_id": 100,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.4083195825847329,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.10207989564618322,
+        "state_id": 101,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.3580086420393872,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.0895021605098468,
+        "state_id": 102,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.5496290272845963,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06870362841057454,
+        "state_id": 103,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.6915374552169908,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.2593265457063716,
+        "state_id": 104,
+        "stratum": 1
+      },
+      {
+        "coverage_distance": 0.8057539803193857,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.6043154852395393,
+        "state_id": 105,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.6346379208276577,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.23798922031037162,
+        "state_id": 106,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.3947453170259016,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.1973726585129508,
+        "state_id": 107,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.3736607068913746,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.09341517672284365,
+        "state_id": 108,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.24417335888368946,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.030521669860461183,
+        "state_id": 109,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.5002183999793506,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2501091999896753,
+        "state_id": 110,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.44844004657382375,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.11211001164345594,
+        "state_id": 111,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.4317660203471216,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.2158830101735608,
+        "state_id": 112,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.79091616088816,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09886452011102,
+        "state_id": 113,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.32949098805015087,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04118637350626886,
+        "state_id": 114,
+        "stratum": 5
+      },
+      {
+        "coverage_distance": 0.11467127025492468,
+        "probe_failure_probability": 0.75,
+        "regression_risk": 0.08600345269119351,
+        "state_id": 115,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.639397632000911,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.15984940800022776,
+        "state_id": 116,
+        "stratum": 6
+      },
+      {
+        "coverage_distance": 0.5288591128712034,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.06610738910890042,
+        "state_id": 117,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.17045792823755093,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.021307241029693866,
+        "state_id": 118,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.8019993603858169,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.20049984009645422,
+        "state_id": 119,
+        "stratum": 0
+      },
+      {
+        "coverage_distance": 0.7280422152562642,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09100527690703303,
+        "state_id": 120,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.8746409344153819,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.10933011680192274,
+        "state_id": 121,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.3650555883970452,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04563194854963065,
+        "state_id": 122,
+        "stratum": 4
+      },
+      {
+        "coverage_distance": 0.5162072573892705,
+        "probe_failure_probability": 0.375,
+        "regression_risk": 0.19357772152097646,
+        "state_id": 123,
+        "stratum": 3
+      },
+      {
+        "coverage_distance": 0.7562571099240306,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.09453213874050383,
+        "state_id": 124,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.3390331174510071,
+        "probe_failure_probability": 0.125,
+        "regression_risk": 0.04237913968137589,
+        "state_id": 125,
+        "stratum": 2
+      },
+      {
+        "coverage_distance": 0.5091331536730063,
+        "probe_failure_probability": 0.5,
+        "regression_risk": 0.25456657683650313,
+        "state_id": 126,
+        "stratum": 7
+      },
+      {
+        "coverage_distance": 0.03717060681884034,
+        "probe_failure_probability": 0.25,
+        "regression_risk": 0.009292651704710084,
+        "state_id": 127,
+        "stratum": 1
+      }
+    ]
+  },
+  "status": "CANDIDATES_AND_PREDICTIONS_FROZEN__CANDIDATE_OUTCOMES_UNOPENED",
+  "study_id": "prospective_square_regression_v1"
+}

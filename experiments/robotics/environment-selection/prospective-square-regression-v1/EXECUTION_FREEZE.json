@@ -1,0 +1,131 @@
+{
+  "candidate_outcomes_opened": false,
+  "candidate_runs": [
+    {
+      "candidate_id": "random_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "461a7ac7a0cf829ba84bcf98700804874a0a10a6694b5fc5364e97088f63edb7",
+      "run_id": "random_50__seed-3101",
+      "seed": 3101
+    },
+    {
+      "candidate_id": "random_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "461a7ac7a0cf829ba84bcf98700804874a0a10a6694b5fc5364e97088f63edb7",
+      "run_id": "random_50__seed-3102",
+      "seed": 3102
+    },
+    {
+      "candidate_id": "random_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "461a7ac7a0cf829ba84bcf98700804874a0a10a6694b5fc5364e97088f63edb7",
+      "run_id": "random_50__seed-3103",
+      "seed": 3103
+    },
+    {
+      "candidate_id": "length_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "e2958bb184339277590f7e7067d8845b21abbf26488a59adfe16676c0d8e7fba",
+      "run_id": "length_50__seed-3101",
+      "seed": 3101
+    },
+    {
+      "candidate_id": "length_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "e2958bb184339277590f7e7067d8845b21abbf26488a59adfe16676c0d8e7fba",
+      "run_id": "length_50__seed-3102",
+      "seed": 3102
+    },
+    {
+      "candidate_id": "length_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "e2958bb184339277590f7e7067d8845b21abbf26488a59adfe16676c0d8e7fba",
+      "run_id": "length_50__seed-3103",
+      "seed": 3103
+    },
+    {
+      "candidate_id": "coverage_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "f76dd0c9fd44470df642203050c92c86c888f8ba5b2d420ab37a407b23123af9",
+      "run_id": "coverage_50__seed-3101",
+      "seed": 3101
+    },
+    {
+      "candidate_id": "coverage_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "f76dd0c9fd44470df642203050c92c86c888f8ba5b2d420ab37a407b23123af9",
+      "run_id": "coverage_50__seed-3102",
+      "seed": 3102
+    },
+    {
+      "candidate_id": "coverage_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "f76dd0c9fd44470df642203050c92c86c888f8ba5b2d420ab37a407b23123af9",
+      "run_id": "coverage_50__seed-3103",
+      "seed": 3103
+    },
+    {
+      "candidate_id": "failure_coverage_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "acf7a4c89c422b3d8c7e67a12407b4c598c54004262413803bf3de881214be84",
+      "run_id": "failure_coverage_50__seed-3101",
+      "seed": 3101
+    },
+    {
+      "candidate_id": "failure_coverage_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "acf7a4c89c422b3d8c7e67a12407b4c598c54004262413803bf3de881214be84",
+      "run_id": "failure_coverage_50__seed-3102",
+      "seed": 3102
+    },
+    {
+      "candidate_id": "failure_coverage_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "acf7a4c89c422b3d8c7e67a12407b4c598c54004262413803bf3de881214be84",
+      "run_id": "failure_coverage_50__seed-3103",
+      "seed": 3103
+    },
+    {
+      "candidate_id": "failure_coverage_short_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "6276c88ad011d36081a09aaa0bf61a9808cac966163e45bce8b8283a850f6df6",
+      "run_id": "failure_coverage_short_50__seed-3101",
+      "seed": 3101
+    },
+    {
+      "candidate_id": "failure_coverage_short_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "6276c88ad011d36081a09aaa0bf61a9808cac966163e45bce8b8283a850f6df6",
+      "run_id": "failure_coverage_short_50__seed-3102",
+      "seed": 3102
+    },
+    {
+      "candidate_id": "failure_coverage_short_50",
+      "evaluation_episodes": 256,
+      "membership_sha256": "6276c88ad011d36081a09aaa0bf61a9808cac966163e45bce8b8283a850f6df6",
+      "run_id": "failure_coverage_short_50__seed-3103",
+      "seed": 3103
+    }
+  ],
+  "curaeval_revision": "bd94bbbd435c1ef55edfe244894e5468f3a5df2b",
+  "expected_candidate_evaluation_episodes": 3840,
+  "expected_candidate_runs": 15,
+  "inputs": {
+    "CANDIDATES.json": "38e62f40f56bc202ed29c66c29058b6fc29c6566e8b8ece121914138919e564c",
+    "PROTOCOL.json": "d8d3bfb5de49ab8976c702caf37c9bdd96a1a9425c1b01987f495cb961a4ec07",
+    "SCORING_CONTRACT.json": "db8ea6aa702b3e443c8b6bf629ca115625d8e1ed0675877911de1d7c198bee73",
+    "SOURCES.json": "556b118c6343957948127aa5476064ee301be2fdcc527751a711676837678be1",
+    "STATE_BANK.hdf5": "428fd56c8ec99bdacc49fae3dfc001ac2be40f6ff527633e9861d8980fa37fd7",
+    "STATE_BANK.json": "7d3a2da8a5e4b55dcfbb9b41dd6b3ef09e54c4bad598bfcd11aef7d7432acf57",
+    "scripts/evaluate_fixed_states.py": "7b4793a7df57d868653d1d01ad07029fb79eb736a7e63cdd21fa11c26e68122c",
+    "scripts/freeze_execution.py": "8141d1c5ef302e168d36669baf51c4c5da3c9d850f16b81500f7cea59d3eaa40",
+    "scripts/prepare_candidate_dataset.py": "1e5b19085950310c838b6344eef4d7ab1b9db96b2871d543d07fc53f091e0a07",
+    "scripts/run_candidate_task.py": "49142e48a37c9a844011304546b9a00847ea3940863366753760b59a63302fc2",
+    "scripts/score_candidate_results.py": "5af1525d85719c821b5dd14d9e6ea1d95e23073a4f7cc241efa34d385da04b74"
+  },
+  "point_prediction": "failure_coverage_short_50",
+  "schema_version": "anarres.robotics-square-execution-freeze.v1",
+  "source_dataset_sha256": "d3e871e4f25b3da6aea9f332613772e7bdfad9f586b97ce41cd7ccfb758c62dd",
+  "status": "EXECUTION_FROZEN__CANDIDATE_OUTCOMES_UNOPENED",
+  "study_id": "prospective_square_regression_v1"
+}
