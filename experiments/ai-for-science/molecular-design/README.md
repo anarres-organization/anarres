@@ -24,16 +24,17 @@ target, environment family, and budget.
 
 The [prospective reaction-environment selection
 study](reaction-environment-selection/README.md) uses RxnFlow v2.1.0 and a
-planned MolGenBench Version4 target. It holds the molecular action space,
-target reward, trainer, and budgets fixed while changing only the replay
+qualified MolGenBench Version4 target, Q07820. It holds the molecular action
+space, target reward, trainer, and budgets fixed while changing only the replay
 experience bank.
 
 The study compares operational measurements with graph-aware measurements.
 Operational measurements cover reward signal, reliability, validity, and
 oracle cost. Graph-aware measurements add scaffold, ring-system, reaction,
-route, and frozen graph-representation coverage. Six development banks support
-model fitting, followed by a frozen prospective decision between an
-operational hybrid and a graph-aware hybrid.
+route, and frozen graph-representation coverage. Six construction-view banks
+await independent confirmation before they can support model fitting. A later
+frozen prospective decision compares an operational hybrid with a graph-aware
+hybrid.
 
 The primary endpoint is a multi-gate qualifying-hit rate rather than raw
 docking score. It combines target docking with molecular validity, chemical
@@ -67,7 +68,8 @@ closed-loop work in protein and drug design makes that later progression
 important, while preserving a clear boundary between computational screening
 and wet-lab evidence.
 
-The current public artifacts qualify the RxnFlow and MolGenBench code revisions
-without inspecting outcomes. Dataset, oracle, warm-start, and candidate-freeze
-gates remain open. No claim-bearing training is authorized until those gates
-pass.
+The current public artifacts qualify the pinned source revisions, Version4
+archive and target fixtures, docking oracle, QED warm start, Q07820 target, and
+two-view version 3 measurement. Construction-view bank memberships are fixed,
+while their untouched confirmation view remains open. No claim-bearing target
+training or evaluation outcome has been opened.
