@@ -20,10 +20,11 @@ from anarres.environments import (
 )
 
 STUDY = Path(__file__).resolve().parents[1]
-DEFAULT_RESULT = STUDY / "DEVELOPMENT_BANK_QUALIFICATION_V3.json"
+DEFAULT_RESULT = STUDY / "DEVELOPMENT_BANK_QUALIFICATION_V4.json"
+DEFAULT_PRESERVED_RESULT = STUDY / "DEVELOPMENT_BANK_QUALIFICATION_V3.json"
 DEFAULT_MEASUREMENT_RESULT = STUDY / "MEASUREMENT_RELIABILITY_RESULT_V3.json"
 DEFAULT_MEASUREMENT_CONTRACT = STUDY / "MEASUREMENT_CONTRACT_V4.json"
-DEFAULT_BANK_CONTRACT = STUDY / "BANK_CONSTRUCTION_CONTRACT_V3.json"
+DEFAULT_BANK_CONTRACT = STUDY / "BANK_CONSTRUCTION_CONTRACT_V4.json"
 DEFAULT_WARM_START = STUDY / "WARM_START_QUALIFICATION.json"
 DEFAULT_TARGET_SELECTION = STUDY / "TARGET_SELECTION_RESULT.json"
 DEFAULT_SOURCE_AUDIT = STUDY / "SOURCE_AUDIT.json"
@@ -39,7 +40,7 @@ CONVENTION_URI = (
     "docs/conventions/molecular-reaction-bank-v1.md"
 )
 ADAPTER_ID = "molecular-design.rxnflow-reaction-bank"
-ADAPTER_REVISION = "v1"
+ADAPTER_REVISION = "v2"
 BANK_NAMES = (
     "hash_uniform",
     "reward_signal",
@@ -130,8 +131,18 @@ def require_finite_nonnegative(name: str, value: Any) -> float:
     return number
 
 
+def require_finite_correlation(name: str, value: Any) -> float:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise AdapterError(f"{name} is not numeric")
+    number = float(value)
+    if not math.isfinite(number) or number < -1 or number > 1:
+        raise AdapterError(f"{name} must be finite and lie in [-1, 1]")
+    return number
+
+
 def validate_inputs(
     result: dict[str, Any],
+    preserved_result: dict[str, Any],
     measurement_result: dict[str, Any],
     measurement_contract: dict[str, Any],
     bank_contract: dict[str, Any],
@@ -146,16 +157,18 @@ def validate_inputs(
     scoring_audit: dict[str, Any],
     protocol: dict[str, Any],
 ) -> None:
-    if result.get("schema_version") != "3.0" or result.get("qualification") not in {
+    if result.get("schema_version") != "4.0" or result.get("qualification") not in {
         "pass",
         "fail",
     }:
-        raise AdapterError("bank result is not a scored version 3 qualification")
+        raise AdapterError("bank result is not a scored version 4 qualification")
     if result.get("study") != "prospective-reaction-environment-selection":
         raise AdapterError("bank result belongs to a different study")
-    if bank_contract.get("schema_version") != "3.0":
-        raise AdapterError("bank result requires the version 3 bank contract")
+    if bank_contract.get("schema_version") != "4.0":
+        raise AdapterError("bank result requires the version 4 bank contract")
     rule = bank_contract.get("confirmation_rule", {})
+    if rule.get("kind") != "selector_fidelity":
+        raise AdapterError("version 4 bank result requires the selector-fidelity gate")
     expected_seeds = [rule.get("construction_view_seed"), rule.get("confirmation_view_seed")]
     if result.get("view_seeds") != expected_seeds:
         raise AdapterError("bank result view seeds do not match the bank contract")
@@ -225,8 +238,13 @@ def validate_inputs(
         raise AdapterError("superseded bank-result status is not preserved")
     if scoring_audit.get("audit_status") != "non_authorizing_unsupported_ligand_atom_type":
         raise AdapterError("superseded scoring-failure status is not preserved")
-    if scoring_audit.get("input_sha256") not in result.get("source_sha256", {}).values():
-        raise AdapterError("authorizing result is not bound to the unchanged confirmation view")
+    if (
+        preserved_result.get("schema_version") != "3.0"
+        or preserved_result.get("qualification") != "fail"
+    ):
+        raise AdapterError("failed version 3 bank result is not preserved")
+    if scoring_audit.get("input_sha256") not in preserved_result.get("source_sha256", {}).values():
+        raise AdapterError("superseded scoring audit is not bound to the preserved version 3 view")
     sealed = protocol.get("sealed_boundary", {})
     if sealed.get("training_or_evaluation_outcomes_inspected") is not False:
         raise AdapterError("target-training outcomes are not sealed")
@@ -245,8 +263,11 @@ def validate_inputs(
     if set(result.get("summaries", [{}])[0]) != set(BANK_NAMES):
         raise AdapterError("bank summaries do not contain the exact frozen candidate order")
     checks = result.get("confirmation_checks", {})
-    if set(checks) != set(COORDINATES) or any(
-        not isinstance(value, bool) for value in checks.values()
+    expected_checks = {check["check_id"] for check in rule.get("checks", [])}
+    if (
+        len(expected_checks) != len(rule.get("checks", []))
+        or set(checks) != expected_checks
+        or any(not isinstance(value, bool) for value in checks.values())
     ):
         raise AdapterError("bank confirmation checks are incomplete or invalid")
     input_digests = result.get("input_sha256", {})
@@ -254,12 +275,17 @@ def validate_inputs(
         not re.fullmatch(r"[0-9a-f]{64}", str(digest)) for digest in input_digests.values()
     ):
         raise AdapterError("bank result input digests are absent or invalid")
-    minimum = float(rule["minimum_correlation"])
     for name in COORDINATES:
         correlation = result.get("rank_correlations", {}).get(name, {}).get("spearman")
-        observed = require_finite_nonnegative(f"rank correlation {name}", correlation)
-        if checks[name] is not (observed >= minimum):
-            raise AdapterError(f"bank confirmation status is inconsistent for {name}")
+        require_finite_correlation(f"rank correlation {name}", correlation)
+    view_checks = result.get("selector_fidelity_checks_by_view", [])
+    if len(view_checks) != 2 or any(set(view) != expected_checks for view in view_checks):
+        raise AdapterError("per-view selector-fidelity checks are incomplete")
+    if any(not isinstance(value, bool) for view in view_checks for value in view.values()):
+        raise AdapterError("per-view selector-fidelity checks are invalid")
+    for check_id in expected_checks:
+        if checks[check_id] is not all(view[check_id] for view in view_checks):
+            raise AdapterError(f"combined selector-fidelity status is inconsistent: {check_id}")
     if (result["qualification"] == "pass") is not all(checks.values()):
         raise AdapterError("aggregate bank qualification is inconsistent with coordinate checks")
     size = int(result["bank_size"])
@@ -282,6 +308,7 @@ def validate_inputs(
 def export_profiles(
     *,
     result_path: Path = DEFAULT_RESULT,
+    preserved_result_path: Path = DEFAULT_PRESERVED_RESULT,
     measurement_result_path: Path = DEFAULT_MEASUREMENT_RESULT,
     measurement_contract_path: Path = DEFAULT_MEASUREMENT_CONTRACT,
     bank_contract_path: Path = DEFAULT_BANK_CONTRACT,
@@ -302,6 +329,7 @@ def export_profiles(
 
     paths = {
         "bank-qualification": result_path,
+        "preserved-bank-qualification": preserved_result_path,
         "measurement-qualification": measurement_result_path,
         "measurement-contract": measurement_contract_path,
         "bank-contract": bank_contract_path,
@@ -319,6 +347,7 @@ def export_profiles(
     values = {role: read_object(path) for role, path in paths.items()}
     validate_inputs(
         values["bank-qualification"],
+        values["preserved-bank-qualification"],
         values["measurement-qualification"],
         values["measurement-contract"],
         values["bank-contract"],
@@ -340,7 +369,9 @@ def export_profiles(
     source_audit = values["source-audit"]
     source_revision = sha256(result_path)
     bank_confirmation_passed = result["qualification"] == "pass"
-    failed_coordinates = [name for name in COORDINATES if not result["confirmation_checks"][name]]
+    failed_checks = sorted(
+        name for name, passed in result["confirmation_checks"].items() if not passed
+    )
     output_dir.mkdir(parents=True, exist_ok=True)
     outputs = [output_dir / f"{target_id.lower()}-{bank}.profile-input.json" for bank in BANK_NAMES]
     if not force:
@@ -366,7 +397,7 @@ def export_profiles(
                 )
             )
         profile = build_profile_input(
-            environment_id=f"{target_id.lower()}-{bank}-v3",
+            environment_id=f"{target_id.lower()}-{bank}-v4",
             domain="molecular-design",
             subject={
                 "kind": "molecular-graph-policy",
@@ -381,15 +412,15 @@ def export_profiles(
             source={
                 "uri": (
                     "repo://experiments/ai-for-science/molecular-design/"
-                    "reaction-environment-selection/DEVELOPMENT_BANK_QUALIFICATION_V3.json"
+                    "reaction-environment-selection/DEVELOPMENT_BANK_QUALIFICATION_V4.json"
                 ),
                 "revision": f"sha256:{source_revision}",
                 "license": "Apache-2.0",
             },
             measurement_contract={
                 "kind": "molecular-reaction-bank-probe",
-                "id": "rxnflow-q07820-bank-v3",
-                "revision": "v3",
+                "id": "rxnflow-q07820-bank-v4",
+                "revision": "v4",
                 "repetitions": 2,
                 "cost_unit": "generated_molecular_actions",
             },
@@ -438,10 +469,10 @@ def export_profiles(
                     status="pass" if bank_confirmation_passed else "fail",
                     severity="error",
                     summary=(
-                        "All eight bank-summary orderings passed the independent-view rank gate."
+                        "All eight selector-fidelity checks passed in both independent views."
                         if bank_confirmation_passed
-                        else "Independent-view ordering failed for: "
-                        + ", ".join(failed_coordinates)
+                        else "Independent-view selector fidelity failed for: "
+                        + ", ".join(failed_checks)
                         + "."
                     ),
                 ),
@@ -487,7 +518,8 @@ def export_profiles(
                 "predictive_evidence_available": False,
                 "target_reward_contract_revision": "v3",
                 "bank_confirmation_passed": bank_confirmation_passed,
-                "failed_confirmation_coordinates": ",".join(failed_coordinates),
+                "confirmation_rule": "selector_fidelity",
+                "failed_confirmation_checks": ",".join(failed_checks),
             },
         )
         profiles.append(profile)
@@ -499,6 +531,7 @@ def export_profiles(
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--result", type=Path, default=DEFAULT_RESULT)
+    parser.add_argument("--preserved-result", type=Path, default=DEFAULT_PRESERVED_RESULT)
     parser.add_argument("--measurement-result", type=Path, default=DEFAULT_MEASUREMENT_RESULT)
     parser.add_argument("--measurement-contract", type=Path, default=DEFAULT_MEASUREMENT_CONTRACT)
     parser.add_argument("--bank-contract", type=Path, default=DEFAULT_BANK_CONTRACT)
@@ -517,6 +550,7 @@ def main() -> None:
     args = parser.parse_args()
     outputs = export_profiles(
         result_path=args.result,
+        preserved_result_path=args.preserved_result,
         measurement_result_path=args.measurement_result,
         measurement_contract_path=args.measurement_contract,
         bank_contract_path=args.bank_contract,

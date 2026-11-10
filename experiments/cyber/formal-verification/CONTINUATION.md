@@ -13,8 +13,11 @@ proceed.
 The workstream has seven completed foundations:
 
 1. The [public-evidence record](public-evidence/README.md) reconstructs
-   decisions from VeruSyn, Re:Form, Formal Disco, and Vericoding. It also
-   records the production target established by Anthropic and Theorem.
+   decisions from DafnySynth, VeruSyn, Re:Form, Formal Disco, and Vericoding.
+   DafnySynth provides the densest positive grid: verifier-filtered synthetic
+   augmentation improves seven of eight matched paper comparisons and ties the
+   eighth across two starting models and four human-data fractions. The record
+   also preserves the production target established by Anthropic and Theorem.
 2. The OSS Verify adapter preserves statement, source, checker, and entry-point
    identities. Vero has a pinned source revision, repository-disjoint split,
    fresh grader, lifecycle controls, and a completed 32-attempt development
@@ -59,9 +62,11 @@ The immediate work has three phases:
    [CODEX_CONTAINMENT.md](CODEX_CONTAINMENT.md), exercise every negative
    control through the model-facing command path, and emit a compact receipt
    without credentials or machine-specific paths.
-2. **Public policy audit.** Maintain the source-pinned policy-support matrix
-   from released LeanLean, Vero, Forall VeriSoftBench, and Vericoding evidence.
-   Keep FVSpec and VeriBench as candidate task sources until their evaluator,
+2. **Public evidence audit.** Maintain the source-pinned training-environment
+   and policy-support records. Preserve the positive DafnySynth, VeruSyn, and
+   Formal Disco comparisons alongside the Re:Form falsification and the
+   LeanLean, Vero, Forall VeriSoftBench, and Vericoding policy evidence. Keep
+   FVSpec and VeriBench as candidate task sources until their evaluator,
    outcome, and release boundaries are qualified. Preserve each source's
    objective and verifier rather than pooling its scores.
 3. **Development screen.** Qualify the public VeriSoftBench boundary tasks under

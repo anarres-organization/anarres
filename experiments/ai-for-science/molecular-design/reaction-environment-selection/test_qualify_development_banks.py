@@ -43,6 +43,49 @@ class BankConfirmationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "required"):
             MODULE.result_schema_version({})
 
+    def test_selector_fidelity_uses_strict_directional_contrasts(self):
+        summaries = {
+            "hash_uniform": {"reward": 1.0, "cost": 4.0},
+            "reward_signal": {"reward": 2.0, "cost": 4.0},
+            "validity_cost": {"reward": 1.0, "cost": 3.0},
+        }
+        checks = [
+            {
+                "check_id": "reward",
+                "bank": "reward_signal",
+                "reference_bank": "hash_uniform",
+                "coordinate": "reward",
+                "direction": "higher",
+            },
+            {
+                "check_id": "cost",
+                "bank": "validity_cost",
+                "reference_bank": "hash_uniform",
+                "coordinate": "cost",
+                "direction": "lower",
+            },
+        ]
+        self.assertEqual(
+            MODULE.selector_fidelity_checks(summaries, checks),
+            {"reward": True, "cost": True},
+        )
+        summaries["reward_signal"]["reward"] = 1.0
+        self.assertFalse(MODULE.selector_fidelity_checks(summaries, checks)["reward"])
+
+    def test_selector_fidelity_rejects_unknown_direction(self):
+        summaries = {"a": {"x": 1.0}, "b": {"x": 2.0}}
+        checks = [
+            {
+                "check_id": "bad",
+                "bank": "a",
+                "reference_bank": "b",
+                "coordinate": "x",
+                "direction": "sideways",
+            }
+        ]
+        with self.assertRaisesRegex(ValueError, "unsupported"):
+            MODULE.selector_fidelity_checks(summaries, checks)
+
 
 if __name__ == "__main__":
     unittest.main()

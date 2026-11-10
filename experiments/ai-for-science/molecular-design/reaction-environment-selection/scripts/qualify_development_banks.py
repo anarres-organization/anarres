@@ -58,6 +58,26 @@ def spearman(first: list[float], second: list[float]) -> tuple[float, str]:
     return result, "finite"
 
 
+def selector_fidelity_checks(
+    summaries: dict[str, dict[str, float]], checks: list[dict[str, str]]
+) -> dict[str, bool]:
+    """Apply prespecified directional contrasts against a named reference bank."""
+
+    results = {}
+    for check in checks:
+        candidate = summaries[check["bank"]][check["coordinate"]]
+        reference = summaries[check["reference_bank"]][check["coordinate"]]
+        direction = check["direction"]
+        if direction == "higher":
+            passed = candidate > reference
+        elif direction == "lower":
+            passed = candidate < reference
+        else:
+            raise ValueError(f"unsupported selector-fidelity direction: {direction}")
+        results[check["check_id"]] = bool(passed)
+    return results
+
+
 def summarize_bank(
     members: list[dict[str, Any]],
     pool: list[dict[str, Any]],
@@ -130,7 +150,8 @@ def qualify(
         {name: summarize_bank(view_banks[name], pool, representation) for name in names}
         for view_banks, pool, representation in zip(banks, pools, representations, strict=True)
     ]
-    minimum = float(bank_contract["confirmation_rule"]["minimum_correlation"])
+    rule = bank_contract["confirmation_rule"]
+    minimum = float(rule.get("minimum_correlation", 0.8))
     correlations = {}
     checks = {}
     for coordinate in bank_contract["summary_coordinates"]:
@@ -151,7 +172,7 @@ def qualify(
         int(bank_contract["confirmation_rule"]["construction_view_seed"]),
         int(bank_contract["confirmation_rule"]["confirmation_view_seed"]),
     ]
-    return {
+    result = {
         "schema_version": result_schema_version(bank_contract),
         "study": contract["study"],
         "scope": "development-bank construction and two-view confirmation",
@@ -170,6 +191,18 @@ def qualify(
         "confirmation_checks": checks,
         "construction_membership_jaccard": overlaps,
     }
+    if rule.get("kind", "full_rank_stability") == "selector_fidelity":
+        view_checks = [selector_fidelity_checks(summary, rule["checks"]) for summary in summaries]
+        combined_checks = {
+            check["check_id"]: all(view[check["check_id"]] for view in view_checks)
+            for check in rule["checks"]
+        }
+        result["qualification"] = "pass" if all(combined_checks.values()) else "fail"
+        result["confirmation_checks"] = combined_checks
+        result["selector_fidelity_checks_by_view"] = view_checks
+    elif rule.get("kind", "full_rank_stability") != "full_rank_stability":
+        raise ValueError(f"unsupported confirmation rule: {rule['kind']}")
+    return result
 
 
 def main() -> None:

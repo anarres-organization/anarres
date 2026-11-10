@@ -24,12 +24,42 @@ accuracy as a substitute for production-code verification.
 
 | Record | Decision or mechanism | Result | Appropriate conclusion |
 | --- | --- | --- | --- |
+| DafnySynth verified augmentation | Add verifier-filtered synthetic annotations at fixed DafnyBench fraction and training steps | The augmentation improves 7 of 8 matched settings in the paper table and ties the eighth, with a 15.8-point mean gain across two starting models | Verifier-filtered, task-relevant synthetic data can improve formal-verification training utility across policies and data scales |
 | VeruSyn target matching | Choose among Part 1, Part 2, and combined training data for algorithmic or system proofs | The target-matched rule chooses the best arm in 7 of 8 nested budget panels, with 0.25 percentage points of mean regret | Training-data utility depends on the target proof distribution |
 | Re:Form reward integrity | Use raw verifier success to choose among three RL reward environments | The rule chooses the wrong semantic winner at all five model scales, with 14.78 points of mean specification-superiority regret | Verifier acceptance alone is unsafe for environment selection |
 | Formal Disco data generation | Prefer the generation environment with broader verified feature coverage | Formal Disco data beats SAFE at Pass@1 and Pass@32 under the same SFT pipeline | Verified diversity and feature coverage are useful data-environment measurements |
 | Vericoding policy support | Measure which tasks are supported across models and verification languages | 2,847 of 6,121 tasks with at least eight model outcomes have both successes and failures | Candidate support is policy- and language-dependent |
 | Repository policy support | Compare released agents without combining their native objectives | Opus 5 leads LeanLean compression, GPT-5.6 Luna has the lowest reported LeanLean cost, and GPT-5.5 xhigh leads Vero repository completion | A starting policy must be selected for a specific harness, task contract, verifier, and budget |
 | Anthropic and Theorem production workflow | Prove properties of compiled OSS-Fuzz binaries under a token budget | 239 entry points across 123 libraries were proved. Newer models and shared proofs reduced token use. | Real-code proof completion, cost, reuse, and patch integrity define the frontier target |
+
+## DafnySynth: positive transfer across models and data scales
+
+The dafny-annotator study holds the training recipe and 1,500-step budget fixed
+while varying the fraction of human-written DafnyBench data and whether the
+environment includes verifier-filtered DafnySynth annotations. It evaluates the
+resulting models on the same 83 held-out methods whose human annotations have
+been removed.
+
+Adding DafnySynth improves seven of eight matched comparisons in the published
+table and ties the eighth. The mean gain is 15.8 percentage points across Llama
+3.1 8B and CodeLlama 7B. The benefit appears at 0%, 25%, 50%, and 100% of the
+human-written training pool rather than depending on one data scale. The full
+eight-arm environment order has 73.2% pairwise agreement across the two
+starting models.
+
+The pinned repository provides a second audit from its released result JSONs.
+It contains six fraction-matched comparisons rather than the paper's eight
+because no pure-DafnySynth result file is present. Five comparisons improve and
+one ties, with a 15.65-point mean gain. Several exact endpoints differ from the
+paper table, so the reproducer keeps the paper and repository audits separate.
+Their shared direction is the useful result: at matched training steps and
+human-data fraction, the measured verified augmentation consistently avoids
+reducing held-out verification success in this grid.
+
+This is positive retrospective external evidence, not a prospective Anarres
+selection. It strengthens the case for measuring verifier survival, annotation
+coverage, and target relevance before committing a formal-verification
+training budget.
 
 ## VeruSyn: target-matched training data
 
@@ -77,8 +107,17 @@ program features.
 Under the same Qwen2.5-Coder-32B SFT pipeline, Formal Disco data reaches 43.0%
 Pass@1 and 59.1% Pass@32 on VerusBench. SAFE reaches 40.9% Pass@1 and plateaus
 at 51% from Pass@16 onward. The comparison supports verified feature coverage
-as a candidate-environment measurement. It remains one retrospective
-two-candidate study.
+as a candidate-environment measurement.
+
+The positive transfer is broader than the SAFE comparison. Relative to the
+same base model, Formal Disco training improves Dafny annotation Pass@16 from
+19.5% to 40.4%, Verus annotation Pass@1 from 8.7% to 43.0%, and Dafny lemma
+proving from 4.5% to 25.5% at Pass@1 and from 20.7% to 39.8% at Pass@32. The
+generation ablation also connects a measurable source property to the resulting
+bank: documentation snippets raise tracked Dafny feature coverage from 26 to
+all 30 features. These comparisons remain retrospective and use different
+tasks and sampling budgets, so the reproducer preserves each endpoint rather
+than pooling them into one effect.
 
 ## Vericoding: support depends on policy and language
 
@@ -155,14 +194,16 @@ python scripts/reproduce.py
 python -m unittest test_reproduce.py
 ```
 
-The reproducer recomputes VeruSyn decision quality, the Re:Form falsification,
-the Formal Disco comparison, and the Vericoding support counts from compact
-source-linked facts.
+The reproducer recomputes the DafnySynth augmentation audit, VeruSyn decision
+quality, the Re:Form falsification, the Formal Disco comparison, and the
+Vericoding support counts from compact source-linked facts.
 
 ## Files
 
 - [`data/anthropic-oss-fuzz.json`](data/anthropic-oss-fuzz.json): production
   proof and efficiency facts
+- [`data/dafny-synth.json`](data/dafny-synth.json): matched verified-augmentation
+  comparisons across two models and multiple human-data fractions
 - [`data/verusyn.json`](data/verusyn.json): target-matched candidate panels
 - [`data/reform.json`](data/reform.json): reward-environment outcomes
 - [`data/formal-disco.json`](data/formal-disco.json): generation and downstream

@@ -10,8 +10,31 @@
     "tokens_per_attempt": 5000000
   },
   "artifact": "formal_verification_public_evidence_summary_v1",
+  "dafny_synth": {
+    "paper_table": {
+      "comparisons": 8,
+      "cross_model_pairwise_rank_accuracy": 0.732143,
+      "mean_allocation_regret_pp": 0,
+      "mean_gain_pp": 15.8,
+      "minimum_gain_pp": 0.0,
+      "noninferior_choices": 8,
+      "strict_improvements": 7
+    },
+    "repository_result_audit": {
+      "comparisons": 6,
+      "mean_allocation_regret_pp": 0,
+      "mean_gain_pp": 15.662651,
+      "minimum_gain_pp": 0.0,
+      "noninferior_choices": 6,
+      "strict_improvements": 5
+    }
+  },
   "formal_disco": {
+    "base_model_transfer_comparisons": 4,
+    "base_model_transfer_strict_improvements": 4,
+    "documentation_feature_coverage_gain": 4,
     "mean_allocation_regret_pp": 0.0,
+    "minimum_base_model_transfer_gain_pp": 19.1,
     "top_choice_correct": 2,
     "top_choice_total": 2,
     "verified_yield_advantage_pp": 6.8

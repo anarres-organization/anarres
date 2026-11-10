@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "retrospective diagnosis of the failed version 3 pre-training bank confirmation",
+  "authorizes_training": false,
+  "training_outcomes_read": false,
+  "view_seeds": [
+    20261122,
+    20261124
+  ],
+  "input_sha256": {
+    "records_v3_20261122.jsonl": "9014e2628a6d0f18c1fb2a79a6cb07e20b2206cf13d324286f2d297c27491383",
+    "records_bank_v3_20261124.jsonl": "3f1deac1147b63bd349717ac7156aed11a1557bc73d9c2d379a49386567b2cbb"
+  },
+  "failed_full_order_correlations": {
+    "mean_generated_action_count": 0.3714285714285715,
+    "mean_oracle_seconds": 0.6571428571428573,
+    "unique_scaffold_fraction": 0.7352941176470588
+  },
+  "diagnostic_alternatives": {
+    "median_oracle_seconds_spearman": 0.6,
+    "mean_oracle_seconds_per_heavy_atom_spearman": 0.6,
+    "generic_scaffold_fraction_spearman": 0.48571428571428577
+  },
+  "failure_mechanisms": {
+    "generated_action_count": {
+      "construction_non_cost_bank_mean_range": [
+        2.3359375,
+        2.357421875
+      ],
+      "confirmation_non_cost_bank_mean_range": [
+        2.326171875,
+        2.41796875
+      ],
+      "non_cost_bank_standard_error_range": [
+        0.020738979010765483,
+        0.022338335237454363
+      ],
+      "validity_cost_means": [
+        2.0,
+        2.0
+      ],
+      "interpretation": "The intended low-cost contrast is exact in both views, while incidental ordering among the other five banks is weak."
+    },
+    "oracle_seconds": {
+      "hash_uniform_means": [
+        8.96081662109375,
+        9.04999101953125
+      ],
+      "validity_cost_means": [
+        6.0444746777343745,
+        5.987870671875
+      ],
+      "interpretation": "The intended low-cost contrast replicates, but changing to a median or normalizing by heavy atoms does not stabilize the complete six-bank ordering."
+    },
+    "scaffold_coverage": {
+      "hash_uniform_exact_fraction": [
+        0.990234375,
+        0.9921875
+      ],
+      "scaffold_bank_exact_fraction": [
+        1.0,
+        1.0
+      ],
+      "hash_uniform_generic_fraction": [
+        0.841796875,
+        0.826171875
+      ],
+      "scaffold_bank_generic_fraction": [
+        0.91015625,
+        0.876953125
+      ],
+      "interpretation": "The scaffold intervention is higher than the neutral bank in both views, while exact uniqueness is nearly saturated and genericization does not recover the full ordering."
+    }
+  },
+  "targeted_selector_checks": {
+    "construction_view_all_pass": true,
+    "confirmation_view_all_pass": true,
+    "check_count_per_view": 8
+  },
+  "conclusion": "The version 3 gate tested incidental six-bank orderings beyond the intended interventions. A new untouched view is required before a selector-fidelity gate can authorize training."
+}

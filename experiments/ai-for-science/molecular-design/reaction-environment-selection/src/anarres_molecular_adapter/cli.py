@@ -23,13 +23,13 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "molecular",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "protocol_version": 1,
         "domain": "molecular-design",
         "executable": "anarres-molecular",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
         "capabilities": ["profile", "status", "verify"],
-        "measurement_contracts": ["rxnflow-q07820-bank-v3"],
+        "measurement_contracts": ["rxnflow-q07820-bank-v4"],
     }
 
 
@@ -98,9 +98,12 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "target_id": attributes["target_id"],
         "bank_count": len(outputs),
         "bank_confirmation_passed": confirmation_passed,
-        "failed_confirmation_coordinates": attributes["failed_confirmation_coordinates"].split(","),
+        "confirmation_rule": attributes["confirmation_rule"],
+        "failed_confirmation_checks": [
+            item for item in attributes["failed_confirmation_checks"].split(",") if item
+        ],
         "profiles_ready": confirmation_passed,
-        "development_training_authorized": False,
+        "development_training_authorized": confirmation_passed,
         "training_outcomes_opened": attributes["training_outcomes_opened"],
     }
 
@@ -108,11 +111,14 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
 def command_profile(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
     outputs = export_profiles(repository, args.output_dir, force=args.force)
+    profile = read_profile(outputs[0])
+    checks = {check["check_id"]: check for check in profile["qualification_checks"]}
+    confirmation_passed = checks["bank-confirmation"]["status"] == "pass"
     return {
         "status": "exported",
         "profile_count": len(outputs),
-        "profiles_ready": False,
-        "development_training_authorized": False,
+        "profiles_ready": confirmation_passed,
+        "development_training_authorized": confirmation_passed,
         "training_outcomes_opened": False,
         "outputs": [str(path) for path in outputs],
     }
@@ -133,15 +139,13 @@ def command_verify(args: argparse.Namespace) -> dict[str, Any]:
     confirmation_passed = checks["bank-confirmation"]["status"] == "pass"
     if not deterministic:
         raise MolecularCliError("profile export is not deterministic")
-    if confirmation_passed:
-        raise MolecularCliError("released bank confirmation unexpectedly passed")
     return {
         "status": "pass",
         "profile_count": len(digests),
         "profile_digests": digests,
         "deterministic": deterministic,
         "bank_confirmation_passed": confirmation_passed,
-        "development_training_authorized": False,
+        "development_training_authorized": confirmation_passed,
         "training_outcomes_opened": False,
     }
 

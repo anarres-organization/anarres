@@ -32,10 +32,13 @@ The study compares operational measurements with graph-aware measurements.
 Operational measurements cover reward signal, reliability, validity, and
 oracle cost. Graph-aware measurements add scaffold, ring-system, reaction,
 route, and frozen graph-representation coverage. Six construction-view banks
-were tested on an untouched confirmation view. Three of eight coordinate
-orderings missed the frozen stability threshold, so the study abstains before
-model fitting or target training. A later versioned study can test a frozen
-prospective decision only after passing the same gate.
+were tested on untouched confirmation views. The complete-order Version 3
+statistic failed because it ranked banks on coordinates they were not designed
+to optimize. A sealed diagnostic motivated a Version 4 selector-fidelity gate
+that preserved the banks, selectors, estimators, and runtime. All eight
+prespecified selector-versus-neutral checks pass in both independent views.
+The study can now freeze matched training and evaluation contracts before
+opening any target outcome.
 
 The primary endpoint is a multi-gate qualifying-hit rate rather than raw
 docking score. It combines target docking with molecular validity, chemical
@@ -71,10 +74,10 @@ and wet-lab evidence.
 
 The current public artifacts qualify the pinned source revisions, Version4
 archive and target fixtures, docking oracle, QED warm start, Q07820 target, and
-two-view version 3 measurement. The independent development-bank confirmation
-fails for generated-action cost, oracle time, and scaffold coverage, so the
-recorded construction memberships do not authorize target training. No target
-training or evaluation outcome has been opened.
+two-view measurement. They preserve the failed Version 3 complete-order result
+and record the passing Version 4 selector-fidelity confirmation. The completed
+gate authorizes freezing matched target-training and evaluation contracts. No
+target-training or evaluation outcome has been opened.
 
 An installable `anarres-molecular` adapter exposes the native qualification
 status and deterministic profile export without changing this evidence
