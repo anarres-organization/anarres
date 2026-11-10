@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "panels": [
+    {
+      "panel_id": "finmmr_easy_components_qwen3vl8b",
+      "family": "component_ablation",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "base", "prediction": 0, "outcome": 59.17},
+        {"id": "financial_tools", "prediction": 1, "outcome": 74.08},
+        {"id": "tools_plus_conditional_experience", "prediction": 2, "outcome": 81.67}
+      ]
+    },
+    {
+      "panel_id": "memory_field_contract_macro",
+      "family": "memory_contract_ablation",
+      "metric": "macro_accuracy",
+      "arms": [
+        {"id": "question", "prediction": 0, "outcome": 53.00},
+        {"id": "question_answer", "prediction": 1, "outcome": 56.25},
+        {"id": "question_answer_experience", "prediction": 3, "outcome": 62.00},
+        {"id": "question_answer_directives", "prediction": 2, "outcome": 58.50},
+        {"id": "complete_contract", "prediction": 4, "outcome": 67.50}
+      ]
+    },
+    {
+      "panel_id": "bizbench_full_vs_base",
+      "family": "benchmark_transfer",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "base", "prediction": 0, "outcome": 27.67},
+        {"id": "full", "prediction": 1, "outcome": 68.65}
+      ]
+    },
+    {
+      "panel_id": "finmmr_easy_full_vs_base",
+      "family": "benchmark_transfer",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "base", "prediction": 0, "outcome": 59.17},
+        {"id": "full", "prediction": 1, "outcome": 81.67}
+      ]
+    },
+    {
+      "panel_id": "finmmr_medium_full_vs_base",
+      "family": "benchmark_transfer",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "base", "prediction": 0, "outcome": 45.75},
+        {"id": "full", "prediction": 1, "outcome": 67.00}
+      ]
+    },
+    {
+      "panel_id": "finmmr_hard_full_vs_base",
+      "family": "benchmark_transfer",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "base", "prediction": 0, "outcome": 31.40},
+        {"id": "full", "prediction": 1, "outcome": 46.10}
+      ]
+    },
+    {
+      "panel_id": "fintmmbench_full_vs_base",
+      "family": "benchmark_transfer",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "base", "prediction": 0, "outcome": 16.20},
+        {"id": "full", "prediction": 1, "outcome": 19.98}
+      ]
+    },
+    {
+      "panel_id": "finmme_full_vs_base",
+      "family": "benchmark_transfer",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "base", "prediction": 0, "outcome": 27.84},
+        {"id": "full", "prediction": 1, "outcome": 51.08}
+      ]
+    },
+    {
+      "panel_id": "finmmr_easy_memory_representation",
+      "family": "memory_representation",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "reflexion", "prediction": 0, "outcome": 77.17},
+        {"id": "expel", "prediction": 0, "outcome": 77.17},
+        {"id": "conditional_structured_memory", "prediction": 1, "outcome": 81.67}
+      ]
+    },
+    {
+      "panel_id": "finmmr_medium_memory_representation",
+      "family": "memory_representation",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "reflexion", "prediction": 0, "outcome": 63.58},
+        {"id": "expel", "prediction": 0, "outcome": 60.58},
+        {"id": "conditional_structured_memory", "prediction": 1, "outcome": 67.00}
+      ]
+    },
+    {
+      "panel_id": "fintmmbench_memory_representation",
+      "family": "memory_representation",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "reflexion", "prediction": 0, "outcome": 14.52},
+        {"id": "expel", "prediction": 0, "outcome": 16.73},
+        {"id": "conditional_structured_memory", "prediction": 1, "outcome": 19.98}
+      ]
+    },
+    {
+      "panel_id": "finmme_memory_representation",
+      "family": "memory_representation",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "reflexion", "prediction": 0, "outcome": 42.97},
+        {"id": "expel", "prediction": 0, "outcome": 45.77},
+        {"id": "conditional_structured_memory", "prediction": 1, "outcome": 51.08}
+      ]
+    },
+    {
+      "panel_id": "bizbench_glm46v",
+      "family": "cross_backbone",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "base", "prediction": 0, "outcome": 30.40},
+        {"id": "full", "prediction": 1, "outcome": 75.58}
+      ]
+    },
+    {
+      "panel_id": "bizbench_gpt4omini",
+      "family": "cross_backbone",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "base", "prediction": 0, "outcome": 23.60},
+        {"id": "full", "prediction": 1, "outcome": 59.60}
+      ]
+    },
+    {
+      "panel_id": "bizbench_gemini25flashlite",
+      "family": "cross_backbone",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "base", "prediction": 0, "outcome": 32.60},
+        {"id": "full", "prediction": 1, "outcome": 48.40}
+      ]
+    },
+    {
+      "panel_id": "bizbench_qwen3vl235b_components",
+      "family": "cross_backbone",
+      "metric": "accuracy",
+      "arms": [
+        {"id": "base", "prediction": 0, "outcome": 57.45},
+        {"id": "financial_tools", "prediction": 1, "outcome": 69.30},
+        {"id": "tools_plus_conditional_experience", "prediction": 2, "outcome": 75.10}
+      ]
+    }
+  ],
+  "source_locations": {
+    "component_ablation": "Table 2",
+    "memory_contract_ablation": "Appendix Table 4",
+    "benchmark_transfer": "Table 1",
+    "memory_representation": "Appendix Table 10",
+    "cross_backbone": "Appendix Tables 11 and 12"
+  }
+}

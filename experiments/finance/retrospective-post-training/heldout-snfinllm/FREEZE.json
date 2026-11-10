@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "status": "REPRESENTATION_FROZEN__OUTCOMES_NOT_EXTRACTED",
+  "frozen_on": "2026-11-09",
+  "study": {
+    "id": "snfinllm_2024",
+    "title": "SNFinLLM: Systematic and Nuanced Financial Domain Adaptation of Chinese Large Language Models",
+    "authors": [
+      "Shujuan Zhao",
+      "Lingfeng Qiao",
+      "Kangyang Luo",
+      "Qian-Wen Zhang",
+      "Junru Lu",
+      "Di Yin"
+    ],
+    "source": "https://arxiv.org/abs/2408.02302v1",
+    "version": "arXiv:2408.02302v1"
+  },
+  "representation": {
+    "git_commit": "ea2e8b8714e1127a56a343c7f1a92da39f320cb7",
+    "feature_mapping_sha256": "dc132c9decfc8022deca6696e15cb4b927eb162eb17d50dfcc592815c39f3a2e",
+    "analysis_script_sha256": "0669994cc25b43257277c95f570eeb004c07fb1ac9da75f526b11d81429f03c6",
+    "expanded_summary_sha256": "a1b403ed9cb29c77e90a1420da50fb050e176ba632893a561ae568948a3c8467",
+    "source_registry_sha256": "37e4a464dde001c9d8496c94d9730ad6c49df3ab52bc0264135233df22781d77"
+  },
+  "holdout_contract": [
+    "the study remains absent from representation fitting",
+    "candidate features are encoded from intervention descriptions before outcome extraction",
+    "practical-rule and fitted-model predictions are serialized before reported scores are opened",
+    "all reported targets and regressions are retained after reveal",
+    "the result is labeled a retrospective source-level holdout rather than a prospective experiment"
+  ]
+}

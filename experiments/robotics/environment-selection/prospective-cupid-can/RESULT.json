@@ -1,0 +1,30 @@
+{
+  "candidate_evaluations_completed": 0,
+  "candidate_policies_trained": 0,
+  "candidate_policy_outcomes_opened": false,
+  "checkpoint_sha256": {
+    "1": "1d7e8972ab15db649da0a48b5463850ac1fe648390abb1a1940ce8512d2e1281",
+    "2": "8e5abe1e38864933bd7a93fe938d88239d82272c5e3fdf115adc753ab9531a85",
+    "3": "20dafe034165e290b0b2c1d8800dccb933dad2272bcd05394d28a1ae54aaadb7"
+  },
+  "decision": "INVALIDATED_DATASET_RUNTIME_VARIANT",
+  "freeze_sha256": "42562403e2c5ace7c352eb742d83f81b92438dd57f05d2d5e2158f7b90dcec82",
+  "gate_evidence": {
+    "2": {
+      "episodes": 100,
+      "failures": 100,
+      "rollout_sha256": "e6f15a291315aeebf0239ff522ce7b8ca788b8a93b864b4c4442cba899f37cfd",
+      "successes": 0
+    },
+    "3": {
+      "episodes": 100,
+      "failures": 100,
+      "rollout_sha256": "c1e575d5c6b5ff9651c7eb03f10b0e1c512ad3a1e818ad5f6fbd43f10a107c1b",
+      "successes": 0
+    }
+  },
+  "reason": "The run used the RoboMimic v1.5 Can dataset and simulator contract, while the intended CuraEval comparison uses low_dim_v141.hdf5 with RoboSuite 1.4.1. Two completed 100-episode panels contained no successes, but this variant mismatch prevents interpreting that outcome as evidence about the intended protocol. Candidate training was not started.",
+  "scoring_checkpoints_completed": 3,
+  "status": "INVALIDATED_EXECUTION_VARIANT__NO_CANDIDATE_TRAINING",
+  "study_id": "prospective_cupid_can_v1"
+}

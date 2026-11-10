@@ -1,0 +1,25 @@
+{
+  "frozen_comparisons": {
+    "full_path_over_skip_stage": {
+      "correct_targets": 1,
+      "status": "NOT_SUPPORTED_AS_A_TARGET_FAMILY_CLAIM",
+      "targets": 3
+    },
+    "text_adaptation_over_base": {
+      "aggregate_direction": "correct",
+      "correct_targets": 3,
+      "status": "SUPPORTED_AT_AGGREGATE_WITH_TASK_REGRESSIONS",
+      "targets": 5
+    },
+    "visual_adaptation_over_text_only": {
+      "reason": "All reported benchmark outcomes use text inputs and do not measure the page-image capability targeted by the visual stage",
+      "status": "UNSCORABLE"
+    }
+  },
+  "interpretation": "Target conditioning must operate at the task level and include interference and retention. Broad labels such as text finance or combined financial documents hide opposing treatment effects.",
+  "schema_version": 1,
+  "status": "SCORED_TARGET_CONDITIONAL_SOURCE_HOLDOUT",
+  "task_level_correct": 4,
+  "task_level_directional_accuracy": 0.5,
+  "task_level_total": 8
+}

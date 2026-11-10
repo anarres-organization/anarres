@@ -1,0 +1,22 @@
+{
+  "archive_audit_sha256": "265a866ccff11ce09ebb4b09c5e7f19511845f602802fdbc5e80c4f62c74cdad",
+  "archive_sha256": "e52ab106f35c1376fe181a7172caaf11da86c2ba21f89af9236ddadc17cdfb43",
+  "outcomes_inspected": false,
+  "panel_size": 8,
+  "schema_version": "1.0",
+  "selection_rule": "first panel_size identities by SHA-256 of reaction-target-panel-v1|target_id",
+  "source_target_count": 120,
+  "status": "target_qualification_panel_frozen_outcomes_unopened",
+  "study": "prospective-reaction-environment-selection",
+  "target_ids": [
+    "P08254",
+    "O14757",
+    "Q07820",
+    "P00533",
+    "P21554",
+    "Q07343",
+    "P53350",
+    "P16184"
+  ],
+  "target_ids_sha256": "d4024f9a65aba7a4d3027be4b67aedac7080bb3b545c1fa4378bab2d0a294fe7"
+}

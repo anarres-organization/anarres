@@ -1,6 +1,13 @@
 # Repository architecture
 
-Anarres is organized around four complementary layers.
+Anarres is organized around complementary implementation and research layers.
+
+## Native components
+
+`crates/` contains the native command line and other systems components whose
+startup time, portability, or throughput benefits from a compiled binary.
+Domain-specific scientific adapters remain in their native ecosystems and
+exchange versioned records with these components.
 
 ## Packages
 
@@ -17,6 +24,11 @@ Packages contain reusable behavior with maintained interfaces. A package must ha
 ## Schemas
 
 Schemas are the stable boundaries that allow data systems, packages, and experiments to interoperate. Common provenance is universal. Environment, training, and evaluation contracts are composed only where relevant.
+
+The grouped-probe contract computes shared RL coordinates when its assumptions
+hold. Cross-domain environment profiles preserve native measurements and require
+matching definitions before comparison. See the
+[domain adapter guide](domain-adapters.md).
 
 ## Repository boundaries
 

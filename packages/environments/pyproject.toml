@@ -6,9 +6,6 @@ requires-python = ">=3.11"
 dependencies = ["anarres-core"]
 license = { text = "Apache-2.0" }
 
-[project.scripts]
-anarres-env = "anarres.environments.cli:main"
-
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"

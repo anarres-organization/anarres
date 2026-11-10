@@ -1,0 +1,36 @@
+{
+  "decision": "Do not add a broad target-family interference coordinate to the fitted bridge. It does not improve source-held-out ordering or regret. Re-encode alignment and interference at the task level before another fitted model is attempted.",
+  "evaluations": {
+    "derived_ridge": {
+      "mean_normalized_regret": 0.217586,
+      "normalized_rmse": 0.438312,
+      "pairwise_ordering": 0.710431,
+      "top_choice_credit": 0.687314
+    },
+    "derived_rule": {
+      "mean_normalized_regret": 0.169512,
+      "normalized_rmse": 1.110796,
+      "pairwise_ordering": 0.739717,
+      "top_choice_credit": 0.725248
+    },
+    "v2_ridge": {
+      "mean_normalized_regret": 0.220086,
+      "normalized_rmse": 0.43334,
+      "pairwise_ordering": 0.718415,
+      "top_choice_credit": 0.666481
+    },
+    "v2_rule": {
+      "mean_normalized_regret": 0.169512,
+      "normalized_rmse": 0.836518,
+      "pairwise_ordering": 0.748605,
+      "top_choice_credit": 0.725248
+    }
+  },
+  "schema_version": 1,
+  "status": "RETROSPECTIVE_DIAGNOSTIC__NOT_PROMOTED",
+  "support": {
+    "arms": 538,
+    "panels": 149,
+    "sources": 16
+  }
+}

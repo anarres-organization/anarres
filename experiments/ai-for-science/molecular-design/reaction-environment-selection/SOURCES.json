@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "rxnflow": {
+    "repository": "https://github.com/SeonghwanSeo/RxnFlow",
+    "release": "v2.1.0",
+    "commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b",
+    "commit_date": "2026-10-14T19:36:41+09:00",
+    "code_license": "MIT",
+    "qualified_files": {
+      "LICENSE": "f06c91e2a17788b9bd32ed1147832bd383d5943dbbf20f97ccbca49272dc1d5d",
+      "data/building_blocks/example_5k.smi": "0241e78f69ab5111080695aa5e1b5a6a06f33bb3a80c2fe84494b828bb51be95",
+      "data/templates/explore/config.yaml": "641a63fc7582d66d6738c858636a6cf17971ae04ff0cfe76d05e2eb34415bbeb",
+      "data/templates/explore/reaction.yaml": "b0cbcefe6eb4412cde5e5e35ba9ae99cb112b6543c33efb8ce314c9279a7730a",
+      "data/templates/explore/synthon.yaml": "9e07a7665ed8bbde284ea156816a861f01be4ebb49734663d1b1907375223e5f",
+      "data/templates/explore/exclude_actions.yaml": "461f283b73977a71cb57cd033e76aaf58450e8463eebca7d6bc08ee7d874a132",
+      "data/templates/explore/exclude_substructures.yaml": "f3f274caaa735dcc03d7cf5c97768a165f4932c37b3e2590fb0c67847af56894",
+      "src/rxnflow/models/mpnn.py": "805f24bc10f8c187bfc67c605311a2c2d91ebd6a9272bea9b06cfd4805877e50"
+    },
+    "reward_precedent": {
+      "branch": "iclr2025",
+      "commit": "20ade254d1b105a11728cb79319f7c889ecd09ce",
+      "src/rxnflow/tasks/unidock_vina.py": "4d6f244308393585d7ad44bc4f646f2265e965bf90c981c66d583c77d38cd529",
+      "src/rxnflow/tasks/unidock_vina_moo.py": "6b63e28de28bfefff29b8d00780765a8598a5edd81a6c0fda586e9e4334dcdea",
+      "use": "reward-form precedent only; the study runtime remains pinned to v2.1.0"
+    }
+  },
+  "molgenbench": {
+    "repository": "https://github.com/Intelligent-Drug-Discovery-Lab/MolGenBench",
+    "commit": "f7b6cec1892cb575dc3adee4f5a71ee16ef04c39",
+    "commit_date": "2026-09-22T12:11:42+08:00",
+    "code_license": "MIT",
+    "qualified_files": {
+      "LICENSE": "8368ede93fd8291c7d8bcaea57956bdcef0f7c3f13a7e9c657d303f37bbdd18c",
+      "eval.py": "f50a488a2c498184b385b2a81428122c8c31640f20b632cdd7b5d2348600eb1e",
+      "sup_info/MolGenBench_UniprotIDS.txt": "b748d5d6265a73c4045b5d9ae766eb80649e33aa97fe9104c360eec2903c8a77",
+      "vina_docking.py": "2b49b8f407a8a4ff6e00e66bff3e773cd70f80038894976c04ee82070cf68545",
+      "test_evaluator.py": "990d938354e4b0732a259bf47bed6c9a14dea2507dc14ac1898ecce469113cb4"
+    },
+    "dataset": {
+      "name": "MolGenBench Version4",
+      "record": "https://doi.org/10.5281/zenodo.20233505",
+      "archive_name": "MolGenBench_Version4.zip",
+      "archive_size_bytes": 5381684964,
+      "published_md5": "08739fa1d1c2d1709f1dbcc0886f7386",
+      "archive_sha256": "e52ab106f35c1376fe181a7172caaf11da86c2ba21f89af9236ddadc17cdfb43",
+      "license": "CC BY 4.0",
+      "license_source": "Zenodo REST metadata for record 20233505",
+      "qualification_status": "archive_bytes_and_member_inventory_pass_target_contents_open"
+    }
+  },
+  "inspection_boundary": {
+    "training_or_evaluation_outcomes_inspected": false,
+    "molgenbench_dataset_downloaded_for_this_study": true,
+    "permitted_source_scope": [
+      "repository identity and license",
+      "released code and test fixtures",
+      "RxnFlow example building-block and reaction fixtures",
+      "frozen target-panel receptor, pocket, and reference-ligand fixtures",
+      "Zenodo record metadata"
+    ]
+  }
+}

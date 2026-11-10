@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "source": {
+    "id": "snfinllm_2024_holdout",
+    "title": "SNFinLLM: Systematic and Nuanced Financial Domain Adaptation of Chinese Large Language Models",
+    "authors": [
+      "Shujuan Zhao",
+      "Lingfeng Qiao",
+      "Kangyang Luo",
+      "Qian-Wen Zhang",
+      "Junru Lu",
+      "Di Yin"
+    ],
+    "url": "https://arxiv.org/abs/2408.02302",
+    "version": "arXiv:2408.02302v1",
+    "released": "2024-08-05",
+    "evidence": "Table 1 and Sections 4.2--4.4"
+  },
+  "extraction": {
+    "status": "EXTRACTED_AFTER_PREDICTION_FREEZE",
+    "prediction_sha256": "4d343446e884c404ae9840a47f19e84452c15ebebe9a233228d23eb782c2ffc5",
+    "rules": [
+      "score only outcomes reported for at least two frozen same-lineage candidates",
+      "retain every reported regression",
+      "do not treat external comparison models or the unfrozen calculator variant as predicted candidates",
+      "do not impute blank base-stage instruction-task outcomes"
+    ]
+  },
+  "panels": [
+    {
+      "id": "fineval",
+      "target": "FinEval accuracy",
+      "unit": "percentage_points",
+      "scores": {
+        "original_general_base": 59.30,
+        "snfinllm_base_cpt": 63.94,
+        "snfinllm_chat_sft": 61.42,
+        "snfinllm_dpo": 59.43
+      }
+    },
+    {
+      "id": "financeiq",
+      "target": "FinanceIQ accuracy",
+      "unit": "percentage_points",
+      "scores": {
+        "original_general_base": 50.32,
+        "snfinllm_base_cpt": 54.32,
+        "snfinllm_chat_sft": 53.99,
+        "snfinllm_dpo": 52.28
+      }
+    },
+    {
+      "id": "qualification_exam_qa",
+      "target": "qualification ExamQA accuracy",
+      "unit": "percentage_points",
+      "scores": {
+        "snfinllm_chat_sft": 61.36,
+        "snfinllm_dpo": 65.33
+      }
+    },
+    {
+      "id": "finance_computing",
+      "target": "finance computing accuracy",
+      "unit": "percentage_points",
+      "scores": {
+        "snfinllm_chat_sft": 50.46,
+        "snfinllm_dpo": 48.46
+      }
+    },
+    {
+      "id": "knowledge_qa",
+      "target": "knowledge QA accuracy",
+      "unit": "percentage_points",
+      "scores": {
+        "snfinllm_chat_sft": 81.00,
+        "snfinllm_dpo": 79.00
+      }
+    },
+    {
+      "id": "domain_mrc",
+      "target": "domain MRC accuracy",
+      "unit": "percentage_points",
+      "scores": {
+        "snfinllm_chat_sft": 95.03,
+        "snfinllm_dpo": 94.44
+      }
+    },
+    {
+      "id": "complex_mrc",
+      "target": "complex MRC accuracy",
+      "unit": "percentage_points",
+      "scores": {
+        "snfinllm_chat_sft": 73.20,
+        "snfinllm_dpo": 72.08
+      }
+    }
+  ]
+}

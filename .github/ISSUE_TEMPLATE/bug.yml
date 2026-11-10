@@ -18,7 +18,7 @@ body:
   - type: textarea
     attributes:
       label: Environment
-      description: Include Anarres revision, Python version, and relevant backend versions. Do not include credentials.
+      description: Include the Anarres revision, CLI version, operating system, and relevant adapter or backend versions. Do not include credentials.
     validations:
       required: true
   - type: checkboxes

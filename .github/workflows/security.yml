@@ -1,6 +1,7 @@
 name: Security
 
 on:
+  pull_request:
   push:
     branches: [main]
   schedule:
@@ -13,6 +14,15 @@ permissions:
   security-events: write
 
 jobs:
+  rust-audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install cargo-audit
+        run: cargo install cargo-audit --version 0.22.2 --locked
+      - name: Audit Rust dependencies
+        run: cargo audit --file Cargo.lock
+
   codeql:
     runs-on: ubuntu-24.04
     steps:

@@ -1,0 +1,212 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "status": "version_3_measurement_qualified_version_3_bank_confirmation_failed_abstain",
+  "scientific_question": "Can measurements under one starting molecular graph policy predict which fixed replay experience bank will produce the greatest target-specific improvement at a matched generation and oracle budget?",
+  "source": {
+    "rxnflow_commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b",
+    "molgenbench_commit": "f7b6cec1892cb575dc3adee4f5a71ee16ef04c39",
+    "molgenbench_archive_sha256": "e52ab106f35c1376fe181a7172caaf11da86c2ba21f89af9236ddadc17cdfb43",
+    "rxnflow_building_blocks": 5000,
+    "rxnflow_unimolecular_reactions": 4,
+    "rxnflow_bimolecular_reactions": 26,
+    "rxnflow_synthon_types": 28
+  },
+  "starting_policy": {
+    "system": "RxnFlow v2.1.0",
+    "encoder": "released GINE-style message-passing encoder",
+    "warm_start": "one common QED warm start trained on the qualified public construction space",
+    "weights_artifact_identity": "sha256:effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a",
+    "initialization": "Load identical policy and sampling-model weights into a fresh target-reward trainer for every arm. Initialize fresh optimizer, scheduler, RNG, and replay state, then preload only the arm-specific frozen experience bank.",
+    "reused_across_all_intervention_arms": true,
+    "qed_optimizer_or_replay_state_reused": false
+  },
+  "target": {
+    "source": "MolGenBench Version4",
+    "qualification_panel": "Freeze eight complete target fixtures by ascending SHA-256 of reaction-target-panel-v1|target_id before reading fixture contents or running target probes.",
+    "selection": "Within the frozen eight-target panel, select one target by ascending SHA-256 of reaction-environment-selection-v1|target_id among targets that pass the frozen fixture, oracle-repeatability, reference-control, starting-policy validity, and pre-RL headroom gates.",
+    "qualification_panel_size": 8,
+    "qualification_panel_sha256": "d4024f9a65aba7a4d3027be4b67aedac7080bb3b545c1fa4378bab2d0a294fe7",
+    "selected_target": "Q07820",
+    "selection_result": "TARGET_SELECTION_RESULT.json",
+    "target_reward_contract": "TARGET_REWARD_CONTRACT_V3.json",
+    "selection_uses_outcomes": false,
+    "reference_active_outcomes_sealed_until_scoring": true,
+    "identity_status": "Q07820 selected by the frozen outcome-blind hash rule after all eight panel targets passed oracle and starting-policy qualification"
+  },
+  "intervention": {
+    "object": "preloaded replay experience bank",
+    "only_arm_specific_input": "experience-bank membership",
+    "fixed_across_arms": [
+      "starting-policy weights artifact",
+      "building-block catalog",
+      "reaction templates and compatibility rules",
+      "target reward",
+      "online sampling contract",
+      "online and replay batch sizes",
+      "zero online insertion into replay",
+      "optimizer and update schedule",
+      "generation and oracle budgets",
+      "evaluation contract"
+    ],
+    "common_action_space_required": true,
+    "common_reward_required": true,
+    "common_trainer_required": true,
+    "common_empty_state_before_bank_preload_required": true,
+    "static_replay_bank_required": true,
+    "rxnflow_num_replay_insert": 0
+  },
+  "candidate_panel": {
+    "development": [
+      {
+        "name": "hash_uniform",
+        "rule": "ascending deterministic hash over eligible starting-policy trajectories"
+      },
+      {
+        "name": "reward_signal",
+        "rule": "starting-policy reward signal with deterministic diversity and cost ties"
+      },
+      {
+        "name": "validity_cost",
+        "rule": "valid products and successful oracle calls per generated-action cost"
+      },
+      {
+        "name": "scaffold_coverage",
+        "rule": "greedy Bemis-Murcko scaffold and ring-system coverage"
+      },
+      {
+        "name": "route_coverage",
+        "rule": "greedy reaction-family and route-depth coverage"
+      },
+      {
+        "name": "graph_embedding_coverage",
+        "rule": "greedy farthest-first coverage in the frozen starting-policy graph representation"
+      }
+    ],
+    "prospective": [
+      {
+        "name": "operational_hybrid",
+        "rule": "frozen combination of reward signal, reliability, validity, and oracle cost"
+      },
+      {
+        "name": "graph_aware_hybrid",
+        "rule": "operational coordinates plus scaffold, ring-system, reaction, route, and graph-representation coverage"
+      }
+    ],
+    "equal_bank_size_required": true,
+    "membership_overlap_reported": true,
+    "molecule_identity_and_scaffold_overlap_reported": true,
+    "membership_status": "construction-view memberships recorded but not authorized because three of eight bank-order coordinates failed independent-view confirmation"
+  },
+  "measurement": {
+    "probe_views": 2,
+    "current_contract": "MEASUREMENT_CONTRACT_V4.json",
+    "operational_coordinates": [
+      "reward signal",
+      "measurement reliability",
+      "valid trajectory rate",
+      "valid product rate",
+      "successful oracle rate",
+      "generated-action cost",
+      "oracle wall time"
+    ],
+    "graph_coordinates": [
+      "effective Bemis-Murcko scaffold coverage",
+      "effective ring-system coverage",
+      "reaction-family coverage",
+      "route-depth distribution",
+      "molecular graph size and connectivity",
+      "effective coverage in the frozen graph representation"
+    ],
+    "reliability_gate": "Every predictor coordinate and the version 3 absolute and fractional diversity support gates must pass on two new independent views before candidate freeze.",
+    "failure_action": "abstain or version a new qualification protocol before training"
+  },
+  "training": {
+    "seeds": [20261108, 20261109],
+    "matched_budgets": 3,
+    "budget_unit": "generated molecular-action steps and target-oracle calls, both reported",
+    "replay_contract": "Each update combines the common number of fresh online trajectories with a common number sampled uniformly from the arm's frozen preloaded bank. Fresh online trajectories are not inserted into replay.",
+    "adaptive_stopping": false,
+    "outcome_driven_seed_replacement": false,
+    "exact_schedule_status": "open until smoke qualification"
+  },
+  "evaluation": {
+    "primary_outcome": "unique qualifying-hit rate on the frozen target",
+    "qualifying_hit_contract": [
+      "target docking threshold",
+      "molecular validity",
+      "drug-likeness and chemical filters",
+      "pose validity",
+      "maximum clash",
+      "maximum strain",
+      "minimum target interaction"
+    ],
+    "supporting_metrics": [
+      "docking score",
+      "QED",
+      "synthetic accessibility",
+      "uniqueness",
+      "molecular diversity",
+      "scaffold diversity",
+      "PoseBusters validity",
+      "strain energy",
+      "RMSD",
+      "interaction score",
+      "clash score",
+      "known-active recovery as an oracle audit"
+    ],
+    "decision_metrics": [
+      "prospective pair ordering at every budget",
+      "best-candidate accuracy",
+      "allocation regret",
+      "seed-level winner agreement",
+      "curve error and interval coverage",
+      "incremental value of the graph-aware representation"
+    ],
+    "open_gate": "All expected intervention-arm, budget, and seed artifacts pass identity, completeness, and infrastructure-validity checks."
+  },
+  "prospective_chronology": {
+    "before_development_training": [
+      "source and license audit",
+      "target identity",
+      "reward and oracle contract",
+      "starting checkpoint",
+      "development bank memberships",
+      "training and evaluation contract"
+    ],
+    "before_prospective_training": [
+      "operational and graph-aware predictor forms",
+      "prospective bank memberships",
+      "complete utility curves and ranking prediction",
+      "uncertainty and abstention rule"
+    ],
+    "outcomes_available_at_current_stage": false
+  },
+  "later_nested_study": {
+    "name": "GINE versus GPS encoder",
+    "status": "deferred until the first environment-selection loop is scored",
+    "reason": "The first graph claim concerns environment measurement and selection. Multiplying the initial panel across architectures would confound that decision and dilute the prospective test."
+  },
+  "open_gates": [
+    "new versioned measurement or bank-construction protocol before any development training"
+  ],
+  "sealed_boundary": {
+    "training_or_evaluation_outcomes_inspected": false,
+    "candidate_training_outcomes_exist": false,
+    "reference_active_results_opened": false,
+    "measurement_v1_scoring_aborted_before_candidate_measurement": true,
+    "measurement_v2_reliability_result": "failed only the prespecified 0.90 unique-fraction gate in both views; all other per-view and two-view checks passed",
+    "measurement_v3_views_drawn": true,
+    "measurement_v3_reliability_passed": true,
+    "development_bank_v1_result_non_authorizing": true,
+    "bank_confirmation_v2_scoring_failed_on_unsupported_boron_atom_type": true,
+    "bank_confirmation_view_20261124_redrawn": false,
+    "development_bank_v3_confirmation_passed": false,
+    "development_bank_v3_failed_coordinates": [
+      "mean_generated_action_count",
+      "mean_oracle_seconds",
+      "unique_scaffold_fraction"
+    ],
+    "development_training_started": false
+  }
+}

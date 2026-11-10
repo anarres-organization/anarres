@@ -1,0 +1,30 @@
+[workspace]
+members = ["cargo:."]
+
+# Config for 'dist'
+[dist]
+# The preferred dist version to use in CI (Cargo.toml SemVer syntax)
+cargo-dist-version = "0.33.0"
+# CI backends to support
+ci = "github"
+# Build every release artifact on pull requests before the first public release
+pr-run-mode = "upload"
+# Keep PR artifact builds within the repository's verified-action allowlist
+cache-builds = false
+# The installers to generate for each app
+installers = ["shell", "powershell", "homebrew"]
+# Target platforms to build apps for (Rust target-triple syntax)
+targets = ["aarch64-apple-darwin", "aarch64-unknown-linux-gnu", "x86_64-apple-darwin", "x86_64-unknown-linux-gnu", "x86_64-pc-windows-msvc"]
+# Path that installers should place binaries in
+install-path = "CARGO_HOME"
+# Where to host releases
+hosting = "github"
+# Bind published artifacts to the GitHub Actions build that produced them
+github-attestations = true
+# Whether to install an updater program
+install-updater = false
+
+[dist.github-custom-runners]
+# GitHub's native Apple Silicon image is unavailable to this organization.
+# Rust cross-compiles the arm64 binary on the supported Intel macOS runner.
+aarch64-apple-darwin = "macos-15-intel"

@@ -1,0 +1,34 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "common RxnFlow synthesis environment",
+  "qualification": "pass",
+  "source": {
+    "rxnflow_version": "2.1.0",
+    "rxnflow_commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b",
+    "building_block_catalog": "data/building_blocks/example_5k.smi",
+    "template_set": "data/templates/explore/config.yaml"
+  },
+  "preparation": {
+    "command_contract": "scripts/prepare.py with the public example catalog, the default explore template set, 30 heavy atoms per synthon, minimum library size 10, and no druglikeness prefilter",
+    "input_building_blocks": 5000,
+    "valid_building_blocks": 5000,
+    "converted_synthons": 5114,
+    "raw_synthon_libraries": 82,
+    "action_space_synthons": 5864,
+    "action_space_libraries": 45,
+    "prepared_file_count": 142,
+    "prepared_bytes": 1382061,
+    "elapsed_seconds": 10.7
+  },
+  "identity": {
+    "building_blocks_sha256": "0241e78f69ab5111080695aa5e1b5a6a06f33bb3a80c2fe84494b828bb51be95",
+    "rxnflow_content_sha256": "def699e5d284061daaabe58953e57df4e14fe537e2b132a1d7d1ffff706a49b3"
+  },
+  "authorization": "The common synthesis environment is qualified for the QED warm start. Warm-start training and starting-policy qualification remain open.",
+  "sealed_boundary": {
+    "training_outcomes_opened": false,
+    "target_training_started": false,
+    "candidate_memberships_frozen": false
+  }
+}

@@ -264,6 +264,60 @@ whether the target-affinity and curvature measurements capture the relevant
 transfer mechanism. The bank remains editable until these questions are
 resolved and the final membership hashes are serialized.
 
+## CLI profiles
+
+[`export_environment_profiles.py`](export_environment_profiles.py) projects
+the released candidate-bank measurements into content-addressed Anarres
+profiles. It verifies the exact source, model, target-role, overlap,
+measurement, and candidate-bank artifacts before writing any output. The
+profiles expose only measurements made before candidate training. Phonon
+outcomes, forecasts, and candidate rankings remain in their native study
+records.
+
+After `make setup`, install the native command and the study-local adapter from
+the repository root:
+
+```bash
+cargo install --path crates/anarres-cli --locked
+uv tool install \
+  ./experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter
+
+anarres adapter doctor materials
+anarres materials status --repository .
+anarres materials profile \
+  --repository . \
+  --output-dir .anarres/materials-mlip \
+  --candidate-id aimd-from-PBE-1000-npt__hash_uniform \
+  --candidate-id aimd-from-PBE-1000-npt__low_signal
+
+anarres qualify \
+  .anarres/materials-mlip/aimd-from-PBE-1000-npt__hash_uniform.profile-input.json
+anarres measure \
+  .anarres/materials-mlip/aimd-from-PBE-1000-npt__hash_uniform.profile-input.json \
+  --output .anarres/materials-mlip/hash-uniform.profile.json
+anarres measure \
+  .anarres/materials-mlip/aimd-from-PBE-1000-npt__low_signal.profile-input.json \
+  --output .anarres/materials-mlip/low-signal.profile.json
+anarres design \
+  .anarres/materials-mlip/hash-uniform.profile.json \
+  .anarres/materials-mlip/low-signal.profile.json
+anarres validate \
+  .anarres/materials-mlip/hash-uniform.profile.json \
+  .anarres/materials-mlip/low-signal.profile.json
+```
+
+Omitting `--candidate-id` exports all 48 candidates. The corresponding
+[measurement convention](../../../../docs/conventions/materials-mlip-candidate-measurement-v1.md)
+defines every coordinate, unit, estimator, and edge case. The final training
+panel remains unfrozen because processed atoms are matched while neighbor-edge
+cost still varies across candidates.
+
+The adapter can be invoked from outside the checkout by passing the repository
+explicitly with `--repository`. Its `status` and `verify` commands preserve the
+same measurement-only boundary and do not open candidate-training or protected
+phonon outcomes. The generic installation and execution contract is documented
+in the [CLI guide](../../../../docs/cli.md).
+
 ## Primary sources
 
 - [OMat24 dataset and paper](https://huggingface.co/datasets/facebook/OMAT24)

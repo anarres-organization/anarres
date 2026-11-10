@@ -1,0 +1,58 @@
+{
+  "schema_version": "3.0",
+  "study": "prospective-reaction-environment-selection",
+  "status": "frozen_after_v2_diversity_gate_failure_before_new_views_or_training",
+  "supersedes": "MEASUREMENT_CONTRACT_V2.json",
+  "preserved_result": "MEASUREMENT_RELIABILITY_RESULT_V2.json",
+  "selected_target": "Q07820",
+  "target_reward": "TARGET_REWARD_CONTRACT_V2.json",
+  "sampling": {
+    "attempts_per_view": 4096,
+    "batch_size": 128,
+    "seeds": [
+      20261122,
+      20261123
+    ],
+    "construction_view_seed": 20261122,
+    "confirmation_view_seed": 20261123,
+    "invalid_attempts_are_not_retried": true
+  },
+  "diversity_gate_revision": {
+    "motivation": "The version 2 views passed every signal, throughput, graph, and cross-view stability check but failed the 0.90 unique-fraction gate. Each still contained more than six times the unique products needed for one 512-member bank. The revised gate measures both absolute candidate support and protection against sampling collapse.",
+    "minimum_unique_canonical_products": 2048,
+    "minimum_unique_canonical_smiles_fraction": 0.8,
+    "decision_alignment": "The count gate requires at least four unique eligible-pool candidates per bank member before deduplication; the fraction gate rules out a duplicate-dominated sampler.",
+    "validation_rule": "Apply the revised gate to two new independent views. The failed version 2 views cannot qualify version 3."
+  },
+  "per_view_gates": {
+    "minimum_returned_valid_fraction": 0.95,
+    "minimum_unique_canonical_products": 2048,
+    "minimum_unique_canonical_smiles_fraction": 0.8,
+    "minimum_reward_eligible_fraction": 0.9,
+    "minimum_oracle_completion_fraction": 0.99,
+    "minimum_positive_reward_fraction": 0.75,
+    "minimum_reward_p90_minus_p10": 1.0,
+    "maximum_median_oracle_seconds": 30.0,
+    "maximum_p95_oracle_seconds": 120.0
+  },
+  "two_view_gates": {
+    "maximum_absolute_returned_valid_fraction_difference": 0.03,
+    "maximum_absolute_unique_fraction_difference": 0.03,
+    "maximum_absolute_reward_eligible_fraction_difference": 0.03,
+    "maximum_absolute_positive_reward_fraction_difference": 0.05,
+    "maximum_absolute_median_reward_difference": 0.25,
+    "maximum_absolute_reward_spread_difference": 0.35,
+    "maximum_absolute_mean_reaction_depth_difference": 0.1,
+    "maximum_reaction_family_js_divergence": 0.05,
+    "maximum_absolute_scaffold_singleton_fraction_difference": 0.05,
+    "minimum_graph_embedding_centroid_cosine_similarity": 0.995,
+    "maximum_relative_graph_embedding_effective_rank_difference": 0.1
+  },
+  "unchanged_requirements": "All remaining per-view gates, two-view gates, target scoring semantics, graph measurements, bank size, construction rules, and confirmation thresholds remain as frozen in MEASUREMENT_CONTRACT.json, MEASUREMENT_CONTRACT_V2.json, and BANK_CONSTRUCTION_CONTRACT.json.",
+  "sealed_boundary": {
+    "version_3_views_drawn": false,
+    "development_bank_memberships_frozen": false,
+    "target_training_started": false,
+    "training_outcomes_opened": false
+  }
+}

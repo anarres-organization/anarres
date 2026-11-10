@@ -1,0 +1,27 @@
+{
+  "abstentions": {
+    "base_vs_finance_language": {
+      "decision": "abstain",
+      "interpretation": "the representation avoided a false preference but did not select the clearly safer base model",
+      "observed_winner": "base"
+    },
+    "count": 1
+  },
+  "diagnosis": {
+    "evidence": "numeracy data improved constrained calculation but reinforced unsupported numerical generation during summarization",
+    "missing_coordinate": "behavioral contract and grounding-discipline alignment",
+    "representation_change": "separate task-content alignment from alignment with grounded generation, abstention, and output constraints"
+  },
+  "directional_accuracy": 0.0,
+  "directional_comparisons": 4,
+  "freeze_commit": "50c6583",
+  "frozen_prediction_count": 3,
+  "full_recipe_prediction_correct_by_level": {
+    "L1": false,
+    "L2": false,
+    "L3": false
+  },
+  "primary_prediction_correct": false,
+  "schema_version": 1,
+  "status": "SCORED_AFTER_FREEZE"
+}

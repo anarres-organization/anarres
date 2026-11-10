@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "feature_names": ["quality_control", "retention_control", "verifier_alignment", "policy_relative_difficulty", "out_of_domain_mix", "raw_volume_only", "sft_stage", "rl_stage", "data_fraction"],
+  "panels": [
+    {
+      "study_id": "oda_fin", "panel_id": "oda_qwen25_sft", "metric": "nine-benchmark average", "baseline": "base",
+      "arms": [
+        {"id":"base","score":68.0,"features":[0,0,0,0,0,0,0,0,0]},
+        {"id":"raw_698k","score":70.8,"features":[0,0,0,0,0,1,1,0,1]},
+        {"id":"partial_cot_192k","score":69.2,"features":[0.5,0,0,0,0,0,1,0,0.275]},
+        {"id":"distilled_cot_318k","score":71.0,"features":[1,0,0,0,0,0,1,0,0.456]}
+      ]
+    },
+    {
+      "study_id": "oda_fin", "panel_id": "oda_qwen3_sft", "metric": "nine-benchmark average", "baseline": "base",
+      "arms": [
+        {"id":"base","score":71.5,"features":[0,0,0,0,0,0,0,0,0]},
+        {"id":"raw_697k","score":66.1,"features":[0,0,0,0,0,1,1,0,1]},
+        {"id":"partial_cot_192k","score":69.1,"features":[0.5,0,0,0,0,0,1,0,0.275]},
+        {"id":"distilled_plus_general_math","score":67.6,"features":[0.8,0,0,0,1,0,1,0,0.46]},
+        {"id":"distilled_plus_table_calculation","score":66.0,"features":[0.8,0,0,0,0,0,1,0,0.457]},
+        {"id":"distilled_cot_318k","score":72.1,"features":[1,0,0,0,0,0,1,0,0.456]}
+      ]
+    },
+    {
+      "study_id": "oda_fin", "panel_id": "oda_rl_from_sft", "metric": "nine-benchmark average", "baseline": "sft",
+      "arms": [
+        {"id":"sft","score":72.1,"features":[1,0,0,0,0,0,1,0,0]},
+        {"id":"rule_1token_6k","score":73.3,"features":[1,0,0.5,1,0,0,1,1,0.24]},
+        {"id":"model_1token_6k","score":74.3,"features":[1,0,1,1,0,0,1,1,0.249]},
+        {"id":"model_128token_25k","score":73.1,"features":[1,0,0.25,1,0,0,1,1,1]},
+        {"id":"model_16token_12k","score":74.6,"features":[1,0,0.8,1,0,0,1,1,0.49]}
+      ]
+    },
+    {
+      "study_id": "fino1", "panel_id": "fino1_sft", "metric": "four-benchmark average", "baseline": "base",
+      "arms": [
+        {"id":"base","score":52.28,"features":[0,0,0,0,0,0,0,0,0]},
+        {"id":"original_qa","score":51.92,"features":[0,0,0,0,0,1,1,0,0]},
+        {"id":"all_cot","score":56.28,"features":[0.7,0,0,0,0,0,1,0,1]},
+        {"id":"filtered_cot","score":58.58,"features":[1,0,0,1,0,0,1,0,0.6]}
+      ]
+    },
+    {
+      "study_id": "fino1", "panel_id": "fino1_rl", "metric": "four-benchmark average", "baseline": "filtered_sft",
+      "arms": [
+        {"id":"filtered_sft","score":58.58,"features":[1,0,0,1,0,0,1,0,0]},
+        {"id":"ppo","score":58.10,"features":[1,0,0.5,1,0,0,1,1,0]},
+        {"id":"dpo","score":54.49,"features":[1,0,0.25,1,0,0,1,1,0]},
+        {"id":"grpo","score":59.95,"features":[1,0,1,1,0,0,1,1,0]}
+      ]
+    },
+    {
+      "study_id": "data_centric_finance", "panel_id": "dc_qwen35_4b", "metric": "FINESSE-Bench accuracy", "baseline": "base",
+      "arms": [
+        {"id":"base","score":75.2,"features":[0,0,0,0,0,0,0,0,0]},
+        {"id":"ordinary_sft","score":72.0,"features":[0.5,0,0,0,0,1,1,0,1]},
+        {"id":"self_distilled_sft","score":78.0,"features":[0.8,1,0,0,0,0,1,0,1]},
+        {"id":"linear_merge","score":76.1,"features":[0.5,0.8,0,0,0,0,1,0,1]}
+      ]
+    },
+    {
+      "study_id": "data_centric_finance", "panel_id": "dc_gemma12b", "metric": "FINESSE-Bench accuracy", "baseline": "base",
+      "arms": [
+        {"id":"base","score":77.5,"features":[0,0,0,0,0,0,0,0,0]},
+        {"id":"ordinary_sft","score":73.5,"features":[0.5,0,0,0,0,1,1,0,1]},
+        {"id":"self_distilled_sft","score":79.2,"features":[0.8,1,0,0,0,0,1,0,1]},
+        {"id":"hard_sample_grpo","score":79.6,"features":[0.8,1,1,1,0,0,1,1,1]}
+      ]
+    },
+    {
+      "study_id": "data_centric_finance", "panel_id": "dc_qwen35_35b", "metric": "FINESSE-Bench accuracy", "baseline": "base",
+      "arms": [
+        {"id":"base","score":84.2,"features":[0,0,0,0,0,0,0,0,0]},
+        {"id":"self_distilled_sft","score":85.2,"features":[0.8,1,0,0,0,0,1,0,1]}
+      ]
+    },
+    {
+      "study_id": "data_centric_finance", "panel_id": "dc_verifiable_grpo", "metric": "FINESSE-Bench accuracy", "baseline": "base_1p7b",
+      "arms": [
+        {"id":"base_1p7b","score":56.0,"features":[0,0,0,0,0,0,0,0,0]},
+        {"id":"verifiable_grpo_1p7b","score":59.0,"features":[0,0,1,0,0,0,0,1,1]}
+      ]
+    },
+    {
+      "study_id": "data_centric_finance", "panel_id": "dc_verifiable_grpo_4b", "metric": "FINESSE-Bench accuracy", "baseline": "base_4b",
+      "arms": [
+        {"id":"base_4b","score":61.0,"features":[0,0,0,0,0,0,0,0,0]},
+        {"id":"verifiable_grpo_4b","score":64.0,"features":[0,0,1,0,0,0,0,1,1]}
+      ]
+    },
+    {
+      "study_id": "quanteval", "panel_id": "quanteval_reasoning", "metric": "QuantEval reasoning accuracy", "baseline": "base",
+      "arms": [
+        {"id":"base","score":42.8,"features":[0,0,0,0,0,0,0,0,0]},
+        {"id":"sft_25pct","score":44.5,"features":[0.5,0,0,0,0,0,1,0,0.25]},
+        {"id":"sft_50pct","score":46.2,"features":[0.5,0,0,0,0,0,1,0,0.5]},
+        {"id":"sft_100pct","score":47.8,"features":[0.5,0,0,0,0,0,1,0,1]},
+        {"id":"sft_100pct_grpo","score":48.4,"features":[0.5,0,1,0,0,0,1,1,1]}
+      ]
+    },
+    {
+      "study_id": "quanteval", "panel_id": "quanteval_knowledge", "metric": "QuantEval knowledge accuracy", "baseline": "base",
+      "arms": [
+        {"id":"base","score":50.3,"features":[0,0,0,0,0,0,0,0,0]},
+        {"id":"sft_25pct","score":51.2,"features":[0.5,0,0,0,0,0,1,0,0.25]},
+        {"id":"sft_50pct","score":52.4,"features":[0.5,0,0,0,0,0,1,0,0.5]},
+        {"id":"sft_100pct","score":53.2,"features":[0.5,0,0,0,0,0,1,0,1]},
+        {"id":"sft_100pct_grpo","score":52.2,"features":[0.5,0,1,0,0,0,1,1,1]}
+      ]
+    }
+  ]
+}

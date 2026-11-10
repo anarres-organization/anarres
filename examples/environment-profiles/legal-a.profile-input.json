@@ -1,0 +1,140 @@
+{
+  "schema_version": "anarres.environment-profile-input.v1",
+  "environment_id": "synthetic-legal-candidate-a",
+  "domain": "legal-procedural-reasoning",
+  "subject": {
+    "kind": "policy-agent",
+    "id": "synthetic-legal-policy",
+    "revision": "fixture-v1"
+  },
+  "producer": {
+    "kind": "domain-adapter",
+    "id": "synthetic-legal-policy-response-adapter",
+    "revision": "fixture-v1"
+  },
+  "source": {
+    "uri": "fixture://legal/candidate-a",
+    "revision": "fixture-v1",
+    "license": "CC0-1.0"
+  },
+  "measurement_contract": {
+    "kind": "legal-policy-response-probe",
+    "id": "synthetic-legal-policy-response-v1",
+    "revision": "v1",
+    "repetitions": 8,
+    "cost_unit": "model_tokens"
+  },
+  "qualification_checks": [
+    {
+      "check_id": "verifier-valid",
+      "category": "verifier",
+      "status": "pass",
+      "severity": "error",
+      "summary": "The deterministic verifier passed its declared controls."
+    },
+    {
+      "check_id": "missingness-audited",
+      "category": "measurement",
+      "status": "pass",
+      "severity": "error",
+      "summary": "Expected and observed measurements were reconciled before aggregation."
+    }
+  ],
+  "coordinates": [
+    {
+      "name": "readiness_fraction",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/legal-policy-response-v1.md#readiness_fraction",
+        "revision": "v1-development"
+      },
+      "role": "legal.policy_readiness",
+      "value": 0.46,
+      "unit": "fraction",
+      "direction": "contextual",
+      "estimator": "fraction satisfying the fixture readiness rule",
+      "sample_count": 256
+    },
+    {
+      "name": "eligible_response_fraction",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/legal-policy-response-v1.md#eligible_response_fraction",
+        "revision": "v1-development"
+      },
+      "role": "signal",
+      "value": 0.72,
+      "unit": "fraction",
+      "direction": "contextual",
+      "estimator": "fraction eligible under the fixture response contract",
+      "sample_count": 2048
+    },
+    {
+      "name": "reward_discrimination",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/legal-policy-response-v1.md#reward_discrimination",
+        "revision": "v1-development"
+      },
+      "role": "signal",
+      "value": 0.31,
+      "unit": "normalized_score",
+      "direction": "contextual",
+      "estimator": "fixture verifier-outcome separation",
+      "sample_count": 256
+    },
+    {
+      "name": "mean_token_cost",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/legal-policy-response-v1.md#mean_token_cost",
+        "revision": "v1-development"
+      },
+      "role": "cost",
+      "value": 1840.0,
+      "unit": "model_tokens_per_response",
+      "direction": "lower",
+      "estimator": "arithmetic mean over valid fixture responses",
+      "sample_count": 2048
+    },
+    {
+      "name": "truncation_rate",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/legal-policy-response-v1.md#truncation_rate",
+        "revision": "v1-development"
+      },
+      "role": "reliability",
+      "value": 0.08,
+      "unit": "fraction",
+      "direction": "lower",
+      "estimator": "fraction externally truncated",
+      "sample_count": 2048
+    },
+    {
+      "name": "measurement_reliability",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/legal-policy-response-v1.md#measurement_reliability",
+        "revision": "v1-development"
+      },
+      "role": "reliability",
+      "value": 0.84,
+      "unit": "normalized_score",
+      "direction": "higher",
+      "estimator": "agreement across independent fixture views",
+      "sample_count": 256
+    },
+    {
+      "name": "missingness_rate",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/legal-policy-response-v1.md#missingness_rate",
+        "revision": "v1-development"
+      },
+      "role": "reliability",
+      "value": 0.01,
+      "unit": "fraction",
+      "direction": "lower",
+      "estimator": "missing expected fixture measurements",
+      "sample_count": 2048
+    }
+  ],
+  "attributes": {
+    "coverage_floor_mass": 0.25,
+    "synthetic_fixture": true
+  }
+}

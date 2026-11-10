@@ -1,0 +1,17 @@
+[project]
+name = "anarres-finance"
+version = "0.1.0"
+description = "Domain adapter and reproducibility commands for Anarres finance studies"
+requires-python = ">=3.11"
+dependencies = ["anarres-environments"]
+license = { text = "Apache-2.0" }
+
+[project.scripts]
+anarres-finance = "anarres.finance.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/anarres"]

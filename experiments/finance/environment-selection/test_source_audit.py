@@ -32,6 +32,25 @@ class FinanceSourceAuditTest(unittest.TestCase):
         self.assertEqual(len(construction), 1)
         self.assertEqual(len(construction[0]["revision"]), 40)
 
+    def test_claim_bearing_dependencies_are_pinned(self):
+        roles = {
+            "construction_candidate",
+            "starting_policy_qualification_candidate",
+            "multi_turn_training_runtime_candidate",
+        }
+        dependencies = [source for source in self.sources["sources"] if source["role"] in roles]
+        self.assertEqual(
+            {source["id"] for source in dependencies},
+            {
+                "business_bench",
+                "qwen3_8b",
+                "qwen3_30b_a3b_instruct_2507",
+                "qwen3_coder_30b_a3b_instruct",
+                "nemo_rl",
+            },
+        )
+        self.assertTrue(all(len(source["revision"]) == 40 for source in dependencies))
+
 
 if __name__ == "__main__":
     unittest.main()

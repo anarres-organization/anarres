@@ -1,0 +1,125 @@
+{
+  "candidates": {
+    "all_data": {
+      "coordinates": {
+        "mean_cupid_rank_percentile": 0.5,
+        "mean_demonstration_action_steps": 209.18666666666667,
+        "measurement_rank_reliability": 0.21357941014159412,
+        "operator_tier_effective_coverage": 1.0
+      },
+      "count": 300,
+      "membership_sha256": "f53125efd5b673995e7985e1d111d5507840e71e81bd6fbdac84cdb1247c94e6",
+      "tier_counts": {
+        "better": 100,
+        "okay": 100,
+        "worse": 100
+      }
+    },
+    "cupid_50": {
+      "coordinates": {
+        "mean_cupid_rank_percentile": 0.6651950947603121,
+        "mean_demonstration_action_steps": 191.77333333333334,
+        "measurement_rank_reliability": 0.21357941014159412,
+        "operator_tier_effective_coverage": 0.9904912836767037
+      },
+      "count": 150,
+      "membership_sha256": "9cb436e0dc29ae4fe5e2612039ea0c004a5359c4fe706f47451238d8b90876f7",
+      "tier_counts": {
+        "better": 56,
+        "okay": 50,
+        "worse": 44
+      }
+    },
+    "cupid_tier_balanced_50": {
+      "coordinates": {
+        "mean_cupid_rank_percentile": 0.6631289483463396,
+        "mean_demonstration_action_steps": 198.00666666666666,
+        "measurement_rank_reliability": 0.21357941014159412,
+        "operator_tier_effective_coverage": 1.0
+      },
+      "count": 150,
+      "membership_sha256": "edd16dec45f7d1806390f61ff19fec5ad76a64adf5cbf8278558084c1d6509a5",
+      "tier_counts": {
+        "better": 50,
+        "okay": 50,
+        "worse": 50
+      }
+    },
+    "length_50": {
+      "coordinates": {
+        "mean_cupid_rank_percentile": 0.5233147528799702,
+        "mean_demonstration_action_steps": 139.89333333333335,
+        "measurement_rank_reliability": 0.21357941014159412,
+        "operator_tier_effective_coverage": 0.7005417522884364
+      },
+      "count": 150,
+      "membership_sha256": "f23e26b15f5a311c2db2ddf207d468984a1afbd848525053789a3411e553f0a7",
+      "tier_counts": {
+        "better": 89,
+        "okay": 52,
+        "worse": 9
+      }
+    },
+    "random_50": {
+      "coordinates": {
+        "mean_cupid_rank_percentile": 0.4859160163507991,
+        "mean_demonstration_action_steps": 217.28666666666666,
+        "measurement_rank_reliability": 0.21357941014159412,
+        "operator_tier_effective_coverage": 0.9965453095934095
+      },
+      "count": 150,
+      "membership_sha256": "461a7ac7a0cf829ba84bcf98700804874a0a10a6694b5fc5364e97088f63edb7",
+      "tier_counts": {
+        "better": 46,
+        "okay": 53,
+        "worse": 51
+      }
+    }
+  },
+  "decision": "cupid_tier_balanced_50",
+  "measurement": {
+    "canonical_aggregation": "sum_of_sum-net-all",
+    "demonstrations": 300,
+    "mean_pairwise_spearman": 0.21357941014159412,
+    "mean_pairwise_top_half_jaccard": 0.4130048684677908,
+    "pairwise_spearman": [
+      0.26948877209746774,
+      0.17696952188357648,
+      0.19427993644373825
+    ],
+    "pairwise_top_half_jaccard": [
+      0.42857142857142855,
+      0.3953488372093023,
+      0.41509433962264153
+    ],
+    "reliability_gate_passed": true,
+    "scoring_checkpoints": 3
+  },
+  "native_inputs": {
+    "candidate_freeze_sha256": "3b3b34e544dd5a1ce0740fb534a7fb0f5213f89173e657e6889b9e9e16ff5c8f",
+    "metadata_sha256": "c09865b9726aee94f404f9061b903cc1469677e34f8c9836352ba00f39864f04",
+    "protocol_sha256": "3067b648911ad8943e068f37c210333f15d9847bc18b14c7d912eff0c6da9543",
+    "qualification_sha256": "06d1874a9f2623039efbcfe082a7db75c459926f8b149d4a21f54bb8bb900249",
+    "score_sha256": {
+      "scores_can_seed1.json": "cb7c905a9890f69bf0c450606dd0702b7fca563915f49fa34451901b0867d82f",
+      "scores_can_seed2.json": "f790676cb101b6cb9f314c7d8cb819fbacb20ae1424ede22cae1592d21884795",
+      "scores_can_seed3.json": "0d18a60f16edd8a033bf50c01b5d003dc018ae906c008b387606f54a69b8b33c"
+    }
+  },
+  "outcomes_read": false,
+  "prepared_dataset_sha256": "eb00660546abd5f4ca4dd3497569095be68e4455b921fe46363d458645bb9312",
+  "schema_version": "anarres.robotics-cupid-candidate-measurements.v1",
+  "source_dataset_sha256": "b6ceaed84c0335613a5001c900493b226481c132c792ec2cbdb99cb12c62baf0",
+  "status": "PRE_OUTCOME_MEASUREMENTS_COMPLETE__CANDIDATE_OUTCOMES_UNOPENED",
+  "study_id": "prospective_cupid_can_v141_v2",
+  "subject": {
+    "checkpoint_sha256": [
+      "599ad3be6a2af91a4dd1dd2c9aae7e6d0812eb7ebbfe0bb3f6ef67afeb2c5a8b",
+      "c16643c9812be9a2bdca9be30181892ba4c0af1393a27443a4c85d096844f30e",
+      "885d4650008edd39dcabbb827b976793f418038bf76301437f3f8205ccce89d3"
+    ],
+    "id": "robomimic-diffusion-policy-can-v141-scoring-ensemble",
+    "kind": "policy-ensemble",
+    "revision": "sha256:2bfd6ce172c022e1a066039947ad866a6b2cd14d73613bd418d1fd7fda668750"
+  }
+}

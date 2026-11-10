@@ -1,0 +1,35 @@
+{
+  "schema_version": "4.0",
+  "study": "prospective-reaction-environment-selection",
+  "status": "frozen_after_vina_unsupported_atom_type_failure_before_completed_bank_confirmation_or_training",
+  "supersedes": "MEASUREMENT_CONTRACT_V3.json",
+  "preserved_result": "MEASUREMENT_RELIABILITY_RESULT_V3.json",
+  "selected_target": "Q07820",
+  "target_reward": "TARGET_REWARD_CONTRACT_V3.json",
+  "sampling": {
+    "attempts_per_view": 4096,
+    "batch_size": 128,
+    "reliability_view_seeds": [
+      20261122,
+      20261123
+    ],
+    "construction_view_seed": 20261122,
+    "bank_confirmation_view_seed": 20261124,
+    "invalid_attempts_are_not_retried": true,
+    "sampled_views_are_not_redrawn": true
+  },
+  "compatibility_audit": {
+    "construction_view_20261122_unsupported_atom_type_records": 0,
+    "reliability_view_20261123_unsupported_atom_type_records": 0,
+    "bank_confirmation_view_20261124_unsupported_atom_type_records": 3,
+    "construction_measurements_change_under_v4": false,
+    "measurement_reliability_result_change_under_v4": false
+  },
+  "unchanged_requirements": "All diversity, signal, throughput, graph, and cross-view gates remain as frozen in MEASUREMENT_CONTRACT_V3.json. The sampled records, construction bank memberships, bank selectors, bank size, confirmation statistic, and confirmation threshold remain unchanged.",
+  "sealed_boundary": {
+    "bank_confirmation_view_20261124_drawn": true,
+    "bank_confirmation_result_exists": false,
+    "development_training_started": false,
+    "training_outcomes_opened": false
+  }
+}

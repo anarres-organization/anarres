@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "status": "formula_frozen_target_identity_open",
+  "scope": "target-specific terminal reward for RxnFlow training",
+  "precedent": {
+    "source": "official RxnFlow ICLR branch",
+    "commit": "20ade254d1b105a11728cb79319f7c889ecd09ce",
+    "single_objective_file_sha256": "4d6f244308393585d7ad44bc4f646f2265e965bf90c981c66d583c77d38cd529",
+    "multi_objective_file_sha256": "6b63e28de28bfefff29b8d00780765a8598a5edd81a6c0fda586e9e4334dcdea",
+    "relationship": "The official task converts lower Vina affinity into larger-is-better reward and multiplies docking reward by QED in its product-based multi-objective example."
+  },
+  "formula": {
+    "docking_component": "max(-vina_affinity, 0)",
+    "drug_likeness_component": "QED",
+    "terminal_reward": "max(-vina_affinity, 0) * QED",
+    "larger_is_better": true,
+    "finite_nonnegative_required": true
+  },
+  "eligibility": {
+    "valid_rdkit_molecule": true,
+    "maximum_exact_molecular_weight": 500.0,
+    "maximum_hydrogen_bond_donors": 5,
+    "maximum_hydrogen_bond_acceptors": 10,
+    "maximum_logp": 5.0,
+    "maximum_tpsa": 140.0,
+    "maximum_rotatable_bonds": 10,
+    "ineligible_scientific_reward": 0.0
+  },
+  "docking": {
+    "implementation": "MolGenBench pinned in ORACLE_CONTRACT.json",
+    "seed": 20261108,
+    "exhaustiveness": 8,
+    "pose_count": 1,
+    "reference_ligand_defines_box": true,
+    "box_buffer_angstrom": 5.0,
+    "per_molecule_timeout_seconds": 300
+  },
+  "failure_semantics": {
+    "invalid_molecule": "scientific zero with explicit reason",
+    "eligibility_filter_failure": "scientific zero with explicit reason",
+    "ligand_preparation_failure": "infrastructure failure",
+    "receptor_preparation_failure": "infrastructure failure",
+    "docking_timeout": "infrastructure failure",
+    "docking_process_failure": "infrastructure failure",
+    "batch_policy": "abort the affected batch and preserve failure evidence; never convert infrastructure failure to scientific zero"
+  },
+  "fixed_across_arms": true,
+  "open_fields": [
+    "final target identity",
+    "prepared receptor artifact hash",
+    "reference ligand artifact hash",
+    "starting-policy reward distribution",
+    "training schedule"
+  ],
+  "sealed_boundary": {
+    "training_outcomes_opened": false,
+    "candidate_memberships_frozen": false,
+    "formula_selected_without_post_training_outcomes": true
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_EXACT_OUTCOME_EXTRACTION",
+  "source": {
+    "title": "When Financial Fine-tuning Fails: A Three-Level Detectability Analysis of Numerical Hallucination in Domain-Adapted Language Models",
+    "official_url": null,
+    "source_verification": "pending"
+  },
+  "development_evidence_excluded": [
+    "source outcome tables",
+    "source figures",
+    "source conclusions beyond the title and intervention description"
+  ],
+  "representation": {
+    "artifact": "../strict-task-level/SCORE.json",
+    "task_unit": "candidate-target pair",
+    "coordinates": [
+      "target alignment",
+      "quality control",
+      "retention control",
+      "verifier alignment",
+      "policy-relative selection",
+      "coverage and volume"
+    ]
+  },
+  "predictions": [
+    {
+      "id": "volume_matched_numeracy_vs_language",
+      "target": "numerical faithfulness",
+      "preferred": "financial QA and numeracy supervision",
+      "control": "finance-language adaptation",
+      "decision": "prefer",
+      "priority": "primary",
+      "rationale": "explicit target supervision differs while reported training volume is matched"
+    },
+    {
+      "id": "full_recipe_numeracy_vs_language",
+      "target": "numerical faithfulness",
+      "preferred": "financial QA and numeracy supervision",
+      "control": "finance-language adaptation",
+      "decision": "prefer",
+      "priority": "secondary",
+      "rationale": "explicit target supervision is stronger, but recipe volume may differ"
+    },
+    {
+      "id": "language_vs_base",
+      "target": "numerical faithfulness",
+      "preferred": null,
+      "control": null,
+      "decision": "abstain",
+      "priority": "secondary",
+      "rationale": "finance-language alignment does not imply numerical retention"
+    }
+  ],
+  "scoring": {
+    "primary": "directional accuracy on the volume-matched comparison",
+    "secondary": [
+      "directional accuracy on the full-recipe comparison",
+      "validity of the base-versus-language abstention across reported numerical targets"
+    ]
+  },
+  "guardrails": [
+    "the source is excluded from all fitting and feature design",
+    "method names receive no direct credit",
+    "outcomes will be recorded in source-native units",
+    "any unavailable comparison will remain unscored"
+  ]
+}

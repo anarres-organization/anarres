@@ -1,0 +1,185 @@
+{
+  "schema_version": "anarres.environment-profile-input.v1",
+  "environment_id": "synthetic-robotics-candidate-a",
+  "domain": "robotics-manipulation",
+  "subject": {
+    "kind": "policy",
+    "id": "synthetic-starting-policy",
+    "revision": "fixture-v1"
+  },
+  "producer": {
+    "kind": "domain-adapter",
+    "id": "synthetic-robotics-adapter",
+    "revision": "fixture-v1"
+  },
+  "source": {
+    "uri": "fixture://robotics/candidate-a",
+    "revision": "fixture-v1",
+    "license": "CC0-1.0"
+  },
+  "measurement_contract": {
+    "kind": "episodic-policy-probe",
+    "id": "synthetic-robotics-probe",
+    "revision": "v1",
+    "repetitions": 8,
+    "cost_unit": "action_steps"
+  },
+  "qualification_checks": [
+    {
+      "check_id": "episode-outcomes-complete",
+      "category": "measurement",
+      "status": "pass",
+      "severity": "error",
+      "summary": "Every episode records success, termination, truncation, and action steps."
+    },
+    {
+      "check_id": "runtime-valid",
+      "category": "infrastructure",
+      "status": "pass",
+      "severity": "error",
+      "summary": "All retained episodes completed under the declared runtime contract."
+    }
+  ],
+  "coordinates": [
+    {
+      "name": "target_relevance",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/robotics-episode-probe-v1.md#target_relevance",
+        "revision": "v1-development"
+      },
+      "role": "target_affinity",
+      "value": 0.78,
+      "unit": "normalized_score",
+      "direction": "higher",
+      "estimator": "fixture target-state similarity",
+      "sample_count": 20
+    },
+    {
+      "name": "policy_weakness",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/robotics-episode-probe-v1.md#policy_weakness",
+        "revision": "v1-development"
+      },
+      "role": "robotics.policy_frontier",
+      "value": 0.35,
+      "unit": "normalized_score",
+      "direction": "contextual",
+      "estimator": "fixture starting-policy failure score",
+      "sample_count": 160
+    },
+    {
+      "name": "selection_coverage",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/robotics-episode-probe-v1.md#selection_coverage",
+        "revision": "v1-development"
+      },
+      "role": "coverage",
+      "value": 0.7,
+      "unit": "normalized_score",
+      "direction": "higher",
+      "estimator": "fixture effective state-cluster coverage",
+      "sample_count": 160
+    },
+    {
+      "name": "quality_correction",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/robotics-episode-probe-v1.md#quality_correction",
+        "revision": "v1-development"
+      },
+      "role": "robotics.data_quality",
+      "value": 0.18,
+      "unit": "normalized_score",
+      "direction": "contextual",
+      "estimator": "fixture quality-filter adjustment",
+      "sample_count": 160
+    },
+    {
+      "name": "measurement_reliability",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/robotics-episode-probe-v1.md#measurement_reliability",
+        "revision": "v1-development"
+      },
+      "role": "reliability",
+      "value": 0.9,
+      "unit": "normalized_score",
+      "direction": "higher",
+      "estimator": "agreement across independent fixture views",
+      "sample_count": 20
+    },
+    {
+      "name": "missingness_rate",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/robotics-episode-probe-v1.md#missingness_rate",
+        "revision": "v1-development"
+      },
+      "role": "reliability",
+      "value": 0.02,
+      "unit": "fraction",
+      "direction": "lower",
+      "estimator": "missing expected fixture measurements",
+      "sample_count": 160
+    },
+    {
+      "name": "episode_success_variation",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/robotics-episode-probe-v1.md#episode_success_variation",
+        "revision": "v1-development"
+      },
+      "role": "signal",
+      "value": 0.24,
+      "unit": "bernoulli_variance",
+      "direction": "contextual",
+      "estimator": "mean per-task Bernoulli variance over repeated episodes",
+      "sample_count": 160,
+      "uncertainty": {
+        "kind": "bootstrap-interval",
+        "lower": 0.19,
+        "upper": 0.28,
+        "level": 0.9
+      }
+    },
+    {
+      "name": "mixed_task_coverage",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/robotics-episode-probe-v1.md#mixed_task_coverage",
+        "revision": "v1-development"
+      },
+      "role": "coverage",
+      "value": 0.42,
+      "unit": "fraction",
+      "direction": "higher",
+      "estimator": "fraction of tasks with both successful and unsuccessful episodes",
+      "sample_count": 20
+    },
+    {
+      "name": "mean_action_steps",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/main/docs/conventions/robotics-episode-probe-v1.md#mean_action_steps",
+        "revision": "v1-development"
+      },
+      "role": "cost",
+      "value": 118.5,
+      "unit": "action_steps_per_episode",
+      "direction": "lower",
+      "estimator": "arithmetic mean over valid episodes",
+      "sample_count": 160
+    }
+  ],
+  "artifacts": [
+    {
+      "role": "native-measurements",
+      "reference": {
+        "uri": "fixture://robotics/candidate-a/episodes.json",
+        "sha256": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "media_type": "application/json",
+        "size_bytes": 0,
+        "license": "CC0-1.0",
+        "producing_run": "synthetic-fixture-a"
+      }
+    }
+  ],
+  "attributes": {
+    "synthetic_fixture": true,
+    "terminated_and_truncated_separate": true
+  }
+}

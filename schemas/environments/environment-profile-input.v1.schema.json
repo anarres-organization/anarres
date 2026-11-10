@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anarres.science/schemas/environments/environment-profile-input.v1.schema.json",
+  "title": "Anarres environment profile input v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "environment_id",
+    "domain",
+    "subject",
+    "producer",
+    "source",
+    "measurement_contract",
+    "qualification_checks",
+    "coordinates"
+  ],
+  "properties": {
+    "schema_version": {"const": "anarres.environment-profile-input.v1"},
+    "environment_id": {"type": "string", "minLength": 1},
+    "domain": {"type": "string", "minLength": 1},
+    "subject": {"$ref": "#/$defs/versionedIdentity"},
+    "producer": {"$ref": "#/$defs/versionedIdentity"},
+    "source": {"$ref": "#/$defs/source"},
+    "measurement_contract": {"$ref": "#/$defs/measurementContract"},
+    "qualification_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/qualificationCheck"}
+    },
+    "coordinates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/coordinate"}
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/profileArtifact"}
+    },
+    "attributes": {
+      "type": "object",
+      "additionalProperties": {"type": ["string", "number", "boolean"]}
+    }
+  },
+  "$defs": {
+    "versionedIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id", "revision"],
+      "properties": {
+        "kind": {"type": "string", "minLength": 1},
+        "id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1}
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["uri", "revision", "license"],
+      "properties": {
+        "uri": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1},
+        "license": {"type": "string", "minLength": 1}
+      }
+    },
+    "measurementContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id", "revision", "repetitions", "cost_unit"],
+      "properties": {
+        "kind": {"type": "string", "minLength": 1},
+        "id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1},
+        "repetitions": {"type": "integer", "minimum": 1},
+        "cost_unit": {"type": "string", "minLength": 1}
+      }
+    },
+    "qualificationCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["check_id", "category", "status", "severity", "summary"],
+      "properties": {
+        "check_id": {"type": "string", "minLength": 1},
+        "category": {
+          "oneOf": [
+            {"enum": ["source", "infrastructure", "verifier", "measurement", "safety", "other"]},
+            {"type": "string", "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$"}
+          ]
+        },
+        "status": {"enum": ["pass", "fail", "unknown"]},
+        "severity": {"enum": ["error", "warning"]},
+        "summary": {"type": "string", "minLength": 1}
+      }
+    },
+    "coordinate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "definition", "role", "value", "unit", "direction", "estimator", "sample_count"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "definition": {"$ref": "#/$defs/definitionReference"},
+        "role": {
+          "oneOf": [
+            {"enum": ["signal", "coverage", "cost", "reliability", "target_affinity", "other"]},
+            {"type": "string", "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$"}
+          ]
+        },
+        "value": {"type": "number"},
+        "unit": {"type": "string", "minLength": 1},
+        "direction": {"enum": ["higher", "lower", "contextual"]},
+        "estimator": {"type": "string", "minLength": 1},
+        "sample_count": {"type": "integer", "minimum": 1},
+        "uncertainty": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "lower", "upper"],
+          "properties": {
+            "kind": {"type": "string", "minLength": 1},
+            "lower": {"type": "number"},
+            "upper": {"type": "number"},
+            "level": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1}
+          }
+        }
+      }
+    },
+    "definitionReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["uri", "revision"],
+      "properties": {
+        "uri": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1}
+      }
+    },
+    "profileArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "reference"],
+      "properties": {
+        "role": {"type": "string", "minLength": 1},
+        "reference": {"$ref": "../common/artifact-reference.v1.schema.json"}
+      }
+    }
+  }
+}

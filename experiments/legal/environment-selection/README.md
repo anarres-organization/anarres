@@ -81,14 +81,48 @@ The script recomputes means, allocation regret, paired seed contrasts, t
 intervals, the family-regression gate, and the abstention decision from the
 compact public record.
 
+## Export pre-training environment profiles
+
+The release includes the outcome-blind component measurements used before
+candidate training. The adapter verifies their hashes, source and policy pins,
+attempt identities, reliability gates, frozen weights, and prospective
+chronology before projecting the three mixtures into the shared Anarres profile
+contract.
+
+```bash
+uv tool install ./packages/legal
+anarres adapter doctor legal
+anarres legal profile --repository . --output-dir /tmp/syllogym-profiles
+
+cargo run --quiet -p anarres-cli -- qualify \
+  /tmp/syllogym-profiles/frozen_policy_response_allocation.profile-input.json
+cargo run --quiet -p anarres-cli -- measure \
+  /tmp/syllogym-profiles/frozen_policy_response_allocation.profile-input.json \
+  --output /tmp/syllogym-policy-response.profile.json
+```
+
+The profiles contain no downstream outcomes. They preserve the measured
+candidate properties and provenance needed for comparison, while the released
+decision record remains authoritative for prospective interpretation.
+`anarres legal status` reports the SylloGym and LAB evidence as separate
+scientific objects. LAB regression-risk results are never profile inputs.
+
 ## Files
 
 - [`data/frozen-decision.json`](data/frozen-decision.json): pre-outcome rule,
   chronology, source pins, and mixture weights.
+- [`data/pretraining-task-measurements.json`](data/pretraining-task-measurements.json):
+  outcome-blind component measurements for fourteen task generators.
+- [`data/selector-freeze.json`](data/selector-freeze.json): frozen candidate
+  weights and qualification gates.
+- [`data/measurement-release.json`](data/measurement-release.json): source,
+  policy, contract, and native-artifact digest bindings.
 - [`data/outcomes.json`](data/outcomes.json): nine arm-by-seed outcomes,
   guardrail contrasts, and aggregate compute receipts.
 - [`results/summary.json`](results/summary.json): deterministic derived result.
 - [`scripts/reproduce.py`](scripts/reproduce.py): standard-library analysis.
+- [`scripts/export_environment_profiles.py`](scripts/export_environment_profiles.py):
+  fail-closed native profile adapter.
 - [`test_reproduce.py`](test_reproduce.py): scientific integrity checks.
 - [`SOURCES.json`](SOURCES.json): upstream provenance and licenses.
 

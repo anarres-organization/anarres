@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "batched target reward and RxnFlow v2.1 interface",
+  "qualification": "pass",
+  "runtime": {
+    "accelerator_used": false,
+    "torch_version": "2.10.0+cpu",
+    "rxnflow_version": "2.1.0",
+    "rxnflow_commit": "78e9aca5f8c67b9f263f4db32198bb934515b18b"
+  },
+  "adapter_batch_check": {
+    "input_records": 4,
+    "unique_eligible_molecules_docked": 2,
+    "max_workers": 2,
+    "wall_time_seconds": 15.0,
+    "input_order_preserved": true,
+    "duplicate_result_reused": true,
+    "malformed_molecule_is_scientific_zero": true,
+    "reference_fixture": {
+      "target_id": "P08254",
+      "affinity": -7.397,
+      "reward": 2.9417484930443547
+    },
+    "second_valid_molecule": {
+      "smiles": "CC(=O)OC1=CC=CC=C1C(=O)O",
+      "affinity": -5.62,
+      "reward": 3.091684497138759
+    }
+  },
+  "rxnflow_interface_check": {
+    "input_records": 4,
+    "inputs": [
+      "valid molecule",
+      "malformed molecule",
+      "duplicate valid molecule",
+      "missing molecule"
+    ],
+    "output_shape": [4, 1],
+    "output_dtype": "float32",
+    "all_finite": true,
+    "all_nonnegative": true,
+    "duplicate_scores_exact": true,
+    "malformed_score": 0.0,
+    "missing_score": 0.0,
+    "valid_score": 3.091684579849243,
+    "wall_time_seconds": 2.312685251235962
+  },
+  "authorization": "The batched reward adapter and RxnFlow v2.1 interface are qualified. Starting-policy oracle throughput, final target selection, headroom, and training qualification remain open.",
+  "sealed_boundary": {
+    "training_outcomes_opened": false,
+    "published_target_results_opened": false,
+    "known_active_collections_opened": false,
+    "fixture_used_only_for_interface_qualification": true
+  }
+}

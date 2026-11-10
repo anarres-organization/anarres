@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "scope": "frozen starting-policy views for target qualification",
+  "qualification": "pass",
+  "contract": "TARGET_SELECTION_CONTRACT.json",
+  "starting_policy_sha256": "effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a",
+  "views": [
+    {
+      "seed": 20261110,
+      "attempts": 64,
+      "returned_valid": 64,
+      "rdkit_valid": 64,
+      "unique_smiles": 64,
+      "trajectory_length_minimum": 2,
+      "trajectory_length_maximum": 3,
+      "trajectory_length_mean": 2.515625,
+      "sha256": "a45412e94780f110b946bdf5f3b6bd33c7740c06caa1e50ee3b6c5b58d0f6b26"
+    },
+    {
+      "seed": 20261111,
+      "attempts": 64,
+      "returned_valid": 64,
+      "rdkit_valid": 64,
+      "unique_smiles": 61,
+      "trajectory_length_minimum": 2,
+      "trajectory_length_maximum": 3,
+      "trajectory_length_mean": 2.421875,
+      "sha256": "2a67f7659167fa36eb15aeb21b548360bde7514bbfde9d81c10dc83ff1554d62"
+    }
+  ],
+  "gates": {
+    "minimum_returned_valid_fraction_per_view": "pass",
+    "minimum_unique_fraction_per_view": "pass"
+  },
+  "authorization": "The two starting-policy views are frozen for eight-target reward and throughput qualification. Target identity remains open until every target is scored.",
+  "sealed_boundary": {
+    "target_selected": false,
+    "target_training_started": false,
+    "candidate_memberships_frozen": false,
+    "post_training_target_outcomes_opened": false
+  }
+}

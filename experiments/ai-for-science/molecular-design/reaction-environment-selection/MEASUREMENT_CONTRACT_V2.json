@@ -1,0 +1,17 @@
+{
+  "schema_version": "2.0",
+  "study": "prospective-reaction-environment-selection",
+  "status": "frozen_after_v1_scoring_abort_before_candidate_measurement_or_training",
+  "supersedes": "MEASUREMENT_CONTRACT.json",
+  "unchanged_sampling": "Reuse the two completed 4,096-attempt views with seeds 20261120 and 20261121 without redraw or replacement.",
+  "unchanged_bank_rules": "All view gates, two-view gates, bank size, construction rules, and confirmation thresholds remain exactly as specified in MEASUREMENT_CONTRACT.json.",
+  "selected_target": "Q07820",
+  "target_reward": "TARGET_REWARD_CONTRACT_V2.json",
+  "revision": "Apply the version 2 molecule-specific conformer failure semantics when scoring the unchanged frozen views.",
+  "sealed_boundary": {
+    "candidate_measurement_completed": false,
+    "candidate_memberships_frozen": false,
+    "target_training_started": false,
+    "training_outcomes_opened": false
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": "3.0",
+  "study": "prospective-reaction-environment-selection",
+  "status": "frozen_after_v2_bank_confirmation_scoring_failure_before_completed_confirmation_or_training",
+  "supersedes": "TARGET_REWARD_CONTRACT_V2.json",
+  "scope": "target-specific terminal reward for RxnFlow training and selected-target measurement",
+  "selected_target": "Q07820",
+  "formula": {
+    "docking_component": "max(-vina_affinity, 0)",
+    "drug_likeness_component": "QED",
+    "terminal_reward": "max(-vina_affinity, 0) * QED",
+    "larger_is_better": true,
+    "finite_nonnegative_required": true
+  },
+  "eligibility": {
+    "valid_rdkit_molecule": true,
+    "maximum_exact_molecular_weight": 500.0,
+    "maximum_hydrogen_bond_donors": 5,
+    "maximum_hydrogen_bond_acceptors": 10,
+    "maximum_logp": 5.0,
+    "maximum_tpsa": 140.0,
+    "maximum_rotatable_bonds": 10,
+    "pinned_vina_atom_type_required": true,
+    "ineligible_scientific_reward": 0.0
+  },
+  "docking": {
+    "implementation": "MolGenBench pinned in ORACLE_CONTRACT.json",
+    "seed": 20261108,
+    "exhaustiveness": 8,
+    "pose_count": 1,
+    "reference_ligand_defines_box": true,
+    "box_buffer_angstrom": 5.0,
+    "per_molecule_timeout_seconds": 300
+  },
+  "ligand_preparation": {
+    "first_attempt": "ETKDGv3 with the frozen docking seed",
+    "fallback_attempt": "ETKDGv3 with deterministic random coordinates and the same frozen seed",
+    "fallback_exhaustion": "scientific zero with reason ligand_conformer_failure"
+  },
+  "failure_semantics": {
+    "invalid_molecule": "scientific zero with explicit reason",
+    "eligibility_filter_failure": "scientific zero with explicit reason",
+    "molecule_specific_conformer_failure_after_fallback": "scientific zero with explicit reason",
+    "vina_unsupported_ligand_atom_type": "scientific zero with explicit atom type",
+    "receptor_preparation_failure": "infrastructure failure",
+    "other_ligand_toolchain_or_output_failure": "infrastructure failure",
+    "docking_timeout": "infrastructure failure",
+    "docking_process_failure": "infrastructure failure",
+    "batch_policy": "preserve molecule-specific scientific zeroes; abort the affected batch on any infrastructure failure"
+  },
+  "revision_reason": "The untouched bank-confirmation view contained three boronic-acid products. The pinned Vina scoring implementation rejected atom type B before producing an affinity, consistent with its published atom-type table and open boron-support issue. No bank-confirmation result or target-training outcome existed. Version 3 preserves the exact sampled view and treats only Vina's exact unsupported-atom-type parser error as molecule-specific scientific ineligibility. Every other parser, receptor, toolchain, process, and timeout failure remains an infrastructure failure.",
+  "fixed_across_arms": true,
+  "sealed_boundary": {
+    "construction_view_20261122_contains_unsupported_atom_type": false,
+    "confirmation_view_20261124_redrawn": false,
+    "candidate_memberships_refrozen": false,
+    "development_training_started": false,
+    "training_outcomes_opened": false
+  }
+}
