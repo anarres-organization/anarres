@@ -7,7 +7,7 @@ two workstreams with different tasks, verifiers, and outcomes.
 | Workstream | Training experience and target | Current stage |
 | --- | --- | --- |
 | [Formal verification](formal-verification/README.md) | Executable proof development and verified software, with machine-checked outcomes and held-out proof or specification targets | Public evidence, source qualification, and bounded starting-policy measurement |
-| [Vulnerability exploitation](qualification/README.md) | Authorized exploit-generation tasks, with strict proof-of-concept verification on isolated targets | Benchmark and warm-start qualification |
+| [Vulnerability exploitation](qualification/README.md) | Authorized exploit-generation tasks, with strict proof-of-concept verification on isolated targets | Matched-scaffold qualification and repeated measurement; no environment comparison |
 
 Both workstreams measure candidate environments under a fixed starting policy,
 then test whether those measurements predict held-out improvement after

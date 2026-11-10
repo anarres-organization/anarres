@@ -4,9 +4,17 @@
 [![License: Apache 2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776AB.svg)](https://www.python.org/downloads/)
 
-**Anarres is an open research program and software platform for predicting how training environments shape model improvement.**
+**Measure and compare training environments before committing the full training budget.**
 
-Equal post-training budgets can improve a model, do very little, or make it worse across different environments. Anarres develops policy-relative measurements, data systems, and controlled experiments to predict those differences before expensive reinforcement-learning runs begin. The goal is to make environment selection a measurable, predictable part of post-training.
+[Install](#install) · [Quick start](#quick-start) · [Research](#research-program) · [CLI guide](docs/cli.md) · [Releases](https://github.com/anarres-organization/anarres/releases) · [Issues](https://github.com/anarres-organization/anarres/issues) · [Contributing](CONTRIBUTING.md)
+
+Anarres is an open-source toolkit and research program for predicting how
+training environments shape model improvement. It qualifies task sources,
+measures the experience they produce under a starting policy, compares
+compatible candidates, and preserves the evidence behind each decision.
+
+Equal post-training budgets can improve a model, do little, or make it worse.
+Anarres makes those differences measurable before an expensive training run.
 
 ## How it works
 
@@ -19,19 +27,33 @@ task sources
     → test predictions with controlled RL
 ```
 
-Anarres separates infrastructure validity, policy-relative learnability, and downstream utility. Sandbox failures remain infrastructure failures. Valid tasks must still be measured under the target policy, and reward alone does not determine held-out improvement.
+Anarres keeps three questions separate: whether a task and verifier work,
+whether the starting policy produces usable experience, and whether training on
+that experience improves a held-out target. Infrastructure failures never
+become ordinary unsuccessful attempts.
 
-The project provides:
+The native CLI exposes four stable operations:
 
-- **Research releases** that connect measurements made before RL to downstream learning curves.
-- **[Environment processing](data/environment-processing/README.md)** for turning heterogeneous task sources into verified, policy-measured candidate banks.
-- **A native CLI** for qualification, measurement, candidate design, validation, and local observability.
-- **Reusable adapters and packages** for domain runtimes, environment coordinates, provenance, and evaluation.
-- **Versioned schemas** that keep data and experiment contracts interoperable across domains.
+| Command | Purpose |
+| --- | --- |
+| `anarres qualify` | Check whether measured evidence is ready for comparison |
+| `anarres measure` | Write a normalized, content-addressed environment record |
+| `anarres design` | Compare compatible candidates and audit the panel |
+| `anarres validate` | Check supported records and their content integrity |
 
-## Install the CLI
+Domain adapters preserve the measurements, units, failure states, and costs of
+their originating studies. They extend the CLI without forcing robotics, legal
+reasoning, materials science, or executable agents into one measurement model.
 
-Tagged releases provide a native binary without requiring Python or Rust:
+## Install
+
+Install the native CLI with Homebrew on macOS or Linux:
+
+```bash
+brew install anarres-organization/tap/anarres
+```
+
+Or use the standalone installer without requiring Python or Rust:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -LsSf \
@@ -44,8 +66,10 @@ Restart your shell if the installer updates `PATH`, then verify the installation
 anarres --version
 ```
 
-Windows, archive, checksum, and source-install options are documented in the
-[CLI release guide](docs/releases.md).
+Windows, pinned-version, archive, checksum, and source-install options are in
+the [release guide](docs/releases.md).
+
+## Quick start
 
 Run the complete local workflow on the bundled CPU-only fixture:
 
@@ -60,24 +84,28 @@ anarres validate .anarres/example/environment.json
 ```
 
 This fixture demonstrates the command contract rather than a scientific result.
-The [CLI guide](docs/cli.md) covers candidate comparison, domain adapters, JSON
-output, shell completions, and record schemas.
+The [CLI guide](docs/cli.md) continues with candidate comparison, installed
+adapters, JSON output, shell completions, and record schemas.
 
 ## Research program
 
 | Area | Question | Status |
 | --- | --- | --- |
 | [Mathematics](experiments/mathematics/README.md) | Can starting-policy measurements predict finite-budget RL utility across model scale? | Study assets available |
-| [Agentic systems](experiments/agentic/README.md) | Which measurements transfer to terminal, coding, and tool-using agents? | Active research |
+| [Agentic systems](experiments/agentic/README.md) | Which measurements transfer to terminal, coding, and tool-using agents? | Program overview; concrete studies use domain adapters |
 | [Cyber: formal verification](experiments/cyber/formal-verification/README.md) | Which executable proof environments improve held-out verification under a fixed policy and budget? | Starting policy selected for development qualification |
-| [Cyber: vulnerability exploitation](experiments/cyber/qualification/README.md) | Which authorized exploit-generation environments provide measurable signal and held-out improvement? | Benchmark and warm-start qualification |
+| [Cyber: vulnerability exploitation](experiments/cyber/qualification/README.md) | Which authorized exploit-generation environments provide measurable signal and held-out improvement? | Scaffold qualification and repeated-policy measurement released; no environment comparison |
 | [Molecular design](experiments/ai-for-science/molecular-design/README.md) | Which reaction-based environments improve a molecular graph policy for a specified protein target and compute budget? | Native adapter available; independent confirmation failed before training |
 | [Materials science](experiments/ai-for-science/materials-science/README.md) | Which atomistic training distributions improve a materials model for a specified physical target and compute budget? | Retrospective bridge validated; candidate selection in progress |
 | [Robotics](experiments/robotics/README.md) | Which environments help robots improve across diverse embodied tasks? | First evidence release available |
 | [Legal reasoning](experiments/legal/README.md) | Can policy-relative measurements guide legal training-mixture selection? | Native adapter and evidence release available |
 | [Agentic finance](experiments/finance/README.md) | Which finance-task distributions improve held-out work under fixed training and control budgets? | Native CLI workflow and retrospective evidence available |
 
-## Develop the repository
+Statuses describe released evidence, not a uniform claim of predictive support.
+The [domain support matrix](docs/domain-support.md) separates public protocols,
+runnable adapters, and downstream validation.
+
+## Develop
 
 The reference environment-processing path is CPU-only. Repository development requires Rust, Python 3.11 or newer, [`uv`](https://docs.astral.sh/uv/), and `make`.
 
@@ -89,25 +117,14 @@ make check
 make example
 ```
 
-The example classifies task groups without conflating infrastructure failures with reward zero, computes ρ and H from a frozen policy probe, and writes a content-addressed environment manifest to `.anarres/example/environment.json`. Cross-domain profiles preserve native measurements for domains where grouped binary-reward probes do not apply.
-
-Install the native command from the repository:
+Install the native command from a checkout:
 
 ```bash
 cargo install --path crates/anarres-cli --locked
 anarres --version
 ```
 
-The command also compares candidate panels with `anarres design`. See the
-[CLI guide](docs/cli.md) for the complete workflow, JSON output, and exit-code
-contract.
-
-Shell completions are generated by the installed binary so they remain
-synchronized with its command contract.
-
-## Inspect a study record
-
-The mathematics environment-utility directory provides a versioned experimental record with configurations, disjoint evaluation data, pre-RL measurements, compact results, and audit scripts.
+The mathematics release provides a compact reproducibility check:
 
 ```bash
 cd experiments/mathematics/environment-utility
@@ -116,7 +133,8 @@ python scripts/summarize_prerl.py
 python scripts/reproduce_tables.py
 ```
 
-The audit checks prompt counts and disjointness, configuration coverage, evaluation completeness, prospective chronology, and every recorded content hash.
+The audit checks prompt counts and disjointness, configuration coverage,
+evaluation completeness, prospective chronology, and recorded content hashes.
 
 ## Repository map
 
@@ -136,26 +154,10 @@ Large model weights and checkpoints are distributed through versioned artifact s
 
 ## Documentation
 
-- [Environment-processing design](data/environment-processing/DESIGN.md)
-- [Environment-processing implementation plan](data/environment-processing/ROADMAP.md)
-- [Repository architecture](docs/architecture/repository.md)
-- [Domain adapter guide](docs/architecture/domain-adapters.md)
-- [Adapter authoring guide](docs/architecture/adapter-authoring.md)
-- [Scientific preservation guide](docs/architecture/scientific-preservation.md)
-- [Measurement conventions](docs/conventions/README.md)
-- [Domain integration status](docs/domain-support.md)
-- [CLI guide](docs/cli.md)
-- [CLI release process](docs/releases.md)
-- [First-run evaluation](docs/first-run-evaluation.md)
-- [Native CLI RFC](docs/rfcs/0001-native-cli.md)
-- [Cross-domain profile RFC](docs/rfcs/0002-cross-domain-environment-profiles.md)
-- [External adapter RFC](docs/rfcs/0003-external-adapter-protocol.md)
-- [Reproducibility standard](docs/standards/reproducibility.md)
-- [Artifact standard](docs/standards/artifacts.md)
-- [Writing standard](docs/standards/writing.md)
-- [Contribution guide](CONTRIBUTING.md)
-- [Governance](GOVERNANCE.md)
-- [Security policy](SECURITY.md)
+- **Use the software:** [CLI guide](docs/cli.md), [release and verification guide](docs/releases.md), and [first-run evaluation](docs/first-run-evaluation.md)
+- **Integrate a domain:** [domain adapters](docs/architecture/domain-adapters.md), [adapter authoring](docs/architecture/adapter-authoring.md), and [measurement conventions](docs/conventions/README.md)
+- **Understand the system:** [repository architecture](docs/architecture/repository.md), [scientific preservation](docs/architecture/scientific-preservation.md), and [domain support](docs/domain-support.md)
+- **Contribute:** [contribution guide](CONTRIBUTING.md), [governance](GOVERNANCE.md), and [security policy](SECURITY.md)
 
 ## About the name
 
