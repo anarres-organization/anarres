@@ -109,6 +109,27 @@ promoted when its predicted gain is smaller than uncertainty or when a material
 guardrail fails. The study reports proposal cost and validation cost in
 addition to downstream execution cost.
 
+## Development bridge result
+
+The first normalized bridge contains 53 arms in 17 matched decision panels
+from five primary sources. Source-native outcomes are normalized only within a
+panel. A ridge fit with one complete source held out reaches 80.3% pairwise
+ordering, 58.8% top-choice accuracy, and 0.119 mean normalized regret. A rule
+that only distinguishes update from no update reaches 75.8% ordering and 0.122
+regret, but cannot reliably choose among several updates.
+
+A fixed practical rule constructed while auditing these sources reaches 98.5%
+pairwise ordering and selects the observed best arm in all 17 panels. This is a
+development diagnostic rather than validation because its representation and
+weights were specified after the source papers were available. It defines the
+hypothesis to freeze on an excluded source.
+
+Guardrails change the decision in the e-banking panel. The practical rule
+selects ReasoningBank on benign utility, but its unauthorized-state rate is
+0.595 compared with 0.583 for the static baseline. The control-constrained
+decision is therefore blocked even though benign utility improves. Capability
+and financial-state safety are not collapsed into one score.
+
 ## Relationship to model-weight training
 
 The generator-qualified accounting panel remains a valuable causal test. It
@@ -124,7 +145,7 @@ both is needed before treating the loop as a general environment optimizer.
 
 ## Current status
 
-The protocol and source audit are complete. No source-normalized bridge result
-or native closed-loop result is claimed yet. The next release will contain the
-machine-readable panels, a source-held-out freeze, and the corresponding
-select, reject, and abstain decisions.
+The development bridge, protocol, and primary-source audit are complete. The
+bridge is retrospective and does not qualify the selector. A separate
+component-level prediction is frozen for ProFinAgent before its detailed
+ablation table is extracted. The native two-round result also remains open.

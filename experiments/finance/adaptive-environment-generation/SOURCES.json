@@ -55,6 +55,15 @@
       "revision": "arXiv:2608.17684v1",
       "role": "released capability and financial-state safety audit",
       "status": "primary_source_audited"
+    },
+    {
+      "id": "profinagent_icml_2026",
+      "title": "Towards Professional-Grade Financial Agents: Benchmarking, Tooling, and Structured Reasoning",
+      "authors": ["Cheng Huang", "Jinghua Piao", "Ranran Wang", "Yong Li"],
+      "url": "https://proceedings.mlr.press/v306/huang26ap.html",
+      "revision": "PMLR volume 306",
+      "role": "component-level excluded-source test",
+      "status": "predictions_frozen_before_detailed_ablation_extraction"
     }
   ]
 }
