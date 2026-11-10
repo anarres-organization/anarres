@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -55,3 +56,27 @@ def test_gate_fails_concentrated_support() -> None:
     assert result["authorizes_matched_training"] is False
     assert result["checks"]["minimum_unique_qualifying_molecules"] is False
     assert result["checks"]["maximum_single_molecule_fraction"] is False
+
+
+def test_validates_hash_linked_evidence_chain(tmp_path: Path) -> None:
+    sample = tmp_path / "sample.jsonl"
+    sample.write_text(json.dumps({"smiles": "CCO"}) + "\n")
+    sample_sha256 = MODULE.sha256_file(sample)
+    docking = {
+        "contract": contract()["contract"],
+        "status": "complete",
+        "attempts": 16,
+        "inputs": {"samples_sha256": sample_sha256},
+        "output_records_sha256": "docking-records",
+    }
+    metrics = {
+        "contract": contract()["contract"],
+        "status": "complete",
+        "attempts": 16,
+        "inputs": {"docking_records_sha256": "docking-records"},
+        "output_records_sha256": "metric-records",
+    }
+    scored = score(["A", "A", "B", "B"])
+    scored["inputs"] = {"records_sha256": "metric-records"}
+
+    MODULE.validate_evidence_chain(scored, contract(), sample, docking, metrics)

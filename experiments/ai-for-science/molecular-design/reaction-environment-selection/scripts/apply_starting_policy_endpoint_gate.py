@@ -67,10 +67,40 @@ def apply_gate(score: dict[str, Any], contract: dict[str, Any]) -> dict[str, Any
     }
 
 
+def validate_evidence_chain(
+    score: dict[str, Any],
+    contract: dict[str, Any],
+    sample_path: Path,
+    docking_report: dict[str, Any],
+    metrics_report: dict[str, Any],
+) -> None:
+    attempts = contract["sample"]["attempts"]
+    sample_sha256 = sha256_file(sample_path)
+    checks = {
+        "docking_contract": docking_report.get("contract") == contract["contract"],
+        "docking_complete": docking_report.get("status") == "complete",
+        "docking_attempts": docking_report.get("attempts") == attempts,
+        "sample_identity": docking_report.get("inputs", {}).get("samples_sha256") == sample_sha256,
+        "metrics_contract": metrics_report.get("contract") == contract["contract"],
+        "metrics_complete": metrics_report.get("status") == "complete",
+        "metrics_attempts": metrics_report.get("attempts") == attempts,
+        "docking_to_metrics": metrics_report.get("inputs", {}).get("docking_records_sha256")
+        == docking_report.get("output_records_sha256"),
+        "metrics_to_score": score.get("inputs", {}).get("records_sha256")
+        == metrics_report.get("output_records_sha256"),
+    }
+    failures = [name for name, passed in checks.items() if not passed]
+    if failures:
+        raise ValueError(f"endpoint evidence chain failed: {', '.join(failures)}")
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--score", type=Path, required=True)
     parser.add_argument("--contract", type=Path, required=True)
+    parser.add_argument("--sample", type=Path, required=True)
+    parser.add_argument("--docking-report", type=Path, required=True)
+    parser.add_argument("--metrics-report", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     return parser.parse_args()
 
@@ -79,10 +109,22 @@ def main() -> None:
     args = parse_args()
     score = json.loads(args.score.read_text())
     contract = json.loads(args.contract.read_text())
+    docking_report = json.loads(args.docking_report.read_text())
+    metrics_report = json.loads(args.metrics_report.read_text())
+    validate_evidence_chain(
+        score,
+        contract,
+        args.sample,
+        docking_report,
+        metrics_report,
+    )
     result = apply_gate(score, contract)
     result["inputs"] = {
         "qualifying_hit_score_sha256": sha256_file(args.score),
         "starting_policy_endpoint_contract_sha256": sha256_file(args.contract),
+        "starting_policy_sample_sha256": sha256_file(args.sample),
+        "docking_report_sha256": sha256_file(args.docking_report),
+        "endpoint_metrics_report_sha256": sha256_file(args.metrics_report),
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
