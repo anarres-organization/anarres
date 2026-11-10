@@ -289,8 +289,13 @@ signal density 21.8% below the development minimum, and that environment
 accounts for 80.2% of prospective squared curve error. A support guard would
 therefore have abstained at every budget. This guard was specified only after
 the prospective result and is recorded as an exploratory sensitivity, not a
-prospective success. The next test must freeze support-aware abstention and
-expand the development panel before evaluating another candidate family.
+prospective success. An exploratory leave-source-family-out audit also
+identifies `rattled-relax` as the weak development fold: its 0.211 THz RMSE is
+more than twice the error of every other source family. All four prospective
+curves lie below zero, so a no-training option would have been optimal at every
+budget. The next test must freeze support-aware abstention, include no training
+as an allocation option, and expand the development panel to cross source
+regime with signal density before evaluating another candidate family.
 
 ## Qualification completed
 

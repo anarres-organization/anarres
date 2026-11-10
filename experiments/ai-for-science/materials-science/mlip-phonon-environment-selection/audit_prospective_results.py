@@ -10,6 +10,8 @@ import math
 from pathlib import Path
 from typing import Any
 
+import numpy as np
+
 COORDINATES = (
     "signal_density_per_atom",
     "effective_signal_coverage",
@@ -25,14 +27,51 @@ def read(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def fit_signal_density_surface(rows: list[dict[str, Any]], candidates: dict[str, dict]) -> dict:
+    candidate_ids = sorted({row["candidate_id"] for row in rows})
+    values = [
+        math.log(float(candidates[candidate_id]["signal_density_per_atom"]))
+        for candidate_id in candidate_ids
+    ]
+    mean = float(np.mean(values))
+    scale = float(np.std(values))
+    design = []
+    response = []
+    for row in rows:
+        training_pass = int(row["pass"])
+        saturation = training_pass / (training_pass + 1.0)
+        coordinate = math.log(float(candidates[row["candidate_id"]]["signal_density_per_atom"]))
+        design.append(
+            [float(training_pass == value) for value in range(1, 5)]
+            + [saturation * (coordinate - mean) / scale]
+        )
+        response.append(float(row["utility_thz"]))
+    coefficients, _, rank, _ = np.linalg.lstsq(np.asarray(design), np.asarray(response), rcond=None)
+    if rank != 5:
+        raise ValueError("signal-density response surface is rank deficient")
+    return {"mean": mean, "scale": scale, "coefficients": coefficients}
+
+
+def predict_signal_density_surface(model: dict, row: dict, candidate: dict) -> float:
+    training_pass = int(row["pass"])
+    saturation = training_pass / (training_pass + 1.0)
+    coordinate = math.log(float(candidate["signal_density_per_atom"]))
+    design = [float(training_pass == value) for value in range(1, 5)] + [
+        saturation * (coordinate - model["mean"]) / model["scale"]
+    ]
+    return float(np.dot(model["coefficients"], design))
+
+
 def build_audit(
     panel_path: Path,
+    development_outcomes_path: Path,
     aggregate_fit_path: Path,
     regression_fit_path: Path,
     outcomes_path: Path,
     score_path: Path,
 ) -> dict[str, Any]:
     panel = read(panel_path)
+    development_outcomes = read(development_outcomes_path)
     aggregate = read(aggregate_fit_path)
     regressions = read(regression_fit_path)
     outcomes = read(outcomes_path)
@@ -68,6 +107,41 @@ def build_audit(
         raise ValueError("support audit expects the frozen signal-density model")
     mean = float(selected["fit"]["means"]["log_signal_density"])
     scale = float(selected["fit"]["scales"]["log_signal_density"])
+
+    development_curve_rows = development_outcomes["seed_mean_curves"]
+    if {row["candidate_id"] for row in development_curve_rows} != {
+        row["candidate_id"] for row in development
+    }:
+        raise ValueError("development outcomes do not match the development panel")
+    source_fold_rows = []
+    for heldout_source in sorted(
+        {row["candidate_id"].split("__", 1)[0] for row in development_curve_rows}
+    ):
+        training_rows = [
+            row
+            for row in development_curve_rows
+            if row["candidate_id"].split("__", 1)[0] != heldout_source
+        ]
+        heldout_rows = [
+            row
+            for row in development_curve_rows
+            if row["candidate_id"].split("__", 1)[0] == heldout_source
+        ]
+        model = fit_signal_density_surface(training_rows, candidates)
+        residuals = [
+            float(row["utility_thz"])
+            - predict_signal_density_surface(model, row, candidates[row["candidate_id"]])
+            for row in heldout_rows
+        ]
+        source_fold_rows.append(
+            {
+                "heldout_source_family": heldout_source,
+                "curve_points": len(residuals),
+                "curve_rmse_thz": round(
+                    math.sqrt(sum(value**2 for value in residuals) / len(residuals)), 12
+                ),
+            }
+        )
 
     support_rows = []
     for row in sorted(prospective, key=lambda item: item["candidate_id"]):
@@ -178,7 +252,9 @@ def build_audit(
                 "targets": len(keys),
                 "observed_regressions": sum(labels[key] for key in keys),
                 "observed_regression_rate": sum(labels[key] for key in keys) / len(keys),
-                "mean_predicted_probability": sum(probabilities[key] for key in keys) / len(keys),
+                "mean_predicted_probability": round(
+                    math.fsum(probabilities[key] for key in keys) / len(keys), 12
+                ),
             }
         )
 
@@ -196,20 +272,32 @@ def build_audit(
         },
         "inputs": {
             "candidate_panel_sha256": sha256(panel_path),
+            "development_outcomes_sha256": sha256(development_outcomes_path),
             **observed_hashes,
             "prospective_prediction_score_sha256": sha256(score_path),
         },
         "selected_model": {
             "name": selected["name"],
             "features": selected_features,
-            "coefficient_by_pass": {
+            "budget_intercept_by_pass": {
                 str(training_pass): float(coefficient)
                 for training_pass, coefficient in zip(
                     selected["fit"]["passes"],
-                    selected["fit"]["coefficients"][1:],
+                    selected["fit"]["coefficients"][:4],
                     strict=True,
                 )
             },
+            "environment_coefficient": {
+                "feature": "log_signal_density",
+                "coefficient": float(selected["fit"]["coefficients"][4]),
+            },
+        },
+        "development_leave_source_family_out": {
+            "status": "exploratory_post_prospective_sensitivity",
+            "folds": source_fold_rows,
+            "largest_error_fold": max(source_fold_rows, key=lambda row: row["curve_rmse_thz"])[
+                "heldout_source_family"
+            ],
         },
         "development_coordinate_support": support,
         "prospective_support": support_rows,
@@ -236,6 +324,10 @@ def build_audit(
                 == min(forecasts, key=lambda cid: observed[(cid, row["pass"])])
                 for row in decisions
             ),
+            "no_training_option_best_at_all_budgets": all(
+                max(observed[(candidate_id, training_pass)] for candidate_id in forecasts) < 0
+                for training_pass in next(iter(forecasts.values()))
+            ),
         },
     }
 
@@ -243,6 +335,7 @@ def build_audit(
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--candidate-panel", type=Path, required=True)
+    parser.add_argument("--development-outcomes", type=Path, required=True)
     parser.add_argument("--aggregate-fit", type=Path, required=True)
     parser.add_argument("--regression-fit", type=Path, required=True)
     parser.add_argument("--prospective-outcomes", type=Path, required=True)
@@ -251,6 +344,7 @@ def main() -> None:
     args = parser.parse_args()
     result = build_audit(
         args.candidate_panel,
+        args.development_outcomes,
         args.aggregate_fit,
         args.regression_fit,
         args.prospective_outcomes,

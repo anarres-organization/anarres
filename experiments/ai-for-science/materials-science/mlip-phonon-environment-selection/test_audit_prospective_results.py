@@ -14,6 +14,7 @@ SPEC.loader.exec_module(MODULE)
 def test_checked_in_post_prospective_audit_regenerates_exactly():
     observed = MODULE.build_audit(
         ROOT / "FINAL_COST_MATCHED_PANEL.json",
+        ROOT / "DEVELOPMENT_OUTCOMES.json",
         ROOT / "AGGREGATE_UTILITY_FIT.json",
         ROOT / "TARGET_REGRESSION_FIT.json",
         ROOT / "PROSPECTIVE_OUTCOMES.json",
@@ -30,3 +31,7 @@ def test_support_audit_preserves_the_failed_forecast_boundary():
     assert boundary["support_guard_prespecified"] is False
     assert audit["decision_audit"]["would_abstain_at_all_budgets"] is True
     assert audit["observed_boundary"]["selected_environment_worst_at_all_budgets"] is True
+    assert audit["observed_boundary"]["no_training_option_best_at_all_budgets"] is True
+    source_audit = audit["development_leave_source_family_out"]
+    assert source_audit["largest_error_fold"] == "rattled-relax"
+    assert audit["selected_model"]["environment_coefficient"]["coefficient"] < 0

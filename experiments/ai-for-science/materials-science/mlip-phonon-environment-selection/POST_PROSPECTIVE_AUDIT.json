@@ -9,6 +9,7 @@
   },
   "inputs": {
     "candidate_panel_sha256": "b5d26ea2dbecac0e530e80d470b6079a7ebee46600633f119eb6d94b9048dd52",
+    "development_outcomes_sha256": "796593d3b56354ae62dc513c7075f16658c0835c46d8888c94489d3eebd29d60",
     "aggregate_utility_fit_sha256": "276540c68570b74b6efffb8480f1406af310cd34c52060b37a5a29ee674c4a9a",
     "target_regression_fit_sha256": "63127e3dd582facf49f94a14c9c4c3293a38308a3de45c7ba0d85021bac1ad1c",
     "prospective_outcomes_sha256": "0f6aa71b3e7c48ecdf4df5c5450710fb6814272e4196b2df35f1ea90a8908b1f",
@@ -19,12 +20,62 @@
     "features": [
       "log_signal_density"
     ],
-    "coefficient_by_pass": {
-      "1": -0.07875302246081652,
-      "2": -0.07847125663562052,
-      "3": -0.07819858130013263,
-      "4": -0.11863882997917802
+    "budget_intercept_by_pass": {
+      "1": -0.07000920283611674,
+      "2": -0.07875302246081652,
+      "3": -0.07847125663562052,
+      "4": -0.07819858130013263
+    },
+    "environment_coefficient": {
+      "feature": "log_signal_density",
+      "coefficient": -0.11863882997917802
     }
+  },
+  "development_leave_source_family_out": {
+    "status": "exploratory_post_prospective_sensitivity",
+    "folds": [
+      {
+        "heldout_source_family": "aimd-from-PBE-1000-npt",
+        "curve_points": 8,
+        "curve_rmse_thz": 0.039180904495
+      },
+      {
+        "heldout_source_family": "aimd-from-PBE-1000-nvt",
+        "curve_points": 8,
+        "curve_rmse_thz": 0.020431699617
+      },
+      {
+        "heldout_source_family": "aimd-from-PBE-3000-npt",
+        "curve_points": 4,
+        "curve_rmse_thz": 0.030020187573
+      },
+      {
+        "heldout_source_family": "aimd-from-PBE-3000-nvt",
+        "curve_points": 8,
+        "curve_rmse_thz": 0.02574545967
+      },
+      {
+        "heldout_source_family": "rattled-1000",
+        "curve_points": 8,
+        "curve_rmse_thz": 0.038481182353
+      },
+      {
+        "heldout_source_family": "rattled-300",
+        "curve_points": 4,
+        "curve_rmse_thz": 0.016900577621
+      },
+      {
+        "heldout_source_family": "rattled-500",
+        "curve_points": 4,
+        "curve_rmse_thz": 0.083002670763
+      },
+      {
+        "heldout_source_family": "rattled-relax",
+        "curve_points": 4,
+        "curve_rmse_thz": 0.211191550037
+      }
+    ],
+    "largest_error_fold": "rattled-relax"
   },
   "development_coordinate_support": {
     "signal_density_per_atom": {
@@ -341,32 +392,33 @@
       "targets": 50,
       "observed_regressions": 36,
       "observed_regression_rate": 0.72,
-      "mean_predicted_probability": 0.5903638269051172
+      "mean_predicted_probability": 0.590363826905
     },
     {
       "candidate_id": "rattled-300__coverage",
       "targets": 50,
       "observed_regressions": 46,
       "observed_regression_rate": 0.92,
-      "mean_predicted_probability": 0.91814530427145
+      "mean_predicted_probability": 0.918145304271
     },
     {
       "candidate_id": "rattled-500__signal_coverage_affinity",
       "targets": 50,
       "observed_regressions": 47,
       "observed_regression_rate": 0.94,
-      "mean_predicted_probability": 0.9199191591683263
+      "mean_predicted_probability": 0.919919159168
     },
     {
       "candidate_id": "rattled-relax__low_signal",
       "targets": 50,
       "observed_regressions": 50,
       "observed_regression_rate": 1.0,
-      "mean_predicted_probability": 0.39055986823637684
+      "mean_predicted_probability": 0.390559868236
     }
   ],
   "observed_boundary": {
     "all_prospective_environment_budget_utilities_negative": true,
-    "selected_environment_worst_at_all_budgets": true
+    "selected_environment_worst_at_all_budgets": true,
+    "no_training_option_best_at_all_budgets": true
   }
 }
