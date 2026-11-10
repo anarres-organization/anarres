@@ -43,7 +43,7 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
         )
         Draft202012Validator(schema).validate(descriptor)
         self.assertEqual(descriptor["name"], "robotics")
-        self.assertEqual(descriptor["version"], "0.4.0")
+        self.assertEqual(descriptor["version"], "0.5.0")
         self.assertEqual(descriptor["executable"], "anarres-robotics")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
         self.assertEqual(
@@ -80,8 +80,9 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             report = json.loads(status.stdout)
             self.assertTrue(report["qualification_passed"])
             self.assertTrue(report["measurement_reliability_passed"])
-            self.assertFalse(report["candidate_outcomes_opened"])
-            self.assertFalse(report["selector_performance_validated"])
+            self.assertTrue(report["candidate_outcomes_opened"])
+            self.assertTrue(report["selector_performance_validated"])
+            self.assertEqual(report["prospective_state"], "complete")
             self.assertEqual(report["candidate_count"], 5)
             self.assertIn("operator_tier_effective_coverage", report["profile_coordinates"])
             self.assertIn("starting_policy_failure_rate", report["profile_context"])
@@ -182,6 +183,8 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             self.assertTrue(verification["deterministic_plan"])
             self.assertEqual(verification["planned_candidate_runs"], 25)
             self.assertFalse(verification["submission_ready"])
+            self.assertTrue(verification["candidate_outcomes_opened"])
+            self.assertTrue(verification["released_result_recomputed"])
 
             results = self.run_adapter(["results", "--repository", str(ROOT), "--json"], outside)
             self.assertEqual(results.returncode, 0, results.stderr)
@@ -198,6 +201,19 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             repeated = self.run_adapter(["results", "--repository", str(ROOT), "--json"], outside)
             self.assertEqual(repeated.returncode, 0, repeated.stderr)
             self.assertEqual(results.stdout, repeated.stdout)
+
+            can_results = self.run_adapter(
+                ["can-results", "--repository", str(ROOT), "--json"], outside
+            )
+            self.assertEqual(can_results.returncode, 0, can_results.stderr)
+            can_result = json.loads(can_results.stdout)
+            self.assertEqual(can_result["frozen_prediction"], "cupid_tier_balanced_50")
+            self.assertEqual(can_result["observed_best"], ["length_50"])
+            self.assertAlmostEqual(can_result["allocation_regret_pp"], 1.4)
+            self.assertIn("shortest-data baseline", can_result["claim_boundary"])
+            self.assertTrue(
+                all(value.startswith("sha256:") for value in can_result["artifacts"].values())
+            )
 
     def test_frozen_candidates_are_complete_and_prepare_writes_every_mask(self) -> None:
         candidates_path = STUDY / "CANDIDATES.json"

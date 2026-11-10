@@ -25,13 +25,14 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "robotics",
-        "version": "0.4.0",
+        "version": "0.5.0",
         "protocol_version": 1,
         "domain": "robotics",
         "executable": "anarres-robotics",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
         "capabilities": [
             "bundle",
+            "can-results",
             "gate",
             "plan",
             "prepare",
@@ -126,6 +127,7 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     _, records = validate_native(repository)
     measurements = records["measurements"]
     qualification = records["qualification"]
+    released = (study_root(repository) / "RESULTS.json").is_file()
     return {
         "study_id": measurements["study_id"],
         "domain": "robotics",
@@ -135,8 +137,8 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "measurement_reliability_passed": (
             measurements["measurement"]["reliability_gate_passed"] is True
         ),
-        "candidate_outcomes_opened": measurements["outcomes_read"],
-        "selector_performance_validated": False,
+        "candidate_outcomes_opened": released,
+        "selector_performance_validated": released,
         "profile_coordinates": [
             "mean_cupid_rank_percentile",
             "operator_tier_effective_coverage",
@@ -153,8 +155,8 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "profile_ready": (
             qualification.get("passed") is True
             and measurements["measurement"]["reliability_gate_passed"] is True
-            and measurements["outcomes_read"] is False
         ),
+        "prospective_state": "complete" if released else "measurement_frozen",
     }
 
 
@@ -450,6 +452,51 @@ def load_pusht_reproducer(repository: Path) -> ModuleType:
     return module
 
 
+def load_can_reproducer(repository: Path) -> ModuleType:
+    path = study_root(repository) / "scripts/score_released_panel.py"
+    specification = importlib.util.spec_from_file_location("anarres_robotics_can_reproducer", path)
+    if specification is None or specification.loader is None:
+        raise RoboticsCliError(f"cannot load Can reproducer: {path}")
+    module = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(module)
+    return module
+
+
+def command_can_results(args: argparse.Namespace) -> dict[str, Any]:
+    repository = repository_root(args.repository)
+    root = study_root(repository)
+    paths = {
+        name: root / name
+        for name in ("OUTCOMES.json", "RELEASE_GATE.json", "CANDIDATES.json", "RESULTS.json")
+    }
+    reproducer = load_can_reproducer(repository)
+    observed = reproducer.compute(
+        json.loads(paths["OUTCOMES.json"].read_text(encoding="utf-8")),
+        json.loads(paths["RELEASE_GATE.json"].read_text(encoding="utf-8")),
+        json.loads(paths["CANDIDATES.json"].read_text(encoding="utf-8")),
+    )
+    expected = json.loads(paths["RESULTS.json"].read_text(encoding="utf-8"))
+    if observed != expected:
+        raise RoboticsCliError("recomputed Can result differs from the released result")
+    prediction = observed["frozen_prediction"]
+    return {
+        "study_id": "prospective_cupid_can_v141_v2",
+        "domain": "robotics",
+        "study": "prospective-cupid-can-v141",
+        "status": "released_prospective_result",
+        "candidate_outcomes_opened": True,
+        "frozen_prediction": prediction,
+        "observed_best": observed["best_arm_by_mean"],
+        "allocation_regret_pp": 100.0 * observed["allocation_regret"],
+        "mean_success_rate": observed["mean_success_rate_by_arm"],
+        "claim_boundary": (
+            "The frozen recommendation achieved low regret in one Can panel; the shortest-data "
+            "baseline had the highest mean success rate."
+        ),
+        "artifacts": {name: sha256_file(path) for name, path in paths.items()},
+    }
+
+
 def command_results(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
     root = pusht_root(repository)
@@ -514,6 +561,7 @@ def command_profile(args: argparse.Namespace) -> dict[str, Any]:
 
 def command_verify(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
+    released_result = command_can_results(args)
     first_plan = build_workflow_plan(repository)
     second_plan = build_workflow_plan(repository)
     with tempfile.TemporaryDirectory(prefix="anarres-robotics-verify-") as directory:
@@ -532,7 +580,8 @@ def command_verify(args: argparse.Namespace) -> dict[str, Any]:
         "deterministic_plan": first_plan == second_plan,
         "planned_candidate_runs": first_plan["totals"]["candidate_runs"],
         "submission_ready": first_plan["execution"]["submission_ready"],
-        "candidate_outcomes_opened": False,
+        "candidate_outcomes_opened": True,
+        "released_result_recomputed": released_result["status"] == "released_prospective_result",
     }
 
 
@@ -630,6 +679,12 @@ def parser() -> argparse.ArgumentParser:
     )
     add_common(results)
     results.set_defaults(handler=command_results)
+
+    can_results = commands.add_parser(
+        "can-results", help="Recompute the released prospective Can decision report."
+    )
+    add_common(can_results)
+    can_results.set_defaults(handler=command_can_results)
 
     verify = commands.add_parser("verify", help="Validate records and deterministic export.")
     add_common(verify)
