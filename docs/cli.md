@@ -12,19 +12,38 @@ Tagged releases provide a native binary without a Python or Rust runtime:
 ```bash
 curl --proto '=https' --tlsv1.2 -LsSf \
   https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.sh | sh
+```
+
+Restart your shell if the installer updates `PATH`, then verify the installation:
+
+```bash
 anarres --version
 ```
 
-Windows users can run the corresponding PowerShell installer from the latest
-release. Every release also includes platform archives, SHA-256 checksums, and
-a Homebrew formula. See the [release guide](releases.md) for verification and
-supported platforms.
+The installer can be inspected before execution:
+
+```bash
+curl --proto '=https' --tlsv1.2 -LsSf \
+  https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.sh | less
+```
+
+Windows users can run the corresponding PowerShell installer:
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.ps1 | iex"
+```
+
+Every release also includes platform archives, SHA-256 checksums, build
+attestations, and a Homebrew formula. See the [release guide](releases.md) for
+verification, pinned versions, and supported platforms.
 
 ### Install from source
 
-Install Rust with [rustup](https://rustup.rs/), clone this repository, and run:
+Install Rust with [rustup](https://rustup.rs/), then run:
 
 ```bash
+git clone https://github.com/anarres-organization/anarres.git
+cd anarres
 cargo install --path crates/anarres-cli --locked
 anarres --version
 ```
@@ -35,17 +54,17 @@ For repository development, `cargo run -p anarres-cli --` can replace
 ### Shell completions
 
 Generate completions from the installed binary so they always match its
-command contract:
+command contract. Add the command for your shell, then restart it:
 
 ```bash
 # bash
-anarres generate-shell-completion bash > ~/.local/share/bash-completion/completions/anarres
+echo 'eval "$(anarres generate-shell-completion bash)"' >> ~/.bashrc
 
 # zsh
-mkdir -p ~/.zfunc
-anarres generate-shell-completion zsh > ~/.zfunc/_anarres
+echo 'eval "$(anarres generate-shell-completion zsh)"' >> ~/.zshrc
 
 # fish
+mkdir -p ~/.config/fish/completions
 anarres generate-shell-completion fish > ~/.config/fish/completions/anarres.fish
 ```
 
@@ -55,9 +74,12 @@ PowerShell and Elvish users can generate scripts with
 
 ## Five-minute example
 
-The bundled policy-probe fixture runs without a model server or GPU:
+The bundled policy-probe fixture runs without a model server or GPU. Clone the
+repository to obtain the fixture if it is not already present:
 
 ```bash
+git clone --depth 1 https://github.com/anarres-organization/anarres.git
+cd anarres
 anarres qualify examples/environment-processing/probe.json
 mkdir -p .anarres/example
 anarres measure examples/environment-processing/probe.json \
@@ -70,6 +92,23 @@ anarres validate .anarres/example/environment.json
 coordinate, and digest information. `validate` recomputes its integrity checks.
 The fixture is synthetic and demonstrates software behavior rather than a
 scientific result.
+
+### Update or remove a standalone installation
+
+Rerun the installer to update to the latest tagged release. To install a fixed
+version, replace `latest/download` with the release tag:
+
+```bash
+curl --proto '=https' --tlsv1.2 -LsSf \
+  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.1.0/anarres-cli-installer.sh | sh
+```
+
+The standalone installer places the binary in `$CARGO_HOME/bin`, or
+`$HOME/.cargo/bin` when `CARGO_HOME` is unset. Remove that binary to uninstall:
+
+```bash
+rm "${CARGO_HOME:-$HOME/.cargo}/bin/anarres"
+```
 
 ## Commands
 

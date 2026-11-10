@@ -11,6 +11,7 @@ publish = false
 
 [package.metadata.dist]
 dist = true
+formula = "anarres"
 
 [[bin]]
 name = "anarres"

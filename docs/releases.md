@@ -23,17 +23,51 @@ curl --proto '=https' --tlsv1.2 -LsSf \
   https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.sh | sh
 ```
 
+Restart the shell if prompted, then verify the installation:
+
+```bash
+anarres --version
+```
+
 Install it on Windows from PowerShell:
 
 ```powershell
 powershell -ExecutionPolicy ByPass -c "irm https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.ps1 | iex"
 ```
 
-The source install remains available on every supported Rust host:
+Open a new PowerShell session, then verify the installation:
+
+```powershell
+anarres --version
+```
+
+Inspect the shell installer without executing it:
 
 ```bash
+curl --proto '=https' --tlsv1.2 -LsSf \
+  https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.sh | less
+```
+
+For a reproducible installation, replace `latest/download` with a release tag:
+
+```bash
+curl --proto '=https' --tlsv1.2 -LsSf \
+  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.1.0/anarres-cli-installer.sh | sh
+```
+
+The source install remains available on every supported Rust host after cloning
+the repository:
+
+```bash
+git clone https://github.com/anarres-organization/anarres.git
+cd anarres
 cargo install --path crates/anarres-cli --locked
 ```
+
+Rerun the standalone installer to update. It installs to `$CARGO_HOME/bin`, or
+`$HOME/.cargo/bin` when `CARGO_HOME` is unset. Remove the `anarres` binary from
+that directory to uninstall a standalone installation. Package-manager installs
+should instead be updated or removed through the same package manager.
 
 Before creating a release, maintainers update the crate version and changelog,
 run `make check` and `make release-smoke`, and inspect the generated plan:
