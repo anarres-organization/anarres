@@ -235,11 +235,12 @@ with target affinity and retains both as measured coordinates. Chemistry,
 geometry, force regime, and source can remain coupled, which limits causal
 interpretation while preserving the predictive comparison.
 
-The current measurement-only draft contains 48 equal-atom candidate
-distributions. Before fine-tuning, the study will select 12 development and four
-prospective environments that span the measured coordinates, limit pairwise
-overlap, preserve multiple source families, and avoid one source label acting
-as a proxy for every coordinate.
+The released bank contains 48 equal-atom candidate distributions. The frozen
+panel assigns 12 to development and four to the prospective test. Those 16
+environments span the measured coordinates, limit pairwise overlap, and retain
+multiple physical source families. The prospective result shows that the
+development panel did not fully separate source regime from signal density,
+which now defines the next design requirement.
 
 ## Broader MLIP pre-training measurements
 
@@ -248,8 +249,8 @@ must pass independent-view reliability and collinearity checks.
 
 ### Primary operational coordinates
 
-- **Admitted supervision density $\rho$:** usable energy, force, and stress
-  gradient mass per atom and per unit of acquisition or training cost.
+- **Supervision density $\rho$:** weighted starting-model energy, force, and
+  stress residual per atom and per unit of acquisition or training cost.
 - **Effective coverage $H$:** concentration-adjusted support over frozen local
   atomic-environment embeddings, elements, chemical systems, prototypes, and
   force regimes.
@@ -323,7 +324,7 @@ Qualification used construction and development data only. It did not inspect
 prospective post-training outcomes or replace environments based on downstream
 utility.
 
-Before post-training begins, the launch packet must establish:
+The completed launch packet established:
 
 1. **Source identity and license.** Record stable versions, source licenses,
    dataset identities, preprocessing code, and content hashes.
@@ -418,16 +419,22 @@ atomistic simulation, catalysis, or synthesis. The first result should be stated
 in terms of the frozen starting model, source family, physical target, and
 compute range.
 
-The immediate deliverables are:
+The completed research loop releases:
 
 - a source, version, license, and level-of-theory registry
 - a content-addressed partition and contamination report
 - a starting-model and target qualification report
-- at least 40 measured candidate-environment specifications
+- 48 measured candidate-environment specifications
 - a frozen 12-development/4-prospective panel
 - matched fine-tuning and physical-evaluation contracts
 - compact prediction, decision, uncertainty, and cost results
-- a prospective score record that preserves the chronology of every freeze.
+- a prospective score record that preserves the chronology of every freeze
+- a post-test audit that identifies unsupported extrapolation and source-regime
+  confounding without modifying the frozen forecast.
+
+The next loop expands development support across source regime and signal
+density, treats the untouched starting checkpoint as an allocation option, and
+freezes abstention before opening another candidate family.
 
 The public claim remains proportional to the evidence. The study either shows
 that measurements made before fine-tuning improve a real atomistic-environment
