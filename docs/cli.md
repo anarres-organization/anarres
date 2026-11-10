@@ -206,6 +206,18 @@ The native CLI resolves `anarres-finance` through the same protocol used by
 every other domain. Finance dependencies remain isolated from the Rust core,
 and no finance command performs a network call.
 
+The installed adapter can also be invoked directly. When the current directory
+is not a repository checkout, pass the evidence location explicitly:
+
+```bash
+anarres-finance status --repository /path/to/anarres --json
+anarres-finance audit-sources --repository /path/to/anarres --json
+```
+
+The generic and direct forms execute the same native finance command. The
+repository path supplies released evidence. The installed adapter contains no
+fallback copy of study artifacts.
+
 ## Automation
 
 Terminal output is intended for people. Add `--json` for deterministic,

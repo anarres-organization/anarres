@@ -38,7 +38,8 @@ profiles, and reruns individual frozen holdouts. See the [CLI
 guide](../../docs/cli.md#example-adapter-agentic-finance) for the complete
 interface. Commands shown here assume the repository root is the current
 directory. Use `--repository /path/to/anarres` when invoking released evidence
-from another directory.
+from another directory. The direct `anarres-finance` executable accepts the
+same commands and explicit repository path.
 
 The operational studies focus on control-heavy finance work. Reconciliation,
 settlement exceptions, collateral disputes, payment controls, and close

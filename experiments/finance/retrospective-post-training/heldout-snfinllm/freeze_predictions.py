@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import importlib.util
 import json
@@ -24,7 +25,7 @@ def load_analysis():
     return module
 
 
-def main() -> None:
+def main(output: Path = OUTPUT, hash_path: Path = HASH) -> None:
     bridge = load_analysis()
     candidates = json.loads(CANDIDATES.read_text())
     panel = {
@@ -64,7 +65,7 @@ def main() -> None:
             sorted(arm for arm in predictions if predictions[arm][method] == score)
             for score in scores
         ]
-    output = {
+    record = {
         "schema_version": 1,
         "status": "FROZEN_BEFORE_OUTCOME_EXTRACTION",
         "representation_commit": json.loads((HERE / "FREEZE.json").read_text())["representation"][
@@ -78,10 +79,16 @@ def main() -> None:
             "A tie remains a tie and receives fractional decision credit."
         ),
     }
-    serialized = json.dumps(output, indent=2, sort_keys=True) + "\n"
-    OUTPUT.write_text(serialized)
-    HASH.write_text(f"{hashlib.sha256(serialized.encode()).hexdigest()}  PREDICTIONS.json\n")
+    serialized = json.dumps(record, indent=2, sort_keys=True) + "\n"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    hash_path.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(serialized)
+    hash_path.write_text(f"{hashlib.sha256(serialized.encode()).hexdigest()}  {output.name}\n")
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", type=Path, default=OUTPUT)
+    parser.add_argument("--hash-output", type=Path, default=HASH)
+    arguments = parser.parse_args()
+    main(arguments.output, arguments.hash_output)

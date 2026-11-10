@@ -48,7 +48,6 @@ def adapter_descriptor() -> dict[str, Any]:
 
 def repository_root(explicit: Path | None = None) -> Path:
     starts = [explicit.resolve()] if explicit is not None else [Path.cwd().resolve()]
-    starts.append(Path(__file__).resolve())
     for start in starts:
         for candidate in (start, *start.parents):
             if (candidate / "experiments/finance/README.md").is_file():
