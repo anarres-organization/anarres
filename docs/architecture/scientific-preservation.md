@@ -63,14 +63,15 @@ conformance tests, and a real producer for the released Vero development
 measurement. That adapter preserves a valid zero-signal result, positive model
 cost, and the failed support gate as an unready profile.
 
-The compact SylloGym and PushT releases preserve decisions and downstream
-outcomes but omit the complete per-candidate pre-training measurement vectors.
-They remain evidence releases rather than environment-profile producers. The
-LAB regression-risk record is a predictor evaluation over tasks, not a candidate
-environment measurement, and remains a separate scientific object. The CLI
-does not infer missing coordinates from any of these outcomes.
+The SylloGym release includes its complete outcome-blind component measurement
+and frozen mixture weights. Its study-local adapter projects the three compared
+mixtures without reading downstream outcomes. The PushT release still omits the
+complete per-candidate pre-training vectors and remains an evidence release
+rather than a profile producer. The LAB regression-risk record is a predictor
+evaluation over tasks, not a candidate environment measurement, and remains a
+separate scientific object.
 
-Materials, robotics, legal, cyber, and agent studies can add profile producers
+Materials, robotics, cyber, and agent studies can add profile producers
 when their native measurement artifacts contain the required values,
 definitions, qualification states, and source revisions. Each producer should
 first remain beside its experiment and satisfy the

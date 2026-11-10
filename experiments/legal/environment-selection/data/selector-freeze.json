@@ -1,0 +1,89 @@
+{
+  "artifact": "SYLLOGYM_STAGE_A_SELECTOR_FREEZE_V1",
+  "candidate_training_outcomes_read": false,
+  "comparators": {
+    "published_depth_weighted_control": {
+      "adverse_possession_4": 0.07430555555555556,
+      "adverse_possession_5": 0.09236111111111112,
+      "consideration_2": 0.03680555555555556,
+      "consideration_3": 0.05555555555555555,
+      "consideration_4": 0.07430555555555556,
+      "diversity_4": 0.07430555555555556,
+      "diversity_5": 0.09236111111111112,
+      "hearsay_3": 0.05555555555555555,
+      "hearsay_4": 0.07430555555555556,
+      "miranda_4": 0.07361111111111111,
+      "miranda_5": 0.09236111111111112,
+      "sof_4": 0.07430555555555556,
+      "terry_3": 0.05555555555555555,
+      "terry_4": 0.07430555555555556
+    },
+    "uniform_14_task_control": {
+      "adverse_possession_4": 0.07152777777777777,
+      "adverse_possession_5": 0.07152777777777777,
+      "consideration_2": 0.07152777777777777,
+      "consideration_3": 0.07152777777777777,
+      "consideration_4": 0.07152777777777777,
+      "diversity_4": 0.07152777777777777,
+      "diversity_5": 0.07152777777777777,
+      "hearsay_3": 0.07152777777777777,
+      "hearsay_4": 0.07152777777777777,
+      "miranda_4": 0.07083333333333333,
+      "miranda_5": 0.07152777777777777,
+      "sof_4": 0.07152777777777777,
+      "terry_3": 0.07152777777777777,
+      "terry_4": 0.07083333333333333
+    }
+  },
+  "counts": {
+    "adverse_possession_4": 36,
+    "adverse_possession_5": 46,
+    "consideration_2": 58,
+    "consideration_3": 120,
+    "consideration_4": 69,
+    "diversity_4": 98,
+    "diversity_5": 139,
+    "hearsay_3": 159,
+    "hearsay_4": 108,
+    "miranda_4": 149,
+    "miranda_5": 87,
+    "sof_4": 196,
+    "terry_3": 57,
+    "terry_4": 118
+  },
+  "gates": {
+    "all_tasks_reliable": true,
+    "bootstrap_rank_spearman_median": 0.8725274725274725,
+    "bootstrap_success_fraction": 1.0,
+    "complete_measurement": true,
+    "freeze_ready": true,
+    "tv_from_published": 0.19057539682539681,
+    "tv_from_uniform": 0.18759920634920635
+  },
+  "rule": {
+    "coverage_floor": "equal family mass, split equally across depths in the family",
+    "coverage_floor_mass": 0.25,
+    "practical_score": "readiness in [0.10,0.85] => binary entropy / log1p(mean generated tokens); otherwise entropy - 1",
+    "responsive_allocation": "global reverse-rank Borda score with stable hash tie-breaking",
+    "responsive_mass": 0.75,
+    "training_rows": 1440
+  },
+  "status": "FROZEN_BEFORE_CANDIDATE_TRAINING",
+  "training_authorized": false,
+  "weights": {
+    "adverse_possession_4": 0.024999999999999998,
+    "adverse_possession_5": 0.03214285714285714,
+    "consideration_2": 0.04047619047619047,
+    "consideration_3": 0.08333333333333333,
+    "consideration_4": 0.047619047619047616,
+    "diversity_4": 0.06785714285714287,
+    "diversity_5": 0.09642857142857142,
+    "hearsay_3": 0.11071428571428571,
+    "hearsay_4": 0.075,
+    "miranda_4": 0.10357142857142856,
+    "miranda_5": 0.060714285714285714,
+    "sof_4": 0.13571428571428573,
+    "terry_3": 0.039285714285714285,
+    "terry_4": 0.08214285714285713
+  }
+}
