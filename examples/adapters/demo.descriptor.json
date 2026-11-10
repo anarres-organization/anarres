@@ -12,7 +12,7 @@
   "profile_schema_versions": [
     "anarres.environment-profile-input.v1"
   ],
-  "protocol_version": 1,
+  "protocol_version": 2,
   "schema_version": "anarres.adapter-descriptor.v1",
   "version": "0.1.0"
 }

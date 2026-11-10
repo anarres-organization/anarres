@@ -52,67 +52,89 @@ name = "anarres-finance"
 version = "0.1.0"
 source = { editable = "packages/finance" }
 dependencies = [
+    { name = "anarres-core" },
     { name = "anarres-environments" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "anarres-environments", editable = "packages/environments" }]
+requires-dist = [
+    { name = "anarres-core", editable = "packages/core" },
+    { name = "anarres-environments", editable = "packages/environments" },
+]
 
 [[package]]
 name = "anarres-formal"
 version = "0.1.0"
 source = { editable = "data/formal-verification/vero" }
 dependencies = [
+    { name = "anarres-core" },
     { name = "anarres-environments" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "anarres-environments", editable = "packages/environments" }]
+requires-dist = [
+    { name = "anarres-core", editable = "packages/core" },
+    { name = "anarres-environments", editable = "packages/environments" },
+]
 
 [[package]]
 name = "anarres-legal"
 version = "0.2.0"
 source = { editable = "packages/legal" }
 dependencies = [
+    { name = "anarres-core" },
     { name = "anarres-environments" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "anarres-environments", editable = "packages/environments" }]
+requires-dist = [
+    { name = "anarres-core", editable = "packages/core" },
+    { name = "anarres-environments", editable = "packages/environments" },
+]
 
 [[package]]
 name = "anarres-materials"
 version = "0.5.0"
 source = { editable = "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter" }
 dependencies = [
+    { name = "anarres-core" },
     { name = "anarres-environments" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "anarres-environments", editable = "packages/environments" }]
+requires-dist = [
+    { name = "anarres-core", editable = "packages/core" },
+    { name = "anarres-environments", editable = "packages/environments" },
+]
 
 [[package]]
 name = "anarres-molecular"
 version = "0.2.0"
 source = { editable = "experiments/ai-for-science/molecular-design/reaction-environment-selection" }
 dependencies = [
+    { name = "anarres-core" },
     { name = "anarres-environments" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "anarres-environments", editable = "packages/environments" }]
+requires-dist = [
+    { name = "anarres-core", editable = "packages/core" },
+    { name = "anarres-environments", editable = "packages/environments" },
+]
 
 [[package]]
 name = "anarres-robotics"
 version = "0.5.0"
 source = { editable = "experiments/robotics/environment-selection/prospective-cupid-can-v141" }
 dependencies = [
+    { name = "anarres-core" },
     { name = "anarres-environments" },
     { name = "h5py" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "anarres-core", editable = "packages/core" },
     { name = "anarres-environments", editable = "packages/environments" },
     { name = "h5py", specifier = ">=3.8" },
 ]

@@ -73,10 +73,10 @@ fn write_fake_adapter(directory: &Path, name: &str, version: &str) -> PathBuf {
 
     let path = directory.join(format!("anarres-{name}"));
     let descriptor = format!(
-        r#"{{"schema_version":"anarres.adapter-descriptor.v1","name":"{name}","version":"{version}","protocol_version":1,"domain":"test-{name}","executable":"anarres-{name}","profile_schema_versions":["anarres.environment-profile-input.v1"],"capabilities":["profile","verify"],"measurement_contracts":["test.{name}.v1"]}}"#
+        r#"{{"schema_version":"anarres.adapter-descriptor.v1","name":"{name}","version":"{version}","protocol_version":2,"domain":"test-{name}","executable":"anarres-{name}","profile_schema_versions":["anarres.environment-profile-input.v1"],"capabilities":["profile","verify"],"measurement_contracts":["test.{name}.v1"]}}"#
     );
     let script = format!(
-        "#!/bin/sh\nif [ \"$1\" = \"--anarres-adapter-descriptor\" ]; then\n  printf '%s\\n' '{descriptor}'\n  exit 0\nfi\nprintf '%s\\n' \"$@\"\nif [ \"$1\" = \"fail\" ]; then exit 23; fi\n"
+        "#!/bin/sh\nif [ \"$1\" = \"--anarres-adapter-descriptor\" ]; then\n  printf '%s\\n' '{descriptor}'\n  exit 0\nfi\nif [ \"$1\" != \"--anarres-adapter-protocol\" ] || [ \"$2\" != \"2\" ] || [ \"$3\" != \"--anarres-adapter-name\" ] || [ \"$4\" != \"{name}\" ]; then\n  printf 'invalid runtime handshake\\n' >&2\n  exit 64\nfi\nshift 4\nprintf '%s\\n' \"$@\"\nif [ \"$1\" = \"fail\" ]; then exit 23; fi\n"
     );
     fs::write(&path, script).expect("fake adapter is written");
     let mut permissions = fs::metadata(&path).unwrap().permissions();
@@ -538,7 +538,7 @@ fn invalid_missing_and_incompatible_adapters_fail_cleanly() {
     let path = write_fake_adapter(&directory, "future", "0.1.0");
     let body = fs::read_to_string(&path)
         .unwrap()
-        .replace("\"protocol_version\":1", "\"protocol_version\":99");
+        .replace("\"protocol_version\":2", "\"protocol_version\":99");
     fs::write(&path, body).unwrap();
     let incompatible = run_with_path(&["adapter", "doctor", "future", "--json"], &directory);
     assert_eq!(incompatible.status.code(), Some(1));
@@ -555,14 +555,14 @@ fn invalid_missing_and_incompatible_adapters_fail_cleanly() {
 
 #[cfg(unix)]
 #[test]
-fn malformed_descriptors_fail_before_the_adapter_workflow_runs() {
+fn incompatible_runtime_protocol_fails_before_the_adapter_workflow_runs() {
     use std::os::unix::fs::PermissionsExt;
 
     let directory = temporary_directory();
     let path = directory.join("anarres-broken");
     fs::write(
         &path,
-        "#!/bin/sh\nif [ \"$1\" = \"--anarres-adapter-descriptor\" ]; then printf 'not-json\\n'; exit 0; fi\ntouch workflow-ran\n",
+        "#!/bin/sh\nif [ \"$1\" = \"--anarres-adapter-descriptor\" ]; then printf 'not-json\\n'; exit 0; fi\nif [ \"$1\" = \"--anarres-adapter-protocol\" ]; then printf 'unsupported runtime protocol\\n' >&2; exit 64; fi\ntouch workflow-ran\n",
     )
     .unwrap();
     let mut permissions = fs::metadata(&path).unwrap().permissions();
@@ -570,9 +570,19 @@ fn malformed_descriptors_fail_before_the_adapter_workflow_runs() {
     fs::set_permissions(&path, permissions).unwrap();
 
     let output = run_with_path(&["broken", "profile"], &directory);
-    assert_eq!(output.status.code(), Some(1));
-    assert!(String::from_utf8_lossy(&output.stderr).contains("invalid descriptor JSON"));
+    assert_eq!(output.status.code(), Some(64));
+    assert!(String::from_utf8_lossy(&output.stderr).contains("unsupported runtime protocol"));
     assert!(!directory.join("workflow-ran").exists());
+
+    let doctor = run_with_path(&["adapter", "doctor", "broken", "--json"], &directory);
+    assert_eq!(doctor.status.code(), Some(1));
+    let report: Value = serde_json::from_slice(&doctor.stdout).expect("failure is JSON");
+    assert!(
+        report["errors"][0]
+            .as_str()
+            .unwrap()
+            .contains("invalid descriptor JSON")
+    );
 
     fs::remove_dir_all(directory).unwrap();
 }
