@@ -107,6 +107,18 @@ decision record remains authoritative for prospective interpretation.
 `anarres legal status` reports the SylloGym and LAB evidence as separate
 scientific objects. LAB regression-risk results are never profile inputs.
 
+The legal adapter also exposes the released LAB task-regression evaluation as
+a separate read-only report:
+
+```bash
+anarres legal regressions --repository . --json
+```
+
+This command recomputes the compact LAB summary, reports its held-out
+practice-area metrics and artifact digests, and preserves its claim boundary.
+It does not convert task-regression evidence into an environment profile or a
+prediction for a new trainer.
+
 ## Files
 
 - [`data/frozen-decision.json`](data/frozen-decision.json): pre-outcome rule,

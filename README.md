@@ -44,6 +44,9 @@ The native CLI exposes four stable operations:
 Domain adapters preserve the measurements, units, failure states, and costs of
 their originating studies. They extend the CLI without forcing robotics, legal
 reasoning, materials science, or executable agents into one measurement model.
+The native installer does not install every domain runtime. The
+[adapter installation guide](docs/adapters.md) shows how to add only the
+domain commands needed for a study.
 
 ## Install
 
@@ -114,8 +117,13 @@ git clone https://github.com/anarres-organization/anarres.git
 cd anarres
 make setup
 make check
+make study-check
 make example
 ```
+
+`make check` tests software and schemas. `make study-check` separately
+reproduces the compact released study records and maintained adapter outputs.
+The slower `make study-check-extended` also runs exhaustive isolated releases.
 
 Install the native command from a checkout:
 
@@ -124,7 +132,7 @@ cargo install --path crates/anarres-cli --locked
 anarres --version
 ```
 
-The mathematics release provides a compact reproducibility check:
+The mathematics release can also be inspected directly:
 
 ```bash
 cd experiments/mathematics/environment-utility
@@ -154,7 +162,7 @@ Large model weights and checkpoints are distributed through versioned artifact s
 
 ## Documentation
 
-- **Use the software:** [CLI guide](docs/cli.md), [release and verification guide](docs/releases.md), and [first-run evaluation](docs/first-run-evaluation.md)
+- **Use the software:** [CLI guide](docs/cli.md), [adapter installation](docs/adapters.md), [release and verification guide](docs/releases.md), and [first-run evaluation](docs/first-run-evaluation.md)
 - **Integrate a domain:** [domain adapters](docs/architecture/domain-adapters.md), [adapter authoring](docs/architecture/adapter-authoring.md), and [measurement conventions](docs/conventions/README.md)
 - **Understand the system:** [repository architecture](docs/architecture/repository.md), [scientific preservation](docs/architecture/scientific-preservation.md), and [domain support](docs/domain-support.md)
 - **Contribute:** [contribution guide](CONTRIBUTING.md), [governance](GOVERNANCE.md), and [security policy](SECURITY.md)

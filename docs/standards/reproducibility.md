@@ -25,3 +25,21 @@ Forecasts and candidate identities are frozen before prospective outcomes are in
 ## Failure semantics
 
 Infrastructure failures, verifier failures, context-limit events, scientific reward zero, and excluded observations are distinct outcomes. Aggregation must not silently convert between them.
+
+## Repository checks
+
+Software conformance and scientific reproduction remain separate:
+
+```bash
+make check
+make study-check
+```
+
+The first command tests maintained code, schemas, and interfaces. The second
+recomputes compact claim-bearing records and maintained adapter outputs, then
+checks that reproduction leaves tracked artifacts unchanged. The extended
+suite adds exhaustive isolated releases:
+
+```bash
+make study-check-extended
+```

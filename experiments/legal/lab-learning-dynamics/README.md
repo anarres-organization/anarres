@@ -96,6 +96,16 @@ The reproducer checks the full checkpoint curve, reported extrema, metric
 ordering, negative controls, and claim boundary from compact source-linked
 records. It does not redownload or redistribute the upstream task corpus.
 
+After installing the legal adapter, the same compact result is available as a
+structured read-only CLI report:
+
+```bash
+anarres legal regressions --repository . --json
+```
+
+The report remains separate from SylloGym candidate-environment profiles
+because it evaluates task-regression risk within one released intervention.
+
 ## Files
 
 - [`data/checkpoints.json`](data/checkpoints.json): complete 15-checkpoint curve.

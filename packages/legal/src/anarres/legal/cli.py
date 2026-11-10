@@ -23,12 +23,12 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "legal",
-        "version": "0.1.0",
+        "version": "0.1.1",
         "protocol_version": 1,
         "domain": "legal-procedural-reasoning",
         "executable": "anarres-legal",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
-        "capabilities": ["profile", "status", "verify"],
+        "capabilities": ["profile", "regression-report", "status", "verify"],
         "measurement_contracts": ["syllogym-stage-a-policy-response-v1"],
     }
 
@@ -68,6 +68,16 @@ def load_exporter(repository: Path) -> ModuleType:
     specification = importlib.util.spec_from_file_location("anarres_legal_syllogym_exporter", path)
     if specification is None or specification.loader is None:
         raise LegalCliError(f"cannot load the released SylloGym exporter: {path}")
+    module = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(module)
+    return module
+
+
+def load_lab_reproducer(repository: Path) -> ModuleType:
+    path = repository / "experiments/legal/lab-learning-dynamics/scripts/reproduce.py"
+    specification = importlib.util.spec_from_file_location("anarres_legal_lab_reproducer", path)
+    if specification is None or specification.loader is None:
+        raise LegalCliError(f"cannot load the released LAB reproducer: {path}")
     module = importlib.util.module_from_spec(specification)
     specification.loader.exec_module(module)
     return module
@@ -142,6 +152,43 @@ def command_verify(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def command_regressions(args: argparse.Namespace) -> dict[str, Any]:
+    repository = repository_root(args.repository)
+    study = repository / "experiments/legal/lab-learning-dynamics"
+    summary_path = study / "results/summary.json"
+    risk_path = study / "data/regression-risk.json"
+    checkpoints_path = study / "data/checkpoints.json"
+    sources_path = study / "SOURCES.json"
+
+    expected = read_object(summary_path)
+    reproduced = load_lab_reproducer(repository).compute()
+    if reproduced != expected:
+        raise LegalCliError("recomputed LAB summary does not match the released result")
+
+    risk = read_object(risk_path)
+    return {
+        "schema_version": "anarres.legal-regression-report.v1",
+        "status": "released_reproduced",
+        "study": "lab-learning-dynamics",
+        "role": "separate_task_regression_evaluation",
+        "profile_input": False,
+        "feature_timing": risk["feature_timing"],
+        "endpoint": risk["endpoint"],
+        "validation": risk["validation"],
+        "support": risk["support"],
+        "metrics": risk["metrics"],
+        "clustered_bootstrap": risk["clustered_bootstrap_combined_minus_behavior"],
+        "learning_dynamics": expected,
+        "claim_boundary": risk["claim_boundary"],
+        "artifacts": {
+            "checkpoints": f"sha256:{sha256(checkpoints_path)}",
+            "regression_risk": f"sha256:{sha256(risk_path)}",
+            "released_summary": f"sha256:{sha256(summary_path)}",
+            "sources": f"sha256:{sha256(sources_path)}",
+        },
+    }
+
+
 def print_result(value: dict[str, Any], as_json: bool) -> None:
     if as_json:
         print(json.dumps(value, indent=2, sort_keys=True))
@@ -175,6 +222,13 @@ def parser() -> argparse.ArgumentParser:
     profile.add_argument("--output-dir", type=Path, required=True)
     profile.add_argument("--force", action="store_true")
     profile.set_defaults(handler=command_profile)
+
+    regressions = commands.add_parser(
+        "regressions",
+        help="Reproduce and report the separate LAB task-regression evaluation.",
+    )
+    add_common(regressions)
+    regressions.set_defaults(handler=command_regressions)
 
     verify = commands.add_parser(
         "verify", help="Verify and deterministically regenerate SylloGym profiles."

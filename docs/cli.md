@@ -154,8 +154,8 @@ five seconds and stay below 256 KiB of output, preventing a faulty adapter from
 blocking CLI discovery.
 
 The CLI does not download adapters, search a repository checkout, or import an
-adapter's libraries. Install domain tools through their documented package or
-binary distribution. The
+adapter's libraries. The [adapter installation guide](adapters.md) gives the
+supported checkout-based commands for every maintained adapter. The
 [adapter authoring guide](architecture/adapter-authoring.md) defines the
 descriptor and release requirements.
 

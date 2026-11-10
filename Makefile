@@ -5,7 +5,7 @@ UV_CACHE_DIR ?= .uv-cache
 export PYTHONPATH
 export UV_CACHE_DIR
 
-.PHONY: setup format lint test rust-format rust-lint rust-test schemas hygiene prose check release-smoke adapter-smoke example clean
+.PHONY: setup format lint test rust-format rust-lint rust-test schemas hygiene prose check study-check study-check-extended release-smoke adapter-smoke example clean
 
 setup:
 	uv sync --all-packages --dev
@@ -47,6 +47,12 @@ prose:
 	$(PYTHON) tools/check_prose_style.py
 
 check: lint rust-format rust-lint test rust-test schemas hygiene prose
+
+study-check:
+	$(PYTHON) tools/check_study_reproduction.py
+
+study-check-extended:
+	$(PYTHON) tools/check_study_reproduction.py --extended
 
 release-smoke:
 	$(CARGO) build --release --locked -p anarres-cli

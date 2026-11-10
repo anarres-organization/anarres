@@ -14,6 +14,7 @@ Anarres welcomes contributions to data systems, reusable packages, evaluation, d
 ```bash
 make setup
 make check
+make study-check
 make example
 ```
 
@@ -21,6 +22,11 @@ The native CLI requires a Rust toolchain with `rustfmt` and `clippy`. Python
 adapters require Python 3.11 or newer and `uv`. The default checks are CPU-only.
 GPU, sandbox, and full-domain integration tests run separately in trusted
 environments.
+
+`make check` covers maintained software interfaces and schemas.
+`make study-check` reproduces compact claim-bearing records and fails when a
+reproducer changes tracked artifacts. Use `make study-check-extended` before a
+release that changes an exhaustive study workflow.
 
 ## Pull requests
 

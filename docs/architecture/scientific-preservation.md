@@ -24,6 +24,11 @@ mixture. The LAB study uses task and workflow structure to estimate regression
 risk across held-out practice areas. Neither object is equivalent to grouped
 reward mixedness or effective coverage.
 
+The legal adapter exposes the LAB result through `anarres legal regressions` as
+a read-only evaluation report. It recomputes the compact released summary and
+retains its validation split, support, uncertainty, and claim boundary. It does
+not convert the result into a candidate-environment profile.
+
 An adapter can export selected measurements from either study, but it must use
 different measurement contracts and coordinate definitions. The native frozen
 decision, checkpoint record, regression endpoint, validation split, and

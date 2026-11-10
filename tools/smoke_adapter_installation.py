@@ -23,6 +23,16 @@ PACKAGES = (
     "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter",
 )
 ADAPTERS = ("finance", "formal", "legal", "materials", "molecular", "robotics")
+ADAPTER_PACKAGES = {
+    "finance": "packages/finance",
+    "formal": "data/formal-verification/vero",
+    "legal": "packages/legal",
+    "materials": (
+        "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter"
+    ),
+    "molecular": "experiments/ai-for-science/molecular-design/reaction-environment-selection",
+    "robotics": "experiments/robotics/environment-selection/prospective-cupid-can-v141",
+}
 
 
 def command(*arguments: str, cwd: Path | None = None, env: dict[str, str] | None = None) -> str:
@@ -136,11 +146,57 @@ def main() -> int:
             if unwanted:
                 raise SystemExit(f"unwanted files in {wheel.name}: {unwanted}")
 
+        tool_root = root / "source-tools"
+        tool_bin = tool_root / "bin"
+        source_environment = os.environ.copy()
+        source_environment.pop("PYTHONPATH", None)
+        source_environment["UV_CACHE_DIR"] = str(tool_root / "cache")
+        source_environment["UV_TOOL_DIR"] = str(tool_root / "tools")
+        source_environment["UV_TOOL_BIN_DIR"] = str(tool_bin)
+        source_environment["PATH"] = os.pathsep.join(
+            [str(tool_bin), source_environment.get("PATH", "")]
+        )
+        for adapter, package in ADAPTER_PACKAGES.items():
+            command(
+                "uv",
+                "tool",
+                "install",
+                str(ROOT / package),
+                cwd=ROOT,
+                env=source_environment,
+            )
+            executable = tool_bin / f"anarres-{adapter}{'.exe' if os.name == 'nt' else ''}"
+            descriptor = json.loads(
+                command(
+                    str(executable),
+                    "--anarres-adapter-descriptor",
+                    cwd=root,
+                    env=source_environment,
+                )
+            )
+            if descriptor["name"] != adapter:
+                raise SystemExit(f"source-installed adapter mismatch: {descriptor!r}")
+
+        source_listing = json.loads(
+            command(
+                str(binary),
+                "adapter",
+                "list",
+                "--json",
+                cwd=root,
+                env=source_environment,
+            )
+        )
+        source_adapters = tuple(adapter["name"] for adapter in source_listing["adapters"])
+        if source_adapters != ADAPTERS:
+            raise SystemExit(f"unexpected source-installed adapter set: {source_adapters!r}")
+
         print(
             json.dumps(
                 {
                     "adapters": list(discovered),
                     "contracts": contracts,
+                    "source_installed_adapters": list(source_adapters),
                     "statuses": statuses,
                     "wheels": len(list(wheels.glob("*.whl"))),
                 },
