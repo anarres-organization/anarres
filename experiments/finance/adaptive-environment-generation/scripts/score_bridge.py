@@ -208,10 +208,13 @@ def main() -> None:
         },
         "guardrail_audit": guardrail_audit(document, practical),
         "interpretation": [
-            "outcomes were public before this bridge and the feature representation was designed with access to the source papers",
-            "complete source holdout tests coefficient transfer but does not make this a prospective result",
+            "outcomes were public before this bridge and the feature representation was "
+            "designed with access to the source papers",
+            "complete source holdout tests coefficient transfer but does not make this a "
+            "prospective result",
             "source-native utilities are normalized only within matched decision panels",
-            "capability and guardrail outcomes remain separate and a guardrail regression blocks promotion",
+            "capability and guardrail outcomes remain separate and a guardrail regression "
+            "blocks promotion",
         ],
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)

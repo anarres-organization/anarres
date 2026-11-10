@@ -1,8 +1,8 @@
 {
   "PROTOCOL.json": "234788cf6ebcc0d6c755f1b6dd6d30fb5b4f103452eb29f2861bc509283d0eb5",
-  "README.md": "278cc0d75d2ebca247501ea2b2da4d4d8b18df6e2f050fc0577e114eb8d869c8",
+  "README.md": "e3c785388f3217605192f1a8466f46ba36832801e54c6aa9ba083dc3f1ec5cf3",
   "SOURCES.json": "59507125d6f1c7ff7a24ef5d9dfaea837f707501ab7bc3f0df2d33104fd7f3d8",
   "data/panels.json": "e4182658586f484aef70915e46c1a6861ab972e0d7ab12a9b8bc25d985a5dcdc",
   "results/summary.json": "b2d5e5d2f010f40b27b4b3042fd2ac70a0d2308469d6123f3b9c0f2fedfd684b",
-  "scripts/score_bridge.py": "97c195d381262b2c5403497aae296f053a558c6cc2f87e811027a371b408d335"
+  "scripts/score_bridge.py": "d21c7f3f9701b370e1391b87b61181a9351185c38bb4a9314137184689e9bad5"
 }

@@ -146,6 +146,8 @@ both is needed before treating the loop as a general environment optimizer.
 ## Current status
 
 The development bridge, protocol, and primary-source audit are complete. The
-bridge is retrospective and does not qualify the selector. A separate
-component-level prediction is frozen for ProFinAgent before its detailed
-ablation table is extracted. The native two-round result also remains open.
+bridge is retrospective and does not qualify the selector. A separately frozen
+[ProFinAgent component test](heldout-profinagent/README.md) gets three of five
+prediction families correct. The two central component comparisons transfer
+across all nine reported model-by-complexity cells, while two broader
+generalizations fail. The native two-round result remains open.

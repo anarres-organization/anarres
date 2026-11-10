@@ -13,6 +13,18 @@ per-task tables, and repository result artifacts had not been opened when
 tests component-level directions rather than the aggregate claim already
 stated in the abstract.
 
-Predictions remain unscored when the paper does not report the corresponding
-matched comparison. Accuracy and latency are scored separately, and no
-prediction is revised after result extraction.
+Table 5 and Figure 4 were extracted only after the freeze commit. Three of five
+prediction families are correct. The full system exceeds DAG-only and CBM-only
+variants in all nine reported model-by-complexity cells, and DAG execution is
+faster than the sequential comparison. These three families contain 19 of 19
+correct atomic directional checks.
+
+Two predictions fail. Tool access produces its largest average gain on L1
+retrieval rather than L2 or L3 work, and the complete system is best in every
+reported accuracy cell. These misses narrow the representation: executable
+support can dominate at the retrieval boundary, and resource-interaction
+penalties cannot be assumed without a measured cost or accuracy tradeoff.
+
+Accuracy and latency remain separate, and no prediction is revised after
+result extraction. [`SCORE.json`](SCORE.json) contains the complete scoring
+record.

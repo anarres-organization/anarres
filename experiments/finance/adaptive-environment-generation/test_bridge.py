@@ -47,9 +47,7 @@ class AdaptiveEnvironmentBridgeTest(unittest.TestCase):
     def test_guardrail_block_is_preserved(self) -> None:
         audit = self.result["guardrail_audit"]
         self.assertGreaterEqual(audit["blocked_decisions"], 1)
-        banking = next(
-            row for row in audit["decisions"] if row["panel_id"] == "benign_utility"
-        )
+        banking = next(row for row in audit["decisions"] if row["panel_id"] == "benign_utility")
         self.assertEqual(banking["decision"], "block")
 
     def test_reproduction_is_byte_exact(self) -> None:
