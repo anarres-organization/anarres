@@ -52,6 +52,31 @@
       "redistribution": "no generated program, run checkpoint, model, or paper assets redistributed. This release contains compact numeric facts only"
     },
     {
+      "name": "dafny-annotator and DafnySynth",
+      "paper": "https://arxiv.org/abs/2411.15143v1",
+      "repository": "https://github.com/metareflection/dafny-annotator",
+      "revision": "051280279619efc3932fe745461ea32c54b04e81",
+      "repository_license": "MIT",
+      "result_artifacts": [
+        {"path": "config/main_table.json", "sha256": "7c5a5ff733616915337d4e860cfc0b81bb7cbcb9346cdeb4868569fa0c9e35c5", "size_bytes": 1870},
+        {"path": "analysis.py", "sha256": "b52056d31a194ea0a6c6ff7209bf1e289cb90db5d633bd9b8f1ddd501a06f331", "size_bytes": 2687},
+        {"path": "results/finetuned-Meta-Llama-3.1-8B-db25.json", "sha256": "bd281870b1643c094f17808dd725b56e519a0d1ea102c97c0e4eccf121ff4e2a", "size_bytes": 388517},
+        {"path": "results/finetuned-Meta-Llama-3.1-8B-db50.json", "sha256": "a05bbaf89274266fc811a54be4e155995bc48174a16689d02d6d0a3329149e2f", "size_bytes": 386214},
+        {"path": "results/finetuned-Meta-Llama-3.1-8B-db100.json", "sha256": "9bb4a6d28301126d3d13b88a50ed392053b5f1914b163919c304b6a51befd91e", "size_bytes": 385303},
+        {"path": "results/finetuned-Meta-Llama-3.1-8B-db25+graph.json", "sha256": "03d8fd2729326fcd395a416421b8c323c815ebd0c2b6065e93df55d44523b8ad", "size_bytes": 387062},
+        {"path": "results/finetuned-Meta-Llama-3.1-8B-db50+graph.json", "sha256": "5f237fb66f562a8fca69f360357f91e489810347f2929e8616dc1a9dd9ea5107", "size_bytes": 381530},
+        {"path": "results/finetuned-Meta-Llama-3.1-8B-db100+graph.json", "sha256": "f01e9673a717dc4afd91d62b4d9d0c7a9348ec9db460aef74c7f16d8e4dfbb21", "size_bytes": 382449},
+        {"path": "results/finetuned-CodeLlama-7b-hf-db25.json", "sha256": "9a4b74774b13d182c3b14370197d8e9be62c6be9b58186ebb4f39cb158f0a917", "size_bytes": 382137},
+        {"path": "results/finetuned-CodeLlama-7b-hf-db50.json", "sha256": "15c35ce1db513c5e740368c7d4360381fe0d3c8ee728408c35347a90c9753cad", "size_bytes": 383660},
+        {"path": "results/finetuned-CodeLlama-7b-hf-db100.json", "sha256": "5e7dd8a0d60a52cb9d8c20aa816bbda80ea137e8cacf6138857da9f50eb44218", "size_bytes": 383862},
+        {"path": "results/finetuned-CodeLlama-7b-hf-db25+graph.json", "sha256": "9a0700136f3624a063bff3fa680212db2e03aef0e317161dbd1fda2f7bd2c7a4", "size_bytes": 384236},
+        {"path": "results/finetuned-CodeLlama-7b-hf-db50+graph.json", "sha256": "866d444566752935bfffb379d4f60d1d7e21374cf786ac65ac095f602c32ac78", "size_bytes": 383442},
+        {"path": "results/finetuned-CodeLlama-7b-hf-db100+graph.json", "sha256": "42f818a06537b619f1881e320734e7a6ad9637e2e5d4b5d1a1f2becfb5610358", "size_bytes": 383764}
+      ],
+      "role": "matched formal-verification training-data environments across two starting models and three DafnyBench data fractions",
+      "redistribution": "no programs, model outputs, checkpoints, or paper assets redistributed. This release contains compact numeric facts and source hashes only"
+    },
+    {
       "name": "Vericoding Benchmark",
       "paper": "https://arxiv.org/abs/2509.22908v1",
       "repository": "https://github.com/Beneficial-AI-Foundation/vericoding-benchmark",
