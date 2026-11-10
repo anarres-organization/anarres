@@ -82,6 +82,11 @@ CHECKS = (
         "experiments/finance/retrospective-post-training",
         "test_reproduce.py",
     ),
+    python_check(
+        "molecular endpoint contract",
+        "experiments/ai-for-science/molecular-design/reaction-environment-selection",
+        "scripts/verify_qualifying_hit_contract.py",
+    ),
     StudyCheck(
         "formal-verification adapter",
         ROOT,

@@ -222,6 +222,22 @@ predictor. A prospective result is scored only after every expected arm,
 budget, and seed passes identity, completeness, and infrastructure-validity
 checks.
 
+[`QUALIFYING_HIT_CONTRACT_V1.json`](QUALIFYING_HIT_CONTRACT_V1.json) freezes
+this endpoint before target training or trained-policy evaluation.
+[`Q07820_REFERENCE_THRESHOLDS_V1.json`](Q07820_REFERENCE_THRESHOLDS_V1.json)
+instantiates its target-relative gates from public MolGenBench Version4
+controls. The resulting limits are Vina affinity at most -8.84 kcal/mol,
+strain energy at most 153.64, clash score at most 6, and interaction score at
+least 0.7397, together with QED above 0.5, synthetic accessibility below 5,
+all chemical filters, and all PoseBusters checks. Missing molecule-level
+metrics do not qualify. An infrastructure failure invalidates the affected
+panel instead of becoming a molecular failure.
+
+The pose summaries use MolGenBench's published package versions and PoseCheck
+commit and cover all 1,131 docked reference-active records. Starting-policy
+endpoint qualification remains the next gate before a matched training
+schedule can be frozen.
+
 ## Frontier alignment
 
 RxnFlow provides a maintained synthesis-aware molecular policy, and its public
