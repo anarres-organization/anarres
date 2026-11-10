@@ -30,13 +30,14 @@ class NativeQFBenchRunnerTest(unittest.TestCase):
             indexed["ewma-portfolio-risk-decomposition"]["partition"], "shared_protected"
         )
 
-    def test_only_round_one_development_tasks_are_currently_authorized(self) -> None:
-        authorized = run_task.authorize_current_stage("historical-var-data-prep")
-        self.assertEqual(authorized["round"], 1)
+    def test_only_round_two_development_tasks_are_currently_authorized(self) -> None:
+        authorized = run_task.authorize_current_stage("dcc-garch-portfolio-var")
+        self.assertEqual(authorized["round"], 2)
         for task_id in (
+            "historical-var-data-prep",
             "standard-var-methods",
             "ewma-portfolio-risk-decomposition",
-            "dcc-garch-portfolio-var",
+            "credit-portfolio-var-cvar",
         ):
             with self.assertRaisesRegex(RuntimeError, "remains sealed"):
                 run_task.authorize_current_stage(task_id)

@@ -19,6 +19,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent
 SPLIT_PATH = ROOT / "TASK_SPLIT.json"
 SOURCE_PATH = ROOT / "SOURCE.json"
+AUTHORIZATION_PATH = ROOT / "STAGE_AUTHORIZATION.json"
 
 AGENT_PROMPT = """Complete the quantitative-finance assignment in instruction.md.
 
@@ -67,7 +68,8 @@ def authorize_current_stage(task_id: str) -> dict[str, Any]:
     row = frozen_tasks().get(task_id)
     if row is None:
         raise RuntimeError(f"Task {task_id!r} is not in the frozen split")
-    if row.get("partition") != "development" or row.get("round") != 1:
+    authorization = json.loads(AUTHORIZATION_PATH.read_text())
+    if task_id not in authorization["authorized_task_ids"]:
         raise RuntimeError(
             f"Task {task_id!r} remains sealed until a versioned authorization opens its stage"
         )
@@ -133,6 +135,7 @@ def prepare_stage(
         "instruction_sha256": row["instruction_sha256"],
         "candidate_sha256": candidate_sha256,
         "source_has_data_directory": source_data.is_dir(),
+        "stage_authorization_sha256": sha256_file(AUTHORIZATION_PATH),
         "agent_visible_entries": sorted(path.name for path in stage.iterdir()),
     }
     records = record_root(stage)

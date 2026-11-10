@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "round": 1,
+  "condition": "no_update",
+  "agent": {
+    "model": "gpt-6-astra",
+    "codex_cli_version": "0.154.0",
+    "attempts_per_task_condition": 1
+  },
+  "tasks": [
+    {
+      "task_id": "historical-var-data-prep",
+      "reward": 1.0,
+      "agent_wall_seconds": 36.661,
+      "verifier_wall_seconds": 4.055,
+      "usage": {
+        "input_tokens": 81468,
+        "cached_input_tokens": 72064,
+        "output_tokens": 1026,
+        "reasoning_output_tokens": 0
+      },
+      "trajectory_sha256": "1ad9d275b66ef57894eacf6dcaefc5ebd577cb9a32f9b6fb296dca04aab9b395",
+      "runner_commit": "8b8ea97"
+    },
+    {
+      "task_id": "var-es-estimation",
+      "reward": 1.0,
+      "agent_wall_seconds": 59.672,
+      "verifier_wall_seconds": 6.199,
+      "usage": {
+        "input_tokens": 80143,
+        "cached_input_tokens": 74368,
+        "output_tokens": 2352,
+        "reasoning_output_tokens": 170
+      },
+      "trajectory_sha256": "29c07b5ef0200300ccb4b7bbcb2ee2cc0b6fed51294664963cba694087c913bf",
+      "runner_commit": "9f2af08"
+    }
+  ],
+  "decision": {
+    "action": "abstain",
+    "eligible_candidates": [],
+    "reason": "No development failure was observed, so no failure-derived candidate is eligible."
+  },
+  "sealed_tasks_not_executed": [
+    "standard-var-methods",
+    "evt-pot-var"
+  ],
+  "claim_scope": "headroom calibration only"
+}
