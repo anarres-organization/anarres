@@ -1,0 +1,46 @@
+{
+  "artifact_sha256": {
+    "checkpoint": "5ce56d7dafd06d43bd360db1f5f1570fc0dd4f04745597ac81ce5ff3a8b5325c",
+    "replay_bank": "74d584c02867f256ac14961ae3a1b2871f11dabdd869f8b219dfb5439a07f997",
+    "warm_start": "effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a"
+  },
+  "bank": "hash_uniform",
+  "bank_item_count": 512,
+  "checks": {
+    "checkpoint_exists": true,
+    "finite_loss": true,
+    "fresh_empty_optimizer": true,
+    "fresh_empty_replay": true,
+    "fresh_step_zero": true,
+    "matched_smoke_batch": true,
+    "materialized_bank_complete": true,
+    "one_update_complete": true,
+    "online_insertion_disabled": true,
+    "replay_bank_unchanged": true
+  },
+  "claim_boundary": "This reduced smoke qualifies the replay-training interface. It is not a target-training outcome or evidence of bank utility.",
+  "observed": {
+    "loss": 203.6723175048828,
+    "policy_grad_norm": 96.60971069335938,
+    "replay_size_after": 512,
+    "replay_size_before": 512
+  },
+  "schema_version": "1.0",
+  "scope": "reduced replay-materialization and one-update interface smoke",
+  "seed": 20261110,
+  "smoke_batch": {
+    "online": 2,
+    "replay": 2,
+    "updates": 1
+  },
+  "status": "pass",
+  "study": "prospective-reaction-environment-selection",
+  "warm_start": {
+    "artifact_type": "anarres.rxnflow-warm-start-weights.v1",
+    "rxnflow_version": "2.1.0",
+    "source_objectives": [
+      "qed"
+    ],
+    "source_step": 1000
+  }
+}
