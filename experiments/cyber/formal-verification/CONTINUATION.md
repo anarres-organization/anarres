@@ -54,10 +54,11 @@ The immediate work has three phases:
    [CODEX_CONTAINMENT.md](CODEX_CONTAINMENT.md), exercise every negative
    control through the model-facing command path, and emit a compact receipt
    without credentials or machine-specific paths.
-2. **Public policy audit.** Complete the source-pinned policy-support matrix
-   from released LeanLean, Vero, Forall VeriSoftBench, Vericoding, FVSpec, and
-   VeriBench evidence. Preserve each source's objective and verifier rather
-   than pooling its scores.
+2. **Public policy audit.** Maintain the source-pinned policy-support matrix
+   from released LeanLean, Vero, Forall VeriSoftBench, and Vericoding evidence.
+   Keep FVSpec and VeriBench as candidate task sources until their evaluator,
+   outcome, and release boundaries are qualified. Preserve each source's
+   objective and verifier rather than pooling its scores.
 3. **Development screen.** After containment passes and a policy is selected,
    freeze a new protocol and outcome-blind queue for one attempt in each mode
    on the four repositories in `development-lifecycle-panel-v2.json`. The existing

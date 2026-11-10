@@ -200,10 +200,10 @@ calibration, risk--coverage, and cost are supporting metrics.
 
 ## Immediate deliverables
 
-1. Maintain the source-pinned public-evidence record. Complete the
-   repository-policy matrix from released LeanLean, Vero, Forall
-   VeriSoftBench, Vericoding, FVSpec, and VeriBench artifacts before allocating
-   new inference, while preserving each source's native outcome.
+1. Maintain the source-pinned public-evidence record and repository-policy
+   matrix from released LeanLean, Vero, Forall VeriSoftBench, and Vericoding
+   artifacts. Keep FVSpec and VeriBench as candidate task sources until their
+   evaluator, outcome, and release boundaries are qualified.
 2. Pin every admitted executable source and record its license and content
    manifest. The OSS Verify `v2026.11.1` index and checker metadata are
    complete. Vero's source structure, bounded runtime qualification, and
