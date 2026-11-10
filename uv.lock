@@ -7,6 +7,7 @@ members = [
     "anarres-core",
     "anarres-environments",
     "anarres-evaluation",
+    "anarres-finance",
     "anarres-workspace",
 ]
 
@@ -36,6 +37,17 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [{ name = "anarres-core", editable = "packages/core" }]
+
+[[package]]
+name = "anarres-finance"
+version = "0.1.0"
+source = { editable = "packages/finance" }
+dependencies = [
+    { name = "anarres-environments" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "anarres-environments", editable = "packages/environments" }]
 
 [[package]]
 name = "anarres-workspace"

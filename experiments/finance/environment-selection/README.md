@@ -142,7 +142,7 @@ The released Qwen3-8B qualification summary can be projected into the shared
 environment-profile contract without changing its native estimand:
 
 ```bash
-python export_environment_profile.py --output-dir .anarres/finance
+anarres finance profile --output-dir .anarres/finance
 anarres qualify \
   .anarres/finance/business-bench-qwen3-8b-development.profile-input.json
 anarres measure \

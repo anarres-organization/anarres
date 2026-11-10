@@ -44,6 +44,7 @@ scientific result.
 | `measure` | Normalize evidence into a content-addressed record | Policy-probe input or profile input |
 | `design` | Compare candidates and audit panel compatibility | Two or more manifests or profiles of one type |
 | `validate` | Check structure, semantics, and content integrity | Any supported input or measured record |
+| `finance` | Run released agentic-finance audits and reproductions | Finance-native records and released evidence |
 
 Run `anarres <command> --help` for the complete arguments of one command.
 
@@ -134,6 +135,40 @@ conformance, native adapters, and predictive evidence. The [domain adapter
 guide](architecture/domain-adapters.md) defines the runtime boundary, and the
 [adapter authoring guide](architecture/adapter-authoring.md) documents the
 Python construction interface and promotion requirements.
+
+## Agentic-finance workflow
+
+The finance adapter is available through the main command while retaining its
+domain-native Python implementation:
+
+```bash
+anarres finance status
+anarres finance audit-sources
+anarres finance profile --output-dir .anarres/finance
+anarres finance score-holdout finharmbench
+anarres finance verify
+anarres finance reproduce --output-dir .anarres/finance-reproduction
+```
+
+`status` reports the released capabilities and current prospective boundary.
+`audit-sources` validates immutable source revisions and generator preflight.
+`profile` converts the completed starting-policy qualification into a shared
+profile input. `score-holdout` reruns one frozen source test from its released
+decision contract. `verify` reruns every released finance check in an isolated
+copy, and `reproduce` exports the regenerated retrospective, strict-transfer,
+and frozen-holdout artifacts without modifying checked-in evidence.
+
+New policy-attempt records use the same native gate:
+
+```bash
+anarres finance qualify-policy qualification-attempts.jsonl \
+  --output qualification-summary.json
+```
+
+The Rust binary delegates these commands to the `anarres-finance` adapter. The
+adapter may be installed as a package, while repository builds discover the
+checked-in implementation without adding finance dependencies to the Rust
+core. No finance command performs a network call.
 
 ## Automation
 

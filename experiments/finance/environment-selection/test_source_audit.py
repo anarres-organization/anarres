@@ -39,7 +39,16 @@ class FinanceSourceAuditTest(unittest.TestCase):
             "multi_turn_training_runtime_candidate",
         }
         dependencies = [source for source in self.sources["sources"] if source["role"] in roles]
-        self.assertEqual(len(dependencies), 4)
+        self.assertEqual(
+            {source["id"] for source in dependencies},
+            {
+                "business_bench",
+                "qwen3_8b",
+                "qwen3_30b_a3b_instruct_2507",
+                "qwen3_coder_30b_a3b_instruct",
+                "nemo_rl",
+            },
+        )
         self.assertTrue(all(len(source["revision"]) == 40 for source in dependencies))
 
 

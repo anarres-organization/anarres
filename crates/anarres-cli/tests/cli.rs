@@ -391,3 +391,23 @@ fn unknown_schema_is_reported_as_unsupported() {
     );
     fs::remove_dir_all(directory).expect("temporary directory is removed");
 }
+
+#[test]
+fn finance_status_runs_the_domain_adapter() {
+    let output = run(&["finance", "status", "--json"]);
+    assert!(
+        output.status.success(),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let report: Value = serde_json::from_slice(&output.stdout).expect("stdout is JSON");
+    assert_eq!(report["domain"], "agentic-finance");
+    assert_eq!(report["prospective_environment_outcome_opened"], false);
+    assert!(
+        report["capabilities"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|capability| capability == "retrospective_reproduction")
+    );
+}

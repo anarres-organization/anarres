@@ -15,12 +15,14 @@ members = [
   "packages/core",
   "packages/environments",
   "packages/evaluation",
+  "packages/finance",
 ]
 
 [tool.uv.sources]
 anarres-core = { workspace = true }
 anarres-environments = { workspace = true }
 anarres-evaluation = { workspace = true }
+anarres-finance = { workspace = true }
 
 [tool.ruff]
 line-length = 100

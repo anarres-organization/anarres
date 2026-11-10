@@ -1,6 +1,6 @@
 PYTHON ?= uv run python
 CARGO ?= cargo
-PYTHONPATH := packages/core/src:packages/environments/src:packages/evaluation/src
+PYTHONPATH := packages/core/src:packages/environments/src:packages/evaluation/src:packages/finance/src
 UV_CACHE_DIR ?= .uv-cache
 export PYTHONPATH
 export UV_CACHE_DIR
@@ -33,6 +33,7 @@ test:
 	$(PYTHON) -m unittest discover -s packages/core/tests -p 'test_*.py'
 	$(PYTHON) -m unittest discover -s packages/environments/tests -p 'test_*.py'
 	$(PYTHON) -m unittest discover -s packages/evaluation/tests -p 'test_*.py'
+	$(PYTHON) -m unittest discover -s packages/finance/tests -p 'test_*.py'
 	$(PYTHON) -m unittest discover -s tests/integration -p 'test_*.py'
 
 schemas:
