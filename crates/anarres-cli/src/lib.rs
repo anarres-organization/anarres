@@ -38,17 +38,19 @@ static NEXT_TEMPORARY_FILE: AtomicU64 = AtomicU64::new(0);
     long_about = "Measure, compare, and validate learning environments.\n\n\
         Built-in commands operate on versioned local records and write no network state.\n\
         Installed adapters run under their own documented contracts.",
-    after_help = "Start here:\n  \
-        anarres demo\n  \
-        anarres init <environment-directory> --adapter <name> --revision <revision> --license <license>\n  \
-        anarres inspect <environment>\n  \
-        anarres qualify <environment>\n  \
-        anarres probe <environment> --policy <id> --policy-revision <revision> --output <measurement>\n  \
-        anarres qualify <measurement>\n  \
-        anarres measure <measurement> --output <environment.json>\n  \
+    after_help = "Try the complete local workflow:\n  \
+        anarres demo\n\n\
+        Use your own environment:\n  \
         anarres adapter list\n  \
-        anarres <adapter> --help\n\n\
-        Use built-in commands for portable environment records. Use an installed adapter to inspect or reproduce a domain study.",
+        anarres adapter doctor <name>\n  \
+        anarres init <directory> --adapter <name> --revision <revision> --license <license>\n  \
+        anarres inspect <directory>\n  \
+        anarres qualify <directory>\n  \
+        anarres probe <directory> --policy <id> --policy-revision <revision> --output <measurement>\n\n\
+        Turn completed measurements into comparable records:\n  \
+        anarres measure <measurement> --output <environment.json>\n  \
+        anarres design <environment-a.json> <environment-b.json>\n\n\
+        `inspect` reports whether qualification and policy probing are available for the installed adapter.",
     arg_required_else_help = true
 )]
 struct Cli {

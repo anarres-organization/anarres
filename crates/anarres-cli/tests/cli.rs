@@ -56,11 +56,13 @@ fn top_level_help_points_to_builtins_and_adapters() {
     assert!(output.status.success());
     let stdout = String::from_utf8(output.stdout).expect("stdout is UTF-8");
     assert!(stdout.contains("anarres demo"));
-    assert!(stdout.contains("anarres inspect <environment>"));
-    assert!(stdout.contains("anarres qualify <measurement>"));
     assert!(stdout.contains("anarres adapter list"));
-    assert!(stdout.contains("anarres <adapter> --help"));
-    assert!(stdout.contains("portable environment records"));
+    assert!(stdout.contains("anarres adapter doctor <name>"));
+    assert!(stdout.contains("anarres inspect <directory>"));
+    assert!(stdout.contains("anarres qualify <directory>"));
+    assert!(stdout.contains("anarres measure <measurement>"));
+    assert!(stdout.contains("anarres design <environment-a.json> <environment-b.json>"));
+    assert!(stdout.contains("whether qualification and policy probing are available"));
 }
 
 #[test]

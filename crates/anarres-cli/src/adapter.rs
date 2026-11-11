@@ -99,6 +99,8 @@ pub(crate) fn list(as_json: bool) -> Result<i32, String> {
             ));
         }
     }
+    crate::ui::blank();
+    crate::ui::next("anarres adapter doctor <name>");
     Ok(0)
 }
 
@@ -144,6 +146,24 @@ pub(crate) fn doctor(name: &str, as_json: bool) -> Result<i32, String> {
         crate::ui::field("Executable", report.path.as_deref().unwrap_or("unknown"));
         if !descriptor.source_formats.is_empty() {
             crate::ui::field("Source formats", descriptor.source_formats.join(", "));
+            crate::ui::field(
+                "Can qualify",
+                yes_no(
+                    descriptor
+                        .capabilities
+                        .iter()
+                        .any(|capability| capability == "source-qualification"),
+                ),
+            );
+            crate::ui::field(
+                "Can probe",
+                yes_no(
+                    descriptor
+                        .capabilities
+                        .iter()
+                        .any(|capability| capability == "policy-probe"),
+                ),
+            );
         }
         for path in &report.shadowed_paths {
             crate::ui::warning_stderr(format_args!(
@@ -157,6 +177,10 @@ pub(crate) fn doctor(name: &str, as_json: bool) -> Result<i32, String> {
         }
     }
     Ok(i32::from(!report.valid))
+}
+
+fn yes_no(value: bool) -> &'static str {
+    if value { "yes" } else { "no" }
 }
 
 pub(crate) fn run(name: &str, arguments: &[OsString]) -> Result<i32, String> {
