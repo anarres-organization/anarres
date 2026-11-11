@@ -3,7 +3,12 @@ name = "anarres-finance"
 version = "0.2.0"
 description = "Domain adapter and reproducibility commands for Anarres finance studies"
 requires-python = ">=3.11"
-dependencies = ["anarres-core", "anarres-environments", "PyYAML>=6.0"]
+dependencies = [
+  "anarres-core",
+  "anarres-environments",
+  "jsonschema>=4.23",
+  "PyYAML>=6.0",
+]
 license = { text = "Apache-2.0" }
 
 [project.scripts]

@@ -192,7 +192,8 @@ class FinanceCliTest(unittest.TestCase):
         self.assertIn("native_source_qualification", result["capabilities"])
         self.assertEqual(result["native_source_format"], "business-bench-process-v1")
         self.assertFalse(result["native_policy_probe_available"])
-        self.assertIn("portable execution contract", result["native_policy_probe_boundary"])
+        self.assertIn("standalone research script", result["native_policy_probe_boundary"])
+        self.assertIn("complete finance-profile converter", result["native_policy_probe_boundary"])
         self.assertFalse(result["prospective_environment_outcome_opened"])
         self.assertGreaterEqual(result["strict_retrospective_sources"], 1)
         self.assertEqual(result["strict_pairwise_ordering"], 0.815534)
@@ -214,6 +215,12 @@ class FinanceCliTest(unittest.TestCase):
         self.assertEqual(result["excluded_source_fintoolsyn_directional_scored"], 9)
         self.assertEqual(result["excluded_source_fintoolsyn_regression_correct"], 3)
         self.assertEqual(result["excluded_source_fintoolsyn_regression_scored"], 3)
+        self.assertEqual(result["excluded_source_cdf_gc_directional_correct"], 21)
+        self.assertEqual(result["excluded_source_cdf_gc_directional_scored"], 22)
+        self.assertEqual(result["excluded_source_cdf_gc_best_candidate_correct"], 3)
+        self.assertEqual(result["excluded_source_cdf_gc_best_candidate_scored"], 4)
+        self.assertEqual(result["excluded_source_mint_agent_directional_correct"], 4)
+        self.assertEqual(result["excluded_source_mint_agent_directional_scored"], 4)
         self.assertEqual(result["outcome_separated_longfinanceqa_directional_correct"], 24)
         self.assertEqual(result["outcome_separated_longfinanceqa_directional_scored"], 25)
         self.assertEqual(result["outcome_separated_longfinanceqa_families_supported"], 4)
@@ -233,6 +240,7 @@ class FinanceCliTest(unittest.TestCase):
             ).read_text()
         )["practical_rule_weights"]
         zero = {name: 0.0 for name in weights}
+        baseline = {**zero, "target_alignment": 0.5}
         aligned = {**zero, "target_alignment": 1.0}
         nearby = {**zero, "target_alignment": 0.9}
         panel = {
@@ -240,9 +248,10 @@ class FinanceCliTest(unittest.TestCase):
             "target_id": "test-target",
             "baseline_id": "base",
             "candidates": [
-                {"candidate_id": "base", "features": zero},
+                {"candidate_id": "base", "features": baseline},
                 {"candidate_id": "aligned", "features": aligned},
                 {"candidate_id": "nearby", "features": nearby},
+                {"candidate_id": "regressing", "features": zero},
             ],
         }
         schema = json.loads((ROOT / "schemas/finance-candidate-panel.v1.schema.json").read_text())
@@ -263,7 +272,10 @@ class FinanceCliTest(unittest.TestCase):
         directions = {
             row["candidate_id"]: row["direction"] for row in result["regression_directions"]
         }
-        self.assertEqual(directions, {"aligned": "improve", "nearby": "improve"})
+        self.assertEqual(
+            directions,
+            {"aligned": "improve", "nearby": "improve", "regressing": "regress"},
+        )
         self.assertEqual(result["evidence"]["pairwise_accuracy"], 0.903433)
 
     def test_candidate_decision_rejects_fields_outside_the_schema(self) -> None:
@@ -291,7 +303,34 @@ class FinanceCliTest(unittest.TestCase):
                 (),
                 {"repository": ROOT, "input": input_path, "output": None, "force": False},
             )()
-            with self.assertRaisesRegex(cli.FinanceCliError, "unsupported fields"):
+            with self.assertRaisesRegex(cli.FinanceCliError, "does not match"):
+                cli.command_decide(args)
+
+    def test_candidate_decision_rejects_duplicate_ids(self) -> None:
+        weights = json.loads(
+            (
+                ROOT
+                / "experiments/finance/retrospective-post-training/results/expanded_summary.json"
+            ).read_text()
+        )["practical_rule_weights"]
+        features = {name: 0.0 for name in weights}
+        panel = {
+            "schema_version": "anarres.finance-candidate-panel.v1",
+            "target_id": "test-target",
+            "candidates": [
+                {"candidate_id": "same", "features": features},
+                {"candidate_id": "same", "features": features},
+            ],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            input_path = Path(directory) / "panel.json"
+            input_path.write_text(json.dumps(panel), encoding="utf-8")
+            args = type(
+                "Args",
+                (),
+                {"repository": ROOT, "input": input_path, "output": None, "force": False},
+            )()
+            with self.assertRaisesRegex(cli.FinanceCliError, "unique"):
                 cli.command_decide(args)
 
     def test_profile_command_exports_native_record(self) -> None:
@@ -334,7 +373,7 @@ class FinanceCliTest(unittest.TestCase):
         result = cli.command_verify(args)
         self.assertEqual(result["status"], "pass")
         self.assertEqual(result["mode"], "compact")
-        self.assertEqual(result["manifest_artifacts"], 38)
+        self.assertEqual(result["manifest_artifacts"], 46)
         self.assertEqual(result["retrospective_sources"], 16)
         self.assertEqual(result["strict_panels"], 79)
         self.assertEqual(result["selective_pairwise_accuracy"], 0.904255)
@@ -344,12 +383,18 @@ class FinanceCliTest(unittest.TestCase):
         self.assertEqual(result["fintoolsyn_directional_scored"], 9)
         self.assertEqual(result["fintoolsyn_regression_correct"], 3)
         self.assertEqual(result["fintoolsyn_regression_scored"], 3)
+        self.assertEqual(result["cdf_gc_directional_correct"], 21)
+        self.assertEqual(result["cdf_gc_directional_scored"], 22)
+        self.assertEqual(result["cdf_gc_best_candidate_correct"], 3)
+        self.assertEqual(result["cdf_gc_best_candidate_scored"], 4)
+        self.assertEqual(result["mint_agent_directional_correct"], 4)
+        self.assertEqual(result["mint_agent_directional_scored"], 4)
         self.assertEqual(result["longfinanceqa_directional_correct"], 24)
         self.assertEqual(result["longfinanceqa_directional_scored"], 25)
         self.assertEqual(result["longfinanceqa_families_supported"], 4)
         self.assertEqual(result["longfinanceqa_families_scored"], 4)
         self.assertFalse(result["starting_policy_qualified"])
-        self.assertEqual(len(result["holdouts"]), 7)
+        self.assertEqual(len(result["holdouts"]), 9)
 
     def test_manifest_verification_rejects_changed_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
