@@ -65,15 +65,17 @@ validates its content digest:
 
 ```text
 Anarres demo
-  Environment         math-reference-demo-v1
-  Policy              synthetic-policy-v1
-  Qualification       2 admitted · 1 reserve · 1 repair · 1 quarantine
-  Signal density      833.3333 advantage mass / M tokens
-  Effective coverage  0.6533
-  Record              .anarres/demo/environment.json
-  Validation          passed
 
-Next: run anarres design <record-a> <record-b> to compare candidates.
+  ✓ Qualified    math-reference-demo-v1
+    Policy           synthetic-policy-v1
+    Groups           2 admitted · 1 reserve · 1 repair · 1 quarantine
+  ✓ Measured     usable experience
+    Signal density   833.3333 advantage mass / M tokens
+    Coverage         0.6533
+  ✓ Wrote        .anarres/demo/environment.json
+  ✓ Validated    content digest
+
+Next  anarres design <record-a> <record-b>
 ```
 
 The [CLI guide](docs/cli.md) continues with your own measurements, candidate

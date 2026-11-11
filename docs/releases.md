@@ -84,7 +84,7 @@ For a reproducible installation, replace `latest/download` with a release tag:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -LsSf \
-  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.2.0/anarres-cli-installer.sh | sh
+  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.3.0/anarres-cli-installer.sh | sh
 ```
 
 The source install remains available on every supported Rust host after cloning
@@ -107,7 +107,7 @@ generated plan:
 
 ```bash
 dist generate
-dist plan --tag anarres-cli-v0.2.0
+dist plan --tag anarres-cli-v0.3.0
 ```
 
 After the GitHub release passes its artifact checks, copy the generated
