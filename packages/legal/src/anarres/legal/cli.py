@@ -12,7 +12,9 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
-from anarres.core import consume_adapter_invocation
+from anarres.core import consume_adapter_invocation, load_source_manifest
+
+from . import lab_intake
 
 
 class LegalCliError(ValueError):
@@ -25,7 +27,7 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "legal",
-        "version": "0.2.0",
+        "version": "0.3.0",
         "protocol_version": 2,
         "domain": "legal-procedural-reasoning",
         "executable": "anarres-legal",
@@ -35,6 +37,7 @@ def adapter_descriptor() -> dict[str, Any]:
             "lab-workflow-intake",
             "profile",
             "regression-report",
+            "source-qualification",
             "status",
             "verify",
         ],
@@ -42,6 +45,7 @@ def adapter_descriptor() -> dict[str, Any]:
             "harvey-lab-workflow-intake-v1",
             "syllogym-stage-a-policy-response-v1",
         ],
+        "source_formats": ["harvey-lab-checkout-v1"],
     }
 
 
@@ -95,16 +99,6 @@ def load_lab_reproducer(repository: Path) -> ModuleType:
     return module
 
 
-def load_lab_intake(repository: Path) -> ModuleType:
-    path = repository / "experiments/legal/lab-workflow-intake/scripts/build.py"
-    specification = importlib.util.spec_from_file_location("anarres_legal_lab_intake", path)
-    if specification is None or specification.loader is None:
-        raise LegalCliError(f"cannot load the LAB workflow intake: {path}")
-    module = importlib.util.module_from_spec(specification)
-    specification.loader.exec_module(module)
-    return module
-
-
 def load_lab_run_audit(repository: Path) -> ModuleType:
     path = repository / "experiments/legal/lab-workflow-intake/scripts/audit_runs.py"
     specification = importlib.util.spec_from_file_location("anarres_legal_lab_run_audit", path)
@@ -149,6 +143,9 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
             "checkpoint_count": lab["checkpoint_count"],
             "workflow_intake_available": True,
             "workflow_intake_reads_outcomes": False,
+            "native_source_format": "harvey-lab-checkout-v1",
+            "native_source_qualification_available": True,
+            "policy_probe_available": False,
             "run_audit_available": True,
         },
     }
@@ -225,10 +222,8 @@ def command_regressions(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def command_lab_intake(args: argparse.Namespace) -> dict[str, Any]:
-    repository = repository_root(args.repository)
-    intake = load_lab_intake(repository)
-    summary, rows = intake.build(args.lab_root.resolve(), args.source_revision)
-    outputs = intake.write(summary, rows, args.output_dir.resolve(), args.force)
+    summary, rows = lab_intake.build(args.lab_root.resolve(), args.source_revision)
+    outputs = lab_intake.write(summary, rows, args.output_dir.resolve(), args.force)
     return {
         "status": summary["status"],
         "task_count": summary["support"]["tasks"],
@@ -239,6 +234,42 @@ def command_lab_intake(args: argparse.Namespace) -> dict[str, Any]:
         "outputs": [str(path) for path in outputs],
         "output_digests": {path.name: f"sha256:{sha256(path)}" for path in outputs},
         "claim_boundary": summary["claim_boundary"],
+    }
+
+
+def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
+    """Validate one pinned LAB checkout without reading runs or outcomes."""
+
+    descriptor = adapter_descriptor()
+    source = load_source_manifest(
+        args.manifest,
+        expected_adapter="legal",
+        expected_version=descriptor["version"],
+        expected_domain=descriptor["domain"],
+        accepted_formats=tuple(descriptor["source_formats"]),
+    )
+    if source.license != "MIT":
+        raise LegalCliError(
+            "Harvey LAB source license must be recorded as MIT for this source format"
+        )
+    summary, _ = lab_intake.build(source.source, source.revision)
+    if summary["status"] != "qualified":
+        missing = summary["support"]["tasks"] - summary["support"]["tasks_with_documents"]
+        raise LegalCliError(f"LAB checkout has incomplete matter files for {missing} task(s)")
+    return {
+        "status": "qualified",
+        "environment_id": source.environment_id,
+        "native_format": source.native_format,
+        "source_revision": source.revision,
+        "source_license": source.license,
+        "task_set_sha256": summary["source"]["task_set_sha256"],
+        "tasks": summary["support"]["tasks"],
+        "practice_areas": summary["support"]["practice_areas"],
+        "rubric_criteria": summary["support"]["rubric_criteria"],
+        "tasks_with_documents": summary["support"]["tasks_with_documents"],
+        "policy_probe_available": False,
+        "model_responses_read": False,
+        "outcomes_read": False,
     }
 
 
@@ -282,6 +313,13 @@ def parser() -> argparse.ArgumentParser:
     status = commands.add_parser("status", help="Show released legal evidence boundaries.")
     add_common(status)
     status.set_defaults(handler=command_status)
+
+    qualify_source = commands.add_parser(
+        "qualify-source", help="Validate a pinned Harvey LAB task checkout."
+    )
+    qualify_source.add_argument("--manifest", type=Path, required=True)
+    qualify_source.add_argument("--json", action="store_true")
+    qualify_source.set_defaults(handler=command_qualify_source)
 
     profile = commands.add_parser(
         "profile", help="Export outcome-blind SylloGym environment profiles."

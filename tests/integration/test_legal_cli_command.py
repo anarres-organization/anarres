@@ -114,6 +114,31 @@ class LegalCliCommandTest(unittest.TestCase):
             self.assertEqual(regression_report["support"]["severe_regressions"], 27)
 
             lab_root = self.make_lab(directory / "harvey-lab")
+            initialized = self.run_cli(
+                directory,
+                "init",
+                str(lab_root),
+                "--adapter",
+                "legal",
+                "--revision",
+                "git:fixture-revision",
+                "--license",
+                "MIT",
+                "--json",
+            )
+            self.assertEqual(initialized.returncode, 0, initialized.stderr)
+            inspected = self.run_cli(directory, "inspect", str(lab_root), "--json")
+            self.assertEqual(inspected.returncode, 0, inspected.stderr)
+            inspection = json.loads(inspected.stdout)
+            self.assertTrue(inspection["qualification_ready"])
+            self.assertFalse(inspection["probe_ready"])
+            qualified = self.run_cli(directory, "qualify", str(lab_root), "--json")
+            self.assertEqual(qualified.returncode, 0, qualified.stderr)
+            qualification = json.loads(qualified.stdout)
+            self.assertEqual(qualification["status"], "qualified")
+            self.assertFalse(qualification["model_responses_read"])
+            self.assertFalse(qualification["outcomes_read"])
+
             intake = self.run_cli(
                 directory,
                 "legal",

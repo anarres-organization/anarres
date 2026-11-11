@@ -2,9 +2,28 @@
 
 This adapter validates and inventories the target side of a Harvey LAB experiment before any model response or training outcome is used. It reads a pinned LAB checkout and records task identity, practice area, work type, matter documents, deliverables, and criterion-level review structure.
 
+An installed adapter can qualify the native checkout through the shared source
+workflow:
+
+```bash
+anarres init /path/to/harvey-labs \
+  --adapter legal \
+  --revision "LAB-REVISION" \
+  --license MIT
+anarres inspect /path/to/harvey-labs
+anarres qualify /path/to/harvey-labs
+```
+
+`inspect` reports source qualification as available and policy probing as
+unavailable. Qualification validates the complete task and matter-document
+inventory without reading model responses, judge verdicts, or training
+outcomes. A portable LAB policy runner is not part of this release.
+
+The explicit inventory export remains available when task-level rows are
+needed:
+
 ```bash
 anarres legal lab-intake \
-  --repository /path/to/anarres \
   --lab-root /path/to/harvey-labs \
   --source-revision v1.3.0 \
   --output-dir /path/to/intake

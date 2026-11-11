@@ -40,7 +40,10 @@ available evidence cannot justify a training decision.
 The LAB workflow intake adds the operational entry point for a new long-horizon
 legal study. It keeps the target workflow separate from starting-policy runs and
 training interventions, which makes the same contract usable across model
-families without treating a benchmark label as an environment measurement.
+families without treating a benchmark label as an environment measurement. The
+installed legal adapter can now qualify a pinned LAB checkout through
+`anarres init`, `inspect`, and `qualify`. Policy probing remains unavailable
+until a portable harness and judge contract can execute the starting policy.
 
 ## Scope
 

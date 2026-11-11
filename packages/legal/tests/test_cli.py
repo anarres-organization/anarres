@@ -97,6 +97,61 @@ class LegalCliTest(unittest.TestCase):
         self.assertEqual(descriptor["name"], "legal")
         self.assertEqual(descriptor["executable"], "anarres-legal")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
+        self.assertEqual(descriptor["version"], "0.3.0")
+        self.assertEqual(descriptor["source_formats"], ["harvey-lab-checkout-v1"])
+        self.assertIn("source-qualification", descriptor["capabilities"])
+        self.assertNotIn("policy-probe", descriptor["capabilities"])
+
+    def write_source_manifest(self, root: Path, lab_root: Path, *, license_id: str = "MIT") -> Path:
+        manifest = root / "anarres.toml"
+        manifest.write_text(
+            "\n".join(
+                [
+                    'schema_version = "anarres.environment-source.v1"',
+                    'environment_id = "lab-fixture"',
+                    'domain = "legal-procedural-reasoning"',
+                    'adapter = "legal"',
+                    'adapter_version = "0.3.0"',
+                    'native_format = "harvey-lab-checkout-v1"',
+                    "",
+                    "[source]",
+                    f'uri = "{lab_root.as_posix()}"',
+                    'revision = "git:fixture-revision"',
+                    f'license = "{license_id}"',
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        return manifest
+
+    def test_native_lab_source_qualification_is_outcome_blind(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            lab_root = self.make_lab(root / "lab")
+            manifest = self.write_source_manifest(root, lab_root)
+            result = cli.command_qualify_source(type("Args", (), {"manifest": manifest})())
+        self.assertEqual(result["status"], "qualified")
+        self.assertEqual(result["tasks"], 1)
+        self.assertEqual(result["practice_areas"], 1)
+        self.assertFalse(result["policy_probe_available"])
+        self.assertFalse(result["model_responses_read"])
+        self.assertFalse(result["outcomes_read"])
+
+    def test_native_lab_source_rejects_wrong_license_and_missing_documents(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            lab_root = self.make_lab(root / "lab")
+            wrong_license = self.write_source_manifest(root, lab_root, license_id="unknown")
+            with self.assertRaisesRegex(cli.LegalCliError, "must be recorded as MIT"):
+                cli.command_qualify_source(type("Args", (), {"manifest": wrong_license})())
+
+            wrong_license.unlink()
+            for document in (lab_root / "tasks").rglob("documents/*"):
+                document.unlink()
+            incomplete = self.write_source_manifest(root, lab_root)
+            with self.assertRaisesRegex(cli.LegalCliError, "incomplete matter files"):
+                cli.command_qualify_source(type("Args", (), {"manifest": incomplete})())
 
     def test_status_separates_syllogym_from_lab(self) -> None:
         args = type("Args", (), {"repository": ROOT})()

@@ -203,6 +203,72 @@ def main() -> int:
                 f"{rejected_source.stderr!r}"
             )
 
+        legal_source = root / "native-source" / "legal-lab"
+        legal_task = legal_source / "tasks" / "litigation" / "draft-memo"
+        legal_documents = legal_task / "documents"
+        legal_documents.mkdir(parents=True)
+        (legal_documents / "record.txt").write_text("fixture", encoding="utf-8")
+        (legal_task / "task.json").write_text(
+            json.dumps(
+                {
+                    "title": "Draft a case memo",
+                    "work_type": "draft",
+                    "tags": ["litigation"],
+                    "instructions": "Review the record and draft the memo.",
+                    "deliverables": {"memo.docx": "memo.docx"},
+                    "criteria": [
+                        {
+                            "id": "C-001",
+                            "title": "Grounds the conclusion",
+                            "match_criteria": "PASS if grounded in the record.",
+                            "deliverables": ["memo.docx"],
+                        }
+                    ],
+                },
+                sort_keys=True,
+            ),
+            encoding="utf-8",
+        )
+        command(
+            str(binary),
+            "init",
+            str(legal_source),
+            "--adapter",
+            "legal",
+            "--revision",
+            "git:test-fixture",
+            "--license",
+            "MIT",
+            cwd=root,
+            env=installed_environment,
+        )
+        legal_inspection = json.loads(
+            command(
+                str(binary),
+                "inspect",
+                str(legal_source),
+                "--json",
+                cwd=root,
+                env=installed_environment,
+            )
+        )
+        if not legal_inspection["qualification_ready"] or legal_inspection["probe_ready"]:
+            raise SystemExit(f"legal source readiness was incorrect: {legal_inspection!r}")
+        legal_qualification = json.loads(
+            command(
+                str(binary),
+                "qualify",
+                str(legal_source),
+                "--json",
+                cwd=root,
+                env=installed_environment,
+            )
+        )
+        if legal_qualification["status"] != "qualified":
+            raise SystemExit(f"legal source was not qualified: {legal_qualification!r}")
+        if legal_qualification["model_responses_read"] or legal_qualification["outcomes_read"]:
+            raise SystemExit("legal source qualification crossed its outcome-blind boundary")
+
         profile_root = root / "profiles"
         record_root = root / "records"
         profile_count = 0
@@ -366,6 +432,7 @@ def main() -> int:
                     "user_flow": {
                         "compatible_panels": compatible_panels,
                         "formal_incompatibility_rejected": True,
+                        "legal_native_source_qualified": True,
                         "profile_inputs": profile_count,
                         "records": record_count,
                         "robotics_native_source_routed": True,
