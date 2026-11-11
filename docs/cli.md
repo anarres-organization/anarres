@@ -129,25 +129,31 @@ manifest is:
 ```toml
 schema_version = "anarres.environment-source.v1"
 environment_id = "candidate-a"
-domain = "agentic-systems"
-adapter = "openenv"
-adapter_version = "0.1.0"
-native_format = "openenv"
+domain = "robotics"
+adapter = "robotics"
+adapter_version = "0.5.0"
+native_format = "robomimic-can-v141-hdf5"
 
 [source]
-uri = "./native-environment"
-revision = "git:<commit>"
-license = "Apache-2.0"
+uri = "."
+revision = "sha256:<dataset-digest>"
+license = "<dataset-license>"
 ```
 
 The envelope contains dispatch and provenance only. Policy credentials,
 runtime secrets, outcomes, and domain-specific task contents remain outside
-it. A source-capable adapter validates the native environment and runs the
-starting policy. The Rust core streams and aggregates the resulting attempts:
+it. Source qualification and policy probing are separate adapter capabilities.
+Every source begins with inspection and qualification:
 
 ```bash
 anarres inspect ./candidate-a
 anarres qualify ./candidate-a
+```
+
+When `inspect` reports `Can probe yes`, the adapter can run the starting policy
+and the Rust core can stream and aggregate the resulting attempts:
+
+```bash
 anarres probe ./candidate-a \
   --policy <policy> \
   --policy-revision <revision> \
@@ -157,10 +163,18 @@ anarres measure .anarres/probes/candidate-a \
 ```
 
 `inspect` reports the selected adapter, its accepted native formats, and whether
-qualification and probing are available. These commands work only when that
-runtime has a maintained raw-environment integration. `anarres adapter doctor
-<name>` reports the same contract at the adapter level. Evidence-only adapters
-do not become environment runners automatically.
+qualification and probing are available. These are separate capabilities: an
+adapter may be able to validate a native dataset before it can execute the
+starting policy. `anarres inspect <source>` shows the available next step, and
+`anarres adapter doctor <name>` reports the same contract at the adapter level.
+Evidence-only adapters do not become environment runners automatically.
+
+The robotics adapter provides the first concrete native-source path. Place one
+pinned Can v1.4.1 HDF5 dataset in its own directory, install the robotics
+adapter, and initialize that directory with its immutable dataset digest and
+applicable dataset license. `inspect` reports qualification as available and
+probing as pending. `qualify` verifies the exact artifact and its RoboMimic
+structure without starting training or opening candidate outcomes.
 
 Use the built-in probe-run contract when an environment runtime can provide:
 

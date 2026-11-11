@@ -23,9 +23,10 @@ evidence and remains specific to the study, policy, target, and budget.
 Native-adapter status does not imply source-runtime status. Most current
 adapters reproduce released evidence. They become raw environment runners only
 after declaring accepted source formats and passing qualification and probe
-conformance on the real domain runtime. The current released descriptors do not
-yet claim that capability; `anarres adapter doctor <name>` is the authoritative
-check as integrations are added.
+conformance on the real domain runtime. An adapter may release source
+qualification before it releases policy execution. `anarres inspect <source>`
+reports both capabilities separately, and `anarres adapter doctor <name>` is
+the authoritative adapter-level check.
 
 ## Current status
 
@@ -33,7 +34,7 @@ check as integrations are added.
 | --- | --- | --- | --- | --- |
 | Mathematics | Grouped-probe path and reference conformance | Native grouped-probe processor | Completed raw-attempt streams | Four-scale environment-utility release |
 | Formal verification | Real Vero profiles | Installable Vero development adapter with a separate support report | Pending | Positive external training-environment grids across Dafny and Verus; local Vero support and containment qualification remain pre-RL |
-| Robotics | Real Can v1.4.1 candidate profiles | Installable CUPID candidate-measurement and result adapter | Study-specific planning and execution exist; unified source entry is pending | Prospective PushT and Can results, plus retrospective multi-source records |
+| Robotics | Real Can v1.4.1 candidate profiles | Installable CUPID candidate-measurement and result adapter | Can v1.4.1 HDF5 qualification is available; policy probing remains study-specific | Prospective PushT and Can results, plus retrospective multi-source records |
 | Legal reasoning | Real SylloGym policy-response profiles | Installable SylloGym mixture adapter with a separate LAB regression report | LAB intake and run audit exist; unified source entry is pending | Prospective SylloGym and separate LAB regression-risk records |
 | Materials science | Real MLIP candidate profiles | Installable cost-matched-panel adapter | Pending | Supervised phonon tests and a scored MLIP prospective test; the learned selector missed while deterministic baselines succeeded |
 | Vulnerability exploitation | Public qualification protocol and released scaffold study | Not yet available | Pending | Policy-relative measurement released; no environment comparison |

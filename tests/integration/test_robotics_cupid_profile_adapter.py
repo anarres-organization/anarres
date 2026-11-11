@@ -9,6 +9,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
+import h5py
 from anarres_robotics_adapter import cli as CLI
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
@@ -50,6 +51,42 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             descriptor["measurement_contracts"],
             ["robotics.cupid-can-v141-candidate-measurement.v1"],
         )
+        self.assertEqual(descriptor["source_formats"], ["robomimic-can-v141-hdf5"])
+
+    def test_native_source_qualification_uses_manifest_and_dataset_identity(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            dataset = root / "can.hdf5"
+            with h5py.File(dataset, "w") as handle:
+                handle.create_group("data").create_group("demo_0")
+            digest = hashlib.sha256(dataset.read_bytes()).hexdigest()
+            manifest = root / "anarres.toml"
+            manifest.write_text(
+                "\n".join(
+                    [
+                        'schema_version = "anarres.environment-source.v1"',
+                        'environment_id = "can-fixture"',
+                        'domain = "robotics"',
+                        'adapter = "robotics"',
+                        'adapter_version = "0.5.0"',
+                        'native_format = "robomimic-can-v141-hdf5"',
+                        "",
+                        "[source]",
+                        'uri = "."',
+                        f'revision = "sha256:{digest}"',
+                        'license = "fixture-only"',
+                        "",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            arguments = type("Args", (), {"manifest": manifest})()
+            with mock.patch.object(CLI.workflow, "SOURCE_DATASET_SHA256", digest):
+                report = CLI.command_qualify_source(arguments)
+        self.assertEqual(report["status"], "qualified")
+        self.assertEqual(report["demonstrations"], 1)
+        self.assertFalse(report["policy_probe_available"])
+        self.assertFalse(report["training_started"])
 
     def run_adapter(self, arguments: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
         source_paths = [

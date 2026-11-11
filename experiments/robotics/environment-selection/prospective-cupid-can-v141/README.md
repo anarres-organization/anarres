@@ -124,6 +124,29 @@ The study-local command can be installed independently from the native CLI:
 uv tool install \
   ./experiments/robotics/environment-selection/prospective-cupid-can-v141
 anarres adapter doctor robotics
+```
+
+To qualify the native Can dataset before constructing a study workflow, place
+the single `low_dim_v141.hdf5` artifact in its own environment directory and
+record its pinned identity:
+
+```bash
+anarres init ./can-v141-source \
+  --adapter robotics \
+  --revision sha256:b6ceaed84c0335613a5001c900493b226481c132c792ec2cbdb99cb12c62baf0 \
+  --license "DATASET-LICENSE"
+anarres inspect ./can-v141-source
+anarres qualify ./can-v141-source
+```
+
+Qualification verifies the exact dataset hash, HDF5 structure, and
+demonstration inventory. It does not start training or open candidate outcomes.
+The user records the applicable dataset terms because the upstream dataset is
+distributed separately from the MIT-licensed RoboMimic code.
+
+The study-specific planning and execution path is:
+
+```bash
 anarres robotics status --repository .
 anarres robotics plan --repository . --output .anarres/can-v141.plan.json
 anarres robotics prepare --repository . \

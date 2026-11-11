@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -144,6 +145,63 @@ def main() -> int:
                 )
             )
             statuses[adapter] = status.get("status", "reported")
+
+        native_source = root / "native-source" / "robotics-can"
+        native_source.mkdir(parents=True)
+        native_dataset = native_source / "can.hdf5"
+        command(
+            str(python),
+            "-c",
+            (
+                "import h5py,sys; "
+                "h=h5py.File(sys.argv[1],'w'); "
+                "h.create_group('data').create_group('demo_0'); h.close()"
+            ),
+            str(native_dataset),
+            cwd=root,
+            env=installed_environment,
+        )
+        native_digest = hashlib.sha256(native_dataset.read_bytes()).hexdigest()
+        command(
+            str(binary),
+            "init",
+            str(native_source),
+            "--adapter",
+            "robotics",
+            "--revision",
+            f"sha256:{native_digest}",
+            "--license",
+            "test-fixture",
+            cwd=root,
+            env=installed_environment,
+        )
+        native_inspection = json.loads(
+            command(
+                str(binary),
+                "inspect",
+                str(native_source),
+                "--json",
+                cwd=root,
+                env=installed_environment,
+            )
+        )
+        if not native_inspection["qualification_ready"]:
+            raise SystemExit(f"robotics source was not routed: {native_inspection!r}")
+        if native_inspection["probe_ready"]:
+            raise SystemExit("robotics source unexpectedly claims a policy probe runtime")
+        rejected_source = subprocess.run(
+            [str(binary), "qualify", str(native_source), "--json"],
+            cwd=root,
+            env=installed_environment,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if rejected_source.returncode != 1 or "pinned Can v1.4.1" not in rejected_source.stderr:
+            raise SystemExit(
+                "robotics source identity mismatch was not rejected precisely: "
+                f"{rejected_source.stderr!r}"
+            )
 
         profile_root = root / "profiles"
         record_root = root / "records"
@@ -310,6 +368,8 @@ def main() -> int:
                         "formal_incompatibility_rejected": True,
                         "profile_inputs": profile_count,
                         "records": record_count,
+                        "robotics_native_source_routed": True,
+                        "robotics_unpinned_source_rejected": True,
                     },
                     "wheels": len(list(wheels.glob("*.whl"))),
                 },

@@ -121,23 +121,30 @@ resulting manifest is explicit and reviewable:
 ```toml
 schema_version = "anarres.environment-source.v1"
 environment_id = "candidate-a"
-domain = "agentic-systems"
-adapter = "openenv"
-adapter_version = "0.1.0"
-native_format = "openenv"
+domain = "robotics"
+adapter = "robotics"
+adapter_version = "0.5.0"
+native_format = "robomimic-can-v141-hdf5"
 
 [source]
-uri = "./native-environment"
-revision = "git:<commit>"
-license = "Apache-2.0"
+uri = "."
+revision = "sha256:<dataset-digest>"
+license = "<dataset-license>"
 ```
 
-Source-capable adapters qualify the native files and run the starting policy.
-The Rust core then measures their normalized attempt stream:
+Source-capable adapters declare qualification and policy probing separately.
+Start with `inspect`; it reports the operations that the installed adapter can
+perform for that native format:
 
 ```bash
 anarres inspect ./candidate-a
 anarres qualify ./candidate-a
+```
+
+When the adapter also declares policy probing, it can run the starting policy
+and emit the normalized attempt stream measured by the Rust core:
+
+```bash
 anarres probe ./candidate-a \
   --policy <policy> \
   --policy-revision <revision> \
