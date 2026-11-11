@@ -49,14 +49,14 @@ Installing an adapter makes a domain command available. It does not imply that
 the domain has passed every scientific gate or that its measurements predict a
 new training outcome.
 
-| Adapter | Command | Current released boundary |
-| --- | --- | --- |
-| Formal verification | `anarres formal` | Negative grouped measurement plus a separate one-attempt support pass; containment requalification and RL remain blocked |
-| Robotics | `anarres robotics` | Can v1.4.1 candidate measurements and prospective result |
-| Legal reasoning | `anarres legal` | SylloGym candidate profiles and a separate LAB regression report |
-| Materials science | `anarres materials` | MLIP candidate measurements, frozen protocol, and scored prospective result |
-| Molecular design | `anarres molecular` | Qualified Q07820 reaction-bank measurements; training outcomes remain sealed |
-| Agentic finance | `anarres finance` | Starting-policy qualification and released retrospective checks |
+| Adapter | Start here | Then inspect | Current released boundary |
+| --- | --- | --- | --- |
+| Formal verification | `anarres formal status --repository .` | `anarres formal qualification --repository .` | Negative grouped measurement plus a separate one-attempt support pass; containment requalification and RL remain blocked |
+| Robotics | `anarres robotics status --repository .` | `anarres robotics can-results --repository .` | Can v1.4.1 candidate measurements and prospective result |
+| Legal reasoning | `anarres legal status --repository .` | `anarres legal regressions --repository .` | SylloGym candidate profiles and a separate LAB regression report |
+| Materials science | `anarres materials status --repository .` | `anarres materials results --repository .` | MLIP candidate measurements, frozen protocol, and scored prospective result |
+| Molecular design | `anarres molecular status --repository .` | `anarres molecular verify --repository .` | Qualified Q07820 reaction-bank measurements; training outcomes remain sealed |
+| Agentic finance | `anarres finance status --repository .` | `anarres finance decide <panel.json>` | Starting-policy qualification and released retrospective checks |
 
 Use `status` to inspect the released stage, `profile` to export supported
 candidate records, and `verify` to regenerate the adapter's maintained output.

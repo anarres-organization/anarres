@@ -32,6 +32,12 @@ static NEXT_TEMPORARY_FILE: AtomicU64 = AtomicU64::new(0);
     long_about = "Measure, compare, and validate learning environments.\n\n\
         Built-in commands operate on versioned local records and write no network state.\n\
         Installed adapters run under their own documented contracts.",
+    after_help = "Start here:\n  \
+        anarres qualify <measurements.json>\n  \
+        anarres measure <measurements.json> --output <environment.json>\n  \
+        anarres adapter list\n  \
+        anarres <adapter> --help\n\n\
+        Use built-in commands for portable environment records. Use an installed adapter to inspect or reproduce a domain study.",
     arg_required_else_help = true
 )]
 struct Cli {

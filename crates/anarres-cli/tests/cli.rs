@@ -47,6 +47,17 @@ fn run_with_path(arguments: &[&str], path: &Path) -> Output {
 }
 
 #[test]
+fn top_level_help_points_to_builtins_and_adapters() {
+    let output = run(&["--help"]);
+    assert!(output.status.success());
+    let stdout = String::from_utf8(output.stdout).expect("stdout is UTF-8");
+    assert!(stdout.contains("anarres qualify <measurements.json>"));
+    assert!(stdout.contains("anarres adapter list"));
+    assert!(stdout.contains("anarres <adapter> --help"));
+    assert!(stdout.contains("portable environment records"));
+}
+
+#[test]
 fn shell_completions_are_generated_for_supported_shells() {
     for shell in ["bash", "elvish", "zsh", "fish", "powershell"] {
         let output = run(&["generate-shell-completion", shell]);
