@@ -1,245 +1,104 @@
 # Predictable utility of formal-verification environments
 
-**Status:** the public-evidence bridge now contains positive downstream
-training comparisons across Dafny and Verus, together with reward-integrity
-and policy-support boundaries. In the densest released grid, verifier-filtered
-DafnySynth augmentation improves seven of eight matched paper comparisons and
-ties the eighth across two starting models and four human-data fractions. The
-OSS Verify release indexes and checker bootstrap are qualified. Vero's source
-structure, pinned Lean runtime, reference build, bounded grader controls, and
-repository-disjoint split are also qualified. Leanstral failed the frozen
-support screen and budget ladder, while GPT-5.6 Sol passes all nine PrimePy
-specifications in one excluded development attempt under fresh grading. A
-broader-than-intended task sandbox remains to be corrected before repeated
-measurement. No claim-bearing reinforcement-learning run is authorized.
+Formal-verification environments differ in proof language, repository context,
+tool access, verifier behavior, and interaction cost. This workstream asks:
 
-This workstream asks a narrower question than benchmark construction:
+> For a fixed starting policy, target, tool setup, and budget, which training
+> environment is expected to produce the greatest held-out improvement?
 
-> For a fixed starting policy, target, tool contract, and interaction budget,
-> which formal-verification training environment is expected to produce the
-> greatest held-out improvement, and when is the evidence too weak to choose?
+## Evidence at a glance
 
-The immediate objective is a reproducible comparison of executable environment
-families, not a claim that one benchmark, proof assistant, or task distribution
-is universally best. The long-term scientific objective is to learn which
-policy-relative properties of a verification environment predict downstream
-utility before full training is run.
+| Evidence | Result | Present boundary |
+| --- | --- | --- |
+| [Dafny and Verus training comparisons](public-evidence/README.md) | Verifier-filtered DafnySynth augmentation improves seven of eight matched comparisons and ties the eighth. Other studies show gains from target-matched data and verified feature coverage. | The studies use different models, verifiers, and outcomes, so their scores are not pooled. |
+| [Vero source qualification](VERO_SOURCE_QUALIFICATION.md) | The pinned source, Lean runtime, reference build, grader controls, and repository-disjoint split pass qualification. | Qualification establishes a usable source and runtime, not a successful policy probe. |
+| [Leanstral support screen](STARTING_POLICY_PROBE.md) | Leanstral produced no verified support under the frozen probe and budget ladder. | No training run is justified for that policy and environment. |
+| [GPT-5.6 development screen](STARTING_POLICY_SELECTION.md) | One excluded development attempt solved all nine PrimePy specifications under fresh grading. | The current sandbox exposes more of the repository than intended and must be tightened before repeated measurement. |
+
+A **support screen** asks whether the starting policy can produce any verified
+success. **Containment** limits the model to the task workspace and approved
+tools. **Fresh grading** reruns the verifier from a clean workspace rather than
+trusting files left by the model.
+
+## Start here
+
+Install the formal-verification adapter from the repository checkout, then
+inspect the released evidence and runtime qualification:
+
+```bash
+uv tool install ./data/formal-verification/vero
+anarres formal status --repository .
+anarres formal qualify-source --help
+anarres formal qualify-runtime --help
+anarres formal qualification --repository .
+```
+
+`qualify-source` checks the pinned Vero checkout. `qualify-runtime` verifies the
+Lean toolchain, package lock, reference build, allowed tools, filesystem rules,
+and resource limits without contacting a model. The `qualification` report
+keeps the one-policy development result separate from the negative Leanstral
+measurement.
+
+## What the public evidence shows
 
 The [public-evidence record](public-evidence/README.md) reconstructs decisions
 from DafnySynth, VeruSyn, Re:Form, Formal Disco, and Vericoding, then audits
-repository policy evidence from LeanLean, Vero, and Forall VeriSoftBench. It
-places these results against Anthropic and Theorem's production verification
-workflow while preserving each source's native outcome. The evidence shows
-that verifier-filtered augmentation, target-matched training data, and verified
-feature coverage can improve downstream proof synthesis. It also shows that
-raw verifier success can select a semantically weaker reward environment and
-that no starting policy leads every repository contract.
+policy support in LeanLean, Vero, and Forall VeriSoftBench. Together these
+studies show that:
 
-The detailed protocol is in [EXPERIMENT_PLAN.md](EXPERIMENT_PLAN.md). The dated
-source assessment and role of each public artifact are in
-[SOURCE_LANDSCAPE.md](SOURCE_LANDSCAPE.md). The fields required before a source
-can be admitted are listed in
-[source-registry.template.yaml](source-registry.template.yaml). The first
-completed source-index audit is recorded in
-[SOURCE_QUALIFICATION.md](SOURCE_QUALIFICATION.md), with its reproducible
-[adapter](../../../data/formal-verification/oss-verify/README.md). The
-repository-level Vero audit is recorded separately in
-[VERO_SOURCE_QUALIFICATION.md](VERO_SOURCE_QUALIFICATION.md). The frozen
-development measurement, completed result, and support boundary are recorded
-in [STARTING_POLICY_PROBE.md](STARTING_POLICY_PROBE.md). The next
-[policy requalification](POLICY_REQUALIFICATION.md) records the completed
-source-grounded budget ladder and the evidence required before testing a new
-starting policy. The audited
-[starting-policy selection](STARTING_POLICY_SELECTION.md) chooses GPT-5.6 Sol
-with Codex 0.154.0 for the completed development-only support test. Its compact
-[result](../../../data/formal-verification/vero/results/development-policy-qualification.codex-sol-v1.json)
-records the 9/9 fresh-grade outcome and its scope. The
-[containment requalification](CODEX_CONTAINMENT.md) defines the task-only
-execution boundary and negative controls required after that support result. The
-[development-policy panel](DEVELOPMENT_POLICY_PANEL.md) specifies the matched
-Sol/Luna route screen and its stop rule without authorizing inference. The
-[continuation guide](CONTINUATION.md) records the current execution boundary
-and the path from candidate construction to prospective selection, regression
-forecasting, and production-code transfer.
+- verifier-filtered and target-matched experience can improve downstream proof
+  synthesis
+- high raw verifier success can still select semantically weak specifications
+- policy rankings change with the harness, objective, verifier, budget, and
+  cost measure
+- infrastructure failures and invalid proofs must remain separate from
+  ordinary unsuccessful attempts.
 
-## Public evidence before new training
-
-The workstream begins with released interventions rather than a new model run.
-The public record contains six complementary checks:
-
-- DafnySynth compares verifier-filtered synthetic augmentation across two
-  starting models and four human-data fractions under a fixed training budget.
-- VeruSyn compares target-matched training-data environments for algorithmic
-  and real-system Verus proofs.
-- Re:Form shows that the reward environment with the highest verifier success
-  can produce the weakest semantic specifications.
-- Formal Disco connects verified feature coverage and generation diversity to
-  downstream Verus performance under a matched SFT pipeline.
-- Vericoding measures how candidate support changes across policies and formal
-  languages.
-- LeanLean, Vero, and Forall VeriSoftBench show that policy rankings change
-  with the harness, objective, verifier, budget, and cost measure.
-
-These studies do not share one numerical outcome. They establish the decision
-structure and failure modes that a prospective environment comparison must
-retain. New starting-policy measurements fill missing public traces. They do
-not replace the existing downstream evidence.
-
-## Why this workstream is timely
-
-Formal verification is moving from isolated theorem proving toward production
-software workflows:
-
-- [VeriBench](https://ehersch.github.io/veribench-blog/) evaluates end-to-end
-  Python-to-Lean formalization, including compilation, nontrivial formal
-  content, and semantic coverage of a human-curated target.
-- [VeriSoftBench](https://utopia-group.github.io/VeriSoftBench/) and
-  [Vero](https://vero.verina.io/) emphasize repository context rather than
-  isolated theorem statements.
-- [VeriContest](https://github.com/HIPREL-Group/VeriContest) separates
-  specification, implementation, proof, and end-to-end generation in native
-  Verus and Dafny environments.
-- [FVSpec](https://fvspec.galois.com/) turns real property-based tests into
-  Lean challenges drawn from hundreds of open-source repositories.
-- Anthropic and Theorem's
-  [assembly-level verification effort](https://www.anthropic.com/research/formal-verification)
-  demonstrates a production-scale workflow over OSS-Fuzz libraries and releases
-  a subset of its Rocq statements, proofs, RISC-V binaries, and Linux-process
-  semantics.
-- [VCVio](https://github.com/Verified-zkEVM/VCVio) and
-  [dalek-lean-bench](https://github.com/Beneficial-AI-Foundation/dalek-lean-bench)
-  expose realistic cryptographic proof development in Lean.
-
-These sources do not define one interchangeable task pool. They differ in
-proof assistant, specification source, repository context, trusted computing
-base, reward surface, and target capability. Those differences are part of the
-scientific problem and must remain explicit.
-
-## One program, multiple environment families
-
-The reference is the production workflow demonstrated by Anthropic and
-Theorem: start from real software, construct an executable formal claim, use an
-agent inside a full proof-development environment, and obtain a
-machine-checkable guarantee whose assumptions and trusted components are
-explicit. The research question is which training experiences most efficiently
-improve that capability.
-
-The initial public sources are different environment families within that one
-program:
-
-- Anthropic/Theorem's OSS Verify artifacts supply the most frontier-relevant
-  production workflow: fuzz-test-to-spec conversion, compiled binaries,
-  machine semantics, very long proofs, and reusable proof components.
-- VeriBench supplies a smaller end-to-end autoformalization setting in which
-  specification quality and theorem coverage can be measured directly.
-- VeriSoftBench, Vero, and FVSpec supply repository context and real-code proof
-  obligations at a more tractable scale.
-- VeriContest supplies a later cross-tool target for verified Rust and Dafny
-  generation, with positive and mutated-negative tests for specification
-  completeness.
-- VCVio and the historical curve25519-dalek corpus supply a high-assurance
-  cryptographic environment family, where the software properties involve
-  implementations, games, protocols, reductions, and probabilistic reasoning.
-
-Cryptography is therefore a domain slice of production formal verification,
-not a separate research project. Native verifier outputs remain separate in
-the data layer so that Lean compilation, Rocq proof checking, and symbolic
-protocol analysis are not mistaken for one numerical reward. They meet at the
-decision layer through typed validity, policy response, cost, reliability,
-target improvement, and allocation regret.
+These are complementary results, not one interchangeable benchmark score.
 
 ## What counts as an environment
 
-A claim-bearing environment includes more than a collection of theorem
-statements. Its record must freeze:
+A formal-verification environment includes the tasks and the executable system
+that turns model actions into verifier feedback. A complete record fixes:
 
-1. task identities and source revision
-2. initial repository state and dependency closure
-3. agent-visible files and tools
-4. action and observation interface
-5. build, proof-check, and timeout contract
-6. reward components and invalid-output rules
-7. reset and sandbox behavior
-8. sampling or mixture weights
-9. starting policy and decoding contract
-10. generated-token or equivalent interaction budget.
+1. task identities, source revisions, and dependency closure
+2. agent-visible files, tools, and repository state
+3. build, proof-check, timeout, reset, and containment behavior
+4. reward components and rules for invalid outputs
+5. the starting policy, decoding setup, and interaction budget
+6. the held-out repositories and protected capabilities used for evaluation.
 
-The transition function includes file edits, tool calls, compiler or proof-state
-feedback, and repository state. A rollout may contain many actions. A
-"pre-RL measurement" is a frozen-policy rollout under this environment, not a
-one-token trajectory and not an optimizer step.
+A compiling file is not automatically correct. The verifier must reject
+`sorry`, unapproved axioms, changed theorem statements, weakened
+specifications, hidden reference proofs, and vacuous claims.
 
-## Scientific object
+## Scientific target
 
-For environment distribution $E$, starting policy $\pi_0$, fixed budget
-$C$, and target vector $D$, define
+For environment distribution $E$, starting policy $\pi_0$, fixed budget $C$,
+and target vector $D$, utility is
 
 $$
 U(E,\pi_0,C,D)=P(\pi_{E,C};D)-P(\pi_0;D).
 $$
 
-The target vector keeps distinct:
+The target keeps machine-checked completion, specification coverage, protected
+capabilities, generated tokens, wall time, and verifier cost distinct. A new
+training comparison must freeze candidate environments, predictions, budgets,
+and evaluation rules before downstream outcomes are opened.
 
-- machine-checked completion
-- specification or theorem coverage
-- absence of `sorry`, unapproved axioms, and vacuous claims
-- transfer to disjoint repositories or domains
-- retained performance on protected capabilities
-- generated tokens, wall time, and verifier cost.
+## Current boundary and next step
 
-The primary decision metric is allocation regret relative to the best admissible
-candidate under the frozen target vector. Predictive error, pairwise ordering,
-calibration, risk--coverage, and cost are supporting metrics.
+Vero is a qualified source with a model-free runtime preflight and one positive
+development support result. Its reinforcement-learning utility remains
+unvalidated. The next step is to enforce task-only containment, rerun the
+negative controls, and repeat the support measurement under the corrected
+workspace boundary. Training remains gated on that result.
 
-## Governing constraints
+Detailed records:
 
-- Candidate construction may not inspect claim-bearing downstream outcomes.
-- Historical proofs may be used only with a chronology-correct snapshot that
-  removes future lemmas and target proofs.
-- A compiling file is not automatically a correct solution.
-- `sorry`, unapproved axioms, theorem-statement edits, weakened specifications,
-  and hidden access to reference proofs must be rejected.
-- Infrastructure failures are missing/invalid observations, never reward zero.
-- Raw scores from different proof assistants or harnesses are not pooled.
-- Random theorem splits are insufficient when tasks share repositories,
-  dependencies, or proof templates.
-- No RL is authorized until source, license, containment, reset, oracle, no-op,
-  and reward-integrity gates pass.
-
-## Immediate deliverables
-
-1. Maintain the source-pinned public-evidence record and repository-policy
-   matrix from released LeanLean, Vero, Forall VeriSoftBench, and Vericoding
-   artifacts. Keep FVSpec and VeriBench as candidate task sources until their
-   evaluator, outcome, and release boundaries are qualified.
-2. Pin every admitted executable source and record its license and content
-   manifest. The OSS Verify `v2026.11.1` index and checker metadata are
-   complete. Vero's source structure, bounded runtime qualification, and
-   repository split are complete.
-3. Recover chronology-correct historical tasks from VCVio and validate the
-   existing dalek-lean-bench construction.
-4. Qualify the prove-first VeriBench v1.3 release before creating a benchmark
-   split. Earlier compile-only versions remain historical evidence only.
-5. Implement a common environment record without erasing native verifier
-   semantics. The OSS Verify source adapter now preserves statement status,
-   revision, fingerprint, entry-point grouping, and checker identity. The Vero
-   adapter preserves repository, module, API, specification, source revision,
-   trusted-axiom, and license boundaries.
-6. Run oracle, no-op, statement-mutation, `sorry`, axiom, reset, and containment
-   tests. The bounded OSS Verify and Vero controls are complete; selected
-   production-task replay and model-facing controls remain.
-7. Tighten the task sandbox after GPT-5.6 Sol and Codex 0.154.0 passed all nine
-   PrimePy specifications in one excluded development attempt. Treat that pair
-   as one qualified candidate, compare any additional executable policies under
-   the same excluded Vero contract, and freeze one policy identity before a
-   fresh development-only support screen.
-8. Freeze candidate environments, predictions, uncertainty, and an a-priori
-   power/cost decision before any downstream training outcome is opened.
-
-Until those deliverables are complete, the Anthropic/Theorem workflow remains
-the frontier reference, its public release is a source-qualified candidate
-pending proof replay and selected-harness qualification, and Vero remains a
-runtime-qualified repository source with development support from one policy
-attempt. VCVio is a promising high-assurance source candidate, and VeriBench
-is a narrower target candidate. None is yet a validated RL environment in this
-workstream.
+- [experiment plan](EXPERIMENT_PLAN.md)
+- [source landscape](SOURCE_LANDSCAPE.md)
+- [starting-policy probe](STARTING_POLICY_PROBE.md)
+- [policy requalification](POLICY_REQUALIFICATION.md)
+- [containment requalification](CODEX_CONTAINMENT.md)
+- [continuation guide](CONTINUATION.md)

@@ -6,7 +6,27 @@ training environments for an agentic starting policy. The
 containment, reliability gates, and the abstention rule that governed the
 initial qualification campaign. The later matched-scaffold study shows why the
 agent interface belongs to the measured environment rather than benchmark
-metadata alone.
+metadata alone. Here, a **scaffold** is the agent harness, tools, prompts, and
+interaction interface wrapped around the model.
+
+## Start here
+
+Install the vulnerability adapter, connect a sanitized CyberGym panel, and run
+source qualification:
+
+```bash
+uv tool install ./packages/vulnerability
+anarres vulnerability status
+anarres init ./candidate-panel \
+  --adapter vulnerability \
+  --revision <immutable-revision> \
+  --license <usage-terms>
+anarres inspect ./candidate-panel
+anarres qualify ./candidate-panel
+```
+
+Qualification checks the pinned panel, containment records, and verifier
+fixtures. Model execution is not available through this adapter yet.
 
 ## Released evidence
 

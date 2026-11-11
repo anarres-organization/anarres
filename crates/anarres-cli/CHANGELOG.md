@@ -4,6 +4,19 @@ All notable CLI changes are recorded here. The project follows semantic
 versioning for the command contract and versioned JSON schemas for stored
 records.
 
+## 0.4.0 - 2026-11-11
+
+- Add `init`, `inspect`, and `probe` for qualifying native environment sources
+  before they become portable Anarres records.
+- Support seven released source formats through independently installable
+  domain adapters while preserving each study's measurements and gates.
+- Add adapter compatibility checks, bounded execution, deterministic source
+  records, and clearer errors for missing or incompatible adapters.
+- Keep fast routing, validation, hashing, and comparison in the native Rust
+  binary while domain runtimes remain with their scientific implementations.
+- Clarify the first-run workflow, adapter capabilities, and current evidence
+  boundary across the public documentation.
+
 ## 0.3.1 - 2026-11-10
 
 - Turn `anarres demo` into a complete two-candidate qualification,

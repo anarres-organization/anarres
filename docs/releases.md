@@ -10,6 +10,8 @@ discovers installed `anarres-<name>` executables and validates their versioned
 descriptor before execution. A CLI archive therefore does not bundle Python,
 simulators, model runtimes, or domain evidence.
 
+## Install
+
 Supported release targets are:
 
 - Linux x86-64 and ARM64 using the GNU C library
@@ -34,6 +36,8 @@ Restart the shell if prompted, then verify the installation:
 ```bash
 anarres --version
 ```
+
+## Troubleshooting
 
 ### Command not found
 
@@ -84,7 +88,7 @@ For a reproducible installation, replace `latest/download` with a release tag:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -LsSf \
-  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.3.1/anarres-cli-installer.sh | sh
+  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.4.0/anarres-cli-installer.sh | sh
 ```
 
 The source install remains available on every supported Rust host after cloning
@@ -101,13 +105,15 @@ Rerun the standalone installer to update. It installs to `$CARGO_HOME/bin`, or
 that directory to uninstall a standalone installation. Package-manager installs
 should instead be updated or removed through the same package manager.
 
+## Maintainer release checklist
+
 Before creating a release, maintainers update the crate version and changelog,
 run `make check`, `make release-smoke`, and `make benchmark`, then inspect the
 generated plan:
 
 ```bash
 dist generate
-dist plan --tag anarres-cli-v0.3.1
+dist plan --tag anarres-cli-v0.4.0
 ```
 
 After the GitHub release passes its artifact checks, copy the generated
@@ -115,6 +121,8 @@ After the GitHub release passes its artifact checks, copy the generated
 [`homebrew-tap`](https://github.com/anarres-organization/homebrew-tap), run its
 macOS and Linux checks, and merge that update before advertising the new
 Homebrew version.
+
+## Verify downloads
 
 A versioned `anarres-cli-v<version>` tag starts the release workflow. Pull
 requests exercise the same artifact graph without publishing. Consumers can

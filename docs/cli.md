@@ -253,7 +253,7 @@ version, replace `latest/download` with the release tag:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -LsSf \
-  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.3.1/anarres-cli-installer.sh | sh
+  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.4.0/anarres-cli-installer.sh | sh
 ```
 
 The standalone installer places the binary in `$CARGO_HOME/bin`, or
@@ -278,9 +278,12 @@ reports their measured coordinates. It does not silently turn those
 coordinates into a winner. A domain adapter may expose a decision command only
 when its study defines and validates that decision rule.
 
-| Command | Purpose | Accepted records |
+| Command | Purpose | Input |
 | --- | --- | --- |
-| `qualify` | Check whether measured evidence is ready for comparison | Probe-run directory, policy-probe input, or profile input |
+| `init` | Connect native files to an installed adapter | Native environment directory |
+| `inspect` | Show the source format and available adapter operations | Environment directory or `anarres.toml` |
+| `qualify` | Check a native source or measured evidence | Environment source, probe run, policy-probe input, or profile input |
+| `probe` | Measure a qualified source under a pinned starting policy | Environment directory or `anarres.toml` |
 | `measure` | Normalize evidence into a content-addressed record | Probe-run directory, policy-probe input, or profile input |
 | `design` | Compare candidates and audit panel compatibility | Two or more manifests or profiles of one type |
 | `validate` | Check structure, semantics, and content integrity | Any supported input or measured record |
@@ -314,11 +317,11 @@ study artifacts. Built-in commands always take precedence over adapter names.
 Descriptor queries must finish in five seconds and stay below 256 KiB of output,
 preventing a faulty adapter from blocking installation audits.
 
-An adapter that accepts native environments should expose `qualify` and
-`probe`. `qualify` validates the native task, verifier, and runtime contract.
-`probe` executes repeated attempts under a pinned starting policy and writes the
-versioned probe-run directory consumed by the Rust core. These capabilities are
-tested separately from evidence-reproduction commands such as `status` or
+An adapter that accepts native environments must expose source qualification
+and may expose policy probing. Qualification validates the native task,
+verifier, and runtime setup. A probe executes repeated attempts under a pinned
+starting policy and writes measurements for the Rust core. These capabilities
+are tested separately from evidence-reproduction commands such as `status` or
 `results`.
 
 The CLI does not download adapters, search a repository checkout, or import an
@@ -341,6 +344,7 @@ released, what remains sealed, and which operations are supported.
 | Materials science | `anarres materials status --repository .`<br>`anarres materials qualify-source --manifest <anarres.toml>`<br>`anarres materials results --repository .` | Native atomistic-bank qualification, the frozen protocol boundary, and the scored prospective MLIP test |
 | Molecular design | `anarres molecular status --repository .`<br>`anarres molecular verify --repository .` | Qualified reaction-bank measurements and deterministic verification |
 | Agentic finance | `anarres finance status --repository .`<br>`anarres finance decide <panel.json>` | Released evidence and a calibrated selection or abstention decision |
+| Vulnerability exploitation | `anarres vulnerability status`<br>`anarres vulnerability qualify-source --help` | Sanitized CyberGym source qualification and the current execution boundary |
 
 Use `anarres <domain> --help` to see every operation for that adapter. Commands
 that plan, prepare, submit, gate, or score an experiment remain domain-specific
@@ -366,9 +370,9 @@ anarres measure examples/environment-processing/probe.json \
 ```
 
 The grouped-probe path computes usable signal density and effective task
-coverage from one frozen policy probe. A cross-domain profile instead retains
-the adapter's own named coordinates. Both output types record their source,
-starting subject, measurement contract, provenance, and content digests.
+coverage from one fixed policy probe. A domain profile instead retains the
+adapter's own measurements. Both output types record the source, starting model
+or system, measurement setup, provenance, and content digests.
 
 Writes are atomic, and an existing destination is preserved unless `--force`
 is supplied. Use `--force` only when intentionally regenerating a derived
@@ -381,11 +385,10 @@ anarres design .anarres/candidates/*.json
 ```
 
 `design` audits whether candidates can be interpreted together. Grouped-probe
-manifests must share the starting policy and probe contract. Cross-domain
-profiles must share the domain, starting subject, producer revision,
-measurement contract, and complete coordinate definitions. A changed unit,
-estimator, definition revision, or adapter revision makes the panel
-incompatible.
+manifests must share the starting policy and probe setup. Domain profiles must
+share the domain, starting model or system, adapter revision, measurement
+setup, and coordinate definitions. A changed unit, estimator, definition, or
+adapter revision makes the panel incompatible.
 
 The command reports candidate values and observed ranges. It does not infer an
 optimal environment or assume that a coordinate direction predicts downstream
@@ -422,11 +425,11 @@ anarres design \
   .anarres/robotics-b.profile.json
 ```
 
-Profiles record the domain, starting subject, adapter revision, measurement
-contract, qualification checks, named coordinates, versioned definitions,
-units, estimators, uncertainty, and role-labelled artifact references. The
-profile is an interoperable projection. The native study record remains the
-authority for scientific interpretation.
+Profiles record the domain, starting model or system, adapter revision,
+measurement setup, qualification checks, named coordinates, units, estimators,
+uncertainty, and supporting artifacts. The portable record keeps the domain's
+original measurements. The native study remains the authority for scientific
+interpretation.
 
 The [domain integration matrix](domain-support.md) distinguishes schema
 conformance, native adapters, and predictive evidence. The [domain adapter
@@ -434,98 +437,9 @@ guide](architecture/domain-adapters.md) defines the runtime boundary, and the
 [adapter authoring guide](architecture/adapter-authoring.md) documents the
 Python construction interface and promotion requirements.
 
-## Example adapter: agentic finance
-
-The finance adapter retains its domain-native Python implementation and is
-installed separately from the Rust binary:
-
-```bash
-cargo install --path crates/anarres-cli --locked
-uv tool install ./packages/finance
-anarres adapter doctor finance
-```
-
-After installation, the direct generic form exposes its released workflows:
-
-```bash
-anarres finance status
-anarres finance audit-sources
-anarres finance decide candidate-panel.json
-anarres finance profile --output-dir .anarres/finance
-anarres finance score-holdout finharmbench
-anarres finance verify
-anarres finance verify --exhaustive
-anarres finance reproduce --output-dir .anarres/finance-reproduction
-```
-
-`status` reports the released capabilities and current prospective boundary.
-`audit-sources` validates immutable source revisions and generator preflight.
-`profile` converts the completed starting-policy qualification into a shared
-profile input. `score-holdout` reruns one frozen source test from its released
-decision contract. `verify` quickly validates source pins, qualification
-artifacts, compact retrospective summaries, and frozen holdout identities.
-`verify --exhaustive` reruns every released finance check in an isolated copy.
-`reproduce` performs the same exhaustive replay and exports the regenerated
-retrospective, strict-transfer, and frozen-holdout artifacts without modifying
-checked-in evidence.
-
-`decide` validates a complete finance candidate panel, applies the released
-practical rule, and returns either one selected environment or an abstention
-set. An optional `baseline_id` adds improvement or regression directions. The
-fixed 0.2 margin is the largest threshold selected across the source-held-out
-0.85-precision calibration folds. Its released retrospective operating point
-has 90.3% pairwise accuracy at 75.4% coverage across seven sources. The command
-does not convert that retrospective operating point into a prospective
-guarantee.
-
-New policy-attempt records use the same native gate:
-
-```bash
-anarres finance qualify-policy qualification-attempts.jsonl \
-  --output qualification-summary.json
-```
-
-The native CLI resolves `anarres-finance` through the same protocol used by
-every other domain. Finance dependencies remain isolated from the Rust core,
-and no finance command performs a network call.
-
-The installed adapter can also be invoked directly. When the current directory
-is not a repository checkout, pass the evidence location explicitly:
-
-```bash
-anarres-finance status --repository /path/to/anarres --json
-anarres-finance audit-sources --repository /path/to/anarres --json
-```
-
-The generic and direct forms execute the same native finance command. The
-repository path supplies released evidence. The installed adapter contains no
-fallback copy of study artifacts.
-
-## Example adapter: robotics planning and scoring
-
-The robotics adapter converts the frozen Can v1.4.1 protocol into a portable
-workflow plan and recomputes the released prospective result:
-
-```bash
-uv tool install \
-  ./experiments/robotics/environment-selection/prospective-cupid-can-v141
-anarres robotics status --repository .
-anarres robotics plan --repository . \
-  --output .anarres/can-v141.plan.json
-anarres robotics can-results --repository . --json
-```
-
-The plan records five candidate arms, five seeds per arm, and 25 candidate runs
-with matched training and evaluation tasks. It also retains stage dependencies,
-exact input digests, workload totals, and the release gate that precedes
-scoring. The record is deterministic and content-addressed. Planning performs
-no training, simulator execution, network request, or scheduler submission.
-
-The released plan reconstructs the original pre-outcome workload. `prepare`
-binds the exact candidate masks to the pinned dataset, while `bundle` records a
-CuraEval checkout, Python environment, accelerator type, and local or Slurm
-launcher. Execution remains behind explicit `submit --execute`; scoring remains
-behind the completeness and identity gate.
+Detailed finance commands live in the [finance overview](../experiments/finance/README.md).
+The robotics planning, execution, and scoring sequence lives in the
+[Can study guide](../experiments/robotics/environment-selection/prospective-cupid-can-v141/README.md).
 
 ## Automation
 

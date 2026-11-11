@@ -45,13 +45,12 @@ The explicit `--repository` argument points the installed adapter to the
 released evidence in the checkout. Adapter discovery never searches a checkout
 or downloads scientific artifacts implicitly.
 
-## What installation means
+## What each adapter can do
 
 Installing an adapter makes a domain command available. It does not imply that
-the domain has passed every scientific gate or that its measurements predict a
-new training outcome.
+the domain's measurements have predicted a new training outcome.
 
-| Adapter | Start here | Then inspect | Current released boundary |
+| Adapter | Start here | Then inspect | Available now |
 | --- | --- | --- | --- |
 | Formal verification | `anarres formal status --repository .` | `anarres formal qualification --repository .`<br>`anarres formal qualify-runtime --help` | Source and model-free runtime qualification are available; policy probing, containment requalification, and RL remain blocked |
 | Robotics | `anarres robotics status --repository .` | `anarres robotics can-results --repository .` | Can v1.4.1 candidate measurements and prospective result |
@@ -80,7 +79,7 @@ Some adapters expose additional study-specific reports. Run
 ## Add another domain
 
 An unlisted domain needs a versioned native measurement record and a small
-adapter. The adapter preserves identifiers, failures, costs, coordinate
+adapter. The adapter preserves identifiers, failures, costs, measurement
 definitions, units, estimators, and artifact digests. It does not need to
 reimplement the domain's science in Rust.
 
@@ -95,6 +94,6 @@ anarres validate candidate.profile-input.json candidate.profile.json
 ```
 
 Two candidates can enter `anarres design` only when their domain, starting
-subject, measurement contract, adapter revision, and coordinate definitions
-match. Predictive claims require a separate outcome-bearing validation under
-the originating study's contract.
+model or system, measurement setup, adapter revision, and coordinate
+definitions match. Predictive claims require a separate validation against
+later outcomes under the originating study's rules.

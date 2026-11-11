@@ -28,6 +28,15 @@ qualified MolGenBench Version4 target, Q07820. It holds the molecular action
 space, target reward, trainer, and budgets fixed while changing only the replay
 experience bank.
 
+Start with the released status and adapter contract:
+
+```bash
+uv tool install \
+  ./experiments/ai-for-science/molecular-design/reaction-environment-selection
+anarres molecular status --repository .
+anarres adapter doctor molecular
+```
+
 The study compares operational measurements with graph-aware measurements.
 Operational measurements cover reward signal, reliability, validity, and
 oracle cost. Graph-aware measurements add scaffold, ring-system, reaction,
@@ -37,8 +46,8 @@ statistic failed because it ranked banks on coordinates they were not designed
 to optimize. A sealed diagnostic motivated a Version 4 selector-fidelity gate
 that preserved the banks, selectors, estimators, and runtime. All eight
 prespecified selector-versus-neutral checks pass in both independent views.
-The study can now freeze matched training and evaluation contracts before
-opening any target outcome.
+The matched six-bank, two-seed training and evaluation contract is now frozen.
+No target-training outcome has been opened.
 
 The primary endpoint is a multi-gate qualifying-hit rate rather than raw
 docking score. It combines target docking with molecular validity, chemical
@@ -76,9 +85,9 @@ The current public artifacts qualify the pinned source revisions, Version4
 archive and target fixtures, docking oracle, QED warm start, Q07820 target, and
 two-view measurement. They preserve the failed Version 3 complete-order result
 and record the passing Version 4 selector-fidelity confirmation. The completed
-gate authorizes freezing matched target-training and evaluation contracts. No
+gate supports the frozen matched target-training and evaluation contracts. No
 target-training or evaluation outcome has been opened.
 
 An installable `anarres-molecular` adapter exposes the native qualification
 status and deterministic profile export without changing this evidence
-boundary. See the [study CLI projection](reaction-environment-selection/README.md#cli-projection).
+boundary. See [Use the CLI](reaction-environment-selection/README.md#use-the-cli).

@@ -1,82 +1,19 @@
 # Prospective selection of molecular graph experience
 
-**Status:** RxnFlow, MolGenBench code, the Version4 archive, an eight-target
-qualification panel, its 24 structural fixtures, and reference docking on all
-eight targets are qualified, together with the common synthesis environment and
-the 1,000-update QED warm start. Two frozen starting-policy views were scored
-against all eight targets. Every target passed the prespecified gates, and the
-outcome-blind hash rule selected Q07820. The structured reward adapter passes valid,
-malformed, filtered, timeout, repeat-call, batched, and RxnFlow v2.1 interface
-checks. Version 3 measurement passes. The six construction-view memberships
-are recorded. The complete-order Version 3 confirmation fails for generated
-action cost, oracle time, and scaffold coverage, while the frozen Version 4
-selector-fidelity confirmation passes all eight checks in both independent
-views. The candidate-bank gate now authorizes freezing the matched training
-and evaluation contracts. No target-training or evaluation outcome has been
-inspected for this study.
-The selected-target measurement extractor is qualified on the frozen 64-record
-view with byte-identical graph representations across two independent runs.
-The first large-batch scoring attempt stopped on a molecule-specific conformer
-failure before producing candidate measurements. The version 2 reward contract
-keeps the sampled views fixed, adds one deterministic conformer fallback, and
-records fallback exhaustion as a scientific zero while preserving strict
-infrastructure failures for the receptor, toolchain, Vina, process, and timeout.
-The resulting version 2 views passed every signal, throughput, graph, and
-cross-view stability check but failed the prespecified 0.90 unique-product
-fraction in both views. That failed gate is preserved. Version 3 replaces the
-fraction-only condition with an absolute support requirement of 2,048 unique
-products and a 0.80 fraction floor, then tests both on two new independent views
-before any bank membership or training outcome exists.
-Those new views contain 3,367 and 3,436 unique canonical products, and every v3
-per-view and two-view check passes. A subsequent audit found that the original
-bank contract still named the failed v2 view seeds. Its bank-summary result is
-preserved as non-authorizing. Version 2 binds the passing construction view and
-a new untouched confirmation seed without changing the selectors or gate.
-The first scoring attempt on that view encountered three boronic-acid products
-outside the pinned Vina atom-type domain. The failure is preserved. Version 3
-keeps the exact sampled view and records only Vina's exact unsupported-atom-
-type error as scientific ineligibility; every other parser, receptor,
-toolchain, process, and timeout failure remains an infrastructure failure.
-The unchanged view then completes with no infrastructure failures. Five of the
-eight bank-order coordinates pass, while generated-action cost, oracle time,
-and scaffold coverage reach Spearman correlations of 0.371, 0.657, and 0.735,
-below the frozen 0.8 threshold. This result triggers the prespecified
-abstention before development training.
-The version 3 failure remains preserved. A
-pre-training diagnostic shows that all eight intended selector contrasts pass
-in both frozen views, while the failed statistic also ranks banks that were not
-designed to optimize each coordinate. Median or size-normalized oracle time and
-generic Murcko scaffolds do not repair that complete ordering. Version 4 keeps
-the construction memberships, selectors, estimators, and runtime unchanged. It
-freezes a selector-fidelity gate against the neutral hash bank before drawing
-one new confirmation view. That untouched view produces 4,029 valid scores and
-67 molecule-specific scientific zeroes with no infrastructure failure. All
-eight selector-fidelity checks pass in both views, authorizing the next
-pre-outcome step without opening a target-training result.
-The frozen probe exports have now been reconstructed into complete RxnFlow
-replay objects. A fresh-trajectory golden test matches states, actions,
-products, and backward route probabilities, including a nonzero route
-probability. A reduced one-update smoke starts from the weights-only warm
-start, loads all 512 hash-uniform trajectories, retains a fixed replay bank,
-and produces a finite target-training loss. These checks qualify the replay
-interface but do not establish downstream bank utility.
-A separate CPU smoke exercises the frozen batch of 64 online and 64 replay
-trajectories in one update with four retrosynthesis workers and 16 reward
-workers. It preserves the
-512-item replay bank and produces finite loss and gradient diagnostics. The
-same frozen batch now passes on one CUDA accelerator with the qualified oracle
-runtime, completing the final runtime gate before claim-bearing training.
-The runner invokes docking through an explicit qualified oracle interpreter,
-so reward workers do not inherit an unverified interpreter from the training
-process. Each run records the oracle runtime identity.
-The independent starting-policy endpoint gate also passes. Among 4,096 fixed
-attempts, 22 qualify under the complete MolGenBench endpoint, representing 16
-unique molecules with no infrastructure failure. The largest repeated molecule
-contributes four qualifying attempts, or 18.2\%, below the frozen 25\% cap. This
-result establishes enough endpoint support to proceed to the matched training
-and evaluation contract. That contract is now frozen with six development
-banks, two seeds, and checkpoints at 12,800, 25,600, and 40,000 target-oracle
-attempts. No target-training outcome has been opened.
+**Current status:** the Q07820 target, six candidate banks, common starting
+policy, reward and docking runtimes, replay interface, and matched training and
+evaluation contract are frozen. The contract covers six banks, two seeds, and
+checkpoints at 12,800, 25,600, and 40,000 target-oracle attempts. No
+target-training or evaluation outcome has been opened.
+
+The qualification record preserves both successful and failed gates. Early
+measurement views failed diversity and ordering checks; the final independent
+views passed the frozen support and selector-fidelity gates. The starting
+policy also passed the endpoint-support gate with 22 qualifying attempts across
+16 unique molecules and no infrastructure failure. CPU and accelerator smoke
+tests then verified the frozen replay batch and qualified oracle runtime. These
+checks authorize the matched experiment. They do not establish which bank will
+produce the greatest held-out improvement.
 
 The released execution path keeps training completion separate from endpoint
 scoring. [`scripts/gate_development_training.py`](scripts/gate_development_training.py)
@@ -91,7 +28,7 @@ and all 36 trained-policy panels are complete does
 [`scripts/gate_endpoint_evaluation.py`](scripts/gate_endpoint_evaluation.py)
 authorize comparative scoring.
 
-## CLI projection
+## Use the CLI
 
 Install the native CLI and molecular adapter from a repository checkout:
 

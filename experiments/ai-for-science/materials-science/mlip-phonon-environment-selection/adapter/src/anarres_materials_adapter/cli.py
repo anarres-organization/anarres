@@ -218,7 +218,7 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         }
     return {
         "domain": "materials-interatomic-potentials",
-        "candidate_panel_status": bank.get("status"),
+        "candidate_panel_status_at_freeze": bank.get("status"),
         "candidate_count": len(candidates),
         "measurement_records": validation.get("records"),
         "measurements_complete": validation.get("status") == "complete",

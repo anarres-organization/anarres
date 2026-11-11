@@ -9,6 +9,19 @@ This program asks a concrete question:
 > Can measurements made before training help choose between candidate robot
 > datasets while knowing when the evidence is too weak to choose?
 
+## Start here
+
+```bash
+uv tool install \
+  ./experiments/robotics/environment-selection/prospective-cupid-can-v141
+anarres robotics status --repository .
+anarres robotics can-results --repository .
+```
+
+The adapter reports the available studies and reproduces the released Can
+comparison. The [Can study guide](environment-selection/prospective-cupid-can-v141/README.md)
+contains the complete planning and execution workflow.
+
 The work treats a candidate dataset as an intervention. Comparisons keep the
 starting policy, training budget, evaluation episodes, and outcome definition
 fixed. Candidate construction cannot read the downstream training outcomes.
@@ -40,9 +53,12 @@ does not yet add reliable value under held-out-context evaluation.
 The corrected [prospective closed-loop curation
 panel](environment-selection/prospective-cupid-can-v141/README.md) compares one
 frozen recommendation with full-data, random, length-based, and unconstrained
-influence controls. The shortest-demonstration subset reached 98.8% mean
-success, while the tier-balanced CUPID prediction reached 97.4%, for 1.4 points
-of allocation regret. All structured choices outperformed the random subset.
+influence controls. CUPID estimates how strongly each demonstration affects
+closed-loop success. Its tier-balanced variant selects high-ranked examples
+from each operator-quality tier. The shortest-demonstration subset reached
+98.8% mean success, while the tier-balanced CUPID prediction reached 97.4%,
+for 1.4 points of allocation regret. All structured choices outperformed the
+random subset.
 The domain adapter reproduces the released score, prepares the exact candidate
 masks, binds the 25-run matrix to local or Slurm execution, and verifies every
 checkpoint and evaluation log before scoring.
