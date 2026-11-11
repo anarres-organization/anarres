@@ -60,28 +60,61 @@ Install the CLI and run the bundled CPU-only workflow:
 brew install anarres-organization/tap/anarres && anarres demo
 ```
 
-The demo qualifies measured task groups, computes an environment record, and
-validates its content digest:
+The demo qualifies one candidate, measures its usable experience, and compares
+two candidates produced under the same starting policy:
 
 ```text
 Anarres demo
+Repeated attempts from one starting policy are qualified, measured, and compared.
 
+1. Qualify
   ✓ Qualified    math-reference-demo-v1
-    Policy           synthetic-policy-v1
-    Groups           2 admitted · 1 reserve · 1 repair · 1 quarantine
-  ✓ Measured     usable experience
-    Signal density   833.3333 advantage mass / M tokens
-    Coverage         0.6533
-  ✓ Wrote        .anarres/demo/environment.json
-  ✓ Validated    content digest
+    Admitted           2
+    Reserve            1
+    Repair             1
+    Quarantine         1
 
-Next  anarres design <record-a> <record-b>
+2. Measure
+  ✓ Measured     math-reference-demo-v1
+    Signal density     833.3333 advantage mass / million generated tokens
+    Effective coverage 0.6533 (0 to 1)
+
+3. Compare
+  ✓ Compatible   candidate panel
+    Candidates         2
+
+Next  anarres design .anarres/demo/environment.json .anarres/demo/environment-alternative.json
 ```
+
+The `Next` line is a runnable command. Generated records live in the local
+`.anarres/` working directory, which is ignored by Git and can be regenerated.
+Run the demo from a project directory or pass `--output` to choose a different
+location.
 
 The [CLI guide](docs/cli.md) continues with your own measurements, candidate
 comparison, installed domain workflows, JSON output, and shell completions.
 
 ## Core CLI and domain workflows
+
+### What you provide
+
+Bring two or more candidate environments measured under the starting policy
+you intend to train. An environment can be a prompt distribution, proof-task
+set, robot-episode dataset, collection of legal matters, molecular or material
+structures, or another domain-defined source of training experience.
+
+The built-in workflow accepts grouped attempts with:
+
+- stable task and candidate identifiers
+- the starting policy and measurement contract
+- repeated outcomes, generated cost, and admitted signal
+- oracle, no-op, and infrastructure-validity checks
+
+If a domain uses different measurements, its adapter emits the same portable
+profile envelope while preserving its native coordinates, units, uncertainty,
+and failure states. Candidates are comparable only when their starting subject
+and measurement contract match. See the [input guide](docs/cli.md#what-you-bring)
+and [versioned schemas](schemas/) for the exact contracts.
 
 Homebrew installs the native `anarres` binary. Its built-in commands operate on
 portable records and do not require a domain runtime:

@@ -44,7 +44,7 @@ pub(crate) fn warning(label: &str, value: impl fmt::Display) {
 }
 
 pub(crate) fn field(label: &str, value: impl fmt::Display) {
-    line(format_args!("    {LABEL}{label:<16}{LABEL:#} {value}"));
+    line(format_args!("    {LABEL}{label:<18}{LABEL:#} {value}"));
 }
 
 pub(crate) fn muted(value: impl fmt::Display) {
