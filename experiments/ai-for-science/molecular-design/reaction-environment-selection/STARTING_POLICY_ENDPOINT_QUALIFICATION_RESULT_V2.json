@@ -1,0 +1,39 @@
+{
+  "attempts": 4096,
+  "authorizes_matched_training": true,
+  "checks": {
+    "attempt_count": true,
+    "maximum_single_molecule_fraction": true,
+    "minimum_qualifying_attempts": true,
+    "minimum_unique_qualifying_molecules": true,
+    "score_complete": true,
+    "zero_infrastructure_failures": true
+  },
+  "contract": "q07820-starting-policy-endpoint-qualification-v2",
+  "failed_endpoint_check_counts": {
+    "chemical_filters": 263,
+    "clash_score": 1434,
+    "interaction_score": 2818,
+    "posebusters": 169,
+    "qed": 77,
+    "strain_energy": 1644,
+    "synthetic_accessibility": 77,
+    "valid": 77,
+    "vina_affinity": 3926
+  },
+  "infrastructure_failures": 0,
+  "inputs": {
+    "docking_report_sha256": "41c3bce7dac2908684a4f4f248875ca580cfcaa56d5ef844b20462917e15a92e",
+    "endpoint_metrics_report_sha256": "2def136009f941af9687c27079bb4c651076deed77e874146549626e9691d8cf",
+    "qualifying_hit_score_sha256": "e2890aa826ce49c30529a9173ad08d05f02ffd91e43c4ca74dbc5a23fedba4b5",
+    "starting_policy_endpoint_contract_sha256": "1c284826a8ea69f608822df833c947a2174791e4251fbc7fd42009362b73004b",
+    "starting_policy_sample_sha256": "00e07d8ad6897185f97dd4cc22da73d7e537db3d05ffc05e763b86cca63018d2"
+  },
+  "maximum_fraction_of_qualifying_attempts_from_one_molecule": 0.18181818181818182,
+  "maximum_qualifying_attempts_from_one_molecule": 4,
+  "qualifying_attempt_rate": 0.00537109375,
+  "qualifying_attempts": 22,
+  "schema_version": "1.0",
+  "status": "passed",
+  "unique_qualifying_molecules": 16
+}

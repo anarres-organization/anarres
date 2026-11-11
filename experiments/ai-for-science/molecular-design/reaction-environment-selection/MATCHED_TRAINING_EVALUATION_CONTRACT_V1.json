@@ -1,0 +1,196 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "contract": "q07820-matched-training-evaluation-v1",
+  "status": "frozen_after_endpoint_qualification_before_development_training",
+  "scientific_question": "Which fixed replay experience bank produces the greatest Q07820 qualifying-hit improvement from the same starting policy and target-oracle budget?",
+  "source_precedent": {
+    "rxnflow_version": "2.1.0",
+    "official_few_shot_default_iterations": 1000,
+    "published_target_specific_oracle_budget": 40000,
+    "budget_choice": "Use the published 40,000-oracle target budget as the maximum and score two earlier fixed checkpoints."
+  },
+  "inputs": {
+    "training_config": {
+      "uri": "repo://experiments/ai-for-science/molecular-design/reaction-environment-selection/target-training-q07820.yaml",
+      "sha256": "3e7b05d04715583a921d1db5f635cfa3c68dbb43799320b95b2777d0921bcc13",
+      "media_type": "application/yaml",
+      "size_bytes": 1128,
+      "license": "Apache-2.0",
+      "producing_run": "q07820-matched-training-evaluation-v1"
+    },
+    "warm_start_qualification": {
+      "uri": "repo://experiments/ai-for-science/molecular-design/reaction-environment-selection/WARM_START_QUALIFICATION.json",
+      "sha256": "319c44211b55113e1b4adebfbf470296a34b03ef40c3ffe2e2a5dd04fa71813e",
+      "media_type": "application/json",
+      "size_bytes": 2123,
+      "license": "Apache-2.0",
+      "producing_run": "qed-warm-start-qualification-v1"
+    },
+    "target_reward_contract": {
+      "uri": "repo://experiments/ai-for-science/molecular-design/reaction-environment-selection/TARGET_REWARD_CONTRACT_V3.json",
+      "sha256": "b0c6ecd62d70783edb0c2daa1705f6bf06810af4fd9f04a091d7af9bb10c145d",
+      "media_type": "application/json",
+      "size_bytes": 3114,
+      "license": "Apache-2.0",
+      "producing_run": "q07820-target-reward-contract-v3"
+    },
+    "bank_construction_contract": {
+      "uri": "repo://experiments/ai-for-science/molecular-design/reaction-environment-selection/BANK_CONSTRUCTION_CONTRACT_V4.json",
+      "sha256": "ecc979116c8843853a4f972bff736ab03bda903e8164e81e82cd4af86f799625",
+      "media_type": "application/json",
+      "size_bytes": 4338,
+      "license": "Apache-2.0",
+      "producing_run": "q07820-bank-construction-v4"
+    },
+    "bank_qualification": {
+      "uri": "repo://experiments/ai-for-science/molecular-design/reaction-environment-selection/DEVELOPMENT_BANK_QUALIFICATION_V4.json",
+      "sha256": "50792a7c66a6e6e43c680c163e70df11bf8e77a7f8af6638905d5cf3ed7b26c0",
+      "media_type": "application/json",
+      "size_bytes": 465499,
+      "license": "Apache-2.0",
+      "producing_run": "q07820-development-bank-qualification-v4"
+    },
+    "replay_materializer_qualification": {
+      "uri": "repo://experiments/ai-for-science/molecular-design/reaction-environment-selection/REPLAY_MATERIALIZER_QUALIFICATION_V1.json",
+      "sha256": "f92ef44f8541ddc0632a9ed767f7c449811800c4525b3f104fb0fceb4c3bdf6f",
+      "media_type": "application/json",
+      "size_bytes": 1417,
+      "license": "Apache-2.0",
+      "producing_run": "q07820-replay-materializer-qualification-v1"
+    },
+    "replay_training_smoke": {
+      "uri": "repo://experiments/ai-for-science/molecular-design/reaction-environment-selection/REPLAY_TRAINING_SMOKE_V1.json",
+      "sha256": "2e44cc6ff91247d9cf1fd356d49956d3501c26e298b917aaf9b2398f78f9d8cb",
+      "media_type": "application/json",
+      "size_bytes": 1456,
+      "license": "Apache-2.0",
+      "producing_run": "q07820-replay-training-smoke-v1"
+    },
+    "starting_policy_endpoint_result": {
+      "uri": "repo://experiments/ai-for-science/molecular-design/reaction-environment-selection/STARTING_POLICY_ENDPOINT_QUALIFICATION_RESULT_V2.json",
+      "sha256": "fde19e0b3323959f4ca40608c2d8d0aace7d8c9a03135e131875e2a1cb25f986",
+      "media_type": "application/json",
+      "size_bytes": 1523,
+      "license": "Apache-2.0",
+      "producing_run": "q07820-starting-policy-endpoint-v2"
+    }
+  },
+  "starting_policy": {
+    "weights_only_sha256": "effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a",
+    "source_step": 1000,
+    "fresh_state_per_arm_and_seed": [
+      "optimizer",
+      "scheduler",
+      "replay",
+      "random-number generators"
+    ]
+  },
+  "development_panel": {
+    "arms": [
+      "hash_uniform",
+      "reward_signal",
+      "validity_cost",
+      "scaffold_coverage",
+      "route_coverage",
+      "graph_embedding_coverage"
+    ],
+    "bank_size": 512,
+    "only_arm_specific_input": "frozen replay-bank membership",
+    "prospective_banks_excluded": [
+      "operational_hybrid",
+      "graph_aware_hybrid"
+    ]
+  },
+  "training": {
+    "seeds": [
+      20261108,
+      20261109
+    ],
+    "maximum_updates": 625,
+    "checkpoint_updates": [
+      200,
+      400,
+      625
+    ],
+    "online_trajectories_per_update": 64,
+    "replay_trajectories_per_update": 64,
+    "target_oracle_attempt_budgets": [
+      12800,
+      25600,
+      40000
+    ],
+    "replay_capacity": 512,
+    "replay_insertions_per_update": 0,
+    "replay_sampling": "uniform over the fixed preloaded bank",
+    "fresh_online_trajectories_enter_replay": false,
+    "adaptive_stopping": false,
+    "outcome_driven_seed_replacement": false,
+    "resource_accounting": [
+      "attempted target-oracle calls",
+      "generated molecular-action steps",
+      "oracle wall time",
+      "accelerator time"
+    ]
+  },
+  "evaluation": {
+    "attempts_per_policy_seed_checkpoint": 4096,
+    "checkpoints": [
+      0,
+      200,
+      400,
+      625
+    ],
+    "common_random_numbers_across_arms": true,
+    "seed_derivation": "first eight SHA-256 bytes of q07820-matched-evaluation-v1|training_seed|checkpoint, reduced modulo 2^31",
+    "seeds": {
+      "20261108": {
+        "0": 1384036338,
+        "200": 835155383,
+        "400": 2099961021,
+        "625": 1623548918
+      },
+      "20261109": {
+        "0": 1557152317,
+        "200": 774715019,
+        "400": 1784533010,
+        "625": 53252595
+      }
+    },
+    "primary_outcome": "unique qualifying molecules divided by 4,096 attempted generations under q07820-qualifying-hit-v1",
+    "supporting_outcomes": [
+      "qualifying attempts divided by 4,096",
+      "Vina affinity",
+      "QED",
+      "synthetic accessibility",
+      "uniqueness",
+      "molecular and scaffold diversity",
+      "PoseBusters validity",
+      "strain energy",
+      "clash score",
+      "interaction score"
+    ],
+    "invalidity_rule": "Any infrastructure failure invalidates the affected policy panel; molecule-specific scientific failures remain in the fixed denominator."
+  },
+  "analysis": {
+    "primary_budget_axis": "attempted target-oracle calls",
+    "generated_action_analysis": "Report realized molecular-action steps and compare curves only within common support, without extrapolation.",
+    "development_outputs": [
+      "utility curves relative to the paired warm start",
+      "bank ordering at each budget",
+      "seed-level winner agreement",
+      "curve error for prespecified coordinate models and baselines",
+      "allocation regret",
+      "incremental value of graph-aware coordinates"
+    ],
+    "prospective_boundary": "Development outcomes may fit the operational and graph-aware predictors. The two prospective bank outcomes remain unavailable until their memberships, forecasts, uncertainty, and abstention rule are frozen."
+  },
+  "authorization": {
+    "bank_confirmation_passed": true,
+    "starting_policy_endpoint_passed": true,
+    "replay_interface_passed": true,
+    "development_training_authorized": true,
+    "development_training_started": false,
+    "development_or_prospective_outcomes_opened": false
+  }
+}

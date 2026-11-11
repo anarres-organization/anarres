@@ -60,6 +60,36 @@ probability. A reduced one-update smoke starts from the weights-only warm
 start, loads all 512 hash-uniform trajectories, retains a fixed replay bank,
 and produces a finite target-training loss. These checks qualify the replay
 interface but do not establish downstream bank utility.
+A separate CPU smoke exercises the frozen batch of 64 online and 64 replay
+trajectories in one update with four retrosynthesis workers and 16 reward
+workers. It preserves the
+512-item replay bank and produces finite loss and gradient diagnostics. The
+same frozen batch now passes on one CUDA accelerator with the qualified oracle
+runtime, completing the final runtime gate before claim-bearing training.
+The runner invokes docking through an explicit qualified oracle interpreter,
+so reward workers do not inherit an unverified interpreter from the training
+process. Each run records the oracle runtime identity.
+The independent starting-policy endpoint gate also passes. Among 4,096 fixed
+attempts, 22 qualify under the complete MolGenBench endpoint, representing 16
+unique molecules with no infrastructure failure. The largest repeated molecule
+contributes four qualifying attempts, or 18.2\%, below the frozen 25\% cap. This
+result establishes enough endpoint support to proceed to the matched training
+and evaluation contract. That contract is now frozen with six development
+banks, two seeds, and checkpoints at 12,800, 25,600, and 40,000 target-oracle
+attempts. No target-training outcome has been opened.
+
+The released execution path keeps training completion separate from endpoint
+scoring. [`scripts/gate_development_training.py`](scripts/gate_development_training.py)
+requires all twelve development trajectories and every frozen checkpoint to
+pass their native integrity checks before evaluation begins.
+[`scripts/sample_endpoint_policy.py`](scripts/sample_endpoint_policy.py) then
+binds each fixed endpoint sample to its policy hash, training manifest,
+checkpoint, and prespecified evaluation seed. Docking, molecular metrics, and
+qualifying-hit scoring remain separate stages so infrastructure failures cannot
+be converted into scientific zeros. Only after the two shared warm-start panels
+and all 36 trained-policy panels are complete does
+[`scripts/gate_endpoint_evaluation.py`](scripts/gate_endpoint_evaluation.py)
+authorize comparative scoring.
 
 ## CLI projection
 
@@ -106,9 +136,11 @@ anarres measure .anarres/molecular-q07820/q07820-hash_uniform.profile-input.json
 ```
 
 Each profile preserves the native contracts and artifact digests. The profiles
-are schema-valid and carry the passing selector-fidelity qualification. This
-gate authorizes freezing matched training and evaluation contracts; it does
-not itself establish predictive utility or open target-training outcomes.
+are schema-valid and carry the passing selector-fidelity qualification. CLI
+training authorization requires both that bank confirmation and the independent
+starting-policy endpoint gate, together with the frozen matched contract.
+Neither qualification result establishes predictive utility or opens
+target-training outcomes.
 The adapter accepts an explicit `--repository` path, so the installed command
 can run outside the checkout without searching for mutable evidence.
 
@@ -139,6 +171,16 @@ The first graph claim concerns environment measurement and selection. A
 GINE-versus-GPS architecture comparison remains a later nested study. Deferring
 that ablation keeps the initial intervention focused on experience and avoids
 multiplying eight environments across separately initialized models.
+
+Replay content is already known to matter for GFlowNet learning. Prioritized
+high-reward replay improves sample efficiency in biochemical design, and an
+independent molecular-synthesis study finds faster mode discovery from
+reward-prioritized replay than from uniform replay or on-policy samples alone.
+SynFlowNet further shows that target-informed curation of a synthesis space can
+change affinity reward. These results motivate the intervention without
+answering its decision question: whether measurements made under one starting
+policy can predict which fixed replay bank will be most useful at matched
+generation and oracle budgets.
 
 ## Research-first progression
 
@@ -263,9 +305,26 @@ metrics do not qualify. An infrastructure failure invalidates the affected
 panel instead of becoming a molecular failure.
 
 The pose summaries use MolGenBench's published package versions and PoseCheck
-commit and cover all 1,131 docked reference-active records. Starting-policy
-endpoint qualification remains the next gate before a matched training
-schedule can be frozen.
+commit and cover all 1,131 docked reference-active records. The independent
+starting-policy endpoint then passes with 22 qualifying attempts and 16 unique
+qualifying molecules among 4,096 attempts, with zero infrastructure failures.
+
+[`STARTING_POLICY_ENDPOINT_QUALIFICATION_CONTRACT_V2.json`](STARTING_POLICY_ENDPOINT_QUALIFICATION_CONTRACT_V2.json)
+preserves the independent 4,096-attempt sample under seed 20261126 and records
+the final molecule-specific failure semantics. The hash-linked
+[`STARTING_POLICY_ENDPOINT_QUALIFICATION_RESULT_V2.json`](STARTING_POLICY_ENDPOINT_QUALIFICATION_RESULT_V2.json)
+passes every frozen check and fixes 4,096 evaluation attempts per policy, seed,
+and checkpoint for the matched study.
+
+[`MATCHED_TRAINING_EVALUATION_CONTRACT_V1.json`](MATCHED_TRAINING_EVALUATION_CONTRACT_V1.json)
+then freezes the six development arms, training seeds 20261108 and 20261109,
+and target-oracle checkpoints at 12,800, 25,600, and 40,000 attempts. Each
+update combines 64 fresh online trajectories with 64 trajectories sampled
+uniformly from the fixed 512-item bank. Online trajectories never enter replay.
+The maximum follows RxnFlow's published 40,000-oracle target-specific budget,
+while the two earlier checkpoints expose finite-budget behavior. Every policy,
+seed, and checkpoint receives 4,096 endpoint attempts under common random
+numbers across arms.
 
 ## Frontier alignment
 
@@ -283,6 +342,9 @@ Primary sources:
 - [RxnFlow paper](https://proceedings.iclr.cc/paper_files/paper/2025/file/24d36eee157559e0d2549455fba28f6a-Paper-Conference.pdf),
   [v2.1.0 release](https://github.com/SeonghwanSeo/RxnFlow/releases/tag/v2.1.0),
   and [source](https://github.com/SeonghwanSeo/RxnFlow)
+- [Prioritized replay for GFlowNet training](https://proceedings.mlr.press/v202/shen23a.html)
+  and [the molecular replay study](https://arxiv.org/abs/2307.07674)
+- [SynFlowNet](https://proceedings.iclr.cc/paper_files/paper/2025/hash/7495fa446f10e9edef6e47b2d327596e-Abstract-Conference.html)
 - [MolGenBench paper](https://www.nature.com/articles/s41467-026-78105-8),
   [source](https://github.com/Intelligent-Drug-Discovery-Lab/MolGenBench),
   and [Version4 data record](https://doi.org/10.5281/zenodo.20233505)
@@ -395,7 +457,9 @@ as a separate scientific result.
 records exact reconstruction of complete replay trajectories from the frozen
 probe export. [`REPLAY_TRAINING_SMOKE_V1.json`](REPLAY_TRAINING_SMOKE_V1.json)
 records the reduced target-training interface smoke with online replay
-insertion disabled.
+insertion disabled. [`FULL_BATCH_CPU_TRAINING_SMOKE_V1.json`](FULL_BATCH_CPU_TRAINING_SMOKE_V1.json)
+records the same one-update interface check at the frozen batch size of 64
+online and 64 replay trajectories on CPU.
 
 Audit local checkouts without reading target outcomes:
 

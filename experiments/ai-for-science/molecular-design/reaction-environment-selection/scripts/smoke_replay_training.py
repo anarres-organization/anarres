@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import math
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -22,15 +23,54 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def configure_smoke(config_path: Path, env_dir: Path) -> Any:
+def inspect_oracle_python(path: Path) -> dict[str, Any]:
+    """Verify the isolated docking runtime without importing it into training."""
+    if not path.is_file():
+        raise FileNotFoundError(f"oracle Python does not exist: {path}")
+    probe = """
+import importlib
+import importlib.metadata
+import json
+
+packages = {}
+for module_name in ("vina", "meeko", "openbabel", "rdkit"):
+    module = importlib.import_module(module_name)
+    try:
+        version = importlib.metadata.version(module_name)
+    except importlib.metadata.PackageNotFoundError:
+        version = getattr(module, "__version__", None)
+    if not version:
+        raise RuntimeError(f"cannot identify {module_name} version")
+    packages[module_name] = version
+print(json.dumps(packages, sort_keys=True))
+"""
+    completed = subprocess.run(
+        [str(path), "-c", probe],
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=60,
+    )
+    if completed.returncode != 0:
+        detail = completed.stderr.strip() or completed.stdout.strip()
+        raise RuntimeError(f"oracle Python qualification failed: {detail}")
+    return {
+        "executable_sha256": sha256_file(path),
+        "packages": json.loads(completed.stdout),
+    }
+
+
+def configure_smoke(config_path: Path, env_dir: Path, *, num_online: int, num_replay: int) -> Any:
+    if num_online < 1 or num_replay < 1:
+        raise ValueError("smoke batch sizes must be positive")
     from rxnflow.config import Config
 
     config = Config.from_file(config_path)
     config.env_dir = str(env_dir)
     config.training.log_every = 1
     config.training.checkpoint_every = 1
-    config.training.num_online = 2
-    config.training.num_replay = 2
+    config.training.num_online = num_online
+    config.training.num_replay = num_replay
     config.training.replay_capacity = 512
     config.training.num_replay_insert = 0
     return config
@@ -46,19 +86,33 @@ def run_smoke(
     output_dir: Path,
     report_path: Path,
     seed: int,
+    num_online: int,
+    num_replay: int,
+    device: str,
+    retrosynthesis_workers: int,
+    reward_workers: int,
+    oracle_python: Path,
 ) -> dict[str, Any]:
     from rxnflow.trainer import RxnFlowTrainer
     from rxnflow_target_reward import MolecularTargetReward
 
-    config = configure_smoke(config_path, env_dir)
-    reward = MolecularTargetReward(str(prepared_target), timeout_seconds=300.0, max_workers=2)
+    config = configure_smoke(config_path, env_dir, num_online=num_online, num_replay=num_replay)
+    if retrosynthesis_workers < 0 or reward_workers < 1:
+        raise ValueError("smoke worker counts are invalid")
+    oracle_runtime = inspect_oracle_python(oracle_python)
+    reward = MolecularTargetReward(
+        str(prepared_target),
+        timeout_seconds=300.0,
+        max_workers=reward_workers,
+        worker_python=str(oracle_python),
+    )
     trainer = RxnFlowTrainer(
         config,
         reward,
         seed=seed,
         output_dir=output_dir,
-        device="cpu",
-        num_workers=0,
+        device=device,
+        num_workers=retrosynthesis_workers,
     )
     initial = {
         "step": trainer.step,
@@ -83,23 +137,36 @@ def run_smoke(
         "replay_bank_unchanged": replay_size_after == replay_size_before,
         "one_update_complete": trainer.step == 1,
         "finite_loss": math.isfinite(float(record["loss"])),
-        "matched_smoke_batch": record["num_online"] == 2 and record["num_replay"] == 2,
+        "matched_smoke_batch": record["num_online"] == num_online
+        and record["num_replay"] == num_replay,
         "checkpoint_exists": checkpoint.is_file(),
     }
+    full_batch = num_online == 64 and num_replay == 64
     report = {
         "schema_version": "1.0",
         "study": "prospective-reaction-environment-selection",
-        "scope": "reduced replay-materialization and one-update interface smoke",
+        "scope": (
+            "full-batch replay-materialization and one-update interface smoke"
+            if full_batch
+            else "reduced replay-materialization and one-update interface smoke"
+        ),
         "status": "pass" if all(checks.values()) else "fail",
         "claim_boundary": (
-            "This reduced smoke qualifies the replay-training interface. It is not "
+            "This one-update smoke qualifies the frozen batch and replay-training "
+            "interface. It is not a target-training outcome or evidence of bank utility."
+            if full_batch
+            else "This reduced smoke qualifies the replay-training interface. It is not "
             "a target-training outcome or evidence of bank utility."
         ),
         "seed": seed,
         "bank": artifact["bank"],
         "bank_item_count": artifact["item_count"],
         "warm_start": warm_identity,
-        "smoke_batch": {"online": 2, "replay": 2, "updates": 1},
+        "smoke_batch": {
+            "online": num_online,
+            "replay": num_replay,
+            "updates": 1,
+        },
         "observed": {
             "loss": record["loss"],
             "policy_grad_norm": record["policy_grad_norm"],
@@ -113,6 +180,13 @@ def run_smoke(
             "checkpoint": sha256_file(checkpoint),
         },
     }
+    if full_batch or device != "cpu" or retrosynthesis_workers != 0 or reward_workers != 2:
+        report["execution"] = {
+            "device": device,
+            "retrosynthesis_workers": retrosynthesis_workers,
+            "reward_workers": reward_workers,
+            "oracle_runtime": oracle_runtime,
+        }
     report_path.parent.mkdir(parents=True, exist_ok=True)
     temporary = report_path.with_suffix(report_path.suffix + ".tmp")
     temporary.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
@@ -132,6 +206,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--report", type=Path, required=True)
     parser.add_argument("--seed", type=int, default=20261110)
+    parser.add_argument("--num-online", type=int, default=2)
+    parser.add_argument("--num-replay", type=int, default=2)
+    parser.add_argument("--device", default="cpu")
+    parser.add_argument("--retrosynthesis-workers", type=int, default=0)
+    parser.add_argument("--reward-workers", type=int, default=2)
+    parser.add_argument("--oracle-python", type=Path, required=True)
     return parser
 
 
@@ -146,6 +226,12 @@ def main() -> None:
         output_dir=args.output_dir,
         report_path=args.report,
         seed=args.seed,
+        num_online=args.num_online,
+        num_replay=args.num_replay,
+        device=args.device,
+        retrosynthesis_workers=args.retrosynthesis_workers,
+        reward_workers=args.reward_workers,
+        oracle_python=args.oracle_python,
     )
     print(f"replay-training smoke {report['status']}: loss={report['observed']['loss']:.6f}")
 

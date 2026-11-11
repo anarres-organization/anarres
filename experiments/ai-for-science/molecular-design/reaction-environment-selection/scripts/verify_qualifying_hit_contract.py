@@ -11,6 +11,8 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "QUALIFYING_HIT_CONTRACT_V1.json"
 THRESHOLDS = ROOT / "Q07820_REFERENCE_THRESHOLDS_V1.json"
+ENDPOINT_CONTRACT = ROOT / "STARTING_POLICY_ENDPOINT_QUALIFICATION_CONTRACT_V2.json"
+ENDPOINT_RESULT = ROOT / "STARTING_POLICY_ENDPOINT_QUALIFICATION_RESULT_V2.json"
 
 
 def sha256_file(path: Path) -> str:
@@ -72,6 +74,24 @@ def verify() -> dict[str, Any]:
         if not 0 < summary["finite"] <= summary["rows"]:
             raise ValueError(f"invalid finite support for {name}")
 
+    endpoint_contract = json.loads(ENDPOINT_CONTRACT.read_text())
+    endpoint_result = json.loads(ENDPOINT_RESULT.read_text())
+    if endpoint_result.get("contract") != endpoint_contract.get("contract"):
+        raise ValueError("starting-policy endpoint result uses the wrong contract")
+    if endpoint_result.get("inputs", {}).get(
+        "starting_policy_endpoint_contract_sha256"
+    ) != sha256_file(ENDPOINT_CONTRACT):
+        raise ValueError("starting-policy endpoint contract hash does not match")
+    if endpoint_result.get("attempts") != endpoint_contract["sample"]["attempts"]:
+        raise ValueError("starting-policy endpoint attempt count does not match")
+    if (
+        endpoint_result.get("status") != "passed"
+        or endpoint_result.get("authorizes_matched_training") is not True
+    ):
+        raise ValueError("starting-policy endpoint did not pass")
+    if not all(endpoint_result.get("checks", {}).values()):
+        raise ValueError("starting-policy endpoint contains a failed gate check")
+
     return {
         "schema_version": "1.0",
         "study": contract["study"],
@@ -80,6 +100,11 @@ def verify() -> dict[str, Any]:
         "target_id": result["target_id"],
         "contract_sha256": sha256_file(CONTRACT),
         "thresholds_sha256": sha256_file(THRESHOLDS),
+        "starting_policy_endpoint_result_sha256": sha256_file(ENDPOINT_RESULT),
+        "starting_policy_endpoint_qualifying_attempts": endpoint_result["qualifying_attempts"],
+        "starting_policy_endpoint_unique_qualifying_molecules": endpoint_result[
+            "unique_qualifying_molecules"
+        ],
         "reference_pose_rows": summaries["strain_energy"]["rows"],
         "candidate_or_trained_policy_outcomes_read": False,
     }

@@ -143,6 +143,12 @@ class MolecularCliTest(unittest.TestCase):
         self.assertEqual(result["target_id"], "Q07820")
         self.assertEqual(result["bank_count"], 6)
         self.assertTrue(result["bank_confirmation_passed"])
+        self.assertTrue(result["endpoint_qualification_passed"])
+        self.assertEqual(result["endpoint_qualification_status"], "passed")
+        self.assertEqual(result["endpoint_qualifying_attempts"], 22)
+        self.assertEqual(result["endpoint_unique_qualifying_molecules"], 16)
+        self.assertEqual(result["endpoint_infrastructure_failures"], 0)
+        self.assertTrue(result["matched_training_contract_frozen"])
         self.assertTrue(result["profiles_ready"])
         self.assertTrue(result["development_training_authorized"])
         self.assertFalse(result["training_outcomes_opened"])
@@ -161,6 +167,8 @@ class MolecularCliTest(unittest.TestCase):
             profiles = [json.loads(Path(path).read_text()) for path in result["outputs"]]
         self.assertEqual(result["profile_count"], 6)
         self.assertTrue(result["profiles_ready"])
+        self.assertTrue(result["endpoint_qualification_passed"])
+        self.assertTrue(result["matched_training_contract_frozen"])
         for profile in profiles:
             coordinates = {coordinate["name"] for coordinate in profile["coordinates"]}
             self.assertEqual(coordinates, set(cli.load_exporter(ROOT).COORDINATES))
@@ -183,6 +191,8 @@ class MolecularCliTest(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertEqual(first["status"], "pass")
         self.assertTrue(first["bank_confirmation_passed"])
+        self.assertTrue(first["endpoint_qualification_passed"])
+        self.assertTrue(first["matched_training_contract_frozen"])
         self.assertTrue(first["development_training_authorized"])
 
 
@@ -241,6 +251,8 @@ class MolecularCliCommandTest(unittest.TestCase):
             self.assertEqual(status.returncode, 0, status.stderr)
             result = json.loads(status.stdout)
             self.assertTrue(result["bank_confirmation_passed"])
+            self.assertTrue(result["endpoint_qualification_passed"])
+            self.assertTrue(result["matched_training_contract_frozen"])
             self.assertTrue(result["development_training_authorized"])
 
     def test_init_inspect_and_qualify_route_to_molecular_adapter(self) -> None:

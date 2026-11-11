@@ -1,4 +1,5 @@
 import importlib.util
+import json
 import math
 import subprocess
 import sys
@@ -44,6 +45,27 @@ class TargetRewardAdapterTests(unittest.TestCase):
         ):
             MODULE.run_worker(Path("unused"), "CCO", 0.01)
 
+    def test_worker_uses_explicit_oracle_python(self):
+        observed = {}
+
+        def run(command, **_kwargs):
+            observed["command"] = command
+            output = Path(command[command.index("--output") + 1])
+            output.write_text(
+                json.dumps({"status": "ok", "affinity": -7.0, "elapsed_seconds": 0.1})
+            )
+            return subprocess.CompletedProcess(command, 0, "", "")
+
+        with patch.object(MODULE.subprocess, "run", side_effect=run):
+            result = MODULE.run_worker(
+                Path("unused"),
+                "CCO",
+                1.0,
+                worker_python=Path("/qualified/oracle/python"),
+            )
+        self.assertEqual(observed["command"][0], "/qualified/oracle/python")
+        self.assertEqual(result["affinity"], -7.0)
+
     def test_exact_unsupported_atom_type_error_is_scientific_ineligibility(self):
         error = TypeError(
             "PDBQT parsing error: Atom type B is not a valid AutoDock type "
@@ -68,7 +90,7 @@ class TargetRewardAdapterTests(unittest.TestCase):
                 }
             return {"status": "eligible", "metrics": {"qed": 0.5}}
 
-        def dock(_target, smiles, _timeout):
+        def dock(_target, smiles, _timeout, **_kwargs):
             return {
                 "status": "ok",
                 "affinity": -8.0 if smiles == "first" else -6.0,

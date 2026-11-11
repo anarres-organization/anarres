@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "audit": "q07820-starting-policy-endpoint-execution-v1",
+  "status": "preserved_invalid_execution",
+  "sample": {
+    "attempts": 4096,
+    "seed": 20261126,
+    "sha256": "00e07d8ad6897185f97dd4cc22da73d7e537db3d05ffc05e763b86cca63018d2"
+  },
+  "v1_execution": {
+    "report_sha256": "7442cab20691b957599b26fa9a591f2e28487ccd260a7ccd4e0d1cbd39271451",
+    "attempt_records_sha256": "515cc402f6fdbe9b5d33b4e9354c8fd3f6fe957ebeb8efe93b0a3a916b697c9b",
+    "status": "invalid",
+    "attempts": 4096,
+    "attempt_level": {
+      "ok": 4019,
+      "scientific_zero": 63,
+      "infrastructure_failure": 14
+    },
+    "unique_molecule_level": {
+      "ok": 3328,
+      "scientific_zero": 54,
+      "infrastructure_failure": 11
+    }
+  },
+  "diagnosis": {
+    "procedure": "Re-run each of the 11 failed canonical molecules independently with the frozen receptor, seed, exhaustiveness, and pose-preserving producer.",
+    "repeated_failures": 11,
+    "classification": "invalid_valence_pose_conversion",
+    "consistent_across_all_failed_molecules": true,
+    "failure_stage": "RDKit conversion of the completed Vina pose",
+    "vina_completed": true,
+    "timeouts": 0,
+    "receptor_failures": 0,
+    "nondeterministic_process_failures": 0,
+    "canonical_molecule_sha256": [
+      "19b608b1a7d0febf5b1a89ffab891e8b6258286c4e9d57d95e1a0d22aed36b93",
+      "24370782f68319086177bc5f58a5cafe7524829297c7666763ca856ce895c341",
+      "476c878cee5814dcab5ab691122146150c3fdae219c01915923323950a95e3f9",
+      "7de57b0d8ba5cb5a531c61331e76d20a9ecb437eb9186baf8058e61e729f821c",
+      "7fbf534a749ea9be62251fdb1db97b924d1b643232ec7b159831dc5318483398",
+      "82ba5fc174ec9471d899fdce83a6a999da506537a52f70f3013b2a73cc2be9ee",
+      "93c77d8032cedbd72e2b239346b37fc1be4e1c6dc176234b2cc947474232ee6a",
+      "974f0563fd8aff354337fee5a2eaa9f1003147d2e3da85c141339063e3ab8b32",
+      "a7fc25210e42b5823c995facc54f0bfe0e671835c974080d5b3e3406f70cad20",
+      "c6cb41074332d5e3c6e28af51a6c724ae918284a8beac30db7480c7199fd65c4",
+      "f5ca3d0421ea12e0bd2c04dd1c6e467db281aa5efb1d667b222674706a610fb4"
+    ]
+  },
+  "claim_boundary": {
+    "qualifying_hit_gate_scored": false,
+    "target_training_outcome_opened": false,
+    "v1_execution_authorizes_training": false
+  }
+}
