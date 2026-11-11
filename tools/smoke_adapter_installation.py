@@ -19,16 +19,27 @@ PACKAGES = (
     "packages/environments",
     "packages/finance",
     "packages/legal",
+    "packages/vulnerability",
     "data/formal-verification/vero",
     "experiments/robotics/environment-selection/prospective-cupid-can-v141",
     "experiments/ai-for-science/molecular-design/reaction-environment-selection",
     "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter",
 )
-ADAPTERS = ("finance", "formal", "legal", "materials", "molecular", "robotics")
+ADAPTERS = (
+    "finance",
+    "formal",
+    "legal",
+    "materials",
+    "molecular",
+    "robotics",
+    "vulnerability",
+)
+PROFILE_ADAPTERS = ("finance", "formal", "legal", "materials", "molecular", "robotics")
 ADAPTER_PACKAGES = {
     "finance": "packages/finance",
     "formal": "data/formal-verification/vero",
     "legal": "packages/legal",
+    "vulnerability": "packages/vulnerability",
     "materials": (
         "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter"
     ),
@@ -274,7 +285,7 @@ def main() -> int:
         profile_count = 0
         record_count = 0
         records_by_adapter: dict[str, list[Path]] = {}
-        for adapter in ADAPTERS:
+        for adapter in PROFILE_ADAPTERS:
             output_directory = profile_root / adapter
             command(
                 str(binary),

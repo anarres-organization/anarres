@@ -2,8 +2,9 @@
 
 The native `anarres` binary validates and compares versioned environment
 records. Domain adapters are separate tools that translate released robotics,
-legal, materials, molecular, finance, or formal-verification measurements into
-those records without changing their scientific meaning.
+legal, materials, molecular, finance, formal-verification, or vulnerability
+sources and measurements into those records without changing their scientific
+meaning.
 
 Homebrew and the standalone installer provide the native binary. They do not
 install every domain runtime. Install only the adapters needed for the studies
@@ -26,6 +27,7 @@ uv tool install ./packages/legal
 uv tool install ./experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter
 uv tool install ./experiments/ai-for-science/molecular-design/reaction-environment-selection
 uv tool install ./packages/finance
+uv tool install ./packages/vulnerability
 ```
 
 If `uv` reports that its executable directory is not on `PATH`, run
@@ -57,12 +59,13 @@ new training outcome.
 | Materials science | `anarres materials status --repository .` | `anarres materials results --repository .` | MLIP candidate measurements, frozen protocol, and scored prospective result |
 | Molecular design | `anarres molecular status --repository .` | `anarres molecular verify --repository .` | Qualified Q07820 reaction-bank measurements; training outcomes remain sealed |
 | Agentic finance | `anarres finance status --repository .` | `anarres finance decide <panel.json>` | Starting-policy qualification and released retrospective checks |
+| Vulnerability exploitation | `anarres vulnerability status` | [`anarres qualify <source>`](../packages/vulnerability/README.md) | Sanitized CyberGym source qualification; task execution and policy probing remain gated |
 
-Finance, formal verification, legal reasoning, and robotics also declare one
-native source format each. After installing the adapter, use
+Finance, formal verification, legal reasoning, robotics, and vulnerability
+exploitation also declare a native source format. After installing the adapter, use
 `anarres adapter doctor <name>` to inspect the exact format, then run
 `anarres init`, `anarres inspect`, and `anarres qualify`. These paths validate
-the pinned source without starting a model. None of the four adapters currently
+the pinned source without starting a model. None of these adapters currently
 declares a portable `policy-probe` capability.
 
 Use `status` to inspect the released stage, `profile` to export supported

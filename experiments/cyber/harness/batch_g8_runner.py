@@ -31,7 +31,7 @@ def generate_task(task_id, out_dir, data_dir, server_url, cybergym_dir, mask_map
         "--server",
         server_url,
         "--difficulty",
-        "level3",
+        "level2",
     ]
     if mask_map:
         cmd.extend(["--mask-map", mask_map])

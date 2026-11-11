@@ -17,6 +17,7 @@ members = [
     "anarres-materials",
     "anarres-molecular",
     "anarres-robotics",
+    "anarres-vulnerability",
     "anarres-workspace",
 ]
 
@@ -140,6 +141,17 @@ requires-dist = [
     { name = "anarres-environments", editable = "packages/environments" },
     { name = "h5py", specifier = ">=3.8" },
 ]
+
+[[package]]
+name = "anarres-vulnerability"
+version = "0.1.0"
+source = { editable = "packages/vulnerability" }
+dependencies = [
+    { name = "anarres-core" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "anarres-core", editable = "packages/core" }]
 
 [[package]]
 name = "anarres-workspace"
