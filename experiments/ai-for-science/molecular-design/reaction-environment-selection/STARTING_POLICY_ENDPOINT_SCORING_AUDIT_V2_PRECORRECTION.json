@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "audit": "q07820-starting-policy-endpoint-v2-precorrection-scoring",
+  "status": "preserved_non_authorizing_missing_runtime_failure",
+  "contract": "q07820-starting-policy-endpoint-qualification-v2",
+  "artifacts": {
+    "endpoint_metrics_sha256": "44bc044359b5f074d502c21f047e42d6e2098e0475cc9a593e5fce5d4eb164d2",
+    "endpoint_metrics_report_sha256": "1c87c97f23a3f06bb95fa082d7d852d81c2dc79be54e7a6828a7309e18a6942f",
+    "qualifying_hit_score_sha256": "52bf39d59126416e70ffb1ae15a90f5e49af21423b1c6ae41c9b74b98b4bdfb8",
+    "gate_result_sha256": "91bc89c1336bd9d7f16081c6136c608e72b719a60d8a1f9b04813036ec2146b0"
+  },
+  "observed_result": {
+    "chemical_filter_failures": 4096,
+    "qualifying_attempts": 0,
+    "authorizes_matched_training": false
+  },
+  "diagnosis": {
+    "native_behavior": "MolGenBench ChemFilterMetric catches chemical-filter exceptions and returns false.",
+    "runtime_failure": "The isolated endpoint environment lacked Medchem's optional checksum-pinned Lilly 2.1 command-line tools, so every Lilly filter call raised ImportError and every molecule was recorded as a chemical-filter failure.",
+    "correction": "Install the pinned Lilly runtime and require its three compatible executables before scoring. No threshold, sample, pose, endpoint metric, or gate is changed."
+  },
+  "claim_boundary": {
+    "precorrection_result_is_claim_bearing": false,
+    "development_training_authorized": false,
+    "development_or_prospective_training_outcomes_opened": false
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "artifact_sha256": {
+    "checkpoint": "ee21900856149e541ff5b94650c74c528ae2d3e92036eb5e2a37b0d1bd92b749",
+    "replay_bank": "74d584c02867f256ac14961ae3a1b2871f11dabdd869f8b219dfb5439a07f997",
+    "warm_start": "effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a"
+  },
+  "bank": "hash_uniform",
+  "bank_item_count": 512,
+  "checks": {
+    "checkpoint_exists": true,
+    "finite_loss": true,
+    "fresh_empty_optimizer": true,
+    "fresh_empty_replay": true,
+    "fresh_step_zero": true,
+    "matched_smoke_batch": true,
+    "materialized_bank_complete": true,
+    "one_update_complete": true,
+    "online_insertion_disabled": true,
+    "replay_bank_unchanged": true
+  },
+  "claim_boundary": "This one-update smoke qualifies the frozen batch and replay-training interface. It is not a target-training outcome or evidence of bank utility.",
+  "execution": {
+    "device": "cpu",
+    "retrosynthesis_workers": 4,
+    "reward_workers": 16
+  },
+  "observed": {
+    "loss": 69.5225830078125,
+    "policy_grad_norm": 12.396700859069824,
+    "replay_size_after": 512,
+    "replay_size_before": 512
+  },
+  "schema_version": "1.0",
+  "scope": "full-batch replay-materialization and one-update interface smoke",
+  "seed": 20261110,
+  "smoke_batch": {
+    "online": 64,
+    "replay": 64,
+    "updates": 1
+  },
+  "status": "pass",
+  "study": "prospective-reaction-environment-selection",
+  "warm_start": {
+    "artifact_type": "anarres.rxnflow-warm-start-weights.v1",
+    "rxnflow_version": "2.1.0",
+    "source_objectives": [
+      "qed"
+    ],
+    "source_step": 1000
+  }
+}

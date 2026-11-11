@@ -21,10 +21,12 @@ class MolecularTargetReward(RewardFunction):
         prepared_target: str,
         timeout_seconds: float = 300.0,
         max_workers: int = 1,
+        worker_python: str | None = None,
     ):
         self.prepared_target = Path(prepared_target)
         self.timeout_seconds = timeout_seconds
         self.max_workers = max_workers
+        self.worker_python = worker_python
 
     def score(
         self,
@@ -38,6 +40,7 @@ class MolecularTargetReward(RewardFunction):
             smiles_list,
             timeout_seconds=self.timeout_seconds,
             max_workers=self.max_workers,
+            worker_python=self.worker_python,
         )
         rewards = np.asarray([result["reward"] for result in results], dtype=np.float32)
         return rewards.reshape(-1, 1)

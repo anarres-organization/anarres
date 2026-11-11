@@ -271,6 +271,7 @@ python scripts/smoke_replay_training.py \
   --warm-start /path/to/warm_start_weights.pt \
   --replay-bank /tmp/hash_uniform.replay.json \
   --prepared-target /path/to/prepared_Q07820 \
+  --oracle-python /path/to/qualified-oracle/bin/python \
   --output-dir /tmp/replay-training-smoke \
   --report /tmp/REPLAY_TRAINING_SMOKE_V1.json
 ```
@@ -281,11 +282,54 @@ produce finite loss and gradient diagnostics, write a checkpoint, and preserve
 the replay-bank size. This is an interface qualification and cannot be scored
 as an environment outcome.
 
+Before claim-bearing execution, repeat the smoke with `--num-online 64
+--num-replay 64 --device cuda` on the intended accelerator and runtime. This
+exercises the frozen batch shape without changing the one-update interface-only
+scope. Set the retrosynthesis and reward worker counts explicitly to the values
+planned for the matched runs. Pass the qualified docking environment through
+`--oracle-python`; this makes docking-runtime selection explicit and records
+the oracle executable digest and package versions.
+
+After the endpoint gate passes and the matched contract is frozen, run each
+development arm with the contract-enforcing entry point:
+
+```bash
+python scripts/run_matched_training.py \
+  --config target-training-q07820.yaml \
+  --env-dir /path/to/qualified-environment \
+  --warm-start /path/to/warm_start_weights.pt \
+  --replay-bank /path/to/hash_uniform.replay.json \
+  --prepared-target /path/to/prepared_Q07820 \
+  --oracle-python /path/to/qualified-oracle/bin/python \
+  --output-dir /path/to/run-output \
+  --arm hash_uniform \
+  --seed 20261108 \
+  --preflight-only
+```
+
+The runner accepts only the six frozen development arms and two frozen seeds.
+The preflight checks the released contract, configuration, starting-policy
+weights, complete replay payload, prepared target, bank identity, and
+qualification digest without loading the trainer. Run it for every arm and
+seed, then remove `--preflight-only` to train. The runner also verifies the
+complete log, online-sample count, immutable replay content, and required
+checkpoints before writing `MATCHED_TRAINING_RUN.json`. To continue an
+interrupted run, provide a full checkpoint through `--resume-from`; optimizer,
+scheduler, replay, and random-number state are restored from that checkpoint.
+
 ## 8. Instantiate and qualify the endpoint
 
 Create the endpoint environment from `endpoint-environment.yml`. This matches
-the MolGenBench Version4 package pins and PoseCheck commit. Compute reference
-pose metrics once per target, then derive the target-relative thresholds:
+the MolGenBench Version4 package pins and PoseCheck commit. Install Medchem's
+checksum-pinned Lilly 2.1 tools inside the environment before scoring:
+
+```bash
+medchem install-lilly
+```
+
+The endpoint producer checks all three executables before scoring and stops if
+the optional runtime is absent or incompatible. Compute reference pose metrics
+once per target, then derive the target-relative thresholds:
 
 ```bash
 python scripts/compute_reference_pose_metrics.py \
@@ -311,6 +355,73 @@ sample with `scripts/score_qualifying_hits.py`. Stop if the panel has any
 infrastructure failure, zero unique qualifying molecules, or support that
 depends on a single molecule. Molecule-specific failures remain in the fixed
 attempt denominator.
+
+Follow `STARTING_POLICY_ENDPOINT_QUALIFICATION_CONTRACT_V1.json` for the
+starting-policy panel. Draw seed 20261126 exactly once for 4,096 attempts with
+the frozen weights, synthesis environment, beta, temperature, and checkpoint
+preference. Invalid attempts are not retried. Run the full endpoint on every
+returned molecule and retain any missing attempts as scientific zeroes in the
+fixed denominator. Require zero infrastructure failures, at least 16
+qualifying attempts, at least eight unique qualifying molecules, and no single
+canonical molecule contributing more than one quarter of qualifying attempts.
+Only a passing result authorizes fixing 4,096 evaluation attempts per policy,
+seed, and checkpoint in the matched contract.
+
+Preserve the docked poses with the deterministic endpoint producer before
+running the MolGenBench pose metrics:
+
+```bash
+python scripts/dock_endpoint_panel.py panel \
+  --samples /path/to/starting_policy_seed20261126.jsonl \
+  --prepared-target /path/to/prepared_Q07820 \
+  --attempts 4096 \
+  --sample-seed 20261126 \
+  --contract q07820-starting-policy-endpoint-qualification-v2 \
+  --output-dir /path/to/endpoint-docking \
+  --output-records /path/to/endpoint-docking/attempts.jsonl \
+  --report /path/to/endpoint-docking/report.json
+```
+
+The producer docks each unique canonical molecule once under the frozen seed,
+maps duplicate molecules back to their original attempts, and records missing
+or molecule-specific failures without retrying them. Any timeout, receptor,
+toolchain, process, or unclassified conversion failure invalidates the panel.
+
+The preserved v1 endpoint execution exposed one narrower case: 11 molecules
+completed Vina docking but produced invalid-valence poses that RDKit could not
+represent as valid 3D molecules. The frozen v2 contract classifies only that
+exact condition as a scientific zero. It reruns the complete unchanged sample;
+all broader Open Babel, receptor, Vina, process, timeout, and toolchain failures
+remain infrastructure failures.
+
+Compute the full native endpoint record from those preserved poses:
+
+```bash
+python scripts/score_endpoint_metrics.py \
+  --docking-records /path/to/endpoint-docking/attempts.jsonl \
+  --protein /path/to/Q07820_prep.pdb \
+  --pocket /path/to/Q07820_pocket10.pdb \
+  --reference-actives /path/to/Q07820_reference_active_molecules_vina_docked.sdf \
+  --reference-interaction-scores /path/to/Q07820_reference_active_molecules_vina_docked_interaction_scores.csv \
+  --attempts 4096 \
+  --contract q07820-starting-policy-endpoint-qualification-v2 \
+  --output-records /path/to/endpoint-metrics.jsonl \
+  --report /path/to/endpoint-metrics-report.json
+```
+
+This compatibility producer calls the pinned MolGenBench metric definitions
+directly. It preserves the original-molecule contract for validity, QED, SA,
+and chemistry filters, and the docked-pose contract for PoseBusters, strain,
+clashes, and interactions. It reconstructs the native interaction-weight map
+from the pinned reference fingerprints and verifies every released reference
+score before candidate scoring. The frozen thresholds remain unchanged.
+
+Finally, score the endpoint records with `scripts/score_qualifying_hits.py` and
+apply `scripts/apply_starting_policy_endpoint_gate.py` to the resulting score,
+the frozen sample and contract, and both producer reports. The gate command
+validates the hash-linked evidence chain before emitting a compact result. That
+result is the only artifact that authorizes matched training. A failed gate
+remains a scientific result and stops the study before training.
 
 ## 9. Freeze the prospective decision
 
