@@ -86,9 +86,43 @@ anarres measure examples/environment-processing/probe.json \
 anarres validate .anarres/example/environment.json
 ```
 
+The first command identifies two admitted groups and flags one infrastructure
+repair and one quarantined task. The measurement then reports usable signal
+density, effective coverage, the generated-token total, and the digest of the
+record it wrote:
+
+```text
+Environment  math-reference-demo-v1
+Admitted     2
+Repair       1
+Quarantine   1
+
+Signal       833.3333 admitted advantage mass / M tokens
+Coverage     0.6533
+Measured     3 groups · 4200 generated tokens
+```
+
 This fixture demonstrates the command contract rather than a scientific result.
 The [CLI guide](docs/cli.md) continues with candidate comparison, installed
 adapters, JSON output, shell completions, and record schemas.
+
+### Choose the right command
+
+The built-in commands operate on measurements you already have. Domain
+adapters expose the native workflow and released evidence for one field.
+
+| What you want to do | Start with | What it returns |
+| --- | --- | --- |
+| Find invalid, unusable, or comparison-ready measurements | `anarres qualify <input>` | Status counts and the records that require action |
+| Create a portable environment record | `anarres measure <input> --output <record>` | Coordinates, provenance, costs, and a content digest |
+| Compare a candidate panel | `anarres design <record-a> <record-b>` | Compatibility checks and candidate coordinate ranges |
+| Check a record before using it | `anarres validate <record>` | Structural, semantic, and integrity results |
+| See installed domain workflows | `anarres adapter list` | Available adapters and their selected executables |
+| Inspect one domain | `anarres <domain> status --repository .` | The released evidence, current stage, and scientific boundary |
+
+Run `anarres --help`, `anarres <command> --help`, or
+`anarres <domain> --help` at any point. The [adapter guide](docs/adapters.md)
+lists the maintained domains and the first useful command for each one.
 
 ## Research program
 
@@ -99,7 +133,7 @@ adapters, JSON output, shell completions, and record schemas.
 | [Cyber: formal verification](experiments/cyber/formal-verification/README.md) | Which executable proof environments improve held-out verification under a fixed policy and budget? | Positive public training-environment evidence and policy audit released; Vero containment qualification pending |
 | [Cyber: vulnerability exploitation](experiments/cyber/qualification/README.md) | Which authorized exploit-generation environments provide measurable signal and held-out improvement? | Scaffold qualification and repeated-policy measurement released; no environment comparison |
 | [Molecular design](experiments/ai-for-science/molecular-design/README.md) | Which reaction-based environments improve a molecular graph policy for a specified protein target and compute budget? | Candidate-bank qualification passed; outcomes remain sealed |
-| [Materials science](experiments/ai-for-science/materials-science/README.md) | Which atomistic training distributions improve a materials model for a specified physical target and compute budget? | Retrospective bridge validated; final cost-matched panel frozen |
+| [Materials science](experiments/ai-for-science/materials-science/README.md) | Which atomistic training distributions improve a materials model for a specified physical target and compute budget? | MLIP prospective test scored; the learned selector missed and exposes a support boundary |
 | [Robotics](experiments/robotics/README.md) | Which environments help robots improve across diverse embodied tasks? | First evidence release available |
 | [Legal reasoning](experiments/legal/README.md) | Can policy-relative measurements guide legal training-mixture selection? | Native adapter and evidence release available |
 | [Agentic finance](experiments/finance/README.md) | Which finance-task distributions improve held-out work under fixed training and control budgets? | Native CLI workflow and retrospective evidence available |
@@ -164,7 +198,7 @@ Large model weights and checkpoints are distributed through versioned artifact s
 
 - **Use the software:** [CLI guide](docs/cli.md), [adapter installation](docs/adapters.md), [release and verification guide](docs/releases.md), and [first-run evaluation](docs/first-run-evaluation.md)
 - **Integrate a domain:** [domain adapters](docs/architecture/domain-adapters.md), [adapter authoring](docs/architecture/adapter-authoring.md), and [measurement conventions](docs/conventions/README.md)
-- **Understand the system:** [repository architecture](docs/architecture/repository.md), [scientific preservation](docs/architecture/scientific-preservation.md), and [domain support](docs/domain-support.md)
+- **Understand the system:** [repository architecture](docs/architecture/repository.md), [scientific preservation](docs/architecture/scientific-preservation.md), [performance](docs/performance.md), and [domain support](docs/domain-support.md)
 - **Contribute:** [contribution guide](CONTRIBUTING.md), [governance](GOVERNANCE.md), and [security policy](SECURITY.md)
 
 ## About the name

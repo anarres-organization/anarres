@@ -1,9 +1,9 @@
 [project]
 name = "anarres-materials"
-version = "0.5.0"
+version = "0.6.0"
 description = "Study adapter for Anarres MLIP environment measurements"
 requires-python = ">=3.11"
-dependencies = ["anarres-environments"]
+dependencies = ["anarres-core", "anarres-environments"]
 license = { text = "Apache-2.0" }
 
 [project.scripts]

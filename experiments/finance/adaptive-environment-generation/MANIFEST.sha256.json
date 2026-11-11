@@ -1,0 +1,8 @@
+{
+  "PROTOCOL.json": "234788cf6ebcc0d6c755f1b6dd6d30fb5b4f103452eb29f2861bc509283d0eb5",
+  "README.md": "a253b4a6d9901ce007a35ab83a720cbc9230c8401daa9874587a297fda4892e4",
+  "SOURCES.json": "59507125d6f1c7ff7a24ef5d9dfaea837f707501ab7bc3f0df2d33104fd7f3d8",
+  "data/panels.json": "e4182658586f484aef70915e46c1a6861ab972e0d7ab12a9b8bc25d985a5dcdc",
+  "results/summary.json": "b2d5e5d2f010f40b27b4b3042fd2ac70a0d2308469d6123f3b9c0f2fedfd684b",
+  "scripts/score_bridge.py": "d21c7f3f9701b370e1391b87b61181a9351185c38bb4a9314137184689e9bad5"
+}

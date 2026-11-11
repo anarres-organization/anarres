@@ -1,0 +1,34 @@
+{
+  "sources": [
+    {
+      "name": "CuraEval",
+      "url": "https://github.com/jiuyixu25/CuraEval",
+      "revision": "bd94bbbd435c1ef55edfe244894e5468f3a5df2b",
+      "license": "MIT",
+      "use": "Diffusion Policy training and RoboMimic evaluation contract"
+    },
+    {
+      "name": "RoboMimic Square multi-human low-dimensional dataset",
+      "url": "https://downloads.cs.stanford.edu/downloads/rt_benchmark/square/mh/low_dim_v141.hdf5",
+      "revision": "robomimic_v0.3_robosuite_v1.4.1_release",
+      "sha256": "d3e871e4f25b3da6aea9f332613772e7bdfad9f586b97ce41cd7ccfb758c62dd",
+      "license": "MIT",
+      "redistribution": "not included; download from the official source"
+    },
+    {
+      "name": "DataMIL",
+      "url": "https://openreview.net/forum?id=FARlGZ0zEw",
+      "use": "policy-aware robotics data selection rationale"
+    },
+    {
+      "name": "Mulligan",
+      "url": "https://arxiv.org/abs/2610.05882",
+      "use": "failure-targeted initial-state allocation rationale"
+    },
+    {
+      "name": "Data Quality in Imitation Learning",
+      "url": "https://openreview.net/forum?id=FwmvbuDiMk",
+      "use": "state-distribution coverage and imitation-learning data-quality rationale"
+    }
+  ]
+}

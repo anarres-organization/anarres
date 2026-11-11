@@ -1,0 +1,820 @@
+{
+  "candidate_outcomes_opened": false,
+  "episodes": 768,
+  "exceptions": 0,
+  "failures": 152,
+  "inputs": {
+    "evaluation.json": "219ed21c37f511bf50e798d5b1f912b9e8f6eee95503e0222843c400a4fc80a9"
+  },
+  "populated_strata": 8,
+  "probe_policies": 3,
+  "qualification_passed": true,
+  "schema_version": "anarres.robotics-square-probe-measurements.v1",
+  "states": [
+    {
+      "failures": 0,
+      "state_id": 0,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 1,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 5,
+      "state_id": 2,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 3,
+      "stratum": 1,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 4,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 5,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 3,
+      "state_id": 6,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 7,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 8,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 9,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 10,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 11,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 12,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 13,
+      "stratum": 3,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 14,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 15,
+      "stratum": 3,
+      "trials": 6
+    },
+    {
+      "failures": 4,
+      "state_id": 16,
+      "stratum": 1,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 17,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 18,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 19,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 20,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 21,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 3,
+      "state_id": 22,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 23,
+      "stratum": 1,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 24,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 3,
+      "state_id": 25,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 3,
+      "state_id": 26,
+      "stratum": 3,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 27,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 3,
+      "state_id": 28,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 5,
+      "state_id": 29,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 30,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 31,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 3,
+      "state_id": 32,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 33,
+      "stratum": 4,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 34,
+      "stratum": 1,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 35,
+      "stratum": 1,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 36,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 3,
+      "state_id": 37,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 38,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 4,
+      "state_id": 39,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 40,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 41,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 4,
+      "state_id": 42,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 43,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 44,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 45,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 46,
+      "stratum": 4,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 47,
+      "stratum": 4,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 48,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 49,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 50,
+      "stratum": 1,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 51,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 52,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 5,
+      "state_id": 53,
+      "stratum": 3,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 54,
+      "stratum": 3,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 55,
+      "stratum": 4,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 56,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 57,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 58,
+      "stratum": 3,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 59,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 60,
+      "stratum": 4,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 61,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 62,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 63,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 64,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 65,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 66,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 67,
+      "stratum": 3,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 68,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 69,
+      "stratum": 3,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 70,
+      "stratum": 3,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 71,
+      "stratum": 1,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 72,
+      "stratum": 4,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 73,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 74,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 75,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 76,
+      "stratum": 1,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 77,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 78,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 79,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 80,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 81,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 82,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 83,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 84,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 85,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 86,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 87,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 88,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 89,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 90,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 5,
+      "state_id": 91,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 92,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 93,
+      "stratum": 1,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 94,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 95,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 96,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 97,
+      "stratum": 1,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 98,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 4,
+      "state_id": 99,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 100,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 101,
+      "stratum": 1,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 102,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 103,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 104,
+      "stratum": 1,
+      "trials": 6
+    },
+    {
+      "failures": 5,
+      "state_id": 105,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 106,
+      "stratum": 3,
+      "trials": 6
+    },
+    {
+      "failures": 3,
+      "state_id": 107,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 108,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 109,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 3,
+      "state_id": 110,
+      "stratum": 3,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 111,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 3,
+      "state_id": 112,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 113,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 114,
+      "stratum": 5,
+      "trials": 6
+    },
+    {
+      "failures": 5,
+      "state_id": 115,
+      "stratum": 4,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 116,
+      "stratum": 6,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 117,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 118,
+      "stratum": 3,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 119,
+      "stratum": 0,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 120,
+      "stratum": 4,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 121,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 122,
+      "stratum": 4,
+      "trials": 6
+    },
+    {
+      "failures": 2,
+      "state_id": 123,
+      "stratum": 3,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 124,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 0,
+      "state_id": 125,
+      "stratum": 2,
+      "trials": 6
+    },
+    {
+      "failures": 3,
+      "state_id": 126,
+      "stratum": 7,
+      "trials": 6
+    },
+    {
+      "failures": 1,
+      "state_id": 127,
+      "stratum": 1,
+      "trials": 6
+    }
+  ],
+  "status": "PROBE_MEASUREMENT_QUALIFIED__CANDIDATE_OUTCOMES_UNOPENED",
+  "strata": {
+    "0": {
+      "failures": 10,
+      "trials": 120
+    },
+    "1": {
+      "failures": 18,
+      "trials": 78
+    },
+    "2": {
+      "failures": 29,
+      "trials": 108
+    },
+    "3": {
+      "failures": 19,
+      "trials": 78
+    },
+    "4": {
+      "failures": 11,
+      "trials": 54
+    },
+    "5": {
+      "failures": 18,
+      "trials": 132
+    },
+    "6": {
+      "failures": 30,
+      "trials": 102
+    },
+    "7": {
+      "failures": 17,
+      "trials": 96
+    }
+  },
+  "study_id": "prospective_square_regression_v1",
+  "successes": 616
+}

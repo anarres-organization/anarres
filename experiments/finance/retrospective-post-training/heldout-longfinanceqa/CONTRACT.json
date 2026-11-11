@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_AWAITING_OUTCOME_EXTRACTION",
+  "freeze_utc": "2026-11-10T19:03:55Z",
+  "representation": {
+    "name": "capability-contract finance transfer representation v4",
+    "path": "../TARGET_CONDITIONAL_V4.md",
+    "source_used_for_representation_design": false,
+    "source_used_for_model_fitting": false
+  },
+  "chronology": {
+    "source_public_before_freeze": true,
+    "abstract_opened_before_freeze": true,
+    "component_outcomes_opened_before_freeze": false,
+    "claim_label_if_scored": "outcome-separated component test of a pre-existing representation"
+  },
+  "scoring": {
+    "primary": "directional accuracy over every reported matched comparison covered by the frozen predictions",
+    "regression": "score simpler-context retention only when the paper reports a matched answer-only comparison",
+    "missingness": "mark a prediction unscored when the required matched comparison is absent",
+    "abstract_exclusion": "the disclosed overall PAI and fine-tuning gains do not count as predictions",
+    "independence_guardrail": "nested benchmarks, subsets, and metrics remain one source-level test"
+  }
+}

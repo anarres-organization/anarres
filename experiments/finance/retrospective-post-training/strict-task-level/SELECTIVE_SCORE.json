@@ -9,6 +9,18 @@
   },
   "rules": {
     "more_data": {
+      "conservative_deployment_point": {
+        "candidate_pairs": 309,
+        "correct_credit": 108.0,
+        "coverage": 0.498382,
+        "decided_pairs": 154,
+        "derivation": "maximum threshold selected across source-held-out calibration folds",
+        "outcome_use": "retrospective calibration; requires prospective validation",
+        "pairwise_accuracy": 0.701299,
+        "sources_with_decisions": 3,
+        "target_training_precision": 0.85,
+        "threshold": 0.4
+      },
       "operating_points": {
         "target_0.80": {
           "correct_credit": 67.0,
@@ -221,6 +233,18 @@
       "unfiltered_pairwise_accuracy": 0.631068
     },
     "practical_rule": {
+      "conservative_deployment_point": {
+        "candidate_pairs": 309,
+        "correct_credit": 210.5,
+        "coverage": 0.754045,
+        "decided_pairs": 233,
+        "derivation": "maximum threshold selected across source-held-out calibration folds",
+        "outcome_use": "retrospective calibration; requires prospective validation",
+        "pairwise_accuracy": 0.903433,
+        "sources_with_decisions": 7,
+        "target_training_precision": 0.85,
+        "threshold": 0.2
+      },
       "operating_points": {
         "target_0.80": {
           "correct_credit": 242.0,

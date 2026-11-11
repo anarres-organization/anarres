@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "holdout_id": "profinagent_component_holdout_v1",
+  "predictions": [
+    {
+      "id": "full_over_no_memory_accuracy",
+      "direction": "full_profinagent_gt_without_case_based_memory",
+      "outcome": "task_accuracy",
+      "rationale": "Retrieved prior cases match recurring professional procedures and should improve target coverage when the interface remains fixed."
+    },
+    {
+      "id": "full_over_no_dag_accuracy",
+      "direction": "full_profinagent_gt_without_dag_planning",
+      "outcome": "task_accuracy",
+      "rationale": "Structured dependency planning should preserve required intermediate computations and tool ordering."
+    },
+    {
+      "id": "dag_over_sequential_latency",
+      "direction": "dag_planning_lt_sequential_execution",
+      "outcome": "inference_latency",
+      "rationale": "Independent tool calls can execute in parallel when their dependencies are explicit."
+    },
+    {
+      "id": "tools_largest_on_procedural_computation",
+      "direction": "tool_access_gain_is_larger_on_procedural_computation_than_on_knowledge_retrieval",
+      "outcome": "task_accuracy_gain",
+      "rationale": "The development bridge finds that executable support is most useful when the target requires deterministic financial computation."
+    },
+    {
+      "id": "full_system_not_uniformly_best",
+      "direction": "at_least_one_task_or_cost_endpoint_does_not_favor_the_full_system",
+      "outcome": "task_or_cost_endpoint",
+      "rationale": "Resource interactions and retrieval overhead make universal dominance unlikely across heterogeneous finance workflows."
+    }
+  ]
+}

@@ -19,7 +19,7 @@ contract.
 ## First public evidence release
 
 The [environment-selection release](environment-selection/README.md) contains
-two complementary records:
+three records with complementary designs:
 
 1. A **prospective PushT comparison** in which the decision rule was frozen
    before training outcomes were opened. Three equal-size training subsets were
@@ -27,23 +27,32 @@ two complementary records:
 2. A **retrospective three-source analysis** spanning Calibra, CuraEval, and
    Mulligan. It tests whether a small set of interpretable measurements carries
    across robot-learning tasks and policies.
+3. A **prospective RoboMimic Can comparison** with five candidate datasets,
+   five paired training seeds, and a completeness gate covering 2,500
+   evaluation episodes.
 
-The prospective comparison validates a useful behavior: abstaining between two
+The PushT comparison validates a useful behavior: abstaining between two
 plausible candidates retained the eventual best candidate. It does not establish
 that one selector is generally superior. The retrospective analysis finds that a
 simple practical rule beats an uninformed choice, while a fitted linear model
 does not yet add reliable value under held-out-context evaluation.
 
 The corrected [prospective closed-loop curation
-panel](environment-selection/prospective-cupid-can-v141/README.md) has completed
-its three-checkpoint influence measurement and frozen five candidate sets. It
-uses success-labelled policy rollouts to compare one recommendation with
-full-data, random, length-based, and unconstrained influence controls under
-matched training and evaluation budgets. Candidate-policy outcomes remain
-sealed behind the study's completeness and identity gate. Its domain adapter
-now prepares the exact candidate masks, binds the 25-run matrix to local or
-Slurm execution, locks the Python environment, and verifies every checkpoint
-and evaluation log before that gate can pass.
+panel](environment-selection/prospective-cupid-can-v141/README.md) compares one
+frozen recommendation with full-data, random, length-based, and unconstrained
+influence controls. The shortest-demonstration subset reached 98.8% mean
+success, while the tier-balanced CUPID prediction reached 97.4%, for 1.4 points
+of allocation regret. All structured choices outperformed the random subset.
+The domain adapter reproduces the released score, prepares the exact candidate
+masks, binds the 25-run matrix to local or Slurm execution, and verifies every
+checkpoint and evaluation log before scoring.
+
+The [Square environment and regression
+study](environment-selection/prospective-square-regression-v1/README.md)
+extends this design to paired initial states. Its frozen protocol uses three
+all-data probe policies to measure policy weakness, constructs candidate
+datasets from failure-weighted state coverage, and predicts both aggregate
+success and stratum-level regressions before candidate outcomes are opened.
 
 ## What is measured
 

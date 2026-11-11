@@ -1,9 +1,10 @@
 # Prospective closed-loop curation on RoboMimic Can v1.4.1
 
-**Status:** closed-loop qualification passed with 95 successes and 5 failures
-across 100 episodes. Three-checkpoint influence measurement passed its frozen
-reliability gate, and five candidate sets were serialized before their policy
-outcomes opened.
+**Status:** complete prospective comparison. Closed-loop qualification passed
+with 95 successes and 5 failures across 100 episodes. Three-checkpoint
+influence measurement passed its frozen reliability gate, five candidate sets
+were serialized, and all 25 candidate policies were evaluated before the
+outcome gate opened.
 
 This study tests whether target-sensitive measurements from a robot policy can
 choose a useful training subset before any candidate policy is trained. It uses
@@ -50,6 +51,39 @@ in [`SOURCES.json`](SOURCES.json).
 The original `FREEZE.json` remains byte-for-byte unchanged.
 `FREEZE_CORRECTION.json` records the source-manifest digest for the corrected
 v1.4.1 dataset reference, and the validator checks both records.
+
+## Prospective result
+
+The frozen point prediction selected the tier-balanced CUPID subset. The
+shortest-demonstration subset had the highest mean success rate, while the
+frozen choice finished 1.4 percentage points behind it. The difference was
+small relative to five-seed uncertainty: the paired bootstrap interval for the
+frozen choice minus the length baseline was $[-3.4, 0.2]$ points.
+
+| Candidate | Demonstrations | Mean success |
+| --- | ---: | ---: |
+| All data | 300 | 97.6% |
+| Random 50% | 150 | 93.8% |
+| Shortest 50% | 150 | **98.8%** |
+| CUPID 50% | 150 | 97.6% |
+| Tier-balanced CUPID 50% | 150 | 97.4% |
+
+The frozen recommendation avoided the weak random subset and remained within
+0.2 points of the all-data and unconstrained CUPID means. All four structured
+choices outperformed random selection. The panel supports low-regret curation
+within one high-performing Can setting, while the length baseline remains the
+strongest rule in the panel.
+
+[`RELEASE_GATE.json`](RELEASE_GATE.json) records the 25 checkpoint and outcome
+hashes. [`OUTCOMES.json`](OUTCOMES.json) contains the compact released outcome
+records, and [`RESULTS.json`](RESULTS.json) contains the scored prospective
+comparison. Recompute it with:
+
+```bash
+python scripts/score_released_panel.py --output /tmp/can-v141-results.json
+python -m unittest test_released_results.py
+anarres robotics can-results --repository . --json
+```
 
 ## Native CLI profiles
 
@@ -106,6 +140,7 @@ anarres robotics bundle --repository . \
 anarres robotics submit --bundle /work/can-v141-bundle --execute
 anarres robotics gate --bundle /work/can-v141-bundle
 anarres robotics score --bundle /work/can-v141-bundle
+anarres robotics can-results --repository . --json
 anarres robotics profile --repository . --output-dir .anarres/can-v141
 anarres robotics verify --repository .
 anarres robotics results --repository .
@@ -122,14 +157,15 @@ equal-budget runs.
 Training-time rollouts are disabled, matching the claim-bearing execution. Each
 final checkpoint is evaluated separately under the frozen 100-episode contract.
 
-`plan`, `prepare`, and `bundle` do not start training. A generated launcher
-calls `run-task --execute` for each training task and then for the matching
-100-episode evaluation. The bundle records the Python package freeze and
-refuses execution if it changes. `gate` requires every training and evaluation
-completion record, rehashes the final checkpoints and logs, and writes the
-sealed completeness record. Candidate outcomes can be scored only after that
-gate passes. `score` then reports per-seed success rates, candidate means, the
-observed winner set, and regret for the frozen point prediction.
+The released `plan` command reconstructs the pre-outcome workload for
+reproduction. `plan`, `prepare`, and `bundle` do not start training. A generated
+launcher calls `run-task --execute` for each training task and then for the
+matching 100-episode evaluation. The bundle records the Python package freeze
+and refuses execution if it changes. `gate` requires every training and
+evaluation completion record, rehashes the final checkpoints and logs, and
+writes the sealed completeness record. Candidate outcomes can be scored only
+after that gate passes. `score` then reports per-seed success rates, candidate
+means, the observed winner set, and regret for the frozen point prediction.
 
 The descriptor and Can `status`, `plan`, `profile`, `prepare`, `bundle`, and
 `verify` commands do not open candidate-policy outcomes. The separate `results`
@@ -139,6 +175,8 @@ correct abstention in that panel is not selector superiority.
 ## Scope
 
 This is one simulated manipulation task, one policy family, and one fixed
-training budget. Qualification and native CLI conformance protect the
-measurement and comparison boundary. Selector performance requires the
-complete, separately gated candidate comparison.
+training budget. Success rates are near saturation, and the five-seed
+comparison does not resolve a 1.4-point difference between the frozen choice
+and the length baseline. Qualification, outcome gating, and native CLI
+conformance protect the comparison boundary. Transfer requires a new task,
+candidate bank, and outcome-blind prediction.

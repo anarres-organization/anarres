@@ -1,0 +1,61 @@
+{
+  "accuracy_component_checks": {
+    "full_over_cbm_only": {
+      "correct": 9,
+      "total": 9
+    },
+    "full_over_dag_only": {
+      "correct": 9,
+      "total": 9
+    }
+  },
+  "atomic_directional_checks": {
+    "correct": 19,
+    "total": 19
+  },
+  "holdout_id": "profinagent_component_holdout_v1",
+  "interpretation": [
+    "component-level predictions were frozen before Table 5 and Figure 4 were extracted",
+    "the paper abstract already disclosed aggregate ProFinAgent and latency gains",
+    "the holdout therefore scores component directions rather than the disclosed aggregate comparison",
+    "the failed tool-gradient and uniform-dominance predictions remain unchanged"
+  ],
+  "latency_check": {
+    "correct": true,
+    "dag_seconds": 22547.2,
+    "reported_reduction": 0.471,
+    "sequential_seconds": 42579.9
+  },
+  "prediction_families_correct": 3,
+  "prediction_families_total": 5,
+  "prediction_family_accuracy": 0.6,
+  "predictions": [
+    {
+      "correct": true,
+      "id": "full_over_no_memory_accuracy"
+    },
+    {
+      "correct": true,
+      "id": "full_over_no_dag_accuracy"
+    },
+    {
+      "correct": true,
+      "id": "dag_over_sequential_latency"
+    },
+    {
+      "correct": false,
+      "id": "tools_largest_on_procedural_computation"
+    },
+    {
+      "correct": false,
+      "id": "full_system_not_uniformly_best"
+    }
+  ],
+  "schema_version": 1,
+  "status": "SCORED_AFTER_FREEZE",
+  "tool_use_gain_by_level_percentage_points": {
+    "L1": 29.4933,
+    "L2": 17.9733,
+    "L3": 1.29
+  }
+}

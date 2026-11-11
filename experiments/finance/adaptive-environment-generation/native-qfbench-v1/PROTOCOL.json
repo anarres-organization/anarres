@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "experiment_id": "native_qfbench_improvement_loop_v1",
+  "source_id": "qfbench_d2fc28b",
+  "agent_contract": {
+    "agent": "Codex CLI in a clean staged workspace",
+    "model": "recorded from the Codex execution record",
+    "attempts_per_task_condition": 1,
+    "network": "the staged task workspace has no benchmark network dependency; only the host CLI reaches its inference service",
+    "task_timeout": "source-native",
+    "temperature": "agent-native default",
+    "candidate_delivery": "candidate resource copied into the staged workspace as SKILL.md",
+    "credential_boundary": "model credentials remain on the host and are never copied into benchmark containers",
+    "verification": "agent outputs alone are copied into the source-native Harbor verifier container"
+  },
+  "candidate_types": [
+    {
+      "id": "no_update",
+      "description": "source task instruction only"
+    },
+    {
+      "id": "procedure",
+      "description": "failure-derived diagnostic and implementation procedure with no executable code",
+      "maximum_bytes": 12000
+    },
+    {
+      "id": "executable",
+      "description": "failure-derived reusable Python helpers with candidate-local tests",
+      "maximum_bytes": 24000
+    },
+    {
+      "id": "combined",
+      "description": "procedure and executable candidates delivered together",
+      "maximum_bytes": 36000
+    }
+  ],
+  "chronology": [
+    "freeze source, task split, candidate types, measurement rubric, and success criteria",
+    "run no-update development tasks for the current round",
+    "generate the three candidate resources from development instructions and trajectories",
+    "run candidate-local tests and candidate qualification on development tasks",
+    "serialize candidate measurements and the finance CLI decision",
+    "commit the decision record before any target or protected run",
+    "run no-update, selected, and combined conditions on target tasks",
+    "run no-update and selected conditions on protected tasks",
+    "score outcomes and begin the next round using only the newly available development record"
+  ],
+  "candidate_measurement": {
+    "schema": "anarres.finance-candidate-panel.v1",
+    "feature_rules": {
+      "curriculum_progression": "1 for a round-2 candidate that incorporates only prior-round development evidence, else 0",
+      "domain_specific_selection": "fraction of target workflow tags covered by declared candidate scope",
+      "efficient_rollout": "one minus candidate byte count divided by its type limit, clipped to [0,1]",
+      "feedback_locality": "fraction of typed development failures directly addressed by a named candidate section or tested helper",
+      "human_labeled_fraction": "0 because candidates are generated from machine trajectories",
+      "policy_relative_selection": "1 when every candidate section traces to an observed development failure, else 0",
+      "qa_refinement": "fraction of candidate-local tests passing before target execution",
+      "quality_control": "fraction of required syntax, import, local-test, and scope checks passing",
+      "retention_control": "1 when the candidate declares scope, version, and removal conditions, else 0",
+      "source_diversity": "fraction of distinct development tasks contributing evidence",
+      "target_alignment": "Jaccard overlap between candidate scope tags and target task metadata tags",
+      "transcript_refinement": "fraction of distinct development failure types addressed",
+      "verifier_alignment": "development task pass rate under the candidate"
+    },
+    "decision_threshold": 0.2,
+    "guardrails": [
+      "all candidate-local tests pass",
+      "no development control regression relative to no_update",
+      "abstain when the released decision rule returns more than one candidate"
+    ]
+  },
+  "comparators": [
+    "no_update",
+    "selected_candidate",
+    "combined"
+  ],
+  "primary_outcomes": [
+    "target pass rate",
+    "target regret against the best evaluated candidate",
+    "protected-task regression count"
+  ],
+  "secondary_outcomes": [
+    "candidate bytes",
+    "input and output tokens",
+    "wall time",
+    "verifier failure type",
+    "selector abstention"
+  ],
+  "success_criteria": {
+    "round": "selected target pass rate exceeds no_update and is no worse than combined on the observed target tasks",
+    "protected": "selected candidate causes no additional protected-task failures",
+    "program": "at least one round meets the round and protected criteria, with every miss and abstention retained"
+  },
+  "prohibited_actions": [
+    "opening target verifier output before the candidate decision is committed",
+    "reading tests or reference solutions to create candidate resources",
+    "changing task membership after any model result is opened",
+    "revising a candidate or prediction after target execution begins",
+    "dropping failed tasks or infrastructure-complete attempts"
+  ]
+}

@@ -99,6 +99,27 @@ coordinate, and digest information. `validate` recomputes its integrity checks.
 The fixture is synthetic and demonstrates software behavior rather than a
 scientific result.
 
+### Read the result
+
+The default output is a short report for a person at the terminal. In the
+bundled fixture, `qualify` reports two admitted groups, one reserve group, one
+repair, and one quarantine. It names the two groups that require action.
+`measure` then reports:
+
+```text
+Environment  math-reference-demo-v1
+Policy       synthetic-policy-v1
+Signal       833.3333 admitted advantage mass / M tokens
+Coverage     0.6533
+Measured     3 groups · 4200 generated tokens
+Manifest     .anarres/example/environment.json
+Digest       sha256:5471a6e0fb121640260770060a3b858f2e31100a66b73eb2210bd59603dd76d9
+```
+
+The digest binds the measured record to its content. `validate` recomputes the
+record checks and exits nonzero if the input is invalid. Add `--json` when a
+script, notebook, or CI job should consume the same report.
+
 ### Update or remove a standalone installation
 
 Rerun the installer to update to the latest tagged release. To install a fixed
@@ -117,6 +138,19 @@ rm "${CARGO_HOME:-$HOME/.cargo}/bin/anarres"
 ```
 
 ## Commands
+
+Anarres has two command layers:
+
+1. **Built-ins** transform and compare versioned local records. Use these when
+   measurements already conform to an Anarres probe or profile schema.
+2. **Domain adapters** preserve a study's native measurements, costs, failure
+   states, and scientific boundaries. Use these to inspect, reproduce, or
+   extend a released domain workflow.
+
+The built-in `design` command checks whether candidates can be compared and
+reports their measured coordinates. It does not silently turn those
+coordinates into a winner. A domain adapter may expose a decision command only
+when its study defines and validates that decision rule.
 
 | Command | Purpose | Accepted records |
 | --- | --- | --- |
@@ -147,17 +181,37 @@ anarres finance status --json
 
 `adapter list` reports the executable selected for each name and any shadowed
 copies later on `PATH`. `adapter doctor` validates the adapter's versioned
-descriptor without opening study artifacts. `adapter run` validates that
-descriptor and forwards arguments literally without a shell. Built-in commands
-always take precedence over adapter names. Descriptor queries must finish in
-five seconds and stay below 256 KiB of output, preventing a faulty adapter from
-blocking CLI discovery.
+descriptor without opening study artifacts. `adapter run` launches the adapter
+once with a versioned runtime handshake and forwards domain arguments literally
+without a shell. The adapter validates the protocol and identity before opening
+study artifacts. Built-in commands always take precedence over adapter names.
+Descriptor queries must finish in five seconds and stay below 256 KiB of output,
+preventing a faulty adapter from blocking installation audits.
 
 The CLI does not download adapters, search a repository checkout, or import an
 adapter's libraries. The [adapter installation guide](adapters.md) gives the
 supported checkout-based commands for every maintained adapter. The
 [adapter authoring guide](architecture/adapter-authoring.md) defines the
 descriptor and release requirements.
+
+### Choose a domain workflow
+
+Install the adapter you need from the paths in the [adapter installation
+guide](adapters.md), then begin with `status`. The status command shows what is
+released, what remains sealed, and which operations are supported.
+
+| Domain | First useful commands | What they reveal |
+| --- | --- | --- |
+| Formal verification | `anarres formal status --repository .`<br>`anarres formal qualification --repository .` | Local Vero support and the separate development qualification |
+| Robotics | `anarres robotics status --repository .`<br>`anarres robotics can-results --repository .` | Workflow stage and the released prospective Can result |
+| Legal reasoning | `anarres legal status --repository .`<br>`anarres legal regressions --repository .` | SylloGym selection evidence and the separate LAB regression audit |
+| Materials science | `anarres materials status --repository .`<br>`anarres materials results --repository .` | Frozen protocol boundary and the scored prospective MLIP test |
+| Molecular design | `anarres molecular status --repository .`<br>`anarres molecular verify --repository .` | Qualified reaction-bank measurements and deterministic verification |
+| Agentic finance | `anarres finance status --repository .`<br>`anarres finance decide <panel.json>` | Released evidence and a calibrated selection or abstention decision |
+
+Use `anarres <domain> --help` to see every operation for that adapter. Commands
+that plan, prepare, submit, gate, or score an experiment remain domain-specific
+because their runtimes and completeness contracts differ.
 
 ### Qualify task groups
 
@@ -263,6 +317,7 @@ After installation, the direct generic form exposes its released workflows:
 ```bash
 anarres finance status
 anarres finance audit-sources
+anarres finance decide candidate-panel.json
 anarres finance profile --output-dir .anarres/finance
 anarres finance score-holdout finharmbench
 anarres finance verify
@@ -280,6 +335,15 @@ artifacts, compact retrospective summaries, and frozen holdout identities.
 `reproduce` performs the same exhaustive replay and exports the regenerated
 retrospective, strict-transfer, and frozen-holdout artifacts without modifying
 checked-in evidence.
+
+`decide` validates a complete finance candidate panel, applies the released
+practical rule, and returns either one selected environment or an abstention
+set. An optional `baseline_id` adds improvement or regression directions. The
+fixed 0.2 margin is the largest threshold selected across the source-held-out
+0.85-precision calibration folds. Its released retrospective operating point
+has 90.3% pairwise accuracy at 75.4% coverage across seven sources. The command
+does not convert that retrospective operating point into a prospective
+guarantee.
 
 New policy-attempt records use the same native gate:
 
@@ -304,10 +368,10 @@ The generic and direct forms execute the same native finance command. The
 repository path supplies released evidence. The installed adapter contains no
 fallback copy of study artifacts.
 
-## Example adapter: robotics planning
+## Example adapter: robotics planning and scoring
 
-The robotics adapter can convert the frozen Can v1.4.1 protocol into a portable
-workflow plan before any candidate outcome is opened:
+The robotics adapter converts the frozen Can v1.4.1 protocol into a portable
+workflow plan and recomputes the released prospective result:
 
 ```bash
 uv tool install \
@@ -315,6 +379,7 @@ uv tool install \
 anarres robotics status --repository .
 anarres robotics plan --repository . \
   --output .anarres/can-v141.plan.json
+anarres robotics can-results --repository . --json
 ```
 
 The plan records five candidate arms, five seeds per arm, and 25 candidate runs
@@ -323,10 +388,11 @@ exact input digests, workload totals, and the release gate that precedes
 scoring. The record is deterministic and content-addressed. Planning performs
 no training, simulator execution, network request, or scheduler submission.
 
-The current plan reports `submission_ready: false` because the public study has
-not yet released a portable training entrypoint, immutable runtime image, or
-scheduler binding. Those execution details belong behind an explicit future
-submission command rather than being inferred from a local machine.
+The released plan reconstructs the original pre-outcome workload. `prepare`
+binds the exact candidate masks to the pinned dataset, while `bundle` records a
+CuraEval checkout, Python environment, accelerator type, and local or Slurm
+launcher. Execution remains behind explicit `submit --execute`; scoring remains
+behind the completeness and identity gate.
 
 ## Automation
 

@@ -82,6 +82,26 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
             candidate_ids=CANDIDATES,
         )
 
+    def test_prospective_boundary_requires_both_named_openings(self) -> None:
+        complete = {
+            "prospective_boundary": {
+                "prospective_candidate_training_outcomes_used": True,
+                "prospective_target_outcomes_used": True,
+            }
+        }
+        self.assertTrue(CLI_MODULE.prospective_boundaries_opened(complete))
+        self.assertFalse(CLI_MODULE.prospective_boundaries_opened({}))
+        self.assertFalse(CLI_MODULE.prospective_boundaries_opened({"prospective_boundary": {}}))
+        self.assertFalse(
+            CLI_MODULE.prospective_boundaries_opened(
+                {
+                    "prospective_boundary": {
+                        "prospective_candidate_training_outcomes_used": True,
+                    }
+                }
+            )
+        )
+
     def cli_run(self, *arguments: str, check: bool = True) -> subprocess.CompletedProcess:
         return subprocess.run(
             [str(self.cli), *arguments],
@@ -231,7 +251,7 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         descriptor = CLI_MODULE.adapter_descriptor()
         self.assertEqual(descriptor["schema_version"], "anarres.adapter-descriptor.v1")
         self.assertEqual(descriptor["name"], "materials")
-        self.assertEqual(descriptor["protocol_version"], 1)
+        self.assertEqual(descriptor["protocol_version"], 2)
         self.assertEqual(
             descriptor["measurement_contracts"],
             ["materials.mlip-phonon-candidate-measurement.v2"],
@@ -242,11 +262,12 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         status = CLI_MODULE.command_status(args)
         self.assertEqual(status["candidate_count"], 16)
         self.assertTrue(status["measurements_complete"])
-        self.assertFalse(status["candidate_outcomes_opened"])
+        self.assertTrue(status["candidate_outcomes_opened"])
         self.assertTrue(status["final_training_panel_frozen"])
         self.assertTrue(status["decision_protocol_frozen"])
         self.assertTrue(status["regression_protocol_frozen"])
-        self.assertFalse(status["predictive_evidence_available"])
+        self.assertTrue(status["predictive_evidence_available"])
+        self.assertEqual(status["prospective_test_status"], "prospective_test_scored")
         self.assertEqual(
             status["training_qualification_status"],
             "complete_before_final_candidate_training",
@@ -262,8 +283,58 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         self.assertTrue(status["prospective_predictions_frozen"])
         self.assertEqual(
             status["next_gate"],
-            "run and score the authorized prospective environments",
+            "freeze support-aware abstention and expand development support",
         )
+
+    def test_status_validates_large_feature_artifact_without_deserializing_it(self) -> None:
+        exporter = CLI_MODULE.load_exporter(ROOT)
+        target_features = CLI_MODULE.target_regression_features_path(ROOT).resolve()
+        opened: list[Path] = []
+
+        class ExporterProxy:
+            DEFAULT_BANK = exporter.DEFAULT_BANK
+            DEFAULT_VALIDATION = exporter.DEFAULT_VALIDATION
+
+            @staticmethod
+            def read_object(path: Path):
+                resolved = Path(path).resolve()
+                opened.append(resolved)
+                if resolved == target_features:
+                    raise AssertionError("status deserialized the large target-feature artifact")
+                return exporter.read_object(path)
+
+            @staticmethod
+            def export_profiles(**kwargs):
+                return exporter.export_profiles(**kwargs)
+
+        original_loader = CLI_MODULE.load_exporter
+        try:
+            CLI_MODULE.load_exporter = lambda _repository: ExporterProxy()
+            args = type("Args", (), {"repository": ROOT})()
+            status = CLI_MODULE.command_status(args)
+        finally:
+            CLI_MODULE.load_exporter = original_loader
+
+        self.assertTrue(status["target_regression_features_frozen"])
+        self.assertNotIn(target_features, opened)
+
+    def test_status_rejects_an_unbound_target_feature_artifact(self) -> None:
+        original_sha256 = CLI_MODULE.sha256
+        target_features = CLI_MODULE.target_regression_features_path(ROOT).resolve()
+
+        def changed_digest(path: Path) -> str:
+            if Path(path).resolve() == target_features:
+                return "0" * 64
+            return original_sha256(path)
+
+        try:
+            CLI_MODULE.sha256 = changed_digest
+            args = type("Args", (), {"repository": ROOT})()
+            status = CLI_MODULE.command_status(args)
+        finally:
+            CLI_MODULE.sha256 = original_sha256
+
+        self.assertFalse(status["target_regression_features_frozen"])
 
     def test_adapter_reports_frozen_decision_and_regression_protocol(self) -> None:
         args = type("Args", (), {"repository": ROOT})()
@@ -297,6 +368,19 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
             200,
         )
         self.assertTrue(all(value is False for value in report["outcome_boundary"].values()))
+
+    def test_adapter_reports_scored_prospective_result_and_evidence_boundary(self) -> None:
+        args = type("Args", (), {"repository": ROOT})()
+        report = CLI_MODULE.command_results(args)
+
+        self.assertEqual(report["schema_version"], "anarres.materials-prospective-results.v1")
+        self.assertEqual(report["evidence_tier"], "prospective_test_scored")
+        self.assertEqual(report["counts"]["evaluation_records"], 1600)
+        self.assertEqual(report["aggregate_utility"]["best_environment_decisions"], 0.0)
+        self.assertAlmostEqual(report["target_regressions"]["roc_auc"], 0.4937483373)
+        diagnostic = report["post_prospective_diagnostic"]
+        self.assertFalse(diagnostic["support_guard_prespecified"])
+        self.assertTrue(diagnostic["would_abstain_at_all_budgets"])
 
     def test_adapter_runs_outside_the_repository_and_core_doctor_accepts_it(self) -> None:
         if sys.platform == "win32":
@@ -350,7 +434,7 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
             self.assertEqual(status.returncode, 0, status.stderr)
             payload = json.loads(status.stdout)
             self.assertEqual(payload["candidate_count"], 16)
-            self.assertFalse(payload["candidate_outcomes_opened"])
+            self.assertTrue(payload["candidate_outcomes_opened"])
 
     def test_adapter_verify_reuses_the_native_exporter(self) -> None:
         args = type("Args", (), {"repository": ROOT})()
@@ -360,8 +444,11 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         self.assertTrue(report["deterministic"])
         self.assertEqual(report["measurement_records"], 80_000)
         self.assertEqual(report["measurement_shards_pinned"], 8)
-        self.assertTrue(report["candidate_outcomes_sealed"])
+        self.assertFalse(report["candidate_outcomes_sealed"])
+        self.assertTrue(report["profile_outcome_boundary_preserved"])
         self.assertTrue(report["final_training_panel_frozen"])
+        self.assertEqual(report["prospective_test_status"], "prospective_test_scored")
+        self.assertTrue(report["prospective_result_chain_valid"])
 
 
 if __name__ == "__main__":

@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "study_id": "prospective_square_regression_v1",
+  "status": "MEASUREMENT_PROTOCOL_FROZEN__CANDIDATE_OUTCOMES_UNOPENED",
+  "source": {
+    "task": "square",
+    "dataset_type": "multi_human_low_dim",
+    "demonstrations": 300,
+    "dataset_filename": "low_dim_v141.hdf5",
+    "dataset_sha256": "d3e871e4f25b3da6aea9f332613772e7bdfad9f586b97ce41cd7ccfb758c62dd",
+    "robosuite_version": "1.4.1",
+    "policy_family": "robomimic_diffusion_policy"
+  },
+  "chronology": {
+    "stage_1": "freeze the source, state bank, measurement, candidate-construction, training, and evaluation rules",
+    "stage_2": "train three all-data probe policies and evaluate them on the fixed state bank",
+    "stage_3": "qualify the failure signal and serialize candidate memberships, measurements, predictions, and hashes",
+    "stage_4": "train and evaluate every unopened candidate arm and seed",
+    "stage_5": "open candidate outcomes only after completeness and identity checks pass"
+  },
+  "state_bank": {
+    "states": 128,
+    "environment_seed": 20261110,
+    "feature": "initial square-nut x, y, cos(yaw), and sin(yaw)",
+    "strata": "eight cells formed by median splits of x, y, and angular offset from the nearest pi/2 symmetry",
+    "policy_rollout_replicates_per_state": 2,
+    "action_seed": 424242,
+    "horizon": 500,
+    "terminate_on_success": true
+  },
+  "measurement": {
+    "probe_policy_training_seeds": [2101, 2102, 2103],
+    "probe_policy_training_data": "all 300 demonstrations",
+    "probe_policy_epochs": 100,
+    "probe_policy_steps_per_epoch": 500,
+    "probe_policy_batch_size": 256,
+    "failure_weight": "Laplace-smoothed state failure probability (failures + 1) / (trials + 2)",
+    "qualification": {
+      "minimum_total_successes": 32,
+      "minimum_total_failures": 32,
+      "minimum_populated_strata": 8,
+      "action_if_failed": "ABSTAIN_BEFORE_CANDIDATE_CONSTRUCTION_AND_TRAINING"
+    }
+  },
+  "candidate_construction": {
+    "retained_demonstrations": 150,
+    "operator_tier_quota": {
+      "better": 50,
+      "okay": 50,
+      "worse": 50
+    },
+    "coverage_objective": "greedy weighted reduction in squared nearest-neighbor distance from frozen evaluation states to selected demonstration initial states",
+    "distance": "Euclidean distance after standardizing the four frozen initial-state features on the union of demonstrations and evaluation states",
+    "short_pool": "the 75 shortest demonstrations within each operator tier",
+    "tie_breaking": "ascending numeric demonstration id"
+  },
+  "candidates": [
+    {
+      "id": "all_data_reference",
+      "count": 300,
+      "construction": "all demonstrations; reported as an opened measurement reference rather than an unopened candidate"
+    },
+    {
+      "id": "random_50",
+      "count": 150,
+      "construction": "numpy.random.default_rng(0).choice(300, 150, replace=False)"
+    },
+    {
+      "id": "length_50",
+      "count": 150,
+      "construction": "150 shortest demonstrations"
+    },
+    {
+      "id": "coverage_50",
+      "count": 150,
+      "construction": "tier-balanced greedy coverage with equal state weights"
+    },
+    {
+      "id": "failure_coverage_50",
+      "count": 150,
+      "construction": "tier-balanced greedy coverage weighted by probe-policy failure probability"
+    },
+    {
+      "id": "failure_coverage_short_50",
+      "count": 150,
+      "construction": "failure-weighted tier-balanced greedy coverage restricted to the shortest 75 demonstrations in each tier"
+    }
+  ],
+  "decision": {
+    "point_prediction_if_qualification_passes": "failure_coverage_short_50",
+    "primary_comparators": [
+      "random_50",
+      "length_50",
+      "coverage_50",
+      "failure_coverage_50",
+      "all_data_reference"
+    ],
+    "regression_prediction": "candidate-by-stratum regression risk increases with the product of probe-policy failure probability and candidate coverage distance",
+    "if_qualification_fails": "ABSTAIN_MEASUREMENT_UNINFORMATIVE",
+    "no_outcome_driven_revision": true
+  },
+  "training": {
+    "candidate_seeds": [3101, 3102, 3103],
+    "epochs": 100,
+    "steps_per_epoch": 500,
+    "batch_size": 256,
+    "equal_optimizer_steps_across_arms": true,
+    "checkpoint_rule": "final checkpoint",
+    "hardware_rule": "one fixed GPU type and software environment across all candidate runs",
+    "adaptive_stopping": false
+  },
+  "evaluation": {
+    "states": 128,
+    "rollout_replicates_per_state": 2,
+    "episodes_per_policy": 256,
+    "horizon": 500,
+    "terminate_on_success": true,
+    "primary_outcome": "closed_loop_success_rate",
+    "primary_unit": "training_seed",
+    "paired_initial_states_across_policies": true,
+    "secondary_outcome": "candidate-minus-probe success change within each frozen state stratum"
+  },
+  "scoring": {
+    "aggregate": [
+      "allocation_regret_of_frozen_point_prediction",
+      "pairwise_candidate_ordering",
+      "mean_success_rate_by_arm"
+    ],
+    "regression": [
+      "rank_correlation_between_frozen_risk_and_stratum_success_change",
+      "top-risk_minus-bottom-risk_success_change",
+      "candidate_by_stratum_regression_table"
+    ],
+    "uncertainty": [
+      "seed_level_outcomes",
+      "paired_seed_contrasts",
+      "whole-seed_bootstrap_intervals"
+    ],
+    "cost": [
+      "measurement_gpu_hours",
+      "candidate_training_gpu_hours",
+      "evaluation_gpu_hours"
+    ]
+  },
+  "prohibitions": [
+    "inspecting candidate-policy outcomes before the release gate passes",
+    "changing candidates, predictions, risk scores, or strata after candidate training begins",
+    "replacing failed seeds based on their outcomes",
+    "treating evaluation episodes as independent training interventions"
+  ]
+}

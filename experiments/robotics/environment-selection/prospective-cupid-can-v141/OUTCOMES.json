@@ -1,0 +1,208 @@
+{
+  "records": [
+    {
+      "candidate_id": "all_data",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "cbceabff34a43dd77fa357aaea693753bf31e13bce4c6afedc87e1e80734599b",
+      "run_id": "dp_can_all_data_seed1101",
+      "seed": 1101,
+      "success_rate": 0.98
+    },
+    {
+      "candidate_id": "all_data",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "c8b0443a28a4380ce5e270dcc2e5959a336965dfbe882768dde3e8af43a52662",
+      "run_id": "dp_can_all_data_seed1102",
+      "seed": 1102,
+      "success_rate": 0.98
+    },
+    {
+      "candidate_id": "all_data",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "879ec5bbaa7dcd47fa858760de852f5fa5c79726add3ea8c566ad8e68a5d434d",
+      "run_id": "dp_can_all_data_seed1103",
+      "seed": 1103,
+      "success_rate": 0.97
+    },
+    {
+      "candidate_id": "all_data",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "2c60e9dee33be7b3eab54e9b27e4638bb7faaf48d26c2efb9e4a95d7dacdf836",
+      "run_id": "dp_can_all_data_seed1104",
+      "seed": 1104,
+      "success_rate": 0.97
+    },
+    {
+      "candidate_id": "all_data",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "37ecef147d9d815cf9c321dcd73de6d4e4ad6bc42c77a9ea3d647a5bee925656",
+      "run_id": "dp_can_all_data_seed1105",
+      "seed": 1105,
+      "success_rate": 0.98
+    },
+    {
+      "candidate_id": "random_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "d40247566a28f70fe5b7eb15ddb0a7fe8da5dcb428f8457c9f0a715dbd0b45a5",
+      "run_id": "dp_can_random_50_seed1101",
+      "seed": 1101,
+      "success_rate": 0.97
+    },
+    {
+      "candidate_id": "random_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "022eebd83a708f8614f380d6e962806cf91f289f7c37b8fae3c5417c5334be0f",
+      "run_id": "dp_can_random_50_seed1102",
+      "seed": 1102,
+      "success_rate": 0.91
+    },
+    {
+      "candidate_id": "random_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "c1dda626e889a70bc4bed3c8c848c15b5f0361b7a86c82d6a2999b8b139e9c3e",
+      "run_id": "dp_can_random_50_seed1103",
+      "seed": 1103,
+      "success_rate": 0.96
+    },
+    {
+      "candidate_id": "random_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "53439ec28229c9a44742b12d23ef1fee89da01c0cdbb94fd0d43ce5aec836837",
+      "run_id": "dp_can_random_50_seed1104",
+      "seed": 1104,
+      "success_rate": 0.94
+    },
+    {
+      "candidate_id": "random_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "9be4633003be15c85cdc38cdfdb69e85887378ee729feb287ffaaa30a712b5eb",
+      "run_id": "dp_can_random_50_seed1105",
+      "seed": 1105,
+      "success_rate": 0.91
+    },
+    {
+      "candidate_id": "length_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "01e46b2356c322a429d68e2ed68f0d7440715311da6c1ed618a8cd26f3f748c7",
+      "run_id": "dp_can_length_50_seed1101",
+      "seed": 1101,
+      "success_rate": 0.98
+    },
+    {
+      "candidate_id": "length_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "92be37a4a053d7b7c727f3937b0250359586f8593b370f1e16713746f71ddc52",
+      "run_id": "dp_can_length_50_seed1102",
+      "seed": 1102,
+      "success_rate": 0.98
+    },
+    {
+      "candidate_id": "length_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "46646ba536cc11690493103e88ec0f3dc0e04cd3bdd842d9dc725473a58537d6",
+      "run_id": "dp_can_length_50_seed1103",
+      "seed": 1103,
+      "success_rate": 1.0
+    },
+    {
+      "candidate_id": "length_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "6614ea542fe3fe8d0b83b7d34ba0ca0a2b9d7560416cd721e3b8b8b1ff74134c",
+      "run_id": "dp_can_length_50_seed1104",
+      "seed": 1104,
+      "success_rate": 0.98
+    },
+    {
+      "candidate_id": "length_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "2732efffe0f7161915aec4566155321f61f0615a1368fc23fccf38d94125e80b",
+      "run_id": "dp_can_length_50_seed1105",
+      "seed": 1105,
+      "success_rate": 1.0
+    },
+    {
+      "candidate_id": "cupid_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "07684204d0b23cb216c808cd26d11c2caba443e1caa4b1edfb616829a03d8d05",
+      "run_id": "dp_can_cupid_50_seed1101",
+      "seed": 1101,
+      "success_rate": 0.99
+    },
+    {
+      "candidate_id": "cupid_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "92bcf3f5bc522c85a5dc1dc9c73c262c411a70d015f45775d9e39f7d183489ff",
+      "run_id": "dp_can_cupid_50_seed1102",
+      "seed": 1102,
+      "success_rate": 0.98
+    },
+    {
+      "candidate_id": "cupid_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "202b9de954010042717bed3b9f5d2b62d01b8e2c28fdad3a871bfa0f0f4baf3c",
+      "run_id": "dp_can_cupid_50_seed1103",
+      "seed": 1103,
+      "success_rate": 0.99
+    },
+    {
+      "candidate_id": "cupid_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "2e57fa3ca6ab656afd16d49bca6f1697974e22ef7f0837f37ee73c437073e615",
+      "run_id": "dp_can_cupid_50_seed1104",
+      "seed": 1104,
+      "success_rate": 0.94
+    },
+    {
+      "candidate_id": "cupid_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "0f5400d8261034c73941e9e6c3e47499371b8e5d7322972c050800076d1900cd",
+      "run_id": "dp_can_cupid_50_seed1105",
+      "seed": 1105,
+      "success_rate": 0.98
+    },
+    {
+      "candidate_id": "cupid_tier_balanced_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "239bf0e8156d3740880b6679c5165432dec35c5054cd777f5f79df33444ac4bc",
+      "run_id": "dp_can_cupid_tier_balanced_50_seed1101",
+      "seed": 1101,
+      "success_rate": 0.99
+    },
+    {
+      "candidate_id": "cupid_tier_balanced_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "96a714993518a2bf069c40ba4af4080639fdc4a1dae014338e7eb7c2c03adaa9",
+      "run_id": "dp_can_cupid_tier_balanced_50_seed1102",
+      "seed": 1102,
+      "success_rate": 0.96
+    },
+    {
+      "candidate_id": "cupid_tier_balanced_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "ada5787d2701e69003e5723b4747062d270744d5efd7e307588c362ab1d10507",
+      "run_id": "dp_can_cupid_tier_balanced_50_seed1103",
+      "seed": 1103,
+      "success_rate": 0.95
+    },
+    {
+      "candidate_id": "cupid_tier_balanced_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "a8b17668861f0ec9ed7901c44b4cbc58cdca6f60869cf97d72ac85bec6f398b8",
+      "run_id": "dp_can_cupid_tier_balanced_50_seed1104",
+      "seed": 1104,
+      "success_rate": 0.98
+    },
+    {
+      "candidate_id": "cupid_tier_balanced_50",
+      "evaluation_episodes": 100,
+      "outcome_sha256": "700500ad813b67c245ba7e8fa873bf7b5b43d05ecbe597bf8021d2badebe9f8c",
+      "run_id": "dp_can_cupid_tier_balanced_50_seed1105",
+      "seed": 1105,
+      "success_rate": 0.99
+    }
+  ],
+  "release_gate_sha256": "sha256:c837a5ef69dd93f09a406b58dcefc367b34261380c97c9713307a0ad73cfa27c",
+  "schema_version": "anarres.robotics-cupid-released-outcomes.v1",
+  "source_result_sha256": "sha256:ce3af5c079cef6006419e4de924bacb911fed39e138f7c9afa7ff149a3751c9d",
+  "study_id": "prospective_cupid_can_v141_v2"
+}

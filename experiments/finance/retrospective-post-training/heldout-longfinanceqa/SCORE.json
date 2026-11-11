@@ -1,0 +1,224 @@
+{
+  "comparisons": [
+    {
+      "correct": true,
+      "metric": "overall",
+      "observed_margin": 5.6,
+      "prediction_id": "cot_vs_answer_only_finance",
+      "subset": "set1_10k_50k"
+    },
+    {
+      "correct": true,
+      "metric": "comparison",
+      "observed_margin": 21.5,
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "subset": "set1_10k_50k"
+    },
+    {
+      "correct": false,
+      "metric": "clustering",
+      "observed_margin": -6.5,
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "subset": "set1_10k_50k"
+    },
+    {
+      "correct": true,
+      "metric": "chain_reasoning",
+      "observed_margin": 10.2,
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "subset": "set1_10k_50k"
+    },
+    {
+      "correct": true,
+      "metric": "single_source",
+      "observed_margin": 3.91,
+      "prediction_id": "simple_context_retention",
+      "subset": "set1_10k_50k"
+    },
+    {
+      "correct": true,
+      "metric": "overall",
+      "observed_margin": 40.08,
+      "prediction_id": "cot_vs_answer_only_finance",
+      "subset": "set2_50k_100k"
+    },
+    {
+      "correct": true,
+      "metric": "comparison",
+      "observed_margin": 35.87,
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "subset": "set2_50k_100k"
+    },
+    {
+      "correct": true,
+      "metric": "clustering",
+      "observed_margin": 54.78,
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "subset": "set2_50k_100k"
+    },
+    {
+      "correct": true,
+      "metric": "chain_reasoning",
+      "observed_margin": 45.87,
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "subset": "set2_50k_100k"
+    },
+    {
+      "correct": true,
+      "metric": "single_source",
+      "observed_margin": 9.13,
+      "prediction_id": "simple_context_retention",
+      "subset": "set2_50k_100k"
+    },
+    {
+      "correct": true,
+      "metric": "overall",
+      "observed_margin": 40.54,
+      "prediction_id": "cot_vs_answer_only_finance",
+      "subset": "set3_100k_200k"
+    },
+    {
+      "correct": true,
+      "metric": "comparison",
+      "observed_margin": 33.33,
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "subset": "set3_100k_200k"
+    },
+    {
+      "correct": true,
+      "metric": "clustering",
+      "observed_margin": 46.36,
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "subset": "set3_100k_200k"
+    },
+    {
+      "correct": true,
+      "metric": "chain_reasoning",
+      "observed_margin": 51.23,
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "subset": "set3_100k_200k"
+    },
+    {
+      "correct": true,
+      "metric": "single_source",
+      "observed_margin": 34.59,
+      "prediction_id": "simple_context_retention",
+      "subset": "set3_100k_200k"
+    },
+    {
+      "correct": true,
+      "metric": "overall",
+      "observed_margin": 38.78,
+      "prediction_id": "cot_vs_answer_only_finance",
+      "subset": "set4_200k_250k"
+    },
+    {
+      "correct": true,
+      "metric": "comparison",
+      "observed_margin": 34.5,
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "subset": "set4_200k_250k"
+    },
+    {
+      "correct": true,
+      "metric": "clustering",
+      "observed_margin": 41.23,
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "subset": "set4_200k_250k"
+    },
+    {
+      "correct": true,
+      "metric": "chain_reasoning",
+      "observed_margin": 58.8,
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "subset": "set4_200k_250k"
+    },
+    {
+      "correct": true,
+      "metric": "single_source",
+      "observed_margin": 28.11,
+      "prediction_id": "simple_context_retention",
+      "subset": "set4_200k_250k"
+    },
+    {
+      "correct": true,
+      "metric": "overall",
+      "observed_margin": 18.17,
+      "prediction_id": "property_extraction_component",
+      "subset": "set1_10k_50k"
+    },
+    {
+      "correct": true,
+      "metric": "overall",
+      "observed_margin": 11.93,
+      "prediction_id": "property_extraction_component",
+      "subset": "set2_50k_100k"
+    },
+    {
+      "correct": true,
+      "metric": "overall",
+      "observed_margin": 14.06,
+      "prediction_id": "property_extraction_component",
+      "subset": "set3_100k_200k"
+    },
+    {
+      "correct": true,
+      "metric": "overall",
+      "observed_margin": 20.13,
+      "prediction_id": "property_extraction_component",
+      "subset": "set4_200k_250k"
+    },
+    {
+      "correct": true,
+      "metric": "overall",
+      "observed_margin": 15.02,
+      "prediction_id": "property_extraction_component",
+      "subset": "overall"
+    }
+  ],
+  "directional_accuracy": 0.96,
+  "directional_correct": 24,
+  "directional_scored": 25,
+  "family_scores": [
+    {
+      "correct": 4,
+      "prediction_id": "cot_vs_answer_only_finance",
+      "scored": 4,
+      "supported": true
+    },
+    {
+      "correct": 11,
+      "prediction_id": "cot_vs_answer_only_multisource",
+      "scored": 12,
+      "supported": true
+    },
+    {
+      "correct": 5,
+      "prediction_id": "property_extraction_component",
+      "scored": 5,
+      "supported": true
+    },
+    {
+      "correct": 4,
+      "prediction_id": "simple_context_retention",
+      "scored": 4,
+      "supported": true
+    }
+  ],
+  "interpretation": "The outcome-separated test supports all four scoreable prediction families. Across 25 reported matched comparisons, 24 have the frozen direction; the one miss is clustering at 10K-50K tokens. This remains one source-level test, not 25 independent studies.",
+  "prediction_families_scored": 4,
+  "prediction_families_supported": 4,
+  "schema_version": 1,
+  "source_level_tests": 1,
+  "status": "SCORED_OUTCOME_SEPARATED_COMPONENT_TEST",
+  "unscored_predictions": [
+    {
+      "prediction_id": "property_retrieval_component",
+      "reason": "The paper does not report a matched PAI ablation that removes only property-based retrieval."
+    },
+    {
+      "prediction_id": "intermediate_summarization_component",
+      "reason": "The paper does not report a matched PAI ablation that removes only intermediate summarization."
+    }
+  ]
+}

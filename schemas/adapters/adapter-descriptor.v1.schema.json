@@ -28,7 +28,7 @@
       "minLength": 1
     },
     "protocol_version": {
-      "const": 1
+      "const": 2
     },
     "domain": {
       "type": "string",

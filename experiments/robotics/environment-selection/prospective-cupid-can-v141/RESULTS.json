@@ -1,0 +1,233 @@
+{
+  "all_pairwise_contrasts": [
+    {
+      "exact_seed_bootstrap_95_interval": [
+        0.014000000000000012,
+        0.061999999999999965
+      ],
+      "left": "all_data",
+      "mean_difference": 0.03799999999999999,
+      "right": "random_50",
+      "seed_ties": 0,
+      "seed_wins_left": 5,
+      "seed_wins_right": 0
+    },
+    {
+      "exact_seed_bootstrap_95_interval": [
+        -0.02200000000000002,
+        -0.0020000000000000018
+      ],
+      "left": "all_data",
+      "mean_difference": -0.01200000000000001,
+      "right": "length_50",
+      "seed_ties": 2,
+      "seed_wins_left": 0,
+      "seed_wins_right": 3
+    },
+    {
+      "exact_seed_bootstrap_95_interval": [
+        -0.01200000000000001,
+        0.016000000000000014
+      ],
+      "left": "all_data",
+      "mean_difference": 0.0,
+      "right": "cupid_50",
+      "seed_ties": 2,
+      "seed_wins_left": 1,
+      "seed_wins_right": 2
+    },
+    {
+      "exact_seed_bootstrap_95_interval": [
+        -0.010000000000000009,
+        0.014000000000000012
+      ],
+      "left": "all_data",
+      "mean_difference": 0.0020000000000000018,
+      "right": "cupid_tier_balanced_50",
+      "seed_ties": 0,
+      "seed_wins_left": 2,
+      "seed_wins_right": 3
+    },
+    {
+      "exact_seed_bootstrap_95_interval": [
+        -0.07399999999999998,
+        -0.028000000000000004
+      ],
+      "left": "random_50",
+      "mean_difference": -0.05,
+      "right": "length_50",
+      "seed_ties": 0,
+      "seed_wins_left": 0,
+      "seed_wins_right": 5
+    },
+    {
+      "exact_seed_bootstrap_95_interval": [
+        -0.061999999999999965,
+        -0.014000000000000012
+      ],
+      "left": "random_50",
+      "mean_difference": -0.03799999999999999,
+      "right": "cupid_50",
+      "seed_ties": 1,
+      "seed_wins_left": 0,
+      "seed_wins_right": 4
+    },
+    {
+      "exact_seed_bootstrap_95_interval": [
+        -0.061999999999999965,
+        -0.008000000000000007
+      ],
+      "left": "random_50",
+      "mean_difference": -0.03599999999999999,
+      "right": "cupid_tier_balanced_50",
+      "seed_ties": 0,
+      "seed_wins_left": 1,
+      "seed_wins_right": 4
+    },
+    {
+      "exact_seed_bootstrap_95_interval": [
+        -0.0020000000000000018,
+        0.028000000000000025
+      ],
+      "left": "length_50",
+      "mean_difference": 0.01200000000000001,
+      "right": "cupid_50",
+      "seed_ties": 1,
+      "seed_wins_left": 3,
+      "seed_wins_right": 1
+    },
+    {
+      "exact_seed_bootstrap_95_interval": [
+        -0.0020000000000000018,
+        0.03400000000000003
+      ],
+      "left": "length_50",
+      "mean_difference": 0.014000000000000012,
+      "right": "cupid_tier_balanced_50",
+      "seed_ties": 1,
+      "seed_wins_left": 3,
+      "seed_wins_right": 1
+    },
+    {
+      "exact_seed_bootstrap_95_interval": [
+        -0.02200000000000002,
+        0.02400000000000002
+      ],
+      "left": "cupid_50",
+      "mean_difference": 0.0020000000000000018,
+      "right": "cupid_tier_balanced_50",
+      "seed_ties": 1,
+      "seed_wins_left": 2,
+      "seed_wins_right": 2
+    }
+  ],
+  "allocation_regret": 0.013999999999999901,
+  "best_arm_by_mean": [
+    "length_50"
+  ],
+  "frozen_prediction": "cupid_tier_balanced_50",
+  "mean_success_rate_by_arm": {
+    "all_data": 0.976,
+    "cupid_50": 0.976,
+    "cupid_tier_balanced_50": 0.974,
+    "length_50": 0.9879999999999999,
+    "random_50": 0.938
+  },
+  "paired_prediction_contrasts": {
+    "all_data": {
+      "exact_seed_bootstrap_95_interval": [
+        -0.014000000000000012,
+        0.010000000000000009
+      ],
+      "mean_difference": -0.0020000000000000018,
+      "prediction_minus_comparator_by_seed": [
+        0.010000000000000009,
+        -0.020000000000000018,
+        -0.020000000000000018,
+        0.010000000000000009,
+        0.010000000000000009
+      ]
+    },
+    "cupid_50": {
+      "exact_seed_bootstrap_95_interval": [
+        -0.02400000000000002,
+        0.02200000000000002
+      ],
+      "mean_difference": -0.0020000000000000018,
+      "prediction_minus_comparator_by_seed": [
+        0.0,
+        -0.020000000000000018,
+        -0.040000000000000036,
+        0.040000000000000036,
+        0.010000000000000009
+      ]
+    },
+    "length_50": {
+      "exact_seed_bootstrap_95_interval": [
+        -0.03400000000000003,
+        0.0020000000000000018
+      ],
+      "mean_difference": -0.014000000000000012,
+      "prediction_minus_comparator_by_seed": [
+        0.010000000000000009,
+        -0.020000000000000018,
+        -0.050000000000000044,
+        0.0,
+        -0.010000000000000009
+      ]
+    },
+    "random_50": {
+      "exact_seed_bootstrap_95_interval": [
+        0.008000000000000007,
+        0.061999999999999965
+      ],
+      "mean_difference": 0.03599999999999999,
+      "prediction_minus_comparator_by_seed": [
+        0.020000000000000018,
+        0.04999999999999993,
+        -0.010000000000000009,
+        0.040000000000000036,
+        0.07999999999999996
+      ]
+    }
+  },
+  "status": "COMPLETE_PROSPECTIVE_PANEL_SCORED",
+  "success_rate_by_arm_and_seed": {
+    "all_data": {
+      "1101": 0.98,
+      "1102": 0.98,
+      "1103": 0.97,
+      "1104": 0.97,
+      "1105": 0.98
+    },
+    "cupid_50": {
+      "1101": 0.99,
+      "1102": 0.98,
+      "1103": 0.99,
+      "1104": 0.94,
+      "1105": 0.98
+    },
+    "cupid_tier_balanced_50": {
+      "1101": 0.99,
+      "1102": 0.96,
+      "1103": 0.95,
+      "1104": 0.98,
+      "1105": 0.99
+    },
+    "length_50": {
+      "1101": 0.98,
+      "1102": 0.98,
+      "1103": 1.0,
+      "1104": 0.98,
+      "1105": 1.0
+    },
+    "random_50": {
+      "1101": 0.97,
+      "1102": 0.91,
+      "1103": 0.96,
+      "1104": 0.94,
+      "1105": 0.91
+    }
+  },
+  "uncertainty_note": "Intervals resample the five paired training seeds exactly; rollout episodes are not treated as independent interventions."
+}

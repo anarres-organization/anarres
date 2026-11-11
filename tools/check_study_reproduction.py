@@ -54,9 +54,23 @@ CHECKS = (
         "test_reproduce.py",
     ),
     python_check(
+        "robotics prospective Can",
+        "experiments/robotics/environment-selection/prospective-cupid-can-v141",
+        "test_released_results.py",
+    ),
+    python_check(
         "robotics external checks",
         "experiments/robotics/environment-selection/external-checks",
         "test_reproduce.py",
+    ),
+    python_check(
+        "robotics Square prospective contract",
+        "experiments/robotics/environment-selection/prospective-square-regression-v1",
+        "-m",
+        "unittest",
+        "discover",
+        "-p",
+        "test_*.py",
     ),
     python_check(
         "legal prospective SylloGym",
@@ -106,6 +120,11 @@ CHECKS = (
         "robotics prospective PushT report",
         ROOT,
         ("anarres-robotics", "results", "--repository", str(ROOT), "--json"),
+    ),
+    StudyCheck(
+        "robotics prospective Can report",
+        ROOT,
+        ("anarres-robotics", "can-results", "--repository", str(ROOT), "--json"),
     ),
     StudyCheck(
         "legal adapter",
