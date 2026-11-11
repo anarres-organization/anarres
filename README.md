@@ -103,13 +103,34 @@ you intend to train. An environment can be a prompt distribution, proof-task
 set, robot-episode dataset, collection of legal matters, molecular or material
 structures, or another domain-defined source of training experience.
 
-Environment adapters qualify native sources and run the starting policy. They
-can emit a probe-run directory that the Rust core measures without custom
-aggregation code:
+Keep each environment in its native format and add one small `anarres.toml`
+beside it. The manifest names the domain adapter, the native format, and the
+pinned source identity without copying domain data into a universal task table:
+
+```toml
+schema_version = "anarres.environment-source.v1"
+environment_id = "candidate-a"
+domain = "agentic-systems"
+adapter = "openenv"
+adapter_version = "0.1.0"
+native_format = "openenv"
+
+[source]
+uri = "./native-environment"
+revision = "git:<commit>"
+license = "Apache-2.0"
+```
+
+Source-capable adapters qualify the native files and run the starting policy.
+The Rust core then measures their normalized attempt stream:
 
 ```bash
-anarres <adapter> qualify <environment>
-anarres <adapter> probe <environment> --policy <policy> --output .anarres/probes/candidate-a
+anarres inspect ./candidate-a
+anarres qualify ./candidate-a
+anarres probe ./candidate-a \
+  --policy <policy> \
+  --policy-revision <revision> \
+  --output .anarres/probes/candidate-a
 anarres measure .anarres/probes/candidate-a --output .anarres/environments/candidate-a.json
 ```
 
@@ -131,7 +152,9 @@ portable records and do not require a domain runtime:
 
 | What you want to do | Start with | What it returns |
 | --- | --- | --- |
-| Find invalid, unusable, or comparison-ready measurements | `anarres qualify <probe-run>` | Status counts and the records that require action |
+| Inspect a native environment and its adapter | `anarres inspect <environment>` | Native format, source identity, adapter readiness, and missing requirements |
+| Run repeated starting-policy attempts | `anarres probe <environment> ...` | A versioned raw-attempt directory |
+| Find invalid, unusable, or comparison-ready measurements | `anarres qualify <environment-or-probe>` | Source checks or measurement status counts |
 | Create a portable environment record | `anarres measure <input> --output <record>` | Coordinates, provenance, costs, and a content digest |
 | Compare a candidate panel | `anarres design <record-a> <record-b>` | Compatibility checks and candidate coordinate ranges |
 | Check a record before using it | `anarres validate <record>` | Structural, semantic, and integrity results |

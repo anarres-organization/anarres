@@ -109,24 +109,46 @@ starting policy or system. A candidate may contain prompts, executable tasks,
 proof obligations, robot episodes, legal matters, molecular structures,
 materials configurations, or another domain-defined unit.
 
-The complete path from a native environment has two stages. A domain adapter
-first validates the environment and runs the starting policy. The native Rust
-core then streams and aggregates the resulting attempts:
+The complete path begins with the domain's native files. Do not rewrite a
+Harbor task, OpenEnv package, robot dataset, legal matter panel, reaction bank,
+or structure set into a generic task row. Add an `anarres.toml` beside the
+native source instead:
+
+```toml
+schema_version = "anarres.environment-source.v1"
+environment_id = "candidate-a"
+domain = "agentic-systems"
+adapter = "openenv"
+adapter_version = "0.1.0"
+native_format = "openenv"
+
+[source]
+uri = "./native-environment"
+revision = "git:<commit>"
+license = "Apache-2.0"
+```
+
+The envelope contains dispatch and provenance only. Policy credentials,
+runtime secrets, outcomes, and domain-specific task contents remain outside
+it. A source-capable adapter validates the native environment and runs the
+starting policy. The Rust core streams and aggregates the resulting attempts:
 
 ```bash
-anarres <adapter> qualify <environment>
-anarres <adapter> probe <environment> \
+anarres inspect ./candidate-a
+anarres qualify ./candidate-a
+anarres probe ./candidate-a \
   --policy <policy> \
+  --policy-revision <revision> \
   --output .anarres/probes/candidate-a
-anarres qualify .anarres/probes/candidate-a
 anarres measure .anarres/probes/candidate-a \
   --output .anarres/environments/candidate-a.json
 ```
 
-The adapter commands are available only when that runtime has a maintained raw
-environment integration. `anarres adapter doctor <name>` reports the installed
-adapter and its declared capabilities. Evidence-only adapters do not become
-environment runners automatically.
+`inspect` reports the selected adapter, its accepted native formats, and whether
+qualification and probing are available. These commands work only when that
+runtime has a maintained raw-environment integration. `anarres adapter doctor
+<name>` reports the same contract at the adapter level. Evidence-only adapters
+do not become environment runners automatically.
 
 Use the built-in probe-run contract when an environment runtime can provide:
 
@@ -146,8 +168,9 @@ The runtime writes `probe.json` plus streaming `attempts.jsonl`. The native CLI
 checks exact group membership and derives the declared leave-one-out admitted
 advantage mass. Producers therefore do not need to reproduce Anarres's
 aggregation code. Start with `anarres adapter list` to discover installed
-domain workflows. Reference inputs live in `examples/environment-processing/`
-and `examples/environment-profiles/`.
+domain workflows. The source-envelope example lives in
+`examples/environment-source/`; normalized fixtures live in
+`examples/environment-processing/` and `examples/environment-profiles/`.
 
 ## Run the core commands directly
 

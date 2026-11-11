@@ -28,25 +28,38 @@ the domain formula nor the scientific interpretation.
 
 ## Raw environment capability
 
-Adapters may also implement an environment-facing pair of commands:
+Adapters may also implement environment-facing commands behind the unified
+source envelope:
 
 ```bash
-anarres <name> qualify <environment>
-anarres <name> probe <environment> --policy <policy> --output <probe-run>
+anarres inspect <environment>
+anarres qualify <environment>
+anarres probe <environment> --policy <policy> \
+  --policy-revision <revision> --output <measurement>
 ```
 
-`qualify` opens the native source and validates its fixtures, verifier, runtime,
-stable identities, and provenance. `probe` executes the pinned starting policy
-and emits `anarres.probe-run.v1` metadata plus one
-`anarres.probe-attempt.v1` JSONL row per attempt. The Rust core derives the
-declared estimator and writes the portable environment record. The adapter must
-not preclassify an infrastructure failure as reward zero or omit incomplete
-attempts.
+`<environment>` is a directory containing `anarres.toml`, or the manifest
+itself. The manifest identifies the adapter, native format, domain, and pinned
+source. The native files remain authoritative. The core dispatches
+`qualify-source --manifest ...` and `probe-source --manifest ...` to the named
+adapter, preventing every adapter from inventing a different top-level UX.
 
-An adapter descriptor declares `source-qualification`, `policy-probe`, and
-`probe-run-v1` only after both commands pass conformance tests on a real native
-environment. Evidence readers and retrospective study reproducers should not
-declare these capabilities.
+`qualify-source` opens the native source and validates its fixtures, verifier,
+runtime, stable identities, and provenance. `probe-source` executes the pinned
+starting policy and emits either the shared `anarres.probe-run.v1` stream or a
+versioned domain profile input. The shared stream contains one
+`anarres.probe-attempt.v1` JSONL row per attempt, from which the Rust core
+derives the declared grouped estimator. Domain profiles preserve other
+measurements, units, estimators, uncertainty, and failure states. An adapter
+must not preclassify an infrastructure failure as an ordinary task failure or
+omit incomplete attempts.
+
+An adapter descriptor lists accepted `source_formats` and declares
+`source-qualification` and `policy-probe` only after both commands pass
+conformance tests on a real native environment. It declares `probe-run-v1` only
+when it emits the shared grouped-attempt interchange. Evidence readers and
+retrospective study reproducers leave `source_formats` empty and do not declare
+source capabilities.
 
 ## Executable contract
 

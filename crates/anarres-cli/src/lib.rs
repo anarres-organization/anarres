@@ -15,6 +15,7 @@ use sha2::{Digest, Sha256};
 mod adapter;
 mod probe_bundle;
 mod profile;
+mod source;
 mod ui;
 
 use profile::{
@@ -39,8 +40,11 @@ static NEXT_TEMPORARY_FILE: AtomicU64 = AtomicU64::new(0);
         Installed adapters run under their own documented contracts.",
     after_help = "Start here:\n  \
         anarres demo\n  \
-        anarres qualify <probe-run>\n  \
-        anarres measure <probe-run> --output <environment.json>\n  \
+        anarres inspect <environment>\n  \
+        anarres qualify <environment>\n  \
+        anarres probe <environment> --policy <id> --policy-revision <revision> --output <measurement>\n  \
+        anarres qualify <measurement>\n  \
+        anarres measure <measurement> --output <environment.json>\n  \
         anarres adapter list\n  \
         anarres <adapter> --help\n\n\
         Use built-in commands for portable environment records. Use an installed adapter to inspect or reproduce a domain study.",
@@ -76,8 +80,12 @@ impl From<ColorMode> for anstream::ColorChoice {
 enum Command {
     /// Run the bundled qualification, measurement, and validation workflow.
     Demo(DemoArgs),
-    /// Check whether measured evidence is ready for comparison.
+    /// Inspect an environment source and its installed adapter.
+    Inspect(InspectArgs),
+    /// Qualify a native environment or check measured evidence.
     Qualify(InputArgs),
+    /// Run a starting-policy probe through the source adapter.
+    Probe(ProbeArgs),
     /// Normalize measurements into a content-addressed environment record.
     Measure(MeasureArgs),
     /// Compare measured candidates and audit panel compatibility.
@@ -104,6 +112,36 @@ struct DemoArgs {
     /// Replace an existing output file.
     #[arg(long)]
     force: bool,
+}
+
+#[derive(Debug, Args)]
+struct InspectArgs {
+    /// Environment source directory or anarres.toml manifest.
+    input: PathBuf,
+    /// Print a machine-readable report.
+    #[arg(long)]
+    json: bool,
+}
+
+#[derive(Debug, Args)]
+struct ProbeArgs {
+    /// Environment source directory or anarres.toml manifest.
+    input: PathBuf,
+    /// Starting-policy identifier or URI.
+    #[arg(long)]
+    policy: String,
+    /// Immutable policy revision, checkpoint digest, or version.
+    #[arg(long)]
+    policy_revision: String,
+    /// Destination for the adapter's measurement artifact.
+    #[arg(short, long)]
+    output: PathBuf,
+    /// Let the adapter replace an existing output directory.
+    #[arg(long)]
+    force: bool,
+    /// Additional arguments forwarded literally to the source adapter after `--`.
+    #[arg(last = true, allow_hyphen_values = true)]
+    adapter_arguments: Vec<OsString>,
 }
 
 #[derive(Debug, Args)]
@@ -156,7 +194,7 @@ struct AdapterRunArgs {
 
 #[derive(Debug, Args)]
 struct InputArgs {
-    /// Probe-run directory, policy-probe JSON, or environment-profile input.
+    /// Environment source, probe-run directory, policy-probe JSON, or profile input.
     input: PathBuf,
     /// Print a machine-readable report.
     #[arg(long)]
@@ -337,7 +375,16 @@ pub fn run() -> i32 {
 fn execute(command: Command) -> Result<i32, String> {
     match command {
         Command::Demo(args) => command_demo(args),
+        Command::Inspect(args) => command_inspect(args),
         Command::Qualify(args) => command_qualify(args),
+        Command::Probe(args) => source::dispatch_probe(
+            &args.input,
+            &args.policy,
+            &args.policy_revision,
+            &args.output,
+            args.force,
+            &args.adapter_arguments,
+        ),
         Command::Measure(args) => command_measure(args),
         Command::Design(args) => command_design(args),
         Command::Validate(args) => command_validate(args),
@@ -506,6 +553,9 @@ fn alternative_demo_path(output: &Path) -> PathBuf {
 }
 
 fn command_qualify(args: InputArgs) -> Result<i32, String> {
+    if source::locate(&args.input).is_some() {
+        return source::dispatch_qualify(&args.input, args.json);
+    }
     if probe_bundle::is_bundle(&args.input) {
         let loaded = load_probe(&args.input)?;
         let report = qualify_probe(&loaded.probe, &loaded.digest_input)?;
@@ -571,6 +621,13 @@ fn command_qualify(args: InputArgs) -> Result<i32, String> {
 }
 
 fn command_measure(args: MeasureArgs) -> Result<i32, String> {
+    if source::locate(&args.input).is_some() {
+        return Err(format!(
+            "{} describes a native environment, not completed policy attempts\n\
+             hint: run `anarres probe` first, then measure its probe-run output",
+            args.input.display()
+        ));
+    }
     if probe_bundle::is_bundle(&args.input) {
         let loaded = load_probe(&args.input)?;
         let manifest = build_manifest(&loaded.probe, &loaded.digest_input)?;
@@ -658,6 +715,37 @@ fn command_design(args: DesignArgs) -> Result<i32, String> {
         print_manifest_design_report(&report);
     }
     Ok(if report.compatible { 0 } else { 1 })
+}
+
+fn command_inspect(args: InspectArgs) -> Result<i32, String> {
+    let report = source::inspect(&args.input)?;
+    let ready = report.issues.is_empty();
+    if args.json {
+        print_json(&report)?;
+    } else {
+        ui::title("Environment source");
+        if ready {
+            ui::success("Ready", &report.environment_id);
+        } else {
+            ui::warning("Review", &report.environment_id);
+        }
+        ui::field("Domain", &report.domain);
+        ui::field("Adapter", &report.adapter);
+        ui::field("Adapter version", &report.required_adapter_version);
+        ui::field("Native format", &report.native_format);
+        ui::field("Source", &report.source_uri);
+        ui::field("Revision", &report.source_revision);
+        ui::field("License", &report.source_license);
+        ui::field("Can qualify", yes_no(report.can_qualify));
+        ui::field("Can probe", yes_no(report.can_probe));
+        for issue in &report.issues {
+            ui::warning("Issue", issue);
+        }
+        if ready {
+            ui::next(&format!("anarres qualify {}", report.manifest));
+        }
+    }
+    Ok(if ready { 0 } else { 1 })
 }
 
 fn print_manifest_design_report(report: &DesignReport) {
@@ -1077,6 +1165,22 @@ fn design_report(paths: &[PathBuf]) -> Result<DesignReport, String> {
 
 fn validate_record(path: &Path) -> ValidationResult {
     let path_text = path.display().to_string();
+    if source::locate(path).is_some() {
+        return match source::load(path) {
+            Ok(_) => ValidationResult {
+                path: path_text,
+                record_type: "environment source".into(),
+                valid: true,
+                error: None,
+            },
+            Err(error) => ValidationResult {
+                path: path_text,
+                record_type: "environment source".into(),
+                valid: false,
+                error: Some(error),
+            },
+        };
+    }
     if probe_bundle::is_bundle(path) {
         return match load_probe(path) {
             Ok(_) => ValidationResult {

@@ -33,6 +33,8 @@ pub(crate) struct AdapterDescriptor {
     pub(crate) capabilities: Vec<String>,
     #[serde(default)]
     pub(crate) measurement_contracts: Vec<String>,
+    #[serde(default)]
+    pub(crate) source_formats: Vec<String>,
 }
 
 #[derive(Clone, Debug, Serialize)]
@@ -140,6 +142,9 @@ pub(crate) fn doctor(name: &str, as_json: bool) -> Result<i32, String> {
         crate::ui::field("Version", &descriptor.version);
         crate::ui::field("Protocol", descriptor.protocol_version);
         crate::ui::field("Executable", report.path.as_deref().unwrap_or("unknown"));
+        if !descriptor.source_formats.is_empty() {
+            crate::ui::field("Source formats", descriptor.source_formats.join(", "));
+        }
         for path in &report.shadowed_paths {
             crate::ui::warning_stderr(format_args!(
                 "adapter '{}' at {} is shadowed by an earlier PATH entry",
@@ -166,6 +171,12 @@ pub(crate) fn run(name: &str, arguments: &[OsString]) -> Result<i32, String> {
         .status()
         .map_err(|error| format!("failed to start adapter '{name}': {error}"))?;
     Ok(exit_code(status))
+}
+
+pub(crate) fn descriptor(name: &str) -> Result<AdapterDescriptor, String> {
+    validate_adapter_name(name)?;
+    let adapter = resolve_adapter(name)?;
+    read_descriptor(&adapter)
 }
 
 fn discover_adapters() -> Result<BTreeMap<String, ResolvedAdapter>, String> {
@@ -445,6 +456,12 @@ fn validate_descriptor(
         &descriptor.measurement_contracts,
         false,
     )?;
+    validate_sorted_unique(
+        &adapter.name,
+        "source_formats",
+        &descriptor.source_formats,
+        false,
+    )?;
     Ok(())
 }
 
@@ -468,7 +485,7 @@ fn validate_sorted_unique(
     Ok(())
 }
 
-fn validate_adapter_name(name: &str) -> Result<(), String> {
+pub(crate) fn validate_adapter_name(name: &str) -> Result<(), String> {
     let valid = !name.is_empty()
         && name.len() <= 64
         && name.bytes().enumerate().all(|(index, byte)| match byte {
@@ -630,6 +647,7 @@ mod tests {
             measurement_contracts: vec![
                 "finance.business-bench-starting-policy-qualification.v1".into(),
             ],
+            source_formats: Vec::new(),
         };
         assert!(validate_descriptor(&adapter, &valid).is_ok());
 

@@ -12,11 +12,20 @@ utility. These levels must not be collapsed into one claim of support.
    through schema validation and the native CLI.
 3. **Native adapter:** released evidence is projected into profiles with exact
    provenance and adapter conformance tests.
-4. **Predictive evidence:** a domain study evaluates a frozen measurement or
+4. **Source runtime:** the adapter can qualify a declared native source format
+   and run a pinned starting-policy probe through the unified source envelope.
+5. **Predictive evidence:** a domain study evaluates a frozen measurement or
    decision against downstream outcomes under its native contract.
 
-The first three levels concern interoperability. The fourth is scientific
+The first four levels concern interoperability. The fifth is scientific
 evidence and remains specific to the study, policy, target, and budget.
+
+Native-adapter status does not imply source-runtime status. Most current
+adapters reproduce released evidence. They become raw environment runners only
+after declaring accepted source formats and passing qualification and probe
+conformance on the real domain runtime. The current released descriptors do not
+yet claim that capability; `anarres adapter doctor <name>` is the authoritative
+check as integrations are added.
 
 ## Current status
 

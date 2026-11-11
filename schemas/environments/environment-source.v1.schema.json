@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anarres.science/schemas/environments/environment-source.v1.schema.json",
+  "title": "Anarres native environment source v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "environment_id",
+    "domain",
+    "adapter",
+    "adapter_version",
+    "native_format",
+    "source"
+  ],
+  "properties": {
+    "schema_version": {"const": "anarres.environment-source.v1"},
+    "environment_id": {"type": "string", "minLength": 1},
+    "domain": {"type": "string", "minLength": 1},
+    "adapter": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "maxLength": 64
+    },
+    "adapter_version": {"type": "string", "minLength": 1},
+    "native_format": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["uri", "revision", "license"],
+      "properties": {
+        "uri": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1},
+        "license": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

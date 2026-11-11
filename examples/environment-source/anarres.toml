@@ -1,0 +1,11 @@
+schema_version = "anarres.environment-source.v1"
+environment_id = "example-openenv-candidate-v1"
+domain = "agentic-systems"
+adapter = "openenv"
+adapter_version = "0.1.0"
+native_format = "openenv"
+
+[source]
+uri = "./native-environment"
+revision = "git:0123456789abcdef0123456789abcdef01234567"
+license = "Apache-2.0"

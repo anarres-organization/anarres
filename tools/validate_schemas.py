@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import tomllib
 from pathlib import Path
 
 from anarres.environments.cli import build_manifest
@@ -74,9 +75,16 @@ def main() -> int:
     adapter_schema = load(ROOT / "schemas/adapters/adapter-descriptor.v1.schema.json")
     Draft202012Validator(adapter_schema, registry=registry).validate(adapter_descriptor)
 
+    source_manifest = tomllib.loads(
+        (ROOT / "examples/environment-source/anarres.toml").read_text(encoding="utf-8")
+    )
+    source_schema = load(ROOT / "schemas/environments/environment-source.v1.schema.json")
+    Draft202012Validator(source_schema, registry=registry).validate(source_manifest)
+
     print(
         f"validated {len(schema_paths)} schemas, the environment-processing fixtures, "
-        f"{len(profile_inputs)} cross-domain profile fixtures, and the adapter descriptor"
+        f"{len(profile_inputs)} cross-domain profile fixtures, the source envelope, "
+        "and the adapter descriptor"
     )
     return 0
 
