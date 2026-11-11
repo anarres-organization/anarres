@@ -12,7 +12,9 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
-from anarres.core import consume_adapter_invocation
+from anarres.core import consume_adapter_invocation, load_source_manifest
+
+from .source import SOURCE_FORMAT, MolecularSourceError, bundle_digest, qualify_bundle
 
 
 class MolecularCliError(ValueError):
@@ -25,13 +27,14 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "molecular",
-        "version": "0.2.0",
+        "version": "0.3.0",
         "protocol_version": 2,
         "domain": "molecular-design",
         "executable": "anarres-molecular",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
-        "capabilities": ["profile", "status", "verify"],
+        "capabilities": ["profile", "source-digest", "source-qualification", "status", "verify"],
         "measurement_contracts": ["rxnflow-q07820-bank-v4"],
+        "source_formats": [SOURCE_FORMAT],
     }
 
 
@@ -152,6 +155,47 @@ def command_verify(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def command_source_digest(args: argparse.Namespace) -> dict[str, Any]:
+    """Compute the revision used to initialize one native bank bundle."""
+
+    digest = bundle_digest(args.source.resolve())
+    return {
+        "native_format": SOURCE_FORMAT,
+        "source": str(args.source.resolve()),
+        "revision": f"sha256:{digest}",
+    }
+
+
+def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
+    """Qualify one native Q07820 bank bundle without opening outcomes."""
+
+    descriptor = adapter_descriptor()
+    source = load_source_manifest(
+        args.manifest,
+        expected_adapter="molecular",
+        expected_version=descriptor["version"],
+        expected_domain=descriptor["domain"],
+        accepted_formats=tuple(descriptor["source_formats"]),
+    )
+    observed_revision = f"sha256:{bundle_digest(source.source)}"
+    if source.revision != observed_revision:
+        raise MolecularCliError(
+            "manifest source revision does not match the molecular bundle; "
+            f"observed {observed_revision}"
+        )
+    report = qualify_bundle(source.source)
+    return {
+        "status": "qualified",
+        "environment_id": source.environment_id,
+        "native_format": source.native_format,
+        "source_revision": source.revision,
+        "source_license": source.license,
+        **report,
+        "policy_probe_available": False,
+        "training_started": False,
+    }
+
+
 def add_common(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--repository", type=Path)
     parser.add_argument("--json", action="store_true")
@@ -173,6 +217,20 @@ def parser() -> argparse.ArgumentParser:
     profile.add_argument("--output-dir", type=Path, required=True)
     profile.add_argument("--force", action="store_true")
     profile.set_defaults(handler=command_profile)
+
+    source_digest = commands.add_parser(
+        "source-digest", help="Compute the revision of a native Q07820 bank bundle."
+    )
+    source_digest.add_argument("--source", type=Path, required=True)
+    source_digest.add_argument("--json", action="store_true")
+    source_digest.set_defaults(handler=command_source_digest)
+
+    qualify_source = commands.add_parser(
+        "qualify-source", help="Validate a native Q07820 bank bundle."
+    )
+    qualify_source.add_argument("--manifest", type=Path, required=True)
+    qualify_source.add_argument("--json", action="store_true")
+    qualify_source.set_defaults(handler=command_qualify_source)
 
     verify = commands.add_parser("verify", help="Validate records and deterministic export.")
     add_common(verify)
@@ -204,7 +262,14 @@ def main() -> None:
         path = error.filename or (error.args[0] if error.args else "output")
         print(f"error: output already exists: {path}", file=sys.stderr)
         raise SystemExit(1) from error
-    except (MolecularCliError, ValueError, OSError, KeyError, json.JSONDecodeError) as error:
+    except (
+        MolecularCliError,
+        MolecularSourceError,
+        ValueError,
+        OSError,
+        KeyError,
+        json.JSONDecodeError,
+    ) as error:
         print(f"error: {error}", file=sys.stderr)
         raise SystemExit(1) from error
 

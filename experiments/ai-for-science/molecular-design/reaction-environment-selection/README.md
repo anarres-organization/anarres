@@ -71,6 +71,28 @@ uv tool install ./experiments/ai-for-science/molecular-design/reaction-environme
 anarres adapter doctor molecular
 ```
 
+The adapter can also qualify a portable directory containing the version 4
+Q07820 bank, measurement, target, oracle, source, warm-start, and sealing
+records. Compute the directory revision before connecting it to the native CLI:
+
+```bash
+anarres molecular source-digest --source /path/to/q07820-bank
+anarres init /path/to/q07820-bank \
+  --adapter molecular \
+  --revision "sha256:REPORTED-DIGEST" \
+  --license "MIXED-PUBLIC-SOURCES"
+anarres inspect /path/to/q07820-bank
+anarres qualify /path/to/q07820-bank
+```
+
+Qualification verifies the six 512-member banks, both independent measurement
+views, Q07820 target and oracle identity, RxnFlow and MolGenBench revisions,
+starting-policy identity, source archive linkage, and unopened training
+boundary. It does not rerun the starting policy or open target-training
+outcomes. The applicable component licenses remain recorded in `SOURCES.json`;
+the manifest license field should identify the reviewed bundle terms rather
+than treating the bundle as a single upstream asset.
+
 The adapter exports the six construction-view banks as Anarres environment
 profiles with eight reaction-bank coordinates:
 

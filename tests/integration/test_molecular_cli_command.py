@@ -1,6 +1,7 @@
 import json
 import os
 import shlex
+import shutil
 import stat
 import subprocess
 import sys
@@ -20,6 +21,7 @@ SHARED_SOURCES = [
 ]
 
 from anarres_molecular_adapter import cli  # noqa: E402
+from anarres_molecular_adapter import source as molecular_source  # noqa: E402
 
 BINARY = ROOT / "target/debug/anarres"
 
@@ -35,6 +37,106 @@ class MolecularCliTest(unittest.TestCase):
         self.assertEqual(descriptor["executable"], "anarres-molecular")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
         self.assertEqual(descriptor["measurement_contracts"], ["rxnflow-q07820-bank-v4"])
+        self.assertEqual(descriptor["source_formats"], ["rxnflow-q07820-qualified-bank-v4"])
+
+    def copy_native_bundle(self, destination: Path) -> str:
+        destination.mkdir()
+        for name in molecular_source.REQUIRED_FILES:
+            shutil.copy2(STUDY / name, destination / name)
+        return molecular_source.bundle_digest(destination)
+
+    def test_native_source_qualification_preserves_molecular_contract(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "q07820-bank"
+            digest = self.copy_native_bundle(source)
+            manifest = source / "anarres.toml"
+            manifest.write_text(
+                "\n".join(
+                    [
+                        'schema_version = "anarres.environment-source.v1"',
+                        'environment_id = "q07820-bank"',
+                        'domain = "molecular-design"',
+                        'adapter = "molecular"',
+                        'adapter_version = "0.3.0"',
+                        'native_format = "rxnflow-q07820-qualified-bank-v4"',
+                        "",
+                        "[source]",
+                        'uri = "."',
+                        f'revision = "sha256:{digest}"',
+                        'license = "mixed-public-sources"',
+                        "",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            result = cli.command_qualify_source(type("Args", (), {"manifest": manifest})())
+        self.assertEqual(result["status"], "qualified")
+        self.assertEqual(result["target_id"], "Q07820")
+        self.assertEqual(result["bank_count"], 6)
+        self.assertEqual(result["bank_size"], 512)
+        self.assertEqual(result["measurement_views"], 2)
+        self.assertFalse(result["training_outcomes_opened"])
+        self.assertFalse(result["policy_probe_available"])
+        self.assertFalse(result["training_started"])
+
+    def test_native_source_rejects_missing_artifact_and_revision_drift(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "q07820-bank"
+            digest = self.copy_native_bundle(source)
+            (source / "ORACLE_QUALIFICATION.json").unlink()
+            with self.assertRaisesRegex(ValueError, "ORACLE_QUALIFICATION.json"):
+                molecular_source.qualify_bundle(source)
+            shutil.copy2(STUDY / "ORACLE_QUALIFICATION.json", source)
+            manifest = source / "anarres.toml"
+            manifest.write_text(
+                "\n".join(
+                    [
+                        'schema_version = "anarres.environment-source.v1"',
+                        'environment_id = "q07820-bank"',
+                        'domain = "molecular-design"',
+                        'adapter = "molecular"',
+                        'adapter_version = "0.3.0"',
+                        'native_format = "rxnflow-q07820-qualified-bank-v4"',
+                        "",
+                        "[source]",
+                        'uri = "."',
+                        f'revision = "sha256:{digest}"',
+                        'license = "mixed-public-sources"',
+                        "",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            oracle = source / "ORACLE_QUALIFICATION.json"
+            oracle.write_text(oracle.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "observed sha256"):
+                cli.command_qualify_source(type("Args", (), {"manifest": manifest})())
+
+    def test_native_source_rejects_failed_measurement_gate(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "q07820-bank"
+            self.copy_native_bundle(source)
+            measurement_path = source / "MEASUREMENT_RELIABILITY_RESULT_V3.json"
+            measurement = json.loads(measurement_path.read_text(encoding="utf-8"))
+            measurement["qualification"] = "fail"
+            measurement_path.write_text(
+                json.dumps(measurement, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+            )
+            with self.assertRaisesRegex(ValueError, "measurement reliability did not pass"):
+                molecular_source.qualify_bundle(source)
+
+    def test_native_source_rejects_missing_chemistry_coordinate(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "q07820-bank"
+            self.copy_native_bundle(source)
+            qualification_path = source / "DEVELOPMENT_BANK_QUALIFICATION_V4.json"
+            qualification = json.loads(qualification_path.read_text(encoding="utf-8"))
+            del qualification["summaries"][0]["hash_uniform"]["unique_scaffold_fraction"]
+            qualification_path.write_text(
+                json.dumps(qualification, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+            )
+            with self.assertRaisesRegex(ValueError, "hash_uniform coordinates are incomplete"):
+                molecular_source.qualify_bundle(source)
 
     def test_status_reports_passed_confirmation_and_sealed_outcomes(self) -> None:
         result = cli.command_status(type("Args", (), {"repository": ROOT})())
@@ -140,6 +242,42 @@ class MolecularCliCommandTest(unittest.TestCase):
             result = json.loads(status.stdout)
             self.assertTrue(result["bank_confirmation_passed"])
             self.assertTrue(result["development_training_authorized"])
+
+    def test_init_inspect_and_qualify_route_to_molecular_adapter(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            self.wrapper(directory)
+            source = directory / "q07820-bank"
+            source.mkdir()
+            for name in molecular_source.REQUIRED_FILES:
+                shutil.copy2(STUDY / name, source / name)
+            digest = molecular_source.bundle_digest(source)
+
+            initialized = self.run_cli(
+                directory,
+                "init",
+                str(source),
+                "--adapter",
+                "molecular",
+                "--revision",
+                f"sha256:{digest}",
+                "--license",
+                "mixed-public-sources",
+            )
+            self.assertEqual(initialized.returncode, 0, initialized.stderr)
+
+            inspected = self.run_cli(directory, "inspect", str(source), "--json")
+            self.assertEqual(inspected.returncode, 0, inspected.stderr)
+            inspection = json.loads(inspected.stdout)
+            self.assertTrue(inspection["qualification_ready"])
+            self.assertFalse(inspection["probe_ready"])
+            self.assertEqual(inspection["native_format"], "rxnflow-q07820-qualified-bank-v4")
+
+            qualified = self.run_cli(directory, "qualify", str(source), "--json")
+            self.assertEqual(qualified.returncode, 0, qualified.stderr)
+            report = json.loads(qualified.stdout)
+            self.assertEqual(report["target_id"], "Q07820")
+            self.assertFalse(report["policy_probe_available"])
 
 
 if __name__ == "__main__":
