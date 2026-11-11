@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "timing": "before any v3 model execution",
+  "files": {
+    "README.md": "f4b7a47dba2f587033b208f7780bf4c2d3061ecddf297a4e405d9a366830d5b3",
+    "PROTOCOL.json": "48828cfbc7fca530f4e416ebd04a63a385eca4e16ecbc2a4b0c1dee026aa93bb",
+    "STAGE_AUTHORIZATION.json": "d45927b18b4bb25f678103429a9c253098bbde9d17166d68d33a7754e1794ea0",
+    "CANDIDATE_MANIFEST.json": "58b0870ee8ac54596822ab5275a371fdb7bd40731a5efaa53d04dbf834c18696",
+    "candidates/conditional-contract/SKILL.md": "aa79287e0b630c37c3e19f07d9cdf560b6b160af1df5523683dd90e398aae010",
+    "run_task.py": "bc718fef173d4b140ae8c4fa0aba8a57c24e696c96acaf29692e8112dca8c12c",
+    "test_protocol.py": "62fcca80149e4b4324625e5bb5ec28f32badff5c876d7627294a50dc54926032"
+  },
+  "shared_inputs": {
+    "../native-qfbench-v2/SOURCE.json": "3743882d35851679fb0522892044d699bfd71f57d42953a24584a1393542327a",
+    "../native-qfbench-v2/TASK_SPLIT.json": "914dac67157eba98208e6db55fb61ea5afd20ca415fb945937a4db2c0aafb84a",
+    "../native-qfbench-v2/DEVELOPMENT_RESULT.json": "12c60feb86763b484f87c9234ca824fbb3122e2b9ffcb863d943ea75acaf9411"
+  }
+}

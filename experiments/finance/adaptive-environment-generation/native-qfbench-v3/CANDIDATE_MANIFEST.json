@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "candidate_id": "conditional_contract",
+  "path": "candidates/conditional-contract/SKILL.md",
+  "sha256": "aa79287e0b630c37c3e19f07d9cdf560b6b160af1df5523683dd90e398aae010",
+  "bytes": 3828,
+  "development_evidence": [
+    "../native-qfbench-v1/ROUND2_CANDIDATE_DEVELOPMENT.json",
+    "../native-qfbench-v2/DEVELOPMENT_RESULT.json"
+  ],
+  "primary_references": [
+    {
+      "title": "Generalized Autoregressive Conditional Heteroskedasticity",
+      "author": "Tim Bollerslev",
+      "year": 1986,
+      "url": "https://public.econ.duke.edu/~boller/Published_Papers/joe_86.pdf"
+    },
+    {
+      "title": "Breaking Down the Barriers",
+      "authors": [
+        "Eric Reiner",
+        "Mark Rubinstein"
+      ],
+      "year": 1991,
+      "publication": "Risk"
+    },
+    {
+      "title": "Principal Components as a Measure of Systemic Risk",
+      "authors": [
+        "Mark Kritzman",
+        "Yuanzhen Li",
+        "Sebastien Page",
+        "Roberto Rigobon"
+      ],
+      "year": 2011,
+      "publication": "Journal of Portfolio Management"
+    }
+  ],
+  "excluded": [
+    "target outcomes",
+    "protected outcomes",
+    "QF-Bench tests",
+    "QF-Bench reference solutions"
+  ]
+}

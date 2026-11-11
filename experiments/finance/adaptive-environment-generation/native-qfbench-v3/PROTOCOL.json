@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "experiment_id": "native_qfbench_contract_refinement_v3",
+  "source": "../native-qfbench-v2/SOURCE.json",
+  "task_split": "../native-qfbench-v2/TASK_SPLIT.json",
+  "predecessor": "../native-qfbench-v2/DEVELOPMENT_RESULT.json",
+  "agent_contract": {
+    "model": "gpt-6-astra",
+    "attempts_per_task_condition": 1,
+    "verification": "source-native deterministic verifier",
+    "candidate_delivery": "candidate copied into the staged workspace as SKILL.md"
+  },
+  "chronology": [
+    "freeze the revised candidate and bind it to the committed v2 development result",
+    "run the revised candidate once on each v2 development task",
+    "compare against the already committed v2 no-update controls",
+    "serialize the candidate measurement and released finance CLI decision",
+    "commit one decision before authorizing any target or protected task"
+  ],
+  "development_guardrails": [
+    "revised reward is no lower than no_update on either development task",
+    "revised reward is higher than no_update on at least one development task",
+    "candidate-local tests pass",
+    "the released selector returns one candidate"
+  ],
+  "success_criteria": {
+    "target": "selected target mean reward exceeds no_update and is no worse than the v1 combined comparator",
+    "protected": "selected mean reward is no lower than no_update and introduces no newly failed protected task"
+  }
+}
