@@ -86,7 +86,10 @@ pass their native integrity checks before evaluation begins.
 binds each fixed endpoint sample to its policy hash, training manifest,
 checkpoint, and prespecified evaluation seed. Docking, molecular metrics, and
 qualifying-hit scoring remain separate stages so infrastructure failures cannot
-be converted into scientific zeros.
+be converted into scientific zeros. Only after the two shared warm-start panels
+and all 36 trained-policy panels are complete does
+[`scripts/gate_endpoint_evaluation.py`](scripts/gate_endpoint_evaluation.py)
+authorize comparative scoring.
 
 ## CLI projection
 
