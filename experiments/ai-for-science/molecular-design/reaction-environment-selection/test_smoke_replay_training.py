@@ -79,3 +79,18 @@ def test_released_full_batch_cpu_smoke_preserves_interface_boundary() -> None:
     assert report["smoke_batch"] == {"online": 64, "replay": 64, "updates": 1}
     assert all(report["checks"].values())
     assert "not a target-training outcome" in report["claim_boundary"]
+
+
+def test_released_full_batch_cuda_smoke_preserves_interface_boundary() -> None:
+    report = json.loads((ROOT / "FULL_BATCH_CUDA_TRAINING_SMOKE_V1.json").read_text())
+    assert report["status"] == "pass"
+    assert report["execution"]["device"] == "cuda"
+    assert report["smoke_batch"] == {"online": 64, "replay": 64, "updates": 1}
+    assert set(report["execution"]["oracle_runtime"]["packages"]) == {
+        "meeko",
+        "openbabel",
+        "rdkit",
+        "vina",
+    }
+    assert all(report["checks"].values())
+    assert "not a target-training outcome" in report["claim_boundary"]

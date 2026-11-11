@@ -287,8 +287,8 @@ Before claim-bearing execution, repeat the smoke with `--num-online 64
 exercises the frozen batch shape without changing the one-update interface-only
 scope. Set the retrosynthesis and reward worker counts explicitly to the values
 planned for the matched runs. Pass the qualified docking environment through
-`--oracle-python`; training and docking remain separate runtimes, and the smoke
-records the oracle executable digest and package versions.
+`--oracle-python`; this makes docking-runtime selection explicit and records
+the oracle executable digest and package versions.
 
 After the endpoint gate passes and the matched contract is frozen, run each
 development arm with the contract-enforcing entry point:

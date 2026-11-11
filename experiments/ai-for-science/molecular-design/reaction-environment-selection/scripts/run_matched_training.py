@@ -17,6 +17,7 @@ from warm_start_weights import load_weights
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONTRACT = ROOT / "MATCHED_TRAINING_EVALUATION_CONTRACT_V1.json"
+DEFAULT_ACCELERATOR_SMOKE = ROOT / "FULL_BATCH_CUDA_TRAINING_SMOKE_V1.json"
 
 
 def sha256_file(path: Path) -> str:
@@ -72,6 +73,20 @@ def validate_prepared_target(prepared_target: Path) -> dict[str, str]:
     }
 
 
+def validate_accelerator_smoke() -> dict[str, Any]:
+    report = json.loads(DEFAULT_ACCELERATOR_SMOKE.read_text(encoding="utf-8"))
+    if report.get("status") != "pass" or not all(report.get("checks", {}).values()):
+        raise ValueError("released full-batch accelerator smoke did not pass")
+    if report.get("smoke_batch") != {"online": 64, "replay": 64, "updates": 1}:
+        raise ValueError("released accelerator smoke uses the wrong batch")
+    if report.get("execution", {}).get("device") != "cuda":
+        raise ValueError("released accelerator smoke did not use CUDA")
+    packages = report.get("execution", {}).get("oracle_runtime", {}).get("packages", {})
+    if set(packages) != {"meeko", "openbabel", "rdkit", "vina"}:
+        raise ValueError("released accelerator smoke lacks the qualified oracle runtime")
+    return report
+
+
 def preflight_inputs(
     *,
     contract_path: Path,
@@ -89,6 +104,7 @@ def preflight_inputs(
     if contract_path.resolve() != DEFAULT_CONTRACT.resolve():
         raise ValueError("claim-bearing runs require the released matched contract")
     verification = verify_matched_contract()
+    accelerator_smoke = validate_accelerator_smoke()
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
     validate_arm_and_seed(contract, arm, seed)
 
@@ -130,6 +146,7 @@ def preflight_inputs(
             "replay_bank_frozen": True,
             "prepared_target_verified": True,
             "reaction_environment_present": True,
+            "full_batch_accelerator_smoke_passed": True,
         },
         "artifact_sha256": {
             "contract": sha256_file(contract_path),
@@ -138,6 +155,8 @@ def preflight_inputs(
             "replay_bank": sha256_file(replay_bank),
             "replay_items": artifact["items_sha256"],
             "prepared_target": target_identity,
+            "accelerator_smoke": sha256_file(DEFAULT_ACCELERATOR_SMOKE),
+            "accelerator_smoke_checkpoint": accelerator_smoke["artifact_sha256"]["checkpoint"],
         },
     }
     if not all(result["checks"].values()):

@@ -83,3 +83,10 @@ def test_prepared_target_hashes_are_verified(tmp_path: Path) -> None:
     receptor.write_text("changed\n")
     with pytest.raises(ValueError, match="prepared receptor hash"):
         MODULE.validate_prepared_target(tmp_path)
+
+
+def test_released_accelerator_smoke_is_required() -> None:
+    report = MODULE.validate_accelerator_smoke()
+    assert report["execution"]["device"] == "cuda"
+    assert report["smoke_batch"] == {"online": 64, "replay": 64, "updates": 1}
+    assert all(report["checks"].values())
