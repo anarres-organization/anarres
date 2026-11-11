@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import shlex
@@ -14,6 +15,133 @@ BINARY = ROOT / "target/debug/anarres"
 
 @unittest.skipUnless(os.name == "posix", "executable-wrapper test requires POSIX")
 class LegalCliCommandTest(unittest.TestCase):
+    def execution_contract(self) -> dict[str, object]:
+        def digest(value: str) -> str:
+            return f"sha256:{hashlib.sha256(value.encode()).hexdigest()}"
+
+        return {
+            "schema_version": "anarres.legal-lab-execution-contract.v1",
+            "contract_id": "lab-fixture-v1",
+            "source": {
+                "environment_id": "lab-fixture",
+                "revision": "git:fixture-revision",
+                "task_set_sha256": digest("tasks"),
+                "license": "MIT",
+            },
+            "starting_policy_stage": {
+                "policy": {
+                    "model_id": "provider/model-a",
+                    "model_revision": "model-revision",
+                    "checkpoint_id": "starting-policy",
+                    "checkpoint_revision": "checkpoint-revision",
+                },
+                "harness": {
+                    "name": "lab-core",
+                    "version": "1.3.0",
+                    "revision": "harness-revision",
+                    "package_sha256": digest("wheel"),
+                },
+                "system_prompt_sha256": digest("system-prompt"),
+                "skills": [],
+                "allowed_tools": ["bash", "read", "write", "edit", "glob", "grep", "finish"],
+                "document_access": {
+                    "matter_documents": "read_only",
+                    "output": "write_only_inside_output",
+                    "network": "disabled",
+                },
+                "sandbox_image": "lab-sandbox:fixture",
+                "sandbox_image_digest": digest("sandbox"),
+                "max_turns": 200,
+                "temperature": 0,
+                "reasoning_effort": None,
+                "shell_timeout_seconds": 60,
+                "finish_tool_enabled": True,
+                "compaction": {
+                    "strategy": "none",
+                    "implementation_revision": None,
+                    "context_window_tokens": None,
+                    "trigger_tokens": None,
+                },
+            },
+            "judge_stage": {
+                "harness": {
+                    "name": "lab-core",
+                    "version": "1.3.0",
+                    "revision": "harness-revision",
+                    "package_sha256": digest("wheel"),
+                },
+                "judge_profile": "lab-standard-dual-v1",
+                "judges": [
+                    {"model_id": "claude-sonnet-4-6", "model_revision": "provider-snapshot"},
+                    {"model_id": "gpt-5.5", "model_revision": "provider-snapshot"},
+                ],
+                "rubric_prompt_sha256": digest("rubric-prompt"),
+                "grader_revision": "grader-revision",
+                "document_conversion": {
+                    "pandoc_version": "3.5",
+                    "track_changes_mode": "all",
+                },
+                "parallel_calls": 6,
+                "retry": {
+                    "max_attempts": 6,
+                    "backoff_seconds": 20,
+                    "retryable_conditions": ["rate_limit", "server_error"],
+                },
+            },
+            "outcome_semantics": {
+                "criterion": "binary_pass_fail",
+                "all_pass": "every_criterion_passes_for_each_judge",
+                "headline": "task_all_pass",
+                "deliverable_completion": {
+                    "metric": "required_deliverables_present",
+                    "missing_required_deliverable": "scientific_failure_when_execution_valid",
+                },
+            },
+            "accounting": {
+                "metrics": [
+                    "agent_input_tokens",
+                    "agent_output_tokens",
+                    "agent_wall_clock_seconds",
+                    "judge_calls",
+                    "judge_input_tokens",
+                    "judge_output_tokens",
+                    "judge_wall_clock_seconds",
+                    "retry_count",
+                    "estimated_cost",
+                ],
+                "currency": "USD",
+                "price_schedule_revision": "pricing-revision",
+                "retry_accounting": "record_all_attempts",
+            },
+            "infrastructure_invalid_conditions": [
+                "contract_mismatch",
+                "document_conversion_failure",
+                "judge_outage",
+                "missing_judge_score",
+                "missing_metrics",
+                "model_outage",
+                "run_not_finished_cleanly",
+                "sandbox_failure",
+                "ungraded_criterion",
+            ],
+            "target_scope": {
+                "practice_areas": ["litigation"],
+                "workflows": ["litigation/draft-case-memo"],
+                "diagnostics": ["criterion_pass_rate", "document_coverage"],
+                "protected_outcomes": {
+                    "practice_areas": ["litigation"],
+                    "workflow_outcomes": ["task_all_pass"],
+                    "available_before_freeze": False,
+                },
+            },
+            "execution": {
+                "mode": "contract_only",
+                "execution_started": False,
+                "submission_requires_explicit_command": True,
+                "credentials": {"inherited_at_runtime": True, "serialized": False},
+            },
+        }
+
     def setUp(self) -> None:
         if not BINARY.is_file():
             subprocess.run(
@@ -185,6 +313,24 @@ class LegalCliCommandTest(unittest.TestCase):
                 (directory / "intake-2/lab-workflow-summary.json").read_text(encoding="utf-8")
             )
             self.assertNotEqual(first_digest, second_summary["source"]["task_set_sha256"])
+
+            contract_draft = directory / "contract-draft.json"
+            contract_draft.write_text(json.dumps(self.execution_contract()), encoding="utf-8")
+            contract_result = self.run_cli(
+                directory,
+                "legal",
+                "lab-contract",
+                "--input",
+                str(contract_draft),
+                "--output",
+                str(directory / "lab-execution-contract.json"),
+                "--json",
+            )
+            self.assertEqual(contract_result.returncode, 0, contract_result.stderr)
+            contract_report = json.loads(contract_result.stdout)
+            self.assertEqual(contract_report["status"], "qualified")
+            self.assertFalse(contract_report["execution_started"])
+            self.assertFalse(contract_report["policy_probe_available"])
 
             run_dir = directory / "lab-results/run-1"
             run_dir.mkdir(parents=True)

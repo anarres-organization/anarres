@@ -14,7 +14,7 @@ from typing import Any
 
 from anarres.core import consume_adapter_invocation, load_source_manifest
 
-from . import lab_intake
+from . import lab_execution, lab_intake
 
 
 class LegalCliError(ValueError):
@@ -27,12 +27,13 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "legal",
-        "version": "0.3.0",
+        "version": "0.4.0",
         "protocol_version": 2,
         "domain": "legal-procedural-reasoning",
         "executable": "anarres-legal",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
         "capabilities": [
+            "lab-execution-contract",
             "lab-run-audit",
             "lab-workflow-intake",
             "profile",
@@ -143,6 +144,8 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
             "checkpoint_count": lab["checkpoint_count"],
             "workflow_intake_available": True,
             "workflow_intake_reads_outcomes": False,
+            "execution_contract_available": True,
+            "execution_contract_starts_execution": False,
             "native_source_format": "harvey-lab-checkout-v1",
             "native_source_qualification_available": True,
             "policy_probe_available": False,
@@ -276,7 +279,11 @@ def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
 def command_lab_runs(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
     audit = load_lab_run_audit(repository)
-    summary, rows = audit.build(args.results_root.resolve(), args.run_manifest)
+    contract_path = getattr(args, "execution_contract", None)
+    execution_contract = (
+        lab_execution.load(contract_path.resolve()) if contract_path is not None else None
+    )
+    summary, rows = audit.build(args.results_root.resolve(), args.run_manifest, execution_contract)
     outputs = audit.write(summary, rows, args.output_dir.resolve(), args.force)
     return {
         "status": summary["status"],
@@ -285,6 +292,22 @@ def command_lab_runs(args: argparse.Namespace) -> dict[str, Any]:
         "outputs": [str(path) for path in outputs],
         "output_digests": {path.name: f"sha256:{sha256(path)}" for path in outputs},
         "claim_boundary": summary["claim_boundary"],
+    }
+
+
+def command_lab_contract(args: argparse.Namespace) -> dict[str, Any]:
+    contract = lab_execution.load(args.input.resolve())
+    lab_execution.write(contract, args.output.resolve(), args.force)
+    return {
+        "status": "qualified",
+        "schema_version": contract["schema_version"],
+        "contract_id": contract["contract_id"],
+        "contract_sha256": contract["contract_sha256"],
+        "starting_policy_model": contract["starting_policy_stage"]["policy"]["model_id"],
+        "judge_models": [judge["model_id"] for judge in contract["judge_stage"]["judges"]],
+        "execution_started": False,
+        "policy_probe_available": False,
+        "output": str(args.output.resolve()),
     }
 
 
@@ -354,9 +377,20 @@ def parser() -> argparse.ArgumentParser:
     add_common(lab_runs)
     lab_runs.add_argument("--results-root", type=Path, required=True)
     lab_runs.add_argument("--run-manifest", type=Path)
+    lab_runs.add_argument("--execution-contract", type=Path)
     lab_runs.add_argument("--output-dir", type=Path, required=True)
     lab_runs.add_argument("--force", action="store_true")
     lab_runs.set_defaults(handler=command_lab_runs)
+
+    lab_contract = commands.add_parser(
+        "lab-contract",
+        help="Validate and content-address a portable LAB execution contract.",
+    )
+    lab_contract.add_argument("--input", type=Path, required=True)
+    lab_contract.add_argument("--output", type=Path, required=True)
+    lab_contract.add_argument("--force", action="store_true")
+    lab_contract.add_argument("--json", action="store_true")
+    lab_contract.set_defaults(handler=command_lab_contract)
 
     verify = commands.add_parser(
         "verify", help="Verify and deterministically regenerate SylloGym profiles."

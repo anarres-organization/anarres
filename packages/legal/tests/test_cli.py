@@ -1,3 +1,4 @@
+import hashlib
 import json
 import tempfile
 import unittest
@@ -9,6 +10,133 @@ ROOT = Path(__file__).resolve().parents[3]
 
 
 class LegalCliTest(unittest.TestCase):
+    def digest(self, label: str) -> str:
+        return f"sha256:{hashlib.sha256(label.encode()).hexdigest()}"
+
+    def make_execution_contract(self) -> dict[str, object]:
+        return {
+            "schema_version": "anarres.legal-lab-execution-contract.v1",
+            "contract_id": "lab-starting-policy-fixture-v1",
+            "source": {
+                "environment_id": "lab-fixture",
+                "revision": "git:fixture-revision",
+                "task_set_sha256": self.digest("task-set"),
+                "license": "MIT",
+            },
+            "starting_policy_stage": {
+                "policy": {
+                    "model_id": "provider/frontier-legal-model",
+                    "model_revision": "provider-snapshot-1",
+                    "checkpoint_id": "warm-start",
+                    "checkpoint_revision": "checkpoint-1",
+                },
+                "harness": {
+                    "name": "lab-core",
+                    "version": "1.3.0",
+                    "revision": "git:fixture-harness",
+                    "package_sha256": self.digest("lab-core-wheel"),
+                },
+                "system_prompt_sha256": self.digest("system-prompt"),
+                "skills": [],
+                "allowed_tools": ["bash", "read", "write", "edit", "glob", "grep", "finish"],
+                "document_access": {
+                    "matter_documents": "read_only",
+                    "output": "write_only_inside_output",
+                    "network": "disabled",
+                },
+                "sandbox_image": "lab-sandbox:fixture",
+                "sandbox_image_digest": self.digest("sandbox-image"),
+                "max_turns": 40,
+                "temperature": 0,
+                "reasoning_effort": "high",
+                "shell_timeout_seconds": 60,
+                "finish_tool_enabled": True,
+                "compaction": {
+                    "strategy": "none",
+                    "implementation_revision": None,
+                    "context_window_tokens": None,
+                    "trigger_tokens": None,
+                },
+            },
+            "judge_stage": {
+                "harness": {
+                    "name": "lab-core",
+                    "version": "1.3.0",
+                    "revision": "git:fixture-harness",
+                    "package_sha256": self.digest("lab-core-wheel"),
+                },
+                "judge_profile": "lab-standard-dual-v1",
+                "judges": [
+                    {"model_id": "judge-a", "model_revision": "judge-a-snapshot"},
+                    {"model_id": "judge-b", "model_revision": "judge-b-snapshot"},
+                ],
+                "rubric_prompt_sha256": self.digest("rubric-prompt"),
+                "grader_revision": "git:fixture-grader",
+                "document_conversion": {
+                    "pandoc_version": "3.5",
+                    "track_changes_mode": "all",
+                },
+                "parallel_calls": 6,
+                "retry": {
+                    "max_attempts": 6,
+                    "backoff_seconds": 20,
+                    "retryable_conditions": ["rate_limit", "server_error", "overload"],
+                },
+            },
+            "outcome_semantics": {
+                "criterion": "binary_pass_fail",
+                "all_pass": "every_criterion_passes_for_each_judge",
+                "headline": "task_all_pass",
+                "deliverable_completion": {
+                    "metric": "required_deliverables_present",
+                    "missing_required_deliverable": "scientific_failure_when_execution_valid",
+                },
+            },
+            "accounting": {
+                "metrics": [
+                    "agent_input_tokens",
+                    "agent_output_tokens",
+                    "agent_wall_clock_seconds",
+                    "judge_calls",
+                    "judge_input_tokens",
+                    "judge_output_tokens",
+                    "judge_wall_clock_seconds",
+                    "retry_count",
+                    "estimated_cost",
+                ],
+                "currency": "USD",
+                "price_schedule_revision": "fixture-pricing-1",
+                "retry_accounting": "record_all_attempts",
+            },
+            "infrastructure_invalid_conditions": [
+                "contract_mismatch",
+                "document_conversion_failure",
+                "judge_outage",
+                "missing_judge_score",
+                "missing_metrics",
+                "model_outage",
+                "run_not_finished_cleanly",
+                "sandbox_failure",
+                "ungraded_criterion",
+            ],
+            "target_scope": {
+                "practice_areas": ["corporate-ma"],
+                "workflows": ["corporate-ma/review-change-of-control"],
+                "diagnostics": ["criterion_pass_rate", "document_coverage"],
+                "protected_outcomes": {
+                    "practice_areas": ["corporate-ma"],
+                    "workflow_outcomes": ["task_all_pass"],
+                    "available_before_freeze": False,
+                },
+            },
+            "execution": {
+                "mode": "contract_only",
+                "execution_started": False,
+                "submission_requires_explicit_command": True,
+                "credentials": {"inherited_at_runtime": True, "serialized": False},
+            },
+        }
+
     def make_lab(self, root: Path) -> Path:
         task = root / "tasks/corporate-ma/review-change-of-control"
         (task / "documents").mkdir(parents=True)
@@ -97,7 +225,8 @@ class LegalCliTest(unittest.TestCase):
         self.assertEqual(descriptor["name"], "legal")
         self.assertEqual(descriptor["executable"], "anarres-legal")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
-        self.assertEqual(descriptor["version"], "0.3.0")
+        self.assertEqual(descriptor["version"], "0.4.0")
+        self.assertIn("lab-execution-contract", descriptor["capabilities"])
         self.assertEqual(descriptor["source_formats"], ["harvey-lab-checkout-v1"])
         self.assertIn("source-qualification", descriptor["capabilities"])
         self.assertNotIn("policy-probe", descriptor["capabilities"])
@@ -111,7 +240,7 @@ class LegalCliTest(unittest.TestCase):
                     'environment_id = "lab-fixture"',
                     'domain = "legal-procedural-reasoning"',
                     'adapter = "legal"',
-                    'adapter_version = "0.3.0"',
+                    'adapter_version = "0.4.0"',
                     'native_format = "harvey-lab-checkout-v1"',
                     "",
                     "[source]",
@@ -161,6 +290,8 @@ class LegalCliTest(unittest.TestCase):
         self.assertFalse(result["lab"]["profile_input"])
         self.assertTrue(result["lab"]["workflow_intake_available"])
         self.assertFalse(result["lab"]["workflow_intake_reads_outcomes"])
+        self.assertTrue(result["lab"]["execution_contract_available"])
+        self.assertFalse(result["lab"]["execution_contract_starts_execution"])
 
     def test_profile_reuses_outcome_blind_exporter(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -255,6 +386,96 @@ class LegalCliTest(unittest.TestCase):
         self.assertIsNone(invalid["criterion_pass_rate"])
         self.assertIn("run_not_finished_cleanly", invalid["infrastructure_invalid_reasons"])
         self.assertIn("missing_judge_score", invalid["infrastructure_invalid_reasons"])
+
+    def test_lab_execution_contract_is_strict_and_byte_deterministic(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            draft = root / "draft.json"
+            output = root / "contract.json"
+            draft.write_text(json.dumps(self.make_execution_contract()), encoding="utf-8")
+            args = type(
+                "Args",
+                (),
+                {"input": draft, "output": output, "force": False},
+            )()
+            first = cli.command_lab_contract(args)
+            first_bytes = output.read_bytes()
+            output.unlink()
+            second = cli.command_lab_contract(args)
+            second_bytes = output.read_bytes()
+            contract = json.loads(output.read_text(encoding="utf-8"))
+        self.assertEqual(first, second)
+        self.assertEqual(first_bytes, second_bytes)
+        self.assertEqual(first["status"], "qualified")
+        self.assertFalse(first["execution_started"])
+        self.assertFalse(first["policy_probe_available"])
+        self.assertEqual(contract["contract_sha256"], first["contract_sha256"])
+
+    def test_lab_execution_contract_rejects_credentials(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            draft = self.make_execution_contract()
+            draft["starting_policy_stage"]["api_key"] = "do-not-store-this"
+            path = Path(directory) / "draft.json"
+            path.write_text(json.dumps(draft), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "credential material"):
+                cli.lab_execution.load(path)
+
+    def test_lab_run_audit_detects_judge_and_compaction_mismatch(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            results = self.make_lab_results(root / "results")
+            contract_path = root / "contract.json"
+            contract_path.write_text(json.dumps(self.make_execution_contract()), encoding="utf-8")
+            manifest_path = root / "manifest.json"
+            manifest_path.write_text(
+                json.dumps(
+                    {
+                        "runs": [
+                            {
+                                "run_id": run_id,
+                                "contract_id": "lab-starting-policy-fixture-v1",
+                                "model_revision": "provider-snapshot-1",
+                                "checkpoint_id": "warm-start",
+                                "checkpoint_revision": "checkpoint-1",
+                            }
+                            for run_id in ("valid-run", "invalid-run")
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+            valid_config_path = results / "valid/config.json"
+            valid_config = json.loads(valid_config_path.read_text(encoding="utf-8"))
+            valid_config.update(
+                {
+                    "shell_timeout": 60,
+                    "compaction": {"strategy": "rolling-summary"},
+                }
+            )
+            valid_config_path.write_text(json.dumps(valid_config), encoding="utf-8")
+            output = root / "audit"
+            result = cli.command_lab_runs(
+                type(
+                    "Args",
+                    (),
+                    {
+                        "repository": ROOT,
+                        "results_root": results,
+                        "run_manifest": manifest_path,
+                        "execution_contract": contract_path,
+                        "output_dir": output,
+                        "force": False,
+                    },
+                )()
+            )
+            rows = [
+                json.loads(line)
+                for line in (output / "lab-run-audit-rows.jsonl").read_text().splitlines()
+            ]
+        row = next(item for item in rows if item["run_id"] == "valid-run")
+        self.assertEqual(result["status"], "complete_with_invalid_runs")
+        self.assertIn("compaction_contract_mismatch", row["infrastructure_invalid_reasons"])
+        self.assertIn("judge_contract_mismatch", row["infrastructure_invalid_reasons"])
 
     def test_verify_is_byte_deterministic(self) -> None:
         args = type("Args", (), {"repository": ROOT})()
