@@ -1,4 +1,4 @@
-"""CLI for the released Q07820 reaction-bank measurements."""
+"""CLI for molecular source qualification and released Q07820 evidence."""
 
 from __future__ import annotations
 
@@ -14,7 +14,8 @@ from typing import Any
 
 from anarres.core import consume_adapter_invocation, load_source_manifest
 
-from .source import SOURCE_FORMAT, MolecularSourceError, bundle_digest, qualify_bundle
+from .probe import MolecularProbeError, build_probe_plan, execute_probe_plan
+from .source import SOURCE_FORMAT, MolecularSourceError, bundle_digest, qualify_source
 
 
 class MolecularCliError(ValueError):
@@ -32,8 +33,18 @@ def adapter_descriptor() -> dict[str, Any]:
         "domain": "molecular-design",
         "executable": "anarres-molecular",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
-        "capabilities": ["profile", "source-digest", "source-qualification", "status", "verify"],
-        "measurement_contracts": ["rxnflow-q07820-bank-v4"],
+        "capabilities": [
+            "policy-probe",
+            "profile",
+            "source-digest",
+            "source-qualification",
+            "status",
+            "verify",
+        ],
+        "measurement_contracts": [
+            "q07820-starting-policy-endpoint-qualification-v2",
+            "rxnflow-q07820-bank-v4",
+        ],
         "source_formats": [SOURCE_FORMAT],
     }
 
@@ -229,7 +240,7 @@ def command_verify(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def command_source_digest(args: argparse.Namespace) -> dict[str, Any]:
-    """Compute the revision used to initialize one native bank bundle."""
+    """Compute the revision used to initialize one native environment."""
 
     digest = bundle_digest(args.source.resolve())
     return {
@@ -240,7 +251,7 @@ def command_source_digest(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
-    """Qualify one native Q07820 bank bundle without opening outcomes."""
+    """Qualify one native molecular environment without opening outcomes."""
 
     descriptor = adapter_descriptor()
     source = load_source_manifest(
@@ -253,10 +264,10 @@ def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
     observed_revision = f"sha256:{bundle_digest(source.source)}"
     if source.revision != observed_revision:
         raise MolecularCliError(
-            "manifest source revision does not match the molecular bundle; "
+            "manifest source revision does not match the molecular source; "
             f"observed {observed_revision}"
         )
-    report = qualify_bundle(source.source)
+    report = qualify_source(source.source)
     return {
         "status": "qualified",
         "environment_id": source.environment_id,
@@ -264,8 +275,70 @@ def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
         "source_revision": source.revision,
         "source_license": source.license,
         **report,
-        "policy_probe_available": False,
+        "policy_probe_available": True,
         "training_started": False,
+    }
+
+
+def command_probe_source(args: argparse.Namespace) -> dict[str, Any]:
+    """Plan or explicitly execute the released endpoint producer."""
+
+    descriptor = adapter_descriptor()
+    source = load_source_manifest(
+        args.manifest,
+        expected_adapter="molecular",
+        expected_version=descriptor["version"],
+        expected_domain=descriptor["domain"],
+        accepted_formats=tuple(descriptor["source_formats"]),
+    )
+    observed_revision = f"sha256:{bundle_digest(source.source)}"
+    if source.revision != observed_revision:
+        raise MolecularCliError(
+            "manifest source revision does not match the molecular source; "
+            f"observed {observed_revision}"
+        )
+    output = args.output.resolve()
+    if output.exists() and not output.is_dir():
+        raise MolecularCliError("probe output must be a directory")
+    output.mkdir(parents=True, exist_ok=True)
+    repository = repository_root(args.repository)
+    plan = build_probe_plan(
+        source_root=source.source,
+        repository=repository,
+        policy_id=args.policy,
+        policy_revision=args.policy_revision,
+        output=output,
+        sampler_python=args.sampler_python.resolve(),
+        oracle_python=args.oracle_python.resolve(),
+        device=args.device,
+        docking_jobs=args.docking_jobs,
+        metric_jobs=args.metric_jobs,
+    )
+    plan_path = output / "PROBE_PLAN.json"
+    if plan_path.is_file():
+        existing = json.loads(plan_path.read_text(encoding="utf-8"))
+        if existing != plan:
+            raise MolecularCliError("probe output contains a different immutable plan")
+    else:
+        temporary = plan_path.with_suffix(".tmp")
+        temporary.write_text(json.dumps(plan, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        temporary.replace(plan_path)
+    if not args.execute:
+        return {
+            "status": "planned",
+            "plan": str(plan_path),
+            "plan_sha256": plan["plan_sha256"],
+            "attempts": plan["attempts"],
+            "evaluation_seed": plan["evaluation_seed"],
+            "outcomes_opened": False,
+        }
+    result = execute_probe_plan(plan, output, force_incomplete=args.force)
+    return {
+        "status": result["status"],
+        "plan": str(plan_path),
+        "plan_sha256": plan["plan_sha256"],
+        "run": str(output / "PROBE_RUN.json"),
+        "result": result["result"],
     }
 
 
@@ -277,7 +350,7 @@ def add_common(parser: argparse.ArgumentParser) -> None:
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(
         prog="anarres molecular",
-        description="Inspect and export released Q07820 reaction-bank measurements.",
+        description="Qualify molecular sources and inspect released Q07820 evidence.",
     )
     commands = result.add_subparsers(dest="command", required=True)
 
@@ -292,18 +365,36 @@ def parser() -> argparse.ArgumentParser:
     profile.set_defaults(handler=command_profile)
 
     source_digest = commands.add_parser(
-        "source-digest", help="Compute the revision of a native Q07820 bank bundle."
+        "source-digest", help="Compute the revision of a native molecular environment."
     )
     source_digest.add_argument("--source", type=Path, required=True)
     source_digest.add_argument("--json", action="store_true")
     source_digest.set_defaults(handler=command_source_digest)
 
     qualify_source = commands.add_parser(
-        "qualify-source", help="Validate a native Q07820 bank bundle."
+        "qualify-source", help="Validate a native molecular environment."
     )
     qualify_source.add_argument("--manifest", type=Path, required=True)
     qualify_source.add_argument("--json", action="store_true")
     qualify_source.set_defaults(handler=command_qualify_source)
+
+    probe_source = commands.add_parser(
+        "probe-source", help="Plan or explicitly execute the released Q07820 endpoint."
+    )
+    probe_source.add_argument("--manifest", type=Path, required=True)
+    probe_source.add_argument("--policy", required=True)
+    probe_source.add_argument("--policy-revision", required=True)
+    probe_source.add_argument("--output", type=Path, required=True)
+    probe_source.add_argument("--repository", type=Path)
+    probe_source.add_argument("--sampler-python", type=Path, default=Path(sys.executable))
+    probe_source.add_argument("--oracle-python", type=Path, default=Path(sys.executable))
+    probe_source.add_argument("--device", default="cuda")
+    probe_source.add_argument("--docking-jobs", type=int, default=8)
+    probe_source.add_argument("--metric-jobs", type=int, default=8)
+    probe_source.add_argument("--execute", action="store_true")
+    probe_source.add_argument("--force", action="store_true")
+    probe_source.add_argument("--json", action="store_true")
+    probe_source.set_defaults(handler=command_probe_source)
 
     verify = commands.add_parser("verify", help="Validate records and deterministic export.")
     add_common(verify)
@@ -337,6 +428,7 @@ def main() -> None:
         raise SystemExit(1) from error
     except (
         MolecularCliError,
+        MolecularProbeError,
         MolecularSourceError,
         ValueError,
         OSError,

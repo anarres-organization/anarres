@@ -1,0 +1,115 @@
+{
+  "candidate_replay_bank": {
+    "duplicate_molecule_policy": "retain_distinct_trajectory_ids",
+    "item_count": 2,
+    "membership_sha256": "95b3f872dfff5422744753d5fa3ce85fe1b315b0c01b8412b3c7fe5de33e98e2",
+    "path": "candidate/replay.json",
+    "sha256": "76aa3bf8422327d4b337141e6c72fe29b36b99a420ba2b47df36b7b534e747ca"
+  },
+  "contracts": {
+    "docking": {
+      "path": "contracts/docking.json",
+      "sha256": "8969ec20d416862d4d624b2a0b2828c1bbcc7aa6e549938611c73b255fb96256"
+    },
+    "filters": {
+      "path": "contracts/filters.json",
+      "sha256": "8969ec20d416862d4d624b2a0b2828c1bbcc7aa6e549938611c73b255fb96256"
+    },
+    "oracle": {
+      "path": "contracts/oracle.json",
+      "sha256": "c83e301d4dca34d529dfce5e7f07e3b4848c85a28ade7eac297d39bdfa5c2e7d"
+    },
+    "probe": {
+      "path": "contracts/probe.json",
+      "sha256": "9180121323d61ef3bd7c007f92b95a81db3a7b90436787c77a444e8603c5e027"
+    }
+  },
+  "duplicate_policy": "reject_exact_canonical_smiles",
+  "environment_id": "fixture-molecular-environment",
+  "partitions": {
+    "evaluation_attempt_ids": [
+      "eval-001",
+      "eval-002",
+      "eval-003",
+      "eval-004"
+    ],
+    "training_ids": [
+      "train-001",
+      "train-002"
+    ]
+  },
+  "reaction_environment": {
+    "building_blocks": {
+      "path": "chemistry/building_blocks.smi",
+      "sha256": "c0db66fdcef368560a7078fc0781968ff551135102fa314883975ff229b96d85"
+    },
+    "preparation_report": {
+      "path": "prepared/environment-report.json",
+      "sha256": "df527617ab99478b876ce740b6ed8186f0bf36b501829b90012739bd0cd02280"
+    },
+    "prepared_environment": {
+      "path": "prepared/environment",
+      "sha256": "afa6a3580fe87e0375993a6ab25ed39bece71902c57d5dc7da81f081ac549bfb"
+    },
+    "reaction_templates": {
+      "path": "chemistry/reaction_templates.json",
+      "sha256": "0f852b40e19fedb382b079b356c335b53a2eb3bc235d88eee91c18932c487b4b"
+    }
+  },
+  "schema_version": "anarres.molecular-environment-source.v1",
+  "sources": [
+    {
+      "license": "Apache-2.0",
+      "name": "fixture-rxnflow",
+      "paths": [
+        "chemistry/building_blocks.smi",
+        "chemistry/reaction_templates.json",
+        "prepared/environment",
+        "candidate/replay.json",
+        "policy/weights.fixture",
+        "target",
+        "contracts/oracle.json",
+        "contracts/filters.json",
+        "contracts/docking.json",
+        "contracts/probe.json"
+      ],
+      "revision": "test-revision"
+    }
+  ],
+  "starting_policy": {
+    "path": "policy/weights.fixture",
+    "policy_id": "fixture-policy",
+    "revision": "sha256:0f0996091ee78d97a552a42d702fe82e24b222b320bad6b83d2982e71853af5d",
+    "sha256": "0f0996091ee78d97a552a42d702fe82e24b222b320bad6b83d2982e71853af5d"
+  },
+  "target": {
+    "endpoint_assets": {
+      "pocket": {
+        "path": "target/pocket.pdb",
+        "sha256": "99637b4354fe415fe3aebcf438fd7c15b8932875c29667aaae0aebb5844c5097"
+      },
+      "protein": {
+        "path": "target/protein.pdb",
+        "sha256": "83a8733ccb34abd4b3c2c4d9d6dd075af46df9fcfa85d61be1a023975109d654"
+      },
+      "reference_actives": {
+        "path": "target/reference-actives.sdf",
+        "sha256": "b51ebf9195b5e48a4623756c9bc518f8c7d4483047eb3eabf4e07f528ca4a467"
+      },
+      "reference_interaction_scores": {
+        "path": "target/reference-interactions.json",
+        "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+      },
+      "thresholds": {
+        "path": "target/thresholds.json",
+        "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+      }
+    },
+    "manifest": "target_manifest.json",
+    "prepared_target": {
+      "path": "target",
+      "sha256": "d935549fc67147bf724c9bda0b03b5c7c2a2648ffe652cc55cfe925eb7b97152"
+    }
+  },
+  "target_id": "Q07820"
+}

@@ -101,27 +101,58 @@ uv tool install ./experiments/ai-for-science/molecular-design/reaction-environme
 anarres adapter doctor molecular
 ```
 
-The adapter can also qualify a portable directory containing the version 4
-Q07820 bank, measurement, target, oracle, source, warm-start, and sealing
-records. Compute the directory revision before connecting it to the native CLI:
+The adapter accepts a practitioner-supplied molecular environment before any
+policy measurement occurs. The directory contains native building blocks and
+reaction templates, a prepared reaction environment, one candidate replay
+bank, a starting policy, prepared target fixtures, runtime contracts, source
+licenses, and disjoint training and evaluation identities. Compute its revision
+before connecting it to the native CLI:
 
 ```bash
-anarres molecular source-digest --source /path/to/q07820-bank
-anarres init /path/to/q07820-bank \
+anarres molecular source-digest --source /path/to/molecular-environment
+anarres init /path/to/molecular-environment \
   --adapter molecular \
   --revision "sha256:REPORTED-DIGEST" \
   --license "MIXED-PUBLIC-SOURCES"
-anarres inspect /path/to/q07820-bank
-anarres qualify /path/to/q07820-bank
+anarres inspect /path/to/molecular-environment
+anarres qualify /path/to/molecular-environment
 ```
 
-Qualification verifies the six 512-member banks, both independent measurement
-views, Q07820 target and oracle identity, RxnFlow and MolGenBench revisions,
-starting-policy identity, source archive linkage, and unopened training
-boundary. It does not rerun the starting policy or open target-training
-outcomes. The applicable component licenses remain recorded in `SOURCES.json`;
-the manifest license field should identify the reviewed bundle terms rather
-than treating the bundle as a single upstream asset.
+Qualification verifies molecule and trajectory identities, duplicate handling,
+reaction compatibility, replay membership, prepared-target hashes, policy and
+runtime identity, failure semantics, licenses, and partition separation. It
+does not load the model, invoke docking, or read a downstream outcome. The
+complete source format is documented in
+[`MOLECULAR_SOURCE_FORMAT.md`](MOLECULAR_SOURCE_FORMAT.md).
+
+For the released Q07820 contract, `anarres probe` first writes an immutable
+five-stage plan that binds sampling, docking, endpoint metrics, qualifying-hit
+scoring, and the endpoint gate. Execution requires the qualified sampler and
+oracle interpreters explicitly and resumes only from verified stage digests:
+
+```bash
+anarres probe /path/to/molecular-environment \
+  --policy rxnflow-qed-warm-start \
+  --policy-revision sha256:POLICY_DIGEST \
+  --output /path/to/probe-run \
+  -- \
+  --repository /path/to/anarres \
+  --sampler-python /path/to/sampler/python \
+  --oracle-python /path/to/oracle/python
+
+anarres probe /path/to/molecular-environment \
+  --policy rxnflow-qed-warm-start \
+  --policy-revision sha256:POLICY_DIGEST \
+  --output /path/to/probe-run --force \
+  -- \
+  --repository /path/to/anarres \
+  --sampler-python /path/to/sampler/python \
+  --oracle-python /path/to/oracle/python \
+  --execute
+```
+
+The probe produces a policy-bound endpoint record. Matched training and
+cross-arm scoring remain separate workflows governed by the frozen contract.
 
 The adapter exports the six construction-view banks as Anarres environment
 profiles with eight reaction-bank coordinates:

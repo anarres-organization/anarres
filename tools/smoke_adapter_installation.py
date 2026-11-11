@@ -206,7 +206,7 @@ def main() -> int:
 
         molecular_source = root / "native-source" / "molecular-q07820"
         shutil.copytree(
-            ROOT / "experiments/ai-for-science/molecular-design/reaction-environment-selection",
+            ROOT / "tests/fixtures/molecular-source-v1",
             molecular_source,
         )
         molecular_digest = json.loads(
@@ -246,8 +246,8 @@ def main() -> int:
         )
         if not molecular_inspection["qualification_ready"]:
             raise SystemExit(f"molecular source was not routed: {molecular_inspection!r}")
-        if molecular_inspection["probe_ready"]:
-            raise SystemExit("molecular source unexpectedly claims a policy probe runtime")
+        if not molecular_inspection["probe_ready"]:
+            raise SystemExit("molecular source did not expose its policy probe path")
         molecular_qualification = json.loads(
             command(
                 str(binary),
@@ -258,6 +258,10 @@ def main() -> int:
                 env=installed_environment,
             )
         )
+        if molecular_qualification["candidate_replay_items"] != 2:
+            raise SystemExit(
+                f"molecular native source did not qualify: {molecular_qualification!r}"
+            )
         if molecular_qualification.get("target_id") != "Q07820":
             raise SystemExit(
                 f"molecular source qualified the wrong target: {molecular_qualification!r}"
