@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from materialize_replay_bank import canonical_json_sha256, load_into_fresh_replay
+from smoke_replay_training import inspect_oracle_python
 from verify_matched_training_contract import verify as verify_matched_contract
 from warm_start_weights import load_weights
 
@@ -83,6 +84,7 @@ def preflight_inputs(
     seed: int,
     retrosynthesis_workers: int,
     reward_workers: int,
+    oracle_python: Path,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     if contract_path.resolve() != DEFAULT_CONTRACT.resolve():
         raise ValueError("claim-bearing runs require the released matched contract")
@@ -103,6 +105,7 @@ def preflight_inputs(
     if not env_dir.is_dir():
         raise ValueError("reaction environment directory does not exist")
     target_identity = validate_prepared_target(prepared_target)
+    oracle_runtime = inspect_oracle_python(oracle_python)
     result = {
         "schema_version": "1.0",
         "study": contract["study"],
@@ -118,6 +121,7 @@ def preflight_inputs(
             "retrosynthesis": retrosynthesis_workers,
             "reward": reward_workers,
         },
+        "oracle_runtime": oracle_runtime,
         "checks": {
             "contract_verified": verification["status"] == "verified",
             "arm_and_seed_frozen": True,
@@ -167,6 +171,7 @@ def run_training(
     device: str,
     retrosynthesis_workers: int,
     reward_workers: int,
+    oracle_python: Path,
     resume_from: Path | None,
 ) -> dict[str, Any]:
     from rxnflow.trainer import RxnFlowTrainer
@@ -183,6 +188,7 @@ def run_training(
         seed=seed,
         retrosynthesis_workers=retrosynthesis_workers,
         reward_workers=reward_workers,
+        oracle_python=oracle_python,
     )
 
     config = configure(config_path, env_dir)
@@ -198,7 +204,10 @@ def run_training(
             raise ValueError(f"resolved training configuration differs at {key}")
 
     reward = MolecularTargetReward(
-        str(prepared_target), timeout_seconds=300.0, max_workers=reward_workers
+        str(prepared_target),
+        timeout_seconds=300.0,
+        max_workers=reward_workers,
+        worker_python=str(oracle_python),
     )
     trainer = RxnFlowTrainer(
         config,
@@ -286,6 +295,7 @@ def run_training(
             "retrosynthesis": retrosynthesis_workers,
             "reward": reward_workers,
         },
+        "oracle_runtime": preflight["oracle_runtime"],
         "replay": {
             "size": replay_size_after,
             "items_sha256": replay_digest_after,
@@ -333,6 +343,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--retrosynthesis-workers", type=int, default=4)
     parser.add_argument("--reward-workers", type=int, default=16)
+    parser.add_argument("--oracle-python", type=Path, required=True)
     parser.add_argument("--resume-from", type=Path)
     parser.add_argument("--preflight-only", action="store_true")
     return parser
@@ -352,6 +363,7 @@ def main() -> None:
             seed=args.seed,
             retrosynthesis_workers=args.retrosynthesis_workers,
             reward_workers=args.reward_workers,
+            oracle_python=args.oracle_python,
         )
         print(json.dumps(result, indent=2, sort_keys=True))
         return
@@ -368,6 +380,7 @@ def main() -> None:
         device=args.device,
         retrosynthesis_workers=args.retrosynthesis_workers,
         reward_workers=args.reward_workers,
+        oracle_python=args.oracle_python,
         resume_from=args.resume_from,
     )
     print(

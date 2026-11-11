@@ -271,6 +271,7 @@ python scripts/smoke_replay_training.py \
   --warm-start /path/to/warm_start_weights.pt \
   --replay-bank /tmp/hash_uniform.replay.json \
   --prepared-target /path/to/prepared_Q07820 \
+  --oracle-python /path/to/qualified-oracle/bin/python \
   --output-dir /tmp/replay-training-smoke \
   --report /tmp/REPLAY_TRAINING_SMOKE_V1.json
 ```
@@ -285,7 +286,9 @@ Before claim-bearing execution, repeat the smoke with `--num-online 64
 --num-replay 64 --device cuda` on the intended accelerator and runtime. This
 exercises the frozen batch shape without changing the one-update interface-only
 scope. Set the retrosynthesis and reward worker counts explicitly to the values
-planned for the matched runs.
+planned for the matched runs. Pass the qualified docking environment through
+`--oracle-python`; training and docking remain separate runtimes, and the smoke
+records the oracle executable digest and package versions.
 
 After the endpoint gate passes and the matched contract is frozen, run each
 development arm with the contract-enforcing entry point:
@@ -297,6 +300,7 @@ python scripts/run_matched_training.py \
   --warm-start /path/to/warm_start_weights.pt \
   --replay-bank /path/to/hash_uniform.replay.json \
   --prepared-target /path/to/prepared_Q07820 \
+  --oracle-python /path/to/qualified-oracle/bin/python \
   --output-dir /path/to/run-output \
   --arm hash_uniform \
   --seed 20261108 \

@@ -65,6 +65,9 @@ trajectories in one update with four retrosynthesis workers and 16 reward
 workers. It preserves the
 512-item replay bank and produces finite loss and gradient diagnostics. The
 accelerator smoke remains a runtime gate before claim-bearing training.
+The runner invokes docking through an explicit qualified oracle interpreter,
+keeping the RxnFlow training environment separate from Vina, Meeko, and
+OpenBabel while recording the oracle runtime identity.
 The independent starting-policy endpoint gate also passes. Among 4,096 fixed
 attempts, 22 qualify under the complete MolGenBench endpoint, representing 16
 unique molecules with no infrastructure failure. The largest repeated molecule

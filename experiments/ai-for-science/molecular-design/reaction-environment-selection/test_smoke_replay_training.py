@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
 import sys
 from pathlib import Path
 from types import SimpleNamespace
@@ -48,6 +49,27 @@ def test_configure_smoke_uses_requested_batch(monkeypatch: pytest.MonkeyPatch) -
 def test_configure_smoke_rejects_empty_batch() -> None:
     with pytest.raises(ValueError, match="positive"):
         MODULE.configure_smoke(Path("config.yaml"), Path("env"), num_online=0, num_replay=64)
+
+
+def test_inspect_oracle_python_records_packages(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    executable = tmp_path / "python"
+    executable.write_bytes(b"python")
+
+    def run(command, **_kwargs):
+        assert command[0] == str(executable)
+        return subprocess.CompletedProcess(
+            command,
+            0,
+            json.dumps({"meeko": "1", "openbabel": "2", "rdkit": "3", "vina": "4"}),
+            "",
+        )
+
+    monkeypatch.setattr(MODULE.subprocess, "run", run)
+    identity = MODULE.inspect_oracle_python(executable)
+    assert identity["packages"]["vina"] == "4"
+    assert identity["executable_sha256"] == MODULE.sha256_file(executable)
 
 
 def test_released_full_batch_cpu_smoke_preserves_interface_boundary() -> None:

@@ -269,12 +269,13 @@ def run_worker(
     timeout_seconds: float,
     seed: int = DEFAULT_SEED,
     exhaustiveness: int = DEFAULT_EXHAUSTIVENESS,
+    worker_python: Path | str | None = None,
 ) -> dict[str, Any]:
     """Run docking in a killable subprocess and reject incomplete evidence."""
     with tempfile.TemporaryDirectory(prefix="molecular-oracle-call-") as temp:
         output = Path(temp) / "worker_result.json"
         command = [
-            sys.executable,
+            str(worker_python or sys.executable),
             str(Path(__file__).resolve()),
             "worker",
             "--prepared-target",
@@ -327,12 +328,18 @@ def score_smiles(
     prepared_target: Path,
     smiles: str,
     timeout_seconds: float = DEFAULT_TIMEOUT_SECONDS,
+    worker_python: Path | str | None = None,
 ) -> dict[str, Any]:
     """Return a scientific score or raise on unavailable oracle evidence."""
     assessment = molecule_assessment(smiles)
     if assessment["status"] == "scientific_zero":
         return assessment
-    oracle = run_worker(prepared_target, smiles, timeout_seconds)
+    oracle = run_worker(
+        prepared_target,
+        smiles,
+        timeout_seconds,
+        worker_python=worker_python,
+    )
     if oracle["status"] == "scientific_zero":
         return {
             key: value
@@ -359,6 +366,7 @@ def score_batch(
     smiles_list: list[str],
     timeout_seconds: float = DEFAULT_TIMEOUT_SECONDS,
     max_workers: int = 1,
+    worker_python: Path | str | None = None,
 ) -> list[dict[str, Any]]:
     """Score a batch concurrently while preserving order and duplicate identity."""
     if max_workers < 1:
@@ -374,7 +382,13 @@ def score_batch(
     oracle_results: dict[str, dict[str, Any]] = {}
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = {
-            executor.submit(run_worker, prepared_target, smiles, timeout_seconds): smiles
+            executor.submit(
+                run_worker,
+                prepared_target,
+                smiles,
+                timeout_seconds,
+                worker_python=worker_python,
+            ): smiles
             for smiles in unique_eligible
         }
         try:
@@ -440,6 +454,7 @@ def build_parser() -> argparse.ArgumentParser:
     score.add_argument("--smiles", required=True)
     score.add_argument("--output", type=Path, required=True)
     score.add_argument("--timeout-seconds", type=float, default=DEFAULT_TIMEOUT_SECONDS)
+    score.add_argument("--worker-python", type=Path)
 
     batch = commands.add_parser("score-batch")
     batch.add_argument("--prepared-target", type=Path, required=True)
@@ -447,6 +462,7 @@ def build_parser() -> argparse.ArgumentParser:
     batch.add_argument("--output", type=Path, required=True)
     batch.add_argument("--timeout-seconds", type=float, default=DEFAULT_TIMEOUT_SECONDS)
     batch.add_argument("--max-workers", type=int, default=1)
+    batch.add_argument("--worker-python", type=Path)
     return parser
 
 
@@ -482,6 +498,7 @@ def main() -> int:
                 smiles_list,
                 args.timeout_seconds,
                 args.max_workers,
+                worker_python=args.worker_python,
             )
             return_code = 0
         except OracleInfrastructureError as error:
@@ -497,7 +514,12 @@ def main() -> int:
         )
         return return_code
     try:
-        result = score_smiles(args.prepared_target, args.smiles, args.timeout_seconds)
+        result = score_smiles(
+            args.prepared_target,
+            args.smiles,
+            args.timeout_seconds,
+            worker_python=args.worker_python,
+        )
         return_code = 0
     except OracleInfrastructureError as error:
         result = {

@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import math
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -20,6 +21,43 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def inspect_oracle_python(path: Path) -> dict[str, Any]:
+    """Verify the isolated docking runtime without importing it into training."""
+    if not path.is_file():
+        raise FileNotFoundError(f"oracle Python does not exist: {path}")
+    probe = """
+import importlib
+import importlib.metadata
+import json
+
+packages = {}
+for module_name in ("vina", "meeko", "openbabel", "rdkit"):
+    module = importlib.import_module(module_name)
+    try:
+        version = importlib.metadata.version(module_name)
+    except importlib.metadata.PackageNotFoundError:
+        version = getattr(module, "__version__", None)
+    if not version:
+        raise RuntimeError(f"cannot identify {module_name} version")
+    packages[module_name] = version
+print(json.dumps(packages, sort_keys=True))
+"""
+    completed = subprocess.run(
+        [str(path), "-c", probe],
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=60,
+    )
+    if completed.returncode != 0:
+        detail = completed.stderr.strip() or completed.stdout.strip()
+        raise RuntimeError(f"oracle Python qualification failed: {detail}")
+    return {
+        "executable_sha256": sha256_file(path),
+        "packages": json.loads(completed.stdout),
+    }
 
 
 def configure_smoke(config_path: Path, env_dir: Path, *, num_online: int, num_replay: int) -> Any:
@@ -53,6 +91,7 @@ def run_smoke(
     device: str,
     retrosynthesis_workers: int,
     reward_workers: int,
+    oracle_python: Path,
 ) -> dict[str, Any]:
     from rxnflow.trainer import RxnFlowTrainer
     from rxnflow_target_reward import MolecularTargetReward
@@ -60,8 +99,12 @@ def run_smoke(
     config = configure_smoke(config_path, env_dir, num_online=num_online, num_replay=num_replay)
     if retrosynthesis_workers < 0 or reward_workers < 1:
         raise ValueError("smoke worker counts are invalid")
+    oracle_runtime = inspect_oracle_python(oracle_python)
     reward = MolecularTargetReward(
-        str(prepared_target), timeout_seconds=300.0, max_workers=reward_workers
+        str(prepared_target),
+        timeout_seconds=300.0,
+        max_workers=reward_workers,
+        worker_python=str(oracle_python),
     )
     trainer = RxnFlowTrainer(
         config,
@@ -142,6 +185,7 @@ def run_smoke(
             "device": device,
             "retrosynthesis_workers": retrosynthesis_workers,
             "reward_workers": reward_workers,
+            "oracle_runtime": oracle_runtime,
         }
     report_path.parent.mkdir(parents=True, exist_ok=True)
     temporary = report_path.with_suffix(report_path.suffix + ".tmp")
@@ -167,6 +211,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--retrosynthesis-workers", type=int, default=0)
     parser.add_argument("--reward-workers", type=int, default=2)
+    parser.add_argument("--oracle-python", type=Path, required=True)
     return parser
 
 
@@ -186,6 +231,7 @@ def main() -> None:
         device=args.device,
         retrosynthesis_workers=args.retrosynthesis_workers,
         reward_workers=args.reward_workers,
+        oracle_python=args.oracle_python,
     )
     print(f"replay-training smoke {report['status']}: loss={report['observed']['loss']:.6f}")
 
