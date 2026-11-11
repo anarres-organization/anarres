@@ -21,6 +21,7 @@ use profile::{
 };
 
 const MANIFEST_SCHEMA: &str = "anarres.environment-manifest.v1";
+const DEMO_PROBE: &str = include_str!("../../../examples/environment-processing/probe.json");
 const STATUSES: [&str; 4] = ["admitted", "reserve", "repair", "quarantine"];
 static NEXT_TEMPORARY_FILE: AtomicU64 = AtomicU64::new(0);
 
@@ -33,6 +34,7 @@ static NEXT_TEMPORARY_FILE: AtomicU64 = AtomicU64::new(0);
         Built-in commands operate on versioned local records and write no network state.\n\
         Installed adapters run under their own documented contracts.",
     after_help = "Start here:\n  \
+        anarres demo\n  \
         anarres qualify <measurements.json>\n  \
         anarres measure <measurements.json> --output <environment.json>\n  \
         anarres adapter list\n  \
@@ -47,6 +49,8 @@ struct Cli {
 
 #[derive(Debug, Subcommand)]
 enum Command {
+    /// Run the bundled qualification, measurement, and validation workflow.
+    Demo(DemoArgs),
     /// Check whether measured evidence is ready for comparison.
     Qualify(InputArgs),
     /// Normalize measurements into a content-addressed environment record.
@@ -62,6 +66,16 @@ enum Command {
     /// Run an installed domain adapter by name.
     #[command(external_subcommand)]
     External(Vec<OsString>),
+}
+
+#[derive(Debug, Args)]
+struct DemoArgs {
+    /// Destination for the example environment record.
+    #[arg(short, long, default_value = ".anarres/demo/environment.json")]
+    output: PathBuf,
+    /// Replace an existing output file.
+    #[arg(long)]
+    force: bool,
 }
 
 #[derive(Debug, Args)]
@@ -287,6 +301,7 @@ pub fn run() -> i32 {
 
 fn execute(command: Command) -> Result<i32, String> {
     match command {
+        Command::Demo(args) => command_demo(args),
         Command::Qualify(args) => command_qualify(args),
         Command::Measure(args) => command_measure(args),
         Command::Design(args) => command_design(args),
@@ -314,6 +329,60 @@ fn execute(command: Command) -> Result<i32, String> {
     }
 }
 
+fn command_demo(args: DemoArgs) -> Result<i32, String> {
+    let raw: Value = serde_json::from_str(DEMO_PROBE)
+        .map_err(|error| format!("invalid bundled input: {error}"))?;
+    let probe = parse_probe(&raw)?;
+    let report = qualify_probe(&probe, &raw)?;
+    let manifest = build_manifest(&probe, &raw)?;
+    let output = serde_json::to_vec_pretty(&manifest).map_err(|error| error.to_string())?;
+    let mut stored_output = output.clone();
+    stored_output.push(b'\n');
+    if args.output.exists() && !args.force {
+        let existing = fs::read(&args.output)
+            .map_err(|error| format!("could not read {}: {error}", args.output.display()))?;
+        if existing != stored_output {
+            return Err(format!(
+                "{} already exists with different content; pass --force to replace it",
+                args.output.display()
+            ));
+        }
+    } else {
+        write_atomic(&args.output, &output, args.force)?;
+    }
+
+    let validation = validate_record(&args.output);
+    if !validation.valid {
+        return Err(validation
+            .error
+            .unwrap_or_else(|| "the generated record did not validate".to_owned()));
+    }
+
+    println!("Anarres demo");
+    println!("  Environment         {}", report.environment_id);
+    println!("  Policy              {}", report.policy_id);
+    println!(
+        "  Qualification       {} admitted · {} reserve · {} repair · {} quarantine",
+        count(&report.status_counts, "admitted"),
+        count(&report.status_counts, "reserve"),
+        count(&report.status_counts, "repair"),
+        count(&report.status_counts, "quarantine")
+    );
+    println!(
+        "  Signal density      {:.4} advantage mass / M tokens",
+        manifest.coordinates.rho_per_million_tokens
+    );
+    println!(
+        "  Effective coverage  {:.4}",
+        manifest.coordinates.effective_coverage
+    );
+    println!("  Record              {}", args.output.display());
+    println!("  Validation          passed");
+    println!();
+    println!("Next: run anarres design <record-a> <record-b> to compare candidates.");
+    Ok(0)
+}
+
 fn command_qualify(args: InputArgs) -> Result<i32, String> {
     let raw = read_json(&args.input)?;
     match record_schema(&raw) {
@@ -323,16 +392,18 @@ fn command_qualify(args: InputArgs) -> Result<i32, String> {
             if args.json {
                 print_json(&report)?;
             } else {
-                println!("Environment  {}", input.environment_id);
-                println!("Domain       {}", input.domain);
-                println!("Subject      {}", input.subject.id);
+                println!("Qualification  {}", input.environment_id);
+                println!("  Domain   {}", input.domain);
+                println!("  Subject  {}", input.subject.id);
                 println!(
-                    "Ready        {}",
+                    "  Ready    {}",
                     yes_no(report["ready"].as_bool().unwrap_or(false))
                 );
+                println!();
+                println!("Checks");
                 for check in &input.qualification_checks {
                     println!(
-                        "{:<7} {:<8} {}",
+                        "  {:<7} {:<8} {}",
                         check.status, check.severity, check.summary
                     );
                 }
@@ -351,10 +422,15 @@ fn command_qualify(args: InputArgs) -> Result<i32, String> {
                     "input_digest": report.input_digest,
                 }))?;
             } else {
-                println!("Environment  {}", report.environment_id);
-                println!("Policy       {}", report.policy_id);
-                println!("Groups       {}", report.groups.len());
-                print_status_counts(&report.status_counts);
+                println!("Qualification  {}", report.environment_id);
+                println!("  Policy        {}", report.policy_id);
+                println!(
+                    "  Groups        {} admitted · {} reserve · {} repair · {} quarantine",
+                    count(&report.status_counts, "admitted"),
+                    count(&report.status_counts, "reserve"),
+                    count(&report.status_counts, "repair"),
+                    count(&report.status_counts, "quarantine")
+                );
                 print_group_exceptions(&report.groups);
             }
         }
@@ -385,22 +461,23 @@ fn command_measure(args: MeasureArgs) -> Result<i32, String> {
             if args.json {
                 print_json(&manifest)?;
             } else {
-                println!("Environment  {}", manifest.environment_id);
-                println!("Policy       {}", manifest.policy_id);
+                println!("Measured  {}", manifest.environment_id);
+                println!("  Policy              {}", manifest.policy_id);
                 println!(
-                    "Signal       {:.4} admitted advantage mass / M tokens",
+                    "  Signal density      {:.4} advantage mass / M tokens",
                     manifest.coordinates.rho_per_million_tokens
                 );
                 println!(
-                    "Coverage     {:.4}",
+                    "  Effective coverage  {:.4}",
                     manifest.coordinates.effective_coverage
                 );
                 println!(
-                    "Measured     {} groups · {} generated tokens",
-                    manifest.coordinates.prompt_count, manifest.coordinates.generated_action_tokens
+                    "  Evidence            {} groups · {} generated tokens",
+                    manifest.coordinates.prompt_count,
+                    format_integer(manifest.coordinates.generated_action_tokens)
                 );
-                println!("Manifest     {}", args.output.display());
-                println!("Digest       {}", manifest.manifest_digest);
+                println!("  Record              {}", args.output.display());
+                println!("  Digest              {}", manifest.manifest_digest);
             }
         }
     }
@@ -496,11 +573,13 @@ fn command_validate(args: ValidateArgs) -> Result<i32, String> {
     } else {
         for result in &results {
             if result.valid {
-                println!("ok    {:<22} {}", result.record_type, result.path);
+                println!("Validated  {}", result.record_type);
+                println!("  Path  {}", result.path);
             } else {
-                println!("error {:<22} {}", result.record_type, result.path);
+                println!("Invalid  {}", result.record_type);
+                println!("  Path   {}", result.path);
                 if let Some(error) = &result.error {
-                    println!("      {error}");
+                    println!("  Error  {error}");
                 }
             }
         }
@@ -949,12 +1028,6 @@ fn print_json(value: &impl Serialize) -> Result<(), String> {
     writeln!(output).map_err(|error| error.to_string())
 }
 
-fn print_status_counts(counts: &BTreeMap<String, u64>) {
-    for status in STATUSES {
-        println!("{:<12} {}", capitalize(status), count(counts, status));
-    }
-}
-
 fn print_group_exceptions(groups: &[ProcessedGroup]) {
     let exceptions: Vec<_> = groups
         .iter()
@@ -964,21 +1037,27 @@ fn print_group_exceptions(groups: &[ProcessedGroup]) {
         return;
     }
     println!();
-    println!("Groups requiring action");
+    println!("Action required");
     for group in exceptions {
         println!(
             "  {:<24} {:<10} {}",
-            group.task_id, group.status, group.reason
+            group.task_id,
+            group.status,
+            group.reason.replace('_', " ")
         );
     }
 }
 
-fn capitalize(value: &str) -> String {
-    let mut characters = value.chars();
-    match characters.next() {
-        Some(first) => first.to_uppercase().collect::<String>() + characters.as_str(),
-        None => String::new(),
+fn format_integer(value: u64) -> String {
+    let digits = value.to_string();
+    let mut formatted = String::with_capacity(digits.len() + digits.len() / 3);
+    for (index, character) in digits.chars().enumerate() {
+        if index > 0 && (digits.len() - index) % 3 == 0 {
+            formatted.push(',');
+        }
+        formatted.push(character);
     }
+    formatted
 }
 
 pub(crate) fn yes_no(value: bool) -> &'static str {

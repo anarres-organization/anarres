@@ -619,17 +619,17 @@ pub(crate) fn record_schema(raw: &Value) -> Option<&str> {
 }
 
 pub(crate) fn profile_human_summary(profile: &EnvironmentProfile, path: &Path) {
-    println!("Environment  {}", profile.environment_id);
-    println!("Domain       {}", profile.domain);
-    println!("Subject      {}", profile.subject.id);
+    println!("Measured  {}", profile.environment_id);
+    println!("  Domain       {}", profile.domain);
+    println!("  Subject      {}", profile.subject.id);
     println!(
-        "Adapter      {} @ {}",
+        "  Adapter      {} @ {}",
         profile.producer.id, profile.producer.revision
     );
-    println!("Ready        {}", crate::yes_no(profile.ready));
-    println!("Coordinates  {}", profile.coordinates.len());
-    println!("Profile      {}", path.display());
-    println!("Digest       {}", profile.profile_digest);
+    println!("  Ready        {}", crate::yes_no(profile.ready));
+    println!("  Coordinates  {}", profile.coordinates.len());
+    println!("  Record       {}", path.display());
+    println!("  Digest       {}", profile.profile_digest);
 }
 
 #[cfg(test)]

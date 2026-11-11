@@ -4,6 +4,14 @@ All notable CLI changes are recorded here. The project follows semantic
 versioning for the command contract and versioned JSON schemas for stored
 records.
 
+## 0.2.0 - 2026-11-10
+
+- Add `anarres demo` for a complete first run without a repository checkout or
+  domain runtime.
+- Group human-readable qualification, measurement, and validation output by
+  action while preserving the existing JSON contract.
+- Make the first-run workflow repeatable when its generated record is unchanged.
+
 ## 0.1.0
 
 - Add `qualify`, `measure`, `design`, and `validate` commands.
