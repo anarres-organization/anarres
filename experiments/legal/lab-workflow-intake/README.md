@@ -17,7 +17,8 @@ anarres qualify /path/to/harvey-labs
 `inspect` reports source qualification as available and policy probing as
 unavailable. Qualification validates the complete task and matter-document
 inventory without reading model responses, judge verdicts, or training
-outcomes. A portable LAB policy runner is not part of this release.
+outcomes. The adapter can qualify a portable execution contract, but it does
+not execute the LAB harness or advertise policy probing.
 
 The explicit inventory export remains available when task-level rows are
 needed:
@@ -33,6 +34,20 @@ The command emits a compact summary and one JSONL row per task. Its content addr
 
 The intake is model agnostic. Model and checkpoint identity enter with the run artifacts, not the target representation. The output is not an environment profile and contains no policy measurement, judge verdict, or downstream outcome. It cannot support a training-utility claim by itself.
 
+Before execution, package the starting-policy and judge runtimes in a separate
+versioned record:
+
+```bash
+anarres legal lab-contract \
+  --input /path/to/contract-draft.json \
+  --output /path/to/lab-execution-contract.json
+```
+
+The [execution-contract guide](EXECUTION_CONTRACT.md) defines the required
+model, checkpoint, harness, tools, compaction, judge, scoring, accounting,
+validity, and protected-outcome fields. The command content-addresses the
+record and rejects credentials. It does not launch either runtime.
+
 Native LAB runs can then be audited without assuming a provider-specific model name:
 
 ```bash
@@ -40,10 +55,17 @@ anarres legal lab-runs \
   --repository /path/to/anarres \
   --results-root /path/to/harvey-labs/results \
   --run-manifest /path/to/run-manifest.json \
+  --execution-contract /path/to/lab-execution-contract.json \
   --output-dir /path/to/run-audit
 ```
 
-The optional manifest binds each native run ID to policy, intervention, checkpoint, seed, and role. The audit reports criterion pass, all-pass, practice-area support, document coverage, tool behavior, latency, and tokens. Missing metrics, incomplete runs, and missing judge scores remain infrastructure-invalid records and never become legal failures.
+The optional manifest binds each native run ID to policy, intervention,
+checkpoint, seed, and role. When an execution contract is supplied, the
+manifest also records the contract, model revision, checkpoint ID, and
+checkpoint revision. The audit checks the agent configuration, compaction,
+runtime identity, and judges before accepting a score. Missing metrics,
+incomplete runs, judge mismatches, and other infrastructure failures never
+become legal failures.
 
 ## Frontier legal experiment
 
