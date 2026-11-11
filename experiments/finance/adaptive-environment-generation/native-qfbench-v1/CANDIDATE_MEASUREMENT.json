@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "round": 2,
+  "rubric": "PROTOCOL.json candidate_measurement.feature_rules",
+  "candidate_scope_tags": [
+    "python",
+    "numpy",
+    "credit-risk",
+    "var",
+    "cvar",
+    "monte-carlo",
+    "stationary-bootstrap",
+    "dcc-garch",
+    "transition-matrix",
+    "cross-file-consistency"
+  ],
+  "target_metadata_tags": [
+    "python",
+    "numpy",
+    "pandas",
+    "scipy",
+    "credit-risk",
+    "var",
+    "cvar",
+    "monte-carlo",
+    "gaussian-copula",
+    "t-copula",
+    "default-correlation",
+    "marginal-risk",
+    "concentration-risk",
+    "wrong-way-risk",
+    "creditmetrics"
+  ],
+  "shared_scope_tag_count": 6,
+  "target_alignment": {
+    "definition": "Jaccard overlap between declared candidate scope tags and target task metadata tags",
+    "numerator": 6,
+    "denominator": 19,
+    "value": 0.3157894737
+  },
+  "domain_specific_selection": {
+    "definition": "fraction of target workflow tags covered by declared candidate scope",
+    "numerator": 6,
+    "denominator": 15,
+    "value": 0.4
+  },
+  "common_candidate_features": {
+    "quality_control": 1.0,
+    "retention_control": 1.0,
+    "verifier_alignment": 0.5,
+    "policy_relative_selection": 1.0,
+    "source_diversity": 1.0,
+    "human_labeled_fraction": 0.0,
+    "transcript_refinement": 1.0,
+    "qa_refinement": 1.0,
+    "feedback_locality": 1.0,
+    "curriculum_progression": 0.0
+  },
+  "efficient_rollout": {
+    "procedure": {
+      "bytes": 3736,
+      "maximum_bytes": 12000,
+      "value": 0.6886666667
+    },
+    "executable": {
+      "bytes": 3959,
+      "maximum_bytes": 24000,
+      "value": 0.8350416667
+    },
+    "combined": {
+      "bytes": 4722,
+      "maximum_bytes": 36000,
+      "value": 0.8688333333
+    }
+  },
+  "baseline_interpretation": "The no-update baseline contains no candidate resource. It receives efficient_rollout=1 and zero for candidate-evidence coordinates.",
+  "target_and_protected_outcomes_opened": false
+}
