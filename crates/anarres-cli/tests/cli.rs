@@ -15,6 +15,10 @@ fn fixture() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../../examples/environment-processing/probe.json")
 }
 
+fn probe_run_fixture() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR")).join("../../examples/environment-processing/probe-run")
+}
+
 fn profile_fixture(name: &str) -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../../examples/environment-profiles")
@@ -52,7 +56,7 @@ fn top_level_help_points_to_builtins_and_adapters() {
     assert!(output.status.success());
     let stdout = String::from_utf8(output.stdout).expect("stdout is UTF-8");
     assert!(stdout.contains("anarres demo"));
-    assert!(stdout.contains("anarres qualify <measurements.json>"));
+    assert!(stdout.contains("anarres qualify <probe-run>"));
     assert!(stdout.contains("anarres adapter list"));
     assert!(stdout.contains("anarres <adapter> --help"));
     assert!(stdout.contains("portable environment records"));
@@ -267,6 +271,96 @@ fn qualify_has_stable_json_output() {
     assert_eq!(report["environment_id"], "math-reference-demo-v1");
     assert_eq!(report["status_counts"]["admitted"], 2);
     assert_eq!(report["status_counts"]["repair"], 1);
+}
+
+#[test]
+fn raw_attempt_directory_qualifies_measures_and_validates() {
+    let directory = temporary_directory();
+    let manifest = directory.join("raw-environment.json");
+    let probe_run = probe_run_fixture();
+
+    let qualified = run(&["qualify", probe_run.to_str().unwrap(), "--json"]);
+    assert!(
+        qualified.status.success(),
+        "{}",
+        String::from_utf8_lossy(&qualified.stderr)
+    );
+    let report: Value = serde_json::from_slice(&qualified.stdout).expect("stdout is JSON");
+    assert_eq!(report["attempt_count"], 20);
+    assert_eq!(report["status_counts"]["admitted"], 2);
+    assert_eq!(report["status_counts"]["repair"], 1);
+
+    let measured = run(&[
+        "measure",
+        probe_run.to_str().unwrap(),
+        "--output",
+        manifest.to_str().unwrap(),
+    ]);
+    assert!(
+        measured.status.success(),
+        "{}",
+        String::from_utf8_lossy(&measured.stderr)
+    );
+    let record: Value = serde_json::from_slice(&fs::read(&manifest).expect("manifest is written"))
+        .expect("manifest is JSON");
+    assert_eq!(record["coordinates"]["generated_action_tokens"], 4_200);
+    let mass = record["coordinates"]["total_admitted_advantage_mass"]
+        .as_f64()
+        .expect("mass is numeric");
+    assert!((mass - 14.0 / 3.0).abs() < 1e-12);
+
+    let validated = run(&[
+        "validate",
+        probe_run.to_str().unwrap(),
+        manifest.to_str().unwrap(),
+        "--json",
+    ]);
+    assert!(validated.status.success());
+    let validation: Value = serde_json::from_slice(&validated.stdout).expect("stdout is JSON");
+    assert_eq!(validation["valid"], true);
+    assert_eq!(validation["records"][0]["record_type"], "probe run");
+
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
+}
+
+#[test]
+fn raw_attempt_digest_is_independent_of_completion_order() {
+    let directory = temporary_directory();
+    let ordered = directory.join("ordered");
+    let reversed = directory.join("reversed");
+    fs::create_dir_all(&ordered).expect("ordered directory is created");
+    fs::create_dir_all(&reversed).expect("reversed directory is created");
+    let fixture = probe_run_fixture();
+    let metadata = fs::read(fixture.join("probe.json")).expect("metadata is read");
+    fs::write(ordered.join("probe.json"), &metadata).expect("ordered metadata is written");
+    fs::write(reversed.join("probe.json"), metadata).expect("reversed metadata is written");
+    let attempts = fs::read_to_string(fixture.join("attempts.jsonl")).expect("attempts are read");
+    fs::write(ordered.join("attempts.jsonl"), &attempts).expect("attempts are written");
+    let reversed_attempts = attempts.lines().rev().collect::<Vec<_>>().join("\n") + "\n";
+    fs::write(reversed.join("attempts.jsonl"), reversed_attempts)
+        .expect("reversed attempts are written");
+
+    let ordered_record = directory.join("ordered.json");
+    let reversed_record = directory.join("reversed.json");
+    for (probe_run, record) in [(&ordered, &ordered_record), (&reversed, &reversed_record)] {
+        let measured = run(&[
+            "measure",
+            probe_run.to_str().unwrap(),
+            "--output",
+            record.to_str().unwrap(),
+        ]);
+        assert!(
+            measured.status.success(),
+            "{}",
+            String::from_utf8_lossy(&measured.stderr)
+        );
+    }
+    assert_eq!(
+        fs::read(ordered_record).expect("ordered record is read"),
+        fs::read(reversed_record).expect("reversed record is read")
+    );
+
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
 }
 
 #[test]

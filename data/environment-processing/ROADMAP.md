@@ -17,6 +17,7 @@ The repository already provides a small end-to-end reference path:
 - [x] usable signal density ρ and normalized effective coverage H
 - [x] content-addressed environment manifests
 - [x] versioned JSON Schemas and a CPU-only golden-path example
+- [x] streaming raw-attempt ingestion and native leave-one-out aggregation
 
 This baseline fixes the scientific interface. The remaining work expands source coverage, reliability measurement, candidate construction, and prospective validation without weakening those invariants.
 

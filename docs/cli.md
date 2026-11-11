@@ -109,12 +109,31 @@ starting policy or system. A candidate may contain prompts, executable tasks,
 proof obligations, robot episodes, legal matters, molecular structures,
 materials configurations, or another domain-defined unit.
 
-Use the built-in policy-probe contract when you can provide:
+The complete path from a native environment has two stages. A domain adapter
+first validates the environment and runs the starting policy. The native Rust
+core then streams and aggregates the resulting attempts:
+
+```bash
+anarres <adapter> qualify <environment>
+anarres <adapter> probe <environment> \
+  --policy <policy> \
+  --output .anarres/probes/candidate-a
+anarres qualify .anarres/probes/candidate-a
+anarres measure .anarres/probes/candidate-a \
+  --output .anarres/environments/candidate-a.json
+```
+
+The adapter commands are available only when that runtime has a maintained raw
+environment integration. `anarres adapter doctor <name>` reports the installed
+adapter and its declared capabilities. Evidence-only adapters do not become
+environment runners automatically.
+
+Use the built-in probe-run contract when an environment runtime can provide:
 
 1. stable candidate, task, and starting-policy identifiers
 2. a fixed sampling and measurement contract
 3. repeated attempts grouped by task
-4. outcomes, generated cost, and the signal admitted by training
+4. one outcome, generated cost, and loss-admission decision per attempt
 5. oracle, no-op, and infrastructure-validity results
 
 Use a domain adapter when the study requires different native measurements.
@@ -123,9 +142,12 @@ and failure states inside a portable profile rather than converting every
 domain to one universal score. Candidate records can be compared only when the
 starting subject and measurement contract match.
 
-Start with `anarres qualify --help` for the built-in contract, or run
-`anarres adapter list` to discover installed domain workflows. Reference inputs
-live in `examples/environment-processing/` and `examples/environment-profiles/`.
+The runtime writes `probe.json` plus streaming `attempts.jsonl`. The native CLI
+checks exact group membership and derives the declared leave-one-out admitted
+advantage mass. Producers therefore do not need to reproduce Anarres's
+aggregation code. Start with `anarres adapter list` to discover installed
+domain workflows. Reference inputs live in `examples/environment-processing/`
+and `examples/environment-profiles/`.
 
 ## Run the core commands directly
 
@@ -201,8 +223,8 @@ when its study defines and validates that decision rule.
 
 | Command | Purpose | Accepted records |
 | --- | --- | --- |
-| `qualify` | Check whether measured evidence is ready for comparison | Policy-probe input or profile input |
-| `measure` | Normalize evidence into a content-addressed record | Policy-probe input or profile input |
+| `qualify` | Check whether measured evidence is ready for comparison | Probe-run directory, policy-probe input, or profile input |
+| `measure` | Normalize evidence into a content-addressed record | Probe-run directory, policy-probe input, or profile input |
 | `design` | Compare candidates and audit panel compatibility | Two or more manifests or profiles of one type |
 | `validate` | Check structure, semantics, and content integrity | Any supported input or measured record |
 | `adapter` | Discover, inspect, and run installed domain adapters | Local adapter executables and descriptors |
@@ -234,6 +256,13 @@ without a shell. The adapter validates the protocol and identity before opening
 study artifacts. Built-in commands always take precedence over adapter names.
 Descriptor queries must finish in five seconds and stay below 256 KiB of output,
 preventing a faulty adapter from blocking installation audits.
+
+An adapter that accepts native environments should expose `qualify` and
+`probe`. `qualify` validates the native task, verifier, and runtime contract.
+`probe` executes repeated attempts under a pinned starting policy and writes the
+versioned probe-run directory consumed by the Rust core. These capabilities are
+tested separately from evidence-reproduction commands such as `status` or
+`results`.
 
 The CLI does not download adapters, search a repository checkout, or import an
 adapter's libraries. The [adapter installation guide](adapters.md) gives the

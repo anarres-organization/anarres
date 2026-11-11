@@ -13,6 +13,7 @@ use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 
 mod adapter;
+mod probe_bundle;
 mod profile;
 mod ui;
 
@@ -38,8 +39,8 @@ static NEXT_TEMPORARY_FILE: AtomicU64 = AtomicU64::new(0);
         Installed adapters run under their own documented contracts.",
     after_help = "Start here:\n  \
         anarres demo\n  \
-        anarres qualify <measurements.json>\n  \
-        anarres measure <measurements.json> --output <environment.json>\n  \
+        anarres qualify <probe-run>\n  \
+        anarres measure <probe-run> --output <environment.json>\n  \
         anarres adapter list\n  \
         anarres <adapter> --help\n\n\
         Use built-in commands for portable environment records. Use an installed adapter to inspect or reproduce a domain study.",
@@ -155,7 +156,7 @@ struct AdapterRunArgs {
 
 #[derive(Debug, Args)]
 struct InputArgs {
-    /// Policy-probe or environment-profile input to qualify.
+    /// Probe-run directory, policy-probe JSON, or environment-profile input.
     input: PathBuf,
     /// Print a machine-readable report.
     #[arg(long)]
@@ -164,7 +165,7 @@ struct InputArgs {
 
 #[derive(Debug, Args)]
 struct MeasureArgs {
-    /// Policy-probe or environment-profile input to measure.
+    /// Probe-run directory, policy-probe JSON, or environment-profile input.
     input: PathBuf,
     /// Destination for the content-addressed environment record.
     #[arg(short, long)]
@@ -274,6 +275,12 @@ struct QualificationReport {
     status_counts: BTreeMap<String, u64>,
     groups: Vec<ProcessedGroup>,
     input_digest: String,
+}
+
+struct LoadedProbe {
+    probe: ProbeInput,
+    digest_input: Value,
+    attempt_count: Option<u64>,
 }
 
 #[derive(Debug, Serialize)]
@@ -499,6 +506,23 @@ fn alternative_demo_path(output: &Path) -> PathBuf {
 }
 
 fn command_qualify(args: InputArgs) -> Result<i32, String> {
+    if probe_bundle::is_bundle(&args.input) {
+        let loaded = load_probe(&args.input)?;
+        let report = qualify_probe(&loaded.probe, &loaded.digest_input)?;
+        if args.json {
+            print_json(&json!({
+                "environment_id": report.environment_id,
+                "policy_id": report.policy_id,
+                "status_counts": report.status_counts,
+                "groups": report.groups,
+                "input_digest": report.input_digest,
+                "attempt_count": loaded.attempt_count,
+            }))?;
+        } else {
+            print_probe_qualification(&report, loaded.attempt_count);
+        }
+        return Ok(0);
+    }
     let raw = read_json(&args.input)?;
     match record_schema(&raw) {
         Some(PROFILE_INPUT_SCHEMA) => {
@@ -539,13 +563,7 @@ fn command_qualify(args: InputArgs) -> Result<i32, String> {
                     "input_digest": report.input_digest,
                 }))?;
             } else {
-                ui::success("Qualified", &report.environment_id);
-                ui::field("Policy", &report.policy_id);
-                ui::field("Admitted", count(&report.status_counts, "admitted"));
-                ui::field("Reserve", count(&report.status_counts, "reserve"));
-                ui::field("Repair", count(&report.status_counts, "repair"));
-                ui::field("Quarantine", count(&report.status_counts, "quarantine"));
-                print_group_exceptions(&report.groups);
+                print_probe_qualification(&report, None);
             }
         }
     }
@@ -553,6 +571,18 @@ fn command_qualify(args: InputArgs) -> Result<i32, String> {
 }
 
 fn command_measure(args: MeasureArgs) -> Result<i32, String> {
+    if probe_bundle::is_bundle(&args.input) {
+        let loaded = load_probe(&args.input)?;
+        let manifest = build_manifest(&loaded.probe, &loaded.digest_input)?;
+        let output = serde_json::to_vec_pretty(&manifest).map_err(|error| error.to_string())?;
+        write_atomic(&args.output, &output, args.force)?;
+        if args.json {
+            print_json(&manifest)?;
+        } else {
+            print_manifest_measurement(&manifest, &args.output, loaded.attempt_count);
+        }
+        return Ok(0);
+    }
     let raw = read_json(&args.input)?;
     match record_schema(&raw) {
         Some(PROFILE_INPUT_SCHEMA) => {
@@ -575,29 +605,7 @@ fn command_measure(args: MeasureArgs) -> Result<i32, String> {
             if args.json {
                 print_json(&manifest)?;
             } else {
-                ui::success("Measured", &manifest.environment_id);
-                ui::field("Policy", &manifest.policy_id);
-                ui::field(
-                    "Signal density",
-                    format_args!(
-                        "{:.4} advantage mass / million generated tokens",
-                        manifest.coordinates.rho_per_million_tokens
-                    ),
-                );
-                ui::field(
-                    "Effective coverage",
-                    format_args!("{:.4} (0 to 1)", manifest.coordinates.effective_coverage),
-                );
-                ui::field(
-                    "Evidence",
-                    format_args!(
-                        "{} eligible task groups, {} generated tokens",
-                        manifest.coordinates.prompt_count,
-                        format_integer(manifest.coordinates.generated_action_tokens)
-                    ),
-                );
-                ui::field("Record", args.output.display());
-                ui::muted(format_args!("Digest  {}", manifest.manifest_digest));
+                print_manifest_measurement(&manifest, &args.output, None);
             }
         }
     }
@@ -729,6 +737,25 @@ pub(crate) fn read_json(path: &Path) -> Result<Value, String> {
         .map_err(|error| format!("{} is not valid JSON: {error}", path.display()))
 }
 
+fn load_probe(path: &Path) -> Result<LoadedProbe, String> {
+    if probe_bundle::is_bundle(path) {
+        let loaded = probe_bundle::load(path)?;
+        validate_probe(&loaded.probe)?;
+        return Ok(LoadedProbe {
+            probe: loaded.probe,
+            digest_input: loaded.digest_input,
+            attempt_count: Some(loaded.attempt_count),
+        });
+    }
+    let raw = read_json(path)?;
+    let probe = parse_probe(&raw)?;
+    Ok(LoadedProbe {
+        probe,
+        digest_input: raw,
+        attempt_count: None,
+    })
+}
+
 fn parse_probe(raw: &Value) -> Result<ProbeInput, String> {
     let probe: ProbeInput = serde_json::from_value(raw.clone())
         .map_err(|error| format!("invalid probe input: {error}"))?;
@@ -761,9 +788,9 @@ fn validate_probe(probe: &ProbeInput) -> Result<(), String> {
         if !task_ids.insert(&group.task_id) {
             return Err(format!("duplicate task_id: {}", group.task_id));
         }
-        if group.generated_action_tokens == 0 {
+        if group.generated_action_tokens == 0 && group.infrastructure_valid {
             return Err(format!(
-                "group {} must have positive generated_action_tokens",
+                "infrastructure-valid group {} must have positive generated_action_tokens",
                 group.task_id
             ));
         }
@@ -775,6 +802,16 @@ fn validate_probe(probe: &ProbeInput) -> Result<(), String> {
         }
         if group.rewards.iter().any(|reward| !reward.is_finite()) {
             return Err(format!("group {} has a non-finite reward", group.task_id));
+        }
+        if group.infrastructure_valid
+            && group.rewards.len() as u64 != probe.probe_contract.group_size
+        {
+            return Err(format!(
+                "group {} has {} rewards; expected group_size {}",
+                group.task_id,
+                group.rewards.len(),
+                probe.probe_contract.group_size
+            ));
         }
     }
     Ok(())
@@ -1040,6 +1077,22 @@ fn design_report(paths: &[PathBuf]) -> Result<DesignReport, String> {
 
 fn validate_record(path: &Path) -> ValidationResult {
     let path_text = path.display().to_string();
+    if probe_bundle::is_bundle(path) {
+        return match load_probe(path) {
+            Ok(_) => ValidationResult {
+                path: path_text,
+                record_type: "probe run".into(),
+                valid: true,
+                error: None,
+            },
+            Err(error) => ValidationResult {
+                path: path_text,
+                record_type: "probe run".into(),
+                valid: false,
+                error: Some(error),
+            },
+        };
+    }
     let raw = match read_json(path) {
         Ok(raw) => raw,
         Err(error) => {
@@ -1181,6 +1234,52 @@ fn print_group_exceptions(groups: &[ProcessedGroup]) {
     }
 }
 
+fn print_probe_qualification(report: &QualificationReport, attempt_count: Option<u64>) {
+    ui::success("Qualified", &report.environment_id);
+    ui::field("Policy", &report.policy_id);
+    ui::field("Admitted", count(&report.status_counts, "admitted"));
+    ui::field("Reserve", count(&report.status_counts, "reserve"));
+    ui::field("Repair", count(&report.status_counts, "repair"));
+    ui::field("Quarantine", count(&report.status_counts, "quarantine"));
+    if let Some(attempt_count) = attempt_count {
+        ui::field("Attempts", attempt_count);
+    }
+    print_group_exceptions(&report.groups);
+}
+
+fn print_manifest_measurement(
+    manifest: &EnvironmentManifest,
+    output: &Path,
+    attempt_count: Option<u64>,
+) {
+    ui::success("Measured", &manifest.environment_id);
+    ui::field("Policy", &manifest.policy_id);
+    ui::field(
+        "Signal density",
+        format_args!(
+            "{:.4} advantage mass / million generated tokens",
+            manifest.coordinates.rho_per_million_tokens
+        ),
+    );
+    ui::field(
+        "Effective coverage",
+        format_args!("{:.4} (0 to 1)", manifest.coordinates.effective_coverage),
+    );
+    ui::field(
+        "Evidence",
+        format_args!(
+            "{} eligible task groups, {} generated tokens",
+            manifest.coordinates.prompt_count,
+            format_integer(manifest.coordinates.generated_action_tokens)
+        ),
+    );
+    if let Some(attempt_count) = attempt_count {
+        ui::field("Attempts", attempt_count);
+    }
+    ui::field("Record", output.display());
+    ui::muted(format_args!("Digest  {}", manifest.manifest_digest));
+}
+
 fn format_integer(value: u64) -> String {
     let digits = value.to_string();
     let mut formatted = String::with_capacity(digits.len() + digits.len() / 3);
@@ -1270,5 +1369,22 @@ mod tests {
         raw["groups"].as_array_mut().unwrap().push(duplicate);
         let error = parse_probe(&raw).expect_err("duplicates must fail");
         assert!(error.contains("duplicate task_id"));
+    }
+
+    #[test]
+    fn raw_attempt_bundle_derives_signal_in_rust() {
+        let path = Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../examples/environment-processing/probe-run");
+        let loaded = load_probe(&path).expect("probe-run bundle loads");
+        let manifest = build_manifest(&loaded.probe, &loaded.digest_input)
+            .expect("raw attempts produce a manifest");
+        assert_eq!(loaded.attempt_count, Some(20));
+        assert_eq!(manifest.status_counts.get("admitted"), Some(&2));
+        assert_eq!(manifest.status_counts.get("reserve"), Some(&1));
+        assert_eq!(manifest.status_counts.get("repair"), Some(&1));
+        assert_eq!(manifest.status_counts.get("quarantine"), Some(&1));
+        assert_eq!(manifest.coordinates.generated_action_tokens, 4_200);
+        assert!((manifest.coordinates.total_admitted_advantage_mass - 14.0 / 3.0).abs() < 1e-9);
+        assert!((manifest.coordinates.rho_per_million_tokens - 1_111.111_111).abs() < 1e-6);
     }
 }

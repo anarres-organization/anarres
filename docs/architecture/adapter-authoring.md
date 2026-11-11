@@ -26,6 +26,28 @@ The adapter owns:
 The native CLI independently validates the resulting record. It owns neither
 the domain formula nor the scientific interpretation.
 
+## Raw environment capability
+
+Adapters may also implement an environment-facing pair of commands:
+
+```bash
+anarres <name> qualify <environment>
+anarres <name> probe <environment> --policy <policy> --output <probe-run>
+```
+
+`qualify` opens the native source and validates its fixtures, verifier, runtime,
+stable identities, and provenance. `probe` executes the pinned starting policy
+and emits `anarres.probe-run.v1` metadata plus one
+`anarres.probe-attempt.v1` JSONL row per attempt. The Rust core derives the
+declared estimator and writes the portable environment record. The adapter must
+not preclassify an infrastructure failure as reward zero or omit incomplete
+attempts.
+
+An adapter descriptor declares `source-qualification`, `policy-probe`, and
+`probe-run-v1` only after both commands pass conformance tests on a real native
+environment. Evidence readers and retrospective study reproducers should not
+declare these capabilities.
+
 ## Executable contract
 
 A maintained command-line adapter installs an executable named
@@ -158,6 +180,9 @@ An adapter test should also verify:
 8. runtime-handshake rejection for the wrong protocol or adapter identity
 9. installation and execution outside a repository checkout
 10. deterministic structured output and nonzero error propagation
+11. exact task and sample identity in emitted probe runs
+12. preservation of missing rewards and infrastructure-invalid attempts
+13. byte-stable probe metadata and attempt ordering for a fixed execution
 
 ## Promotion policy
 

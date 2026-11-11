@@ -5,6 +5,12 @@ a model or launching a sandbox. `probe.json` and `probe-alternative.json`
 represent two candidates measured under the same synthetic starting policy and
 probe contract.
 
+`probe-run/` shows the interchange produced by an environment runtime. Its
+`attempts.jsonl` contains one row per raw policy attempt. The Rust CLI streams
+those rows, validates exact group membership, and derives unnormalized
+leave-one-out admitted advantage mass rather than asking the producer to
+precompute it.
+
 The fixture contains:
 
 - Two scientifically valid mixed groups
@@ -26,6 +32,16 @@ anarres measure examples/environment-processing/probe-alternative.json \
 anarres design \
   .anarres/example/environment.json \
   .anarres/example/environment-alternative.json
+```
+
+The raw-attempt path uses the same commands with a directory input:
+
+```bash
+anarres qualify examples/environment-processing/probe-run
+anarres measure examples/environment-processing/probe-run \
+  --output .anarres/example/raw-attempt-environment.json
+anarres validate examples/environment-processing/probe-run \
+  .anarres/example/raw-attempt-environment.json
 ```
 
 The fixture is synthetic. It tests contract behavior and does not support a scientific claim. The

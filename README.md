@@ -103,11 +103,21 @@ you intend to train. An environment can be a prompt distribution, proof-task
 set, robot-episode dataset, collection of legal matters, molecular or material
 structures, or another domain-defined source of training experience.
 
-The built-in workflow accepts grouped attempts with:
+Environment adapters qualify native sources and run the starting policy. They
+can emit a probe-run directory that the Rust core measures without custom
+aggregation code:
+
+```bash
+anarres <adapter> qualify <environment>
+anarres <adapter> probe <environment> --policy <policy> --output .anarres/probes/candidate-a
+anarres measure .anarres/probes/candidate-a --output .anarres/environments/candidate-a.json
+```
+
+The built-in workflow accepts raw attempt streams or grouped measurements with:
 
 - stable task and candidate identifiers
 - the starting policy and measurement contract
-- repeated outcomes, generated cost, and admitted signal
+- repeated outcomes, generated cost, and per-attempt loss admission
 - oracle, no-op, and infrastructure-validity checks
 
 If a domain uses different measurements, its adapter emits the same portable
@@ -121,7 +131,7 @@ portable records and do not require a domain runtime:
 
 | What you want to do | Start with | What it returns |
 | --- | --- | --- |
-| Find invalid, unusable, or comparison-ready measurements | `anarres qualify <input>` | Status counts and the records that require action |
+| Find invalid, unusable, or comparison-ready measurements | `anarres qualify <probe-run>` | Status counts and the records that require action |
 | Create a portable environment record | `anarres measure <input> --output <record>` | Coordinates, provenance, costs, and a content digest |
 | Compare a candidate panel | `anarres design <record-a> <record-b>` | Compatibility checks and candidate coordinate ranges |
 | Check a record before using it | `anarres validate <record>` | Structural, semantic, and integrity results |

@@ -30,6 +30,14 @@ def main() -> int:
     probe_schema = load(ROOT / "schemas/environments/probe-input.v1.schema.json")
     Draft202012Validator(probe_schema, registry=registry).validate(probe)
 
+    probe_run = load(ROOT / "examples/environment-processing/probe-run/probe.json")
+    probe_run_schema = load(ROOT / "schemas/environments/probe-run.v1.schema.json")
+    Draft202012Validator(probe_run_schema, registry=registry).validate(probe_run)
+    attempt_schema = load(ROOT / "schemas/environments/probe-attempt.v1.schema.json")
+    attempts_path = ROOT / "examples/environment-processing/probe-run/attempts.jsonl"
+    for line in attempts_path.read_text(encoding="utf-8").splitlines():
+        Draft202012Validator(attempt_schema, registry=registry).validate(json.loads(line))
+
     manifest = build_manifest(probe)
     manifest_schema = load(ROOT / "schemas/environments/environment-manifest.v1.schema.json")
     Draft202012Validator(manifest_schema, registry=registry).validate(manifest)
@@ -67,7 +75,7 @@ def main() -> int:
     Draft202012Validator(adapter_schema, registry=registry).validate(adapter_descriptor)
 
     print(
-        f"validated {len(schema_paths)} schemas, the environment-processing fixture, "
+        f"validated {len(schema_paths)} schemas, the environment-processing fixtures, "
         f"{len(profile_inputs)} cross-domain profile fixtures, and the adapter descriptor"
     )
     return 0
