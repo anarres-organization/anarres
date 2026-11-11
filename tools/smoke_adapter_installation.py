@@ -112,6 +112,7 @@ def main() -> int:
 
         contracts: dict[str, list[str]] = {}
         statuses: dict[str, str] = {}
+        source_formats: dict[str, list[str]] = {}
         for adapter in ADAPTERS:
             report = json.loads(
                 command(
@@ -127,6 +128,7 @@ def main() -> int:
             if not report["valid"]:
                 raise SystemExit(f"adapter {adapter} failed protocol validation")
             contracts[adapter] = report["descriptor"]["measurement_contracts"]
+            source_formats[adapter] = report["descriptor"].get("source_formats", [])
             executable = scripts / f"anarres-{adapter}{'.exe' if os.name == 'nt' else ''}"
             command(str(executable), "--help", cwd=root, env=installed_environment)
             status = json.loads(
@@ -142,6 +144,103 @@ def main() -> int:
                 )
             )
             statuses[adapter] = status.get("status", "reported")
+
+        profile_root = root / "profiles"
+        record_root = root / "records"
+        profile_count = 0
+        record_count = 0
+        records_by_adapter: dict[str, list[Path]] = {}
+        for adapter in ADAPTERS:
+            output_directory = profile_root / adapter
+            command(
+                str(binary),
+                adapter,
+                "profile",
+                "--repository",
+                str(ROOT),
+                "--output-dir",
+                str(output_directory),
+                "--json",
+                cwd=root,
+                env=installed_environment,
+            )
+            profiles = sorted(output_directory.glob("*.profile-input.json"))
+            if not profiles:
+                raise SystemExit(f"adapter {adapter} exported no profile inputs")
+            records_by_adapter[adapter] = []
+            for profile in profiles:
+                profile_count += 1
+                command(
+                    str(binary),
+                    "qualify",
+                    str(profile),
+                    "--json",
+                    cwd=root,
+                    env=installed_environment,
+                )
+                record = (
+                    record_root
+                    / adapter
+                    / profile.name.replace(".profile-input.json", ".profile.json")
+                )
+                record.parent.mkdir(parents=True, exist_ok=True)
+                command(
+                    str(binary),
+                    "measure",
+                    str(profile),
+                    "--output",
+                    str(record),
+                    "--json",
+                    cwd=root,
+                    env=installed_environment,
+                )
+                command(
+                    str(binary),
+                    "validate",
+                    str(profile),
+                    str(record),
+                    "--json",
+                    cwd=root,
+                    env=installed_environment,
+                )
+                records_by_adapter[adapter].append(record)
+                record_count += 1
+
+        compatible_panels = []
+        for adapter in ("legal", "materials", "molecular", "robotics"):
+            records = records_by_adapter[adapter]
+            if len(records) < 2:
+                raise SystemExit(f"adapter {adapter} did not export a candidate panel")
+            command(
+                str(binary),
+                "design",
+                str(records[0]),
+                str(records[1]),
+                "--json",
+                cwd=root,
+                env=installed_environment,
+            )
+            compatible_panels.append(adapter)
+
+        formal_records = records_by_adapter["formal"]
+        formal_design = subprocess.run(
+            [
+                str(binary),
+                "design",
+                str(formal_records[0]),
+                str(formal_records[1]),
+                "--json",
+            ],
+            cwd=root,
+            env=installed_environment,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if formal_design.returncode != 1:
+            raise SystemExit(
+                "formal profiles with distinct contracts were not rejected as incompatible"
+            )
 
         for wheel in wheels.glob("*.whl"):
             with zipfile.ZipFile(wheel) as archive:
@@ -203,8 +302,15 @@ def main() -> int:
                 {
                     "adapters": list(discovered),
                     "contracts": contracts,
+                    "source_formats": source_formats,
                     "source_installed_adapters": list(source_adapters),
                     "statuses": statuses,
+                    "user_flow": {
+                        "compatible_panels": compatible_panels,
+                        "formal_incompatibility_rejected": True,
+                        "profile_inputs": profile_count,
+                        "records": record_count,
+                    },
                     "wheels": len(list(wheels.glob("*.whl"))),
                 },
                 sort_keys=True,

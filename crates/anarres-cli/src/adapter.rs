@@ -462,6 +462,32 @@ fn validate_descriptor(
         &descriptor.source_formats,
         false,
     )?;
+    let qualifies_sources = descriptor
+        .capabilities
+        .iter()
+        .any(|capability| capability == "source-qualification");
+    let probes_sources = descriptor
+        .capabilities
+        .iter()
+        .any(|capability| capability == "policy-probe");
+    if descriptor.source_formats.is_empty() && (qualifies_sources || probes_sources) {
+        return Err(format!(
+            "adapter '{}' declares source capabilities without source_formats",
+            adapter.name
+        ));
+    }
+    if !descriptor.source_formats.is_empty() && !qualifies_sources {
+        return Err(format!(
+            "adapter '{}' declares source_formats without source-qualification",
+            adapter.name
+        ));
+    }
+    if probes_sources && !qualifies_sources {
+        return Err(format!(
+            "adapter '{}' declares policy-probe without source-qualification",
+            adapter.name
+        ));
+    }
     Ok(())
 }
 
@@ -650,6 +676,19 @@ mod tests {
             source_formats: Vec::new(),
         };
         assert!(validate_descriptor(&adapter, &valid).is_ok());
+
+        let mut unsupported_source = valid.clone();
+        unsupported_source.capabilities = vec!["policy-probe".into(), "profile".into()];
+        assert!(validate_descriptor(&adapter, &unsupported_source).is_err());
+
+        let mut source_without_qualification = valid.clone();
+        source_without_qualification.source_formats = vec!["openenv".into()];
+        assert!(validate_descriptor(&adapter, &source_without_qualification).is_err());
+
+        let mut source_capable = valid.clone();
+        source_capable.capabilities = vec!["policy-probe".into(), "source-qualification".into()];
+        source_capable.source_formats = vec!["openenv".into()];
+        assert!(validate_descriptor(&adapter, &source_capable).is_ok());
 
         let mut duplicate = valid;
         duplicate.capabilities = vec!["profile".into(), "profile".into()];

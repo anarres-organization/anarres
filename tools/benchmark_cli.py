@@ -133,12 +133,25 @@ def main() -> int:
         ]
 
     with tempfile.TemporaryDirectory(prefix="anarres-benchmark-") as directory:
-        manifest = Path(directory) / "environment.json"
+        temporary = Path(directory)
+        manifest = temporary / "environment.json"
         invoke(
             [str(binary), "measure", str(FIXTURE), "--output", str(manifest)],
             environment,
         )
         scenarios["native.validate"] = [str(binary), "validate", str(manifest), "--json"]
+        for adapter in ADAPTERS:
+            scenarios[f"adapter.profile.{adapter}"] = [
+                str(binary),
+                adapter,
+                "profile",
+                "--repository",
+                str(repository),
+                "--output-dir",
+                str(temporary / "profiles" / adapter),
+                "--force",
+                "--json",
+            ]
         metrics = {
             name: measure(command, environment, arguments.warmups, arguments.samples)
             for name, command in scenarios.items()
