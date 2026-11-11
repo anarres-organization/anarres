@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "timing": "before any v2 model execution",
+  "files": {
+    "README.md": "badd181e1a0e9657048928d24175cff4c72fad847e37a6e62d9d14ee8f58a49e",
+    "SOURCE.json": "3743882d35851679fb0522892044d699bfd71f57d42953a24584a1393542327a",
+    "TASK_SPLIT.json": "914dac67157eba98208e6db55fb61ea5afd20ca415fb945937a4db2c0aafb84a",
+    "PROTOCOL.json": "399a677f151e73834adca6a3de0560c3b3ed922f1af410f516f04165544a1c02",
+    "STAGE_AUTHORIZATION.json": "6e24a2c6f32daf116395b6b975005826428feca7cd2a1788667162bc4850cbbf",
+    "CANDIDATE_MANIFEST.json": "d29bab5ee813e0a0ea119710d1ddc498f0c6d8ae8d540ceef110a07f40d55cc2",
+    "candidates/refined/SKILL.md": "d20488fd5063218286fc647f518d68f2f33a63f71c4407d161a25cfe608765ca",
+    "run_task.py": "e27d6881eecd8b3d47af031d41cac105e8603856ba71d95ce91d81db0d84b644",
+    "test_protocol.py": "e7cb38cb11ee25a558501a9a956e457ea87c9b19271224aa5ce57a2278e65f9f"
+  },
+  "predecessor_decision": {
+    "path": "../native-qfbench-v1/CANDIDATE_DECISION.json",
+    "sha256": "5626d4484d568dae24b3a75fd494ff804a8707aa3319873ea1464ebb2d4b0c84"
+  }
+}
