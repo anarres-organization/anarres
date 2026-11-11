@@ -99,7 +99,7 @@ requires-dist = [
 
 [[package]]
 name = "anarres-materials"
-version = "0.6.0"
+version = "0.7.0"
 source = { editable = "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter" }
 dependencies = [
     { name = "anarres-core" },

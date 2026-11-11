@@ -8,6 +8,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
@@ -39,6 +40,7 @@ EXPECTED_PROFILE_DIGESTS = {
         "sha256:a59cdd4c409071da6ab9073a37c2d0f4fd324501e226cd2050e89d3e850a341c",
     ),
 }
+NATIVE_FIXTURE = STUDY / "adapter/fixtures/omat24-qualification-slice-v1"
 
 
 def file_sha256(path: Path) -> str:
@@ -81,6 +83,47 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
             output_dir=output,
             candidate_ids=CANDIDATES,
         )
+
+    def copy_native_fixture(self, root: Path) -> Path:
+        fixture = root / "native"
+        shutil.copytree(NATIVE_FIXTURE, fixture)
+        return fixture
+
+    def rewrite_native_fixture(
+        self,
+        fixture: Path,
+        *,
+        record_update=None,
+        bank_update=None,
+    ) -> Path:
+        records_path = fixture / "structures.jsonl"
+        records = [json.loads(line) for line in records_path.read_text().splitlines()]
+        if record_update is not None:
+            record_update(records)
+        records_path.write_text(
+            "".join(
+                json.dumps(row, sort_keys=True, separators=(",", ":")) + "\n" for row in records
+            ),
+            encoding="utf-8",
+        )
+        bank_path = fixture / "bank.json"
+        bank = json.loads(bank_path.read_text())
+        bank["records"]["sha256"] = file_sha256(records_path)
+        if bank_update is not None:
+            bank_update(bank)
+        bank_path.write_text(json.dumps(bank, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        manifest = fixture / "anarres.toml"
+        text = manifest.read_text()
+        text = text.replace(
+            next(line for line in text.splitlines() if line.startswith("revision = ")),
+            f'revision = "sha256:{file_sha256(bank_path)}"',
+        )
+        manifest.write_text(text, encoding="utf-8")
+        return manifest
+
+    def qualify_native(self, manifest: Path) -> dict:
+        arguments = type("Args", (), {"manifest": manifest})()
+        return CLI_MODULE.command_qualify_source(arguments)
 
     def test_prospective_boundary_requires_both_named_openings(self) -> None:
         complete = {
@@ -251,12 +294,14 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         descriptor = CLI_MODULE.adapter_descriptor()
         self.assertEqual(descriptor["schema_version"], "anarres.adapter-descriptor.v1")
         self.assertEqual(descriptor["name"], "materials")
+        self.assertEqual(descriptor["version"], "0.7.0")
         self.assertEqual(descriptor["protocol_version"], 2)
         self.assertEqual(
             descriptor["measurement_contracts"],
             ["materials.mlip-phonon-candidate-measurement.v2"],
         )
         self.assertEqual(descriptor["capabilities"], sorted(descriptor["capabilities"]))
+        self.assertEqual(descriptor["source_formats"], ["atomistic-candidate-bank-v1"])
 
         args = type("Args", (), {"repository": ROOT})()
         status = CLI_MODULE.command_status(args)
@@ -281,6 +326,8 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
         self.assertTrue(status["target_regression_features_frozen"])
         self.assertTrue(status["development_modeling_protocol_frozen"])
         self.assertTrue(status["prospective_predictions_frozen"])
+        self.assertEqual(status["native_source_format"], "atomistic-candidate-bank-v1")
+        self.assertFalse(status["policy_probe_available"])
         self.assertEqual(
             status["next_gate"],
             "freeze support-aware abstention and expand development support",
@@ -400,6 +447,7 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
                 [
                     str(ROOT / "packages/core/src"),
                     str(ROOT / "packages/environments/src"),
+                    str(STUDY / "adapter/src"),
                     environment.get("PYTHONPATH", ""),
                 ]
             )
@@ -435,6 +483,149 @@ class MaterialsMlipProfileAdapterTest(unittest.TestCase):
             payload = json.loads(status.stdout)
             self.assertEqual(payload["candidate_count"], 16)
             self.assertTrue(payload["candidate_outcomes_opened"])
+
+    def test_native_omat24_source_qualifies_without_opening_outcomes(self) -> None:
+        first = self.qualify_native(NATIVE_FIXTURE / "anarres.toml")
+        second = self.qualify_native(NATIVE_FIXTURE / "anarres.toml")
+        self.assertEqual(first, second)
+        self.assertEqual(first["status"], "qualified")
+        self.assertEqual(first["records"], 2)
+        self.assertEqual(first["materials"], 2)
+        self.assertEqual(first["atoms"], 8)
+        self.assertEqual(first["neighbor_edges"], 438)
+        self.assertEqual(first["record_status_counts"]["valid"], 2)
+        self.assertEqual(first["claim_bank"]["records"], 80_000)
+        self.assertTrue(first["membership_sha256"].startswith("sha256:"))
+        self.assertTrue(first["content_sha256"].startswith("sha256:"))
+        self.assertFalse(first["policy_probe_available"])
+        self.assertFalse(first["training_started"])
+        self.assertFalse(first["candidate_outcomes_opened"])
+
+        bank = json.loads((NATIVE_FIXTURE / "bank.json").read_text())
+        validation = json.loads((STUDY / "FULL_MEASUREMENT_VALIDATION.json").read_text())
+        contract = json.loads((STUDY / "FINAL_TRAINING_CONTRACT.json").read_text())
+        target_roles = json.loads((STUDY / "TARGET_ROLES.json").read_text())
+        expected_targets = {
+            material_id for members in target_roles["roles"].values() for material_id in members
+        }
+        self.assertEqual(bank["claim_bank"]["manifest_sha256"], validation["manifest_sha256"])
+        self.assertEqual(
+            bank["starting_checkpoint"]["sha256"], contract["starting_checkpoint"]["sha256"]
+        )
+        self.assertEqual(set(bank["exclusions"]["evaluation_material_ids"]), expected_targets)
+        self.assertEqual(
+            bank["claim_bank"]["construction_script_sha256"],
+            file_sha256(STUDY / "build_measurement_pool.py"),
+        )
+
+    def test_native_source_preserves_scientific_zero_and_unstable_statuses(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = self.copy_native_fixture(Path(directory))
+
+            def update(records):
+                records[0]["record_status"] = "scientific_zero"
+                records[0]["energy_ev"] = 0.0
+                records[1]["record_status"] = "unstable"
+
+            report = self.qualify_native(self.rewrite_native_fixture(fixture, record_update=update))
+        self.assertEqual(report["record_status_counts"]["scientific_zero"], 1)
+        self.assertEqual(report["record_status_counts"]["unstable"], 1)
+
+    def test_native_source_rejects_infrastructure_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = self.copy_native_fixture(Path(directory))
+            manifest = self.rewrite_native_fixture(
+                fixture,
+                record_update=lambda rows: rows[0].update(
+                    {"record_status": "infrastructure_failure"}
+                ),
+            )
+            with self.assertRaisesRegex(ValueError, "infrastructure failure"):
+                self.qualify_native(manifest)
+
+    def test_native_source_rejects_structure_identity_and_budget_errors(self) -> None:
+        cases = [
+            (lambda rows: rows[1].update({"record_id": rows[0]["record_id"]}), "duplicate"),
+            (lambda rows: rows[0].pop("stress_ev_per_angstrom3"), "missing fields"),
+            (lambda rows: rows[0].update({"positions_angstrom": [[0.0, 0.0, 0.0]]}), "positions"),
+            (lambda rows: rows[0]["positions_angstrom"][0].__setitem__(0, float("nan")), "finite"),
+            (lambda rows: rows[0].update({"source_family": "unknown-source"}), "source family"),
+            (lambda rows: rows[0].update({"material_id": "mp-6356"}), "overlaps"),
+        ]
+        for update, message in cases:
+            with self.subTest(message=message), tempfile.TemporaryDirectory() as directory:
+                fixture = self.copy_native_fixture(Path(directory))
+                manifest = self.rewrite_native_fixture(fixture, record_update=update)
+                with self.assertRaisesRegex(ValueError, message):
+                    self.qualify_native(manifest)
+
+        bank_cases = [
+            (lambda bank: bank["records"].update({"atoms": 9}), "atom total"),
+            (lambda bank: bank["records"].update({"neighbor_edges": 439}), "neighbor-edge total"),
+        ]
+        for update, message in bank_cases:
+            with self.subTest(message=message), tempfile.TemporaryDirectory() as directory:
+                fixture = self.copy_native_fixture(Path(directory))
+                manifest = self.rewrite_native_fixture(fixture, bank_update=update)
+                with self.assertRaisesRegex(ValueError, message):
+                    self.qualify_native(manifest)
+
+    def test_native_source_rejects_property_unit_checkpoint_and_runtime_mismatch(self) -> None:
+        cases = [
+            (lambda bank: bank["properties"].update({"force_unit": "hartree/bohr"}), "force_unit"),
+            (
+                lambda bank: bank["properties"].update({"required": ["energy", "forces"]}),
+                "required",
+            ),
+            (
+                lambda bank: bank["starting_checkpoint"].update({"sha256": "0" * 64}),
+                "starting checkpoint",
+            ),
+            (
+                lambda bank: bank["measurement_contract"]["calculator"].update(
+                    {"revision": "0" * 40}
+                ),
+                "calculator revision",
+            ),
+        ]
+        for update, message in cases:
+            with self.subTest(message=message), tempfile.TemporaryDirectory() as directory:
+                fixture = self.copy_native_fixture(Path(directory))
+                manifest = self.rewrite_native_fixture(fixture, bank_update=update)
+                with self.assertRaisesRegex(ValueError, message):
+                    self.qualify_native(manifest)
+
+    def test_native_source_revision_and_license_are_bound(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = self.copy_native_fixture(Path(directory))
+            manifest = fixture / "anarres.toml"
+            manifest.write_text(
+                manifest.read_text().replace("sha256:f4066a5d", "sha256:00000000"),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "source revision"):
+                self.qualify_native(manifest)
+
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = self.copy_native_fixture(Path(directory))
+            manifest = fixture / "anarres.toml"
+            manifest.write_text(
+                manifest.read_text().replace('license = "CC BY 4.0"', 'license = "unknown"'),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "manifest license"):
+                self.qualify_native(manifest)
+
+    def test_native_source_qualification_does_not_open_released_outcomes(self) -> None:
+        original = CLI_MODULE.prospective_outcomes_path
+        try:
+            CLI_MODULE.prospective_outcomes_path = mock.Mock(
+                side_effect=AssertionError("qualification opened prospective outcomes")
+            )
+            report = self.qualify_native(NATIVE_FIXTURE / "anarres.toml")
+        finally:
+            CLI_MODULE.prospective_outcomes_path = original
+        self.assertFalse(report["candidate_outcomes_opened"])
 
     def test_adapter_verify_reuses_the_native_exporter(self) -> None:
         args = type("Args", (), {"repository": ROOT})()

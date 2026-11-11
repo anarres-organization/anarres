@@ -3,7 +3,6 @@ import json
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parents[3]
 
 
 def sha256(path: Path) -> str:
@@ -53,7 +52,7 @@ def test_regeneration_receipt_pins_code_and_solver_environment():
     assert (
         sha256(HERE / "construct_candidate_bank.py") == code["construct_candidate_bank.py_sha256"]
     )
-    assert sha256(ROOT / "pyproject.toml") == code["pyproject.toml_sha256"]
+    assert sha256(HERE / "PANEL_REGENERATION_PYPROJECT.toml") == code["pyproject.toml_sha256"]
     assert (
         sha256(HERE / "PANEL_REGENERATION_REQUIREMENTS.txt")
         == code["PANEL_REGENERATION_REQUIREMENTS.txt_sha256"]

@@ -12,7 +12,9 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
-from anarres.core import consume_adapter_invocation
+from anarres.core import consume_adapter_invocation, load_source_manifest
+
+from anarres_materials_adapter.native_source import NativeSourceError, qualify_atomistic_bank
 
 
 class MaterialsCliError(ValueError):
@@ -25,15 +27,48 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "materials",
-        "version": "0.6.0",
+        "version": "0.7.0",
         "protocol_version": 2,
         "domain": "materials-interatomic-potentials",
         "executable": "anarres-materials",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
-        "capabilities": ["decision-protocol", "profile", "results", "status", "verify"],
+        "capabilities": [
+            "decision-protocol",
+            "profile",
+            "results",
+            "source-qualification",
+            "status",
+            "verify",
+        ],
         "measurement_contracts": [
             "materials.mlip-phonon-candidate-measurement.v2",
         ],
+        "source_formats": ["atomistic-candidate-bank-v1"],
+    }
+
+
+def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
+    """Qualify one atomistic bank without probing, training, or opening outcomes."""
+
+    descriptor = adapter_descriptor()
+    source = load_source_manifest(
+        args.manifest,
+        expected_adapter="materials",
+        expected_version=descriptor["version"],
+        expected_domain=descriptor["domain"],
+        accepted_formats=tuple(descriptor["source_formats"]),
+    )
+    report = qualify_atomistic_bank(
+        source.source,
+        expected_revision=source.revision,
+        source_license=source.license,
+    )
+    return {
+        "environment_id": source.environment_id,
+        "native_format": source.native_format,
+        "source_revision": source.revision,
+        "source_license": source.license,
+        **report,
     }
 
 
@@ -204,6 +239,11 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         == "prospective_predictions_frozen",
         "prospective_test_status": score.get("status"),
         "predictive_evidence_available": score.get("status") == "prospective_test_scored",
+        "native_source_format": "atomistic-candidate-bank-v1",
+        "policy_probe_available": False,
+        "policy_probe_blocker": (
+            "Nequix checkpoint execution requires the native GPU and ASE-LMDB runtime."
+        ),
         "next_gate": "freeze support-aware abstention and expand development support",
     }
 
@@ -553,6 +593,14 @@ def parser() -> argparse.ArgumentParser:
     add_common(results)
     results.set_defaults(handler=command_results)
 
+    qualify = commands.add_parser(
+        "qualify-source",
+        help="Validate a native atomistic candidate bank without running a model.",
+    )
+    qualify.add_argument("--manifest", type=Path, required=True)
+    qualify.add_argument("--json", action="store_true")
+    qualify.set_defaults(handler=command_qualify_source)
+
     verify = commands.add_parser("verify", help="Verify the released profile adapter.")
     add_common(verify)
     verify.set_defaults(handler=command_verify)
@@ -583,7 +631,7 @@ def main() -> None:
         path = error.filename or (error.args[0] if error.args else "output")
         print(f"error: output already exists: {path}", file=sys.stderr)
         raise SystemExit(1) from error
-    except (MaterialsCliError, ValueError) as error:
+    except (MaterialsCliError, NativeSourceError, ValueError) as error:
         print(f"error: {error}", file=sys.stderr)
         raise SystemExit(1) from error
 
