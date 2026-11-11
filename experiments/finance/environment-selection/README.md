@@ -126,6 +126,26 @@ the qualified workflow identities without reading result directories:
 python scripts/audit_business_bench.py /path/to/business-bench
 ```
 
+The installed finance adapter exposes the same check through the native-source
+workflow. Initialize the pinned checkout itself, then inspect and qualify it:
+
+```bash
+anarres init /path/to/business-bench \
+  --adapter finance \
+  --revision git:0d09882b59a16f190feac09abc9331a733a6f96b \
+  --license MIT
+anarres inspect /path/to/business-bench
+anarres qualify /path/to/business-bench
+```
+
+Qualification checks the exact Git revision and tracked source state, task
+inventories, four qualified process workflows, and required process runner,
+grader, oracle, ERP, and harness assets. It does not call a model or open
+scientific outcomes. The adapter does
+not yet declare policy probing because the Business Bench orchestrator and a
+pinned authorized policy runtime are not packaged as one portable execution
+contract.
+
 Create and later verify a sealed partition commitment:
 
 ```bash

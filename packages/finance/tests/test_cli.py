@@ -2,7 +2,9 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
+from anarres.finance import business_bench_source as business_bench
 from anarres.finance import cli
 from jsonschema import Draft202012Validator
 
@@ -10,6 +12,68 @@ ROOT = Path(__file__).resolve().parents[3]
 
 
 class FinanceCliTest(unittest.TestCase):
+    def business_bench_fixture(self, root: Path) -> None:
+        for index in range(business_bench.EXPECTED_DESK_TASKS):
+            task = root / "tasks" / "desk" / f"desk-{index:03d}" / "task.yaml"
+            task.parent.mkdir(parents=True)
+            category = (
+                "bookkeeping" if index < business_bench.EXPECTED_BOOKKEEPING_TASKS else "other"
+            )
+            task.write_text(f"category: {category}\n", encoding="utf-8")
+        process_ids = sorted(business_bench.EXPECTED_WORKFLOWS) + [
+            "process-extra-1",
+            "process-extra-2",
+            "process-extra-3",
+            "process-extra-4",
+            "process-extra-5",
+        ]
+        for process_id in process_ids:
+            task_root = root / "tasks" / "process" / process_id
+            task_root.mkdir(parents=True)
+            for asset in business_bench.REQUIRED_PROCESS_ASSETS:
+                path = task_root / asset
+                content = f"id: {process_id}\n" if asset == "task.yaml" else "# fixture\n"
+                path.write_text(content, encoding="utf-8")
+        for relative in business_bench.REQUIRED_RUNTIME_PATHS:
+            path = root / relative
+            if Path(relative).suffix:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("# fixture\n", encoding="utf-8")
+            else:
+                path.mkdir(parents=True, exist_ok=True)
+
+    def source_manifest(
+        self,
+        root: Path,
+        *,
+        license_id: str = "MIT",
+        adapter_version: str = "0.2.0",
+        native_format: str = "business-bench-process-v1",
+        revision: str | None = None,
+    ) -> Path:
+        manifest = root / "anarres.toml"
+        source_revision = revision or f"git:{business_bench.EXPECTED_REVISION}"
+        manifest.write_text(
+            "\n".join(
+                [
+                    'schema_version = "anarres.environment-source.v1"',
+                    'environment_id = "business-bench-process"',
+                    'domain = "agentic-finance"',
+                    'adapter = "finance"',
+                    f'adapter_version = "{adapter_version}"',
+                    f'native_format = "{native_format}"',
+                    "",
+                    "[source]",
+                    'uri = "."',
+                    f'revision = "{source_revision}"',
+                    f'license = "{license_id}"',
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        return manifest
+
     def test_adapter_descriptor_is_stable_and_side_effect_free(self) -> None:
         descriptor = cli.adapter_descriptor()
         schema = json.loads(
@@ -18,6 +82,7 @@ class FinanceCliTest(unittest.TestCase):
         Draft202012Validator(schema).validate(descriptor)
         self.assertEqual(descriptor["schema_version"], "anarres.adapter-descriptor.v1")
         self.assertEqual(descriptor["name"], "finance")
+        self.assertEqual(descriptor["version"], "0.2.0")
         self.assertEqual(descriptor["protocol_version"], 2)
         self.assertEqual(descriptor["executable"], "anarres-finance")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
@@ -25,11 +90,109 @@ class FinanceCliTest(unittest.TestCase):
             descriptor["measurement_contracts"],
             ["finance.business-bench-starting-policy-qualification.v1"],
         )
+        self.assertEqual(descriptor["source_formats"], ["business-bench-process-v1"])
+
+    def test_native_source_qualification_preserves_the_outcome_boundary(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.business_bench_fixture(root)
+            manifest = self.source_manifest(root)
+            with (
+                mock.patch.object(
+                    business_bench,
+                    "checkout_revision",
+                    return_value=business_bench.EXPECTED_REVISION,
+                ),
+                mock.patch.object(
+                    business_bench,
+                    "checkout_has_tracked_changes",
+                    return_value=False,
+                ),
+            ):
+                result = cli.command_qualify_source(type("Args", (), {"manifest": manifest})())
+        self.assertEqual(result["status"], "qualified")
+        self.assertEqual(result["desk_task_families"], 187)
+        self.assertEqual(result["bookkeeping_desk_task_families"], 36)
+        self.assertEqual(result["process_task_families"], 9)
+        self.assertEqual(len(result["qualified_workflows"]), 4)
+        self.assertTrue(result["process_runtime_complete"])
+        self.assertTrue(result["process_task_assets_complete"])
+        self.assertFalse(result["policy_probe_available"])
+        self.assertFalse(result["model_called"])
+        self.assertFalse(result["scientific_outcomes_opened"])
+
+    def test_native_source_qualification_rejects_wrong_license_and_incomplete_runtime(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.business_bench_fixture(root)
+            wrong_license = self.source_manifest(root, license_id="unknown")
+            with self.assertRaisesRegex(cli.FinanceCliError, "recorded as MIT"):
+                cli.command_qualify_source(type("Args", (), {"manifest": wrong_license})())
+
+            self.source_manifest(root)
+            (root / "bench" / "process_run.py").unlink()
+            with (
+                mock.patch.object(
+                    business_bench,
+                    "checkout_revision",
+                    return_value=business_bench.EXPECTED_REVISION,
+                ),
+                mock.patch.object(
+                    business_bench,
+                    "checkout_has_tracked_changes",
+                    return_value=False,
+                ),
+                self.assertRaisesRegex(
+                    business_bench.BusinessBenchSourceError,
+                    "process runtime is incomplete",
+                ),
+            ):
+                cli.command_qualify_source(type("Args", (), {"manifest": root / "anarres.toml"})())
+
+    def test_native_source_qualification_rejects_wrong_version_format_and_revision(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.business_bench_fixture(root)
+            for manifest_options, message in (
+                ({"adapter_version": "0.1.0"}, "installed adapter"),
+                ({"native_format": "unknown-v1"}, "format"),
+                ({"revision": "git:deadbeef"}, "pinned"),
+            ):
+                manifest = self.source_manifest(root, **manifest_options)
+                with self.assertRaisesRegex(ValueError, message):
+                    cli.command_qualify_source(type("Args", (), {"manifest": manifest})())
+
+    def test_native_source_qualification_rejects_modified_tracked_source(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.business_bench_fixture(root)
+            manifest = self.source_manifest(root)
+            with (
+                mock.patch.object(
+                    business_bench,
+                    "checkout_revision",
+                    return_value=business_bench.EXPECTED_REVISION,
+                ),
+                mock.patch.object(
+                    business_bench,
+                    "checkout_has_tracked_changes",
+                    return_value=True,
+                ),
+                self.assertRaisesRegex(
+                    business_bench.BusinessBenchSourceError,
+                    "differ from the pinned revision",
+                ),
+            ):
+                cli.command_qualify_source(type("Args", (), {"manifest": manifest})())
 
     def test_status_reports_released_capabilities(self) -> None:
         result = cli.command_status(type("Args", (), {"repository": ROOT})())
         self.assertEqual(result["domain"], "agentic-finance")
         self.assertIn("retrospective_reproduction", result["capabilities"])
+        self.assertIn("native_source_qualification", result["capabilities"])
+        self.assertEqual(result["native_source_format"], "business-bench-process-v1")
+        self.assertFalse(result["native_policy_probe_available"])
+        self.assertIn("portable execution contract", result["native_policy_probe_boundary"])
         self.assertFalse(result["prospective_environment_outcome_opened"])
         self.assertGreaterEqual(result["strict_retrospective_sources"], 1)
         self.assertEqual(result["strict_pairwise_ordering"], 0.815534)

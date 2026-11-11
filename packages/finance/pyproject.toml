@@ -1,9 +1,9 @@
 [project]
 name = "anarres-finance"
-version = "0.1.0"
+version = "0.2.0"
 description = "Domain adapter and reproducibility commands for Anarres finance studies"
 requires-python = ">=3.11"
-dependencies = ["anarres-core", "anarres-environments"]
+dependencies = ["anarres-core", "anarres-environments", "PyYAML>=6.0"]
 license = { text = "Apache-2.0" }
 
 [project.scripts]

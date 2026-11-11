@@ -49,17 +49,19 @@ requires-dist = [{ name = "anarres-core", editable = "packages/core" }]
 
 [[package]]
 name = "anarres-finance"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "packages/finance" }
 dependencies = [
     { name = "anarres-core" },
     { name = "anarres-environments" },
+    { name = "pyyaml" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "anarres-core", editable = "packages/core" },
     { name = "anarres-environments", editable = "packages/environments" },
+    { name = "pyyaml", specifier = ">=6.0" },
 ]
 
 [[package]]

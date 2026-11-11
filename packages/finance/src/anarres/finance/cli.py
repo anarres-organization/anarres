@@ -15,11 +15,19 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
-from anarres.core import consume_adapter_invocation
+from anarres.core import consume_adapter_invocation, load_source_manifest
+
+from .business_bench_source import EXPECTED_REVISION, qualify_checkout
 
 
 class FinanceCliError(ValueError):
     """Raised when a finance workflow cannot run from released evidence."""
+
+
+POLICY_PROBE_BOUNDARY = (
+    "Business Bench orchestration and a pinned authorized policy runtime are not packaged as one "
+    "portable execution contract"
+)
 
 
 def adapter_descriptor() -> dict[str, Any]:
@@ -28,7 +36,7 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "finance",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "protocol_version": 2,
         "domain": "agentic-finance",
         "executable": "anarres-finance",
@@ -40,12 +48,14 @@ def adapter_descriptor() -> dict[str, Any]:
             "qualify-policy",
             "reproduce",
             "score-holdout",
+            "source-qualification",
             "status",
             "verify",
         ],
         "measurement_contracts": [
             "finance.business-bench-starting-policy-qualification.v1",
         ],
+        "source_formats": ["business-bench-process-v1"],
     }
 
 
@@ -171,9 +181,13 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
             "environment_profile_export",
             "retrospective_reproduction",
             "frozen_holdout_verification",
+            "native_source_qualification",
             "selective_environment_comparison",
             "candidate_decision",
         ],
+        "native_source_format": "business-bench-process-v1",
+        "native_policy_probe_available": False,
+        "native_policy_probe_boundary": POLICY_PROBE_BOUNDARY,
         "prospective_environment_outcome_opened": False,
         "evidence_stage": "retrospective_transfer_supported_native_prospective_pending",
         "released_starting_policy": qualification["policy_id"],
@@ -228,6 +242,43 @@ def command_audit_sources(args: argparse.Namespace) -> dict[str, Any]:
         "generator_trials_passed": preflight["passed_trials"],
         "generator_trials_total": preflight["workflow_seed_trials"],
         "scientific_outcomes_opened": preflight["scientific_outcomes_opened"],
+    }
+
+
+def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
+    """Qualify the pinned Business Bench construction checkout."""
+
+    descriptor = adapter_descriptor()
+    source = load_source_manifest(
+        args.manifest,
+        expected_adapter="finance",
+        expected_version=descriptor["version"],
+        expected_domain=descriptor["domain"],
+        accepted_formats=tuple(descriptor["source_formats"]),
+    )
+    if source.revision != f"git:{EXPECTED_REVISION}":
+        raise FinanceCliError(
+            "manifest source revision must identify the pinned Business Bench commit"
+        )
+    if source.license != "MIT":
+        raise FinanceCliError("Business Bench source license must be recorded as MIT")
+    qualification = qualify_checkout(source.source)
+    return {
+        "status": "qualified",
+        "environment_id": source.environment_id,
+        "native_format": source.native_format,
+        "source_revision": source.revision,
+        "source_license": source.license,
+        "desk_task_families": qualification["desk_task_families"],
+        "bookkeeping_desk_task_families": qualification["bookkeeping_desk_task_families"],
+        "process_task_families": qualification["process_task_families"],
+        "qualified_workflows": qualification["qualified_workflows_present"],
+        "process_runtime_complete": all(qualification["required_runtime_paths"].values()),
+        "process_task_assets_complete": not qualification["missing_process_task_assets"],
+        "policy_probe_available": False,
+        "policy_probe_boundary": POLICY_PROBE_BOUNDARY,
+        "model_called": False,
+        "scientific_outcomes_opened": False,
     }
 
 
@@ -694,6 +745,13 @@ def parser() -> argparse.ArgumentParser:
     sources = commands.add_parser("audit-sources", help="Validate source pins and preflight.")
     add_common(sources)
     sources.set_defaults(handler=command_audit_sources)
+
+    qualify_source = commands.add_parser(
+        "qualify-source", help="Validate a pinned Business Bench process-task checkout."
+    )
+    qualify_source.add_argument("--manifest", type=Path, required=True)
+    qualify_source.add_argument("--json", action="store_true")
+    qualify_source.set_defaults(handler=command_qualify_source)
 
     decide = commands.add_parser(
         "decide", help="Rank a measured finance candidate panel or abstain."
