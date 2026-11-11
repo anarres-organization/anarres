@@ -58,6 +58,13 @@ new training outcome.
 | Molecular design | `anarres molecular status --repository .` | `anarres molecular verify --repository .` | Qualified Q07820 reaction-bank measurements; training outcomes remain sealed |
 | Agentic finance | `anarres finance status --repository .` | `anarres finance decide <panel.json>` | Starting-policy qualification and released retrospective checks |
 
+Finance, formal verification, legal reasoning, and robotics also declare one
+native source format each. After installing the adapter, use
+`anarres adapter doctor <name>` to inspect the exact format, then run
+`anarres init`, `anarres inspect`, and `anarres qualify`. These paths validate
+the pinned source without starting a model. None of the four adapters currently
+declares a portable `policy-probe` capability.
+
 Use `status` to inspect the released stage, `profile` to export supported
 candidate records, and `verify` to regenerate the adapter's maintained output.
 Some adapters expose additional study-specific reports. Run

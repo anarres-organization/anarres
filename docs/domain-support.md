@@ -13,7 +13,8 @@ utility. These levels must not be collapsed into one claim of support.
 3. **Native adapter:** released evidence is projected into profiles with exact
    provenance and adapter conformance tests.
 4. **Source runtime:** the adapter can qualify a declared native source format
-   and run a pinned starting-policy probe through the unified source envelope.
+   through the unified source envelope and, when released, run a pinned
+   starting-policy probe.
 5. **Predictive evidence:** a domain study evaluates a frozen measurement or
    decision against downstream outcomes under its native contract.
 
@@ -33,14 +34,14 @@ the authoritative adapter-level check.
 | Program | Profile or native-path conformance | Native adapter | Unified source runtime | Predictive evidence |
 | --- | --- | --- | --- | --- |
 | Mathematics | Grouped-probe path and reference conformance | Native grouped-probe processor | Completed raw-attempt streams | Four-scale environment-utility release |
-| Formal verification | Real Vero profiles | Installable Vero development adapter with a separate support report | Pending | Positive external training-environment grids across Dafny and Verus; local Vero support and containment qualification remain pre-RL |
+| Formal verification | Real Vero profiles | Installable Vero development adapter with a separate support report | Pinned public Vero checkout qualification; runtime and policy probing remain gated | Positive external training-environment grids across Dafny and Verus; local Vero support and containment qualification remain pre-RL |
 | Robotics | Real Can v1.4.1 candidate profiles | Installable CUPID candidate-measurement and result adapter | Can v1.4.1 HDF5 qualification is available; policy probing remains study-specific | Prospective PushT and Can results, plus retrospective multi-source records |
-| Legal reasoning | Real SylloGym policy-response profiles | Installable SylloGym mixture adapter with a separate LAB regression report | LAB intake and run audit exist; unified source entry is pending | Prospective SylloGym and separate LAB regression-risk records |
+| Legal reasoning | Real SylloGym policy-response profiles | Installable SylloGym mixture adapter with a separate LAB regression report | Pinned public LAB task-set qualification; judge-backed policy probing remains gated | Prospective SylloGym and separate LAB regression-risk records |
 | Materials science | Real MLIP candidate profiles | Installable cost-matched-panel adapter | Pending | Supervised phonon tests and a scored MLIP prospective test; the learned selector missed while deterministic baselines succeeded |
 | Vulnerability exploitation | Public qualification protocol and released scaffold study | Not yet available | Pending | Policy-relative measurement released; no environment comparison |
 | Agentic systems | Public research protocols | Concrete domains use their own adapters | No umbrella runtime | Domain experiments remain study-specific |
 | Molecular design | Real Q07820 reaction-bank profiles | Installable RxnFlow development adapter | Pending | Selector-fidelity confirmation passed; matched target-training outcomes remain unopened |
-| Agentic finance | Real Business Bench qualification profile | Installable starting-policy qualification adapter | Native attempt qualification exists; unified source entry is pending | Frozen retrospective source tests; no prospective environment outcome opened |
+| Agentic finance | Real Business Bench qualification profile | Installable starting-policy qualification adapter | Pinned Business Bench process qualification; portable policy probing remains gated | Frozen retrospective source tests; no prospective environment outcome opened |
 
 The profile schema can transport additional namespaced coordinates without a
 Rust change. That extensibility is not evidence that an unlisted adapter works
