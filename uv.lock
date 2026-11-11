@@ -55,6 +55,7 @@ source = { editable = "packages/finance" }
 dependencies = [
     { name = "anarres-core" },
     { name = "anarres-environments" },
+    { name = "jsonschema" },
     { name = "pyyaml" },
 ]
 
@@ -62,6 +63,7 @@ dependencies = [
 requires-dist = [
     { name = "anarres-core", editable = "packages/core" },
     { name = "anarres-environments", editable = "packages/environments" },
+    { name = "jsonschema", specifier = ">=4.23" },
     { name = "pyyaml", specifier = ">=6.0" },
 ]
 

@@ -143,10 +143,10 @@ class FinanceCliCommandTest(unittest.TestCase):
             self.assertEqual(verify.returncode, 0, verify.stderr)
             verify_result = json.loads(verify.stdout)
             self.assertEqual(verify_result["mode"], "compact")
-            self.assertEqual(verify_result["manifest_artifacts"], 38)
+            self.assertEqual(verify_result["manifest_artifacts"], 46)
             self.assertEqual(verify_result["longfinanceqa_directional_correct"], 24)
             self.assertEqual(verify_result["longfinanceqa_directional_scored"], 25)
-            self.assertEqual(len(verify_result["holdouts"]), 7)
+            self.assertEqual(len(verify_result["holdouts"]), 9)
 
             candidate_panel = {
                 "schema_version": "anarres.finance-candidate-panel.v1",

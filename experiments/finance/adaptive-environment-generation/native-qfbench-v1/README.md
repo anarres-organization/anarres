@@ -61,3 +61,9 @@ The QF-Bench source, task partition, candidate types, measurement rubric, and
 success criteria are frozen. The pinned sandbox builds locally, and the oracle
 passes the `historical-var-data-prep` smoke task. No model-generated development
 or target outcome has entered the experiment record.
+
+The checked-in runner remains a research implementation rather than an
+installed finance-adapter policy probe. It does not yet provide a dry planning
+contract, an explicit adapter execution gate, or a complete finance profile
+that separates successful, failed, missing, and infrastructure-invalid
+attempts. The finance adapter therefore leaves `policy-probe` undeclared.

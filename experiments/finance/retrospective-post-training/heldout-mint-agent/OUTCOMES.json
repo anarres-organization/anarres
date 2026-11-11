@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "source_id": "mint_agent_2026",
+  "model_scale": "9B",
+  "table": {
+    "financebench": {"ties": 88.67, "mopd": 90.00},
+    "bizfinbench": {"ties": 50.00, "mopd": 53.86},
+    "financeagentbench_v1p1": {"ties": 64.00, "mopd": 68.00},
+    "finsearchcomp_t2": {"ties": 66.67, "mopd": 69.86}
+  },
+  "specialist_context": {
+    "financebench": {"reasoning_expert": 88.00},
+    "bizfinbench": {"reasoning_expert": 53.86},
+    "financeagentbench_v1p1": {"execution_expert": 66.21},
+    "finsearchcomp_t2": {"execution_expert": 72.15}
+  }
+}

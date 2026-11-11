@@ -198,6 +198,18 @@ The result supports the representation in financial long-context work while
 leaving retrieval and summarization unscored because the paper does not report
 their matched ablations.
 
+CDF-GC extends the excluded-source evidence to finance continual-pretraining
+data selection. Across Llama-3.2-1B and Qwen2.5-0.5B, the pre-existing
+capability-contract representation recovers 21 of 22 candidate-target
+directions. It selects the best finance candidate for both backbones and the
+best general-retention choice for one of two, yielding 3/4 panel-level choices
+and 0.096 mean normalized regret.
+
+Mint-Agent adds a frontier agent-integration decision. The representation
+selects task-routed multi-teacher on-policy distillation over static parameter
+merging on two bounded-reasoning and two agentic-execution benchmarks. All four
+directions are correct, with improvements of 1.33 to 4.00 points.
+
 The executable accounting panel remains the model-weight prospective
 extension. Four
 stateful workflows have passed source qualification, but no model has yet
@@ -263,6 +275,8 @@ change held-out outcomes after training begins.
 - [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
 - [Financial safety capability-contract holdout](retrospective-post-training/heldout-finharmbench/README.md)
 - [Agentic tool-environment holdout](retrospective-post-training/heldout-fintoolsyn/README.md)
+- [Finance data-selection holdout](retrospective-post-training/heldout-cdf-gc/README.md)
+- [Frontier agent-integration holdout](retrospective-post-training/heldout-mint-agent/README.md)
 - [Long-context component test](retrospective-post-training/heldout-longfinanceqa/RESULT.md)
 - [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
 - [Machine-readable panels](retrospective-post-training/data/panels.json)
