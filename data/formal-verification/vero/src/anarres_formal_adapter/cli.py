@@ -12,7 +12,9 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
-from anarres.core import consume_adapter_invocation
+from anarres.core import consume_adapter_invocation, load_source_manifest
+
+from anarres_formal_adapter import source_qualification
 
 
 class FormalCliError(ValueError):
@@ -25,16 +27,70 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "formal",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "protocol_version": 2,
         "domain": "formal-verification",
         "executable": "anarres-formal",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
-        "capabilities": ["profile", "qualification-report", "status", "verify"],
+        "capabilities": [
+            "profile",
+            "qualification-report",
+            "source-qualification",
+            "status",
+            "verify",
+        ],
         "measurement_contracts": [
             "vero-leanstral-development-probe-v5:codeproof",
             "vero-leanstral-development-probe-v5:proof",
         ],
+        "source_formats": ["vero-checkout-v1"],
+    }
+
+
+def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
+    """Validate the exact released Vero checkout without running Lean or a policy."""
+
+    descriptor = adapter_descriptor()
+    source = load_source_manifest(
+        args.manifest,
+        expected_adapter="formal",
+        expected_version=descriptor["version"],
+        expected_domain=descriptor["domain"],
+        accepted_formats=tuple(descriptor["source_formats"]),
+    )
+    pin = source_qualification.load_source_pin()
+    expected_revision = f"git:{pin['commit']}"
+    if source.revision != expected_revision:
+        raise FormalCliError(
+            f"manifest revision must identify the released Vero commit {expected_revision}"
+        )
+    if source.license != pin["license"]:
+        raise FormalCliError(
+            "manifest license must preserve Vero's benchmark-specific upstream licenses"
+        )
+    report = source_qualification.qualify(source.source)
+    return {
+        "status": "qualified",
+        "qualification_state": "source_qualified_runtime_pending",
+        "environment_id": source.environment_id,
+        "native_format": source.native_format,
+        "source_id": report["source_id"],
+        "source_revision": source.revision,
+        "source_license": source.license,
+        "source_pin_sha256": f"sha256:{report['source_pin_sha256']}",
+        "benchmark_tree_git_oid": report["benchmark_tree_git_oid"],
+        "benchmarks": report["counts"]["benchmarks"],
+        "modules": report["counts"]["modules"],
+        "apis": report["counts"]["apis"],
+        "specifications": report["counts"]["specs"],
+        "source_languages": report["counts"]["source_languages"],
+        "lean_version": report["lean_version"],
+        "modes": report["modes"],
+        "verified_core_artifacts": report["verified_artifacts"],
+        "runtime_qualified": False,
+        "policy_probe_available": False,
+        "model_execution_started": False,
+        "qualification_or_prospective_tasks_opened": False,
     }
 
 
@@ -213,6 +269,9 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "candidate_ranking_authorized": False,
         "downstream_training_authorized": False,
         "qualification_report_available": True,
+        "native_source_format": "vero-checkout-v1",
+        "native_source_qualification_available": True,
+        "policy_probe_available": False,
         "next_required_gate": "task-only containment requalification before repeated measurement",
     }
 
@@ -364,6 +423,13 @@ def parser() -> argparse.ArgumentParser:
         description="Inspect and export the released negative Vero development measurement.",
     )
     commands = result.add_subparsers(dest="command", required=True)
+
+    qualify_source = commands.add_parser(
+        "qualify-source", help="Validate the exact pinned Vero source checkout."
+    )
+    qualify_source.add_argument("--manifest", type=Path, required=True)
+    qualify_source.add_argument("--json", action="store_true")
+    qualify_source.set_defaults(handler=command_qualify_source)
 
     status = commands.add_parser("status", help="Show support and authorization status.")
     add_common(status)

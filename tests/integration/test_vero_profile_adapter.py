@@ -1,3 +1,4 @@
+import argparse
 import hashlib
 import importlib.util
 import json
@@ -9,6 +10,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
@@ -20,7 +22,9 @@ SPEC = importlib.util.spec_from_file_location("vero_profile_adapter", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
-CLI_PATH = ROOT / "data/formal-verification/vero/src/anarres_formal_adapter/cli.py"
+FORMAL_SRC = ROOT / "data/formal-verification/vero/src"
+sys.path.insert(0, str(FORMAL_SRC))
+CLI_PATH = FORMAL_SRC / "anarres_formal_adapter/cli.py"
 CLI_SPEC = importlib.util.spec_from_file_location("anarres_formal_cli", CLI_PATH)
 assert CLI_SPEC is not None and CLI_SPEC.loader is not None
 CLI = importlib.util.module_from_spec(CLI_SPEC)
@@ -38,6 +42,9 @@ class VeroProfileAdapterTest(unittest.TestCase):
         self.assertEqual(descriptor["executable"], "anarres-formal")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
         self.assertIn("qualification-report", descriptor["capabilities"])
+        self.assertIn("source-qualification", descriptor["capabilities"])
+        self.assertNotIn("policy-probe", descriptor["capabilities"])
+        self.assertEqual(descriptor["source_formats"], ["vero-checkout-v1"])
         self.assertEqual(
             descriptor["measurement_contracts"],
             [
@@ -45,6 +52,89 @@ class VeroProfileAdapterTest(unittest.TestCase):
                 "vero-leanstral-development-probe-v5:proof",
             ],
         )
+
+    def test_installed_source_pin_matches_the_released_record(self) -> None:
+        bundled = CLI.source_qualification.load_source_pin()
+        released = json.loads(
+            (ROOT / "data/formal-verification/vero/source-pin.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(bundled, released)
+
+    @staticmethod
+    def write_source_manifest(root: Path, source: Path) -> Path:
+        manifest = root / "anarres.toml"
+        manifest.write_text(
+            "\n".join(
+                [
+                    'schema_version = "anarres.environment-source.v1"',
+                    'environment_id = "vero-public-v1"',
+                    'domain = "formal-verification"',
+                    'adapter = "formal"',
+                    'adapter_version = "0.2.0"',
+                    'native_format = "vero-checkout-v1"',
+                    "",
+                    "[source]",
+                    f'uri = "{source}"',
+                    'revision = "git:0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09"',
+                    'license = "Apache-2.0 with benchmark-specific upstream licenses"',
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        return manifest
+
+    def test_direct_source_qualification_preserves_execution_boundary(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "vero"
+            source.mkdir()
+            manifest = self.write_source_manifest(root, source)
+            audit = {
+                "source_id": "sunblaze-ucb/vero@" + "0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+                "git_revision": "0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+                "benchmark_tree_git_oid": "21f18407dc780b2500f4a81be93261c8b4426bfb",
+                "source_pin_sha256": "f" * 64,
+                "counts": {
+                    "benchmarks": 43,
+                    "modules": 237,
+                    "apis": 743,
+                    "specs": 2705,
+                    "source_languages": {"coq": 4, "dafny": 5, "python": 30, "verus": 4},
+                },
+                "verified_artifacts": 5,
+                "lean_version": "4.29.1",
+                "modes": ["proof", "codeproof"],
+            }
+            with mock.patch.object(CLI.source_qualification, "qualify", return_value=audit):
+                report = CLI.command_qualify_source(
+                    argparse.Namespace(manifest=manifest, json=True)
+                )
+            self.assertEqual(report["status"], "qualified")
+            self.assertEqual(report["qualification_state"], "source_qualified_runtime_pending")
+            self.assertFalse(report["runtime_qualified"])
+            self.assertFalse(report["policy_probe_available"])
+            self.assertFalse(report["model_execution_started"])
+            self.assertFalse(report["qualification_or_prospective_tasks_opened"])
+
+    def test_source_qualification_rejects_unpinned_manifest_revision(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "vero"
+            source.mkdir()
+            manifest = self.write_source_manifest(root, source)
+            manifest.write_text(
+                manifest.read_text(encoding="utf-8").replace(
+                    "git:0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+                    "git:" + "1" * 40,
+                ),
+                encoding="utf-8",
+            )
+            completed = self.run_adapter(
+                ["qualify-source", "--manifest", str(manifest), "--json"], root
+            )
+            self.assertNotEqual(completed.returncode, 0)
+            self.assertIn("released Vero commit", completed.stderr)
 
     def run_adapter(self, arguments: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
         source_paths = [
@@ -78,6 +168,9 @@ class VeroProfileAdapterTest(unittest.TestCase):
             self.assertFalse(report["profile_ready"])
             self.assertFalse(report["downstream_training_authorized"])
             self.assertTrue(report["qualification_report_available"])
+            self.assertEqual(report["native_source_format"], "vero-checkout-v1")
+            self.assertTrue(report["native_source_qualification_available"])
+            self.assertFalse(report["policy_probe_available"])
             self.assertEqual(report["infrastructure_valid_attempts"], 32)
             self.assertEqual(report["infrastructure_errors"], 0)
             for measured in report["mode_measurements"].values():

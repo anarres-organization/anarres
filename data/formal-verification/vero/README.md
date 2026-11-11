@@ -20,6 +20,27 @@ four from Coq.
 
 ## Audit a checkout
 
+The installed adapter accepts one native source format,
+`vero-checkout-v1`, for the exact public Vero revision recorded in
+[`source-pin.json`](source-pin.json). Create an environment source manifest
+beside the checkout and run the shared qualification flow:
+
+```bash
+anarres init /path/to/vero \
+  --adapter formal \
+  --revision git:0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09 \
+  --license "Apache-2.0 with benchmark-specific upstream licenses"
+anarres qualify /path/to/vero/anarres.toml
+```
+
+Qualification checks the Git revision and benchmark tree, core artifact
+hashes, all benchmark manifests and referenced files, immutable upstream
+revisions, license exceptions, and the frozen inventory. It does not build
+Lean, run a policy, open qualification or prospective tasks, or reproduce the
+released measurement. Runtime qualification remains a separate gate.
+
+The underlying source audit remains available for repository development:
+
 ```bash
 python data/formal-verification/vero/audit_source.py \
   --source /path/to/vero \
