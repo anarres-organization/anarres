@@ -10,12 +10,14 @@ from pathlib import Path
 from unittest import mock
 
 import h5py
-from anarres_robotics_adapter import cli as CLI
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 
 ROOT = Path(__file__).resolve().parents[2]
 STUDY = ROOT / "experiments/robotics/environment-selection/prospective-cupid-can-v141"
+sys.path.insert(0, str(STUDY / "src"))
+from anarres_robotics_adapter import cli as CLI  # noqa: E402
+
 SCRIPT = STUDY / "export_environment_profiles.py"
 SPEC = importlib.util.spec_from_file_location("robotics_cupid_profile_adapter", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
