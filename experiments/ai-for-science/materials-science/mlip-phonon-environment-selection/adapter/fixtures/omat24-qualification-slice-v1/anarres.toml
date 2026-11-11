@@ -1,0 +1,11 @@
+schema_version = "anarres.environment-source.v1"
+environment_id = "omat24-qualification-slice-v1"
+domain = "materials-interatomic-potentials"
+adapter = "materials"
+adapter_version = "0.7.0"
+native_format = "atomistic-candidate-bank-v1"
+
+[source]
+uri = "."
+revision = "sha256:f4066a5d9cebc69ce93b2b66afe9616768dfffd65bf9001a1711b03be4c2066c"
+license = "CC BY 4.0"

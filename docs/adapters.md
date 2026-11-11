@@ -56,7 +56,7 @@ new training outcome.
 | Formal verification | `anarres formal status --repository .` | `anarres formal qualification --repository .` | Negative grouped measurement plus a separate one-attempt support pass; containment requalification and RL remain blocked |
 | Robotics | `anarres robotics status --repository .` | `anarres robotics can-results --repository .` | Can v1.4.1 candidate measurements and prospective result |
 | Legal reasoning | `anarres legal status --repository .` | `anarres legal regressions --repository .` | SylloGym candidate profiles and a separate LAB regression report |
-| Materials science | `anarres materials status --repository .` | `anarres materials results --repository .` | MLIP candidate measurements, frozen protocol, and scored prospective result |
+| Materials science | `anarres materials status --repository .` | `anarres materials results --repository .` | Native OMat24 bank qualification, MLIP candidate measurements, and the scored prospective result |
 | Molecular design | `anarres molecular status --repository .` | `anarres molecular verify --repository .` | Qualified Q07820 reaction-bank measurements; training outcomes remain sealed |
 | Agentic finance | `anarres finance status --repository .` | `anarres finance decide <panel.json>` | Starting-policy qualification and released retrospective checks |
 | Vulnerability exploitation | `anarres vulnerability status` | [`anarres qualify <source>`](../packages/vulnerability/README.md) | Sanitized CyberGym source qualification; task execution and policy probing remain gated |
