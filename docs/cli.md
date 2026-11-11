@@ -169,12 +169,20 @@ starting policy. `anarres inspect <source>` shows the available next step, and
 `anarres adapter doctor <name>` reports the same contract at the adapter level.
 Evidence-only adapters do not become environment runners automatically.
 
-The robotics adapter provides the first concrete native-source path. Place one
-pinned Can v1.4.1 HDF5 dataset in its own directory, install the robotics
-adapter, and initialize that directory with its immutable dataset digest and
-applicable dataset license. `inspect` reports qualification as available and
-probing as pending. `qualify` verifies the exact artifact and its RoboMimic
-structure without starting training or opening candidate outcomes.
+Every maintained domain adapter now declares one native source format. The
+shared `init`, `inspect`, and `qualify` sequence verifies source identity and
+routes the source to its domain contract. Qualification does not imply that
+policy execution is available. `inspect` reports those capabilities separately.
+
+The molecular adapter currently declares the portable `policy-probe`
+capability. Its probe binds a qualified reaction environment to a pinned
+starting policy and remains dry-run by default. Robotics exposes a separate
+content-addressed planning and execution workflow for the Can study. Finance,
+formal verification, legal reasoning, materials science, and vulnerability
+exploitation currently stop at source or runtime qualification in the shared
+path. Their domain commands preserve the additional gates required before
+model execution. See the [adapter guide](adapters.md) for the exact source
+format and released boundary of each workflow.
 
 Use the built-in probe-run contract when an environment runtime can provide:
 

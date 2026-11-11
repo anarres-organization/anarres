@@ -61,12 +61,16 @@ new training outcome.
 | Agentic finance | `anarres finance status --repository .` | `anarres finance decide <panel.json>` | Starting-policy qualification and released retrospective checks |
 | Vulnerability exploitation | `anarres vulnerability status` | [`anarres qualify <source>`](../packages/vulnerability/README.md) | Sanitized CyberGym source qualification; task execution and policy probing remain gated |
 
-Finance, formal verification, legal reasoning, robotics, and vulnerability
-exploitation also declare a native source format. After installing the adapter, use
-`anarres adapter doctor <name>` to inspect the exact format, then run
-`anarres init`, `anarres inspect`, and `anarres qualify`. These paths validate
-the pinned source without starting a model. None of these adapters currently
-declares a portable `policy-probe` capability.
+All maintained adapters declare a native source format. After installing one,
+use `anarres adapter doctor <name>` to inspect its exact contract, then run
+`anarres init`, `anarres inspect`, and `anarres qualify`. These commands route
+the native files without flattening their domain-specific structure.
+
+Only the molecular adapter currently declares the portable `policy-probe`
+capability. Its probe remains dry-run unless execution is requested explicitly.
+The other adapters stop at source or runtime qualification in the shared path;
+study-specific execution commands retain their own completeness and safety
+gates.
 
 Use `status` to inspect the released stage, `profile` to export supported
 candidate records, and `verify` to regenerate the adapter's maintained output.

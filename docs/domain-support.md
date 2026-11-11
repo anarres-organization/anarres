@@ -40,7 +40,7 @@ the authoritative adapter-level check.
 | Materials science | Real MLIP candidate profiles | Installable cost-matched-panel adapter | OMat24 atomistic-bank qualification is available; Nequix policy probing remains in the native study runtime | Supervised phonon tests and a scored MLIP prospective test; the learned selector missed while deterministic baselines succeeded |
 | Vulnerability exploitation | Public qualification protocol and released scaffold study | Installable qualification-only CyberGym adapter | Sanitized level 0--2 CyberGym panel qualification; execution and policy probing remain gated | Policy-relative measurement released; no environment comparison |
 | Agentic systems | Public research protocols | Concrete domains use their own adapters | No umbrella runtime | Domain experiments remain study-specific |
-| Molecular design | Real Q07820 reaction-bank profiles | Installable RxnFlow development adapter | Pending | Selector-fidelity confirmation passed; matched target-training outcomes remain unopened |
+| Molecular design | Real Q07820 reaction-bank profiles | Installable RxnFlow development adapter | Native reaction-environment qualification and a pinned, dry-run-by-default policy probe are available | Selector-fidelity confirmation passed; matched target-training outcomes remain unopened |
 | Agentic finance | Real Business Bench qualification profile | Installable starting-policy qualification adapter | Pinned Business Bench process qualification; portable policy probing remains gated | Frozen retrospective source tests; no prospective environment outcome opened |
 
 The profile schema can transport additional namespaced coordinates without a

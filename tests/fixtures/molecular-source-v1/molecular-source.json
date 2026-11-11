@@ -67,7 +67,7 @@
         "prepared/environment",
         "candidate/replay.json",
         "policy/weights.fixture",
-        "target",
+        "prepared-target",
         "contracts/oracle.json",
         "contracts/filters.json",
         "contracts/docking.json",
@@ -85,30 +85,30 @@
   "target": {
     "endpoint_assets": {
       "pocket": {
-        "path": "target/pocket.pdb",
-        "sha256": "99637b4354fe415fe3aebcf438fd7c15b8932875c29667aaae0aebb5844c5097"
+        "path": "prepared-target/pocket.pdb",
+        "sha256": "8b3ac5423121196ef1f139a0e2772f673c2acb4d7603d4642402b7b1e15765ea"
       },
       "protein": {
-        "path": "target/protein.pdb",
-        "sha256": "83a8733ccb34abd4b3c2c4d9d6dd075af46df9fcfa85d61be1a023975109d654"
+        "path": "prepared-target/protein.pdb",
+        "sha256": "49e2ad3b691316bd9ccbc94bf2aa571b1bd259d69b5fe544b2e69f3f8137807f"
       },
       "reference_actives": {
-        "path": "target/reference-actives.sdf",
-        "sha256": "b51ebf9195b5e48a4623756c9bc518f8c7d4483047eb3eabf4e07f528ca4a467"
+        "path": "prepared-target/reference-actives.sdf",
+        "sha256": "de93d9063ecac920227f16e287eca4aee9b225d3ce302682433f9229313084df"
       },
       "reference_interaction_scores": {
-        "path": "target/reference-interactions.json",
-        "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+        "path": "prepared-target/reference-interactions.json",
+        "sha256": "32fadec136e010e25a80a2e095b3fef9da4d8aa6c9385c22dac8ec65f71bd6e0"
       },
       "thresholds": {
-        "path": "target/thresholds.json",
-        "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+        "path": "prepared-target/thresholds.json",
+        "sha256": "dfe74d359b940144a26f5429030c2aad17fde189949f68ef16ecac447a505274"
       }
     },
     "manifest": "target_manifest.json",
     "prepared_target": {
-      "path": "target",
-      "sha256": "d935549fc67147bf724c9bda0b03b5c7c2a2648ffe652cc55cfe925eb7b97152"
+      "path": "prepared-target",
+      "sha256": "9adf0490e375566d0fdbbc8b6148351be764fdd4c1ebec2dd83cc104f5430dd8"
     }
   },
   "target_id": "Q07820"

@@ -1,0 +1,9 @@
+{
+  "fixture_sha256": {
+    "prepared_receptor": "2b9b857e3c6cf389ee3ea8f74f9ddcb5538c526e5913112daa5a32235c2a6313",
+    "reference_ligand": "d4d69f19a03cbf52d09af7f020eefd9ab0acf19aed9b1e521062ef4f289308bd"
+  },
+  "receptor_pdbqt": "receptor.pdbqt",
+  "reference_ligand": "reference.sdf",
+  "target_id": "Q07820"
+}
