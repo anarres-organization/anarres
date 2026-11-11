@@ -37,7 +37,35 @@ Qualification checks the Git revision and benchmark tree, core artifact
 hashes, all benchmark manifests and referenced files, immutable upstream
 revisions, license exceptions, and the frozen inventory. It does not build
 Lean, run a policy, open qualification or prospective tasks, or reproduce the
-released measurement. Runtime qualification remains a separate gate.
+released measurement.
+
+## Qualify an execution contract
+
+Runtime qualification is a separate, model-free gate. Begin with
+[`runtime-contract.v1.example.json`](runtime-contract.v1.example.json), retain
+the exact source binding, and declare one proof or codeproof execution mode.
+Then run:
+
+```bash
+anarres formal qualify-runtime \
+  --manifest /path/to/vero/anarres.toml \
+  --runtime /path/to/runtime-contract.json \
+  --lean-executable /path/to/lean \
+  --lake-executable /path/to/lake \
+  --output /path/to/runtime-report.json
+```
+
+The preflight requalifies the source and verifies the package lock, local Lean
+and Lake identities, execution mode, task-only visibility, tool allowlist,
+token and wall ceilings, strict verifier command, network policy, cleanup,
+filesystem boundaries, and resource limits. It writes a content-addressed
+report and does not open a task or contact a model. Source qualification and
+runtime qualification remain distinct states.
+
+A qualified runtime report does not enable `policy-probe`. Model execution
+remains unavailable until a sanitized task route independently passes the
+containment tests and binds its policy, seeds, verifier, runtime, and source
+identities.
 
 The underlying source audit remains available for repository development:
 
