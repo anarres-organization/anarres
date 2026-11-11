@@ -18,35 +18,34 @@ This program asks:
 | Qualify a frontier legal workflow | [LAB workflow intake](lab-workflow-intake/README.md) | A model-agnostic intake validates practice areas, matter documents, deliverables, and criterion-level review structure before model responses or outcomes are read. |
 | Pin a LAB runtime | [LAB execution contract](lab-workflow-intake/EXECUTION_CONTRACT.md) | A versioned record binds the starting policy, agent harness, judge harness, outcome semantics, accounting, and protected outcomes without starting execution. |
 
+## Start here
+
+```bash
+uv tool install ./packages/legal
+anarres legal status --repository .
+anarres legal regressions --repository .
+```
+
+The status command shows which legal workflows are available. The regression
+command reproduces the LAB task-risk result.
+
 The SylloGym panel compares three mixtures over the same fourteen procedural
-task generators. Starting weights, trainer, reward code, update count, training
-seeds, and evaluation are matched. The frozen policy-response mixture achieved
-the highest observed mean. Its advantage over the two controls was less than
-half a percentage point, and the training-seed intervals crossed zero.
-The release also includes a native adapter that projects the complete
-outcome-blind pre-training measurement into compatible environment profiles.
-The installed `anarres-legal` command exposes that projection without changing
-the study's measurement or decision rules.
+task generators with matched starting weights, trainer, reward code, updates,
+seeds, and evaluation. The selected mixture had the highest observed mean, but
+its advantage was below half a point and the seed intervals crossed zero. The
+rule therefore abstained rather than claiming a resolved choice.
 
 The LAB record covers 15 checkpoints, 180 tasks, and 34 practice areas. It
 tests whether task and workflow structure available before continued training
 can flag later regressions when the complete target practice area is excluded
 from model fitting.
 
-Together, these studies exercise both sides of environment qualification:
-ranking candidate training mixtures and identifying downstream regression
-risk. The results support the workflow while preserving uncertainty when the
-available evidence cannot justify a training decision.
-
 The LAB workflow intake adds the operational entry point for a new long-horizon
-legal study. It keeps the target workflow separate from starting-policy runs and
-training interventions, which makes the same contract usable across model
-families without treating a benchmark label as an environment measurement. The
-installed legal adapter can now qualify a pinned LAB checkout through
-`anarres init`, `inspect`, and `qualify`. Policy probing remains unavailable
-until the pinned harness and judges can execute the starting policy. The
-execution-contract command packages that runtime boundary without claiming the
-probe has run.
+legal study. It validates a pinned LAB checkout without reading model responses
+or downstream training outcomes. An **execution contract** is a versioned
+specification of the model, agent harness, judges, accounting, validity rules,
+and protected outcomes. Policy probing remains unavailable until that runtime
+can execute the starting policy.
 
 ## Scope
 

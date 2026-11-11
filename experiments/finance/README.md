@@ -1,20 +1,15 @@
-# Predictable environment selection for agentic finance
+# Predictable environment selection for finance agents
 
-Financial agents must do more than retrieve a fact or produce a plausible
-answer. They reconcile records, preserve controls, create reviewable work
-products, and act through tools whose mistakes can change financial state. A
-training distribution can improve task completion while weakening a ledger
-tie, approval rule, or evidence trail.
+Finance agents must reconcile records, preserve controls, produce reviewable
+work, and use tools whose mistakes can change financial state. A training
+environment may improve task completion while weakening a ledger tie,
+authorization rule, or evidence trail.
 
-This program asks:
+This program asks whether measurements from a starting policy can help choose
+a finance-task distribution that improves held-out work at a fixed budget while
+preserving material controls.
 
-> Can measurements from a starting policy help choose a finance-task
-> distribution that improves held-out work at a fixed training budget while
-> preserving material controls?
-
-**Start here:** the [finance research brief](RESEARCH_BRIEF.md) summarizes the
-completed evidence, the qualified accounting experiment, and the prospective
-post-trade extension in one page.
+## Start here
 
 Install the native CLI and finance adapter from a repository checkout:
 
@@ -22,165 +17,90 @@ Install the native CLI and finance adapter from a repository checkout:
 cargo install --path crates/anarres-cli --locked
 uv tool install ./packages/finance
 anarres adapter doctor finance
+anarres finance status
 ```
 
-The released workflow is then available through the generic adapter interface:
+Reproduce the released evidence with:
 
 ```bash
-anarres finance status
-anarres finance audit-sources
-anarres finance decide candidate-panel.json
 anarres finance verify
-anarres finance verify --exhaustive
 anarres finance reproduce --output-dir .anarres/finance-reproduction
 ```
 
-The normal verification path checks the released source pins, qualification
-artifacts, compact summaries, and frozen holdout identities. The exhaustive
-path reruns every finance test in an isolated copy. The command also scores new
-starting-policy records, exports qualification profiles, and reruns individual
-frozen holdouts. See the [CLI
-guide](../../docs/cli.md#example-adapter-agentic-finance) for the complete
-interface. Commands shown here assume the repository root is the current
-directory. Use `--repository /path/to/anarres` when invoking released evidence
-from another directory. The direct `anarres-finance` executable accepts the
-same commands and explicit repository path.
+Use `--repository /path/to/anarres` when running the evidence commands outside
+the checkout. The [finance research brief](RESEARCH_BRIEF.md) gives a compact
+summary of the completed evidence and next prospective test.
 
-`decide` accepts a complete
+## Evidence at a glance
+
+| Test | Result |
+| --- | --- |
+| Task-level candidate ordering | 81.6% across 79 panels without model identity |
+| Source-held-out confidence filter | 90.4% over 235 decided pairs at 76.1% coverage |
+| Regression-risk audit | 0.815 source-macro ROC AUC, compared with 0.575 for data volume |
+| FinToolSyn controlled ablation | 9/9 high-confidence directions and 3/3 improvement or regression calls |
+| LongFinanceQA component test | 24/25 matched comparisons follow the predicted direction |
+| Finance-data continual-pretraining holdout | 21/22 candidate-target directions across two backbones |
+
+The compact representation describes the capabilities an intervention trains
+and the controls its target requires. It transfers across several retrospective
+studies, but it is not yet a prospectively validated universal selector.
+
+## Prospective workflow
+
+Four stateful accounting workflows passed reference, no-op, negative-control,
+handbook, and state-determinism checks across five generated seeds. This
+qualifies the generators for a prospective panel. It does not identify the best
+training mixture.
+
+The next matched experiment will:
+
+1. generate disjoint development, candidate, and held-out scenarios
+2. measure candidates under one frozen starting policy and tool contract
+3. freeze candidate identities, predictions, budgets, and control guardrails
+4. train every arm under the same optimization contract
+5. open held-out outcomes only after completeness and identity checks pass.
+
+The primary outcome is executable task completion. Ledger integrity,
+authorization violations, evidence provenance, and unauthorized state changes
+remain separate guardrails. A high aggregate score cannot erase a
+material-control failure.
+
+The adapter also accepts a complete
 [`anarres.finance-candidate-panel.v1`](../../schemas/finance-candidate-panel.v1.schema.json)
-record. It applies the released practical rule and selects a candidate only
-when the top margin clears the conservative 0.2 threshold. Otherwise it returns
-the unresolved candidate set. When a baseline is supplied, the same threshold
-produces improvement, regression, or abstention directions. This operation is
-retrospectively calibrated and requires prospective validation on new panels.
+record:
 
-The operational studies focus on control-heavy finance work. Reconciliation,
-settlement exceptions, collateral disputes, payment controls, and close
-workflows have planted truth, executable checks, stateful tools, and explicit
-authorization rules. They also create real allocation decisions between
-candidate training mixtures rather than retrospective comparisons of benchmark
-scores.
+```bash
+anarres finance decide candidate-panel.json
+```
 
-## Research path
+The released rule selects a candidate only when its margin clears the frozen
+threshold; otherwise it reports the unresolved set. This rule is
+retrospectively calibrated and still requires prospective validation.
 
-The [domain-priority audit](DOMAIN_PRIORITIES.md) identifies reconciliation and
-exception handling as the primary operational target. The
-[environment-selection study](environment-selection/README.md) begins with
-source qualification. Four stateful Business Bench workflows passed strict
-reference, null-agent, negative-control, handbook, and state-determinism checks
-across five generated seeds each. This establishes that the generators can
-support a prospective panel. It provides no evidence yet about which training
-mixture is best.
+## Research structure
 
-Any prospective training experiment will:
-
-1. generate disjoint development, candidate, and held-out scenario partitions
-2. measure each candidate under one frozen starting policy and tool contract
-3. construct policy-relative and practical baseline mixtures without reading
-   trained-policy outcomes
-4. freeze candidate identities, predictions, budgets, and material-control
-   guardrails
-5. train every arm under the same optimization contract
-6. open the held-out outcomes only after completeness and identity checks pass.
-
-The [retrospective post-training audit](retrospective-post-training/README.md)
-separately normalizes published finance interventions. It asks which recurring
-properties of training data and reward design predict improvement across prior
-studies. A strict task-level tier reaches 81.6% candidate ordering across 79
-panels without using model identity. A source-held-out confidence filter raises
-accuracy to 90.4% over 235 decided pairs at 76.1% coverage. Seven source-level
-tests then expose where successive representations transfer and where they
-fail. The
-capability-contract representation recovers all 33 scored FinAcumen candidate
-orderings across several targets and backbones. A separate baseline-matched
-audit reaches 0.815 source-macro ROC AUC for intervention regressions, compared
-with 0.575 for data volume alone. A table-blind FinHarmBench test
-then qualifies safety alignment for two models and rejects a third whose benign
-helpfulness crosses the frozen guardrail. The earlier numerical-faithfulness
-failure remains an important boundary. On FinToolSyn's controlled agentic
-ablation, the capability-contract representation gets all nine high-confidence
-directions and all three improvement or regression calls correct.
-In a separately frozen LongFinanceQA test, 24 of 25 matched component
-comparisons follow the predicted direction across reasoning supervision,
-multi-source tasks, property extraction, and simpler-context retention.
-On an excluded finance continual-pretraining source, the same representation
-recovers 21 of 22 candidate-target directions across two backbones. It selects
-the best finance-data candidate twice and identifies general-retention risk in
-one of the two model families. On Mint-Agent's 9B integration ablation, it also
-selects multi-teacher on-policy distillation over static parameter merging on
-all four finance reasoning and agentic-execution benchmarks.
-
-The [agent-systems evidence map](agent-systems-evidence/README.md) audits the
-workflow side of the decision. It separates post-training interventions from
-tool and scaffold ablations, and identifies reconciliation, spreadsheet work,
-evidence-grounded research, and workflow orchestration as the strongest public
-task families.
-
-The [adaptive environment-generation
-protocol](adaptive-environment-generation/README.md) turns this evidence into a
-repeated decision loop. It first tests whether pre-outcome measurements can
-select, reject, or abstain among released skill, procedure, and feedback
-interventions with one complete source held out. A native two-round study then
-generates candidates from typed failures, freezes admission decisions, and
-scores later target and protected cases. This path tests environment
-improvement before incurring the cost of matched model-weight training.
-
-The primary prospective outcome is held-out executable task completion.
-Allocation regret measures the cost of choosing a candidate other than the
-observed best arm.
-Ledger integrity, authorization violations, evidence provenance, and
-unauthorized state changes remain separate guardrails. A high aggregate score
-cannot erase a material-control failure.
-
-## Relationship to frontier finance agents
-
-Current systems span research, spreadsheet modeling, accounting operations,
-document review, and controlled tool use. [OpenAI's financial-services
-workspace](https://openai.com/index/introducing-chatgpt-financial-services/)
-and [ChatGPT for Excel](https://openai.com/index/chatgpt-for-excel/) emphasize
-research, modeling, and artifact production. [Anthropic's finance
-agents](https://www.anthropic.com/news/finance-agents) emphasize connected data,
-tool permissions, managed credentials, and audit logs. [Ramp Accounting
-Bench](https://labs.ramp.com/accountingbench) evaluates accounting work inside
-synthetic business worlds, while [Stripe's finance-agent
-guide](https://stripe.com/guides/a-founders-guide-to-delegating-finance-work-to-agents)
-describes document processing, reconciliation, review, and staged authority.
-
-These systems motivate the task class and its guardrails. They do not provide
-the outcome data for this study. The study uses openly qualified generators and
-keeps research, accounting operations, and authority-bearing actions as
-distinct endpoints.
+- [`environment-selection/`](environment-selection/) contains the source
+  qualification and prospective accounting protocol.
+- [`retrospective-post-training/`](retrospective-post-training/) normalizes
+  published interventions and runs source-held-out transfer tests.
+- [`agent-systems-evidence/`](agent-systems-evidence/) maps public evidence for
+  reconciliation, spreadsheet work, grounded research, and orchestration.
+- [`adaptive-environment-generation/`](adaptive-environment-generation/)
+  specifies a repeated generate, screen, admit, and evaluate loop.
+- [`DOMAIN_PRIORITIES.md`](DOMAIN_PRIORITIES.md) explains why reconciliation
+  and exception handling are the first operational targets.
 
 ## Scope
 
-The generator-qualified panel covers accounting workflows under one agent
-harness, starting policy, and training contract. A post-trade panel will require
-its own lifecycle model, discrepancy generator, and precision-first evaluation.
-Neither panel can establish a universal finance-task selector. Investment
+The qualified generator panel covers accounting workflows under one agent
+harness, starting policy, and training contract. Post-trade operations require
+a separate lifecycle model and precision-first evaluation. Investment
 research, underwriting, market analysis, spreadsheet modeling, and money
-movement require separate candidate panels and evaluation contracts. Actions
-with financial authority remain approval-gated.
+movement require their own candidate panels and outcome contracts. Actions with
+financial authority remain approval-gated.
 
-## Public artifacts
-
-- [Research brief](RESEARCH_BRIEF.md)
-- [Finance domain-priority audit](DOMAIN_PRIORITIES.md)
-- [Prospective environment-selection protocol](environment-selection/README.md)
-- [Starting-policy qualification](environment-selection/STARTING_POLICY_QUALIFICATION.md)
-- [Post-trade source audit](environment-selection/POST_TRADE_SOURCE_AUDIT.md)
-- [Post-trade panel specification](environment-selection/POST_TRADE_PANEL_SPEC.md)
-- [Retrospective post-training audit](retrospective-post-training/README.md)
-- [Frozen SNFinLLM source holdout](retrospective-post-training/heldout-snfinllm/README.md)
-- [Frozen Japanese financial-document holdout](retrospective-post-training/heldout-japanese-multimodal/README.md)
-- [Strict task-level transfer audit](retrospective-post-training/strict-task-level/README.md)
-- [Numerical-faithfulness source holdout](retrospective-post-training/heldout-numerical-hallucination/README.md)
-- [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
-- [Financial safety capability-contract holdout](retrospective-post-training/heldout-finharmbench/README.md)
-- [Agentic tool-environment holdout](retrospective-post-training/heldout-fintoolsyn/README.md)
-- [Finance data-selection holdout](retrospective-post-training/heldout-cdf-gc/README.md)
-- [Frontier agent-integration holdout](retrospective-post-training/heldout-mint-agent/README.md)
-- [Long-context component test](retrospective-post-training/heldout-longfinanceqa/RESULT.md)
-- [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
-- [Corrected expanded machine-readable results](retrospective-post-training/results/expanded_summary_corrected.json)
-- [Agent-systems evidence map](agent-systems-evidence/README.md)
-- [Adaptive environment-generation protocol](adaptive-environment-generation/README.md)
+Known-correct records and outcomes make reconciliation and exception handling
+useful experimental settings. They do not make the environments interchangeable
+with other finance tasks, nor do they remove the need for review and access
+controls.

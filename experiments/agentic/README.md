@@ -1,6 +1,9 @@
 # Agentic systems
 
-The agentic program extends environment-utility measurement to terminal, coding, and tool-using tasks. These settings add long trajectories, heterogeneous verifiers, sandbox startup and execution failures, and stronger interactions between the policy and the experience it generates.
+This directory connects Anarres studies that involve terminals, tools, or
+multi-step execution. It is an overview, not a separate `anarres agentic`
+adapter. Each domain keeps its own task format, verifier, cost model, and
+qualification gates.
 
 ## Research questions
 
@@ -9,13 +12,25 @@ The agentic program extends environment-utility measurement to terminal, coding,
 3. Can measurements made before RL predict held-out terminal utility curves and finite-budget environment rankings?
 4. Do improvements on a controlled, disjoint panel transfer to external benchmarks such as Terminal-Bench?
 
-## Experimental contract
+## Shared experimental contract
 
 Agentic studies keep four layers separate:
 
 - **Fixture validity:** an oracle succeeds, a no-op fails, and verifier behavior is stable.
 - **Infrastructure validity:** sandbox and harness failures are recorded separately from scientific reward zero.
-- **Policy measurement:** repeated rollout groups estimate signal density, coverage, cost, reliability, and candidate overlap.
+- **Policy measurement:** repeated rollouts measure the quantities defined by
+  that study, such as success variation, cost, reliability, or candidate
+  overlap.
 - **Held-out evaluation:** trained checkpoints are compared with a common warm start on disjoint tasks at matched generated-token budgets.
 
-Released adapters and analyses will use the same versioned task identities, content hashes, failure taxonomy, and evaluation primitives as the rest of Anarres. This directory will accumulate the reproducible components as the agentic study matures.
+Released studies use versioned task identities, content hashes, explicit
+failure states, and disjoint evaluation records. The concrete entry points are:
+
+- [formal verification](../cyber/formal-verification/README.md)
+- [vulnerability exploitation](../cyber/qualification/README.md)
+- [robotics](../robotics/README.md)
+- [legal workflows](../legal/README.md)
+- [finance workflows](../finance/README.md)
+
+The shared contract makes results comparable without forcing every domain into
+one measurement model.

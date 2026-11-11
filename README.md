@@ -54,14 +54,14 @@ the [release guide](docs/releases.md).
 
 ## Quick start
 
-Install the CLI and run the bundled CPU-only workflow:
+Run the bundled CPU-only workflow:
 
 ```bash
-brew install anarres-organization/tap/anarres && anarres demo
+anarres demo
 ```
 
-The demo qualifies one candidate, measures its usable experience, and compares
-two candidates produced under the same starting policy:
+The demo qualifies and measures two candidates produced under the same
+starting policy, then checks that they can be compared:
 
 ```text
 Anarres demo
@@ -91,21 +91,22 @@ The `Next` line is a runnable command. Generated records live in the local
 Run the demo from a project directory or pass `--output` to choose a different
 location.
 
+The demo needs no adapter. Real domain data uses one of the domain workflows
+described below.
+
 The [CLI guide](docs/cli.md) continues with your own measurements, candidate
 comparison, installed domain workflows, JSON output, and shell completions.
 
 ## Core CLI and domain workflows
 
-### What you provide
+Bring two or more candidate sources and the starting model or system you want
+to evaluate. A source may contain prompts, proof tasks, robot episodes, legal
+matters, molecular structures, atomistic configurations, or another
+domain-defined form of training experience.
 
-Bring two or more candidate environments measured under the starting policy
-you intend to train. An environment can be a prompt distribution, proof-task
-set, robot-episode dataset, collection of legal matters, molecular or material
-structures, or another domain-defined source of training experience.
-
-Keep each environment in its native format and add one small `anarres.toml`
-beside it. The manifest names the domain adapter, the native format, and the
-pinned source identity without copying domain data into a universal task table:
+Keep each source in its native format. Anarres can qualify every maintained
+format, and supported adapters can also run the starting-policy measurement.
+Begin by connecting a source to its adapter:
 
 ```bash
 anarres init ./candidate-a \
@@ -114,56 +115,26 @@ anarres init ./candidate-a \
   --license <SPDX-identifier>
 ```
 
-When an adapter accepts one native format, `init` selects it automatically.
-Use `--native-format <format>` when the adapter supports more than one. The
-resulting manifest is explicit and reviewable:
-
-```toml
-schema_version = "anarres.environment-source.v1"
-environment_id = "candidate-a"
-domain = "robotics"
-adapter = "robotics"
-adapter_version = "0.5.0"
-native_format = "robomimic-can-v141-hdf5"
-
-[source]
-uri = "."
-revision = "sha256:<dataset-digest>"
-license = "<dataset-license>"
-```
-
-Source-capable adapters declare qualification and policy probing separately.
-Start with `inspect`; it reports the operations that the installed adapter can
-perform for that native format:
+`inspect` reports what the installed adapter can do with that format. Every
+maintained adapter can qualify its native source. Adapters that can execute a
+starting policy also expose `probe`:
 
 ```bash
 anarres inspect ./candidate-a
 anarres qualify ./candidate-a
-```
-
-When the adapter also declares policy probing, it can run the starting policy
-and emit the normalized attempt stream measured by the Rust core:
-
-```bash
 anarres probe ./candidate-a \
   --policy <policy> \
   --policy-revision <revision> \
   --output .anarres/probes/candidate-a
-anarres measure .anarres/probes/candidate-a --output .anarres/environments/candidate-a.json
+anarres measure .anarres/probes/candidate-a \
+  --output .anarres/environments/candidate-a.json
 ```
 
-The built-in workflow accepts raw attempt streams or grouped measurements with:
-
-- stable task and candidate identifiers
-- the starting policy and measurement contract
-- repeated outcomes, generated cost, and per-attempt loss admission
-- oracle, no-op, and infrastructure-validity checks
-
-If a domain uses different measurements, its adapter emits the same portable
-profile envelope while preserving its native coordinates, units, uncertainty,
-and failure states. Candidates are comparable only when their starting subject
-and measurement contract match. See the [input guide](docs/cli.md#what-you-bring)
-and [versioned schemas](schemas/) for the exact contracts.
+Not every adapter can probe yet. The CLI reports that boundary directly and
+keeps domain-specific measurements, units, uncertainty, and failure states in
+the resulting records. See the [input guide](docs/cli.md#what-you-bring) and
+[adapter guide](docs/adapters.md) for the exact workflow available in each
+domain.
 
 Homebrew installs the native `anarres` binary. Its built-in commands operate on
 portable records and do not require a domain runtime:
@@ -199,9 +170,8 @@ their first useful commands.
 task sources
     → verify fixtures and rewards
     → measure experience under the target policy
-    → construct candidate environments
-    → predict finite-budget utility
-    → test predictions with controlled training
+    → compare compatible candidates
+    → evaluate domain-specific predictions with controlled training
 ```
 
 Anarres keeps three questions separate: whether a task and verifier work,
@@ -213,15 +183,15 @@ become ordinary unsuccessful attempts.
 
 | Area | Question | Status |
 | --- | --- | --- |
-| [Mathematics](experiments/mathematics/README.md) | Can starting-policy measurements predict finite-budget RL utility across model scale? | Study assets available |
-| [Agentic systems](experiments/agentic/README.md) | Which measurements transfer to terminal, coding, and tool-using agents? | Program overview; concrete studies use domain adapters |
-| [Cyber: formal verification](experiments/cyber/formal-verification/README.md) | Which executable proof environments improve held-out verification under a fixed policy and budget? | Positive public training-environment evidence and policy audit released; Vero containment qualification pending |
-| [Cyber: vulnerability exploitation](experiments/cyber/qualification/README.md) | Which authorized exploit-generation environments provide measurable signal and held-out improvement? | Scaffold qualification and repeated-policy measurement released; no environment comparison |
-| [Molecular design](experiments/ai-for-science/molecular-design/README.md) | Which reaction-based environments improve a molecular graph policy for a specified protein target and compute budget? | Candidate-bank qualification passed; outcomes remain sealed |
-| [Materials science](experiments/ai-for-science/materials-science/README.md) | Which atomistic training distributions improve a materials model for a specified physical target and compute budget? | MLIP prospective test scored; the learned selector missed and exposes a support boundary |
-| [Robotics](experiments/robotics/README.md) | Which environments help robots improve across diverse embodied tasks? | First evidence release available |
-| [Legal reasoning](experiments/legal/README.md) | Can policy-relative measurements guide legal training-mixture selection? | Native adapter and evidence release available |
-| [Agentic finance](experiments/finance/README.md) | Which finance-task distributions improve held-out work under fixed training and control budgets? | Native CLI workflow and retrospective evidence available |
+| [Mathematics](experiments/mathematics/README.md) | Can starting-policy measurements predict finite-budget RL utility across model scale? | Four-scale evidence released |
+| [Agentic systems](experiments/agentic/README.md) | Which measurements transfer to terminal, coding, and tool-using agents? | Domain workflows available |
+| [Cyber: formal verification](experiments/cyber/formal-verification/README.md) | Which executable proof environments improve held-out verification under a fixed policy and budget? | Evidence and runtime qualification released |
+| [Cyber: vulnerability exploitation](experiments/cyber/qualification/README.md) | Which authorized exploit-generation environments provide measurable signal and held-out improvement? | Source qualification released |
+| [Molecular design](experiments/ai-for-science/molecular-design/README.md) | Which reaction-based environments improve a molecular graph policy for a specified protein target and compute budget? | Probe qualified; training outcomes sealed |
+| [Materials science](experiments/ai-for-science/materials-science/README.md) | Which atomistic training distributions improve a materials model for a specified physical target and compute budget? | Prospective test scored |
+| [Robotics](experiments/robotics/README.md) | Which environments help robots improve across diverse embodied tasks? | Prospective evidence released |
+| [Legal reasoning](experiments/legal/README.md) | Can policy-relative measurements guide legal training-mixture selection? | Evidence and source qualification released |
+| [Agentic finance](experiments/finance/README.md) | Which finance-task distributions improve held-out work under fixed training and control budgets? | Retrospective evidence and source qualification released |
 
 Statuses describe released evidence, not a uniform claim of predictive support.
 The [domain support matrix](docs/domain-support.md) separates public protocols,
@@ -229,7 +199,9 @@ runnable adapters, and downstream validation.
 
 ## Develop
 
-The reference environment-processing path is CPU-only. Repository development requires Rust, Python 3.11 or newer, [`uv`](https://docs.astral.sh/uv/), and `make`.
+The reference environment-processing path is CPU-only. Repository development
+requires Rust, Python 3.11 or newer, [`uv`](https://docs.astral.sh/uv/), and
+`make`.
 
 ```bash
 git clone https://github.com/anarres-organization/anarres.git
@@ -244,24 +216,9 @@ make example
 reproduces the compact released study records and maintained adapter outputs.
 The slower `make study-check-extended` also runs exhaustive isolated releases.
 
-Install the native command from a checkout:
-
-```bash
-cargo install --path crates/anarres-cli --locked
-anarres --version
-```
-
-The mathematics release can also be inspected directly:
-
-```bash
-cd experiments/mathematics/environment-utility
-python scripts/audit_study.py
-python scripts/summarize_prerl.py
-python scripts/reproduce_tables.py
-```
-
-The audit checks prompt counts and disjointness, configuration coverage,
-evaluation completeness, prospective chronology, and recorded content hashes.
+Install the native command from a checkout with
+`cargo install --path crates/anarres-cli --locked`. Each study README contains
+its own reproduction command and scientific scope.
 
 ## Repository map
 

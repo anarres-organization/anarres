@@ -1,6 +1,6 @@
 # Environment utility across model scale
 
-**Status:** Study assets available. A citable research release will follow.
+**Status:** Study assets and reproducibility records are available.
 
 ## Overview
 

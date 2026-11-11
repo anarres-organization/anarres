@@ -1,9 +1,9 @@
 # Domain integration status
 
-Anarres separates software conformance from scientific validation. A domain can
-fit the environment-profile contract before it has a released adapter, and an
-adapter can be operationally valid before its measurements predict downstream
-utility. These levels must not be collapsed into one claim of support.
+Anarres separates software support from scientific validation. Format support
+means the software can read and validate the data. Predictive evidence means a
+measurement or decision was tested against later outcomes. One does not imply
+the other.
 
 ## Conformance levels
 
@@ -31,7 +31,7 @@ the authoritative adapter-level check.
 
 ## Current status
 
-| Program | Profile or native-path conformance | Native adapter | Unified source runtime | Predictive evidence |
+| Program | Example records | Installed command | Works with native files | Outcome evidence |
 | --- | --- | --- | --- | --- |
 | Mathematics | Grouped-probe path and reference conformance | Native grouped-probe processor | Completed raw-attempt streams | Four-scale environment-utility release |
 | Formal verification | Real Vero profiles | Installable Vero adapter with source and model-free runtime qualification | Runtime preflight available; sanitized policy execution pending | Positive external training-environment grids across Dafny and Verus; local Vero support and containment qualification remain pre-RL |

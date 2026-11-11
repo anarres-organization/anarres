@@ -17,4 +17,4 @@ The first study establishes the predictive relationship in a controlled setting.
 
 The environment types are intentionally different. The controlled study uses fixed distributions of answer-producing mathematical prompts under one symbolic verifier. VeriBench environments contain program-to-Lean tasks in which an agent must use tools, construct a formal artifact, and satisfy checks for compilation, meaningful specifications, and theorem coverage. This provides a stronger test of whether environment-utility measurements remain predictive when the interaction and verification structure changes.
 
-Citation guidance will be added with each citable research release.
+Each study page records its evidence, scope, and reproduction commands.
