@@ -1,0 +1,136 @@
+{
+  "schema_version": "anarres.robotics-cupid-can-v141-probe-contract.v1",
+  "study_id": "prospective_cupid_can_v141_v2",
+  "measurement_contract": "robotics.cupid-can-v141-candidate-measurement.v1",
+  "status": "portable_preflight_specified__execution_not_released",
+  "source": {
+    "native_format": "robomimic-can-v141-hdf5",
+    "sha256": "b6ceaed84c0335613a5001c900493b226481c132c792ec2cbdb99cb12c62baf0",
+    "demonstrations": 300,
+    "task": "PickPlaceCan",
+    "observation_mode": "low_dimensional",
+    "observation_keys": {
+      "object": 14,
+      "robot0_eef_pos": 3,
+      "robot0_eef_quat": 4,
+      "robot0_eef_vel_ang": 3,
+      "robot0_eef_vel_lin": 3,
+      "robot0_gripper_qpos": 2,
+      "robot0_gripper_qvel": 2,
+      "robot0_joint_pos": 7,
+      "robot0_joint_pos_cos": 7,
+      "robot0_joint_pos_sin": 7,
+      "robot0_joint_vel": 7
+    },
+    "action_dimension": 7,
+    "action_dtype": "float64",
+    "state_dimension": 71,
+    "camera_observations": false,
+    "rendering": "headless",
+    "released_prepared_dataset_sha256": "eb00660546abd5f4ca4dd3497569095be68e4455b921fe46363d458645bb9312"
+  },
+  "subject": {
+    "kind": "policy-ensemble",
+    "id": "robomimic-diffusion-policy-can-v141-scoring-ensemble",
+    "revision": "sha256:2bfd6ce172c022e1a066039947ad866a6b2cd14d73613bd418d1fd7fda668750",
+    "checkpoints": [
+      {"seed": 1, "sha256": "599ad3be6a2af91a4dd1dd2c9aae7e6d0812eb7ebbfe0bb3f6ef67afeb2c5a8b"},
+      {"seed": 2, "sha256": "c16643c9812be9a2bdca9be30181892ba4c0af1393a27443a4c85d096844f30e"},
+      {"seed": 3, "sha256": "885d4650008edd39dcabbb827b976793f418038bf76301437f3f8205ccce89d3"}
+    ]
+  },
+  "runtime": {
+    "python": "3.10.22",
+    "packages": {
+      "diffusers": "0.11.1",
+      "h5py": "3.16.0",
+      "mujoco": "2.3.7",
+      "numpy": "1.26.4",
+      "robomimic": "0.5.0",
+      "robosuite": "1.4.1",
+      "torch": "2.7.1+cu128"
+    },
+    "checkouts": {
+      "CuraEval": "bd94bbbd435c1ef55edfe244894e5468f3a5df2b",
+      "CUPID": "2941eba9427a3398d3cbe26b10c01e3ece56bd18",
+      "PyTorch3D": "33824be3cbc87a7dd1db0f6a9a9de9ac81b2d0ba"
+    },
+    "entrypoints": {
+      "CuraEval/cupid_port/collect_rollouts.py": "07a1dbb9f6d364ffaff8bf8d80aba5122e1ff090296ab50f14024e07df0f99ca",
+      "CuraEval/cupid_port/cupid_influence.py": "3f48e8c46e7276b2c11312b8acc11a04ddc1a97596a313dd67c415fba627d6a3"
+    },
+    "environment": {"MUJOCO_GL": "egl"},
+    "cuda_runtime": "12.8",
+    "reference_accelerator": "NVIDIA B200 183359 MiB"
+  },
+  "rollout_contract": {
+    "episodes_per_checkpoint": 100,
+    "environment_seed": 0,
+    "horizon": 400,
+    "terminate_on_success": true,
+    "success_value": 1,
+    "failure_value": -1,
+    "requires_successes_and_failures_per_checkpoint": true
+  },
+  "influence_contract": {
+    "method": "CUPID performance influence",
+    "aggregation": "sum_of_sum-net-all",
+    "projection_dimension": 4000,
+    "projection_seed": 0,
+    "merge": "mean per-demonstration rank across three checkpoints"
+  },
+  "outcome_taxonomy": {
+    "task_outcomes": ["success", "failure"],
+    "infrastructure_outcomes": [
+      "simulator_initialization_error",
+      "environment_reset_error",
+      "rendering_error",
+      "missing_observation",
+      "invalid_action",
+      "checkpoint_runtime_mismatch"
+    ]
+  },
+  "output_contract": {
+    "schema_version": "anarres.environment-profile-input.v1",
+    "per_checkpoint_evidence_required": true,
+    "aggregate_evidence_required": true,
+    "coordinate_roles": [
+      "target_affinity",
+      "coverage",
+      "cost",
+      "reliability"
+    ],
+    "contextual_evidence_roles": [
+      "policy_weakness",
+      "workflow_validity"
+    ],
+    "validity_checks": [
+      "source_identity",
+      "checkpoint_runtime_compatibility",
+      "closed_loop_outcome_support",
+      "score_completeness",
+      "cross_checkpoint_rank_reliability"
+    ],
+    "forbidden_substitutions": [
+      "rho",
+      "effective_prompt_coverage",
+      "infrastructure_failure_as_task_failure"
+    ]
+  },
+  "execution": {
+    "supported_backends": ["local", "slurm"],
+    "default_mode": "dry_run",
+    "requires_explicit_execute": true,
+    "policy_probe_capability_released": false,
+    "release_blockers": [
+      "checkpoint_artifacts_are_not_resolvable_from_the_public_contract",
+      "portable_end_to_end_probe_has_not_passed_the_release_gate"
+    ]
+  },
+  "licenses": {
+    "CUPID": "MIT",
+    "CuraEval": "MIT",
+    "RoboMimic Can dataset": "MIT",
+    "robomimic": "MIT"
+  }
+}
