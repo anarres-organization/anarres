@@ -1,7 +1,7 @@
 [project]
 name = "anarres-formal"
 version = "0.2.0"
-description = "Anarres adapter for the released Vero development measurement"
+description = "Anarres adapter for Vero source and runtime qualification"
 requires-python = ">=3.11"
 dependencies = ["anarres-core", "anarres-environments"]
 license = { text = "Apache-2.0" }

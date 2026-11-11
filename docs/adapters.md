@@ -53,7 +53,7 @@ new training outcome.
 
 | Adapter | Start here | Then inspect | Current released boundary |
 | --- | --- | --- | --- |
-| Formal verification | `anarres formal status --repository .` | `anarres formal qualification --repository .` | Negative grouped measurement plus a separate one-attempt support pass; containment requalification and RL remain blocked |
+| Formal verification | `anarres formal status --repository .` | `anarres formal qualification --repository .`<br>`anarres formal qualify-runtime --help` | Source and model-free runtime qualification are available; policy probing, containment requalification, and RL remain blocked |
 | Robotics | `anarres robotics status --repository .` | `anarres robotics can-results --repository .` | Can v1.4.1 candidate measurements and prospective result |
 | Legal reasoning | `anarres legal status --repository .` | `anarres legal regressions --repository .` | SylloGym candidate profiles and a separate LAB regression report |
 | Materials science | `anarres materials status --repository .` | `anarres materials results --repository .` | MLIP candidate measurements, frozen protocol, and scored prospective result |

@@ -1,0 +1,81 @@
+{
+  "schema_version": "anarres.formal-verification-runtime-contract.v1",
+  "contract_id": "vero-proof-task-runtime-v1",
+  "source": {
+    "source_id": "sunblaze-ucb/vero@0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+    "revision": "git:0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+    "source_pin_sha256": "sha256:a3c462fdb297e59a0755f4d23478d8598dbf1c5d4a0f4970e9fa3e32921a72be",
+    "package_lock": {
+      "path": "uv.lock",
+      "sha256": "sha256:69be7758a9831d6e92be6a09c3d0ee1f6628676404174a85ff3e054078db3bec"
+    }
+  },
+  "mode": "proof",
+  "toolchain": {
+    "lean_version": "4.29.1",
+    "lean_toolchain": "leanprover/lean4:v4.29.1",
+    "lake_required": true
+  },
+  "sandbox": {
+    "task_visibility": "task-only",
+    "tool_allowlist": [
+      "sandbox/execute",
+      "sandbox/readFile"
+    ],
+    "forbidden_inputs": [
+      "reference-solutions",
+      "source-benchmark-tree",
+      "qualification-tasks",
+      "prospective-tasks",
+      "host-home",
+      "host-credentials",
+      "global-agent-configuration",
+      "other-attempt-workspaces"
+    ]
+  },
+  "limits": {
+    "wall_seconds": 3600,
+    "turns": 256,
+    "response_tokens": 32768,
+    "cumulative_tokens": 200000
+  },
+  "verifier": {
+    "command": [
+      "lake",
+      "env",
+      "lean",
+      "{task}"
+    ],
+    "identity": "vero-strict-lean-v1",
+    "strict_success": "exit-zero-and-all-specifications-verified"
+  },
+  "network": {
+    "task_external_egress": false,
+    "controller_allowlist": [
+      "http://127.0.0.1:8000"
+    ]
+  },
+  "cleanup": {
+    "process_tree": "terminate",
+    "workspace": "destroy",
+    "verify_after_attempt": true
+  },
+  "filesystem": {
+    "task_root": "/runtime/task",
+    "read_only_paths": [
+      "/runtime/toolchain",
+      "/runtime/dependencies"
+    ],
+    "writable_paths": [
+      "/runtime/task",
+      "/runtime/output",
+      "/runtime/tmp"
+    ],
+    "output_path": "/runtime/output"
+  },
+  "resources": {
+    "processes": 256,
+    "memory_bytes": 34359738368,
+    "file_bytes": 10737418240
+  }
+}
