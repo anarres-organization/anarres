@@ -72,7 +72,7 @@ fn demo_writes_and_validates_a_record() {
     assert_eq!(
         stdout,
         format!(
-            "Anarres demo\n  Environment         math-reference-demo-v1\n  Policy              synthetic-policy-v1\n  Qualification       2 admitted · 1 reserve · 1 repair · 1 quarantine\n  Signal density      833.3333 advantage mass / M tokens\n  Effective coverage  0.6533\n  Record              {}\n  Validation          passed\n\nNext: run anarres design <record-a> <record-b> to compare candidates.\n",
+            "Anarres demo\n\n  ✓ Qualified    math-reference-demo-v1\n    Policy           synthetic-policy-v1\n    Groups           2 admitted · 1 reserve · 1 repair · 1 quarantine\n  ✓ Measured     usable experience\n    Signal density   833.3333 advantage mass / M tokens\n    Coverage         0.6533\n  ✓ Wrote        {}\n  ✓ Validated    content digest\n\nNext  anarres design <record-a> <record-b>\n",
             record.display()
         )
     );
@@ -103,7 +103,7 @@ fn core_human_output_has_a_stable_layout() {
     assert!(qualified.status.success());
     assert_eq!(
         String::from_utf8(qualified.stdout).expect("stdout is UTF-8"),
-        "Qualification  math-reference-demo-v1\n  Policy        synthetic-policy-v1\n  Groups        2 admitted · 1 reserve · 1 repair · 1 quarantine\n\nAction required\n  math-demo-004            quarantine noop accepted\n  math-demo-005            repair     infrastructure invalid\n"
+        "  ✓ Qualified    math-reference-demo-v1\n    Policy           synthetic-policy-v1\n    Groups           2 admitted · 1 reserve · 1 repair · 1 quarantine\n\nAction required\n  ! quarantine   math-demo-004            noop accepted\n  ! repair       math-demo-005            infrastructure invalid\n"
     );
 
     let measured = run(&[
@@ -116,7 +116,7 @@ fn core_human_output_has_a_stable_layout() {
     assert_eq!(
         String::from_utf8(measured.stdout).expect("stdout is UTF-8"),
         format!(
-            "Measured  math-reference-demo-v1\n  Policy              synthetic-policy-v1\n  Signal density      833.3333 advantage mass / M tokens\n  Effective coverage  0.6533\n  Evidence            3 groups · 4,200 generated tokens\n  Record              {}\n  Digest              sha256:5471a6e0fb121640260770060a3b858f2e31100a66b73eb2210bd59603dd76d9\n",
+            "  ✓ Measured     math-reference-demo-v1\n    Policy           synthetic-policy-v1\n    Signal density   833.3333 advantage mass / M tokens\n    Coverage         0.6533\n    Evidence         3 groups · 4,200 generated tokens\n    Record           {}\n    Digest  sha256:5471a6e0fb121640260770060a3b858f2e31100a66b73eb2210bd59603dd76d9\n",
             record.display()
         )
     );
@@ -126,10 +126,65 @@ fn core_human_output_has_a_stable_layout() {
     assert_eq!(
         String::from_utf8(validated.stdout).expect("stdout is UTF-8"),
         format!(
-            "Validated  environment manifest\n  Path  {}\n",
+            "  ✓ Valid        environment manifest\n    Path             {}\n",
             record.display()
         )
     );
+
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
+}
+
+#[test]
+fn color_is_tty_aware_and_json_remains_unstyled() {
+    let directory = temporary_directory();
+    let plain_record = directory.join("plain.json");
+    let color_record = directory.join("color.json");
+    let no_color_record = directory.join("no-color.json");
+
+    let automatic = run(&[
+        "demo",
+        "--output",
+        plain_record.to_str().unwrap(),
+        "--color",
+        "auto",
+    ]);
+    assert!(automatic.status.success());
+    assert!(!automatic.stdout.contains(&0x1b));
+
+    let colored = run(&[
+        "demo",
+        "--output",
+        color_record.to_str().unwrap(),
+        "--color",
+        "always",
+    ]);
+    assert!(colored.status.success());
+    assert!(colored.stdout.contains(&0x1b));
+
+    let no_color = Command::new(binary())
+        .args([
+            "demo",
+            "--output",
+            no_color_record.to_str().unwrap(),
+            "--color",
+            "auto",
+        ])
+        .env("NO_COLOR", "1")
+        .output()
+        .expect("CLI process starts");
+    assert!(no_color.status.success());
+    assert!(!no_color.stdout.contains(&0x1b));
+
+    let json = run(&[
+        "qualify",
+        fixture().to_str().unwrap(),
+        "--json",
+        "--color",
+        "always",
+    ]);
+    assert!(json.status.success());
+    assert!(!json.stdout.contains(&0x1b));
+    serde_json::from_slice::<Value>(&json.stdout).expect("colored mode preserves valid JSON");
 
     fs::remove_dir_all(directory).expect("temporary directory is removed");
 }
@@ -404,6 +459,16 @@ fn legal_profiles_preserve_domain_coordinates_without_rho_or_h() {
         report["coordinate_ranges"]["measurement_reliability"]["minimum"],
         0.76
     );
+
+    let human = run(&[
+        "design",
+        profile_a.to_str().unwrap(),
+        profile_b.to_str().unwrap(),
+    ]);
+    assert!(human.status.success());
+    let human = String::from_utf8(human.stdout).expect("stdout is UTF-8");
+    assert!(human.contains("eligible_response_fraction"));
+    assert!(!human.contains('…'));
 
     fs::remove_dir_all(directory).expect("temporary directory is removed");
 }

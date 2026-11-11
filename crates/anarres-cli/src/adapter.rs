@@ -81,16 +81,20 @@ pub(crate) fn list(as_json: bool) -> Result<i32, String> {
     }
 
     if installations.is_empty() {
-        println!("No Anarres adapters found on PATH.");
+        crate::ui::title("Installed adapters");
+        crate::ui::muted("None found on PATH.");
+        crate::ui::next("see docs/adapters.md to add a domain workflow");
         return Ok(0);
     }
+    crate::ui::title("Installed adapters");
+    crate::ui::blank();
     for adapter in installations {
-        println!("{:<20} {}", adapter.name, adapter.path);
+        crate::ui::success(&adapter.name, &adapter.path);
         for shadowed in adapter.shadowed_paths {
-            eprintln!(
-                "warning: adapter '{}' at {} is shadowed by an earlier PATH entry",
+            crate::ui::warning_stderr(format_args!(
+                "adapter '{}' at {} is shadowed by an earlier PATH entry",
                 adapter.name, shadowed
-            );
+            ));
         }
     }
     Ok(0)
@@ -131,24 +135,20 @@ pub(crate) fn doctor(name: &str, as_json: bool) -> Result<i32, String> {
         print_json(&report)?;
     } else if report.valid {
         let descriptor = report.descriptor.as_ref().expect("valid descriptor exists");
-        println!("Adapter      {}", descriptor.name);
-        println!("Domain       {}", descriptor.domain);
-        println!("Version      {}", descriptor.version);
-        println!("Protocol     {}", descriptor.protocol_version);
-        println!(
-            "Executable   {}",
-            report.path.as_deref().unwrap_or("unknown")
-        );
-        println!("Status       ready");
+        crate::ui::success("Ready", &descriptor.name);
+        crate::ui::field("Domain", &descriptor.domain);
+        crate::ui::field("Version", &descriptor.version);
+        crate::ui::field("Protocol", descriptor.protocol_version);
+        crate::ui::field("Executable", report.path.as_deref().unwrap_or("unknown"));
         for path in &report.shadowed_paths {
-            eprintln!(
-                "warning: adapter '{}' at {} is shadowed by an earlier PATH entry",
+            crate::ui::warning_stderr(format_args!(
+                "adapter '{}' at {} is shadowed by an earlier PATH entry",
                 name, path
-            );
+            ));
         }
     } else {
         for error in &report.errors {
-            eprintln!("error: {error}");
+            crate::ui::error(error);
         }
     }
     Ok(i32::from(!report.valid))
@@ -238,7 +238,7 @@ fn resolve_adapter(name: &str) -> Result<ResolvedAdapter, String> {
     }
     if paths.is_empty() {
         return Err(format!(
-            "adapter '{name}' not found; install anarres-{name} on PATH"
+            "adapter '{name}' was not found on PATH\nhint: run `anarres adapter list` or install the {name} domain workflow"
         ));
     }
     let path = paths.remove(0);

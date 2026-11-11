@@ -4,6 +4,13 @@ All notable CLI changes are recorded here. The project follows semantic
 versioning for the command contract and versioned JSON schemas for stored
 records.
 
+## 0.3.0 - 2026-11-10
+
+- Add TTY-aware semantic color and status symbols to human-readable output.
+- Respect `NO_COLOR`, disable styling in pipes, and add `--color` overrides.
+- Keep JSON output unstyled and preserve every machine-readable contract.
+- Improve command hierarchy, adapter discovery, and actionable error hints.
+
 ## 0.2.0 - 2026-11-10
 
 - Add `anarres demo` for a complete first run without a repository checkout or

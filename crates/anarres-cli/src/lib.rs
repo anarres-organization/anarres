@@ -6,7 +6,7 @@ use std::io::{self, Write};
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicU64, Ordering};
 
-use clap::{Args, CommandFactory, Parser, Subcommand};
+use clap::{Args, CommandFactory, Parser, Subcommand, ValueEnum};
 use clap_complete::{Shell, generate};
 use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
@@ -14,6 +14,7 @@ use sha2::{Digest, Sha256};
 
 mod adapter;
 mod profile;
+mod ui;
 
 use profile::{
     PROFILE_INPUT_SCHEMA, PROFILE_SCHEMA, build_profile, parse_profile, parse_profile_input,
@@ -43,8 +44,29 @@ static NEXT_TEMPORARY_FILE: AtomicU64 = AtomicU64::new(0);
     arg_required_else_help = true
 )]
 struct Cli {
+    /// Control color output.
+    #[arg(long, global = true, value_enum, default_value_t = ColorMode::Auto)]
+    color: ColorMode,
     #[command(subcommand)]
     command: Command,
+}
+
+#[derive(Copy, Clone, Debug, Default, ValueEnum)]
+enum ColorMode {
+    #[default]
+    Auto,
+    Always,
+    Never,
+}
+
+impl From<ColorMode> for anstream::ColorChoice {
+    fn from(value: ColorMode) -> Self {
+        match value {
+            ColorMode::Auto => Self::Auto,
+            ColorMode::Always => Self::Always,
+            ColorMode::Never => Self::Never,
+        }
+    }
 }
 
 #[derive(Debug, Subcommand)]
@@ -290,10 +312,11 @@ struct ValidationResult {
 
 pub fn run() -> i32 {
     let cli = Cli::parse();
+    ui::configure(cli.color.into());
     match execute(cli.command) {
         Ok(code) => code,
         Err(error) => {
-            let _ = writeln!(io::stderr(), "error: {error}");
+            ui::error(error);
             1
         }
     }
@@ -343,7 +366,7 @@ fn command_demo(args: DemoArgs) -> Result<i32, String> {
             .map_err(|error| format!("could not read {}: {error}", args.output.display()))?;
         if existing != stored_output {
             return Err(format!(
-                "{} already exists with different content; pass --force to replace it",
+                "{} already exists with different content\nhint: pass --force to replace it",
                 args.output.display()
             ));
         }
@@ -358,28 +381,35 @@ fn command_demo(args: DemoArgs) -> Result<i32, String> {
             .unwrap_or_else(|| "the generated record did not validate".to_owned()));
     }
 
-    println!("Anarres demo");
-    println!("  Environment         {}", report.environment_id);
-    println!("  Policy              {}", report.policy_id);
-    println!(
-        "  Qualification       {} admitted · {} reserve · {} repair · {} quarantine",
-        count(&report.status_counts, "admitted"),
-        count(&report.status_counts, "reserve"),
-        count(&report.status_counts, "repair"),
-        count(&report.status_counts, "quarantine")
+    ui::title("Anarres demo");
+    ui::blank();
+    ui::success("Qualified", &report.environment_id);
+    ui::field("Policy", &report.policy_id);
+    ui::field(
+        "Groups",
+        format_args!(
+            "{} admitted · {} reserve · {} repair · {} quarantine",
+            count(&report.status_counts, "admitted"),
+            count(&report.status_counts, "reserve"),
+            count(&report.status_counts, "repair"),
+            count(&report.status_counts, "quarantine")
+        ),
     );
-    println!(
-        "  Signal density      {:.4} advantage mass / M tokens",
-        manifest.coordinates.rho_per_million_tokens
+    ui::success("Measured", "usable experience");
+    ui::field(
+        "Signal density",
+        format_args!(
+            "{:.4} advantage mass / M tokens",
+            manifest.coordinates.rho_per_million_tokens
+        ),
     );
-    println!(
-        "  Effective coverage  {:.4}",
-        manifest.coordinates.effective_coverage
+    ui::field(
+        "Coverage",
+        format_args!("{:.4}", manifest.coordinates.effective_coverage),
     );
-    println!("  Record              {}", args.output.display());
-    println!("  Validation          passed");
-    println!();
-    println!("Next: run anarres design <record-a> <record-b> to compare candidates.");
+    ui::success("Wrote", args.output.display());
+    ui::success("Validated", "content digest");
+    ui::next("anarres design <record-a> <record-b>");
     Ok(0)
 }
 
@@ -392,19 +422,21 @@ fn command_qualify(args: InputArgs) -> Result<i32, String> {
             if args.json {
                 print_json(&report)?;
             } else {
-                println!("Qualification  {}", input.environment_id);
-                println!("  Domain   {}", input.domain);
-                println!("  Subject  {}", input.subject.id);
-                println!(
-                    "  Ready    {}",
-                    yes_no(report["ready"].as_bool().unwrap_or(false))
-                );
-                println!();
-                println!("Checks");
+                let ready = report["ready"].as_bool().unwrap_or(false);
+                if ready {
+                    ui::success("Qualified", &input.environment_id);
+                } else {
+                    ui::warning("Review", &input.environment_id);
+                }
+                ui::field("Domain", &input.domain);
+                ui::field("Subject", &input.subject.id);
+                ui::field("Ready", yes_no(ready));
+                ui::blank();
+                ui::title("Checks");
                 for check in &input.qualification_checks {
-                    println!(
-                        "  {:<7} {:<8} {}",
-                        check.status, check.severity, check.summary
+                    ui::field(
+                        &format!("{} / {}", check.status, check.severity),
+                        &check.summary,
                     );
                 }
             }
@@ -422,14 +454,17 @@ fn command_qualify(args: InputArgs) -> Result<i32, String> {
                     "input_digest": report.input_digest,
                 }))?;
             } else {
-                println!("Qualification  {}", report.environment_id);
-                println!("  Policy        {}", report.policy_id);
-                println!(
-                    "  Groups        {} admitted · {} reserve · {} repair · {} quarantine",
-                    count(&report.status_counts, "admitted"),
-                    count(&report.status_counts, "reserve"),
-                    count(&report.status_counts, "repair"),
-                    count(&report.status_counts, "quarantine")
+                ui::success("Qualified", &report.environment_id);
+                ui::field("Policy", &report.policy_id);
+                ui::field(
+                    "Groups",
+                    format_args!(
+                        "{} admitted · {} reserve · {} repair · {} quarantine",
+                        count(&report.status_counts, "admitted"),
+                        count(&report.status_counts, "reserve"),
+                        count(&report.status_counts, "repair"),
+                        count(&report.status_counts, "quarantine")
+                    ),
                 );
                 print_group_exceptions(&report.groups);
             }
@@ -461,23 +496,29 @@ fn command_measure(args: MeasureArgs) -> Result<i32, String> {
             if args.json {
                 print_json(&manifest)?;
             } else {
-                println!("Measured  {}", manifest.environment_id);
-                println!("  Policy              {}", manifest.policy_id);
-                println!(
-                    "  Signal density      {:.4} advantage mass / M tokens",
-                    manifest.coordinates.rho_per_million_tokens
+                ui::success("Measured", &manifest.environment_id);
+                ui::field("Policy", &manifest.policy_id);
+                ui::field(
+                    "Signal density",
+                    format_args!(
+                        "{:.4} advantage mass / M tokens",
+                        manifest.coordinates.rho_per_million_tokens
+                    ),
                 );
-                println!(
-                    "  Effective coverage  {:.4}",
-                    manifest.coordinates.effective_coverage
+                ui::field(
+                    "Coverage",
+                    format_args!("{:.4}", manifest.coordinates.effective_coverage),
                 );
-                println!(
-                    "  Evidence            {} groups · {} generated tokens",
-                    manifest.coordinates.prompt_count,
-                    format_integer(manifest.coordinates.generated_action_tokens)
+                ui::field(
+                    "Evidence",
+                    format_args!(
+                        "{} groups · {} generated tokens",
+                        manifest.coordinates.prompt_count,
+                        format_integer(manifest.coordinates.generated_action_tokens)
+                    ),
                 );
-                println!("  Record              {}", args.output.display());
-                println!("  Digest              {}", manifest.manifest_digest);
+                ui::field("Record", args.output.display());
+                ui::muted(format_args!("Digest  {}", manifest.manifest_digest));
             }
         }
     }
@@ -491,27 +532,29 @@ fn command_design(args: DesignArgs) -> Result<i32, String> {
         if args.json {
             print_json(&report)?;
         } else {
-            println!("Candidate panel");
-            println!("Domain       {}", report.domain);
-            println!("Subject      {}", report.subject.id);
-            println!(
-                "Adapter      {} @ {}",
-                report.producer.id, report.producer.revision
+            if report.compatible {
+                ui::success("Compatible", "candidate panel");
+            } else {
+                ui::warning("Review", "candidate panel");
+            }
+            ui::field("Domain", &report.domain);
+            ui::field("Subject", &report.subject.id);
+            ui::field(
+                "Adapter",
+                format_args!("{} @ {}", report.producer.id, report.producer.revision),
             );
-            println!("Contract     {}", report.measurement_contract.id);
-            println!("Candidates   {}", report.candidate_count);
-            println!("Compatible   {}", yes_no(report.compatible));
-            println!();
+            ui::field("Contract", &report.measurement_contract.id);
+            ui::field("Candidates", report.candidate_count);
+            ui::blank();
+            ui::title("Coordinate ranges");
             for (name, span) in &report.coordinate_ranges {
-                println!(
-                    "{:<24} {:.4} to {:.4}",
-                    truncate(name, 24),
-                    span.minimum,
-                    span.maximum
+                ui::field(
+                    name,
+                    format_args!("{:.4} to {:.4}", span.minimum, span.maximum),
                 );
             }
             for issue in &report.issues {
-                println!("Issue        {issue}");
+                ui::warning("Issue", issue);
             }
         }
         return Ok(if report.compatible { 0 } else { 1 });
@@ -525,37 +568,46 @@ fn command_design(args: DesignArgs) -> Result<i32, String> {
     if args.json {
         print_json(&report)?;
     } else {
-        println!("Candidate panel");
-        println!("Policy       {}", report.policy_id);
-        println!("Revision     {}", report.policy_revision);
-        println!("Candidates   {}", report.candidate_count);
-        println!("Compatible   {}", yes_no(report.compatible));
-        println!();
-        println!(
+        if report.compatible {
+            ui::success("Compatible", "candidate panel");
+        } else {
+            ui::warning("Review", "candidate panel");
+        }
+        ui::field("Policy", &report.policy_id);
+        ui::field("Revision", &report.policy_revision);
+        ui::field("Candidates", report.candidate_count);
+        ui::blank();
+        ui::line(format_args!(
             "{:<24} {:>12} {:>10} {:>9} {:>8}",
             "ENVIRONMENT", "RHO / M TOK", "COVERAGE", "ADMITTED", "REPAIR"
-        );
+        ));
         for candidate in &report.candidates {
-            println!(
+            ui::line(format_args!(
                 "{:<24} {:>12.4} {:>10.4} {:>9} {:>8}",
                 truncate(&candidate.environment_id, 24),
                 candidate.rho_per_million_tokens,
                 candidate.effective_coverage,
                 candidate.admitted,
                 candidate.repair,
-            );
+            ));
         }
-        println!();
-        println!(
-            "Signal span  {:.4} to {:.4}",
-            report.rho_per_million_tokens.minimum, report.rho_per_million_tokens.maximum
+        ui::blank();
+        ui::field(
+            "Signal span",
+            format_args!(
+                "{:.4} to {:.4}",
+                report.rho_per_million_tokens.minimum, report.rho_per_million_tokens.maximum
+            ),
         );
-        println!(
-            "Coverage     {:.4} to {:.4}",
-            report.effective_coverage.minimum, report.effective_coverage.maximum
+        ui::field(
+            "Coverage",
+            format_args!(
+                "{:.4} to {:.4}",
+                report.effective_coverage.minimum, report.effective_coverage.maximum
+            ),
         );
         for issue in &report.issues {
-            println!("Issue        {issue}");
+            ui::warning("Issue", issue);
         }
     }
     Ok(if report.compatible { 0 } else { 1 })
@@ -573,13 +625,13 @@ fn command_validate(args: ValidateArgs) -> Result<i32, String> {
     } else {
         for result in &results {
             if result.valid {
-                println!("Validated  {}", result.record_type);
-                println!("  Path  {}", result.path);
+                ui::success("Valid", &result.record_type);
+                ui::field("Path", &result.path);
             } else {
-                println!("Invalid  {}", result.record_type);
-                println!("  Path   {}", result.path);
+                ui::warning("Invalid", &result.record_type);
+                ui::field("Path", &result.path);
                 if let Some(error) = &result.error {
-                    println!("  Error  {error}");
+                    ui::field("Error", error);
                 }
             }
         }
@@ -979,7 +1031,7 @@ pub(crate) fn sha256_digest(value: &Value) -> Result<String, String> {
 fn write_atomic(path: &Path, content: &[u8], force: bool) -> Result<(), String> {
     if path.exists() && !force {
         return Err(format!(
-            "{} already exists; pass --force to replace it",
+            "{} already exists\nhint: pass --force to replace it",
             path.display()
         ));
     }
@@ -1036,14 +1088,12 @@ fn print_group_exceptions(groups: &[ProcessedGroup]) {
     if exceptions.is_empty() {
         return;
     }
-    println!();
-    println!("Action required");
+    ui::blank();
+    ui::title("Action required");
     for group in exceptions {
-        println!(
-            "  {:<24} {:<10} {}",
-            group.task_id,
-            group.status,
-            group.reason.replace('_', " ")
+        ui::warning(
+            &group.status,
+            format_args!("{:<24} {}", group.task_id, group.reason.replace('_', " ")),
         );
     }
 }

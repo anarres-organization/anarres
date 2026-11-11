@@ -4,8 +4,10 @@ version = 4
 
 [[package]]
 name = "anarres-cli"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
+ "anstream",
+ "anstyle",
  "clap",
  "clap_complete",
  "serde",
