@@ -1,0 +1,42 @@
+{
+  "candidate_scores": [
+    {
+      "candidate_id": "conditional_contract",
+      "score": 3.87744075
+    },
+    {
+      "candidate_id": "no_update",
+      "score": 0.45725725
+    }
+  ],
+  "candidate_set": [
+    "conditional_contract"
+  ],
+  "decision": "select",
+  "evidence": {
+    "coverage": 0.754045,
+    "pairwise_accuracy": 0.903433,
+    "sources_with_decisions": 7,
+    "status": "retrospective_calibration_requires_prospective_validation"
+  },
+  "pairwise_decisions": [
+    {
+      "decision": "conditional_contract",
+      "left": "conditional_contract",
+      "margin": 3.4201835,
+      "right": "no_update"
+    }
+  ],
+  "regression_directions": [
+    {
+      "baseline_id": "no_update",
+      "candidate_id": "conditional_contract",
+      "direction": "improve",
+      "margin": 3.4201835
+    }
+  ],
+  "schema_version": "anarres.finance-candidate-decision.v1",
+  "selected_candidate": "conditional_contract",
+  "target_id": "qfbench_credit_portfolio_risk_v3",
+  "threshold": 0.2
+}

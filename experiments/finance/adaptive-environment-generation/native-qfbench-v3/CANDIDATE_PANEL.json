@@ -1,0 +1,43 @@
+{
+  "schema_version": "anarres.finance-candidate-panel.v1",
+  "target_id": "qfbench_credit_portfolio_risk_v3",
+  "baseline_id": "no_update",
+  "candidates": [
+    {
+      "candidate_id": "no_update",
+      "features": {
+        "target_alignment": 0.0,
+        "quality_control": 0.0,
+        "retention_control": 0.0,
+        "verifier_alignment": 0.7145145,
+        "policy_relative_selection": 0.0,
+        "source_diversity": 0.0,
+        "human_labeled_fraction": 0.0,
+        "domain_specific_selection": 0.0,
+        "transcript_refinement": 0.0,
+        "qa_refinement": 0.0,
+        "feedback_locality": 0.0,
+        "efficient_rollout": 1.0,
+        "curriculum_progression": 0.0
+      }
+    },
+    {
+      "candidate_id": "conditional_contract",
+      "features": {
+        "target_alignment": 0.3,
+        "quality_control": 1.0,
+        "retention_control": 1.0,
+        "verifier_alignment": 0.8186815,
+        "policy_relative_selection": 1.0,
+        "source_diversity": 1.0,
+        "human_labeled_fraction": 0.0,
+        "domain_specific_selection": 0.4,
+        "transcript_refinement": 1.0,
+        "qa_refinement": 1.0,
+        "feedback_locality": 1.0,
+        "efficient_rollout": 0.681,
+        "curriculum_progression": 1.0
+      }
+    }
+  ]
+}

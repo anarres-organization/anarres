@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "timing": "after both v3 development runs and before any target or protected outcome",
+  "candidate_id": "conditional_contract",
+  "candidate_sha256": "aa79287e0b630c37c3e19f07d9cdf560b6b160af1df5523683dd90e398aae010",
+  "tasks": [
+    {
+      "task_id": "structured-note-risk",
+      "no_update_reward": 0.755952,
+      "candidate_reward": 0.964286,
+      "difference": 0.208334,
+      "agent_wall_seconds": 82.94,
+      "usage": {
+        "input_tokens": 201179,
+        "cached_input_tokens": 183936,
+        "output_tokens": 3242,
+        "reasoning_output_tokens": 127
+      },
+      "trajectory_sha256": "85e92fbd4a4b3153443b45daa413ec59a2946270f9350d106fdd0825e4a6b7ef"
+    },
+    {
+      "task_id": "regime-riskparity-cvar",
+      "no_update_reward": 0.673077,
+      "candidate_reward": 0.673077,
+      "difference": 0.0,
+      "agent_wall_seconds": 70.16,
+      "usage": {
+        "input_tokens": 133700,
+        "cached_input_tokens": 119040,
+        "output_tokens": 2306,
+        "reasoning_output_tokens": 27
+      },
+      "trajectory_sha256": "af2018d1857676419c4b67bcda32e01804ca0004f70e640f3d670db2f5dec95e"
+    }
+  ],
+  "mean_reward": {
+    "no_update": 0.7145145,
+    "candidate": 0.8186815,
+    "difference": 0.104167
+  },
+  "guardrails": {
+    "no_development_regression": true,
+    "repairs_at_least_one_development_failure": true,
+    "candidate_local_tests_pass": true,
+    "target_execution_pending_decision_commit": true
+  },
+  "target_and_protected_outcomes_opened": false
+}
