@@ -23,6 +23,8 @@ use profile::{
 
 const MANIFEST_SCHEMA: &str = "anarres.environment-manifest.v1";
 const DEMO_PROBE: &str = include_str!("../../../examples/environment-processing/probe.json");
+const DEMO_ALTERNATIVE_PROBE: &str =
+    include_str!("../../../examples/environment-processing/probe-alternative.json");
 const STATUSES: [&str; 4] = ["admitted", "reserve", "repair", "quarantine"];
 static NEXT_TEMPORARY_FILE: AtomicU64 = AtomicU64::new(0);
 
@@ -92,9 +94,12 @@ enum Command {
 
 #[derive(Debug, Args)]
 struct DemoArgs {
-    /// Destination for the example environment record.
+    /// Destination for the primary example environment record.
     #[arg(short, long, default_value = ".anarres/demo/environment.json")]
     output: PathBuf,
+    /// Destination for the comparison environment record.
+    #[arg(long)]
+    comparison_output: Option<PathBuf>,
     /// Replace an existing output file.
     #[arg(long)]
     force: bool,
@@ -353,64 +358,144 @@ fn execute(command: Command) -> Result<i32, String> {
 }
 
 fn command_demo(args: DemoArgs) -> Result<i32, String> {
-    let raw: Value = serde_json::from_str(DEMO_PROBE)
-        .map_err(|error| format!("invalid bundled input: {error}"))?;
-    let probe = parse_probe(&raw)?;
-    let report = qualify_probe(&probe, &raw)?;
-    let manifest = build_manifest(&probe, &raw)?;
-    let output = serde_json::to_vec_pretty(&manifest).map_err(|error| error.to_string())?;
-    let mut stored_output = output.clone();
-    stored_output.push(b'\n');
-    if args.output.exists() && !args.force {
-        let existing = fs::read(&args.output)
-            .map_err(|error| format!("could not read {}: {error}", args.output.display()))?;
-        if existing != stored_output {
-            return Err(format!(
-                "{} already exists with different content\nhint: pass --force to replace it",
-                args.output.display()
-            ));
-        }
-    } else {
-        write_atomic(&args.output, &output, args.force)?;
+    let comparison_output = args
+        .comparison_output
+        .unwrap_or_else(|| alternative_demo_path(&args.output));
+    if args.output == comparison_output {
+        return Err("demo output paths must be different".to_owned());
     }
 
-    let validation = validate_record(&args.output);
-    if !validation.valid {
-        return Err(validation
-            .error
-            .unwrap_or_else(|| "the generated record did not validate".to_owned()));
+    let (probe, report, manifest) = build_demo_candidate(DEMO_PROBE)?;
+    let (_, _, alternative_manifest) = build_demo_candidate(DEMO_ALTERNATIVE_PROBE)?;
+    write_demo_manifest(&args.output, &manifest, args.force)?;
+    write_demo_manifest(&comparison_output, &alternative_manifest, args.force)?;
+
+    for path in [&args.output, &comparison_output] {
+        let validation = validate_record(path);
+        if !validation.valid {
+            return Err(validation
+                .error
+                .unwrap_or_else(|| format!("{} did not validate", path.display())));
+        }
     }
+
+    let panel_paths = vec![args.output.clone(), comparison_output.clone()];
+    let panel = design_report(&panel_paths)?;
 
     ui::title("Anarres demo");
+    ui::line(format_args!(
+        "Repeated attempts from one starting policy are qualified, measured, and compared."
+    ));
     ui::blank();
-    ui::success("Qualified", &report.environment_id);
-    ui::field("Policy", &report.policy_id);
+    ui::title("Input");
+    ui::field("Starting policy", &report.policy_id);
+    ui::field("Candidates", "2 synthetic alternatives");
     ui::field(
-        "Groups",
-        format_args!(
-            "{} admitted · {} reserve · {} repair · {} quarantine",
-            count(&report.status_counts, "admitted"),
-            count(&report.status_counts, "reserve"),
-            count(&report.status_counts, "repair"),
-            count(&report.status_counts, "quarantine")
-        ),
+        "Task groups",
+        format_args!("{} per candidate", probe.groups.len()),
     );
-    ui::success("Measured", "usable experience");
+    ui::field(
+        "Group size",
+        format_args!("{} attempts", probe.probe_contract.group_size),
+    );
+    ui::field(
+        "Measurements",
+        "outcomes, admitted advantage mass, and generated tokens",
+    );
+    ui::field("Validity", "oracle, no-op, and infrastructure checks");
+
+    ui::blank();
+    ui::title("1. Qualify");
+    ui::success("Qualified", &report.environment_id);
+    ui::field("Admitted", count(&report.status_counts, "admitted"));
+    ui::field("Reserve", count(&report.status_counts, "reserve"));
+    ui::field("Repair", count(&report.status_counts, "repair"));
+    ui::field("Quarantine", count(&report.status_counts, "quarantine"));
+
+    ui::blank();
+    ui::title("2. Measure");
+    ui::success("Measured", &manifest.environment_id);
     ui::field(
         "Signal density",
         format_args!(
-            "{:.4} advantage mass / M tokens",
+            "{:.4} advantage mass / million generated tokens",
             manifest.coordinates.rho_per_million_tokens
         ),
     );
     ui::field(
-        "Coverage",
-        format_args!("{:.4}", manifest.coordinates.effective_coverage),
+        "Effective coverage",
+        format_args!("{:.4} (0 to 1)", manifest.coordinates.effective_coverage),
     );
+    ui::field(
+        "Evidence",
+        format_args!(
+            "{} eligible task groups, {} generated tokens",
+            manifest.coordinates.prompt_count,
+            format_integer(manifest.coordinates.generated_action_tokens)
+        ),
+    );
+
+    ui::blank();
+    ui::title("3. Compare");
+    print_manifest_design_report(&panel);
+
+    ui::blank();
+    ui::title("Artifacts");
     ui::success("Wrote", args.output.display());
-    ui::success("Validated", "content digest");
-    ui::next("anarres design <record-a> <record-b>");
+    ui::success("Wrote", comparison_output.display());
+    ui::success("Validated", "2 content digests");
+    ui::next(&format!(
+        "anarres design {} {}",
+        args.output.display(),
+        comparison_output.display()
+    ));
+    ui::muted("Use your data: anarres qualify --help");
     Ok(0)
+}
+
+fn build_demo_candidate(
+    source: &str,
+) -> Result<(ProbeInput, QualificationReport, EnvironmentManifest), String> {
+    let raw: Value =
+        serde_json::from_str(source).map_err(|error| format!("invalid bundled input: {error}"))?;
+    let probe = parse_probe(&raw)?;
+    let report = qualify_probe(&probe, &raw)?;
+    let manifest = build_manifest(&probe, &raw)?;
+    Ok((probe, report, manifest))
+}
+
+fn write_demo_manifest(
+    path: &Path,
+    manifest: &EnvironmentManifest,
+    force: bool,
+) -> Result<(), String> {
+    let output = serde_json::to_vec_pretty(manifest).map_err(|error| error.to_string())?;
+    let mut stored_output = output.clone();
+    stored_output.push(b'\n');
+    if path.exists() && !force {
+        let existing = fs::read(path)
+            .map_err(|error| format!("could not read {}: {error}", path.display()))?;
+        if existing != stored_output {
+            return Err(format!(
+                "{} already exists with different content\nhint: pass --force to replace it",
+                path.display()
+            ));
+        }
+        return Ok(());
+    }
+    write_atomic(path, &output, force)
+}
+
+fn alternative_demo_path(output: &Path) -> PathBuf {
+    let parent = output.parent().unwrap_or_else(|| Path::new("."));
+    let stem = output
+        .file_stem()
+        .and_then(|value| value.to_str())
+        .unwrap_or("environment");
+    match output.extension().and_then(|value| value.to_str()) {
+        Some(extension) => parent.join(format!("{stem}-alternative.{extension}")),
+        None => parent.join(format!("{stem}-alternative")),
+    }
 }
 
 fn command_qualify(args: InputArgs) -> Result<i32, String> {
@@ -456,16 +541,10 @@ fn command_qualify(args: InputArgs) -> Result<i32, String> {
             } else {
                 ui::success("Qualified", &report.environment_id);
                 ui::field("Policy", &report.policy_id);
-                ui::field(
-                    "Groups",
-                    format_args!(
-                        "{} admitted · {} reserve · {} repair · {} quarantine",
-                        count(&report.status_counts, "admitted"),
-                        count(&report.status_counts, "reserve"),
-                        count(&report.status_counts, "repair"),
-                        count(&report.status_counts, "quarantine")
-                    ),
-                );
+                ui::field("Admitted", count(&report.status_counts, "admitted"));
+                ui::field("Reserve", count(&report.status_counts, "reserve"));
+                ui::field("Repair", count(&report.status_counts, "repair"));
+                ui::field("Quarantine", count(&report.status_counts, "quarantine"));
                 print_group_exceptions(&report.groups);
             }
         }
@@ -501,18 +580,18 @@ fn command_measure(args: MeasureArgs) -> Result<i32, String> {
                 ui::field(
                     "Signal density",
                     format_args!(
-                        "{:.4} advantage mass / M tokens",
+                        "{:.4} advantage mass / million generated tokens",
                         manifest.coordinates.rho_per_million_tokens
                     ),
                 );
                 ui::field(
-                    "Coverage",
-                    format_args!("{:.4}", manifest.coordinates.effective_coverage),
+                    "Effective coverage",
+                    format_args!("{:.4} (0 to 1)", manifest.coordinates.effective_coverage),
                 );
                 ui::field(
                     "Evidence",
                     format_args!(
-                        "{} groups · {} generated tokens",
+                        "{} eligible task groups, {} generated tokens",
                         manifest.coordinates.prompt_count,
                         format_integer(manifest.coordinates.generated_action_tokens)
                     ),
@@ -568,49 +647,53 @@ fn command_design(args: DesignArgs) -> Result<i32, String> {
     if args.json {
         print_json(&report)?;
     } else {
-        if report.compatible {
-            ui::success("Compatible", "candidate panel");
-        } else {
-            ui::warning("Review", "candidate panel");
-        }
-        ui::field("Policy", &report.policy_id);
-        ui::field("Revision", &report.policy_revision);
-        ui::field("Candidates", report.candidate_count);
-        ui::blank();
-        ui::line(format_args!(
-            "{:<24} {:>12} {:>10} {:>9} {:>8}",
-            "ENVIRONMENT", "RHO / M TOK", "COVERAGE", "ADMITTED", "REPAIR"
-        ));
-        for candidate in &report.candidates {
-            ui::line(format_args!(
-                "{:<24} {:>12.4} {:>10.4} {:>9} {:>8}",
-                truncate(&candidate.environment_id, 24),
-                candidate.rho_per_million_tokens,
-                candidate.effective_coverage,
-                candidate.admitted,
-                candidate.repair,
-            ));
-        }
-        ui::blank();
-        ui::field(
-            "Signal span",
-            format_args!(
-                "{:.4} to {:.4}",
-                report.rho_per_million_tokens.minimum, report.rho_per_million_tokens.maximum
-            ),
-        );
-        ui::field(
-            "Coverage",
-            format_args!(
-                "{:.4} to {:.4}",
-                report.effective_coverage.minimum, report.effective_coverage.maximum
-            ),
-        );
-        for issue in &report.issues {
-            ui::warning("Issue", issue);
-        }
+        print_manifest_design_report(&report);
     }
     Ok(if report.compatible { 0 } else { 1 })
+}
+
+fn print_manifest_design_report(report: &DesignReport) {
+    if report.compatible {
+        ui::success("Compatible", "candidate panel");
+    } else {
+        ui::warning("Review", "candidate panel");
+    }
+    ui::field("Policy", &report.policy_id);
+    ui::field("Revision", &report.policy_revision);
+    ui::field("Candidates", report.candidate_count);
+    ui::blank();
+    ui::line(format_args!(
+        "{:<24} {:>12} {:>10} {:>9} {:>8}",
+        "ENVIRONMENT", "SIGNAL / 1M", "COVERAGE", "ADMITTED", "REPAIR"
+    ));
+    for candidate in &report.candidates {
+        ui::line(format_args!(
+            "{:<24} {:>12.4} {:>10.4} {:>9} {:>8}",
+            truncate(&candidate.environment_id, 24),
+            candidate.rho_per_million_tokens,
+            candidate.effective_coverage,
+            candidate.admitted,
+            candidate.repair,
+        ));
+    }
+    ui::blank();
+    ui::field(
+        "Signal span",
+        format_args!(
+            "{:.4} to {:.4}",
+            report.rho_per_million_tokens.minimum, report.rho_per_million_tokens.maximum
+        ),
+    );
+    ui::field(
+        "Coverage",
+        format_args!(
+            "{:.4} to {:.4}",
+            report.effective_coverage.minimum, report.effective_coverage.maximum
+        ),
+    );
+    for issue in &report.issues {
+        ui::warning("Issue", issue);
+    }
 }
 
 fn command_validate(args: ValidateArgs) -> Result<i32, String> {

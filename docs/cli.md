@@ -87,13 +87,45 @@ anarres demo
 ```
 
 The command qualifies a fixed policy probe, measures its usable experience,
-writes `.anarres/demo/environment.json`, and validates the resulting digest.
-Use `--output <path>` to choose another destination.
+writes two candidate records, compares them under one starting policy, and
+validates both content digests. It ends with a runnable `anarres design`
+command containing the exact generated paths. Use `--output <path>` and
+`--comparison-output <path>` to choose other destinations.
+
+Generated records live in the project-local `.anarres/` directory, which is
+ignored by Git and safe to regenerate. Running the demo from your home
+directory writes to `~/.anarres`; run it from a project directory when you want
+the artifacts to stay with that project.
 
 Human-readable output uses restrained status color when standard output is a
 terminal. Styling is disabled automatically for pipes and respects `NO_COLOR`.
 Use `--color always` or `--color never` to override detection. Machine-readable
 `--json` output never contains terminal styling.
+
+## What you bring
+
+Anarres compares candidate sources of training experience for a specified
+starting policy or system. A candidate may contain prompts, executable tasks,
+proof obligations, robot episodes, legal matters, molecular structures,
+materials configurations, or another domain-defined unit.
+
+Use the built-in policy-probe contract when you can provide:
+
+1. stable candidate, task, and starting-policy identifiers
+2. a fixed sampling and measurement contract
+3. repeated attempts grouped by task
+4. outcomes, generated cost, and the signal admitted by training
+5. oracle, no-op, and infrastructure-validity results
+
+Use a domain adapter when the study requires different native measurements.
+Adapters preserve those coordinates, units, uncertainty, costs, provenance,
+and failure states inside a portable profile rather than converting every
+domain to one universal score. Candidate records can be compared only when the
+starting subject and measurement contract match.
+
+Start with `anarres qualify --help` for the built-in contract, or run
+`anarres adapter list` to discover installed domain workflows. Reference inputs
+live in `examples/environment-processing/` and `examples/environment-profiles/`.
 
 ## Run the core commands directly
 
@@ -123,11 +155,11 @@ repair, and one quarantine. It names the two groups that require action.
 
 ```text
   ✓ Measured     math-reference-demo-v1
-    Policy           synthetic-policy-v1
-    Signal density   833.3333 advantage mass / M tokens
-    Coverage         0.6533
-    Evidence         3 groups · 4,200 generated tokens
-    Record           .anarres/example/environment.json
+    Policy             synthetic-policy-v1
+    Signal density     833.3333 advantage mass / million generated tokens
+    Effective coverage 0.6533 (0 to 1)
+    Evidence           3 eligible task groups, 4,200 generated tokens
+    Record             .anarres/example/environment.json
     Digest  sha256:5471a6e0fb121640260770060a3b858f2e31100a66b73eb2210bd59603dd76d9
 ```
 
@@ -142,7 +174,7 @@ version, replace `latest/download` with the release tag:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -LsSf \
-  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.3.0/anarres-cli-installer.sh | sh
+  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.3.1/anarres-cli-installer.sh | sh
 ```
 
 The standalone installer places the binary in `$CARGO_HOME/bin`, or

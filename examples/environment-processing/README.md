@@ -1,6 +1,9 @@
 # Environment-processing example
 
-This CPU-only example demonstrates the reference contract without downloading a model or launching a sandbox.
+This CPU-only example demonstrates the reference contract without downloading
+a model or launching a sandbox. `probe.json` and `probe-alternative.json`
+represent two candidates measured under the same synthetic starting policy and
+probe contract.
 
 The fixture contains:
 
@@ -18,6 +21,11 @@ anarres qualify examples/environment-processing/probe.json
 anarres measure examples/environment-processing/probe.json \
   --output .anarres/example/environment.json
 anarres validate .anarres/example/environment.json
+anarres measure examples/environment-processing/probe-alternative.json \
+  --output .anarres/example/environment-alternative.json
+anarres design \
+  .anarres/example/environment.json \
+  .anarres/example/environment-alternative.json
 ```
 
 The fixture is synthetic. It tests contract behavior and does not support a scientific claim. The

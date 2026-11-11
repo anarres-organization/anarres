@@ -4,6 +4,14 @@ All notable CLI changes are recorded here. The project follows semantic
 versioning for the command contract and versioned JSON schemas for stored
 records.
 
+## 0.3.1 - 2026-11-10
+
+- Turn `anarres demo` into a complete two-candidate qualification,
+  measurement, comparison, and validation journey.
+- End the demo with an exact, runnable command instead of placeholder paths.
+- Clarify the input contract, generated artifact location, measurement units,
+  and human-readable status fields.
+
 ## 0.3.0 - 2026-11-10
 
 - Add TTY-aware semantic color and status symbols to human-readable output.

@@ -59,9 +59,10 @@ fn top_level_help_points_to_builtins_and_adapters() {
 }
 
 #[test]
-fn demo_writes_and_validates_a_record() {
+fn demo_writes_compares_and_validates_two_records() {
     let directory = temporary_directory();
     let record = directory.join("demo.json");
+    let comparison = directory.join("demo-alternative.json");
     let output = run(&["demo", "--output", record.to_str().unwrap()]);
     assert!(
         output.status.success(),
@@ -72,8 +73,11 @@ fn demo_writes_and_validates_a_record() {
     assert_eq!(
         stdout,
         format!(
-            "Anarres demo\n\n  ✓ Qualified    math-reference-demo-v1\n    Policy           synthetic-policy-v1\n    Groups           2 admitted · 1 reserve · 1 repair · 1 quarantine\n  ✓ Measured     usable experience\n    Signal density   833.3333 advantage mass / M tokens\n    Coverage         0.6533\n  ✓ Wrote        {}\n  ✓ Validated    content digest\n\nNext  anarres design <record-a> <record-b>\n",
-            record.display()
+            "Anarres demo\nRepeated attempts from one starting policy are qualified, measured, and compared.\n\nInput\n    Starting policy    synthetic-policy-v1\n    Candidates         2 synthetic alternatives\n    Task groups        5 per candidate\n    Group size         4 attempts\n    Measurements       outcomes, admitted advantage mass, and generated tokens\n    Validity           oracle, no-op, and infrastructure checks\n\n1. Qualify\n  ✓ Qualified    math-reference-demo-v1\n    Admitted           2\n    Reserve            1\n    Repair             1\n    Quarantine         1\n\n2. Measure\n  ✓ Measured     math-reference-demo-v1\n    Signal density     833.3333 advantage mass / million generated tokens\n    Effective coverage 0.6533 (0 to 1)\n    Evidence           3 eligible task groups, 4,200 generated tokens\n\n3. Compare\n  ✓ Compatible   candidate panel\n    Policy             synthetic-policy-v1\n    Revision           synthetic-reference-only\n    Candidates         2\n\nENVIRONMENT               SIGNAL / 1M   COVERAGE  ADMITTED   REPAIR\nmath-alternative-demo-v1     214.2857     0.4154         2        1\nmath-reference-demo-v1       833.3333     0.6533         2        1\n\n    Signal span        214.2857 to 833.3333\n    Coverage           0.4154 to 0.6533\n\nArtifacts\n  ✓ Wrote        {}\n  ✓ Wrote        {}\n  ✓ Validated    2 content digests\n\nNext  anarres design {} {}\n    Use your data: anarres qualify --help\n",
+            record.display(),
+            comparison.display(),
+            record.display(),
+            comparison.display()
         )
     );
 
@@ -81,6 +85,18 @@ fn demo_writes_and_validates_a_record() {
         .expect("record is JSON");
     assert_eq!(raw["environment_id"], "math-reference-demo-v1");
     assert_eq!(raw["coordinates"]["prompt_count"], 3);
+    let alternative: Value =
+        serde_json::from_slice(&fs::read(&comparison).expect("comparison record is written"))
+            .expect("comparison record is JSON");
+    assert_eq!(alternative["environment_id"], "math-alternative-demo-v1");
+
+    let designed = run(&[
+        "design",
+        record.to_str().unwrap(),
+        comparison.to_str().unwrap(),
+    ]);
+    assert!(designed.status.success());
+    assert!(String::from_utf8_lossy(&designed.stdout).contains("2"));
 
     let repeated = run(&["demo", "--output", record.to_str().unwrap()]);
     assert!(repeated.status.success());
@@ -103,7 +119,7 @@ fn core_human_output_has_a_stable_layout() {
     assert!(qualified.status.success());
     assert_eq!(
         String::from_utf8(qualified.stdout).expect("stdout is UTF-8"),
-        "  ✓ Qualified    math-reference-demo-v1\n    Policy           synthetic-policy-v1\n    Groups           2 admitted · 1 reserve · 1 repair · 1 quarantine\n\nAction required\n  ! quarantine   math-demo-004            noop accepted\n  ! repair       math-demo-005            infrastructure invalid\n"
+        "  ✓ Qualified    math-reference-demo-v1\n    Policy             synthetic-policy-v1\n    Admitted           2\n    Reserve            1\n    Repair             1\n    Quarantine         1\n\nAction required\n  ! quarantine   math-demo-004            noop accepted\n  ! repair       math-demo-005            infrastructure invalid\n"
     );
 
     let measured = run(&[
@@ -116,7 +132,7 @@ fn core_human_output_has_a_stable_layout() {
     assert_eq!(
         String::from_utf8(measured.stdout).expect("stdout is UTF-8"),
         format!(
-            "  ✓ Measured     math-reference-demo-v1\n    Policy           synthetic-policy-v1\n    Signal density   833.3333 advantage mass / M tokens\n    Coverage         0.6533\n    Evidence         3 groups · 4,200 generated tokens\n    Record           {}\n    Digest  sha256:5471a6e0fb121640260770060a3b858f2e31100a66b73eb2210bd59603dd76d9\n",
+            "  ✓ Measured     math-reference-demo-v1\n    Policy             synthetic-policy-v1\n    Signal density     833.3333 advantage mass / million generated tokens\n    Effective coverage 0.6533 (0 to 1)\n    Evidence           3 eligible task groups, 4,200 generated tokens\n    Record             {}\n    Digest  sha256:5471a6e0fb121640260770060a3b858f2e31100a66b73eb2210bd59603dd76d9\n",
             record.display()
         )
     );
@@ -126,7 +142,7 @@ fn core_human_output_has_a_stable_layout() {
     assert_eq!(
         String::from_utf8(validated.stdout).expect("stdout is UTF-8"),
         format!(
-            "  ✓ Valid        environment manifest\n    Path             {}\n",
+            "  ✓ Valid        environment manifest\n    Path               {}\n",
             record.display()
         )
     );
