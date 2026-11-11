@@ -137,6 +137,16 @@ GINE-versus-GPS architecture comparison remains a later nested study. Deferring
 that ablation keeps the initial intervention focused on experience and avoids
 multiplying eight environments across separately initialized models.
 
+Replay content is already known to matter for GFlowNet learning. Prioritized
+high-reward replay improves sample efficiency in biochemical design, and an
+independent molecular-synthesis study finds faster mode discovery from
+reward-prioritized replay than from uniform replay or on-policy samples alone.
+SynFlowNet further shows that target-informed curation of a synthesis space can
+change affinity reward. These results motivate the intervention without
+answering its decision question: whether measurements made under one starting
+policy can predict which fixed replay bank will be most useful at matched
+generation and oracle budgets.
+
 ## Research-first progression
 
 The study advances through five gates.
@@ -297,6 +307,9 @@ Primary sources:
 - [RxnFlow paper](https://proceedings.iclr.cc/paper_files/paper/2025/file/24d36eee157559e0d2549455fba28f6a-Paper-Conference.pdf),
   [v2.1.0 release](https://github.com/SeonghwanSeo/RxnFlow/releases/tag/v2.1.0),
   and [source](https://github.com/SeonghwanSeo/RxnFlow)
+- [Prioritized replay for GFlowNet training](https://proceedings.mlr.press/v202/shen23a.html)
+  and [the molecular replay study](https://arxiv.org/abs/2307.07674)
+- [SynFlowNet](https://proceedings.iclr.cc/paper_files/paper/2025/hash/7495fa446f10e9edef6e47b2d327596e-Abstract-Conference.html)
 - [MolGenBench paper](https://www.nature.com/articles/s41467-026-78105-8),
   [source](https://github.com/Intelligent-Drug-Discovery-Lab/MolGenBench),
   and [Version4 data record](https://doi.org/10.5281/zenodo.20233505)
