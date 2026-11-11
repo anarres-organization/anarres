@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "source_id": "ying2025_cdf_gc",
+  "panels": {
+    "llama_3p2_1b": {
+      "finance": {"base": 22.4, "full_scale": 28.0, "random": 26.3, "dsir": 27.7, "eta_dacp": 27.1, "ppl": 27.7, "cdf_gc": 29.7},
+      "general": {"base": 30.0, "full_scale": 29.7, "random": 29.2, "dsir": 29.3, "eta_dacp": 29.5, "ppl": 29.6, "cdf_gc": 30.5}
+    },
+    "qwen2p5_0p5b": {
+      "finance": {"base": 38.34, "random": 36.71, "dsir": 37.54, "eta_dacp": 37.46, "ppl": 38.08, "cdf_gc": 38.52},
+      "general": {"base": 45.32, "random": 42.46, "dsir": 42.57, "eta_dacp": 43.04, "ppl": 42.88, "cdf_gc": 43.17}
+    }
+  },
+  "measurement": {
+    "finance": "CFinBench exact-match accuracy",
+    "general": "mean exact-match accuracy over CMMLU, MMLU, Xiezhi, and ICLEval"
+  },
+  "shared_conditions": {
+    "corpus": "Fincorpus",
+    "selection_budget": "20 percent or 2B tokens for the main selection comparisons",
+    "sequence_length": 4096,
+    "optimizer": "AdamW"
+  }
+}

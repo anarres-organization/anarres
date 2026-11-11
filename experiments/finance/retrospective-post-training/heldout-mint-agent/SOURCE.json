@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "source_id": "mint_agent_2026",
+  "title": "Mint-Agent: Introducing Finance-Native Agentic Foundation Models",
+  "authors": ["Mint-Agent Team", "Kun Wang", "Gavin Zhang", "Yaze Geng", "Lei Tang", "Yaoyang Yi", "Zonghan Wu", "Yifan Hu", "Qingsong Wen", "Yilei Shao"],
+  "url": "https://arxiv.org/abs/2608.16386v2",
+  "source_status": "arxiv_v2_2026",
+  "evidence": ["Table 3", "Section 6.4"],
+  "audit_note": "The scored integration comparison holds the 9B specialist pair and downstream benchmarks fixed while comparing static TIES merging with multi-teacher on-policy distillation. The source did not enter representation design or fitting."
+}
