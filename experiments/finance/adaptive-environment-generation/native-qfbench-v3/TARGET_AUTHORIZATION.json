@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "authorization_id": "v3_target_after_selected_candidate_commit",
+  "decision_path": "CANDIDATE_DECISION.json",
+  "decision_sha256": "0c7e8e64f85617a575bc1cea285f0d2f030ea2b4660188c4883f1751012e65e7",
+  "decision_commit": "230c3e2",
+  "selected_candidate": "conditional_contract",
+  "authorized_task_ids": [
+    "credit-portfolio-var-cvar",
+    "creditmetrics-portfolio-var"
+  ],
+  "authorized_conditions": [
+    {
+      "condition_id": "no_update",
+      "candidate_sha256": null
+    },
+    {
+      "condition_id": "conditional_contract",
+      "candidate_sha256": "aa79287e0b630c37c3e19f07d9cdf560b6b160af1df5523683dd90e398aae010"
+    },
+    {
+      "condition_id": "v1_combined_retain_all",
+      "candidate_sha256": "6776a8fef97faf019e9fbeafddfbe878f106f6b3775bc00f96e36dd58faa1488"
+    }
+  ],
+  "sealed_partitions": [
+    "shared_protected"
+  ]
+}
