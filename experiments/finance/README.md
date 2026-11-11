@@ -103,6 +103,10 @@ directions and all three improvement or regression calls correct.
 In a separately frozen LongFinanceQA test, 24 of 25 matched component
 comparisons follow the predicted direction across reasoning supervision,
 multi-source tasks, property extraction, and simpler-context retention.
+On an excluded finance continual-pretraining source, the same representation
+recovers 21 of 22 candidate-target directions across two backbones. It selects
+the best finance-data candidate twice and identifies general-retention risk in
+one of the two model families.
 
 The [agent-systems evidence map](agent-systems-evidence/README.md) audits the
 workflow side of the decision. It separates post-training interventions from
@@ -170,6 +174,7 @@ with financial authority remain approval-gated.
 - [Financial tools and experience-memory source holdout](retrospective-post-training/heldout-finacumen/README.md)
 - [Financial safety capability-contract holdout](retrospective-post-training/heldout-finharmbench/README.md)
 - [Agentic tool-environment holdout](retrospective-post-training/heldout-fintoolsyn/README.md)
+- [Finance data-selection holdout](retrospective-post-training/heldout-cdf-gc/README.md)
 - [Long-context component test](retrospective-post-training/heldout-longfinanceqa/RESULT.md)
 - [Capability-contract representation](retrospective-post-training/TARGET_CONDITIONAL_V4.md)
 - [Corrected expanded machine-readable results](retrospective-post-training/results/expanded_summary_corrected.json)

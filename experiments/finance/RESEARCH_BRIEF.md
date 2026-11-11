@@ -198,13 +198,19 @@ The result supports the representation in financial long-context work while
 leaving retrieval and summarization unscored because the paper does not report
 their matched ablations.
 
-The next evidence expansion uses independently published finance interventions
-that did not shape the current representation. CDF-GC provides matched
-data-selection arms across two backbones, TELLME compares domain-adaptation
-recipes with retention outcomes, and controlled agent studies test memory,
-tools, invalidation, and workflow guardrails. Each source remains one held-out
-experimental program. Its native targets, costs, and regressions are preserved
-rather than collapsed into one aggregate score.
+CDF-GC extends the excluded-source evidence to finance continual-pretraining
+data selection. Across Llama-3.2-1B and Qwen2.5-0.5B, the pre-existing
+capability-contract representation recovers 21 of 22 candidate-target
+directions. It selects the best finance candidate for both backbones and the
+best general-retention choice for one of two, yielding 3/4 panel-level choices
+and 0.096 mean normalized regret.
+
+The next evidence expansion continues with independently published finance
+interventions that did not shape the current representation. TELLME compares
+domain-adaptation recipes with retention outcomes, while controlled agent
+studies test memory, tools, invalidation, and workflow guardrails. Each source
+remains one held-out experimental program. Its native targets, costs, and
+regressions are preserved rather than collapsed into one aggregate score.
 
 Post-trade reconciliation and exception handling remain high-priority workflow
 families. FINOS Common Domain Model provides lifecycle semantics, while

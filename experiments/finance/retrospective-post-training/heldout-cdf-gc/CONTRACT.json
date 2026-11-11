@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "PREEXISTING_REPRESENTATION_EXCLUDED_SOURCE",
+  "representation": {
+    "name": "capability-contract finance transfer representation v4",
+    "path": "../TARGET_CONDITIONAL_V4.md",
+    "source_used_for_representation_design": false,
+    "source_used_for_model_fitting": false
+  },
+  "chronology": {
+    "source_public_before_scoring": true,
+    "outcome_blind_source_extraction": false,
+    "claim_label": "retrospective excluded-source test of a pre-existing representation"
+  },
+  "prediction_basis": {
+    "finance_target": "Quality-controlled selection that preserves complexity and diversity should improve finance-domain utility over unselected or one-coordinate alternatives.",
+    "general_retention": "Finance continual pre-training without an explicit retention mechanism creates a general-capability risk relative to the starting model.",
+    "model_transfer": "The directions should transfer across the two backbones because they describe candidate-target contracts rather than model identity."
+  },
+  "scoring": {
+    "primary": "directional accuracy on candidate-target comparisons specified by the pre-existing representation",
+    "best_candidate": "CDF-GC for finance and the starting model for general retention",
+    "regret": "within-panel min-max normalized regret",
+    "independence_guardrail": "The four model-target panels remain one source-level test."
+  }
+}

@@ -256,6 +256,17 @@ so those predictions remain unscored. The freeze, table extraction, scorer,
 and result are in [`heldout-longfinanceqa/`](heldout-longfinanceqa/). This is
 one source-level test rather than 25 independent studies.
 
+CDF-GC adds an excluded-source test of finance continual-pretraining data
+selection across Llama-3.2-1B and Qwen2.5-0.5B. The pre-existing
+capability-contract representation predicts that complexity- and
+diversity-aware selection should lead the finance target while continual
+pre-training without a retention mechanism can weaken general capability.
+Twenty-one of 22 scored directions are correct. CDF-GC is the best finance
+candidate for both backbones, while the starting model leads general retention
+on Qwen and trails CDF-GC by 0.5 points on Llama. The four panel-level choices
+give 3/4 best-candidate accuracy and 0.096 normalized regret. The full source
+record and score are in [`heldout-cdf-gc/`](heldout-cdf-gc/).
+
 A derived alignment/interference coordinate does not improve the original
 sixteen-study source holdout. Against the corrected baseline, the fixed rule
 falls from 74.9% to 74.0% pairwise ordering with unchanged regret. The ridge
@@ -308,6 +319,8 @@ python heldout-fintoolsyn/score_holdout.py
 python heldout-fintoolsyn/test_score.py
 python heldout-longfinanceqa/score_holdout.py
 python heldout-longfinanceqa/test_score.py
+python heldout-cdf-gc/score_holdout.py
+python heldout-cdf-gc/test_score.py
 ```
 
 The script writes [`results/summary.json`](results/summary.json) and a manifest
