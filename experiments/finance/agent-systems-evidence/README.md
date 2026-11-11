@@ -26,6 +26,9 @@ change, and unresolved cases must be escalated.
 - [FinMaster](https://aclanthology.org/2026.findings-acl.385/) spans the full
   transaction-to-statement workflow across accounting, audit, analysis, and
   consulting.
+- [FinancialAuditBench](https://arxiv.org/abs/2609.32835) provides 90 staff and
+  review tasks across six synthetic engagements, including completed
+  workpapers, supporting files, and procedure-specific grading.
 - [Anthropic's finance-agent templates](https://www.anthropic.com/news/finance-agents)
   include ledger reconciliation, month-end close, statement audit, valuation
   review, KYC, and model maintenance.
@@ -121,6 +124,11 @@ fixed.
   gains can coincide with greater exposure to injected content and more
   unauthorized state changes, so utility, exposure, and financial-state safety
   remain separate outcomes.
+- [InKH](https://arxiv.org/abs/2606.01886) compares six memory and tool
+  architectures over 24 seeds and four rounds. Write-time invalidation improves
+  quality after simulated regime shocks without increasing retained knowledge,
+  while also reducing stale-memory use. Its outcomes are architecture-level
+  synthetic evidence rather than live financial performance.
 
 These results support candidate environments that vary the carrier of
 experience, the availability of executable procedures, feedback specificity,
@@ -171,18 +179,11 @@ finance project.
 
 ## Experimental consequence
 
-The shortest next test uses the released longitudinal studies as a
-source-held-out decision bridge. It asks which procedure, tool, feedback type,
-or scoped skill should be promoted on later financial work. Candidate
-measurements and the selection rule must be fixed without using the held-out
-source's downstream outcomes. Promotion, rejection, regression, and abstention
-remain separate decisions, while capability, control, and cost outcomes remain
-separate endpoints.
-
-The [adaptive environment-generation
-protocol](../adaptive-environment-generation/README.md) then repeats this
-decision over two native rounds. Failures produce candidate tasks or skills,
-qualification removes invalid or unsafe proposals, and sealed target and
-protected cases determine whether the selected update helped. This lower-cost
-loop precedes the larger accounting training panel. Model-weight training
-remains the stronger causal test once the selection rule has earned that cost.
+The next tests use released studies as source-held-out decision panels. They ask
+which procedure, tool, feedback type, memory contract, or scoped skill should
+be promoted for later financial work. Candidate measurements and the selection
+rule remain fixed while each excluded source is scored. Promotion, rejection,
+regression, and abstention stay separate, as do capability, control, and cost
+outcomes. The [adaptive environment-generation
+protocol](../adaptive-environment-generation/README.md) records this process
+and preserves each source-level result before the representation is revised.

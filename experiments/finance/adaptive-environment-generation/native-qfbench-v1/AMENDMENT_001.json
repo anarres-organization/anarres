@@ -1,8 +1,0 @@
-{
-  "schema_version": 1,
-  "amendment_id": "host_agent_container_verifier_boundary",
-  "timing": "before any model-generated development or target outcome",
-  "change": "Run Codex CLI in a clean host workspace containing only agent-visible task inputs, then copy output artifacts into the air-gapped Harbor verifier container.",
-  "reason": "Harbor's built-in Codex adapter would provision model credentials inside a third-party benchmark container. The amended runner keeps credentials on the host while preserving the source-native task inputs, output contract, verifier, timeout, and one-attempt rule.",
-  "scientific_effect": "No task identity, candidate type, measurement rule, comparator, success criterion, or target chronology changes."
-}

@@ -55,8 +55,8 @@ and admission of experience:
 
 These studies provide the finance analogue of the public learning-dynamics and
 external-check records used in the legal and robotics programs. They allow the
-selection rule to be tested across released interventions before a larger
-native training panel is justified.
+selection rule to be tested across independently released interventions without
+rerunning the underlying agents or training jobs.
 
 ## First public bridge
 
@@ -89,26 +89,6 @@ precision, guardrail violations, and abstention coverage. More experience,
 starting performance, and a source-native practical rule remain explicit
 baselines.
 
-## First closed-loop demonstration
-
-The lowest-cost native demonstration does not begin with model-weight training.
-It begins with a released verifiable finance task family and two rounds of
-candidate improvement:
-
-1. freeze development, target, protected, and negative-control partitions
-2. collect typed failures from the development partition
-3. produce several scoped skill or task proposals from those failures
-4. validate syntax, execution, evidence use, and declared scope
-5. freeze the selector's promotion, rejection, or abstention decisions
-6. run admitted candidates on untouched target and protected cases
-7. repeat the process once using only the newly available development record.
-
-The primary claim requires the selector to improve later-case utility relative
-to retain-all, latest-proposal, and no-update controls. A candidate is not
-promoted when its predicted gain is smaller than uncertainty or when a material
-guardrail fails. The study reports proposal cost and validation cost in
-addition to downstream execution cost.
-
 ## Development bridge result
 
 The first normalized bridge contains 53 arms in 17 matched decision panels
@@ -130,19 +110,6 @@ selects ReasoningBank on benign utility, but its unauthorized-state rate is
 decision is therefore blocked even though benign utility improves. Capability
 and financial-state safety are not collapsed into one score.
 
-## Relationship to model-weight training
-
-The generator-qualified accounting panel remains a valuable causal test. It
-asks whether the same measurement discipline chooses a better task mixture
-when every candidate receives a matched model-weight training budget. It is a
-later validation rather than a prerequisite for testing the decision loop.
-
-The adaptive study and the accounting panel answer different questions. The
-adaptive study tests whether experience can be proposed, screened, and retained
-over repeated rounds. The accounting panel tests whether selected task
-distributions produce better policies after matched training. Evidence from
-both is needed before treating the loop as a general environment optimizer.
-
 ## Current status
 
 The development bridge, protocol, and primary-source audit are complete. The
@@ -150,11 +117,6 @@ bridge is retrospective and does not qualify the selector. A separately frozen
 [ProFinAgent component test](heldout-profinagent/README.md) gets three of five
 prediction families correct. The two central component comparisons transfer
 across all nine reported model-by-complexity cells, while two broader
-generalizations fail. The native two-round result remains open.
-
-The native path is now frozen on a ten-task
-[QF-Bench risk-transfer panel](native-qfbench-v1/README.md). The external
-benchmark provides air-gapped execution, reference solutions, deterministic
-unit-test verifiers, and complete trajectory and cost records. Its source pin,
-task split, candidate resource types, decision rubric, and success criteria are
-fixed before any model-generated development or target outcome is opened.
+generalizations fail. The next tests use additional public sources that were
+not used to construct the bridge, preserving source-level separation while
+expanding the workflow, target, and guardrail coverage.

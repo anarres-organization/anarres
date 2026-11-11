@@ -8,8 +8,8 @@
     "normalize released intervention panels",
     "fit and score with complete source holdout",
     "freeze one untouched source or panel before outcome extraction",
-    "run a two-round native skill-or-task proposal loop",
-    "compare with matched model-weight training when warranted"
+    "score additional excluded public sources without refitting",
+    "revise the representation only after preserving each source-level result"
   ],
   "candidate_types": [
     "procedural_documentation",
@@ -75,7 +75,7 @@
   ],
   "success_gate": {
     "bridge": "improve source-held-out ordering or regret over transparent baselines without weakening guardrail decisions",
-    "native_loop": "improve later-case utility over retain-all latest-proposal and no-update controls in two consecutive frozen rounds",
+    "excluded_source": "retain useful ordering or abstain safely on an independently published intervention panel that did not shape the representation",
     "claim_boundary": "no general environment-optimizer claim from one source family or one successful round"
   }
 }

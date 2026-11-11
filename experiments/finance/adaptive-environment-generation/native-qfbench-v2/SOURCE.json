@@ -1,7 +1,0 @@
-{
-  "schema_version": 1,
-  "repository": "https://github.com/QF-Bench/QuantitativeFinance-Bench",
-  "commit": "d2fc28b3492f2d73d192fa7eabadf150a19a62fb",
-  "license": "Apache-2.0",
-  "verification": "source-native deterministic pytest verifier"
-}

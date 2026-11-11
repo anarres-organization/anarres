@@ -112,12 +112,11 @@ task families.
 
 The [adaptive environment-generation
 protocol](adaptive-environment-generation/README.md) turns this evidence into a
-repeated decision loop. It first tests whether pre-outcome measurements can
-select, reject, or abstain among released skill, procedure, and feedback
-interventions with one complete source held out. A native two-round study then
-generates candidates from typed failures, freezes admission decisions, and
-scores later target and protected cases. This path tests environment
-improvement before incurring the cost of matched model-weight training.
+repeated decision loop. It tests whether pre-outcome measurements can select,
+reject, or abstain among released skill, procedure, memory, and feedback
+interventions with one complete source held out. Additional excluded public
+sources extend this test across new workflows and guardrails without rerunning
+the underlying agents or training jobs.
 
 The primary prospective outcome is held-out executable task completion.
 Allocation regret measures the cost of choosing a candidate other than the

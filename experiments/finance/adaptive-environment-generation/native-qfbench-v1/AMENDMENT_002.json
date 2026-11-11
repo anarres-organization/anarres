@@ -1,9 +1,0 @@
-{
-  "schema_version": 1,
-  "amendment_id": "development_headroom_gate",
-  "timing": "after Round 1 development scoring and before any target, protected, or Round 2 model outcome",
-  "trigger": "both Round 1 no-update development tasks received deterministic reward 1.0",
-  "change": "Record an abstention, keep the Round 1 targets sealed, and advance to the harder Round 2 development pair without constructing a candidate.",
-  "reason": "The frozen candidate contract permits resources derived from observed development failures. With no observed failure, no candidate can satisfy that contract, and a target run would not compare distinct environments.",
-  "scientific_effect": "Round 1 is retained as a headroom calibration and supports no environment-selection claim. Its targets remain available for a future independently justified test."
-}

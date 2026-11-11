@@ -198,32 +198,19 @@ The result supports the representation in financial long-context work while
 leaving retrieval and summarization unscored because the paper does not report
 their matched ablations.
 
-The executable accounting panel remains the model-weight prospective
-extension. Four
-stateful workflows have passed source qualification, but no model has yet
-qualified as a non-degenerate starting policy. Training begins only after the
-chosen policy reliably uses tools and produces enough outcome variation to
-support a real environment decision.
+The next evidence expansion uses independently published finance interventions
+that did not shape the current representation. CDF-GC provides matched
+data-selection arms across two backbones, TELLME compares domain-adaptation
+recipes with retention outcomes, and controlled agent studies test memory,
+tools, invalidation, and workflow guardrails. Each source remains one held-out
+experimental program. Its native targets, costs, and regressions are preserved
+rather than collapsed into one aggregate score.
 
-That comparison will include:
-
-1. a source-proportional mixture
-2. a size-matched static-difficulty mixture
-3. a policy-relative usable-signal mixture
-4. a policy-relative mixture with an explicit workflow-coverage constraint.
-
-The primary outcome is held-out executable completion. Reconciliation precision,
-exception recall, ledger consistency, evidence provenance, approval violations,
-unauthorized state changes, tool cost, and generated tokens remain separately
-visible. A high aggregate score cannot erase a material-control failure.
-
-An additional panel extends the same decision to post-trade reconciliation and
-exception handling. FINOS Common Domain Model provides lifecycle semantics,
-while RecBench, TradeOpsSim, and FinRCA-Bench inform the data and evaluation
-contract. None is yet admitted as the claim-bearing generator. The post-trade
-panel begins only after its discrepancy generator and precision-first evaluator
-pass the same deterministic-oracle, negative-control, identity, and licensing
-gates.
+Post-trade reconciliation and exception handling remain high-priority workflow
+families. FINOS Common Domain Model provides lifecycle semantics, while
+RecBench, TradeOpsSim, and FinRCA-Bench inform the public evidence map. These
+sources enter the predictive bridge only when they report a controlled
+intervention with an identifiable starting system and comparable outcomes.
 
 ## Why this result would matter
 
@@ -234,10 +221,10 @@ starting policy, estimate its finite-budget return, and train only after the
 selection and uncertainty are recorded.
 
 The present evidence supports domain adaptation while exposing a boundary for
-later post-training stages. Task-level re-encoding is now the decisive
-retrospective test. The prospective accounting comparison then asks whether the
-resulting measurements change a real allocation decision relative to transparent
-quality-aware and volume-based baselines.
+later post-training stages. Additional source-separated tests now ask whether
+the same measurements retain useful decision accuracy across new intervention
+types, workflows, and targets relative to transparent quality-aware and
+volume-based baselines.
 
 ## Questions for finance practitioners
 
