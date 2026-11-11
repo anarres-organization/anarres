@@ -267,6 +267,14 @@ on Qwen and trails CDF-GC by 0.5 points on Llama. The four panel-level choices
 give 3/4 best-candidate accuracy and 0.096 normalized regret. The full source
 record and score are in [`heldout-cdf-gc/`](heldout-cdf-gc/).
 
+Mint-Agent tests a frontier finance-agent integration decision under the same
+pre-existing representation. Its 9B experiment compares static TIES merging
+with task-routed multi-teacher on-policy distillation across two reasoning and
+two agentic-execution benchmarks. The representation selects the latter on all
+four targets, matching the observed direction every time with improvements of
+1.33 to 4.00 points. The result remains one retrospective excluded-source test.
+The complete record is in [`heldout-mint-agent/`](heldout-mint-agent/).
+
 A derived alignment/interference coordinate does not improve the original
 sixteen-study source holdout. Against the corrected baseline, the fixed rule
 falls from 74.9% to 74.0% pairwise ordering with unchanged regret. The ridge
@@ -321,6 +329,8 @@ python heldout-longfinanceqa/score_holdout.py
 python heldout-longfinanceqa/test_score.py
 python heldout-cdf-gc/score_holdout.py
 python heldout-cdf-gc/test_score.py
+python heldout-mint-agent/score_holdout.py
+python heldout-mint-agent/test_score.py
 ```
 
 The script writes [`results/summary.json`](results/summary.json) and a manifest

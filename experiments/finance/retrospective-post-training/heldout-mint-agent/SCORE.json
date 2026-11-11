@@ -1,0 +1,39 @@
+{
+  "comparisons": [
+    {
+      "comparison": "ties",
+      "correct": true,
+      "observed_margin": 1.33,
+      "preferred": "mopd",
+      "target": "financebench"
+    },
+    {
+      "comparison": "ties",
+      "correct": true,
+      "observed_margin": 3.86,
+      "preferred": "mopd",
+      "target": "bizfinbench"
+    },
+    {
+      "comparison": "ties",
+      "correct": true,
+      "observed_margin": 4.0,
+      "preferred": "mopd",
+      "target": "financeagentbench_v1p1"
+    },
+    {
+      "comparison": "ties",
+      "correct": true,
+      "observed_margin": 3.19,
+      "preferred": "mopd",
+      "target": "finsearchcomp_t2"
+    }
+  ],
+  "directional_accuracy": 1.0,
+  "directional_correct": 4,
+  "directional_scored": 4,
+  "interpretation": "The capability-contract representation selects MOPD over static TIES merging on all four reasoning and execution benchmarks. The nested outcomes constitute one retrospective excluded-source test.",
+  "mean_pairwise_regret": 0.0,
+  "schema_version": 1,
+  "status": "SCORED_PREEXISTING_REPRESENTATION_SOURCE_HOLDOUT"
+}

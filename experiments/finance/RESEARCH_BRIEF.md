@@ -205,6 +205,11 @@ directions. It selects the best finance candidate for both backbones and the
 best general-retention choice for one of two, yielding 3/4 panel-level choices
 and 0.096 mean normalized regret.
 
+Mint-Agent adds a frontier agent-integration decision. The representation
+selects task-routed multi-teacher on-policy distillation over static parameter
+merging on two bounded-reasoning and two agentic-execution benchmarks. All four
+directions are correct, with improvements of 1.33 to 4.00 points.
+
 The next evidence expansion continues with independently published finance
 interventions that did not shape the current representation. TELLME compares
 domain-adaptation recipes with retention outcomes, while controlled agent

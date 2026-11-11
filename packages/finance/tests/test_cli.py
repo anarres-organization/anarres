@@ -55,6 +55,8 @@ class FinanceCliTest(unittest.TestCase):
         self.assertEqual(result["excluded_source_cdf_gc_directional_scored"], 22)
         self.assertEqual(result["excluded_source_cdf_gc_best_candidate_correct"], 3)
         self.assertEqual(result["excluded_source_cdf_gc_best_candidate_scored"], 4)
+        self.assertEqual(result["excluded_source_mint_agent_directional_correct"], 4)
+        self.assertEqual(result["excluded_source_mint_agent_directional_scored"], 4)
         self.assertEqual(result["outcome_separated_longfinanceqa_directional_correct"], 24)
         self.assertEqual(result["outcome_separated_longfinanceqa_directional_scored"], 25)
         self.assertEqual(result["outcome_separated_longfinanceqa_families_supported"], 4)
@@ -175,7 +177,7 @@ class FinanceCliTest(unittest.TestCase):
         result = cli.command_verify(args)
         self.assertEqual(result["status"], "pass")
         self.assertEqual(result["mode"], "compact")
-        self.assertEqual(result["manifest_artifacts"], 42)
+        self.assertEqual(result["manifest_artifacts"], 46)
         self.assertEqual(result["retrospective_sources"], 16)
         self.assertEqual(result["strict_panels"], 79)
         self.assertEqual(result["selective_pairwise_accuracy"], 0.904255)
@@ -189,12 +191,14 @@ class FinanceCliTest(unittest.TestCase):
         self.assertEqual(result["cdf_gc_directional_scored"], 22)
         self.assertEqual(result["cdf_gc_best_candidate_correct"], 3)
         self.assertEqual(result["cdf_gc_best_candidate_scored"], 4)
+        self.assertEqual(result["mint_agent_directional_correct"], 4)
+        self.assertEqual(result["mint_agent_directional_scored"], 4)
         self.assertEqual(result["longfinanceqa_directional_correct"], 24)
         self.assertEqual(result["longfinanceqa_directional_scored"], 25)
         self.assertEqual(result["longfinanceqa_families_supported"], 4)
         self.assertEqual(result["longfinanceqa_families_scored"], 4)
         self.assertFalse(result["starting_policy_qualified"])
-        self.assertEqual(len(result["holdouts"]), 8)
+        self.assertEqual(len(result["holdouts"]), 9)
 
     def test_manifest_verification_rejects_changed_artifact(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

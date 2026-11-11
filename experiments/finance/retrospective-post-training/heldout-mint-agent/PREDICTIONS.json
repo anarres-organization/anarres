@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "source_id": "mint_agent_2026",
+  "preferred": "mopd",
+  "comparison": "ties",
+  "targets": ["financebench", "bizfinbench", "financeagentbench_v1p1", "finsearchcomp_t2"],
+  "basis": "task-routed supervision and feedback preserve both specialist contracts during integration"
+}
