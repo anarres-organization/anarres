@@ -1,0 +1,15 @@
+{
+  "schema_version": "anarres.probe-run.v1",
+  "environment_id": "math-raw-attempt-demo-v1",
+  "policy_id": "synthetic-policy-v1",
+  "policy_revision": "synthetic-reference-only",
+  "source_license": "CC0-1.0",
+  "source_revision": "sha256:4adff28b22239a0cff63c223bbbd99afbfd97c1bc6a960735ffd678583e79845",
+  "source_uri": "examples/environment-processing/source.json",
+  "probe_contract": {
+    "group_size": 4,
+    "temperature": 1.0,
+    "max_new_tokens": 512,
+    "advantage_estimator": "leave-one-out-unnormalized"
+  }
+}

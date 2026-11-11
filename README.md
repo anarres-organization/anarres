@@ -103,11 +103,60 @@ you intend to train. An environment can be a prompt distribution, proof-task
 set, robot-episode dataset, collection of legal matters, molecular or material
 structures, or another domain-defined source of training experience.
 
-The built-in workflow accepts grouped attempts with:
+Keep each environment in its native format and add one small `anarres.toml`
+beside it. The manifest names the domain adapter, the native format, and the
+pinned source identity without copying domain data into a universal task table:
+
+```bash
+anarres init ./candidate-a \
+  --adapter <adapter> \
+  --revision <immutable-revision> \
+  --license <SPDX-identifier>
+```
+
+When an adapter accepts one native format, `init` selects it automatically.
+Use `--native-format <format>` when the adapter supports more than one. The
+resulting manifest is explicit and reviewable:
+
+```toml
+schema_version = "anarres.environment-source.v1"
+environment_id = "candidate-a"
+domain = "robotics"
+adapter = "robotics"
+adapter_version = "0.5.0"
+native_format = "robomimic-can-v141-hdf5"
+
+[source]
+uri = "."
+revision = "sha256:<dataset-digest>"
+license = "<dataset-license>"
+```
+
+Source-capable adapters declare qualification and policy probing separately.
+Start with `inspect`; it reports the operations that the installed adapter can
+perform for that native format:
+
+```bash
+anarres inspect ./candidate-a
+anarres qualify ./candidate-a
+```
+
+When the adapter also declares policy probing, it can run the starting policy
+and emit the normalized attempt stream measured by the Rust core:
+
+```bash
+anarres probe ./candidate-a \
+  --policy <policy> \
+  --policy-revision <revision> \
+  --output .anarres/probes/candidate-a
+anarres measure .anarres/probes/candidate-a --output .anarres/environments/candidate-a.json
+```
+
+The built-in workflow accepts raw attempt streams or grouped measurements with:
 
 - stable task and candidate identifiers
 - the starting policy and measurement contract
-- repeated outcomes, generated cost, and admitted signal
+- repeated outcomes, generated cost, and per-attempt loss admission
 - oracle, no-op, and infrastructure-validity checks
 
 If a domain uses different measurements, its adapter emits the same portable
@@ -121,7 +170,10 @@ portable records and do not require a domain runtime:
 
 | What you want to do | Start with | What it returns |
 | --- | --- | --- |
-| Find invalid, unusable, or comparison-ready measurements | `anarres qualify <input>` | Status counts and the records that require action |
+| Connect a native environment to an adapter | `anarres init <directory> ...` | A pinned `anarres.toml` source manifest |
+| Inspect a native environment and its adapter | `anarres inspect <environment>` | Native format, source identity, adapter readiness, and missing requirements |
+| Measure a source under the starting policy | `anarres probe <environment> ...` | A shared probe-run or domain-native profile input |
+| Find invalid, unusable, or comparison-ready measurements | `anarres qualify <environment-or-probe>` | Source checks or measurement status counts |
 | Create a portable environment record | `anarres measure <input> --output <record>` | Coordinates, provenance, costs, and a content digest |
 | Compare a candidate panel | `anarres design <record-a> <record-b>` | Compatibility checks and candidate coordinate ranges |
 | Check a record before using it | `anarres validate <record>` | Structural, semantic, and integrity results |

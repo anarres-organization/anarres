@@ -6,7 +6,9 @@ requires-python = ">=3.11"
 
 [dependency-groups]
 dev = [
+  "h5py>=3.8",
   "jsonschema>=4.23",
+  "pyyaml>=6.0",
   "ruff>=0.9",
 ]
 materials-test = [
@@ -28,6 +30,7 @@ members = [
   "packages/evaluation",
   "packages/finance",
   "packages/legal",
+  "packages/vulnerability",
   "experiments/robotics/environment-selection/prospective-cupid-can-v141",
 ]
 
@@ -38,6 +41,7 @@ anarres-environments = { workspace = true }
 anarres-evaluation = { workspace = true }
 anarres-finance = { workspace = true }
 anarres-legal = { workspace = true }
+anarres-vulnerability = { workspace = true }
 anarres-materials = { workspace = true }
 anarres-molecular = { workspace = true }
 anarres-robotics = { workspace = true }

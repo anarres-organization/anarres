@@ -12,7 +12,9 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
-from anarres.core import consume_adapter_invocation
+from anarres.core import consume_adapter_invocation, load_source_manifest
+
+from anarres_formal_adapter import runtime_qualification, source_qualification
 
 
 class FormalCliError(ValueError):
@@ -25,17 +27,101 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "formal",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "protocol_version": 2,
         "domain": "formal-verification",
         "executable": "anarres-formal",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
-        "capabilities": ["profile", "qualification-report", "status", "verify"],
+        "capabilities": [
+            "profile",
+            "qualification-report",
+            "runtime-qualification",
+            "source-qualification",
+            "status",
+            "verify",
+        ],
         "measurement_contracts": [
             "vero-leanstral-development-probe-v5:codeproof",
             "vero-leanstral-development-probe-v5:proof",
         ],
+        "source_formats": ["vero-checkout-v1"],
     }
+
+
+def qualified_source(manifest: Path) -> tuple[Any, dict[str, Any]]:
+    """Load and qualify the exact released Vero source manifest."""
+    descriptor = adapter_descriptor()
+    source = load_source_manifest(
+        manifest,
+        expected_adapter="formal",
+        expected_version=descriptor["version"],
+        expected_domain=descriptor["domain"],
+        accepted_formats=tuple(descriptor["source_formats"]),
+    )
+    pin = source_qualification.load_source_pin()
+    expected_revision = f"git:{pin['commit']}"
+    if source.revision != expected_revision:
+        raise FormalCliError(
+            f"manifest revision must identify the released Vero commit {expected_revision}"
+        )
+    if source.license != pin["license"]:
+        raise FormalCliError(
+            "manifest license must preserve Vero's benchmark-specific upstream licenses"
+        )
+    return source, source_qualification.qualify(source.source)
+
+
+def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
+    """Validate the exact released Vero checkout without running Lean or a policy."""
+
+    source, report = qualified_source(args.manifest)
+    return {
+        "status": "qualified",
+        "qualification_state": "source_qualified_runtime_pending",
+        "environment_id": source.environment_id,
+        "native_format": source.native_format,
+        "source_id": report["source_id"],
+        "source_revision": source.revision,
+        "source_license": source.license,
+        "source_pin_sha256": f"sha256:{report['source_pin_sha256']}",
+        "benchmark_tree_git_oid": report["benchmark_tree_git_oid"],
+        "benchmarks": report["counts"]["benchmarks"],
+        "modules": report["counts"]["modules"],
+        "apis": report["counts"]["apis"],
+        "specifications": report["counts"]["specs"],
+        "source_languages": report["counts"]["source_languages"],
+        "lean_version": report["lean_version"],
+        "modes": report["modes"],
+        "verified_core_artifacts": report["verified_artifacts"],
+        "runtime_qualified": False,
+        "policy_probe_available": False,
+        "model_execution_started": False,
+        "qualification_or_prospective_tasks_opened": False,
+    }
+
+
+def command_qualify_runtime(args: argparse.Namespace) -> dict[str, Any]:
+    """Validate a source-bound execution contract without contacting a model."""
+
+    source, source_report = qualified_source(args.manifest)
+    report = runtime_qualification.qualify(
+        contract_path=args.runtime,
+        source=source.source,
+        source_report=source_report,
+        source_revision=source.revision,
+        lean_executable=args.lean_executable,
+        lake_executable=args.lake_executable,
+    )
+    if args.output is not None:
+        if args.output.exists() and not args.force:
+            raise FileExistsError(args.output)
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(
+            json.dumps(report, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+        report = {**report, "output": str(args.output)}
+    return report
 
 
 def repository_root(explicit: Path | None = None) -> Path:
@@ -213,6 +299,11 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "candidate_ranking_authorized": False,
         "downstream_training_authorized": False,
         "qualification_report_available": True,
+        "native_source_format": "vero-checkout-v1",
+        "native_source_qualification_available": True,
+        "runtime_qualification_available": True,
+        "runtime_qualified": False,
+        "policy_probe_available": False,
         "next_required_gate": "task-only containment requalification before repeated measurement",
     }
 
@@ -364,6 +455,26 @@ def parser() -> argparse.ArgumentParser:
         description="Inspect and export the released negative Vero development measurement.",
     )
     commands = result.add_subparsers(dest="command", required=True)
+
+    qualify_source = commands.add_parser(
+        "qualify-source", help="Validate the exact pinned Vero source checkout."
+    )
+    qualify_source.add_argument("--manifest", type=Path, required=True)
+    qualify_source.add_argument("--json", action="store_true")
+    qualify_source.set_defaults(handler=command_qualify_source)
+
+    qualify_runtime = commands.add_parser(
+        "qualify-runtime",
+        help="Validate a source-bound Vero runtime without contacting a model.",
+    )
+    qualify_runtime.add_argument("--manifest", type=Path, required=True)
+    qualify_runtime.add_argument("--runtime", type=Path, required=True)
+    qualify_runtime.add_argument("--lean-executable", type=Path, required=True)
+    qualify_runtime.add_argument("--lake-executable", type=Path, required=True)
+    qualify_runtime.add_argument("--output", type=Path)
+    qualify_runtime.add_argument("--force", action="store_true")
+    qualify_runtime.add_argument("--json", action="store_true")
+    qualify_runtime.set_defaults(handler=command_qualify_runtime)
 
     status = commands.add_parser("status", help="Show support and authorization status.")
     add_common(status)

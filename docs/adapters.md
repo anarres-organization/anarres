@@ -2,8 +2,9 @@
 
 The native `anarres` binary validates and compares versioned environment
 records. Domain adapters are separate tools that translate released robotics,
-legal, materials, molecular, finance, or formal-verification measurements into
-those records without changing their scientific meaning.
+legal, materials, molecular, finance, formal-verification, or vulnerability
+sources and measurements into those records without changing their scientific
+meaning.
 
 Homebrew and the standalone installer provide the native binary. They do not
 install every domain runtime. Install only the adapters needed for the studies
@@ -26,6 +27,7 @@ uv tool install ./packages/legal
 uv tool install ./experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter
 uv tool install ./experiments/ai-for-science/molecular-design/reaction-environment-selection
 uv tool install ./packages/finance
+uv tool install ./packages/vulnerability
 ```
 
 If `uv` reports that its executable directory is not on `PATH`, run
@@ -51,12 +53,24 @@ new training outcome.
 
 | Adapter | Start here | Then inspect | Current released boundary |
 | --- | --- | --- | --- |
-| Formal verification | `anarres formal status --repository .` | `anarres formal qualification --repository .` | Negative grouped measurement plus a separate one-attempt support pass; containment requalification and RL remain blocked |
+| Formal verification | `anarres formal status --repository .` | `anarres formal qualification --repository .`<br>`anarres formal qualify-runtime --help` | Source and model-free runtime qualification are available; policy probing, containment requalification, and RL remain blocked |
 | Robotics | `anarres robotics status --repository .` | `anarres robotics can-results --repository .` | Can v1.4.1 candidate measurements and prospective result |
 | Legal reasoning | `anarres legal status --repository .` | `anarres legal regressions --repository .` | SylloGym candidate profiles and a separate LAB regression report |
-| Materials science | `anarres materials status --repository .` | `anarres materials results --repository .` | MLIP candidate measurements, frozen protocol, and scored prospective result |
+| Materials science | `anarres materials status --repository .` | `anarres materials results --repository .` | Native OMat24 bank qualification, MLIP candidate measurements, and the scored prospective result |
 | Molecular design | `anarres molecular status --repository .` | `anarres molecular verify --repository .` | Qualified Q07820 reaction-bank measurements; training outcomes remain sealed |
 | Agentic finance | `anarres finance status --repository .` | `anarres finance decide <panel.json>` | Starting-policy qualification and released retrospective checks |
+| Vulnerability exploitation | `anarres vulnerability status` | [`anarres qualify <source>`](../packages/vulnerability/README.md) | Sanitized CyberGym source qualification; task execution and policy probing remain gated |
+
+All maintained adapters declare a native source format. After installing one,
+use `anarres adapter doctor <name>` to inspect its exact contract, then run
+`anarres init`, `anarres inspect`, and `anarres qualify`. These commands route
+the native files without flattening their domain-specific structure.
+
+Only the molecular adapter currently declares the portable `policy-probe`
+capability. Its probe remains dry-run unless execution is requested explicitly.
+The other adapters stop at source or runtime qualification in the shared path;
+study-specific execution commands retain their own completeness and safety
+gates.
 
 Use `status` to inspect the released stage, `profile` to export supported
 candidate records, and `verify` to regenerate the adapter's maintained output.

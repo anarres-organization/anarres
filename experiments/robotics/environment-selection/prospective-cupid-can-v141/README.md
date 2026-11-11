@@ -124,6 +124,51 @@ The study-local command can be installed independently from the native CLI:
 uv tool install \
   ./experiments/robotics/environment-selection/prospective-cupid-can-v141
 anarres adapter doctor robotics
+```
+
+To qualify the native Can dataset before constructing a study workflow, place
+the single `low_dim_v141.hdf5` artifact in its own environment directory and
+record its pinned identity:
+
+```bash
+anarres init ./can-v141-source \
+  --adapter robotics \
+  --revision sha256:b6ceaed84c0335613a5001c900493b226481c132c792ec2cbdb99cb12c62baf0 \
+  --license "DATASET-LICENSE"
+anarres inspect ./can-v141-source
+anarres qualify ./can-v141-source
+```
+
+Qualification verifies the exact dataset hash, HDF5 structure, and
+demonstration inventory. It does not start training or open candidate outcomes.
+The user records the applicable dataset terms because the upstream dataset is
+distributed separately from the MIT-licensed RoboMimic code.
+
+The released probe identity is recorded separately in
+[`PROBE_CONTRACT.json`](PROBE_CONTRACT.json). It binds the source dataset, the
+three-checkpoint scoring ensemble, the CUPID and CuraEval revisions, the
+closed-loop rollout contract, the influence aggregation, and the distinction
+between task failures and infrastructure failures. A dry preflight reports
+which local artifacts conform without starting simulation:
+
+```bash
+anarres robotics probe-preflight --repository . \
+  --dataset /data/low_dim_v141.hdf5 \
+  --checkpoints /models/can-scoring-ensemble \
+  --runtime /src/robotics-probe-runtime \
+  --python /opt/robotics-probe/bin/python \
+  --backend local --json
+```
+
+The adapter does not yet advertise the shared `policy-probe` capability. The
+released record does not provide resolvable checkpoint artifacts, and a
+portable end-to-end probe has not passed the release gate. The preflight keeps
+those missing requirements visible rather than substituting a nearby runtime
+or a newly trained checkpoint.
+
+The study-specific planning and execution path is:
+
+```bash
 anarres robotics status --repository .
 anarres robotics plan --repository . --output .anarres/can-v141.plan.json
 anarres robotics prepare --repository . \

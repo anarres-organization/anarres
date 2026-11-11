@@ -1,0 +1,12 @@
+{
+  "templates": [
+    {
+      "compatible_building_block_ids": [
+        "bb-1",
+        "bb-2"
+      ],
+      "reaction_smarts": "[C:1].[O:2]>>[C:1][O:2]",
+      "template_id": "rxn-1"
+    }
+  ]
+}

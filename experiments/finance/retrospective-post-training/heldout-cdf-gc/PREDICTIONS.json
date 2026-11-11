@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "source_id": "ying2025_cdf_gc",
+  "finance_preferred": "cdf_gc",
+  "general_preferred": "base",
+  "candidate_sets": {
+    "llama_3p2_1b": ["base", "full_scale", "random", "dsir", "eta_dacp", "ppl", "cdf_gc"],
+    "qwen2p5_0p5b": ["base", "random", "dsir", "eta_dacp", "ppl", "cdf_gc"]
+  },
+  "comparison_rule": {
+    "finance": "Compare CDF-GC with every other candidate.",
+    "general": "Compare the starting model with every continual-pretraining candidate."
+  },
+  "abstentions": [{
+    "scope": "remaining pairwise ordering among continual-pretraining baselines",
+    "reason": "The representation does not resolve differences among target matching, perplexity, grammatical complexity, and part-of-speech diversity when they are used alone."
+  }]
+}

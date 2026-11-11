@@ -33,6 +33,8 @@ pub(crate) struct AdapterDescriptor {
     pub(crate) capabilities: Vec<String>,
     #[serde(default)]
     pub(crate) measurement_contracts: Vec<String>,
+    #[serde(default)]
+    pub(crate) source_formats: Vec<String>,
 }
 
 #[derive(Clone, Debug, Serialize)]
@@ -97,6 +99,8 @@ pub(crate) fn list(as_json: bool) -> Result<i32, String> {
             ));
         }
     }
+    crate::ui::blank();
+    crate::ui::next("anarres adapter doctor <name>");
     Ok(0)
 }
 
@@ -140,6 +144,27 @@ pub(crate) fn doctor(name: &str, as_json: bool) -> Result<i32, String> {
         crate::ui::field("Version", &descriptor.version);
         crate::ui::field("Protocol", descriptor.protocol_version);
         crate::ui::field("Executable", report.path.as_deref().unwrap_or("unknown"));
+        if !descriptor.source_formats.is_empty() {
+            crate::ui::field("Source formats", descriptor.source_formats.join(", "));
+            crate::ui::field(
+                "Can qualify",
+                yes_no(
+                    descriptor
+                        .capabilities
+                        .iter()
+                        .any(|capability| capability == "source-qualification"),
+                ),
+            );
+            crate::ui::field(
+                "Can probe",
+                yes_no(
+                    descriptor
+                        .capabilities
+                        .iter()
+                        .any(|capability| capability == "policy-probe"),
+                ),
+            );
+        }
         for path in &report.shadowed_paths {
             crate::ui::warning_stderr(format_args!(
                 "adapter '{}' at {} is shadowed by an earlier PATH entry",
@@ -154,6 +179,10 @@ pub(crate) fn doctor(name: &str, as_json: bool) -> Result<i32, String> {
     Ok(i32::from(!report.valid))
 }
 
+fn yes_no(value: bool) -> &'static str {
+    if value { "yes" } else { "no" }
+}
+
 pub(crate) fn run(name: &str, arguments: &[OsString]) -> Result<i32, String> {
     validate_adapter_name(name)?;
     let adapter = resolve_adapter(name)?;
@@ -166,6 +195,12 @@ pub(crate) fn run(name: &str, arguments: &[OsString]) -> Result<i32, String> {
         .status()
         .map_err(|error| format!("failed to start adapter '{name}': {error}"))?;
     Ok(exit_code(status))
+}
+
+pub(crate) fn descriptor(name: &str) -> Result<AdapterDescriptor, String> {
+    validate_adapter_name(name)?;
+    let adapter = resolve_adapter(name)?;
+    read_descriptor(&adapter)
 }
 
 fn discover_adapters() -> Result<BTreeMap<String, ResolvedAdapter>, String> {
@@ -445,6 +480,38 @@ fn validate_descriptor(
         &descriptor.measurement_contracts,
         false,
     )?;
+    validate_sorted_unique(
+        &adapter.name,
+        "source_formats",
+        &descriptor.source_formats,
+        false,
+    )?;
+    let qualifies_sources = descriptor
+        .capabilities
+        .iter()
+        .any(|capability| capability == "source-qualification");
+    let probes_sources = descriptor
+        .capabilities
+        .iter()
+        .any(|capability| capability == "policy-probe");
+    if descriptor.source_formats.is_empty() && (qualifies_sources || probes_sources) {
+        return Err(format!(
+            "adapter '{}' declares source capabilities without source_formats",
+            adapter.name
+        ));
+    }
+    if !descriptor.source_formats.is_empty() && !qualifies_sources {
+        return Err(format!(
+            "adapter '{}' declares source_formats without source-qualification",
+            adapter.name
+        ));
+    }
+    if probes_sources && !qualifies_sources {
+        return Err(format!(
+            "adapter '{}' declares policy-probe without source-qualification",
+            adapter.name
+        ));
+    }
     Ok(())
 }
 
@@ -468,7 +535,7 @@ fn validate_sorted_unique(
     Ok(())
 }
 
-fn validate_adapter_name(name: &str) -> Result<(), String> {
+pub(crate) fn validate_adapter_name(name: &str) -> Result<(), String> {
     let valid = !name.is_empty()
         && name.len() <= 64
         && name.bytes().enumerate().all(|(index, byte)| match byte {
@@ -630,8 +697,22 @@ mod tests {
             measurement_contracts: vec![
                 "finance.business-bench-starting-policy-qualification.v1".into(),
             ],
+            source_formats: Vec::new(),
         };
         assert!(validate_descriptor(&adapter, &valid).is_ok());
+
+        let mut unsupported_source = valid.clone();
+        unsupported_source.capabilities = vec!["policy-probe".into(), "profile".into()];
+        assert!(validate_descriptor(&adapter, &unsupported_source).is_err());
+
+        let mut source_without_qualification = valid.clone();
+        source_without_qualification.source_formats = vec!["openenv".into()];
+        assert!(validate_descriptor(&adapter, &source_without_qualification).is_err());
+
+        let mut source_capable = valid.clone();
+        source_capable.capabilities = vec!["policy-probe".into(), "source-qualification".into()];
+        source_capable.source_formats = vec!["openenv".into()];
+        assert!(validate_descriptor(&adapter, &source_capable).is_ok());
 
         let mut duplicate = valid;
         duplicate.capabilities = vec!["profile".into(), "profile".into()];

@@ -1,0 +1,225 @@
+{
+  "abstentions": [
+    {
+      "reason": "The representation does not resolve differences among target matching, perplexity, grammatical complexity, and part-of-speech diversity when they are used alone.",
+      "scope": "remaining pairwise ordering among continual-pretraining baselines"
+    }
+  ],
+  "best_candidate_correct": 3,
+  "best_candidate_scored": 4,
+  "best_candidates": [
+    {
+      "correct": true,
+      "model": "llama_3p2_1b",
+      "observed": "cdf_gc",
+      "predicted": "cdf_gc",
+      "target": "finance"
+    },
+    {
+      "correct": false,
+      "model": "llama_3p2_1b",
+      "observed": "cdf_gc",
+      "predicted": "base",
+      "target": "general"
+    },
+    {
+      "correct": true,
+      "model": "qwen2p5_0p5b",
+      "observed": "cdf_gc",
+      "predicted": "cdf_gc",
+      "target": "finance"
+    },
+    {
+      "correct": true,
+      "model": "qwen2p5_0p5b",
+      "observed": "base",
+      "predicted": "base",
+      "target": "general"
+    }
+  ],
+  "comparisons": [
+    {
+      "comparison": "base",
+      "correct": true,
+      "model": "llama_3p2_1b",
+      "observed_margin": 7.3,
+      "preferred": "cdf_gc",
+      "target": "finance"
+    },
+    {
+      "comparison": "full_scale",
+      "correct": true,
+      "model": "llama_3p2_1b",
+      "observed_margin": 1.7,
+      "preferred": "cdf_gc",
+      "target": "finance"
+    },
+    {
+      "comparison": "random",
+      "correct": true,
+      "model": "llama_3p2_1b",
+      "observed_margin": 3.4,
+      "preferred": "cdf_gc",
+      "target": "finance"
+    },
+    {
+      "comparison": "dsir",
+      "correct": true,
+      "model": "llama_3p2_1b",
+      "observed_margin": 2.0,
+      "preferred": "cdf_gc",
+      "target": "finance"
+    },
+    {
+      "comparison": "eta_dacp",
+      "correct": true,
+      "model": "llama_3p2_1b",
+      "observed_margin": 2.6,
+      "preferred": "cdf_gc",
+      "target": "finance"
+    },
+    {
+      "comparison": "ppl",
+      "correct": true,
+      "model": "llama_3p2_1b",
+      "observed_margin": 2.0,
+      "preferred": "cdf_gc",
+      "target": "finance"
+    },
+    {
+      "comparison": "full_scale",
+      "correct": true,
+      "model": "llama_3p2_1b",
+      "observed_margin": 0.3,
+      "preferred": "base",
+      "target": "general"
+    },
+    {
+      "comparison": "random",
+      "correct": true,
+      "model": "llama_3p2_1b",
+      "observed_margin": 0.8,
+      "preferred": "base",
+      "target": "general"
+    },
+    {
+      "comparison": "dsir",
+      "correct": true,
+      "model": "llama_3p2_1b",
+      "observed_margin": 0.7,
+      "preferred": "base",
+      "target": "general"
+    },
+    {
+      "comparison": "eta_dacp",
+      "correct": true,
+      "model": "llama_3p2_1b",
+      "observed_margin": 0.5,
+      "preferred": "base",
+      "target": "general"
+    },
+    {
+      "comparison": "ppl",
+      "correct": true,
+      "model": "llama_3p2_1b",
+      "observed_margin": 0.4,
+      "preferred": "base",
+      "target": "general"
+    },
+    {
+      "comparison": "cdf_gc",
+      "correct": false,
+      "model": "llama_3p2_1b",
+      "observed_margin": -0.5,
+      "preferred": "base",
+      "target": "general"
+    },
+    {
+      "comparison": "base",
+      "correct": true,
+      "model": "qwen2p5_0p5b",
+      "observed_margin": 0.18,
+      "preferred": "cdf_gc",
+      "target": "finance"
+    },
+    {
+      "comparison": "random",
+      "correct": true,
+      "model": "qwen2p5_0p5b",
+      "observed_margin": 1.81,
+      "preferred": "cdf_gc",
+      "target": "finance"
+    },
+    {
+      "comparison": "dsir",
+      "correct": true,
+      "model": "qwen2p5_0p5b",
+      "observed_margin": 0.98,
+      "preferred": "cdf_gc",
+      "target": "finance"
+    },
+    {
+      "comparison": "eta_dacp",
+      "correct": true,
+      "model": "qwen2p5_0p5b",
+      "observed_margin": 1.06,
+      "preferred": "cdf_gc",
+      "target": "finance"
+    },
+    {
+      "comparison": "ppl",
+      "correct": true,
+      "model": "qwen2p5_0p5b",
+      "observed_margin": 0.44,
+      "preferred": "cdf_gc",
+      "target": "finance"
+    },
+    {
+      "comparison": "random",
+      "correct": true,
+      "model": "qwen2p5_0p5b",
+      "observed_margin": 2.86,
+      "preferred": "base",
+      "target": "general"
+    },
+    {
+      "comparison": "dsir",
+      "correct": true,
+      "model": "qwen2p5_0p5b",
+      "observed_margin": 2.75,
+      "preferred": "base",
+      "target": "general"
+    },
+    {
+      "comparison": "eta_dacp",
+      "correct": true,
+      "model": "qwen2p5_0p5b",
+      "observed_margin": 2.28,
+      "preferred": "base",
+      "target": "general"
+    },
+    {
+      "comparison": "ppl",
+      "correct": true,
+      "model": "qwen2p5_0p5b",
+      "observed_margin": 2.44,
+      "preferred": "base",
+      "target": "general"
+    },
+    {
+      "comparison": "cdf_gc",
+      "correct": true,
+      "model": "qwen2p5_0p5b",
+      "observed_margin": 2.15,
+      "preferred": "base",
+      "target": "general"
+    }
+  ],
+  "directional_accuracy": 0.954545,
+  "directional_correct": 21,
+  "directional_scored": 22,
+  "interpretation": "The pre-existing capability-contract representation recovers 21 of 22 candidate-target directions across two backbones. It selects CDF-GC for both finance panels and the starting model for one of two general-retention panels. The result is one retrospective excluded-source test.",
+  "mean_normalized_regret": 0.096154,
+  "schema_version": 1,
+  "status": "SCORED_PREEXISTING_REPRESENTATION_SOURCE_HOLDOUT"
+}

@@ -76,6 +76,11 @@ class FinanceCliCommandTest(unittest.TestCase):
             report = json.loads(doctor.stdout)
             self.assertTrue(report["valid"])
             self.assertEqual(report["descriptor"]["name"], "finance")
+            self.assertEqual(report["descriptor"]["version"], "0.2.0")
+            self.assertEqual(
+                report["descriptor"]["source_formats"],
+                ["business-bench-process-v1"],
+            )
             self.assertEqual(
                 report["descriptor"]["measurement_contracts"],
                 ["finance.business-bench-starting-policy-qualification.v1"],
@@ -138,10 +143,10 @@ class FinanceCliCommandTest(unittest.TestCase):
             self.assertEqual(verify.returncode, 0, verify.stderr)
             verify_result = json.loads(verify.stdout)
             self.assertEqual(verify_result["mode"], "compact")
-            self.assertEqual(verify_result["manifest_artifacts"], 38)
+            self.assertEqual(verify_result["manifest_artifacts"], 46)
             self.assertEqual(verify_result["longfinanceqa_directional_correct"], 24)
             self.assertEqual(verify_result["longfinanceqa_directional_scored"], 25)
-            self.assertEqual(len(verify_result["holdouts"]), 7)
+            self.assertEqual(len(verify_result["holdouts"]), 9)
 
             candidate_panel = {
                 "schema_version": "anarres.finance-candidate-panel.v1",
@@ -218,6 +223,41 @@ class FinanceCliCommandTest(unittest.TestCase):
             profile_result = json.loads(profile.stdout)
             self.assertFalse(profile_result["qualified"])
             self.assertTrue(Path(profile_result["output"]).is_file())
+
+            native_source = directory / "business-bench-source"
+            native_source.mkdir()
+            initialized = self.run_generic(
+                directory,
+                "init",
+                str(native_source),
+                "--adapter",
+                "finance",
+                "--revision",
+                "git:0d09882b59a16f190feac09abc9331a733a6f96b",
+                "--license",
+                "MIT",
+            )
+            self.assertEqual(initialized.returncode, 0, initialized.stderr)
+            inspected = self.run_generic(
+                directory,
+                "inspect",
+                str(native_source),
+                "--json",
+            )
+            self.assertEqual(inspected.returncode, 0, inspected.stderr)
+            inspection = json.loads(inspected.stdout)
+            self.assertTrue(inspection["qualification_ready"])
+            self.assertFalse(inspection["probe_ready"])
+            self.assertEqual(inspection["adapter"], "finance")
+
+            rejected = self.run_generic(
+                directory,
+                "qualify",
+                str(native_source),
+                "--json",
+            )
+            self.assertNotEqual(rejected.returncode, 0)
+            self.assertIn("Business Bench Git checkout", rejected.stderr)
 
     def test_invalid_evidence_path_exits_nonzero(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

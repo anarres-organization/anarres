@@ -15,6 +15,10 @@ fn fixture() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("../../examples/environment-processing/probe.json")
 }
 
+fn probe_run_fixture() -> PathBuf {
+    Path::new(env!("CARGO_MANIFEST_DIR")).join("../../examples/environment-processing/probe-run")
+}
+
 fn profile_fixture(name: &str) -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("../../examples/environment-profiles")
@@ -52,10 +56,13 @@ fn top_level_help_points_to_builtins_and_adapters() {
     assert!(output.status.success());
     let stdout = String::from_utf8(output.stdout).expect("stdout is UTF-8");
     assert!(stdout.contains("anarres demo"));
-    assert!(stdout.contains("anarres qualify <measurements.json>"));
     assert!(stdout.contains("anarres adapter list"));
-    assert!(stdout.contains("anarres <adapter> --help"));
-    assert!(stdout.contains("portable environment records"));
+    assert!(stdout.contains("anarres adapter doctor <name>"));
+    assert!(stdout.contains("anarres inspect <directory>"));
+    assert!(stdout.contains("anarres qualify <directory>"));
+    assert!(stdout.contains("anarres measure <measurement>"));
+    assert!(stdout.contains("anarres design <environment-a.json> <environment-b.json>"));
+    assert!(stdout.contains("whether qualification and policy probing are available"));
 }
 
 #[test]
@@ -244,6 +251,48 @@ fn write_fake_adapter(directory: &Path, name: &str, version: &str) -> PathBuf {
     path
 }
 
+#[cfg(unix)]
+fn write_fake_source_adapter(directory: &Path, name: &str) -> PathBuf {
+    use std::os::unix::fs::PermissionsExt;
+
+    let path = directory.join(format!("anarres-{name}"));
+    let descriptor = format!(
+        r#"{{"schema_version":"anarres.adapter-descriptor.v1","name":"{name}","version":"0.1.0","protocol_version":2,"domain":"agentic-systems","executable":"anarres-{name}","profile_schema_versions":["anarres.environment-profile-input.v1"],"capabilities":["policy-probe","source-qualification"],"measurement_contracts":[],"source_formats":["openenv"]}}"#
+    );
+    let script = format!(
+        "#!/bin/sh\nif [ \"$1\" = \"--anarres-adapter-descriptor\" ]; then\n  printf '%s\\n' '{descriptor}'\n  exit 0\nfi\nif [ \"$1\" != \"--anarres-adapter-protocol\" ] || [ \"$2\" != \"2\" ] || [ \"$3\" != \"--anarres-adapter-name\" ] || [ \"$4\" != \"{name}\" ]; then\n  exit 64\nfi\nshift 4\nprintf '%s\\n' \"$@\"\n"
+    );
+    fs::write(&path, script).expect("fake source adapter is written");
+    let mut permissions = fs::metadata(&path).unwrap().permissions();
+    permissions.set_mode(0o755);
+    fs::set_permissions(&path, permissions).unwrap();
+    path
+}
+
+fn write_environment_source(directory: &Path, adapter: &str) -> PathBuf {
+    let environment = directory.join("candidate");
+    fs::create_dir_all(environment.join("native-environment"))
+        .expect("native environment is created");
+    let manifest = environment.join("anarres.toml");
+    fs::write(
+        &manifest,
+        format!(
+            "schema_version = \"anarres.environment-source.v1\"\n\
+             environment_id = \"candidate-a\"\n\
+             domain = \"agentic-systems\"\n\
+             adapter = \"{adapter}\"\n\
+             adapter_version = \"0.1.0\"\n\
+             native_format = \"openenv\"\n\n\
+             [source]\n\
+             uri = \"./native-environment\"\n\
+             revision = \"git:0123456789abcdef0123456789abcdef01234567\"\n\
+             license = \"Apache-2.0\"\n"
+        ),
+    )
+    .expect("environment source is written");
+    environment
+}
+
 fn write_probe_variant(path: &Path, environment_id: &str) {
     let mut probe: Value = serde_json::from_slice(&fs::read(fixture()).expect("fixture is read"))
         .expect("fixture is JSON");
@@ -267,6 +316,272 @@ fn qualify_has_stable_json_output() {
     assert_eq!(report["environment_id"], "math-reference-demo-v1");
     assert_eq!(report["status_counts"]["admitted"], 2);
     assert_eq!(report["status_counts"]["repair"], 1);
+}
+
+#[cfg(unix)]
+#[test]
+fn environment_source_inspects_qualifies_and_probes_through_one_adapter() {
+    let directory = temporary_directory();
+    let bin = directory.join("bin");
+    fs::create_dir_all(&bin).expect("bin directory is created");
+    write_fake_source_adapter(&bin, "openenv");
+
+    let initialized = directory.join("initialized-candidate");
+    fs::create_dir_all(&initialized).expect("initialization source is created");
+    let init = run_with_path(
+        &[
+            "init",
+            initialized.to_str().unwrap(),
+            "--adapter",
+            "openenv",
+            "--revision",
+            "git:0123456789abcdef0123456789abcdef01234567",
+            "--license",
+            "Apache-2.0",
+            "--json",
+        ],
+        &bin,
+    );
+    assert!(
+        init.status.success(),
+        "{}",
+        String::from_utf8_lossy(&init.stderr)
+    );
+    let initialized_report: Value =
+        serde_json::from_slice(&init.stdout).expect("initialization is JSON");
+    assert_eq!(
+        initialized_report["environment_id"],
+        "initialized-candidate"
+    );
+    assert_eq!(initialized_report["domain"], "agentic-systems");
+    assert_eq!(initialized_report["adapter_version"], "0.1.0");
+    assert_eq!(initialized_report["native_format"], "openenv");
+    let initialized_manifest =
+        fs::read_to_string(initialized.join("anarres.toml")).expect("manifest is readable");
+    assert!(initialized_manifest.contains("uri = \".\""));
+
+    let human_init = run_with_path(
+        &[
+            "init",
+            initialized.to_str().unwrap(),
+            "--adapter",
+            "openenv",
+            "--revision",
+            "git:0123456789abcdef0123456789abcdef01234567",
+            "--license",
+            "Apache-2.0",
+            "--force",
+        ],
+        &bin,
+    );
+    assert!(human_init.status.success());
+    let human_output = String::from_utf8(human_init.stdout).expect("human output is UTF-8");
+    assert!(human_output.contains("Environment source"));
+    assert!(human_output.contains("Initialized"));
+    assert!(human_output.contains("Adapter version"));
+    assert!(human_output.contains("Next"));
+    assert!(human_output.contains("anarres inspect"));
+
+    let repeated_init = run_with_path(
+        &[
+            "init",
+            initialized.to_str().unwrap(),
+            "--adapter",
+            "openenv",
+            "--revision",
+            "git:0123456789abcdef0123456789abcdef01234567",
+            "--license",
+            "Apache-2.0",
+        ],
+        &bin,
+    );
+    assert_eq!(repeated_init.status.code(), Some(1));
+    assert!(String::from_utf8_lossy(&repeated_init.stderr).contains("--force"));
+
+    let environment = write_environment_source(&directory, "openenv");
+
+    let inspected = run_with_path(&["inspect", environment.to_str().unwrap(), "--json"], &bin);
+    assert!(
+        inspected.status.success(),
+        "{}",
+        String::from_utf8_lossy(&inspected.stderr)
+    );
+    let report: Value = serde_json::from_slice(&inspected.stdout).expect("inspection is JSON");
+    assert_eq!(report["environment_id"], "candidate-a");
+    assert_eq!(report["native_format"], "openenv");
+    assert_eq!(report["adapter_installed"], true);
+    assert_eq!(report["required_adapter_version"], "0.1.0");
+    assert_eq!(report["installed_adapter_version"], "0.1.0");
+    assert_eq!(report["can_qualify"], true);
+    assert_eq!(report["can_probe"], true);
+    assert_eq!(report["issues"], serde_json::json!([]));
+
+    let qualified = run_with_path(&["qualify", environment.to_str().unwrap(), "--json"], &bin);
+    assert!(qualified.status.success());
+    let qualified_args = String::from_utf8(qualified.stdout).expect("stdout is UTF-8");
+    assert!(qualified_args.starts_with("qualify-source\n--manifest\n"));
+    assert!(qualified_args.ends_with("--json\n"));
+
+    let output = directory.join("probe-run");
+    let probed = run_with_path(
+        &[
+            "probe",
+            environment.to_str().unwrap(),
+            "--policy",
+            "qwen/example",
+            "--policy-revision",
+            "sha256:abc",
+            "--output",
+            output.to_str().unwrap(),
+            "--",
+            "--endpoint",
+            "http://127.0.0.1:8000/v1",
+        ],
+        &bin,
+    );
+    assert!(
+        probed.status.success(),
+        "{}",
+        String::from_utf8_lossy(&probed.stderr)
+    );
+    let probed_args = String::from_utf8(probed.stdout).expect("stdout is UTF-8");
+    assert!(probed_args.starts_with("probe-source\n--manifest\n"));
+    assert!(probed_args.contains("--policy\nqwen/example\n"));
+    assert!(probed_args.contains("--policy-revision\nsha256:abc\n"));
+    assert!(probed_args.ends_with("--endpoint\nhttp://127.0.0.1:8000/v1\n"));
+
+    let validated = run(&[
+        "validate",
+        environment.join("anarres.toml").to_str().unwrap(),
+        "--json",
+    ]);
+    assert!(validated.status.success());
+    let validation: Value = serde_json::from_slice(&validated.stdout).expect("validation is JSON");
+    assert_eq!(
+        validation["records"][0]["record_type"],
+        "environment source"
+    );
+
+    let measured = run(&[
+        "measure",
+        environment.to_str().unwrap(),
+        "--output",
+        directory.join("invalid.json").to_str().unwrap(),
+    ]);
+    assert_eq!(measured.status.code(), Some(1));
+    assert!(String::from_utf8_lossy(&measured.stderr).contains("run `anarres probe` first"));
+
+    let manifest = environment.join("anarres.toml");
+    fs::write(
+        &manifest,
+        format!(
+            "{}unexpected = true\n",
+            fs::read_to_string(&manifest).unwrap()
+        ),
+    )
+    .unwrap();
+    let invalid = run(&["validate", manifest.to_str().unwrap(), "--json"]);
+    assert_eq!(invalid.status.code(), Some(1));
+    let invalid_report: Value =
+        serde_json::from_slice(&invalid.stdout).expect("invalid report is JSON");
+    assert!(
+        invalid_report["records"][0]["error"]
+            .as_str()
+            .unwrap()
+            .contains("unknown field")
+    );
+
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
+}
+
+#[test]
+fn raw_attempt_directory_qualifies_measures_and_validates() {
+    let directory = temporary_directory();
+    let manifest = directory.join("raw-environment.json");
+    let probe_run = probe_run_fixture();
+
+    let qualified = run(&["qualify", probe_run.to_str().unwrap(), "--json"]);
+    assert!(
+        qualified.status.success(),
+        "{}",
+        String::from_utf8_lossy(&qualified.stderr)
+    );
+    let report: Value = serde_json::from_slice(&qualified.stdout).expect("stdout is JSON");
+    assert_eq!(report["attempt_count"], 20);
+    assert_eq!(report["status_counts"]["admitted"], 2);
+    assert_eq!(report["status_counts"]["repair"], 1);
+
+    let measured = run(&[
+        "measure",
+        probe_run.to_str().unwrap(),
+        "--output",
+        manifest.to_str().unwrap(),
+    ]);
+    assert!(
+        measured.status.success(),
+        "{}",
+        String::from_utf8_lossy(&measured.stderr)
+    );
+    let record: Value = serde_json::from_slice(&fs::read(&manifest).expect("manifest is written"))
+        .expect("manifest is JSON");
+    assert_eq!(record["coordinates"]["generated_action_tokens"], 4_200);
+    let mass = record["coordinates"]["total_admitted_advantage_mass"]
+        .as_f64()
+        .expect("mass is numeric");
+    assert!((mass - 14.0 / 3.0).abs() < 1e-12);
+
+    let validated = run(&[
+        "validate",
+        probe_run.to_str().unwrap(),
+        manifest.to_str().unwrap(),
+        "--json",
+    ]);
+    assert!(validated.status.success());
+    let validation: Value = serde_json::from_slice(&validated.stdout).expect("stdout is JSON");
+    assert_eq!(validation["valid"], true);
+    assert_eq!(validation["records"][0]["record_type"], "probe run");
+
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
+}
+
+#[test]
+fn raw_attempt_digest_is_independent_of_completion_order() {
+    let directory = temporary_directory();
+    let ordered = directory.join("ordered");
+    let reversed = directory.join("reversed");
+    fs::create_dir_all(&ordered).expect("ordered directory is created");
+    fs::create_dir_all(&reversed).expect("reversed directory is created");
+    let fixture = probe_run_fixture();
+    let metadata = fs::read(fixture.join("probe.json")).expect("metadata is read");
+    fs::write(ordered.join("probe.json"), &metadata).expect("ordered metadata is written");
+    fs::write(reversed.join("probe.json"), metadata).expect("reversed metadata is written");
+    let attempts = fs::read_to_string(fixture.join("attempts.jsonl")).expect("attempts are read");
+    fs::write(ordered.join("attempts.jsonl"), &attempts).expect("attempts are written");
+    let reversed_attempts = attempts.lines().rev().collect::<Vec<_>>().join("\n") + "\n";
+    fs::write(reversed.join("attempts.jsonl"), reversed_attempts)
+        .expect("reversed attempts are written");
+
+    let ordered_record = directory.join("ordered.json");
+    let reversed_record = directory.join("reversed.json");
+    for (probe_run, record) in [(&ordered, &ordered_record), (&reversed, &reversed_record)] {
+        let measured = run(&[
+            "measure",
+            probe_run.to_str().unwrap(),
+            "--output",
+            record.to_str().unwrap(),
+        ]);
+        assert!(
+            measured.status.success(),
+            "{}",
+            String::from_utf8_lossy(&measured.stderr)
+        );
+    }
+    assert_eq!(
+        fs::read(ordered_record).expect("ordered record is read"),
+        fs::read(reversed_record).expect("reversed record is read")
+    );
+
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
 }
 
 #[test]

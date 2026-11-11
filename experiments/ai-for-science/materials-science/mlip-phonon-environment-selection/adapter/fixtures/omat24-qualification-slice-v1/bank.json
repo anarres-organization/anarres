@@ -1,0 +1,97 @@
+{
+  "bank_id": "omat24-qualification-slice-v1",
+  "claim_bank": {
+    "atoms": 2035803,
+    "construction_script_sha256": "ae3e9e6d3a0cd1cea520da0a20a1c656959ad0e638992873b59ec9d3b4a7098f",
+    "manifest_sha256": "6ba4b7c44b792af1479decda417fbb7206271c56b9c668b69e6b316c829709c4",
+    "neighbor_edges": 80792358,
+    "overlap_audit_sha256": "8f777b5cb4eca3233130a19ecc853c64445527457e85c4a28b2e9b1ec75da952",
+    "records": 80000,
+    "role": "deterministic_immutable_derivation",
+    "selection": {
+      "maximum_records_per_parent": 4,
+      "oversample_factor": 4,
+      "records_per_source_family": 10000,
+      "salt": "anarres-mlip-measurement-pool-v1",
+      "source_families": [
+        "aimd-from-PBE-1000-npt",
+        "aimd-from-PBE-1000-nvt",
+        "aimd-from-PBE-3000-npt",
+        "aimd-from-PBE-3000-nvt",
+        "rattled-1000",
+        "rattled-300",
+        "rattled-500",
+        "rattled-relax"
+      ],
+      "supported_atomic_numbers": "1-83,89-94"
+    },
+    "source_archive_sha256": "789ecc1306575a1652806b339265d7659c57282eeb1b3e3b54ba0e1154938b81",
+    "source_archive_url": "https://dl.fbaipublicfiles.com/opencatalystproject/data/omat/251210/omat24_1M_251210.tar.gz"
+  },
+  "claim_boundary": {
+    "candidate_training_outcomes_opened": false,
+    "fixture_role": "source_qualification_only",
+    "policy_probe_available": false,
+    "policy_probe_blocker": "Nequix checkpoint execution requires the native GPU and ASE-LMDB runtime."
+  },
+  "exclusions": {
+    "evaluation_material_ids_sha256": "829f49177f8354584e5b52b81632d02f54d2ef5417247327ac79ad51f4741145",
+    "evaluation_material_ids": [
+      "mp-3033", "mp-3887", "mp-4122", "mp-4748", "mp-6356", "mp-6425", "mp-6643", "mp-6799", "mp-6929", "mp-7339", "mp-8426", "mp-11695", "mp-12992", "mp-23151", "mp-42160", "mp-552806", "mp-553973", "mp-555065", "mp-555153", "mp-556062", "mp-557452", "mp-558023", "mp-558347", "mp-561196", "mp-561394", "mp-561623", "mp-569349", "mp-613442", "mp-614491", "mp-616190", "mp-619456", "mp-625052", "mp-625056", "mp-625416", "mp-625678", "mp-625837", "mp-625917", "mp-626369", "mp-626557", "mp-626878", "mp-626902", "mp-627016", "mp-632394", "mp-643770", "mp-646925", "mp-654956", "mp-656662", "mp-684708", "mp-753541", "mp-754368", "mp-754668", "mp-768573", "mp-769284", "mp-769396", "mp-771888", "mp-772812", "mp-867129", "mp-867132", "mp-867133", "mp-867168", "mp-867192", "mp-867194", "mp-867203", "mp-867261", "mp-867286", "mp-867300", "mp-867322", "mp-867328", "mp-867329", "mp-867334", "mp-867335", "mp-867355", "mp-867371", "mp-867528", "mp-867570", "mp-867577", "mp-867607", "mp-867615", "mp-867674", "mp-867699", "mp-867700", "mp-867712", "mp-867730", "mp-867757", "mp-867839", "mp-867884", "mp-867929", "mp-867943", "mp-867953", "mp-867964", "mp-978857"
+    ],
+    "target_roles_sha256": "3af598f1cf652e4918f37a2359242b29d89ed3fea40f12125cbbdc66ab73169f"
+  },
+  "measurement_contract": {
+    "calculator": {
+      "name": "Nequix",
+      "repository": "https://github.com/atomicarchitects/nequix",
+      "revision": "da0fb241f417dad1afafa4e723ad867667ee7445",
+      "version": "0.4.5"
+    },
+    "neighbor_list": {
+      "edge_count_field": "neighbor_edges",
+      "implementation": "Nequix model-config cutoff and periodic neighbor construction",
+      "preprocessing": "ASE atomic numbers, Cartesian positions, cell, and periodic boundary flags"
+    },
+    "required_calculator_revision": "da0fb241f417dad1afafa4e723ad867667ee7445",
+    "required_starting_checkpoint_sha256": "1647af8e627e1afa11e2bfadeab0797326513a521afd7dd01606a96f56783eee"
+  },
+  "properties": {
+    "energy_unit": "eV",
+    "fidelity": "OMat24-PBE+U-v1",
+    "force_unit": "eV/angstrom",
+    "required": ["energy", "forces", "stress"],
+    "stress_unit": "eV/angstrom^3"
+  },
+  "purpose": "source_qualification_only",
+  "records": {
+    "atoms": 8,
+    "count": 2,
+    "neighbor_edges": 438,
+    "path": "structures.jsonl",
+    "sha256": "e8462459c79048496b5d1c0aa84c6c9266e24b0e24acd5ac452cdda89a38388e"
+  },
+  "schema_version": "anarres.materials-atomistic-bank.v1",
+  "source": {
+    "archive_bytes": 2274568000,
+    "archive_sha256": "789ecc1306575a1652806b339265d7659c57282eeb1b3e3b54ba0e1154938b81",
+    "archive_url": "https://dl.fbaipublicfiles.com/opencatalystproject/data/omat/251210/omat24_1M_251210.tar.gz",
+    "dataset": "OMat24 1M",
+    "license": "CC BY 4.0",
+    "revision": "251210",
+    "source_families": ["aimd-from-PBE-1000-npt", "rattled-relax"],
+    "split": "train"
+  },
+  "starting_checkpoint": {
+    "license": "MIT",
+    "name": "Nequix-MP-1",
+    "sha256": "1647af8e627e1afa11e2bfadeab0797326513a521afd7dd01606a96f56783eee"
+  },
+  "target": {
+    "dataset": "Alexandria PBE phonon benchmark",
+    "evaluation_only": true,
+    "license": "CC BY 4.0",
+    "property": "harmonic phonon frequency",
+    "unit": "THz"
+  }
+}

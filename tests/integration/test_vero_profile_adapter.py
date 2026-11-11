@@ -1,3 +1,4 @@
+import argparse
 import hashlib
 import importlib.util
 import json
@@ -9,6 +10,8 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest import mock
 
 from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
@@ -20,7 +23,9 @@ SPEC = importlib.util.spec_from_file_location("vero_profile_adapter", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
-CLI_PATH = ROOT / "data/formal-verification/vero/src/anarres_formal_adapter/cli.py"
+FORMAL_SRC = ROOT / "data/formal-verification/vero/src"
+sys.path.insert(0, str(FORMAL_SRC))
+CLI_PATH = FORMAL_SRC / "anarres_formal_adapter/cli.py"
 CLI_SPEC = importlib.util.spec_from_file_location("anarres_formal_cli", CLI_PATH)
 assert CLI_SPEC is not None and CLI_SPEC.loader is not None
 CLI = importlib.util.module_from_spec(CLI_SPEC)
@@ -38,6 +43,9 @@ class VeroProfileAdapterTest(unittest.TestCase):
         self.assertEqual(descriptor["executable"], "anarres-formal")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
         self.assertIn("qualification-report", descriptor["capabilities"])
+        self.assertIn("source-qualification", descriptor["capabilities"])
+        self.assertNotIn("policy-probe", descriptor["capabilities"])
+        self.assertEqual(descriptor["source_formats"], ["vero-checkout-v1"])
         self.assertEqual(
             descriptor["measurement_contracts"],
             [
@@ -45,6 +53,245 @@ class VeroProfileAdapterTest(unittest.TestCase):
                 "vero-leanstral-development-probe-v5:proof",
             ],
         )
+
+    def test_installed_source_pin_matches_the_released_record(self) -> None:
+        bundled = CLI.source_qualification.load_source_pin()
+        released = json.loads(
+            (ROOT / "data/formal-verification/vero/source-pin.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(bundled, released)
+
+    @staticmethod
+    def write_source_manifest(root: Path, source: Path) -> Path:
+        manifest = root / "anarres.toml"
+        manifest.write_text(
+            "\n".join(
+                [
+                    'schema_version = "anarres.environment-source.v1"',
+                    'environment_id = "vero-public-v1"',
+                    'domain = "formal-verification"',
+                    'adapter = "formal"',
+                    'adapter_version = "0.2.0"',
+                    'native_format = "vero-checkout-v1"',
+                    "",
+                    "[source]",
+                    f'uri = "{source}"',
+                    'revision = "git:0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09"',
+                    'license = "Apache-2.0 with benchmark-specific upstream licenses"',
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        return manifest
+
+    def test_direct_source_qualification_preserves_execution_boundary(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "vero"
+            source.mkdir()
+            manifest = self.write_source_manifest(root, source)
+            audit = {
+                "source_id": "sunblaze-ucb/vero@" + "0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+                "git_revision": "0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+                "benchmark_tree_git_oid": "21f18407dc780b2500f4a81be93261c8b4426bfb",
+                "source_pin_sha256": "f" * 64,
+                "counts": {
+                    "benchmarks": 43,
+                    "modules": 237,
+                    "apis": 743,
+                    "specs": 2705,
+                    "source_languages": {"coq": 4, "dafny": 5, "python": 30, "verus": 4},
+                },
+                "verified_artifacts": 5,
+                "lean_version": "4.29.1",
+                "modes": ["proof", "codeproof"],
+            }
+            with mock.patch.object(CLI.source_qualification, "qualify", return_value=audit):
+                report = CLI.command_qualify_source(
+                    argparse.Namespace(manifest=manifest, json=True)
+                )
+            self.assertEqual(report["status"], "qualified")
+            self.assertEqual(report["qualification_state"], "source_qualified_runtime_pending")
+            self.assertFalse(report["runtime_qualified"])
+            self.assertFalse(report["policy_probe_available"])
+            self.assertFalse(report["model_execution_started"])
+            self.assertFalse(report["qualification_or_prospective_tasks_opened"])
+
+    def test_source_qualification_rejects_unpinned_manifest_revision(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "vero"
+            source.mkdir()
+            manifest = self.write_source_manifest(root, source)
+            manifest.write_text(
+                manifest.read_text(encoding="utf-8").replace(
+                    "git:0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+                    "git:" + "1" * 40,
+                ),
+                encoding="utf-8",
+            )
+            completed = self.run_adapter(
+                ["qualify-source", "--manifest", str(manifest), "--json"], root
+            )
+            self.assertNotEqual(completed.returncode, 0)
+            self.assertIn("released Vero commit", completed.stderr)
+
+    @staticmethod
+    def write_executable(path: Path, output: str) -> Path:
+        path.write_text(f"#!/bin/sh\nprintf '%s\\n' '{output}'\n", encoding="utf-8")
+        path.chmod(path.stat().st_mode | stat.S_IXUSR)
+        return path
+
+    def runtime_fixture(self, root: Path) -> tuple[Path, Path, Path, Path, dict[str, object]]:
+        source = root / "vero"
+        source.mkdir()
+        package_lock = source / "uv.lock"
+        package_lock.write_text("version = 1\n", encoding="utf-8")
+        contract = json.loads(
+            (ROOT / "data/formal-verification/vero/runtime-contract.v1.example.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        contract["source"]["package_lock"]["sha256"] = (
+            "sha256:" + hashlib.sha256(package_lock.read_bytes()).hexdigest()
+        )
+        runtime = root / "runtime.json"
+        runtime.write_text(json.dumps(contract), encoding="utf-8")
+        lean = self.write_executable(root / "lean", "Lean (version 4.29.1, test build)")
+        lake = self.write_executable(root / "lake", "Lake version 5.0.0-test")
+        report = {
+            "source_id": contract["source"]["source_id"],
+            "source_pin_sha256": contract["source"]["source_pin_sha256"].removeprefix("sha256:"),
+            "lean_version": "4.29.1",
+            "modes": ["proof", "codeproof"],
+        }
+        return source, runtime, lean, lake, report
+
+    def qualify_runtime(self, root: Path) -> dict[str, object]:
+        source, runtime, lean, lake, source_report = self.runtime_fixture(root)
+        return CLI.runtime_qualification.qualify(
+            contract_path=runtime,
+            source=source,
+            source_report=source_report,
+            source_revision="git:0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+            lean_executable=lean,
+            lake_executable=lake,
+        )
+
+    def test_runtime_qualification_is_content_addressed_and_opens_no_task(self) -> None:
+        with tempfile.TemporaryDirectory() as first, tempfile.TemporaryDirectory() as second:
+            first_report = self.qualify_runtime(Path(first))
+            second_report = self.qualify_runtime(Path(second))
+        self.assertEqual(first_report["status"], "qualified")
+        self.assertTrue(str(first_report["report_id"]).startswith("sha256:"))
+        self.assertFalse(first_report["model_execution_started"])
+        self.assertFalse(first_report["task_opened"])
+        self.assertFalse(first_report["policy_probe_available"])
+        self.assertEqual(
+            {check["status"] for check in first_report["checks"]},
+            {"pass"},
+        )
+        self.assertEqual(first_report, second_report)
+
+    def test_runtime_qualification_rejects_wrong_lean_version(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, runtime, _, lake, source_report = self.runtime_fixture(root)
+            lean = self.write_executable(root / "wrong-lean", "Lean (version 4.28.0)")
+            with self.assertRaisesRegex(
+                CLI.runtime_qualification.RuntimeQualificationError, "wrong version"
+            ):
+                CLI.runtime_qualification.qualify(
+                    contract_path=runtime,
+                    source=source,
+                    source_report=source_report,
+                    source_revision="git:0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+                    lean_executable=lean,
+                    lake_executable=lake,
+                )
+
+    def test_runtime_command_writes_a_report_without_model_execution(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, runtime, lean, lake, source_report = self.runtime_fixture(root)
+            output = root / "reports" / "runtime-report.json"
+            source_manifest = SimpleNamespace(
+                source=source,
+                revision="git:0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+            )
+            with mock.patch.object(
+                CLI, "qualified_source", return_value=(source_manifest, source_report)
+            ):
+                report = CLI.command_qualify_runtime(
+                    argparse.Namespace(
+                        manifest=root / "anarres.toml",
+                        runtime=runtime,
+                        lean_executable=lean,
+                        lake_executable=lake,
+                        output=output,
+                        force=False,
+                        json=True,
+                    )
+                )
+            written = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(report["output"], str(output))
+            self.assertEqual(written["status"], "qualified")
+            self.assertFalse(written["model_execution_started"])
+            self.assertFalse(written["task_opened"])
+            with (
+                self.assertRaises(FileExistsError),
+                mock.patch.object(
+                    CLI, "qualified_source", return_value=(source_manifest, source_report)
+                ),
+            ):
+                CLI.command_qualify_runtime(
+                    argparse.Namespace(
+                        manifest=root / "anarres.toml",
+                        runtime=runtime,
+                        lean_executable=lean,
+                        lake_executable=lake,
+                        output=output,
+                        force=False,
+                        json=True,
+                    )
+                )
+
+    def test_runtime_qualification_rejects_unsafe_contract_variants(self) -> None:
+        mutations = {
+            "mode": lambda value: value.__setitem__("mode", "dafny"),
+            "limits": lambda value: value["limits"].__setitem__("turns", 0),
+            "network": lambda value: value["network"].__setitem__("task_external_egress", True),
+            "verifier": lambda value: value["verifier"].__setitem__("strict_success", "exit-zero"),
+            "verifier identity": lambda value: value["verifier"].__setitem__(
+                "identity", "unversioned-grader"
+            ),
+            "package lock": lambda value: value["source"]["package_lock"].__setitem__(
+                "sha256", "sha256:" + "0" * 64
+            ),
+            "tool allowlist": lambda value: value["sandbox"]["tool_allowlist"].append(
+                "sandbox/writeFile"
+            ),
+            "output path": lambda value: value["filesystem"].__setitem__(
+                "output_path", "/host/output"
+            ),
+        }
+        for label, mutate in mutations.items():
+            with self.subTest(label=label), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                source, runtime, lean, lake, source_report = self.runtime_fixture(root)
+                contract = json.loads(runtime.read_text(encoding="utf-8"))
+                mutate(contract)
+                runtime.write_text(json.dumps(contract), encoding="utf-8")
+                with self.assertRaises(CLI.runtime_qualification.RuntimeQualificationError):
+                    CLI.runtime_qualification.qualify(
+                        contract_path=runtime,
+                        source=source,
+                        source_report=source_report,
+                        source_revision="git:0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+                        lean_executable=lean,
+                        lake_executable=lake,
+                    )
 
     def run_adapter(self, arguments: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
         source_paths = [
@@ -78,6 +325,11 @@ class VeroProfileAdapterTest(unittest.TestCase):
             self.assertFalse(report["profile_ready"])
             self.assertFalse(report["downstream_training_authorized"])
             self.assertTrue(report["qualification_report_available"])
+            self.assertEqual(report["native_source_format"], "vero-checkout-v1")
+            self.assertTrue(report["native_source_qualification_available"])
+            self.assertTrue(report["runtime_qualification_available"])
+            self.assertFalse(report["runtime_qualified"])
+            self.assertFalse(report["policy_probe_available"])
             self.assertEqual(report["infrastructure_valid_attempts"], 32)
             self.assertEqual(report["infrastructure_errors"], 0)
             for measured in report["mode_measurements"].values():

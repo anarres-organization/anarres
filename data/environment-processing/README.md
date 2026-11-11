@@ -53,6 +53,10 @@ The [design document](DESIGN.md) defines the qualification and measurement contr
 - `anarres.environments.qualification` classifies probe groups using explicit fixture, verifier, infrastructure, and reward-variation outcomes.
 - `anarres.environments.metrics` computes usable signal density ρ and normalized effective coverage H.
 - `anarres measure` converts a frozen policy-probe record into a content-addressed environment manifest.
+- `anarres measure <probe-run-directory>` streams raw attempt rows and derives
+  unnormalized leave-one-out admitted advantage mass in the Rust core.
 - JSON Schemas define probe inputs and environment manifests.
 
-The next implementation layer adds source adapters, deterministic acquisition, deduplication, multi-view reliability, candidate construction, overlap audits, and independent confirmation.
+The next implementation layer adds runtime-specific raw environment adapters,
+deterministic acquisition, deduplication, multi-view reliability, candidate
+construction, overlap audits, and independent confirmation.

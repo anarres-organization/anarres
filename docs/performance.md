@@ -30,6 +30,9 @@ short-process measurements. Compare changes on the same quiet machine with the
 same release build and benchmark parameters. Use a profiler after a
 representative command shows a repeatable regression.
 
+The release-binary guard is 2.25 MB so the same stripped source-runtime build
+fits across supported object formats while still detecting material growth.
+
 The native binary owns startup-sensitive shared operations such as routing,
 hashing, validation, and deterministic serialization. Domain adapters remain in
 their native scientific ecosystems until profiling shows that a stable shared

@@ -17,6 +17,7 @@ members = [
     "anarres-materials",
     "anarres-molecular",
     "anarres-robotics",
+    "anarres-vulnerability",
     "anarres-workspace",
 ]
 
@@ -49,22 +50,26 @@ requires-dist = [{ name = "anarres-core", editable = "packages/core" }]
 
 [[package]]
 name = "anarres-finance"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "packages/finance" }
 dependencies = [
     { name = "anarres-core" },
     { name = "anarres-environments" },
+    { name = "jsonschema" },
+    { name = "pyyaml" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "anarres-core", editable = "packages/core" },
     { name = "anarres-environments", editable = "packages/environments" },
+    { name = "jsonschema", specifier = ">=4.23" },
+    { name = "pyyaml", specifier = ">=6.0" },
 ]
 
 [[package]]
 name = "anarres-formal"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "data/formal-verification/vero" }
 dependencies = [
     { name = "anarres-core" },
@@ -79,7 +84,7 @@ requires-dist = [
 
 [[package]]
 name = "anarres-legal"
-version = "0.2.0"
+version = "0.4.0"
 source = { editable = "packages/legal" }
 dependencies = [
     { name = "anarres-core" },
@@ -94,7 +99,7 @@ requires-dist = [
 
 [[package]]
 name = "anarres-materials"
-version = "0.6.0"
+version = "0.7.0"
 source = { editable = "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter" }
 dependencies = [
     { name = "anarres-core" },
@@ -109,7 +114,7 @@ requires-dist = [
 
 [[package]]
 name = "anarres-molecular"
-version = "0.2.0"
+version = "0.3.0"
 source = { editable = "experiments/ai-for-science/molecular-design/reaction-environment-selection" }
 dependencies = [
     { name = "anarres-core" },
@@ -124,7 +129,7 @@ requires-dist = [
 
 [[package]]
 name = "anarres-robotics"
-version = "0.5.0"
+version = "0.5.1"
 source = { editable = "experiments/robotics/environment-selection/prospective-cupid-can-v141" }
 dependencies = [
     { name = "anarres-core" },
@@ -140,13 +145,26 @@ requires-dist = [
 ]
 
 [[package]]
+name = "anarres-vulnerability"
+version = "0.1.0"
+source = { editable = "packages/vulnerability" }
+dependencies = [
+    { name = "anarres-core" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "anarres-core", editable = "packages/core" }]
+
+[[package]]
 name = "anarres-workspace"
 version = "0.1.0"
 source = { virtual = "." }
 
 [package.dev-dependencies]
 dev = [
+    { name = "h5py" },
     { name = "jsonschema" },
+    { name = "pyyaml" },
     { name = "ruff" },
 ]
 materials-test = [
@@ -164,7 +182,9 @@ materials-test = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "h5py", specifier = ">=3.8" },
     { name = "jsonschema", specifier = ">=4.23" },
+    { name = "pyyaml", specifier = ">=6.0" },
     { name = "ruff", specifier = ">=0.9" },
 ]
 materials-test = [

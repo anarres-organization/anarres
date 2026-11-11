@@ -1,0 +1,8 @@
+{
+  "building_block_count": 2,
+  "building_blocks_sha256": "c0db66fdcef368560a7078fc0781968ff551135102fa314883975ff229b96d85",
+  "prepared_environment_sha256": "afa6a3580fe87e0375993a6ab25ed39bece71902c57d5dc7da81f081ac549bfb",
+  "reaction_template_count": 1,
+  "reaction_templates_sha256": "0f852b40e19fedb382b079b356c335b53a2eb3bc235d88eee91c18932c487b4b",
+  "status": "qualified"
+}

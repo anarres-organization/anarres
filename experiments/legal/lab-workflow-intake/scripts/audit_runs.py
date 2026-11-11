@@ -99,6 +99,7 @@ def inspect_run(
     results_root: Path,
     config_path: Path,
     manifest: dict[str, dict[str, Any]],
+    execution_contract: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     run_dir = config_path.parent
     config = read_object(config_path)
@@ -144,8 +145,46 @@ def inspect_run(
     else:
         invalid_reasons.append("missing_judge_score")
 
-    valid = not invalid_reasons
     manifest_row = manifest.get(run_id, {})
+    if execution_contract is not None:
+        expected_stage = execution_contract["starting_policy_stage"]
+        expected_policy = expected_stage["policy"]
+        expected_config = {
+            "model": expected_policy["model_id"],
+            "max_turns": expected_stage["max_turns"],
+            "temperature": expected_stage["temperature"],
+            "shell_timeout": expected_stage["shell_timeout_seconds"],
+            "reasoning_effort": expected_stage["reasoning_effort"],
+            "skills": [skill["id"] for skill in expected_stage["skills"]],
+            "sandbox_image": expected_stage["sandbox_image"],
+            "enable_finish": expected_stage["finish_tool_enabled"],
+        }
+        if any(config.get(key) != expected for key, expected in expected_config.items()):
+            invalid_reasons.append("execution_contract_mismatch")
+        compaction = config.get("compaction")
+        actual_strategy = "none" if compaction is None else compaction.get("strategy")
+        if actual_strategy != expected_stage["compaction"]["strategy"]:
+            invalid_reasons.append("compaction_contract_mismatch")
+        required_identity = {
+            "contract_id": execution_contract["contract_id"],
+            "model_revision": expected_policy["model_revision"],
+            "checkpoint_id": expected_policy["checkpoint_id"],
+            "checkpoint_revision": expected_policy["checkpoint_revision"],
+        }
+        if any(manifest_row.get(key) != expected for key, expected in required_identity.items()):
+            invalid_reasons.append("runtime_identity_mismatch")
+        if score is not None:
+            expected_judges = [
+                judge["model_id"] for judge in execution_contract["judge_stage"]["judges"]
+            ]
+            if (
+                score["judges"] != expected_judges
+                or score["judge_profile"] != execution_contract["judge_stage"]["judge_profile"]
+            ):
+                invalid_reasons.append("judge_contract_mismatch")
+
+    invalid_reasons = sorted(set(invalid_reasons))
+    valid = not invalid_reasons
     practice_area = task.split("/", 1)[0]
     total_documents = metrics.get("total_documents")
     documents_read = metrics.get("documents_read")
@@ -163,6 +202,9 @@ def inspect_run(
         "checkpoint": manifest_row.get("checkpoint"),
         "seed": manifest_row.get("seed"),
         "role": manifest_row.get("role", "unspecified"),
+        "execution_contract_sha256": (
+            execution_contract["contract_sha256"] if execution_contract is not None else None
+        ),
         "contract": {
             "reasoning_effort": config.get("reasoning_effort"),
             "temperature": config.get("temperature"),
@@ -216,6 +258,7 @@ def mean(values: list[float]) -> float | None:
 def build(
     results_root: Path,
     run_manifest: Path | None = None,
+    execution_contract: dict[str, Any] | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     if not results_root.is_dir():
         raise LabRunAuditError(f"LAB results directory is missing: {results_root}")
@@ -223,7 +266,7 @@ def build(
     config_paths = sorted(results_root.rglob("config.json"))
     if not config_paths:
         raise LabRunAuditError(f"no LAB config.json files found under {results_root}")
-    rows = [inspect_run(results_root, path, manifest) for path in config_paths]
+    rows = [inspect_run(results_root, path, manifest, execution_contract) for path in config_paths]
     run_ids = [row["run_id"] for row in rows]
     if len(run_ids) != len(set(run_ids)):
         raise LabRunAuditError("LAB run identities are not unique")
@@ -285,6 +328,14 @@ def build(
             "regression_reference": "starting_policy_with_same_task_and_evaluation_contract",
         },
         "profile_input": False,
+        "execution_contract": (
+            {
+                "contract_id": execution_contract["contract_id"],
+                "contract_sha256": execution_contract["contract_sha256"],
+            }
+            if execution_contract is not None
+            else None
+        ),
         "claim_boundary": (
             "This audit summarizes native LAB runs and preserves invalid executions. "
             "Training effects require matched starting-policy and intervention records."

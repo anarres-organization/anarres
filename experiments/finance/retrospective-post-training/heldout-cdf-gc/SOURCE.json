@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "source_id": "ying2025_cdf_gc",
+  "title": "Data-Efficient Selection via Grammatical Complexity in Continual Pre-training of Domain-Specific LLMs",
+  "authors": ["Yizhou Ying", "Geng Zhang", "Danxin Cui", "Chengyu Du", "Guanglei Yue", "Sihang Jiang", "Jiaqing Liang", "Yifei Fu", "Hailin Hu", "Yanghua Xiao"],
+  "url": "https://aclanthology.org/2025.emnlp-main.1121/",
+  "doi": "10.18653/v1/2025.emnlp-main.1121",
+  "source_status": "peer_reviewed_emnlp_2025",
+  "evidence": ["Table 1", "Table 3", "Appendix B.4"],
+  "audit_note": "The source compares finance-domain continual pre-training data-selection methods under shared model-specific training contracts. It did not enter the capability-contract representation or its fitting."
+}

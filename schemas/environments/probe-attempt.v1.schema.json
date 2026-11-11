@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anarres.science/schemas/environments/probe-attempt.v1.schema.json",
+  "title": "Anarres probe attempt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "sample_index",
+    "reward",
+    "loss_admitted",
+    "generated_action_tokens",
+    "oracle_passed",
+    "noop_passed",
+    "infrastructure_valid"
+  ],
+  "properties": {
+    "schema_version": {"const": "anarres.probe-attempt.v1"},
+    "task_id": {"type": "string", "minLength": 1},
+    "sample_index": {"type": "integer", "minimum": 0},
+    "reward": {"type": ["number", "null"]},
+    "loss_admitted": {"type": "boolean"},
+    "generated_action_tokens": {"type": "integer", "minimum": 0},
+    "oracle_passed": {"type": "boolean"},
+    "noop_passed": {"type": "boolean"},
+    "infrastructure_valid": {"type": "boolean"}
+  }
+}

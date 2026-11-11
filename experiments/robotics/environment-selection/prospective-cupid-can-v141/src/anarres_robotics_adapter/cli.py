@@ -12,9 +12,9 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
-from anarres.core import consume_adapter_invocation
+from anarres.core import consume_adapter_invocation, load_source_manifest
 
-from . import workflow
+from . import probe, workflow
 
 
 class RoboticsCliError(ValueError):
@@ -27,7 +27,7 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "robotics",
-        "version": "0.5.0",
+        "version": "0.5.1",
         "protocol_version": 2,
         "domain": "robotics",
         "executable": "anarres-robotics",
@@ -42,6 +42,7 @@ def adapter_descriptor() -> dict[str, Any]:
             "results",
             "run-task",
             "score",
+            "source-qualification",
             "status",
             "submit",
             "verify",
@@ -49,6 +50,71 @@ def adapter_descriptor() -> dict[str, Any]:
         "measurement_contracts": [
             "robotics.cupid-can-v141-candidate-measurement.v1",
         ],
+        "source_formats": ["robomimic-can-v141-hdf5"],
+    }
+
+
+def source_dataset(source: Path) -> Path:
+    """Resolve one unambiguous RoboMimic HDF5 dataset."""
+
+    if source.is_file():
+        candidates = [source] if source.suffix.lower() in {".h5", ".hdf5"} else []
+    else:
+        candidates = sorted(
+            item
+            for item in source.iterdir()
+            if item.is_file() and item.suffix.lower() in {".h5", ".hdf5"}
+        )
+    if not candidates:
+        raise RoboticsCliError(f"no HDF5 dataset found in native source: {source}")
+    if len(candidates) > 1:
+        raise RoboticsCliError(
+            "native source contains multiple HDF5 datasets; place one candidate dataset "
+            "in each initialized environment directory"
+        )
+    return candidates[0]
+
+
+def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
+    """Validate the frozen Can dataset without preparing or training it."""
+
+    descriptor = adapter_descriptor()
+    source = load_source_manifest(
+        args.manifest,
+        expected_adapter="robotics",
+        expected_version=descriptor["version"],
+        expected_domain=descriptor["domain"],
+        accepted_formats=tuple(descriptor["source_formats"]),
+    )
+    dataset = source_dataset(source.source)
+    observed_digest = workflow.file_sha256(dataset)
+    if observed_digest != workflow.SOURCE_DATASET_SHA256:
+        raise RoboticsCliError(
+            "dataset does not match the pinned Can v1.4.1 source artifact: "
+            f"sha256:{observed_digest}"
+        )
+    if source.revision != f"sha256:{observed_digest}":
+        raise RoboticsCliError("manifest source revision does not match the dataset content digest")
+    import h5py
+
+    with h5py.File(dataset, "r") as handle:
+        if "data" not in handle:
+            raise RoboticsCliError("RoboMimic dataset is missing the data group")
+        demonstrations = sorted(handle["data"].keys(), key=workflow.demo_number)
+        if not demonstrations:
+            raise RoboticsCliError("RoboMimic dataset contains no demonstrations")
+    return {
+        "status": "qualified",
+        "environment_id": source.environment_id,
+        "native_format": source.native_format,
+        "dataset": str(dataset),
+        "dataset_sha256": f"sha256:{observed_digest}",
+        "demonstrations": len(demonstrations),
+        "source_revision": source.revision,
+        "source_license": source.license,
+        "policy_probe_available": False,
+        "training_started": False,
+        "candidate_outcomes_opened": False,
     }
 
 
@@ -70,6 +136,10 @@ def repository_root(explicit: Path | None = None) -> Path:
 
 def study_root(repository: Path) -> Path:
     return repository / "experiments/robotics/environment-selection/prospective-cupid-can-v141"
+
+
+def probe_contract_path(repository: Path) -> Path:
+    return study_root(repository) / "PROBE_CONTRACT.json"
 
 
 def pusht_root(repository: Path) -> Path:
@@ -130,6 +200,7 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     measurements = records["measurements"]
     qualification = records["qualification"]
     released = (study_root(repository) / "RESULTS.json").is_file()
+    probe_contract = json.loads(probe_contract_path(repository).read_text(encoding="utf-8"))
     return {
         "study_id": measurements["study_id"],
         "domain": "robotics",
@@ -159,8 +230,25 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
             qualification.get("passed") is True
             and measurements["measurement"]["reliability_gate_passed"] is True
         ),
+        "policy_probe_available": False,
+        "policy_probe_contract": "specified",
+        "policy_probe_release_blockers": probe_contract["execution"]["release_blockers"],
         "prospective_state": "complete" if released else "measurement_frozen",
     }
+
+
+def command_probe_preflight(args: argparse.Namespace) -> dict[str, Any]:
+    """Inspect exact probe dependencies without launching simulation."""
+
+    repository = repository_root(args.repository)
+    return probe.inspect_preflight(
+        contract_path=probe_contract_path(repository),
+        dataset=args.dataset.resolve() if args.dataset else None,
+        checkpoints=args.checkpoints.resolve() if args.checkpoints else None,
+        runtime=args.runtime.resolve() if args.runtime else None,
+        python=args.python,
+        backend=args.backend,
+    )
 
 
 def sha256_file(path: Path) -> str:
@@ -603,6 +691,25 @@ def parser() -> argparse.ArgumentParser:
     status = commands.add_parser("status", help="Show measurement and sealing status.")
     add_common(status)
     status.set_defaults(handler=command_status)
+
+    qualify_source = commands.add_parser(
+        "qualify-source", help="Validate a native RoboMimic environment source."
+    )
+    qualify_source.add_argument("--manifest", type=Path, required=True)
+    qualify_source.add_argument("--json", action="store_true")
+    qualify_source.set_defaults(handler=command_qualify_source)
+
+    probe_preflight = commands.add_parser(
+        "probe-preflight",
+        help="Check the released Can probe inputs without running simulation.",
+    )
+    add_common(probe_preflight)
+    probe_preflight.add_argument("--dataset", type=Path)
+    probe_preflight.add_argument("--checkpoints", type=Path)
+    probe_preflight.add_argument("--runtime", type=Path)
+    probe_preflight.add_argument("--python")
+    probe_preflight.add_argument("--backend", choices=["local", "slurm"], default="local")
+    probe_preflight.set_defaults(handler=command_probe_preflight)
 
     plan = commands.add_parser(
         "plan", help="Write a deterministic candidate-comparison workflow plan."

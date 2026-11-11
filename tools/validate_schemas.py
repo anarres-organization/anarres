@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import tomllib
 from pathlib import Path
 
 from anarres.environments.cli import build_manifest
@@ -29,6 +30,14 @@ def main() -> int:
     probe = load(ROOT / "examples/environment-processing/probe.json")
     probe_schema = load(ROOT / "schemas/environments/probe-input.v1.schema.json")
     Draft202012Validator(probe_schema, registry=registry).validate(probe)
+
+    probe_run = load(ROOT / "examples/environment-processing/probe-run/probe.json")
+    probe_run_schema = load(ROOT / "schemas/environments/probe-run.v1.schema.json")
+    Draft202012Validator(probe_run_schema, registry=registry).validate(probe_run)
+    attempt_schema = load(ROOT / "schemas/environments/probe-attempt.v1.schema.json")
+    attempts_path = ROOT / "examples/environment-processing/probe-run/attempts.jsonl"
+    for line in attempts_path.read_text(encoding="utf-8").splitlines():
+        Draft202012Validator(attempt_schema, registry=registry).validate(json.loads(line))
 
     manifest = build_manifest(probe)
     manifest_schema = load(ROOT / "schemas/environments/environment-manifest.v1.schema.json")
@@ -66,9 +75,16 @@ def main() -> int:
     adapter_schema = load(ROOT / "schemas/adapters/adapter-descriptor.v1.schema.json")
     Draft202012Validator(adapter_schema, registry=registry).validate(adapter_descriptor)
 
+    source_manifest = tomllib.loads(
+        (ROOT / "examples/environment-source/anarres.toml").read_text(encoding="utf-8")
+    )
+    source_schema = load(ROOT / "schemas/environments/environment-source.v1.schema.json")
+    Draft202012Validator(source_schema, registry=registry).validate(source_manifest)
+
     print(
-        f"validated {len(schema_paths)} schemas, the environment-processing fixture, "
-        f"{len(profile_inputs)} cross-domain profile fixtures, and the adapter descriptor"
+        f"validated {len(schema_paths)} schemas, the environment-processing fixtures, "
+        f"{len(profile_inputs)} cross-domain profile fixtures, the source envelope, "
+        "and the adapter descriptor"
     )
     return 0
 

@@ -16,6 +16,7 @@ This program asks:
 | Select a training mixture | [Prospective SylloGym panel](environment-selection/README.md) | A frozen policy-response rule selected the observed best of three mixtures. Its advantage was too small and uncertain to justify replacing the controls, so the rule abstained. |
 | Flag regression risk | [LAB learning dynamics](lab-learning-dynamics/README.md) | Task and workflow structure predicted later regressions in held-out practice areas with 0.648 ROC AUC and captured 37.0% of regressions in the highest-risk 20% of tasks. |
 | Qualify a frontier legal workflow | [LAB workflow intake](lab-workflow-intake/README.md) | A model-agnostic intake validates practice areas, matter documents, deliverables, and criterion-level review structure before model responses or outcomes are read. |
+| Pin a LAB runtime | [LAB execution contract](lab-workflow-intake/EXECUTION_CONTRACT.md) | A versioned record binds the starting policy, agent harness, judge harness, outcome semantics, accounting, and protected outcomes without starting execution. |
 
 The SylloGym panel compares three mixtures over the same fourteen procedural
 task generators. Starting weights, trainer, reward code, update count, training
@@ -40,7 +41,12 @@ available evidence cannot justify a training decision.
 The LAB workflow intake adds the operational entry point for a new long-horizon
 legal study. It keeps the target workflow separate from starting-policy runs and
 training interventions, which makes the same contract usable across model
-families without treating a benchmark label as an environment measurement.
+families without treating a benchmark label as an environment measurement. The
+installed legal adapter can now qualify a pinned LAB checkout through
+`anarres init`, `inspect`, and `qualify`. Policy probing remains unavailable
+until the pinned harness and judges can execute the starting policy. The
+execution-contract command packages that runtime boundary without claiming the
+probe has run.
 
 ## Scope
 

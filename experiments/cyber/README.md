@@ -40,7 +40,10 @@ repository-level Lean suite.
 
 The [qualification protocol](qualification/README.md) defines the first
 CyberGym study, including task partitioning, containment, fixture checks, and
-the warm-start measurement gate. A
+the warm-start measurement gate. The installable `anarres-vulnerability`
+adapter accepts a pinned, license-audited CyberGym panel after its oracle,
+no-op, reset, and level 0--2 containment gates pass. Qualification reads no
+model responses and starts no task runtime. A
 [development summary](qualification/CYBER_QUALIFICATION_SUMMARY.md) records
 earlier CyberGym probes. Under one compatible agent scaffold, Feyospace
 completed 6 of 50 single-attempt tasks; a separate 50-task, eight-attempt

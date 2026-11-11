@@ -80,6 +80,11 @@ A failed gate produces a bounded qualification result. Candidate thresholds,
 environment membership, and evaluation fixtures are not repaired after
 post-training outcomes are observed.
 
+[`PANEL_REGENERATION_PYPROJECT.toml`](PANEL_REGENERATION_PYPROJECT.toml)
+preserves the workspace project definition recorded by the byte-identical
+panel regeneration receipt. The active workspace may add domain packages
+without changing that locked solver record.
+
 [`DECISION_AND_REGRESSION_PROTOCOL.json`](DECISION_AND_REGRESSION_PROTOCOL.json)
 fixes the next decision before candidate training. It records a literature-
 derived baseline ranking, the development-to-prospective fitting sequence, and
@@ -420,6 +425,10 @@ uv tool install \
 
 anarres adapter doctor materials
 anarres materials status --repository .
+anarres inspect \
+  experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter/fixtures/omat24-qualification-slice-v1
+anarres qualify \
+  experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter/fixtures/omat24-qualification-slice-v1
 anarres materials protocol --repository . --json
 anarres materials results --repository . --json
 anarres materials profile \
@@ -443,6 +452,22 @@ anarres validate \
   .anarres/materials-mlip/high-signal.profile.json \
   .anarres/materials-mlip/target-affinity.profile.json
 ```
+
+The native source fixture contains two OMat24 configurations and the
+complete atomistic-bank contract. Qualification checks structure validity,
+energy, force, and stress units, source and material identities, atom and
+neighbor-edge totals, the Nequix checkpoint and calculator revisions, and the
+Alexandria evaluation exclusions. The fixture is limited to source
+qualification. Its metadata pins the complete 80,000-record measurement bank
+through the released construction script, selection parameters, overlap audit,
+and resulting manifest digest. It also pins the upstream OMat24 archive by URL,
+size, license, and SHA-256 digest.
+
+The portable adapter does not run the Nequix pre-training probe. That probe
+requires the native GPU, ASE-LMDB, and checkpoint runtime used by the study.
+The checked-in profile exporter remains the supported path for the completed
+80,000-record measurements. Source qualification does not read candidate
+training outcomes.
 
 Omitting `--candidate-id` exports all 16 final candidates. The corresponding
 [measurement convention](../../../../docs/conventions/materials-mlip-candidate-measurement-v2.md)

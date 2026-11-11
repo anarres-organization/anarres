@@ -15,11 +15,21 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
-from anarres.core import consume_adapter_invocation
+from anarres.core import consume_adapter_invocation, load_source_manifest
+from jsonschema import Draft202012Validator, ValidationError
+
+from .business_bench_source import EXPECTED_REVISION, qualify_checkout
 
 
 class FinanceCliError(ValueError):
     """Raised when a finance workflow cannot run from released evidence."""
+
+
+POLICY_PROBE_BOUNDARY = (
+    "The checked-in QF-Bench runner is a standalone research script. The installed finance "
+    "adapter does not provide a dry-plan and explicit-execute policy runtime or a complete "
+    "finance-profile converter with sealed-outcome and failure accounting."
+)
 
 
 def adapter_descriptor() -> dict[str, Any]:
@@ -28,7 +38,7 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "finance",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "protocol_version": 2,
         "domain": "agentic-finance",
         "executable": "anarres-finance",
@@ -40,12 +50,14 @@ def adapter_descriptor() -> dict[str, Any]:
             "qualify-policy",
             "reproduce",
             "score-holdout",
+            "source-qualification",
             "status",
             "verify",
         ],
         "measurement_contracts": [
             "finance.business-bench-starting-policy-qualification.v1",
         ],
+        "source_formats": ["business-bench-process-v1"],
     }
 
 
@@ -156,6 +168,8 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     regression_rule = regression["rules"]["practical_rule"]
     finacumen = read_object(root / "retrospective-post-training/heldout-finacumen/SCORE.json")
     fintoolsyn = read_object(root / "retrospective-post-training/heldout-fintoolsyn/SCORE.json")
+    cdf_gc = read_object(root / "retrospective-post-training/heldout-cdf-gc/SCORE.json")
+    mint_agent = read_object(root / "retrospective-post-training/heldout-mint-agent/SCORE.json")
     longfinanceqa = read_object(
         root / "retrospective-post-training/heldout-longfinanceqa/SCORE.json"
     )
@@ -171,9 +185,13 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
             "environment_profile_export",
             "retrospective_reproduction",
             "frozen_holdout_verification",
+            "native_source_qualification",
             "selective_environment_comparison",
             "candidate_decision",
         ],
+        "native_source_format": "business-bench-process-v1",
+        "native_policy_probe_available": False,
+        "native_policy_probe_boundary": POLICY_PROBE_BOUNDARY,
         "prospective_environment_outcome_opened": False,
         "evidence_stage": "retrospective_transfer_supported_native_prospective_pending",
         "released_starting_policy": qualification["policy_id"],
@@ -202,6 +220,12 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "excluded_source_fintoolsyn_directional_scored": fintoolsyn["directional_scored"],
         "excluded_source_fintoolsyn_regression_correct": fintoolsyn["regression_correct"],
         "excluded_source_fintoolsyn_regression_scored": fintoolsyn["regression_scored"],
+        "excluded_source_cdf_gc_directional_correct": cdf_gc["directional_correct"],
+        "excluded_source_cdf_gc_directional_scored": cdf_gc["directional_scored"],
+        "excluded_source_cdf_gc_best_candidate_correct": cdf_gc["best_candidate_correct"],
+        "excluded_source_cdf_gc_best_candidate_scored": cdf_gc["best_candidate_scored"],
+        "excluded_source_mint_agent_directional_correct": mint_agent["directional_correct"],
+        "excluded_source_mint_agent_directional_scored": mint_agent["directional_scored"],
         "outcome_separated_longfinanceqa_directional_correct": longfinanceqa["directional_correct"],
         "outcome_separated_longfinanceqa_directional_scored": longfinanceqa["directional_scored"],
         "outcome_separated_longfinanceqa_families_supported": longfinanceqa[
@@ -231,6 +255,43 @@ def command_audit_sources(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
+    """Qualify the pinned Business Bench construction checkout."""
+
+    descriptor = adapter_descriptor()
+    source = load_source_manifest(
+        args.manifest,
+        expected_adapter="finance",
+        expected_version=descriptor["version"],
+        expected_domain=descriptor["domain"],
+        accepted_formats=tuple(descriptor["source_formats"]),
+    )
+    if source.revision != f"git:{EXPECTED_REVISION}":
+        raise FinanceCliError(
+            "manifest source revision must identify the pinned Business Bench commit"
+        )
+    if source.license != "MIT":
+        raise FinanceCliError("Business Bench source license must be recorded as MIT")
+    qualification = qualify_checkout(source.source)
+    return {
+        "status": "qualified",
+        "environment_id": source.environment_id,
+        "native_format": source.native_format,
+        "source_revision": source.revision,
+        "source_license": source.license,
+        "desk_task_families": qualification["desk_task_families"],
+        "bookkeeping_desk_task_families": qualification["bookkeeping_desk_task_families"],
+        "process_task_families": qualification["process_task_families"],
+        "qualified_workflows": qualification["qualified_workflows_present"],
+        "process_runtime_complete": all(qualification["required_runtime_paths"].values()),
+        "process_task_assets_complete": not qualification["missing_process_task_assets"],
+        "policy_probe_available": False,
+        "policy_probe_boundary": POLICY_PROBE_BOUNDARY,
+        "model_called": False,
+        "scientific_outcomes_opened": False,
+    }
+
+
 def command_decide(args: argparse.Namespace) -> dict[str, Any]:
     """Rank a measured finance candidate panel with calibrated abstention."""
 
@@ -242,49 +303,22 @@ def command_decide(args: argparse.Namespace) -> dict[str, Any]:
     calibration = selective["rules"]["practical_rule"]["conservative_deployment_point"]
     threshold = calibration["threshold"]
     panel = read_object(args.input)
-    if panel.get("schema_version") != "anarres.finance-candidate-panel.v1":
-        raise FinanceCliError("unsupported finance candidate-panel schema")
-    unexpected_panel_fields = sorted(
-        set(panel) - {"schema_version", "target_id", "baseline_id", "candidates"}
-    )
-    if unexpected_panel_fields:
-        raise FinanceCliError(f"candidate panel has unsupported fields: {unexpected_panel_fields}")
-    target_id = panel.get("target_id")
-    if not isinstance(target_id, str) or not target_id:
-        raise FinanceCliError("candidate panel requires a non-empty target_id")
-    candidates = panel.get("candidates")
-    if not isinstance(candidates, list) or len(candidates) < 2:
-        raise FinanceCliError("candidate panel must contain at least two candidates")
+    schema = read_object(repository / "schemas/finance-candidate-panel.v1.schema.json")
+    try:
+        Draft202012Validator(schema).validate(panel)
+    except ValidationError as error:
+        raise FinanceCliError(
+            f"candidate panel does not match finance-candidate-panel.v1: {error.message}"
+        ) from error
+    target_id = panel["target_id"]
+    candidates = panel["candidates"]
 
     scores: dict[str, float] = {}
     for candidate in candidates:
-        if not isinstance(candidate, dict) or not isinstance(candidate.get("candidate_id"), str):
-            raise FinanceCliError("every candidate requires a string candidate_id")
-        unexpected_candidate_fields = sorted(set(candidate) - {"candidate_id", "features"})
-        if unexpected_candidate_fields:
-            raise FinanceCliError(
-                f"candidate has unsupported fields: {unexpected_candidate_fields}"
-            )
         candidate_id = candidate["candidate_id"]
-        if not candidate_id or candidate_id in scores:
+        if candidate_id in scores:
             raise FinanceCliError("candidate_id values must be non-empty and unique")
-        features = candidate.get("features")
-        if not isinstance(features, dict):
-            raise FinanceCliError(f"candidate {candidate_id} requires a features object")
-        missing = sorted(set(weights) - set(features))
-        if missing:
-            raise FinanceCliError(f"candidate {candidate_id} is missing features: {missing}")
-        unexpected = sorted(set(features) - set(weights))
-        if unexpected:
-            raise FinanceCliError(
-                f"candidate {candidate_id} has unsupported features: {unexpected}"
-            )
-        for name in weights:
-            value = features[name]
-            if isinstance(value, bool) or not isinstance(value, (int, float)):
-                raise FinanceCliError(f"candidate {candidate_id} feature {name} is not numeric")
-            if not 0 <= value <= 1:
-                raise FinanceCliError(f"candidate {candidate_id} feature {name} is outside [0, 1]")
+        features = candidate["features"]
         scores[candidate_id] = round(sum(weights[name] * features[name] for name in weights), 9)
 
     ordered = sorted(scores, key=lambda candidate_id: (-scores[candidate_id], candidate_id))
@@ -312,8 +346,6 @@ def command_decide(args: argparse.Namespace) -> dict[str, Any]:
     baseline_id = panel.get("baseline_id")
     regressions = []
     if baseline_id is not None:
-        if not isinstance(baseline_id, str) or not baseline_id:
-            raise FinanceCliError("baseline_id must be a non-empty string")
         if baseline_id not in scores:
             raise FinanceCliError("baseline_id is absent from the candidate panel")
         for candidate_id in ordered:
@@ -497,6 +529,8 @@ def compact_verification(repository: Path) -> dict[str, Any]:
     selective = read_object(retrospective / "strict-task-level/SELECTIVE_SCORE.json")
     regression = read_object(retrospective / "results/regression_risk_summary.json")
     fintoolsyn = read_object(retrospective / "heldout-fintoolsyn/SCORE.json")
+    cdf_gc = read_object(retrospective / "heldout-cdf-gc/SCORE.json")
+    mint_agent = read_object(retrospective / "heldout-mint-agent/SCORE.json")
     longfinanceqa = read_object(retrospective / "heldout-longfinanceqa/SCORE.json")
     if summary.get("status") != "retrospective_exploratory":
         raise FinanceCliError("compact retrospective summary has an unexpected status")
@@ -525,6 +559,12 @@ def compact_verification(repository: Path) -> dict[str, Any]:
         raise FinanceCliError("FinToolSyn holdout no longer matches the released score")
     if (fintoolsyn.get("regression_correct"), fintoolsyn.get("regression_scored")) != (3, 3):
         raise FinanceCliError("FinToolSyn regression audit no longer matches the release")
+    if (cdf_gc.get("directional_correct"), cdf_gc.get("directional_scored")) != (21, 22):
+        raise FinanceCliError("CDF-GC holdout no longer matches the released score")
+    if (cdf_gc.get("best_candidate_correct"), cdf_gc.get("best_candidate_scored")) != (3, 4):
+        raise FinanceCliError("CDF-GC decision audit no longer matches the release")
+    if (mint_agent.get("directional_correct"), mint_agent.get("directional_scored")) != (4, 4):
+        raise FinanceCliError("Mint-Agent holdout no longer matches the released score")
     if (
         longfinanceqa.get("directional_correct"),
         longfinanceqa.get("directional_scored"),
@@ -574,6 +614,12 @@ def compact_verification(repository: Path) -> dict[str, Any]:
         "fintoolsyn_directional_scored": fintoolsyn["directional_scored"],
         "fintoolsyn_regression_correct": fintoolsyn["regression_correct"],
         "fintoolsyn_regression_scored": fintoolsyn["regression_scored"],
+        "cdf_gc_directional_correct": cdf_gc["directional_correct"],
+        "cdf_gc_directional_scored": cdf_gc["directional_scored"],
+        "cdf_gc_best_candidate_correct": cdf_gc["best_candidate_correct"],
+        "cdf_gc_best_candidate_scored": cdf_gc["best_candidate_scored"],
+        "mint_agent_directional_correct": mint_agent["directional_correct"],
+        "mint_agent_directional_scored": mint_agent["directional_scored"],
         "longfinanceqa_directional_correct": longfinanceqa["directional_correct"],
         "longfinanceqa_directional_scored": longfinanceqa["directional_scored"],
         "longfinanceqa_families_supported": longfinanceqa["prediction_families_supported"],
@@ -694,6 +740,13 @@ def parser() -> argparse.ArgumentParser:
     sources = commands.add_parser("audit-sources", help="Validate source pins and preflight.")
     add_common(sources)
     sources.set_defaults(handler=command_audit_sources)
+
+    qualify_source = commands.add_parser(
+        "qualify-source", help="Validate a pinned Business Bench process-task checkout."
+    )
+    qualify_source.add_argument("--manifest", type=Path, required=True)
+    qualify_source.add_argument("--json", action="store_true")
+    qualify_source.set_defaults(handler=command_qualify_source)
 
     decide = commands.add_parser(
         "decide", help="Rank a measured finance candidate panel or abstain."

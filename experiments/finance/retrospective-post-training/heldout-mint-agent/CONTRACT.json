@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "status": "PREEXISTING_REPRESENTATION_EXCLUDED_SOURCE",
+  "representation": {
+    "name": "capability-contract finance transfer representation v4",
+    "path": "../TARGET_CONDITIONAL_V4.md",
+    "source_used_for_representation_design": false,
+    "source_used_for_model_fitting": false
+  },
+  "chronology": {
+    "source_public_before_scoring": true,
+    "outcome_blind_source_extraction": false,
+    "claim_label": "retrospective excluded-source test of a pre-existing representation"
+  },
+  "prediction_basis": {
+    "integration_decision": "Task-routed on-policy distillation should preserve the reasoning and execution contracts more reliably than static parameter merging.",
+    "target_scope": "Score the comparison separately on two bounded-reasoning and two agentic-execution benchmarks."
+  },
+  "scoring": {
+    "primary": "directional accuracy for MOPD versus TIES on each reported benchmark",
+    "regret": "within-pair normalized regret",
+    "independence_guardrail": "The four benchmarks remain nested outcomes from one integration experiment."
+  }
+}

@@ -2,6 +2,7 @@ import importlib.util
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import numpy as np
 
@@ -61,6 +62,39 @@ class DevelopmentBankTests(unittest.TestCase):
         values = MODULE.normalized_representation([row(index) for index in range(10)])
         self.assertTrue(np.isfinite(values).all())
         self.assertEqual(values.shape[0], 10)
+
+    def test_graph_bank_is_invariant_to_input_order(self):
+        records = [row(index) for index in range(20)]
+        forward = MODULE.graph_bank(MODULE.eligible_records(records), 8)
+        reverse = MODULE.graph_bank(MODULE.eligible_records(list(reversed(records))), 8)
+        self.assertEqual(
+            [item["record_id"] for item in forward],
+            [item["record_id"] for item in reverse],
+        )
+
+    def test_graph_bank_uses_deterministic_farthest_first_selection(self):
+        records = [row(index) for index in range(4)]
+        representation = np.asarray(
+            [
+                [0.0, 0.0],
+                [1.0, 0.0],
+                [-1.0, 0.0],
+                [0.0, 0.1],
+            ]
+        )
+        with patch.object(MODULE, "normalized_representation", return_value=representation):
+            selected = MODULE.graph_bank(records, 3)
+        self.assertEqual(
+            [item["record_id"] for item in selected],
+            [records[0]["record_id"], records[1]["record_id"], records[2]["record_id"]],
+        )
+
+    def test_zero_rank_graph_representation_fails_explicitly(self):
+        records = [row(index) for index in range(4)]
+        for item in records:
+            item["graph_embedding"] = [1.0, 1.0, 1.0]
+        with self.assertRaisesRegex(ValueError, "zero empirical rank"):
+            MODULE.normalized_representation(records)
 
     def test_insufficient_pool_fails(self):
         with self.assertRaisesRegex(ValueError, "fewer than bank size"):

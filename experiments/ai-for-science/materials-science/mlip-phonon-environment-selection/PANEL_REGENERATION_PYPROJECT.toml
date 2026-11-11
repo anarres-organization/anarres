@@ -1,0 +1,54 @@
+[project]
+name = "anarres-workspace"
+version = "0.1.0"
+description = "Research infrastructure for predictable post-training"
+requires-python = ">=3.11"
+
+[dependency-groups]
+dev = [
+  "jsonschema>=4.23",
+  "ruff>=0.9",
+]
+materials-test = [
+  "ase>=3.26",
+  "numpy>=2.0",
+  "phonopy>=2.43",
+  "pytest>=8.3",
+  "pyyaml>=6.0",
+  "scipy>=1.14",
+]
+
+[tool.uv.workspace]
+members = [
+  "data/formal-verification/vero",
+  "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter",
+  "experiments/ai-for-science/molecular-design/reaction-environment-selection",
+  "packages/core",
+  "packages/environments",
+  "packages/evaluation",
+  "packages/finance",
+  "packages/legal",
+  "experiments/robotics/environment-selection/prospective-cupid-can-v141",
+]
+
+[tool.uv.sources]
+anarres-formal = { workspace = true }
+anarres-core = { workspace = true }
+anarres-environments = { workspace = true }
+anarres-evaluation = { workspace = true }
+anarres-finance = { workspace = true }
+anarres-legal = { workspace = true }
+anarres-materials = { workspace = true }
+anarres-molecular = { workspace = true }
+anarres-robotics = { workspace = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = [
+  ".anarres",
+  "experiments/mathematics/environment-utility",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

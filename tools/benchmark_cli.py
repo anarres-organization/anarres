@@ -17,7 +17,16 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "examples" / "environment-processing" / "probe.json"
-ADAPTERS = ("finance", "formal", "legal", "materials", "molecular", "robotics")
+ADAPTERS = (
+    "finance",
+    "formal",
+    "legal",
+    "materials",
+    "molecular",
+    "robotics",
+    "vulnerability",
+)
+PROFILE_ADAPTERS = ("finance", "formal", "legal", "materials", "molecular", "robotics")
 
 
 def percentile(values: list[float], fraction: float) -> float:
@@ -82,7 +91,7 @@ def main() -> int:
     parser.add_argument("--samples", type=int, default=20)
     parser.add_argument("--max-native-p95-ms", type=float, default=50.0)
     parser.add_argument("--max-adapter-median-ms", type=float, default=200.0)
-    parser.add_argument("--max-binary-bytes", type=int, default=2_000_000)
+    parser.add_argument("--max-binary-bytes", type=int, default=2_250_000)
     arguments = parser.parse_args()
 
     binary = arguments.binary.resolve()
@@ -133,12 +142,25 @@ def main() -> int:
         ]
 
     with tempfile.TemporaryDirectory(prefix="anarres-benchmark-") as directory:
-        manifest = Path(directory) / "environment.json"
+        temporary = Path(directory)
+        manifest = temporary / "environment.json"
         invoke(
             [str(binary), "measure", str(FIXTURE), "--output", str(manifest)],
             environment,
         )
         scenarios["native.validate"] = [str(binary), "validate", str(manifest), "--json"]
+        for adapter in PROFILE_ADAPTERS:
+            scenarios[f"adapter.profile.{adapter}"] = [
+                str(binary),
+                adapter,
+                "profile",
+                "--repository",
+                str(repository),
+                "--output-dir",
+                str(temporary / "profiles" / adapter),
+                "--force",
+                "--json",
+            ]
         metrics = {
             name: measure(command, environment, arguments.warmups, arguments.samples)
             for name, command in scenarios.items()
