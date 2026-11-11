@@ -99,6 +99,27 @@ coordinate, and digest information. `validate` recomputes its integrity checks.
 The fixture is synthetic and demonstrates software behavior rather than a
 scientific result.
 
+### Read the result
+
+The default output is a short report for a person at the terminal. In the
+bundled fixture, `qualify` reports two admitted groups, one reserve group, one
+repair, and one quarantine. It names the two groups that require action.
+`measure` then reports:
+
+```text
+Environment  math-reference-demo-v1
+Policy       synthetic-policy-v1
+Signal       833.3333 admitted advantage mass / M tokens
+Coverage     0.6533
+Measured     3 groups · 4200 generated tokens
+Manifest     .anarres/example/environment.json
+Digest       sha256:5471a6e0fb121640260770060a3b858f2e31100a66b73eb2210bd59603dd76d9
+```
+
+The digest binds the measured record to its content. `validate` recomputes the
+record checks and exits nonzero if the input is invalid. Add `--json` when a
+script, notebook, or CI job should consume the same report.
+
 ### Update or remove a standalone installation
 
 Rerun the installer to update to the latest tagged release. To install a fixed
@@ -117,6 +138,19 @@ rm "${CARGO_HOME:-$HOME/.cargo}/bin/anarres"
 ```
 
 ## Commands
+
+Anarres has two command layers:
+
+1. **Built-ins** transform and compare versioned local records. Use these when
+   measurements already conform to an Anarres probe or profile schema.
+2. **Domain adapters** preserve a study's native measurements, costs, failure
+   states, and scientific boundaries. Use these to inspect, reproduce, or
+   extend a released domain workflow.
+
+The built-in `design` command checks whether candidates can be compared and
+reports their measured coordinates. It does not silently turn those
+coordinates into a winner. A domain adapter may expose a decision command only
+when its study defines and validates that decision rule.
 
 | Command | Purpose | Accepted records |
 | --- | --- | --- |
@@ -159,6 +193,25 @@ adapter's libraries. The [adapter installation guide](adapters.md) gives the
 supported checkout-based commands for every maintained adapter. The
 [adapter authoring guide](architecture/adapter-authoring.md) defines the
 descriptor and release requirements.
+
+### Choose a domain workflow
+
+Install the adapter you need from the paths in the [adapter installation
+guide](adapters.md), then begin with `status`. The status command shows what is
+released, what remains sealed, and which operations are supported.
+
+| Domain | First useful commands | What they reveal |
+| --- | --- | --- |
+| Formal verification | `anarres formal status --repository .`<br>`anarres formal qualification --repository .` | Local Vero support and the separate development qualification |
+| Robotics | `anarres robotics status --repository .`<br>`anarres robotics can-results --repository .` | Workflow stage and the released prospective Can result |
+| Legal reasoning | `anarres legal status --repository .`<br>`anarres legal regressions --repository .` | SylloGym selection evidence and the separate LAB regression audit |
+| Materials science | `anarres materials status --repository .`<br>`anarres materials results --repository .` | Frozen protocol boundary and the scored prospective MLIP test |
+| Molecular design | `anarres molecular status --repository .`<br>`anarres molecular verify --repository .` | Qualified reaction-bank measurements and deterministic verification |
+| Agentic finance | `anarres finance status --repository .`<br>`anarres finance decide <panel.json>` | Released evidence and a calibrated selection or abstention decision |
+
+Use `anarres <domain> --help` to see every operation for that adapter. Commands
+that plan, prepare, submit, gate, or score an experiment remain domain-specific
+because their runtimes and completeness contracts differ.
 
 ### Qualify task groups
 

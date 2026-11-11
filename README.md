@@ -86,9 +86,43 @@ anarres measure examples/environment-processing/probe.json \
 anarres validate .anarres/example/environment.json
 ```
 
+The first command identifies two admitted groups and flags one infrastructure
+repair and one quarantined task. The measurement then reports usable signal
+density, effective coverage, the generated-token total, and the digest of the
+record it wrote:
+
+```text
+Environment  math-reference-demo-v1
+Admitted     2
+Repair       1
+Quarantine   1
+
+Signal       833.3333 admitted advantage mass / M tokens
+Coverage     0.6533
+Measured     3 groups · 4200 generated tokens
+```
+
 This fixture demonstrates the command contract rather than a scientific result.
 The [CLI guide](docs/cli.md) continues with candidate comparison, installed
 adapters, JSON output, shell completions, and record schemas.
+
+### Choose the right command
+
+The built-in commands operate on measurements you already have. Domain
+adapters expose the native workflow and released evidence for one field.
+
+| What you want to do | Start with | What it returns |
+| --- | --- | --- |
+| Find invalid, unusable, or comparison-ready measurements | `anarres qualify <input>` | Status counts and the records that require action |
+| Create a portable environment record | `anarres measure <input> --output <record>` | Coordinates, provenance, costs, and a content digest |
+| Compare a candidate panel | `anarres design <record-a> <record-b>` | Compatibility checks and candidate coordinate ranges |
+| Check a record before using it | `anarres validate <record>` | Structural, semantic, and integrity results |
+| See installed domain workflows | `anarres adapter list` | Available adapters and their selected executables |
+| Inspect one domain | `anarres <domain> status --repository .` | The released evidence, current stage, and scientific boundary |
+
+Run `anarres --help`, `anarres <command> --help`, or
+`anarres <domain> --help` at any point. The [adapter guide](docs/adapters.md)
+lists the maintained domains and the first useful command for each one.
 
 ## Research program
 
