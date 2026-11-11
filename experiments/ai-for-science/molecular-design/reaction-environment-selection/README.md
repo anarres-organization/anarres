@@ -78,6 +78,16 @@ and evaluation contract. That contract is now frozen with six development
 banks, two seeds, and checkpoints at 12,800, 25,600, and 40,000 target-oracle
 attempts. No target-training outcome has been opened.
 
+The released execution path keeps training completion separate from endpoint
+scoring. [`scripts/gate_development_training.py`](scripts/gate_development_training.py)
+requires all twelve development trajectories and every frozen checkpoint to
+pass their native integrity checks before evaluation begins.
+[`scripts/sample_endpoint_policy.py`](scripts/sample_endpoint_policy.py) then
+binds each fixed endpoint sample to its policy hash, training manifest,
+checkpoint, and prespecified evaluation seed. Docking, molecular metrics, and
+qualifying-hit scoring remain separate stages so infrastructure failures cannot
+be converted into scientific zeros.
+
 ## CLI projection
 
 Install the native CLI and molecular adapter from a repository checkout:
