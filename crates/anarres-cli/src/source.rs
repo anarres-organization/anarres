@@ -1,5 +1,6 @@
 use std::ffi::OsString;
-use std::fs;
+use std::fs::{self, OpenOptions};
+use std::io::Write;
 use std::path::{Path, PathBuf};
 
 use serde::{Deserialize, Serialize};
@@ -49,7 +50,20 @@ pub(crate) struct SourceInspection {
     pub(crate) source_license: String,
     pub(crate) can_qualify: bool,
     pub(crate) can_probe: bool,
+    pub(crate) source_valid: bool,
+    pub(crate) qualification_ready: bool,
+    pub(crate) probe_ready: bool,
     pub(crate) issues: Vec<String>,
+}
+
+#[derive(Debug, Serialize)]
+pub(crate) struct SourceInitialization {
+    pub(crate) manifest: String,
+    pub(crate) environment_id: String,
+    pub(crate) domain: String,
+    pub(crate) adapter: String,
+    pub(crate) adapter_version: String,
+    pub(crate) native_format: String,
 }
 
 pub(crate) fn locate(path: &Path) -> Option<PathBuf> {
@@ -148,21 +162,11 @@ pub(crate) fn inspect(path: &Path) -> Result<SourceInspection, String> {
                 .capabilities
                 .iter()
                 .any(|capability| capability == "policy-probe");
-            if !can_qualify {
-                issues.push(format!(
-                    "adapter '{}' does not declare source qualification",
-                    source.adapter
-                ));
-            }
-            if !can_probe {
-                issues.push(format!(
-                    "adapter '{}' does not declare policy probing",
-                    source.adapter
-                ));
-            }
         }
         Err(error) => issues.push(error),
     }
+
+    let source_valid = issues.is_empty();
 
     Ok(SourceInspection {
         schema_version: SOURCE_SCHEMA,
@@ -182,7 +186,127 @@ pub(crate) fn inspect(path: &Path) -> Result<SourceInspection, String> {
         source_license: source.source.license,
         can_qualify,
         can_probe,
+        source_valid,
+        qualification_ready: source_valid && can_qualify,
+        probe_ready: source_valid && can_probe,
         issues,
+    })
+}
+
+#[allow(clippy::too_many_arguments)]
+pub(crate) fn initialize(
+    source_directory: &Path,
+    environment_id: Option<&str>,
+    adapter_name: &str,
+    native_format: Option<&str>,
+    revision: &str,
+    license: &str,
+    force: bool,
+) -> Result<SourceInitialization, String> {
+    if !source_directory.is_dir() {
+        return Err(format!(
+            "{} is not a directory\nhint: initialize the directory that contains the native environment files",
+            source_directory.display()
+        ));
+    }
+    require_text("revision", revision)?;
+    require_text("license", license)?;
+    let descriptor = adapter::descriptor(adapter_name)?;
+    if descriptor.source_formats.is_empty() {
+        return Err(format!(
+            "adapter '{}' does not accept native environment sources\nhint: run `anarres adapter doctor {}` to inspect its released capabilities",
+            adapter_name, adapter_name
+        ));
+    }
+    if !descriptor
+        .capabilities
+        .iter()
+        .any(|capability| capability == "source-qualification")
+    {
+        return Err(format!(
+            "adapter '{}' cannot qualify native sources",
+            adapter_name
+        ));
+    }
+    let selected_format = match native_format {
+        Some(value)
+            if descriptor
+                .source_formats
+                .iter()
+                .any(|format| format == value) =>
+        {
+            value.to_owned()
+        }
+        Some(value) => {
+            return Err(format!(
+                "adapter '{}' does not accept native format '{}'; supported formats: {}",
+                adapter_name,
+                value,
+                descriptor.source_formats.join(", ")
+            ));
+        }
+        None if descriptor.source_formats.len() == 1 => descriptor.source_formats[0].clone(),
+        None => {
+            return Err(format!(
+                "adapter '{}' accepts multiple native formats; choose one with --native-format: {}",
+                adapter_name,
+                descriptor.source_formats.join(", ")
+            ));
+        }
+    };
+    let inferred_id = source_directory
+        .file_name()
+        .and_then(|name| name.to_str())
+        .filter(|name| !name.is_empty())
+        .unwrap_or("environment");
+    let selected_id = environment_id.unwrap_or(inferred_id);
+    require_text("environment_id", selected_id)?;
+    let source = EnvironmentSource {
+        schema_version: SOURCE_SCHEMA.to_owned(),
+        environment_id: selected_id.to_owned(),
+        domain: descriptor.domain.clone(),
+        adapter: descriptor.name.clone(),
+        adapter_version: descriptor.version.clone(),
+        native_format: selected_format.clone(),
+        source: NativeSource {
+            uri: ".".to_owned(),
+            revision: revision.to_owned(),
+            license: license.to_owned(),
+        },
+    };
+    validate(&source)?;
+    let manifest_path = source_directory.join(SOURCE_FILENAME);
+    let rendered = toml::to_string_pretty(&source)
+        .map_err(|error| format!("could not serialize environment source: {error}"))?;
+    if force {
+        fs::write(&manifest_path, rendered.as_bytes())
+            .map_err(|error| format!("could not write {}: {error}", manifest_path.display()))?;
+    } else {
+        let mut output = OpenOptions::new()
+            .write(true)
+            .create_new(true)
+            .open(&manifest_path)
+            .map_err(|error| {
+                if error.kind() == std::io::ErrorKind::AlreadyExists {
+                    format!(
+                        "{} already exists\nhint: pass --force to replace it",
+                        manifest_path.display()
+                    )
+                } else {
+                    format!("could not create {}: {error}", manifest_path.display())
+                }
+            })?;
+        output
+            .write_all(rendered.as_bytes())
+            .map_err(|error| format!("could not write {}: {error}", manifest_path.display()))?;
+    }
+    Ok(SourceInitialization {
+        manifest: manifest_path.display().to_string(),
+        environment_id: source.environment_id,
+        domain: source.domain,
+        adapter: source.adapter,
+        adapter_version: source.adapter_version,
+        native_format: source.native_format,
     })
 }
 
@@ -237,32 +361,31 @@ pub(crate) fn dispatch_probe(
 }
 
 fn require_operation_ready(inspection: &SourceInspection, operation: &str) -> Result<(), String> {
-    let capability_ready = match operation {
-        "source qualification" => inspection.can_qualify,
-        "policy probe" => inspection.can_probe,
+    let operation_ready = match operation {
+        "source qualification" => inspection.qualification_ready,
+        "policy probe" => inspection.probe_ready,
         _ => false,
     };
-    let domain_mismatch = inspection
-        .issues
-        .iter()
-        .any(|issue| issue.contains("does not match manifest domain"));
-    let version_mismatch = inspection
-        .issues
-        .iter()
-        .any(|issue| issue.contains("does not match manifest version"));
-    if inspection.adapter_installed
-        && inspection.native_format_supported
-        && capability_ready
-        && inspection.source_exists != Some(false)
-        && !domain_mismatch
-        && !version_mismatch
-    {
+    if operation_ready {
         return Ok(());
+    }
+    let mut reasons = inspection.issues.clone();
+    if operation == "source qualification" && !inspection.can_qualify {
+        reasons.push(format!(
+            "adapter '{}' does not declare source qualification",
+            inspection.adapter
+        ));
+    }
+    if operation == "policy probe" && !inspection.can_probe {
+        reasons.push(format!(
+            "adapter '{}' does not declare policy probing",
+            inspection.adapter
+        ));
     }
     Err(format!(
         "environment '{}' is not ready for {operation}: {}",
         inspection.environment_id,
-        inspection.issues.join("; ")
+        reasons.join("; ")
     ))
 }
 

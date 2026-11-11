@@ -23,6 +23,16 @@ the requested format.
 anarres inspect examples/environment-source/anarres.toml
 ```
 
+With a source-capable adapter installed, create the same envelope without
+writing TOML manually:
+
+```bash
+anarres init /path/to/native-environment \
+  --adapter openenv \
+  --revision git:<commit> \
+  --license Apache-2.0
+```
+
 Relative source paths resolve from the directory containing `anarres.toml`.
 Remote URIs remain adapter-owned. Credentials and policy endpoints do not
 belong in the manifest; adapters read credentials from their documented runtime

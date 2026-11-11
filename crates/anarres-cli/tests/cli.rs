@@ -323,6 +323,79 @@ fn environment_source_inspects_qualifies_and_probes_through_one_adapter() {
     let bin = directory.join("bin");
     fs::create_dir_all(&bin).expect("bin directory is created");
     write_fake_source_adapter(&bin, "openenv");
+
+    let initialized = directory.join("initialized-candidate");
+    fs::create_dir_all(&initialized).expect("initialization source is created");
+    let init = run_with_path(
+        &[
+            "init",
+            initialized.to_str().unwrap(),
+            "--adapter",
+            "openenv",
+            "--revision",
+            "git:0123456789abcdef0123456789abcdef01234567",
+            "--license",
+            "Apache-2.0",
+            "--json",
+        ],
+        &bin,
+    );
+    assert!(
+        init.status.success(),
+        "{}",
+        String::from_utf8_lossy(&init.stderr)
+    );
+    let initialized_report: Value =
+        serde_json::from_slice(&init.stdout).expect("initialization is JSON");
+    assert_eq!(
+        initialized_report["environment_id"],
+        "initialized-candidate"
+    );
+    assert_eq!(initialized_report["domain"], "agentic-systems");
+    assert_eq!(initialized_report["adapter_version"], "0.1.0");
+    assert_eq!(initialized_report["native_format"], "openenv");
+    let initialized_manifest =
+        fs::read_to_string(initialized.join("anarres.toml")).expect("manifest is readable");
+    assert!(initialized_manifest.contains("uri = \".\""));
+
+    let human_init = run_with_path(
+        &[
+            "init",
+            initialized.to_str().unwrap(),
+            "--adapter",
+            "openenv",
+            "--revision",
+            "git:0123456789abcdef0123456789abcdef01234567",
+            "--license",
+            "Apache-2.0",
+            "--force",
+        ],
+        &bin,
+    );
+    assert!(human_init.status.success());
+    let human_output = String::from_utf8(human_init.stdout).expect("human output is UTF-8");
+    assert!(human_output.contains("Environment source"));
+    assert!(human_output.contains("Initialized"));
+    assert!(human_output.contains("Adapter version"));
+    assert!(human_output.contains("Next"));
+    assert!(human_output.contains("anarres inspect"));
+
+    let repeated_init = run_with_path(
+        &[
+            "init",
+            initialized.to_str().unwrap(),
+            "--adapter",
+            "openenv",
+            "--revision",
+            "git:0123456789abcdef0123456789abcdef01234567",
+            "--license",
+            "Apache-2.0",
+        ],
+        &bin,
+    );
+    assert_eq!(repeated_init.status.code(), Some(1));
+    assert!(String::from_utf8_lossy(&repeated_init.stderr).contains("--force"));
+
     let environment = write_environment_source(&directory, "openenv");
 
     let inspected = run_with_path(&["inspect", environment.to_str().unwrap(), "--json"], &bin);

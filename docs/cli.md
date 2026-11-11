@@ -114,6 +114,18 @@ Harbor task, OpenEnv package, robot dataset, legal matter panel, reaction bank,
 or structure set into a generic task row. Add an `anarres.toml` beside the
 native source instead:
 
+```bash
+anarres init ./candidate-a \
+  --adapter <adapter> \
+  --revision <immutable-revision> \
+  --license <SPDX-identifier>
+```
+
+`init` reads the installed adapter descriptor, records its domain and exact
+version, and infers the native format when the adapter accepts only one. It
+refuses unknown formats and never guesses between multiple formats. The written
+manifest is:
+
 ```toml
 schema_version = "anarres.environment-source.v1"
 environment_id = "candidate-a"

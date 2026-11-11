@@ -50,6 +50,8 @@ its conformance tests.
 The unified flow is:
 
 ```text
+anarres init <environment-directory> \
+  --adapter <name> --revision <immutable-revision> --license <license>
 anarres inspect <environment-or-anarres.toml>
 anarres qualify <environment-or-anarres.toml>
 anarres probe <environment-or-anarres.toml> \

@@ -107,6 +107,17 @@ Keep each environment in its native format and add one small `anarres.toml`
 beside it. The manifest names the domain adapter, the native format, and the
 pinned source identity without copying domain data into a universal task table:
 
+```bash
+anarres init ./candidate-a \
+  --adapter <adapter> \
+  --revision <immutable-revision> \
+  --license <SPDX-identifier>
+```
+
+When an adapter accepts one native format, `init` selects it automatically.
+Use `--native-format <format>` when the adapter supports more than one. The
+resulting manifest is explicit and reviewable:
+
 ```toml
 schema_version = "anarres.environment-source.v1"
 environment_id = "candidate-a"
@@ -152,6 +163,7 @@ portable records and do not require a domain runtime:
 
 | What you want to do | Start with | What it returns |
 | --- | --- | --- |
+| Connect a native environment to an adapter | `anarres init <directory> ...` | A pinned `anarres.toml` source manifest |
 | Inspect a native environment and its adapter | `anarres inspect <environment>` | Native format, source identity, adapter readiness, and missing requirements |
 | Run repeated starting-policy attempts | `anarres probe <environment> ...` | A versioned raw-attempt directory |
 | Find invalid, unusable, or comparison-ready measurements | `anarres qualify <environment-or-probe>` | Source checks or measurement status counts |

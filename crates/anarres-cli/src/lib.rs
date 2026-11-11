@@ -40,6 +40,7 @@ static NEXT_TEMPORARY_FILE: AtomicU64 = AtomicU64::new(0);
         Installed adapters run under their own documented contracts.",
     after_help = "Start here:\n  \
         anarres demo\n  \
+        anarres init <environment-directory> --adapter <name> --revision <revision> --license <license>\n  \
         anarres inspect <environment>\n  \
         anarres qualify <environment>\n  \
         anarres probe <environment> --policy <id> --policy-revision <revision> --output <measurement>\n  \
@@ -80,6 +81,8 @@ impl From<ColorMode> for anstream::ColorChoice {
 enum Command {
     /// Run the bundled qualification, measurement, and validation workflow.
     Demo(DemoArgs),
+    /// Connect a native environment directory to an installed adapter.
+    Init(InitArgs),
     /// Inspect an environment source and its installed adapter.
     Inspect(InspectArgs),
     /// Qualify a native environment or check measured evidence.
@@ -112,6 +115,33 @@ struct DemoArgs {
     /// Replace an existing output file.
     #[arg(long)]
     force: bool,
+}
+
+#[derive(Debug, Args)]
+struct InitArgs {
+    /// Directory containing the native environment files.
+    source: PathBuf,
+    /// Installed adapter that understands the native format.
+    #[arg(long)]
+    adapter: String,
+    /// Stable environment identifier; defaults to the directory name.
+    #[arg(long)]
+    environment_id: Option<String>,
+    /// Native format declared by the adapter; inferred when only one is supported.
+    #[arg(long)]
+    native_format: Option<String>,
+    /// Immutable source revision, content digest, or version.
+    #[arg(long)]
+    revision: String,
+    /// SPDX license identifier or documented usage terms.
+    #[arg(long)]
+    license: String,
+    /// Replace an existing anarres.toml manifest.
+    #[arg(long)]
+    force: bool,
+    /// Print a machine-readable report.
+    #[arg(long)]
+    json: bool,
 }
 
 #[derive(Debug, Args)]
@@ -375,6 +405,7 @@ pub fn run() -> i32 {
 fn execute(command: Command) -> Result<i32, String> {
     match command {
         Command::Demo(args) => command_demo(args),
+        Command::Init(args) => command_init(args),
         Command::Inspect(args) => command_inspect(args),
         Command::Qualify(args) => command_qualify(args),
         Command::Probe(args) => source::dispatch_probe(
@@ -409,6 +440,31 @@ fn execute(command: Command) -> Result<i32, String> {
             adapter::run(&name, &arguments)
         }
     }
+}
+
+fn command_init(args: InitArgs) -> Result<i32, String> {
+    let report = source::initialize(
+        &args.source,
+        args.environment_id.as_deref(),
+        &args.adapter,
+        args.native_format.as_deref(),
+        &args.revision,
+        &args.license,
+        args.force,
+    )?;
+    if args.json {
+        print_json(&report)?;
+    } else {
+        ui::title("Environment source");
+        ui::success("Initialized", &report.environment_id);
+        ui::field("Domain", &report.domain);
+        ui::field("Adapter", &report.adapter);
+        ui::field("Adapter version", &report.adapter_version);
+        ui::field("Native format", &report.native_format);
+        ui::field("Manifest", &report.manifest);
+        ui::next(&format!("anarres inspect {}", report.manifest));
+    }
+    Ok(0)
 }
 
 fn command_demo(args: DemoArgs) -> Result<i32, String> {
@@ -719,7 +775,7 @@ fn command_design(args: DesignArgs) -> Result<i32, String> {
 
 fn command_inspect(args: InspectArgs) -> Result<i32, String> {
     let report = source::inspect(&args.input)?;
-    let ready = report.issues.is_empty();
+    let ready = report.source_valid;
     if args.json {
         print_json(&report)?;
     } else {
@@ -741,8 +797,13 @@ fn command_inspect(args: InspectArgs) -> Result<i32, String> {
         for issue in &report.issues {
             ui::warning("Issue", issue);
         }
-        if ready {
+        if report.qualification_ready {
             ui::next(&format!("anarres qualify {}", report.manifest));
+        } else if ready {
+            ui::warning(
+                "Next",
+                "install an adapter release with source-qualification support",
+            );
         }
     }
     Ok(if ready { 0 } else { 1 })
