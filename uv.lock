@@ -149,6 +149,7 @@ source = { virtual = "." }
 [package.dev-dependencies]
 dev = [
     { name = "jsonschema" },
+    { name = "pyyaml" },
     { name = "ruff" },
 ]
 materials-test = [
@@ -167,6 +168,7 @@ materials-test = [
 [package.metadata.requires-dev]
 dev = [
     { name = "jsonschema", specifier = ">=4.23" },
+    { name = "pyyaml", specifier = ">=6.0" },
     { name = "ruff", specifier = ">=0.9" },
 ]
 materials-test = [
