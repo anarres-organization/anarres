@@ -172,7 +172,7 @@ portable records and do not require a domain runtime:
 | --- | --- | --- |
 | Connect a native environment to an adapter | `anarres init <directory> ...` | A pinned `anarres.toml` source manifest |
 | Inspect a native environment and its adapter | `anarres inspect <environment>` | Native format, source identity, adapter readiness, and missing requirements |
-| Run repeated starting-policy attempts | `anarres probe <environment> ...` | A versioned raw-attempt directory |
+| Measure a source under the starting policy | `anarres probe <environment> ...` | A shared probe-run or domain-native profile input |
 | Find invalid, unusable, or comparison-ready measurements | `anarres qualify <environment-or-probe>` | Source checks or measurement status counts |
 | Create a portable environment record | `anarres measure <input> --output <record>` | Coordinates, provenance, costs, and a content digest |
 | Compare a candidate panel | `anarres design <record-a> <record-b>` | Compatibility checks and candidate coordinate ranges |
