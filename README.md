@@ -1,12 +1,25 @@
-# <img src="docs/assets/anarres-logo.jpeg" alt="Anarres" height="42" align="top"> Anarres
+<p align="center">
+  <img src="docs/assets/anarres-logo.jpeg" alt="Anarres" height="128">
+</p>
 
-[![Quality](https://github.com/anarres-organization/anarres/actions/workflows/quality.yml/badge.svg)](https://github.com/anarres-organization/anarres/actions/workflows/quality.yml)
-[![License: Apache 2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-3776AB.svg)](https://www.python.org/downloads/)
+<h1 align="center">Anarres</h1>
 
-**Measure and compare training environments before committing the full training budget.**
+<p align="center"><strong>Measure and compare training environments before committing the full training budget.</strong></p>
 
-[Install](#install) · [Quick start](#quick-start) · [Research](#research-program) · [CLI guide](docs/cli.md) · [Releases](https://github.com/anarres-organization/anarres/releases) · [Issues](https://github.com/anarres-organization/anarres/issues) · [Contributing](CONTRIBUTING.md)
+<p align="center">
+  <a href="https://github.com/anarres-organization/anarres/actions/workflows/quality.yml"><img src="https://github.com/anarres-organization/anarres/actions/workflows/quality.yml/badge.svg" alt="Quality"></a>
+  <a href="https://github.com/anarres-organization/anarres/releases"><img src="https://img.shields.io/github/v/release/anarres-organization/anarres?filter=anarres-cli-v%2A&amp;label=CLI" alt="Latest CLI release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License: Apache 2.0"></a>
+</p>
+
+<p align="center">
+  <a href="#install">Install</a> ·
+  <a href="#quick-start">Quick start</a> ·
+  <a href="docs/cli.md">Documentation</a> ·
+  <a href="#research-program">Research</a> ·
+  <a href="https://github.com/anarres-organization/anarres/releases">Releases</a> ·
+  <a href="https://github.com/anarres-organization/anarres/issues">Issues</a>
+</p>
 
 Anarres is an open-source toolkit and research program for predicting how
 training environments shape model improvement. It qualifies task sources,
@@ -16,6 +29,83 @@ compatible candidates, and preserves the evidence behind each decision.
 Equal post-training budgets can improve a model, do little, or make it worse.
 Anarres makes those differences measurable before an expensive training run.
 
+## Install
+
+On macOS or Linux:
+
+```bash
+brew install anarres-organization/tap/anarres && anarres --version
+```
+
+The standalone installer is available when Homebrew is not:
+
+```bash
+curl --proto '=https' --tlsv1.2 -LsSf \
+  https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.sh | sh
+"${CARGO_HOME:-$HOME/.cargo}/bin/anarres" --version
+```
+
+Open a new terminal after the standalone installer updates `PATH`. If the shell
+still cannot find the command, run `~/.cargo/bin/anarres --version` to confirm
+the installation and follow the [PATH troubleshooting guide](docs/releases.md#command-not-found).
+
+Windows, pinned-version, archive, checksum, and source-install options are in
+the [release guide](docs/releases.md).
+
+## Quick start
+
+Install the CLI and run the bundled CPU-only workflow:
+
+```bash
+brew install anarres-organization/tap/anarres && anarres demo
+```
+
+The demo qualifies measured task groups, computes an environment record, and
+validates its content digest:
+
+```text
+Anarres demo
+  Environment         math-reference-demo-v1
+  Policy              synthetic-policy-v1
+  Qualification       2 admitted · 1 reserve · 1 repair · 1 quarantine
+  Signal density      833.3333 advantage mass / M tokens
+  Effective coverage  0.6533
+  Record              .anarres/demo/environment.json
+  Validation          passed
+
+Next: run anarres design <record-a> <record-b> to compare candidates.
+```
+
+The [CLI guide](docs/cli.md) continues with your own measurements, candidate
+comparison, installed domain workflows, JSON output, and shell completions.
+
+## Core CLI and domain workflows
+
+Homebrew installs the native `anarres` binary. Its built-in commands operate on
+portable records and do not require a domain runtime:
+
+| What you want to do | Start with | What it returns |
+| --- | --- | --- |
+| Find invalid, unusable, or comparison-ready measurements | `anarres qualify <input>` | Status counts and the records that require action |
+| Create a portable environment record | `anarres measure <input> --output <record>` | Coordinates, provenance, costs, and a content digest |
+| Compare a candidate panel | `anarres design <record-a> <record-b>` | Compatibility checks and candidate coordinate ranges |
+| Check a record before using it | `anarres validate <record>` | Structural, semantic, and integrity results |
+
+Domain workflows are installed separately because robotics simulators, legal
+evaluators, chemistry packages, and executable sandboxes have different
+dependencies. Once installed, they appear under the same CLI:
+
+```bash
+anarres adapter list
+anarres legal status --repository .
+anarres robotics status --repository .
+```
+
+The adapter preserves each study's measurements, units, failure states, and
+costs rather than replacing them with one universal model. See
+[Install domain workflows](docs/adapters.md) for the supported adapters and
+their first useful commands.
+
 ## How it works
 
 ```text
@@ -24,105 +114,13 @@ task sources
     → measure experience under the target policy
     → construct candidate environments
     → predict finite-budget utility
-    → test predictions with controlled RL
+    → test predictions with controlled training
 ```
 
 Anarres keeps three questions separate: whether a task and verifier work,
 whether the starting policy produces usable experience, and whether training on
 that experience improves a held-out target. Infrastructure failures never
 become ordinary unsuccessful attempts.
-
-The native CLI exposes four stable operations:
-
-| Command | Purpose |
-| --- | --- |
-| `anarres qualify` | Check whether measured evidence is ready for comparison |
-| `anarres measure` | Write a normalized, content-addressed environment record |
-| `anarres design` | Compare compatible candidates and audit the panel |
-| `anarres validate` | Check supported records and their content integrity |
-
-Domain adapters preserve the measurements, units, failure states, and costs of
-their originating studies. They extend the CLI without forcing robotics, legal
-reasoning, materials science, or executable agents into one measurement model.
-The native installer does not install every domain runtime. The
-[adapter installation guide](docs/adapters.md) shows how to add only the
-domain commands needed for a study.
-
-## Install
-
-Install the native CLI with Homebrew on macOS or Linux:
-
-```bash
-brew install anarres-organization/tap/anarres
-```
-
-Or use the standalone installer without requiring Python or Rust:
-
-```bash
-curl --proto '=https' --tlsv1.2 -LsSf \
-  https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.sh | sh
-```
-
-Restart your shell if the installer updates `PATH`, then verify the installation:
-
-```bash
-anarres --version
-```
-
-Windows, pinned-version, archive, checksum, and source-install options are in
-the [release guide](docs/releases.md).
-
-## Quick start
-
-Run the complete local workflow on the bundled CPU-only fixture:
-
-```bash
-git clone --depth 1 https://github.com/anarres-organization/anarres.git
-cd anarres
-anarres qualify examples/environment-processing/probe.json
-mkdir -p .anarres/example
-anarres measure examples/environment-processing/probe.json \
-  --output .anarres/example/environment.json
-anarres validate .anarres/example/environment.json
-```
-
-The first command identifies two admitted groups and flags one infrastructure
-repair and one quarantined task. The measurement then reports usable signal
-density, effective coverage, the generated-token total, and the digest of the
-record it wrote:
-
-```text
-Environment  math-reference-demo-v1
-Admitted     2
-Repair       1
-Quarantine   1
-
-Signal       833.3333 admitted advantage mass / M tokens
-Coverage     0.6533
-Measured     3 groups · 4200 generated tokens
-```
-
-This fixture demonstrates the command contract rather than a scientific result.
-The [CLI guide](docs/cli.md) continues with candidate comparison, installed
-adapters, JSON output, shell completions, and record schemas.
-
-### Choose the right command
-
-The built-in commands operate on measurements you already have. Domain
-adapters expose the native workflow and released evidence for one field.
-
-| What you want to do | Start with | What it returns |
-| --- | --- | --- |
-| Find invalid, unusable, or comparison-ready measurements | `anarres qualify <input>` | Status counts and the records that require action |
-| Create a portable environment record | `anarres measure <input> --output <record>` | Coordinates, provenance, costs, and a content digest |
-| Compare a candidate panel | `anarres design <record-a> <record-b>` | Compatibility checks and candidate coordinate ranges |
-| Check a record before using it | `anarres validate <record>` | Structural, semantic, and integrity results |
-| See installed domain workflows | `anarres adapter list` | Available adapters and their selected executables |
-| Inspect one domain | `anarres <domain> status --repository .` | The released evidence, current stage, and scientific boundary |
-
-Run `anarres --help`, `anarres <command> --help`, or
-`anarres <domain> --help` at any point. The [adapter guide](docs/adapters.md)
-lists the maintained domains and the first useful command for each one.
 
 ## Research program
 

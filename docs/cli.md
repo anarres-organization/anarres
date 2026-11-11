@@ -78,7 +78,19 @@ PowerShell and Elvish users can generate scripts with
 `anarres generate-shell-completion powershell` or
 `anarres generate-shell-completion elvish` and source them from their profiles.
 
-## Five-minute example
+## First run
+
+Run the complete bundled workflow without cloning the repository:
+
+```bash
+anarres demo
+```
+
+The command qualifies a fixed policy probe, measures its usable experience,
+writes `.anarres/demo/environment.json`, and validates the resulting digest.
+Use `--output <path>` to choose another destination.
+
+## Run the core commands directly
 
 The bundled policy-probe fixture runs without a model server or GPU. Clone the
 repository to obtain the fixture if it is not already present:
@@ -96,8 +108,6 @@ anarres validate .anarres/example/environment.json
 `qualify` separates usable task groups from repair and quarantine cases.
 `measure` writes a deterministic record with source, policy, contract,
 coordinate, and digest information. `validate` recomputes its integrity checks.
-The fixture is synthetic and demonstrates software behavior rather than a
-scientific result.
 
 ### Read the result
 
@@ -107,13 +117,13 @@ repair, and one quarantine. It names the two groups that require action.
 `measure` then reports:
 
 ```text
-Environment  math-reference-demo-v1
-Policy       synthetic-policy-v1
-Signal       833.3333 admitted advantage mass / M tokens
-Coverage     0.6533
-Measured     3 groups · 4200 generated tokens
-Manifest     .anarres/example/environment.json
-Digest       sha256:5471a6e0fb121640260770060a3b858f2e31100a66b73eb2210bd59603dd76d9
+Measured  math-reference-demo-v1
+  Policy              synthetic-policy-v1
+  Signal density      833.3333 advantage mass / M tokens
+  Effective coverage  0.6533
+  Evidence            3 groups · 4,200 generated tokens
+  Record              .anarres/example/environment.json
+  Digest              sha256:5471a6e0fb121640260770060a3b858f2e31100a66b73eb2210bd59603dd76d9
 ```
 
 The digest binds the measured record to its content. `validate` recomputes the
@@ -127,7 +137,7 @@ version, replace `latest/download` with the release tag:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -LsSf \
-  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.1.0/anarres-cli-installer.sh | sh
+  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.2.0/anarres-cli-installer.sh | sh
 ```
 
 The standalone installer places the binary in `$CARGO_HOME/bin`, or

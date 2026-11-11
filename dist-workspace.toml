@@ -25,7 +25,7 @@ hosting = "github"
 # Bind published artifacts to the GitHub Actions build that produced them
 github-attestations = true
 # Give installer users an immediate next step.
-install-success-msg = "Anarres is installed. Restart your shell if prompted, then run 'anarres --help'."
+install-success-msg = "Anarres is installed. Restart your shell if prompted, then run 'anarres demo'."
 # Whether to install an updater program
 install-updater = false
 

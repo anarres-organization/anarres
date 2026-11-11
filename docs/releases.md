@@ -35,6 +35,32 @@ Restart the shell if prompted, then verify the installation:
 anarres --version
 ```
 
+### Command not found
+
+First confirm that the installation completed. For Homebrew:
+
+```bash
+brew list --versions anarres-organization/tap/anarres
+"$(brew --prefix)/bin/anarres" --version
+```
+
+For the standalone installer:
+
+```bash
+"${CARGO_HOME:-$HOME/.cargo}/bin/anarres" --version
+```
+
+If the direct command works, open a new terminal. To update the current shell
+immediately, add the standalone binary directory to `PATH`:
+
+```bash
+export PATH="${CARGO_HOME:-$HOME/.cargo}/bin:$PATH"
+```
+
+If `brew install` stopped with a Command Line Tools error, the formula was not
+installed. Follow Homebrew's printed update instructions or use the standalone
+installer.
+
 Install it on Windows from PowerShell:
 
 ```powershell
@@ -58,7 +84,7 @@ For a reproducible installation, replace `latest/download` with a release tag:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -LsSf \
-  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.1.0/anarres-cli-installer.sh | sh
+  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.2.0/anarres-cli-installer.sh | sh
 ```
 
 The source install remains available on every supported Rust host after cloning
@@ -81,7 +107,7 @@ generated plan:
 
 ```bash
 dist generate
-dist plan --tag anarres-cli-v0.1.0
+dist plan --tag anarres-cli-v0.2.0
 ```
 
 After the GitHub release passes its artifact checks, copy the generated

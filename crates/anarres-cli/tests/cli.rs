@@ -51,10 +51,87 @@ fn top_level_help_points_to_builtins_and_adapters() {
     let output = run(&["--help"]);
     assert!(output.status.success());
     let stdout = String::from_utf8(output.stdout).expect("stdout is UTF-8");
+    assert!(stdout.contains("anarres demo"));
     assert!(stdout.contains("anarres qualify <measurements.json>"));
     assert!(stdout.contains("anarres adapter list"));
     assert!(stdout.contains("anarres <adapter> --help"));
     assert!(stdout.contains("portable environment records"));
+}
+
+#[test]
+fn demo_writes_and_validates_a_record() {
+    let directory = temporary_directory();
+    let record = directory.join("demo.json");
+    let output = run(&["demo", "--output", record.to_str().unwrap()]);
+    assert!(
+        output.status.success(),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let stdout = String::from_utf8(output.stdout).expect("stdout is UTF-8");
+    assert_eq!(
+        stdout,
+        format!(
+            "Anarres demo\n  Environment         math-reference-demo-v1\n  Policy              synthetic-policy-v1\n  Qualification       2 admitted · 1 reserve · 1 repair · 1 quarantine\n  Signal density      833.3333 advantage mass / M tokens\n  Effective coverage  0.6533\n  Record              {}\n  Validation          passed\n\nNext: run anarres design <record-a> <record-b> to compare candidates.\n",
+            record.display()
+        )
+    );
+
+    let raw: Value = serde_json::from_slice(&fs::read(&record).expect("record is written"))
+        .expect("record is JSON");
+    assert_eq!(raw["environment_id"], "math-reference-demo-v1");
+    assert_eq!(raw["coordinates"]["prompt_count"], 3);
+
+    let repeated = run(&["demo", "--output", record.to_str().unwrap()]);
+    assert!(repeated.status.success());
+
+    fs::write(&record, b"changed\n").expect("record is changed");
+    let changed = run(&["demo", "--output", record.to_str().unwrap()]);
+    assert_eq!(changed.status.code(), Some(1));
+    assert!(String::from_utf8_lossy(&changed.stderr).contains("different content"));
+
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
+}
+
+#[test]
+fn core_human_output_has_a_stable_layout() {
+    let directory = temporary_directory();
+    let record = directory.join("environment.json");
+    let fixture = fixture();
+
+    let qualified = run(&["qualify", fixture.to_str().unwrap()]);
+    assert!(qualified.status.success());
+    assert_eq!(
+        String::from_utf8(qualified.stdout).expect("stdout is UTF-8"),
+        "Qualification  math-reference-demo-v1\n  Policy        synthetic-policy-v1\n  Groups        2 admitted · 1 reserve · 1 repair · 1 quarantine\n\nAction required\n  math-demo-004            quarantine noop accepted\n  math-demo-005            repair     infrastructure invalid\n"
+    );
+
+    let measured = run(&[
+        "measure",
+        fixture.to_str().unwrap(),
+        "--output",
+        record.to_str().unwrap(),
+    ]);
+    assert!(measured.status.success());
+    assert_eq!(
+        String::from_utf8(measured.stdout).expect("stdout is UTF-8"),
+        format!(
+            "Measured  math-reference-demo-v1\n  Policy              synthetic-policy-v1\n  Signal density      833.3333 advantage mass / M tokens\n  Effective coverage  0.6533\n  Evidence            3 groups · 4,200 generated tokens\n  Record              {}\n  Digest              sha256:5471a6e0fb121640260770060a3b858f2e31100a66b73eb2210bd59603dd76d9\n",
+            record.display()
+        )
+    );
+
+    let validated = run(&["validate", record.to_str().unwrap()]);
+    assert!(validated.status.success());
+    assert_eq!(
+        String::from_utf8(validated.stdout).expect("stdout is UTF-8"),
+        format!(
+            "Validated  environment manifest\n  Path  {}\n",
+            record.display()
+        )
+    );
+
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
 }
 
 #[test]
