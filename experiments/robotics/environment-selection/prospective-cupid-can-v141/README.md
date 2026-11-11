@@ -144,6 +144,28 @@ demonstration inventory. It does not start training or open candidate outcomes.
 The user records the applicable dataset terms because the upstream dataset is
 distributed separately from the MIT-licensed RoboMimic code.
 
+The released probe identity is recorded separately in
+[`PROBE_CONTRACT.json`](PROBE_CONTRACT.json). It binds the source dataset, the
+three-checkpoint scoring ensemble, the CUPID and CuraEval revisions, the
+closed-loop rollout contract, the influence aggregation, and the distinction
+between task failures and infrastructure failures. A dry preflight reports
+which local artifacts conform without starting simulation:
+
+```bash
+anarres robotics probe-preflight --repository . \
+  --dataset /data/low_dim_v141.hdf5 \
+  --checkpoints /models/can-scoring-ensemble \
+  --runtime /src/robotics-probe-runtime \
+  --python /opt/robotics-probe/bin/python \
+  --backend local --json
+```
+
+The adapter does not yet advertise the shared `policy-probe` capability. The
+released record does not provide resolvable checkpoint artifacts, and a
+portable end-to-end probe has not passed the release gate. The preflight keeps
+those missing requirements visible rather than substituting a nearby runtime
+or a newly trained checkpoint.
+
 The study-specific planning and execution path is:
 
 ```bash

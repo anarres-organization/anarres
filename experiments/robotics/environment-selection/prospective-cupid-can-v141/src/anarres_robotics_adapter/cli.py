@@ -14,7 +14,7 @@ from typing import Any
 
 from anarres.core import consume_adapter_invocation, load_source_manifest
 
-from . import workflow
+from . import probe, workflow
 
 
 class RoboticsCliError(ValueError):
@@ -27,7 +27,7 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "robotics",
-        "version": "0.5.0",
+        "version": "0.5.1",
         "protocol_version": 2,
         "domain": "robotics",
         "executable": "anarres-robotics",
@@ -138,6 +138,10 @@ def study_root(repository: Path) -> Path:
     return repository / "experiments/robotics/environment-selection/prospective-cupid-can-v141"
 
 
+def probe_contract_path(repository: Path) -> Path:
+    return study_root(repository) / "PROBE_CONTRACT.json"
+
+
 def pusht_root(repository: Path) -> Path:
     return repository / "experiments/robotics/environment-selection/prospective-pusht"
 
@@ -196,6 +200,7 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     measurements = records["measurements"]
     qualification = records["qualification"]
     released = (study_root(repository) / "RESULTS.json").is_file()
+    probe_contract = json.loads(probe_contract_path(repository).read_text(encoding="utf-8"))
     return {
         "study_id": measurements["study_id"],
         "domain": "robotics",
@@ -225,8 +230,25 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
             qualification.get("passed") is True
             and measurements["measurement"]["reliability_gate_passed"] is True
         ),
+        "policy_probe_available": False,
+        "policy_probe_contract": "specified",
+        "policy_probe_release_blockers": probe_contract["execution"]["release_blockers"],
         "prospective_state": "complete" if released else "measurement_frozen",
     }
+
+
+def command_probe_preflight(args: argparse.Namespace) -> dict[str, Any]:
+    """Inspect exact probe dependencies without launching simulation."""
+
+    repository = repository_root(args.repository)
+    return probe.inspect_preflight(
+        contract_path=probe_contract_path(repository),
+        dataset=args.dataset.resolve() if args.dataset else None,
+        checkpoints=args.checkpoints.resolve() if args.checkpoints else None,
+        runtime=args.runtime.resolve() if args.runtime else None,
+        python=args.python,
+        backend=args.backend,
+    )
 
 
 def sha256_file(path: Path) -> str:
@@ -676,6 +698,18 @@ def parser() -> argparse.ArgumentParser:
     qualify_source.add_argument("--manifest", type=Path, required=True)
     qualify_source.add_argument("--json", action="store_true")
     qualify_source.set_defaults(handler=command_qualify_source)
+
+    probe_preflight = commands.add_parser(
+        "probe-preflight",
+        help="Check the released Can probe inputs without running simulation.",
+    )
+    add_common(probe_preflight)
+    probe_preflight.add_argument("--dataset", type=Path)
+    probe_preflight.add_argument("--checkpoints", type=Path)
+    probe_preflight.add_argument("--runtime", type=Path)
+    probe_preflight.add_argument("--python")
+    probe_preflight.add_argument("--backend", choices=["local", "slurm"], default="local")
+    probe_preflight.set_defaults(handler=command_probe_preflight)
 
     plan = commands.add_parser(
         "plan", help="Write a deterministic candidate-comparison workflow plan."

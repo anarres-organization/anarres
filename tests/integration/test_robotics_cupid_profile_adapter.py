@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[2]
 STUDY = ROOT / "experiments/robotics/environment-selection/prospective-cupid-can-v141"
 sys.path.insert(0, str(STUDY / "src"))
 from anarres_robotics_adapter import cli as CLI  # noqa: E402
+from anarres_robotics_adapter import probe as PROBE  # noqa: E402
 
 SCRIPT = STUDY / "export_environment_profiles.py"
 SPEC = importlib.util.spec_from_file_location("robotics_cupid_profile_adapter", SCRIPT)
@@ -46,7 +47,7 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
         )
         Draft202012Validator(schema).validate(descriptor)
         self.assertEqual(descriptor["name"], "robotics")
-        self.assertEqual(descriptor["version"], "0.5.0")
+        self.assertEqual(descriptor["version"], "0.5.1")
         self.assertEqual(descriptor["executable"], "anarres-robotics")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
         self.assertEqual(
@@ -54,6 +55,124 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
             ["robotics.cupid-can-v141-candidate-measurement.v1"],
         )
         self.assertEqual(descriptor["source_formats"], ["robomimic-can-v141-hdf5"])
+        self.assertNotIn("policy-probe", descriptor["capabilities"])
+
+    def test_probe_contract_matches_released_subject_and_remains_unreleased(self) -> None:
+        contract = json.loads((STUDY / "PROBE_CONTRACT.json").read_text())
+        measurements = json.loads((STUDY / "PROFILE_MEASUREMENTS.json").read_text())
+        self.assertEqual(contract["study_id"], measurements["study_id"])
+        self.assertEqual(contract["subject"]["id"], measurements["subject"]["id"])
+        self.assertEqual(contract["subject"]["revision"], measurements["subject"]["revision"])
+        self.assertEqual(
+            [item["sha256"] for item in contract["subject"]["checkpoints"]],
+            measurements["subject"]["checkpoint_sha256"],
+        )
+        self.assertFalse(contract["execution"]["policy_probe_capability_released"])
+        self.assertTrue(contract["execution"]["requires_explicit_execute"])
+        self.assertEqual(set(contract["outcome_taxonomy"]["task_outcomes"]), {"success", "failure"})
+        self.assertIn(
+            "simulator_initialization_error",
+            contract["outcome_taxonomy"]["infrastructure_outcomes"],
+        )
+
+    def test_probe_preflight_is_deterministic_and_never_executes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            dataset = root / "source.hdf5"
+            dataset.write_bytes(b"released source fixture")
+            checkpoints = root / "checkpoints"
+            checkpoints.mkdir()
+            checkpoint = checkpoints / "seed-1.pth"
+            checkpoint.write_bytes(b"checkpoint fixture")
+            contract = {
+                "schema_version": "anarres.robotics-cupid-can-v141-probe-contract.v1",
+                "study_id": "fixture",
+                "measurement_contract": "fixture.v1",
+                "source": {"sha256": hashlib.sha256(dataset.read_bytes()).hexdigest()},
+                "subject": {
+                    "kind": "policy-ensemble",
+                    "id": "fixture-policy",
+                    "revision": "sha256:fixture",
+                    "checkpoints": [
+                        {
+                            "seed": 1,
+                            "sha256": hashlib.sha256(checkpoint.read_bytes()).hexdigest(),
+                        }
+                    ],
+                },
+                "runtime": {
+                    "python": ".".join(map(str, sys.version_info[:3])),
+                    "packages": {},
+                    "checkouts": {},
+                    "entrypoints": {},
+                },
+                "execution": {
+                    "supported_backends": ["local", "slurm"],
+                    "policy_probe_capability_released": False,
+                    "release_blockers": ["portable_probe_not_released"],
+                },
+            }
+            contract_path = root / "contract.json"
+            contract_path.write_text(json.dumps(contract), encoding="utf-8")
+            arguments = dict(
+                contract_path=contract_path,
+                dataset=dataset,
+                checkpoints=checkpoints,
+                runtime=None,
+                python=sys.executable,
+                backend="local",
+            )
+            first = PROBE.inspect_preflight(**arguments)
+            second = PROBE.inspect_preflight(**arguments)
+        self.assertEqual(first, second)
+        self.assertTrue(first["artifacts_conform"])
+        self.assertFalse(first["ready"])
+        self.assertFalse(first["execution_started"])
+        self.assertFalse(first["candidate_outcomes_opened"])
+
+    def test_probe_preflight_rejects_wrong_checkpoint_digest(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            dataset = root / "source.hdf5"
+            dataset.write_bytes(b"source")
+            checkpoints = root / "checkpoints"
+            checkpoints.mkdir()
+            (checkpoints / "wrong.pth").write_bytes(b"wrong checkpoint")
+            contract = {
+                "schema_version": "anarres.robotics-cupid-can-v141-probe-contract.v1",
+                "study_id": "fixture",
+                "measurement_contract": "fixture.v1",
+                "source": {"sha256": hashlib.sha256(dataset.read_bytes()).hexdigest()},
+                "subject": {
+                    "kind": "policy-ensemble",
+                    "id": "fixture-policy",
+                    "revision": "sha256:fixture",
+                    "checkpoints": [{"seed": 1, "sha256": "0" * 64}],
+                },
+                "runtime": {
+                    "python": ".".join(map(str, sys.version_info[:3])),
+                    "packages": {},
+                    "checkouts": {},
+                    "entrypoints": {},
+                },
+                "execution": {
+                    "supported_backends": ["local"],
+                    "policy_probe_capability_released": False,
+                    "release_blockers": [],
+                },
+            }
+            contract_path = root / "contract.json"
+            contract_path.write_text(json.dumps(contract), encoding="utf-8")
+            report = PROBE.inspect_preflight(
+                contract_path=contract_path,
+                dataset=dataset,
+                checkpoints=checkpoints,
+                runtime=None,
+                python=sys.executable,
+                backend="local",
+            )
+        self.assertFalse(report["artifacts_conform"])
+        self.assertIn("scoring-checkpoint-ensemble", report["missing_or_mismatched"])
 
     def test_native_source_qualification_uses_manifest_and_dataset_identity(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -70,7 +189,7 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
                         'environment_id = "can-fixture"',
                         'domain = "robotics"',
                         'adapter = "robotics"',
-                        'adapter_version = "0.5.0"',
+                        'adapter_version = "0.5.1"',
                         'native_format = "robomimic-can-v141-hdf5"',
                         "",
                         "[source]",
