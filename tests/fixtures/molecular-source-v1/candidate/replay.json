@@ -1,0 +1,19 @@
+{
+  "artifact_type": "anarres.rxnflow-replay-bank.v1",
+  "items": [
+    {
+      "building_block_ids": ["bb-1", "bb-2"],
+      "canonical_smiles": "CCO",
+      "molecule_id": "mol-1",
+      "reaction_template_ids": ["rxn-1"],
+      "trajectory_id": "train-001"
+    },
+    {
+      "building_block_ids": ["bb-1"],
+      "canonical_smiles": "COC",
+      "molecule_id": "mol-2",
+      "reaction_template_ids": ["rxn-1"],
+      "trajectory_id": "train-002"
+    }
+  ]
+}

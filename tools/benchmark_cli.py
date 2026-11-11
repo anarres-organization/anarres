@@ -17,7 +17,16 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "examples" / "environment-processing" / "probe.json"
-ADAPTERS = ("finance", "formal", "legal", "materials", "molecular", "robotics")
+ADAPTERS = (
+    "finance",
+    "formal",
+    "legal",
+    "materials",
+    "molecular",
+    "robotics",
+    "vulnerability",
+)
+PROFILE_ADAPTERS = ("finance", "formal", "legal", "materials", "molecular", "robotics")
 
 
 def percentile(values: list[float], fraction: float) -> float:
@@ -140,7 +149,7 @@ def main() -> int:
             environment,
         )
         scenarios["native.validate"] = [str(binary), "validate", str(manifest), "--json"]
-        for adapter in ADAPTERS:
+        for adapter in PROFILE_ADAPTERS:
             scenarios[f"adapter.profile.{adapter}"] = [
                 str(binary),
                 adapter,

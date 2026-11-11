@@ -1,0 +1,26 @@
+{
+  "failure_semantics": {
+    "infrastructure_failure": [
+      "missing_receptor",
+      "toolchain_failure"
+    ],
+    "missing_score": "missing",
+    "scientific_zero": [
+      "invalid_chemistry",
+      "filter_rejection",
+      "docking_failure",
+      "timeout"
+    ]
+  },
+  "outcome_states": [
+    "docking_failure",
+    "filter_rejection",
+    "infrastructure_failure",
+    "invalid_chemistry",
+    "missing_score",
+    "scientific_zero",
+    "timeout"
+  ],
+  "runtime": "vina-test-runtime",
+  "target_id": "Q07820"
+}

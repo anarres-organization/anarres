@@ -114,7 +114,7 @@ requires-dist = [
 
 [[package]]
 name = "anarres-molecular"
-version = "0.2.0"
+version = "0.3.0"
 source = { editable = "experiments/ai-for-science/molecular-design/reaction-environment-selection" }
 dependencies = [
     { name = "anarres-core" },

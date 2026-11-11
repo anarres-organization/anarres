@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -280,6 +281,69 @@ def main() -> int:
         if legal_qualification["model_responses_read"] or legal_qualification["outcomes_read"]:
             raise SystemExit("legal source qualification crossed its outcome-blind boundary")
 
+        molecular_source = root / "native-source" / "molecular-q07820"
+        shutil.copytree(
+            ROOT / "tests/fixtures/molecular-source-v1",
+            molecular_source,
+        )
+        molecular_digest = json.loads(
+            command(
+                str(binary),
+                "molecular",
+                "source-digest",
+                "--source",
+                str(molecular_source),
+                "--json",
+                cwd=root,
+                env=installed_environment,
+            )
+        )["revision"]
+        command(
+            str(binary),
+            "init",
+            str(molecular_source),
+            "--adapter",
+            "molecular",
+            "--revision",
+            molecular_digest,
+            "--license",
+            "mixed-public-sources",
+            cwd=root,
+            env=installed_environment,
+        )
+        molecular_inspection = json.loads(
+            command(
+                str(binary),
+                "inspect",
+                str(molecular_source),
+                "--json",
+                cwd=root,
+                env=installed_environment,
+            )
+        )
+        if not molecular_inspection["qualification_ready"]:
+            raise SystemExit(f"molecular source was not routed: {molecular_inspection!r}")
+        if not molecular_inspection["probe_ready"]:
+            raise SystemExit("molecular source did not expose its policy probe path")
+        molecular_qualification = json.loads(
+            command(
+                str(binary),
+                "qualify",
+                str(molecular_source),
+                "--json",
+                cwd=root,
+                env=installed_environment,
+            )
+        )
+        if molecular_qualification["candidate_replay_items"] != 2:
+            raise SystemExit(
+                f"molecular native source did not qualify: {molecular_qualification!r}"
+            )
+        if molecular_qualification.get("target_id") != "Q07820":
+            raise SystemExit(
+                f"molecular source qualified the wrong target: {molecular_qualification!r}"
+            )
+
         profile_root = root / "profiles"
         record_root = root / "records"
         profile_count = 0
@@ -446,6 +510,7 @@ def main() -> int:
                         "legal_native_source_qualified": True,
                         "profile_inputs": profile_count,
                         "records": record_count,
+                        "molecular_native_source_qualified": True,
                         "robotics_native_source_routed": True,
                         "robotics_unpinned_source_rejected": True,
                     },
