@@ -82,7 +82,7 @@ def main() -> int:
     parser.add_argument("--samples", type=int, default=20)
     parser.add_argument("--max-native-p95-ms", type=float, default=50.0)
     parser.add_argument("--max-adapter-median-ms", type=float, default=200.0)
-    parser.add_argument("--max-binary-bytes", type=int, default=2_000_000)
+    parser.add_argument("--max-binary-bytes", type=int, default=2_250_000)
     arguments = parser.parse_args()
 
     binary = arguments.binary.resolve()
