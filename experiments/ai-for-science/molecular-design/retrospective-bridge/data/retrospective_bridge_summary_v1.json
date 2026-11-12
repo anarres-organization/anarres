@@ -111,7 +111,7 @@
       "table_approaches": 4
     }
   },
-  "claim_boundary": "The bridge combines distinct public scientific objects without pooling their native outcomes. The controlled RxnFlow study remains the environment-selection test. Antoniuk et al. test closed-loop active learning, InVirtuoGen tests replay, Saturn tests components and methods, t-SMILES audits representation and augmentation, and PMO tests finite-budget optimizers.",
+  "claim_boundary": "The bridge combines distinct public scientific objects without pooling their native outcomes. The controlled RxnFlow study remains the environment-selection test. Antoniuk et al. test closed-loop active learning, InVirtuoGen tests replay, Saturn tests components and methods, t-SMILES audits representation and augmentation, PMO tests finite-budget optimizers, and van Tilborg and Grisoni test acquisition choices across held-out molecular libraries. The Reisman study tests target-specific acquisition across complex molecules.",
   "invirtuogen_replay": {
     "matched_seed0_summary": {
       "mean_auc_top10_difference": 0.017856664058042947,
@@ -206,6 +206,64 @@
       "tasks": 23
     }
   },
+  "reisman_regioselectivity": {
+    "fingerprint_contract": {
+      "bits": 512,
+      "implementation": "RDKit Morgan fingerprint",
+      "radius": 2,
+      "rdkit_version": "2026.09.2",
+      "similarity": "Tanimoto"
+    },
+    "stable_top1_decision_audit": {
+      "structural_nearest_target": {
+        "best_method_credit": 0.62,
+        "mean_normalized_regret": 0.21312616281389954,
+        "pairwise_ordering": 0.588,
+        "selected_method_counts": {
+          "acqf_1-db0-01-a1": 3,
+          "acqf_10": 1,
+          "acqf_2-1": 5,
+          "acqf_4-1": 1,
+          "acqf_5": 6,
+          "acqf_6": 4,
+          "acqf_7": 1,
+          "acqf_9": 11,
+          "random": 18
+        },
+        "targets": 50
+      },
+      "training_fold_fixed_method": {
+        "best_method_credit": 0.42,
+        "mean_normalized_regret": 0.29693167589478814,
+        "pairwise_ordering": 0.6015555555555555,
+        "selected_method_counts": {
+          "acqf_1-db0-01-a1": 36,
+          "acqf_2-1": 2,
+          "acqf_5": 12
+        },
+        "targets": 50
+      }
+    },
+    "support": {
+      "acquisition_methods": [
+        "random",
+        "acqf_1-db0-01-a1",
+        "acqf_10",
+        "acqf_2-1",
+        "acqf_3",
+        "acqf_4-1",
+        "acqf_5",
+        "acqf_6",
+        "acqf_7",
+        "acqf_9"
+      ],
+      "conditions": 500,
+      "conditions_with_29_runs": 2,
+      "conditions_with_30_runs": 498,
+      "released_runs": 14998,
+      "targets": 50
+    }
+  },
   "saturn": {
     "best_published_yield_condition_by_architecture": {
       "Decoder Transformer": {
@@ -248,7 +306,7 @@
     }
   },
   "schema_version": "anarres.molecular.retrospective_bridge_summary.v1",
-  "source_objects": 5,
+  "source_objects": 7,
   "tsmiles_jnk3": {
     "highest_active_novel_conditions": [
       {
@@ -286,6 +344,72 @@
       "outcome_metrics": 6,
       "published_conditions": 21,
       "target": "JNK3"
+    }
+  },
+  "vantilborg_active_learning": {
+    "graph": {
+      "best_method_credit": 0.4444444444444444,
+      "chosen_alpha_by_held_out_dataset": {
+        "ALDH1": 0.1,
+        "PKM2": 0.1,
+        "VDR": 0.1
+      },
+      "contexts": 9,
+      "mean_normalized_regret": 0.17600863454521992,
+      "pairwise_ordering": 0.8,
+      "selected_methods": {
+        "BALD (least mutual information)": 3,
+        "Exploit (best predictions)": 5,
+        "Explore (most uncertain)": 1
+      }
+    },
+    "method_by_architecture": {
+      "best_method_credit": 0.5555555555555556,
+      "chosen_alpha_by_held_out_dataset": {
+        "ALDH1": 0.1,
+        "PKM2": 0.1,
+        "VDR": 0.1
+      },
+      "contexts": 9,
+      "mean_normalized_regret": 0.13765510137191553,
+      "pairwise_ordering": 0.837037037037037,
+      "selected_methods": {
+        "BALD (least mutual information)": 5,
+        "Exploit (best predictions)": 4
+      }
+    },
+    "support": {
+      "acquisition_methods": [
+        "BALD (least mutual information)",
+        "Exploit (best predictions)",
+        "Exploit, no retraining",
+        "Explore (most uncertain)",
+        "Random",
+        "Similarity"
+      ],
+      "architectures": [
+        "gcn",
+        "mlp",
+        "rf"
+      ],
+      "condition_records": 54,
+      "contexts": 9,
+      "minimum_seeds_per_condition": 10,
+      "primary_datasets": [
+        "ALDH1",
+        "PKM2",
+        "VDR"
+      ],
+      "run_records": 540
+    },
+    "training_fold_fixed_method": {
+      "best_method_credit": 0.4444444444444444,
+      "contexts": 9,
+      "mean_normalized_regret": 0.2244934830300684,
+      "pairwise_ordering": 0.6296296296296297,
+      "selected_methods": {
+        "Exploit (best predictions)": 9
+      }
     }
   }
 }

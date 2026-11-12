@@ -109,6 +109,14 @@ def summarize_saturn(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def compact_decision_audit(payload: dict[str, Any]) -> dict[str, Any]:
+    output = {key: value for key, value in payload.items() if key != "selections"}
+    output["selected_methods"] = dict(
+        sorted(collections.Counter(row["selected_method"] for row in payload["selections"]).items())
+    )
+    return output
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--pmo", type=Path, required=True)
@@ -116,6 +124,8 @@ def main() -> None:
     parser.add_argument("--saturn", type=Path, required=True)
     parser.add_argument("--antoniuk", type=Path, required=True)
     parser.add_argument("--tsmiles", type=Path, required=True)
+    parser.add_argument("--vantilborg", type=Path, required=True)
+    parser.add_argument("--reisman", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
@@ -124,6 +134,8 @@ def main() -> None:
     saturn = load(args.saturn)
     antoniuk = load(args.antoniuk)
     tsmiles = load(args.tsmiles)
+    vantilborg = load(args.vantilborg)
+    reisman = load(args.reisman)
     output = {
         "schema_version": "anarres.molecular.retrospective_bridge_summary.v1",
         "claim_boundary": (
@@ -132,9 +144,11 @@ def main() -> None:
             "the environment-selection test. Antoniuk et al. test closed-loop "
             "active learning, InVirtuoGen tests replay, Saturn tests components "
             "and methods, t-SMILES audits representation and augmentation, and "
-            "PMO tests finite-budget optimizers."
+            "PMO tests finite-budget optimizers, and van Tilborg and Grisoni "
+            "test acquisition choices across held-out molecular libraries. The "
+            "Reisman study tests target-specific acquisition across complex molecules."
         ),
-        "source_objects": 5,
+        "source_objects": 7,
         "antoniuk_active_learning": {
             "support": antoniuk["support"],
             "matched_generation_records": [
@@ -156,6 +170,25 @@ def main() -> None:
         },
         "saturn": summarize_saturn(saturn),
         "pmo": summarize_pmo(pmo),
+        "vantilborg_active_learning": {
+            "support": vantilborg["support"],
+            "method_by_architecture": compact_decision_audit(
+                vantilborg["leave_one_dataset_out"]["method_by_architecture"]
+            ),
+            "graph": compact_decision_audit(vantilborg["leave_one_dataset_out"]["graph"]),
+            "training_fold_fixed_method": compact_decision_audit(
+                vantilborg["training_fold_fixed_method"]
+            ),
+        },
+        "reisman_regioselectivity": {
+            "support": reisman["support"],
+            "fingerprint_contract": reisman["fingerprint_contract"],
+            "stable_top1_decision_audit": {
+                name: compact_decision_audit(payload)
+                for name, payload in reisman["stable_top1_decision_audit"].items()
+                if name != "nearest_target_by_smiles"
+            },
+        },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(output, indent=2, sort_keys=True) + "\n")

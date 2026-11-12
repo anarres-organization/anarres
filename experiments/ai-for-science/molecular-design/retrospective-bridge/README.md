@@ -1,9 +1,10 @@
 # Retrospective molecular-design bridge
 
-**Status:** five public evidence objects are normalized and source-audited. A
-charged PMO decision ladder evaluates early optimization outcomes across 23 held-out
-oracle tasks. The bridge is retrospective and leaves the sealed RxnFlow
-candidate panel unchanged.
+**Status:** seven public evidence objects are normalized and source-audited.
+Three decision audits cover early optimization across 23 held-out oracle tasks,
+acquisition policies across nine held-out library-architecture contexts, and
+target-specific acquisition across 50 held-out molecules. The bridge is
+retrospective and leaves the sealed RxnFlow candidate panel unchanged.
 
 This bridge asks how experience, acquisition, representation, and finite
 oracle budget change molecular-design outcomes across published studies. It
@@ -15,7 +16,7 @@ separate from prospective selection.
 ## Inclusion boundary
 
 A study enters the bridge when its intervention, budget, numerical outcomes,
-and source provenance can be recovered without figure digitization. The five
+and source provenance can be recovered without figure digitization. The seven
 current objects answer related but distinct questions:
 
 - [**Antoniuk et al. (2026)**](https://doi.org/10.1038/s41524-025-01924-8)
@@ -36,6 +37,14 @@ current objects answer related but distinct questions:
 - [**PMO**](https://github.com/wenhao-gao/mol_opt) releases 2,875 raw
   optimization traces spanning 25 methods and 23 objectives. The bridge
   reconstructs AUC Top-10 at five oracle budgets.
+- [**van Tilborg and Grisoni (2024)**](https://doi.org/10.1038/s43588-024-00697-2)
+  release active-learning trajectories for six acquisition policies, three
+  model architectures, and three primary molecular libraries. The bridge uses
+  540 repeated runs to test acquisition decisions on held-out libraries.
+- [**Schleinitz et al. (2025)**](https://doi.org/10.1021/jacs.4c15902)
+  release target-specific acquisition trajectories for 50 complex molecules.
+  The bridge reconstructs 14,998 repeated runs across ten acquisition methods
+  and evaluates each target by leaving its outcomes out of model selection.
 
 The objects are analyzed separately under their published intervention classes.
 Their outcomes remain downstream result records and stay outside Anarres
@@ -80,6 +89,22 @@ preferred molecular representation depends on both the endpoint and training
 duration. These panels support policy- and contract-relative measurement rather
 than one fixed ranking of molecular-design experience.
 
+The held-out-library audit makes that compatibility result quantitative. A
+method-by-architecture model reaches 83.7% pairwise ordering and 0.138 mean
+normalized regret across nine held-out library-architecture contexts, compared
+with 63.0% and 0.224 for a training-fold-selected fixed method. Adding the
+released initial-batch graph summaries lowers ordering to 80.0% and does not
+reduce regret. Architecture compatibility transfers in this panel, while these
+graph summaries do not yet provide additional decision value.
+
+The regioselectivity panel provides a complementary graph-structured decision.
+A nearest-target rule uses only each target's Morgan fingerprint and outcomes
+from the most similar training target. It selects a best acquisition method on
+62% of 50 held-out targets and reaches 0.213 mean normalized regret, compared
+with 42% and 0.297 for the training-fold-selected fixed method. Its 58.8%
+pairwise ordering remains below the fixed method's 60.2%, so molecular analogy
+improves the top decision without improving the complete ranking.
+
 ## Relationship to the prospective study
 
 The [RxnFlow reaction-environment study](../reaction-environment-selection/README.md)
@@ -123,8 +148,17 @@ python scripts/normalize_pmo.py \
 python scripts/build_pmo_decision_ladder.py \
   --pmo /tmp/pmo.json \
   --output /tmp/pmo-decision-ladder.json
+
+python scripts/normalize_vantilborg_active_learning.py \
+  --source-csv /path/to/traversing_chem_space/figures/data/fig3.csv \
+  --output /tmp/vantilborg.json
+
+uv run --with rdkit==2026.9.2 python \
+  scripts/normalize_reisman_regioselectivity.py \
+  --archive /path/to/clean_run.zip \
+  --output /tmp/reisman.json
 ```
 
-The PMO archive expands to about 1.7 GB and remains an external artifact. The
-repository includes compact normalized records for the four smaller sources
-and a combined summary for all five objects.
+The PMO and regioselectivity archives remain external artifacts. The repository
+includes compact normalized records for all seven objects and a combined
+summary.

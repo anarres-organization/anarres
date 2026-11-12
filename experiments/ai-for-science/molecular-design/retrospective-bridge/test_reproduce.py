@@ -30,6 +30,10 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
         cls.tsmiles = json.loads((DATA / "tsmiles_jnk3_bridge_v1.json").read_text())
         cls.summary = json.loads((DATA / "retrospective_bridge_summary_v1.json").read_text())
         cls.pmo_decisions = json.loads((DATA / "pmo_decision_ladder_v1.json").read_text())
+        cls.vantilborg = json.loads(
+            (DATA / "vantilborg_active_learning_bridge_v1.json").read_text()
+        )
+        cls.reisman = json.loads((DATA / "reisman_regioselectivity_bridge_v1.json").read_text())
 
     def test_pmo_summary_preserves_support_and_cost_boundary(self) -> None:
         pmo = self.summary["pmo"]
@@ -111,8 +115,43 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
         self.assertEqual((best["condition"], best["training_rounds"]), ("TSSA_S_Rec50", 10))
         self.assertIn("not a fixed-trainer", self.tsmiles["claim_boundary"])
 
-    def test_summary_preserves_five_scientific_objects(self) -> None:
-        self.assertEqual(self.summary["source_objects"], 5)
+    def test_vantilborg_audit_preserves_support_and_held_out_decisions(self) -> None:
+        self.assertEqual(
+            self.vantilborg["source_sha256"],
+            "646a4b499ebcb0ad2681ebee708bc61f69cd47fee1674b3d6ebaedc9256dc8f0",
+        )
+        support = self.vantilborg["support"]
+        self.assertEqual(support["primary_datasets"], ["ALDH1", "PKM2", "VDR"])
+        self.assertEqual(support["contexts"], 9)
+        self.assertEqual(support["condition_records"], 54)
+        self.assertEqual(support["run_records"], 540)
+        method_architecture = self.vantilborg["leave_one_dataset_out"]["method_by_architecture"]
+        fixed = self.vantilborg["training_fold_fixed_method"]
+        self.assertAlmostEqual(method_architecture["pairwise_ordering"], 0.837037037037037)
+        self.assertAlmostEqual(method_architecture["mean_normalized_regret"], 0.13765510137191553)
+        self.assertGreater(method_architecture["pairwise_ordering"], fixed["pairwise_ordering"])
+
+    def test_reisman_audit_preserves_support_and_decision_boundary(self) -> None:
+        support = self.reisman["support"]
+        self.assertEqual(support["targets"], 50)
+        self.assertEqual(support["conditions"], 500)
+        self.assertEqual(support["released_runs"], 14998)
+        self.assertEqual(support["conditions_with_29_runs"], 2)
+        audit = self.reisman["stable_top1_decision_audit"]
+        structural = audit["structural_nearest_target"]
+        fixed = audit["training_fold_fixed_method"]
+        self.assertAlmostEqual(structural["best_method_credit"], 0.62)
+        self.assertLess(structural["mean_normalized_regret"], fixed["mean_normalized_regret"])
+        self.assertLess(structural["pairwise_ordering"], fixed["pairwise_ordering"])
+
+    def test_reisman_parser_preserves_overlapping_method_names(self) -> None:
+        module = load_module("normalize_reisman_regioselectivity")
+        name = "clean_run/res_rf_CCO_acqf_2-1_30_1_coldstart_custom.pkl"
+        self.assertEqual(module.parse_identity(name), ("CCO", "acqf_2-1", 30))
+        self.assertEqual(module.stable_index([0.2] * 3 + [0.95] * 10), 12)
+
+    def test_summary_preserves_seven_scientific_objects(self) -> None:
+        self.assertEqual(self.summary["source_objects"], 7)
         self.assertEqual(
             self.summary["invirtuogen_replay"]["matched_seed0_summary"]["replay_wins"],
             12,
@@ -122,6 +161,8 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
             {"GEAM": 1, "Saturn (Framework)": 4},
         )
         self.assertIn("RxnFlow", self.summary["claim_boundary"])
+        self.assertEqual(self.summary["vantilborg_active_learning"]["support"]["contexts"], 9)
+        self.assertEqual(self.summary["reisman_regioselectivity"]["support"]["targets"], 50)
 
     def test_release_manifest(self) -> None:
         repository = ROOT.parents[3]

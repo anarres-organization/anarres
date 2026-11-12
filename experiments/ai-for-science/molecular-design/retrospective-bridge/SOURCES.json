@@ -72,6 +72,30 @@
       "size_bytes": 454865900,
       "license": "MIT",
       "producing_run": "normalize_pmo.py"
+    },
+    {
+      "artifact": "van Tilborg and Grisoni Figure 3 source-data table",
+      "doi": "10.1038/s43588-024-00697-2",
+      "source_data_doi": "10.5281/zenodo.10781476",
+      "uri": "https://raw.githubusercontent.com/molML/traversing_chem_space/36a1ed85ddf607e3a0e080adb6097add61c8c235/figures/data/fig3.csv",
+      "revision": "36a1ed85ddf607e3a0e080adb6097add61c8c235",
+      "sha256": "646a4b499ebcb0ad2681ebee708bc61f69cd47fee1674b3d6ebaedc9256dc8f0",
+      "media_type": "text/csv",
+      "size_bytes": 14112962,
+      "license": "MIT repository artifact; CC BY 4.0 source-data record",
+      "producing_run": "normalize_vantilborg_active_learning.py"
+    },
+    {
+      "artifact": "Reisman Lab target-specific acquisition result archive",
+      "doi": "10.1021/jacs.4c15902",
+      "source_data_doi": "10.5281/zenodo.14003333",
+      "uri": "https://zenodo.org/records/14003333/files/clean_run.zip?download=1",
+      "sha256": "ffc73a3104a2a35b25f21ae9e944d186f4962a5d2c3ac673d2e10da8deaf0192",
+      "md5": "e974491f02770f403924b5ed2cd91da3",
+      "media_type": "application/zip",
+      "size_bytes": 1857960540,
+      "license": "CC BY 4.0",
+      "producing_run": "normalize_reisman_regioselectivity.py"
     }
   ]
 }
