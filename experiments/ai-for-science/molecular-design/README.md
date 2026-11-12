@@ -47,7 +47,8 @@ to optimize. A sealed diagnostic motivated a Version 4 selector-fidelity gate
 that preserved the banks, selectors, estimators, and runtime. All eight
 prespecified selector-versus-neutral checks pass in both independent views.
 The matched six-bank, two-seed training and evaluation contract is now frozen.
-No target-training outcome has been opened.
+The released package stops before target-training outcomes, and the two
+prospective hybrid candidates remain sealed.
 
 The primary endpoint is a multi-gate qualifying-hit rate rather than raw
 docking score. It combines target docking with molecular validity, chemical
@@ -103,7 +104,7 @@ archive and target fixtures, docking oracle, QED warm start, Q07820 target, and
 two-view measurement. They preserve the failed Version 3 complete-order result
 and record the passing Version 4 selector-fidelity confirmation. The completed
 gate supports the frozen matched target-training and evaluation contracts. No
-target-training or evaluation outcome has been opened.
+target-training or evaluation outcome is included in the released package.
 
 An installable `anarres-molecular` adapter exposes the native qualification
 status and deterministic profile export without changing this evidence
