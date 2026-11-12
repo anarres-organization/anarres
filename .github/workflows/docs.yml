@@ -36,16 +36,16 @@ jobs:
       - name: Build documentation
         run: uv run --group docs mkdocs build --strict
       - name: Configure GitHub Pages
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && vars.ANARRES_DOCS_HOST == 'github-pages'
         uses: actions/configure-pages@v5
       - name: Upload site
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && vars.ANARRES_DOCS_HOST == 'github-pages'
         uses: actions/upload-pages-artifact@v4
         with:
           path: site
 
   deploy:
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && vars.ANARRES_DOCS_HOST == 'github-pages'
     needs: build
     runs-on: ubuntu-24.04
     permissions:
