@@ -60,8 +60,13 @@ Run the bundled CPU-only workflow:
 anarres demo
 ```
 
-The demo qualifies and measures two candidates produced under the same
-starting policy, then checks that they can be compared:
+The demo runs locally without an adapter or GPU. It qualifies two candidate
+environments, measures the experience each produces under the same starting
+policy, checks that they can be compared, and writes validated portable
+records.
+
+<details>
+<summary>View the exact terminal output</summary>
 
 ```text
 Anarres demo
@@ -110,13 +115,20 @@ Next  anarres design .anarres/demo/environment.json .anarres/demo/environment-al
     Use your data: anarres qualify --help
 ```
 
-The `Next` line is a runnable command. Generated records live in the local
-`.anarres/` working directory, which is ignored by Git and can be regenerated.
-Run the demo from a project directory or pass `--output` to choose a different
-location.
+</details>
 
-The demo needs no adapter. Real domain data uses one of the domain workflows
-described below.
+Use the generated records immediately:
+
+```bash
+anarres design \
+  .anarres/demo/environment.json \
+  .anarres/demo/environment-alternative.json
+```
+
+Generated records live in the local `.anarres/` working directory, which is
+ignored by Git and can be regenerated. Run the demo from a project directory
+or pass `--output` to choose a different location. Real domain data uses one of
+the domain workflows described below.
 
 The [CLI guide](docs/cli.md) continues with your own measurements, candidate
 comparison, installed domain workflows, JSON output, and shell completions.
