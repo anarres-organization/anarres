@@ -1,0 +1,291 @@
+{
+  "antoniuk_active_learning": {
+    "matched_generation_records": [
+      {
+        "approach": "JANUS",
+        "dft_stable_count": 31,
+        "dft_stable_percent": 6.0,
+        "dft_stable_total": 500,
+        "oracle_budget": 500,
+        "sota_molecule_count": 0,
+        "sota_molecule_percent": 0.0,
+        "sota_molecule_total": 500,
+        "top_dft_density_g_per_cc": 1.816,
+        "top_dft_heat_of_formation_kcal_per_mol": 290.0,
+        "top_molecule_count": 0,
+        "top_molecule_percent": 0.0,
+        "top_molecule_total": 500,
+        "top_multi_property_score": 3.56,
+        "valid_fraction": 1.0
+      },
+      {
+        "approach": "REINVENT w/ MPNN 0",
+        "dft_stable_count": 30,
+        "dft_stable_percent": 6.0,
+        "dft_stable_total": 500,
+        "oracle_budget": 500,
+        "sota_molecule_count": 12,
+        "sota_molecule_percent": 2.4,
+        "sota_molecule_total": 500,
+        "top_dft_density_g_per_cc": 1.901,
+        "top_dft_heat_of_formation_kcal_per_mol": 417.0,
+        "top_molecule_count": 20,
+        "top_molecule_percent": 4.0,
+        "top_molecule_total": 500,
+        "top_multi_property_score": 4.48,
+        "valid_fraction": 1.0
+      },
+      {
+        "approach": "JANUS w/Active Learning (this work)",
+        "dft_stable_count": 108,
+        "dft_stable_percent": 22.0,
+        "dft_stable_total": 500,
+        "oracle_budget": 500,
+        "sota_molecule_count": 17,
+        "sota_molecule_percent": 3.4,
+        "sota_molecule_total": 500,
+        "top_dft_density_g_per_cc": 2.014,
+        "top_dft_heat_of_formation_kcal_per_mol": 405.0,
+        "top_molecule_count": 52,
+        "top_molecule_percent": 10.0,
+        "top_molecule_total": 500,
+        "top_multi_property_score": 5.24,
+        "valid_fraction": 1.0
+      }
+    ],
+    "released_batch_summaries": [
+      {
+        "batch_id": "10k",
+        "charge_balanced_fraction": 1,
+        "dft_success_fraction": 1.0,
+        "dft_successes": 10206,
+        "molecules": 10206,
+        "sa_score_mean": 3.2879848415488957,
+        "successful_density_max": 1.9631143588409,
+        "successful_density_mean": 1.3968829612626603,
+        "successful_heat_of_formation_max": 386.76161165957,
+        "successful_heat_of_formation_mean": -67.14776709141553
+      },
+      {
+        "batch_id": "batch_1",
+        "charge_balanced_fraction": 0.39591836734693875,
+        "dft_success_fraction": 0.6061224489795919,
+        "dft_successes": 594,
+        "molecules": 980,
+        "sa_score_mean": 6.176141742728226,
+        "successful_density_max": 1.8499610410854,
+        "successful_density_mean": 1.4822203330120105,
+        "successful_heat_of_formation_max": 476.65327131491,
+        "successful_heat_of_formation_mean": 224.03231982348356
+      },
+      {
+        "batch_id": "batch_2",
+        "charge_balanced_fraction": 0.40361693382655156,
+        "dft_success_fraction": 0.27743526510480887,
+        "dft_successes": 675,
+        "molecules": 2433,
+        "sa_score_mean": 6.56540540243663,
+        "successful_density_max": 1.9641627575445,
+        "successful_density_mean": 1.6566121174963944,
+        "successful_heat_of_formation_max": 345.57932169127,
+        "successful_heat_of_formation_mean": 126.0159565634982
+      },
+      {
+        "batch_id": "batch_3",
+        "charge_balanced_fraction": 1,
+        "dft_success_fraction": 0.11444629475437136,
+        "dft_successes": 5498,
+        "molecules": 48040,
+        "sa_score_mean": 6.181639041523428,
+        "successful_density_max": 1.9043887272359,
+        "successful_density_mean": 1.593641929790706,
+        "successful_heat_of_formation_max": 525.32716698932,
+        "successful_heat_of_formation_mean": 165.09592093269538
+      }
+    ],
+    "support": {
+      "matched_dft_oracle_budget": 500,
+      "matched_generation_approaches": 3,
+      "released_batches": 4,
+      "released_molecule_records": 61659,
+      "table_approaches": 4
+    }
+  },
+  "claim_boundary": "The bridge combines distinct public scientific objects without pooling their native outcomes. The controlled RxnFlow study remains the environment-selection test. Antoniuk et al. test closed-loop active learning, InVirtuoGen tests replay, Saturn tests components and methods, t-SMILES audits representation and augmentation, and PMO tests finite-budget optimizers.",
+  "invirtuogen_replay": {
+    "matched_seed0_summary": {
+      "mean_auc_top10_difference": 0.017856664058042947,
+      "median_auc_top10_difference": 0.0035620269108578295,
+      "no_replay_wins": 10,
+      "replay_wins": 12,
+      "ties": 1
+    },
+    "support": {
+      "matched_seed0_pairs": 23,
+      "no_replay_runs_per_task": 1,
+      "records": 92,
+      "replay_runs_per_task": 3,
+      "tasks": 23
+    }
+  },
+  "pmo": {
+    "leave_one_task_out_fixed_method": {
+      "exact_final_winner_tasks": 8,
+      "final_auc_top10_mean_regret": 0.04426181848617151,
+      "final_auc_top10_median_regret": 0.009892818570725881,
+      "selected_methods": {
+        "reinvent": 23
+      },
+      "tasks": 23
+    },
+    "retrospective_pilot_diagnostics": [
+      {
+        "cost_note": "This diagnostic evaluates every method at the pilot budget and does not charge that total pilot cost. It is descriptive, not an allocation-policy result.",
+        "exact_final_winner_tasks": 8,
+        "final_auc_top10_mean_regret": 0.05136026008384682,
+        "final_auc_top10_median_regret": 0.03532048162567181,
+        "pairwise_final_rank_accuracy": 0.7539855072463768,
+        "pilot_budget_per_method": 1000,
+        "pilot_fraction_of_final_budget": 0.1,
+        "tasks": 23
+      },
+      {
+        "cost_note": "This diagnostic evaluates every method at the pilot budget and does not charge that total pilot cost. It is descriptive, not an allocation-policy result.",
+        "exact_final_winner_tasks": 11,
+        "final_auc_top10_mean_regret": 0.0255600497644054,
+        "final_auc_top10_median_regret": 0.016990240486088437,
+        "pairwise_final_rank_accuracy": 0.8410869565217391,
+        "pilot_budget_per_method": 2500,
+        "pilot_fraction_of_final_budget": 0.25,
+        "tasks": 23
+      },
+      {
+        "cost_note": "This diagnostic evaluates every method at the pilot budget and does not charge that total pilot cost. It is descriptive, not an allocation-policy result.",
+        "exact_final_winner_tasks": 14,
+        "final_auc_top10_mean_regret": 0.011915140261950851,
+        "final_auc_top10_median_regret": 0.0,
+        "pairwise_final_rank_accuracy": 0.9123913043478261,
+        "pilot_budget_per_method": 5000,
+        "pilot_fraction_of_final_budget": 0.5,
+        "tasks": 23
+      },
+      {
+        "cost_note": "This diagnostic evaluates every method at the pilot budget and does not charge that total pilot cost. It is descriptive, not an allocation-policy result.",
+        "exact_final_winner_tasks": 19,
+        "final_auc_top10_mean_regret": 0.0022293276424362137,
+        "final_auc_top10_median_regret": 0.0,
+        "pairwise_final_rank_accuracy": 0.9604347826086956,
+        "pilot_budget_per_method": 7500,
+        "pilot_fraction_of_final_budget": 0.75,
+        "tasks": 23
+      }
+    ],
+    "support": {
+      "maximum_runs_per_method_task": 6,
+      "methods": 25,
+      "minimum_runs_per_method_task": 4,
+      "nominal_runs_per_method_task": 5,
+      "normalized_records": 14375,
+      "source_files": 2875,
+      "support_anomalies": {
+        "mol_pal/median2": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "selfies_vae_bo/amlodipine_mpo": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      },
+      "tasks": 23
+    }
+  },
+  "saturn": {
+    "best_published_yield_condition_by_architecture": {
+      "Decoder Transformer": {
+        "augmentation_rounds": 5,
+        "internal_diversity_mean": 0.748,
+        "yield_mean": 154.0,
+        "yield_sd": 93.0
+      },
+      "Mamba": {
+        "augmentation_rounds": 10,
+        "internal_diversity_mean": 0.714,
+        "yield_mean": 306.0,
+        "yield_sd": 57.0
+      },
+      "RNN": {
+        "augmentation_rounds": 7,
+        "internal_diversity_mean": 0.776,
+        "yield_mean": 144.0,
+        "yield_sd": 107.0
+      }
+    },
+    "five_target_hit_ratio_winners": {
+      "5ht1b": "Saturn (Framework)",
+      "braf": "Saturn (Framework)",
+      "fa7": "GEAM",
+      "jak2": "Saturn (Framework)",
+      "parp1": "Saturn (Framework)"
+    },
+    "support": {
+      "architecture_conditions": 18,
+      "architecture_replicates_per_condition": 10,
+      "hit_ratio_methods": 4,
+      "hit_ratio_records": 200,
+      "hit_ratio_replicates_per_method_target": 10,
+      "hit_ratio_targets": 5
+    },
+    "winner_counts": {
+      "GEAM": 1,
+      "Saturn (Framework)": 4
+    }
+  },
+  "schema_version": "anarres.molecular.retrospective_bridge_summary.v1",
+  "source_objects": 5,
+  "tsmiles_jnk3": {
+    "highest_active_novel_conditions": [
+      {
+        "active_novel_fraction": 0.829,
+        "condition": "TSSA_S_Rec50",
+        "fbt_novel": 2.414,
+        "fcd": 0.389,
+        "fragment_novel": 1.757,
+        "novelty_fraction": 0.962,
+        "training_rounds": 10,
+        "valid_fraction": 1.0
+      },
+      {
+        "active_novel_fraction": 0.809,
+        "condition": "TSSA_S_Rec50",
+        "fbt_novel": 2.448,
+        "fcd": 0.411,
+        "fragment_novel": 0.655,
+        "novelty_fraction": 0.96,
+        "training_rounds": 100,
+        "valid_fraction": 1.0
+      },
+      {
+        "active_novel_fraction": 0.71,
+        "condition": "TF_TSSA_S",
+        "fbt_novel": 2.897,
+        "fcd": 0.483,
+        "fragment_novel": 9.105,
+        "novelty_fraction": 0.932,
+        "training_rounds": 5,
+        "valid_fraction": 1.0
+      }
+    ],
+    "support": {
+      "outcome_metrics": 6,
+      "published_conditions": 21,
+      "target": "JNK3"
+    }
+  }
+}

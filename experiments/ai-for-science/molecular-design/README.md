@@ -72,6 +72,16 @@ environment-selection loop is scored. This order tests whether graph structure
 helps choose experience before asking whether a different graph architecture
 changes the result.
 
+## Retrospective evidence bridge
+
+The [retrospective molecular-design bridge](retrospective-bridge/README.md)
+recovers five public evidence objects spanning closed-loop active learning,
+experience replay, augmentation, molecular representation, and finite-budget
+optimization. Each object retains its native intervention, budget, and outcome
+rather than being pooled with unlike decisions. The bridge provides cross-study
+context for the candidate-bank hypothesis, while the RxnFlow study remains the
+prospective environment-selection test.
+
 ## Evidence boundary
 
 The first experiment can establish a measurable, prospective relationship for

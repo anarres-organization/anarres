@@ -106,6 +106,11 @@ CHECKS = (
         "experiments/ai-for-science/molecular-design/reaction-environment-selection",
         "scripts/verify_matched_training_contract.py",
     ),
+    python_check(
+        "molecular retrospective bridge",
+        "experiments/ai-for-science/molecular-design/retrospective-bridge",
+        "test_reproduce.py",
+    ),
     StudyCheck(
         "formal-verification adapter",
         ROOT,

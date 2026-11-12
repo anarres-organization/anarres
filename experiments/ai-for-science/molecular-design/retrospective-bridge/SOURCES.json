@@ -1,0 +1,77 @@
+{
+  "schema_version": "anarres.molecular.retrospective_sources.v1",
+  "claim_boundary": "These artifacts support retrospective mechanism, representation, optimizer, and finite-budget audits. They are not pre-training profile coordinates or prospective RxnFlow outcomes.",
+  "sources": [
+    {
+      "artifact": "Antoniuk et al. supplementary molecular records",
+      "doi": "10.1038/s41524-025-01924-8",
+      "correction_doi": "10.1038/s41524-026-02039-4",
+      "uri": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41524-025-01924-8/MediaObjects/41524_2025_1924_MOESM2_ESM.csv",
+      "sha256": "e93312e9c44bbe6901296691343178b4e8295533a7bcb8375aee0f420b874cfa",
+      "media_type": "text/csv",
+      "size_bytes": 6070096,
+      "license": "CC BY 4.0",
+      "producing_run": "normalize_antoniuk_active_learning.py"
+    },
+    {
+      "artifact": "Antoniuk et al. published Table 2 HTML",
+      "doi": "10.1038/s41524-025-01924-8",
+      "uri": "https://www.nature.com/articles/s41524-025-01924-8/tables/2",
+      "sha256": "1e156cbd8ea7d76f47b597ccbee02488c67135ce1f72e1ea8998bccda21c28a2",
+      "media_type": "text/html",
+      "size_bytes": 169095,
+      "license": "CC BY 4.0",
+      "producing_run": "normalize_antoniuk_active_learning.py"
+    },
+    {
+      "artifact": "InVirtuoGen released results archive",
+      "uri": "https://github.com/invirtuolabs/InVirtuoGen_results/archive/b50bb3ae2bdcb9df581f0b219d79cf14b05d0fbb.tar.gz",
+      "revision": "b50bb3ae2bdcb9df581f0b219d79cf14b05d0fbb",
+      "sha256": "c96424f807238822556d497fd89a6b63d8492ecc8e1c4e2b143ecb6c522fcf44",
+      "media_type": "application/gzip",
+      "size_bytes": 13022352,
+      "license": "MIT",
+      "producing_run": "normalize_invirtuo_replay.py"
+    },
+    {
+      "artifact": "Saturn architecture and augmentation source data",
+      "doi": "10.1038/s42256-026-01200-4",
+      "uri": "https://static-content.springer.com/esm/art%3A10.1038%2Fs42256-026-01200-4/MediaObjects/42256_2026_1200_MOESM8_ESM.xlsx",
+      "sha256": "255b2dbc13f105578608a5f0d3be2d33e7704dcaab66e8d394dbd4facd6fd365",
+      "media_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "size_bytes": 13463,
+      "license": "CC BY 4.0",
+      "producing_run": "normalize_saturn_source_data.py"
+    },
+    {
+      "artifact": "Saturn five-target hit-ratio source data",
+      "doi": "10.1038/s42256-026-01200-4",
+      "uri": "https://static-content.springer.com/esm/art%3A10.1038%2Fs42256-026-01200-4/MediaObjects/42256_2026_1200_MOESM6_ESM.xlsx",
+      "sha256": "89b3d9f6374853fa61784f84b68ac96340755c827c3b2a23450a5ca1bb7aaab0",
+      "media_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "size_bytes": 12485,
+      "license": "CC BY 4.0",
+      "producing_run": "normalize_saturn_source_data.py"
+    },
+    {
+      "artifact": "t-SMILES published JNK3 Table 2 HTML",
+      "doi": "10.1038/s41467-024-49388-6",
+      "uri": "https://www.nature.com/articles/s41467-024-49388-6/tables/2",
+      "sha256": "c990e56a041cc55e041d8a0043efe6d6d94e4c152b6f55120495d8b80e71b168",
+      "media_type": "text/html",
+      "size_bytes": 178391,
+      "license": "CC BY 4.0",
+      "producing_run": "normalize_tsmiles_table.py"
+    },
+    {
+      "artifact": "PMO official result archive",
+      "doi": "10.6084/m9.figshare.20123453.v1",
+      "uri": "https://ndownloader.figshare.com/files/35994221",
+      "sha256": "fcdcf721647846719ad98b81633352dc2414b8847694f60d3fb82b1da7103c8c",
+      "media_type": "application/gzip",
+      "size_bytes": 454865900,
+      "license": "MIT",
+      "producing_run": "normalize_pmo.py"
+    }
+  ]
+}
