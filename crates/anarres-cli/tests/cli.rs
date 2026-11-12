@@ -117,6 +117,31 @@ fn demo_writes_compares_and_validates_two_records() {
 }
 
 #[test]
+fn readme_quick_start_matches_demo_output() {
+    let directory = temporary_directory();
+    let output = Command::new(binary())
+        .arg("demo")
+        .current_dir(&directory)
+        .env("NO_COLOR", "1")
+        .output()
+        .expect("CLI process starts");
+    assert!(output.status.success());
+
+    let stdout = String::from_utf8(output.stdout).expect("stdout is UTF-8");
+    let readme_path = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../README.md");
+    let readme = fs::read_to_string(readme_path).expect("README is readable");
+    let marker = "starting policy, then checks that they can be compared:\n\n```text\n";
+    let start = readme.find(marker).expect("README demo block exists") + marker.len();
+    let end = readme[start..]
+        .find("\n```")
+        .expect("README demo block is closed");
+    let documented = &readme[start..start + end];
+
+    assert_eq!(documented, stdout.trim_end());
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
+}
+
+#[test]
 fn core_human_output_has_a_stable_layout() {
     let directory = temporary_directory();
     let record = directory.join("environment.json");
