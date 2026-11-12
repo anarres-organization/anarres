@@ -82,6 +82,13 @@ rather than being pooled with unlike decisions. The bridge provides cross-study
 context for the candidate-bank hypothesis, while the RxnFlow study remains the
 prospective environment-selection test.
 
+The PMO object also supports a charged temporal decision audit. A 1,000-call
+pilot combined with a training-fold method prior changes the fixed-method choice
+on 18 of 23 held-out oracle tasks. It reaches 84.3% pairwise ordering and 0.078
+mean normalized regret while using 14.2% of exhaustive evaluation cost. These
+pilot values are early optimization outcomes, so the result complements rather
+than replaces the pre-training RxnFlow test.
+
 ## Evidence boundary
 
 The first experiment can establish a measurable, prospective relationship for

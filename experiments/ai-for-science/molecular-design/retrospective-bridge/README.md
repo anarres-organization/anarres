@@ -1,7 +1,9 @@
 # Retrospective molecular-design bridge
 
-**Status:** five public evidence objects are normalized and source-audited. The
-bridge is retrospective and does not alter the sealed RxnFlow candidate panel.
+**Status:** five public evidence objects are normalized and source-audited. A
+charged PMO decision ladder evaluates early optimization outcomes across 23 held-out
+oracle tasks. The bridge is retrospective and leaves the sealed RxnFlow
+candidate panel unchanged.
 
 This bridge asks how experience, acquisition, representation, and finite
 oracle budget change molecular-design outcomes across published studies. It
@@ -17,9 +19,10 @@ and source provenance can be recovered without figure digitization. The five
 current objects answer related but distinct questions:
 
 - [**Antoniuk et al. (2026)**](https://doi.org/10.1038/s41524-025-01924-8)
-  compare JANUS with and without closed-loop active learning at a common
-  500-molecule DFT budget. The released acquisition data contain 61,659
-  molecules from the initial dataset and three acquired batches.
+  compare JANUS with and without closed-loop active learning on a final
+  500-molecule DFT evaluation. The active-learning arm also uses three prior
+  acquisition batches totaling 51,453 DFT attempts. The final comparison is
+  therefore an endpoint comparison rather than a total-cost-matched one.
 - [**InVirtuoGen**](https://github.com/invirtuolabs/InVirtuoGen_results)
   compares experience replay with no replay across all 23 PMO objectives. The
   matched seed-0 panel contains 23 direct comparisons, while the replay arm
@@ -40,22 +43,36 @@ environment profiles built from measurements made before training.
 
 ## Main findings
 
+### Charged temporal decision audit
+
+The PMO trajectories support a real candidate decision with explicit cost. At
+the 1,000-call pilot budget, a rule combining each method's training-fold prior
+with its task-specific pilot AUC changes the fixed-method decision on 18 of 23
+held-out tasks. It reaches 84.3% pairwise ordering and 0.078 mean normalized
+regret, compared with 81.8% and 0.099 for the training-fold-selected fixed
+method. An uninformed tie reaches 50.0% ordering and 0.479 regret.
+
+Measuring every released replicate through 1,000 oracle calls and completing
+every method tied for selection uses 14.2% of exhaustive evaluation cost. The
+paired pilot signal beats 1,000 within-panel shuffles on both ordering and
+regret, giving the minimum attainable permutation fraction of 0.001. The result
+uses early downstream outcomes, so it establishes temporal decision value rather than
+prediction from measurements available before optimization. The complete
+folds, costs, controls, and later pilot budgets are recorded in
+[`pmo_decision_ladder_v1.json`](data/pmo_decision_ladder_v1.json).
+
+### Cross-study mechanism evidence
+
 The active-learning comparison provides the closest external data-acquisition
-intervention. At the same final DFT budget, JANUS with active learning raises
-the top multi-property score from 3.56 to 5.24 and the DFT-stable fraction from
-6% to 22% relative to JANUS alone.
+intervention. On the final 500-molecule evaluation, JANUS with active learning
+raises the top multi-property score from 3.56 to 5.24 and the DFT-stable
+fraction from 6% to 22% relative to JANUS alone. The preceding acquisition cost
+remains part of the intervention and prevents a total-cost-matched claim.
 
 The replay comparison is heterogeneous across objectives. Replay improves AUC
 Top-10 on 12 PMO tasks, reduces it on 10, and ties on one. The mean matched
 difference is 0.0179, while the median is 0.0036. A useful mechanism at the
 aggregate level can therefore remain target dependent.
-
-The PMO trajectories show how much early budget is needed to recover final
-method orderings. Evaluating every method to 10% of its final budget identifies
-8 of 23 final winners with 75.4% pairwise ordering accuracy. At 50%, those
-values rise to 14 of 23 and 91.2%. This descriptive trajectory audit leaves the
-cost of probing every method uncharged. An allocation-policy test would include
-that cost in the decision budget.
 
 Saturn and t-SMILES add two compatibility checks. The best augmentation depth
 changes across RNN, decoder-transformer, and Mamba architectures, and the
@@ -102,6 +119,10 @@ python scripts/normalize_pmo.py \
   --archive /path/to/results.tar.gz \
   --output /tmp/pmo.json \
   --workers 8
+
+python scripts/build_pmo_decision_ladder.py \
+  --pmo /tmp/pmo.json \
+  --output /tmp/pmo-decision-ladder.json
 ```
 
 The PMO archive expands to about 1.7 GB and remains an external artifact. The

@@ -29,6 +29,7 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
         cls.antoniuk = json.loads((DATA / "antoniuk_active_learning_bridge_v1.json").read_text())
         cls.tsmiles = json.loads((DATA / "tsmiles_jnk3_bridge_v1.json").read_text())
         cls.summary = json.loads((DATA / "retrospective_bridge_summary_v1.json").read_text())
+        cls.pmo_decisions = json.loads((DATA / "pmo_decision_ladder_v1.json").read_text())
 
     def test_pmo_summary_preserves_support_and_cost_boundary(self) -> None:
         pmo = self.summary["pmo"]
@@ -49,6 +50,30 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
             path.write_text("first: [0.2, 1]\nsecond: [0.9, 1]\nthird: [0.4, 2]\n")
             trace = module.load_trace(path)
         self.assertEqual([row[3] for row in trace], ["first", "second", "third"])
+
+    def test_pmo_decision_ladder_charges_measurement_and_changes_decisions(self) -> None:
+        self.assertEqual(self.pmo_decisions["support"]["tasks"], 23)
+        self.assertEqual(self.pmo_decisions["support"]["candidate_methods"], 25)
+        primary = self.pmo_decisions["budget_results"][0]
+        self.assertEqual(primary["pilot_budget_per_method_run"], 1000)
+        self.assertEqual(
+            primary["prior_plus_pilot_auc_decisions_different_from_fixed_method"],
+            18,
+        )
+        learned = primary["metrics"]["prior_plus_pilot_auc"]
+        fixed = primary["metrics"]["training_fold_fixed_method"]
+        self.assertLess(learned["normalized_regret"], fixed["normalized_regret"])
+        self.assertGreater(learned["pairwise_ordering"], fixed["pairwise_ordering"])
+        self.assertAlmostEqual(
+            primary["mean_primary_rule_cost"]["fraction_of_exhaustive"],
+            0.142261069926,
+        )
+        pairing = primary["pilot_pairing_control"]
+        self.assertEqual(pairing["repeats"], 1000)
+        self.assertAlmostEqual(
+            pairing["fraction_null_as_good_or_better_regret"],
+            1 / 1001,
+        )
 
     def test_invirtuo_matched_panel(self) -> None:
         support = self.invirtuo["support"]
