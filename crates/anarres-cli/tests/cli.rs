@@ -144,6 +144,9 @@ fn documented_demo_output_matches_the_binary() {
         "  ✓ Qualified    math-reference-demo-v1",
         "  ✓ Measured     math-reference-demo-v1",
         "  ✓ Compatible   candidate panel",
+        "ENVIRONMENT               SIGNAL / 1M   COVERAGE  ADMITTED   REPAIR",
+        "math-alternative-demo-v1     214.2857     0.4154         2        1",
+        "math-reference-demo-v1       833.3333     0.6533         2        1",
     ] {
         assert!(stdout.contains(line));
         assert!(readme.contains(line));
