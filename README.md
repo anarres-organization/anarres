@@ -63,12 +63,17 @@ anarres demo
 The demo runs locally without an adapter or GPU. It qualifies two candidate
 environments, measures the experience each produces under the same starting
 policy, checks that they can be compared, and writes validated portable
-records.
+records. The comparison makes their usable signal density and effective
+coverage visible before training.
 
 ```text
   ✓ Qualified    math-reference-demo-v1
   ✓ Measured     math-reference-demo-v1
   ✓ Compatible   candidate panel
+
+ENVIRONMENT               SIGNAL / 1M   COVERAGE  ADMITTED   REPAIR
+math-alternative-demo-v1     214.2857     0.4154         2        1
+math-reference-demo-v1       833.3333     0.6533         2        1
 ```
 
 Use the generated records immediately:
