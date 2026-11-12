@@ -65,57 +65,11 @@ environments, measures the experience each produces under the same starting
 policy, checks that they can be compared, and writes validated portable
 records.
 
-<details>
-<summary>View the exact terminal output</summary>
-
 ```text
-Anarres demo
-Repeated attempts from one starting policy are qualified, measured, and compared.
-
-Input
-    Starting policy    synthetic-policy-v1
-    Candidates         2 synthetic alternatives
-    Task groups        5 per candidate
-    Group size         4 attempts
-    Measurements       outcomes, admitted advantage mass, and generated tokens
-    Validity           oracle, no-op, and infrastructure checks
-
-1. Qualify
   ✓ Qualified    math-reference-demo-v1
-    Admitted           2
-    Reserve            1
-    Repair             1
-    Quarantine         1
-
-2. Measure
   ✓ Measured     math-reference-demo-v1
-    Signal density     833.3333 advantage mass / million generated tokens
-    Effective coverage 0.6533 (0 to 1)
-    Evidence           3 eligible task groups, 4,200 generated tokens
-
-3. Compare
   ✓ Compatible   candidate panel
-    Policy             synthetic-policy-v1
-    Revision           synthetic-reference-only
-    Candidates         2
-
-ENVIRONMENT               SIGNAL / 1M   COVERAGE  ADMITTED   REPAIR
-math-alternative-demo-v1     214.2857     0.4154         2        1
-math-reference-demo-v1       833.3333     0.6533         2        1
-
-    Signal span        214.2857 to 833.3333
-    Coverage           0.4154 to 0.6533
-
-Artifacts
-  ✓ Wrote        .anarres/demo/environment.json
-  ✓ Wrote        .anarres/demo/environment-alternative.json
-  ✓ Validated    2 content digests
-
-Next  anarres design .anarres/demo/environment.json .anarres/demo/environment-alternative.json
-    Use your data: anarres qualify --help
 ```
-
-</details>
 
 Use the generated records immediately:
 
@@ -130,8 +84,9 @@ ignored by Git and can be regenerated. Run the demo from a project directory
 or pass `--output` to choose a different location. Real domain data uses one of
 the domain workflows described below.
 
-The [CLI guide](docs/cli.md) continues with your own measurements, candidate
-comparison, installed domain workflows, JSON output, and shell completions.
+The [CLI guide](docs/cli.md#first-run) includes the complete terminal output,
+then continues with your own measurements, domain workflows, JSON output, and
+shell completions.
 
 ## Core CLI and domain workflows
 
