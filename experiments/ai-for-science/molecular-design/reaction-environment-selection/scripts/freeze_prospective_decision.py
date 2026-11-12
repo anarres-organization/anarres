@@ -13,6 +13,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONTRACT = ROOT / "MATCHED_TRAINING_EVALUATION_CONTRACT_V1.json"
+DEFAULT_PROSPECTIVE_CONTRACT = ROOT / "PROSPECTIVE_BANK_CONSTRUCTION_CONTRACT_V1.json"
 DEFAULT_SCORER = Path(__file__).with_name("score_prospective_results.py")
 ALPHAS = (0.01, 0.1, 1.0, 10.0, 100.0)
 OPERATIONAL = (
@@ -163,12 +164,18 @@ def fit_model(
     )
 
 
-def validate_prospective_banks(payload: dict[str, Any], contract: dict[str, Any]) -> None:
+def validate_prospective_banks(
+    payload: dict[str, Any], contract: dict[str, Any], prospective_contract_path: Path
+) -> None:
     if payload.get("qualification") != "pass" or payload.get("outcomes_opened") is not False:
         raise ValueError("prospective banks must qualify before any outcomes are opened")
     expected = set(contract["development_panel"]["prospective_banks_excluded"])
     if set(payload.get("banks", {})) != expected:
         raise ValueError("prospective bank identities differ from the matched contract")
+    if payload.get("inputs", {}).get("prospective_contract_sha256") != sha256(
+        prospective_contract_path
+    ):
+        raise ValueError("prospective bank construction contract digest mismatch")
     expected_size = int(contract["development_panel"]["bank_size"])
     for bank, record in payload["banks"].items():
         members = record.get("members", [])
@@ -180,6 +187,7 @@ def validate_prospective_banks(payload: dict[str, Any], contract: dict[str, Any]
 
 def freeze(
     contract_path: Path,
+    prospective_contract_path: Path,
     development_path: Path,
     prospective_banks_path: Path,
     scorer_path: Path,
@@ -191,7 +199,7 @@ def freeze(
         raise ValueError("development record must keep prospective outcomes sealed")
     if development.get("contract") != contract.get("contract"):
         raise ValueError("development result belongs to a different contract")
-    validate_prospective_banks(prospective, contract)
+    validate_prospective_banks(prospective, contract, prospective_contract_path)
     operational, _ = fit_model(development, OPERATIONAL)
     graph, _ = fit_model(development, GRAPH)
     models = {"operational": operational, "graph_aware": graph}
@@ -253,6 +261,7 @@ def freeze(
         },
         "inputs": {
             "contract_sha256": sha256(contract_path),
+            "prospective_construction_contract_sha256": sha256(prospective_contract_path),
             "development_results_sha256": sha256(development_path),
             "prospective_banks_sha256": sha256(prospective_banks_path),
             "freeze_implementation_sha256": sha256(Path(__file__)),
@@ -264,6 +273,7 @@ def freeze(
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--contract", type=Path, default=DEFAULT_CONTRACT)
+    parser.add_argument("--prospective-contract", type=Path, default=DEFAULT_PROSPECTIVE_CONTRACT)
     parser.add_argument("--development-results", type=Path, required=True)
     parser.add_argument("--prospective-banks", type=Path, required=True)
     parser.add_argument("--scorer", type=Path, default=DEFAULT_SCORER)
@@ -271,7 +281,13 @@ def main() -> None:
     args = parser.parse_args()
     if args.output.exists():
         raise FileExistsError(args.output)
-    payload = freeze(args.contract, args.development_results, args.prospective_banks, args.scorer)
+    payload = freeze(
+        args.contract,
+        args.prospective_contract,
+        args.development_results,
+        args.prospective_banks,
+        args.scorer,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"status": payload["status"], "decisions": payload["decisions"]}, indent=2))

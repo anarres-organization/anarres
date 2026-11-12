@@ -29,6 +29,7 @@ class ProspectiveDecisionPipelineTests(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
         self.contract_path = self.root / "contract.json"
+        self.prospective_contract_path = self.root / "prospective-contract.json"
         self.development_path = self.root / "development.json"
         self.banks_path = self.root / "banks.json"
         self.scorer_path = ROOT / "scripts" / "score_prospective_results.py"
@@ -83,6 +84,8 @@ class ProspectiveDecisionPipelineTests(unittest.TestCase):
             "mean_utility_curves": curves,
             "seed_records": seed_records,
         }
+        self.contract_path.write_text(json.dumps(self.contract))
+        self.prospective_contract_path.write_text(json.dumps({"contract": "prospective"}))
         self.banks = {
             "qualification": "pass",
             "outcomes_opened": False,
@@ -100,8 +103,10 @@ class ProspectiveDecisionPipelineTests(unittest.TestCase):
                     },
                 },
             },
+            "inputs": {
+                "prospective_contract_sha256": FREEZE.sha256(self.prospective_contract_path)
+            },
         }
-        self.contract_path.write_text(json.dumps(self.contract))
         self.development_path.write_text(json.dumps(self.development))
         self.banks_path.write_text(json.dumps(self.banks))
 
@@ -111,6 +116,7 @@ class ProspectiveDecisionPipelineTests(unittest.TestCase):
     def freeze(self) -> dict:
         return FREEZE.freeze(
             self.contract_path,
+            self.prospective_contract_path,
             self.development_path,
             self.banks_path,
             self.scorer_path,
@@ -188,6 +194,12 @@ class ProspectiveDecisionPipelineTests(unittest.TestCase):
         self.banks["outcomes_opened"] = True
         self.banks_path.write_text(json.dumps(self.banks))
         with self.assertRaisesRegex(ValueError, "before any outcomes"):
+            self.freeze()
+
+    def test_freeze_rejects_unbound_construction_contract(self) -> None:
+        self.banks["inputs"]["prospective_contract_sha256"] = "0" * 64
+        self.banks_path.write_text(json.dumps(self.banks))
+        with self.assertRaisesRegex(ValueError, "construction contract digest"):
             self.freeze()
 
     def test_score_requires_and_preserves_frozen_decisions(self) -> None:

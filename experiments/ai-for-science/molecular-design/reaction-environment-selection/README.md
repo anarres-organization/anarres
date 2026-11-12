@@ -1,10 +1,12 @@
 # Prospective selection of molecular graph experience
 
-**Current status:** the Q07820 target, six candidate banks, common starting
+**Current status:** the Q07820 target, six development banks, common starting
 policy, reward and docking runtimes, replay interface, and matched training and
 evaluation contract are frozen. The contract covers six banks, two seeds, and
-checkpoints at 12,800, 25,600, and 40,000 target-oracle attempts. No
-target-training or evaluation outcome has been opened.
+checkpoints at 12,800, 25,600, and 40,000 target-oracle attempts. The two
+prospective bank algorithms and their independent qualification gate are also
+fixed before development outcomes. No target-training or evaluation outcome
+has been opened.
 
 The qualification record preserves both successful and failed gates. Early
 measurement views failed diversity and ordering checks; the final independent
@@ -41,6 +43,15 @@ verifies that freeze and scores curve error, ordering, allocation regret, and
 seed-level winner agreement only after the prospective matrix passes the same
 native endpoint gate. The scripts define the analysis path without opening or
 creating any claim-bearing outcome.
+
+Prospective membership is governed by
+[`PROSPECTIVE_BANK_CONSTRUCTION_CONTRACT_V1.json`](PROSPECTIVE_BANK_CONSTRUCTION_CONTRACT_V1.json).
+[`scripts/construct_prospective_banks.py`](scripts/construct_prospective_banks.py)
+interleaves the frozen development selector rankings into an operational hybrid
+and a graph-aware hybrid. Both banks must reproduce their intended strict
+measurement contrasts in the construction and confirmation views. This step
+uses starting-policy records only and cannot read development or prospective
+training outcomes.
 
 ## Use the CLI
 

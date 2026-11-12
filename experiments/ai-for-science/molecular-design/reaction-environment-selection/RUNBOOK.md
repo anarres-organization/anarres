@@ -454,13 +454,31 @@ python scripts/score_development_results.py \
   --output /path/to/DEVELOPMENT_RESULTS.json
 ```
 
-Construct and independently qualify the two prospective banks, then freeze the
-operational and graph-aware ridge models, forecasts, empirical uncertainty,
-and abstention decisions:
+Construct and independently qualify the two prospective banks from the same
+two starting-policy views governed by the frozen bank contract:
+
+```bash
+python scripts/construct_prospective_banks.py \
+  --measurement-contract MEASUREMENT_CONTRACT_V4.json \
+  --bank-contract BANK_CONSTRUCTION_CONTRACT_V4.json \
+  --prospective-contract PROSPECTIVE_BANK_CONSTRUCTION_CONTRACT_V1.json \
+  --records /path/to/construction-records.jsonl \
+  --records /path/to/confirmation-records.jsonl \
+  --manifest /path/to/construction-manifest.json \
+  --manifest /path/to/confirmation-manifest.json \
+  --output /path/to/PROSPECTIVE_BANKS.json
+```
+
+Every operational and graph-aware contrast must pass in both views, and the
+two construction memberships must differ. A failed qualification stops the
+prospective comparison. After development scoring, freeze the operational and
+graph-aware ridge models, forecasts, empirical uncertainty, and abstention
+decisions against that hash-bound bank record:
 
 ```bash
 python scripts/freeze_prospective_decision.py \
   --development-results /path/to/DEVELOPMENT_RESULTS.json \
+  --prospective-contract PROSPECTIVE_BANK_CONSTRUCTION_CONTRACT_V1.json \
   --prospective-banks /path/to/PROSPECTIVE_BANKS.json \
   --output /path/to/PROSPECTIVE_FREEZE.json
 ```

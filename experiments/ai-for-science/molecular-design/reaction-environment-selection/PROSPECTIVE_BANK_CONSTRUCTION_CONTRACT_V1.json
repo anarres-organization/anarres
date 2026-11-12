@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0",
+  "study": "prospective-reaction-environment-selection",
+  "status": "frozen_before_development_outcomes",
+  "source_measurement_contract": "MEASUREMENT_CONTRACT_V4.json",
+  "source_bank_contract": "BANK_CONSTRUCTION_CONTRACT_V4.json",
+  "bank_size": 512,
+  "construction_view_seed": 20261122,
+  "confirmation_view_seed": 20261125,
+  "prospective_bank_order": [
+    "operational_hybrid",
+    "graph_aware_hybrid"
+  ],
+  "construction": {
+    "eligible_pool": "The frozen version 4 eligible-record rule: reward status ok, finite graph embedding, and one lowest-record-id representative per canonical SMILES.",
+    "operational_hybrid": {
+      "rank_streams": [
+        "reward_signal",
+        "validity_cost"
+      ],
+      "procedure": "Cycle through the frozen selector rankings in the listed order, accepting each previously unselected record, until 512 records are selected. If the streams are exhausted, fill by the frozen development hash order."
+    },
+    "graph_aware_hybrid": {
+      "rank_streams": [
+        "reward_signal",
+        "validity_cost",
+        "scaffold_coverage",
+        "route_coverage",
+        "graph_embedding_coverage"
+      ],
+      "procedure": "Cycle through the frozen selector rankings in the listed order, accepting each previously unselected record, until 512 records are selected. If the streams are exhausted, fill by the frozen development hash order."
+    },
+    "outcome_features_permitted": false
+  },
+  "qualification": {
+    "procedure": "Reconstruct both hybrids independently in the construction and confirmation views. Every intended strict contrast must hold in both views, and the two construction memberships must differ.",
+    "checks": [
+      {
+        "check_id": "operational_reward",
+        "bank": "operational_hybrid",
+        "reference_bank": "hash_uniform",
+        "coordinate": "mean_target_reward",
+        "direction": "higher"
+      },
+      {
+        "check_id": "operational_actions",
+        "bank": "operational_hybrid",
+        "reference_bank": "hash_uniform",
+        "coordinate": "mean_generated_action_count",
+        "direction": "lower"
+      },
+      {
+        "check_id": "operational_oracle_cost",
+        "bank": "operational_hybrid",
+        "reference_bank": "hash_uniform",
+        "coordinate": "mean_oracle_seconds",
+        "direction": "lower"
+      },
+      {
+        "check_id": "graph_scaffolds",
+        "bank": "graph_aware_hybrid",
+        "reference_bank": "operational_hybrid",
+        "coordinate": "unique_scaffold_fraction",
+        "direction": "higher"
+      },
+      {
+        "check_id": "graph_ring_systems",
+        "bank": "graph_aware_hybrid",
+        "reference_bank": "operational_hybrid",
+        "coordinate": "unique_ring_systems_per_record",
+        "direction": "higher"
+      },
+      {
+        "check_id": "graph_routes",
+        "bank": "graph_aware_hybrid",
+        "reference_bank": "operational_hybrid",
+        "coordinate": "unique_route_fraction",
+        "direction": "higher"
+      },
+      {
+        "check_id": "graph_reaction_families",
+        "bank": "graph_aware_hybrid",
+        "reference_bank": "operational_hybrid",
+        "coordinate": "unique_reaction_families",
+        "direction": "higher"
+      },
+      {
+        "check_id": "graph_embedding_coverage",
+        "bank": "graph_aware_hybrid",
+        "reference_bank": "operational_hybrid",
+        "coordinate": "embedding_mean_nearest_neighbor_distance",
+        "direction": "higher"
+      }
+    ],
+    "aggregate_gate": "Every contrast must pass independently in both views and the construction-view membership Jaccard must be below 1.0.",
+    "failure_action": "Do not fit or train the prospective comparison. Preserve the failed qualification result and version any revised construction rule before drawing another view."
+  },
+  "sealed_boundary": {
+    "development_outcomes_opened": false,
+    "prospective_training_started": false,
+    "prospective_outcomes_opened": false
+  }
+}

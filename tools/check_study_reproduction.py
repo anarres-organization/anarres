@@ -112,6 +112,7 @@ CHECKS = (
         "-m",
         "unittest",
         "test_gate_endpoint_evaluation.py",
+        "test_construct_prospective_banks.py",
         "test_prospective_decision_pipeline.py",
     ),
     python_check(
