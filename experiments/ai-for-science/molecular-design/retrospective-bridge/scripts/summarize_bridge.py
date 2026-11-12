@@ -110,7 +110,11 @@ def summarize_saturn(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def compact_decision_audit(payload: dict[str, Any]) -> dict[str, Any]:
-    output = {key: value for key, value in payload.items() if key != "selections"}
+    output = {
+        key: value
+        for key, value in payload.items()
+        if key not in {"selections", "chosen_hyperparameters_by_target"}
+    }
     output["selected_methods"] = dict(
         sorted(collections.Counter(row["selected_method"] for row in payload["selections"]).items())
     )

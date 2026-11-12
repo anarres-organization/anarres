@@ -50,6 +50,31 @@ The objects are analyzed separately under their published intervention classes.
 Their outcomes remain downstream result records and stay outside Anarres
 environment profiles built from measurements made before training.
 
+## Prediction contract
+
+[`prediction_contract_v1.json`](data/prediction_contract_v1.json) applies one
+decision format across the seven objects without pooling unlike outcomes. A
+panel fixes the source, target context, downstream contract, endpoint, and
+budget. Native outcomes are oriented so larger is better and min-max normalized
+only within that panel. Predictive evaluations hold out a complete scientific
+context and report pairwise ordering, panel-normalized regret, and top-choice
+credit. Continuous inputs are standardized inside the training fold, and
+measurement, oracle, training, and evaluation costs remain separate.
+
+Three objects support held-out prediction audits. PMO is a charged temporal
+decision because its pilot values are early downstream outcomes. The van
+Tilborg audit holds out complete molecular libraries and uses measurements from
+the initial labeled batch. The regioselectivity audit holds out complete target
+molecules and uses target structure plus acquisition outcomes from other
+targets. The other four objects retain their intervention evidence but remain
+outside the predictor because costs, model contracts, or outcome-blind
+coordinates are not comparable.
+
+The pinned RxnFlow `explore` templates define the synthesis action space. They
+are source-construction assets rather than predictor coordinates. Candidates
+derived from those templates enter the prospective analysis only after the
+frozen independent-probe measurements are available.
+
 ## Main findings
 
 ### Charged temporal decision audit
@@ -104,6 +129,10 @@ from the most similar training target. It selects a best acquisition method on
 with 42% and 0.297 for the training-fold-selected fixed method. Its 58.8%
 pairwise ordering remains below the fixed method's 60.2%, so molecular analogy
 improves the top decision without improving the complete ranking.
+A nested similarity-weighted sensitivity reaches 60.2% ordering and 0.259
+regret. It improves both metrics over the fixed-method baseline, but remains
+weaker than the nearest-target rule on top-choice credit and regret. Structural
+transfer is therefore present but sensitive to the prediction rule.
 
 ## Relationship to the prospective study
 
@@ -157,6 +186,10 @@ uv run --with rdkit==2026.9.2 python \
   scripts/normalize_reisman_regioselectivity.py \
   --archive /path/to/clean_run.zip \
   --output /tmp/reisman.json
+
+python scripts/build_prediction_contract.py \
+  --data data \
+  --output /tmp/prediction-contract.json
 ```
 
 The PMO and regioselectivity archives remain external artifacts. The repository

@@ -1,0 +1,182 @@
+{
+  "normalization": {
+    "baselines": [
+      "uninformed tie",
+      "training-fold-selected fixed candidate",
+      "simple scientific rule"
+    ],
+    "cost": "Keep measurement, oracle, training, and evaluation cost separate. A panel is cost-matched only when the released intervention supports that claim.",
+    "decision_panel": "One source, target context, downstream contract, endpoint, and budget with only the candidate acquisition or environment choice varying.",
+    "evaluation": "Hold out complete scientific contexts and report pairwise ordering, mean panel-normalized regret, and top-choice credit with half credit for ties.",
+    "outcome": "Orient native outcomes so larger is better, then min-max normalize only within a matched decision panel. A tied panel receives utility 0.5.",
+    "prediction_inputs": "Standardize continuous inputs inside each training fold or derive ranks from candidate measurements without using held-out outcomes."
+  },
+  "prediction_audits": {
+    "pmo_temporal": {
+      "candidate_arms": 575,
+      "cost_contract": "Every released replicate of every candidate is charged through the pilot budget, followed by completion of the pilot-AUC-selected method.",
+      "decision_information": "training-fold method prior plus task-specific AUC observed through the charged pilot budget",
+      "holdout_unit": "one complete oracle task",
+      "measurement_timing": "early downstream optimization",
+      "normalized_outcome": "final AUC Top-10 within oracle task",
+      "panels": 23,
+      "pretraining_profile_input": false,
+      "primary_metrics": {
+        "auc_top10_regret": 0.033850850554,
+        "normalized_regret": 0.078084056225,
+        "pairwise_ordering": 0.84330505479,
+        "top_choice_credit": 0.402173913043
+      },
+      "source_object": "PMO"
+    },
+    "reisman_cross_target": {
+      "candidate_arms": 500,
+      "cost_contract": "common simulated acquisition contract within each target",
+      "decision_information": "target Morgan fingerprint and acquisition outcomes from other targets",
+      "holdout_unit": "one complete target molecule",
+      "measurement_timing": "before opening the held-out target outcomes",
+      "nested_similarity_sensitivity": {
+        "best_method_credit": 0.54,
+        "mean_normalized_regret": 0.2591774172082999,
+        "pairwise_ordering": 0.6022222222222222,
+        "selected_method_counts": {
+          "acqf_1-db0-01-a1": 14,
+          "acqf_10": 4,
+          "acqf_2-1": 12,
+          "acqf_4-1": 1,
+          "acqf_5": 8,
+          "acqf_6": 4,
+          "acqf_7": 1,
+          "acqf_9": 5,
+          "random": 1
+        },
+        "selection_contract": {
+          "inner_holdout": "one complete target from the outer training fold",
+          "neighbor_counts": [
+            1,
+            3,
+            5,
+            10,
+            20
+          ],
+          "outer_holdout": "one complete target",
+          "primary_tuning_metric": "mean_normalized_regret",
+          "similarity_powers": [
+            1,
+            2,
+            4
+          ],
+          "tie_breaker": "pairwise_ordering"
+        },
+        "targets": 50
+      },
+      "normalized_outcome": "negative stable-top-1 index within target",
+      "panels": 50,
+      "pretraining_profile_input": false,
+      "primary_metrics": {
+        "best_method_credit": 0.62,
+        "mean_normalized_regret": 0.21312616281389954,
+        "pairwise_ordering": 0.588,
+        "selected_method_counts": {
+          "acqf_1-db0-01-a1": 3,
+          "acqf_10": 1,
+          "acqf_2-1": 5,
+          "acqf_4-1": 1,
+          "acqf_5": 6,
+          "acqf_6": 4,
+          "acqf_7": 1,
+          "acqf_9": 11,
+          "random": 18
+        },
+        "targets": 50
+      },
+      "source_object": "Schleinitz et al."
+    },
+    "vantilborg_cross_library": {
+      "candidate_arms": 54,
+      "cost_contract": "common acquisition-cycle contract within each panel",
+      "decision_information": "acquisition identity, architecture, and measurements from the initial labeled batch",
+      "graph_measurement_sensitivity": {
+        "best_method_credit": 0.4444444444444444,
+        "chosen_alpha_by_held_out_dataset": {
+          "ALDH1": 0.1,
+          "PKM2": 0.1,
+          "VDR": 0.1
+        },
+        "contexts": 9,
+        "mean_normalized_regret": 0.17600863454521992,
+        "pairwise_ordering": 0.8
+      },
+      "holdout_unit": "one complete molecular library",
+      "measurement_timing": "before iterative active-learning acquisition",
+      "normalized_outcome": "terminal hits within library and architecture",
+      "panels": 9,
+      "pretraining_profile_input": false,
+      "primary_metrics": {
+        "best_method_credit": 0.5555555555555556,
+        "chosen_alpha_by_held_out_dataset": {
+          "ALDH1": 0.1,
+          "PKM2": 0.1,
+          "VDR": 0.1
+        },
+        "contexts": 9,
+        "mean_normalized_regret": 0.13765510137191553,
+        "pairwise_ordering": 0.837037037037037
+      },
+      "source_object": "van Tilborg and Grisoni"
+    }
+  },
+  "prospective_boundary": {
+    "admission_rule": "Use explore-derived candidates only after independent probe measurements are normalized under the frozen prospective contract.",
+    "claim_bearing_test": "RxnFlow reaction-environment selection",
+    "explore_template": "The pinned RxnFlow explore template defines the synthesis action space. It is a source-construction asset, not a predictor coordinate or downstream outcome.",
+    "status": "sealed"
+  },
+  "schema_version": "anarres.molecular.prediction_contract.v1",
+  "status": "retrospective_contract_with_sealed_prospective_test",
+  "supporting_objects": {
+    "antoniuk_active_learning": {
+      "predictor_eligibility": "excluded: preceding acquisition cost is unmatched",
+      "role": "mechanism evidence",
+      "support": {
+        "matched_dft_oracle_budget": 500,
+        "matched_generation_approaches": 3,
+        "released_batches": 4,
+        "released_molecule_records": 61659,
+        "table_approaches": 4
+      }
+    },
+    "invirtuogen_replay": {
+      "predictor_eligibility": "excluded: no released outcome-blind task coordinates distinguish candidates",
+      "role": "matched intervention evidence",
+      "support": {
+        "matched_seed0_pairs": 23,
+        "no_replay_runs_per_task": 1,
+        "records": 92,
+        "replay_runs_per_task": 3,
+        "tasks": 23
+      }
+    },
+    "saturn": {
+      "predictor_eligibility": "excluded: candidate changes include model or method contracts",
+      "role": "architecture and augmentation compatibility evidence",
+      "support": {
+        "architecture_conditions": 18,
+        "architecture_replicates_per_condition": 10,
+        "hit_ratio_methods": 4,
+        "hit_ratio_records": 200,
+        "hit_ratio_replicates_per_method_target": 10,
+        "hit_ratio_targets": 5
+      }
+    },
+    "tsmiles": {
+      "predictor_eligibility": "excluded: representation, augmentation, and exposure change together",
+      "role": "representation and training-duration evidence",
+      "support": {
+        "outcome_metrics": 6,
+        "published_conditions": 21,
+        "target": "JNK3"
+      }
+    }
+  }
+}

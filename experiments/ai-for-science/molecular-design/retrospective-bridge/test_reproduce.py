@@ -30,6 +30,7 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
         cls.tsmiles = json.loads((DATA / "tsmiles_jnk3_bridge_v1.json").read_text())
         cls.summary = json.loads((DATA / "retrospective_bridge_summary_v1.json").read_text())
         cls.pmo_decisions = json.loads((DATA / "pmo_decision_ladder_v1.json").read_text())
+        cls.prediction_contract = json.loads((DATA / "prediction_contract_v1.json").read_text())
         cls.vantilborg = json.loads(
             (DATA / "vantilborg_active_learning_bridge_v1.json").read_text()
         )
@@ -143,6 +144,9 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
         self.assertAlmostEqual(structural["best_method_credit"], 0.62)
         self.assertLess(structural["mean_normalized_regret"], fixed["mean_normalized_regret"])
         self.assertLess(structural["pairwise_ordering"], fixed["pairwise_ordering"])
+        nested = audit["nested_similarity_weighted"]
+        self.assertGreater(nested["pairwise_ordering"], fixed["pairwise_ordering"])
+        self.assertLess(nested["mean_normalized_regret"], fixed["mean_normalized_regret"])
 
     def test_reisman_parser_preserves_overlapping_method_names(self) -> None:
         module = load_module("normalize_reisman_regioselectivity")
@@ -163,6 +167,17 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
         self.assertIn("RxnFlow", self.summary["claim_boundary"])
         self.assertEqual(self.summary["vantilborg_active_learning"]["support"]["contexts"], 9)
         self.assertEqual(self.summary["reisman_regioselectivity"]["support"]["targets"], 50)
+
+    def test_prediction_contract_separates_timing_cost_and_eligibility(self) -> None:
+        contract = self.prediction_contract
+        self.assertEqual(len(contract["prediction_audits"]), 3)
+        self.assertEqual(len(contract["supporting_objects"]), 4)
+        self.assertFalse(contract["prediction_audits"]["pmo_temporal"]["pretraining_profile_input"])
+        self.assertEqual(contract["prospective_boundary"]["status"], "sealed")
+        self.assertIn(
+            "source-construction asset",
+            contract["prospective_boundary"]["explore_template"],
+        )
 
     def test_release_manifest(self) -> None:
         repository = ROOT.parents[3]

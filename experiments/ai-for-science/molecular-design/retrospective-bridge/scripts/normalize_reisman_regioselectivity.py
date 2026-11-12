@@ -32,6 +32,8 @@ METHODS = (
     "acqf_7",
     "acqf_9",
 )
+NEIGHBOR_COUNTS = (1, 3, 5, 10, 20)
+SIMILARITY_POWERS = (1, 2, 4)
 SUFFIX = "_1_coldstart_custom.pkl"
 
 
@@ -229,6 +231,106 @@ def evaluate(
     }
 
 
+def similarity_weighted_predictions(
+    records: list[dict[str, Any]],
+    target: str,
+    candidate_targets: list[str],
+    fingerprints: dict[str, Any],
+    data_structs: Any,
+    metric: str,
+    neighbor_count: int,
+    similarity_power: int,
+) -> dict[tuple[str, str], float]:
+    utility_key = f"{metric}_utility"
+    ordered = sorted(
+        (
+            data_structs.TanimotoSimilarity(fingerprints[target], fingerprints[candidate]),
+            candidate,
+        )
+        for candidate in candidate_targets
+    )
+    neighbors = ordered[-min(neighbor_count, len(ordered)) :]
+    weights = [max(similarity, 1e-12) ** similarity_power for similarity, _ in neighbors]
+    predictions = {}
+    for method in METHODS:
+        values = {
+            row["target_smiles"]: float(row[utility_key])
+            for row in records
+            if row["method"] == method
+        }
+        predictions[(target, method)] = sum(
+            weight * values[neighbor]
+            for weight, (_, neighbor) in zip(weights, neighbors, strict=True)
+        ) / sum(weights)
+    return predictions
+
+
+def nested_similarity_audit(
+    records: list[dict[str, Any]], fingerprints: dict[str, Any], metric: str
+) -> dict[str, Any]:
+    _, data_structs, _ = fingerprint_support()[0]
+    targets = sorted(fingerprints)
+    outer_predictions = {}
+    chosen = {}
+    for held_out in targets:
+        training_targets = [target for target in targets if target != held_out]
+        candidates = []
+        for neighbor_count in NEIGHBOR_COUNTS:
+            for similarity_power in SIMILARITY_POWERS:
+                inner_predictions = {}
+                for validation in training_targets:
+                    inner_predictions.update(
+                        similarity_weighted_predictions(
+                            records,
+                            validation,
+                            [target for target in training_targets if target != validation],
+                            fingerprints,
+                            data_structs,
+                            metric,
+                            neighbor_count,
+                            similarity_power,
+                        )
+                    )
+                inner_records = [row for row in records if row["target_smiles"] in training_targets]
+                inner = decision_metrics(inner_records, inner_predictions, metric)
+                candidates.append(
+                    (
+                        inner["mean_normalized_regret"],
+                        -inner["pairwise_ordering"],
+                        neighbor_count,
+                        similarity_power,
+                    )
+                )
+        _, _, neighbor_count, similarity_power = min(candidates)
+        chosen[held_out] = {
+            "neighbor_count": neighbor_count,
+            "similarity_power": similarity_power,
+        }
+        outer_predictions.update(
+            similarity_weighted_predictions(
+                records,
+                held_out,
+                training_targets,
+                fingerprints,
+                data_structs,
+                metric,
+                neighbor_count,
+                similarity_power,
+            )
+        )
+    result = decision_metrics(records, outer_predictions, metric)
+    result["selection_contract"] = {
+        "outer_holdout": "one complete target",
+        "inner_holdout": "one complete target from the outer training fold",
+        "primary_tuning_metric": "mean_normalized_regret",
+        "tie_breaker": "pairwise_ordering",
+        "neighbor_counts": list(NEIGHBOR_COUNTS),
+        "similarity_powers": list(SIMILARITY_POWERS),
+    }
+    result["chosen_hyperparameters_by_target"] = chosen
+    return result
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--archive", type=Path, required=True)
@@ -274,8 +376,18 @@ def main() -> None:
             "conditions_with_30_runs": sum(row["released_repetitions"] == 30 for row in records),
             "conditions_with_29_runs": sum(row["released_repetitions"] == 29 for row in records),
         },
-        "stable_top1_decision_audit": evaluate(records, fingerprints, "stable_top1"),
-        "top1_auc_sensitivity": evaluate(records, fingerprints, "top1_auc"),
+        "stable_top1_decision_audit": {
+            **evaluate(records, fingerprints, "stable_top1"),
+            "nested_similarity_weighted": nested_similarity_audit(
+                records, fingerprints, "stable_top1"
+            ),
+        },
+        "top1_auc_sensitivity": {
+            **evaluate(records, fingerprints, "top1_auc"),
+            "nested_similarity_weighted": nested_similarity_audit(
+                records, fingerprints, "top1_auc"
+            ),
+        },
         "condition_records": records,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
