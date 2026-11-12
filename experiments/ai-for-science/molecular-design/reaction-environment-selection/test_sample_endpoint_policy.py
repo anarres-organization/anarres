@@ -29,7 +29,10 @@ class EndpointPolicySampleTests(unittest.TestCase):
             "study": "study",
             "contract": "contract",
             "starting_policy": {"weights_only_sha256": sha256(self.policy)},
-            "development_panel": {"arms": ["graph"]},
+            "development_panel": {
+                "arms": ["graph"],
+                "prospective_banks_excluded": ["prospective_graph"],
+            },
             "training": {
                 "seeds": [11],
                 "maximum_updates": 20,
@@ -112,6 +115,39 @@ class EndpointPolicySampleTests(unittest.TestCase):
                 checkpoint_step=10,
                 training_manifest=manifest_path,
             )
+
+    def test_prospective_checkpoint_binds_forecast_freeze(self):
+        freeze = self.root / "freeze.json"
+        freeze.write_text('{"status":"frozen"}')
+        manifest_path = self.root / "MATCHED_TRAINING_RUN.json"
+        manifest = {
+            "study": "study",
+            "contract": "contract",
+            "status": "complete",
+            "panel_kind": "prospective",
+            "arm": "prospective_graph",
+            "seed": 11,
+            "final_step": 20,
+            "checks": {"complete": True},
+            "artifact_sha256": {
+                "contract": sha256(self.contract_path),
+                "prospective_freeze": sha256(freeze),
+                "required_checkpoints": {"10": sha256(self.policy)},
+            },
+        }
+        manifest_path.write_text(json.dumps(manifest))
+        identity = MODULE.validate_policy(
+            contract=self.contract,
+            contract_path=self.contract_path,
+            policy=self.policy,
+            arm="prospective_graph",
+            training_seed=11,
+            checkpoint_step=10,
+            training_manifest=manifest_path,
+            panel_kind="prospective",
+            forecast_freeze=freeze,
+        )
+        self.assertEqual(identity["kind"], "trained_checkpoint")
 
 
 if __name__ == "__main__":

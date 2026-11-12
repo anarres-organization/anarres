@@ -79,7 +79,10 @@ def score(
                 identity = (bank, seed, step)
                 if identity not in gate_records:
                     raise ValueError(f"prospective endpoint gate is missing {identity}")
-                report_path = panels_root / panel_name(*identity) / "QUALIFYING_HITS.json"
+                report_name = gate_records[identity].get(
+                    "qualifying_report_name", "QUALIFYING_HITS.json"
+                )
+                report_path = panels_root / panel_name(*identity) / report_name
                 report = load(report_path)
                 if sha256(report_path) != gate_records[identity]["qualifying_report_sha256"]:
                     raise ValueError(f"qualifying report differs from endpoint gate: {identity}")

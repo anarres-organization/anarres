@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the complete molecular development-training matrix before evaluation."""
+"""Verify a complete molecular training matrix before endpoint evaluation."""
 
 from __future__ import annotations
 
@@ -32,12 +32,27 @@ def verify_hashed_file(path: Path, expected: str, label: str) -> str:
     return expected
 
 
-def gate_training_matrix(contract_path: Path, runs_root: Path) -> dict[str, Any]:
+def panel_arms(contract: dict[str, Any], panel_kind: str) -> list[str]:
+    if panel_kind == "development":
+        return list(contract["development_panel"]["arms"])
+    if panel_kind == "prospective":
+        return list(contract["development_panel"]["prospective_banks_excluded"])
+    raise ValueError(f"unsupported panel kind: {panel_kind}")
+
+
+def gate_training_matrix(
+    contract_path: Path,
+    runs_root: Path,
+    panel_kind: str = "development",
+    forecast_freeze: Path | None = None,
+) -> dict[str, Any]:
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
     training = contract["training"]
-    expected = {
-        (arm, seed) for arm in contract["development_panel"]["arms"] for seed in training["seeds"]
-    }
+    arms = panel_arms(contract, panel_kind)
+    expected = {(arm, seed) for arm in arms for seed in training["seeds"]}
+    if panel_kind == "prospective" and forecast_freeze is None:
+        raise ValueError("prospective training requires the frozen forecast")
+    freeze_sha256 = sha256_file(forecast_freeze) if forecast_freeze is not None else None
     records: list[dict[str, Any]] = []
     checkpoint_hashes: set[str] = set()
     contract_sha256 = sha256_file(contract_path)
@@ -64,6 +79,11 @@ def gate_training_matrix(contract_path: Path, runs_root: Path) -> dict[str, Any]
         artifacts = manifest.get("artifact_sha256", {})
         if artifacts.get("contract") != contract_sha256:
             raise ValueError(f"training manifest binds a different contract: {arm}-{seed}")
+        if panel_kind == "prospective" and (
+            manifest.get("panel_kind") != "prospective"
+            or artifacts.get("prospective_freeze") != freeze_sha256
+        ):
+            raise ValueError(f"prospective run is not bound to the frozen forecast: {arm}-{seed}")
         verify_hashed_file(run / "training.jsonl", artifacts["training_log"], "training log")
         verify_hashed_file(run / "sample.jsonl", artifacts["online_samples"], "online samples")
         if count_jsonl(run / "training.jsonl") != training["maximum_updates"]:
@@ -98,14 +118,17 @@ def gate_training_matrix(contract_path: Path, runs_root: Path) -> dict[str, Any]
         )
     expected_checkpoint_count = len(expected) * len(training["checkpoint_updates"])
     if len(checkpoint_hashes) != expected_checkpoint_count:
-        raise ValueError("development runs do not have distinct checkpoint artifacts")
+        raise ValueError(f"{panel_kind} runs do not have distinct checkpoint artifacts")
+    prospective = panel_kind == "prospective"
     return {
-        "schema_version": "anarres.molecular-development-training-gate.v1",
+        "schema_version": f"anarres.molecular-{panel_kind}-training-gate.v1",
         "study": contract["study"],
         "contract": contract["contract"],
-        "status": "DEVELOPMENT_TRAINING_COMPLETE__ENDPOINT_OUTCOMES_UNOPENED",
+        "status": f"{panel_kind.upper()}_TRAINING_COMPLETE__ENDPOINT_OUTCOMES_UNOPENED",
+        "panel_kind": panel_kind,
         "endpoint_outcomes_opened": False,
         "contract_sha256": contract_sha256,
+        "prospective_freeze_sha256": freeze_sha256 if prospective else None,
         "run_count": len(records),
         "checkpoint_count": expected_checkpoint_count,
         "records": records,
@@ -116,13 +139,22 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--contract", type=Path, default=DEFAULT_CONTRACT)
     parser.add_argument("--runs-root", type=Path, required=True)
+    parser.add_argument(
+        "--panel-kind", choices=("development", "prospective"), default="development"
+    )
+    parser.add_argument("--forecast-freeze", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.contract.resolve() != DEFAULT_CONTRACT.resolve():
         raise ValueError("claim-bearing gates require the released matched contract")
     if args.output.exists():
         raise FileExistsError(args.output)
-    result = gate_training_matrix(args.contract, args.runs_root)
+    result = gate_training_matrix(
+        args.contract,
+        args.runs_root,
+        panel_kind=args.panel_kind,
+        forecast_freeze=args.forecast_freeze,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"status": result["status"], "run_count": result["run_count"]}, indent=2))

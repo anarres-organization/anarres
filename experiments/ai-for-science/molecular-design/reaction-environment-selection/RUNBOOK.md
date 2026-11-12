@@ -488,8 +488,16 @@ prospective endpoint passes the same native integrity checks, score it against
 the frozen forecast:
 
 ```bash
+python scripts/gate_development_training.py \
+  --panel-kind prospective \
+  --forecast-freeze /path/to/PROSPECTIVE_FREEZE.json \
+  --runs-root /path/to/prospective-training-runs \
+  --output /path/to/PROSPECTIVE_TRAINING_GATE.json
+
 python scripts/gate_endpoint_evaluation.py \
   --panel-kind prospective \
+  --layout split-union \
+  --samples-root /path/to/prospective-samples \
   --panels-root /path/to/prospective-endpoints \
   --output /path/to/PROSPECTIVE_ENDPOINT_GATE.json
 

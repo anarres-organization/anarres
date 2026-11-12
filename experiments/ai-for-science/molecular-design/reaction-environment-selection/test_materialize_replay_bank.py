@@ -70,6 +70,19 @@ class MaterializeReplayBankTests(unittest.TestCase):
         self.assertEqual(record_ids, ["a", "b"])
         self.assertEqual(loaded, payload)
 
+    def test_membership_loader_accepts_an_outcome_sealed_prospective_bank(self):
+        payload = {
+            "qualification": "pass",
+            "outcomes_opened": False,
+            "banks": {"graph_aware_hybrid": {"members": ["a", "b"]}},
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "qualification.json"
+            path.write_text(json.dumps(payload))
+            record_ids, loaded = MODULE.load_memberships(path, "graph_aware_hybrid")
+        self.assertEqual(record_ids, ["a", "b"])
+        self.assertEqual(loaded, payload)
+
     def test_load_requires_a_fresh_trainer_and_disables_online_insertion(self):
         items = [{"final_smiles": "C", "anarres_record_id": "record-a"}]
         artifact = {

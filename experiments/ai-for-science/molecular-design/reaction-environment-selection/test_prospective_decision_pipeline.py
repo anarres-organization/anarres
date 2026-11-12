@@ -151,7 +151,7 @@ class ProspectiveDecisionPipelineTests(unittest.TestCase):
                 for step in steps:
                     panel = panels / DEVELOPMENT.panel_name(arm, seed, step)
                     panel.mkdir()
-                    report = panel / "QUALIFYING_HITS.json"
+                    report = panel / "qualifying-hit-score.json"
                     report.write_text(
                         json.dumps(
                             {
@@ -167,6 +167,7 @@ class ProspectiveDecisionPipelineTests(unittest.TestCase):
                             "arm": arm,
                             "training_seed": seed,
                             "checkpoint_step": step,
+                            "qualifying_report_name": report.name,
                             "qualifying_report_sha256": DEVELOPMENT.sha256(report),
                         }
                     )
@@ -215,7 +216,7 @@ class ProspectiveDecisionPipelineTests(unittest.TestCase):
                     panel = panels / SCORE.panel_name(bank, seed, step)
                     panel.mkdir()
                     rate = 0.1 + 0.01 * (bank_index + 1) + 0.001 * budget
-                    report = panel / "QUALIFYING_HITS.json"
+                    report = panel / "qualifying-hit-score.json"
                     report.write_text(
                         json.dumps(
                             {
@@ -231,6 +232,7 @@ class ProspectiveDecisionPipelineTests(unittest.TestCase):
                             "arm": bank,
                             "training_seed": seed,
                             "checkpoint_step": step,
+                            "qualifying_report_name": report.name,
                             "qualifying_report_sha256": SCORE.sha256(report),
                         }
                     )
