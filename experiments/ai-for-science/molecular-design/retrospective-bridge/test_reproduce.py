@@ -31,6 +31,7 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
         cls.summary = json.loads((DATA / "retrospective_bridge_summary_v1.json").read_text())
         cls.pmo_decisions = json.loads((DATA / "pmo_decision_ladder_v1.json").read_text())
         cls.prediction_contract = json.loads((DATA / "prediction_contract_v1.json").read_text())
+        cls.decision_uncertainty = json.loads((DATA / "decision_uncertainty_v1.json").read_text())
         cls.vantilborg = json.loads(
             (DATA / "vantilborg_active_learning_bridge_v1.json").read_text()
         )
@@ -177,6 +178,24 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
         self.assertIn(
             "source-construction asset",
             contract["prospective_boundary"]["explore_template"],
+        )
+
+    def test_decision_uncertainty_resamples_complete_contexts(self) -> None:
+        audit = self.decision_uncertainty
+        self.assertEqual(audit["method"]["resamples"], 20_000)
+        self.assertEqual(audit["vantilborg_cross_library"]["independent_contexts"], 3)
+        self.assertEqual(audit["reisman_cross_target_nearest"]["independent_contexts"], 50)
+        self.assertGreater(
+            audit["reisman_cross_target_nearest"]["bootstrap_frequency_primary_lower_regret"],
+            0.9,
+        )
+        self.assertLess(
+            audit["reisman_cross_target_nearest"][
+                "primary_minus_baseline_best_choice_credit_95_interval"
+            ][0],
+            audit["reisman_cross_target_nearest"][
+                "primary_minus_baseline_best_choice_credit_95_interval"
+            ][1],
         )
 
     def test_release_manifest(self) -> None:

@@ -28,6 +28,20 @@ and all 36 trained-policy panels are complete does
 [`scripts/gate_endpoint_evaluation.py`](scripts/gate_endpoint_evaluation.py)
 authorize comparative scoring.
 
+The released analysis workflow now covers both remaining decision stages.
+[`scripts/score_development_results.py`](scripts/score_development_results.py)
+constructs seed-level and mean utility curves only after the complete
+development matrix passes its gate.
+[`scripts/freeze_prospective_decision.py`](scripts/freeze_prospective_decision.py)
+then fits prespecified operational and graph-aware ridge models, records
+leave-one-bank error, freezes both prospective forecasts, and applies an
+empirical abstention rule before prospective training.
+[`scripts/score_prospective_results.py`](scripts/score_prospective_results.py)
+verifies that freeze and scores curve error, ordering, allocation regret, and
+seed-level winner agreement only after the prospective matrix passes the same
+native endpoint gate. The scripts define the analysis path without opening or
+creating any claim-bearing outcome.
+
 ## Use the CLI
 
 Install the native CLI and molecular adapter from a repository checkout:

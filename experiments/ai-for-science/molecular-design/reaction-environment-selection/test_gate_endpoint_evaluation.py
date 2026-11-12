@@ -29,7 +29,10 @@ class EndpointEvaluationGateTests(unittest.TestCase):
         self.contract = {
             "study": "study",
             "contract": "matched",
-            "development_panel": {"arms": ["a", "b"]},
+            "development_panel": {
+                "arms": ["a", "b"],
+                "prospective_banks_excluded": ["p", "q"],
+            },
             "training": {"seeds": [1], "checkpoint_updates": [2, 4]},
             "evaluation": {
                 "attempts_per_policy_seed_checkpoint": 2,
@@ -134,6 +137,22 @@ class EndpointEvaluationGateTests(unittest.TestCase):
                 self.thresholds_path,
                 self.panels,
             )
+
+    def test_prospective_panel_uses_only_frozen_prospective_arms(self):
+        for path in list(self.panels.iterdir()):
+            for item in path.iterdir():
+                item.unlink()
+            path.rmdir()
+        for panel in MODULE.expected_panels(self.contract, "prospective"):
+            self.write_panel(*panel)
+        result = MODULE.gate_evaluation_matrix(
+            self.contract_path,
+            self.thresholds_path,
+            self.panels,
+            "prospective",
+        )
+        self.assertEqual(result["panel_kind"], "prospective")
+        self.assertEqual(result["panel_count"], 5)
 
     def test_infrastructure_failure_blocks_comparison(self):
         report = self.panels / MODULE.panel_name("a", 1, 2) / "DOCKING_REPORT.json"

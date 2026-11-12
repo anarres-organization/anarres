@@ -107,6 +107,14 @@ CHECKS = (
         "scripts/verify_matched_training_contract.py",
     ),
     python_check(
+        "molecular prospective workflow",
+        "experiments/ai-for-science/molecular-design/reaction-environment-selection",
+        "-m",
+        "unittest",
+        "test_gate_endpoint_evaluation.py",
+        "test_prospective_decision_pipeline.py",
+    ),
+    python_check(
         "molecular retrospective bridge",
         "experiments/ai-for-science/molecular-design/retrospective-bridge",
         "test_reproduce.py",

@@ -120,7 +120,10 @@ normalized regret across nine held-out library-architecture contexts, compared
 with 63.0% and 0.224 for a training-fold-selected fixed method. Adding the
 released initial-batch graph summaries lowers ordering to 80.0% and does not
 reduce regret. Architecture compatibility transfers in this panel, while these
-graph summaries do not yet provide additional decision value.
+graph summaries do not yet provide additional decision value. A paired
+bootstrap over the three complete held-out libraries places the primary rule's
+mean regret between 0.067 and 0.278. Its regret difference from the fixed rule
+still crosses zero, reflecting the limited number of independent libraries.
 
 The regioselectivity panel provides a complementary graph-structured decision.
 A nearest-target rule uses only each target's Morgan fingerprint and outcomes
@@ -133,6 +136,12 @@ A nested similarity-weighted sensitivity reaches 60.2% ordering and 0.259
 regret. It improves both metrics over the fixed-method baseline, but remains
 weaker than the nearest-target rule on top-choice credit and regret. Structural
 transfer is therefore present but sensitive to the prediction rule.
+Across 20,000 complete-target bootstrap resamples, the nearest-target rule has
+a 90.7% frequency of lower regret than the fixed rule, but the 95% interval for
+the regret difference is $[-0.209, 0.039]$. The improvement in best-choice credit
+is more stable, with a 95% difference interval of $[0.06, 0.34]$. These
+intervals keep target-level uncertainty visible rather than treating the 45
+pairwise comparisons within each molecule as independent observations.
 
 ## Relationship to the prospective study
 
@@ -190,6 +199,10 @@ uv run --with rdkit==2026.9.2 python \
 python scripts/build_prediction_contract.py \
   --data data \
   --output /tmp/prediction-contract.json
+
+python scripts/audit_decision_uncertainty.py \
+  --data data \
+  --output /tmp/decision-uncertainty.json
 ```
 
 The PMO and regioselectivity archives remain external artifacts. The repository

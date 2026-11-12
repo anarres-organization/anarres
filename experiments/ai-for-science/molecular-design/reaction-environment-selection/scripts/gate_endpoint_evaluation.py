@@ -35,12 +35,22 @@ def panel_name(arm: str, seed: int, step: int) -> str:
     return f"{arm}-{seed}-step{step:06d}"
 
 
-def expected_panels(contract: dict[str, Any]) -> list[tuple[str, int, int]]:
+def panel_arms(contract: dict[str, Any], panel_kind: str) -> list[str]:
+    if panel_kind == "development":
+        return list(contract["development_panel"]["arms"])
+    if panel_kind == "prospective":
+        return list(contract["development_panel"]["prospective_banks_excluded"])
+    raise ValueError(f"unsupported panel kind: {panel_kind}")
+
+
+def expected_panels(
+    contract: dict[str, Any], panel_kind: str = "development"
+) -> list[tuple[str, int, int]]:
     training = contract["training"]
     panels = [("warm_start", seed, 0) for seed in training["seeds"]]
     panels.extend(
         (arm, seed, step)
-        for arm in contract["development_panel"]["arms"]
+        for arm in panel_arms(contract, panel_kind)
         for seed in training["seeds"]
         for step in training["checkpoint_updates"]
     )
@@ -134,11 +144,12 @@ def gate_evaluation_matrix(
     contract_path: Path,
     thresholds_path: Path,
     panels_root: Path,
+    panel_kind: str = "development",
 ) -> dict[str, Any]:
     contract = load_object(contract_path, "matched contract")
     contract_sha256 = sha256_file(contract_path)
     thresholds_sha256 = sha256_file(thresholds_path)
-    expected = expected_panels(contract)
+    expected = expected_panels(contract, panel_kind)
     expected_names = {panel_name(*panel) for panel in expected}
     observed_names = {path.name for path in panels_root.iterdir() if path.is_dir()}
     if observed_names != expected_names:
@@ -161,6 +172,7 @@ def gate_evaluation_matrix(
         "schema_version": "anarres.molecular-endpoint-matrix-gate.v1",
         "study": contract["study"],
         "contract": contract["contract"],
+        "panel_kind": panel_kind,
         "status": "ENDPOINT_MATRIX_COMPLETE__COMPARATIVE_SCORING_AUTHORIZED",
         "comparative_scoring_authorized": True,
         "contract_sha256": contract_sha256,
@@ -175,6 +187,9 @@ def main() -> None:
     parser.add_argument("--contract", type=Path, default=DEFAULT_CONTRACT)
     parser.add_argument("--thresholds", type=Path, default=DEFAULT_THRESHOLDS)
     parser.add_argument("--panels-root", type=Path, required=True)
+    parser.add_argument(
+        "--panel-kind", choices=("development", "prospective"), default="development"
+    )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.contract.resolve() != DEFAULT_CONTRACT.resolve():
@@ -183,7 +198,9 @@ def main() -> None:
         raise ValueError("claim-bearing gates require the released endpoint thresholds")
     if args.output.exists():
         raise FileExistsError(args.output)
-    result = gate_evaluation_matrix(args.contract, args.thresholds, args.panels_root)
+    result = gate_evaluation_matrix(
+        args.contract, args.thresholds, args.panels_root, args.panel_kind
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"status": result["status"], "panel_count": result["panel_count"]}, indent=2))
