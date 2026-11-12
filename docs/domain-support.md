@@ -60,5 +60,5 @@ A domain moves to native-adapter status only when its checked-in workflow:
 
 Predictive status requires a separate outcome-bearing experiment. Synthetic
 fixtures never satisfy that requirement. Umbrella programs do not receive
-placeholder adapters; their concrete studies expose domain-specific commands
+generic adapters; their concrete studies expose domain-specific commands
 when a stable native producer is available.

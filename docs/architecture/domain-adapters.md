@@ -40,7 +40,7 @@ authoritative scientific record.
 An error-level check must pass before a profile is ready for comparison.
 Warnings remain visible without changing the underlying measurement. Adapters
 must never convert a runtime failure, missing label, or invalid verifier result
-into an ordinary unsuccessful outcome.
+into an ordinary failure.
 
 The scientific protocol is a JSON record, and the runtime boundary is a
 standalone executable rather than a dynamically loaded library. Installed
@@ -113,11 +113,11 @@ does not rank unlike domains or infer that a coordinate direction is a validated
 utility rule.
 
 The schemas are
-[`environment-profile-input.v1`](../../schemas/environments/environment-profile-input.v1.schema.json)
+[`environment-profile-input.v1`](https://github.com/anarres-organization/anarres/blob/main/schemas/environments/environment-profile-input.v1.schema.json)
 and
-[`environment-profile.v1`](../../schemas/environments/environment-profile.v1.schema.json).
+[`environment-profile.v1`](https://github.com/anarres-organization/anarres/blob/main/schemas/environments/environment-profile.v1.schema.json).
 Synthetic cross-domain fixtures live in
-[`examples/environment-profiles`](../../examples/environment-profiles/README.md).
+[`examples/environment-profiles`](https://github.com/anarres-organization/anarres/tree/main/examples/environment-profiles).
 The [adapter authoring guide](adapter-authoring.md) documents the Python
 construction interface, conformance workflow, and promotion policy.
 The [external adapter RFC](../rfcs/0003-external-adapter-protocol.md) defines

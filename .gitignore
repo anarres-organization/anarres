@@ -10,6 +10,7 @@ htmlcov/
 .uv-cache/
 dist/
 build/
+site/
 *.egg-info/
 
 # Local configuration and secrets

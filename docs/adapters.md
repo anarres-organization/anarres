@@ -58,7 +58,7 @@ the domain's measurements have predicted a new training outcome.
 | Materials science | `anarres materials status --repository .` | `anarres materials results --repository .` | Native OMat24 bank qualification, MLIP candidate measurements, and the scored prospective result |
 | Molecular design | `anarres molecular status --repository .` | `anarres molecular verify --repository .` | Qualified Q07820 reaction-bank measurements; training outcomes remain sealed |
 | Agentic finance | `anarres finance status --repository .` | `anarres finance decide <panel.json>` | Starting-policy qualification and released retrospective checks |
-| Vulnerability exploitation | `anarres vulnerability status` | [`anarres qualify <source>`](../packages/vulnerability/README.md) | Sanitized CyberGym source qualification; task execution and policy probing remain gated |
+| Vulnerability exploitation | `anarres vulnerability status` | [`anarres qualify <source>`](https://github.com/anarres-organization/anarres/tree/main/packages/vulnerability) | Sanitized CyberGym source qualification; task execution and policy probing remain gated |
 
 All maintained adapters declare a native source format. After installing one,
 use `anarres adapter doctor <name>` to inspect its exact contract, then run

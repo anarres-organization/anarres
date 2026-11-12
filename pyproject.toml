@@ -11,6 +11,9 @@ dev = [
   "pyyaml>=6.0",
   "ruff>=0.9",
 ]
+docs = [
+  "mkdocs-material>=9.6,<10",
+]
 materials-test = [
   "ase>=3.26",
   "numpy>=2.0",

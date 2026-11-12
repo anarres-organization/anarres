@@ -5,7 +5,7 @@ UV_CACHE_DIR ?= .uv-cache
 export PYTHONPATH
 export UV_CACHE_DIR
 
-.PHONY: setup format lint test rust-format rust-lint rust-test schemas hygiene prose check study-check study-check-extended materials-check release-smoke adapter-smoke benchmark example clean
+.PHONY: setup format lint test rust-format rust-lint rust-test schemas hygiene prose check study-check study-check-extended materials-check release-smoke adapter-smoke benchmark example docs docs-serve clean
 
 setup:
 	uv sync --all-packages --dev
@@ -74,6 +74,12 @@ example:
 	mkdir -p .anarres/example
 	$(CARGO) run --quiet -p anarres-cli -- measure examples/environment-processing/probe.json --output .anarres/example/environment.json --force
 	@echo "Wrote .anarres/example/environment.json"
+
+docs:
+	uv run --group docs mkdocs build --strict
+
+docs-serve:
+	uv run --group docs mkdocs serve
 
 clean:
 	find . -type d -name __pycache__ -prune -exec rm -r {} +

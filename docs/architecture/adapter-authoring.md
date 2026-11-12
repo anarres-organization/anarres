@@ -72,7 +72,7 @@ anarres-robotics --anarres-adapter-descriptor
 ```
 
 The response follows
-[`anarres.adapter-descriptor.v1`](../../schemas/adapters/adapter-descriptor.v1.schema.json)
+[`anarres.adapter-descriptor.v1`](https://github.com/anarres-organization/anarres/blob/main/schemas/adapters/adapter-descriptor.v1.schema.json)
 and declares the adapter name and version, protocol version, domain, executable,
 supported profile schemas, capabilities, and measurement contracts. Lists are
 sorted and contain no duplicates. The descriptor's executable and name must

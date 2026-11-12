@@ -36,5 +36,5 @@ issues before new surface area is added.
 
 Use the first-run feedback issue form for public reports. Include the smallest
 safe reproduction and redact machine-specific paths or source data. Security
-issues follow [`SECURITY.md`](../SECURITY.md) rather than the public issue
+issues follow [`SECURITY.md`](https://github.com/anarres-organization/anarres/blob/main/SECURITY.md) rather than the public issue
 tracker.

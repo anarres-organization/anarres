@@ -486,9 +486,9 @@ guide](architecture/domain-adapters.md) defines the runtime boundary, and the
 [adapter authoring guide](architecture/adapter-authoring.md) documents the
 Python construction interface and promotion requirements.
 
-Detailed finance commands live in the [finance overview](../experiments/finance/README.md).
+Detailed finance commands live in the [finance overview](https://github.com/anarres-organization/anarres/tree/main/experiments/finance).
 The robotics planning, execution, and scoring sequence lives in the
-[Can study guide](../experiments/robotics/environment-selection/prospective-cupid-can-v141/README.md).
+[Can study guide](https://github.com/anarres-organization/anarres/tree/main/experiments/robotics/environment-selection/prospective-cupid-can-v141).
 
 ## Automation
 
@@ -510,17 +510,17 @@ retain their own documented runtime and network contract.
 
 Grouped probes use:
 
-- [`probe-input.v1`](../schemas/environments/probe-input.v1.schema.json)
-- [`environment-manifest.v1`](../schemas/environments/environment-manifest.v1.schema.json)
+- [`probe-input.v1`](https://github.com/anarres-organization/anarres/blob/main/schemas/environments/probe-input.v1.schema.json)
+- [`environment-manifest.v1`](https://github.com/anarres-organization/anarres/blob/main/schemas/environments/environment-manifest.v1.schema.json)
 
 Cross-domain profiles use:
 
-- [`environment-profile-input.v1`](../schemas/environments/environment-profile-input.v1.schema.json)
-- [`environment-profile.v1`](../schemas/environments/environment-profile.v1.schema.json)
+- [`environment-profile-input.v1`](https://github.com/anarres-organization/anarres/blob/main/schemas/environments/environment-profile-input.v1.schema.json)
+- [`environment-profile.v1`](https://github.com/anarres-organization/anarres/blob/main/schemas/environments/environment-profile.v1.schema.json)
 
 Installed adapters describe their compatibility with:
 
-- [`adapter-descriptor.v1`](../schemas/adapters/adapter-descriptor.v1.schema.json)
+- [`adapter-descriptor.v1`](https://github.com/anarres-organization/anarres/blob/main/schemas/adapters/adapter-descriptor.v1.schema.json)
 
 Unknown fields and unsupported schema versions are rejected. A change in
 meaning, unit, or estimator requires a new coordinate definition revision
@@ -543,4 +543,4 @@ than editing the measured profile.
 
 **A runtime failure appears as reward zero.** Stop the adapter workflow. Native
 adapters must preserve infrastructure, verifier, missingness, and invalid-data
-states instead of converting them into ordinary unsuccessful outcomes.
+states instead of converting them into ordinary failures.

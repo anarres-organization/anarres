@@ -1,0 +1,129 @@
+# Anarres
+
+Measure and compare training environments before committing the full training
+budget.
+
+Anarres is an open-source toolkit and research program for determining which
+training environments are most likely to improve a model at fixed compute. It
+connects domain-native measurements to portable evidence without flattening the
+science that produced them.
+
+[Install Anarres](#installation), then follow the
+[first steps](getting-started.md) or browse the released
+[research programs](https://github.com/anarres-organization/anarres/tree/main/experiments).
+
+## Highlights
+
+- Covers mathematical reasoning, cyber, robotics, legal reasoning, molecular
+  design, materials science, and agentic finance through native formats.
+- Separates task qualification, starting-policy measurement, and validation
+  against later training outcomes, while keeping infrastructure failures
+  distinct from ordinary failures.
+- Preserves measurement definitions, units, uncertainty, costs, and provenance
+  in versioned, content-addressed records.
+- Combines a fast Rust CLI for shared operations with installable adapters for
+  specialized domain runtimes.
+
+## Installation
+
+Install the native CLI, then verify that it is available:
+
+=== "Homebrew"
+
+    ```console
+    $ brew install anarres-organization/tap/anarres
+    $ anarres --version
+    ```
+
+=== "Standalone installer"
+
+    ```console
+    $ curl --proto '=https' --tlsv1.2 -LsSf \
+        https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.sh | sh
+    $ anarres --version
+    ```
+
+=== "Windows"
+
+    ```powershell
+    powershell -ExecutionPolicy ByPass -c "irm https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.ps1 | iex"
+    anarres --version
+    ```
+
+Then follow the [first steps](getting-started.md), or see every installation
+method in the [release guide](releases.md). Domain adapters are installed only
+when a workflow needs its specialized runtime.
+
+## Quick start
+
+Run the bundled CPU-only workflow:
+
+```console
+$ anarres demo
+
+  ✓ Qualified    math-reference-demo-v1
+  ✓ Measured     math-reference-demo-v1
+  ✓ Compatible   candidate panel
+
+ENVIRONMENT               SIGNAL / 1M   COVERAGE  ADMITTED   REPAIR
+math-alternative-demo-v1     214.2857     0.4154         2        1
+math-reference-demo-v1       833.3333     0.6533         2        1
+```
+
+The demo qualifies two environments, measures both under the same synthetic
+starting policy, checks that their records are comparable, and writes validated
+records to `.anarres/demo/`.
+
+To use native data, connect a source to its matching adapter and inspect the
+requirements before running a policy probe:
+
+```console
+$ anarres init ./candidate-a --adapter <adapter> \
+    --revision <immutable-revision> --license <SPDX-identifier>
+$ anarres inspect ./candidate-a
+$ anarres qualify ./candidate-a
+```
+
+The [first-run workflow](getting-started.md) continues from a native source to a
+portable environment record. The [domain support matrix](domain-support.md)
+shows which formats, probes, and outcome tests are available today.
+
+## How it works
+
+```text
+native task sources
+    → qualify tasks, verifiers, and rewards
+    → measure experience under the starting policy
+    → compare compatible candidate environments
+    → test frozen predictions through controlled training
+```
+
+Anarres keeps three questions separate: whether a task and verifier work,
+whether the starting policy produces usable experience, and whether training on
+that experience improves a held-out target. Infrastructure failures never
+become ordinary failures.
+
+The native CLI handles routing, validation, hashing, and comparison. Installable
+adapters retain specialized runtimes where simulators, evaluators, chemistry
+packages, or executable sandboxes are required.
+
+## Domain workflows
+
+| Program | Available workflow | Evidence boundary |
+| --- | --- | --- |
+| Mathematics | Native grouped-probe processor | Four-scale environment-utility evidence |
+| Formal verification | Vero runtime qualification | Execution study continues separately |
+| Robotics | Can source qualification and candidate measurement | Prospective PushT and Can evidence |
+| Legal reasoning | LAB qualification and legal regression reports | SylloGym and LAB evidence remain separate |
+| Materials science | OMat24 qualification and MLIP measurements | Scored prospective MLIP test |
+| Molecular design | Reaction-bank qualification and dry-run probe | Matched training outcomes remain unopened |
+| Vulnerability exploitation | Sanitized CyberGym qualification | No environment-comparison result |
+| Agentic finance | Business Bench qualification | Retrospective evidence; no prospective outcome |
+
+## Learn more
+
+- Install a [domain adapter](adapters.md).
+- Read the complete [CLI guide](cli.md).
+- Check the current [domain support](domain-support.md).
+- See how Anarres [preserves domain-native science](architecture/scientific-preservation.md).
+- Browse the released [research programs](https://github.com/anarres-organization/anarres/tree/main/experiments).

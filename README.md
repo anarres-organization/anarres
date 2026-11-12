@@ -266,6 +266,8 @@ Machine-readable citation metadata is available in [`CITATION.cff`](CITATION.cff
 
 Anarres draws on ideas and infrastructure from the broader open-source research community. We are especially grateful to [Marin](https://github.com/marin-community/marin), [LeRobot](https://github.com/huggingface/lerobot), [OpenSpiel](https://github.com/google-deepmind/open_spiel), and [vLLM](https://github.com/vllm-project/vllm) for demonstrating strong approaches to experiment organization, reusable components, evaluation, and open collaboration.
 
+The documentation site is built with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/). Its information architecture is informed by the public documentation of [uv](https://docs.astral.sh/uv/), [Bun](https://bun.com/docs), [vLLM](https://docs.vllm.ai/), and [Marin](https://marin.community/).
+
 ## License
 
 Unless a subdirectory states otherwise, Anarres software is released under the [Apache License 2.0](LICENSE). Dataset and model artifacts retain their upstream licenses and terms.
