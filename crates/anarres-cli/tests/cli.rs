@@ -117,7 +117,7 @@ fn demo_writes_compares_and_validates_two_records() {
 }
 
 #[test]
-fn readme_quick_start_matches_demo_output() {
+fn documented_demo_output_matches_the_binary() {
     let directory = temporary_directory();
     let output = Command::new(binary())
         .arg("demo")
@@ -128,16 +128,26 @@ fn readme_quick_start_matches_demo_output() {
     assert!(output.status.success());
 
     let stdout = String::from_utf8(output.stdout).expect("stdout is UTF-8");
-    let readme_path = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../README.md");
-    let readme = fs::read_to_string(readme_path).expect("README is readable");
-    let marker = "<summary>View the exact terminal output</summary>\n\n```text\n";
-    let start = readme.find(marker).expect("README demo block exists") + marker.len();
-    let end = readme[start..]
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let guide = fs::read_to_string(root.join("docs/cli.md")).expect("CLI guide is readable");
+    let marker = "The complete unstyled output is:\n\n```text\n";
+    let start = guide.find(marker).expect("CLI guide demo block exists") + marker.len();
+    let end = guide[start..]
         .find("\n```")
-        .expect("README demo block is closed");
-    let documented = &readme[start..start + end];
+        .expect("CLI guide demo block is closed");
+    let documented = &guide[start..start + end];
 
     assert_eq!(documented, stdout.trim_end());
+
+    let readme = fs::read_to_string(root.join("README.md")).expect("README is readable");
+    for line in [
+        "  ✓ Qualified    math-reference-demo-v1",
+        "  ✓ Measured     math-reference-demo-v1",
+        "  ✓ Compatible   candidate panel",
+    ] {
+        assert!(stdout.contains(line));
+        assert!(readme.contains(line));
+    }
     fs::remove_dir_all(directory).expect("temporary directory is removed");
 }
 
