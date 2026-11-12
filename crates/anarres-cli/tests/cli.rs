@@ -130,7 +130,7 @@ fn readme_quick_start_matches_demo_output() {
     let stdout = String::from_utf8(output.stdout).expect("stdout is UTF-8");
     let readme_path = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../README.md");
     let readme = fs::read_to_string(readme_path).expect("README is readable");
-    let marker = "starting policy, then checks that they can be compared:\n\n```text\n";
+    let marker = "<summary>View the exact terminal output</summary>\n\n```text\n";
     let start = readme.find(marker).expect("README demo block exists") + marker.len();
     let end = readme[start..]
         .find("\n```")
