@@ -36,6 +36,9 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
             (DATA / "vantilborg_active_learning_bridge_v1.json").read_text()
         )
         cls.reisman = json.loads((DATA / "reisman_regioselectivity_bridge_v1.json").read_text())
+        cls.explainable_al = json.loads(
+            (DATA / "explainable_active_learning_bridge_v1.json").read_text()
+        )
 
     def test_pmo_summary_preserves_support_and_cost_boundary(self) -> None:
         pmo = self.summary["pmo"]
@@ -155,8 +158,28 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
         self.assertEqual(module.parse_identity(name), ("CCO", "acqf_2-1", 30))
         self.assertEqual(module.stable_index([0.2] * 3 + [0.95] * 10), 12)
 
-    def test_summary_preserves_seven_scientific_objects(self) -> None:
-        self.assertEqual(self.summary["source_objects"], 7)
+    def test_explainable_al_preserves_complete_panels_and_nested_holdout(self) -> None:
+        self.assertEqual(
+            self.explainable_al["source_sha256"],
+            "2e6b7a7b1df02524423f6c86e0d8f0c51427809ef175daa9185ffe3464e3cddf",
+        )
+        support = self.explainable_al["support"]
+        self.assertEqual(support["datasets"], ["D2R", "MPRO", "TYK2", "USP7"])
+        self.assertEqual(support["trajectory_rows"], 13_860)
+        self.assertEqual(support["complete_runs"], 1_260)
+        self.assertEqual(support["decision_panels"], 60)
+        primary = self.explainable_al["leave_one_dataset_out"]["nested_view_selection"]
+        global_protocol = self.explainable_al["leave_one_dataset_out"]["global_protocol"]
+        self.assertAlmostEqual(primary["pairwise_ordering"], 0.6353174603174603)
+        self.assertAlmostEqual(primary["mean_normalized_regret"], 0.24647162871303208)
+        self.assertLess(
+            primary["mean_normalized_regret"],
+            global_protocol["mean_normalized_regret"],
+        )
+        self.assertEqual(set(primary["chosen_view_by_held_out_dataset"]), set(support["datasets"]))
+
+    def test_summary_preserves_eight_scientific_objects(self) -> None:
+        self.assertEqual(self.summary["source_objects"], 8)
         self.assertEqual(
             self.summary["invirtuogen_replay"]["matched_seed0_summary"]["replay_wins"],
             12,
@@ -168,10 +191,14 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
         self.assertIn("RxnFlow", self.summary["claim_boundary"])
         self.assertEqual(self.summary["vantilborg_active_learning"]["support"]["contexts"], 9)
         self.assertEqual(self.summary["reisman_regioselectivity"]["support"]["targets"], 50)
+        self.assertEqual(
+            self.summary["explainable_active_learning"]["support"]["decision_panels"],
+            60,
+        )
 
     def test_prediction_contract_separates_timing_cost_and_eligibility(self) -> None:
         contract = self.prediction_contract
-        self.assertEqual(len(contract["prediction_audits"]), 3)
+        self.assertEqual(len(contract["prediction_audits"]), 4)
         self.assertEqual(len(contract["supporting_objects"]), 4)
         self.assertFalse(contract["prediction_audits"]["pmo_temporal"]["pretraining_profile_input"])
         self.assertEqual(contract["prospective_boundary"]["status"], "released")

@@ -96,6 +96,18 @@
       "size_bytes": 1857960540,
       "license": "CC BY 4.0",
       "producing_run": "normalize_reisman_regioselectivity.py"
+    },
+    {
+      "artifact": "Explainable Active Learning protocol trajectory table",
+      "doi": "10.1039/d5dd00436e",
+      "source_data_doi": "10.5281/zenodo.17935028",
+      "uri": "https://zenodo.org/records/17935028/files/recall_combined_results%20%283%29.csv?download=1",
+      "sha256": "2e6b7a7b1df02524423f6c86e0d8f0c51427809ef175daa9185ffe3464e3cddf",
+      "md5": "ddb211aead98622936a538a35ad5b473",
+      "media_type": "text/csv",
+      "size_bytes": 1168984,
+      "license": "CC BY 4.0",
+      "producing_run": "normalize_explainable_active_learning.py"
     }
   ]
 }

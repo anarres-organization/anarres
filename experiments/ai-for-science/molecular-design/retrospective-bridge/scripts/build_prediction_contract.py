@@ -27,6 +27,7 @@ def build(data: Path) -> dict[str, Any]:
     pmo = load(data / "pmo_decision_ladder_v1.json")
     vantilborg = load(data / "vantilborg_active_learning_bridge_v1.json")
     reisman = load(data / "reisman_regioselectivity_bridge_v1.json")
+    explainable_al = load(data / "explainable_active_learning_bridge_v1.json")
 
     return {
         "schema_version": "anarres.molecular.prediction_contract.v1",
@@ -114,6 +115,29 @@ def build(data: Path) -> dict[str, Any]:
                 "nested_similarity_sensitivity": compact_metrics(
                     reisman["stable_top1_decision_audit"]["nested_similarity_weighted"]
                 ),
+            },
+            "explainable_al_cross_target": {
+                "source_object": "Srivastava et al.",
+                "panels": explainable_al["support"]["decision_panels"],
+                "candidate_arms": explainable_al["support"]["condition_records"],
+                "holdout_unit": "one complete binding-affinity dataset",
+                "normalized_outcome": (
+                    "three-seed endpoint top-2%-recall within dataset, fingerprint, and kernel"
+                ),
+                "decision_information": (
+                    "acquisition-schedule outcomes from other datasets, with the transfer view "
+                    "selected using only inner training-dataset folds"
+                ),
+                "measurement_timing": "before opening the held-out dataset outcomes",
+                "cost_contract": "360 acquired compounds for every candidate within each panel",
+                "pretraining_profile_input": False,
+                "primary_metrics": compact_metrics(
+                    explainable_al["leave_one_dataset_out"]["nested_view_selection"]
+                ),
+                "kernel_matched_sensitivity": compact_metrics(
+                    explainable_al["leave_one_dataset_out"]["kernel_matched"]
+                ),
+                "dataset_clustered_uncertainty": explainable_al["dataset_clustered_uncertainty"],
             },
         },
         "supporting_objects": {

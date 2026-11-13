@@ -130,6 +130,7 @@ def main() -> None:
     parser.add_argument("--tsmiles", type=Path, required=True)
     parser.add_argument("--vantilborg", type=Path, required=True)
     parser.add_argument("--reisman", type=Path, required=True)
+    parser.add_argument("--explainable-al", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
@@ -140,6 +141,7 @@ def main() -> None:
     tsmiles = load(args.tsmiles)
     vantilborg = load(args.vantilborg)
     reisman = load(args.reisman)
+    explainable_al = load(args.explainable_al)
     output = {
         "schema_version": "anarres.molecular.retrospective_bridge_summary.v1",
         "claim_boundary": (
@@ -147,12 +149,13 @@ def main() -> None:
             "pooling their native outcomes. The controlled RxnFlow study remains "
             "the environment-selection test. Antoniuk et al. test closed-loop "
             "active learning, InVirtuoGen tests replay, Saturn tests components "
-            "and methods, t-SMILES audits representation and augmentation, and "
-            "PMO tests finite-budget optimizers, and van Tilborg and Grisoni "
+            "and methods, and t-SMILES audits representation and augmentation. "
+            "PMO tests finite-budget optimizers, while van Tilborg and Grisoni "
             "test acquisition choices across held-out molecular libraries. The "
-            "Reisman study tests target-specific acquisition across complex molecules."
+            "Reisman study tests target-specific acquisition across complex molecules, and "
+            "Srivastava et al. test acquisition schedules across binding-affinity datasets."
         ),
-        "source_objects": 7,
+        "source_objects": 8,
         "antoniuk_active_learning": {
             "support": antoniuk["support"],
             "matched_generation_records": [
@@ -192,6 +195,19 @@ def main() -> None:
                 for name, payload in reisman["stable_top1_decision_audit"].items()
                 if name != "nearest_target_by_smiles"
             },
+        },
+        "explainable_active_learning": {
+            "support": explainable_al["support"],
+            "nested_view_selection": compact_decision_audit(
+                explainable_al["leave_one_dataset_out"]["nested_view_selection"]
+            ),
+            "kernel_matched_sensitivity": compact_decision_audit(
+                explainable_al["leave_one_dataset_out"]["kernel_matched"]
+            ),
+            "global_protocol": compact_decision_audit(
+                explainable_al["leave_one_dataset_out"]["global_protocol"]
+            ),
+            "dataset_clustered_uncertainty": explainable_al["dataset_clustered_uncertainty"],
         },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

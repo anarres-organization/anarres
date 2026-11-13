@@ -1,10 +1,11 @@
 # Retrospective molecular-design bridge
 
-**Status:** seven public evidence objects are normalized and source-audited.
-Three decision audits cover early optimization across 23 held-out oracle tasks,
+**Status:** eight public evidence objects are normalized and source-audited.
+Four decision audits cover early optimization across 23 held-out oracle tasks,
 acquisition policies across nine held-out library-architecture contexts, and
-target-specific acquisition across 50 held-out molecules. The bridge remains
-retrospective and separate from the now-released RxnFlow prospective result.
+target-specific acquisition across 50 held-out molecules and four held-out
+binding-affinity datasets. The bridge remains retrospective and separate from
+the now-released RxnFlow prospective result.
 
 This bridge asks how experience, acquisition, representation, and finite
 oracle budget change molecular-design outcomes across published studies. It
@@ -16,7 +17,7 @@ separate from prospective selection.
 ## Inclusion boundary
 
 A study enters the bridge when its intervention, budget, numerical outcomes,
-and source provenance can be recovered without figure digitization. The seven
+and source provenance can be recovered without figure digitization. The eight
 current objects answer related but distinct questions:
 
 - [**Antoniuk et al. (2026)**](https://doi.org/10.1038/s41524-025-01924-8)
@@ -45,6 +46,11 @@ current objects answer related but distinct questions:
   release target-specific acquisition trajectories for 50 complex molecules.
   The bridge reconstructs 14,998 repeated runs across ten acquisition methods
   and evaluates each target by leaving its outcomes out of model selection.
+- [**Srivastava et al. (2026)**](https://doi.org/10.1039/d5dd00436e)
+  release 13,860 active-learning trajectory rows across four binding-affinity
+  datasets, seven acquisition schedules, five kernels, three fingerprints, and
+  three seeds. The bridge compares schedules in 60 matched endpoint panels and
+  leaves each complete dataset out of prediction and model selection.
 
 The objects are analyzed separately under their published intervention classes.
 Their outcomes remain downstream result records and stay outside Anarres
@@ -53,7 +59,7 @@ environment profiles built from measurements made before training.
 ## Prediction contract
 
 [`prediction_contract_v1.json`](data/prediction_contract_v1.json) applies one
-decision format across the seven objects without pooling unlike outcomes. A
+decision format across the eight objects without pooling unlike outcomes. A
 panel fixes the source, target context, downstream contract, endpoint, and
 budget. Native outcomes are oriented so larger is better and min-max normalized
 only within that panel. Predictive evaluations hold out a complete scientific
@@ -61,12 +67,14 @@ context and report pairwise ordering, panel-normalized regret, and top-choice
 credit. Continuous inputs are standardized inside the training fold, and
 measurement, oracle, training, and evaluation costs remain separate.
 
-Three objects support held-out prediction audits. PMO is a charged temporal
+Four objects support held-out prediction audits. PMO is a charged temporal
 decision because its pilot values are early downstream outcomes. The van
 Tilborg audit holds out complete molecular libraries and uses measurements from
 the initial labeled batch. The regioselectivity audit holds out complete target
 molecules and uses target structure plus acquisition outcomes from other
-targets. The other four objects retain their intervention evidence but remain
+targets. The binding-affinity audit holds out complete datasets and transfers
+acquisition-schedule outcomes across matched kernel and fingerprint settings.
+The other four objects retain their intervention evidence but remain
 outside the predictor because costs, model contracts, or outcome-blind
 coordinates are not comparable.
 
@@ -143,6 +151,19 @@ is more stable, with a 95% difference interval of $[0.06, 0.34]$. These
 intervals keep target-level uncertainty visible rather than treating the 45
 pairwise comparisons within each molecule as independent observations.
 
+The binding-affinity release adds a broader matched acquisition panel. A nested
+rule selects its transfer view using only the remaining training datasets. On
+the four held-out datasets, it reaches 63.5% pairwise ordering, 0.246 mean
+normalized regret, and 40.0% best-schedule credit across 60 panels. A global
+protocol prior reaches 60.2%, 0.313, and 26.7%, while random acquisition reaches
+39.9%, 0.866, and 8.3%. A kernel-matched sensitivity is stronger at 65.1%
+ordering and 0.205 regret, but it is not the primary result because selecting
+that view after seeing all four datasets would be retrospective. Across 20,000
+complete-dataset resamples, the nested rule has a 93.8% frequency of lower
+regret than the global prior, while the 95% regret-difference interval still
+crosses zero. The result supports target-dependent acquisition transfer without
+treating 60 panels from four datasets as 60 independent scientific contexts.
+
 ## Relationship to the prospective study
 
 The [RxnFlow reaction-environment study](../reaction-environment-selection/README.md)
@@ -198,6 +219,10 @@ uv run --with rdkit==2026.9.2 python \
   --archive /path/to/clean_run.zip \
   --output /tmp/reisman.json
 
+python scripts/normalize_explainable_active_learning.py \
+  --source-csv /path/to/recall_combined_results.csv \
+  --output /tmp/explainable-active-learning.json
+
 python scripts/build_prediction_contract.py \
   --data data \
   --output /tmp/prediction-contract.json
@@ -208,5 +233,5 @@ python scripts/audit_decision_uncertainty.py \
 ```
 
 The PMO and regioselectivity archives remain external artifacts. The repository
-includes compact normalized records for all seven objects and a combined
+includes compact normalized records for all eight objects and a combined
 summary.

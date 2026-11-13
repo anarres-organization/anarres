@@ -111,7 +111,86 @@
       "table_approaches": 4
     }
   },
-  "claim_boundary": "The bridge combines distinct public scientific objects without pooling their native outcomes. The controlled RxnFlow study remains the environment-selection test. Antoniuk et al. test closed-loop active learning, InVirtuoGen tests replay, Saturn tests components and methods, t-SMILES audits representation and augmentation, PMO tests finite-budget optimizers, and van Tilborg and Grisoni test acquisition choices across held-out molecular libraries. The Reisman study tests target-specific acquisition across complex molecules.",
+  "claim_boundary": "The bridge combines distinct public scientific objects without pooling their native outcomes. The controlled RxnFlow study remains the environment-selection test. Antoniuk et al. test closed-loop active learning, InVirtuoGen tests replay, Saturn tests components and methods, and t-SMILES audits representation and augmentation. PMO tests finite-budget optimizers, while van Tilborg and Grisoni test acquisition choices across held-out molecular libraries. The Reisman study tests target-specific acquisition across complex molecules, and Srivastava et al. test acquisition schedules across binding-affinity datasets.",
+  "explainable_active_learning": {
+    "dataset_clustered_uncertainty": {
+      "bootstrap_frequency_primary_lower_regret": 0.93805,
+      "independent_datasets": 4,
+      "primary_minus_global_best_protocol_credit_95_interval": [
+        0.04999999999999999,
+        0.2
+      ],
+      "primary_minus_global_regret_95_interval": [
+        -0.13850539169952159,
+        0.0052723039141594485
+      ],
+      "random_seed": 20261112,
+      "resamples": 20000
+    },
+    "global_protocol": {
+      "best_protocol_credit": 0.26666666666666666,
+      "mean_normalized_regret": 0.31308817260571314,
+      "pairwise_ordering": 0.6023809523809524,
+      "panels": 60
+    },
+    "kernel_matched_sensitivity": {
+      "best_protocol_credit": 0.45,
+      "mean_normalized_regret": 0.20488346215628594,
+      "pairwise_ordering": 0.6511904761904762,
+      "panels": 60
+    },
+    "nested_view_selection": {
+      "best_protocol_credit": 0.4,
+      "chosen_view_by_held_out_dataset": {
+        "D2R": "matched_configuration",
+        "MPRO": "kernel_matched",
+        "TYK2": "kernel_matched",
+        "USP7": "global_protocol"
+      },
+      "mean_normalized_regret": 0.24647162871303208,
+      "pairwise_ordering": 0.6353174603174603,
+      "panels": 60,
+      "selection_contract": {
+        "candidate_views": [
+          "global_protocol",
+          "kernel_matched",
+          "fingerprint_matched",
+          "matched_configuration"
+        ],
+        "inner_holdout": "one complete target dataset from the outer training fold",
+        "outer_holdout": "one complete target dataset",
+        "primary_metric": "mean normalized regret",
+        "tie_breaker": "pairwise ordering"
+      }
+    },
+    "support": {
+      "complete_runs": 1260,
+      "condition_records": 420,
+      "cycles": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      "datasets": ["D2R", "MPRO", "TYK2", "USP7"],
+      "decision_panels": 60,
+      "endpoint_compounds_acquired": 360,
+      "fingerprints": ["chemberta", "ecfp", "maccs"],
+      "kernels": [
+        "LinearKernel",
+        "MaternKernel",
+        "RBFKernel",
+        "RQKernel",
+        "TanimotoKernel"
+      ],
+      "protocols": [
+        "random",
+        "ucb-alternate",
+        "ucb-balanced",
+        "ucb-exploit-heavy",
+        "ucb-explore-heavy",
+        "ucb-gradual",
+        "ucb-sandwich"
+      ],
+      "seeds": [7, 42, 123],
+      "trajectory_rows": 13860
+    }
+  },
   "invirtuogen_replay": {
     "matched_seed0_summary": {
       "mean_auc_top10_difference": 0.017856664058042947,
@@ -341,7 +420,7 @@
     }
   },
   "schema_version": "anarres.molecular.retrospective_bridge_summary.v1",
-  "source_objects": 7,
+  "source_objects": 8,
   "tsmiles_jnk3": {
     "highest_active_novel_conditions": [
       {
