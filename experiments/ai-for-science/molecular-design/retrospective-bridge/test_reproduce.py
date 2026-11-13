@@ -174,7 +174,8 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
         self.assertEqual(len(contract["prediction_audits"]), 3)
         self.assertEqual(len(contract["supporting_objects"]), 4)
         self.assertFalse(contract["prediction_audits"]["pmo_temporal"]["pretraining_profile_input"])
-        self.assertEqual(contract["prospective_boundary"]["status"], "sealed")
+        self.assertEqual(contract["prospective_boundary"]["status"], "released")
+        self.assertIn("abstains", contract["prospective_boundary"]["interpretation"])
         self.assertIn(
             "source-construction asset",
             contract["prospective_boundary"]["explore_template"],

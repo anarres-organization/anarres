@@ -30,7 +30,7 @@ def build(data: Path) -> dict[str, Any]:
 
     return {
         "schema_version": "anarres.molecular.prediction_contract.v1",
-        "status": "retrospective_contract_with_sealed_prospective_test",
+        "status": "retrospective_contract_with_released_prospective_test",
         "normalization": {
             "decision_panel": (
                 "One source, target context, downstream contract, endpoint, and budget with "
@@ -146,7 +146,15 @@ def build(data: Path) -> dict[str, Any]:
         },
         "prospective_boundary": {
             "claim_bearing_test": "RxnFlow reaction-environment selection",
-            "status": "sealed",
+            "status": "released",
+            "result": (
+                "experiments/ai-for-science/molecular-design/"
+                "reaction-environment-selection/PROSPECTIVE_RESULTS.json"
+            ),
+            "interpretation": (
+                "The frozen point forecast gets the two-bank ordering right at all three "
+                "budgets, while the prespecified uncertainty rule abstains at all three."
+            ),
             "explore_template": (
                 "The pinned RxnFlow explore template defines the synthesis action space. It is "
                 "a source-construction asset, not a predictor coordinate or downstream outcome."

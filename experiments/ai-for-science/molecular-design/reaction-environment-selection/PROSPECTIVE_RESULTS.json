@@ -1,0 +1,210 @@
+{
+  "contract": "q07820-matched-training-evaluation-v1",
+  "decisions": [
+    {
+      "abstain": true,
+      "decision_issued": false,
+      "observed_margin": 0.001220703125,
+      "observed_winner": "operational_hybrid",
+      "point_prediction_correct": true,
+      "point_prediction_regret": 0.0,
+      "predicted_margin": 0.000350245910506735,
+      "predicted_winner": "operational_hybrid",
+      "seed_winner_agreement": true,
+      "seed_winners": {
+        "20261108": "operational_hybrid",
+        "20261109": "operational_hybrid"
+      },
+      "target_oracle_attempt_budget": 12800
+    },
+    {
+      "abstain": true,
+      "decision_issued": false,
+      "observed_margin": 0.0008544921875,
+      "observed_winner": "operational_hybrid",
+      "point_prediction_correct": true,
+      "point_prediction_regret": 0.0,
+      "predicted_margin": 0.000350245910506735,
+      "predicted_winner": "operational_hybrid",
+      "seed_winner_agreement": false,
+      "seed_winners": {
+        "20261108": "operational_hybrid",
+        "20261109": "graph_aware_hybrid"
+      },
+      "target_oracle_attempt_budget": 25600
+    },
+    {
+      "abstain": true,
+      "decision_issued": false,
+      "observed_margin": 0.0020751953125,
+      "observed_winner": "operational_hybrid",
+      "point_prediction_correct": true,
+      "point_prediction_regret": 0.0,
+      "predicted_margin": 0.000350245910506735,
+      "predicted_winner": "operational_hybrid",
+      "seed_winner_agreement": true,
+      "seed_winners": {
+        "20261108": "operational_hybrid",
+        "20261109": "operational_hybrid"
+      },
+      "target_oracle_attempt_budget": 40000
+    }
+  ],
+  "inputs": {
+    "contract_sha256": "d45c1fd2d8380ef0c0e70464961a519c46fcd8603fffede9ab0f8154ad0aa26d",
+    "development_results_sha256": "2a19a35950100be3a36ee0831772f65bc1298e5edfc40c5b9e5b7bbf057df179",
+    "endpoint_gate_sha256": "7150fcc5fba95e215e74f0e822a9d83b7a61bfcafbc7db1c6df6c50fc99e8b30",
+    "forecast_freeze_sha256": "104e38c41b03d4b01e3fa7c09bde46ccab01abca1607377cfa89866facb32c5c",
+    "qualifying_reports": {
+      "graph_aware_hybrid-20261108-step000200": "ff9c9dd8b16193a7d5bb1a9aaea1bde1231b4637f848a59e2ce2d09812af0306",
+      "graph_aware_hybrid-20261108-step000400": "55784b1bb37c27b6a784551aee0d53d8885010b61096bff5f091e670eacbe3a6",
+      "graph_aware_hybrid-20261108-step000625": "961cd6fd003be8471e5658066b62519dbf2c7c577fb6f77ec194c490e8f91a64",
+      "graph_aware_hybrid-20261109-step000200": "57d8084fda3983dbb5a5ccf457e04b2b6f3624fe57f5f6f828201dd5eca8e03d",
+      "graph_aware_hybrid-20261109-step000400": "4a552cc8e1c96dec5f150ce26b5c54ebe96e4b7559beaee4adaf5d254de14199",
+      "graph_aware_hybrid-20261109-step000625": "b5eb9aa9a0ae3cf89d4c2e2f10e223f92beffdebd9d5f0d11d5d46ee0fea72e0",
+      "operational_hybrid-20261108-step000200": "ce2d8544b1657925eebcd5f428a529a1d2c750e43370668346c2162ba5830a32",
+      "operational_hybrid-20261108-step000400": "6970988dd0aaef90dc11665d93a3bc35691d1d0c0e7978dab8329b136d09b9b5",
+      "operational_hybrid-20261108-step000625": "4c822437d332be5faf541b576b37c7be42cdccdfe600246ed64bad8692f5ae14",
+      "operational_hybrid-20261109-step000200": "6b788ca2d32611947cb257e121cc558e7fce94e54341ecb96966095337edfaa4",
+      "operational_hybrid-20261109-step000400": "8f6be54d079a6e812b2ba6e006512ea466ea2825e6d7c0f98a11d12d42fdb361",
+      "operational_hybrid-20261109-step000625": "8b25a0201d1af1048c6df5bfcf9f0b12801a66760ecbbc7fd4225bf5f3af174b"
+    }
+  },
+  "issued_decision_mean_regret": null,
+  "mean_utilities": {
+    "graph_aware_hybrid": {
+      "12800": 0.0087890625,
+      "25600": 0.0142822265625,
+      "40000": 0.0159912109375
+    },
+    "operational_hybrid": {
+      "12800": 0.010009765625,
+      "25600": 0.01513671875,
+      "40000": 0.01806640625
+    }
+  },
+  "model_scores": {
+    "graph_aware": {
+      "curve_rmse": 0.004328362035594318,
+      "pairwise_ordering": 1.0
+    },
+    "operational": {
+      "curve_rmse": 0.003832218502554662,
+      "pairwise_ordering": 0.0
+    }
+  },
+  "prospective_outcomes_opened": true,
+  "schema_version": "anarres.molecular-prospective-results.v1",
+  "seed_records": [
+    {
+      "bank": "operational_hybrid",
+      "checkpoint_step": 200,
+      "target_oracle_attempt_budget": 12800,
+      "training_seed": 20261108,
+      "unique_qualifying_hit_rate": 0.014892578125,
+      "utility": 0.009765625,
+      "warm_start_rate": 0.005126953125
+    },
+    {
+      "bank": "operational_hybrid",
+      "checkpoint_step": 400,
+      "target_oracle_attempt_budget": 25600,
+      "training_seed": 20261108,
+      "unique_qualifying_hit_rate": 0.0224609375,
+      "utility": 0.017333984375,
+      "warm_start_rate": 0.005126953125
+    },
+    {
+      "bank": "operational_hybrid",
+      "checkpoint_step": 625,
+      "target_oracle_attempt_budget": 40000,
+      "training_seed": 20261108,
+      "unique_qualifying_hit_rate": 0.022216796875,
+      "utility": 0.01708984375,
+      "warm_start_rate": 0.005126953125
+    },
+    {
+      "bank": "operational_hybrid",
+      "checkpoint_step": 200,
+      "target_oracle_attempt_budget": 12800,
+      "training_seed": 20261109,
+      "unique_qualifying_hit_rate": 0.01513671875,
+      "utility": 0.01025390625,
+      "warm_start_rate": 0.0048828125
+    },
+    {
+      "bank": "operational_hybrid",
+      "checkpoint_step": 400,
+      "target_oracle_attempt_budget": 25600,
+      "training_seed": 20261109,
+      "unique_qualifying_hit_rate": 0.017822265625,
+      "utility": 0.012939453125,
+      "warm_start_rate": 0.0048828125
+    },
+    {
+      "bank": "operational_hybrid",
+      "checkpoint_step": 625,
+      "target_oracle_attempt_budget": 40000,
+      "training_seed": 20261109,
+      "unique_qualifying_hit_rate": 0.02392578125,
+      "utility": 0.01904296875,
+      "warm_start_rate": 0.0048828125
+    },
+    {
+      "bank": "graph_aware_hybrid",
+      "checkpoint_step": 200,
+      "target_oracle_attempt_budget": 12800,
+      "training_seed": 20261108,
+      "unique_qualifying_hit_rate": 0.0146484375,
+      "utility": 0.009521484375,
+      "warm_start_rate": 0.005126953125
+    },
+    {
+      "bank": "graph_aware_hybrid",
+      "checkpoint_step": 400,
+      "target_oracle_attempt_budget": 25600,
+      "training_seed": 20261108,
+      "unique_qualifying_hit_rate": 0.01953125,
+      "utility": 0.014404296875,
+      "warm_start_rate": 0.005126953125
+    },
+    {
+      "bank": "graph_aware_hybrid",
+      "checkpoint_step": 625,
+      "target_oracle_attempt_budget": 40000,
+      "training_seed": 20261108,
+      "unique_qualifying_hit_rate": 0.02099609375,
+      "utility": 0.015869140625,
+      "warm_start_rate": 0.005126953125
+    },
+    {
+      "bank": "graph_aware_hybrid",
+      "checkpoint_step": 200,
+      "target_oracle_attempt_budget": 12800,
+      "training_seed": 20261109,
+      "unique_qualifying_hit_rate": 0.012939453125,
+      "utility": 0.008056640625,
+      "warm_start_rate": 0.0048828125
+    },
+    {
+      "bank": "graph_aware_hybrid",
+      "checkpoint_step": 400,
+      "target_oracle_attempt_budget": 25600,
+      "training_seed": 20261109,
+      "unique_qualifying_hit_rate": 0.01904296875,
+      "utility": 0.01416015625,
+      "warm_start_rate": 0.0048828125
+    },
+    {
+      "bank": "graph_aware_hybrid",
+      "checkpoint_step": 625,
+      "target_oracle_attempt_budget": 40000,
+      "training_seed": 20261109,
+      "unique_qualifying_hit_rate": 0.02099609375,
+      "utility": 0.01611328125,
+      "warm_start_rate": 0.0048828125
+    }
+  ],
+  "status": "PROSPECTIVE_OUTCOMES_RELEASED_AND_SCORED",
+  "study": "prospective-reaction-environment-selection"
+}

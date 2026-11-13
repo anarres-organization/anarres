@@ -1,0 +1,58 @@
+{
+  "checkpoint_count": 12,
+  "contract": "q07820-matched-training-evaluation-v1",
+  "contract_sha256": "d45c1fd2d8380ef0c0e70464961a519c46fcd8603fffede9ab0f8154ad0aa26d",
+  "endpoint_outcomes_opened": false,
+  "panel_kind": "prospective",
+  "prospective_freeze_sha256": "104e38c41b03d4b01e3fa7c09bde46ccab01abca1607377cfa89866facb32c5c",
+  "records": [
+    {
+      "arm": "graph_aware_hybrid",
+      "checkpoints": {
+        "200": "1295262a05fa676473f40800ada9dfdf9f0c16362b531564b0f4a1dbbd24c31d",
+        "400": "70bd36983fa9fe56d2fb22d1565ed0c4568f06261143c4b9cfa1c70cfac058ca",
+        "625": "e74f8031ab112d1f60f112ca5610e714bba9f6b91ec12d6a072394907399e741"
+      },
+      "manifest_sha256": "4102a8a81fd49fc46f4edcbd06c07df54c19df67a172350848b9d3b41746e2bb",
+      "replay_items_sha256": "3017f574e845a64596da2a68601587300c612bd4a302982b66639128b6f82312",
+      "seed": 20261108
+    },
+    {
+      "arm": "graph_aware_hybrid",
+      "checkpoints": {
+        "200": "c96791ae6202597a496832cb77b9e5d89bc57de8d157f8513a7d8947aa13aa6b",
+        "400": "8bba84ce944d771a4e01171c96c381a8fa1d3eb9ed65c038da73aa69eee16104",
+        "625": "468c906ae14b3590ec1ecec94e0003a2b7c19428833f729d3225c01a02248a4d"
+      },
+      "manifest_sha256": "5f939c405f81f85e9a402fec96225e62a45c1f5e69461a8086cac01c2534874e",
+      "replay_items_sha256": "3017f574e845a64596da2a68601587300c612bd4a302982b66639128b6f82312",
+      "seed": 20261109
+    },
+    {
+      "arm": "operational_hybrid",
+      "checkpoints": {
+        "200": "20a97c15d2cc012ec25c92c9243aebe064d9c2305a98836cab23b7571c8a1ffc",
+        "400": "1941619c034e0e2c1950d335699f9b66a098d505110f1513146b151cc2958e06",
+        "625": "f772c09f34306f99c6ffb14d0dd387251e3714081ea8a2c49ab88bcb7a5809ec"
+      },
+      "manifest_sha256": "3b6299ac613078aacd89f5c3cc8ea08303ecbd23ac04503b20f9e232336d4f4c",
+      "replay_items_sha256": "605bf3821e19f9aaad308935c144155f89f9190e6939efe349be85bf2ccc4289",
+      "seed": 20261108
+    },
+    {
+      "arm": "operational_hybrid",
+      "checkpoints": {
+        "200": "038faa7cf4ac950879a6d5eb8a258a59011b6a8f0ca4130a5479615d8637fe90",
+        "400": "a6d69b31827adc1f78846d738b9ef6f5120ba265b2469e42853a77b2f1f83a3d",
+        "625": "61561b6d899c9874144d9ec41a30fd8809c5df85ec71cec74150f7e433ca9442"
+      },
+      "manifest_sha256": "6c5d3f5ac92df03e01aac933a0db0d1ba68b16e73fa48ad2711c811674b05eee",
+      "replay_items_sha256": "605bf3821e19f9aaad308935c144155f89f9190e6939efe349be85bf2ccc4289",
+      "seed": 20261109
+    }
+  ],
+  "run_count": 4,
+  "schema_version": "anarres.molecular-prospective-training-gate.v1",
+  "status": "PROSPECTIVE_TRAINING_COMPLETE__ENDPOINT_OUTCOMES_UNOPENED",
+  "study": "prospective-reaction-environment-selection"
+}

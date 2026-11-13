@@ -130,10 +130,12 @@
     "admission_rule": "Use explore-derived candidates only after independent probe measurements are normalized under the frozen prospective contract.",
     "claim_bearing_test": "RxnFlow reaction-environment selection",
     "explore_template": "The pinned RxnFlow explore template defines the synthesis action space. It is a source-construction asset, not a predictor coordinate or downstream outcome.",
-    "status": "sealed"
+    "interpretation": "The frozen point forecast gets the two-bank ordering right at all three budgets, while the prespecified uncertainty rule abstains at all three.",
+    "result": "experiments/ai-for-science/molecular-design/reaction-environment-selection/PROSPECTIVE_RESULTS.json",
+    "status": "released"
   },
   "schema_version": "anarres.molecular.prediction_contract.v1",
-  "status": "retrospective_contract_with_sealed_prospective_test",
+  "status": "retrospective_contract_with_released_prospective_test",
   "supporting_objects": {
     "antoniuk_active_learning": {
       "predictor_eligibility": "excluded: preceding acquisition cost is unmatched",

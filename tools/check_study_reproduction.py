@@ -114,6 +114,7 @@ CHECKS = (
         "test_gate_endpoint_evaluation.py",
         "test_construct_prospective_banks.py",
         "test_prospective_decision_pipeline.py",
+        "test_prospective_release.py",
     ),
     python_check(
         "molecular retrospective bridge",

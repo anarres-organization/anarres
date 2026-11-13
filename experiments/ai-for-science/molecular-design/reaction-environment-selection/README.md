@@ -1,12 +1,12 @@
 # Prospective selection of molecular graph experience
 
-**Current status:** the Q07820 target, six development banks, common starting
-policy, reward and docking runtimes, replay interface, and matched training and
-evaluation contract are frozen. The contract covers six banks, two seeds, and
-checkpoints at 12,800, 25,600, and 40,000 target-oracle attempts. The two
-prospective bank algorithms and their independent qualification gate are also
-fixed before development outcomes. No target-training or evaluation outcome
-has been opened.
+**Current status:** the first Q07820 prospective decision is complete. The
+frozen graph-aware forecast ranked the operational hybrid above the graph-aware
+hybrid at all three budgets, and that ordering was correct after the complete
+two-seed endpoint matrix was opened. The observed margins were 0.085--0.208
+percentage points, below the prespecified uncertainty threshold, so the rule
+abstained at every budget. [`RESULTS.md`](RESULTS.md) reports the decision,
+curve scores, seed agreement, chronology, and claim boundary.
 
 The qualification record preserves both successful and failed gates. Early
 measurement views failed diversity and ordering checks; the final independent
@@ -41,8 +41,9 @@ empirical abstention rule before prospective training.
 [`scripts/score_prospective_results.py`](scripts/score_prospective_results.py)
 verifies that freeze and scores curve error, ordering, allocation regret, and
 seed-level winner agreement only after the prospective matrix passes the same
-native endpoint gate. The scripts define the analysis path without opening or
-creating any claim-bearing outcome.
+native endpoint gate. The byte-identical implementation bound into the frozen
+forecast is preserved as
+[`scripts/score_prospective_results_frozen_v1.py`](scripts/score_prospective_results_frozen_v1.py).
 
 Prospective membership is governed by
 [`PROSPECTIVE_BANK_CONSTRUCTION_CONTRACT_V1.json`](PROSPECTIVE_BANK_CONSTRUCTION_CONTRACT_V1.json).
@@ -132,8 +133,8 @@ Each profile preserves the native contracts and artifact digests. The profiles
 are schema-valid and carry the passing selector-fidelity qualification. CLI
 training authorization requires both that bank confirmation and the independent
 starting-policy endpoint gate, together with the frozen matched contract.
-Neither qualification result establishes predictive utility or opens
-target-training outcomes.
+The qualification records alone do not establish predictive utility. The
+released prospective result remains a separate downstream record.
 The adapter accepts an explicit `--repository` path, so the installed command
 can run outside the checkout without searching for mutable evidence.
 
@@ -258,8 +259,9 @@ Six banks support model development.
 | Route coverage | Reaction families and route depth |
 | Graph-embedding coverage | Frozen starting-policy molecular representations |
 
-After development outcomes are scored, the operational and graph-aware
-predictors are frozen. Two untouched banks then form the prospective decision.
+After development outcomes were scored, the operational and graph-aware
+predictors were frozen. Two untouched banks then formed the prospective
+decision.
 
 | Prospective bank | Frozen information |
 | --- | --- |
@@ -268,7 +270,8 @@ predictors are frozen. Two untouched banks then form the prospective decision.
 
 The prospective freeze records both bank memberships, complete utility curves,
 their ranking at every budget, an uncertainty interval, and an abstention rule
-before either bank is trained.
+before either bank is trained. The released score is reported in
+[`RESULTS.md`](RESULTS.md).
 
 ## Outcome contract
 

@@ -46,9 +46,13 @@ statistic failed because it ranked banks on coordinates they were not designed
 to optimize. A sealed diagnostic motivated a Version 4 selector-fidelity gate
 that preserved the banks, selectors, estimators, and runtime. All eight
 prespecified selector-versus-neutral checks pass in both independent views.
-The matched six-bank, two-seed training and evaluation contract is now frozen.
-The released package stops before target-training outcomes, and the two
-prospective hybrid candidates remain sealed.
+The matched six-bank development study and the two-bank prospective decision
+are complete. The frozen graph-aware forecast correctly ranked the operational
+hybrid above the graph-aware hybrid at all three budgets. Observed differences
+were small relative to the prespecified uncertainty threshold, so the rule
+abstained rather than issuing an allocation decision. The full chronology and
+claim boundary are reported in the study's
+[`RESULTS.md`](reaction-environment-selection/RESULTS.md).
 
 The primary endpoint is a multi-gate qualifying-hit rate rather than raw
 docking score. It combines target docking with molecular validity, chemical
@@ -104,10 +108,10 @@ and wet-lab evidence.
 
 The current public artifacts qualify the pinned source revisions, Version4
 archive and target fixtures, docking oracle, QED warm start, Q07820 target, and
-two-view measurement. They preserve the failed Version 3 complete-order result
-and record the passing Version 4 selector-fidelity confirmation. The completed
-gate supports the frozen matched target-training and evaluation contracts. No
-target-training or evaluation outcome is included in the released package.
+two-view measurement. They preserve the failed Version 3 complete-order result,
+the passing Version 4 selector-fidelity confirmation, the frozen forecast, and
+the complete prospective endpoint gate. Released outcomes remain downstream
+result records and are not converted into environment-profile coordinates.
 
 An installable `anarres-molecular` adapter exposes the native qualification
 status and deterministic profile export without changing this evidence

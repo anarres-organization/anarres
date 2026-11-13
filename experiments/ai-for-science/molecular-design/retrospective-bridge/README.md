@@ -3,8 +3,8 @@
 **Status:** seven public evidence objects are normalized and source-audited.
 Three decision audits cover early optimization across 23 held-out oracle tasks,
 acquisition policies across nine held-out library-architecture contexts, and
-target-specific acquisition across 50 held-out molecules. The bridge is
-retrospective and leaves the sealed RxnFlow candidate panel unchanged.
+target-specific acquisition across 50 held-out molecules. The bridge remains
+retrospective and separate from the now-released RxnFlow prospective result.
 
 This bridge asks how experience, acquisition, representation, and finite
 oracle budget change molecular-design outcomes across published studies. It
@@ -146,11 +146,13 @@ pairwise comparisons within each molecule as independent observations.
 ## Relationship to the prospective study
 
 The [RxnFlow reaction-environment study](../reaction-environment-selection/README.md)
-remains the claim-bearing environment-selection experiment. It fixes one
-starting molecular graph policy, target, trainer, replay contract, and matched
-budget while changing only candidate-bank membership. This bridge broadens the
-evidence across targets, mechanisms, and model families. The comparison between
-the operational and graph-aware candidate banks remains the prospective test.
+is the claim-bearing environment-selection experiment. It fixes one starting
+molecular graph policy, target, trainer, replay contract, and matched budget
+while changing only candidate-bank membership. Its frozen point forecast gets
+the two-bank ordering right at all three budgets, while the prespecified rule
+abstains because the margins are smaller than development uncertainty. This
+bridge broadens the evidence across targets, mechanisms, and model families
+without entering the prospective predictor.
 
 ## Reproduction
 
