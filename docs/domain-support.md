@@ -1,4 +1,4 @@
-# Domain integration status
+# Domain support
 
 Anarres separates software support from scientific validation. Format support
 means the software can read and validate the data. Predictive evidence means a
@@ -31,17 +31,60 @@ the authoritative adapter-level check.
 
 ## Current status
 
-| Program | Example records | Installed command | Works with native files | Outcome evidence |
-| --- | --- | --- | --- | --- |
-| Mathematics | Grouped-probe path and reference conformance | Native grouped-probe processor | Completed raw-attempt streams | Four-scale environment-utility release |
-| Formal verification | Real Vero profiles | Installable Vero adapter with source and model-free runtime qualification | Runtime preflight available; sanitized policy execution pending | Positive external training-environment grids across Dafny and Verus; local Vero support and containment qualification remain pre-RL |
-| Robotics | Real Can v1.4.1 candidate profiles | Installable CUPID candidate-measurement and result adapter | Can v1.4.1 HDF5 qualification is available; policy probing remains study-specific | Prospective PushT and Can results, plus retrospective multi-source records |
-| Legal reasoning | Real SylloGym policy-response profiles | Installable SylloGym mixture adapter with a separate LAB regression report | Pinned public LAB task-set qualification; judge-backed policy probing remains gated | Prospective SylloGym and separate LAB regression-risk records |
-| Materials science | Real MLIP candidate profiles | Installable cost-matched-panel adapter | OMat24 atomistic-bank qualification is available; Nequix policy probing remains in the native study runtime | Supervised phonon tests and a scored MLIP prospective test; the learned selector missed while deterministic baselines succeeded |
-| Vulnerability exploitation | Public qualification protocol and released scaffold study | Installable qualification-only CyberGym adapter | Sanitized level 0--2 CyberGym panel qualification; execution and policy probing remain gated | Policy-relative measurement released; no environment comparison |
-| Agentic systems | Public research protocols | Concrete domains use their own adapters | No umbrella runtime | Domain experiments remain study-specific |
-| Molecular design | Real Q07820 reaction-bank profiles | Installable RxnFlow development adapter | Native reaction-environment qualification and a pinned, dry-run-by-default policy probe are available | Selector-fidelity confirmation passed; matched target-training outcomes remain unopened |
-| Agentic finance | Real Business Bench qualification profile | Installable starting-policy qualification adapter | Pinned Business Bench process qualification; portable policy probing remains gated | Frozen retrospective source tests; no prospective environment outcome opened |
+### Mathematics
+
+- **Interface:** Native grouped-probe processor
+- **Native sources:** Completed raw-attempt streams
+- **Validation:** Four-scale environment-utility study
+
+### Formal verification
+
+- **Interface:** Installable Vero adapter
+- **Native sources:** Source qualification and model-free runtime preflight
+- **Validation:** Training comparisons across Dafny and Verus. Vero remains
+  pre-RL.
+
+### Robotics
+
+- **Interface:** Installable CUPID adapter
+- **Native sources:** Can v1.4.1 dataset qualification
+- **Validation:** Prospective PushT and Can panels, plus retrospective
+  multi-source studies. Square candidate outcomes remain unopened.
+
+### Legal reasoning
+
+- **Interface:** Installable legal adapter
+- **Native sources:** Pinned LAB task-set qualification
+- **Validation:** Prospective SylloGym panel and a separate LAB regression-risk
+  study
+
+### Materials science
+
+- **Interface:** Installable materials adapter
+- **Native sources:** OMat24 atomistic-bank qualification
+- **Validation:** Supervised phonon studies and a scored MLIP prospective test
+
+### Molecular design
+
+- **Interface:** Installable molecular adapter
+- **Native sources:** Reaction-bank qualification and a pinned dry-run policy
+  probe
+- **Validation:** Selector-fidelity confirmation. Matched target-training
+  outcomes remain unopened.
+
+### Vulnerability exploitation
+
+- **Interface:** Installable CyberGym adapter
+- **Native sources:** Sanitized level 0--2 panel qualification
+- **Validation:** Policy-relative scaffold measurement. No environment
+  comparison has been released.
+
+### Agentic finance
+
+- **Interface:** Installable finance adapter
+- **Native sources:** Pinned Business Bench process qualification
+- **Validation:** Retrospective source tests. No prospective environment outcome
+  has been released.
 
 The profile schema can transport additional namespaced coordinates without a
 Rust change. That extensibility is not evidence that an unlisted adapter works
@@ -60,5 +103,5 @@ A domain moves to native-adapter status only when its checked-in workflow:
 
 Predictive status requires a separate outcome-bearing experiment. Synthetic
 fixtures never satisfy that requirement. Umbrella programs do not receive
-generic adapters; their concrete studies expose domain-specific commands
-when a stable native producer is available.
+generic adapters. Their concrete studies expose domain-specific commands when
+a stable native producer is available.

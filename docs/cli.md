@@ -96,7 +96,7 @@ command containing the exact generated paths. Use `--output <path>` and
 
 Generated records live in the project-local `.anarres/` directory, which is
 ignored by Git and safe to regenerate. Running the demo from your home
-directory writes to `~/.anarres`; run it from a project directory when you want
+directory writes to `~/.anarres`. Run it from a project directory when you want
 the artifacts to stay with that project.
 
 Human-readable output uses restrained status color when standard output is a
@@ -254,7 +254,7 @@ checks exact group membership and derives the declared leave-one-out admitted
 advantage mass. Producers therefore do not need to reproduce Anarres's
 aggregation code. Start with `anarres adapter list` to discover installed
 domain workflows. The source-envelope example lives in
-`examples/environment-source/`; normalized fixtures live in
+`examples/environment-source/`. Normalized fixtures live in
 `examples/environment-processing/` and `examples/environment-profiles/`.
 
 ## Run the core commands directly
@@ -503,7 +503,7 @@ anarres design .anarres/candidates/*.json --json
 ```
 
 Structured data is written to standard output. Errors are written to standard
-error. Successful commands exit with status 0; invalid input, incompatible
+error. Successful commands exit with status 0. Invalid input, incompatible
 candidate panels, failed validation, and write failures exit nonzero. The CLI
 built-ins perform no network calls and send no telemetry. Installed adapters
 retain their own documented runtime and network contract.

@@ -105,16 +105,19 @@ packages, or executable sandboxes are required.
 
 ## Domain workflows
 
-| Program | Available workflow | Evidence boundary |
-| --- | --- | --- |
-| Mathematics | Native grouped-probe processor | Four-scale environment-utility evidence |
-| Formal verification | Vero runtime qualification | Execution study continues separately |
-| Robotics | Can source qualification and candidate measurement | Prospective PushT and Can evidence |
-| Legal reasoning | LAB qualification and legal regression reports | SylloGym and LAB evidence remain separate |
-| Materials science | OMat24 qualification and MLIP measurements | Scored prospective MLIP test |
-| Molecular design | Reaction-bank qualification and dry-run probe | Matched training outcomes remain unopened |
-| Vulnerability exploitation | Sanitized CyberGym qualification | No environment-comparison result |
-| Agentic finance | Business Bench qualification | Retrospective evidence; no prospective outcome |
+| Program | Available workflow |
+| --- | --- |
+| [Mathematical reasoning](https://github.com/anarres-organization/anarres/tree/main/experiments/mathematics/environment-utility) | Measure grouped rollouts and compare compatible environments |
+| [Formal verification](https://github.com/anarres-organization/anarres/tree/main/experiments/cyber/formal-verification) | Qualify Vero sources and the Lean runtime |
+| [Robotics](https://github.com/anarres-organization/anarres/tree/main/experiments/robotics/environment-selection) | Qualify Can datasets, inspect candidate measurements, and reproduce released results |
+| [Legal reasoning](https://github.com/anarres-organization/anarres/tree/main/experiments/legal) | Qualify LAB workflows and reproduce legal regression reports |
+| [Materials science](https://github.com/anarres-organization/anarres/tree/main/experiments/ai-for-science/materials-science) | Qualify OMat24 sources and reproduce MLIP measurements and results |
+| [Molecular design](https://github.com/anarres-organization/anarres/tree/main/experiments/ai-for-science/molecular-design) | Qualify reaction banks and prepare a pinned policy probe |
+| [Vulnerability exploitation](https://github.com/anarres-organization/anarres/tree/main/experiments/cyber/qualification) | Qualify sanitized CyberGym panels and containment records |
+| [Agentic finance](https://github.com/anarres-organization/anarres/tree/main/experiments/finance) | Qualify Business Bench workflows and reproduce retrospective decision audits |
+
+The [domain support matrix](domain-support.md) reports native formats, runnable
+interfaces, and the validation released for each workflow.
 
 ## Learn more
 

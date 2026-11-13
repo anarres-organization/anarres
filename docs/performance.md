@@ -24,7 +24,7 @@ median latency, p95 latency, and minimum latency.
 The default limits are broad regression guards, not cross-machine performance
 claims. Native paths use a p95 guard. Adapter paths spawn another process and
 use a median guard because isolated scheduler delays can dominate their p95 on
-shared runners; their p95 remains in the report for diagnosis. Operating
+shared runners. Their p95 remains in the report for diagnosis. Operating
 systems, filesystems, power states, and background work can materially affect
 short-process measurements. Compare changes on the same quiet machine with the
 same release build and benchmark parameters. Use a profiler after a
