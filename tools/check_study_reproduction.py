@@ -167,6 +167,17 @@ CHECKS = (
         ("anarres-molecular", "verify", "--repository", str(ROOT), "--json"),
     ),
     StudyCheck(
+        "molecular acquisition reports",
+        ROOT,
+        (
+            "anarres-molecular",
+            "acquisition-results",
+            "--repository",
+            str(ROOT),
+            "--json",
+        ),
+    ),
+    StudyCheck(
         "finance compact verification",
         ROOT,
         ("anarres-finance", "verify", "--repository", str(ROOT), "--json"),

@@ -35,6 +35,7 @@ uv tool install \
   ./experiments/ai-for-science/molecular-design/reaction-environment-selection
 anarres molecular status --repository .
 anarres adapter doctor molecular
+anarres molecular acquisition-results --repository . --json
 ```
 
 The study compares operational measurements with graph-aware measurements.

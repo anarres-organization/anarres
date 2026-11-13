@@ -62,6 +62,7 @@ Install the native CLI and molecular adapter from a repository checkout:
 cargo install --path crates/anarres-cli --locked
 uv tool install ./experiments/ai-for-science/molecular-design/reaction-environment-selection
 anarres adapter doctor molecular
+anarres molecular acquisition-results --repository . --json
 ```
 
 The adapter accepts a practitioner-supplied molecular environment before any
