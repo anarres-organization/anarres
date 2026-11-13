@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "study_id": "prospective_protein_acquisition_v1",
+  "status": "PROTOCOL_FROZEN__OUTCOMES_UNOPENED",
+  "scientific_object": "retrospective active-learning simulation on seven prospectively frozen public protein landscapes",
+  "candidate_datasets": ["amylase", "hydro", "ired", "nucb", "pdz3", "rhomax", "trpb"],
+  "outcome_blind_support_gate": {
+    "minimum_source_rows": 700,
+    "required_columns": ["sequence", "target", "set", "validation"],
+    "require_complete_sequences_and_targets": true,
+    "larger_target_is_better": true,
+    "candidate_cap": 5000,
+    "cap_rule": "select the lowest SHA-256 values of dataset, sequence, and source row index"
+  },
+  "prediction": {
+    "selected_strategy": "greedy",
+    "rule": "acquire variants with the largest predictive mean",
+    "origin": "greedy has lower normalized regret in the frozen AbBiBench panel, while a published AAV, GB1, and Meltome benchmark reports that UCB and Thompson sampling do not outperform greedy",
+    "claim_boundary": "one frozen default across seven new datasets, not a universal acquisition rule"
+  },
+  "strategies": {
+    "random": "uniform random acquisition",
+    "greedy": "largest predictive mean",
+    "ucb": "largest predictive mean plus one predictive standard deviation",
+    "uncertainty": "largest predictive standard deviation",
+    "thompson": "largest draw from the predictive normal approximation"
+  },
+  "model": {
+    "representation": "outcome-blind 256-dimensional character 1--3-gram hashing of protein sequences",
+    "surrogate": "32-tree extremely randomized regression ensemble",
+    "tree_parameters": {
+      "n_estimators": 32,
+      "max_features": "sqrt",
+      "min_samples_leaf": 2,
+      "bootstrap": false
+    },
+    "uncertainty": "standard deviation across tree predictions",
+    "reuse_boundary": "the executable logic follows the frozen AbBiBench panel, while this study retains its own source, cap, prediction, and result identities"
+  },
+  "budget": {
+    "initial_batches": 1,
+    "acquisition_batches": 9,
+    "batch_size": "max(4, round(0.01 * capped_candidate_rows))",
+    "same_initial_batch_across_strategies": true,
+    "adaptive_stopping": false
+  },
+  "seeds": [7, 42, 123, 456, 9001],
+  "evaluation": {
+    "top_fraction": 0.02,
+    "primary_curve": "recall of each capped dataset's top-2% variants after each observed batch",
+    "primary_utility": "trapezoidal area under the recall curve, normalized over the observed-count interval",
+    "endpoint_sensitivity": "top-2% recall after the final batch",
+    "primary_unit": "dataset",
+    "seed_role": "replicated acquisition trajectory"
+  },
+  "scoring": {
+    "primary": [
+      "mean normalized allocation regret of the frozen greedy choice across datasets",
+      "greedy pairwise win credit against the four alternative strategies",
+      "best-strategy credit of greedy"
+    ],
+    "uncertainty": "20,000 whole-dataset bootstrap resamples",
+    "report_complete_curves": true
+  },
+  "release_gate": {
+    "expected_units": 175,
+    "require_all_datasets_strategies_and_seeds": true,
+    "require_source_hashes": true,
+    "require_contract_hashes": true,
+    "require_candidate_membership_hashes": true,
+    "require_unit_hashes": true
+  },
+  "prohibitions": [
+    "inspecting target values or partial comparisons before the complete-matrix gate passes",
+    "changing the selected strategy or model after outcome-bearing execution begins",
+    "dropping datasets or seeds based on their outcomes",
+    "describing the public-data simulation as prospective wet-lab evidence"
+  ]
+}
+

@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "study_id": "prospective_protein_acquisition_v1",
+  "dataset": {
+    "name": "FLIP2",
+    "paper": "FLIP2: Expanding Protein Fitness Landscape Benchmarks for Real-World Machine Learning Applications",
+    "paper_uri": "https://doi.org/10.64898/2026.02.23.707496",
+    "repository_uri": "https://github.com/J-SNACKKB/FLIP",
+    "repository_revision": "e74069fe09490c6a44a8d7ff8c2811b61f24ec82",
+    "archive_uri": "https://zenodo.org/records/18433203",
+    "license": "CC-BY-4.0",
+    "producing_run": "official FLIP2 split release",
+    "files": [
+      {
+        "dataset": "amylase",
+        "split": "one_to_many",
+        "filename": "amylase__one_to_many.csv.gz",
+        "uri": "https://flip.protein.properties/assets/splits/amylase/one_to_many.csv.gz",
+        "media_type": "application/gzip",
+        "license": "CC-BY-4.0",
+        "rows": 3706,
+        "bytes": 51532,
+        "sha256": "68672903e56c9e3c23bd65bb6dde0bb8e31f676a84e3c00df929d539bd48f766"
+      },
+      {
+        "dataset": "hydro",
+        "split": "three_to_many",
+        "filename": "hydro__three_to_many.csv.gz",
+        "uri": "https://flip.protein.properties/assets/splits/hydro/three_to_many.csv.gz",
+        "media_type": "application/gzip",
+        "license": "CC-BY-4.0",
+        "rows": 24935,
+        "bytes": 369389,
+        "sha256": "10708234ac646b7b7db38c37baecfb1901b71b2d9e26816e892ea2dcc7b3930d"
+      },
+      {
+        "dataset": "ired",
+        "split": "two_to_many",
+        "filename": "ired__two_to_many.csv.gz",
+        "uri": "https://flip.protein.properties/assets/splits/ired/two_to_many.csv.gz",
+        "media_type": "application/gzip",
+        "license": "CC-BY-4.0",
+        "rows": 8586,
+        "bytes": 194734,
+        "sha256": "aa45a2f85fb1af87b6b0e86397b3f8f292a061dc574be2536673b5bd490b0e74"
+      },
+      {
+        "dataset": "nucb",
+        "split": "two_to_many",
+        "filename": "nucb__two_to_many.csv.gz",
+        "uri": "https://flip.protein.properties/assets/splits/nucb/two_to_many.csv.gz",
+        "media_type": "application/gzip",
+        "license": "CC-BY-4.0",
+        "rows": 55759,
+        "bytes": 624937,
+        "sha256": "f4eb78afaec88dbb79233c8df0128981f4479ca3467dc252c10eff4304627339"
+      },
+      {
+        "dataset": "pdz3",
+        "split": "single_to_double",
+        "filename": "pdz3__single_to_double.csv.gz",
+        "uri": "https://flip.protein.properties/assets/splits/pdz3/single_to_double.csv.gz",
+        "media_type": "application/gzip",
+        "license": "CC-BY-4.0",
+        "rows": 734,
+        "bytes": 8804,
+        "sha256": "8c16915fb15343734ca8395dc74c06ced07cde48b3e0820963ab65fc4716f157"
+      },
+      {
+        "dataset": "rhomax",
+        "split": "by_wild_type",
+        "filename": "rhomax__by_wild_type.csv.gz",
+        "uri": "https://flip.protein.properties/assets/splits/rhomax/by_wild_type.csv.gz",
+        "media_type": "application/gzip",
+        "license": "CC-BY-4.0",
+        "rows": 884,
+        "bytes": 18449,
+        "sha256": "7c6d2f02cb89310378ac9897c321fbbd909fb0757ac88803dcce84f5f6b05ce3"
+      },
+      {
+        "dataset": "trpb",
+        "split": "one_to_many",
+        "filename": "trpb__one_to_many.csv.gz",
+        "uri": "https://flip.protein.properties/assets/splits/trpb/one_to_many.csv.gz",
+        "media_type": "application/gzip",
+        "license": "CC-BY-4.0",
+        "rows": 228298,
+        "bytes": 3557931,
+        "sha256": "98d05f5506d28f5f7e0661ebfecc2224a5b9d8fe5192e00a50d94202180e35c9"
+      }
+    ]
+  }
+}
+

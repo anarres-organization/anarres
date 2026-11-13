@@ -1,0 +1,13 @@
+{
+  "files": {
+    "FROZEN_CONTRACT.json": "70846ef5b73005f2e1f65c5e55e3dbbe12689aeae3443fdb58c7e36aef46e5bb",
+    "SOURCES.json": "66443e5580f785bc79a76c57e745722c9bb3090a3d1782ebf39fbaa2ca5ded60",
+    "scripts/common.py": "b53d372c5f4ae55d5942cb28efb75651c61e3b7f536d719cc7b39ecd7cdcf1b5",
+    "scripts/gate_complete_panel.py": "d8fb00b139bc51a3eee646660a5f7c3983e9277f7ae790b1d5f4a1d15387b2e5",
+    "scripts/run_unit.py": "f16d155e3b14ec87000f05b582278b91655f90d44dc8156ad7ff0e44af1d19d8",
+    "scripts/score_panel.py": "388d1a7b1689b519cc4044ab0f3585a58371cf7bc072bdc4e766dfcfc1cf5285"
+  },
+  "schema_version": 1,
+  "status": "PROTOCOL_FROZEN__OUTCOMES_UNOPENED",
+  "study_id": "prospective_protein_acquisition_v1"
+}
