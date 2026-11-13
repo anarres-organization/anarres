@@ -30,14 +30,16 @@ Install the native CLI, then verify that it is available:
 
 === "Homebrew"
 
-    ```console
-    $ brew install anarres-organization/tap/anarres
+    ```console { .mobile-terminal }
+    $ brew tap \
+        anarres-organization/tap
+    $ brew install anarres
     $ anarres --version
     ```
 
 === "Standalone installer"
 
-    ```console
+    ```console { .mobile-terminal }
     $ curl --proto '=https' --tlsv1.2 -LsSf \
         https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.sh | sh
     $ anarres --version
@@ -45,7 +47,7 @@ Install the native CLI, then verify that it is available:
 
 === "Windows"
 
-    ```powershell
+    ```powershell { .mobile-terminal }
     powershell -ExecutionPolicy ByPass -c "irm https://github.com/anarres-organization/anarres/releases/latest/download/anarres-cli-installer.ps1 | iex"
     anarres --version
     ```
@@ -58,16 +60,8 @@ when a workflow needs its specialized runtime.
 
 Run the bundled CPU-only workflow:
 
-```console
+```console { .mobile-terminal }
 $ anarres demo
-
-  ✓ Qualified    math-reference-demo-v1
-  ✓ Measured     math-reference-demo-v1
-  ✓ Compatible   candidate panel
-
-ENVIRONMENT               SIGNAL / 1M   COVERAGE  ADMITTED   REPAIR
-math-alternative-demo-v1     214.2857     0.4154         2        1
-math-reference-demo-v1       833.3333     0.6533         2        1
 ```
 
 The demo qualifies two environments, measures both under the same synthetic
@@ -77,9 +71,11 @@ records to `.anarres/demo/`.
 To use native data, connect a source to its matching adapter and inspect the
 requirements before running a policy probe:
 
-```console
-$ anarres init ./candidate-a --adapter <adapter> \
-    --revision <immutable-revision> --license <SPDX-identifier>
+```console { .mobile-terminal }
+$ anarres init ./candidate-a \
+    --adapter <adapter> \
+    --revision <revision> \
+    --license <SPDX-id>
 $ anarres inspect ./candidate-a
 $ anarres qualify ./candidate-a
 ```
