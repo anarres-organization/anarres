@@ -23,9 +23,24 @@ The primary outcome is finite-budget recovery of the assay's top 2% of variants.
 4. Verify every unit and source identity.
 5. Open and score results only after the complete-matrix gate passes.
 
-The study is currently frozen and unscored. `FROZEN_CONTRACT.json` is the
-authoritative protocol, and `FREEZE.json` binds that protocol to the executable
-runner and scorer.
+The study is complete. `FROZEN_CONTRACT.json` is the authoritative protocol,
+and `FREEZE.json` binds that protocol to the executable runner and scorer.
+`RELEASE_GATE.json` records the complete 150-unit matrix, while
+`OUTCOME_CURVES.json` and `RESULTS.json` contain the released trajectories and
+aggregate score.
+
+## Result
+
+The frozen UCB prediction is best on three of six assays and earns 83.3%
+pairwise credit against the four alternatives. Its mean normalized allocation
+regret is 0.241. UCB exceeds random acquisition on every assay and has the
+highest mean raw curve utility across the panel.
+
+Greedy acquisition is best on the other three assays and reaches lower mean
+normalized regret, 0.125. The result supports UCB as a competitive transfer
+rule without establishing a unique advantage over greedy acquisition. The next
+decision problem is therefore to predict when exploration adds value beyond a
+strong exploitation baseline.
 
 ## Run the sealed matrix
 
@@ -65,5 +80,5 @@ uv run --project experiments/ai-for-science/molecular-design/prospective-antibod
 
 This is a retrospective simulation on public experimental measurements. Its
 prospective status concerns the frozen candidate panel, prediction, and analysis
-chronology; it is not a prospective wet-lab experiment.
+chronology. It does not provide prospective wet-lab evidence.
 

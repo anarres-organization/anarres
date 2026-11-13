@@ -1,0 +1,63 @@
+{
+  "frozen_ucb_contrasts": {
+    "assays_where_ucb_exceeds_random": 6,
+    "mean_ucb_minus_greedy_95_interval": [
+      -0.02202228244504666,
+      0.027259692440978978
+    ],
+    "mean_ucb_minus_greedy_curve_auc": 0.00097802923448338,
+    "ucb_minus_greedy_by_assay": {
+      "1mlc": -0.018222222222222223,
+      "1n8z": -0.033333333333333326,
+      "2fjg": 0.05580246913580243,
+      "4d5_her2": 0.003703703703703737,
+      "5a12_ang2": 0.023391812865497075,
+      "g6_LC": -0.025474254742547414
+    },
+    "ucb_minus_random_by_assay": {
+      "1mlc": 0.02133333333333333,
+      "1n8z": 0.028395061728395073,
+      "2fjg": 0.12395061728395058,
+      "4d5_her2": 0.15502645502645507,
+      "5a12_ang2": 0.08421052631578946,
+      "g6_LC": 0.01761517615176153
+    }
+  },
+  "interpretation": "The frozen UCB rule is best on three of six assays, exceeds random on all six, and has the highest mean raw curve utility. Greedy is best on the other three assays and has lower normalized allocation regret. The panel supports a competitive UCB prediction while leaving UCB-versus-greedy selection unresolved.",
+  "results_sha256": "462ea9245eae49c8ac370f445109b06ab6666661cbe6565af70bae3696dd7bb3",
+  "schema_version": 1,
+  "status": "POST_RELEASE_FIXED_STRATEGY_AUDIT",
+  "strategy_metrics": {
+    "greedy": {
+      "mean_best_strategy_credit": 0.5,
+      "mean_curve_auc": 0.1100272896936711,
+      "mean_normalized_regret": 0.12486555253932674,
+      "mean_pairwise_credit": 0.875
+    },
+    "random": {
+      "mean_best_strategy_credit": 0.0,
+      "mean_curve_auc": 0.03925012395487363,
+      "mean_normalized_regret": 0.9531161811833359,
+      "mean_pairwise_credit": 0.08333333333333333
+    },
+    "thompson": {
+      "mean_best_strategy_credit": 0.0,
+      "mean_curve_auc": 0.0770197459925031,
+      "mean_normalized_regret": 0.6036452192074836,
+      "mean_pairwise_credit": 0.5
+    },
+    "ucb": {
+      "mean_best_strategy_credit": 0.5,
+      "mean_curve_auc": 0.11100531892815448,
+      "mean_normalized_regret": 0.24052891228048612,
+      "mean_pairwise_credit": 0.8333333333333334
+    },
+    "uncertainty": {
+      "mean_best_strategy_credit": 0.0,
+      "mean_curve_auc": 0.05762626001921395,
+      "mean_normalized_regret": 0.7624420259966539,
+      "mean_pairwise_credit": 0.20833333333333334
+    }
+  },
+  "study_id": "prospective_antibody_acquisition_v1"
+}

@@ -96,9 +96,11 @@ The [prospectively frozen antibody-acquisition
 panel](prospective-antibody-acquisition/README.md) provides the next independent
 decision test. It pins six official AbBiBench antibody--antigen assays that were
 not used to choose the acquisition rule, then compares five strategies under a
-shared surrogate and label budget. UCB is frozen as the point prediction before
-the complete assay--strategy--seed matrix is run. Comparative outcomes remain
-sealed until the matrix and source identities pass the release gate.
+shared surrogate and label budget. UCB was frozen as the point prediction before
+the complete assay--strategy--seed matrix was run. It is best on three of six
+assays, earns 83.3% pairwise credit, and exceeds random acquisition on all six.
+Greedy acquisition has lower normalized regret, leaving the choice between
+exploration and exploitation as the next prediction problem.
 
 The PMO object also supports a charged temporal decision audit. A 1,000-call
 pilot combined with a training-fold method prior changes the fixed-method choice
