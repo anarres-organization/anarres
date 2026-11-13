@@ -65,6 +65,15 @@
     order: 7;
   }
 
+  .md-header__topic:first-child {
+    opacity: 1;
+    transform: none;
+  }
+
+  .md-header__topic + .md-header__topic {
+    display: none;
+  }
+
   .md-typeset .tabbed-labels {
     max-width: 100%;
     overflow-x: auto;
@@ -90,6 +99,14 @@
     overflow-x: auto;
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media screen and (max-width: 44.984375em) {
+  .md-content__inner .highlight,
+  .md-content__inner > pre {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
