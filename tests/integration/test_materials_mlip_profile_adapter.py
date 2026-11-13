@@ -17,6 +17,13 @@ ROOT = Path(__file__).resolve().parents[2]
 STUDY = ROOT / "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection"
 SCRIPT = STUDY / "export_environment_profiles.py"
 ADAPTER_CLI = STUDY / "adapter/src/anarres_materials_adapter/cli.py"
+SOURCE_PATHS = [
+    STUDY / "adapter/src",
+    ROOT / "packages/core/src",
+    ROOT / "packages/environments/src",
+]
+for source_path in reversed(SOURCE_PATHS):
+    sys.path.insert(0, str(source_path))
 SPEC = importlib.util.spec_from_file_location("materials_mlip_profile_adapter", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
 MODULE = importlib.util.module_from_spec(SPEC)
