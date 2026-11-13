@@ -126,6 +126,11 @@ CHECKS = (
         "experiments/ai-for-science/molecular-design/prospective-antibody-acquisition",
         "test_released_results.py",
     ),
+    python_check(
+        "molecular protein acquisition panel",
+        "experiments/ai-for-science/molecular-design/prospective-protein-acquisition",
+        "test_released_results.py",
+    ),
     StudyCheck(
         "formal-verification adapter",
         ROOT,

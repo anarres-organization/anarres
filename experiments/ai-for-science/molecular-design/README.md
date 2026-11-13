@@ -102,6 +102,14 @@ assays, earns 83.3% pairwise credit, and exceeds random acquisition on all six.
 Greedy acquisition has lower normalized regret, leaving the choice between
 exploration and exploitation as the next prediction problem.
 
+The [prospectively frozen FLIP2
+panel](prospective-protein-acquisition/README.md) tests the resulting greedy
+default on seven new protein datasets spanning enzymes, stability, protein
+interactions, and photophysics. Greedy is best on four datasets, earns 89.3%
+pairwise credit, and reaches 0.056 normalized regret. UCB remains best on two
+datasets and Thompson sampling on one, defining the smaller class of landscapes
+for which exploration may still add value.
+
 The PMO object also supports a charged temporal decision audit. A 1,000-call
 pilot combined with a training-fold method prior changes the fixed-method choice
 on 18 of 23 held-out oracle tasks. It reaches 84.3% pairwise ordering and 0.078

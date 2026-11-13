@@ -1,0 +1,1246 @@
+{
+  "candidate_membership_sha256": {
+    "amylase": "01fda922cb52696272c2ddc2206e6a09d13f358a5d14e7d344d927c636d73b73",
+    "hydro": "56b21e9ba029f765d748076eb86ffe5528c9782494a3c8eb5c659480523c800a",
+    "ired": "3a41e6645e87b9590e930dfc2c6730a7ed5e8c2b92407dc4a2a8c2bd26eb71c0",
+    "nucb": "d9085eeb19587ebfdcb1b4fc9675ca51a5694b0601aa1909c949319dcce3a9cf",
+    "pdz3": "2ef955aa164f6065eede5058cd81c11158dfa5e260dc7750c9d78b6caf0d8764",
+    "rhomax": "53cbd6bdcab5e72a094e8c4f42949d27c51ed4a9a669fcdcfb2593b0c2825634",
+    "trpb": "90a93df618e0cecedc07f0b74f95f1c5749dee2f3fa86101dd9874da890a4879"
+  },
+  "contract_hashes": {
+    "frozen_contract_sha256": "70846ef5b73005f2e1f65c5e55e3dbbe12689aeae3443fdb58c7e36aef46e5bb",
+    "sources_sha256": "66443e5580f785bc79a76c57e745722c9bb3090a3d1782ebf39fbaa2ca5ded60"
+  },
+  "records": [
+    {
+      "dataset": "amylase",
+      "filename": "amylase__greedy__seed7.json",
+      "seed": 7,
+      "sha256": "0c52381f1c6848d539e51a665b23633dcf2ddc9359d471e3a37fdb6c68b7e253",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__greedy__seed42.json",
+      "seed": 42,
+      "sha256": "155dc6ad6b9108aa0da1e2e39257540db7bb225ba6b6780398745eafd4173aa3",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__greedy__seed123.json",
+      "seed": 123,
+      "sha256": "b65dd0a0a021b563163cd50bd7c9512cf7cbb90bfbe02f22a22d429d13efaa9d",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__greedy__seed456.json",
+      "seed": 456,
+      "sha256": "4e11076128a5109698d3343a4b7bdde3d8908e8af063add7990b4b3ddf7de573",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__greedy__seed9001.json",
+      "seed": 9001,
+      "sha256": "7ef04fb1451501ea673485e6cce3b1603169e0c0316b8adb9f6d928f81d1b544",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__random__seed7.json",
+      "seed": 7,
+      "sha256": "2adebc463dbe0a2f5d15435754852766acbd9650079d3a4741f9f2986254daac",
+      "strategy": "random"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__random__seed42.json",
+      "seed": 42,
+      "sha256": "3ebd417cabb97a3d5bc08d72266ff61b9044e5feb747f671e7c1fc46a3a95905",
+      "strategy": "random"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__random__seed123.json",
+      "seed": 123,
+      "sha256": "06e6e254464719e6eb39e81d25be7aea32b437928e5c685c440e1f4633e2c640",
+      "strategy": "random"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__random__seed456.json",
+      "seed": 456,
+      "sha256": "96d3a6f93374b537eb5c0b108d335a456a78ce290f0f683ef4695ea47f51317c",
+      "strategy": "random"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__random__seed9001.json",
+      "seed": 9001,
+      "sha256": "77191024549913fdd43da5ad6fcab1935226ba57e907938aaa9b73648677948a",
+      "strategy": "random"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__thompson__seed7.json",
+      "seed": 7,
+      "sha256": "569fc9861807f069f586997d25604a52d23aa4d6c2adbe5c878b8c1ff0284415",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__thompson__seed42.json",
+      "seed": 42,
+      "sha256": "c7fe2b46b9bf87bf2955bbceaefaefd812cbec5f25c091ef54e95c2b577d14b7",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__thompson__seed123.json",
+      "seed": 123,
+      "sha256": "a0a08ee8ed5ff840b9f5da3e95625aa3b9cfb6d5647f875b8543122f225c3c67",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__thompson__seed456.json",
+      "seed": 456,
+      "sha256": "a0f360408a9a7511be00c5467d85b43d468ba2f0789b7c3d755e5281a89d7302",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__thompson__seed9001.json",
+      "seed": 9001,
+      "sha256": "6a8ea6a2b686cd1f3e09e80743746cac1e9ab0c88ac4f7affafbaf84e729bc0d",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__ucb__seed7.json",
+      "seed": 7,
+      "sha256": "4fbff5a397160e77c2233cae13e03b5a3dad5e2babaa31559f12fed12dcfa20c",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__ucb__seed42.json",
+      "seed": 42,
+      "sha256": "3e92ce4d1f2c615f3899bd60c80a3c3e60c2fcc880dd6b9eb0821854d3d17d2c",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__ucb__seed123.json",
+      "seed": 123,
+      "sha256": "494927f940dd2ce7298e8ad40a5040a4fc1b7c74e584207ca04fd771459d46a4",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__ucb__seed456.json",
+      "seed": 456,
+      "sha256": "738ea216f1d4d920a86cee55595a9a53d88888e4f641876413abab09960c513b",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__ucb__seed9001.json",
+      "seed": 9001,
+      "sha256": "96443fef6ee4567cd137930236f9f8980f4a01094f2a8b9515e8065314137205",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__uncertainty__seed7.json",
+      "seed": 7,
+      "sha256": "a11d15aa175653d9ee82c576379eeea63f60e3ab2bc1702993ac176c0240bde9",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__uncertainty__seed42.json",
+      "seed": 42,
+      "sha256": "7d06ae3359e21160812d7569eaa2cfb1caa0824cc1430192167c114c4757f5ba",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__uncertainty__seed123.json",
+      "seed": 123,
+      "sha256": "4a731089bc3e1de05391ad3a8ea40b524490ca188371f988fad1161e0237b6b6",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__uncertainty__seed456.json",
+      "seed": 456,
+      "sha256": "9dd3a9c4ee2cfdf9b04f41f75d067dd704c75abefb978229b11470feb55e715d",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "amylase",
+      "filename": "amylase__uncertainty__seed9001.json",
+      "seed": 9001,
+      "sha256": "69dd419a5261a19b15d2f0d9a4fdbcc4b2bcf39caafaf262377f2fd08a69b62d",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__greedy__seed7.json",
+      "seed": 7,
+      "sha256": "3e51c2f6cea0c188816c7dc665841e497f268529a515bf15a264b28a7d759fef",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__greedy__seed42.json",
+      "seed": 42,
+      "sha256": "44aba8b0843632def89fa1ce31bb1eda6b67f1ac1819b1beb60192d5df8042fb",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__greedy__seed123.json",
+      "seed": 123,
+      "sha256": "32a1734155616dc247a8a49d5e7cc805e98958eb88103d409a120e75a11463fc",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__greedy__seed456.json",
+      "seed": 456,
+      "sha256": "54de3d377bfe81210f4911dff1a5d3bdc3577bf857e683d697d6b22e90a19a7d",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__greedy__seed9001.json",
+      "seed": 9001,
+      "sha256": "b08faf010c88ca595180b3acaab88f504531e5a273a87dc2c30253c6132ea8b7",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__random__seed7.json",
+      "seed": 7,
+      "sha256": "cd40400b834fa58ab11cd940f1d40dfca6c2c96e678e761365d913a7e0570ece",
+      "strategy": "random"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__random__seed42.json",
+      "seed": 42,
+      "sha256": "0d5fb159d55f9fbf90375afcc920f13cc27c8275ead501a593a365dbe4a678f6",
+      "strategy": "random"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__random__seed123.json",
+      "seed": 123,
+      "sha256": "62031ac4fb0e841c676b8905307c197b045bd8fbd8ed544bcba9c2b11d498267",
+      "strategy": "random"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__random__seed456.json",
+      "seed": 456,
+      "sha256": "9a1063b533423b5a1f43b1ea6383872ec5e869d311e7e50c09e0c6203643a9bf",
+      "strategy": "random"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__random__seed9001.json",
+      "seed": 9001,
+      "sha256": "ba079dc35d567ee14d8bbec98a020320302a02d47ae479f84f261b831885322f",
+      "strategy": "random"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__thompson__seed7.json",
+      "seed": 7,
+      "sha256": "3ea5e0f082d60770a789b10d7b9d339573af78915ee279bfb7ddccc46a168bb1",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__thompson__seed42.json",
+      "seed": 42,
+      "sha256": "7ffc67fda272b92e51b3f8a9c645a77007532d5dd67819d5eb0620eb78cafa10",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__thompson__seed123.json",
+      "seed": 123,
+      "sha256": "05efd9c68ab9fb23448efe6e0728a70638697325acabe7c573224c38e6f3e717",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__thompson__seed456.json",
+      "seed": 456,
+      "sha256": "12dc0909ca026dbb037421cd39c2a0b07291c188199a8731b28256d7173c3a33",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__thompson__seed9001.json",
+      "seed": 9001,
+      "sha256": "703f8b9f0ec220c4e9645c1eb526f8ede0280fe0d08a12df92330d1c5b5eef68",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__ucb__seed7.json",
+      "seed": 7,
+      "sha256": "35dcb45ca0cbbbfc4be84b089284edf203074380aa2d1a6294dc73b44210ca59",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__ucb__seed42.json",
+      "seed": 42,
+      "sha256": "8309c8dd2f6cf41cc5031d4298fd5d7ba3741da04a3013b0d490df47df44c90e",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__ucb__seed123.json",
+      "seed": 123,
+      "sha256": "f8e1b1e4aed8ced2cd906de02c2234f86b59c1478577a45fe1c973d33b128c54",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__ucb__seed456.json",
+      "seed": 456,
+      "sha256": "9653b07fe18bbec8ae321a946a514cd35d9bb699602c151a4be63b7b40106cd1",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__ucb__seed9001.json",
+      "seed": 9001,
+      "sha256": "12897e509470d42b6aa3b6a57f902cec72e7ebf2d84e248972ebe937340eb840",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__uncertainty__seed7.json",
+      "seed": 7,
+      "sha256": "02f8074679ac375d17cd554c9029f11bbd907b3c6ed06839c804061cb4c635f2",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__uncertainty__seed42.json",
+      "seed": 42,
+      "sha256": "4bcb6a3700c2e850a989ce2772ba596406a0e6e4a52e860f4f989d244a28fe92",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__uncertainty__seed123.json",
+      "seed": 123,
+      "sha256": "bb15eb25759a92ce64a47a27fd7644ebb5eaa1ae3e660559d97926059c245a87",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__uncertainty__seed456.json",
+      "seed": 456,
+      "sha256": "73735d3ed61ed939d03ef355d37b785cb11253b36d96372848a764cade118bc1",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "hydro",
+      "filename": "hydro__uncertainty__seed9001.json",
+      "seed": 9001,
+      "sha256": "f52fb906fe498e54a6f26f7e5b55357d2f60dcddd4ae059b6cb83ca8d2465b3a",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__greedy__seed7.json",
+      "seed": 7,
+      "sha256": "d47f86ce0a2e76fc188d44a61e79462fdd197e89228efe9ef81384a985df4743",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__greedy__seed42.json",
+      "seed": 42,
+      "sha256": "c524bd3c7607a27e47a8c4f0c32463b8d39678720bdffc7377ecab562da2f78a",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__greedy__seed123.json",
+      "seed": 123,
+      "sha256": "c7efecf0198e76d891082bf5ecc307a0626ee81d579f611f0204f0b014ff747f",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__greedy__seed456.json",
+      "seed": 456,
+      "sha256": "8ee35a76343c04990bc50d86267695c624404417576398917da53171c857e30c",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__greedy__seed9001.json",
+      "seed": 9001,
+      "sha256": "f260b1611866d1adf7a999a655d833deaccbd2380a86fe5143c06e27ec4afbf0",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__random__seed7.json",
+      "seed": 7,
+      "sha256": "db07d6cba2c096c0b7dada2e535f0819eeb5c70d9c41ff06ab4b312d9cd4fece",
+      "strategy": "random"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__random__seed42.json",
+      "seed": 42,
+      "sha256": "ca2c86d21ca5b9b9660219bd9d50e6300731f71787a43ed5a07cb0ac08fbd0c0",
+      "strategy": "random"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__random__seed123.json",
+      "seed": 123,
+      "sha256": "d0c593f2c3f8420cd7bfcfcf366ec20c58bd4810b597ae388b86c5d2139b47f5",
+      "strategy": "random"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__random__seed456.json",
+      "seed": 456,
+      "sha256": "de70409cb91340b86b4bc948d6e1184bc908a07d9e16626a3c577b9302483b61",
+      "strategy": "random"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__random__seed9001.json",
+      "seed": 9001,
+      "sha256": "f12561b96c438f0a3dd05e588eb6708f305239da75214ab040fe61c492f20bf0",
+      "strategy": "random"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__thompson__seed7.json",
+      "seed": 7,
+      "sha256": "1957fd84b586a0ba917e68b45cf5f84e1e88b7e144a651c5767cfb737ea36707",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__thompson__seed42.json",
+      "seed": 42,
+      "sha256": "1a2b90add89df1e9453951a6024646af9ed75e01564b328e27037e91f11e0876",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__thompson__seed123.json",
+      "seed": 123,
+      "sha256": "ae2cf01538f3e7b0d1fbcbb193a3fb2e72c4d7f3510c712c6d927367508aa608",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__thompson__seed456.json",
+      "seed": 456,
+      "sha256": "ec99eb7a68a9b4d99cd1d98d985543393ec312f0a14e61a0a9f5b3029d8a0ddb",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__thompson__seed9001.json",
+      "seed": 9001,
+      "sha256": "366bc726fa842f4b461d88b412fa53af6e1382c322f99faf1a106e6ac201fa3e",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__ucb__seed7.json",
+      "seed": 7,
+      "sha256": "c8ada6e94a2570642482ebc1905d36179566fce8b94f80ffd30c7bdae718feb0",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__ucb__seed42.json",
+      "seed": 42,
+      "sha256": "ad5d1febf446290f4dad0a9c074a86f0751af34bf224afe0f2f84176bbe1a577",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__ucb__seed123.json",
+      "seed": 123,
+      "sha256": "38105855ddb3cf0fbede0eefd3a30cd8680916358bfb11b443c0a0069a8bbed5",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__ucb__seed456.json",
+      "seed": 456,
+      "sha256": "8f10d36e20f0215f1e7991a4fa3d32b293f0d8184b141d7782b56103cf4ae8c2",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__ucb__seed9001.json",
+      "seed": 9001,
+      "sha256": "dfc16a732312a8462545c35b230cfcc4fb1eb568881716f2238e0f96b1a56b46",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__uncertainty__seed7.json",
+      "seed": 7,
+      "sha256": "7bf3d4dd8654b336cae1ca46d45b4129430376ccf834bae0563f697c5381a8ec",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__uncertainty__seed42.json",
+      "seed": 42,
+      "sha256": "f4cb00ba7ca6cb126e42695b9ecdbbb5bf9abcc3d4b603c9ee3a06e5827bdc3c",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__uncertainty__seed123.json",
+      "seed": 123,
+      "sha256": "f5a3483a7d3c6761465170b687d1e7b96f808f0bcf0ddf419c94d808e763a0a3",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__uncertainty__seed456.json",
+      "seed": 456,
+      "sha256": "a7afd24a917180bcc9aff24ac6f6cb2187d46269858c850d80ef844041a470e6",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "ired",
+      "filename": "ired__uncertainty__seed9001.json",
+      "seed": 9001,
+      "sha256": "82f8b20417318c031837800fd16203e0b4cdff391af0c8fcd7a1f046ee76224a",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__greedy__seed7.json",
+      "seed": 7,
+      "sha256": "29a73c7b046b7c2498e348249046a22a39b5f01177dd20146052c794db9126bc",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__greedy__seed42.json",
+      "seed": 42,
+      "sha256": "147ff60a68a332027dbd884597d101eb9d335e62fc5e7ffcee64450286918afb",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__greedy__seed123.json",
+      "seed": 123,
+      "sha256": "6f7131fe917899bd78ff45a42d554786458f57d0e1350b5637ce00dfdf9a4bb4",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__greedy__seed456.json",
+      "seed": 456,
+      "sha256": "e01c062d983bd801c5c7d2ba4bbd9844dd89793082703e1778712292125ebe1c",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__greedy__seed9001.json",
+      "seed": 9001,
+      "sha256": "024f71cc38d0aa3a9688744fc99beda2cc0ff03e09bbfb91eee1856693e67b31",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__random__seed7.json",
+      "seed": 7,
+      "sha256": "dd7e7902b621c4f72678606870f8534b91b3f059239dffb15e0ccc7c92f8cd2f",
+      "strategy": "random"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__random__seed42.json",
+      "seed": 42,
+      "sha256": "92be089e352476fce43da690780647dad9d1ba74e1c43a65fa9d73091233adf8",
+      "strategy": "random"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__random__seed123.json",
+      "seed": 123,
+      "sha256": "b5a1e0ab6034775df25679a8b8f7decdb6d991b29e677fa27eb44b0a9b8ccb11",
+      "strategy": "random"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__random__seed456.json",
+      "seed": 456,
+      "sha256": "b085f5ee3ba9b6fd90ea92179c9c42178a50025a9467cc52671d44881bd0692c",
+      "strategy": "random"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__random__seed9001.json",
+      "seed": 9001,
+      "sha256": "4ade65df35d6e386b380572695140df4608f3774be9a10050c1c4fda879c4f0d",
+      "strategy": "random"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__thompson__seed7.json",
+      "seed": 7,
+      "sha256": "8571aa0ae33132860350555bbf2024d5112f8d5a136bbae00c2f6e0451b601ee",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__thompson__seed42.json",
+      "seed": 42,
+      "sha256": "9893bccd48530ab017967ed8bf50c0f276b79c60d9bfd6d42f415ef8a6b95c18",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__thompson__seed123.json",
+      "seed": 123,
+      "sha256": "68de2d99ccda1da5d783a839d2a44a6636d2f13992f41668b8780e96eb88d133",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__thompson__seed456.json",
+      "seed": 456,
+      "sha256": "086c987ff642a5be666b80a937120ef8ee0ff9a919c6d429fc362ba594d48944",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__thompson__seed9001.json",
+      "seed": 9001,
+      "sha256": "583a1d23dc1e0ac23c756fe585ddb0e6e2ffea12f1c539fc3ea5014cbe09033e",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__ucb__seed7.json",
+      "seed": 7,
+      "sha256": "020c1281f21719bc9dd72778b43a89ef86859a3467e98e54a849d0e33ae3b3c1",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__ucb__seed42.json",
+      "seed": 42,
+      "sha256": "5d68aebe8f33c56f5fac7618e704e8e11186279e678685f9383e9b1c6a7110aa",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__ucb__seed123.json",
+      "seed": 123,
+      "sha256": "fe9eb5c28bf64f6f9256f4676e0c79513a8db56824f67f1fb9898c3fb4756d86",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__ucb__seed456.json",
+      "seed": 456,
+      "sha256": "5c06d513d77049678c452722878d1d19762a968eecf7bc9b6e5d5846dad1b746",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__ucb__seed9001.json",
+      "seed": 9001,
+      "sha256": "9b0b896a04bba58222ec8c009d20c37a6d3cf9d21cfb1add7907c21b26a08f1f",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__uncertainty__seed7.json",
+      "seed": 7,
+      "sha256": "36bc5d5082f01a84bc4504e8c8934f4ac4eda186d575d54753f4921af23991c6",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__uncertainty__seed42.json",
+      "seed": 42,
+      "sha256": "bd72dba94e14fdfa188d2fdf648bc8b9ffd97baa3eafacb6f608a922d6b64bb3",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__uncertainty__seed123.json",
+      "seed": 123,
+      "sha256": "dc0012ac76c9a346e696a5d931a09546f752ae420b9bd232708c23fb44c72280",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__uncertainty__seed456.json",
+      "seed": 456,
+      "sha256": "a8d6eafc791ecb46085eb61abb697bfc2578170592a447a6f67d659c1aea8e52",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "nucb",
+      "filename": "nucb__uncertainty__seed9001.json",
+      "seed": 9001,
+      "sha256": "6797e67dae5f64693b367af5828b4e1deadd0ee51b417a847eb936b4ca43fea5",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__greedy__seed7.json",
+      "seed": 7,
+      "sha256": "c3d228155c5588206ffd63aef3be3dac0f8ec3e74807bc0b0fa892639effe31b",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__greedy__seed42.json",
+      "seed": 42,
+      "sha256": "cf9c332e515f7398b69366a6641f5f16210824eb8ca5df7e15ae9bb9387863d1",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__greedy__seed123.json",
+      "seed": 123,
+      "sha256": "beb7ce738af4bfddfefe69f29bd584ea634cbd3d2528e81e5c90ca9e8fbf51e0",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__greedy__seed456.json",
+      "seed": 456,
+      "sha256": "8beba2605adadde99ed63e2d23f2845d315052dda8700c2f5aae1c140feb11ca",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__greedy__seed9001.json",
+      "seed": 9001,
+      "sha256": "f08e579f8a1067eb4398c2d8165eb30cd5709b4fb0ef6ef2a32ece157aceadad",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__random__seed7.json",
+      "seed": 7,
+      "sha256": "ce74df01223ebcf49256e3634e1590fbf3d7f7e64726d471067dd5052ae3a9a2",
+      "strategy": "random"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__random__seed42.json",
+      "seed": 42,
+      "sha256": "a76fb9aed3546bbcb217d2a20edb7635c1bf3951e48a2c8396d539b26c01a7a4",
+      "strategy": "random"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__random__seed123.json",
+      "seed": 123,
+      "sha256": "f24c20aec5895ced0f5344cc1263e66d74827f290abc70bfa3f97ea235d4d55e",
+      "strategy": "random"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__random__seed456.json",
+      "seed": 456,
+      "sha256": "6526bda88804f889f304c01bf0e7edf79039d0a8e5141ddc6fe45de6c072610d",
+      "strategy": "random"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__random__seed9001.json",
+      "seed": 9001,
+      "sha256": "0ff60329905ca1c4c6dbcef7f76ed14bfd0c16ac292980a6b4b255066a3d3ab1",
+      "strategy": "random"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__thompson__seed7.json",
+      "seed": 7,
+      "sha256": "20dc7435d454528c4788153a82ef5f297d37e44e8a8409263aa7932e364cb864",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__thompson__seed42.json",
+      "seed": 42,
+      "sha256": "a85fbba19cf03b6b76befaf029a279e68d634092f3a11877437555a4765e4a13",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__thompson__seed123.json",
+      "seed": 123,
+      "sha256": "cc1b93b6738c467705dcb6c6d97aa4c53d1eafcaf1cda3f3b7fb4aff365b465a",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__thompson__seed456.json",
+      "seed": 456,
+      "sha256": "0fbec4d2bd84e74c48432ab4222d0f7127041c0af90b9d787fea398b410e6de4",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__thompson__seed9001.json",
+      "seed": 9001,
+      "sha256": "5b925f167219016af1a6e41fe7c6bbaf5a9fb9cd97887125cfd927ba6d5ec393",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__ucb__seed7.json",
+      "seed": 7,
+      "sha256": "97099596b6fcf13f6afa20543d67c3de14b9d759f7f9cecf7872221f1a532427",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__ucb__seed42.json",
+      "seed": 42,
+      "sha256": "97c85de17d600fe631f6a16d531933683029fc3b83469684b6a028f6e7a3d62b",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__ucb__seed123.json",
+      "seed": 123,
+      "sha256": "a82e47b45b29ff4d7700c352187718b1b49592c67a33f873e57cbae73f44c507",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__ucb__seed456.json",
+      "seed": 456,
+      "sha256": "c69a0b73729e731232301fd1202ba3aed52d8ce2c272a3294358ddd4885520eb",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__ucb__seed9001.json",
+      "seed": 9001,
+      "sha256": "124f349b2dc8a18664df1e290b473e05c7140d913bf2434b8cd0f2fb854bb2dd",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__uncertainty__seed7.json",
+      "seed": 7,
+      "sha256": "d0cc3704008d1d21bbb7af15b9360b1eaa9f4efaeeaff6020fef816e85d9b080",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__uncertainty__seed42.json",
+      "seed": 42,
+      "sha256": "59b1dd52b55455d6d15381c9f8b2cba6823bd63ef861b08d2d3ba011a1758e10",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__uncertainty__seed123.json",
+      "seed": 123,
+      "sha256": "78e917cdcef3476cee78cdd0afb632b6a85756ed7a5afb272f804751fe30814f",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__uncertainty__seed456.json",
+      "seed": 456,
+      "sha256": "28c3b0b9d392ee8e1cfe5f895921e79e83bc31264f6fdae6d4a80164d8318b6e",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "pdz3",
+      "filename": "pdz3__uncertainty__seed9001.json",
+      "seed": 9001,
+      "sha256": "2147bb2a814ba181d159a9fd125ef57164b3d491e0cca6205460910d5d1fff75",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__greedy__seed7.json",
+      "seed": 7,
+      "sha256": "3603236df75b6586336876d7721e8a1c9f1a11bd1fecd84d6a0f7ff799e0c9f4",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__greedy__seed42.json",
+      "seed": 42,
+      "sha256": "7ffecdc28f8ebb111499da0989a6a45485922125da2ea64f35a890ab3f90bd0b",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__greedy__seed123.json",
+      "seed": 123,
+      "sha256": "ebe37c190d01536b7b65d1504aeb9c08eed91be8bd19e941e06d8a91b59dcc99",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__greedy__seed456.json",
+      "seed": 456,
+      "sha256": "d3b3d7f537ce91ec19f41b66e8bbab117ad7e866f57a97182f3894437188091c",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__greedy__seed9001.json",
+      "seed": 9001,
+      "sha256": "42752842314d7bc059f578d8a378878230f9c8eb4b61deb8caabe23b757e53e7",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__random__seed7.json",
+      "seed": 7,
+      "sha256": "05fb1ab14bc66818a185dc043c06cc86fe1d35edbc914c78e4d1995d3703213f",
+      "strategy": "random"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__random__seed42.json",
+      "seed": 42,
+      "sha256": "00bc6566d08a5fcf0b8076c09e60ff26330d103fbae891d55dcf61910bafefe5",
+      "strategy": "random"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__random__seed123.json",
+      "seed": 123,
+      "sha256": "dfd0e0018d525d98342db3f6b217448fd74a654b51fcb1729acdc72e03a3f32b",
+      "strategy": "random"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__random__seed456.json",
+      "seed": 456,
+      "sha256": "c0c3ac0e1e374e55b8c5eac5fd4b64ff934c916dfc3ff08df5361c22298e960d",
+      "strategy": "random"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__random__seed9001.json",
+      "seed": 9001,
+      "sha256": "20cbc0bd8d89ca03a178a8b2fd73439c51b70fbe747a43399a848633c012ae19",
+      "strategy": "random"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__thompson__seed7.json",
+      "seed": 7,
+      "sha256": "6e5a05bd345cc5294a00a9e10d0c34806964201229623ee4c828422cfebfab53",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__thompson__seed42.json",
+      "seed": 42,
+      "sha256": "fee69b0ecae3523f5261fb515e822029d9c7db13592df197c620c86634f1aa08",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__thompson__seed123.json",
+      "seed": 123,
+      "sha256": "bebfb2cb47840b11c8d6e0c45a518eb71b88d9d85965b4cf1c4021eb79d16fe3",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__thompson__seed456.json",
+      "seed": 456,
+      "sha256": "edc54a7804eaf62d852795850d177249bc83e022a0bb367ed270788990fe7a42",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__thompson__seed9001.json",
+      "seed": 9001,
+      "sha256": "16cc07f079c85ab826a160158d130259765e3918ffdf57b9b77f464afa751e03",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__ucb__seed7.json",
+      "seed": 7,
+      "sha256": "4ae5b4fc49b47836d074417ab929baf70a9d3e530924d20904480bea1e88bac6",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__ucb__seed42.json",
+      "seed": 42,
+      "sha256": "95645a2a87c4b6ccd0c1a8ff354f75aa95ff6b67f26d2f52a1ade49f928b0a87",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__ucb__seed123.json",
+      "seed": 123,
+      "sha256": "fa11d4b8beb1a07df652a0ab32a860c67ca42c566bf883f17ae14f1b5af951d2",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__ucb__seed456.json",
+      "seed": 456,
+      "sha256": "b904aa3af4ab4e98bb3b0a31dbfb20bb69bd165153dc49f0da85b2707b1d15c4",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__ucb__seed9001.json",
+      "seed": 9001,
+      "sha256": "b01fc72625870a207deaa013898101d8fe35c1437c4750dfd6d0625a814c8b7b",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__uncertainty__seed7.json",
+      "seed": 7,
+      "sha256": "5caaa587494703447ade22bdf2ee9b1d3c9da48457fedca4b6ab30814f5a6376",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__uncertainty__seed42.json",
+      "seed": 42,
+      "sha256": "685fb8d6188afd2afb1e05f89e4c06c3f41e15d23f3fa4c78afc990fbbe5807e",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__uncertainty__seed123.json",
+      "seed": 123,
+      "sha256": "f7d9b33cb14341d63caa47e5205ef919eb05ad916057503892f2f184483655c1",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__uncertainty__seed456.json",
+      "seed": 456,
+      "sha256": "f3b4293e89c73c27cb25a1550178d411cebd9981becff81246d6793b44aa6660",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "rhomax",
+      "filename": "rhomax__uncertainty__seed9001.json",
+      "seed": 9001,
+      "sha256": "be5d1aac7358d572a104c9e4c1d48bb34bdb0e4a3f99313fb0020bd4f47192d0",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__greedy__seed7.json",
+      "seed": 7,
+      "sha256": "b1e78d4595988f7be21a319ef7b6d221ea2f8570094a26f3bf13c6eb48f94393",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__greedy__seed42.json",
+      "seed": 42,
+      "sha256": "a05c8fafaad2f1108f4692a8a8d5bcd6696adb183dd916a8dea16784241e7d4a",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__greedy__seed123.json",
+      "seed": 123,
+      "sha256": "178ce66096a81623cf9592da9ec08b68bdedfa7175e891d67ba0820b98536e99",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__greedy__seed456.json",
+      "seed": 456,
+      "sha256": "0786cadec1665affee312fcda6284e67f482b0c61794fc125a50045ea239d25f",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__greedy__seed9001.json",
+      "seed": 9001,
+      "sha256": "664b59157738d895134d158fc8bd99a43636f2219765d89ccf66b471a169a49c",
+      "strategy": "greedy"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__random__seed7.json",
+      "seed": 7,
+      "sha256": "57942a8bc86318f08c170c9c7a36f651ab2482d9ae0acdc36a8d5874a08d634e",
+      "strategy": "random"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__random__seed42.json",
+      "seed": 42,
+      "sha256": "e44918e36d87c3063e6086dbfedb47102723fd610a3ea3cfcb03b12fb34825e9",
+      "strategy": "random"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__random__seed123.json",
+      "seed": 123,
+      "sha256": "81558030d3833493c4fe10c8a0f4c2b938ea269e04ad02b32b4d69ae6457e9c0",
+      "strategy": "random"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__random__seed456.json",
+      "seed": 456,
+      "sha256": "6bd232242cc0bbd0bcbbbd756b8ddb864df89786f6e7803233bc9bf89a35b90b",
+      "strategy": "random"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__random__seed9001.json",
+      "seed": 9001,
+      "sha256": "2aba58e13ff57e232a67ce27696a01c7423c3ed9c47809d6ce7ae40bc00378c6",
+      "strategy": "random"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__thompson__seed7.json",
+      "seed": 7,
+      "sha256": "1a84475961f61d8831d92b446443f881b41ec17cc543e2c06d772986293d81cc",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__thompson__seed42.json",
+      "seed": 42,
+      "sha256": "3e5d6f19b2447496b75ff027d3d0b6a96c2ad7b4a55e0a9ecc23620b9fab51dc",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__thompson__seed123.json",
+      "seed": 123,
+      "sha256": "875b0e9357be86d2fcc13b6d3831b46d7eaae1a2bbcd00c7c4d0e5e7e67ea3b1",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__thompson__seed456.json",
+      "seed": 456,
+      "sha256": "1ce6f506dbe73bc631e89dd93870e55faf45c9fcdc2ca5050efca9849a35be64",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__thompson__seed9001.json",
+      "seed": 9001,
+      "sha256": "e6a570bfb089711f31de1401995bbecb04cf1c76ac089f664d0ccd3989d8c050",
+      "strategy": "thompson"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__ucb__seed7.json",
+      "seed": 7,
+      "sha256": "de5a9656597941ffc440eeea22fc65f09edb38fdbd4f27d0b02fda998419ae10",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__ucb__seed42.json",
+      "seed": 42,
+      "sha256": "6693cdc82e91123c3e7807d03498f0fa64353b26b772bbe2ef53d0b00c678a08",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__ucb__seed123.json",
+      "seed": 123,
+      "sha256": "948b5b8d07c653b3ee2adfc40bd54c89e75bbc57c06fd3f7c06093221851e3be",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__ucb__seed456.json",
+      "seed": 456,
+      "sha256": "04b50f93ed7984cc6cc0f39c8932f5374a61108eb556c3137377e3c986a82450",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__ucb__seed9001.json",
+      "seed": 9001,
+      "sha256": "b8a2362b8e3e1ec67a5ed4cfc319c4bc064a30c290b18ac0e63db2b1260edda7",
+      "strategy": "ucb"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__uncertainty__seed7.json",
+      "seed": 7,
+      "sha256": "2a07f2b3c3325267ae3a5f03cbadc6e90cee596887592e7cc5662d6a5dcdc60b",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__uncertainty__seed42.json",
+      "seed": 42,
+      "sha256": "36505b646d29d212296e950ec57b3b5c4285b57f757c53a7361d9c338db44462",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__uncertainty__seed123.json",
+      "seed": 123,
+      "sha256": "83e0d2e487387ea41cb3e5bcefbe1dbdb837a1f3e45dd941c40fb429f1768f92",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__uncertainty__seed456.json",
+      "seed": 456,
+      "sha256": "6a9ec5265b581673474e502a0238ca987bc65ab7c169890d719b732d096f0ce7",
+      "strategy": "uncertainty"
+    },
+    {
+      "dataset": "trpb",
+      "filename": "trpb__uncertainty__seed9001.json",
+      "seed": 9001,
+      "sha256": "b13dbfda512cb4a8358b50bc1e4a7ff97a2c93cd7742be1a22b6c76418e6b123",
+      "strategy": "uncertainty"
+    }
+  ],
+  "schema_version": 1,
+  "status": "RELEASE_GATE_PASSED__OUTCOMES_MAY_BE_OPENED",
+  "study_id": "prospective_protein_acquisition_v1",
+  "unit_count": 175
+}
