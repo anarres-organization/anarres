@@ -1,0 +1,210 @@
+{
+  "bank_membership_sha256": {
+    "graph_aware_hybrid": "2bc9d3e138515e1bcba5ec98bb7447d9a431de7f7b4617f8cc0da919953724ac",
+    "operational_hybrid": "af4ac8f84c940219d37b9986f89383fd863e0208159d356e6ed1841cf9bedec0"
+  },
+  "contract": "q07820-matched-training-evaluation-v1",
+  "decisions": [
+    {
+      "abstain": true,
+      "predicted_margin": 0.000350245910506735,
+      "predicted_winner": "operational_hybrid",
+      "target_oracle_attempt_budget": 12800
+    },
+    {
+      "abstain": true,
+      "predicted_margin": 0.000350245910506735,
+      "predicted_winner": "operational_hybrid",
+      "target_oracle_attempt_budget": 25600
+    },
+    {
+      "abstain": true,
+      "predicted_margin": 0.000350245910506735,
+      "predicted_winner": "operational_hybrid",
+      "target_oracle_attempt_budget": 40000
+    }
+  ],
+  "forecasts": {
+    "graph_aware": {
+      "graph_aware_hybrid": [
+        {
+          "predicted_utility": 0.004783757187015457,
+          "target_oracle_attempt_budget": 12800
+        },
+        {
+          "predicted_utility": 0.011253483749515457,
+          "target_oracle_attempt_budget": 25600
+        },
+        {
+          "predicted_utility": 0.011881273928086886,
+          "target_oracle_attempt_budget": 40000
+        }
+      ],
+      "operational_hybrid": [
+        {
+          "predicted_utility": 0.005134003097522192,
+          "target_oracle_attempt_budget": 12800
+        },
+        {
+          "predicted_utility": 0.011603729660022192,
+          "target_oracle_attempt_budget": 25600
+        },
+        {
+          "predicted_utility": 0.012231519838593621,
+          "target_oracle_attempt_budget": 40000
+        }
+      ]
+    },
+    "operational": {
+      "graph_aware_hybrid": [
+        {
+          "predicted_utility": 0.00556032997794022,
+          "target_oracle_attempt_budget": 12800
+        },
+        {
+          "predicted_utility": 0.01203005654044022,
+          "target_oracle_attempt_budget": 25600
+        },
+        {
+          "predicted_utility": 0.01265784671901165,
+          "target_oracle_attempt_budget": 40000
+        }
+      ],
+      "operational_hybrid": [
+        {
+          "predicted_utility": 0.005453444243811437,
+          "target_oracle_attempt_budget": 12800
+        },
+        {
+          "predicted_utility": 0.011923170806311436,
+          "target_oracle_attempt_budget": 25600
+        },
+        {
+          "predicted_utility": 0.012550960984882866,
+          "target_oracle_attempt_budget": 40000
+        }
+      ]
+    }
+  },
+  "inputs": {
+    "contract_sha256": "d45c1fd2d8380ef0c0e70464961a519c46fcd8603fffede9ab0f8154ad0aa26d",
+    "development_results_sha256": "2a19a35950100be3a36ee0831772f65bc1298e5edfc40c5b9e5b7bbf057df179",
+    "freeze_implementation_sha256": "81256bfbb5cb686e2bdc977aa2642dc530820060fc3f05ee21ef3057661382fd",
+    "prospective_banks_sha256": "1306a438bfdcd22baa072d5f248b6ca4a4bb0efa16c2dcf58238abb4f47df84e",
+    "prospective_construction_contract_sha256": "d409c0bd98df95edd6a5c5374d48943debbcd298c880043c4077ee3737850986",
+    "scoring_implementation_sha256": "ea9f98bc80f071d17b72db4d3e9177dff9b004260ae15bffb9bcc5ae96624a08"
+  },
+  "models": {
+    "graph_aware": {
+      "alpha": 1.0,
+      "budgets": [
+        12800,
+        25600,
+        40000
+      ],
+      "coefficients": [
+        0.005580357142857143,
+        0.012050083705357142,
+        0.012677873883928572,
+        0.00027321700710155933,
+        0.0004385293164190144,
+        0.0004273294873021491,
+        0.00020385855078802718,
+        0.00011027139232562673,
+        -0.0005884924271662356,
+        -0.0004393410292142666,
+        0.00018673361602402778
+      ],
+      "empirical_uncertainty_half_width": 0.01198212386097045,
+      "features": [
+        "mean_target_reward",
+        "mean_generated_action_count",
+        "mean_oracle_seconds",
+        "unique_scaffold_fraction",
+        "unique_ring_systems_per_record",
+        "unique_route_fraction",
+        "unique_reaction_families",
+        "embedding_mean_nearest_neighbor_distance"
+      ],
+      "form": "budget intercepts plus standardized measurement coordinates with ridge",
+      "leave_one_arm_out_rmse": 0.005070645453959374,
+      "standardizers": {
+        "embedding_mean_nearest_neighbor_distance": {
+          "mean": 0.753210323320308,
+          "scale": 0.09333102642121614
+        },
+        "mean_generated_action_count": {
+          "mean": 2.2880859375,
+          "scale": 0.12900731912199506
+        },
+        "mean_oracle_seconds": {
+          "mean": 8.308551937825522,
+          "scale": 1.1079078697707005
+        },
+        "mean_target_reward": {
+          "mean": 6.549212810637915,
+          "scale": 0.4623950501468081
+        },
+        "unique_reaction_families": {
+          "mean": 15.25,
+          "scale": 1.8200274723201295
+        },
+        "unique_ring_systems_per_record": {
+          "mean": 0.21207682291666666,
+          "scale": 0.042103386057733935
+        },
+        "unique_route_fraction": {
+          "mean": 0.038736979166666664,
+          "scale": 0.008469799369308391
+        },
+        "unique_scaffold_fraction": {
+          "mean": 0.9778645833333334,
+          "scale": 0.024933705911555568
+        }
+      }
+    },
+    "operational": {
+      "alpha": 1.0,
+      "budgets": [
+        12800,
+        25600,
+        40000
+      ],
+      "coefficients": [
+        0.005580357142857143,
+        0.012050083705357142,
+        0.012677873883928572,
+        0.000298773816730916,
+        -3.559243543760929e-05,
+        0.0003530656014588548
+      ],
+      "empirical_uncertainty_half_width": 0.012079552543884015,
+      "features": [
+        "mean_target_reward",
+        "mean_generated_action_count",
+        "mean_oracle_seconds"
+      ],
+      "form": "budget intercepts plus standardized measurement coordinates with ridge",
+      "leave_one_arm_out_rmse": 0.005177413739460455,
+      "standardizers": {
+        "mean_generated_action_count": {
+          "mean": 2.2880859375,
+          "scale": 0.12900731912199506
+        },
+        "mean_oracle_seconds": {
+          "mean": 8.308551937825522,
+          "scale": 1.1079078697707005
+        },
+        "mean_target_reward": {
+          "mean": 6.549212810637915,
+          "scale": 0.4623950501468081
+        }
+      }
+    }
+  },
+  "prospective_outcomes_opened": false,
+  "schema_version": "anarres.molecular-prospective-freeze.v1",
+  "status": "PROSPECTIVE_FORECAST_FROZEN__OUTCOMES_UNOPENED",
+  "study": "prospective-reaction-environment-selection",
+  "uncertainty_rule": "abstain when the predicted two-bank margin does not exceed the maximum absolute leave-one-development-arm residual of the graph-aware model"
+}

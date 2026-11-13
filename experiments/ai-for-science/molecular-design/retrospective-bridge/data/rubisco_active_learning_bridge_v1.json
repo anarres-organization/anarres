@@ -1,0 +1,149 @@
+{
+  "directional_contract": {
+    "claim_boundary": "This is a retrospective cross-study directional check, not a frozen multi-arm predictor or a prospective wet-lab result.",
+    "external_question": "Does UCB acquisition also exceed random acquisition on each released Rubisco curve under a common within-dataset assay budget?",
+    "outcome": "trapezoidal AUC of top-5% recovery over the common assay curve",
+    "result": "UCB exceeds random acquisition on both external datasets.",
+    "rule_origin": "The separate four-target binding-affinity audit ranks every released UCB schedule above random acquisition in mean curve utility."
+  },
+  "directional_results": [
+    {
+      "common_budget_end": 1208,
+      "dataset": "DMS",
+      "paired_difference_95_interval": [
+        0.16301242835097002,
+        0.19009080136684298
+      ],
+      "paired_mean_difference": 0.1759589947089947,
+      "random_curve_auc_recovery_top_5pct_mean": 0.08758818342151675,
+      "replicates": 10,
+      "replicates_with_positive_difference": 10,
+      "ucb_curve_auc_recovery_top_5pct_mean": 0.26354717813051143
+    },
+    {
+      "common_budget_end": 1400,
+      "dataset": "HOFF",
+      "paired_difference_95_interval": [
+        0.05255000000000001,
+        0.13507500000000003
+      ],
+      "paired_mean_difference": 0.09335000000000002,
+      "random_curve_auc_recovery_top_5pct_mean": 0.063025,
+      "replicates": 10,
+      "replicates_with_positive_difference": 9,
+      "ucb_curve_auc_recovery_top_5pct_mean": 0.15637500000000001
+    }
+  ],
+  "evidence_tier": "retrospective_external_directional_replication",
+  "schema_version": "anarres.molecular.rubisco_active_learning_bridge.v1",
+  "source_revision": "40133a4ba106fa25bd831291809d75c55b5dcc66",
+  "source_sha256": {
+    "active_learning_rounds.csv": "2509404b378b4a90dcd06c9b51eea9dba39a250e3fc0ce890d57aec0cc9df2bd",
+    "config.json": "7d158d9322d997019b051ce07f587544494a949a0ec7594f810dd6b293022758"
+  },
+  "strategy_summaries": [
+    {
+      "common_budget_end": 1208,
+      "curve_auc_recovery_top_1pct_mean": 0.2324575807334428,
+      "curve_auc_recovery_top_5pct_mean": 0.2543540564373898,
+      "dataset": "DMS",
+      "replicates": 10,
+      "strategy": "greedy"
+    },
+    {
+      "common_budget_end": 1208,
+      "curve_auc_recovery_top_1pct_mean": 0.0861247947454844,
+      "curve_auc_recovery_top_5pct_mean": 0.08758818342151675,
+      "dataset": "DMS",
+      "replicates": 10,
+      "strategy": "random"
+    },
+    {
+      "common_budget_end": 1208,
+      "curve_auc_recovery_top_1pct_mean": 0.2039135194307608,
+      "curve_auc_recovery_top_5pct_mean": 0.2290950176366843,
+      "dataset": "DMS",
+      "replicates": 10,
+      "strategy": "thompson"
+    },
+    {
+      "common_budget_end": 1208,
+      "curve_auc_recovery_top_1pct_mean": 0.23631636562671046,
+      "curve_auc_recovery_top_5pct_mean": 0.26354717813051143,
+      "dataset": "DMS",
+      "replicates": 10,
+      "strategy": "ucb"
+    },
+    {
+      "common_budget_end": 1208,
+      "curve_auc_recovery_top_1pct_mean": 0.09135194307608101,
+      "curve_auc_recovery_top_5pct_mean": 0.09607583774250442,
+      "dataset": "DMS",
+      "replicates": 10,
+      "strategy": "uncertainty"
+    },
+    {
+      "common_budget_end": 1400,
+      "curve_auc_recovery_top_1pct_mean": 0.209375,
+      "curve_auc_recovery_top_5pct_mean": 0.19595,
+      "dataset": "HOFF",
+      "replicates": 10,
+      "strategy": "greedy"
+    },
+    {
+      "common_budget_end": 1400,
+      "curve_auc_recovery_top_1pct_mean": 0.068375,
+      "curve_auc_recovery_top_5pct_mean": 0.063025,
+      "dataset": "HOFF",
+      "replicates": 10,
+      "strategy": "random"
+    },
+    {
+      "common_budget_end": 1400,
+      "curve_auc_recovery_top_1pct_mean": 0.1855,
+      "curve_auc_recovery_top_5pct_mean": 0.1575,
+      "dataset": "HOFF",
+      "replicates": 10,
+      "strategy": "thompson"
+    },
+    {
+      "common_budget_end": 1400,
+      "curve_auc_recovery_top_1pct_mean": 0.177125,
+      "curve_auc_recovery_top_5pct_mean": 0.15637500000000001,
+      "dataset": "HOFF",
+      "replicates": 10,
+      "strategy": "ucb"
+    },
+    {
+      "common_budget_end": 1400,
+      "curve_auc_recovery_top_1pct_mean": 0.1415,
+      "curve_auc_recovery_top_5pct_mean": 0.14237500000000003,
+      "dataset": "HOFF",
+      "replicates": 10,
+      "strategy": "uncertainty"
+    }
+  ],
+  "study": "Active Learning on Protein Language Model Embeddings Accelerates Rubisco Variant Discovery for Desired Traits",
+  "support": {
+    "batch_size": 48,
+    "common_budget_end_by_dataset": {
+      "DMS": 1208,
+      "HOFF": 1400
+    },
+    "complete_runs": 100,
+    "datasets": [
+      "DMS",
+      "HOFF"
+    ],
+    "initial_assays": 200,
+    "replicates_per_strategy_dataset": 10,
+    "strategies": [
+      "greedy",
+      "random",
+      "thompson",
+      "ucb",
+      "uncertainty"
+    ],
+    "trajectory_rows": 2578
+  }
+}

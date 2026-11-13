@@ -205,12 +205,19 @@ def reconstruct_trajectory(
 def load_memberships(qualification: Path, bank: str) -> tuple[list[str], dict[str, Any]]:
     payload = json.loads(qualification.read_text())
     if payload.get("qualification") != "pass":
-        raise ValueError("development-bank qualification did not pass")
+        raise ValueError("bank qualification did not pass")
     memberships = payload.get("construction_memberships", {})
-    if bank not in memberships:
-        raise ValueError(f"unknown construction bank: {bank}")
-    record_ids = list(memberships[bank])
-    if len(record_ids) != payload.get("bank_size") or len(set(record_ids)) != len(record_ids):
+    if bank in memberships:
+        record_ids = list(memberships[bank])
+        expected_size = payload.get("bank_size")
+    elif bank in payload.get("banks", {}):
+        if payload.get("outcomes_opened") is not False:
+            raise ValueError("prospective bank outcomes must remain unopened")
+        record_ids = list(payload["banks"][bank].get("members", []))
+        expected_size = len(record_ids)
+    else:
+        raise ValueError(f"unknown qualified bank: {bank}")
+    if len(record_ids) != expected_size or len(set(record_ids)) != len(record_ids):
         raise ValueError("bank membership is incomplete or contains duplicates")
     return record_ids, payload
 
@@ -250,6 +257,7 @@ def materialize(
         item["anarres_record_id"] = record_id
         items.append(item)
     record_ids_sha256 = canonical_json_sha256(record_ids)
+    record_ids_line_sha256 = hashlib.sha256(("\n".join(record_ids) + "\n").encode()).hexdigest()
     return {
         "artifact_type": ARTIFACT_TYPE,
         "schema_version": "1.0",
@@ -261,6 +269,7 @@ def materialize(
             "records_sha256": sha256_file(records_path),
             "qualification_sha256": sha256_file(qualification_path),
             "record_ids_sha256": record_ids_sha256,
+            "record_ids_line_sha256": record_ids_line_sha256,
         },
         "training_contract": {
             "backward_synthon_penalty": synthon_penalty,

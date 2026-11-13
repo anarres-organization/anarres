@@ -24,6 +24,10 @@ def test_frozen_development_arm_and_seed_are_accepted() -> None:
     MODULE.validate_arm_and_seed(contract(), "graph_embedding_coverage", 20261109)
 
 
+def test_frozen_prospective_arm_and_seed_are_accepted() -> None:
+    MODULE.validate_arm_and_seed(contract(), "operational_hybrid", 20261108, "prospective")
+
+
 @pytest.mark.parametrize(
     ("arm", "seed"),
     [("operational_hybrid", 20261108), ("hash_uniform", 17)],
@@ -44,10 +48,11 @@ def test_replay_artifact_must_bind_frozen_qualification() -> None:
         "source": {"qualification_sha256": frozen["inputs"]["bank_qualification"]["sha256"]},
     }
     frozen["development_panel"]["bank_size"] = len(items)
-    MODULE.validate_replay_artifact(artifact, frozen, "hash_uniform")
+    expected = frozen["inputs"]["bank_qualification"]["sha256"]
+    MODULE.validate_replay_artifact(artifact, frozen, "hash_uniform", expected)
     artifact["source"]["qualification_sha256"] = "0" * 64
     with pytest.raises(ValueError, match="frozen qualification"):
-        MODULE.validate_replay_artifact(artifact, frozen, "hash_uniform")
+        MODULE.validate_replay_artifact(artifact, frozen, "hash_uniform", expected)
 
 
 def test_replay_artifact_payload_hash_is_verified() -> None:
@@ -61,7 +66,43 @@ def test_replay_artifact_payload_hash_is_verified() -> None:
         "source": {"qualification_sha256": frozen["inputs"]["bank_qualification"]["sha256"]},
     }
     with pytest.raises(ValueError, match="item hash"):
-        MODULE.validate_replay_artifact(artifact, frozen, "hash_uniform")
+        MODULE.validate_replay_artifact(
+            artifact,
+            frozen,
+            "hash_uniform",
+            frozen["inputs"]["bank_qualification"]["sha256"],
+        )
+
+
+def test_prospective_replay_must_match_frozen_membership() -> None:
+    frozen = contract()
+    frozen["development_panel"]["bank_size"] = 1
+    items = [{"anarres_record_id": "a"}]
+    artifact = {
+        "bank": "operational_hybrid",
+        "item_count": 1,
+        "items": items,
+        "items_sha256": MODULE.canonical_json_sha256(items),
+        "source": {
+            "qualification_sha256": "1" * 64,
+            "record_ids_line_sha256": "2" * 64,
+        },
+    }
+    MODULE.validate_replay_artifact(
+        artifact,
+        frozen,
+        "operational_hybrid",
+        "1" * 64,
+        "2" * 64,
+    )
+    with pytest.raises(ValueError, match="forecast freeze"):
+        MODULE.validate_replay_artifact(
+            artifact,
+            frozen,
+            "operational_hybrid",
+            "1" * 64,
+            "3" * 64,
+        )
 
 
 def test_prepared_target_hashes_are_verified(tmp_path: Path) -> None:

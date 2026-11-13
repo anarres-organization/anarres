@@ -28,7 +28,10 @@ class DevelopmentTrainingGateTests(unittest.TestCase):
         self.contract = {
             "study": "study",
             "contract": "contract",
-            "development_panel": {"arms": ["a", "b"]},
+            "development_panel": {
+                "arms": ["a", "b"],
+                "prospective_banks_excluded": ["p"],
+            },
             "training": {
                 "seeds": [1, 2],
                 "maximum_updates": 2,
@@ -75,6 +78,14 @@ class DevelopmentTrainingGateTests(unittest.TestCase):
         }
         (run / "MATCHED_TRAINING_RUN.json").write_text(json.dumps(manifest))
 
+    def write_prospective_run(self, arm: str, seed: int, freeze: Path):
+        self.write_run(arm, seed)
+        manifest_path = self.runs / f"{arm}-{seed}" / "MATCHED_TRAINING_RUN.json"
+        manifest = json.loads(manifest_path.read_text())
+        manifest["panel_kind"] = "prospective"
+        manifest["artifact_sha256"]["prospective_freeze"] = sha256(freeze)
+        manifest_path.write_text(json.dumps(manifest))
+
     def test_complete_matrix_passes_without_opening_outcomes(self):
         result = MODULE.gate_training_matrix(self.contract_path, self.runs)
         self.assertEqual(result["run_count"], 4)
@@ -104,6 +115,21 @@ class DevelopmentTrainingGateTests(unittest.TestCase):
         manifest_path.write_text(json.dumps(manifest))
         with self.assertRaisesRegex(ValueError, "differs from the contract"):
             MODULE.gate_training_matrix(self.contract_path, self.runs)
+
+    def test_prospective_matrix_binds_frozen_forecast(self):
+        freeze = self.root / "freeze.json"
+        freeze.write_text('{"status":"frozen"}')
+        for seed in self.contract["training"]["seeds"]:
+            self.write_prospective_run("p", seed, freeze)
+        result = MODULE.gate_training_matrix(
+            self.contract_path,
+            self.runs,
+            panel_kind="prospective",
+            forecast_freeze=freeze,
+        )
+        self.assertEqual(result["run_count"], 2)
+        self.assertEqual(result["panel_kind"], "prospective")
+        self.assertEqual(result["prospective_freeze_sha256"], sha256(freeze))
 
 
 if __name__ == "__main__":

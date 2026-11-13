@@ -1,0 +1,142 @@
+{
+  "claim_boundary": "This is a direct closed-loop active-learning intervention and a released acquisition history. It is not a prospective Anarres environment-selection test, and its outcomes remain outside pre-training profile coordinates.",
+  "released_batch_summaries": [
+    {
+      "batch_id": "10k",
+      "charge_balanced_fraction": 1,
+      "dft_success_fraction": 1.0,
+      "dft_successes": 10206,
+      "molecules": 10206,
+      "sa_score_mean": 3.2879848415488957,
+      "successful_density_max": 1.9631143588409,
+      "successful_density_mean": 1.3968829612626603,
+      "successful_heat_of_formation_max": 386.76161165957,
+      "successful_heat_of_formation_mean": -67.14776709141553
+    },
+    {
+      "batch_id": "batch_1",
+      "charge_balanced_fraction": 0.39591836734693875,
+      "dft_success_fraction": 0.6061224489795919,
+      "dft_successes": 594,
+      "molecules": 980,
+      "sa_score_mean": 6.176141742728226,
+      "successful_density_max": 1.8499610410854,
+      "successful_density_mean": 1.4822203330120105,
+      "successful_heat_of_formation_max": 476.65327131491,
+      "successful_heat_of_formation_mean": 224.03231982348356
+    },
+    {
+      "batch_id": "batch_2",
+      "charge_balanced_fraction": 0.40361693382655156,
+      "dft_success_fraction": 0.27743526510480887,
+      "dft_successes": 675,
+      "molecules": 2433,
+      "sa_score_mean": 6.56540540243663,
+      "successful_density_max": 1.9641627575445,
+      "successful_density_mean": 1.6566121174963944,
+      "successful_heat_of_formation_max": 345.57932169127,
+      "successful_heat_of_formation_mean": 126.0159565634982
+    },
+    {
+      "batch_id": "batch_3",
+      "charge_balanced_fraction": 1,
+      "dft_success_fraction": 0.11444629475437136,
+      "dft_successes": 5498,
+      "molecules": 48040,
+      "sa_score_mean": 6.181639041523428,
+      "successful_density_max": 1.9043887272359,
+      "successful_density_mean": 1.593641929790706,
+      "successful_heat_of_formation_max": 525.32716698932,
+      "successful_heat_of_formation_mean": 165.09592093269538
+    }
+  ],
+  "schema_version": "anarres.molecular.antoniuk_active_learning_bridge.v1",
+  "source": {
+    "article": "Active learning enables generation of molecules that advance the known Pareto front",
+    "correction_doi": "10.1038/s41524-026-02039-4",
+    "doi": "10.1038/s41524-025-01924-8",
+    "license": "CC BY 4.0",
+    "supplementary_csv_sha256": "e93312e9c44bbe6901296691343178b4e8295533a7bcb8375aee0f420b874cfa",
+    "supplementary_csv_size_bytes": 6070096,
+    "supplementary_csv_url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41524-025-01924-8/MediaObjects/41524_2025_1924_MOESM2_ESM.csv",
+    "table_html_sha256": "1e156cbd8ea7d76f47b597ccbee02488c67135ce1f72e1ea8998bccda21c28a2",
+    "table_url": "https://www.nature.com/articles/s41524-025-01924-8/tables/2"
+  },
+  "support": {
+    "matched_dft_oracle_budget": 500,
+    "matched_generation_approaches": 3,
+    "released_batches": 4,
+    "released_molecule_records": 61659,
+    "table_approaches": 4
+  },
+  "table_2_records": [
+    {
+      "approach": "Training Dataset Screening",
+      "dft_stable_count": null,
+      "dft_stable_percent": 100.0,
+      "dft_stable_total": null,
+      "oracle_budget": null,
+      "sota_molecule_count": null,
+      "sota_molecule_percent": null,
+      "sota_molecule_total": null,
+      "top_dft_density_g_per_cc": 1.963,
+      "top_dft_heat_of_formation_kcal_per_mol": 387.0,
+      "top_molecule_count": null,
+      "top_molecule_percent": null,
+      "top_molecule_total": null,
+      "top_multi_property_score": 4.8,
+      "valid_fraction": 1.0
+    },
+    {
+      "approach": "JANUS",
+      "dft_stable_count": 31,
+      "dft_stable_percent": 6.0,
+      "dft_stable_total": 500,
+      "oracle_budget": 500,
+      "sota_molecule_count": 0,
+      "sota_molecule_percent": 0.0,
+      "sota_molecule_total": 500,
+      "top_dft_density_g_per_cc": 1.816,
+      "top_dft_heat_of_formation_kcal_per_mol": 290.0,
+      "top_molecule_count": 0,
+      "top_molecule_percent": 0.0,
+      "top_molecule_total": 500,
+      "top_multi_property_score": 3.56,
+      "valid_fraction": 1.0
+    },
+    {
+      "approach": "REINVENT w/ MPNN 0",
+      "dft_stable_count": 30,
+      "dft_stable_percent": 6.0,
+      "dft_stable_total": 500,
+      "oracle_budget": 500,
+      "sota_molecule_count": 12,
+      "sota_molecule_percent": 2.4,
+      "sota_molecule_total": 500,
+      "top_dft_density_g_per_cc": 1.901,
+      "top_dft_heat_of_formation_kcal_per_mol": 417.0,
+      "top_molecule_count": 20,
+      "top_molecule_percent": 4.0,
+      "top_molecule_total": 500,
+      "top_multi_property_score": 4.48,
+      "valid_fraction": 1.0
+    },
+    {
+      "approach": "JANUS w/Active Learning (this work)",
+      "dft_stable_count": 108,
+      "dft_stable_percent": 22.0,
+      "dft_stable_total": 500,
+      "oracle_budget": 500,
+      "sota_molecule_count": 17,
+      "sota_molecule_percent": 3.4,
+      "sota_molecule_total": 500,
+      "top_dft_density_g_per_cc": 2.014,
+      "top_dft_heat_of_formation_kcal_per_mol": 405.0,
+      "top_molecule_count": 52,
+      "top_molecule_percent": 10.0,
+      "top_molecule_total": 500,
+      "top_multi_property_score": 5.24,
+      "valid_fraction": 1.0
+    }
+  ]
+}

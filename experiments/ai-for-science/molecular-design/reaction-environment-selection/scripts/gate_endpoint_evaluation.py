@@ -31,16 +31,40 @@ def load_object(path: Path, label: str) -> dict[str, Any]:
     return value
 
 
+def load_jsonl(path: Path, label: str) -> list[dict[str, Any]]:
+    if not path.is_file():
+        raise ValueError(f"{label} is missing")
+    values = []
+    for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.strip():
+            continue
+        value = json.loads(line)
+        if not isinstance(value, dict):
+            raise ValueError(f"{label} line {line_number} must be an object")
+        values.append(value)
+    return values
+
+
 def panel_name(arm: str, seed: int, step: int) -> str:
     return f"{arm}-{seed}-step{step:06d}"
 
 
-def expected_panels(contract: dict[str, Any]) -> list[tuple[str, int, int]]:
+def panel_arms(contract: dict[str, Any], panel_kind: str) -> list[str]:
+    if panel_kind == "development":
+        return list(contract["development_panel"]["arms"])
+    if panel_kind == "prospective":
+        return list(contract["development_panel"]["prospective_banks_excluded"])
+    raise ValueError(f"unsupported panel kind: {panel_kind}")
+
+
+def expected_panels(
+    contract: dict[str, Any], panel_kind: str = "development"
+) -> list[tuple[str, int, int]]:
     training = contract["training"]
     panels = [("warm_start", seed, 0) for seed in training["seeds"]]
     panels.extend(
         (arm, seed, step)
-        for arm in contract["development_panel"]["arms"]
+        for arm in panel_arms(contract, panel_kind)
         for seed in training["seeds"]
         for step in training["checkpoint_updates"]
     )
@@ -130,15 +154,166 @@ def verify_panel(
     }
 
 
+def verify_union_chain(
+    evaluation_root: Path,
+    expected_names: set[str],
+    samples_root: Path,
+    contract: dict[str, Any],
+) -> tuple[dict[str, dict[str, Any]], dict[str, str]]:
+    docking_root = evaluation_root / "docking-cache"
+    metrics_root = evaluation_root / "union-scoring"
+    union_manifest_path = docking_root / "UNION_MANIFEST.json"
+    union_samples_path = docking_root / "union-samples.jsonl"
+    docking_records_path = docking_root / "union-attempts.jsonl"
+    docking_report_path = docking_root / "union-docking-report.json"
+    endpoint_records_path = metrics_root / "union-endpoint-metrics.jsonl"
+    metrics_report_path = metrics_root / "union-endpoint-metrics-report.json"
+
+    manifest = load_object(union_manifest_path, "union manifest")
+    attempts = int(contract["evaluation"]["attempts_per_policy_seed_checkpoint"])
+    expected_source_attempts = attempts * len(expected_names)
+    sample_hashes = {
+        name: sha256_file(samples_root / name / "samples.jsonl") for name in expected_names
+    }
+    union_samples = load_jsonl(union_samples_path, "union samples")
+    if (
+        manifest.get("status") != "complete"
+        or manifest.get("source_panel_count") != len(expected_names)
+        or manifest.get("source_attempt_count") != expected_source_attempts
+        or manifest.get("input_sha256") != sample_hashes
+        or manifest.get("union_samples_sha256") != sha256_file(union_samples_path)
+        or manifest.get("raw_unique_smiles") != len(union_samples)
+    ):
+        raise ValueError("union manifest is incomplete or invalid")
+
+    docking_report = load_object(docking_report_path, "union docking report")
+    unique_attempts = len(union_samples)
+    if (
+        docking_report.get("contract") != contract["contract"]
+        or docking_report.get("status") != "complete"
+        or docking_report.get("attempts") != unique_attempts
+        or docking_report.get("returned_samples") != unique_attempts
+        or docking_report.get("infrastructure_failures") != 0
+        or docking_report.get("inputs", {}).get("samples_sha256") != sha256_file(union_samples_path)
+        or docking_report.get("output_records_sha256") != sha256_file(docking_records_path)
+    ):
+        raise ValueError("union docking report is incomplete or invalid")
+
+    metrics_report = load_object(metrics_report_path, "union metric report")
+    endpoint_records = load_jsonl(endpoint_records_path, "union endpoint records")
+    if (
+        metrics_report.get("contract") != contract["contract"]
+        or metrics_report.get("status") != "complete"
+        or metrics_report.get("attempts") != unique_attempts
+        or metrics_report.get("inputs", {}).get("docking_records_sha256")
+        != sha256_file(docking_records_path)
+        or metrics_report.get("output_records_sha256") != sha256_file(endpoint_records_path)
+        or len(endpoint_records) != unique_attempts
+        or any(row.get("infrastructure_status") != "ok" for row in endpoint_records)
+    ):
+        raise ValueError("union metric report is incomplete or invalid")
+    by_smiles = {str(row["canonical_smiles"]): row for row in endpoint_records}
+    if len(by_smiles) != len(endpoint_records):
+        raise ValueError("union endpoint records are not unique by canonical SMILES")
+    return by_smiles, {
+        "union_manifest_sha256": sha256_file(union_manifest_path),
+        "union_docking_report_sha256": sha256_file(docking_report_path),
+        "union_metrics_report_sha256": sha256_file(metrics_report_path),
+    }
+
+
+def verify_split_union_panel(
+    samples_dir: Path,
+    scoring_dir: Path,
+    union_by_smiles: dict[str, dict[str, Any]],
+    contract: dict[str, Any],
+    contract_sha256: str,
+    thresholds_sha256: str,
+    arm: str,
+    seed: int,
+    step: int,
+) -> dict[str, Any]:
+    attempts = int(contract["evaluation"]["attempts_per_policy_seed_checkpoint"])
+    evaluation_seed = contract["evaluation"]["seeds"][str(seed)][str(step)]
+    samples_path = samples_dir / "samples.jsonl"
+    sample_manifest_path = samples_dir / "SAMPLE_MANIFEST.json"
+    endpoint_path = scoring_dir / "endpoint-metrics.jsonl"
+    qualifying_path = scoring_dir / "qualifying-hit-score.json"
+    samples = load_jsonl(samples_path, "panel samples")
+    endpoints = load_jsonl(endpoint_path, "panel endpoint records")
+    sample_manifest = load_object(sample_manifest_path, "sample manifest")
+    if (
+        sample_manifest.get("study") != contract["study"]
+        or sample_manifest.get("contract") != contract["contract"]
+        or sample_manifest.get("status") != "complete"
+        or sample_manifest.get("arm") != arm
+        or sample_manifest.get("training_seed") != seed
+        or sample_manifest.get("checkpoint_step") != step
+        or sample_manifest.get("evaluation_seed") != evaluation_seed
+        or sample_manifest.get("attempts") != attempts
+        or sample_manifest.get("invalid_trajectories") != 0
+        or sample_manifest.get("returned_valid_trajectories") != attempts
+        or sample_manifest.get("artifact_sha256", {}).get("contract") != contract_sha256
+        or sample_manifest.get("artifact_sha256", {}).get("samples") != sha256_file(samples_path)
+        or len(samples) != attempts
+        or len(endpoints) != attempts
+    ):
+        raise ValueError(f"sample identity differs from the contract: {scoring_dir.name}")
+    for sample, endpoint in zip(samples, endpoints, strict=True):
+        if endpoint.get("source_smiles") != sample.get("smiles"):
+            raise ValueError(f"panel sample mapping differs: {scoring_dir.name}")
+        expected = union_by_smiles.get(str(endpoint.get("canonical_smiles")))
+        mapped = {
+            key: value
+            for key, value in endpoint.items()
+            if key not in {"source_smiles", "attempt_id"}
+        }
+        union_metrics = (
+            {key: value for key, value in expected.items() if key != "attempt_id"}
+            if expected is not None
+            else None
+        )
+        if union_metrics is None or mapped != union_metrics:
+            raise ValueError(f"panel endpoint mapping differs from union: {scoring_dir.name}")
+
+    qualifying = load_object(qualifying_path, "qualifying-hit report")
+    scored = qualifying.get("scored_records", [])
+    identities = [(row.get("attempt_id"), row.get("canonical_smiles")) for row in endpoints]
+    scored_identities = [(row.get("attempt_id"), row.get("canonical_smiles")) for row in scored]
+    if (
+        qualifying.get("contract") != "q07820-qualifying-hit-v1"
+        or qualifying.get("status") != "complete"
+        or qualifying.get("attempts") != attempts
+        or qualifying.get("infrastructure_failures") != 0
+        or qualifying.get("inputs", {}).get("records_sha256") != sha256_file(endpoint_path)
+        or qualifying.get("inputs", {}).get("thresholds_sha256") != thresholds_sha256
+        or len(scored) != attempts
+        or scored_identities != identities
+    ):
+        raise ValueError(f"qualifying-hit report is incomplete or invalid: {scoring_dir.name}")
+    return {
+        "arm": arm,
+        "training_seed": seed,
+        "checkpoint_step": step,
+        "evaluation_seed": evaluation_seed,
+        "policy_sha256": sample_manifest["identity"]["policy_sha256"],
+        "sample_manifest_sha256": sha256_file(sample_manifest_path),
+        "endpoint_records_sha256": sha256_file(endpoint_path),
+        "qualifying_report_sha256": sha256_file(qualifying_path),
+        "qualifying_report_name": qualifying_path.name,
+    }
+
+
 def gate_evaluation_matrix(
     contract_path: Path,
     thresholds_path: Path,
     panels_root: Path,
+    panel_kind: str = "development",
 ) -> dict[str, Any]:
     contract = load_object(contract_path, "matched contract")
     contract_sha256 = sha256_file(contract_path)
     thresholds_sha256 = sha256_file(thresholds_path)
-    expected = expected_panels(contract)
+    expected = expected_panels(contract, panel_kind)
     expected_names = {panel_name(*panel) for panel in expected}
     observed_names = {path.name for path in panels_root.iterdir() if path.is_dir()}
     if observed_names != expected_names:
@@ -161,6 +336,7 @@ def gate_evaluation_matrix(
         "schema_version": "anarres.molecular-endpoint-matrix-gate.v1",
         "study": contract["study"],
         "contract": contract["contract"],
+        "panel_kind": panel_kind,
         "status": "ENDPOINT_MATRIX_COMPLETE__COMPARATIVE_SCORING_AUTHORIZED",
         "comparative_scoring_authorized": True,
         "contract_sha256": contract_sha256,
@@ -170,11 +346,71 @@ def gate_evaluation_matrix(
     }
 
 
+def gate_split_union_evaluation_matrix(
+    contract_path: Path,
+    thresholds_path: Path,
+    samples_root: Path,
+    panels_root: Path,
+    evaluation_root: Path,
+    panel_kind: str = "development",
+) -> dict[str, Any]:
+    contract = load_object(contract_path, "matched contract")
+    contract_sha256 = sha256_file(contract_path)
+    thresholds_sha256 = sha256_file(thresholds_path)
+    expected = expected_panels(contract, panel_kind)
+    expected_names = {panel_name(*panel) for panel in expected}
+    for root, label in ((samples_root, "sample"), (panels_root, "scoring")):
+        observed = {path.name for path in root.iterdir() if path.is_dir()}
+        if observed != expected_names:
+            raise ValueError(
+                f"{label} panel inventory differs: "
+                f"missing={sorted(expected_names - observed)}, "
+                f"extra={sorted(observed - expected_names)}"
+            )
+    union_by_smiles, union_hashes = verify_union_chain(
+        evaluation_root, expected_names, samples_root, contract
+    )
+    records = [
+        verify_split_union_panel(
+            samples_root / panel_name(arm, seed, step),
+            panels_root / panel_name(arm, seed, step),
+            union_by_smiles,
+            contract,
+            contract_sha256,
+            thresholds_sha256,
+            arm,
+            seed,
+            step,
+        )
+        for arm, seed, step in expected
+    ]
+    return {
+        "schema_version": "anarres.molecular-endpoint-matrix-gate.v1",
+        "study": contract["study"],
+        "contract": contract["contract"],
+        "panel_kind": panel_kind,
+        "layout": "split-union",
+        "status": "ENDPOINT_MATRIX_COMPLETE__COMPARATIVE_SCORING_AUTHORIZED",
+        "comparative_scoring_authorized": True,
+        "contract_sha256": contract_sha256,
+        "thresholds_sha256": thresholds_sha256,
+        "panel_count": len(records),
+        "union_artifacts": union_hashes,
+        "records": records,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--contract", type=Path, default=DEFAULT_CONTRACT)
     parser.add_argument("--thresholds", type=Path, default=DEFAULT_THRESHOLDS)
     parser.add_argument("--panels-root", type=Path, required=True)
+    parser.add_argument("--samples-root", type=Path)
+    parser.add_argument("--evaluation-root", type=Path)
+    parser.add_argument("--layout", choices=("individual", "split-union"), default="individual")
+    parser.add_argument(
+        "--panel-kind", choices=("development", "prospective"), default="development"
+    )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if args.contract.resolve() != DEFAULT_CONTRACT.resolve():
@@ -183,7 +419,21 @@ def main() -> None:
         raise ValueError("claim-bearing gates require the released endpoint thresholds")
     if args.output.exists():
         raise FileExistsError(args.output)
-    result = gate_evaluation_matrix(args.contract, args.thresholds, args.panels_root)
+    if args.layout == "individual":
+        result = gate_evaluation_matrix(
+            args.contract, args.thresholds, args.panels_root, args.panel_kind
+        )
+    else:
+        if args.samples_root is None or args.evaluation_root is None:
+            raise ValueError("split-union layout requires --samples-root and --evaluation-root")
+        result = gate_split_union_evaluation_matrix(
+            args.contract,
+            args.thresholds,
+            args.samples_root,
+            args.panels_root,
+            args.evaluation_root,
+            args.panel_kind,
+        )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"status": result["status"], "panel_count": result["panel_count"]}, indent=2))

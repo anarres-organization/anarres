@@ -46,8 +46,13 @@ statistic failed because it ranked banks on coordinates they were not designed
 to optimize. A sealed diagnostic motivated a Version 4 selector-fidelity gate
 that preserved the banks, selectors, estimators, and runtime. All eight
 prespecified selector-versus-neutral checks pass in both independent views.
-The matched six-bank, two-seed training and evaluation contract is now frozen.
-No target-training outcome has been opened.
+The matched six-bank development study and the two-bank prospective decision
+are complete. The frozen graph-aware forecast correctly ranked the operational
+hybrid above the graph-aware hybrid at all three budgets. Observed differences
+were small relative to the prespecified uncertainty threshold, so the rule
+abstained rather than issuing an allocation decision. The full chronology and
+claim boundary are reported in the study's
+[`RESULTS.md`](reaction-environment-selection/RESULTS.md).
 
 The primary endpoint is a multi-gate qualifying-hit rate rather than raw
 docking score. It combines target docking with molecular validity, chemical
@@ -72,6 +77,28 @@ environment-selection loop is scored. This order tests whether graph structure
 helps choose experience before asking whether a different graph architecture
 changes the result.
 
+## Retrospective evidence bridge
+
+The [retrospective molecular-design bridge](retrospective-bridge/README.md)
+recovers nine public evidence objects spanning closed-loop active learning,
+experience replay, augmentation, molecular representation, target-specific
+acquisition, and finite-budget optimization. Four decision audits test early
+optimization across 23 oracle tasks, acquisition policies across three
+molecular libraries, target-specific acquisition across 50 complex substrates,
+and acquisition schedules across four binding-affinity datasets. A separate
+Rubisco object tests the resulting UCB-over-random direction on two released
+protein-engineering landscapes. Each object retains its native intervention,
+budget, and outcome rather than being pooled with unlike decisions. The bridge
+provides cross-study context for the candidate-bank hypothesis, while the
+RxnFlow study remains the prospective environment-selection test.
+
+The PMO object also supports a charged temporal decision audit. A 1,000-call
+pilot combined with a training-fold method prior changes the fixed-method choice
+on 18 of 23 held-out oracle tasks. It reaches 84.3% pairwise ordering and 0.078
+mean normalized regret while using 14.2% of exhaustive evaluation cost. These
+pilot values are early optimization outcomes, so the result complements rather
+than replaces the pre-training RxnFlow test.
+
 ## Evidence boundary
 
 The first experiment can establish a measurable, prospective relationship for
@@ -83,10 +110,10 @@ and wet-lab evidence.
 
 The current public artifacts qualify the pinned source revisions, Version4
 archive and target fixtures, docking oracle, QED warm start, Q07820 target, and
-two-view measurement. They preserve the failed Version 3 complete-order result
-and record the passing Version 4 selector-fidelity confirmation. The completed
-gate supports the frozen matched target-training and evaluation contracts. No
-target-training or evaluation outcome has been opened.
+two-view measurement. They preserve the failed Version 3 complete-order result,
+the passing Version 4 selector-fidelity confirmation, the frozen forecast, and
+the complete prospective endpoint gate. Released outcomes remain downstream
+result records and are not converted into environment-profile coordinates.
 
 An installable `anarres-molecular` adapter exposes the native qualification
 status and deterministic profile export without changing this evidence

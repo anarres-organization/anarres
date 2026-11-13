@@ -1,0 +1,173 @@
+{
+  "comparative_scoring_authorized": true,
+  "contract": "q07820-matched-training-evaluation-v1",
+  "contract_sha256": "d45c1fd2d8380ef0c0e70464961a519c46fcd8603fffede9ab0f8154ad0aa26d",
+  "layout": "split-union",
+  "panel_count": 14,
+  "panel_kind": "prospective",
+  "records": [
+    {
+      "arm": "graph_aware_hybrid",
+      "checkpoint_step": 200,
+      "endpoint_records_sha256": "5bd45b3cd29dc3c3dff0428a1ed9cd45e3e05f7765703f04125e8bf47d9123f2",
+      "evaluation_seed": 835155383,
+      "policy_sha256": "1295262a05fa676473f40800ada9dfdf9f0c16362b531564b0f4a1dbbd24c31d",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "ff9c9dd8b16193a7d5bb1a9aaea1bde1231b4637f848a59e2ce2d09812af0306",
+      "sample_manifest_sha256": "ca04ed2c418c230e5b4b2bdfec8f20acaf179766c30b3ca31a8fe20586dfbfd2",
+      "training_seed": 20261108
+    },
+    {
+      "arm": "graph_aware_hybrid",
+      "checkpoint_step": 400,
+      "endpoint_records_sha256": "6c310438bed25ecadf539cd661504294fe46357e83d98e0fe974c7fa0ccf1bc9",
+      "evaluation_seed": 2099961021,
+      "policy_sha256": "70bd36983fa9fe56d2fb22d1565ed0c4568f06261143c4b9cfa1c70cfac058ca",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "55784b1bb37c27b6a784551aee0d53d8885010b61096bff5f091e670eacbe3a6",
+      "sample_manifest_sha256": "4dd0d657369147c1ae147e3a93598236792c286ac63cfecf40f8afe87118591d",
+      "training_seed": 20261108
+    },
+    {
+      "arm": "graph_aware_hybrid",
+      "checkpoint_step": 625,
+      "endpoint_records_sha256": "91531646767bf3f17e3b2335d8bc71b97afa7abe6e6cd8cdd8725f0611fa3b3d",
+      "evaluation_seed": 1623548918,
+      "policy_sha256": "e74f8031ab112d1f60f112ca5610e714bba9f6b91ec12d6a072394907399e741",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "961cd6fd003be8471e5658066b62519dbf2c7c577fb6f77ec194c490e8f91a64",
+      "sample_manifest_sha256": "11aeaf4538d6d837783bc2746f56e6a9afa11c01107379cbae45726f19ec86e7",
+      "training_seed": 20261108
+    },
+    {
+      "arm": "graph_aware_hybrid",
+      "checkpoint_step": 200,
+      "endpoint_records_sha256": "01cdde6dbe2bd7b82dd3c4bf6cf3d817e4e68766027a7fac19fa0070a326b270",
+      "evaluation_seed": 774715019,
+      "policy_sha256": "c96791ae6202597a496832cb77b9e5d89bc57de8d157f8513a7d8947aa13aa6b",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "57d8084fda3983dbb5a5ccf457e04b2b6f3624fe57f5f6f828201dd5eca8e03d",
+      "sample_manifest_sha256": "49fad36fc1c328520b3e70f32eda357e6c7c297c2a52a802d4daf78319ed612d",
+      "training_seed": 20261109
+    },
+    {
+      "arm": "graph_aware_hybrid",
+      "checkpoint_step": 400,
+      "endpoint_records_sha256": "f9d329d7259c8a2d70aa8a9f2ba0b91ab7223c54faf77641b5f57ba0aa342a66",
+      "evaluation_seed": 1784533010,
+      "policy_sha256": "8bba84ce944d771a4e01171c96c381a8fa1d3eb9ed65c038da73aa69eee16104",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "4a552cc8e1c96dec5f150ce26b5c54ebe96e4b7559beaee4adaf5d254de14199",
+      "sample_manifest_sha256": "ef90f121cf7b48048b06dd851bcda96c5b2d3bb2da11f83208a14d1a0e6ff65e",
+      "training_seed": 20261109
+    },
+    {
+      "arm": "graph_aware_hybrid",
+      "checkpoint_step": 625,
+      "endpoint_records_sha256": "37184b94a88e79e1cca3347a09e064578058017ed828c2465e16690b07592ee3",
+      "evaluation_seed": 53252595,
+      "policy_sha256": "468c906ae14b3590ec1ecec94e0003a2b7c19428833f729d3225c01a02248a4d",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "b5eb9aa9a0ae3cf89d4c2e2f10e223f92beffdebd9d5f0d11d5d46ee0fea72e0",
+      "sample_manifest_sha256": "f39a39907ad735d2a2e4e381890857105dc39b4cba9446277ba5c4a75c5298f2",
+      "training_seed": 20261109
+    },
+    {
+      "arm": "operational_hybrid",
+      "checkpoint_step": 200,
+      "endpoint_records_sha256": "c9fddd81d1eae07006f393244b42ed31021ad86468606d2b4a1bab7dcb73b94f",
+      "evaluation_seed": 835155383,
+      "policy_sha256": "20a97c15d2cc012ec25c92c9243aebe064d9c2305a98836cab23b7571c8a1ffc",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "ce2d8544b1657925eebcd5f428a529a1d2c750e43370668346c2162ba5830a32",
+      "sample_manifest_sha256": "4133c745915f943377ae8fdfeb75e73f549ad1998c181cec974baae75d3e4fb4",
+      "training_seed": 20261108
+    },
+    {
+      "arm": "operational_hybrid",
+      "checkpoint_step": 400,
+      "endpoint_records_sha256": "3862c28055be848fc9bd765a436c088a035b8fc08360cc3674583bd43d75d975",
+      "evaluation_seed": 2099961021,
+      "policy_sha256": "1941619c034e0e2c1950d335699f9b66a098d505110f1513146b151cc2958e06",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "6970988dd0aaef90dc11665d93a3bc35691d1d0c0e7978dab8329b136d09b9b5",
+      "sample_manifest_sha256": "118e8eabab02e7b0f53f28d976079bdcf4408362c7d35ed474dd222ae350ce97",
+      "training_seed": 20261108
+    },
+    {
+      "arm": "operational_hybrid",
+      "checkpoint_step": 625,
+      "endpoint_records_sha256": "8e72325562e841b9f61b28bba44f0ecf8353ce6d5d546e6fb2a92fc3b2832642",
+      "evaluation_seed": 1623548918,
+      "policy_sha256": "f772c09f34306f99c6ffb14d0dd387251e3714081ea8a2c49ab88bcb7a5809ec",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "4c822437d332be5faf541b576b37c7be42cdccdfe600246ed64bad8692f5ae14",
+      "sample_manifest_sha256": "607a2204fd2ba268a09a7bb9f043a6142878a88ec2d3f674843a74d46d7c5491",
+      "training_seed": 20261108
+    },
+    {
+      "arm": "operational_hybrid",
+      "checkpoint_step": 200,
+      "endpoint_records_sha256": "5ca75f7eb6cfe27dab45181c504c83c20f91bfd0eb4b972e63fd940bf935d455",
+      "evaluation_seed": 774715019,
+      "policy_sha256": "038faa7cf4ac950879a6d5eb8a258a59011b6a8f0ca4130a5479615d8637fe90",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "6b788ca2d32611947cb257e121cc558e7fce94e54341ecb96966095337edfaa4",
+      "sample_manifest_sha256": "ef4e9e9fa96ed797b64d46fbdb5a2af9e6d21c8d00a424365e5b0bb9c615cd15",
+      "training_seed": 20261109
+    },
+    {
+      "arm": "operational_hybrid",
+      "checkpoint_step": 400,
+      "endpoint_records_sha256": "01f31d6dce189355862872f80962376287c0baece419dde3d1d24fe7926cd9ed",
+      "evaluation_seed": 1784533010,
+      "policy_sha256": "a6d69b31827adc1f78846d738b9ef6f5120ba265b2469e42853a77b2f1f83a3d",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "8f6be54d079a6e812b2ba6e006512ea466ea2825e6d7c0f98a11d12d42fdb361",
+      "sample_manifest_sha256": "fe8bd152a5353c959b4441d926e8e3899ae1a5e45c7ee447c08060324eb48db1",
+      "training_seed": 20261109
+    },
+    {
+      "arm": "operational_hybrid",
+      "checkpoint_step": 625,
+      "endpoint_records_sha256": "083d31a36db2e87dcc12cc1c1d6edb1f77d77ce4b7602605967d07162832b075",
+      "evaluation_seed": 53252595,
+      "policy_sha256": "61561b6d899c9874144d9ec41a30fd8809c5df85ec71cec74150f7e433ca9442",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "8b25a0201d1af1048c6df5bfcf9f0b12801a66760ecbbc7fd4225bf5f3af174b",
+      "sample_manifest_sha256": "fd1b58ade53d1c6a38bb245acf94151a681e5a106c76ca67f15a8713cec58ae3",
+      "training_seed": 20261109
+    },
+    {
+      "arm": "warm_start",
+      "checkpoint_step": 0,
+      "endpoint_records_sha256": "e1732676204c08853ea076856db08fb5afa67914b33e6619c5c9ce0bcd78fe60",
+      "evaluation_seed": 1384036338,
+      "policy_sha256": "effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "937c9c9351516757157763405ebb7e7d86301b5a9036a341676c910878834d68",
+      "sample_manifest_sha256": "49712c43bdaf4783d0ddcd736f9d35902e8bd229e5b7e9ee2c2afa1a6fb1010b",
+      "training_seed": 20261108
+    },
+    {
+      "arm": "warm_start",
+      "checkpoint_step": 0,
+      "endpoint_records_sha256": "fde1f1e91502dffa0d490671c8c3e90d0af95c35a4f3319117fac24a2745dc7d",
+      "evaluation_seed": 1557152317,
+      "policy_sha256": "effb789bf754231c6897e4b11f28ba644d51a103298ae3fc65a0687ad962976a",
+      "qualifying_report_name": "qualifying-hit-score.json",
+      "qualifying_report_sha256": "89096d326d3d094815eea341c4868959e1e09afe0ee44f15152e1cbeceda3867",
+      "sample_manifest_sha256": "cd5f22b3a5ad211f57da0c89cfa8b83482285f7bc187a2b2e4b1f7001ce15ccd",
+      "training_seed": 20261109
+    }
+  ],
+  "schema_version": "anarres.molecular-endpoint-matrix-gate.v1",
+  "status": "ENDPOINT_MATRIX_COMPLETE__COMPARATIVE_SCORING_AUTHORIZED",
+  "study": "prospective-reaction-environment-selection",
+  "thresholds_sha256": "96ff6d59166cb5b2ff3c3dfe8765dc738f02aa081393a5b3fd6a11ea36b17e82",
+  "union_artifacts": {
+    "union_docking_report_sha256": "f17d07698f8a6a51cf7732e64f7f922988a9069e73f7d7032935b6234d1a42af",
+    "union_manifest_sha256": "819288db60c1b8d0ac658312aab69f2d809a4c2e6cbb2d23dc19b69237fb049a",
+    "union_metrics_report_sha256": "2134efb6b18398efb442ba23b0c2d6390d498a11bbc6425fabfc988b83b0a40f"
+  }
+}

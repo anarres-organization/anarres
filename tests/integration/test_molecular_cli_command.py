@@ -19,6 +19,8 @@ SHARED_SOURCES = [
     ROOT / "packages/core/src",
     ROOT / "packages/environments/src",
 ]
+for shared_source in reversed(SHARED_SOURCES):
+    sys.path.insert(0, str(shared_source))
 
 from anarres_molecular_adapter import cli  # noqa: E402
 from anarres_molecular_adapter import probe as molecular_probe  # noqa: E402
