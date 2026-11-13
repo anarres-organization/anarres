@@ -14,34 +14,24 @@
   "prediction_audits": {
     "explainable_al_cross_target": {
       "candidate_arms": 420,
-      "cost_contract": "360 acquired compounds for every candidate within each panel",
+      "cost_contract": "the complete 60--360 compound acquisition curve for every candidate within each panel",
       "dataset_clustered_uncertainty": {
-        "bootstrap_frequency_primary_lower_regret": 0.93805,
+        "baseline": "uninformed_tie",
+        "bootstrap_frequency_primary_lower_regret": 1.0,
         "independent_datasets": 4,
-        "primary_minus_global_best_protocol_credit_95_interval": [
-          0.04999999999999999,
-          0.2
+        "primary_minus_baseline_best_protocol_credit_95_interval": [
+          -0.05238095238095236,
+          0.23571428571428577
         ],
-        "primary_minus_global_regret_95_interval": [
-          -0.13850539169952159,
-          0.0052723039141594485
+        "primary_minus_baseline_regret_95_interval": [
+          -0.16103944943729914,
+          -0.08050728730981133
         ],
         "random_seed": 20261112,
         "resamples": 20000
       },
-      "decision_information": "acquisition-schedule outcomes from other datasets, with the transfer view selected using only inner training-dataset folds",
-      "holdout_unit": "one complete binding-affinity dataset",
-      "kernel_matched_sensitivity": {
-        "best_protocol_credit": 0.45,
-        "mean_normalized_regret": 0.20488346215628594,
-        "pairwise_ordering": 0.6511904761904762,
-        "panels": 60
-      },
-      "measurement_timing": "before opening the held-out dataset outcomes",
-      "normalized_outcome": "three-seed endpoint top-2%-recall within dataset, fingerprint, and kernel",
-      "panels": 60,
-      "pretraining_profile_input": false,
-      "primary_metrics": {
+      "decision_information": "each acquisition schedule's mean curve utility on the other datasets",
+      "endpoint_sensitivity": {
         "best_protocol_credit": 0.4,
         "chosen_view_by_held_out_dataset": {
           "D2R": "matched_configuration",
@@ -64,6 +54,23 @@
           "primary_metric": "mean normalized regret",
           "tie_breaker": "pairwise ordering"
         }
+      },
+      "holdout_unit": "one complete binding-affinity dataset",
+      "kernel_matched_sensitivity": {
+        "best_protocol_credit": 0.21666666666666667,
+        "mean_normalized_regret": 0.2674381124606305,
+        "pairwise_ordering": 0.667063492063492,
+        "panels": 60
+      },
+      "measurement_timing": "before opening the held-out dataset outcomes",
+      "normalized_outcome": "three-seed top-2%-recall curve AUC over 60--360 acquisitions within dataset, fingerprint, and kernel",
+      "panels": 60,
+      "pretraining_profile_input": false,
+      "primary_metrics": {
+        "best_protocol_credit": 0.25,
+        "mean_normalized_regret": 0.26793592407619216,
+        "pairwise_ordering": 0.6662698412698412,
+        "panels": 60
       },
       "source_object": "Srivastava et al."
     },
@@ -212,6 +219,67 @@
         "records": 92,
         "replay_runs_per_task": 3,
         "tasks": 23
+      }
+    },
+    "rubisco_active_learning": {
+      "directional_contract": {
+        "claim_boundary": "This is a retrospective cross-study directional check, not a frozen multi-arm predictor or a prospective wet-lab result.",
+        "external_question": "Does UCB acquisition also exceed random acquisition on each released Rubisco curve under a common within-dataset assay budget?",
+        "outcome": "trapezoidal AUC of top-5% recovery over the common assay curve",
+        "result": "UCB exceeds random acquisition on both external datasets.",
+        "rule_origin": "The separate four-target binding-affinity audit ranks every released UCB schedule above random acquisition in mean curve utility."
+      },
+      "directional_results": [
+        {
+          "common_budget_end": 1208,
+          "dataset": "DMS",
+          "paired_difference_95_interval": [
+            0.16301242835097002,
+            0.19009080136684298
+          ],
+          "paired_mean_difference": 0.1759589947089947,
+          "random_curve_auc_recovery_top_5pct_mean": 0.08758818342151675,
+          "replicates": 10,
+          "replicates_with_positive_difference": 10,
+          "ucb_curve_auc_recovery_top_5pct_mean": 0.26354717813051143
+        },
+        {
+          "common_budget_end": 1400,
+          "dataset": "HOFF",
+          "paired_difference_95_interval": [
+            0.05255000000000001,
+            0.13507500000000003
+          ],
+          "paired_mean_difference": 0.09335000000000002,
+          "random_curve_auc_recovery_top_5pct_mean": 0.063025,
+          "replicates": 10,
+          "replicates_with_positive_difference": 9,
+          "ucb_curve_auc_recovery_top_5pct_mean": 0.15637500000000001
+        }
+      ],
+      "predictor_eligibility": "excluded from the fitted predictor: two protein landscapes support a directional UCB-versus-random check, not a multi-arm target model",
+      "role": "external directional acquisition check",
+      "support": {
+        "batch_size": 48,
+        "common_budget_end_by_dataset": {
+          "DMS": 1208,
+          "HOFF": 1400
+        },
+        "complete_runs": 100,
+        "datasets": [
+          "DMS",
+          "HOFF"
+        ],
+        "initial_assays": 200,
+        "replicates_per_strategy_dataset": 10,
+        "strategies": [
+          "greedy",
+          "random",
+          "thompson",
+          "ucb",
+          "uncertainty"
+        ],
+        "trajectory_rows": 2578
       }
     },
     "saturn": {

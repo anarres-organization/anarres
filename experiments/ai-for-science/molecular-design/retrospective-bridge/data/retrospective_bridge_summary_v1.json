@@ -111,45 +111,98 @@
       "table_approaches": 4
     }
   },
-  "claim_boundary": "The bridge combines distinct public scientific objects without pooling their native outcomes. The controlled RxnFlow study remains the environment-selection test. Antoniuk et al. test closed-loop active learning, InVirtuoGen tests replay, Saturn tests components and methods, and t-SMILES audits representation and augmentation. PMO tests finite-budget optimizers, while van Tilborg and Grisoni test acquisition choices across held-out molecular libraries. The Reisman study tests target-specific acquisition across complex molecules, and Srivastava et al. test acquisition schedules across binding-affinity datasets.",
+  "claim_boundary": "The bridge combines distinct public scientific objects without pooling their native outcomes. The controlled RxnFlow study remains the environment-selection test. Antoniuk et al. test closed-loop active learning, InVirtuoGen tests replay, Saturn tests components and methods, and t-SMILES audits representation and augmentation. PMO tests finite-budget optimizers, while van Tilborg and Grisoni test acquisition choices across held-out molecular libraries. The Reisman study tests target-specific acquisition across complex molecules, and Srivastava et al. test acquisition schedules across binding-affinity datasets. Young et al. provide an external protein-engineering acquisition check.",
   "explainable_active_learning": {
     "dataset_clustered_uncertainty": {
-      "bootstrap_frequency_primary_lower_regret": 0.93805,
+      "baseline": "uninformed_tie",
+      "bootstrap_frequency_primary_lower_regret": 1.0,
       "independent_datasets": 4,
-      "primary_minus_global_best_protocol_credit_95_interval": [
-        0.04999999999999999,
-        0.2
+      "primary_minus_baseline_best_protocol_credit_95_interval": [
+        -0.05238095238095236,
+        0.23571428571428577
       ],
-      "primary_minus_global_regret_95_interval": [
-        -0.13850539169952159,
-        0.0052723039141594485
+      "primary_minus_baseline_regret_95_interval": [
+        -0.16103944943729914,
+        -0.08050728730981133
       ],
       "random_seed": 20261112,
       "resamples": 20000
     },
+    "endpoint_sensitivity": {
+      "global_protocol": {
+        "best_protocol_credit": 0.26666666666666666,
+        "mean_normalized_regret": 0.31308817260571314,
+        "pairwise_ordering": 0.6023809523809524,
+        "panels": 60
+      },
+      "nested_view_selection": {
+        "best_protocol_credit": 0.4,
+        "chosen_view_by_held_out_dataset": {
+          "D2R": "matched_configuration",
+          "MPRO": "kernel_matched",
+          "TYK2": "kernel_matched",
+          "USP7": "global_protocol"
+        },
+        "mean_normalized_regret": 0.24647162871303208,
+        "pairwise_ordering": 0.6353174603174603,
+        "panels": 60,
+        "selection_contract": {
+          "candidate_views": [
+            "global_protocol",
+            "kernel_matched",
+            "fingerprint_matched",
+            "matched_configuration"
+          ],
+          "inner_holdout": "one complete target dataset from the outer training fold",
+          "outer_holdout": "one complete target dataset",
+          "primary_metric": "mean normalized regret",
+          "tie_breaker": "pairwise ordering"
+        }
+      }
+    },
     "global_protocol": {
-      "best_protocol_credit": 0.26666666666666666,
-      "mean_normalized_regret": 0.31308817260571314,
-      "pairwise_ordering": 0.6023809523809524,
-      "panels": 60
+      "best_protocol_credit": 0.25,
+      "mean_normalized_regret": 0.26793592407619216,
+      "pairwise_ordering": 0.6662698412698412,
+      "panels": 60,
+      "selected_protocol_sets": {
+        "ucb-gradual": 30,
+        "ucb-sandwich": 30
+      }
     },
     "kernel_matched_sensitivity": {
-      "best_protocol_credit": 0.45,
-      "mean_normalized_regret": 0.20488346215628594,
-      "pairwise_ordering": 0.6511904761904762,
-      "panels": 60
+      "best_protocol_credit": 0.21666666666666667,
+      "mean_normalized_regret": 0.2674381124606305,
+      "pairwise_ordering": 0.667063492063492,
+      "panels": 60,
+      "selected_protocol_sets": {
+        "ucb-alternate": 9,
+        "ucb-balanced": 6,
+        "ucb-exploit-heavy": 3,
+        "ucb-explore-heavy": 12,
+        "ucb-gradual": 3,
+        "ucb-sandwich": 27
+      }
     },
     "nested_view_selection": {
-      "best_protocol_credit": 0.4,
+      "best_protocol_credit": 0.2,
       "chosen_view_by_held_out_dataset": {
         "D2R": "matched_configuration",
         "MPRO": "kernel_matched",
-        "TYK2": "kernel_matched",
+        "TYK2": "matched_configuration",
         "USP7": "global_protocol"
       },
-      "mean_normalized_regret": 0.24647162871303208,
-      "pairwise_ordering": 0.6353174603174603,
+      "mean_normalized_regret": 0.2861020661338217,
+      "pairwise_ordering": 0.6563492063492063,
       "panels": 60,
+      "selected_protocol_sets": {
+        "ucb-alternate": 11,
+        "ucb-balanced": 11,
+        "ucb-exploit-heavy": 3,
+        "ucb-explore-heavy": 9,
+        "ucb-gradual": 4,
+        "ucb-sandwich": 22
+      },
       "selection_contract": {
         "candidate_views": [
           "global_protocol",
@@ -163,14 +216,46 @@
         "tie_breaker": "pairwise ordering"
       }
     },
+    "primary_global_protocol": {
+      "best_protocol_credit": 0.25,
+      "mean_normalized_regret": 0.26793592407619216,
+      "pairwise_ordering": 0.6662698412698412,
+      "panels": 60,
+      "selected_protocol_sets": {
+        "ucb-gradual": 30,
+        "ucb-sandwich": 30
+      }
+    },
     "support": {
       "complete_runs": 1260,
       "condition_records": 420,
-      "cycles": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      "datasets": ["D2R", "MPRO", "TYK2", "USP7"],
+      "curve_start_compounds_acquired": 60,
+      "cycles": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "datasets": [
+        "D2R",
+        "MPRO",
+        "TYK2",
+        "USP7"
+      ],
       "decision_panels": 60,
       "endpoint_compounds_acquired": 360,
-      "fingerprints": ["chemberta", "ecfp", "maccs"],
+      "fingerprints": [
+        "chemberta",
+        "ecfp",
+        "maccs"
+      ],
       "kernels": [
         "LinearKernel",
         "MaternKernel",
@@ -187,7 +272,11 @@
         "ucb-gradual",
         "ucb-sandwich"
       ],
-      "seeds": [7, 42, 123],
+      "seeds": [
+        7,
+        42,
+        123
+      ],
       "trajectory_rows": 13860
     }
   },
@@ -309,6 +398,17 @@
           "acqf_9": 5,
           "random": 1
         },
+        "selected_methods": {
+          "acqf_1-db0-01-a1": 14,
+          "acqf_10": 4,
+          "acqf_2-1": 12,
+          "acqf_4-1": 1,
+          "acqf_5": 8,
+          "acqf_6": 4,
+          "acqf_7": 1,
+          "acqf_9": 5,
+          "random": 1
+        },
         "selection_contract": {
           "inner_holdout": "one complete target from the outer training fold",
           "neighbor_counts": [
@@ -344,6 +444,17 @@
           "acqf_9": 11,
           "random": 18
         },
+        "selected_methods": {
+          "acqf_1-db0-01-a1": 3,
+          "acqf_10": 1,
+          "acqf_2-1": 5,
+          "acqf_4-1": 1,
+          "acqf_5": 6,
+          "acqf_6": 4,
+          "acqf_7": 1,
+          "acqf_9": 11,
+          "random": 18
+        },
         "targets": 50
       },
       "training_fold_fixed_method": {
@@ -351,6 +462,11 @@
         "mean_normalized_regret": 0.29693167589478814,
         "pairwise_ordering": 0.6015555555555555,
         "selected_method_counts": {
+          "acqf_1-db0-01-a1": 36,
+          "acqf_2-1": 2,
+          "acqf_5": 12
+        },
+        "selected_methods": {
           "acqf_1-db0-01-a1": 36,
           "acqf_2-1": 2,
           "acqf_5": 12
@@ -376,6 +492,65 @@
       "conditions_with_30_runs": 498,
       "released_runs": 14998,
       "targets": 50
+    }
+  },
+  "rubisco_active_learning": {
+    "directional_contract": {
+      "claim_boundary": "This is a retrospective cross-study directional check, not a frozen multi-arm predictor or a prospective wet-lab result.",
+      "external_question": "Does UCB acquisition also exceed random acquisition on each released Rubisco curve under a common within-dataset assay budget?",
+      "outcome": "trapezoidal AUC of top-5% recovery over the common assay curve",
+      "result": "UCB exceeds random acquisition on both external datasets.",
+      "rule_origin": "The separate four-target binding-affinity audit ranks every released UCB schedule above random acquisition in mean curve utility."
+    },
+    "directional_results": [
+      {
+        "common_budget_end": 1208,
+        "dataset": "DMS",
+        "paired_difference_95_interval": [
+          0.16301242835097002,
+          0.19009080136684298
+        ],
+        "paired_mean_difference": 0.1759589947089947,
+        "random_curve_auc_recovery_top_5pct_mean": 0.08758818342151675,
+        "replicates": 10,
+        "replicates_with_positive_difference": 10,
+        "ucb_curve_auc_recovery_top_5pct_mean": 0.26354717813051143
+      },
+      {
+        "common_budget_end": 1400,
+        "dataset": "HOFF",
+        "paired_difference_95_interval": [
+          0.05255000000000001,
+          0.13507500000000003
+        ],
+        "paired_mean_difference": 0.09335000000000002,
+        "random_curve_auc_recovery_top_5pct_mean": 0.063025,
+        "replicates": 10,
+        "replicates_with_positive_difference": 9,
+        "ucb_curve_auc_recovery_top_5pct_mean": 0.15637500000000001
+      }
+    ],
+    "support": {
+      "batch_size": 48,
+      "common_budget_end_by_dataset": {
+        "DMS": 1208,
+        "HOFF": 1400
+      },
+      "complete_runs": 100,
+      "datasets": [
+        "DMS",
+        "HOFF"
+      ],
+      "initial_assays": 200,
+      "replicates_per_strategy_dataset": 10,
+      "strategies": [
+        "greedy",
+        "random",
+        "thompson",
+        "ucb",
+        "uncertainty"
+      ],
+      "trajectory_rows": 2578
     }
   },
   "saturn": {
@@ -420,7 +595,7 @@
     }
   },
   "schema_version": "anarres.molecular.retrospective_bridge_summary.v1",
-  "source_objects": 8,
+  "source_objects": 9,
   "tsmiles_jnk3": {
     "highest_active_novel_conditions": [
       {

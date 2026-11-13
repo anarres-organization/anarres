@@ -1,11 +1,12 @@
 # Retrospective molecular-design bridge
 
-**Status:** eight public evidence objects are normalized and source-audited.
+**Status:** nine public evidence objects are normalized and source-audited.
 Four decision audits cover early optimization across 23 held-out oracle tasks,
 acquisition policies across nine held-out library-architecture contexts, and
 target-specific acquisition across 50 held-out molecules and four held-out
-binding-affinity datasets. The bridge remains retrospective and separate from
-the now-released RxnFlow prospective result.
+binding-affinity datasets. A ninth object provides an external directional
+check across two protein-engineering landscapes. The bridge remains
+retrospective and separate from the now-released RxnFlow prospective result.
 
 This bridge asks how experience, acquisition, representation, and finite
 oracle budget change molecular-design outcomes across published studies. It
@@ -17,7 +18,7 @@ separate from prospective selection.
 ## Inclusion boundary
 
 A study enters the bridge when its intervention, budget, numerical outcomes,
-and source provenance can be recovered without figure digitization. The eight
+and source provenance can be recovered without figure digitization. The nine
 current objects answer related but distinct questions:
 
 - [**Antoniuk et al. (2026)**](https://doi.org/10.1038/s41524-025-01924-8)
@@ -49,8 +50,14 @@ current objects answer related but distinct questions:
 - [**Srivastava et al. (2026)**](https://doi.org/10.1039/d5dd00436e)
   release 13,860 active-learning trajectory rows across four binding-affinity
   datasets, seven acquisition schedules, five kernels, three fingerprints, and
-  three seeds. The bridge compares schedules in 60 matched endpoint panels and
-  leaves each complete dataset out of prediction and model selection.
+  three seeds. The bridge compares full 60--360-compound acquisition curves in
+  60 matched panels and leaves each complete dataset out of prediction. The
+  released 360-compound endpoints remain a separate sensitivity.
+- [**Young et al. (2026)**](https://doi.org/10.3390/aichem1020007)
+  release 2,578 active-learning trajectory rows across two Rubisco variant
+  landscapes, five acquisition strategies, and ten replicates. The bridge uses
+  the complete common-budget curves to test the binding-affinity audit's
+  directional preference for UCB-style acquisition over random selection.
 
 The objects are analyzed separately under their published intervention classes.
 Their outcomes remain downstream result records and stay outside Anarres
@@ -59,7 +66,7 @@ environment profiles built from measurements made before training.
 ## Prediction contract
 
 [`prediction_contract_v1.json`](data/prediction_contract_v1.json) applies one
-decision format across the eight objects without pooling unlike outcomes. A
+decision format across the nine objects without pooling unlike outcomes. A
 panel fixes the source, target context, downstream contract, endpoint, and
 budget. Native outcomes are oriented so larger is better and min-max normalized
 only within that panel. Predictive evaluations hold out a complete scientific
@@ -151,18 +158,34 @@ is more stable, with a 95% difference interval of $[0.06, 0.34]$. These
 intervals keep target-level uncertainty visible rather than treating the 45
 pairwise comparisons within each molecule as independent observations.
 
-The binding-affinity release adds a broader matched acquisition panel. A nested
-rule selects its transfer view using only the remaining training datasets. On
-the four held-out datasets, it reaches 63.5% pairwise ordering, 0.246 mean
-normalized regret, and 40.0% best-schedule credit across 60 panels. A global
-protocol prior reaches 60.2%, 0.313, and 26.7%, while random acquisition reaches
-39.9%, 0.866, and 8.3%. A kernel-matched sensitivity is stronger at 65.1%
-ordering and 0.205 regret, but it is not the primary result because selecting
-that view after seeing all four datasets would be retrospective. Across 20,000
-complete-dataset resamples, the nested rule has a 93.8% frequency of lower
-regret than the global prior, while the 95% regret-difference interval still
-crosses zero. The result supports target-dependent acquisition transfer without
-treating 60 panels from four datasets as 60 independent scientific contexts.
+The binding-affinity release adds a broader matched acquisition panel. The
+primary target is top-2%-recall AUC over the complete 60--360-compound curve,
+which measures finite-budget acquisition efficiency rather than only the final
+point. A simple protocol prior learned from the other three datasets reaches
+66.6% pairwise ordering and 0.268 mean normalized regret across 60 panels. An
+uninformed tie reaches 50.0% and 0.387, while random acquisition reaches 39.0%
+and 0.902. A kernel-matched sensitivity reaches 66.7% ordering and 0.267 regret,
+but the simpler global rule remains primary. Across 20,000 complete-dataset
+resamples, its regret improvement over the uninformed tie has a 95% interval of
+$[-0.161,-0.081]$. Performance strengthens after the earliest acquisition
+budgets and remains above 64% pairwise ordering from 180 through 330 compounds.
+
+The endpoint-only audit is retained rather than replaced. Its nested rule
+reaches 63.5% ordering, 0.246 regret, and 40.0% best-schedule credit after 360
+acquisitions. The curve and endpoint targets therefore expose complementary
+properties: curve AUC gives the cleaner complete ranking of finite-budget
+efficiency, while endpoint selection is less stable but sometimes identifies
+the terminal winner. Both results are clustered by the four independent target
+datasets rather than treating the 60 matched panels as independent studies.
+
+The Rubisco release supplies a separate external check on that direction. UCB
+acquisition exceeds random selection on top-5%-recovery curve AUC for both the
+deep-mutational-scan and oxygen-tolerance landscapes. The mean paired gains are
+0.176 and 0.093, with positive replicate differences in 10/10 and 9/10 runs,
+respectively. The 95% paired-bootstrap intervals exclude zero in both cases.
+This result broadens the acquisition evidence from small-molecule affinity to
+protein engineering, while its two decisions do not constitute a new fitted
+multi-arm predictor.
 
 ## Relationship to the prospective study
 
@@ -223,6 +246,11 @@ python scripts/normalize_explainable_active_learning.py \
   --source-csv /path/to/recall_combined_results.csv \
   --output /tmp/explainable-active-learning.json
 
+python scripts/normalize_rubisco_active_learning.py \
+  --rounds-csv /path/to/results_active_learning_pubready/active_learning_rounds.csv \
+  --config-json /path/to/results_active_learning_pubready/config.json \
+  --output /tmp/rubisco-active-learning.json
+
 python scripts/build_prediction_contract.py \
   --data data \
   --output /tmp/prediction-contract.json
@@ -233,5 +261,5 @@ python scripts/audit_decision_uncertainty.py \
 ```
 
 The PMO and regioselectivity archives remain external artifacts. The repository
-includes compact normalized records for all eight objects and a combined
+includes compact normalized records for all nine objects and a combined
 summary.

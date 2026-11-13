@@ -28,6 +28,7 @@ def build(data: Path) -> dict[str, Any]:
     vantilborg = load(data / "vantilborg_active_learning_bridge_v1.json")
     reisman = load(data / "reisman_regioselectivity_bridge_v1.json")
     explainable_al = load(data / "explainable_active_learning_bridge_v1.json")
+    rubisco_al = load(data / "rubisco_active_learning_bridge_v1.json")
 
     return {
         "schema_version": "anarres.molecular.prediction_contract.v1",
@@ -122,20 +123,28 @@ def build(data: Path) -> dict[str, Any]:
                 "candidate_arms": explainable_al["support"]["condition_records"],
                 "holdout_unit": "one complete binding-affinity dataset",
                 "normalized_outcome": (
-                    "three-seed endpoint top-2%-recall within dataset, fingerprint, and kernel"
+                    "three-seed top-2%-recall curve AUC over 60--360 acquisitions within "
+                    "dataset, fingerprint, and kernel"
                 ),
                 "decision_information": (
-                    "acquisition-schedule outcomes from other datasets, with the transfer view "
-                    "selected using only inner training-dataset folds"
+                    "each acquisition schedule's mean curve utility on the other datasets"
                 ),
                 "measurement_timing": "before opening the held-out dataset outcomes",
-                "cost_contract": "360 acquired compounds for every candidate within each panel",
+                "cost_contract": (
+                    "the complete 60--360 compound acquisition curve for every candidate "
+                    "within each panel"
+                ),
                 "pretraining_profile_input": False,
                 "primary_metrics": compact_metrics(
-                    explainable_al["leave_one_dataset_out"]["nested_view_selection"]
+                    explainable_al["leave_one_dataset_out"]["primary_global_protocol"]
                 ),
                 "kernel_matched_sensitivity": compact_metrics(
                     explainable_al["leave_one_dataset_out"]["kernel_matched"]
+                ),
+                "endpoint_sensitivity": compact_metrics(
+                    explainable_al["endpoint_sensitivity"]["leave_one_dataset_out"][
+                        "nested_view_selection"
+                    ]
                 ),
                 "dataset_clustered_uncertainty": explainable_al["dataset_clustered_uncertainty"],
             },
@@ -166,6 +175,16 @@ def build(data: Path) -> dict[str, Any]:
                 "predictor_eligibility": (
                     "excluded: representation, augmentation, and exposure change together"
                 ),
+            },
+            "rubisco_active_learning": {
+                "support": rubisco_al["support"],
+                "role": "external directional acquisition check",
+                "predictor_eligibility": (
+                    "excluded from the fitted predictor: two protein landscapes support a "
+                    "directional UCB-versus-random check, not a multi-arm target model"
+                ),
+                "directional_contract": rubisco_al["directional_contract"],
+                "directional_results": rubisco_al["directional_results"],
             },
         },
         "prospective_boundary": {

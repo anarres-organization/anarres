@@ -108,6 +108,30 @@
       "size_bytes": 1168984,
       "license": "CC BY 4.0",
       "producing_run": "normalize_explainable_active_learning.py"
+    },
+    {
+      "artifact": "Rubisco active-learning trajectory table",
+      "doi": "10.3390/aichem1020007",
+      "source_data_doi": "10.5281/zenodo.19546367",
+      "uri": "https://raw.githubusercontent.com/jamesyoung93/Rubisco_Protein_Language_Model_Active_Learning/40133a4ba106fa25bd831291809d75c55b5dcc66/results/results_active_learning_pubready/active_learning_rounds.csv",
+      "revision": "40133a4ba106fa25bd831291809d75c55b5dcc66",
+      "sha256": "2509404b378b4a90dcd06c9b51eea9dba39a250e3fc0ce890d57aec0cc9df2bd",
+      "media_type": "text/csv",
+      "size_bytes": 294082,
+      "license": "CC BY 4.0",
+      "producing_run": "normalize_rubisco_active_learning.py"
+    },
+    {
+      "artifact": "Rubisco active-learning configuration",
+      "doi": "10.3390/aichem1020007",
+      "source_data_doi": "10.5281/zenodo.19546367",
+      "uri": "https://raw.githubusercontent.com/jamesyoung93/Rubisco_Protein_Language_Model_Active_Learning/40133a4ba106fa25bd831291809d75c55b5dcc66/results/results_active_learning_pubready/config.json",
+      "revision": "40133a4ba106fa25bd831291809d75c55b5dcc66",
+      "sha256": "7d158d9322d997019b051ce07f587544494a949a0ec7594f810dd6b293022758",
+      "media_type": "application/json",
+      "size_bytes": 872,
+      "license": "CC BY 4.0",
+      "producing_run": "normalize_rubisco_active_learning.py"
     }
   ]
 }

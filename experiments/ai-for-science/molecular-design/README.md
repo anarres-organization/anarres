@@ -80,16 +80,17 @@ changes the result.
 ## Retrospective evidence bridge
 
 The [retrospective molecular-design bridge](retrospective-bridge/README.md)
-recovers eight public evidence objects spanning closed-loop active learning,
+recovers nine public evidence objects spanning closed-loop active learning,
 experience replay, augmentation, molecular representation, target-specific
 acquisition, and finite-budget optimization. Four decision audits test early
 optimization across 23 oracle tasks, acquisition policies across three
 molecular libraries, target-specific acquisition across 50 complex substrates,
-and acquisition schedules across four binding-affinity datasets. Each object
-retains its native intervention, budget, and outcome rather than being pooled
-with unlike decisions. The bridge provides cross-study context for the
-candidate-bank hypothesis, while the RxnFlow study remains the prospective
-environment-selection test.
+and acquisition schedules across four binding-affinity datasets. A separate
+Rubisco object tests the resulting UCB-over-random direction on two released
+protein-engineering landscapes. Each object retains its native intervention,
+budget, and outcome rather than being pooled with unlike decisions. The bridge
+provides cross-study context for the candidate-bank hypothesis, while the
+RxnFlow study remains the prospective environment-selection test.
 
 The PMO object also supports a charged temporal decision audit. A 1,000-call
 pilot combined with a training-fold method prior changes the fixed-method choice

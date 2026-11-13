@@ -115,9 +115,19 @@ def compact_decision_audit(payload: dict[str, Any]) -> dict[str, Any]:
         for key, value in payload.items()
         if key not in {"selections", "chosen_hyperparameters_by_target"}
     }
-    output["selected_methods"] = dict(
-        sorted(collections.Counter(row["selected_method"] for row in payload["selections"]).items())
-    )
+    selections = payload.get("selections", [])
+    if selections and "selected_method" in selections[0]:
+        output["selected_methods"] = dict(
+            sorted(collections.Counter(row["selected_method"] for row in selections).items())
+        )
+    elif selections and "selected_protocols" in selections[0]:
+        output["selected_protocol_sets"] = dict(
+            sorted(
+                collections.Counter(
+                    "/".join(row["selected_protocols"]) for row in selections
+                ).items()
+            )
+        )
     return output
 
 
@@ -131,6 +141,7 @@ def main() -> None:
     parser.add_argument("--vantilborg", type=Path, required=True)
     parser.add_argument("--reisman", type=Path, required=True)
     parser.add_argument("--explainable-al", type=Path, required=True)
+    parser.add_argument("--rubisco-al", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
@@ -142,6 +153,7 @@ def main() -> None:
     vantilborg = load(args.vantilborg)
     reisman = load(args.reisman)
     explainable_al = load(args.explainable_al)
+    rubisco_al = load(args.rubisco_al)
     output = {
         "schema_version": "anarres.molecular.retrospective_bridge_summary.v1",
         "claim_boundary": (
@@ -153,9 +165,10 @@ def main() -> None:
             "PMO tests finite-budget optimizers, while van Tilborg and Grisoni "
             "test acquisition choices across held-out molecular libraries. The "
             "Reisman study tests target-specific acquisition across complex molecules, and "
-            "Srivastava et al. test acquisition schedules across binding-affinity datasets."
+            "Srivastava et al. test acquisition schedules across binding-affinity datasets. "
+            "Young et al. provide an external protein-engineering acquisition check."
         ),
-        "source_objects": 8,
+        "source_objects": 9,
         "antoniuk_active_learning": {
             "support": antoniuk["support"],
             "matched_generation_records": [
@@ -198,6 +211,9 @@ def main() -> None:
         },
         "explainable_active_learning": {
             "support": explainable_al["support"],
+            "primary_global_protocol": compact_decision_audit(
+                explainable_al["leave_one_dataset_out"]["primary_global_protocol"]
+            ),
             "nested_view_selection": compact_decision_audit(
                 explainable_al["leave_one_dataset_out"]["nested_view_selection"]
             ),
@@ -208,6 +224,23 @@ def main() -> None:
                 explainable_al["leave_one_dataset_out"]["global_protocol"]
             ),
             "dataset_clustered_uncertainty": explainable_al["dataset_clustered_uncertainty"],
+            "endpoint_sensitivity": {
+                "nested_view_selection": compact_decision_audit(
+                    explainable_al["endpoint_sensitivity"]["leave_one_dataset_out"][
+                        "nested_view_selection"
+                    ]
+                ),
+                "global_protocol": compact_decision_audit(
+                    explainable_al["endpoint_sensitivity"]["leave_one_dataset_out"][
+                        "global_protocol"
+                    ]
+                ),
+            },
+        },
+        "rubisco_active_learning": {
+            "support": rubisco_al["support"],
+            "directional_contract": rubisco_al["directional_contract"],
+            "directional_results": rubisco_al["directional_results"],
         },
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

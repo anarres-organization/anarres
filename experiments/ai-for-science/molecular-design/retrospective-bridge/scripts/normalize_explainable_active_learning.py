@@ -116,6 +116,69 @@ def validate_support(rows: list[dict[str, Any]]) -> None:
             raise ValueError(f"unexpected acquisition budget for {key}")
 
 
+def trapezoidal_curve_auc(run: list[dict[str, Any]], outcome: str) -> float:
+    """Average recall over the released 60--360 compound acquisition curve."""
+    ordered = sorted(run, key=lambda row: row["compounds_acquired"])
+    start = ordered[0]["compounds_acquired"]
+    end = ordered[-1]["compounds_acquired"]
+    area = sum(
+        (left[outcome] + right[outcome])
+        * (right["compounds_acquired"] - left["compounds_acquired"])
+        / 2
+        for left, right in zip(ordered, ordered[1:], strict=False)
+    )
+    return area / (end - start)
+
+
+def aggregate_curve(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    runs: dict[tuple[str, str, str, str, int], list[dict[str, Any]]] = defaultdict(list)
+    for row in rows:
+        key = (
+            row["dataset"],
+            row["fingerprint"],
+            row["kernel"],
+            row["protocol"],
+            row["seed"],
+        )
+        runs[key].append(row)
+
+    grouped: dict[tuple[str, str, str, str], list[dict[str, Any]]] = defaultdict(list)
+    for (dataset, fingerprint, kernel, protocol, seed), run in sorted(runs.items()):
+        grouped[(dataset, fingerprint, kernel, protocol)].append(
+            {
+                "seed": seed,
+                "curve_auc_recall_2pct": trapezoidal_curve_auc(run, "recall_2pct"),
+                "curve_auc_recall_5pct": trapezoidal_curve_auc(run, "recall_5pct"),
+            }
+        )
+
+    records = []
+    panels: dict[tuple[str, str, str], list[dict[str, Any]]] = defaultdict(list)
+    for (dataset, fingerprint, kernel, protocol), values in sorted(grouped.items()):
+        if sorted(row["seed"] for row in values) != list(SEEDS):
+            raise ValueError(
+                f"incomplete seed support for {(dataset, fingerprint, kernel, protocol)}"
+            )
+        record = {
+            "dataset": dataset,
+            "fingerprint": fingerprint,
+            "kernel": kernel,
+            "protocol": protocol,
+            "acquisition_budget_start": 60,
+            "acquisition_budget_end": 360,
+            "seeds": len(values),
+            "curve_auc_recall_2pct_mean": mean(row["curve_auc_recall_2pct"] for row in values),
+            "curve_auc_recall_2pct_by_seed": {
+                str(row["seed"]): row["curve_auc_recall_2pct"] for row in values
+            },
+            "curve_auc_recall_5pct_mean": mean(row["curve_auc_recall_5pct"] for row in values),
+        }
+        panels[(dataset, fingerprint, kernel)].append(record)
+
+    normalize_panels(records, panels, "curve_auc_recall_2pct_mean")
+    return records
+
+
 def aggregate_endpoint(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     endpoint = [row for row in rows if row["cycle"] == max(CYCLES)]
     grouped: dict[tuple[str, str, str, str], list[dict[str, Any]]] = defaultdict(list)
@@ -144,16 +207,45 @@ def aggregate_endpoint(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         }
         panels[(dataset, fingerprint, kernel)].append(record)
 
+    normalize_panels(records, panels, "endpoint_recall_2pct_mean")
+    return records
+
+
+def normalize_panels(
+    records: list[dict[str, Any]],
+    panels: dict[tuple[str, str, str], list[dict[str, Any]]],
+    outcome: str,
+) -> None:
     for panel, candidates in sorted(panels.items()):
         if sorted(row["protocol"] for row in candidates) != list(PROTOCOLS):
             raise ValueError(f"incomplete candidate set for {panel}")
-        low = min(row["endpoint_recall_2pct_mean"] for row in candidates)
-        high = max(row["endpoint_recall_2pct_mean"] for row in candidates)
+        low = min(row[outcome] for row in candidates)
+        high = max(row[outcome] for row in candidates)
         for row in candidates:
-            row["normalized_utility"] = (
-                (row["endpoint_recall_2pct_mean"] - low) / (high - low) if high > low else 0.5
-            )
+            row["normalized_utility"] = (row[outcome] - low) / (high - low) if high > low else 0.5
             records.append(row)
+
+
+def aggregate_at_cycle(rows: list[dict[str, Any]], cycle: int) -> list[dict[str, Any]]:
+    selected = [row for row in rows if row["cycle"] == cycle]
+    grouped: dict[tuple[str, str, str, str], list[dict[str, Any]]] = defaultdict(list)
+    for row in selected:
+        grouped[(row["dataset"], row["fingerprint"], row["kernel"], row["protocol"])].append(row)
+
+    records = []
+    panels: dict[tuple[str, str, str], list[dict[str, Any]]] = defaultdict(list)
+    for (dataset, fingerprint, kernel, protocol), values in sorted(grouped.items()):
+        record = {
+            "dataset": dataset,
+            "fingerprint": fingerprint,
+            "kernel": kernel,
+            "protocol": protocol,
+            "compounds_acquired": values[0]["compounds_acquired"],
+            "seeds": len(values),
+            "recall_2pct_mean": mean(row["recall_2pct"] for row in values),
+        }
+        panels[(dataset, fingerprint, kernel)].append(record)
+    normalize_panels(records, panels, "recall_2pct_mean")
     return records
 
 
@@ -307,6 +399,11 @@ def fixed_candidate(records: list[dict[str, Any]], selected_protocol: str | None
     return score(records, predictions)
 
 
+def compact_score(payload: dict[str, Any]) -> dict[str, Any]:
+    """Retain aggregate metrics and selection metadata without repeated panel rows."""
+    return {key: value for key, value in payload.items() if key != "selections"}
+
+
 def percentile(values: list[float], probability: float) -> float:
     ordered = sorted(values)
     position = probability * (len(ordered) - 1)
@@ -316,7 +413,9 @@ def percentile(values: list[float], probability: float) -> float:
     return ordered[lower] * (1 - weight) + ordered[upper] * weight
 
 
-def dataset_bootstrap(primary: dict[str, Any], baseline: dict[str, Any]) -> dict[str, Any]:
+def dataset_bootstrap(
+    primary: dict[str, Any], baseline: dict[str, Any], baseline_name: str
+) -> dict[str, Any]:
     primary_by_dataset: dict[str, list[dict[str, Any]]] = defaultdict(list)
     baseline_by_dataset: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in primary["selections"]:
@@ -351,11 +450,12 @@ def dataset_bootstrap(primary: dict[str, Any], baseline: dict[str, Any]) -> dict
         "independent_datasets": len(DATASETS),
         "resamples": 20_000,
         "random_seed": 20261112,
-        "primary_minus_global_regret_95_interval": [
+        "baseline": baseline_name,
+        "primary_minus_baseline_regret_95_interval": [
             percentile(regret_differences, 0.025),
             percentile(regret_differences, 0.975),
         ],
-        "primary_minus_global_best_protocol_credit_95_interval": [
+        "primary_minus_baseline_best_protocol_credit_95_interval": [
             percentile(credit_differences, 0.025),
             percentile(credit_differences, 0.975),
         ],
@@ -376,10 +476,30 @@ def main() -> None:
         raise SystemExit(f"source table digest mismatch: {digest}")
     rows = read_rows(args.source_csv)
     validate_support(rows)
-    records = aggregate_endpoint(rows)
+    curve_records = aggregate_curve(rows)
+    endpoint_records = aggregate_endpoint(rows)
 
-    audits = {name: leave_one_dataset_out(records, matcher) for name, matcher in MATCHERS.items()}
-    nested = nested_view_selection(records)
+    curve_audits = {
+        name: leave_one_dataset_out(curve_records, matcher) for name, matcher in MATCHERS.items()
+    }
+    curve_nested = nested_view_selection(curve_records)
+    endpoint_audits = {
+        name: leave_one_dataset_out(endpoint_records, matcher) for name, matcher in MATCHERS.items()
+    }
+    endpoint_nested = nested_view_selection(endpoint_records)
+    curve_random = fixed_candidate(curve_records, "random")
+    curve_tie = fixed_candidate(curve_records, None)
+    budget_sensitivity = []
+    for cycle in CYCLES[1:]:
+        budget_records = aggregate_at_cycle(rows, cycle)
+        budget_sensitivity.append(
+            {
+                "compounds_acquired": 60 + 30 * cycle,
+                "global_protocol": compact_score(
+                    leave_one_dataset_out(budget_records, MATCHERS["global_protocol"])
+                ),
+            }
+        )
     output = {
         "schema_version": "anarres.molecular.explainable_active_learning_bridge.v1",
         "study": "Explainable Active Learning Framework for Ligand Binding Affinity Prediction",
@@ -400,31 +520,51 @@ def main() -> None:
             "trajectory_rows": len(rows),
             "complete_runs": len(rows) // len(CYCLES),
             "decision_panels": len(
-                {(r["dataset"], r["fingerprint"], r["kernel"]) for r in records}
+                {(r["dataset"], r["fingerprint"], r["kernel"]) for r in curve_records}
             ),
-            "condition_records": len(records),
+            "condition_records": len(curve_records),
+            "curve_start_compounds_acquired": 60,
             "endpoint_compounds_acquired": 360,
         },
         "decision_contract": {
-            "panel": "dataset, molecular fingerprint, Gaussian-process kernel, and endpoint budget",
+            "panel": "dataset, molecular fingerprint, and Gaussian-process kernel",
             "candidate": "acquisition schedule",
-            "outcome": "three-seed mean recall of the top 2% of compounds after 360 acquisitions",
+            "outcome": (
+                "three-seed mean trapezoidal AUC of top-2% recall over the released "
+                "60--360 compound acquisition curve"
+            ),
             "holdout": "one complete target dataset",
             "primary_rule": (
-                "select a transfer view by inner leave-one-dataset-out regret, then predict "
-                "from matching training-target protocol outcomes"
+                "predict each schedule from its mean curve utility on the other target "
+                "datasets without using held-out-target outcomes"
+            ),
+            "rationale": (
+                "Curve AUC measures finite-budget acquisition efficiency across the full "
+                "released trajectory and avoids treating a saturated endpoint as the sole target."
             ),
         },
         "leave_one_dataset_out": {
-            "nested_view_selection": nested,
-            **audits,
+            "primary_global_protocol": curve_audits["global_protocol"],
+            "nested_view_selection": curve_nested,
+            **curve_audits,
         },
         "baselines": {
-            "random_acquisition": fixed_candidate(records, "random"),
-            "uninformed_tie": fixed_candidate(records, None),
+            "random_acquisition": curve_random,
+            "uninformed_tie": curve_tie,
         },
-        "dataset_clustered_uncertainty": dataset_bootstrap(nested, audits["global_protocol"]),
-        "condition_records": records,
+        "dataset_clustered_uncertainty": dataset_bootstrap(
+            curve_audits["global_protocol"], curve_tie, "uninformed_tie"
+        ),
+        "budget_specific_sensitivity": budget_sensitivity,
+        "endpoint_sensitivity": {
+            "outcome": "three-seed mean top-2% recall after 360 acquired compounds",
+            "leave_one_dataset_out": {
+                "nested_view_selection": compact_score(endpoint_nested),
+                **{name: compact_score(audit) for name, audit in endpoint_audits.items()},
+            },
+            "condition_records": endpoint_records,
+        },
+        "condition_records": curve_records,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(output, indent=2, sort_keys=True) + "\n")

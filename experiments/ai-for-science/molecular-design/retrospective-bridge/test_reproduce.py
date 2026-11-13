@@ -39,6 +39,7 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
         cls.explainable_al = json.loads(
             (DATA / "explainable_active_learning_bridge_v1.json").read_text()
         )
+        cls.rubisco_al = json.loads((DATA / "rubisco_active_learning_bridge_v1.json").read_text())
 
     def test_pmo_summary_preserves_support_and_cost_boundary(self) -> None:
         pmo = self.summary["pmo"]
@@ -168,18 +169,38 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
         self.assertEqual(support["trajectory_rows"], 13_860)
         self.assertEqual(support["complete_runs"], 1_260)
         self.assertEqual(support["decision_panels"], 60)
-        primary = self.explainable_al["leave_one_dataset_out"]["nested_view_selection"]
-        global_protocol = self.explainable_al["leave_one_dataset_out"]["global_protocol"]
-        self.assertAlmostEqual(primary["pairwise_ordering"], 0.6353174603174603)
-        self.assertAlmostEqual(primary["mean_normalized_regret"], 0.24647162871303208)
+        primary = self.explainable_al["leave_one_dataset_out"]["primary_global_protocol"]
+        endpoint = self.explainable_al["endpoint_sensitivity"]["leave_one_dataset_out"]
+        self.assertAlmostEqual(primary["pairwise_ordering"], 0.6662698412698412)
+        self.assertAlmostEqual(primary["mean_normalized_regret"], 0.26793592407619216)
+        self.assertAlmostEqual(
+            endpoint["nested_view_selection"]["pairwise_ordering"],
+            0.6353174603174603,
+        )
+        self.assertAlmostEqual(
+            endpoint["nested_view_selection"]["mean_normalized_regret"],
+            0.24647162871303208,
+        )
         self.assertLess(
             primary["mean_normalized_regret"],
-            global_protocol["mean_normalized_regret"],
+            self.explainable_al["baselines"]["uninformed_tie"]["mean_normalized_regret"],
         )
-        self.assertEqual(set(primary["chosen_view_by_held_out_dataset"]), set(support["datasets"]))
+        self.assertEqual(len(self.explainable_al["budget_specific_sensitivity"]), 10)
+        self.assertEqual(
+            set(endpoint["nested_view_selection"]["chosen_view_by_held_out_dataset"]),
+            set(support["datasets"]),
+        )
 
-    def test_summary_preserves_eight_scientific_objects(self) -> None:
-        self.assertEqual(self.summary["source_objects"], 8)
+    def test_rubisco_external_direction_preserves_common_budget_and_replicates(self) -> None:
+        support = self.rubisco_al["support"]
+        self.assertEqual(support["complete_runs"], 100)
+        self.assertEqual(support["common_budget_end_by_dataset"], {"DMS": 1208, "HOFF": 1400})
+        results = self.rubisco_al["directional_results"]
+        self.assertEqual([row["replicates_with_positive_difference"] for row in results], [10, 9])
+        self.assertTrue(all(row["paired_difference_95_interval"][0] > 0 for row in results))
+
+    def test_summary_preserves_nine_scientific_objects(self) -> None:
+        self.assertEqual(self.summary["source_objects"], 9)
         self.assertEqual(
             self.summary["invirtuogen_replay"]["matched_seed0_summary"]["replay_wins"],
             12,
@@ -195,11 +216,12 @@ class RetrospectiveBridgeContractTest(unittest.TestCase):
             self.summary["explainable_active_learning"]["support"]["decision_panels"],
             60,
         )
+        self.assertEqual(self.summary["rubisco_active_learning"]["support"]["complete_runs"], 100)
 
     def test_prediction_contract_separates_timing_cost_and_eligibility(self) -> None:
         contract = self.prediction_contract
         self.assertEqual(len(contract["prediction_audits"]), 4)
-        self.assertEqual(len(contract["supporting_objects"]), 4)
+        self.assertEqual(len(contract["supporting_objects"]), 5)
         self.assertFalse(contract["prediction_audits"]["pmo_temporal"]["pretraining_profile_input"])
         self.assertEqual(contract["prospective_boundary"]["status"], "released")
         self.assertIn("abstains", contract["prospective_boundary"]["interpretation"])
