@@ -1,0 +1,704 @@
+{
+  "antoniuk_active_learning": {
+    "matched_generation_records": [
+      {
+        "approach": "JANUS",
+        "dft_stable_count": 31,
+        "dft_stable_percent": 6.0,
+        "dft_stable_total": 500,
+        "oracle_budget": 500,
+        "sota_molecule_count": 0,
+        "sota_molecule_percent": 0.0,
+        "sota_molecule_total": 500,
+        "top_dft_density_g_per_cc": 1.816,
+        "top_dft_heat_of_formation_kcal_per_mol": 290.0,
+        "top_molecule_count": 0,
+        "top_molecule_percent": 0.0,
+        "top_molecule_total": 500,
+        "top_multi_property_score": 3.56,
+        "valid_fraction": 1.0
+      },
+      {
+        "approach": "REINVENT w/ MPNN 0",
+        "dft_stable_count": 30,
+        "dft_stable_percent": 6.0,
+        "dft_stable_total": 500,
+        "oracle_budget": 500,
+        "sota_molecule_count": 12,
+        "sota_molecule_percent": 2.4,
+        "sota_molecule_total": 500,
+        "top_dft_density_g_per_cc": 1.901,
+        "top_dft_heat_of_formation_kcal_per_mol": 417.0,
+        "top_molecule_count": 20,
+        "top_molecule_percent": 4.0,
+        "top_molecule_total": 500,
+        "top_multi_property_score": 4.48,
+        "valid_fraction": 1.0
+      },
+      {
+        "approach": "JANUS w/Active Learning (this work)",
+        "dft_stable_count": 108,
+        "dft_stable_percent": 22.0,
+        "dft_stable_total": 500,
+        "oracle_budget": 500,
+        "sota_molecule_count": 17,
+        "sota_molecule_percent": 3.4,
+        "sota_molecule_total": 500,
+        "top_dft_density_g_per_cc": 2.014,
+        "top_dft_heat_of_formation_kcal_per_mol": 405.0,
+        "top_molecule_count": 52,
+        "top_molecule_percent": 10.0,
+        "top_molecule_total": 500,
+        "top_multi_property_score": 5.24,
+        "valid_fraction": 1.0
+      }
+    ],
+    "released_batch_summaries": [
+      {
+        "batch_id": "10k",
+        "charge_balanced_fraction": 1,
+        "dft_success_fraction": 1.0,
+        "dft_successes": 10206,
+        "molecules": 10206,
+        "sa_score_mean": 3.2879848415488957,
+        "successful_density_max": 1.9631143588409,
+        "successful_density_mean": 1.3968829612626603,
+        "successful_heat_of_formation_max": 386.76161165957,
+        "successful_heat_of_formation_mean": -67.14776709141553
+      },
+      {
+        "batch_id": "batch_1",
+        "charge_balanced_fraction": 0.39591836734693875,
+        "dft_success_fraction": 0.6061224489795919,
+        "dft_successes": 594,
+        "molecules": 980,
+        "sa_score_mean": 6.176141742728226,
+        "successful_density_max": 1.8499610410854,
+        "successful_density_mean": 1.4822203330120105,
+        "successful_heat_of_formation_max": 476.65327131491,
+        "successful_heat_of_formation_mean": 224.03231982348356
+      },
+      {
+        "batch_id": "batch_2",
+        "charge_balanced_fraction": 0.40361693382655156,
+        "dft_success_fraction": 0.27743526510480887,
+        "dft_successes": 675,
+        "molecules": 2433,
+        "sa_score_mean": 6.56540540243663,
+        "successful_density_max": 1.9641627575445,
+        "successful_density_mean": 1.6566121174963944,
+        "successful_heat_of_formation_max": 345.57932169127,
+        "successful_heat_of_formation_mean": 126.0159565634982
+      },
+      {
+        "batch_id": "batch_3",
+        "charge_balanced_fraction": 1,
+        "dft_success_fraction": 0.11444629475437136,
+        "dft_successes": 5498,
+        "molecules": 48040,
+        "sa_score_mean": 6.181639041523428,
+        "successful_density_max": 1.9043887272359,
+        "successful_density_mean": 1.593641929790706,
+        "successful_heat_of_formation_max": 525.32716698932,
+        "successful_heat_of_formation_mean": 165.09592093269538
+      }
+    ],
+    "support": {
+      "matched_dft_oracle_budget": 500,
+      "matched_generation_approaches": 3,
+      "released_batches": 4,
+      "released_molecule_records": 61659,
+      "table_approaches": 4
+    }
+  },
+  "claim_boundary": "The bridge combines distinct public scientific objects without pooling their native outcomes. The controlled RxnFlow study remains the environment-selection test. Antoniuk et al. test closed-loop active learning, InVirtuoGen tests replay, Saturn tests components and methods, and t-SMILES audits representation and augmentation. PMO tests finite-budget optimizers, while van Tilborg and Grisoni test acquisition choices across held-out molecular libraries. The Reisman study tests target-specific acquisition across complex molecules, and Srivastava et al. test acquisition schedules across binding-affinity datasets. Young et al. provide an external protein-engineering acquisition check.",
+  "explainable_active_learning": {
+    "dataset_clustered_uncertainty": {
+      "baseline": "uninformed_tie",
+      "bootstrap_frequency_primary_lower_regret": 1.0,
+      "independent_datasets": 4,
+      "primary_minus_baseline_best_protocol_credit_95_interval": [
+        -0.05238095238095236,
+        0.23571428571428577
+      ],
+      "primary_minus_baseline_regret_95_interval": [
+        -0.16103944943729914,
+        -0.08050728730981133
+      ],
+      "random_seed": 20261112,
+      "resamples": 20000
+    },
+    "endpoint_sensitivity": {
+      "global_protocol": {
+        "best_protocol_credit": 0.26666666666666666,
+        "mean_normalized_regret": 0.31308817260571314,
+        "pairwise_ordering": 0.6023809523809524,
+        "panels": 60
+      },
+      "nested_view_selection": {
+        "best_protocol_credit": 0.4,
+        "chosen_view_by_held_out_dataset": {
+          "D2R": "matched_configuration",
+          "MPRO": "kernel_matched",
+          "TYK2": "kernel_matched",
+          "USP7": "global_protocol"
+        },
+        "mean_normalized_regret": 0.24647162871303208,
+        "pairwise_ordering": 0.6353174603174603,
+        "panels": 60,
+        "selection_contract": {
+          "candidate_views": [
+            "global_protocol",
+            "kernel_matched",
+            "fingerprint_matched",
+            "matched_configuration"
+          ],
+          "inner_holdout": "one complete target dataset from the outer training fold",
+          "outer_holdout": "one complete target dataset",
+          "primary_metric": "mean normalized regret",
+          "tie_breaker": "pairwise ordering"
+        }
+      }
+    },
+    "global_protocol": {
+      "best_protocol_credit": 0.25,
+      "mean_normalized_regret": 0.26793592407619216,
+      "pairwise_ordering": 0.6662698412698412,
+      "panels": 60,
+      "selected_protocol_sets": {
+        "ucb-gradual": 30,
+        "ucb-sandwich": 30
+      }
+    },
+    "kernel_matched_sensitivity": {
+      "best_protocol_credit": 0.21666666666666667,
+      "mean_normalized_regret": 0.2674381124606305,
+      "pairwise_ordering": 0.667063492063492,
+      "panels": 60,
+      "selected_protocol_sets": {
+        "ucb-alternate": 9,
+        "ucb-balanced": 6,
+        "ucb-exploit-heavy": 3,
+        "ucb-explore-heavy": 12,
+        "ucb-gradual": 3,
+        "ucb-sandwich": 27
+      }
+    },
+    "nested_view_selection": {
+      "best_protocol_credit": 0.2,
+      "chosen_view_by_held_out_dataset": {
+        "D2R": "matched_configuration",
+        "MPRO": "kernel_matched",
+        "TYK2": "matched_configuration",
+        "USP7": "global_protocol"
+      },
+      "mean_normalized_regret": 0.2861020661338217,
+      "pairwise_ordering": 0.6563492063492063,
+      "panels": 60,
+      "selected_protocol_sets": {
+        "ucb-alternate": 11,
+        "ucb-balanced": 11,
+        "ucb-exploit-heavy": 3,
+        "ucb-explore-heavy": 9,
+        "ucb-gradual": 4,
+        "ucb-sandwich": 22
+      },
+      "selection_contract": {
+        "candidate_views": [
+          "global_protocol",
+          "kernel_matched",
+          "fingerprint_matched",
+          "matched_configuration"
+        ],
+        "inner_holdout": "one complete target dataset from the outer training fold",
+        "outer_holdout": "one complete target dataset",
+        "primary_metric": "mean normalized regret",
+        "tie_breaker": "pairwise ordering"
+      }
+    },
+    "primary_global_protocol": {
+      "best_protocol_credit": 0.25,
+      "mean_normalized_regret": 0.26793592407619216,
+      "pairwise_ordering": 0.6662698412698412,
+      "panels": 60,
+      "selected_protocol_sets": {
+        "ucb-gradual": 30,
+        "ucb-sandwich": 30
+      }
+    },
+    "support": {
+      "complete_runs": 1260,
+      "condition_records": 420,
+      "curve_start_compounds_acquired": 60,
+      "cycles": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "datasets": [
+        "D2R",
+        "MPRO",
+        "TYK2",
+        "USP7"
+      ],
+      "decision_panels": 60,
+      "endpoint_compounds_acquired": 360,
+      "fingerprints": [
+        "chemberta",
+        "ecfp",
+        "maccs"
+      ],
+      "kernels": [
+        "LinearKernel",
+        "MaternKernel",
+        "RBFKernel",
+        "RQKernel",
+        "TanimotoKernel"
+      ],
+      "protocols": [
+        "random",
+        "ucb-alternate",
+        "ucb-balanced",
+        "ucb-exploit-heavy",
+        "ucb-explore-heavy",
+        "ucb-gradual",
+        "ucb-sandwich"
+      ],
+      "seeds": [
+        7,
+        42,
+        123
+      ],
+      "trajectory_rows": 13860
+    }
+  },
+  "invirtuogen_replay": {
+    "matched_seed0_summary": {
+      "mean_auc_top10_difference": 0.017856664058042947,
+      "median_auc_top10_difference": 0.0035620269108578295,
+      "no_replay_wins": 10,
+      "replay_wins": 12,
+      "ties": 1
+    },
+    "support": {
+      "matched_seed0_pairs": 23,
+      "no_replay_runs_per_task": 1,
+      "records": 92,
+      "replay_runs_per_task": 3,
+      "tasks": 23
+    }
+  },
+  "pmo": {
+    "leave_one_task_out_fixed_method": {
+      "exact_final_winner_tasks": 8,
+      "final_auc_top10_mean_regret": 0.04426181848617151,
+      "final_auc_top10_median_regret": 0.009892818570725881,
+      "selected_methods": {
+        "reinvent": 23
+      },
+      "tasks": 23
+    },
+    "retrospective_pilot_diagnostics": [
+      {
+        "cost_note": "This diagnostic evaluates every method at the pilot budget and does not charge that total pilot cost. It is descriptive, not an allocation-policy result.",
+        "exact_final_winner_tasks": 8,
+        "final_auc_top10_mean_regret": 0.05136026008384682,
+        "final_auc_top10_median_regret": 0.03532048162567181,
+        "pairwise_final_rank_accuracy": 0.7539855072463768,
+        "pilot_budget_per_method": 1000,
+        "pilot_fraction_of_final_budget": 0.1,
+        "tasks": 23
+      },
+      {
+        "cost_note": "This diagnostic evaluates every method at the pilot budget and does not charge that total pilot cost. It is descriptive, not an allocation-policy result.",
+        "exact_final_winner_tasks": 11,
+        "final_auc_top10_mean_regret": 0.0255600497644054,
+        "final_auc_top10_median_regret": 0.016990240486088437,
+        "pairwise_final_rank_accuracy": 0.8410869565217391,
+        "pilot_budget_per_method": 2500,
+        "pilot_fraction_of_final_budget": 0.25,
+        "tasks": 23
+      },
+      {
+        "cost_note": "This diagnostic evaluates every method at the pilot budget and does not charge that total pilot cost. It is descriptive, not an allocation-policy result.",
+        "exact_final_winner_tasks": 14,
+        "final_auc_top10_mean_regret": 0.011915140261950851,
+        "final_auc_top10_median_regret": 0.0,
+        "pairwise_final_rank_accuracy": 0.9123913043478261,
+        "pilot_budget_per_method": 5000,
+        "pilot_fraction_of_final_budget": 0.5,
+        "tasks": 23
+      },
+      {
+        "cost_note": "This diagnostic evaluates every method at the pilot budget and does not charge that total pilot cost. It is descriptive, not an allocation-policy result.",
+        "exact_final_winner_tasks": 19,
+        "final_auc_top10_mean_regret": 0.0022293276424362137,
+        "final_auc_top10_median_regret": 0.0,
+        "pairwise_final_rank_accuracy": 0.9604347826086956,
+        "pilot_budget_per_method": 7500,
+        "pilot_fraction_of_final_budget": 0.75,
+        "tasks": 23
+      }
+    ],
+    "support": {
+      "maximum_runs_per_method_task": 6,
+      "methods": 25,
+      "minimum_runs_per_method_task": 4,
+      "nominal_runs_per_method_task": 5,
+      "normalized_records": 14375,
+      "source_files": 2875,
+      "support_anomalies": {
+        "mol_pal/median2": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ],
+        "selfies_vae_bo/amlodipine_mpo": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      },
+      "tasks": 23
+    }
+  },
+  "reisman_regioselectivity": {
+    "fingerprint_contract": {
+      "bits": 512,
+      "implementation": "RDKit Morgan fingerprint",
+      "radius": 2,
+      "rdkit_version": "2026.09.2",
+      "similarity": "Tanimoto"
+    },
+    "stable_top1_decision_audit": {
+      "nested_similarity_weighted": {
+        "best_method_credit": 0.54,
+        "mean_normalized_regret": 0.2591774172082999,
+        "pairwise_ordering": 0.6022222222222222,
+        "selected_method_counts": {
+          "acqf_1-db0-01-a1": 14,
+          "acqf_10": 4,
+          "acqf_2-1": 12,
+          "acqf_4-1": 1,
+          "acqf_5": 8,
+          "acqf_6": 4,
+          "acqf_7": 1,
+          "acqf_9": 5,
+          "random": 1
+        },
+        "selected_methods": {
+          "acqf_1-db0-01-a1": 14,
+          "acqf_10": 4,
+          "acqf_2-1": 12,
+          "acqf_4-1": 1,
+          "acqf_5": 8,
+          "acqf_6": 4,
+          "acqf_7": 1,
+          "acqf_9": 5,
+          "random": 1
+        },
+        "selection_contract": {
+          "inner_holdout": "one complete target from the outer training fold",
+          "neighbor_counts": [
+            1,
+            3,
+            5,
+            10,
+            20
+          ],
+          "outer_holdout": "one complete target",
+          "primary_tuning_metric": "mean_normalized_regret",
+          "similarity_powers": [
+            1,
+            2,
+            4
+          ],
+          "tie_breaker": "pairwise_ordering"
+        },
+        "targets": 50
+      },
+      "structural_nearest_target": {
+        "best_method_credit": 0.62,
+        "mean_normalized_regret": 0.21312616281389954,
+        "pairwise_ordering": 0.588,
+        "selected_method_counts": {
+          "acqf_1-db0-01-a1": 3,
+          "acqf_10": 1,
+          "acqf_2-1": 5,
+          "acqf_4-1": 1,
+          "acqf_5": 6,
+          "acqf_6": 4,
+          "acqf_7": 1,
+          "acqf_9": 11,
+          "random": 18
+        },
+        "selected_methods": {
+          "acqf_1-db0-01-a1": 3,
+          "acqf_10": 1,
+          "acqf_2-1": 5,
+          "acqf_4-1": 1,
+          "acqf_5": 6,
+          "acqf_6": 4,
+          "acqf_7": 1,
+          "acqf_9": 11,
+          "random": 18
+        },
+        "targets": 50
+      },
+      "training_fold_fixed_method": {
+        "best_method_credit": 0.42,
+        "mean_normalized_regret": 0.29693167589478814,
+        "pairwise_ordering": 0.6015555555555555,
+        "selected_method_counts": {
+          "acqf_1-db0-01-a1": 36,
+          "acqf_2-1": 2,
+          "acqf_5": 12
+        },
+        "selected_methods": {
+          "acqf_1-db0-01-a1": 36,
+          "acqf_2-1": 2,
+          "acqf_5": 12
+        },
+        "targets": 50
+      }
+    },
+    "support": {
+      "acquisition_methods": [
+        "random",
+        "acqf_1-db0-01-a1",
+        "acqf_10",
+        "acqf_2-1",
+        "acqf_3",
+        "acqf_4-1",
+        "acqf_5",
+        "acqf_6",
+        "acqf_7",
+        "acqf_9"
+      ],
+      "conditions": 500,
+      "conditions_with_29_runs": 2,
+      "conditions_with_30_runs": 498,
+      "released_runs": 14998,
+      "targets": 50
+    }
+  },
+  "rubisco_active_learning": {
+    "directional_contract": {
+      "claim_boundary": "This is a retrospective cross-study directional check, not a frozen multi-arm predictor or a prospective wet-lab result.",
+      "external_question": "Does UCB acquisition also exceed random acquisition on each released Rubisco curve under a common within-dataset assay budget?",
+      "outcome": "trapezoidal AUC of top-5% recovery over the common assay curve",
+      "result": "UCB exceeds random acquisition on both external datasets.",
+      "rule_origin": "The separate four-target binding-affinity audit ranks every released UCB schedule above random acquisition in mean curve utility."
+    },
+    "directional_results": [
+      {
+        "common_budget_end": 1208,
+        "dataset": "DMS",
+        "paired_difference_95_interval": [
+          0.16301242835097002,
+          0.19009080136684298
+        ],
+        "paired_mean_difference": 0.1759589947089947,
+        "random_curve_auc_recovery_top_5pct_mean": 0.08758818342151675,
+        "replicates": 10,
+        "replicates_with_positive_difference": 10,
+        "ucb_curve_auc_recovery_top_5pct_mean": 0.26354717813051143
+      },
+      {
+        "common_budget_end": 1400,
+        "dataset": "HOFF",
+        "paired_difference_95_interval": [
+          0.05255000000000001,
+          0.13507500000000003
+        ],
+        "paired_mean_difference": 0.09335000000000002,
+        "random_curve_auc_recovery_top_5pct_mean": 0.063025,
+        "replicates": 10,
+        "replicates_with_positive_difference": 9,
+        "ucb_curve_auc_recovery_top_5pct_mean": 0.15637500000000001
+      }
+    ],
+    "support": {
+      "batch_size": 48,
+      "common_budget_end_by_dataset": {
+        "DMS": 1208,
+        "HOFF": 1400
+      },
+      "complete_runs": 100,
+      "datasets": [
+        "DMS",
+        "HOFF"
+      ],
+      "initial_assays": 200,
+      "replicates_per_strategy_dataset": 10,
+      "strategies": [
+        "greedy",
+        "random",
+        "thompson",
+        "ucb",
+        "uncertainty"
+      ],
+      "trajectory_rows": 2578
+    }
+  },
+  "saturn": {
+    "best_published_yield_condition_by_architecture": {
+      "Decoder Transformer": {
+        "augmentation_rounds": 5,
+        "internal_diversity_mean": 0.748,
+        "yield_mean": 154.0,
+        "yield_sd": 93.0
+      },
+      "Mamba": {
+        "augmentation_rounds": 10,
+        "internal_diversity_mean": 0.714,
+        "yield_mean": 306.0,
+        "yield_sd": 57.0
+      },
+      "RNN": {
+        "augmentation_rounds": 7,
+        "internal_diversity_mean": 0.776,
+        "yield_mean": 144.0,
+        "yield_sd": 107.0
+      }
+    },
+    "five_target_hit_ratio_winners": {
+      "5ht1b": "Saturn (Framework)",
+      "braf": "Saturn (Framework)",
+      "fa7": "GEAM",
+      "jak2": "Saturn (Framework)",
+      "parp1": "Saturn (Framework)"
+    },
+    "support": {
+      "architecture_conditions": 18,
+      "architecture_replicates_per_condition": 10,
+      "hit_ratio_methods": 4,
+      "hit_ratio_records": 200,
+      "hit_ratio_replicates_per_method_target": 10,
+      "hit_ratio_targets": 5
+    },
+    "winner_counts": {
+      "GEAM": 1,
+      "Saturn (Framework)": 4
+    }
+  },
+  "schema_version": "anarres.molecular.retrospective_bridge_summary.v1",
+  "source_objects": 9,
+  "tsmiles_jnk3": {
+    "highest_active_novel_conditions": [
+      {
+        "active_novel_fraction": 0.829,
+        "condition": "TSSA_S_Rec50",
+        "fbt_novel": 2.414,
+        "fcd": 0.389,
+        "fragment_novel": 1.757,
+        "novelty_fraction": 0.962,
+        "training_rounds": 10,
+        "valid_fraction": 1.0
+      },
+      {
+        "active_novel_fraction": 0.809,
+        "condition": "TSSA_S_Rec50",
+        "fbt_novel": 2.448,
+        "fcd": 0.411,
+        "fragment_novel": 0.655,
+        "novelty_fraction": 0.96,
+        "training_rounds": 100,
+        "valid_fraction": 1.0
+      },
+      {
+        "active_novel_fraction": 0.71,
+        "condition": "TF_TSSA_S",
+        "fbt_novel": 2.897,
+        "fcd": 0.483,
+        "fragment_novel": 9.105,
+        "novelty_fraction": 0.932,
+        "training_rounds": 5,
+        "valid_fraction": 1.0
+      }
+    ],
+    "support": {
+      "outcome_metrics": 6,
+      "published_conditions": 21,
+      "target": "JNK3"
+    }
+  },
+  "vantilborg_active_learning": {
+    "graph": {
+      "best_method_credit": 0.4444444444444444,
+      "chosen_alpha_by_held_out_dataset": {
+        "ALDH1": 0.1,
+        "PKM2": 0.1,
+        "VDR": 0.1
+      },
+      "contexts": 9,
+      "mean_normalized_regret": 0.17600863454521992,
+      "pairwise_ordering": 0.8,
+      "selected_methods": {
+        "BALD (least mutual information)": 3,
+        "Exploit (best predictions)": 5,
+        "Explore (most uncertain)": 1
+      }
+    },
+    "method_by_architecture": {
+      "best_method_credit": 0.5555555555555556,
+      "chosen_alpha_by_held_out_dataset": {
+        "ALDH1": 0.1,
+        "PKM2": 0.1,
+        "VDR": 0.1
+      },
+      "contexts": 9,
+      "mean_normalized_regret": 0.13765510137191553,
+      "pairwise_ordering": 0.837037037037037,
+      "selected_methods": {
+        "BALD (least mutual information)": 5,
+        "Exploit (best predictions)": 4
+      }
+    },
+    "support": {
+      "acquisition_methods": [
+        "BALD (least mutual information)",
+        "Exploit (best predictions)",
+        "Exploit, no retraining",
+        "Explore (most uncertain)",
+        "Random",
+        "Similarity"
+      ],
+      "architectures": [
+        "gcn",
+        "mlp",
+        "rf"
+      ],
+      "condition_records": 54,
+      "contexts": 9,
+      "minimum_seeds_per_condition": 10,
+      "primary_datasets": [
+        "ALDH1",
+        "PKM2",
+        "VDR"
+      ],
+      "run_records": 540
+    },
+    "training_fold_fixed_method": {
+      "best_method_credit": 0.4444444444444444,
+      "contexts": 9,
+      "mean_normalized_regret": 0.2244934830300684,
+      "pairwise_ordering": 0.6296296296296297,
+      "selected_methods": {
+        "Exploit (best predictions)": 9
+      }
+    }
+  }
+}

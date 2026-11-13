@@ -106,6 +106,31 @@ CHECKS = (
         "experiments/ai-for-science/molecular-design/reaction-environment-selection",
         "scripts/verify_matched_training_contract.py",
     ),
+    python_check(
+        "molecular prospective workflow",
+        "experiments/ai-for-science/molecular-design/reaction-environment-selection",
+        "-m",
+        "unittest",
+        "test_gate_endpoint_evaluation.py",
+        "test_construct_prospective_banks.py",
+        "test_prospective_decision_pipeline.py",
+        "test_prospective_release.py",
+    ),
+    python_check(
+        "molecular retrospective bridge",
+        "experiments/ai-for-science/molecular-design/retrospective-bridge",
+        "test_reproduce.py",
+    ),
+    python_check(
+        "molecular antibody acquisition panel",
+        "experiments/ai-for-science/molecular-design/prospective-antibody-acquisition",
+        "test_released_results.py",
+    ),
+    python_check(
+        "molecular protein acquisition panel",
+        "experiments/ai-for-science/molecular-design/prospective-protein-acquisition",
+        "test_released_results.py",
+    ),
     StudyCheck(
         "formal-verification adapter",
         ROOT,
@@ -140,6 +165,17 @@ CHECKS = (
         "molecular adapter",
         ROOT,
         ("anarres-molecular", "verify", "--repository", str(ROOT), "--json"),
+    ),
+    StudyCheck(
+        "molecular acquisition reports",
+        ROOT,
+        (
+            "anarres-molecular",
+            "acquisition-results",
+            "--repository",
+            str(ROOT),
+            "--json",
+        ),
     ),
     StudyCheck(
         "finance compact verification",

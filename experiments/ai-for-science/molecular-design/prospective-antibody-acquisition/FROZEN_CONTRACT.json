@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "study_id": "prospective_antibody_acquisition_v1",
+  "status": "PROTOCOL_FROZEN__OUTCOMES_UNOPENED",
+  "scientific_object": "retrospective active-learning simulation on public experimental antibody-binding landscapes",
+  "chronology": [
+    "freeze source identities, candidate assays, acquisition rules, prediction, model, budgets, seeds, and scoring",
+    "run every assay-strategy-seed unit without inspecting partial comparative outcomes",
+    "verify the complete unit matrix and exact source identities",
+    "open and score comparative outcomes only after the release gate passes"
+  ],
+  "candidate_assays": ["1mlc", "1n8z", "2fjg", "4d5_her2", "5a12_ang2", "g6_LC"],
+  "outcome_blind_support_gate": {
+    "minimum_rows": 400,
+    "required_columns": ["heavy_chain_seq", "light_chain_seq", "binding_score"],
+    "require_complete_sequences_and_scores": true,
+    "larger_binding_score_is_better": true
+  },
+  "prediction": {
+    "selected_strategy": "ucb",
+    "rule": "maximize predictive mean plus one predictive standard deviation",
+    "origin": "a four-target ligand-binding audit selected a balanced UCB schedule, and an external two-landscape Rubisco audit preserved the UCB-over-random direction",
+    "claim_boundary": "one frozen acquisition choice, not a universal ordering of active-learning strategies"
+  },
+  "strategies": {
+    "random": "uniform random acquisition",
+    "greedy": "largest predictive mean",
+    "ucb": "largest predictive mean plus one predictive standard deviation",
+    "uncertainty": "largest predictive standard deviation",
+    "thompson": "largest draw from the predictive normal approximation"
+  },
+  "model": {
+    "representation": "outcome-blind 256-dimensional character 1--3-gram hashing of concatenated heavy and light chains",
+    "surrogate": "32-tree extremely randomized regression ensemble",
+    "tree_parameters": {
+      "n_estimators": 32,
+      "max_features": "sqrt",
+      "min_samples_leaf": 2,
+      "bootstrap": false
+    },
+    "uncertainty": "standard deviation across tree predictions",
+    "rationale": "a simple ensemble supplies the mean and uncertainty required by all five acquisition rules without target-specific tuning"
+  },
+  "budget": {
+    "initial_batches": 1,
+    "acquisition_batches": 9,
+    "batch_size": "max(4, round(0.01 * assay_rows))",
+    "same_initial_batch_across_strategies": true,
+    "adaptive_stopping": false
+  },
+  "seeds": [7, 42, 123, 456, 9001],
+  "evaluation": {
+    "top_fraction": 0.02,
+    "primary_curve": "recall of the full assay's top-2% variants after each observed batch",
+    "primary_utility": "trapezoidal area under the recall curve, normalized over the observed-count interval",
+    "endpoint_sensitivity": "top-2% recall after the final batch",
+    "primary_unit": "assay",
+    "seed_role": "replicated acquisition trajectory"
+  },
+  "scoring": {
+    "primary": [
+      "mean normalized allocation regret of the frozen UCB choice across assays",
+      "UCB pairwise win credit against the four alternative strategies",
+      "best-strategy credit of UCB"
+    ],
+    "uncertainty": "20,000 whole-assay bootstrap resamples",
+    "report_complete_curves": true
+  },
+  "release_gate": {
+    "expected_units": 150,
+    "require_all_assays_strategies_and_seeds": true,
+    "require_source_hashes": true,
+    "require_contract_hashes": true,
+    "require_unit_hashes": true
+  },
+  "prohibitions": [
+    "inspecting partial comparative outcomes before the complete-matrix gate passes",
+    "changing the selected strategy or model after outcome-bearing execution begins",
+    "dropping assays or seeds based on their outcomes",
+    "describing the public-data simulation as prospective wet-lab evidence"
+  ]
+}
+

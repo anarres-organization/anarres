@@ -33,21 +33,39 @@ def count_jsonl(path: Path) -> int:
         return sum(1 for line in handle if line.strip())
 
 
-def validate_arm_and_seed(contract: dict[str, Any], arm: str, seed: int) -> None:
-    if arm not in contract["development_panel"]["arms"]:
-        raise ValueError(f"arm is not in the frozen development panel: {arm}")
+def validate_arm_and_seed(
+    contract: dict[str, Any], arm: str, seed: int, panel_kind: str = "development"
+) -> None:
+    if panel_kind == "development":
+        arms = contract["development_panel"]["arms"]
+    elif panel_kind == "prospective":
+        arms = contract["development_panel"]["prospective_banks_excluded"]
+    else:
+        raise ValueError(f"unsupported panel kind: {panel_kind}")
+    if arm not in arms:
+        raise ValueError(f"arm is not in the frozen {panel_kind} panel: {arm}")
     if seed not in contract["training"]["seeds"]:
         raise ValueError(f"seed is not in the frozen training set: {seed}")
 
 
-def validate_replay_artifact(artifact: dict[str, Any], contract: dict[str, Any], arm: str) -> None:
+def validate_replay_artifact(
+    artifact: dict[str, Any],
+    contract: dict[str, Any],
+    arm: str,
+    expected_qualification: str,
+    expected_membership: str | None = None,
+) -> None:
     if artifact.get("bank") != arm:
         raise ValueError("replay artifact identifies a different development arm")
     if artifact.get("item_count") != contract["development_panel"]["bank_size"]:
         raise ValueError("replay artifact has the wrong frozen bank size")
-    expected_qualification = contract["inputs"]["bank_qualification"]["sha256"]
     if artifact.get("source", {}).get("qualification_sha256") != expected_qualification:
         raise ValueError("replay artifact is not derived from the frozen qualification")
+    if (
+        expected_membership is not None
+        and artifact.get("source", {}).get("record_ids_line_sha256") != expected_membership
+    ):
+        raise ValueError("replay artifact membership differs from the forecast freeze")
     items = artifact.get("items")
     if not isinstance(items, list) or len(items) != artifact["item_count"]:
         raise ValueError("replay artifact item payload is incomplete")
@@ -100,13 +118,15 @@ def preflight_inputs(
     retrosynthesis_workers: int,
     reward_workers: int,
     oracle_python: Path,
+    panel_kind: str = "development",
+    forecast_freeze: Path | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     if contract_path.resolve() != DEFAULT_CONTRACT.resolve():
         raise ValueError("claim-bearing runs require the released matched contract")
     verification = verify_matched_contract()
     accelerator_smoke = validate_accelerator_smoke()
     contract = json.loads(contract_path.read_text(encoding="utf-8"))
-    validate_arm_and_seed(contract, arm, seed)
+    validate_arm_and_seed(contract, arm, seed, panel_kind)
 
     config_sha256 = sha256_file(config_path)
     if config_sha256 != contract["inputs"]["training_config"]["sha256"]:
@@ -115,7 +135,34 @@ def preflight_inputs(
     if warm_start_sha256 != contract["starting_policy"]["weights_only_sha256"]:
         raise ValueError("warm-start weights differ from the frozen starting policy")
     artifact = json.loads(replay_bank.read_text(encoding="utf-8"))
-    validate_replay_artifact(artifact, contract, arm)
+    freeze_identity = None
+    if panel_kind == "development":
+        if forecast_freeze is not None:
+            raise ValueError("development training cannot use a prospective freeze")
+        expected_qualification = contract["inputs"]["bank_qualification"]["sha256"]
+        expected_membership = None
+    else:
+        if forecast_freeze is None:
+            raise ValueError("prospective training requires the frozen forecast")
+        freeze = json.loads(forecast_freeze.read_text(encoding="utf-8"))
+        if (
+            freeze.get("status") != "PROSPECTIVE_FORECAST_FROZEN__OUTCOMES_UNOPENED"
+            or freeze.get("prospective_outcomes_opened") is not False
+            or freeze.get("contract") != contract["contract"]
+            or freeze.get("inputs", {}).get("contract_sha256") != sha256_file(contract_path)
+            or arm not in freeze.get("bank_membership_sha256", {})
+        ):
+            raise ValueError("prospective forecast freeze is incomplete or incompatible")
+        expected_qualification = freeze["inputs"]["prospective_banks_sha256"]
+        expected_membership = freeze["bank_membership_sha256"][arm]
+        freeze_identity = {"sha256": sha256_file(forecast_freeze), "status": freeze["status"]}
+    validate_replay_artifact(
+        artifact,
+        contract,
+        arm,
+        expected_qualification,
+        expected_membership,
+    )
     if reward_workers < 1 or retrosynthesis_workers < 0:
         raise ValueError("worker counts are invalid")
     if not env_dir.is_dir():
@@ -132,7 +179,9 @@ def preflight_inputs(
             "It does not run training or inspect endpoint outcomes."
         ),
         "arm": arm,
+        "panel_kind": panel_kind,
         "seed": seed,
+        "prospective_freeze": freeze_identity,
         "workers": {
             "retrosynthesis": retrosynthesis_workers,
             "reward": reward_workers,
@@ -192,6 +241,8 @@ def run_training(
     reward_workers: int,
     oracle_python: Path,
     resume_from: Path | None,
+    panel_kind: str = "development",
+    forecast_freeze: Path | None = None,
 ) -> dict[str, Any]:
     from rxnflow.trainer import RxnFlowTrainer
     from rxnflow_target_reward import MolecularTargetReward
@@ -208,6 +259,8 @@ def run_training(
         retrosynthesis_workers=retrosynthesis_workers,
         reward_workers=reward_workers,
         oracle_python=oracle_python,
+        panel_kind=panel_kind,
+        forecast_freeze=forecast_freeze,
     )
 
     config = configure(config_path, env_dir)
@@ -301,10 +354,11 @@ def run_training(
         "contract": contract["contract"],
         "status": "complete",
         "claim_boundary": (
-            "This manifest records one matched development trajectory. Endpoint "
+            f"This manifest records one matched {panel_kind} trajectory. Endpoint "
             "evaluation and cross-arm utility scoring remain separate."
         ),
         "arm": arm,
+        "panel_kind": panel_kind,
         "seed": seed,
         "initial_step": initial_step,
         "final_step": trainer.step,
@@ -339,6 +393,9 @@ def run_training(
             "required_checkpoints": {
                 step: sha256_file(path) for step, path in required_checkpoints.items()
             },
+            "prospective_freeze": (
+                sha256_file(forecast_freeze) if forecast_freeze is not None else None
+            ),
         },
     }
     manifest_path = output_dir / "MATCHED_TRAINING_RUN.json"
@@ -365,6 +422,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--oracle-python", type=Path, required=True)
     parser.add_argument("--resume-from", type=Path)
     parser.add_argument("--preflight-only", action="store_true")
+    parser.add_argument(
+        "--panel-kind", choices=("development", "prospective"), default="development"
+    )
+    parser.add_argument("--forecast-freeze", type=Path)
     return parser
 
 
@@ -383,6 +444,8 @@ def main() -> None:
             retrosynthesis_workers=args.retrosynthesis_workers,
             reward_workers=args.reward_workers,
             oracle_python=args.oracle_python,
+            panel_kind=args.panel_kind,
+            forecast_freeze=args.forecast_freeze,
         )
         print(json.dumps(result, indent=2, sort_keys=True))
         return
@@ -401,6 +464,8 @@ def main() -> None:
         reward_workers=args.reward_workers,
         oracle_python=args.oracle_python,
         resume_from=args.resume_from,
+        panel_kind=args.panel_kind,
+        forecast_freeze=args.forecast_freeze,
     )
     print(
         f"matched training complete: arm={manifest['arm']} seed={manifest['seed']} "

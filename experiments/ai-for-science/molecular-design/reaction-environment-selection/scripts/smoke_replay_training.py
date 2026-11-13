@@ -7,12 +7,21 @@ import argparse
 import hashlib
 import json
 import math
+import os
 import subprocess
 from pathlib import Path
 from typing import Any
 
 from materialize_replay_bank import load_into_fresh_replay
 from warm_start_weights import load_weights
+
+
+def isolated_python_environment() -> dict[str, str]:
+    """Return an environment that does not leak another Python runtime."""
+    environment = os.environ.copy()
+    for key in ("PYTHONHOME", "PYTHONPATH", "VIRTUAL_ENV"):
+        environment.pop(key, None)
+    return environment
 
 
 def sha256_file(path: Path) -> str:
@@ -50,6 +59,7 @@ print(json.dumps(packages, sort_keys=True))
         capture_output=True,
         text=True,
         timeout=60,
+        env=isolated_python_environment(),
     )
     if completed.returncode != 0:
         detail = completed.stderr.strip() or completed.stdout.strip()

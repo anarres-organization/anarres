@@ -112,7 +112,7 @@ packages, or executable sandboxes are required.
 | [Robotics](https://github.com/anarres-organization/anarres/tree/main/experiments/robotics/environment-selection) | Qualify Can datasets, inspect candidate measurements, and reproduce released results |
 | [Legal reasoning](https://github.com/anarres-organization/anarres/tree/main/experiments/legal) | Qualify LAB workflows and reproduce legal regression reports |
 | [Materials science](https://github.com/anarres-organization/anarres/tree/main/experiments/ai-for-science/materials-science) | Qualify OMat24 sources and reproduce MLIP measurements and results |
-| [Molecular design](https://github.com/anarres-organization/anarres/tree/main/experiments/ai-for-science/molecular-design) | Qualify reaction banks and prepare a pinned policy probe |
+| [Molecular design](https://github.com/anarres-organization/anarres/tree/main/experiments/ai-for-science/molecular-design) | Qualify reaction banks and reproduce environment-selection and acquisition results |
 | [Vulnerability exploitation](https://github.com/anarres-organization/anarres/tree/main/experiments/cyber/qualification) | Qualify sanitized CyberGym panels and containment records |
 | [Agentic finance](https://github.com/anarres-organization/anarres/tree/main/experiments/finance) | Qualify Business Bench workflows and reproduce retrospective decision audits |
 

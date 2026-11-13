@@ -19,6 +19,8 @@ SHARED_SOURCES = [
     ROOT / "packages/core/src",
     ROOT / "packages/environments/src",
 ]
+for shared_source in reversed(SHARED_SOURCES):
+    sys.path.insert(0, str(shared_source))
 
 from anarres_molecular_adapter import cli  # noqa: E402
 from anarres_molecular_adapter import probe as molecular_probe  # noqa: E402
@@ -38,6 +40,7 @@ class MolecularCliTest(unittest.TestCase):
         self.assertEqual(descriptor["executable"], "anarres-molecular")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
         self.assertIn("policy-probe", descriptor["capabilities"])
+        self.assertIn("acquisition-results", descriptor["capabilities"])
         self.assertEqual(
             descriptor["measurement_contracts"],
             [
@@ -270,7 +273,7 @@ class MolecularCliTest(unittest.TestCase):
                     'environment_id = "fixture-molecular-environment"',
                     'domain = "molecular-design"',
                     'adapter = "molecular"',
-                    'adapter_version = "0.3.0"',
+                    'adapter_version = "0.4.0"',
                     'native_format = "rxnflow-molecular-environment-v1"',
                     "",
                     "[source]",
@@ -536,6 +539,20 @@ class MolecularCliTest(unittest.TestCase):
         self.assertTrue(first["matched_training_contract_frozen"])
         self.assertTrue(first["development_training_authorized"])
 
+    def test_acquisition_results_remain_separate_from_profiles(self) -> None:
+        arguments = type("Args", (), {"repository": ROOT})()
+        first = cli.command_acquisition_results(arguments)
+        second = cli.command_acquisition_results(arguments)
+        self.assertEqual(first, second)
+        self.assertEqual(first["status"], "pass")
+        self.assertFalse(first["profile_input"])
+        self.assertEqual(first["panels"]["antibody"]["support"]["units"], 150)
+        self.assertEqual(first["panels"]["protein"]["support"]["units"], 175)
+        self.assertAlmostEqual(
+            first["panels"]["protein"]["primary_result"]["mean_normalized_regret"],
+            0.05586555465277441,
+        )
+
 
 @unittest.skipUnless(os.name == "posix", "executable-wrapper test requires POSIX")
 class MolecularCliCommandTest(unittest.TestCase):
@@ -595,6 +612,19 @@ class MolecularCliCommandTest(unittest.TestCase):
             self.assertTrue(result["endpoint_qualification_passed"])
             self.assertTrue(result["matched_training_contract_frozen"])
             self.assertTrue(result["development_training_authorized"])
+
+            acquisition = self.run_cli(
+                directory,
+                "molecular",
+                "acquisition-results",
+                "--repository",
+                str(ROOT),
+                "--json",
+            )
+            self.assertEqual(acquisition.returncode, 0, acquisition.stderr)
+            acquisition_result = json.loads(acquisition.stdout)
+            self.assertFalse(acquisition_result["profile_input"])
+            self.assertEqual(acquisition_result["panels"]["protein"]["support"]["units"], 175)
 
     def test_init_inspect_and_qualify_route_to_molecular_adapter(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

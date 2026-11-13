@@ -28,12 +28,13 @@ def adapter_descriptor() -> dict[str, Any]:
     return {
         "schema_version": "anarres.adapter-descriptor.v1",
         "name": "molecular",
-        "version": "0.3.0",
+        "version": "0.4.0",
         "protocol_version": 2,
         "domain": "molecular-design",
         "executable": "anarres-molecular",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
         "capabilities": [
+            "acquisition-results",
             "policy-probe",
             "profile",
             "source-digest",
@@ -239,6 +240,79 @@ def command_verify(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def read_acquisition_panel(repository: Path, directory: str) -> dict[str, Any]:
+    """Verify one released acquisition result without projecting it into profiles."""
+
+    root = repository / "experiments/ai-for-science/molecular-design" / directory
+    contract_path = root / "FROZEN_CONTRACT.json"
+    sources_path = root / "SOURCES.json"
+    freeze_path = root / "FREEZE.json"
+    gate_path = root / "RELEASE_GATE.json"
+    results_path = root / "RESULTS.json"
+    audit_path = root / "RESULT_AUDIT.json"
+    curves_path = root / "OUTCOME_CURVES.json"
+    values = {
+        "contract": json.loads(contract_path.read_text(encoding="utf-8")),
+        "freeze": json.loads(freeze_path.read_text(encoding="utf-8")),
+        "gate": json.loads(gate_path.read_text(encoding="utf-8")),
+        "results": json.loads(results_path.read_text(encoding="utf-8")),
+        "audit": json.loads(audit_path.read_text(encoding="utf-8")),
+        "curves": json.loads(curves_path.read_text(encoding="utf-8")),
+    }
+    study_id = values["contract"].get("study_id")
+    if any(value.get("study_id") != study_id for value in values.values()):
+        raise MolecularCliError(f"acquisition study identity mismatch: {directory}")
+    for relative, expected in values["freeze"].get("files", {}).items():
+        if sha256(root / relative) != expected:
+            raise MolecularCliError(f"acquisition freeze mismatch: {directory}/{relative}")
+    expected_contract_hashes = {
+        "frozen_contract_sha256": sha256(contract_path),
+        "sources_sha256": sha256(sources_path),
+    }
+    if values["gate"].get("contract_hashes") != expected_contract_hashes:
+        raise MolecularCliError(f"acquisition gate contract mismatch: {directory}")
+    if values["results"].get("release_gate_sha256") != sha256(gate_path):
+        raise MolecularCliError(f"acquisition result gate mismatch: {directory}")
+    if values["audit"].get("results_sha256") != sha256(results_path):
+        raise MolecularCliError(f"acquisition audit result mismatch: {directory}")
+    if values["curves"].get("release_gate_sha256") != sha256(gate_path):
+        raise MolecularCliError(f"acquisition curve gate mismatch: {directory}")
+    if values["gate"].get("status") != "RELEASE_GATE_PASSED__OUTCOMES_MAY_BE_OPENED":
+        raise MolecularCliError(f"acquisition release gate did not pass: {directory}")
+    if values["results"].get("status") != "SCORED_AFTER_COMPLETE_RELEASE_GATE":
+        raise MolecularCliError(f"acquisition result is not released: {directory}")
+    support = values["results"]["support"]
+    if values["curves"].get("curve_count") != support.get("units"):
+        raise MolecularCliError(f"acquisition curve support mismatch: {directory}")
+    return {
+        "study_id": study_id,
+        "selected_strategy": values["results"]["prediction"]["selected_strategy"],
+        "support": support,
+        "primary_result": values["results"]["primary_result"],
+        "result_sha256": f"sha256:{sha256(results_path)}",
+        "release_gate_sha256": f"sha256:{sha256(gate_path)}",
+        "curve_archive_sha256": f"sha256:{sha256(curves_path)}",
+    }
+
+
+def command_acquisition_results(args: argparse.Namespace) -> dict[str, Any]:
+    repository = repository_root(args.repository)
+    return {
+        "status": "pass",
+        "profile_input": False,
+        "result_timing": "downstream_outcome_report",
+        "panels": {
+            "antibody": read_acquisition_panel(repository, "prospective-antibody-acquisition"),
+            "protein": read_acquisition_panel(repository, "prospective-protein-acquisition"),
+        },
+        "claim_boundary": (
+            "The panels are prospectively frozen retrospective simulations on public "
+            "experimental measurements. Their outcomes remain separate from molecular "
+            "environment-profile coordinates and from prospective wet-lab evidence."
+        ),
+    }
+
+
 def command_source_digest(args: argparse.Namespace) -> dict[str, Any]:
     """Compute the revision used to initialize one native environment."""
 
@@ -399,6 +473,13 @@ def parser() -> argparse.ArgumentParser:
     verify = commands.add_parser("verify", help="Validate records and deterministic export.")
     add_common(verify)
     verify.set_defaults(handler=command_verify)
+
+    acquisition_results = commands.add_parser(
+        "acquisition-results",
+        help="Verify and report the released antibody and protein acquisition panels.",
+    )
+    add_common(acquisition_results)
+    acquisition_results.set_defaults(handler=command_acquisition_results)
     return result
 
 

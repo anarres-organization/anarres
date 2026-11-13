@@ -1,0 +1,65 @@
+{
+  "frozen_greedy_contrasts": {
+    "datasets_where_greedy_exceeds_random": 7,
+    "greedy_minus_random_by_dataset": {
+      "amylase": 0.09214814814814815,
+      "hydro": 0.4832222222222222,
+      "ired": 0.012333333333333335,
+      "nucb": 0.08666666666666667,
+      "pdz3": 0.012592592592592572,
+      "rhomax": 0.19691358024691355,
+      "trpb": 0.2594444444444445
+    },
+    "greedy_minus_ucb_by_dataset": {
+      "amylase": -0.023999999999999994,
+      "hydro": 0.0076666666666667105,
+      "ired": 0.0034444444444444444,
+      "nucb": 0.008333333333333331,
+      "pdz3": -0.0044444444444444176,
+      "rhomax": 0.06234567901234567,
+      "trpb": 0.039777777777777856
+    },
+    "mean_greedy_minus_ucb_95_interval": [
+      -0.004951455026455019,
+      0.03335449735449737
+    ],
+    "mean_greedy_minus_ucb_curve_auc": 0.013303350970017657
+  },
+  "interpretation": "The frozen greedy rule is best on four of seven new datasets, has the lowest normalized regret and highest pairwise credit, and exceeds random acquisition on every dataset. UCB remains competitive and is best on two datasets.",
+  "results_sha256": "ab87a255f9fafaa9d82b381c660dac4c2d809290070426d4bd38ac79e31fe319",
+  "schema_version": 1,
+  "status": "POST_RELEASE_FIXED_STRATEGY_AUDIT",
+  "strategy_metrics": {
+    "greedy": {
+      "mean_best_strategy_credit": 0.5714285714285714,
+      "mean_curve_auc": 0.22356437389770725,
+      "mean_normalized_regret": 0.05586555465277441,
+      "mean_pairwise_credit": 0.8928571428571429
+    },
+    "random": {
+      "mean_best_strategy_credit": 0.0,
+      "mean_curve_auc": 0.060232804232804235,
+      "mean_normalized_regret": 0.8345181415097012,
+      "mean_pairwise_credit": 0.17857142857142858
+    },
+    "thompson": {
+      "mean_best_strategy_credit": 0.14285714285714285,
+      "mean_curve_auc": 0.16230864197530864,
+      "mean_normalized_regret": 0.5605596104772055,
+      "mean_pairwise_credit": 0.39285714285714285
+    },
+    "ucb": {
+      "mean_best_strategy_credit": 0.2857142857142857,
+      "mean_curve_auc": 0.21026102292768956,
+      "mean_normalized_regret": 0.11369330672697507,
+      "mean_pairwise_credit": 0.7857142857142857
+    },
+    "uncertainty": {
+      "mean_best_strategy_credit": 0.0,
+      "mean_curve_auc": 0.11469488536155203,
+      "mean_normalized_regret": 0.675156325666377,
+      "mean_pairwise_credit": 0.25
+    }
+  },
+  "study_id": "prospective_protein_acquisition_v1"
+}

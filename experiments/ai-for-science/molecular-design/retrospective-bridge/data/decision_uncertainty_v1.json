@@ -1,0 +1,76 @@
+{
+  "method": {
+    "interval": "paired nonparametric percentile bootstrap",
+    "pairwise_accuracy_interval": "not reported because pairwise comparisons within a context are dependent",
+    "random_seed": 20261112,
+    "resamples": 20000,
+    "resampling_unit": "complete held-out molecular library or target; candidate arms within a context are never resampled independently"
+  },
+  "reisman_cross_target_nearest": {
+    "bootstrap_frequency_primary_higher_best_choice_credit": 0.99755,
+    "bootstrap_frequency_primary_lower_regret": 0.9073,
+    "independent_contexts": 50,
+    "primary_best_choice_credit_95_interval": [
+      0.48,
+      0.76
+    ],
+    "primary_mean_normalized_regret_95_interval": [
+      0.11926958423959086,
+      0.31796793036530935
+    ],
+    "primary_minus_baseline_best_choice_credit_95_interval": [
+      0.06000000000000005,
+      0.33999999999999997
+    ],
+    "primary_minus_baseline_regret_95_interval": [
+      -0.20901651531132007,
+      0.03858869110149522
+    ],
+    "resamples": 20000
+  },
+  "reisman_cross_target_nested": {
+    "bootstrap_frequency_primary_higher_best_choice_credit": 0.98495,
+    "bootstrap_frequency_primary_lower_regret": 0.7883,
+    "independent_contexts": 50,
+    "primary_best_choice_credit_95_interval": [
+      0.4,
+      0.68
+    ],
+    "primary_mean_normalized_regret_95_interval": [
+      0.15092741171884974,
+      0.3755314570356114
+    ],
+    "primary_minus_baseline_best_choice_credit_95_interval": [
+      0.020000000000000018,
+      0.23999999999999994
+    ],
+    "primary_minus_baseline_regret_95_interval": [
+      -0.13284839192518197,
+      0.05684139519935309
+    ],
+    "resamples": 20000
+  },
+  "schema_version": "anarres.molecular-decision-uncertainty.v1",
+  "vantilborg_cross_library": {
+    "bootstrap_frequency_primary_higher_best_choice_credit": 0.7045,
+    "bootstrap_frequency_primary_lower_regret": 0.96415,
+    "independent_contexts": 3,
+    "primary_best_choice_credit_95_interval": [
+      0.3333333333333333,
+      0.6666666666666666
+    ],
+    "primary_mean_normalized_regret_95_interval": [
+      0.06666666666666665,
+      0.2777777777777778
+    ],
+    "primary_minus_baseline_best_choice_credit_95_interval": [
+      0.0,
+      0.3333333333333333
+    ],
+    "primary_minus_baseline_regret_95_interval": [
+      -0.14814814814814814,
+      0.006151521692208083
+    ],
+    "resamples": 20000
+  }
+}

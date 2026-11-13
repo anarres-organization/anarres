@@ -1,6 +1,6 @@
 [project]
 name = "anarres-molecular"
-version = "0.3.0"
+version = "0.4.0"
 description = "Anarres adapter for the released Q07820 reaction-bank study"
 requires-python = ">=3.11"
 dependencies = ["anarres-core", "anarres-environments"]

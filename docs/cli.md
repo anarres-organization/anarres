@@ -393,7 +393,7 @@ released, what remains sealed, and which operations are supported.
 | Robotics | `anarres robotics status --repository .`<br>`anarres robotics can-results --repository .` | Workflow stage and the released prospective Can result |
 | Legal reasoning | `anarres legal status --repository .`<br>`anarres legal regressions --repository .` | SylloGym selection evidence and the separate LAB regression audit |
 | Materials science | `anarres materials status --repository .`<br>`anarres materials qualify-source --manifest <anarres.toml>`<br>`anarres materials results --repository .` | Native atomistic-bank qualification, the frozen protocol boundary, and the scored prospective MLIP test |
-| Molecular design | `anarres molecular status --repository .`<br>`anarres molecular verify --repository .` | Qualified reaction-bank measurements and deterministic verification |
+| Molecular design | `anarres molecular status --repository .`<br>`anarres molecular acquisition-results --repository .` | Qualified reaction-bank measurements and separate released antibody and protein acquisition panels |
 | Agentic finance | `anarres finance status --repository .`<br>`anarres finance decide <panel.json>` | Released evidence and a calibrated selection or abstention decision |
 | Vulnerability exploitation | `anarres vulnerability status`<br>`anarres vulnerability qualify-source --help` | Sanitized CyberGym source qualification and the current execution boundary |
 

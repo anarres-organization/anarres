@@ -9,6 +9,7 @@ import hashlib
 import io
 import json
 import math
+import os
 import re
 import shutil
 import subprocess
@@ -33,6 +34,14 @@ class OracleInfrastructureError(RuntimeError):
 
 class LigandConformerFailure(ValueError):
     """A valid molecule cannot produce a deterministic docking conformer."""
+
+
+def isolated_python_environment() -> dict[str, str]:
+    """Return an environment that does not leak another Python runtime."""
+    environment = os.environ.copy()
+    for key in ("PYTHONHOME", "PYTHONPATH", "VIRTUAL_ENV"):
+        environment.pop(key, None)
+    return environment
 
 
 def unsupported_autodock_atom_type(error: TypeError) -> str | None:
@@ -296,6 +305,7 @@ def run_worker(
                 capture_output=True,
                 text=True,
                 timeout=timeout_seconds,
+                env=isolated_python_environment(),
             )
         except subprocess.TimeoutExpired as error:
             raise OracleInfrastructureError(

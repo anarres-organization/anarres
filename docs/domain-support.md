@@ -69,8 +69,8 @@ the authoritative adapter-level check.
 - **Interface:** Installable molecular adapter
 - **Native sources:** Reaction-bank qualification and a pinned dry-run policy
   probe
-- **Validation:** Selector-fidelity confirmation. Matched target-training
-  outcomes remain unopened.
+- **Validation:** Prospective RxnFlow environment-selection,
+  antibody-acquisition, and protein-acquisition panels
 
 ### Vulnerability exploitation
 

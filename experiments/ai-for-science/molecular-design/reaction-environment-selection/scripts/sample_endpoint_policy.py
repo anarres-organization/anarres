@@ -37,6 +37,8 @@ def validate_policy(
     training_seed: int,
     checkpoint_step: int,
     training_manifest: Path | None,
+    panel_kind: str = "development",
+    forecast_freeze: Path | None = None,
 ) -> dict[str, Any]:
     training = contract["training"]
     evaluation = contract["evaluation"]
@@ -57,8 +59,16 @@ def validate_policy(
             "training_manifest_sha256": None,
         }
 
-    if arm not in contract["development_panel"]["arms"]:
-        raise ValueError("arm is not in the frozen development panel")
+    if panel_kind == "development":
+        allowed_arms = contract["development_panel"]["arms"]
+    elif panel_kind == "prospective":
+        allowed_arms = contract["development_panel"]["prospective_banks_excluded"]
+        if forecast_freeze is None:
+            raise ValueError("prospective endpoint sampling requires the forecast freeze")
+    else:
+        raise ValueError(f"unsupported panel kind: {panel_kind}")
+    if arm not in allowed_arms:
+        raise ValueError(f"arm is not in the frozen {panel_kind} panel")
     if checkpoint_step not in training["checkpoint_updates"]:
         raise ValueError("checkpoint step is not in the frozen contract")
     if training_manifest is None:
@@ -81,6 +91,11 @@ def validate_policy(
     artifacts = manifest.get("artifact_sha256", {})
     if artifacts.get("contract") != sha256_file(contract_path):
         raise ValueError("training manifest binds a different contract")
+    if panel_kind == "prospective" and (
+        manifest.get("panel_kind") != "prospective"
+        or artifacts.get("prospective_freeze") != sha256_file(forecast_freeze)
+    ):
+        raise ValueError("prospective training manifest differs from the forecast freeze")
     expected_policy = artifacts.get("required_checkpoints", {}).get(str(checkpoint_step))
     if expected_policy != policy_sha256:
         raise ValueError("policy checkpoint hash differs from the training manifest")
@@ -102,6 +117,8 @@ def sample_policy(
     training_seed: int,
     checkpoint_step: int,
     training_manifest: Path | None,
+    panel_kind: str,
+    forecast_freeze: Path | None,
     device: str,
     batch_size: int,
 ) -> dict[str, Any]:
@@ -120,6 +137,8 @@ def sample_policy(
         training_seed=training_seed,
         checkpoint_step=checkpoint_step,
         training_manifest=training_manifest,
+        panel_kind=panel_kind,
+        forecast_freeze=forecast_freeze,
     )
     attempts = int(contract["evaluation"]["attempts_per_policy_seed_checkpoint"])
     evaluation_seed = int(contract["evaluation"]["seeds"][str(training_seed)][str(checkpoint_step)])
@@ -139,6 +158,7 @@ def sample_policy(
             "Target docking and qualifying-hit outcomes remain unopened."
         ),
         "arm": arm,
+        "panel_kind": panel_kind,
         "training_seed": training_seed,
         "checkpoint_step": checkpoint_step,
         "evaluation_seed": evaluation_seed,
@@ -167,6 +187,10 @@ def main() -> None:
     parser.add_argument("--contract", type=Path, default=DEFAULT_CONTRACT)
     parser.add_argument("--policy", type=Path, required=True)
     parser.add_argument("--training-manifest", type=Path)
+    parser.add_argument(
+        "--panel-kind", choices=("development", "prospective"), default="development"
+    )
+    parser.add_argument("--forecast-freeze", type=Path)
     parser.add_argument("--env-dir", type=Path, required=True)
     parser.add_argument("--arm", required=True)
     parser.add_argument("--training-seed", type=int, required=True)
@@ -186,6 +210,8 @@ def main() -> None:
         training_seed=args.training_seed,
         checkpoint_step=args.checkpoint_step,
         training_manifest=args.training_manifest,
+        panel_kind=args.panel_kind,
+        forecast_freeze=args.forecast_freeze,
         device=args.device,
         batch_size=args.batch_size,
     )

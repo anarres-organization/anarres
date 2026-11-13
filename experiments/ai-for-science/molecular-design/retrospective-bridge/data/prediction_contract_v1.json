@@ -1,0 +1,307 @@
+{
+  "normalization": {
+    "baselines": [
+      "uninformed tie",
+      "training-fold-selected fixed candidate",
+      "simple scientific rule"
+    ],
+    "cost": "Keep measurement, oracle, training, and evaluation cost separate. A panel is cost-matched only when the released intervention supports that claim.",
+    "decision_panel": "One source, target context, downstream contract, endpoint, and budget with only the candidate acquisition or environment choice varying.",
+    "evaluation": "Hold out complete scientific contexts and report pairwise ordering, mean panel-normalized regret, and top-choice credit with half credit for ties.",
+    "outcome": "Orient native outcomes so larger is better, then min-max normalize only within a matched decision panel. A tied panel receives utility 0.5.",
+    "prediction_inputs": "Standardize continuous inputs inside each training fold or derive ranks from candidate measurements without using held-out outcomes."
+  },
+  "prediction_audits": {
+    "explainable_al_cross_target": {
+      "candidate_arms": 420,
+      "cost_contract": "the complete 60--360 compound acquisition curve for every candidate within each panel",
+      "dataset_clustered_uncertainty": {
+        "baseline": "uninformed_tie",
+        "bootstrap_frequency_primary_lower_regret": 1.0,
+        "independent_datasets": 4,
+        "primary_minus_baseline_best_protocol_credit_95_interval": [
+          -0.05238095238095236,
+          0.23571428571428577
+        ],
+        "primary_minus_baseline_regret_95_interval": [
+          -0.16103944943729914,
+          -0.08050728730981133
+        ],
+        "random_seed": 20261112,
+        "resamples": 20000
+      },
+      "decision_information": "each acquisition schedule's mean curve utility on the other datasets",
+      "endpoint_sensitivity": {
+        "best_protocol_credit": 0.4,
+        "chosen_view_by_held_out_dataset": {
+          "D2R": "matched_configuration",
+          "MPRO": "kernel_matched",
+          "TYK2": "kernel_matched",
+          "USP7": "global_protocol"
+        },
+        "mean_normalized_regret": 0.24647162871303208,
+        "pairwise_ordering": 0.6353174603174603,
+        "panels": 60,
+        "selection_contract": {
+          "candidate_views": [
+            "global_protocol",
+            "kernel_matched",
+            "fingerprint_matched",
+            "matched_configuration"
+          ],
+          "inner_holdout": "one complete target dataset from the outer training fold",
+          "outer_holdout": "one complete target dataset",
+          "primary_metric": "mean normalized regret",
+          "tie_breaker": "pairwise ordering"
+        }
+      },
+      "holdout_unit": "one complete binding-affinity dataset",
+      "kernel_matched_sensitivity": {
+        "best_protocol_credit": 0.21666666666666667,
+        "mean_normalized_regret": 0.2674381124606305,
+        "pairwise_ordering": 0.667063492063492,
+        "panels": 60
+      },
+      "measurement_timing": "before opening the held-out dataset outcomes",
+      "normalized_outcome": "three-seed top-2%-recall curve AUC over 60--360 acquisitions within dataset, fingerprint, and kernel",
+      "panels": 60,
+      "pretraining_profile_input": false,
+      "primary_metrics": {
+        "best_protocol_credit": 0.25,
+        "mean_normalized_regret": 0.26793592407619216,
+        "pairwise_ordering": 0.6662698412698412,
+        "panels": 60
+      },
+      "source_object": "Srivastava et al."
+    },
+    "pmo_temporal": {
+      "candidate_arms": 575,
+      "cost_contract": "Every released replicate of every candidate is charged through the pilot budget, followed by completion of the pilot-AUC-selected method.",
+      "decision_information": "training-fold method prior plus task-specific AUC observed through the charged pilot budget",
+      "holdout_unit": "one complete oracle task",
+      "measurement_timing": "early downstream optimization",
+      "normalized_outcome": "final AUC Top-10 within oracle task",
+      "panels": 23,
+      "pretraining_profile_input": false,
+      "primary_metrics": {
+        "auc_top10_regret": 0.033850850554,
+        "normalized_regret": 0.078084056225,
+        "pairwise_ordering": 0.84330505479,
+        "top_choice_credit": 0.402173913043
+      },
+      "source_object": "PMO"
+    },
+    "reisman_cross_target": {
+      "candidate_arms": 500,
+      "cost_contract": "common simulated acquisition contract within each target",
+      "decision_information": "target Morgan fingerprint and acquisition outcomes from other targets",
+      "holdout_unit": "one complete target molecule",
+      "measurement_timing": "before opening the held-out target outcomes",
+      "nested_similarity_sensitivity": {
+        "best_method_credit": 0.54,
+        "mean_normalized_regret": 0.2591774172082999,
+        "pairwise_ordering": 0.6022222222222222,
+        "selected_method_counts": {
+          "acqf_1-db0-01-a1": 14,
+          "acqf_10": 4,
+          "acqf_2-1": 12,
+          "acqf_4-1": 1,
+          "acqf_5": 8,
+          "acqf_6": 4,
+          "acqf_7": 1,
+          "acqf_9": 5,
+          "random": 1
+        },
+        "selection_contract": {
+          "inner_holdout": "one complete target from the outer training fold",
+          "neighbor_counts": [
+            1,
+            3,
+            5,
+            10,
+            20
+          ],
+          "outer_holdout": "one complete target",
+          "primary_tuning_metric": "mean_normalized_regret",
+          "similarity_powers": [
+            1,
+            2,
+            4
+          ],
+          "tie_breaker": "pairwise_ordering"
+        },
+        "targets": 50
+      },
+      "normalized_outcome": "negative stable-top-1 index within target",
+      "panels": 50,
+      "pretraining_profile_input": false,
+      "primary_metrics": {
+        "best_method_credit": 0.62,
+        "mean_normalized_regret": 0.21312616281389954,
+        "pairwise_ordering": 0.588,
+        "selected_method_counts": {
+          "acqf_1-db0-01-a1": 3,
+          "acqf_10": 1,
+          "acqf_2-1": 5,
+          "acqf_4-1": 1,
+          "acqf_5": 6,
+          "acqf_6": 4,
+          "acqf_7": 1,
+          "acqf_9": 11,
+          "random": 18
+        },
+        "targets": 50
+      },
+      "source_object": "Schleinitz et al."
+    },
+    "vantilborg_cross_library": {
+      "candidate_arms": 54,
+      "cost_contract": "common acquisition-cycle contract within each panel",
+      "decision_information": "acquisition identity, architecture, and measurements from the initial labeled batch",
+      "graph_measurement_sensitivity": {
+        "best_method_credit": 0.4444444444444444,
+        "chosen_alpha_by_held_out_dataset": {
+          "ALDH1": 0.1,
+          "PKM2": 0.1,
+          "VDR": 0.1
+        },
+        "contexts": 9,
+        "mean_normalized_regret": 0.17600863454521992,
+        "pairwise_ordering": 0.8
+      },
+      "holdout_unit": "one complete molecular library",
+      "measurement_timing": "before iterative active-learning acquisition",
+      "normalized_outcome": "terminal hits within library and architecture",
+      "panels": 9,
+      "pretraining_profile_input": false,
+      "primary_metrics": {
+        "best_method_credit": 0.5555555555555556,
+        "chosen_alpha_by_held_out_dataset": {
+          "ALDH1": 0.1,
+          "PKM2": 0.1,
+          "VDR": 0.1
+        },
+        "contexts": 9,
+        "mean_normalized_regret": 0.13765510137191553,
+        "pairwise_ordering": 0.837037037037037
+      },
+      "source_object": "van Tilborg and Grisoni"
+    }
+  },
+  "prospective_boundary": {
+    "admission_rule": "Use explore-derived candidates only after independent probe measurements are normalized under the frozen prospective contract.",
+    "claim_bearing_test": "RxnFlow reaction-environment selection",
+    "explore_template": "The pinned RxnFlow explore template defines the synthesis action space. It is a source-construction asset, not a predictor coordinate or downstream outcome.",
+    "interpretation": "The frozen point forecast gets the two-bank ordering right at all three budgets, while the prespecified uncertainty rule abstains at all three.",
+    "result": "experiments/ai-for-science/molecular-design/reaction-environment-selection/PROSPECTIVE_RESULTS.json",
+    "status": "released"
+  },
+  "schema_version": "anarres.molecular.prediction_contract.v1",
+  "status": "retrospective_contract_with_released_prospective_test",
+  "supporting_objects": {
+    "antoniuk_active_learning": {
+      "predictor_eligibility": "excluded: preceding acquisition cost is unmatched",
+      "role": "mechanism evidence",
+      "support": {
+        "matched_dft_oracle_budget": 500,
+        "matched_generation_approaches": 3,
+        "released_batches": 4,
+        "released_molecule_records": 61659,
+        "table_approaches": 4
+      }
+    },
+    "invirtuogen_replay": {
+      "predictor_eligibility": "excluded: no released outcome-blind task coordinates distinguish candidates",
+      "role": "matched intervention evidence",
+      "support": {
+        "matched_seed0_pairs": 23,
+        "no_replay_runs_per_task": 1,
+        "records": 92,
+        "replay_runs_per_task": 3,
+        "tasks": 23
+      }
+    },
+    "rubisco_active_learning": {
+      "directional_contract": {
+        "claim_boundary": "This is a retrospective cross-study directional check, not a frozen multi-arm predictor or a prospective wet-lab result.",
+        "external_question": "Does UCB acquisition also exceed random acquisition on each released Rubisco curve under a common within-dataset assay budget?",
+        "outcome": "trapezoidal AUC of top-5% recovery over the common assay curve",
+        "result": "UCB exceeds random acquisition on both external datasets.",
+        "rule_origin": "The separate four-target binding-affinity audit ranks every released UCB schedule above random acquisition in mean curve utility."
+      },
+      "directional_results": [
+        {
+          "common_budget_end": 1208,
+          "dataset": "DMS",
+          "paired_difference_95_interval": [
+            0.16301242835097002,
+            0.19009080136684298
+          ],
+          "paired_mean_difference": 0.1759589947089947,
+          "random_curve_auc_recovery_top_5pct_mean": 0.08758818342151675,
+          "replicates": 10,
+          "replicates_with_positive_difference": 10,
+          "ucb_curve_auc_recovery_top_5pct_mean": 0.26354717813051143
+        },
+        {
+          "common_budget_end": 1400,
+          "dataset": "HOFF",
+          "paired_difference_95_interval": [
+            0.05255000000000001,
+            0.13507500000000003
+          ],
+          "paired_mean_difference": 0.09335000000000002,
+          "random_curve_auc_recovery_top_5pct_mean": 0.063025,
+          "replicates": 10,
+          "replicates_with_positive_difference": 9,
+          "ucb_curve_auc_recovery_top_5pct_mean": 0.15637500000000001
+        }
+      ],
+      "predictor_eligibility": "excluded from the fitted predictor: two protein landscapes support a directional UCB-versus-random check, not a multi-arm target model",
+      "role": "external directional acquisition check",
+      "support": {
+        "batch_size": 48,
+        "common_budget_end_by_dataset": {
+          "DMS": 1208,
+          "HOFF": 1400
+        },
+        "complete_runs": 100,
+        "datasets": [
+          "DMS",
+          "HOFF"
+        ],
+        "initial_assays": 200,
+        "replicates_per_strategy_dataset": 10,
+        "strategies": [
+          "greedy",
+          "random",
+          "thompson",
+          "ucb",
+          "uncertainty"
+        ],
+        "trajectory_rows": 2578
+      }
+    },
+    "saturn": {
+      "predictor_eligibility": "excluded: candidate changes include model or method contracts",
+      "role": "architecture and augmentation compatibility evidence",
+      "support": {
+        "architecture_conditions": 18,
+        "architecture_replicates_per_condition": 10,
+        "hit_ratio_methods": 4,
+        "hit_ratio_records": 200,
+        "hit_ratio_replicates_per_method_target": 10,
+        "hit_ratio_targets": 5
+      }
+    },
+    "tsmiles": {
+      "predictor_eligibility": "excluded: representation, augmentation, and exposure change together",
+      "role": "representation and training-duration evidence",
+      "support": {
+        "outcome_metrics": 6,
+        "published_conditions": 21,
+        "target": "JNK3"
+      }
+    }
+  }
+}

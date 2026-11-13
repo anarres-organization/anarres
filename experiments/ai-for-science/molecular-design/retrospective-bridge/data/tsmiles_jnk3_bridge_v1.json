@@ -1,0 +1,228 @@
+{
+  "claim_boundary": "This published JNK3 panel changes molecular representation, training augmentation, transfer learning, and training duration. It audits data and representation dependence but is not a fixed-trainer environment comparison or a source of pre-training profile coordinates.",
+  "records": [
+    {
+      "active_novel_fraction": 0.072,
+      "condition": "SMILES",
+      "fbt_novel": null,
+      "fcd": 0.584,
+      "fragment_novel": null,
+      "novelty_fraction": 0.12,
+      "training_rounds": 200,
+      "valid_fraction": 0.795
+    },
+    {
+      "active_novel_fraction": 0.004,
+      "condition": "SMILES",
+      "fbt_novel": null,
+      "fcd": 0.765,
+      "fragment_novel": null,
+      "novelty_fraction": 0.001,
+      "training_rounds": 2000,
+      "valid_fraction": 1.0
+    },
+    {
+      "active_novel_fraction": 0.043,
+      "condition": "DSMILES",
+      "fbt_novel": null,
+      "fcd": 0.51,
+      "fragment_novel": null,
+      "novelty_fraction": 0.076,
+      "training_rounds": 200,
+      "valid_fraction": 0.677
+    },
+    {
+      "active_novel_fraction": 0.001,
+      "condition": "DSMILES",
+      "fbt_novel": null,
+      "fcd": 0.778,
+      "fragment_novel": null,
+      "novelty_fraction": 0.001,
+      "training_rounds": 2000,
+      "valid_fraction": 0.999
+    },
+    {
+      "active_novel_fraction": 0.148,
+      "condition": "SELFIES",
+      "fbt_novel": null,
+      "fcd": 0.544,
+      "fragment_novel": null,
+      "novelty_fraction": 0.238,
+      "training_rounds": 200,
+      "valid_fraction": 1.0
+    },
+    {
+      "active_novel_fraction": 0.05,
+      "condition": "SELFIES",
+      "fbt_novel": null,
+      "fcd": 0.767,
+      "fragment_novel": null,
+      "novelty_fraction": 0.008,
+      "training_rounds": 2000,
+      "valid_fraction": 1.0
+    },
+    {
+      "active_novel_fraction": 0.582,
+      "condition": "TSSA_S",
+      "fbt_novel": 2.655,
+      "fcd": 0.564,
+      "fragment_novel": 0.962,
+      "novelty_fraction": 0.833,
+      "training_rounds": 300,
+      "valid_fraction": 1.0
+    },
+    {
+      "active_novel_fraction": 0.564,
+      "condition": "TSSA_S",
+      "fbt_novel": 2.534,
+      "fcd": 0.608,
+      "fragment_novel": 0.049,
+      "novelty_fraction": 0.817,
+      "training_rounds": 5000,
+      "valid_fraction": 1.0
+    },
+    {
+      "active_novel_fraction": 0.571,
+      "condition": "TSSA_S",
+      "fbt_novel": 2.379,
+      "fcd": 0.572,
+      "fragment_novel": 0.023,
+      "novelty_fraction": 0.824,
+      "training_rounds": 50000,
+      "valid_fraction": 1.0
+    },
+    {
+      "active_novel_fraction": 0.35,
+      "condition": "TSSA_HSV",
+      "fbt_novel": 2.086,
+      "fcd": 0.68,
+      "fragment_novel": 5.044,
+      "novelty_fraction": 0.483,
+      "training_rounds": 200,
+      "valid_fraction": 1.0
+    },
+    {
+      "active_novel_fraction": 0.319,
+      "condition": "TSSA_HSV",
+      "fbt_novel": 1.81,
+      "fcd": 0.716,
+      "fragment_novel": 0.365,
+      "novelty_fraction": 0.447,
+      "training_rounds": 2000,
+      "valid_fraction": 1.0
+    },
+    {
+      "active_novel_fraction": 0.374,
+      "condition": "TSSA_Hybrid",
+      "fbt_novel": 2.31,
+      "fcd": 0.622,
+      "fragment_novel": 25.978,
+      "novelty_fraction": 0.683,
+      "training_rounds": 200,
+      "valid_fraction": 1.0
+    },
+    {
+      "active_novel_fraction": 0.437,
+      "condition": "TSSA_Hybrid",
+      "fbt_novel": 2.672,
+      "fcd": 0.619,
+      "fragment_novel": 23.745,
+      "novelty_fraction": 0.657,
+      "training_rounds": 2000,
+      "valid_fraction": 1.0
+    },
+    {
+      "active_novel_fraction": 0.526,
+      "condition": "TF_SMILES",
+      "fbt_novel": null,
+      "fcd": 0.523,
+      "fragment_novel": null,
+      "novelty_fraction": 0.707,
+      "training_rounds": 5,
+      "valid_fraction": 0.887
+    },
+    {
+      "active_novel_fraction": 0.023,
+      "condition": "TF_SMILES",
+      "fbt_novel": null,
+      "fcd": 0.764,
+      "fragment_novel": null,
+      "novelty_fraction": 0.033,
+      "training_rounds": 100,
+      "valid_fraction": 0.999
+    },
+    {
+      "active_novel_fraction": 0.71,
+      "condition": "TF_TSSA_S",
+      "fbt_novel": 2.897,
+      "fcd": 0.483,
+      "fragment_novel": 9.105,
+      "novelty_fraction": 0.932,
+      "training_rounds": 5,
+      "valid_fraction": 1.0
+    },
+    {
+      "active_novel_fraction": 0.569,
+      "condition": "TF_TSSA_S",
+      "fbt_novel": 2.431,
+      "fcd": 0.57,
+      "fragment_novel": 0.208,
+      "novelty_fraction": 0.849,
+      "training_rounds": 100,
+      "valid_fraction": 1.0
+    },
+    {
+      "active_novel_fraction": 0.483,
+      "condition": "SMILES_Aug50",
+      "fbt_novel": null,
+      "fcd": 0.566,
+      "fragment_novel": null,
+      "novelty_fraction": 0.57,
+      "training_rounds": 10,
+      "valid_fraction": 0.807
+    },
+    {
+      "active_novel_fraction": 0.047,
+      "condition": "SMILES_Aug50",
+      "fbt_novel": null,
+      "fcd": 0.75,
+      "fragment_novel": null,
+      "novelty_fraction": 0.049,
+      "training_rounds": 100,
+      "valid_fraction": 0.995
+    },
+    {
+      "active_novel_fraction": 0.829,
+      "condition": "TSSA_S_Rec50",
+      "fbt_novel": 2.414,
+      "fcd": 0.389,
+      "fragment_novel": 1.757,
+      "novelty_fraction": 0.962,
+      "training_rounds": 10,
+      "valid_fraction": 1.0
+    },
+    {
+      "active_novel_fraction": 0.809,
+      "condition": "TSSA_S_Rec50",
+      "fbt_novel": 2.448,
+      "fcd": 0.411,
+      "fragment_novel": 0.655,
+      "novelty_fraction": 0.96,
+      "training_rounds": 100,
+      "valid_fraction": 1.0
+    }
+  ],
+  "schema_version": "anarres.molecular.tsmiles_jnk3_bridge.v1",
+  "source": {
+    "article": "t-SMILES: a fragment-based molecular representation framework for de novo ligand design",
+    "doi": "10.1038/s41467-024-49388-6",
+    "license": "CC BY 4.0",
+    "table_html_sha256": "c990e56a041cc55e041d8a0043efe6d6d94e4c152b6f55120495d8b80e71b168",
+    "table_url": "https://www.nature.com/articles/s41467-024-49388-6/tables/2"
+  },
+  "support": {
+    "outcome_metrics": 6,
+    "published_conditions": 21,
+    "target": "JNK3"
+  }
+}

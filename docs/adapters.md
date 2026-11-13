@@ -56,7 +56,7 @@ the domain's measurements have predicted a new training outcome.
 | Robotics | `anarres robotics status --repository .` | `anarres robotics can-results --repository .` | Can v1.4.1 candidate measurements and prospective result |
 | Legal reasoning | `anarres legal status --repository .` | `anarres legal regressions --repository .` | SylloGym candidate profiles and a separate LAB regression report |
 | Materials science | `anarres materials status --repository .` | `anarres materials results --repository .` | Native OMat24 bank qualification, MLIP candidate measurements, and the scored prospective result |
-| Molecular design | `anarres molecular status --repository .` | `anarres molecular verify --repository .` | Qualified Q07820 reaction-bank measurements. Training outcomes remain sealed. |
+| Molecular design | `anarres molecular status --repository .` | `anarres molecular acquisition-results --repository .` | Qualified Q07820 reaction-bank measurements and separate released acquisition-panel results |
 | Agentic finance | `anarres finance status --repository .` | `anarres finance decide <panel.json>` | Starting-policy qualification and released retrospective checks |
 | Vulnerability exploitation | `anarres vulnerability status` | [`anarres qualify <source>`](https://github.com/anarres-organization/anarres/tree/main/packages/vulnerability) | Sanitized CyberGym source qualification. Task execution and policy probing remain gated. |
 

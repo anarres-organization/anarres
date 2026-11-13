@@ -1,6 +1,7 @@
 import importlib.util
 import json
 import math
+import os
 import subprocess
 import sys
 import unittest
@@ -48,15 +49,27 @@ class TargetRewardAdapterTests(unittest.TestCase):
     def test_worker_uses_explicit_oracle_python(self):
         observed = {}
 
-        def run(command, **_kwargs):
+        def run(command, **kwargs):
             observed["command"] = command
+            observed["environment"] = kwargs["env"]
             output = Path(command[command.index("--output") + 1])
             output.write_text(
                 json.dumps({"status": "ok", "affinity": -7.0, "elapsed_seconds": 0.1})
             )
             return subprocess.CompletedProcess(command, 0, "", "")
 
-        with patch.object(MODULE.subprocess, "run", side_effect=run):
+        with (
+            patch.dict(
+                os.environ,
+                {
+                    "PYTHONPATH": "/training/runtime",
+                    "PYTHONHOME": "/training/home",
+                    "VIRTUAL_ENV": "/training/venv",
+                    "ORACLE_SHARED_SETTING": "preserved",
+                },
+            ),
+            patch.object(MODULE.subprocess, "run", side_effect=run),
+        ):
             result = MODULE.run_worker(
                 Path("unused"),
                 "CCO",
@@ -64,6 +77,10 @@ class TargetRewardAdapterTests(unittest.TestCase):
                 worker_python=Path("/qualified/oracle/python"),
             )
         self.assertEqual(observed["command"][0], "/qualified/oracle/python")
+        self.assertNotIn("PYTHONPATH", observed["environment"])
+        self.assertNotIn("PYTHONHOME", observed["environment"])
+        self.assertNotIn("VIRTUAL_ENV", observed["environment"])
+        self.assertEqual(observed["environment"]["ORACLE_SHARED_SETTING"], "preserved")
         self.assertEqual(result["affinity"], -7.0)
 
     def test_exact_unsupported_atom_type_error_is_scientific_ineligibility(self):

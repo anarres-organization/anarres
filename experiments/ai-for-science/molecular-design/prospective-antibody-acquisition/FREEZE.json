@@ -1,0 +1,13 @@
+{
+  "files": {
+    "FROZEN_CONTRACT.json": "300df565363c99a120dba270fadff52716c360a8d6383cef5d378c087587d101",
+    "SOURCES.json": "8f7061f4edd473b3a8502d25f817987c95caf00af4c29a513de6603ca90a2322",
+    "scripts/common.py": "13b7373ca4f79ac39be36e8b8ec28d4b29b2fd8c48ce89bd222199000323b396",
+    "scripts/gate_complete_panel.py": "32481d5c0cf2264de7325bc103a0b3ac9472d2a149c57b45e4089065bef4a0aa",
+    "scripts/run_unit.py": "0856b9bd72eed8f6311894235dc2883b9bd2f34132e79bf0ecd1ec759ad45a91",
+    "scripts/score_panel.py": "faf3f83ff8cb08777f0493eb4940b35fc1e781ca691642441c328e6ac60ab4be"
+  },
+  "schema_version": 1,
+  "status": "PROTOCOL_FROZEN__OUTCOMES_UNOPENED",
+  "study_id": "prospective_antibody_acquisition_v1"
+}

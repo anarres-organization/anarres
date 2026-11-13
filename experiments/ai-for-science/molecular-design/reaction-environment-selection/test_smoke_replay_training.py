@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -57,8 +58,11 @@ def test_inspect_oracle_python_records_packages(
     executable = tmp_path / "python"
     executable.write_bytes(b"python")
 
-    def run(command, **_kwargs):
+    def run(command, **kwargs):
         assert command[0] == str(executable)
+        assert "PYTHONPATH" not in kwargs["env"]
+        assert "PYTHONHOME" not in kwargs["env"]
+        assert "VIRTUAL_ENV" not in kwargs["env"]
         return subprocess.CompletedProcess(
             command,
             0,
@@ -66,10 +70,15 @@ def test_inspect_oracle_python_records_packages(
             "",
         )
 
+    monkeypatch.setenv("PYTHONPATH", "/training/runtime")
+    monkeypatch.setenv("PYTHONHOME", "/training/home")
+    monkeypatch.setenv("VIRTUAL_ENV", "/training/venv")
+    monkeypatch.setenv("ORACLE_SHARED_SETTING", "preserved")
     monkeypatch.setattr(MODULE.subprocess, "run", run)
     identity = MODULE.inspect_oracle_python(executable)
     assert identity["packages"]["vina"] == "4"
     assert identity["executable_sha256"] == MODULE.sha256_file(executable)
+    assert os.environ["ORACLE_SHARED_SETTING"] == "preserved"
 
 
 def test_released_full_batch_cpu_smoke_preserves_interface_boundary() -> None:

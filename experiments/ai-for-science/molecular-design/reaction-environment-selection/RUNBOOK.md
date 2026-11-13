@@ -437,3 +437,79 @@ their training outcomes. Serialize:
 - training seeds and expected artifact inventory.
 
 Only a completed freeze artifact authorizes prospective training.
+
+The released analysis path keeps each transition executable and hash-bound.
+After all development endpoint panels pass the matrix gate, score their utility
+curves without reading either prospective arm:
+
+```bash
+python scripts/gate_endpoint_evaluation.py \
+  --panel-kind development \
+  --panels-root /path/to/development-endpoints \
+  --output /path/to/DEVELOPMENT_ENDPOINT_GATE.json
+
+python scripts/score_development_results.py \
+  --gate /path/to/DEVELOPMENT_ENDPOINT_GATE.json \
+  --panels-root /path/to/development-endpoints \
+  --output /path/to/DEVELOPMENT_RESULTS.json
+```
+
+Construct and independently qualify the two prospective banks from the same
+two starting-policy views governed by the frozen bank contract:
+
+```bash
+python scripts/construct_prospective_banks.py \
+  --measurement-contract MEASUREMENT_CONTRACT_V4.json \
+  --bank-contract BANK_CONSTRUCTION_CONTRACT_V4.json \
+  --prospective-contract PROSPECTIVE_BANK_CONSTRUCTION_CONTRACT_V1.json \
+  --records /path/to/construction-records.jsonl \
+  --records /path/to/confirmation-records.jsonl \
+  --manifest /path/to/construction-manifest.json \
+  --manifest /path/to/confirmation-manifest.json \
+  --output /path/to/PROSPECTIVE_BANKS.json
+```
+
+Every operational and graph-aware contrast must pass in both views, and the
+two construction memberships must differ. A failed qualification stops the
+prospective comparison. After development scoring, freeze the operational and
+graph-aware ridge models, forecasts, empirical uncertainty, and abstention
+decisions against that hash-bound bank record:
+
+```bash
+python scripts/freeze_prospective_decision.py \
+  --development-results /path/to/DEVELOPMENT_RESULTS.json \
+  --prospective-contract PROSPECTIVE_BANK_CONSTRUCTION_CONTRACT_V1.json \
+  --prospective-banks /path/to/PROSPECTIVE_BANKS.json \
+  --output /path/to/PROSPECTIVE_FREEZE.json
+```
+
+Prospective training is authorized only by that completed freeze. After every
+prospective endpoint passes the same native integrity checks, score it against
+the frozen forecast:
+
+```bash
+python scripts/gate_development_training.py \
+  --panel-kind prospective \
+  --forecast-freeze /path/to/PROSPECTIVE_FREEZE.json \
+  --runs-root /path/to/prospective-training-runs \
+  --output /path/to/PROSPECTIVE_TRAINING_GATE.json
+
+python scripts/gate_endpoint_evaluation.py \
+  --panel-kind prospective \
+  --layout split-union \
+  --samples-root /path/to/prospective-samples \
+  --panels-root /path/to/prospective-endpoints \
+  --output /path/to/PROSPECTIVE_ENDPOINT_GATE.json
+
+python scripts/score_prospective_results.py \
+  --development-results /path/to/DEVELOPMENT_RESULTS.json \
+  --forecast-freeze /path/to/PROSPECTIVE_FREEZE.json \
+  --gate /path/to/PROSPECTIVE_ENDPOINT_GATE.json \
+  --panels-root /path/to/prospective-endpoints \
+  --output /path/to/PROSPECTIVE_RESULTS.json
+```
+
+The scorer verifies the frozen implementation hash, candidate identities,
+complete arm-seed-budget matrix, and every qualifying-hit report before it
+opens a comparison. It reports curve error, two-bank ordering, allocation
+regret, abstention, and seed-level winner agreement.
