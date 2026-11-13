@@ -1,5 +1,8 @@
 <p align="center">
-  <img src="docs/assets/anarres-logo.jpeg" alt="Anarres" height="128">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/anarres-logo-dark.png">
+    <img src="docs/assets/anarres-logo-mark.png" alt="Anarres" height="128">
+  </picture>
 </p>
 
 <h1 align="center">Anarres</h1>

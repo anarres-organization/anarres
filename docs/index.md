@@ -1,4 +1,7 @@
-# Anarres
+<h1 id="anarres" class="anarres-home-title">
+  <img src="assets/anarres-logo-mark.png" alt="">
+  <span>Anarres</span>
+</h1>
 
 Measure and compare training environments before committing the full training
 budget.
