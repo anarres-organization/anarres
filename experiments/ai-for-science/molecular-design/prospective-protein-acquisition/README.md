@@ -17,10 +17,10 @@ variants by an outcome-blind sequence hash before any target value is read.
 
 Two earlier results motivate the prediction. In the independent AbBiBench
 panel, greedy acquisition has lower normalized regret than UCB. Greenman et al.
-also report that UCB and Thompson sampling usually improve over random
-acquisition but do not outperform greedy acquisition across the AAV, GB1, and
-Meltome protein landscapes. FLIP2 supplies seven new datasets that are separate
-from both sources.
+also [report](https://doi.org/10.1371/journal.pcbi.1012639) that UCB and
+Thompson sampling usually improve over random acquisition but do not outperform
+greedy acquisition across the AAV, GB1, and Meltome protein landscapes. FLIP2
+supplies seven new datasets that are separate from both sources.
 
 ## Chronology
 
