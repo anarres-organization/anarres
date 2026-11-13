@@ -81,7 +81,7 @@ $ anarres qualify ./candidate-a
 ```
 
 The [first-run workflow](getting-started.md) continues from a native source to a
-portable environment record. The [domain support matrix](domain-support.md)
+portable environment record. The [domain support guide](domain-support.md)
 shows which formats, probes, and outcome tests are available today.
 
 ## How it works
@@ -103,21 +103,25 @@ The native CLI handles routing, validation, hashing, and comparison. Installable
 adapters retain specialized runtimes where simulators, evaluators, chemistry
 packages, or executable sandboxes are required.
 
-## Domain workflows
+## Domains
 
-| Program | Available workflow |
+The same environment-selection question takes a different form in each domain.
+These examples describe the scope of the research program rather than an
+exhaustive list of supported tasks or datasets.
+
+| Domain | What Anarres examines |
 | --- | --- |
-| [Mathematical reasoning](https://github.com/anarres-organization/anarres/tree/main/experiments/mathematics/environment-utility) | Measure grouped rollouts and compare compatible environments |
-| [Formal verification](https://github.com/anarres-organization/anarres/tree/main/experiments/cyber/formal-verification) | Qualify Vero sources and the Lean runtime |
-| [Robotics](https://github.com/anarres-organization/anarres/tree/main/experiments/robotics/environment-selection) | Qualify Can datasets, inspect candidate measurements, and reproduce released results |
-| [Legal reasoning](https://github.com/anarres-organization/anarres/tree/main/experiments/legal) | Qualify LAB workflows and reproduce legal regression reports |
-| [Materials science](https://github.com/anarres-organization/anarres/tree/main/experiments/ai-for-science/materials-science) | Qualify OMat24 sources and reproduce MLIP measurements and results |
-| [Molecular design](https://github.com/anarres-organization/anarres/tree/main/experiments/ai-for-science/molecular-design) | Qualify reaction banks and reproduce environment-selection and acquisition results |
-| [Vulnerability exploitation](https://github.com/anarres-organization/anarres/tree/main/experiments/cyber/qualification) | Qualify sanitized CyberGym panels and containment records |
-| [Agentic finance](https://github.com/anarres-organization/anarres/tree/main/experiments/finance) | Qualify Business Bench workflows and reproduce retrospective decision audits |
+| [Mathematical reasoning](https://github.com/anarres-organization/anarres/tree/main/experiments/mathematics/environment-utility) | Prompt distributions, verifiers, rollout signal, and finite training budgets |
+| [Formal verification](https://github.com/anarres-organization/anarres/tree/main/experiments/cyber/formal-verification) | Proof tasks, repository context, tool access, and machine-checked outcomes |
+| [Robotics](https://github.com/anarres-organization/anarres/tree/main/experiments/robotics/environment-selection) | Demonstrations, task distributions, embodiments, and rollout success |
+| [Legal reasoning](https://github.com/anarres-organization/anarres/tree/main/experiments/legal) | Legal tasks, practice areas, interaction depth, and regression risk |
+| [Materials science](https://github.com/anarres-organization/anarres/tree/main/experiments/ai-for-science/materials-science) | Atomistic datasets, physical targets, and post-training outcomes |
+| [Molecular design](https://github.com/anarres-organization/anarres/tree/main/experiments/ai-for-science/molecular-design) | Molecular experience, target-specific acquisition, and finite oracle budgets |
+| [Vulnerability exploitation](https://github.com/anarres-organization/anarres/tree/main/experiments/cyber/qualification) | Authorized tasks, agent scaffolds, containment, and exploit verification |
+| [Agentic finance](https://github.com/anarres-organization/anarres/tree/main/experiments/finance) | Finance tasks, tool use, operational controls, and evidence trails |
 
-The [domain support matrix](domain-support.md) reports native formats, runnable
-interfaces, and the validation released for each workflow.
+The [domain support guide](domain-support.md) reports the native formats,
+runnable interfaces, and validation currently released for each domain.
 
 ## Learn more
 
