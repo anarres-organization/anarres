@@ -52,4 +52,3 @@ exploration-favorable landscapes remains a separate problem.
 This is a retrospectively executable simulation on public experimental data.
 Its prospective status concerns the frozen candidate panel, prediction, and
 analysis chronology. It does not provide prospective wet-lab evidence.
-
