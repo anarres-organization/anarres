@@ -9,7 +9,9 @@ before committing the full training budget.
 === "Homebrew"
 
     ```bash
-    brew install anarres-organization/tap/anarres
+    brew tap \
+      anarres-organization/tap
+    brew install anarres
     anarres --version
     ```
 

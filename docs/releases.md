@@ -21,7 +21,9 @@ Supported release targets are:
 Install with Homebrew on macOS or Linux:
 
 ```bash
-brew install anarres-organization/tap/anarres
+brew tap \
+  anarres-organization/tap
+brew install anarres
 ```
 
 Install the latest release on macOS or Linux:

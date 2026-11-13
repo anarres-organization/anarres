@@ -23,7 +23,9 @@ anarres --version
 Homebrew users can install the same release from the official tap:
 
 ```bash
-brew install anarres-organization/tap/anarres
+brew tap \
+  anarres-organization/tap
+brew install anarres
 ```
 
 The installer can be inspected before execution:

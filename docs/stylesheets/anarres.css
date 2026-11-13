@@ -18,6 +18,14 @@
 }
 
 @media screen and (max-width: 76.234375em) {
+  .md-content,
+  .md-content__inner,
+  .md-main__inner,
+  .md-typeset,
+  .tabbed-set {
+    min-width: 0;
+  }
+
   .md-header__inner > label[for="__drawer"] {
     order: 1;
   }
@@ -56,42 +64,64 @@
   .md-header__inner > .md-header__source {
     order: 7;
   }
+
+  .md-typeset .tabbed-labels {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    white-space: nowrap;
+  }
+
+  .md-typeset .tabbed-labels > label {
+    flex: 0 0 auto;
+    width: auto;
+  }
+
+  .md-typeset .highlight,
+  .md-typeset .highlighttable,
+  .md-typeset pre {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .md-typeset .highlight pre,
+  .md-typeset pre {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 @media screen and (max-width: 30em) {
+  .md-header__inner {
+    padding-left: 0.15rem;
+    padding-right: 0.15rem;
+  }
+
+  .md-header__inner > .md-header__title {
+    margin-left: 0.1rem;
+  }
+
+  .md-typeset .tabbed-labels > label {
+    font-size: 0.68rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+  }
+
   .md-typeset__table {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
     width: 100%;
   }
 
   .md-typeset__table table {
-    table-layout: fixed;
-    width: 100%;
-  }
-
-  .md-typeset .md-typeset__table table:not([class]) td,
-  .md-typeset .md-typeset__table table:not([class]) th {
-    min-width: 0;
-    overflow-wrap: anywhere;
-    padding: 0.55rem 0.2rem;
-  }
-
-  .md-typeset .md-typeset__table table:not([class]) td:first-child,
-  .md-typeset .md-typeset__table table:not([class]) th:first-child {
-    width: 30%;
-  }
-
-  .md-typeset .md-typeset__table table:not([class]) td:nth-child(2),
-  .md-typeset .md-typeset__table table:not([class]) td:nth-child(3),
-  .md-typeset .md-typeset__table table:not([class]) th:nth-child(2),
-  .md-typeset .md-typeset__table table:not([class]) th:nth-child(3) {
-    width: 35%;
+    width: max-content;
   }
 
   .md-typeset .mobile-terminal code {
-    font-size: 0.62rem;
+    font-size: 0.68rem;
     line-height: 1.5;
-    overflow-wrap: anywhere;
-    white-space: pre-wrap;
-    word-break: break-word;
   }
 }
