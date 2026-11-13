@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "study_id": "prospective_antibody_acquisition_v1",
+  "dataset": {
+    "name": "AbBiBench Antibody Binding Benchmark Dataset",
+    "paper": "Benchmark for Antibody Binding Affinity Maturation and Design",
+    "paper_uri": "https://arxiv.org/abs/2506.04235",
+    "repository_uri": "https://huggingface.co/datasets/AbBibench/Antibody_Binding_Benchmark_Dataset",
+    "revision": "556fd6913aa231c0d342a8658818be8f963fd582",
+    "license": "CC-BY-4.0",
+    "files": [
+      {
+        "assay": "1mlc",
+        "path": "binding_affinity/1mlc_benchmarking_data.csv",
+        "filename": "1mlc_benchmarking_data.csv",
+        "uri": "https://huggingface.co/datasets/AbBibench/Antibody_Binding_Benchmark_Dataset/resolve/556fd6913aa231c0d342a8658818be8f963fd582/binding_affinity/1mlc_benchmarking_data.csv",
+        "media_type": "text/csv",
+        "license": "CC-BY-4.0",
+        "rows": 1229,
+        "bytes": 294963,
+        "sha256": "b7455794e73086dd5aba9536c75e7317b88349c5d0c7a36d39b91a98a8463407"
+      },
+      {
+        "assay": "1n8z",
+        "path": "binding_affinity/1n8z_benchmarking_data.csv",
+        "filename": "1n8z_benchmarking_data.csv",
+        "uri": "https://huggingface.co/datasets/AbBibench/Antibody_Binding_Benchmark_Dataset/resolve/556fd6913aa231c0d342a8658818be8f963fd582/binding_affinity/1n8z_benchmarking_data.csv",
+        "media_type": "text/csv",
+        "license": "CC-BY-4.0",
+        "rows": 419,
+        "bytes": 104757,
+        "sha256": "2ca138b0c6324b3cfa074dfdaa9fced69d2777e7e90d384d1cfb2fb2bd720348"
+      },
+      {
+        "assay": "2fjg",
+        "path": "binding_affinity/2fjg_benchmarking_data.csv",
+        "filename": "2fjg_benchmarking_data.csv",
+        "uri": "https://huggingface.co/datasets/AbBibench/Antibody_Binding_Benchmark_Dataset/resolve/556fd6913aa231c0d342a8658818be8f963fd582/binding_affinity/2fjg_benchmarking_data.csv",
+        "media_type": "text/csv",
+        "license": "CC-BY-4.0",
+        "rows": 2223,
+        "bytes": 547464,
+        "sha256": "2e9827c1b6cedd282bd7674dae8017e3ffc1442309ffcbdd3eaef6e5be1bce2c"
+      },
+      {
+        "assay": "4d5_her2",
+        "path": "binding_affinity/4d5_her2_benchmarking_data_trimmed.csv",
+        "filename": "4d5_her2_benchmarking_data_trimmed.csv",
+        "uri": "https://huggingface.co/datasets/AbBibench/Antibody_Binding_Benchmark_Dataset/resolve/556fd6913aa231c0d342a8658818be8f963fd582/binding_affinity/4d5_her2_benchmarking_data_trimmed.csv",
+        "media_type": "text/csv",
+        "license": "CC-BY-4.0",
+        "rows": 2080,
+        "bytes": 509099,
+        "sha256": "b76308178f61ed7f8d8fa84b7daa78aae86ca7cf146584e59e6dce6c6f27031d"
+      },
+      {
+        "assay": "5a12_ang2",
+        "path": "binding_affinity/5a12_ang2_benchmarking_data.csv",
+        "filename": "5a12_ang2_benchmarking_data.csv",
+        "uri": "https://huggingface.co/datasets/AbBibench/Antibody_Binding_Benchmark_Dataset/resolve/556fd6913aa231c0d342a8658818be8f963fd582/binding_affinity/5a12_ang2_benchmarking_data.csv",
+        "media_type": "text/csv",
+        "license": "CC-BY-4.0",
+        "rows": 944,
+        "bytes": 418048,
+        "sha256": "6a597b41c47e432710f7f6a8b9e1d58c6cff34e3305eacc74855e6450f239fd3"
+      },
+      {
+        "assay": "g6_LC",
+        "path": "binding_affinity/g6_LC_benchmarking_data.csv",
+        "filename": "g6_LC_benchmarking_data.csv",
+        "uri": "https://huggingface.co/datasets/AbBibench/Antibody_Binding_Benchmark_Dataset/resolve/556fd6913aa231c0d342a8658818be8f963fd582/binding_affinity/g6_LC_benchmarking_data.csv",
+        "media_type": "text/csv",
+        "license": "CC-BY-4.0",
+        "rows": 2014,
+        "bytes": 497811,
+        "sha256": "529c8d3e837b5c57fadbf757e9f03e210420b978c145a009e122182cf5d86285"
+      }
+    ]
+  }
+}
+

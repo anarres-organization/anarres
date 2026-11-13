@@ -92,6 +92,16 @@ budget, and outcome rather than being pooled with unlike decisions. The bridge
 provides cross-study context for the candidate-bank hypothesis, while the
 RxnFlow study remains the prospective environment-selection test.
 
+The [prospectively frozen antibody-acquisition
+panel](prospective-antibody-acquisition/README.md) provides the next independent
+decision test. It pins six official AbBiBench antibody--antigen assays that were
+not used to choose the acquisition rule, then compares five strategies under a
+shared surrogate and label budget. UCB was frozen as the point prediction before
+the complete assay--strategy--seed matrix was run. It is best on three of six
+assays, earns 83.3% pairwise credit, and exceeds random acquisition on all six.
+Greedy acquisition has lower normalized regret, leaving the choice between
+exploration and exploitation as the next prediction problem.
+
 The PMO object also supports a charged temporal decision audit. A 1,000-call
 pilot combined with a training-fold method prior changes the fixed-method choice
 on 18 of 23 held-out oracle tasks. It reaches 84.3% pairwise ordering and 0.078

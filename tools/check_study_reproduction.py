@@ -121,6 +121,11 @@ CHECKS = (
         "experiments/ai-for-science/molecular-design/retrospective-bridge",
         "test_reproduce.py",
     ),
+    python_check(
+        "molecular antibody acquisition panel",
+        "experiments/ai-for-science/molecular-design/prospective-antibody-acquisition",
+        "test_released_results.py",
+    ),
     StudyCheck(
         "formal-verification adapter",
         ROOT,
