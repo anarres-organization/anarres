@@ -45,7 +45,7 @@ plugins:
   - search
 
 extra_css:
-  - stylesheets/anarres.css
+  - stylesheets/anarres.css?v=20261113
 
 markdown_extensions:
   - abbr
