@@ -17,7 +17,42 @@
   --md-code-fg-color: #eef3f6;
 }
 
+.md-header__inner > .md-header__button.md-logo {
+  margin: 0;
+  padding: 0;
+}
+
+.md-header__inner > .md-header__button.md-logo img,
+.md-header__inner > .md-header__button.md-logo svg {
+  height: 1rem;
+  width: 1rem;
+}
+
+.md-header__inner > .md-header__title {
+  margin-left: 0.55rem;
+}
+
+.anarres-home-title {
+  align-items: center;
+  display: flex;
+  gap: 0.65rem;
+}
+
+.anarres-home-title img {
+  height: 2.25rem;
+  object-fit: contain;
+  width: 2.25rem;
+}
+
+[data-md-color-scheme="slate"] .anarres-home-title img {
+  content: url("../assets/anarres-logo-dark.png");
+}
+
 @media screen and (max-width: 76.234375em) {
+  .anarres-home-title img {
+    display: none;
+  }
+
   .md-content,
   .md-content__inner,
   .md-main__inner,
