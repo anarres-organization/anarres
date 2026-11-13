@@ -74,6 +74,25 @@
     display: none;
   }
 
+  .md-nav--primary > .md-nav__title[for="__drawer"] {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.5;
+    padding: 0.55rem 0.8rem 0.4rem;
+    text-align: center;
+  }
+
+  .md-nav--primary > .md-nav__title[for="__drawer"] .md-logo {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0 0 0.25rem;
+    padding: 0;
+    position: static;
+  }
+
   .md-typeset .tabbed-labels {
     max-width: 100%;
     overflow-x: auto;
