@@ -183,7 +183,7 @@ become ordinary unsuccessful attempts.
 | [Agentic systems](experiments/agentic/README.md) | Which measurements transfer to terminal, coding, and tool-using agents? | Domain workflows available |
 | [Cyber: formal verification](experiments/cyber/formal-verification/README.md) | Which executable proof environments improve held-out verification under a fixed policy and budget? | Evidence and runtime qualification released |
 | [Cyber: vulnerability exploitation](experiments/cyber/qualification/README.md) | Which authorized exploit-generation environments provide measurable signal and held-out improvement? | Source qualification released |
-| [Molecular design](experiments/ai-for-science/molecular-design/README.md) | Which reaction-based environments improve a molecular graph policy for a specified protein target and compute budget? | Probe qualified; training outcomes sealed |
+| [Molecular design](experiments/ai-for-science/molecular-design/README.md) | Which molecular environments and acquisition strategies improve target-specific outcomes under fixed compute or oracle budgets? | Prospective computational evidence released |
 | [Materials science](experiments/ai-for-science/materials-science/README.md) | Which atomistic training distributions improve a materials model for a specified physical target and compute budget? | Prospective test scored |
 | [Robotics](experiments/robotics/README.md) | Which environments help robots improve across diverse embodied tasks? | Prospective evidence released |
 | [Legal reasoning](experiments/legal/README.md) | Can policy-relative measurements guide legal training-mixture selection? | Evidence and source qualification released |
