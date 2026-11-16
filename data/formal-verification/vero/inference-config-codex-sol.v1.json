@@ -1,0 +1,11 @@
+{
+  "schema_version": "anarres.inference-config.v1",
+  "engine": "openai",
+  "model_id": "gpt-5.6-sol",
+  "reasoning_effort": "xhigh",
+  "api_base": "https://api.openai.com/v1",
+  "temperature": null,
+  "max_completion_tokens": 16384,
+  "tool_choice": "auto",
+  "notes": "GPT-5.6 Sol through OpenAI Chat Completions API with extended thinking. The API key must be supplied via OPENAI_API_KEY. Temperature null means use the model default. The reasoning_effort parameter activates extended thinking at the xhigh level."
+}
