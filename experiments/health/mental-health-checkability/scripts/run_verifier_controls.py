@@ -37,31 +37,54 @@ def main() -> None:
     rows = []
     for item in transcripts:
         verdict = check_transcript(item["dimension"], item["reply"], item["risk"])
-        rows.append({"id": item["id"], "dimension": item["dimension"], "difficulty": item["difficulty"],
-                     "label": item["label"], "rule_verdict": "pass" if verdict["pass"] else "fail", "rules": verdict["rules"]})
+        rows.append(
+            {
+                "id": item["id"],
+                "dimension": item["dimension"],
+                "difficulty": item["difficulty"],
+                "label": item["label"],
+                "rule_verdict": "pass" if verdict["pass"] else "fail",
+                "rules": verdict["rules"],
+            }
+        )
 
     def accuracy(subset: list[dict]) -> dict:
         correct = sum(row["label"] == row["rule_verdict"] for row in subset)
         return {"correct": correct, "n": len(subset)}
 
     summary = {
-        "instrument_gold_accepted": {"accepted": sum(g["pass"] is True for g in gold), "n": len(tasks)},
-        "instrument_corrupted_rejected": {"rejected": sum(b["pass"] is False for b in bad), "n": len(tasks)},
-        "instrument_unparseable_marked_invalid": {"invalid": sum(not g["valid"] for g in garbage), "n": len(tasks)},
+        "instrument_gold_accepted": {
+            "accepted": sum(g["pass"] is True for g in gold),
+            "n": len(tasks),
+        },
+        "instrument_corrupted_rejected": {
+            "rejected": sum(b["pass"] is False for b in bad),
+            "n": len(tasks),
+        },
+        "instrument_unparseable_marked_invalid": {
+            "invalid": sum(not g["valid"] for g in garbage),
+            "n": len(tasks),
+        },
         "lexical_vs_label_all": accuracy(rows),
         "lexical_vs_label_clear": accuracy([r for r in rows if r["difficulty"] == "clear"]),
         "lexical_vs_label_subtle": accuracy([r for r in rows if r["difficulty"] == "subtle"]),
         "lexical_vs_label_by_dimension": {
-            dim: accuracy([r for r in rows if r["dimension"] == dim]) for dim in ("safety", "validation", "thought_record")
+            dim: accuracy([r for r in rows if r["dimension"] == dim])
+            for dim in ("safety", "validation", "thought_record")
         },
         "lexical_disagreements": [
-            {key: r[key] for key in ("id", "difficulty", "label", "rule_verdict", "rules")} for r in rows if r["label"] != r["rule_verdict"]
+            {key: r[key] for key in ("id", "difficulty", "label", "rule_verdict", "rules")}
+            for r in rows
+            if r["label"] != r["rule_verdict"]
         ],
     }
     out = ROOT / "results" / "e1_verifier_controls.json"
     out.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n")
     print(json.dumps({k: v for k, v in summary.items() if k != "lexical_disagreements"}, indent=1))
-    print("disagreements:", [(d["id"], d["label"], d["rule_verdict"]) for d in summary["lexical_disagreements"]])
+    print(
+        "disagreements:",
+        [(d["id"], d["label"], d["rule_verdict"]) for d in summary["lexical_disagreements"]],
+    )
 
 
 if __name__ == "__main__":

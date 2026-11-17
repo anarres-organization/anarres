@@ -1,0 +1,112 @@
+{
+  "schema_version": "anarres.environment-profile.v1",
+  "environment_id": "mh-instrument-grok",
+  "domain": "health-mental-support",
+  "subject": {
+    "kind": "assistant-model",
+    "id": "grok-4.7",
+    "revision": "2026-11-16"
+  },
+  "producer": {
+    "kind": "study-script",
+    "id": "mental-health-checkability-v1",
+    "revision": "v1"
+  },
+  "source": {
+    "uri": "fixture://health/mental-health-checkability-v1",
+    "revision": "v1",
+    "license": "CC0-1.0"
+  },
+  "measurement_contract": {
+    "kind": "mental-support-rule-verifier-probe",
+    "id": "mental-health-checkability-v1",
+    "revision": "v1",
+    "repetitions": 1,
+    "cost_unit": "response_words"
+  },
+  "qualification_checks": [
+    {
+      "check_id": "missingness-audited",
+      "category": "measurement",
+      "status": "pass",
+      "severity": "error",
+      "summary": "0 of 24 attempts were unparseable and are reported as missing, not as failures."
+    },
+    {
+      "check_id": "verifier-controls",
+      "category": "verifier",
+      "status": "pass",
+      "severity": "error",
+      "summary": "Exact scorer accepted 24 of 24 gold answers and rejected 24 of 24 corrupted copies."
+    }
+  ],
+  "qualification_summary": {
+    "passed": 2,
+    "failed": 0,
+    "unknown": 0,
+    "warnings": 0
+  },
+  "ready": true,
+  "coordinates": [
+    {
+      "name": "deterministic_criteria_fraction",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/health-mental-health-20261116/docs/conventions/health-mental-support-checkability-v1.md#deterministic_criteria_fraction",
+        "revision": "v1-development"
+      },
+      "role": "coverage",
+      "value": 1.0,
+      "unit": "fraction",
+      "direction": "higher",
+      "estimator": "fraction of rubric criteria checked by an exact verifier",
+      "sample_count": 24
+    },
+    {
+      "name": "mean_response_words",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/health-mental-health-20261116/docs/conventions/health-mental-support-checkability-v1.md#mean_response_words",
+        "revision": "v1-development"
+      },
+      "role": "cost",
+      "value": 1.125,
+      "unit": "response_words",
+      "direction": "lower",
+      "estimator": "arithmetic mean over valid responses",
+      "sample_count": 24
+    },
+    {
+      "name": "missingness_rate",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/health-mental-health-20261116/docs/conventions/health-mental-support-checkability-v1.md#missingness_rate",
+        "revision": "v1-development"
+      },
+      "role": "reliability",
+      "value": 0.0,
+      "unit": "fraction",
+      "direction": "lower",
+      "estimator": "unparseable attempts divided by attempts",
+      "sample_count": 24
+    },
+    {
+      "name": "verifier_pass_fraction",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/health-mental-health-20261116/docs/conventions/health-mental-support-checkability-v1.md#verifier_pass_fraction",
+        "revision": "v1-development"
+      },
+      "role": "signal",
+      "value": 1.0,
+      "unit": "fraction",
+      "direction": "contextual",
+      "estimator": "passes divided by valid attempts under the exact verifier",
+      "sample_count": 24
+    }
+  ],
+  "attributes": {
+    "evidence_tier": "exploratory",
+    "panel": "instrument",
+    "synthetic_fixture": true,
+    "verifier_kind": "exact"
+  },
+  "input_digest": "sha256:c431e95b66599f6a11f25cc304ddf29f1516c32a4f9aad210cb715f89a036a88",
+  "profile_digest": "sha256:ddaba7ebfc71d475c66d1f4582014a01f27e76583d1792f92ccd6b0023d403b0"
+}

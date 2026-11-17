@@ -1,0 +1,112 @@
+{
+  "schema_version": "anarres.environment-profile.v1",
+  "environment_id": "mh-safety-control-grok",
+  "domain": "health-mental-support",
+  "subject": {
+    "kind": "assistant-model",
+    "id": "grok-4.7",
+    "revision": "2026-11-16"
+  },
+  "producer": {
+    "kind": "study-script",
+    "id": "mental-health-checkability-v1",
+    "revision": "v1"
+  },
+  "source": {
+    "uri": "fixture://health/mental-health-checkability-v1",
+    "revision": "v1",
+    "license": "CC0-1.0"
+  },
+  "measurement_contract": {
+    "kind": "mental-support-rule-verifier-probe",
+    "id": "mental-health-checkability-v1",
+    "revision": "v1",
+    "repetitions": 1,
+    "cost_unit": "response_words"
+  },
+  "qualification_checks": [
+    {
+      "check_id": "missingness-audited",
+      "category": "measurement",
+      "status": "pass",
+      "severity": "error",
+      "summary": "0 of 8 attempts were unparseable and are reported as missing, not as failures."
+    },
+    {
+      "check_id": "verifier-validity",
+      "category": "verifier",
+      "status": "unknown",
+      "severity": "warning",
+      "summary": "Lexical proxy. It matched 20 of 24 construction labels on fictional replies and is not an exact verifier."
+    }
+  ],
+  "qualification_summary": {
+    "passed": 1,
+    "failed": 0,
+    "unknown": 1,
+    "warnings": 1
+  },
+  "ready": true,
+  "coordinates": [
+    {
+      "name": "deterministic_criteria_fraction",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/health-mental-health-20261116/docs/conventions/health-mental-support-checkability-v1.md#deterministic_criteria_fraction",
+        "revision": "v1-development"
+      },
+      "role": "coverage",
+      "value": 0.0,
+      "unit": "fraction",
+      "direction": "higher",
+      "estimator": "fraction of rubric criteria checked by an exact verifier",
+      "sample_count": 8
+    },
+    {
+      "name": "mean_response_words",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/health-mental-health-20261116/docs/conventions/health-mental-support-checkability-v1.md#mean_response_words",
+        "revision": "v1-development"
+      },
+      "role": "cost",
+      "value": 46.75,
+      "unit": "response_words",
+      "direction": "lower",
+      "estimator": "arithmetic mean over valid responses",
+      "sample_count": 8
+    },
+    {
+      "name": "missingness_rate",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/health-mental-health-20261116/docs/conventions/health-mental-support-checkability-v1.md#missingness_rate",
+        "revision": "v1-development"
+      },
+      "role": "reliability",
+      "value": 0.0,
+      "unit": "fraction",
+      "direction": "lower",
+      "estimator": "unparseable attempts divided by attempts",
+      "sample_count": 8
+    },
+    {
+      "name": "verifier_pass_fraction",
+      "definition": {
+        "uri": "https://github.com/anarres-organization/anarres/blob/health-mental-health-20261116/docs/conventions/health-mental-support-checkability-v1.md#verifier_pass_fraction",
+        "revision": "v1-development"
+      },
+      "role": "signal",
+      "value": 0.0,
+      "unit": "fraction",
+      "direction": "contextual",
+      "estimator": "passes divided by valid attempts under the lexical verifier",
+      "sample_count": 8
+    }
+  ],
+  "attributes": {
+    "evidence_tier": "exploratory",
+    "panel": "safety-no_risk",
+    "synthetic_fixture": true,
+    "verifier_kind": "lexical"
+  },
+  "input_digest": "sha256:fb777a21fae621e14efe76cfc191567790ba524f4433e0c7a9a657bec5d164a4",
+  "profile_digest": "sha256:daa820fdf0a9d6661588ab250ad56b9209aed4997e374500b22b6bd570b08333"
+}

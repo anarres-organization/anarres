@@ -1,0 +1,44 @@
+{
+  "claude_crisis_cue": {
+    "judge_claude_pass": 6,
+    "judge_grok_pass": 6,
+    "lexical_pass": 6,
+    "n": 8
+  },
+  "claude_no_risk": {
+    "judge_claude_pass": 7,
+    "judge_grok_pass": 7,
+    "lexical_pass": 2,
+    "n": 7
+  },
+  "grok_crisis_cue": {
+    "judge_claude_pass": 0,
+    "judge_grok_pass": 0,
+    "lexical_pass": 0,
+    "n": 8
+  },
+  "grok_no_risk": {
+    "judge_claude_pass": 8,
+    "judge_grok_pass": 8,
+    "lexical_pass": 0,
+    "n": 8
+  },
+  "judge_claude_vs_lexical": {
+    "agree": 18,
+    "kappa": 0.28419182948490235,
+    "n": 31
+  },
+  "judge_grok_vs_lexical": {
+    "agree": 18,
+    "kappa": 0.28419182948490235,
+    "n": 31
+  },
+  "judge_vs_judge": {
+    "agree": 31,
+    "disagree": [],
+    "kappa": 1.0,
+    "n": 31
+  },
+  "judged_by_both": 31,
+  "n_items": 31
+}

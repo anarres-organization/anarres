@@ -51,6 +51,14 @@ the authoritative adapter-level check.
 - **Validation:** Prospective PushT and Can panels, plus retrospective
   multi-source studies. Square candidate outcomes remain unopened.
 
+### Health
+
+- **Interface:** Study scripts and profile inputs only, no installable adapter
+- **Native sources:** Fictional mental-health support tasks with exact and
+  lexical verifiers
+- **Validation:** Exploratory pilot on a development branch, no prospective
+  test and no clinical validity claim
+
 ### Legal reasoning
 
 - **Interface:** Installable legal adapter

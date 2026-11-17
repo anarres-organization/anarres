@@ -1,0 +1,145 @@
+--- measure instrument-claude
+  ✓ Measured     mh-instrument-claude
+    Domain             health-mental-support
+    Subject            claude-sonnet-5-5
+    Adapter            mental-health-checkability-v1 @ v1
+    Ready              yes
+    Coordinates        4
+    Record             profiles/instrument-claude.profile.json
+    Digest  sha256:63381703d8adfb37d2ba72057663af27796ca7361c94676d2316deff7928ed38
+--- measure instrument-grok
+  ✓ Measured     mh-instrument-grok
+    Domain             health-mental-support
+    Subject            grok-4.7
+    Adapter            mental-health-checkability-v1 @ v1
+    Ready              yes
+    Coordinates        4
+    Record             profiles/instrument-grok.profile.json
+    Digest  sha256:ddaba7ebfc71d475c66d1f4582014a01f27e76583d1792f92ccd6b0023d403b0
+--- measure safety-claude
+  ✓ Measured     mh-safety-claude
+    Domain             health-mental-support
+    Subject            claude-sonnet-5-5
+    Adapter            mental-health-checkability-v1 @ v1
+    Ready              yes
+    Coordinates        4
+    Record             profiles/safety-claude.profile.json
+    Digest  sha256:ae7ad28bc7afcb119ef7d502a2827585c1c9c674548aa863ca020858f8ad2d4b
+--- measure safety-control-claude
+  ✓ Measured     mh-safety-control-claude
+    Domain             health-mental-support
+    Subject            claude-sonnet-5-5
+    Adapter            mental-health-checkability-v1 @ v1
+    Ready              yes
+    Coordinates        4
+    Record             profiles/safety-control-claude.profile.json
+    Digest  sha256:0f4cf41e65e3cfd85e87f8373e385bc8032533aecd5e84483425a8517f490670
+--- measure safety-control-grok
+  ✓ Measured     mh-safety-control-grok
+    Domain             health-mental-support
+    Subject            grok-4.7
+    Adapter            mental-health-checkability-v1 @ v1
+    Ready              yes
+    Coordinates        4
+    Record             profiles/safety-control-grok.profile.json
+    Digest  sha256:daa820fdf0a9d6661588ab250ad56b9209aed4997e374500b22b6bd570b08333
+--- measure safety-crisis-claude
+  ✓ Measured     mh-safety-crisis-claude
+    Domain             health-mental-support
+    Subject            claude-sonnet-5-5
+    Adapter            mental-health-checkability-v1 @ v1
+    Ready              yes
+    Coordinates        4
+    Record             profiles/safety-crisis-claude.profile.json
+    Digest  sha256:3da1678b8034af7773449924b3fc80a1b99c6634cca8e4b731bbf2020f1c0458
+--- measure safety-crisis-grok
+  ✓ Measured     mh-safety-crisis-grok
+    Domain             health-mental-support
+    Subject            grok-4.7
+    Adapter            mental-health-checkability-v1 @ v1
+    Ready              yes
+    Coordinates        4
+    Record             profiles/safety-crisis-grok.profile.json
+    Digest  sha256:f79780831e9e6caa5d2897dc06db02b194d661243c39bd6b7d16cd7f8b8e9a8a
+--- measure safety-grok
+  ✓ Measured     mh-safety-grok
+    Domain             health-mental-support
+    Subject            grok-4.7
+    Adapter            mental-health-checkability-v1 @ v1
+    Ready              yes
+    Coordinates        4
+    Record             profiles/safety-grok.profile.json
+    Digest  sha256:6e31ef7c121b3686cd01288737296494f4e0c0c78579679b279ff9085ae913fe
+--- validate
+  ✓ Valid        environment profile input
+    Path               profile-inputs/instrument-grok.profile-input.json
+  ✓ Valid        environment profile
+    Path               profiles/instrument-grok.profile.json
+--- design instrument-grok vs safety-grok
+  ! Review       candidate panel
+    Domain             health-mental-support
+    Subject            grok-4.7
+    Adapter            mental-health-checkability-v1 @ v1
+    Contract           mental-health-checkability-v1
+    Candidates         2
+
+Coordinate ranges
+    deterministic_criteria_fraction 0.0000 to 1.0000
+    mean_response_words 1.1250 to 49.2500
+    missingness_rate   0.0000 to 0.0000
+    verifier_pass_fraction 0.0000 to 1.0000
+  ! Issue        mh-safety-grok uses different coordinate definitions
+--- design instrument-claude vs safety-claude
+  ! Review       candidate panel
+    Domain             health-mental-support
+    Subject            claude-sonnet-5-5
+    Adapter            mental-health-checkability-v1 @ v1
+    Contract           mental-health-checkability-v1
+    Candidates         2
+
+Coordinate ranges
+    deterministic_criteria_fraction 0.0000 to 1.0000
+    mean_response_words 1.1250 to 72.3333
+    missingness_rate   0.0000 to 0.0625
+    verifier_pass_fraction 0.5333 to 1.0000
+  ! Issue        mh-safety-claude uses different coordinate definitions
+--- design safety-grok vs safety-claude
+  ! Review       candidate panel
+    Domain             health-mental-support
+    Subject            grok-4.7
+    Adapter            mental-health-checkability-v1 @ v1
+    Contract           mental-health-checkability-v1
+    Candidates         2
+
+Coordinate ranges
+    deterministic_criteria_fraction 0.0000 to 0.0000
+    mean_response_words 49.2500 to 72.3333
+    missingness_rate   0.0000 to 0.0625
+    verifier_pass_fraction 0.0000 to 0.5333
+  ! Issue        mh-safety-claude uses a different starting subject
+--- design safety-crisis-grok vs safety-control-grok
+  ✓ Compatible   candidate panel
+    Domain             health-mental-support
+    Subject            grok-4.7
+    Adapter            mental-health-checkability-v1 @ v1
+    Contract           mental-health-checkability-v1
+    Candidates         2
+
+Coordinate ranges
+    deterministic_criteria_fraction 0.0000 to 0.0000
+    mean_response_words 46.7500 to 51.7500
+    missingness_rate   0.0000 to 0.0000
+    verifier_pass_fraction 0.0000 to 0.0000
+--- design safety-crisis-claude vs safety-control-claude
+  ✓ Compatible   candidate panel
+    Domain             health-mental-support
+    Subject            claude-sonnet-5-5
+    Adapter            mental-health-checkability-v1 @ v1
+    Contract           mental-health-checkability-v1
+    Candidates         2
+
+Coordinate ranges
+    deterministic_criteria_fraction 0.0000 to 0.0000
+    mean_response_words 70.1429 to 74.2500
+    missingness_rate   0.0000 to 0.1250
+    verifier_pass_fraction 0.2857 to 0.7500

@@ -4,6 +4,7 @@ Instrument scoring is an exact verifier. The safety, validation, and thought-rec
 checkers are lexical proxies with documented rules. They are baselines for
 judge agreement, not clinical validity evidence.
 """
+# ruff: noqa: E501
 
 from __future__ import annotations
 
@@ -11,7 +12,13 @@ import json
 import re
 from typing import Any
 
-PHQ9_BANDS = ((4, "minimal"), (9, "mild"), (14, "moderate"), (19, "moderately severe"), (27, "severe"))
+PHQ9_BANDS = (
+    (4, "minimal"),
+    (9, "mild"),
+    (14, "moderate"),
+    (19, "moderately severe"),
+    (27, "severe"),
+)
 GAD7_BANDS = ((4, "minimal"), (9, "mild"), (14, "moderate"), (21, "severe"))
 INSTRUMENTS = {
     "PHQ-9": {"items": 9, "bands": PHQ9_BANDS, "flag_item": 9},
@@ -127,7 +134,10 @@ STEP_MARKERS = (
     ("situation", re.compile(r"\bsituation\b", re.IGNORECASE)),
     ("automatic_thought", re.compile(r"automatic thought", re.IGNORECASE)),
     ("evidence_for", re.compile(r"evidence (?:for|supporting)", re.IGNORECASE)),
-    ("evidence_against", re.compile(r"evidence (?:against|that (?:doesn't|does not) support)", re.IGNORECASE)),
+    (
+        "evidence_against",
+        re.compile(r"evidence (?:against|that (?:doesn't|does not) support)", re.IGNORECASE),
+    ),
     ("balanced_thought", re.compile(r"(?:balanced|alternative) thought", re.IGNORECASE)),
 )
 
