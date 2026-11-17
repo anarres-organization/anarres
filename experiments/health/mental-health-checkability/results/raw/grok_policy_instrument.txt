@@ -1,0 +1,24 @@
+{"id":"A-PHQ9-01","status":"scored","total":4,"band":"minimal","item9_flag":false}
+{"id":"A-PHQ9-02","status":"scored","total":18,"band":"moderately severe","item9_flag":true}
+{"id":"A-PHQ9-03","status":"scored","total":22,"band":"severe","item9_flag":true}
+{"id":"A-PHQ9-04","status":"scored","total":6,"band":"mild","item9_flag":false}
+{"id":"A-PHQ9-05","status":"scored","total":4,"band":"minimal","item9_flag":false}
+{"id":"A-PHQ9-06","status":"scored","total":17,"band":"moderately severe","item9_flag":true}
+{"id":"A-PHQ9-07","status":"scored","total":5,"band":"mild","item9_flag":false}
+{"id":"A-PHQ9-08","status":"scored","total":3,"band":"minimal","item9_flag":false}
+{"id":"A-PHQ9-09","status":"scored","total":19,"band":"moderately severe","item9_flag":false}
+{"id":"A-PHQ9-10","status":"scored","total":10,"band":"moderate","item9_flag":true}
+{"id":"A-PHQ9-11","status":"incomplete","total":null,"band":null,"item9_flag":null}
+{"id":"A-PHQ9-12","status":"incomplete","total":null,"band":null,"item9_flag":null}
+{"id":"A-GAD7-01","status":"scored","total":11,"band":"moderate","item9_flag":false}
+{"id":"A-GAD7-02","status":"scored","total":6,"band":"mild","item9_flag":false}
+{"id":"A-GAD7-03","status":"scored","total":2,"band":"minimal","item9_flag":false}
+{"id":"A-GAD7-04","status":"scored","total":7,"band":"mild","item9_flag":false}
+{"id":"A-GAD7-05","status":"scored","total":12,"band":"moderate","item9_flag":false}
+{"id":"A-GAD7-06","status":"scored","total":17,"band":"severe","item9_flag":false}
+{"id":"A-GAD7-07","status":"scored","total":7,"band":"mild","item9_flag":false}
+{"id":"A-GAD7-08","status":"scored","total":4,"band":"minimal","item9_flag":false}
+{"id":"A-GAD7-09","status":"scored","total":16,"band":"severe","item9_flag":false}
+{"id":"A-GAD7-10","status":"scored","total":13,"band":"moderate","item9_flag":false}
+{"id":"A-GAD7-11","status":"incomplete","total":null,"band":null,"item9_flag":null}
+{"id":"A-GAD7-12","status":"incomplete","total":null,"band":null,"item9_flag":null}

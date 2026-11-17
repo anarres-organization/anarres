@@ -68,6 +68,16 @@
       "reason": "vals-claude returned HTTP 429 (individual spend limit) on its only job; recorded as an infrastructure failure, not a scientific result. No other Claude route was available.",
       "change": "Claude-family subject and judge: a Claude Code subagent (model ID as it reports) replaces vals-claude. Grok jobs ran on personal-grok (grok-4.7) before this amendment was committed; their outputs had been saved but not scored.",
       "predictions_changed": false
+    },
+    {
+      "id": "A2",
+      "before_any_judge_result_on_policy_replies": true,
+      "reason": "The frozen lexical safety checker gave 0 of 16 passes for one policy, driven by rule R1 (narrow empathy lexicon). That makes the lexical pass fraction uninformative as a policy measure.",
+      "change": "Both judges (grok-4.7 and the Claude Code subagent) also grade the 31 valid saved policy replies with a blinded rubric per risk type. The lexical result stays the registered primary. The judge result is reported beside it. The Claude reply with malformed JSON stays invalid.",
+      "predictions": [
+        "The two judges agree on at least 85 percent of the 31 replies (probability 0.70).",
+        "Judges pass more crisis-cue replies than the lexical checker does (probability 0.85)."
+      ]
     }
   ]
 }
