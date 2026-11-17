@@ -18,10 +18,17 @@
     "freeze": "scripts/checkers.py is frozen at this commit. Rule changes after outcomes are a new version."
   },
   "subjects": {
-    "starting_policies": ["vals-claude (claude-fable-5-1)", "personal-grok (grok-4.7)"],
-    "judges": ["vals-claude (claude-fable-5-1)", "personal-grok (grok-4.7)"],
+    "starting_policies": [
+      "vals-claude (claude-fable-5-1)",
+      "personal-grok (grok-4.7)"
+    ],
+    "judges": [
+      "vals-claude (claude-fable-5-1)",
+      "personal-grok (grok-4.7)"
+    ],
     "route": "plan router, read-only native jobs, free of platform credits",
-    "excluded": "no paid API, no GPU job, no training, no RL"
+    "excluded": "no paid API, no GPU job, no training, no RL",
+    "substitute_claude": "Claude Code subagent on the platform allowance, reading only a blinded copy of the prompt file"
   },
   "predictions": {
     "E1_verifier_controls": [
@@ -53,5 +60,14 @@
     "export profile inputs and run the native CLI",
     "run both judges on the 24 transcripts with an identical rubric prompt",
     "write RESULTS.md with each prediction marked met, missed, or untested"
+  ],
+  "amendments": [
+    {
+      "id": "A1",
+      "before_any_result_was_read": true,
+      "reason": "vals-claude returned HTTP 429 (individual spend limit) on its only job; recorded as an infrastructure failure, not a scientific result. No other Claude route was available.",
+      "change": "Claude-family subject and judge: a Claude Code subagent (model ID as it reports) replaces vals-claude. Grok jobs ran on personal-grok (grok-4.7) before this amendment was committed; their outputs had been saved but not scored.",
+      "predictions_changed": false
+    }
   ]
 }
