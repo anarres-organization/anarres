@@ -82,6 +82,23 @@ errors are all thought-record items T01 to T04.
 | Judge vs rule kappa below judge vs judge kappa for both judges | Missed (Claude equal at 0.667). |
 | At least 70 percent of judge errors on subtle items | Missed (2 of 4). |
 
+## Amendment A3 (dated 2026-11-16)
+
+One validation vignette (used for V04 and V07) was replaced by a fictional one
+about leaving a study group to rely on the assistant, because the original
+touched a subject the study owner asked to keep out of the repository. Both
+judges re-graded V04 and V07 with the identical rubric prompt. Prediction stated
+before the rerun: both judges give V04 pass and V07 fail (probability 0.85).
+Result: met, both judges returned pass and fail as before. The lexical result on
+the two items is unchanged. No E1, E2b or E3 number changes.
+
+## Prediction tally
+
+The ledger has 13 rows. They come from 11 prediction statements: 9 frozen at
+the start and 2 added in amendment A2. The two E1 statements about the exact scorer
+and the lexical rules are split into 4 rows. Verdicts: 7 met, 2 partly, 4 missed.
+The A3 rerun check is separate and is not counted (met).
+
 ## Limits
 
 - Fixtures and labels have one author. The Claude judge shares a model family

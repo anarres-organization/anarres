@@ -110,7 +110,7 @@ class RecordedResultsTest(unittest.TestCase):
 
     def test_protocol_is_frozen_with_amendments(self) -> None:
         protocol = read_json("PROTOCOL.json")
-        self.assertEqual([a["id"] for a in protocol["amendments"]], ["A1", "A2"])
+        self.assertEqual([a["id"] for a in protocol["amendments"]], ["A1", "A2", "A3"])
         self.assertTrue(
             all(not a.get("predictions_changed", False) for a in protocol["amendments"])
         )

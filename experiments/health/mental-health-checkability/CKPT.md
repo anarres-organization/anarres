@@ -7,6 +7,9 @@ unchanged.
 Done: sources scan, fixtures, verifier controls, two policy runs, two judge
 passes on transcripts, one judge pass on policy replies, native CLI flow.
 
+Amendment A3 (2026-11-16): one validation vignette was replaced and both
+judges re-graded the two affected items. Results unchanged. See RESULTS.md.
+
 Open flaws found:
 
 - The thought-record rubric clause "content drawn from the user's facts"
