@@ -1,0 +1,2317 @@
+{
+  "checkpoint_sha256": "0c6515bba08a575d4da1955d0876925a9a9165d20f7e45af50e9f797c3676d17",
+  "episodes": 256,
+  "exceptions": 0,
+  "policy_id": "all_data_probe",
+  "records": [
+    {
+      "action_seed": 1077382330,
+      "exception": null,
+      "horizon": 375,
+      "replicate": 0,
+      "state_id": 0,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1820661029,
+      "exception": null,
+      "horizon": 295,
+      "replicate": 1,
+      "state_id": 0,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1245722047,
+      "exception": null,
+      "horizon": 199,
+      "replicate": 0,
+      "state_id": 1,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 127456712,
+      "exception": null,
+      "horizon": 183,
+      "replicate": 1,
+      "state_id": 1,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1775407562,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 2,
+      "stratum": 2,
+      "success": false
+    },
+    {
+      "action_seed": 1524078151,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 2,
+      "stratum": 2,
+      "success": false
+    },
+    {
+      "action_seed": 1647363219,
+      "exception": null,
+      "horizon": 333,
+      "replicate": 0,
+      "state_id": 3,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 1438636492,
+      "exception": null,
+      "horizon": 290,
+      "replicate": 1,
+      "state_id": 3,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 1412078888,
+      "exception": null,
+      "horizon": 151,
+      "replicate": 0,
+      "state_id": 4,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 141015067,
+      "exception": null,
+      "horizon": 164,
+      "replicate": 1,
+      "state_id": 4,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 277182554,
+      "exception": null,
+      "horizon": 191,
+      "replicate": 0,
+      "state_id": 5,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 2033157539,
+      "exception": null,
+      "horizon": 219,
+      "replicate": 1,
+      "state_id": 5,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 898722742,
+      "exception": null,
+      "horizon": 298,
+      "replicate": 0,
+      "state_id": 6,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 644465432,
+      "exception": null,
+      "horizon": 167,
+      "replicate": 1,
+      "state_id": 6,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 2081899244,
+      "exception": null,
+      "horizon": 238,
+      "replicate": 0,
+      "state_id": 7,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1112858232,
+      "exception": null,
+      "horizon": 231,
+      "replicate": 1,
+      "state_id": 7,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1999655155,
+      "exception": null,
+      "horizon": 237,
+      "replicate": 0,
+      "state_id": 8,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 852207104,
+      "exception": null,
+      "horizon": 234,
+      "replicate": 1,
+      "state_id": 8,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1850920603,
+      "exception": null,
+      "horizon": 162,
+      "replicate": 0,
+      "state_id": 9,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 1289143823,
+      "exception": null,
+      "horizon": 159,
+      "replicate": 1,
+      "state_id": 9,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 271695973,
+      "exception": null,
+      "horizon": 192,
+      "replicate": 0,
+      "state_id": 10,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 396439216,
+      "exception": null,
+      "horizon": 230,
+      "replicate": 1,
+      "state_id": 10,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1503253169,
+      "exception": null,
+      "horizon": 125,
+      "replicate": 0,
+      "state_id": 11,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1398094173,
+      "exception": null,
+      "horizon": 131,
+      "replicate": 1,
+      "state_id": 11,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 459069081,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 12,
+      "stratum": 7,
+      "success": false
+    },
+    {
+      "action_seed": 334672772,
+      "exception": null,
+      "horizon": 353,
+      "replicate": 1,
+      "state_id": 12,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 634842921,
+      "exception": null,
+      "horizon": 303,
+      "replicate": 0,
+      "state_id": 13,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 807397568,
+      "exception": null,
+      "horizon": 322,
+      "replicate": 1,
+      "state_id": 13,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 1094333033,
+      "exception": null,
+      "horizon": 154,
+      "replicate": 0,
+      "state_id": 14,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 403161627,
+      "exception": null,
+      "horizon": 154,
+      "replicate": 1,
+      "state_id": 14,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 683778175,
+      "exception": null,
+      "horizon": 134,
+      "replicate": 0,
+      "state_id": 15,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 742147906,
+      "exception": null,
+      "horizon": 114,
+      "replicate": 1,
+      "state_id": 15,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 685923824,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 16,
+      "stratum": 1,
+      "success": false
+    },
+    {
+      "action_seed": 832559756,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 16,
+      "stratum": 1,
+      "success": false
+    },
+    {
+      "action_seed": 413572954,
+      "exception": null,
+      "horizon": 330,
+      "replicate": 0,
+      "state_id": 17,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1686273402,
+      "exception": null,
+      "horizon": 174,
+      "replicate": 1,
+      "state_id": 17,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 185264401,
+      "exception": null,
+      "horizon": 239,
+      "replicate": 0,
+      "state_id": 18,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 114025304,
+      "exception": null,
+      "horizon": 215,
+      "replicate": 1,
+      "state_id": 18,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1315427857,
+      "exception": null,
+      "horizon": 429,
+      "replicate": 0,
+      "state_id": 19,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 655140390,
+      "exception": null,
+      "horizon": 295,
+      "replicate": 1,
+      "state_id": 19,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1656345241,
+      "exception": null,
+      "horizon": 292,
+      "replicate": 0,
+      "state_id": 20,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1921824288,
+      "exception": null,
+      "horizon": 303,
+      "replicate": 1,
+      "state_id": 20,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1696435892,
+      "exception": null,
+      "horizon": 208,
+      "replicate": 0,
+      "state_id": 21,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 653307362,
+      "exception": null,
+      "horizon": 223,
+      "replicate": 1,
+      "state_id": 21,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 354212656,
+      "exception": null,
+      "horizon": 471,
+      "replicate": 0,
+      "state_id": 22,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 801103281,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 22,
+      "stratum": 5,
+      "success": false
+    },
+    {
+      "action_seed": 1453717061,
+      "exception": null,
+      "horizon": 190,
+      "replicate": 0,
+      "state_id": 23,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 1607911633,
+      "exception": null,
+      "horizon": 217,
+      "replicate": 1,
+      "state_id": 23,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 909560942,
+      "exception": null,
+      "horizon": 247,
+      "replicate": 0,
+      "state_id": 24,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1079650626,
+      "exception": null,
+      "horizon": 246,
+      "replicate": 1,
+      "state_id": 24,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 405554385,
+      "exception": null,
+      "horizon": 199,
+      "replicate": 0,
+      "state_id": 25,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 294519178,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 25,
+      "stratum": 2,
+      "success": false
+    },
+    {
+      "action_seed": 614484513,
+      "exception": null,
+      "horizon": 234,
+      "replicate": 0,
+      "state_id": 26,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 1088654323,
+      "exception": null,
+      "horizon": 396,
+      "replicate": 1,
+      "state_id": 26,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 1584300689,
+      "exception": null,
+      "horizon": 228,
+      "replicate": 0,
+      "state_id": 27,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 1278328055,
+      "exception": null,
+      "horizon": 216,
+      "replicate": 1,
+      "state_id": 27,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 61869656,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 28,
+      "stratum": 6,
+      "success": false
+    },
+    {
+      "action_seed": 341705449,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 28,
+      "stratum": 6,
+      "success": false
+    },
+    {
+      "action_seed": 1893980367,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 29,
+      "stratum": 6,
+      "success": false
+    },
+    {
+      "action_seed": 1955796621,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 29,
+      "stratum": 6,
+      "success": false
+    },
+    {
+      "action_seed": 1925723186,
+      "exception": null,
+      "horizon": 135,
+      "replicate": 0,
+      "state_id": 30,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1879436813,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 30,
+      "stratum": 2,
+      "success": false
+    },
+    {
+      "action_seed": 1847462609,
+      "exception": null,
+      "horizon": 236,
+      "replicate": 0,
+      "state_id": 31,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 324063636,
+      "exception": null,
+      "horizon": 229,
+      "replicate": 1,
+      "state_id": 31,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1071656127,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 32,
+      "stratum": 6,
+      "success": false
+    },
+    {
+      "action_seed": 1129820182,
+      "exception": null,
+      "horizon": 132,
+      "replicate": 1,
+      "state_id": 32,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1650123824,
+      "exception": null,
+      "horizon": 380,
+      "replicate": 0,
+      "state_id": 33,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 1008469843,
+      "exception": null,
+      "horizon": 399,
+      "replicate": 1,
+      "state_id": 33,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 1681332314,
+      "exception": null,
+      "horizon": 160,
+      "replicate": 0,
+      "state_id": 34,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 1357371462,
+      "exception": null,
+      "horizon": 175,
+      "replicate": 1,
+      "state_id": 34,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 164529096,
+      "exception": null,
+      "horizon": 219,
+      "replicate": 0,
+      "state_id": 35,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 1647653470,
+      "exception": null,
+      "horizon": 161,
+      "replicate": 1,
+      "state_id": 35,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 1668893640,
+      "exception": null,
+      "horizon": 201,
+      "replicate": 0,
+      "state_id": 36,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1712382920,
+      "exception": null,
+      "horizon": 226,
+      "replicate": 1,
+      "state_id": 36,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 248047271,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 37,
+      "stratum": 7,
+      "success": false
+    },
+    {
+      "action_seed": 2126654696,
+      "exception": null,
+      "horizon": 371,
+      "replicate": 1,
+      "state_id": 37,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 616871267,
+      "exception": null,
+      "horizon": 207,
+      "replicate": 0,
+      "state_id": 38,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1296514327,
+      "exception": null,
+      "horizon": 218,
+      "replicate": 1,
+      "state_id": 38,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1860385180,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 39,
+      "stratum": 5,
+      "success": false
+    },
+    {
+      "action_seed": 1673042170,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 39,
+      "stratum": 5,
+      "success": false
+    },
+    {
+      "action_seed": 1842001014,
+      "exception": null,
+      "horizon": 351,
+      "replicate": 0,
+      "state_id": 40,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1192741488,
+      "exception": null,
+      "horizon": 189,
+      "replicate": 1,
+      "state_id": 40,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1970892338,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 41,
+      "stratum": 5,
+      "success": false
+    },
+    {
+      "action_seed": 643731283,
+      "exception": null,
+      "horizon": 182,
+      "replicate": 1,
+      "state_id": 41,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1180564905,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 42,
+      "stratum": 2,
+      "success": false
+    },
+    {
+      "action_seed": 121052799,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 42,
+      "stratum": 2,
+      "success": false
+    },
+    {
+      "action_seed": 1565751995,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 43,
+      "stratum": 6,
+      "success": false
+    },
+    {
+      "action_seed": 398099060,
+      "exception": null,
+      "horizon": 223,
+      "replicate": 1,
+      "state_id": 43,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 243622290,
+      "exception": null,
+      "horizon": 113,
+      "replicate": 0,
+      "state_id": 44,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1609269270,
+      "exception": null,
+      "horizon": 144,
+      "replicate": 1,
+      "state_id": 44,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1318221589,
+      "exception": null,
+      "horizon": 231,
+      "replicate": 0,
+      "state_id": 45,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 608933292,
+      "exception": null,
+      "horizon": 235,
+      "replicate": 1,
+      "state_id": 45,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 2044961830,
+      "exception": null,
+      "horizon": 332,
+      "replicate": 0,
+      "state_id": 46,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 334688588,
+      "exception": null,
+      "horizon": 347,
+      "replicate": 1,
+      "state_id": 46,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 1380116501,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 47,
+      "stratum": 4,
+      "success": false
+    },
+    {
+      "action_seed": 1855076476,
+      "exception": null,
+      "horizon": 289,
+      "replicate": 1,
+      "state_id": 47,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 1758393960,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 48,
+      "stratum": 0,
+      "success": false
+    },
+    {
+      "action_seed": 36288353,
+      "exception": null,
+      "horizon": 238,
+      "replicate": 1,
+      "state_id": 48,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1656989276,
+      "exception": null,
+      "horizon": 234,
+      "replicate": 0,
+      "state_id": 49,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 552227699,
+      "exception": null,
+      "horizon": 262,
+      "replicate": 1,
+      "state_id": 49,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 2040304282,
+      "exception": null,
+      "horizon": 335,
+      "replicate": 0,
+      "state_id": 50,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 2005607786,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 50,
+      "stratum": 1,
+      "success": false
+    },
+    {
+      "action_seed": 309056180,
+      "exception": null,
+      "horizon": 215,
+      "replicate": 0,
+      "state_id": 51,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 2057799925,
+      "exception": null,
+      "horizon": 268,
+      "replicate": 1,
+      "state_id": 51,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 251415698,
+      "exception": null,
+      "horizon": 127,
+      "replicate": 0,
+      "state_id": 52,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1493796390,
+      "exception": null,
+      "horizon": 111,
+      "replicate": 1,
+      "state_id": 52,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 306125373,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 53,
+      "stratum": 3,
+      "success": false
+    },
+    {
+      "action_seed": 85863782,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 53,
+      "stratum": 3,
+      "success": false
+    },
+    {
+      "action_seed": 1788451758,
+      "exception": null,
+      "horizon": 267,
+      "replicate": 0,
+      "state_id": 54,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 140816101,
+      "exception": null,
+      "horizon": 203,
+      "replicate": 1,
+      "state_id": 54,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 1138928640,
+      "exception": null,
+      "horizon": 182,
+      "replicate": 0,
+      "state_id": 55,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 230215490,
+      "exception": null,
+      "horizon": 209,
+      "replicate": 1,
+      "state_id": 55,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 1899258172,
+      "exception": null,
+      "horizon": 175,
+      "replicate": 0,
+      "state_id": 56,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 1294234864,
+      "exception": null,
+      "horizon": 319,
+      "replicate": 1,
+      "state_id": 56,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 297238515,
+      "exception": null,
+      "horizon": 218,
+      "replicate": 0,
+      "state_id": 57,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1066356376,
+      "exception": null,
+      "horizon": 132,
+      "replicate": 1,
+      "state_id": 57,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 244830379,
+      "exception": null,
+      "horizon": 347,
+      "replicate": 0,
+      "state_id": 58,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 971259195,
+      "exception": null,
+      "horizon": 358,
+      "replicate": 1,
+      "state_id": 58,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 1702072267,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 59,
+      "stratum": 7,
+      "success": false
+    },
+    {
+      "action_seed": 1114365781,
+      "exception": null,
+      "horizon": 219,
+      "replicate": 1,
+      "state_id": 59,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 1033606964,
+      "exception": null,
+      "horizon": 193,
+      "replicate": 0,
+      "state_id": 60,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 471251954,
+      "exception": null,
+      "horizon": 211,
+      "replicate": 1,
+      "state_id": 60,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 836372405,
+      "exception": null,
+      "horizon": 215,
+      "replicate": 0,
+      "state_id": 61,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 249419131,
+      "exception": null,
+      "horizon": 497,
+      "replicate": 1,
+      "state_id": 61,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1198629510,
+      "exception": null,
+      "horizon": 167,
+      "replicate": 0,
+      "state_id": 62,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 1195976034,
+      "exception": null,
+      "horizon": 182,
+      "replicate": 1,
+      "state_id": 62,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 2096600820,
+      "exception": null,
+      "horizon": 159,
+      "replicate": 0,
+      "state_id": 63,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1016640701,
+      "exception": null,
+      "horizon": 178,
+      "replicate": 1,
+      "state_id": 63,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1002237796,
+      "exception": null,
+      "horizon": 232,
+      "replicate": 0,
+      "state_id": 64,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1240173891,
+      "exception": null,
+      "horizon": 164,
+      "replicate": 1,
+      "state_id": 64,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 920906704,
+      "exception": null,
+      "horizon": 235,
+      "replicate": 0,
+      "state_id": 65,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1747625040,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 65,
+      "stratum": 5,
+      "success": false
+    },
+    {
+      "action_seed": 2026115504,
+      "exception": null,
+      "horizon": 295,
+      "replicate": 0,
+      "state_id": 66,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1098247639,
+      "exception": null,
+      "horizon": 284,
+      "replicate": 1,
+      "state_id": 66,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1321747266,
+      "exception": null,
+      "horizon": 286,
+      "replicate": 0,
+      "state_id": 67,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 457612706,
+      "exception": null,
+      "horizon": 271,
+      "replicate": 1,
+      "state_id": 67,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 1669683719,
+      "exception": null,
+      "horizon": 175,
+      "replicate": 0,
+      "state_id": 68,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 804569588,
+      "exception": null,
+      "horizon": 330,
+      "replicate": 1,
+      "state_id": 68,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 2112281133,
+      "exception": null,
+      "horizon": 335,
+      "replicate": 0,
+      "state_id": 69,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 1208876260,
+      "exception": null,
+      "horizon": 318,
+      "replicate": 1,
+      "state_id": 69,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 1394888471,
+      "exception": null,
+      "horizon": 144,
+      "replicate": 0,
+      "state_id": 70,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 687160931,
+      "exception": null,
+      "horizon": 239,
+      "replicate": 1,
+      "state_id": 70,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 844039927,
+      "exception": null,
+      "horizon": 287,
+      "replicate": 0,
+      "state_id": 71,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 1882511815,
+      "exception": null,
+      "horizon": 319,
+      "replicate": 1,
+      "state_id": 71,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 1710010405,
+      "exception": null,
+      "horizon": 219,
+      "replicate": 0,
+      "state_id": 72,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 1440593400,
+      "exception": null,
+      "horizon": 495,
+      "replicate": 1,
+      "state_id": 72,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 1320867237,
+      "exception": null,
+      "horizon": 151,
+      "replicate": 0,
+      "state_id": 73,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1809864159,
+      "exception": null,
+      "horizon": 157,
+      "replicate": 1,
+      "state_id": 73,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1415591640,
+      "exception": null,
+      "horizon": 258,
+      "replicate": 0,
+      "state_id": 74,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1347622442,
+      "exception": null,
+      "horizon": 224,
+      "replicate": 1,
+      "state_id": 74,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1748946857,
+      "exception": null,
+      "horizon": 265,
+      "replicate": 0,
+      "state_id": 75,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1135417953,
+      "exception": null,
+      "horizon": 157,
+      "replicate": 1,
+      "state_id": 75,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1785269439,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 76,
+      "stratum": 1,
+      "success": false
+    },
+    {
+      "action_seed": 1408600149,
+      "exception": null,
+      "horizon": 281,
+      "replicate": 1,
+      "state_id": 76,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 1578801470,
+      "exception": null,
+      "horizon": 166,
+      "replicate": 0,
+      "state_id": 77,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1901731093,
+      "exception": null,
+      "horizon": 167,
+      "replicate": 1,
+      "state_id": 77,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 570433042,
+      "exception": null,
+      "horizon": 227,
+      "replicate": 0,
+      "state_id": 78,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 125759023,
+      "exception": null,
+      "horizon": 191,
+      "replicate": 1,
+      "state_id": 78,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 100097715,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 79,
+      "stratum": 2,
+      "success": false
+    },
+    {
+      "action_seed": 1240431231,
+      "exception": null,
+      "horizon": 195,
+      "replicate": 1,
+      "state_id": 79,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1102596345,
+      "exception": null,
+      "horizon": 334,
+      "replicate": 0,
+      "state_id": 80,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 136686897,
+      "exception": null,
+      "horizon": 265,
+      "replicate": 1,
+      "state_id": 80,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 2084037605,
+      "exception": null,
+      "horizon": 173,
+      "replicate": 0,
+      "state_id": 81,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 627266057,
+      "exception": null,
+      "horizon": 191,
+      "replicate": 1,
+      "state_id": 81,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1315236807,
+      "exception": null,
+      "horizon": 262,
+      "replicate": 0,
+      "state_id": 82,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 276651474,
+      "exception": null,
+      "horizon": 180,
+      "replicate": 1,
+      "state_id": 82,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 985709969,
+      "exception": null,
+      "horizon": 247,
+      "replicate": 0,
+      "state_id": 83,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 545339336,
+      "exception": null,
+      "horizon": 264,
+      "replicate": 1,
+      "state_id": 83,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1691831092,
+      "exception": null,
+      "horizon": 183,
+      "replicate": 0,
+      "state_id": 84,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1653438316,
+      "exception": null,
+      "horizon": 162,
+      "replicate": 1,
+      "state_id": 84,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1116415827,
+      "exception": null,
+      "horizon": 222,
+      "replicate": 0,
+      "state_id": 85,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 2113285333,
+      "exception": null,
+      "horizon": 103,
+      "replicate": 1,
+      "state_id": 85,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1266594420,
+      "exception": null,
+      "horizon": 240,
+      "replicate": 0,
+      "state_id": 86,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 130398289,
+      "exception": null,
+      "horizon": 140,
+      "replicate": 1,
+      "state_id": 86,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1460746784,
+      "exception": null,
+      "horizon": 232,
+      "replicate": 0,
+      "state_id": 87,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 966203428,
+      "exception": null,
+      "horizon": 120,
+      "replicate": 1,
+      "state_id": 87,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1357301016,
+      "exception": null,
+      "horizon": 168,
+      "replicate": 0,
+      "state_id": 88,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1386261058,
+      "exception": null,
+      "horizon": 212,
+      "replicate": 1,
+      "state_id": 88,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1442085946,
+      "exception": null,
+      "horizon": 247,
+      "replicate": 0,
+      "state_id": 89,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1148479960,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 89,
+      "stratum": 6,
+      "success": false
+    },
+    {
+      "action_seed": 813439331,
+      "exception": null,
+      "horizon": 210,
+      "replicate": 0,
+      "state_id": 90,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1767133743,
+      "exception": null,
+      "horizon": 194,
+      "replicate": 1,
+      "state_id": 90,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 199797308,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 91,
+      "stratum": 7,
+      "success": false
+    },
+    {
+      "action_seed": 897481777,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 91,
+      "stratum": 7,
+      "success": false
+    },
+    {
+      "action_seed": 359427353,
+      "exception": null,
+      "horizon": 273,
+      "replicate": 0,
+      "state_id": 92,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 877429133,
+      "exception": null,
+      "horizon": 250,
+      "replicate": 1,
+      "state_id": 92,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 30920221,
+      "exception": null,
+      "horizon": 254,
+      "replicate": 0,
+      "state_id": 93,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 1120417804,
+      "exception": null,
+      "horizon": 221,
+      "replicate": 1,
+      "state_id": 93,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 558578261,
+      "exception": null,
+      "horizon": 165,
+      "replicate": 0,
+      "state_id": 94,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1623185001,
+      "exception": null,
+      "horizon": 157,
+      "replicate": 1,
+      "state_id": 94,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1754731744,
+      "exception": null,
+      "horizon": 279,
+      "replicate": 0,
+      "state_id": 95,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 539189140,
+      "exception": null,
+      "horizon": 225,
+      "replicate": 1,
+      "state_id": 95,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1964095479,
+      "exception": null,
+      "horizon": 359,
+      "replicate": 0,
+      "state_id": 96,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1496740290,
+      "exception": null,
+      "horizon": 236,
+      "replicate": 1,
+      "state_id": 96,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 2095715065,
+      "exception": null,
+      "horizon": 294,
+      "replicate": 0,
+      "state_id": 97,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 281704540,
+      "exception": null,
+      "horizon": 263,
+      "replicate": 1,
+      "state_id": 97,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 1854917203,
+      "exception": null,
+      "horizon": 141,
+      "replicate": 0,
+      "state_id": 98,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1476381197,
+      "exception": null,
+      "horizon": 251,
+      "replicate": 1,
+      "state_id": 98,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 906841465,
+      "exception": null,
+      "horizon": 145,
+      "replicate": 0,
+      "state_id": 99,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 245179820,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 99,
+      "stratum": 6,
+      "success": false
+    },
+    {
+      "action_seed": 508735528,
+      "exception": null,
+      "horizon": 279,
+      "replicate": 0,
+      "state_id": 100,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1086032174,
+      "exception": null,
+      "horizon": 333,
+      "replicate": 1,
+      "state_id": 100,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 746374437,
+      "exception": null,
+      "horizon": 259,
+      "replicate": 0,
+      "state_id": 101,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 757051813,
+      "exception": null,
+      "horizon": 248,
+      "replicate": 1,
+      "state_id": 101,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 21701573,
+      "exception": null,
+      "horizon": 243,
+      "replicate": 0,
+      "state_id": 102,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 981995874,
+      "exception": null,
+      "horizon": 204,
+      "replicate": 1,
+      "state_id": 102,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 220748655,
+      "exception": null,
+      "horizon": 191,
+      "replicate": 0,
+      "state_id": 103,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1884600014,
+      "exception": null,
+      "horizon": 208,
+      "replicate": 1,
+      "state_id": 103,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1881663952,
+      "exception": null,
+      "horizon": 206,
+      "replicate": 0,
+      "state_id": 104,
+      "stratum": 1,
+      "success": true
+    },
+    {
+      "action_seed": 495403167,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 104,
+      "stratum": 1,
+      "success": false
+    },
+    {
+      "action_seed": 1220175240,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 105,
+      "stratum": 6,
+      "success": false
+    },
+    {
+      "action_seed": 14790183,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 105,
+      "stratum": 6,
+      "success": false
+    },
+    {
+      "action_seed": 1215279427,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 106,
+      "stratum": 3,
+      "success": false
+    },
+    {
+      "action_seed": 180915259,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 106,
+      "stratum": 3,
+      "success": false
+    },
+    {
+      "action_seed": 632223767,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 107,
+      "stratum": 2,
+      "success": false
+    },
+    {
+      "action_seed": 1616439501,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 107,
+      "stratum": 2,
+      "success": false
+    },
+    {
+      "action_seed": 543692730,
+      "exception": null,
+      "horizon": 237,
+      "replicate": 0,
+      "state_id": 108,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 809640209,
+      "exception": null,
+      "horizon": 215,
+      "replicate": 1,
+      "state_id": 108,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 1597617138,
+      "exception": null,
+      "horizon": 318,
+      "replicate": 0,
+      "state_id": 109,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1220095729,
+      "exception": null,
+      "horizon": 157,
+      "replicate": 1,
+      "state_id": 109,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 933686124,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 110,
+      "stratum": 3,
+      "success": false
+    },
+    {
+      "action_seed": 1022765338,
+      "exception": null,
+      "horizon": 234,
+      "replicate": 1,
+      "state_id": 110,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 688361324,
+      "exception": null,
+      "horizon": 206,
+      "replicate": 0,
+      "state_id": 111,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1998168549,
+      "exception": null,
+      "horizon": 151,
+      "replicate": 1,
+      "state_id": 111,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 124816766,
+      "exception": null,
+      "horizon": 154,
+      "replicate": 0,
+      "state_id": 112,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1144971231,
+      "exception": null,
+      "horizon": 168,
+      "replicate": 1,
+      "state_id": 112,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 1883545810,
+      "exception": null,
+      "horizon": 183,
+      "replicate": 0,
+      "state_id": 113,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 2093671270,
+      "exception": null,
+      "horizon": 391,
+      "replicate": 1,
+      "state_id": 113,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1750033155,
+      "exception": null,
+      "horizon": 306,
+      "replicate": 0,
+      "state_id": 114,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 944816539,
+      "exception": null,
+      "horizon": 295,
+      "replicate": 1,
+      "state_id": 114,
+      "stratum": 5,
+      "success": true
+    },
+    {
+      "action_seed": 25903239,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 115,
+      "stratum": 4,
+      "success": false
+    },
+    {
+      "action_seed": 2100916305,
+      "exception": null,
+      "horizon": 199,
+      "replicate": 1,
+      "state_id": 115,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 133874792,
+      "exception": null,
+      "horizon": 250,
+      "replicate": 0,
+      "state_id": 116,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 1430331925,
+      "exception": null,
+      "horizon": 256,
+      "replicate": 1,
+      "state_id": 116,
+      "stratum": 6,
+      "success": true
+    },
+    {
+      "action_seed": 724852264,
+      "exception": null,
+      "horizon": 127,
+      "replicate": 0,
+      "state_id": 117,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 1679954038,
+      "exception": null,
+      "horizon": 211,
+      "replicate": 1,
+      "state_id": 117,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 1015503554,
+      "exception": null,
+      "horizon": 143,
+      "replicate": 0,
+      "state_id": 118,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 1774005556,
+      "exception": null,
+      "horizon": 245,
+      "replicate": 1,
+      "state_id": 118,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 1044089914,
+      "exception": null,
+      "horizon": 188,
+      "replicate": 0,
+      "state_id": 119,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1307341682,
+      "exception": null,
+      "horizon": 162,
+      "replicate": 1,
+      "state_id": 119,
+      "stratum": 0,
+      "success": true
+    },
+    {
+      "action_seed": 1593467691,
+      "exception": null,
+      "horizon": 232,
+      "replicate": 0,
+      "state_id": 120,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 1108162168,
+      "exception": null,
+      "horizon": 199,
+      "replicate": 1,
+      "state_id": 120,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 1166531440,
+      "exception": null,
+      "horizon": 143,
+      "replicate": 0,
+      "state_id": 121,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 1058490082,
+      "exception": null,
+      "horizon": 121,
+      "replicate": 1,
+      "state_id": 121,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 731283495,
+      "exception": null,
+      "horizon": 213,
+      "replicate": 0,
+      "state_id": 122,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 1557192614,
+      "exception": null,
+      "horizon": 191,
+      "replicate": 1,
+      "state_id": 122,
+      "stratum": 4,
+      "success": true
+    },
+    {
+      "action_seed": 314404542,
+      "exception": null,
+      "horizon": 282,
+      "replicate": 0,
+      "state_id": 123,
+      "stratum": 3,
+      "success": true
+    },
+    {
+      "action_seed": 355697554,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 123,
+      "stratum": 3,
+      "success": false
+    },
+    {
+      "action_seed": 813932762,
+      "exception": null,
+      "horizon": 197,
+      "replicate": 0,
+      "state_id": 124,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 1083466091,
+      "exception": null,
+      "horizon": 199,
+      "replicate": 1,
+      "state_id": 124,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 78029993,
+      "exception": null,
+      "horizon": 202,
+      "replicate": 0,
+      "state_id": 125,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 398359938,
+      "exception": null,
+      "horizon": 283,
+      "replicate": 1,
+      "state_id": 125,
+      "stratum": 2,
+      "success": true
+    },
+    {
+      "action_seed": 174389331,
+      "exception": null,
+      "horizon": 200,
+      "replicate": 0,
+      "state_id": 126,
+      "stratum": 7,
+      "success": true
+    },
+    {
+      "action_seed": 1352379793,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 1,
+      "state_id": 126,
+      "stratum": 7,
+      "success": false
+    },
+    {
+      "action_seed": 303739807,
+      "exception": null,
+      "horizon": 500,
+      "replicate": 0,
+      "state_id": 127,
+      "stratum": 1,
+      "success": false
+    },
+    {
+      "action_seed": 307184432,
+      "exception": null,
+      "horizon": 272,
+      "replicate": 1,
+      "state_id": 127,
+      "stratum": 1,
+      "success": true
+    }
+  ],
+  "schema_version": "anarres.robotics-fixed-state-evaluation.v1",
+  "state_bank_sha256": "428fd56c8ec99bdacc49fae3dfc001ac2be40f6ff527633e9861d8980fa37fd7",
+  "study_id": "prospective_square_regression_v1",
+  "successes": 211,
+  "training_seed": 2103
+}
