@@ -152,6 +152,11 @@ CHECKS = (
         ("anarres-robotics", "can-results", "--repository", str(ROOT), "--json"),
     ),
     StudyCheck(
+        "robotics prospective Square report",
+        ROOT,
+        ("anarres-robotics", "square-results", "--repository", str(ROOT), "--json"),
+    ),
+    StudyCheck(
         "legal adapter",
         ROOT,
         ("anarres-legal", "verify", "--repository", str(ROOT), "--json"),

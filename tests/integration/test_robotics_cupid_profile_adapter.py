@@ -374,6 +374,20 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
                 all(value.startswith("sha256:") for value in can_result["artifacts"].values())
             )
 
+            square_results = self.run_adapter(
+                ["square-results", "--repository", str(ROOT), "--json"], outside
+            )
+            self.assertEqual(square_results.returncode, 0, square_results.stderr)
+            square_result = json.loads(square_results.stdout)
+            self.assertEqual(square_result["frozen_prediction"], "failure_coverage_short_50")
+            self.assertEqual(square_result["observed_best"], "all_data_reference")
+            self.assertAlmostEqual(square_result["allocation_regret_pp"], 3.90625)
+            self.assertFalse(square_result["regression_prediction_supported"])
+            self.assertIn("reversed direction", square_result["claim_boundary"])
+            self.assertTrue(
+                all(value.startswith("sha256:") for value in square_result["artifacts"].values())
+            )
+
     def test_frozen_candidates_are_complete_and_prepare_writes_every_mask(self) -> None:
         candidates_path = STUDY / "CANDIDATES.json"
         self.assertEqual(

@@ -11,7 +11,7 @@ choice between robot-learning datasets.
 | [Retrospective cross-source analysis](retrospective-bridge/README.md) | 31 retrospective panels, 111 candidate arms, eight task contexts | Practical rule: 65.4% pair ordering and 0.272 normalized regret | Interpretable measurements are promising. The fitted model is not yet incrementally useful. |
 | [External checks](external-checks/README.md) | GUILD real-robot transport, SOLE-R1 reward-model falsification, and GreenBall initiation probe | Policy-responsive collection transfers, trajectory correlation alone fails, and initiation risk is measurable offline | Positive, negative, and mechanism-specific evidence must be reported together |
 | [Prospective closed-loop curation v1.4.1](prospective-cupid-can-v141/README.md) | Five frozen candidates, five paired seeds, and 2,500 gated evaluation episodes | The shortest subset reached 98.8%; the tier-balanced CUPID prediction reached 97.4% | The frozen choice had 1.4 points of regret, while the length baseline remained strongest |
-| [Prospective Square regression study](prospective-square-regression-v1/README.md) | Frozen 128-state panel, three probe policies, and five unopened half-data candidates | Measurement protocol and paired regression endpoint are frozen; candidate outcomes remain unopened | Probe-policy failures may guide candidate construction only after the qualification gate passes |
+| [Prospective Square regression study](prospective-square-regression-v1/README.md) | Frozen 128-state panel, three probe policies, five half-data candidates, and 3,840 gated candidate episodes | The frozen choice led the half-data panel at 76.30% but trailed all-data by 3.91 points; the regression-risk prediction reversed direction | Measured failure and coverage can guide subset selection here, but the current state-regression score does not transfer |
 | [Invalidated v1.5 execution](prospective-cupid-can/README.md) | Earlier RoboMimic Can protocol execution | A provenance audit found a v1.5 dataset/runtime mismatch before candidate training | The execution cannot support a scientific conclusion about the intended v1.4.1 protocol |
 
 ## Decision workflow
@@ -58,6 +58,14 @@ The Can score has its own five-seed reproducer:
 ```bash
 cd experiments/robotics/environment-selection/prospective-cupid-can-v141
 python scripts/score_released_panel.py --output /tmp/can-v141-results.json
+python -m unittest test_released_results.py
+```
+
+The Square score recomputes from 18 released fixed-state evaluation records:
+
+```bash
+cd experiments/robotics/environment-selection/prospective-square-regression-v1
+python scripts/reproduce_released_results.py --output /tmp/square-results.json
 python -m unittest test_released_results.py
 ```
 

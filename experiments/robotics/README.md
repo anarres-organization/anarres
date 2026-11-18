@@ -16,10 +16,12 @@ uv tool install \
   ./experiments/robotics/environment-selection/prospective-cupid-can-v141
 anarres robotics status --repository .
 anarres robotics can-results --repository .
+anarres robotics square-results --repository .
 ```
 
-The adapter reports the available studies and reproduces the released Can
-comparison. The [Can study guide](environment-selection/prospective-cupid-can-v141/README.md)
+The adapter reports the available studies and reproduces the released Can and
+Square comparisons. The
+[Can study guide](environment-selection/prospective-cupid-can-v141/README.md)
 contains the complete planning and execution workflow.
 
 The work treats a candidate dataset as an intervention. Comparisons keep the
@@ -32,7 +34,7 @@ contract.
 ## First public evidence release
 
 The [environment-selection release](environment-selection/README.md) contains
-three records with complementary designs:
+four prospective and retrospective records with complementary designs:
 
 1. A **prospective PushT comparison** in which the decision rule was frozen
    before training outcomes were opened. Three equal-size training subsets were
@@ -43,6 +45,9 @@ three records with complementary designs:
 3. A **prospective RoboMimic Can comparison** with five candidate datasets,
    five paired training seeds, and a completeness gate covering 2,500
    evaluation episodes.
+4. A **prospective RoboMimic Square comparison** with five equal-size candidate
+   subsets, three training seeds, and paired evaluation on 128 fixed initial
+   states.
 
 The PushT comparison validates a useful behavior: abstaining between two
 plausible candidates retained the eventual best candidate. It does not establish
@@ -68,7 +73,10 @@ study](environment-selection/prospective-square-regression-v1/README.md)
 extends this design to paired initial states. Its frozen protocol uses three
 all-data probe policies to measure policy weakness, constructs candidate
 datasets from failure-weighted state coverage, and predicts both aggregate
-success and stratum-level regressions before candidate outcomes are opened.
+success and stratum-level regressions before candidate outcomes are opened. The
+frozen choice leads the half-data panel and trails the all-data reference by
+3.91 points. The state-regression prediction reverses direction, identifying a
+clear boundary for the current representation.
 
 ## What is measured
 
@@ -100,11 +108,12 @@ ordinary held-out action error.
 
 ## Scope
 
-The prospective evidence comes from one simulated PushT setting. External
-records now include physical robot outcomes, but they remain retrospective or
-temporally external. Transfer across embodiments, locations, long-horizon
-tasks, or simulation-to-reality shifts requires new outcome-blind panels and
-renewed measurement under their own starting policies.
+The prospective evidence covers simulated PushT, RoboMimic Can, and RoboMimic
+Square settings under separate contracts. External records include physical
+robot outcomes, but those comparisons remain retrospective or temporally
+external. Transfer across embodiments, locations, long-horizon tasks, or
+simulation-to-reality shifts requires new outcome-blind panels and renewed
+measurement under their own starting policies.
 
 Robotics studies share Anarres's identity, measurement, and evaluation
 contracts while retaining domain-specific safety, simulator, and hardware

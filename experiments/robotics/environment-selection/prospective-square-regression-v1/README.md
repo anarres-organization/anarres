@@ -1,8 +1,9 @@
 # Prospective environment and regression prediction on RoboMimic Square
 
-**Status:** probe measurement qualified; candidate memberships, predictions,
-and the 15-run execution matrix are frozen; candidate-policy outcomes remain
-unopened.
+**Status:** complete prospective comparison. The outcome-blind release gate
+passed for all 15 candidate policies and 3,840 candidate evaluation episodes.
+The frozen aggregate choice led the five equal-size candidate subsets. The
+frozen regression-risk prediction failed in the opposite direction.
 
 This study asks whether measurements from a reference robot policy can select
 a useful demonstration environment and identify where a trained policy may
@@ -59,6 +60,55 @@ before candidate training begins. After execution, `gate_candidate_results.py`
 checks the complete run matrix, task identities, artifact hashes, evaluation
 coverage, and simulator exceptions before any candidate outcome is scored.
 
+## Prospective result
+
+The frozen `failure_coverage_short_50` choice reached 76.30% mean closed-loop
+success. It was the strongest of the five 150-demonstration candidates, beating
+the fixed random subset by 9.77 percentage points. The shortest-trajectory
+baseline reached 75.91%, leaving only a 0.39-point difference between the two
+strongest half-data choices. Their ordering is not resolved by three training
+seeds.
+
+| Candidate | Demonstrations | Mean success |
+| --- | ---: | ---: |
+| All-data reference | 300 | **80.21%** |
+| Random 50% | 150 | 66.54% |
+| Shortest 50% | 150 | 75.91% |
+| Coverage 50% | 150 | 73.05% |
+| Failure-weighted coverage 50% | 150 | 72.92% |
+| Failure-weighted coverage and short 50% | 150 | **76.30%** |
+
+The all-data reference remained 3.91 points higher than the frozen choice. The
+whole-policy bootstrap interval for this allocation regret is 0.78 to 7.03
+points. The result supports prospective selection among equal-size subsets in
+this panel, while the simple length baseline remains competitive and all-data
+training remains strongest.
+
+Measurement required three additional all-data probe policies and 768 probe
+episodes before candidate construction. The candidate comparison then trained
+15 policies and evaluated 3,840 episodes. This cost is part of the selection
+procedure and must be charged when comparing it with simpler rules.
+
+The preregistered regression prediction did not transfer. Frozen risk was
+expected to correlate negatively with candidate-minus-reference success
+changes. The observed Spearman correlation was instead 0.322, with a 95%
+whole-policy bootstrap interval from 0.129 to 0.469. The highest-risk quarter
+improved by 7.05 points more than the lowest-risk quarter, also opposite the
+predicted direction. Starting-policy failure and geometric distance are
+therefore insufficient for predicting where a candidate policy will regress in
+this setting.
+
+[`RELEASE_GATE.json`](RELEASE_GATE.json) records the sealed completeness and
+identity audit. [`RESULTS.json`](RESULTS.json) contains the scored comparison,
+and [`evaluations/`](evaluations/) contains the 18 compact fixed-state outcome
+records. Recompute the complete result with:
+
+```bash
+anarres robotics square-results --repository . --json
+python scripts/reproduce_released_results.py --output /tmp/square-results.json
+python -m unittest test_released_results.py
+```
+
 Verify the outcome-blind freeze with:
 
 ```bash
@@ -68,8 +118,10 @@ python -m unittest discover -p 'test_*.py'
 
 ## Scope
 
-This is one simulated manipulation task, one policy family, and one fixed
-training budget. The initial-state representation uses square-nut pose and is
-specific to this simulator contract. A successful result would support
-prospective environment and regression prediction within this setting. It would
-not establish a general robotics allocator.
+This is one simulated manipulation task, one policy family, three training
+seeds per arm, and one fixed training budget. The initial-state representation
+uses square-nut pose and is specific to this simulator contract. The aggregate
+result supports prospective selection within the frozen half-data panel. The
+failed regression test rules out the current risk construction as a reliable
+predictor of state-stratum regressions. Neither result establishes a general
+robotics allocator.
