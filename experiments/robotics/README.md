@@ -16,10 +16,12 @@ uv tool install \
   ./experiments/robotics/environment-selection/prospective-cupid-can-v141
 anarres robotics status --repository .
 anarres robotics can-results --repository .
+anarres robotics square-results --repository .
 ```
 
-The adapter reports the available studies and reproduces the released Can
-comparison. The [Can study guide](environment-selection/prospective-cupid-can-v141/README.md)
+The adapter reports the available studies and reproduces the released Can and
+Square comparisons. The
+[Can study guide](environment-selection/prospective-cupid-can-v141/README.md)
 contains the complete planning and execution workflow.
 
 The work treats a candidate dataset as an intervention. Comparisons keep the

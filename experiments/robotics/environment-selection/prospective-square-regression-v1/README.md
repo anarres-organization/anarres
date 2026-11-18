@@ -104,6 +104,7 @@ and [`evaluations/`](evaluations/) contains the 18 compact fixed-state outcome
 records. Recompute the complete result with:
 
 ```bash
+anarres robotics square-results --repository . --json
 python scripts/reproduce_released_results.py --output /tmp/square-results.json
 python -m unittest test_released_results.py
 ```

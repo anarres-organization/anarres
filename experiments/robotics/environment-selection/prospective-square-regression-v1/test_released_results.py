@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib.util
 import json
 import subprocess
 import sys
@@ -8,6 +9,11 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
+SCRIPT = ROOT / "scripts" / "reproduce_released_results.py"
+SPEC = importlib.util.spec_from_file_location("reproduce_square_results", SCRIPT)
+assert SPEC is not None and SPEC.loader is not None
+REPRODUCER = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(REPRODUCER)
 
 
 class ReleasedSquareResultTest(unittest.TestCase):
@@ -42,6 +48,10 @@ class ReleasedSquareResultTest(unittest.TestCase):
         self.assertAlmostEqual(result["allocation_regret"], 0.0390625)
         self.assertGreater(result["regression"]["spearman_risk_vs_success_change"], 0)
         self.assertGreater(result["regression"]["high_minus_low_risk_success_change"], 0)
+
+    def test_release_gate_matches_every_candidate_evaluation(self) -> None:
+        candidates = sorted((ROOT / "evaluations" / "candidates").glob("*.json"))
+        REPRODUCER.validate_release_gate(candidates)
 
 
 if __name__ == "__main__":

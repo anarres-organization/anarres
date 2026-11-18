@@ -53,7 +53,7 @@ the domain's measurements have predicted a new training outcome.
 | Adapter | Start here | Then inspect | Available now |
 | --- | --- | --- | --- |
 | Formal verification | `anarres formal status --repository .` | `anarres formal qualification --repository .`<br>`anarres formal qualify-runtime --help` | Source and model-free runtime qualification are available. Policy probing, containment requalification, and RL remain blocked. |
-| Robotics | `anarres robotics status --repository .` | `anarres robotics can-results --repository .` | Can v1.4.1 candidate measurements and prospective result |
+| Robotics | `anarres robotics status --repository .` | `anarres robotics can-results --repository .`<br>`anarres robotics square-results --repository .` | Can v1.4.1 candidate measurements and the released Can and Square prospective results |
 | Legal reasoning | `anarres legal status --repository .` | `anarres legal regressions --repository .` | SylloGym candidate profiles and a separate LAB regression report |
 | Materials science | `anarres materials status --repository .` | `anarres materials results --repository .` | Native OMat24 bank qualification, MLIP candidate measurements, and the scored prospective result |
 | Molecular design | `anarres molecular status --repository .` | `anarres molecular acquisition-results --repository .` | Qualified Q07820 reaction-bank measurements and separate released acquisition-panel results |

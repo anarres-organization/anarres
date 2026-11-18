@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -43,6 +44,7 @@ def adapter_descriptor() -> dict[str, Any]:
             "run-task",
             "score",
             "source-qualification",
+            "square-results",
             "status",
             "submit",
             "verify",
@@ -144,6 +146,12 @@ def probe_contract_path(repository: Path) -> Path:
 
 def pusht_root(repository: Path) -> Path:
     return repository / "experiments/robotics/environment-selection/prospective-pusht"
+
+
+def square_root(repository: Path) -> Path:
+    return (
+        repository / "experiments/robotics/environment-selection/prospective-square-regression-v1"
+    )
 
 
 def load_native_adapter(repository: Path) -> ModuleType:
@@ -588,6 +596,54 @@ def command_can_results(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def command_square_results(args: argparse.Namespace) -> dict[str, Any]:
+    repository = repository_root(args.repository)
+    root = square_root(repository)
+    reproducer = root / "scripts" / "reproduce_released_results.py"
+    result_path = root / "RESULTS.json"
+    release_gate = root / "RELEASE_GATE.json"
+    with tempfile.TemporaryDirectory(prefix="anarres-robotics-square-") as directory:
+        output = Path(directory) / "results.json"
+        completed = subprocess.run(
+            [sys.executable, str(reproducer), "--output", str(output)],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if completed.returncode != 0:
+            detail = completed.stderr.strip() or completed.stdout.strip() or "unknown error"
+            raise RoboticsCliError(f"Square result reproduction failed: {detail}")
+        observed = json.loads(output.read_text(encoding="utf-8"))
+    expected = json.loads(result_path.read_text(encoding="utf-8"))
+    if observed != expected:
+        raise RoboticsCliError("recomputed Square result differs from the released result")
+    regression = observed["regression"]
+    return {
+        "study_id": observed["study_id"],
+        "domain": "robotics",
+        "study": "prospective-square-regression-v1",
+        "status": "released_prospective_result",
+        "candidate_outcomes_opened": True,
+        "frozen_prediction": observed["point_prediction"],
+        "observed_best": observed["observed_best_arm"],
+        "allocation_regret_pp": 100.0 * observed["allocation_regret"],
+        "mean_success_rate": observed["arm_mean_success_rates"],
+        "regression_prediction_supported": (
+            regression["spearman_risk_vs_success_change"] < 0
+            and regression["high_minus_low_risk_success_change"] < 0
+        ),
+        "claim_boundary": (
+            "The frozen choice led the equal-size Square candidates but not the all-data "
+            "reference; the preregistered regression prediction reversed direction."
+        ),
+        "artifacts": {
+            "release_gate": sha256_file(release_gate),
+            "reproducer": sha256_file(reproducer),
+            "results": sha256_file(result_path),
+        },
+    }
+
+
 def command_results(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
     root = pusht_root(repository)
@@ -795,6 +851,12 @@ def parser() -> argparse.ArgumentParser:
     )
     add_common(can_results)
     can_results.set_defaults(handler=command_can_results)
+
+    square_results = commands.add_parser(
+        "square-results", help="Recompute the released prospective Square decision report."
+    )
+    add_common(square_results)
+    square_results.set_defaults(handler=command_square_results)
 
     verify = commands.add_parser("verify", help="Validate records and deterministic export.")
     add_common(verify)
