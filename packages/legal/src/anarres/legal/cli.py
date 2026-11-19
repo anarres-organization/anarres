@@ -269,6 +269,10 @@ def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
         "tasks": summary["support"]["tasks"],
         "practice_areas": summary["support"]["practice_areas"],
         "rubric_criteria": summary["support"]["rubric_criteria"],
+        "tasks_with_declared_deliverables": summary["support"]["tasks_with_declared_deliverables"],
+        "rubric_criteria_with_deliverable_scope": summary["support"][
+            "rubric_criteria_with_deliverable_scope"
+        ],
         "tasks_with_documents": summary["support"]["tasks_with_documents"],
         "policy_probe_available": False,
         "model_responses_read": False,

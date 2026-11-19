@@ -1,0 +1,11 @@
+{
+  "title": "Review a control agreement",
+  "instructions": "Review the agreement and produce a short issues memo in `issues-memo.md`.",
+  "criteria": [
+    {
+      "id": "C-001",
+      "title": "Identifies the control condition",
+      "match_criteria": "PASS if the memo identifies the condition required before control becomes effective. FAIL if the condition is omitted."
+    }
+  ]
+}

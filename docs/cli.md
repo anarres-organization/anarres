@@ -94,8 +94,9 @@ validates both content digests. It ends with a runnable `anarres design`
 command containing the exact generated paths. Use `--output <path>` and
 `--comparison-output <path>` to choose other destinations.
 
-Generated records live in the project-local `.anarres/` directory, which is
-ignored by Git and safe to regenerate. Running the demo from your home
+Generated records live in the project-local `.anarres/` directory and are safe
+to regenerate. The demo writes `.anarres/.gitignore` so they remain out of Git
+status. Running the demo from your home
 directory writes to `~/.anarres`. Run it from a project directory when you want
 the artifacts to stay with that project.
 
@@ -150,7 +151,7 @@ Artifacts
   ✓ Validated    2 content digests
 
 Next  anarres design .anarres/demo/environment.json .anarres/demo/environment-alternative.json
-    Use your data: anarres qualify --help
+    Use your data: anarres adapter list
 ```
 
 ## What you bring
@@ -168,11 +169,13 @@ native source instead:
 ```bash
 anarres init ./candidate-a \
   --adapter <adapter> \
-  --revision <immutable-revision> \
+  --revision git:<full-commit> \
   --license <SPDX-identifier>
 ```
 
-`init` reads the installed adapter descriptor, records its domain and exact
+The revision is an opaque provenance value preserved exactly in the manifest.
+Use a full commit, content digest, or immutable release identifier rather than
+a moving branch name. `init` reads the installed adapter descriptor, records its domain and exact
 version, and infers the native format when the adapter accepts only one. It
 refuses unknown formats and never guesses between multiple formats. The written
 manifest is:
@@ -214,7 +217,9 @@ anarres measure .anarres/probes/candidate-a \
 ```
 
 `inspect` reports the selected adapter, its accepted native formats, and whether
-qualification and probing are available. These are separate capabilities: an
+qualification and probing are available. It checks the manifest and adapter
+connection; `qualify` checks the native source layout and contents. These are
+separate capabilities: an
 adapter may be able to validate a native dataset before it can execute the
 starting policy. `anarres inspect <source>` shows the available next step, and
 `anarres adapter doctor <name>` reports the same contract at the adapter level.

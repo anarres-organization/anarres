@@ -36,6 +36,8 @@ anarres demo
 The demo qualifies two environments, measures both under the same synthetic
 starting policy, checks that their records are comparable, and writes the
 portable records to `.anarres/demo/`.
+It also writes `.anarres/.gitignore`, keeping generated records out of a fresh
+project's Git status.
 
 ```text
   ✓ Qualified    math-reference-demo-v1
@@ -49,20 +51,33 @@ math-reference-demo-v1       833.3333     0.6533         2        1
 
 ## Bring an environment
 
-Keep the source in its native format and connect it to the matching adapter:
+Homebrew and the standalone installer provide the core CLI. To work with native
+domain data, clone Anarres and install the matching adapter first:
+
+```bash
+git clone https://github.com/anarres-organization/anarres.git
+cd anarres
+uv tool install ./packages/legal  # choose the adapter path for your domain
+anarres adapter list
+```
+
+The [adapter guide](adapters.md) lists every valid adapter name and installation
+path. Keep the source in its native format and connect it to that adapter:
 
 ```bash
 anarres init ./candidate-a \
   --adapter <adapter> \
-  --revision <immutable-revision> \
+  --revision git:<full-commit> \
   --license <SPDX-identifier>
 
 anarres inspect ./candidate-a
 anarres qualify ./candidate-a
 ```
 
-`inspect` reports the accepted format, source identity, adapter readiness, and
-any missing requirements. If that adapter exposes starting-policy execution,
+Use a full commit, content digest, or immutable release identifier for the
+revision. `inspect` confirms the manifest, adapter, and declared capability; it
+does not validate the native files. `qualify` performs that validation. If the
+adapter exposes starting-policy execution,
 continue with `probe` and `measure`:
 
 ```bash
@@ -79,3 +94,8 @@ Start with the [domain support matrix](domain-support.md) to see which native
 formats, probes, and downstream outcome tests are released today. The
 [complete CLI guide](cli.md) explains portable records, JSON output, shell
 completion, and every command.
+
+Most maintained adapters currently stop at native source qualification. Only
+the molecular adapter exposes the shared probe path, and it requires the native
+policy and scientific artifacts described by that adapter. Use `anarres demo`
+for a zero-setup run through qualification, measurement, and comparison.

@@ -4,7 +4,7 @@
       "name": "Harvey Legal Agent Benchmark",
       "uri": "https://github.com/harveyai/harvey-labs",
       "revision": "a2b429eb6c9683c4fdeced3bc6b3af36edf239a6",
-      "license": "Apache-2.0",
+      "license": "MIT",
       "role": "evaluation tasks, agent harness, and task structure"
     },
     {

@@ -147,9 +147,9 @@ pub(crate) struct EnvironmentProfile {
 
 #[derive(Debug, Serialize)]
 pub(crate) struct ProfileCandidateSummary {
-    environment_id: String,
+    pub(crate) environment_id: String,
     path: String,
-    ready: bool,
+    pub(crate) ready: bool,
     coordinates: BTreeMap<String, f64>,
 }
 

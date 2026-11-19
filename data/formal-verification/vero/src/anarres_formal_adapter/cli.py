@@ -503,6 +503,28 @@ def print_result(value: dict[str, Any], as_json: bool) -> None:
     if as_json:
         print(json.dumps(value, indent=2, sort_keys=True))
         return
+    if value.get("qualification_state") == "source_qualified_runtime_pending":
+        print("Formal verification source")
+        print(f"  ✓ Qualified    {value['environment_id']}")
+        print(f"    Revision           {value['source_revision']}")
+        print(f"    License            {value['source_license']}")
+        print("    Runtime            pending")
+        print()
+        print("Inventory")
+        print(f"    Benchmarks         {value['benchmarks']}")
+        print(f"    Modules            {value['modules']}")
+        print(f"    APIs               {value['apis']}")
+        print(f"    Specifications     {value['specifications']}")
+        languages = ", ".join(
+            f"{language} {count}" for language, count in value["source_languages"].items()
+        )
+        print(f"    Languages          {languages}")
+        print(f"    Lean               {value['lean_version']}")
+        print(f"    Modes              {', '.join(value['modes'])}")
+        print(f"    Verified artifacts {value['verified_core_artifacts']}")
+        print()
+        print("Next  anarres formal qualify-runtime --help")
+        return
     for key, item in value.items():
         label = key.replace("_", " ").title()
         rendered = json.dumps(item, sort_keys=True) if isinstance(item, (dict, list)) else str(item)

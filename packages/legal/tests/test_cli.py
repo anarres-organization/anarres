@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from anarres.legal import cli
+from anarres.legal import cli, lab_intake
 
 ROOT = Path(__file__).resolve().parents[3]
 
@@ -356,6 +356,87 @@ class LegalCliTest(unittest.TestCase):
         self.assertEqual(
             summary["evaluation_contract"]["independent_unit"], "training_intervention"
         )
+
+    def test_lab_intake_accepts_upstream_contract_tasks_without_deliverable_maps(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "lab"
+            task = root / "tasks/contracts/banking/account-control-review/scenario-01"
+            (task / "documents").mkdir(parents=True)
+            (task / "documents/draft.docx").write_text("fixture", encoding="utf-8")
+            (task / "task.json").write_text(
+                json.dumps(
+                    {
+                        "title": "Review account control agreement",
+                        "instructions": "Review the draft and produce a redline and memo.",
+                        "criteria": [
+                            {
+                                "id": "C-001",
+                                "title": "Identifies the control issue",
+                                "match_criteria": "PASS if the issue is identified.",
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            summary, rows = lab_intake.build(root, "git:fixture")
+        self.assertEqual(summary["status"], "qualified")
+        self.assertEqual(summary["qualification"]["deliverable_scoping"], "partial")
+        self.assertEqual(summary["support"]["tasks_with_declared_deliverables"], 0)
+        self.assertEqual(summary["support"]["rubric_criteria_with_deliverable_scope"], 0)
+        self.assertFalse(rows[0]["deliverables_declared"])
+
+    def test_lab_intake_accepts_shared_docs_dir_tasks(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "lab"
+            task = root / "tasks/firm-knowledge/tasks/157"
+            shared = root / "tasks/firm-knowledge/dms"
+            task.mkdir(parents=True)
+            shared.mkdir(parents=True)
+            (shared / "matter.docx").write_text("fixture", encoding="utf-8")
+            (task / "task.json").write_text(
+                json.dumps(
+                    {
+                        "id": "157",
+                        "title": "Find the latest matter",
+                        "instructions": "Return the answer in response.md.",
+                        "docs_dir": "../../dms",
+                        "deliverables": {"response.md": "response.md"},
+                        "criteria": [
+                            {
+                                "id": "C-001",
+                                "title": "Finds the matter",
+                                "match_criteria": "PASS if the latest matter is identified.",
+                                "deliverables": ["response.md"],
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            summary, rows = lab_intake.build(root, "git:fixture")
+        self.assertEqual(summary["status"], "qualified")
+        self.assertEqual(rows[0]["document_count"], 1)
+        self.assertEqual(rows[0]["task_id"], "firm-knowledge/tasks/157")
+
+    def test_lab_intake_reports_multiple_invalid_tasks_together(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "lab"
+            for area, name in [("contracts", "missing-title"), ("litigation", "missing-rubric")]:
+                task = root / "tasks" / area / name
+                (task / "documents").mkdir(parents=True)
+                payload = {
+                    "title": "Task" if name != "missing-title" else "",
+                    "instructions": "Do the work.",
+                    "criteria": [] if name == "missing-rubric" else [{"id": "C-001"}],
+                }
+                (task / "task.json").write_text(json.dumps(payload), encoding="utf-8")
+            with self.assertRaises(lab_intake.LabIntakeError) as raised:
+                lab_intake.build(root, "git:fixture")
+        message = str(raised.exception)
+        self.assertIn("2 invalid task specification(s)", message)
+        self.assertIn("contracts/missing-title", message)
+        self.assertIn("litigation/missing-rubric", message)
 
     def test_lab_run_audit_preserves_invalid_execution(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

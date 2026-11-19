@@ -15,6 +15,9 @@ you intend to inspect.
 Clone the repository and install an adapter with
 [`uv tool install`](https://docs.astral.sh/uv/guides/tools/). The repository's
 workspace metadata resolves the shared Anarres packages from the checkout.
+Install `uv` first using its
+[official installation guide](https://docs.astral.sh/uv/getting-started/installation/)
+if `uv --version` is unavailable.
 
 ```bash
 git clone https://github.com/anarres-organization/anarres.git
@@ -65,11 +68,34 @@ use `anarres adapter doctor <name>` to inspect its exact contract, then run
 `anarres init`, `anarres inspect`, and `anarres qualify`. These commands route
 the native files without flattening their domain-specific structure.
 
+For example, qualify an unchanged Harvey LAB checkout with the legal adapter:
+
+```bash
+git clone https://github.com/harveyai/harvey-labs.git /path/to/harvey-labs
+anarres init /path/to/harvey-labs \
+  --adapter legal \
+  --revision git:<full-commit> \
+  --license MIT
+anarres inspect /path/to/harvey-labs
+anarres qualify /path/to/harvey-labs
+```
+
+`inspect` confirms that the source is connected to an installed adapter. The
+native layout is checked by `qualify`, which reports all invalid LAB task
+specifications together rather than stopping at the first task.
+
 Only the molecular adapter currently declares the portable `policy-probe`
 capability. Its probe remains dry-run unless execution is requested explicitly.
 The other adapters stop at source or runtime qualification in the shared path.
 Study-specific execution commands retain their own completeness and safety
 gates.
+
+No maintained public native source currently runs from an upstream clone all
+the way through `probe`, `measure`, and `design` without additional policy and
+domain artifacts. The bundled `anarres demo` is the zero-setup end-to-end path;
+the checked-in
+[native source example](https://github.com/anarres-organization/anarres/tree/main/examples/environment-source)
+exercises real adapter qualification.
 
 Use `status` to inspect the released stage, `profile` to export supported
 candidate records, and `verify` to regenerate the adapter's maintained output.

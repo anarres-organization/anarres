@@ -1,11 +1,11 @@
 schema_version = "anarres.environment-source.v1"
-environment_id = "example-openenv-candidate-v1"
-domain = "agentic-systems"
-adapter = "openenv"
-adapter_version = "0.1.0"
-native_format = "openenv"
+environment_id = "example-legal-matter-panel-v1"
+domain = "legal-procedural-reasoning"
+adapter = "legal"
+adapter_version = "0.4.0"
+native_format = "harvey-lab-checkout-v1"
 
 [source]
 uri = "./native-environment"
 revision = "git:0123456789abcdef0123456789abcdef01234567"
-license = "Apache-2.0"
+license = "MIT"
