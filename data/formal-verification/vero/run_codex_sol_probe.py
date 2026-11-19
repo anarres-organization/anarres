@@ -16,6 +16,7 @@ import hashlib
 import json
 import os
 import secrets
+import shlex
 import shutil
 import socket
 import subprocess
@@ -26,6 +27,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 
+from materialize_probe_task import tree_digest, validate_visible_tree
+
 # ── Configuration ────────────────────────────────────────────────
 
 OPENAI_MODEL = "gpt-5.6-sol"
@@ -34,6 +37,28 @@ MAX_COMPLETION_TOKENS = 16384
 MAX_TOKENS_PER_ATTEMPT = 200_000
 MAX_WALL_SECONDS = 5400
 MAX_AGENT_TURNS = 100
+API_REQUEST_TIMEOUT_SECONDS = 1800
+HARNESS_VERSION = "1.2.0"
+
+# Task-sandbox route. The containment runner launches this exact command, so a
+# change here changes the boundary that must be requalified.
+SANDBOX_COMMAND_SECONDS = 300
+SANDBOX_MEMORY = "16g"
+SANDBOX_CPUS = 4
+SANDBOX_PIDS = 256
+SANDBOX_FILE_BYTES = 1024 * 1024 * 1024
+SANDBOX_METHODS = ("sandbox/execute", "sandbox/readFile")
+GRADER_SECONDS = 3600
+VERO_LAKE_SECONDS = 300
+# Below Vero's own Lake timeout, so a grading container never outlives its stage.
+GRADER_LAKE_SECONDS = VERO_LAKE_SECONDS - 10
+# Slot bodies may not run code while Lean elaborates them: such code could print a
+# forged axiom report or rewrite files that later grading stages compile.
+ELABORATION_PATTERN = (
+    r"(?<![\w'.])(?:#[A-Za-z_]+!?|run_cmd|run_elab|run_meta|run_tac|initialize|"
+    r"builtin_initialize|elab|elab_rules|macro|macro_rules|syntax|declare_syntax_cat|"
+    r"implemented_by|extern|native_decide)(?![\w'!?])"
+)
 
 DEV_PANEL = [
     {"benchmark_id": "piggybank-v2", "directory": "piggybank", "specs": 23},
@@ -144,6 +169,7 @@ def openai_responses(
     *,
     api_key: str,
     api_base: str = "https://api.openai.com/v1",
+    timeout: float = API_REQUEST_TIMEOUT_SECONDS,
 ) -> dict:
     """Call OpenAI Responses API with reasoning effort and tools."""
     import urllib.error
@@ -168,7 +194,7 @@ def openai_responses(
         method="POST",
     )
     try:
-        with urllib.request.urlopen(req, timeout=1800) as resp:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
             return json.loads(resp.read())
     except urllib.error.HTTPError as exc:
         body = ""
@@ -237,6 +263,15 @@ class AttemptResult:
     infrastructure_errors: list[str] = field(default_factory=list)
     grade: dict | None = None
     sandbox_receipt: dict | None = None
+    materialization: dict | None = None
+    integrity_errors: list[str] = field(default_factory=list)
+
+    @property
+    def scored(self) -> bool:
+        """Only infrastructure-valid, intact, freshly graded attempts enter the measurement."""
+        return (
+            not self.infrastructure_errors and not self.integrity_errors and self.grade is not None
+        )
 
 
 def _execute_tool(
@@ -244,16 +279,39 @@ def _execute_tool(
     args: dict,
     sandbox: SandboxClient,
     workspace_path: str,
+    max_seconds: float | None = None,
 ) -> str:
-    """Dispatch a tool call to the sandbox and return a string result."""
+    """Dispatch a tool call to the sandbox and return a string result.
+
+    Malformed model arguments are returned to the model as tool errors. They are
+    part of the policy's behavior, not infrastructure failures.
+    """
+    if not isinstance(args, dict):
+        return "Error: tool arguments must be a JSON object"
     if name == "sandbox_execute":
-        rpc_resp = sandbox.execute(
-            args["command"],
+        command, cwd, timeout = (
+            args.get("command"),
             args.get("cwd", workspace_path),
             args.get("timeout"),
         )
+        if not isinstance(command, str) or not isinstance(cwd, str):
+            return "Error: sandbox_execute requires string command and cwd"
+        if timeout is not None and (
+            isinstance(timeout, bool) or not isinstance(timeout, int | float)
+        ):
+            return "Error: sandbox_execute timeout must be a number"
+        if max_seconds is not None:
+            timeout = max_seconds if timeout is None else min(timeout, max_seconds)
+        rpc_resp = sandbox.execute(command, cwd, timeout)
     elif name == "sandbox_read_file":
-        rpc_resp = sandbox.read_file(args["path"], args.get("maxBytes", 65536))
+        path, max_bytes = args.get("path"), args.get("maxBytes", 65536)
+        if (
+            not isinstance(path, str)
+            or isinstance(max_bytes, bool)
+            or not isinstance(max_bytes, int)
+        ):
+            return "Error: sandbox_read_file requires a string path and integer maxBytes"
+        rpc_resp = sandbox.read_file(path, max_bytes)
     else:
         return f"Error: unknown tool: {name}"
 
@@ -278,6 +336,17 @@ def _execute_tool(
     return str(content)[:8_000]
 
 
+def is_timeout(error: BaseException) -> bool:
+    """Recognize a socket timeout, including one wrapped by urllib."""
+    import urllib.error
+
+    if isinstance(error, TimeoutError | socket.timeout):
+        return True
+    return isinstance(error, urllib.error.URLError) and isinstance(
+        error.reason, TimeoutError | socket.timeout
+    )
+
+
 def run_agent_loop(
     instruction: str,
     sandbox: SandboxClient,
@@ -285,7 +354,18 @@ def run_agent_loop(
     result: AttemptResult,
     api_key: str,
     transcript_path: Path | None = None,
+    *,
+    responder: Any = None,
+    wall_seconds: float | None = None,
 ) -> None:
+    """Run one bounded attempt.
+
+    ``responder`` replaces the Responses API with a deterministic fixture policy and
+    ``wall_seconds`` shortens the wall budget; both exist only for containment
+    qualification. Model attempts use the defaults.
+    """
+    respond = openai_responses if responder is None else responder
+    wall_budget = MAX_WALL_SECONDS if wall_seconds is None else wall_seconds
     system_prompt = (
         "You are a Lean 4 proof engineer. You have access to a sandbox with a "
         "Lean project. Your workspace is at " + workspace_path + ".\n\n"
@@ -343,9 +423,15 @@ def run_agent_loop(
     start = time.monotonic()
     cumulative_output = 0
 
+    def remaining() -> float:
+        return wall_budget - (time.monotonic() - start)
+
+    def request() -> dict:
+        timeout = min(API_REQUEST_TIMEOUT_SECONDS, remaining())
+        return respond(input_items, api_key=api_key, timeout=timeout)
+
     for turn in range(MAX_AGENT_TURNS):
-        elapsed = time.monotonic() - start
-        if elapsed > MAX_WALL_SECONDS:
+        if remaining() <= 0:
             result.stop_reason = "wall_time_limit"
             break
         if cumulative_output > MAX_TOKENS_PER_ATTEMPT:
@@ -354,26 +440,26 @@ def run_agent_loop(
 
         trim_context(input_items)
         try:
-            response = openai_responses(input_items, api_key=api_key)
-        except RuntimeError as exc:
-            if "context_length_exceeded" in str(exc).lower():
+            response = request()
+        except Exception as exc:
+            if isinstance(exc, RuntimeError) and "context_length_exceeded" in str(exc).lower():
                 trim_context(input_items, aggressive=True)
                 try:
-                    response = openai_responses(input_items, api_key=api_key)
+                    response = request()
                 except Exception as exc2:
-                    result.infrastructure_errors.append(
-                        f"openai (after trim): {type(exc2).__name__}: {exc2}"
-                    )
+                    exc = exc2
+                else:
+                    exc = None
+            if exc is not None:
+                # A request still pending when the hard wall deadline expires ends the
+                # attempt at its declared wall limit. Every other request failure is
+                # an infrastructure failure.
+                if remaining() <= 0 and is_timeout(exc):
+                    result.stop_reason = "wall_time_limit"
+                else:
+                    result.infrastructure_errors.append(f"openai: {type(exc).__name__}: {exc}")
                     result.stop_reason = "infrastructure_error"
-                    break
-            else:
-                result.infrastructure_errors.append(f"openai: {type(exc).__name__}: {exc}")
-                result.stop_reason = "infrastructure_error"
                 break
-        except Exception as exc:
-            result.infrastructure_errors.append(f"openai: {type(exc).__name__}: {exc}")
-            result.stop_reason = "infrastructure_error"
-            break
 
         usage = response.get("usage", {})
         result.input_tokens += usage.get("input_tokens", 0)
@@ -403,7 +489,7 @@ def run_agent_loop(
                         "turn": turn,
                         "role": "tool_call",
                         "name": oi.get("name"),
-                        "args": oi.get("arguments", "")[:500],
+                        "args": str(oi.get("arguments") or "")[:500],
                     }
                 )
 
@@ -413,13 +499,17 @@ def run_agent_loop(
 
         input_items.extend(output_items)
 
+        deadline_reached = False
         for fc in function_calls:
+            if remaining() <= 0:
+                deadline_reached = True
+                break
             result.tool_calls += 1
             name = fc.get("name", "")
             call_id = fc.get("call_id", "")
             try:
-                args = json.loads(fc.get("arguments", "{}"))
-            except json.JSONDecodeError:
+                args = json.loads(fc.get("arguments") or "{}")
+            except (json.JSONDecodeError, TypeError):
                 input_items.append(
                     {
                         "type": "function_call_output",
@@ -430,7 +520,7 @@ def run_agent_loop(
                 continue
 
             try:
-                tool_output = _execute_tool(name, args, sandbox, workspace_path)
+                tool_output = _execute_tool(name, args, sandbox, workspace_path, remaining())
             except Exception as exc:
                 tool_output = f"Sandbox error: {type(exc).__name__}: {exc}"
                 result.infrastructure_errors.append(f"sandbox_{name}: {exc}")
@@ -445,6 +535,9 @@ def run_agent_loop(
                     "output": tool_output,
                 }
             )
+        if deadline_reached:
+            result.stop_reason = "wall_time_limit"
+            break
     else:
         result.stop_reason = "max_turns"
 
@@ -498,6 +591,109 @@ print("OK", result.sandbox_dir)
     return sandbox_dir
 
 
+class GradeInfrastructureError(RuntimeError):
+    """Raised when fresh grading could not run; the attempt then stays unscored."""
+
+
+def grader_lake_shim(directory: Path, image: str, label: str, docker: str = "docker") -> Path:
+    """Write a ``lake`` executable that runs Lake inside the network-denied runtime image.
+
+    Vero's grader invokes every Lean build through ``lake`` on PATH, from inside the
+    fresh evaluation directory. Elaboration can execute arbitrary code, so the model's
+    slot bodies are compiled only in a container that mounts that one directory.
+    """
+    executable = shutil.which(docker) or docker
+    directory.mkdir(parents=True, exist_ok=True)
+    shim = directory / "lake"
+    arguments = [
+        executable,
+        "run",
+        "--rm",
+        "--label",
+        f"anarres.grader={label}",
+        "--network",
+        "none",
+        "--ipc",
+        "none",
+        "--read-only",
+        "--cap-drop",
+        "ALL",
+        "--security-opt",
+        "no-new-privileges",
+        "--pids-limit",
+        str(SANDBOX_PIDS),
+        "--memory",
+        SANDBOX_MEMORY,
+        "--cpus",
+        str(SANDBOX_CPUS),
+        "--user",
+        sandbox_user(),
+        "--tmpfs",
+        "/tmp:rw,noexec,nosuid,nodev,mode=1777",
+        "--tmpfs",
+        "/cache:rw,nosuid,nodev,mode=1777",
+        "--tmpfs",
+        "/dev/mqueue:ro,nosuid,nodev,noexec,size=4k",
+        "--env",
+        "HOME=/tmp/home",
+        "--env",
+        "XDG_CACHE_HOME=/cache",
+        "--entrypoint",
+        "/bin/sh",
+    ]
+    inner = f'mkdir -p "$HOME" && exec timeout --kill-after=10s {GRADER_LAKE_SECONDS}s lake "$@"'
+    shim.write_text(
+        "#!/bin/sh\n"
+        "# Generated by run_codex_sol_probe.py: contained Lake for fresh grading.\n"
+        'here="$(pwd -P)"\n'
+        'mkdir -p "$here/.lake"\n'
+        "exec "
+        + " ".join(shlex.quote(argument) for argument in arguments)
+        + ' --mount "type=bind,src=$here,dst=$here,readonly"'
+        + ' --mount "type=bind,src=$here/.lake,dst=$here/.lake" --workdir "$here" '
+        + shlex.quote(image)
+        + " -c "
+        + shlex.quote(inner)
+        + ' lake "$@"\n',
+        encoding="utf-8",
+    )
+    shim.chmod(0o755)
+    return shim
+
+
+def remove_grader_containers(label: str, docker: str = "docker") -> int:
+    """Remove grading containers left behind by a killed Lake invocation."""
+    executable = shutil.which(docker) or docker
+    listed = subprocess.run(
+        [executable, "ps", "-aq", "--filter", f"label=anarres.grader={label}"],
+        capture_output=True,
+        text=True,
+        timeout=60,
+    )
+    names = listed.stdout.split()
+    if names:
+        subprocess.run([executable, "rm", "--force", *names], capture_output=True, timeout=120)
+    return len(names)
+
+
+def escaping_entries(root: Path) -> list[str]:
+    """List task entries the host-side grader must not follow or read."""
+    resolved_root = root.resolve()
+    found = []
+    for path in root.rglob("*"):
+        if path.is_symlink():
+            try:
+                target = path.resolve(strict=True)
+            except (FileNotFoundError, RuntimeError):
+                found.append(path.relative_to(root).as_posix())
+                continue
+            if not target.is_relative_to(resolved_root):
+                found.append(path.relative_to(root).as_posix())
+        elif not (path.is_file() or path.is_dir()):
+            found.append(path.relative_to(root).as_posix())
+    return sorted(found)
+
+
 def grade_attempt(
     vero_root: Path,
     vero_python: str,
@@ -505,12 +701,23 @@ def grade_attempt(
     source_dir: Path,
     mode: str,
     eval_dir: Path,
+    *,
+    docker_image: str,
+    enforce_integrity: bool = True,
 ) -> dict:
+    """Freshly grade one task, or report the slot bodies that make it ungradable.
+
+    ``enforce_integrity`` is disabled only by containment qualification, to show that
+    the contained Lake still holds when elaboration-time code reaches it.
+    """
+    label = secrets.token_hex(8)
+    shim = grader_lake_shim(eval_dir / "contained-bin", docker_image, label)
+    environment = {**os.environ, "PATH": f"{shim.parent}{os.pathsep}{os.environ.get('PATH', '')}"}
     cmd = [
         vero_python,
         "-c",
         f"""
-import json, sys
+import json, re, subprocess, sys
 sys.path.insert(0, "{vero_root / "src"}")
 from pathlib import Path
 from vero.generation.benchmark import Benchmark
@@ -524,45 +731,196 @@ mode = "{mode}"
 
 bench = Benchmark(benchmark_dir)
 artifact = extract(source_dir, bench, mode=mode)
+pattern = re.compile({json.dumps(ELABORATION_PATTERN)})
+violations = []
+for slot in [*artifact.slots, *artifact.extras] if {enforce_integrity} else []:
+    body = re.sub(r"/-.*?-/", "", "\\n".join(slot.body_lines), flags=re.S)
+    for line in body.splitlines():
+        match = pattern.search(line.split("--", 1)[0])
+        if match:
+            violations.append(slot.file + ": " + match.group(0))
+if violations:
+    print(json.dumps({{"integrity_violations": sorted(set(violations))}}))
+    sys.exit(0)
 result = run_evaluation(
     benchmark_dir=benchmark_dir,
     artifact=artifact,
     mode=mode,
     eval_sandbox_dir=eval_dir / "eval_sandbox",
     report_dir=eval_dir / "eval_report",
-    lake_timeout=300,
+    lake_timeout={VERO_LAKE_SECONDS},
 )
 report = result.report
+
+# Independent axiom recheck. Vero parses its axiom report from Lake output that can
+# replay messages printed by model code. `lake env lean` compiles only the check
+# file, whose output the model cannot write into; every name must appear once.
+sandbox = eval_dir / "eval_sandbox"
+allowed = {{"Classical.choice", "propext", "Quot.sound"}} | set(bench.trusted_axioms or [])
+anchored = re.compile(
+    r"^'([^'\\n]+)' (?:depends on axioms: \\[([^\\]]*)\\]|does not depend on any axioms)",
+    re.M,
+)
+requested, seen, clean = [], {{}}, set()
+for check in sorted((sandbox / "eval").glob("AxiomCheck_*.lean")):
+    requested += re.findall(r"^#print axioms (\\S+)$", check.read_text(), re.M)
+    out = subprocess.run(
+        ["lake", "env", "lean", str(check.relative_to(sandbox))],
+        cwd=sandbox, capture_output=True, text=True, timeout={VERO_LAKE_SECONDS},
+    )
+    for match in anchored.finditer(out.stdout + out.stderr):
+        seen[match.group(1)] = seen.get(match.group(1), 0) + 1
+        used = {{a.strip() for a in (match.group(2) or "").split(",") if a.strip()}}
+        if used <= allowed:
+            clean.add(match.group(1))
+def recheck_passes(spec):
+    bare = spec.removeprefix("spec_")
+    names = [n for n in requested if n.split(".")[-1] in ("prove_" + bare, "disprove_" + bare)]
+    return bool(names) and all(seen.get(n) == 1 for n in names) and any(n in clean for n in names)
+specs, downgraded = [], []
+for s in report.specs:
+    status = s.status
+    if status == "passed" and not recheck_passes(s.spec):
+        status = "axiom_recheck_failed"
+        downgraded.append(s.spec)
+    specs.append({{"module": s.module, "spec": s.spec, "status": status}})
+passed = sum(spec["status"] == "passed" for spec in specs)
 print(json.dumps({{
     "total_specs": report.summary.total_specs,
-    "passed_specs": report.summary.passed_specs,
+    "passed_specs": passed,
     "unfilled_specs": report.summary.unfilled_specs,
-    "failed_specs": report.summary.failed_specs,
+    "failed_specs": report.summary.failed_specs + len(downgraded),
     "build_ok": report.build_ok,
-    "specs": [
-        {{"module": s.module, "spec": s.spec, "status": s.status}}
-        for s in report.specs
-    ],
+    "vero_passed_specs": report.summary.passed_specs,
+    "axiom_recheck": {{"checked_theorems": len(requested), "downgraded": downgraded}},
+    "specs": specs,
 }}))
 """,
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
-    if result.returncode != 0:
-        return {
-            "error": result.stderr[:2000],
-            "build_ok": False,
-            "passed_specs": 0,
-            "total_specs": 0,
-        }
     try:
-        return json.loads(result.stdout.strip().split("\n")[-1])
-    except (json.JSONDecodeError, IndexError):
-        return {
-            "error": f"parse failure: {result.stdout[:500]}",
-            "build_ok": False,
-            "passed_specs": 0,
-            "total_specs": 0,
-        }
+        result = subprocess.run(
+            cmd, capture_output=True, text=True, timeout=GRADER_SECONDS, env=environment
+        )
+    except subprocess.TimeoutExpired as error:
+        raise GradeInfrastructureError(f"grader exceeded {GRADER_SECONDS} seconds") from error
+    finally:
+        leftovers = remove_grader_containers(label)
+    if leftovers:
+        raise GradeInfrastructureError(f"{leftovers} grading containers outlived their stage")
+    if result.returncode != 0:
+        raise GradeInfrastructureError(
+            f"grader exited with status {result.returncode}: {result.stderr[:2000]}"
+        )
+    try:
+        grade = json.loads(result.stdout.strip().split("\n")[-1])
+    except (json.JSONDecodeError, IndexError) as error:
+        raise GradeInfrastructureError(
+            f"grader output is unreadable: {result.stdout[:500]}"
+        ) from error
+    if isinstance(grade, dict) and grade.get("integrity_violations"):
+        return grade
+    if not isinstance(grade, dict) or not isinstance(grade.get("total_specs"), int):
+        raise GradeInfrastructureError("grader output lacks a specification count")
+    return grade
+
+
+# ── Task sandbox route ───────────────────────────────────────────
+
+
+def sandbox_user() -> str:
+    """Run the task sandbox as the unprivileged host user, never as container root."""
+    return f"{os.getuid()}:{os.getgid()}"
+
+
+def new_socket_path() -> Path:
+    """Return a unique agent-socket path whose directory does not exist yet.
+
+    AF_UNIX paths are limited to about 107 bytes, so the socket lives under /tmp.
+    """
+    return Path("/tmp") / f"vero-{secrets.token_hex(8)}" / "s.sock"
+
+
+def sandbox_server_command(
+    *,
+    python: str,
+    socket_path: Path,
+    image: str,
+    workspace: Path,
+    receipt_path: Path,
+    container_name_file: Path,
+    attempt_id: str,
+    task_id: str,
+    inference_config_digest: str,
+) -> list[str]:
+    """Build the exact sandbox-server invocation used for every model attempt."""
+    return [
+        python,
+        str(SANDBOX_SCRIPT),
+        "--socket",
+        str(socket_path),
+        "--image",
+        image,
+        "--workspace",
+        str(workspace),
+        "--receipt",
+        str(receipt_path),
+        "--container-name-file",
+        str(container_name_file),
+        "--attempt-id",
+        attempt_id,
+        "--task-id",
+        task_id,
+        "--model-artifact-digest",
+        f"sha256:{hashlib.sha256(OPENAI_MODEL.encode()).hexdigest()}",
+        "--inference-config-digest",
+        inference_config_digest,
+        "--maximum-command-seconds",
+        str(SANDBOX_COMMAND_SECONDS),
+        "--memory",
+        SANDBOX_MEMORY,
+        "--cpus",
+        str(SANDBOX_CPUS),
+        "--pids",
+        str(SANDBOX_PIDS),
+        "--maximum-file-bytes",
+        str(SANDBOX_FILE_BYTES),
+        "--user",
+        sandbox_user(),
+    ]
+
+
+def remove_leftover_container(container_name_file: Path, docker: str = "docker") -> bool:
+    """Remove the attempt container if it outlived its server; return whether one remained.
+
+    The server removes its container on a normal or terminated exit. A killed server
+    cannot, so every attempt ends with this backstop.
+    """
+    if not container_name_file.is_file():
+        return False
+    name = container_name_file.read_text(encoding="utf-8").strip()
+    executable = shutil.which(docker) or docker
+    inspected = subprocess.run(
+        [executable, "inspect", name], capture_output=True, text=True, timeout=30
+    )
+    if inspected.returncode != 0:
+        return False
+    subprocess.run([executable, "rm", "--force", name], capture_output=True, timeout=60)
+    return True
+
+
+def stop_sandbox(
+    process: subprocess.Popen, container_name_file: Path, result: AttemptResult
+) -> None:
+    """Terminate the sandbox server and confirm that its container is gone."""
+    if process.poll() is None:
+        process.terminate()
+        try:
+            process.wait(timeout=30)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            process.wait()
+    if remove_leftover_container(container_name_file):
+        result.infrastructure_errors.append("sandbox container outlived its server")
 
 
 def run_one_attempt(
@@ -576,7 +934,10 @@ def run_one_attempt(
     probe_root: Path,
     api_key: str,
     inference_config_digest: str,
+    *,
+    responder: Any = None,
 ) -> AttemptResult:
+    """Run one attempt; ``responder`` replaces the policy only for containment qualification."""
     attempt_id = f"{benchmark_id}_{mode}_a{attempt_index}_{secrets.token_hex(4)}"
     attempt_dir = probe_root / attempt_id
     attempt_dir.mkdir(parents=True, exist_ok=True)
@@ -604,6 +965,18 @@ def run_one_attempt(
             mode,
             attempt_dir / "run",
         )
+        visible = validate_visible_tree(source_dir)
+        result.materialization = {
+            "task_tree_sha256": tree_digest(source_dir),
+            "instruction_sha256": hashlib.sha256(
+                (source_dir / "INSTRUCTION.md").read_bytes()
+            ).hexdigest(),
+            **visible,
+        }
+        (attempt_dir / "materialization_receipt.json").write_text(
+            json.dumps(result.materialization, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
     except Exception as exc:
         result.infrastructure_errors.append(f"materialize: {exc}")
         result.stop_reason = "infrastructure_error"
@@ -612,75 +985,48 @@ def run_one_attempt(
 
     print(f"  Sandbox at: {source_dir}")
 
-    # Make workspace world-writable so container root (with --cap-drop ALL) can write
-    subprocess.run(["chmod", "-R", "a+rw", str(source_dir)], check=True)
-    for d in source_dir.rglob("*"):
-        if d.is_dir():
-            d.chmod(0o777)
-
     # 2. Start sandbox server
     print("  [2/4] Starting sandbox server...")
-    # Unix sockets limited to 107 bytes; use /tmp to keep path short.
-    # serve_vibe_sandbox.py requires the parent dir to not exist (it creates it).
-    socket_dir = Path(f"/tmp/vero-{attempt_id[:12]}")
-    if socket_dir.exists():
-        shutil.rmtree(socket_dir)
-    socket_path = socket_dir / "s.sock"
+    socket_path = new_socket_path()
+    socket_dir = socket_path.parent
     receipt_path = attempt_dir / "sandbox_receipt.json"
+    container_name_file = attempt_dir / "container-name"
     sandbox_log = attempt_dir / "sandbox_server.log"
 
     with open(sandbox_log, "w") as sandbox_log_fh:
         sandbox_proc = subprocess.Popen(
-            [
-                vero_python,
-                str(SANDBOX_SCRIPT),
-                "--socket",
-                str(socket_path),
-                "--image",
-                docker_image,
-                "--workspace",
-                str(source_dir),
-                "--receipt",
-                str(receipt_path),
-                "--attempt-id",
-                attempt_id,
-                "--task-id",
-                benchmark_id,
-                "--model-artifact-digest",
-                f"sha256:{hashlib.sha256(OPENAI_MODEL.encode()).hexdigest()}",
-                "--inference-config-digest",
-                inference_config_digest,
-                "--maximum-command-seconds",
-                "300",
-                "--memory",
-                "16g",
-                "--cpus",
-                "4",
-                "--pids",
-                "256",
-                "--user",
-                "0:0",
-            ],
+            sandbox_server_command(
+                python=vero_python,
+                socket_path=socket_path,
+                image=docker_image,
+                workspace=source_dir,
+                receipt_path=receipt_path,
+                container_name_file=container_name_file,
+                attempt_id=attempt_id,
+                task_id=f"{benchmark_id}:{mode}",
+                inference_config_digest=inference_config_digest,
+            ),
             stdout=sandbox_log_fh,
             stderr=subprocess.STDOUT,
         )
 
-    for _ in range(60):
+    # Docker may take up to two minutes to create and inspect the container.
+    for _ in range(360):
         if socket_path.exists():
             break
         if sandbox_proc.poll() is not None:
             log_tail = sandbox_log.read_text()[-2000:] if sandbox_log.exists() else "no log"
             result.infrastructure_errors.append(f"sandbox server exited early: {log_tail}")
             result.stop_reason = "infrastructure_error"
+            stop_sandbox(sandbox_proc, container_name_file, result)
             print(f"  FAILED: sandbox server died. Log:\n{log_tail[:500]}")
             return result
         time.sleep(0.5)
     else:
         log_tail = sandbox_log.read_text()[-2000:] if sandbox_log.exists() else "no log"
-        result.infrastructure_errors.append(f"sandbox socket did not appear within 30s: {log_tail}")
+        result.infrastructure_errors.append(f"sandbox socket did not appear in 180s: {log_tail}")
         result.stop_reason = "infrastructure_error"
-        sandbox_proc.terminate()
-        sandbox_proc.wait(timeout=10)
+        stop_sandbox(sandbox_proc, container_name_file, result)
         print(f"  FAILED: socket timeout. Log:\n{log_tail[:500]}")
         return result
 
@@ -692,24 +1038,45 @@ def run_one_attempt(
     except Exception as exc:
         result.infrastructure_errors.append(f"sandbox init: {exc}")
         result.stop_reason = "infrastructure_error"
-        sandbox_proc.terminate()
-        sandbox_proc.wait(timeout=10)
+        stop_sandbox(sandbox_proc, container_name_file, result)
         print(f"  FAILED: sandbox init: {exc}")
         return result
 
     print(f"  Sandbox ready, workspace: {workspace_path}")
 
+    # The policy must receive the exact materialized instruction or no attempt runs.
     try:
         instr_resp = sandbox.read_file(f"{workspace_path}/INSTRUCTION.md", 100_000)
-        instr_b64 = instr_resp.get("result", {}).get("contentBase64", "")
-        instruction = base64.b64decode(instr_b64).decode("utf-8") if instr_b64 else ""
-    except Exception:
-        instruction = "Read INSTRUCTION.md in the workspace and follow its directions."
+        instruction_bytes = base64.b64decode(instr_resp["result"]["contentBase64"])
+        if (
+            hashlib.sha256(instruction_bytes).hexdigest()
+            != result.materialization["instruction_sha256"]
+        ):
+            raise ValueError("sandbox instruction differs from the materialized task")
+        instruction = instruction_bytes.decode("utf-8")
+    except Exception as exc:
+        result.infrastructure_errors.append(f"instruction: {exc}")
+        result.stop_reason = "infrastructure_error"
+        stop_sandbox(sandbox_proc, container_name_file, result)
+        print(f"  FAILED: instruction: {exc}")
+        return result
 
     # 3. Run agent loop
     print(f"  [3/4] Running agent loop (max {MAX_AGENT_TURNS} turns, {MAX_WALL_SECONDS}s)...")
     transcript_path = attempt_dir / "transcript.jsonl"
-    run_agent_loop(instruction, sandbox, workspace_path, result, api_key, transcript_path)
+    try:
+        run_agent_loop(
+            instruction,
+            sandbox,
+            workspace_path,
+            result,
+            api_key,
+            transcript_path,
+            responder=responder,
+        )
+    except Exception as exc:
+        result.infrastructure_errors.append(f"agent loop: {type(exc).__name__}: {exc}")
+        result.stop_reason = "infrastructure_error"
     print(
         f"  Agent done: {result.turns} turns, {result.output_tokens} output tokens "
         f"({result.reasoning_output_tokens} reasoning), "
@@ -717,19 +1084,27 @@ def run_one_attempt(
         f"stop={result.stop_reason}"
     )
 
-    sandbox_proc.terminate()
-    try:
-        sandbox_proc.wait(timeout=30)
-    except subprocess.TimeoutExpired:
-        sandbox_proc.kill()
-        sandbox_proc.wait()
-
+    stop_sandbox(sandbox_proc, container_name_file, result)
     shutil.rmtree(socket_dir, ignore_errors=True)
 
     if receipt_path.exists():
         result.sandbox_receipt = json.loads(receipt_path.read_text())
+        for error in result.sandbox_receipt.get("infrastructure_errors") or []:
+            result.infrastructure_errors.append(f"sandbox: {error}")
+    else:
+        result.infrastructure_errors.append("sandbox receipt is missing")
 
-    # 4. Grade
+    # The host-side extractor must never follow a link out of the task.
+    escaped = escaping_entries(source_dir)
+    if escaped:
+        result.integrity_errors.append(
+            f"task contains entries outside the boundary: {escaped[:10]}"
+        )
+
+    # 4. Grade. Infrastructure-invalid attempts are excluded rather than scored zero.
+    if result.infrastructure_errors or result.integrity_errors:
+        print("  [4/4] Skipping fresh grade: the attempt is not scoreable.")
+        return result
     print("  [4/4] Grading...")
     try:
         benchmark_dir = vero_root / "benchmarks" / benchmark_dir_name
@@ -740,16 +1115,74 @@ def run_one_attempt(
             source_dir,
             mode,
             attempt_dir / "eval",
+            docker_image=docker_image,
         )
+        if grade.get("integrity_violations"):
+            result.integrity_errors.append(
+                f"slot bodies run code during elaboration: {grade['integrity_violations'][:10]}"
+            )
+            print("  Not graded: slot bodies run code during elaboration.")
+            return result
         result.grade = grade
-        passed = grade.get("passed_specs", 0)
-        total = grade.get("total_specs", 0)
-        print(f"  Grade: {passed}/{total} specs passed, build_ok={grade.get('build_ok')}")
+        print(
+            f"  Grade: {grade['passed_specs']}/{grade['total_specs']} specs passed, "
+            f"build_ok={grade.get('build_ok')}"
+        )
     except Exception as exc:
         result.infrastructure_errors.append(f"grade: {exc}")
         print(f"  Grade FAILED: {exc}")
 
     return result
+
+
+def summarize(results: list[AttemptResult]) -> dict[str, Any]:
+    """Aggregate only scored attempts; infrastructure failures are reported separately."""
+    scored = [r for r in results if r.scored]
+    total_passed = sum(r.grade["passed_specs"] for r in scored)
+    total_specs = sum(r.grade["total_specs"] for r in scored)
+    repos_with_nonzero = sorted({r.benchmark_id for r in scored if r.grade["passed_specs"] > 0})
+    pooled_rate = total_passed / total_specs if total_specs > 0 else None
+    return {
+        "total_attempts": len(results),
+        "scored_attempts": len(scored),
+        "infrastructure_invalid_attempts": sum(bool(r.infrastructure_errors) for r in results),
+        "integrity_invalid_attempts": sum(
+            bool(r.integrity_errors) and not r.infrastructure_errors for r in results
+        ),
+        "ungraded_attempts": sum(
+            r.grade is None and not r.infrastructure_errors and not r.integrity_errors
+            for r in results
+        ),
+        "total_passed_specs": total_passed,
+        "total_specs": total_specs,
+        "repos_with_nonzero_coverage": repos_with_nonzero,
+        "pooled_strict_rate": None if pooled_rate is None else round(pooled_rate, 4),
+        "screen_pass": (
+            len(scored) == len(results)
+            and len(repos_with_nonzero) >= 2
+            and pooled_rate is not None
+            and pooled_rate < 0.80
+        ),
+        "per_attempt": [
+            {
+                "attempt_id": r.attempt_id,
+                "benchmark_id": r.benchmark_id,
+                "mode": r.mode,
+                "scored": r.scored,
+                "turns": r.turns,
+                "output_tokens": r.output_tokens,
+                "reasoning_output_tokens": r.reasoning_output_tokens,
+                "tool_calls": r.tool_calls,
+                "wall_seconds": round(r.wall_seconds, 2),
+                "stop_reason": r.stop_reason,
+                "passed_specs": r.grade["passed_specs"] if r.scored else None,
+                "total_specs": r.grade["total_specs"] if r.scored else None,
+                "infrastructure_errors": r.infrastructure_errors,
+                "integrity_errors": r.integrity_errors,
+            }
+            for r in results
+        ],
+    }
 
 
 def compute_inference_config_digest(config_path: Path) -> str:
@@ -862,6 +1295,9 @@ def main():
                         "wall_seconds": round(result.wall_seconds, 2),
                         "stop_reason": result.stop_reason,
                         "infrastructure_errors": result.infrastructure_errors,
+                        "integrity_errors": result.integrity_errors,
+                        "scored": result.scored,
+                        "materialization": result.materialization,
                         "grade": result.grade,
                     }
                 )
@@ -869,65 +1305,28 @@ def main():
             )
 
     # Summary
-    total_passed = sum(r.grade.get("passed_specs", 0) for r in all_results if r.grade)
-    total_specs = sum(r.grade.get("total_specs", 0) for r in all_results if r.grade)
-    repos_with_nonzero = set()
-    for r in all_results:
-        if r.grade and r.grade.get("passed_specs", 0) > 0:
-            repos_with_nonzero.add(r.benchmark_id)
-
+    totals = summarize(all_results)
     print(f"\n{'=' * 60}")
     print("  SCREEN RESULTS")
     print(f"{'=' * 60}")
-    print(f"  Total: {total_passed}/{total_specs} specs passed")
     print(
-        f"  Repos with nonzero strict coverage: {len(repos_with_nonzero)} "
-        f"({', '.join(sorted(repos_with_nonzero)) or 'none'})"
+        f"  Scored attempts: {totals['scored_attempts']}/{totals['total_attempts']} "
+        f"({totals['infrastructure_invalid_attempts']} infrastructure-invalid, excluded)"
     )
+    print(f"  Total: {totals['total_passed_specs']}/{totals['total_specs']} specs passed")
     print(
-        f"  Infrastructure errors: "
-        f"{sum(1 for r in all_results if r.infrastructure_errors)}/{len(all_results)} attempts"
+        f"  Repos with nonzero strict coverage: {len(totals['repos_with_nonzero_coverage'])} "
+        f"({', '.join(totals['repos_with_nonzero_coverage']) or 'none'})"
     )
-
-    pooled_rate = total_passed / total_specs if total_specs > 0 else 0.0
-    print(f"  Pooled strict success rate: {pooled_rate:.3f}")
-
-    screen_pass = (
-        all(not r.infrastructure_errors for r in all_results)
-        and len(repos_with_nonzero) >= 2
-        and pooled_rate < 0.80
-    )
-    print(f"\n  Screen {'PASSES' if screen_pass else 'does not pass'}")
+    print(f"  Pooled strict success rate: {totals['pooled_strict_rate']}")
+    print(f"\n  Screen {'PASSES' if totals['screen_pass'] else 'does not pass'}")
 
     summary = {
         "probe_id": f"vero-codex-sol-dev-screen-{datetime.now(UTC).strftime('%Y%m%d-%H%M%S')}",
         "model": OPENAI_MODEL,
         "reasoning_effort": REASONING_EFFORT,
-        "harness": "anarres/vero-codex-sol-harness@1.0.0",
-        "total_attempts": len(all_results),
-        "successful_attempts": sum(1 for r in all_results if not r.infrastructure_errors),
-        "total_passed_specs": total_passed,
-        "total_specs": total_specs,
-        "repos_with_nonzero_coverage": sorted(repos_with_nonzero),
-        "pooled_strict_rate": round(pooled_rate, 4),
-        "screen_pass": screen_pass,
-        "per_attempt": [
-            {
-                "attempt_id": r.attempt_id,
-                "benchmark_id": r.benchmark_id,
-                "mode": r.mode,
-                "turns": r.turns,
-                "output_tokens": r.output_tokens,
-                "reasoning_output_tokens": r.reasoning_output_tokens,
-                "tool_calls": r.tool_calls,
-                "wall_seconds": round(r.wall_seconds, 2),
-                "stop_reason": r.stop_reason,
-                "passed_specs": r.grade.get("passed_specs", 0) if r.grade else 0,
-                "total_specs": r.grade.get("total_specs", 0) if r.grade else 0,
-                "infrastructure_errors": r.infrastructure_errors,
-            }
-            for r in all_results
-        ],
+        "harness": f"anarres/vero-codex-sol-harness@{HARNESS_VERSION}",
+        **totals,
     }
 
     summary_path = probe_root / "probe_summary.json"
