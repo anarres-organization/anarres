@@ -1,0 +1,199 @@
+{
+  "schema_version": "anarres.formal-verification-containment-contract.v3",
+  "contract_id": "vero-codex-sol-task-only-containment-v3",
+  "status": "frozen_unqualified",
+  "qualified": false,
+  "supersedes": "vero-codex-sol-openai-containment-v2",
+  "supersession_reason": "The v2 runner tested a container it started itself with different flags, user, and limits than the model route; two of its ten tests passed unconditionally, one accepted either of two required conditions, and none exercised the agent socket, grader rejection, or cross-attempt isolation. The v2 route also ran the task as container root, which could write to /dev and /dev/shm, and any task user could create POSIX message queues under /dev/mqueue. Fresh grading also compiled model-authored Lean on the host, where elaboration-time code could reach the host network and files. v3 freezes a non-root, IPC-isolated route, contained grading, and a route-faithful test set. The v2 record is preserved unchanged.",
+  "qualification_image": null,
+  "qualification_image_note": "A receipt qualifies only the image it binds. The deployment image is the one named by the released receipt; a later protocol must cite that receipt and image.",
+  "interface": {
+    "model_provider": "openai",
+    "model_id": "gpt-5.6-sol",
+    "agent_harness": "anarres/vero-codex-sol-harness",
+    "agent_harness_version": "1.2.0",
+    "agent_socket_protocol_version": 2,
+    "sandbox_methods": [
+      "sandbox/execute",
+      "sandbox/readFile"
+    ],
+    "sandbox_transport": "unix_socket_jsonrpc",
+    "socket_directory_mode": "0700",
+    "socket_mode": "0600",
+    "socket_location": "a unique private directory under /tmp for each attempt"
+  },
+  "execution_boundaries": {
+    "controller": {
+      "model_facing_shell_or_file_access": false,
+      "allowed_network": "model provider API only",
+      "host_credentials_forwarded_to_sandbox": false,
+      "user_global_configuration_loaded": false,
+      "mcp_servers_enabled": false,
+      "hooks_enabled": false,
+      "project_plugins_enabled": false
+    },
+    "task_sandbox": {
+      "lifetime": "one scientific attempt",
+      "external_network_egress": false,
+      "container_user": "unprivileged host user",
+      "docker_flags": [
+        "--network none",
+        "--ipc none",
+        "--read-only",
+        "--cap-drop ALL",
+        "--security-opt no-new-privileges",
+        "--tmpfs /dev/mqueue (read-only)"
+      ],
+      "writable_locations": [
+        "/workspace: one freshly materialized Vero task",
+        "/tmp: attempt-local temporary tmpfs",
+        "/cache: attempt-local cache tmpfs"
+      ],
+      "read_only_locations": [
+        "the runtime image, including the pinned Lean toolchain at /opt/elan"
+      ],
+      "forbidden_inputs": [
+        "reference solutions",
+        "Vero source benchmark tree",
+        "qualification repositories",
+        "prospective repositories",
+        "host home directory",
+        "host credentials",
+        "global agent configuration",
+        "other attempt workspaces",
+        "controller agent socket"
+      ]
+    },
+    "resource_limits": {
+      "processes": 256,
+      "memory_bytes": 17179869184,
+      "cpus": 4,
+      "file_bytes": 1073741824,
+      "command_seconds": 300
+    },
+    "controller_limits": {
+      "wall_seconds": 5400,
+      "turns": 100,
+      "response_tokens": 16384,
+      "cumulative_output_tokens": 200000,
+      "wall_rule": "hard deadline: model requests and tool commands are bounded by the remaining wall budget, and a request still pending at the deadline ends the attempt with wall_time_limit",
+      "scoring_rule": "infrastructure failures are unscored and excluded from every aggregate. Integrity failures (task links or special files outside the task, or slot bodies that run code during elaboration) are never graded and are reported separately; the repeated-measurement protocol must state how they enter its estimates before any attempt. Malformed tool arguments are returned to the policy as tool errors."
+    },
+    "grading": {
+      "location": "fresh Vero evaluation directory on the controller host",
+      "lean_execution": "every Lake invocation runs inside the runtime image with the task-sandbox isolation flags, mounting only the evaluation directory",
+      "host_extraction": "attempts whose task tree contains links or special files outside the task are recorded as integrity failures and never graded",
+      "axiom_recheck": "every specification Vero reports as passed is rechecked by compiling Vero's own axiom-check files alone with lake env lean; each theorem must be reported exactly once with only allowed axioms, or the specification is downgraded to axiom_recheck_failed"
+    }
+  },
+  "required_tests": [
+    {
+      "id": "independent_materialization",
+      "criterion": "independently materialized copies produce identical visible task trees and instruction hashes and pass the visible-tree checks",
+      "status": "pending"
+    },
+    {
+      "id": "workspace_allowlist",
+      "criterion": "the container runs unprivileged with network and IPC disabled, a read-only root, all capabilities dropped, exactly one task mount, and no undeclared mount",
+      "status": "pending"
+    },
+    {
+      "id": "write_scope",
+      "criterion": "the only writable locations are the task, temporary, and cache areas, and host files outside the task are unchanged",
+      "status": "pending"
+    },
+    {
+      "id": "path_and_symlink_escape",
+      "criterion": "symlinks, absolute host paths, and parent traversal cannot expose host files",
+      "status": "pending"
+    },
+    {
+      "id": "protected_input_visibility",
+      "criterion": "reference solutions, protected repositories, host credentials, other attempt workspaces, and the agent socket are invisible, with positive controls for every canary",
+      "status": "pending"
+    },
+    {
+      "id": "credential_and_environment_visibility",
+      "criterion": "the sandbox environment contains only declared variables and no credential, Docker socket, or SSH material",
+      "status": "pending"
+    },
+    {
+      "id": "controller_configuration_isolation",
+      "criterion": "only the declared tools and socket methods reach the sandbox, and the controller configuration matches the bound inference record",
+      "status": "pending"
+    },
+    {
+      "id": "external_network_egress",
+      "criterion": "DNS, public IPv4 and IPv6, metadata-service, and provider API probes fail from the task sandbox",
+      "status": "pending"
+    },
+    {
+      "id": "local_inference_separation",
+      "criterion": "the controller endpoint is reachable from the host while the task sandbox cannot address it by loopback, host alias, or gateway",
+      "status": "pending"
+    },
+    {
+      "id": "resource_limits",
+      "criterion": "process, memory, CPU, file-size, and command-time limits are configured, and the process, file-size, and command-time limits are observed to stop work at the route's values",
+      "status": "pending"
+    },
+    {
+      "id": "controller_limits",
+      "criterion": "the agent loop stops at the turn, cumulative-token, and wall-time limits without an infrastructure error",
+      "status": "pending"
+    },
+    {
+      "id": "process_tree_cleanup",
+      "criterion": "a timed-out command loses its process group, and normal or forced termination removes the attempt container and host processes",
+      "status": "pending"
+    },
+    {
+      "id": "fresh_task_reset",
+      "criterion": "the next attempt starts from a pristine task and empty temporary areas with no earlier attempt state",
+      "status": "pending"
+    },
+    {
+      "id": "grader_rejection",
+      "criterion": "fresh slot-only grading accepts a correct proof and rejects a no-op attempt, an invalid proof, a forbidden axiom, an admitted proof, and an unsafe declaration",
+      "status": "pending"
+    },
+    {
+      "id": "grader_containment",
+      "criterion": "model-authored Lean executed during fresh grading runs inside the runtime image and cannot write host files or reach the network",
+      "status": "pending"
+    },
+    {
+      "id": "infrastructure_failure_unscored",
+      "criterion": "sandbox and grader failures leave the attempt unscored and outside the aggregate",
+      "status": "pending"
+    },
+    {
+      "id": "attempt_record_completeness",
+      "criterion": "one deterministic fixture attempt through the probe's own entry point records usage, tool calls, stop reason, scoring status, and failures, its sandbox receipt accounts for every call, and its accepted proof is scored",
+      "status": "pending"
+    }
+  ],
+  "receipt_requirements": [
+    "runtime image digest and container runtime version",
+    "probe, sandbox-server, materializer, and containment-runner hashes",
+    "source report and runtime report hashes with field-level agreement",
+    "inference configuration hash and controller limits",
+    "task identity and every materialization hash",
+    "grader route and Lean identity on both sides of the boundary",
+    "one result with evidence for every required test",
+    "attempt-start and attempt-end timestamps",
+    "a content-addressed receipt identifier"
+  ],
+  "qualification_rule": "qualified may become true only when every required test passes on the deployment image and the bound source and runtime reports agree with the exercised route",
+  "authorization_boundary": {
+    "permits": [
+      "model-free containment qualification on development repositories"
+    ],
+    "does_not_permit": [
+      "policy-probe execution",
+      "repeated development measurement before a protocol is frozen under issue 24",
+      "opening qualification or prospective repositories"
+    ]
+  },
+  "released_receipt": "results/task-boundary-qualification.codex-sol-v3/task-boundary-receipt.json"
+}

@@ -319,6 +319,77 @@ than the intended task-only boundary, although no reference proof or protected
 repository was accessed. Repeated measurement remains blocked until the task
 sandbox is tightened and requalified.
 
+### Task-only execution boundary
+
+[`containment-contract-codex-sol.v3.json`](containment-contract-codex-sol.v3.json)
+freezes the tightened route for GPT-5.6 Sol attempts and the seventeen negative
+controls it must pass. It supersedes the v2 record, which remains unchanged.
+The v2 runner tested a container it started itself rather than the model's
+route, and two of its tests passed unconditionally. The v3 route runs the task
+as the unprivileged host user with network and IPC namespaces disabled, a
+read-only message-queue mount, and one task workspace. Writes are confined to
+the task, `/tmp`, and `/cache`.
+
+Fresh grading previously compiled the model's Lean on the controller host,
+where elaboration-time code can run with host network and file access. The
+grader now runs every Lake invocation inside the same runtime image with the
+same isolation flags, mounting only the fresh evaluation directory. An attempt
+whose task tree links outside the task is recorded as an integrity failure and
+is not graded. Grader, sandbox, and integrity failures stay unscored and outside
+every aggregate. The wall limit is a hard deadline: requests and commands are
+bounded by the remaining budget, and only a request still pending at the
+deadline ends the attempt with `wall_time_limit`.
+
+[`run_containment_tests.py`](run_containment_tests.py) qualifies that boundary
+without contacting a model. It launches the sandbox server through the probe's
+own command builder, so every control travels the agent socket a model would
+use. It materializes independent development tasks and plants host-side
+canaries for reference solutions, protected repositories, and credentials, with
+a positive control for each. It runs one complete attempt through the probe's
+own entry point with a deterministic fixture policy that writes a correct
+proof. It grades one accepted proof and fixed no-op, invalid-proof,
+forbidden-axiom, admitted-proof, and unsafe-declaration fixtures, and checks
+that elaboration-time code inside the grader cannot write host files or reach
+the network. The runner writes one content-addressed receipt that binds the
+runtime image, the source and runtime qualification reports, the controller
+configuration, every materialization, the route's file hashes, and every
+control outcome.
+
+```bash
+python data/formal-verification/vero/run_containment_tests.py \
+  --image sha256:<deployment-image-digest> \
+  --vero-root /path/to/vero \
+  --vero-python /path/to/vero/.venv/bin/python \
+  --source-report /path/to/source-report.json \
+  --runtime-report /path/to/runtime-report.json \
+  --work-root /path/to/scratch \
+  --output /path/to/new/receipt-directory
+python data/formal-verification/vero/validate_task_boundary_receipt.py \
+  --contract data/formal-verification/vero/containment-contract-codex-sol.v3.json \
+  --receipt /path/to/new/receipt-directory/task-boundary-receipt.json \
+  --route-root data/formal-verification/vero
+```
+
+The runtime report must declare the runner's stand-in controller endpoint
+(`http://127.0.0.1:18765` by default) and the route's limits. A receipt is
+qualified only when every control passes, every bound report field agrees
+with the exercised route, and the image runs natively. It qualifies only the
+image it binds, and a run under emulation is a fixture execution. The frozen
+contract never changes: `anarres formal qualification` reports the boundary as
+qualified only after a validated receipt directory is released at the path the
+contract names, and `policy-probe` remains unavailable until a
+repeated-measurement protocol is frozen. That protocol must cite the released
+receipt and its image, and it must state how integrity failures enter its
+estimates.
+
+Grading also rechecks every specification Vero reports as passed. Model code
+that runs during elaboration can print text into the Lake output that Vero
+parses for its axiom report, and a fixture shows that a forged report makes Vero
+pass a proof that uses a new axiom. The recheck compiles Vero's own axiom-check
+files alone, so no model output reaches it, and downgrades any specification
+whose theorem is missing, repeated, or uses an axiom outside the allowed set.
+Slot bodies that run code during elaboration are rejected before grading.
+
 Project the completed measurement into the shared Anarres profile contract
 without changing that interpretation:
 
