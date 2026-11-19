@@ -155,6 +155,8 @@ def docker_run_command(config: SandboxConfig, name: str) -> list[str]:
         name,
         "--network",
         "none",
+        "--ipc",
+        "none",
         "--read-only",
         "--cap-drop",
         "ALL",
@@ -174,6 +176,8 @@ def docker_run_command(config: SandboxConfig, name: str) -> list[str]:
         "/tmp:rw,noexec,nosuid,nodev,mode=1777",
         "--tmpfs",
         "/cache:rw,nosuid,nodev,mode=1777",
+        "--tmpfs",
+        "/dev/mqueue:ro,nosuid,nodev,noexec,size=4k",
         "--env",
         "HOME=/tmp/home",
         "--env",
@@ -517,7 +521,22 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def terminate_on_signal(signum: int, _frame: Any) -> None:
+    """Turn termination before serving begins into an exception so cleanup still runs."""
+    raise SystemExit(128 + signum)
+
+
+def remove_container(docker: str, name: str) -> bool:
+    """Remove a container that may have been created before its identity was recorded."""
+    subprocess.run([docker, "rm", "--force", name], check=False, capture_output=True, timeout=60)
+    inspected = subprocess.run(
+        [docker, "inspect", name], check=False, capture_output=True, timeout=30
+    )
+    return inspected.returncode != 0
+
+
 def main() -> None:
+    signal.signal(signal.SIGTERM, terminate_on_signal)
     args = parse_args()
     validate_image_reference(args.image)
     validate_digest(args.model_artifact_digest, "--model-artifact-digest")
@@ -565,14 +584,16 @@ def main() -> None:
         workspace_pre_sha256=tree_digest(workspace),
     )
     sandbox = DockerSandbox(config, receipt)
+    # Publish the container identity before it exists, so an outside cleanup can
+    # remove it even if this server dies while the container is starting.
+    if args.container_name_file is not None:
+        if args.container_name_file.exists():
+            raise SandboxError("--container-name-file must not exist")
+        args.container_name_file.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+        args.container_name_file.write_text(name + "\n", encoding="utf-8")
+        args.container_name_file.chmod(0o600)
     try:
         sandbox.start()
-        if args.container_name_file is not None:
-            if args.container_name_file.exists():
-                raise SandboxError("--container-name-file must not exist")
-            args.container_name_file.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
-            args.container_name_file.write_text(name + "\n", encoding="utf-8")
-            args.container_name_file.chmod(0o600)
         asyncio.run(serve(args.socket, sandbox))
     except Exception as error:
         receipt.infrastructure_errors.append(f"{type(error).__name__}: {error}")
@@ -580,6 +601,8 @@ def main() -> None:
     finally:
         if receipt.container_id is not None:
             sandbox.stop()
+        else:
+            receipt.container_removed = remove_container(docker, name)
         receipt.ended_at = utc_now()
         receipt.workspace_post_sha256 = tree_digest(workspace)
         args.receipt.parent.mkdir(parents=True, exist_ok=True)

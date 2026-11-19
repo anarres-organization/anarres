@@ -150,6 +150,7 @@ class VeroSandboxConfigurationTest(unittest.TestCase):
             expected_mount = f"type=bind,src={directory},dst=/workspace"
         joined = " ".join(command)
         self.assertIn("--network none", joined)
+        self.assertIn("--ipc none", joined)
         self.assertIn("--read-only", command)
         self.assertIn("--cap-drop ALL", joined)
         self.assertIn("no-new-privileges", command)
