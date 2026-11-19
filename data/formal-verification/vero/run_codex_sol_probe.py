@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import contextlib
 import hashlib
 import json
 import os
@@ -105,9 +106,7 @@ class SandboxClient:
 
     def _call(self, method: str, params: dict) -> dict:
         self._id += 1
-        request = json.dumps(
-            {"jsonrpc": "2.0", "id": self._id, "method": method, "params": params}
-        )
+        request = json.dumps({"jsonrpc": "2.0", "id": self._id, "method": method, "params": params})
         sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         try:
             sock.connect(self.socket_path)
@@ -173,10 +172,8 @@ def openai_responses(
             return json.loads(resp.read())
     except urllib.error.HTTPError as exc:
         body = ""
-        try:
+        with contextlib.suppress(Exception):
             body = exc.read().decode("utf-8", errors="replace")[:2000]
-        except Exception:
-            pass
         raise RuntimeError(f"OpenAI HTTP {exc.code}: {body}") from exc
 
 
@@ -256,9 +253,7 @@ def _execute_tool(
             args.get("timeout"),
         )
     elif name == "sandbox_read_file":
-        rpc_resp = sandbox.read_file(
-            args["path"], args.get("maxBytes", 65536)
-        )
+        rpc_resp = sandbox.read_file(args["path"], args.get("maxBytes", 65536))
     else:
         return f"Error: unknown tool: {name}"
 
@@ -338,7 +333,7 @@ def run_agent_loop(
 
     transcript_fh = None
     if transcript_path:
-        transcript_fh = open(transcript_path, "w")
+        transcript_fh = open(transcript_path, "w")  # noqa: SIM115 - closed after the loop
 
     def _log_transcript(entry: dict) -> None:
         if transcript_fh:
@@ -372,15 +367,11 @@ def run_agent_loop(
                     result.stop_reason = "infrastructure_error"
                     break
             else:
-                result.infrastructure_errors.append(
-                    f"openai: {type(exc).__name__}: {exc}"
-                )
+                result.infrastructure_errors.append(f"openai: {type(exc).__name__}: {exc}")
                 result.stop_reason = "infrastructure_error"
                 break
         except Exception as exc:
-            result.infrastructure_errors.append(
-                f"openai: {type(exc).__name__}: {exc}"
-            )
+            result.infrastructure_errors.append(f"openai: {type(exc).__name__}: {exc}")
             result.stop_reason = "infrastructure_error"
             break
 
@@ -389,23 +380,32 @@ def run_agent_loop(
         output_tokens = usage.get("output_tokens", 0)
         result.output_tokens += output_tokens
         result.cached_input_tokens += usage.get("input_tokens_details", {}).get("cached_tokens", 0)
-        result.reasoning_output_tokens += usage.get("output_tokens_details", {}).get("reasoning_tokens", 0)
+        result.reasoning_output_tokens += usage.get("output_tokens_details", {}).get(
+            "reasoning_tokens", 0
+        )
         cumulative_output += output_tokens
         result.turns = turn + 1
 
         output_items = response.get("output", [])
-        function_calls = [
-            item for item in output_items if item.get("type") == "function_call"
-        ]
+        function_calls = [item for item in output_items if item.get("type") == "function_call"]
 
         # Log assistant output
         for oi in output_items:
             if oi.get("type") == "message":
                 for part in oi.get("content", []):
                     if part.get("type") == "output_text":
-                        _log_transcript({"turn": turn, "role": "assistant", "text": part["text"][:2000]})
+                        _log_transcript(
+                            {"turn": turn, "role": "assistant", "text": part["text"][:2000]}
+                        )
             elif oi.get("type") == "function_call":
-                _log_transcript({"turn": turn, "role": "tool_call", "name": oi.get("name"), "args": oi.get("arguments", "")[:500]})
+                _log_transcript(
+                    {
+                        "turn": turn,
+                        "role": "tool_call",
+                        "name": oi.get("name"),
+                        "args": oi.get("arguments", "")[:500],
+                    }
+                )
 
         if not function_calls:
             result.stop_reason = response.get("stop_reason", "stop")
@@ -420,11 +420,13 @@ def run_agent_loop(
             try:
                 args = json.loads(fc.get("arguments", "{}"))
             except json.JSONDecodeError:
-                input_items.append({
-                    "type": "function_call_output",
-                    "call_id": call_id,
-                    "output": json.dumps({"error": "invalid JSON arguments"}),
-                })
+                input_items.append(
+                    {
+                        "type": "function_call_output",
+                        "call_id": call_id,
+                        "output": json.dumps({"error": "invalid JSON arguments"}),
+                    }
+                )
                 continue
 
             try:
@@ -433,12 +435,16 @@ def run_agent_loop(
                 tool_output = f"Sandbox error: {type(exc).__name__}: {exc}"
                 result.infrastructure_errors.append(f"sandbox_{name}: {exc}")
 
-            _log_transcript({"turn": turn, "role": "tool_result", "name": name, "output": tool_output[:1000]})
-            input_items.append({
-                "type": "function_call_output",
-                "call_id": call_id,
-                "output": tool_output,
-            })
+            _log_transcript(
+                {"turn": turn, "role": "tool_result", "name": name, "output": tool_output[:1000]}
+            )
+            input_items.append(
+                {
+                    "type": "function_call_output",
+                    "call_id": call_id,
+                    "output": tool_output,
+                }
+            )
     else:
         result.stop_reason = "max_turns"
 
@@ -461,10 +467,11 @@ def materialize_sandbox(
     benchmark_dir = vero_root / "benchmarks" / benchmark_dir_name
     sandbox_dir = output_dir / "source"
     cmd = [
-        vero_python, "-c",
+        vero_python,
+        "-c",
         f"""
 import sys
-sys.path.insert(0, "{vero_root / 'src'}")
+sys.path.insert(0, "{vero_root / "src"}")
 from pathlib import Path
 from vero.generation.sandbox import create_sandbox
 
@@ -500,10 +507,11 @@ def grade_attempt(
     eval_dir: Path,
 ) -> dict:
     cmd = [
-        vero_python, "-c",
+        vero_python,
+        "-c",
         f"""
 import json, sys
-sys.path.insert(0, "{vero_root / 'src'}")
+sys.path.insert(0, "{vero_root / "src"}")
 from pathlib import Path
 from vero.generation.benchmark import Benchmark
 from vero.generation.extractor import extract
@@ -580,17 +588,21 @@ def run_one_attempt(
         attempt_index=attempt_index,
     )
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"  Attempt: {attempt_id}")
     print(f"  Benchmark: {benchmark_id} | Mode: {mode} | Index: {attempt_index}")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
 
     # 1. Materialize sandbox
     print("  [1/4] Materializing sandbox...")
     try:
         source_dir = materialize_sandbox(
-            vero_root, vero_python, benchmark_id, benchmark_dir_name,
-            mode, attempt_dir / "run",
+            vero_root,
+            vero_python,
+            benchmark_id,
+            benchmark_dir_name,
+            mode,
+            attempt_dir / "run",
         )
     except Exception as exc:
         result.infrastructure_errors.append(f"materialize: {exc}")
@@ -617,27 +629,41 @@ def run_one_attempt(
     receipt_path = attempt_dir / "sandbox_receipt.json"
     sandbox_log = attempt_dir / "sandbox_server.log"
 
-    sandbox_proc = subprocess.Popen(
-        [
-            vero_python,
-            str(SANDBOX_SCRIPT),
-            "--socket", str(socket_path),
-            "--image", docker_image,
-            "--workspace", str(source_dir),
-            "--receipt", str(receipt_path),
-            "--attempt-id", attempt_id,
-            "--task-id", benchmark_id,
-            "--model-artifact-digest", f"sha256:{hashlib.sha256(OPENAI_MODEL.encode()).hexdigest()}",
-            "--inference-config-digest", inference_config_digest,
-            "--maximum-command-seconds", "300",
-            "--memory", "16g",
-            "--cpus", "4",
-            "--pids", "256",
-            "--user", "0:0",
-        ],
-        stdout=open(sandbox_log, "w"),
-        stderr=subprocess.STDOUT,
-    )
+    with open(sandbox_log, "w") as sandbox_log_fh:
+        sandbox_proc = subprocess.Popen(
+            [
+                vero_python,
+                str(SANDBOX_SCRIPT),
+                "--socket",
+                str(socket_path),
+                "--image",
+                docker_image,
+                "--workspace",
+                str(source_dir),
+                "--receipt",
+                str(receipt_path),
+                "--attempt-id",
+                attempt_id,
+                "--task-id",
+                benchmark_id,
+                "--model-artifact-digest",
+                f"sha256:{hashlib.sha256(OPENAI_MODEL.encode()).hexdigest()}",
+                "--inference-config-digest",
+                inference_config_digest,
+                "--maximum-command-seconds",
+                "300",
+                "--memory",
+                "16g",
+                "--cpus",
+                "4",
+                "--pids",
+                "256",
+                "--user",
+                "0:0",
+            ],
+            stdout=sandbox_log_fh,
+            stderr=subprocess.STDOUT,
+        )
 
     for _ in range(60):
         if socket_path.exists():
@@ -651,9 +677,7 @@ def run_one_attempt(
         time.sleep(0.5)
     else:
         log_tail = sandbox_log.read_text()[-2000:] if sandbox_log.exists() else "no log"
-        result.infrastructure_errors.append(
-            f"sandbox socket did not appear within 30s: {log_tail}"
-        )
+        result.infrastructure_errors.append(f"sandbox socket did not appear within 30s: {log_tail}")
         result.stop_reason = "infrastructure_error"
         sandbox_proc.terminate()
         sandbox_proc.wait(timeout=10)
@@ -683,9 +707,7 @@ def run_one_attempt(
         instruction = "Read INSTRUCTION.md in the workspace and follow its directions."
 
     # 3. Run agent loop
-    print(
-        f"  [3/4] Running agent loop (max {MAX_AGENT_TURNS} turns, {MAX_WALL_SECONDS}s)..."
-    )
+    print(f"  [3/4] Running agent loop (max {MAX_AGENT_TURNS} turns, {MAX_WALL_SECONDS}s)...")
     transcript_path = attempt_dir / "transcript.jsonl"
     run_agent_loop(instruction, sandbox, workspace_path, result, api_key, transcript_path)
     print(
@@ -712,7 +734,11 @@ def run_one_attempt(
     try:
         benchmark_dir = vero_root / "benchmarks" / benchmark_dir_name
         grade = grade_attempt(
-            vero_root, vero_python, benchmark_dir, source_dir, mode,
+            vero_root,
+            vero_python,
+            benchmark_dir,
+            source_dir,
+            mode,
             attempt_dir / "eval",
         )
         result.grade = grade
@@ -732,21 +758,22 @@ def compute_inference_config_digest(config_path: Path) -> str:
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Run Vero development screen with GPT-5.6 Sol"
-    )
+    parser = argparse.ArgumentParser(description="Run Vero development screen with GPT-5.6 Sol")
     parser.add_argument("--vero-root", type=Path, required=True)
-    parser.add_argument("--vero-python", type=str, required=True,
-                        help="Path to the Vero Python interpreter")
+    parser.add_argument(
+        "--vero-python", type=str, required=True, help="Path to the Vero Python interpreter"
+    )
     parser.add_argument("--probe-root", type=Path, required=True)
-    parser.add_argument("--docker-image", type=str, required=True,
-                        help="Docker image digest (sha256:...)")
-    parser.add_argument("--smoke-test", action="store_true",
-                        help="Run 1 attempt only (primepy proof)")
-    parser.add_argument("--benchmark", type=str, default=None,
-                        help="Run only this benchmark_id")
-    parser.add_argument("--mode", type=str, default=None,
-                        help="Run only this mode (proof or codeproof)")
+    parser.add_argument(
+        "--docker-image", type=str, required=True, help="Docker image digest (sha256:...)"
+    )
+    parser.add_argument(
+        "--smoke-test", action="store_true", help="Run 1 attempt only (primepy proof)"
+    )
+    parser.add_argument("--benchmark", type=str, default=None, help="Run only this benchmark_id")
+    parser.add_argument(
+        "--mode", type=str, default=None, help="Run only this mode (proof or codeproof)"
+    )
     args = parser.parse_args()
 
     api_key = os.environ.get("OPENAI_API_KEY")
@@ -765,13 +792,16 @@ def main():
     print(f"Model: {OPENAI_MODEL}, reasoning_effort: {REASONING_EFFORT}")
     try:
         import urllib.request
+
         req = urllib.request.Request(
             "https://api.openai.com/v1/models",
             headers={"Authorization": f"Bearer {api_key}"},
         )
         resp = urllib.request.urlopen(req, timeout=10)
         models = json.loads(resp.read())
-        available = [m["id"] for m in models["data"] if "sol" in m["id"].lower() or "5.6" in m["id"]]
+        available = [
+            m["id"] for m in models["data"] if "sol" in m["id"].lower() or "5.6" in m["id"]
+        ]
         print(f"OpenAI reachable. Matching models: {available[:5]}")
     except Exception as exc:
         print(f"WARNING: OpenAI model check failed: {exc}")
@@ -799,7 +829,7 @@ def main():
     print(f"Probe root: {probe_root}\n")
 
     for i, (repo, mode, idx) in enumerate(attempts):
-        print(f"\n[{i+1}/{len(attempts)}]")
+        print(f"\n[{i + 1}/{len(attempts)}]")
         result = run_one_attempt(
             vero_root=vero_root,
             vero_python=args.vero_python,
@@ -816,43 +846,48 @@ def main():
 
         results_path = probe_root / "results.jsonl"
         with open(results_path, "a") as f:
-            f.write(json.dumps({
-                "attempt_id": result.attempt_id,
-                "benchmark_id": result.benchmark_id,
-                "mode": result.mode,
-                "attempt_index": result.attempt_index,
-                "turns": result.turns,
-                "input_tokens": result.input_tokens,
-                "output_tokens": result.output_tokens,
-                "cached_input_tokens": result.cached_input_tokens,
-                "reasoning_output_tokens": result.reasoning_output_tokens,
-                "tool_calls": result.tool_calls,
-                "wall_seconds": round(result.wall_seconds, 2),
-                "stop_reason": result.stop_reason,
-                "infrastructure_errors": result.infrastructure_errors,
-                "grade": result.grade,
-            }) + "\n")
+            f.write(
+                json.dumps(
+                    {
+                        "attempt_id": result.attempt_id,
+                        "benchmark_id": result.benchmark_id,
+                        "mode": result.mode,
+                        "attempt_index": result.attempt_index,
+                        "turns": result.turns,
+                        "input_tokens": result.input_tokens,
+                        "output_tokens": result.output_tokens,
+                        "cached_input_tokens": result.cached_input_tokens,
+                        "reasoning_output_tokens": result.reasoning_output_tokens,
+                        "tool_calls": result.tool_calls,
+                        "wall_seconds": round(result.wall_seconds, 2),
+                        "stop_reason": result.stop_reason,
+                        "infrastructure_errors": result.infrastructure_errors,
+                        "grade": result.grade,
+                    }
+                )
+                + "\n"
+            )
 
     # Summary
-    total_passed = sum(
-        r.grade.get("passed_specs", 0) for r in all_results if r.grade
-    )
-    total_specs = sum(
-        r.grade.get("total_specs", 0) for r in all_results if r.grade
-    )
+    total_passed = sum(r.grade.get("passed_specs", 0) for r in all_results if r.grade)
+    total_specs = sum(r.grade.get("total_specs", 0) for r in all_results if r.grade)
     repos_with_nonzero = set()
     for r in all_results:
         if r.grade and r.grade.get("passed_specs", 0) > 0:
             repos_with_nonzero.add(r.benchmark_id)
 
-    print(f"\n{'='*60}")
-    print(f"  SCREEN RESULTS")
-    print(f"{'='*60}")
+    print(f"\n{'=' * 60}")
+    print("  SCREEN RESULTS")
+    print(f"{'=' * 60}")
     print(f"  Total: {total_passed}/{total_specs} specs passed")
-    print(f"  Repos with nonzero strict coverage: {len(repos_with_nonzero)} "
-          f"({', '.join(sorted(repos_with_nonzero)) or 'none'})")
-    print(f"  Infrastructure errors: "
-          f"{sum(1 for r in all_results if r.infrastructure_errors)}/{len(all_results)} attempts")
+    print(
+        f"  Repos with nonzero strict coverage: {len(repos_with_nonzero)} "
+        f"({', '.join(sorted(repos_with_nonzero)) or 'none'})"
+    )
+    print(
+        f"  Infrastructure errors: "
+        f"{sum(1 for r in all_results if r.infrastructure_errors)}/{len(all_results)} attempts"
+    )
 
     pooled_rate = total_passed / total_specs if total_specs > 0 else 0.0
     print(f"  Pooled strict success rate: {pooled_rate:.3f}")
