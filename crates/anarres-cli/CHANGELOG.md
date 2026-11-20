@@ -4,6 +4,18 @@ All notable CLI changes are recorded here. The project follows semantic
 versioning for the command contract and versioned JSON schemas for stored
 records.
 
+## 0.4.1 - 2026-11-19
+
+- Repair clean-checkout qualification for current Harvey LAB task layouts,
+  including contracts without top-level deliverable maps and shared document
+  directories.
+- Report all invalid LAB task specifications together and correct the released
+  LAB source license record to MIT.
+- Make demo output atomic and shell-safe, keep generated records out of Git,
+  and provide targeted guidance for unsupported or mismatched records.
+- Clarify adapter installation and the current native probing boundary, add a
+  working native-source example, and simplify Vero's qualification output.
+
 ## 0.4.0 - 2026-11-11
 
 - Add `init`, `inspect`, and `probe` for qualifying native environment sources

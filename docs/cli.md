@@ -309,7 +309,7 @@ version, replace `latest/download` with the release tag:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -LsSf \
-  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.4.0/anarres-cli-installer.sh | sh
+  https://github.com/anarres-organization/anarres/releases/download/anarres-cli-v0.4.1/anarres-cli-installer.sh | sh
 ```
 
 The standalone installer places the binary in `$CARGO_HOME/bin`, or
