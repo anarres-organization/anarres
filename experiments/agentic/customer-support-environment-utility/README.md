@@ -159,7 +159,7 @@ retry attempt. This establishes that the model, simulator, judge, tool loop,
 scoring, token accounting, and cost accounting work together before the full
 100-task repeated measurement begins.
 
-Plan the exact command without making a model call:
+Validate the frozen execution plan without making a model call:
 
 ```bash
 python scripts/run_model_smoke.py \

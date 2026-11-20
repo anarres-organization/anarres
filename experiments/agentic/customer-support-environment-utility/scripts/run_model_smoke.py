@@ -171,16 +171,12 @@ def main() -> None:
         "tasks": len(smoke_plan["task_ids"]),
         "runs_per_task": smoke_plan["runs_per_task"],
         "expected_trajectories": len(smoke_plan["task_ids"]) * smoke_plan["runs_per_task"],
-        "command": build_command(
-            smoke_plan["task_ids"],
-            output_dir,
-            arguments.agent_model_name,
-            arguments.reasoning_level,
-            arguments.workers,
-            arguments.agent_provider,
-            "<configured-credential-variable>",
-        ),
-        "agent_provider": arguments.agent_provider,
+        "execution_contract": {
+            "agent_class": "AnarresEpisodicMemoryAgent",
+            "retrieve_learnings_top_k": 3,
+            "retry_attempts": 1,
+            "inline_scoring": "task/state and UX",
+        },
         "credential_values_recorded": False,
     }
     if not arguments.execute:
