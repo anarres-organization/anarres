@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "study_id": "customer_support_environment_utility_v1",
+  "status": "SOURCE_QUALIFIED__PROSPECTIVE_CONTRACT_NOT_FROZEN",
+  "question": "Which candidate distribution of customer-support experience produces the greatest held-out task improvement under a matched learning and inference budget?",
+  "source": {
+    "primary": "state_bench",
+    "revision": "5644b1838d96bc4483da29642d058ecaa6f80f7f",
+    "domain": "customer_support",
+    "split_version": "train_test",
+    "training_trajectory_count": 100,
+    "held_out_task_count": 50,
+    "official_runs_per_task": 5
+  },
+  "partitions": {
+    "development": "training-side tasks and trajectories used for source validation, starting-agent measurement, and candidate construction",
+    "held_out": "the 50-task STATE-Bench test split, excluded from measurement, candidate construction, and learning extraction",
+    "external": "an independently qualified source used only after the primary prospective test"
+  },
+  "required_baselines": [
+    "source_proportional",
+    "deterministic_random_size_matched",
+    "static_difficulty_size_matched",
+    "policy_relative_selector"
+  ],
+  "candidate_measurement_families": [
+    "source_and_task_validity",
+    "starting_agent_task_completion",
+    "starting_agent_outcome_variation",
+    "valid_execution_and_tool_behavior",
+    "generated_output_and_inference_cost",
+    "coverage_across_task_families"
+  ],
+  "primary_outcome": "held_out_task_completion_pass_at_1_relative_to_no_learning_baseline",
+  "secondary_outcomes": [
+    "held_out_task_completion_pass_power_5",
+    "held_out_user_experience_score",
+    "cost_per_held_out_task",
+    "pairwise_candidate_ordering",
+    "allocation_regret",
+    "task_level_regressions"
+  ],
+  "cost_accounting": [
+    "measurement_input_tokens",
+    "measurement_output_tokens",
+    "measurement_tool_calls",
+    "learning_artifact_build_cost",
+    "held_out_input_tokens",
+    "held_out_output_tokens",
+    "held_out_tool_calls",
+    "held_out_cost_usd",
+    "wall_time"
+  ],
+  "freeze_requirements": [
+    "starting agent and agent harness",
+    "measurement repeat count and validity contract",
+    "infrastructure-attempt ledger and retry-cost accounting",
+    "candidate size, membership, and deterministic tie breaking",
+    "candidate coordinate definitions and estimators",
+    "learning operator and retrieval limit",
+    "prediction, uncertainty, and abstention rule",
+    "regression definition and multiplicity policy",
+    "held-out evaluator and completeness gate"
+  ],
+  "chronology": [
+    "qualify sources and benchmark identities",
+    "qualify and freeze the starting agent, harness, and measurement contract",
+    "measure development experience without held-out outcomes",
+    "serialize candidate memberships, predictions, uncertainty, and abstention",
+    "build every candidate learning artifact under the matched operator and budget",
+    "evaluate every candidate on all required held-out tasks and repeats",
+    "open candidate outcomes only after completeness and identity checks pass"
+  ],
+  "prohibitions": [
+    "using held-out task definitions or outcomes in candidate construction",
+    "using candidate-specific held-out results to revise selection or prediction",
+    "changing candidate membership after the prospective freeze",
+    "replacing runs based on scientific outcomes",
+    "converting infrastructure failures or unscored attempts into task failures",
+    "describing retrieval or prompt optimization as parameter-updating post-training"
+  ],
+  "unresolved_before_freeze": [
+    "starting agent",
+    "starting-agent probe route",
+    "candidate size and exact construction rules",
+    "candidate coordinate definitions",
+    "learning operator",
+    "uncertainty and abstention thresholds",
+    "task-level regression threshold",
+    "external transfer contract"
+  ]
+}
+

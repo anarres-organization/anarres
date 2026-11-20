@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "source_id": "state_bench",
+  "revision": "5644b1838d96bc4483da29642d058ecaa6f80f7f",
+  "domain": "customer_support",
+  "license": "MIT",
+  "source_audit": {
+    "active_task_count": 150,
+    "task_environment_count": 150,
+    "training_trajectory_count": 100,
+    "train_split_count": 100,
+    "test_split_count": 50,
+    "train_test_overlap": 0,
+    "training_trajectories_match_train_split": true,
+    "official_runs_per_task": 5,
+    "official_model": "gpt-5.4"
+  },
+  "content_hashes": {
+    "license_sha256": "2e969379b1a7eaeeefe741c576aa64e29099b9629b645e0e938bf2c88e7b5f0b",
+    "learning_track_sha256": "f111b5159d8842c4db210c7bbec1201880aace964dc69909d1fb38bd30ce8a0f",
+    "split_manifest_sha256": "2988c8c87d426babf0daa3f342c3110caefb63fa0bac97650a38fc2dcfa7291e",
+    "evaluation_protocol_sha256": "e4a97cab2b2ed31ec180f671f4b5e5760c00cf30cc56d4cf717481e7a0d29a0c",
+    "task_inventory_sha256": "7fc71041e595250c974af5df4dd0fbe8de71a695b3ecc86f797e2c5fe35f4382",
+    "task_environment_inventory_sha256": "316c9b038fb90241d3c5e55c0c069b1bedc4f9452d7f125f1a85f3c766c4a902",
+    "training_trajectory_inventory_sha256": "6b035244e7a94e85604da9223e10f874f3a61c0e5498310a3f0c0249eaf96163"
+  },
+  "model_calls_made": 0,
+  "scientific_outcomes_opened": false,
+  "qualification_scope": "source identity, license, inventory, split, released training trajectories, and evaluation protocol only"
+}

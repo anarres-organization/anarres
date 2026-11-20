@@ -26,6 +26,7 @@ Agentic studies keep four layers separate:
 Released studies use versioned task identities, content hashes, explicit
 failure states, and disjoint evaluation records. The concrete entry points are:
 
+- [customer-support environment utility](customer-support-environment-utility/README.md)
 - [formal verification](../cyber/formal-verification/README.md)
 - [vulnerability exploitation](../cyber/qualification/README.md)
 - [robotics](../robotics/README.md)

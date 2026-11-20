@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "state_bench",
+      "name": "STATE-Bench",
+      "url": "https://github.com/microsoft/STATE-Bench",
+      "revision": "5644b1838d96bc4483da29642d058ecaa6f80f7f",
+      "license": "MIT",
+      "access": "public repository",
+      "role": "construction_and_primary_evaluation",
+      "status": "customer_support_source_qualified",
+      "outcome_use": "none"
+    },
+    {
+      "id": "tau2_bench",
+      "name": "tau2-bench",
+      "url": "https://github.com/sierra-research/tau2-bench",
+      "revision": "c06b07dd7c4d4ec61ba6ff9bcdf0b15dd7ef36d4",
+      "license": "MIT",
+      "access": "public repository",
+      "role": "external_transfer_candidate",
+      "status": "source_pinned_not_yet_qualified_for_this_study",
+      "outcome_use": "external only"
+    },
+    {
+      "id": "vamos_bench",
+      "name": "VAmoS Bench",
+      "url": "https://arxiv.org/abs/2607.27453",
+      "revision": "arXiv:2607.27453v1",
+      "license": "public paper; code and data terms require separate qualification",
+      "access": "public paper and linked implementation",
+      "role": "voice_extension_candidate",
+      "status": "documentation_audited_source_not_qualified",
+      "outcome_use": "no construction use"
+    }
+  ]
+}
+
