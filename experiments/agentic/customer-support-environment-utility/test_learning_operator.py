@@ -54,7 +54,15 @@ class LearningOperatorTest(unittest.TestCase):
         self.assertEqual(command[command.index("--agent-provider") + 1], "openai")
         self.assertEqual(command[command.index("--agent-api-key-var") + 1], "OPENAI_API_KEY")
         self.assertNotIn("--split", command)
-        displayed = RUNNER.redact_command(command)
+        displayed = RUNNER.build_command(
+            ["train-a", "train-b"],
+            Path("/tmp/smoke"),
+            "model",
+            "high",
+            2,
+            "openai",
+            "<configured-credential-variable>",
+        )
         self.assertNotIn("OPENAI_API_KEY", displayed)
 
     def test_model_smoke_requires_scores_and_token_accounting(self):
