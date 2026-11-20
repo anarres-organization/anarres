@@ -10,31 +10,50 @@ Homebrew and the standalone installer provide the native binary. They do not
 install every domain runtime. Install only the adapters needed for the studies
 you intend to inspect.
 
-## Install from a checkout
+## Install an adapter
 
-Clone the repository and install an adapter with
-[`uv tool install`](https://docs.astral.sh/uv/guides/tools/). The repository's
-workspace metadata resolves the shared Anarres packages from the checkout.
-Install `uv` first using its
+Install only the adapter for the domain you need. Each released adapter can be
+installed directly from tagged Anarres source with
+[`uv tool install`](https://docs.astral.sh/uv/guides/tools/); cloning the
+repository is not required. Install `uv` first using its
 [official installation guide](https://docs.astral.sh/uv/getting-started/installation/)
 if `uv --version` is unavailable.
 
 ```bash
-git clone https://github.com/anarres-organization/anarres.git
-cd anarres
+# Example: install the legal adapter from the current CLI release.
+uv tool install \
+  'git+https://github.com/anarres-organization/anarres.git@anarres-cli-v0.4.1#subdirectory=packages/legal'
 
-# Choose one or more adapters.
-uv tool install ./data/formal-verification/vero
-uv tool install ./experiments/robotics/environment-selection/prospective-cupid-can-v141
-uv tool install ./packages/legal
-uv tool install ./experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter
-uv tool install ./experiments/ai-for-science/molecular-design/reaction-environment-selection
-uv tool install ./packages/finance
-uv tool install ./packages/vulnerability
+anarres adapter list
+anarres adapter doctor legal
 ```
 
-If `uv` reports that its executable directory is not on `PATH`, run
-`uv tool update-shell` and restart the shell.
+The install source for each maintained adapter is:
+
+| Adapter | Tagged source subdirectory |
+| --- | --- |
+| `formal` | `data/formal-verification/vero` |
+| `robotics` | `experiments/robotics/environment-selection/prospective-cupid-can-v141` |
+| `legal` | `packages/legal` |
+| `materials` | `experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter` |
+| `molecular` | `experiments/ai-for-science/molecular-design/reaction-environment-selection` |
+| `finance` | `packages/finance` |
+| `vulnerability` | `packages/vulnerability` |
+
+Replace `packages/legal` in the example with the required subdirectory. Keep
+the release tag in the URL so the adapter source remains reproducible. Run
+`uv tool update-shell` and restart the shell if `uv` reports that its executable
+directory is not on `PATH`.
+
+To reproduce released studies as well as use their adapter, clone the same tag
+and install from the checkout:
+
+```bash
+git clone --branch anarres-cli-v0.4.1 --depth 1 \
+  https://github.com/anarres-organization/anarres.git
+cd anarres
+uv tool install ./packages/legal
+```
 
 Confirm what the native CLI can discover:
 
