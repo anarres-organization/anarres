@@ -464,7 +464,10 @@ fn command_init(args: InitArgs) -> Result<i32, String> {
         ui::field("Adapter version", &report.adapter_version);
         ui::field("Native format", &report.native_format);
         ui::field("Manifest", &report.manifest);
-        ui::next(&format!("anarres inspect {}", report.manifest));
+        ui::next(&format!(
+            "anarres inspect {}",
+            shell_quote(Path::new(&report.manifest))
+        ));
     }
     Ok(0)
 }
@@ -479,6 +482,9 @@ fn command_demo(args: DemoArgs) -> Result<i32, String> {
 
     let (probe, report, manifest) = build_demo_candidate(DEMO_PROBE)?;
     let (_, _, alternative_manifest) = build_demo_candidate(DEMO_ALTERNATIVE_PROBE)?;
+    check_demo_manifest_path(&args.output, &manifest, args.force)?;
+    check_demo_manifest_path(&comparison_output, &alternative_manifest, args.force)?;
+    ensure_local_anarres_ignore(&args.output, &comparison_output)?;
     write_demo_manifest(&args.output, &manifest, args.force)?;
     write_demo_manifest(&comparison_output, &alternative_manifest, args.force)?;
 
@@ -558,10 +564,10 @@ fn command_demo(args: DemoArgs) -> Result<i32, String> {
     ui::success("Validated", "2 content digests");
     ui::next(&format!(
         "anarres design {} {}",
-        args.output.display(),
-        comparison_output.display()
+        shell_quote(&args.output),
+        shell_quote(&comparison_output)
     ));
-    ui::muted("Use your data: anarres qualify --help");
+    ui::muted("Use your data: anarres adapter list");
     Ok(0)
 }
 
@@ -596,6 +602,62 @@ fn write_demo_manifest(
         return Ok(());
     }
     write_atomic(path, &output, force)
+}
+
+fn check_demo_manifest_path(
+    path: &Path,
+    manifest: &EnvironmentManifest,
+    force: bool,
+) -> Result<(), String> {
+    if !path.exists() || force {
+        return Ok(());
+    }
+    let mut expected = serde_json::to_vec_pretty(manifest).map_err(|error| error.to_string())?;
+    expected.push(b'\n');
+    let existing =
+        fs::read(path).map_err(|error| format!("could not read {}: {error}", path.display()))?;
+    if existing == expected {
+        Ok(())
+    } else {
+        Err(format!(
+            "{} already exists with different content\nhint: pass --force to replace it",
+            path.display()
+        ))
+    }
+}
+
+fn ensure_local_anarres_ignore(primary: &Path, comparison: &Path) -> Result<(), String> {
+    let working_directory = Path::new(".anarres");
+    if !primary.starts_with(working_directory) || !comparison.starts_with(working_directory) {
+        return Ok(());
+    }
+    fs::create_dir_all(working_directory)
+        .map_err(|error| format!("could not create .anarres: {error}"))?;
+    let ignore = working_directory.join(".gitignore");
+    if ignore.exists() {
+        return Ok(());
+    }
+    let mut output = OpenOptions::new()
+        .write(true)
+        .create_new(true)
+        .open(&ignore)
+        .map_err(|error| format!("could not create {}: {error}", ignore.display()))?;
+    output
+        .write_all(b"*\n")
+        .map_err(|error| format!("could not write {}: {error}", ignore.display()))
+}
+
+fn shell_quote(path: &Path) -> String {
+    let value = path.to_string_lossy();
+    if !value.is_empty()
+        && value
+            .bytes()
+            .all(|byte| byte.is_ascii_alphanumeric() || b"/_-.,:=+@".contains(&byte))
+    {
+        value.into_owned()
+    } else {
+        format!("'{}'", value.replace('\'', "'\\''"))
+    }
 }
 
 fn alternative_demo_path(output: &Path) -> PathBuf {
@@ -650,16 +712,20 @@ fn command_qualify(args: InputArgs) -> Result<i32, String> {
                 ui::field("Ready", yes_no(ready));
                 ui::blank();
                 ui::title("Checks");
+                ui::line(format_args!(
+                    "{:<10} {:<10} {}",
+                    "STATUS", "SEVERITY", "CHECK"
+                ));
                 for check in &input.qualification_checks {
-                    ui::field(
-                        &format!("{} / {}", check.status, check.severity),
-                        &check.summary,
-                    );
+                    ui::line(format_args!(
+                        "{:<10} {:<10} {}",
+                        check.status, check.severity, check.summary
+                    ));
                 }
             }
         }
         Some(schema) => return Err(format!("qualify does not accept schema_version {schema}")),
-        None => {
+        None if looks_like_probe(&raw) => {
             let probe = parse_probe(&raw)?;
             let report = qualify_probe(&probe, &raw)?;
             if args.json {
@@ -673,6 +739,11 @@ fn command_qualify(args: InputArgs) -> Result<i32, String> {
             } else {
                 print_probe_qualification(&report, None);
             }
+        }
+        None => {
+            return Err("qualify could not recognize the input record type\n\
+                 hint: pass a native source, probe run, policy probe, or environment profile input"
+                .to_owned());
         }
     }
     Ok(0)
@@ -712,7 +783,7 @@ fn command_measure(args: MeasureArgs) -> Result<i32, String> {
             }
         }
         Some(schema) => return Err(format!("measure does not accept schema_version {schema}")),
-        None => {
+        None if looks_like_probe(&raw) => {
             let probe = parse_probe(&raw)?;
             let manifest = build_manifest(&probe, &raw)?;
             let output = serde_json::to_vec_pretty(&manifest).map_err(|error| error.to_string())?;
@@ -723,13 +794,50 @@ fn command_measure(args: MeasureArgs) -> Result<i32, String> {
                 print_manifest_measurement(&manifest, &args.output, None);
             }
         }
+        None => {
+            return Err("measure could not recognize the input record type\n\
+                 hint: pass a completed probe run, policy probe, or environment profile input"
+                .to_owned());
+        }
     }
     Ok(0)
 }
 
 fn command_design(args: DesignArgs) -> Result<i32, String> {
-    let first = read_json(&args.manifests[0])?;
-    if record_schema(&first) == Some(PROFILE_SCHEMA) {
+    let inspected = args
+        .manifests
+        .iter()
+        .map(|path| read_json(path).map(|raw| (path, raw)))
+        .collect::<Result<Vec<_>, _>>()?;
+    let kinds = inspected
+        .iter()
+        .map(|(_, raw)| record_kind(raw))
+        .collect::<BTreeSet<_>>();
+    if kinds.len() > 1 {
+        let inputs = inspected
+            .iter()
+            .map(|(path, raw)| format!("{} ({})", path.display(), record_kind(raw)))
+            .collect::<Vec<_>>()
+            .join(", ");
+        return Err(format!(
+            "design inputs use different record types: {inputs}\n\
+             hint: compare environment manifests with manifests or measured environment profiles with profiles"
+        ));
+    }
+    let first = &inspected[0].1;
+    if record_schema(first) == Some(PROFILE_INPUT_SCHEMA) {
+        return Err(
+            "design received environment profile inputs, which are measurements awaiting normalization\n\
+             hint: run `anarres measure <profile-input> --output <profile.json>` for each candidate, then compare the resulting profiles"
+                .to_owned(),
+        );
+    }
+    if record_schema(first).is_none() {
+        return Err("design could not recognize the input record type\n\
+             hint: design accepts measured environment manifests or measured environment profiles"
+            .to_owned());
+    }
+    if record_schema(first) == Some(PROFILE_SCHEMA) {
         let report = profile_design_report(&args.manifests)?;
         if args.json {
             print_json(&report)?;
@@ -748,6 +856,16 @@ fn command_design(args: DesignArgs) -> Result<i32, String> {
             ui::field("Contract", &report.measurement_contract.id);
             ui::field("Candidates", report.candidate_count);
             ui::blank();
+            ui::title("Candidates");
+            ui::line(format_args!("{:<42} {:<8}", "ENVIRONMENT", "READY"));
+            for candidate in &report.candidates {
+                ui::line(format_args!(
+                    "{:<42} {:<8}",
+                    truncate(&candidate.environment_id, 42),
+                    yes_no(candidate.ready)
+                ));
+            }
+            ui::blank();
             ui::title("Coordinate ranges");
             for (name, span) in &report.coordinate_ranges {
                 ui::field(
@@ -761,7 +879,7 @@ fn command_design(args: DesignArgs) -> Result<i32, String> {
         }
         return Ok(if report.compatible { 0 } else { 1 });
     }
-    if let Some(schema) = record_schema(&first) {
+    if let Some(schema) = record_schema(first) {
         if schema != MANIFEST_SCHEMA {
             return Err(format!("design does not accept schema_version {schema}"));
         }
@@ -775,6 +893,23 @@ fn command_design(args: DesignArgs) -> Result<i32, String> {
     Ok(if report.compatible { 0 } else { 1 })
 }
 
+fn record_kind(raw: &Value) -> &'static str {
+    match record_schema(raw) {
+        Some(MANIFEST_SCHEMA) => "environment manifest",
+        Some(PROFILE_INPUT_SCHEMA) => "environment profile input",
+        Some(PROFILE_SCHEMA) => "environment profile",
+        Some(_) => "unsupported record",
+        None => "unrecognized JSON",
+    }
+}
+
+fn looks_like_probe(raw: &Value) -> bool {
+    raw.get("environment_id").is_some()
+        && raw.get("policy_id").is_some()
+        && raw.get("probe_contract").is_some()
+        && raw.get("groups").is_some()
+}
+
 fn command_inspect(args: InspectArgs) -> Result<i32, String> {
     let report = source::inspect(&args.input)?;
     let ready = report.source_valid;
@@ -783,7 +918,7 @@ fn command_inspect(args: InspectArgs) -> Result<i32, String> {
     } else {
         ui::title("Environment source");
         if ready {
-            ui::success("Ready", &report.environment_id);
+            ui::success("Connected", &report.environment_id);
         } else {
             ui::warning("Review", &report.environment_id);
         }
@@ -796,11 +931,15 @@ fn command_inspect(args: InspectArgs) -> Result<i32, String> {
         ui::field("License", &report.source_license);
         ui::field("Can qualify", yes_no(report.can_qualify));
         ui::field("Can probe", yes_no(report.can_probe));
+        ui::field("Native files", "not checked until qualification");
         for issue in &report.issues {
             ui::warning("Issue", issue);
         }
         if report.qualification_ready {
-            ui::next(&format!("anarres qualify {}", report.manifest));
+            ui::next(&format!(
+                "anarres qualify {}",
+                shell_quote(Path::new(&report.manifest))
+            ));
         } else if ready {
             ui::warning(
                 "Next",
@@ -1282,7 +1421,11 @@ fn validate_record(path: &Path) -> ValidationResult {
             "unsupported record",
             Err(format!("unsupported schema_version: {schema}")),
         ),
-        None => ("policy probe", parse_probe(&raw).map(|_| ())),
+        None if looks_like_probe(&raw) => ("policy probe", parse_probe(&raw).map(|_| ())),
+        None => (
+            "unrecognized record",
+            Err("unrecognized record type: missing a supported schema_version or policy-probe structure".to_owned()),
+        ),
     };
     match result {
         Ok(()) => ValidationResult {

@@ -437,6 +437,48 @@ class LegalCliCommandTest(unittest.TestCase):
                 by_id["run-3"]["infrastructure_invalid_reasons"],
             )
 
+    def test_shared_qualify_accepts_upstream_contract_task_shape(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            self.wrapper(directory)
+            lab_root = self.make_lab(directory / "harvey-lab")
+            task_path = lab_root / "tasks/litigation/draft-case-memo/task.json"
+            task = json.loads(task_path.read_text(encoding="utf-8"))
+            task.pop("deliverables")
+            for criterion in task["criteria"]:
+                criterion.pop("deliverables")
+            task_path.write_text(json.dumps(task), encoding="utf-8")
+            initialized = self.run_cli(
+                directory,
+                "init",
+                str(lab_root),
+                "--adapter",
+                "legal",
+                "--revision",
+                "git:fixture-revision",
+                "--license",
+                "MIT",
+                "--json",
+            )
+            self.assertEqual(initialized.returncode, 0, initialized.stderr)
+            qualified = self.run_cli(directory, "qualify", str(lab_root), "--json")
+            self.assertEqual(qualified.returncode, 0, qualified.stderr)
+            report = json.loads(qualified.stdout)
+            self.assertEqual(report["status"], "qualified")
+            self.assertEqual(report["tasks_with_declared_deliverables"], 0)
+            self.assertEqual(report["rubric_criteria_with_deliverable_scope"], 0)
+
+            example = self.run_cli(
+                directory,
+                "qualify",
+                str(ROOT / "examples/environment-source"),
+                "--json",
+            )
+            self.assertEqual(example.returncode, 0, example.stderr)
+            example_report = json.loads(example.stdout)
+            self.assertEqual(example_report["tasks"], 1)
+            self.assertEqual(example_report["status"], "qualified")
+
 
 if __name__ == "__main__":
     unittest.main()

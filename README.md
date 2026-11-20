@@ -87,10 +87,11 @@ anarres design \
   .anarres/demo/environment-alternative.json
 ```
 
-Generated records live in the local `.anarres/` working directory, which is
-ignored by Git and can be regenerated. Run the demo from a project directory
-or pass `--output` to choose a different location. Real domain data uses one of
-the domain workflows described below.
+Generated records live in the local `.anarres/` working directory and can be
+regenerated. The demo adds `.anarres/.gitignore` so these local records do not
+appear in Git status. Run it from a project directory or pass `--output` to
+choose a different location. Real domain data uses one of the domain workflows
+described below.
 
 The [CLI guide](docs/cli.md#first-run) includes the complete terminal output,
 then continues with your own measurements, domain workflows, JSON output, and
@@ -103,14 +104,16 @@ to evaluate. A source may contain prompts, proof tasks, robot episodes, legal
 matters, molecular structures, atomistic configurations, or another
 domain-defined form of training experience.
 
-Keep each source in its native format. Anarres can qualify every maintained
-format, and supported adapters can also run the starting-policy measurement.
-Begin by connecting a source to its adapter:
+Keep each source in its native format. Homebrew and the standalone installer
+provide the core CLI; domain adapters are installed from an Anarres checkout.
+The maintained adapter names are `formal`, `robotics`, `legal`, `materials`,
+`molecular`, `finance`, and `vulnerability`. Follow the
+[adapter installation guide](docs/adapters.md) before connecting a source:
 
 ```bash
 anarres init ./candidate-a \
   --adapter <adapter> \
-  --revision <immutable-revision> \
+  --revision git:<full-commit> \
   --license <SPDX-identifier>
 ```
 
@@ -129,11 +132,14 @@ anarres measure .anarres/probes/candidate-a \
   --output .anarres/environments/candidate-a.json
 ```
 
-Not every adapter can probe yet. The CLI reports that boundary directly and
-keeps domain-specific measurements, units, uncertainty, and failure states in
-the resulting records. See the [input guide](docs/cli.md#what-you-bring) and
-[adapter guide](docs/adapters.md) for the exact workflow available in each
-domain.
+The revision is preserved as supplied; use a full commit, content digest, or
+immutable release identifier rather than a moving branch name. Native source
+qualification is available across the maintained adapters, but only the
+molecular adapter currently exposes the shared `probe` command, and that path
+requires its policy weights, replay bank, and scientific contracts. The bundled
+demo remains the only zero-setup path through qualification, measurement, and
+comparison. See the [input guide](docs/cli.md#what-you-bring) and
+[adapter guide](docs/adapters.md) for each domain's exact boundary.
 
 Homebrew installs the native `anarres` binary. Its built-in commands operate on
 portable records and do not require a domain runtime:

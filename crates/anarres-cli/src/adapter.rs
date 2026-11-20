@@ -85,7 +85,9 @@ pub(crate) fn list(as_json: bool) -> Result<i32, String> {
     if installations.is_empty() {
         crate::ui::title("Installed adapters");
         crate::ui::muted("None found on PATH.");
-        crate::ui::next("see docs/adapters.md to add a domain workflow");
+        crate::ui::next(
+            "https://github.com/anarres-organization/anarres/blob/main/docs/adapters.md",
+        );
         return Ok(0);
     }
     crate::ui::title("Installed adapters");

@@ -86,6 +86,7 @@ fn demo_writes_compares_and_validates_two_records() {
             record.display(),
             comparison.display()
         )
+        .replace("anarres qualify --help", "anarres adapter list")
     );
 
     let raw: Value = serde_json::from_slice(&fs::read(&record).expect("record is written"))
@@ -113,6 +114,65 @@ fn demo_writes_compares_and_validates_two_records() {
     assert_eq!(changed.status.code(), Some(1));
     assert!(String::from_utf8_lossy(&changed.stderr).contains("different content"));
 
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
+}
+
+#[test]
+fn demo_quotes_paths_with_spaces_in_the_next_command() {
+    let directory = temporary_directory();
+    let record = directory.join("demo records").join("environment.json");
+    let output = run(&["demo", "--output", record.to_str().unwrap()]);
+    assert!(
+        output.status.success(),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let stdout = String::from_utf8(output.stdout).expect("stdout is UTF-8");
+    let alternative = directory
+        .join("demo records")
+        .join("environment-alternative.json");
+    assert!(stdout.contains(&format!(
+        "Next  anarres design '{}' '{}'",
+        record.display(),
+        alternative.display()
+    )));
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
+}
+
+#[test]
+fn demo_preflights_both_outputs_before_writing_either() {
+    let directory = temporary_directory();
+    let record = directory.join("environment.json");
+    let alternative = directory.join("environment-alternative.json");
+    fs::write(&alternative, b"existing user content\n").expect("conflict is written");
+
+    let output = run(&["demo", "--output", record.to_str().unwrap()]);
+    assert_eq!(output.status.code(), Some(1));
+    assert!(!record.exists());
+    assert_eq!(
+        fs::read(&alternative).expect("conflict remains"),
+        b"existing user content\n"
+    );
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
+}
+
+#[test]
+fn default_demo_outputs_are_ignored_in_a_fresh_project() {
+    let directory = temporary_directory();
+    let output = Command::new(binary())
+        .arg("demo")
+        .current_dir(&directory)
+        .output()
+        .expect("CLI process starts");
+    assert!(
+        output.status.success(),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    assert_eq!(
+        fs::read_to_string(directory.join(".anarres/.gitignore")).expect("ignore file is written"),
+        "*\n"
+    );
     fs::remove_dir_all(directory).expect("temporary directory is removed");
 }
 
@@ -836,9 +896,48 @@ fn legal_profiles_preserve_domain_coordinates_without_rho_or_h() {
     ]);
     assert!(human.status.success());
     let human = String::from_utf8(human.stdout).expect("stdout is UTF-8");
+    assert!(human.contains("ENVIRONMENT"));
+    assert!(human.contains("READY"));
+    assert!(human.contains("synthetic-legal-candidate-a"));
+    assert!(human.contains("synthetic-legal-candidate-b"));
     assert!(human.contains("eligible_response_fraction"));
     assert!(!human.contains('…'));
 
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
+}
+
+#[test]
+fn design_explains_how_to_prepare_profile_inputs() {
+    let input_a = profile_fixture("legal-a.profile-input.json");
+    let input_b = profile_fixture("legal-b.profile-input.json");
+    let output = run(&[
+        "design",
+        input_a.to_str().unwrap(),
+        input_b.to_str().unwrap(),
+    ]);
+    assert_eq!(output.status.code(), Some(1));
+    let stderr = String::from_utf8(output.stderr).expect("stderr is UTF-8");
+    assert!(stderr.contains("run `anarres measure <profile-input>"));
+}
+
+#[test]
+fn design_rejects_mixed_record_types_with_a_targeted_hint() {
+    let directory = temporary_directory();
+    let manifest = directory.join("environment.json");
+    let demo = run(&["demo", "--output", manifest.to_str().unwrap()]);
+    assert!(demo.status.success());
+    let input = profile_fixture("legal-a.profile-input.json");
+
+    let output = run(&[
+        "design",
+        manifest.to_str().unwrap(),
+        input.to_str().unwrap(),
+    ]);
+    assert_eq!(output.status.code(), Some(1));
+    let stderr = String::from_utf8(output.stderr).expect("stderr is UTF-8");
+    assert!(stderr.contains("different record types"));
+    assert!(stderr.contains("environment manifest"));
+    assert!(stderr.contains("environment profile input"));
     fs::remove_dir_all(directory).expect("temporary directory is removed");
 }
 
@@ -957,6 +1056,24 @@ fn unknown_schema_is_reported_as_unsupported() {
             .as_str()
             .unwrap()
             .contains("unsupported schema_version")
+    );
+    fs::remove_dir_all(directory).expect("temporary directory is removed");
+}
+
+#[test]
+fn empty_json_is_reported_as_unrecognized() {
+    let directory = temporary_directory();
+    let record = directory.join("empty.json");
+    fs::write(&record, b"{}\n").expect("record is written");
+    let validated = run(&["validate", record.to_str().unwrap(), "--json"]);
+    assert_eq!(validated.status.code(), Some(1));
+    let report: Value = serde_json::from_slice(&validated.stdout).expect("stdout is JSON");
+    assert_eq!(report["records"][0]["record_type"], "unrecognized record");
+    assert!(
+        report["records"][0]["error"]
+            .as_str()
+            .unwrap()
+            .contains("unrecognized record type")
     );
     fs::remove_dir_all(directory).expect("temporary directory is removed");
 }

@@ -14,23 +14,24 @@ The required fields answer six questions before execution:
 5. Where are the unchanged source files?
 6. Which immutable revision and license identify those files?
 
-The example uses an OpenEnv-shaped source, but it is a format example rather
-than a bundled runtime. `anarres inspect` reports whether the named adapter is
-installed and whether it declares qualification and policy-probe support for
-the requested format.
+The example contains a small Harvey-LAB-shaped legal source that can be
+qualified without a model, API credential, or GPU. Install the legal adapter
+from the checkout, then inspect and qualify the unchanged native files:
 
 ```bash
+uv tool install ./packages/legal
 anarres inspect examples/environment-source/anarres.toml
+anarres qualify examples/environment-source/anarres.toml
 ```
 
-With a source-capable adapter installed, create the same envelope without
-writing TOML manually:
+Create the same envelope beside another Harvey LAB checkout without writing
+TOML manually:
 
 ```bash
-anarres init /path/to/native-environment \
-  --adapter openenv \
+anarres init /path/to/harvey-labs \
+  --adapter legal \
   --revision git:<commit> \
-  --license Apache-2.0
+  --license MIT
 ```
 
 Relative source paths resolve from the directory containing `anarres.toml`.

@@ -1,6 +1,8 @@
 import argparse
+import contextlib
 import hashlib
 import importlib.util
+import io
 import json
 import os
 import shlex
@@ -117,6 +119,17 @@ class VeroProfileAdapterTest(unittest.TestCase):
             self.assertFalse(report["policy_probe_available"])
             self.assertFalse(report["model_execution_started"])
             self.assertFalse(report["qualification_or_prospective_tasks_opened"])
+
+            stream = io.StringIO()
+            with contextlib.redirect_stdout(stream):
+                CLI.print_result(report, as_json=False)
+            rendered = stream.getvalue()
+            self.assertIn("✓ Qualified    vero-public-v1", rendered)
+            self.assertIn("Benchmarks         43", rendered)
+            self.assertIn("Specifications     2705", rendered)
+            self.assertIn("Languages          coq 4, dafny 5, python 30, verus 4", rendered)
+            self.assertNotIn('{"', rendered)
+            self.assertIn("anarres formal qualify-runtime --help", rendered)
 
     def test_source_qualification_rejects_unpinned_manifest_revision(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

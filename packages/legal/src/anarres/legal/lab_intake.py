@@ -71,9 +71,13 @@ def inspect_task(
     )
     tags = require_string_list(task.get("tags"), "tags", task_id)
 
-    deliverables = task.get("deliverables")
-    if not isinstance(deliverables, dict) or not deliverables:
-        raise LabIntakeError(f"{task_id}: deliverables must be a non-empty object")
+    raw_deliverables = task.get("deliverables")
+    if raw_deliverables is None:
+        deliverables: dict[str, Any] = {}
+    elif isinstance(raw_deliverables, dict):
+        deliverables = raw_deliverables
+    else:
+        raise LabIntakeError(f"{task_id}: deliverables must be an object when provided")
     if any(not isinstance(name, str) or not name for name in deliverables):
         raise LabIntakeError(f"{task_id}: every deliverable key must be non-empty text")
 
@@ -84,6 +88,7 @@ def inspect_task(
     referenced_deliverables: set[str] = set()
     explicit_sources: set[str] = set()
     criteria_with_sources = 0
+    criteria_with_deliverable_scope = 0
     for index, criterion in enumerate(criteria):
         if not isinstance(criterion, dict):
             raise LabIntakeError(f"{task_id}: criterion {index} must be an object")
@@ -102,14 +107,13 @@ def inspect_task(
             f"criteria[{index}].deliverables",
             task_id,
         )
-        if not scoped:
-            raise LabIntakeError(f"{task_id}: criterion {criterion_id} has no deliverable scope")
-        unknown = sorted(set(scoped) - set(deliverables))
+        unknown = sorted(set(scoped) - set(deliverables)) if deliverables else []
         if unknown:
             raise LabIntakeError(
                 f"{task_id}: criterion {criterion_id} references unknown deliverables {unknown}"
             )
         referenced_deliverables.update(scoped)
+        criteria_with_deliverable_scope += int(bool(scoped))
         sources = require_string_list(
             criterion.get("sources"),
             f"criteria[{index}].sources",
@@ -154,6 +158,8 @@ def inspect_task(
         "tags": sorted(set(tags)),
         "instruction_character_count": len(instructions),
         "criterion_count": len(criteria),
+        "criteria_with_deliverable_scope": criteria_with_deliverable_scope,
+        "deliverables_declared": bool(deliverables),
         "deliverable_count": len(deliverables),
         "deliverable_extensions": dict(
             sorted(
@@ -180,16 +186,29 @@ def build(lab_root: Path, source_revision: str) -> tuple[dict[str, Any], list[di
     if not source_revision.strip():
         raise LabIntakeError("source revision must be non-empty")
     document_cache: dict[Path, tuple[int, dict[str, int], str]] = {}
-    rows = [
-        inspect_task(lab_root, path, source_revision, document_cache)
-        for path in task_paths(lab_root)
-    ]
+    rows = []
+    errors = []
+    for path in task_paths(lab_root):
+        try:
+            rows.append(inspect_task(lab_root, path, source_revision, document_cache))
+        except LabIntakeError as error:
+            errors.append(str(error))
+    if errors:
+        examples = "\n".join(f"  - {error}" for error in errors[:20])
+        omitted = len(errors) - min(len(errors), 20)
+        suffix = f"\n  - ... and {omitted} more" if omitted else ""
+        raise LabIntakeError(
+            f"LAB checkout contains {len(errors)} invalid task specification(s):\n"
+            f"{examples}{suffix}"
+        )
     task_ids = [row["task_id"] for row in rows]
     if len(task_ids) != len(set(task_ids)):
         raise LabIntakeError("LAB task identities are not unique")
     areas = collections.Counter(row["practice_area"] for row in rows)
     work_types = collections.Counter(row["work_type"] for row in rows)
     tasks_with_documents = sum(row["document_count"] > 0 for row in rows)
+    criteria = sum(row["criterion_count"] for row in rows)
+    scoped_criteria = sum(row["criteria_with_deliverable_scope"] for row in rows)
     status = "qualified" if tasks_with_documents == len(rows) else "incomplete_matter_files"
     task_set_digest = hashlib.sha256(
         "".join(
@@ -214,7 +233,9 @@ def build(lab_root: Path, source_revision: str) -> tuple[dict[str, Any], list[di
             "practice_area_counts": dict(sorted(areas.items())),
             "work_type_counts": dict(sorted(work_types.items())),
             "tasks_with_declared_work_type": sum(row["work_type_declared"] for row in rows),
-            "rubric_criteria": sum(row["criterion_count"] for row in rows),
+            "rubric_criteria": criteria,
+            "rubric_criteria_with_deliverable_scope": scoped_criteria,
+            "tasks_with_declared_deliverables": sum(row["deliverables_declared"] for row in rows),
             "tasks_with_multiple_deliverables": sum(row["multi_artifact"] for row in rows),
             "tasks_with_explicit_source_scoping": sum(
                 row["criteria_with_explicit_sources"] > 0 for row in rows
@@ -225,7 +246,7 @@ def build(lab_root: Path, source_revision: str) -> tuple[dict[str, Any], list[di
             "task_identity": "pass",
             "instructions": "pass",
             "rubric_contract": "pass",
-            "deliverable_scoping": "pass",
+            "deliverable_scoping": "pass" if scoped_criteria == criteria else "partial",
             "matter_documents": "pass" if tasks_with_documents == len(rows) else "incomplete",
         },
         "frontier_workflow_fields": {

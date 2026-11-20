@@ -49,7 +49,7 @@ the authoritative adapter-level check.
 - **Interface:** Installable CUPID adapter
 - **Native sources:** Can v1.4.1 dataset qualification
 - **Validation:** Prospective PushT and Can panels, plus retrospective
-  multi-source studies. Square candidate outcomes remain unopened.
+  multi-source studies and the released prospective Square result.
 
 ### Legal reasoning
 
