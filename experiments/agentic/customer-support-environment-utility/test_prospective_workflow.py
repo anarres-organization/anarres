@@ -57,6 +57,28 @@ def run_contract():
 
 
 class ProspectiveWorkflowTest(unittest.TestCase):
+    def test_scorer_rechecks_the_qualified_source(self):
+        gate = {
+            "source_revision": "revision",
+            "held_out_tasks": 50,
+            "runs_per_task": 5,
+        }
+        scoring = {"runs_per_task": 5}
+        original_audit = SCORE.audit_checkout
+        SCORE.audit_checkout = lambda _: {
+            "revision": "revision",
+            "test_split_count": 50,
+            "official_runs_per_task": 5,
+        }
+        try:
+            source = SCORE.validate_scoring_source(Path("checkout"), gate, scoring)
+            self.assertEqual(source["revision"], "revision")
+            gate["source_revision"] = "different"
+            with self.assertRaisesRegex(ValueError, "source revision"):
+                SCORE.validate_scoring_source(Path("checkout"), gate, scoring)
+        finally:
+            SCORE.audit_checkout = original_audit
+
     def test_gate_rehashes_artifacts_and_records_the_scoring_boundary(self):
         candidates = [
             "source_proportional",

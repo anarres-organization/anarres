@@ -20,10 +20,24 @@ assert GATE_SPEC.loader is not None
 GATE_SPEC.loader.exec_module(GATE_MODULE)
 parse_arms = GATE_MODULE.parse_arms
 validate_trajectory = GATE_MODULE.validate_trajectory
+audit_checkout = GATE_MODULE.audit_checkout
 
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def validate_scoring_source(checkout: Path, gate: dict, scoring: dict) -> dict:
+    source = audit_checkout(checkout)
+    if gate.get("source_revision") != source["revision"]:
+        raise ValueError("STATE-Bench source revision differs from the release gate")
+    if gate.get("held_out_tasks") != source["test_split_count"]:
+        raise ValueError("STATE-Bench test split differs from the release gate")
+    if gate.get("runs_per_task") != source["official_runs_per_task"]:
+        raise ValueError("STATE-Bench run contract differs from the release gate")
+    if scoring.get("runs_per_task") != source["official_runs_per_task"]:
+        raise ValueError("scoring contract differs from the qualified source")
+    return source
 
 
 def percentile(values: list[float], quantile: float) -> float:
@@ -257,6 +271,7 @@ def main() -> None:
     if set(arms) != set(gate["arms"]):
         raise ValueError("result directories differ from the release gate")
     checkout = arguments.checkout.resolve()
+    validate_scoring_source(checkout, gate, scoring)
     domain_root = checkout / "state_bench" / "domains" / "customer_support"
     split = json.loads((domain_root / "splits" / "train_test.json").read_text())["splits"]
     task_ids = list(split["test"])
