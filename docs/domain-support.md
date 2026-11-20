@@ -86,6 +86,13 @@ the authoritative adapter-level check.
 - **Validation:** Retrospective source tests. No prospective environment outcome
   has been released.
 
+### Customer-support agents
+
+- **Interface:** Versioned public protocol and pinned source qualifier
+- **Native sources:** STATE-Bench customer-support learning track
+- **Validation:** Source qualification only. No candidate-learning or
+  post-training outcome has been released.
+
 The profile schema can transport additional namespaced coordinates without a
 Rust change. That extensibility is not evidence that an unlisted adapter works
 or that one domain's predictor transfers to another.

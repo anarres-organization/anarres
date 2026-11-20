@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "study_id": "customer_support_environment_utility_v1",
+  "status": "SCORING_CONTRACT_FROZEN__HELD_OUT_OUTCOMES_UNOPENED",
+  "held_out_outcomes_opened": false,
+  "baseline_arm": "no_learning",
+  "allocation_decision_set": "no_learning baseline and all candidate arms",
+  "candidate_arms": [
+    "source_proportional",
+    "deterministic_random",
+    "static_difficulty",
+    "policy_relative"
+  ],
+  "predicted_choice": "policy_relative",
+  "runs_per_task": 5,
+  "primary_outcome": "task_completion_pass_at_1",
+  "secondary_outcomes": [
+    "task_completion_pass_power_5",
+    "mean_user_experience_score",
+    "mean_cost_per_task",
+    "pairwise_candidate_ordering",
+    "allocation_regret_including_no_learning",
+    "candidate_only_allocation_regret"
+  ],
+  "regression": {
+    "unit": "held_out_task",
+    "material_threshold": -0.2,
+    "definition": "candidate task success rate minus no-learning task success rate is at most -0.20 across five matched runs",
+    "family_summary": "mean paired task-success change within each STATE-Bench task family",
+    "multiplicity_policy": "Task-level regression flags are a descriptive screen. No per-task hypothesis claim is made from five runs."
+  },
+  "trace_integrity": [
+    "state_pass_task_fail_count",
+    "task_pass_state_fail_count",
+    "tool_error_rate_per_tool_call",
+    "redundant_call_rate_per_tool_call"
+  ],
+  "trace_interpretation": "These are trace inconsistency and execution diagnostics. They are not, by themselves, evidence of reward hacking.",
+  "uncertainty": {
+    "method": "task-stratified nonparametric bootstrap",
+    "resamples": 10000,
+    "random_seed": 20261119,
+    "interval": "2.5th and 97.5th percentiles",
+    "independent_resampling_unit": "held_out_task"
+  },
+  "outcome_gate": [
+    "all five arms are present",
+    "all 50 held-out tasks are present in all five runs per arm",
+    "task, state, efficiency, token, and user-experience fields are scored",
+    "file identities and content hashes are recorded before aggregation",
+    "infrastructure-invalid and unscored records block release"
+  ]
+}

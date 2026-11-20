@@ -29,6 +29,20 @@ def python_check(name: str, directory: str, *arguments: str) -> StudyCheck:
 
 CHECKS = (
     python_check(
+        "customer-support source qualification",
+        "experiments/agentic/customer-support-environment-utility",
+        "scripts/audit_sources.py",
+    ),
+    python_check(
+        "customer-support prospective workflow",
+        "experiments/agentic/customer-support-environment-utility",
+        "-m",
+        "unittest",
+        "discover",
+        "-p",
+        "test_*.py",
+    ),
+    python_check(
         "mathematics study integrity",
         "experiments/mathematics/environment-utility",
         "scripts/audit_study.py",
