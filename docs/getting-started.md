@@ -52,17 +52,18 @@ math-reference-demo-v1       833.3333     0.6533         2        1
 ## Bring an environment
 
 Homebrew and the standalone installer provide the core CLI. To work with native
-domain data, clone Anarres and install the matching adapter first:
+domain data, install the matching adapter from the tagged release:
 
 ```bash
-git clone https://github.com/anarres-organization/anarres.git
-cd anarres
-uv tool install ./packages/legal  # choose the adapter path for your domain
+uv tool install \
+  'git+https://github.com/anarres-organization/anarres.git@anarres-cli-v0.4.1#subdirectory=packages/legal'
 anarres adapter list
+anarres adapter doctor legal
 ```
 
-The [adapter guide](adapters.md) lists every valid adapter name and installation
-path. Keep the source in its native format and connect it to that adapter:
+The [adapter guide](adapters.md) lists every valid adapter name and tagged
+source path. Keep the source in its native format and connect it to that
+adapter:
 
 ```bash
 anarres init ./candidate-a \

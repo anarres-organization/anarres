@@ -105,9 +105,9 @@ matters, molecular structures, atomistic configurations, or another
 domain-defined form of training experience.
 
 Keep each source in its native format. Homebrew and the standalone installer
-provide the core CLI; domain adapters are installed from an Anarres checkout.
-The maintained adapter names are `formal`, `robotics`, `legal`, `materials`,
-`molecular`, `finance`, and `vulnerability`. Follow the
+provide the core CLI; `uv` installs only the domain adapter you need from a
+tagged Anarres release. The maintained adapter names are `formal`, `robotics`,
+`legal`, `materials`, `molecular`, `finance`, and `vulnerability`. Follow the
 [adapter installation guide](docs/adapters.md) before connecting a source:
 
 ```bash
