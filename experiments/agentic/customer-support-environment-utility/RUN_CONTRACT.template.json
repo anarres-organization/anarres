@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "study_id": "customer_support_environment_utility_v1",
+  "status": "DRAFT__NOT_EXECUTABLE",
+  "starting_agent": {
+    "model_name": null,
+    "model_revision": null,
+    "agent_class": null,
+    "client_class": null,
+    "reasoning_level": null
+  },
+  "learning_operator": {
+    "id": null,
+    "revision": null,
+    "artifact_builder": null,
+    "retrieval_top_k": 3
+  },
+  "candidate_size": 50,
+  "development_runs_per_task": 5,
+  "held_out_runs_per_task": 5,
+  "infrastructure": {
+    "retry_attempts": null,
+    "attempt_ledger": null,
+    "failed_attempt_cost_accounting": null
+  },
+  "evaluation": {
+    "protocol": "state_bench_gpt54",
+    "split": "test",
+    "split_version": "train_test",
+    "task_count": 50
+  }
+}

@@ -30,6 +30,28 @@ def numeric_field(record: dict, direct: str, nested_container: str, nested: str)
     return float(value)
 
 
+def optional_binary(record: dict, name: str) -> int | None:
+    value = record.get(name)
+    if value is None:
+        return None
+    if value not in (0, 1, False, True):
+        raise ValueError(f"{name} must be binary when present")
+    return int(value)
+
+
+def agent_model_identity(record: dict) -> dict:
+    model = record.get("agent_model")
+    if not isinstance(model, dict):
+        raise ValueError("agent_model metadata must be present on every scored trajectory")
+    model_name = str(model.get("model_name", "")).strip()
+    if not model_name:
+        raise ValueError("agent_model.model_name must be non-empty")
+    reasoning_level = model.get("reasoning_level")
+    if reasoning_level is not None:
+        reasoning_level = str(reasoning_level).strip() or None
+    return {"model_name": model_name, "reasoning_level": reasoning_level}
+
+
 def read_scored_attempt(path: Path, expected_task_id: str) -> tuple[dict | None, str | None]:
     if not path.exists():
         return None, "missing_file"
@@ -46,9 +68,18 @@ def read_scored_attempt(path: Path, expected_task_id: str) -> tuple[dict | None,
         return None, "unscored"
     return {
         "success": int(outcome),
+        "input_tokens": numeric_field(record, "input_tokens", "token_usage", "input_tokens"),
         "output_tokens": numeric_field(record, "output_tokens", "token_usage", "output_tokens"),
         "tool_calls": numeric_field(record, "tool_calls", "efficiency", "tool_calls"),
+        "tool_errors": numeric_field(record, "tool_errors", "efficiency", "tool_errors"),
+        "redundant_calls": numeric_field(
+            record, "redundant_calls", "efficiency", "redundant_calls"
+        ),
         "cost_usd": numeric_field(record, "cost_usd", "token_usage", "total_cost_usd"),
+        "state_requirements_met": optional_binary(record, "state_requirements_met"),
+        "task_requirements_met": optional_binary(record, "task_requirements_met"),
+        "ux_score": numeric_field(record, "ux_score", "ux_quality", "ux_score"),
+        "agent_model": agent_model_identity(record),
     }, None
 
 
@@ -64,16 +95,33 @@ def summarize_attempts(
     attempts: dict[str, list[dict]],
     invalid_counts: dict[str, int],
 ) -> dict:
+    model_identities = {
+        json.dumps(row["agent_model"], sort_keys=True) for rows in attempts.values() for row in rows
+    }
+    if len(model_identities) != 1:
+        raise ValueError("starting-agent measurements must use exactly one model identity")
+    starting_agent = json.loads(next(iter(model_identities)))
     per_task = []
     family = defaultdict(lambda: {"tasks": 0, "scored_attempts": 0, "successes": 0})
     total_mass = 0.0
     squared_mass = 0.0
+    total_input_tokens = 0.0
+    input_tokens_complete = True
     total_output_tokens = 0.0
     output_tokens_complete = True
     total_tool_calls = 0.0
     tool_calls_complete = True
+    total_tool_errors = 0.0
+    tool_errors_complete = True
+    total_redundant_calls = 0.0
+    redundant_calls_complete = True
     total_cost_usd = 0.0
     cost_complete = True
+    state_task_pairs_complete = True
+    state_pass_task_fail = 0
+    task_pass_state_fail = 0
+    ux_scores = []
+    ux_complete = True
 
     for task_id in task_ids:
         rows = attempts.get(task_id, [])
@@ -89,7 +137,27 @@ def summarize_attempts(
         total_mass += mass
         squared_mass += mass * mass
 
+        task_input_tokens = [row["input_tokens"] for row in rows]
+        task_output_tokens = [row["output_tokens"] for row in rows]
+        task_tool_calls = [row["tool_calls"] for row in rows]
+        task_tool_errors = [row["tool_errors"] for row in rows]
+        task_redundant_calls = [row["redundant_calls"] for row in rows]
+        task_costs = [row["cost_usd"] for row in rows]
+        task_input_complete = bool(rows) and all(value is not None for value in task_input_tokens)
+        task_output_complete = bool(rows) and all(value is not None for value in task_output_tokens)
+        task_tools_complete = bool(rows) and all(value is not None for value in task_tool_calls)
+        task_cost_complete = bool(rows) and all(value is not None for value in task_costs)
+        task_output_total = (
+            sum(value for value in task_output_tokens if value is not None)
+            if task_output_complete
+            else None
+        )
+
         for row in rows:
+            if row["input_tokens"] is None:
+                input_tokens_complete = False
+            else:
+                total_input_tokens += row["input_tokens"]
             if row["output_tokens"] is None:
                 output_tokens_complete = False
             else:
@@ -98,10 +166,29 @@ def summarize_attempts(
                 tool_calls_complete = False
             else:
                 total_tool_calls += row["tool_calls"]
+            if row["tool_errors"] is None:
+                tool_errors_complete = False
+            else:
+                total_tool_errors += row["tool_errors"]
+            if row["redundant_calls"] is None:
+                redundant_calls_complete = False
+            else:
+                total_redundant_calls += row["redundant_calls"]
             if row["cost_usd"] is None:
                 cost_complete = False
             else:
                 total_cost_usd += row["cost_usd"]
+            state_met = row["state_requirements_met"]
+            task_met = row["task_requirements_met"]
+            if state_met is None or task_met is None:
+                state_task_pairs_complete = False
+            else:
+                state_pass_task_fail += int(state_met == 1 and task_met == 0)
+                task_pass_state_fail += int(task_met == 1 and state_met == 0)
+            if row["ux_score"] is None:
+                ux_complete = False
+            else:
+                ux_scores.append(row["ux_score"])
 
         per_task.append(
             {
@@ -112,15 +199,51 @@ def summarize_attempts(
                 "success_rate": successes / count if count else None,
                 "mixed_outcomes": mixed,
                 "completion_advantage_mass": mass,
+                "completion_signal_density_per_million_output_tokens": (
+                    1_000_000.0 * mass / task_output_total
+                    if task_output_total is not None and task_output_total > 0
+                    else None
+                ),
+                "output_tokens": task_output_total,
+                "input_tokens": (
+                    sum(value for value in task_input_tokens if value is not None)
+                    if task_input_complete
+                    else None
+                ),
+                "tool_calls": (
+                    sum(value for value in task_tool_calls if value is not None)
+                    if task_tools_complete
+                    else None
+                ),
+                "tool_errors": (
+                    sum(value for value in task_tool_errors if value is not None)
+                    if bool(rows) and all(value is not None for value in task_tool_errors)
+                    else None
+                ),
+                "redundant_calls": (
+                    sum(value for value in task_redundant_calls if value is not None)
+                    if bool(rows) and all(value is not None for value in task_redundant_calls)
+                    else None
+                ),
+                "cost_usd": (
+                    sum(value for value in task_costs if value is not None)
+                    if task_cost_complete
+                    else None
+                ),
             }
         )
 
     scored_attempts = sum(len(rows) for rows in attempts.values())
     successes = sum(row["success"] for rows in attempts.values() for row in rows)
     mixed_tasks = sum(row["mixed_outcomes"] for row in per_task)
+    input_tokens_complete = input_tokens_complete and scored_attempts > 0
     output_tokens_complete = output_tokens_complete and scored_attempts > 0
     tool_calls_complete = tool_calls_complete and scored_attempts > 0
+    tool_errors_complete = tool_errors_complete and scored_attempts > 0
+    redundant_calls_complete = redundant_calls_complete and scored_attempts > 0
     cost_complete = cost_complete and scored_attempts > 0
+    state_task_pairs_complete = state_task_pairs_complete and scored_attempts > 0
+    ux_complete = ux_complete and scored_attempts > 0
     effective_coverage = (
         (total_mass * total_mass) / (len(task_ids) * squared_mass)
         if squared_mass > 0 and task_ids
@@ -142,6 +265,7 @@ def summarize_attempts(
 
     return {
         "task_count": len(task_ids),
+        "starting_agent": starting_agent,
         "scored_attempts": scored_attempts,
         "scientific_failures": scored_attempts - successes,
         "successes": successes,
@@ -152,12 +276,23 @@ def summarize_attempts(
         "completion_advantage_mass": total_mass,
         "completion_signal_density_per_million_output_tokens": signal_density,
         "completion_signal_effective_task_coverage": effective_coverage,
+        "input_token_accounting_complete": input_tokens_complete,
         "output_token_accounting_complete": output_tokens_complete,
         "tool_call_accounting_complete": tool_calls_complete,
+        "tool_error_accounting_complete": tool_errors_complete,
+        "redundant_call_accounting_complete": redundant_calls_complete,
         "trajectory_cost_accounting_complete": cost_complete,
+        "state_task_pair_accounting_complete": state_task_pairs_complete,
+        "ux_accounting_complete": ux_complete,
+        "total_input_tokens": total_input_tokens if input_tokens_complete else None,
         "total_output_tokens": total_output_tokens if output_tokens_complete else None,
         "total_tool_calls": total_tool_calls if tool_calls_complete else None,
+        "total_tool_errors": total_tool_errors if tool_errors_complete else None,
+        "total_redundant_calls": (total_redundant_calls if redundant_calls_complete else None),
         "total_cost_usd": total_cost_usd if cost_complete else None,
+        "state_pass_task_fail_count": (state_pass_task_fail if state_task_pairs_complete else None),
+        "task_pass_state_fail_count": (task_pass_state_fail if state_task_pairs_complete else None),
+        "mean_ux_score": sum(ux_scores) / len(ux_scores) if ux_complete else None,
         "task_family_summary": family_summary,
         "per_task": per_task,
     }

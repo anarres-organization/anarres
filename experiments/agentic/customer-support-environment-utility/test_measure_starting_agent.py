@@ -12,6 +12,22 @@ assert SPEC.loader is not None
 SPEC.loader.exec_module(MODULE)
 
 
+def attempt(success, output_tokens, tool_calls, cost_usd):
+    return {
+        "success": success,
+        "input_tokens": 2 * output_tokens,
+        "output_tokens": output_tokens,
+        "tool_calls": tool_calls,
+        "tool_errors": 0,
+        "redundant_calls": 0,
+        "cost_usd": cost_usd,
+        "state_requirements_met": success,
+        "task_requirements_met": success,
+        "ux_score": 4.0,
+        "agent_model": {"model_name": "test-model", "reasoning_level": "high"},
+    }
+
+
 class StartingAgentMeasurementTest(unittest.TestCase):
     def test_native_nested_accounting_fields_are_read(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -21,8 +37,23 @@ class StartingAgentMeasurementTest(unittest.TestCase):
                     {
                         "task_id": "task-a",
                         "task_completion_pass": 1,
-                        "efficiency": {"tool_calls": 4},
-                        "token_usage": {"output_tokens": 120, "total_cost_usd": 0.03},
+                        "efficiency": {
+                            "tool_calls": 4,
+                            "tool_errors": 1,
+                            "redundant_calls": 2,
+                        },
+                        "token_usage": {
+                            "input_tokens": 240,
+                            "output_tokens": 120,
+                            "total_cost_usd": 0.03,
+                        },
+                        "state_requirements_met": 1,
+                        "task_requirements_met": 0,
+                        "ux_score": 3.5,
+                        "agent_model": {
+                            "model_name": "test-model",
+                            "reasoning_level": "high",
+                        },
                     }
                 ),
                 encoding="utf-8",
@@ -31,7 +62,19 @@ class StartingAgentMeasurementTest(unittest.TestCase):
         self.assertIsNone(invalid)
         self.assertEqual(
             attempt,
-            {"success": 1, "output_tokens": 120.0, "tool_calls": 4.0, "cost_usd": 0.03},
+            {
+                "success": 1,
+                "input_tokens": 240.0,
+                "output_tokens": 120.0,
+                "tool_calls": 4.0,
+                "tool_errors": 1.0,
+                "redundant_calls": 2.0,
+                "cost_usd": 0.03,
+                "state_requirements_met": 1,
+                "task_requirements_met": 0,
+                "ux_score": 3.5,
+                "agent_model": {"model_name": "test-model", "reasoning_level": "high"},
+            },
         )
 
     def test_scientific_failure_is_separate_from_invalid_attempt(self):
@@ -39,12 +82,12 @@ class StartingAgentMeasurementTest(unittest.TestCase):
         task_types = {"task-a": "return", "task-b": "shipping"}
         attempts = {
             "task-a": [
-                {"success": 1, "output_tokens": 100, "tool_calls": 2, "cost_usd": 0.1},
-                {"success": 0, "output_tokens": 100, "tool_calls": 3, "cost_usd": 0.2},
+                attempt(1, 100, 2, 0.1),
+                attempt(0, 100, 3, 0.2),
             ],
             "task-b": [
-                {"success": 0, "output_tokens": 100, "tool_calls": 1, "cost_usd": 0.1},
-                {"success": 0, "output_tokens": 100, "tool_calls": 1, "cost_usd": 0.1},
+                attempt(0, 100, 1, 0.1),
+                attempt(0, 100, 1, 0.1),
             ],
         }
         invalid = defaultdict(int, {"missing_file": 1})
@@ -62,8 +105,8 @@ class StartingAgentMeasurementTest(unittest.TestCase):
     def test_missing_cost_makes_cost_aggregate_null(self):
         attempts = {
             "task-a": [
-                {"success": 1, "output_tokens": 10, "tool_calls": 1, "cost_usd": None},
-                {"success": 0, "output_tokens": 10, "tool_calls": 1, "cost_usd": 0.1},
+                attempt(1, 10, 1, None),
+                attempt(0, 10, 1, 0.1),
             ]
         }
         summary = MODULE.summarize_attempts(

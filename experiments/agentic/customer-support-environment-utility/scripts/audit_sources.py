@@ -87,13 +87,47 @@ def validate_qualification(qualification: dict, sources: dict, protocol: dict) -
         raise ValueError("source qualification must not open scientific outcomes")
 
 
+def validate_scoring(scoring: dict, protocol: dict) -> None:
+    if scoring.get("study_id") != protocol["study_id"]:
+        raise ValueError("scoring contract belongs to a different study")
+    if scoring.get("status") != "SCORING_CONTRACT_FROZEN__HELD_OUT_OUTCOMES_UNOPENED":
+        raise ValueError("scoring contract status must preserve the prospective boundary")
+    if scoring.get("held_out_outcomes_opened") is not False:
+        raise ValueError("scoring contract must precede held-out outcomes")
+    if scoring.get("baseline_arm") in scoring.get("candidate_arms", []):
+        raise ValueError("baseline arm must remain separate from candidate arms")
+    if scoring.get("allocation_decision_set") != "no_learning baseline and all candidate arms":
+        raise ValueError("allocation regret must retain the option not to learn")
+    if scoring.get("predicted_choice") not in scoring.get("candidate_arms", []):
+        raise ValueError("point prediction is not a candidate arm")
+    if scoring.get("runs_per_task") != protocol["source"]["official_runs_per_task"]:
+        raise ValueError("scoring run count differs from the source protocol")
+    if scoring.get("regression", {}).get("material_threshold", 0) >= 0:
+        raise ValueError("material regression threshold must be negative")
+    if not scoring.get("regression", {}).get("multiplicity_policy"):
+        raise ValueError("regression reporting must state its multiplicity policy")
+
+
+def validate_run_template(template: dict, protocol: dict) -> None:
+    if template.get("study_id") != protocol["study_id"]:
+        raise ValueError("run-contract template belongs to a different study")
+    if template.get("status") != "DRAFT__NOT_EXECUTABLE":
+        raise ValueError("checked-in run contract must remain a non-executable template")
+    if template.get("starting_agent", {}).get("model_name") is not None:
+        raise ValueError("run-contract template must not imply a chosen starting agent")
+
+
 def validate() -> tuple[dict, dict, dict]:
     sources = load_json("SOURCES.json")
     protocol = load_json("PROTOCOL.json")
     qualification = load_json("SOURCE_QUALIFICATION.json")
+    scoring = load_json("SCORING_CONTRACT.json")
+    run_template = load_json("RUN_CONTRACT.template.json")
     validate_sources(sources)
     validate_protocol(protocol, sources)
     validate_qualification(qualification, sources, protocol)
+    validate_scoring(scoring, protocol)
+    validate_run_template(run_template, protocol)
     return sources, protocol, qualification
 
 

@@ -34,6 +34,15 @@ CHECKS = (
         "scripts/audit_sources.py",
     ),
     python_check(
+        "customer-support prospective workflow",
+        "experiments/agentic/customer-support-environment-utility",
+        "-m",
+        "unittest",
+        "discover",
+        "-p",
+        "test_*.py",
+    ),
+    python_check(
         "mathematics study integrity",
         "experiments/mathematics/environment-utility",
         "scripts/audit_study.py",

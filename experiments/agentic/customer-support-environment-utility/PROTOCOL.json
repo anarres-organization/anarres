@@ -2,7 +2,7 @@
   "schema_version": 1,
   "study_id": "customer_support_environment_utility_v1",
   "status": "SOURCE_QUALIFIED__PROSPECTIVE_CONTRACT_NOT_FROZEN",
-  "question": "Which candidate distribution of customer-support experience produces the greatest held-out task improvement under a matched learning and inference budget?",
+  "question": "Which size-matched distribution of customer-support experience produces the greatest held-out task improvement under a common learning and evaluation contract?",
   "source": {
     "primary": "state_bench",
     "revision": "5644b1838d96bc4483da29642d058ecaa6f80f7f",
@@ -31,6 +31,13 @@
     "generated_output_and_inference_cost",
     "coverage_across_task_families"
   ],
+  "development_qualification": [
+    "every training-side task has the frozen number of scored attempts",
+    "infrastructure-invalid attempts are resolved without outcome-driven replacement",
+    "output-token accounting is complete for every scored trajectory",
+    "every task family contains at least one mixed-outcome task",
+    "all candidate memberships are distinct and size matched"
+  ],
   "primary_outcome": "held_out_task_completion_pass_at_1_relative_to_no_learning_baseline",
   "secondary_outcomes": [
     "held_out_task_completion_pass_power_5",
@@ -58,7 +65,7 @@
     "candidate size, membership, and deterministic tie breaking",
     "candidate coordinate definitions and estimators",
     "learning operator and retrieval limit",
-    "prediction, uncertainty, and abstention rule",
+    "prediction and uncertainty rule",
     "regression definition and multiplicity policy",
     "held-out evaluator and completeness gate"
   ],
@@ -82,11 +89,9 @@
   "unresolved_before_freeze": [
     "starting agent",
     "starting-agent probe route",
-    "candidate size and exact construction rules",
-    "candidate coordinate definitions",
+    "candidate size",
     "learning operator",
-    "uncertainty and abstention thresholds",
-    "task-level regression threshold",
+    "uncertainty thresholds",
     "external transfer contract"
   ]
 }
