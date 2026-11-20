@@ -131,6 +131,13 @@ def inspect_outputs(output_dir: Path, task_ids: list[str], runs: int) -> tuple[l
     return records, complete
 
 
+def redact_command(command: list[str]) -> list[str]:
+    displayed = list(command)
+    index = displayed.index("--agent-api-key-var") + 1
+    displayed[index] = "<configured-credential-variable>"
+    return displayed
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--checkout", type=Path, required=True)
@@ -171,9 +178,8 @@ def main() -> None:
         "tasks": len(smoke_plan["task_ids"]),
         "runs_per_task": smoke_plan["runs_per_task"],
         "expected_trajectories": len(smoke_plan["task_ids"]) * smoke_plan["runs_per_task"],
-        "command": command,
+        "command": redact_command(command),
         "agent_provider": arguments.agent_provider,
-        "agent_api_key_variable": api_key_var,
         "credential_values_recorded": False,
     }
     if not arguments.execute:

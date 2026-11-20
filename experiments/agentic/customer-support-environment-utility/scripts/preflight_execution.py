@@ -28,7 +28,7 @@ def sha256(path: Path) -> str:
 
 
 def configured(name: str) -> bool:
-    return bool(os.environ.get(name, "").strip())
+    return name in os.environ
 
 
 def preflight(
@@ -85,7 +85,6 @@ def preflight(
         "evaluator_fields_present": evaluator_fields,
         "evaluator_auth_hint_present": evaluator_auth_hint,
         "agent_provider": provider,
-        "agent_api_key_variable": agent_api_key_var,
         "agent_fields_present": agent_fields,
         "model_calls_made": 0,
         "credential_values_printed": False,
