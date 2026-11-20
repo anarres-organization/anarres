@@ -52,11 +52,26 @@ def git_revision(checkout: Path) -> str:
     return completed.stdout.strip()
 
 
+def tracked_changes(checkout: Path) -> list[str]:
+    """Return tracked changes while allowing the installed untracked extension."""
+    completed = subprocess.run(
+        ["git", "status", "--porcelain", "--untracked-files=no"],
+        cwd=checkout,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return [line for line in completed.stdout.splitlines() if line]
+
+
 def audit_checkout(checkout: Path) -> dict:
     checkout = checkout.resolve()
     revision = git_revision(checkout)
     if revision != EXPECTED_REVISION:
         raise ValueError(f"expected STATE-Bench {EXPECTED_REVISION}, found {revision}")
+    changes = tracked_changes(checkout)
+    if changes:
+        raise ValueError(f"STATE-Bench checkout has tracked changes: {changes}")
 
     paths = {
         "license_sha256": checkout / "LICENSE",

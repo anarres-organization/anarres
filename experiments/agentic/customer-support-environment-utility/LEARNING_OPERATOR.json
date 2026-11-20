@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "study_id": "customer_support_environment_utility_v1",
+  "operator_id": "state_bench_episodic_bm25_v1",
+  "status": "OPERATOR_IMPLEMENTED__MODEL_ROUTE_NOT_FROZEN",
+  "source": "released STATE-Bench customer-support train trajectories only",
+  "memory_unit": "one compact episodic record per selected training trajectory",
+  "memory_fields": [
+    "user requests across the interaction",
+    "ordered domain-tool names",
+    "assistant responses"
+  ],
+  "retrieval": {
+    "method": "BM25",
+    "k1": 1.5,
+    "b": 0.75,
+    "top_k": 3,
+    "tie_breaker": "task_id"
+  },
+  "exclusions": [
+    "held-out task definitions",
+    "held-out task environments",
+    "held-out outcomes",
+    "candidate-specific evaluation results"
+  ],
+  "interpretation": "This is a deterministic episodic-memory baseline for the benchmark's native retrieval interface. It is not parameter-updating post-training."
+}
