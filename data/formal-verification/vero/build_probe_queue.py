@@ -9,6 +9,13 @@ import json
 from pathlib import Path
 from typing import Any
 
+# Protocol token limit -> the field each queue entry carries.
+QUEUE_TOKEN_FIELDS = {
+    "controller_token_stop_threshold_per_attempt": "controller_token_stop_threshold",
+    "output_token_stop_threshold_per_attempt": "output_token_stop_threshold",
+    "maximum_cumulative_model_tokens_per_attempt": "maximum_model_tokens",
+}
+
 
 class QueueError(ValueError):
     """Raised when the queue inputs or an existing queue are inconsistent."""
@@ -41,10 +48,14 @@ def build_queue(
                 if namespace:
                     parts.append(namespace)
                 attempt_id = "-".join(parts) + f"-r{replicate:02d}"
-                token_field = (
-                    "controller_token_stop_threshold_per_attempt"
-                    if "controller_token_stop_threshold_per_attempt" in design
-                    else "maximum_cumulative_model_tokens_per_attempt"
+                token_field = next(
+                    field
+                    for field in (
+                        "controller_token_stop_threshold_per_attempt",
+                        "output_token_stop_threshold_per_attempt",
+                        "maximum_cumulative_model_tokens_per_attempt",
+                    )
+                    if field in design
                 )
                 entries.append(
                     {
@@ -55,11 +66,7 @@ def build_queue(
                         "replicate": replicate,
                         "task_id": f"{benchmark_id}:{mode}",
                         "expected_specifications": repository["specifications"],
-                        (
-                            "controller_token_stop_threshold"
-                            if token_field == "controller_token_stop_threshold_per_attempt"
-                            else "maximum_model_tokens"
-                        ): design[token_field],
+                        QUEUE_TOKEN_FIELDS[token_field]: design[token_field],
                         "maximum_wall_seconds": design["maximum_wall_seconds_per_attempt"],
                         "maximum_agent_turns": design["maximum_agent_turns_per_attempt"],
                         "ordering_key": ordering_key(queue_id, benchmark_id, mode, replicate),
