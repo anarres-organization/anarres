@@ -5,8 +5,18 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+OPERATOR_SPEC = importlib.util.spec_from_file_location(
+    "anarres_learning_operator",
+    ROOT / "execution/state_bench_extension/anarres_learning_operator.py",
+)
+OPERATOR_MODULE = importlib.util.module_from_spec(OPERATOR_SPEC)
+assert OPERATOR_SPEC.loader is not None
+OPERATOR_SPEC.loader.exec_module(OPERATOR_MODULE)
 
 
 def sha256(path: Path) -> str:
@@ -47,6 +57,17 @@ def prepare(
         if build_wall_time_seconds is None or build_wall_time_seconds < 0:
             raise ValueError(f"{arm} requires non-negative learning build wall time")
         membership = candidates[arm]["membership_sha256"]
+        artifact_payload = json.loads(artifact.read_text(encoding="utf-8"))
+        OPERATOR_MODULE.validate_artifact(artifact_payload)
+        expected_operator = candidate_plan["run_contract"]["learning_operator"]["id"]
+        if (
+            artifact_payload.get("operator_id") != expected_operator
+            or artifact_payload.get("candidate_plan_sha256") != candidate_plan_sha256
+            or artifact_payload.get("arm") != arm
+            or artifact_payload.get("candidate_membership_sha256") != membership
+            or artifact_payload.get("record_count") != candidate_plan.get("candidate_size")
+        ):
+            raise ValueError(f"{arm} learning artifact differs from the frozen candidate")
         artifact_hash = sha256(artifact)
     run_contract = candidate_plan["run_contract"]
     return {

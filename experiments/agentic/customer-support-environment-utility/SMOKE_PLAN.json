@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "study_id": "customer_support_environment_utility_v1",
+  "status": "TRAIN_SIDE_SMOKE_PANEL_FROZEN__NO_MODEL_CALLS_MADE",
+  "source_revision": "5644b1838d96bc4483da29642d058ecaa6f80f7f",
+  "selection_rule": "one train task per task family, minimizing SHA-256(customer-support-smoke-v1\\0<task_id>) with task_id tie breaking",
+  "runs_per_task": 2,
+  "task_ids": [
+    "107-hard_bundle_price_match_requires_approval",
+    "113-hard_exchange_gift_size_no_refund",
+    "148-spare_cancel_after_shipment_keep_delivered",
+    "23-hard_customer_says_damaged_but_wrong_item_blender",
+    "32-warranty_refurbished",
+    "49-edge_vague_complaint",
+    "5-hard_normal_delivery_damage_label_changed_mind",
+    "62-challenge_exchange_oos_pivot"
+  ],
+  "task_family_counts": {
+    "cancel_order": 1,
+    "compound": 1,
+    "edge_case": 1,
+    "exchange_item": 1,
+    "price_match_refund": 1,
+    "return_item": 1,
+    "shipping_claim": 1,
+    "warranty_claim": 1
+  },
+  "purpose": "Qualify the starting-agent and locked-evaluator route before the complete train-side measurement.",
+  "scientific_use": "development only; never treated as held-out evidence"
+}

@@ -1,3 +1,4 @@
+import hashlib
 import importlib.util
 import json
 import tempfile
@@ -34,7 +35,7 @@ def run_contract():
             "reasoning_level": None,
         },
         "learning_operator": {
-            "id": "operator",
+            "id": "state_bench_episodic_bm25_v1",
             "revision": "revision",
             "artifact_builder": "builder.py",
             "retrieval_top_k": 3,
@@ -54,6 +55,30 @@ def run_contract():
             "task_count": 50,
         },
     }
+
+
+def learning_artifact(arm, plan_sha256, membership, task_id="train-task"):
+    return {
+        "schema_version": 1,
+        "operator_id": "state_bench_episodic_bm25_v1",
+        "source_revision": "a" * 40,
+        "candidate_plan_sha256": plan_sha256,
+        "arm": arm,
+        "candidate_membership_sha256": membership,
+        "record_count": 1,
+        "records": [
+            {
+                "task_id": task_id,
+                "source_trajectory_sha256": "b" * 64,
+                "retrieval_text": "customer request",
+                "learning": "prior response",
+            }
+        ],
+    }
+
+
+def membership_for(task_id):
+    return hashlib.sha256(f"{task_id}\n".encode()).hexdigest()
 
 
 class ProspectiveWorkflowTest(unittest.TestCase):
@@ -99,9 +124,10 @@ class ProspectiveWorkflowTest(unittest.TestCase):
                 "status": "CANDIDATES_AND_PREDICTION_FROZEN__HELD_OUT_OUTCOMES_UNOPENED",
                 "held_out_outcomes_opened": False,
                 "predicted_choice": "policy_relative",
+                "candidate_size": 1,
                 "candidates": {
-                    name: {"membership_sha256": str(index) * 64}
-                    for index, name in enumerate(candidates, start=1)
+                    name: {"membership_sha256": membership_for(f"train-{name}")}
+                    for name in candidates
                 },
                 "freeze_inputs": {"run_contract_sha256": "f" * 64},
                 "run_contract": run_contract(),
@@ -142,7 +168,17 @@ class ProspectiveWorkflowTest(unittest.TestCase):
                 relative_path = None
                 if arm != "no_learning":
                     artifact = arm_root / "learning.json"
-                    artifact.write_text(json.dumps({"arm": arm}), encoding="utf-8")
+                    artifact.write_text(
+                        json.dumps(
+                            learning_artifact(
+                                arm,
+                                GATE.sha256(plan_path),
+                                plan["candidates"][arm]["membership_sha256"],
+                                f"train-{arm}",
+                            )
+                        ),
+                        encoding="utf-8",
+                    )
                     relative_path = "learning.json"
                 manifest = PREPARE.prepare(
                     plan,
@@ -197,15 +233,23 @@ class ProspectiveWorkflowTest(unittest.TestCase):
     def test_arm_manifest_binds_membership_and_artifact(self):
         with tempfile.TemporaryDirectory() as directory:
             artifact = Path(directory) / "learning.json"
-            artifact.write_text("{}\n", encoding="utf-8")
             plan = {
                 "study_id": "study",
                 "status": "CANDIDATES_AND_PREDICTION_FROZEN__HELD_OUT_OUTCOMES_UNOPENED",
                 "held_out_outcomes_opened": False,
-                "candidates": {"policy_relative": {"membership_sha256": "a" * 64}},
+                "candidate_size": 1,
+                "candidates": {
+                    "policy_relative": {"membership_sha256": membership_for("train-task")}
+                },
                 "freeze_inputs": {"run_contract_sha256": "b" * 64},
                 "run_contract": run_contract(),
             }
+            artifact.write_text(
+                json.dumps(
+                    learning_artifact("policy_relative", "c" * 64, membership_for("train-task"))
+                ),
+                encoding="utf-8",
+            )
             manifest = PREPARE.prepare(
                 plan,
                 "c" * 64,
@@ -215,12 +259,43 @@ class ProspectiveWorkflowTest(unittest.TestCase):
                 0.01,
                 1.0,
             )
-        self.assertEqual(manifest["candidate_membership_sha256"], "a" * 64)
+        self.assertEqual(manifest["candidate_membership_sha256"], membership_for("train-task"))
         self.assertEqual(len(manifest["learning_artifact_sha256"]), 64)
         self.assertEqual(manifest["learning_artifact_relative_path"], "learning.json")
         self.assertEqual(manifest["learning_artifact_build_cost_usd"], 0.01)
         baseline = PREPARE.prepare(plan, "c" * 64, "no_learning", None)
         self.assertIsNone(baseline["learning_artifact_sha256"])
+
+    def test_arm_manifest_rejects_an_artifact_from_another_arm(self):
+        with tempfile.TemporaryDirectory() as directory:
+            artifact = Path(directory) / "learning.json"
+            plan = {
+                "study_id": "study",
+                "status": "CANDIDATES_AND_PREDICTION_FROZEN__HELD_OUT_OUTCOMES_UNOPENED",
+                "held_out_outcomes_opened": False,
+                "candidate_size": 1,
+                "candidates": {
+                    "policy_relative": {"membership_sha256": membership_for("train-task")}
+                },
+                "freeze_inputs": {"run_contract_sha256": "b" * 64},
+                "run_contract": run_contract(),
+            }
+            artifact.write_text(
+                json.dumps(
+                    learning_artifact("static_difficulty", "c" * 64, membership_for("train-task"))
+                ),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "differs from the frozen candidate"):
+                PREPARE.prepare(
+                    plan,
+                    "c" * 64,
+                    "policy_relative",
+                    artifact,
+                    "learning.json",
+                    0.01,
+                    1.0,
+                )
 
     def test_freeze_requires_an_executable_contract(self):
         draft = {

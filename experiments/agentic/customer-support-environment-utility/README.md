@@ -112,6 +112,70 @@ costs. This training-side probe is an Anarres research extension rather than an
 official Agent Learning Track submission. Its records remain development
 evidence and cannot contain candidate-specific held-out outcomes.
 
+## Qualify the execution route
+
+The checked-in learning operator is a deterministic episodic-memory baseline.
+It compacts each selected training trajectory into the user requests, ordered
+domain-tool names, and assistant responses, then retrieves three records with
+BM25. It uses only the released training trajectories and does not read held-out
+task definitions, environments, or outcomes. [`LEARNING_OPERATOR.json`](LEARNING_OPERATOR.json)
+records the exact contract.
+
+First run the model-free operator smoke test against the pinned checkout:
+
+```bash
+python scripts/smoke_learning_operator.py \
+  --checkout /path/to/STATE-Bench \
+  --artifact-output /tmp/customer-support-smoke-learning.json \
+  --output /tmp/customer-support-operator-smoke.json
+```
+
+[`SMOKE_PLAN.json`](SMOKE_PLAN.json) fixes one training task from each of the
+eight customer-support task families. The smoke test verifies source identity,
+train-only membership, deterministic artifact construction, and retrieval. It
+makes no model calls and produces no scientific outcome.
+
+Install the versioned extension into the qualified STATE-Bench checkout and
+check whether the locked evaluator and starting-agent routes are configured:
+
+```bash
+python scripts/prepare_state_bench_extension.py \
+  --checkout /path/to/STATE-Bench \
+  --output /tmp/customer-support-extension.json
+
+python scripts/preflight_execution.py \
+  --checkout /path/to/STATE-Bench \
+  --output /tmp/customer-support-preflight.json \
+  --agent-model-name <reported-model-name> \
+  --agent-provider <azure_openai-or-openai>
+```
+
+The preflight prints only whether required fields are present; it never prints
+credential values. A scientific run remains blocked until the protocol-locked
+GPT-5.4 simulator and judge route and one starting-agent route are both ready.
+Once they are configured, run the eight train-side smoke tasks twice with
+`AnarresEpisodicMemoryAgent`, no learning artifact, retrieval top-k 3, and one
+retry attempt. This establishes that the model, simulator, judge, tool loop,
+scoring, token accounting, and cost accounting work together before the full
+100-task repeated measurement begins.
+
+Validate the frozen execution plan without making a model call:
+
+```bash
+python scripts/run_model_smoke.py \
+  --checkout /path/to/STATE-Bench \
+  --output-dir /path/to/smoke-output \
+  --agent-model-name <reported-model-name> \
+  --agent-provider <azure_openai-or-openai>
+```
+
+Add `--execute` only after the preflight reports
+`READY_FOR_TRAIN_SIDE_MODEL_SMOKE`. The runner fixes the smoke membership,
+repeats, retrieval limit, and retry count. It writes an attempt ledger with
+trajectory hashes, inline-scoring completeness, agent-side token and cost
+accounting, process logs, and an explicit failure-cost boundary. Simulator and
+judge provider costs require separate reconciliation.
+
 Build a draft, size-matched candidate panel from a complete development
 measurement:
 

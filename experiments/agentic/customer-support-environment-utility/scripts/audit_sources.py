@@ -117,17 +117,45 @@ def validate_run_template(template: dict, protocol: dict) -> None:
         raise ValueError("run-contract template must not imply a chosen starting agent")
 
 
+def validate_learning_operator(operator: dict, protocol: dict) -> None:
+    if operator.get("study_id") != protocol["study_id"]:
+        raise ValueError("learning operator belongs to a different study")
+    if operator.get("operator_id") != "state_bench_episodic_bm25_v1":
+        raise ValueError("unexpected learning operator")
+    if operator.get("retrieval", {}).get("top_k") != 3:
+        raise ValueError("learning operator differs from the benchmark retrieval limit")
+
+
+def validate_smoke_plan(plan: dict, protocol: dict) -> None:
+    if plan.get("study_id") != protocol["study_id"]:
+        raise ValueError("smoke plan belongs to a different study")
+    if plan.get("source_revision") != protocol["source"]["revision"]:
+        raise ValueError("smoke plan source revision differs from the protocol")
+    task_ids = plan.get("task_ids")
+    family_counts = plan.get("task_family_counts")
+    if not isinstance(task_ids, list) or len(task_ids) != len(set(task_ids)):
+        raise ValueError("smoke task identities must be unique")
+    if not isinstance(family_counts, dict) or sum(family_counts.values()) != len(task_ids):
+        raise ValueError("smoke task-family accounting is incomplete")
+    if plan.get("runs_per_task", 0) < 2:
+        raise ValueError("smoke plan requires repeated train-side attempts")
+
+
 def validate() -> tuple[dict, dict, dict]:
     sources = load_json("SOURCES.json")
     protocol = load_json("PROTOCOL.json")
     qualification = load_json("SOURCE_QUALIFICATION.json")
     scoring = load_json("SCORING_CONTRACT.json")
     run_template = load_json("RUN_CONTRACT.template.json")
+    learning_operator = load_json("LEARNING_OPERATOR.json")
+    smoke_plan = load_json("SMOKE_PLAN.json")
     validate_sources(sources)
     validate_protocol(protocol, sources)
     validate_qualification(qualification, sources, protocol)
     validate_scoring(scoring, protocol)
     validate_run_template(run_template, protocol)
+    validate_learning_operator(learning_operator, protocol)
+    validate_smoke_plan(smoke_plan, protocol)
     return sources, protocol, qualification
 
 
