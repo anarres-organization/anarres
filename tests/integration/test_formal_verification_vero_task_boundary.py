@@ -453,6 +453,10 @@ class ScoringTest(unittest.TestCase):
         self.assertEqual(text.count("--mount"), 2)
         self.assertIn("--log-driver none", text)
         self.assertIn(f"head -c {PROBE.GRADER_OUTPUT_BYTES}", text)
+        # Bash waits only for the last process substitution, which lost output when the
+        # container exited first; both readers must be waited for by process id.
+        self.assertNotIn(">(", text)
+        self.assertIn('wait "$out" "$err"', text)
         self.assertIn(f"{PROBE.GRADER_LAKE_SECONDS}s lake", text)
         self.assertLess(PROBE.GRADER_LAKE_SECONDS, PROBE.VERO_LAKE_SECONDS)
         self.assertNotIn("--user 0:0", text)

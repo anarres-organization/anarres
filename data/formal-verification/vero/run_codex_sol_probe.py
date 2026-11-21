@@ -813,11 +813,21 @@ def grader_lake_shim(directory: Path, image: str, label: str, docker: str = "doc
         "/bin/bash",
     ]
     # Lake's output reaches the grader's memory, so each stream is cut at its source; a
-    # build that keeps writing past the cut loses its pipe and fails.
+    # build that keeps writing past the cut loses its pipe and fails. Both readers are
+    # waited for by process id, so no output is lost when the container exits.
     inner = (
-        f'mkdir -p "$HOME" && timeout --kill-after=10s {GRADER_LAKE_SECONDS}s lake "$@" '
-        f"> >(head -c {GRADER_OUTPUT_BYTES}) 2> >(head -c {GRADER_OUTPUT_BYTES} >&2); "
-        'status=$?; wait; exit "$status"'
+        'mkdir -p "$HOME" || exit 125\n'
+        "pipes=$(mktemp -d) || exit 125\n"
+        'mkfifo "$pipes/out" "$pipes/err" || exit 125\n'
+        f'head -c {GRADER_OUTPUT_BYTES} < "$pipes/out" &\n'
+        "out=$!\n"
+        f'head -c {GRADER_OUTPUT_BYTES} < "$pipes/err" >&2 &\n'
+        "err=$!\n"
+        f'timeout --kill-after=10s {GRADER_LAKE_SECONDS}s lake "$@" '
+        '> "$pipes/out" 2> "$pipes/err"\n'
+        "status=$?\n"
+        'wait "$out" "$err"\n'
+        'exit "$status"\n'
     )
     shim.write_text(
         "#!/bin/sh\n"
