@@ -39,7 +39,11 @@ REQUIRED_AGREEMENT = {
     "turn_limit",
     "response_token_limit",
     "cumulative_token_limit",
+    "runtime_contract_bound",
+    "agent_socket_forbidden",
 }
+UNCOMPARED_RUNTIME_FIELDS = {"filesystem", "verifier", "cleanup"}
+BOUND_FILES = {"source-report.json", "runtime-report.json", "runtime-contract.json"}
 ROUTE_FILES = {
     "probe_sha256": "run_codex_sol_probe.py",
     "sandbox_server_sha256": "serve_vibe_sandbox.py",
@@ -154,8 +158,13 @@ def validate_receipt(
         set(agreement) != REQUIRED_AGREEMENT
         or not reports["source_report_sha256"]
         or not reports["runtime_report_sha256"]
+        or not BOUND_FILES.issubset(receipt["files"])
     ):
-        raise BoundaryError("bound reports must carry hashes and every field-level agreement")
+        raise BoundaryError("bound reports must carry hashes, files, and every agreement")
+    if reports["bound"] and set(reports.get("uncompared_runtime_fields") or {}) != (
+        UNCOMPARED_RUNTIME_FIELDS
+    ):
+        raise BoundaryError("receipt must name the runtime fields it does not compare")
     emulated = receipt["runtime_image"]["platform"]["emulated"]
     expected_qualified = (
         all_passed and reports["bound"] and all(agreement.values()) and not emulated

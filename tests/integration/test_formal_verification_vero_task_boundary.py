@@ -401,9 +401,11 @@ class DecisionRuleTest(unittest.TestCase):
             "source_pin_sha256": "sha256:p",
             "mode": "proof",
             "toolchain": {"lean_version": "4.29.1"},
+            "contract_sha256": "sha256:rc",
             "sandbox": {
                 "task_visibility": "task-only",
                 "tool_allowlist": ["sandbox/execute", "sandbox/readFile"],
+                "forbidden_inputs": ["host-credentials", "controller-agent-socket"],
             },
             "network": {
                 "task_external_egress": False,
@@ -433,15 +435,27 @@ class DecisionRuleTest(unittest.TestCase):
             "turns": 100,
             "response_tokens": 16384,
             "cumulative_tokens": 200000,
+            "runtime_contract_sha256": "sha256:rc",
         }
         agreement = RUNNER.runtime_agreement(source, runtime, observed)
         self.assertTrue(all(agreement.values()))
         self.assertEqual(set(agreement), VALIDATOR.REQUIRED_AGREEMENT)
-        changed = {**observed, "pids": 512, "grader_lean_version": "4.18.0"}
+        changed = {
+            **observed,
+            "pids": 512,
+            "grader_lean_version": "4.18.0",
+            "runtime_contract_sha256": "sha256:other",
+        }
         agreement = RUNNER.runtime_agreement(source, runtime, changed)
         self.assertEqual(
             sorted(name for name, ok in agreement.items() if not ok),
-            ["lean_version", "process_limit"],
+            ["lean_version", "process_limit", "runtime_contract_bound"],
+        )
+        unlisted = copy.deepcopy(runtime)
+        unlisted["sandbox"]["forbidden_inputs"] = ["host-credentials"]
+        agreement = RUNNER.runtime_agreement(source, unlisted, observed)
+        self.assertEqual(
+            [name for name, ok in agreement.items() if not ok], ["agent_socket_forbidden"]
         )
 
     def test_runner_covers_the_contract_test_set_exactly(self) -> None:
@@ -486,6 +500,9 @@ class ReceiptValidationTest(unittest.TestCase):
                 "source_report_sha256": "sha256:s",
                 "runtime_report_sha256": "sha256:r",
                 "agreement": dict.fromkeys(VALIDATOR.REQUIRED_AGREEMENT, True),
+                "uncompared_runtime_fields": dict.fromkeys(
+                    VALIDATOR.UNCOMPARED_RUNTIME_FIELDS, "observed by a control"
+                ),
             },
             "tests": [
                 {"id": test["id"], "passed": True, "evidence": {}}
@@ -493,7 +510,7 @@ class ReceiptValidationTest(unittest.TestCase):
             ],
             "all_tests_passed": True,
             "qualified": True,
-            "files": {},
+            "files": dict.fromkeys(VALIDATOR.BOUND_FILES, "sha256:" + "0" * 64),
         }
         receipt["receipt_id"] = RUNNER.receipt_id(receipt)
         return receipt
@@ -545,8 +562,18 @@ class ReceiptValidationTest(unittest.TestCase):
         partial["reports"]["agreement"] = {"source_identity": True}
         partial["qualified"] = True
         partial["receipt_id"] = RUNNER.receipt_id(partial)
-        with self.assertRaisesRegex(VALIDATOR.BoundaryError, "every field-level agreement"):
+        with self.assertRaisesRegex(VALIDATOR.BoundaryError, "every agreement"):
             self.validate(partial)
+        unlisted = self.receipt()
+        unlisted["reports"]["uncompared_runtime_fields"] = {}
+        unlisted["receipt_id"] = RUNNER.receipt_id(unlisted)
+        with self.assertRaisesRegex(VALIDATOR.BoundaryError, "does not compare"):
+            self.validate(unlisted)
+        unbundled = self.receipt()
+        del unbundled["files"]["runtime-contract.json"]
+        unbundled["receipt_id"] = RUNNER.receipt_id(unbundled)
+        with self.assertRaisesRegex(VALIDATOR.BoundaryError, "every agreement"):
+            self.validate(unbundled)
 
     def test_missing_or_duplicate_test_is_rejected(self) -> None:
         receipt = self.receipt()
@@ -558,9 +585,12 @@ class ReceiptValidationTest(unittest.TestCase):
     def test_bundle_files_must_match_their_hashes(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             bundle = Path(directory)
-            (bundle / "sandbox-receipt-c.json").write_text("{}\n", encoding="utf-8")
             receipt = self.receipt()
-            receipt["files"] = {"sandbox-receipt-c.json": "sha256:" + "0" * 64}
+            empty = f"sha256:{hashlib.sha256(b'{}' + bytes([10])).hexdigest()}"
+            for name in [*VALIDATOR.BOUND_FILES, "sandbox-receipt-c.json"]:
+                (bundle / name).write_text("{}\n", encoding="utf-8")
+                receipt["files"][name] = empty
+            receipt["files"]["sandbox-receipt-c.json"] = "sha256:" + "0" * 64
             receipt["receipt_id"] = RUNNER.receipt_id(receipt)
             with self.assertRaisesRegex(VALIDATOR.BoundaryError, "hash disagrees"):
                 self.validate(receipt, bundle)
@@ -579,15 +609,32 @@ class FormalCliBoundaryTest(unittest.TestCase):
         arguments = argparse.Namespace(repository=ROOT)
         report = cli.command_qualification(arguments)
         boundary = report["task_only_boundary"]
+        receipt = json.loads((VERO_ROOT / CONTRACT["released_receipt"]).read_text(encoding="utf-8"))
         self.assertEqual(boundary["contract_id"], CONTRACT["contract_id"])
-        self.assertFalse(boundary["qualified"])
-        self.assertFalse(boundary["receipt_released"])
+        self.assertTrue(boundary["receipt_released"])
+        self.assertEqual(boundary["receipt_id"], receipt["receipt_id"])
+        self.assertEqual(boundary["runtime_image"], receipt["runtime_image"]["reference"])
+        self.assertTrue(boundary["qualified"])
         self.assertEqual(boundary["required_tests"], len(CONTRACT["required_tests"]))
-        self.assertFalse(report["containment"]["task_only_boundary_passed"])
+        self.assertTrue(report["containment"]["task_only_boundary_passed"])
+        # A qualified boundary authorizes nothing until issue 24 freezes a protocol.
         self.assertFalse(report["decision"]["repeated_measurement_authorized"])
         status = cli.command_status(arguments)
-        self.assertFalse(status["task_only_boundary_qualified"])
+        self.assertTrue(status["task_only_boundary_qualified"])
         self.assertFalse(status["policy_probe_available"])
+
+    def test_released_receipt_validates_against_this_route(self) -> None:
+        path = VERO_ROOT / CONTRACT["released_receipt"]
+        receipt = json.loads(path.read_text(encoding="utf-8"))
+        VALIDATOR.validate_receipt(
+            receipt,
+            CONTRACT,
+            hashlib.sha256(CONTRACT_PATH.read_bytes()).hexdigest(),
+            bundle=path.parent,
+        )
+        VALIDATOR.validate_route_files(receipt, VERO_ROOT)
+        self.assertTrue(receipt["qualified"])
+        self.assertFalse(receipt["runtime_image"]["platform"]["emulated"])
 
 
 if __name__ == "__main__":

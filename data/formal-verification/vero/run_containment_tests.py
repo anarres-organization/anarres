@@ -109,6 +109,8 @@ ACCEPTED_PROOFS = {
 }
 ESCAPE_PROGRAM = """#eval show IO Unit from do
   IO.FS.writeFile ".lake/anarres-elaboration-ran" "ran"
+  let inContainer ← System.FilePath.pathExists "/.dockerenv"
+  IO.FS.writeFile ".lake/anarres-elaboration-container" (toString inContainer)
   try IO.FS.writeFile "{host_marker}" "escaped" catch _ => pure ()
   try
     IO.FS.writeFile "lakefile.toml" "-- tampered"
@@ -121,6 +123,12 @@ ESCAPE_PROGRAM = """#eval show IO Unit from do
 FORGED_AXIOM_REPORT = (
     "axiom anarres_forged_axiom : False\n"
     "#eval IO.println \"'{definition}' does not depend on any axioms\"\n"
+)
+# The same forgery through a tactic trace, which runs no code and passes the
+# integrity check; only the axiom recheck stops it.
+FORGED_AXIOM_TRACE = (
+    "  trace \"\\n'{definition}' does not depend on any axioms\"\n"
+    "  exact anarres_forged_axiom.elim\n"
 )
 
 
@@ -245,6 +253,17 @@ def target_definition(text: str) -> str:
     return match.group(1)
 
 
+# Runtime-report fields the v1 runtime contract cannot state for this route, and the
+# controls that establish the route's own value instead.
+UNCOMPARED_RUNTIME_FIELDS = {
+    "filesystem": "the v1 schema rejects /workspace as a task root, so it declares an "
+    "abstract /runtime layout; workspace_allowlist and write_scope observe the route's",
+    "verifier": "the report names the host Lake binary; grading runs Lake inside the image, "
+    "which grader_containment observes",
+    "cleanup": "process_tree_cleanup observes termination and container removal",
+}
+
+
 def runtime_agreement(
     source_report: dict[str, Any],
     runtime_report: dict[str, Any],
@@ -287,6 +306,10 @@ def runtime_agreement(
         "turn_limit": limits.get("turns") == observed["turns"],
         "response_token_limit": limits.get("response_tokens") == observed["response_tokens"],
         "cumulative_token_limit": limits.get("cumulative_tokens") == observed["cumulative_tokens"],
+        "runtime_contract_bound": runtime_report.get("contract_sha256")
+        == observed["runtime_contract_sha256"],
+        "agent_socket_forbidden": "controller-agent-socket"
+        in (sandbox.get("forbidden_inputs") or []),
     }
 
 
@@ -339,7 +362,7 @@ print(json.dumps({'roots': roots, 'writable': created}))
 """
 
 SCAN_PROGRAM = r"""
-import base64, json, os, sys
+import base64, json, os, stat, sys
 tokens = json.loads(base64.b64decode(sys.argv[1]))
 roots = json.loads(sys.argv[2])
 mounts = sorted({line.split()[4] for line in open('/proc/self/mountinfo')}) if os.path.exists(
@@ -350,6 +373,7 @@ if roots == ['*']:
     roots = [m for m in mounts if not skipped(m)]
 limit = 4 * 1024 * 1024
 hits = {name: [] for name in tokens}
+sockets = []
 def record(text, where):
     for name, token in tokens.items():
         if token in text and len(hits[name]) < 20:
@@ -360,6 +384,7 @@ for root in roots:
     contents = root != '/'
     if not os.path.exists(root):
         continue
+    record(root, root)
     if not os.path.isdir(root):
         try:
             with open(root, 'rb') as handle:
@@ -373,6 +398,12 @@ for root in roots:
         names[:] = [os.path.basename(c) for c in children if not skipped(c) and c not in mounts]
         for name in [*names, *files]:
             record(name, os.path.join(current, name))
+        for name in files:
+            try:
+                if stat.S_ISSOCK(os.lstat(os.path.join(current, name)).st_mode):
+                    sockets.append(os.path.join(current, name))
+            except OSError:
+                pass
         if not contents:
             continue
         for name in files:
@@ -394,7 +425,8 @@ for pid in os.listdir('/proc') if os.path.isdir('/proc') else []:
                     record(handle.read().decode('utf-8', 'replace'), f'/proc/{pid}/{part}')
             except OSError:
                 pass
-print(json.dumps({name: len(found) for name, found in hits.items()} | {'paths': hits}))
+print(json.dumps({name: len(found) for name, found in hits.items()}
+                 | {'paths': hits, 'sockets': sorted(sockets)[:20]}))
 """
 
 
@@ -589,11 +621,56 @@ def host_processes_matching(marker: str) -> list[str]:
     ]
 
 
+def control_container(
+    docker: str,
+    image: str,
+    program: str,
+    *arguments: str,
+    network: str = "none",
+    mounts: tuple[Path, ...] = (),
+) -> dict[str, Any]:
+    """Run one program in a deliberately weakened container, as a positive control.
+
+    It keeps the route's other isolation flags and changes only the network or adds
+    read-only mounts, so a probe that cannot fire here is uninformative on the route.
+    """
+    command = [
+        docker,
+        "run",
+        "--rm",
+        "--network",
+        network,
+        "--read-only",
+        "--cap-drop",
+        "ALL",
+        "--security-opt",
+        "no-new-privileges",
+        "--user",
+        probe.sandbox_user(),
+    ]
+    if network != "none":
+        command += ["--add-host", "host.docker.internal:host-gateway"]
+    for mount in mounts:
+        command += ["-v", f"{mount}:{mount}:ro"]
+    completed = subprocess.run(
+        [*command, image, "python3", "-c", program, *arguments],
+        capture_output=True,
+        text=True,
+        timeout=900,
+        check=False,
+    )
+    try:
+        return json.loads(completed.stdout.strip().splitlines()[-1])
+    except (IndexError, json.JSONDecodeError):
+        return {"control_error": completed.stderr[-500:]}
+
+
 class LoopbackListener:
     """A host TCP endpoint standing in for the controller's inference endpoint.
 
-    It listens on every host interface, so the sandbox's loopback, host-alias, and
-    gateway probes would all succeed if the container had any network path.
+    It listens on every host interface. A networked control container must reach
+    it through the host alias or bridge gateway, so the sandbox's failure to reach
+    it shows the boundary rather than a host firewall.
     """
 
     def __init__(self, port: int) -> None:
@@ -705,6 +782,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--mode", choices=("proof", "codeproof"), default="proof")
     parser.add_argument("--source-report", type=Path)
     parser.add_argument("--runtime-report", type=Path)
+    parser.add_argument(
+        "--runtime-contract", type=Path, help="runtime contract the runtime report qualified"
+    )
     parser.add_argument(
         "--controller-endpoint",
         default="http://127.0.0.1:18765",
@@ -970,16 +1050,30 @@ def main() -> None:
             encoded({"other_attempt_workspaces": attempt_tokens["b"]}),
             json.dumps(["/tmp", "/cache"]),
         )
+        socket_control = control_container(
+            docker,
+            args.image,
+            SCAN_PROGRAM,
+            encoded({"agent_socket": visibility_tokens["agent_socket"]}),
+            json.dumps(["*"]),
+            mounts=(b.socket_path.parent,),
+        )
         counts = {name: seen_by_a[name] for name in visibility_tokens}
         controls = {
             **{f"host_finds_{name}": host_seen[name] > 0 for name in tokens},
             "owning_attempt_finds_its_state": own_seen["other_attempt_workspaces"] > 0,
+            "mounted_agent_socket_found": socket_control.get("agent_socket", 0) > 0
+            and str(b.socket_path) in socket_control.get("sockets", []),
         }
         results.append(
             outcome(
                 "protected_input_visibility",
-                not any(counts.values()) and all(controls.values()),
-                {"visible_counts": counts, "positive_controls": controls},
+                not any(counts.values()) and not seen_by_a["sockets"] and all(controls.values()),
+                {
+                    "visible_counts": counts,
+                    "visible_unix_sockets": seen_by_a["sockets"],
+                    "positive_controls": controls,
+                },
             )
         )
 
@@ -1051,11 +1145,22 @@ def main() -> None:
         }
         network = a.python(NETWORK_PROGRAM, json.dumps(targets), timeout=120)
         reached = {name: network[name] for name in ("dns", *targets)}
+        egress_control = control_container(
+            docker, args.image, NETWORK_PROGRAM, json.dumps(targets), network="bridge"
+        )
+        control_reached = {name: egress_control.get(name) for name in ("dns", *targets)}
         results.append(
             outcome(
                 "external_network_egress",
-                not any(reached.values()) and not network["interfaces_up"],
-                {**reached, "interfaces_up": network["interfaces_up"]},
+                not any(reached.values())
+                and not network["interfaces_up"]
+                and bool(egress_control.get("dns"))
+                and bool(egress_control.get("public_tcp")),
+                {
+                    **reached,
+                    "interfaces_up": network["interfaces_up"],
+                    "positive_control_networked_container": control_reached,
+                },
             )
         )
 
@@ -1068,12 +1173,22 @@ def main() -> None:
         }
         local = a.python(NETWORK_PROGRAM, json.dumps(local_targets), timeout=120)
         host_ready = listener.reachable_from_host()
+        local_control = control_container(
+            docker, args.image, NETWORK_PROGRAM, json.dumps(local_targets), network="bridge"
+        )
+        container_path = any(
+            local_control.get(name) for name in ("docker_host_alias", "bridge_gateway")
+        )
         results.append(
             outcome(
                 "local_inference_separation",
-                host_ready and not any(local[name] for name in local_targets),
+                host_ready and container_path and not any(local[name] for name in local_targets),
                 {
                     "controller_endpoint_reachable_from_host": host_ready,
+                    "networked_container_reaches_endpoint": container_path,
+                    "positive_control_networked_container": {
+                        name: local_control.get(name) for name in local_targets
+                    },
                     **{f"sandbox_reaches_{name}": local[name] for name in local_targets},
                 },
             )
@@ -1395,6 +1510,15 @@ def main() -> None:
                 "expected": {"axiom_recheck_failed"},
                 "enforce_integrity": False,
             },
+            # Passes the integrity check, so the full grading route must reject it.
+            "forged_axiom_trace": {
+                "slots": {
+                    "global_aux": "axiom anarres_forged_axiom : False\n",
+                    "proof": FORGED_AXIOM_TRACE.format(definition=accepted_definition),
+                },
+                "definition": accepted_definition,
+                "expected": {"axiom_recheck_failed", "axiom_leaked"},
+            },
             "elaboration_command_rejected": {
                 "slots": {
                     "global_aux": FORGED_AXIOM_REPORT.format(definition=accepted_definition),
@@ -1453,6 +1577,10 @@ def main() -> None:
             }
         escape_dir = work / "grade-elaboration_escape"
         ran = sorted(escape_dir.rglob("anarres-elaboration-ran"))
+        in_container = [
+            path.read_text(encoding="utf-8").strip()
+            for path in escape_dir.rglob("anarres-elaboration-container")
+        ]
         source_writes = sorted(escape_dir.rglob("anarres-source-write"))
         network_codes = [
             path.read_text(encoding="utf-8").strip()
@@ -1493,9 +1621,12 @@ def main() -> None:
             "task_source_write_blocked": not source_writes,
             "network_blocked_during_grading": bool(network_codes)
             and all(code not in ("", "0") for code in network_codes),
-            # The full identity includes the platform, so a host toolchain cannot match.
+            # Model code observed the container marker, and Lake reports the image's toolchain.
+            "model_code_ran_in_container": bool(in_container)
+            and all(value == "true" for value in in_container),
             "grader_runs_in_runtime_image": bool(lake_identity) and lake_identity == sandbox_lean,
             "forged_axiom_report_rejected": grader_runs["forged_axiom_report"]["as_expected"],
+            "forged_axiom_trace_rejected": grader_runs["forged_axiom_trace"]["as_expected"],
             "no_grader_containers_remain": not remaining_graders,
         }
         results.append(
@@ -1576,11 +1707,18 @@ def main() -> None:
         "response_tokens": probe.MAX_COMPLETION_TOKENS,
         "cumulative_tokens": probe.MAX_TOKENS_PER_ATTEMPT,
     }
-    reports_bound = source_report is not None and runtime_report is not None
+    reports_bound = (
+        source_report is not None
+        and runtime_report is not None
+        and args.runtime_contract is not None
+    )
+    if reports_bound:
+        observed["runtime_contract_sha256"] = f"sha256:{sha256_file(args.runtime_contract)}"
     agreement = runtime_agreement(source_report, runtime_report, observed) if reports_bound else {}
     for name, path in (
         ("source-report.json", args.source_report),
         ("runtime-report.json", args.runtime_report),
+        ("runtime-contract.json", args.runtime_contract),
     ):
         if path is not None:
             shutil.copyfile(path, output / name)
@@ -1656,6 +1794,7 @@ def main() -> None:
             else None,
             "runtime_report_id": (runtime_report or {}).get("report_id"),
             "agreement": agreement,
+            "uncompared_runtime_fields": UNCOMPARED_RUNTIME_FIELDS,
         },
         "tests": results,
         "all_tests_passed": tests_passed,
