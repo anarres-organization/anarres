@@ -391,7 +391,9 @@ class VeroProfileAdapterTest(unittest.TestCase):
             self.assertFalse(qualification_report["profile_input"])
             self.assertEqual(qualification_report["strict_support"]["passed_specifications"], 9)
             self.assertTrue(qualification_report["strict_support"]["support_threshold_passed"])
-            self.assertFalse(qualification_report["containment"]["task_only_boundary_passed"])
+            # The released task-boundary receipt qualifies the route, which still
+            # authorizes nothing until the repeated-measurement protocol is frozen.
+            self.assertTrue(qualification_report["containment"]["task_only_boundary_passed"])
             self.assertFalse(qualification_report["decision"]["repeated_measurement_authorized"])
             self.assertFalse(qualification_report["decision"]["candidate_ranking_authorized"])
             self.assertFalse(qualification_report["decision"]["downstream_training_authorized"])

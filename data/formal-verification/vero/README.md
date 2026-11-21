@@ -382,13 +382,69 @@ repeated-measurement protocol is frozen. That protocol must cite the released
 receipt and its image, and it must state how integrity failures enter its
 estimates.
 
-Grading also rechecks every specification Vero reports as passed. Model code
-that runs during elaboration can print text into the Lake output that Vero
-parses for its axiom report, and a fixture shows that a forged report makes Vero
-pass a proof that uses a new axiom. The recheck compiles Vero's own axiom-check
-files alone, so no model output reaches it, and downgrades any specification
-whose theorem is missing, repeated, or uses an axiom outside the allowed set.
-Slot bodies that run code during elaboration are rejected before grading.
+Grading also confirms every specification Vero reports as passed. Vero parses
+its axiom report from Lake output, and model code can forge it in several ways:
+by printing during elaboration, through a tactic trace that runs no code, or
+from an initializer that runs whenever a check imports the model's module and
+then exits before the real check. A model can also switch kernel checking off
+while its module builds, so a false proof compiles, or declare its own axiom
+under the name of an axiom the benchmark trusts. Fixtures and grader tests show
+that Vero passes each of these. Grading therefore builds a reference of the
+untouched task in its own contained Lake invocation and runs
+[`AnarresAxiomCheck.lean`](AnarresAxiomCheck.lean) in a sealed container, once
+for each of Vero's axiom-check files. The checker never imports a model module.
+It reads the compiled libraries of both builds as data and sends each target
+theorem, with every safe declaration it depends on, back through the kernel.
+It requires every declaration the proof rests on that the reference also
+declares to equal the reference, unless it is a slot the model fills, so a
+trusted axiom keeps the meaning the reference gives it. Every axiom outside the
+toolchain must be the reference's own declaration. A specification stays passed
+only when the one theorem Vero graded for it is confirmed. Every forgery above
+is downgraded.
+
+A check that does not finish gets one retry with three times the budget Vero
+gives a compilation. If it still does not finish, the specification is recorded
+as `check_incomplete`. A codeproof `sat` claim rests on Vero's separate joint
+rerender, which the checker does not cover, and is recorded as
+`sat_unverified`. Both are reported apart from passes, model failures, and
+infrastructure failures, and the repeated-measurement protocol must state how
+they enter its estimates. A container that cannot start, a reference build that
+fails or cannot be read, or a grading stage that outlives the sum of Vero's own
+Lake budgets leaves the attempt unscored. Only library directories that the
+untouched build also has reach the checker. A best-effort syntactic scan also
+rejects slot bodies that visibly run code during elaboration, switch kernel
+checking off, or carry an attribute outside a list of toolchain attributes. It
+can be evaded, for example by hiding code behind comment markers inside string
+literals. Confirming a pass does not depend on the scan, but code that evades it
+can still run during the contained build. Such code can force `check_incomplete`
+on a specification Vero passed, or fill the host disk so that a later stage
+fails and the attempt is unscored. Neither lever produces a confirmed pass. The
+repeated-measurement protocol should count `check_incomplete` as a failure in
+its primary estimate and audit every occurrence.
+
+The released receipt in
+[`results/task-boundary-qualification.codex-sol-v3/`](results/task-boundary-qualification.codex-sol-v3/)
+qualifies the route on the image it binds,
+`sha256:c48a1075ff53f6107f8f812b5072f5b6d470e5d722b40ff3bce589b5b6015825`, run
+natively on an amd64 Docker host. That digest is a local image identifier, so a
+protocol that cites the receipt must run that exact image. All seventeen
+controls passed. Each network and visibility control has a positive control: a
+networked container reaches the outside and the stand-in controller endpoint,
+and a container with the agent socket mounted finds it. The bound reports agree
+with the exercised route on all twenty compared fields, and the receipt bundles
+the runtime contract the runtime report qualified. The v1 runtime contract
+cannot state this route's filesystem layout or Lake location, and its cleanup
+fields are not compared, so the receipt names those three as uncompared and the
+runner's own controls observe them instead.
+
+The earlier GPT-5.6 Sol development attempts were graded before contained
+grading and the trusted checker existed. Every one of them that has a grading
+report and at least one passed specification was regraded through the current
+grader, thirteen attempts including the screen behind the 388 of 694 result.
+All 447 specifications Vero passed in them are confirmed. Six attempts had no
+grading report and five passed nothing, so neither group was regraded. The
+artifacts of the original released PrimePy qualification attempt were not
+available, so that attempt was not regraded.
 
 Project the completed measurement into the shared Anarres profile contract
 without changing that interpretation:
