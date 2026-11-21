@@ -31,7 +31,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 from materialize_probe_task import tree_digest, validate_visible_tree
-from serve_vibe_sandbox import disk_usage, open_deleted_bytes, remove_tree
+from serve_vibe_sandbox import disk_usage, held_open_bytes, remove_tree
 
 # ── Configuration ────────────────────────────────────────────────
 
@@ -67,7 +67,7 @@ VERO_LAKE_SECONDS = 300
 # slow or rebuilding submission fails inside Vero rather than timing out the stage.
 GRADER_SECONDS = 3 * 3600
 # Below Vero's own Lake timeout, so a grading container never outlives its stage.
-GRADER_LAKE_SECONDS = VERO_LAKE_SECONDS - 10
+GRADER_LAKE_SECONDS = VERO_LAKE_SECONDS - 20
 # Slot bodies may not run code while Lean elaborates them: such code could print a
 # forged axiom report or rewrite files that later grading stages compile.
 # Attributes whose handlers are toolchain code. Any other attribute can register model
@@ -653,7 +653,7 @@ print("OK", result.sandbox_dir)
     return sandbox_dir
 
 
-def lean_code(text: str) -> str:
+def lean_code(text: str, every_string_interpolated: bool = False) -> str:
     """Return Lean source with comments removed and literal text blanked.
 
     Comment markers inside strings, raw strings, characters, and quoted names must not
@@ -668,6 +668,8 @@ def lean_code(text: str) -> str:
 
     def interpolating(index: int) -> bool:
         # `s!`, `m!`, and `f!` strings, and the message heads that take one directly.
+        if every_string_interpolated:
+            return True
         before = text[:index].rstrip()
         return before.endswith("!") or bool(
             re.search(
@@ -750,7 +752,10 @@ def integrity_violations(slots: list[tuple[str, list[str]]]) -> list[str]:
     attributes = re.compile(r"@\[([^\]]*)\]|attribute\s*\[([^\]]*)\]")
     found = []
     for file, body_lines in slots:
-        source = lean_code("\n".join(body_lines))
+        text = "\n".join(body_lines)
+        # Some macros take an interpolated string after other arguments, which context
+        # cannot recognize, so the body is also read as if every string interpolated.
+        source = lean_code(text) + "\n" + lean_code(text, every_string_interpolated=True)
         found += [f"{file}: {match.group(0)}" for match in pattern.finditer(source)]
         for group in attributes.findall(source):
             for entry in "".join(group).split(","):
@@ -814,7 +819,9 @@ def grader_lake_shim(directory: Path, image: str, label: str, docker: str = "doc
     ]
     # Lake's output reaches the grader's memory, so each stream is cut at its source; a
     # build that keeps writing past the cut loses its pipe and fails. Both readers are
-    # waited for by process id, so no output is lost when the container exits.
+    # waited for by process id, so no output is lost when the container exits. A process
+    # that the build left behind can hold a pipe open, so after a short drain every
+    # process but the readers is killed, and the container always ends with Lake.
     inner = (
         'mkdir -p "$HOME" || exit 125\n'
         "pipes=$(mktemp -d) || exit 125\n"
@@ -823,9 +830,17 @@ def grader_lake_shim(directory: Path, image: str, label: str, docker: str = "doc
         "out=$!\n"
         f'head -c {GRADER_OUTPUT_BYTES} < "$pipes/err" >&2 &\n'
         "err=$!\n"
-        f'timeout --kill-after=10s {GRADER_LAKE_SECONDS}s lake "$@" '
+        f'timeout --kill-after=5s {GRADER_LAKE_SECONDS}s lake "$@" '
         '> "$pipes/out" 2> "$pipes/err"\n'
         "status=$?\n"
+        "for _ in $(seq 50); do\n"
+        '  kill -0 "$out" 2>/dev/null || kill -0 "$err" 2>/dev/null || break\n'
+        "  sleep 0.1\n"
+        "done\n"
+        "for process in /proc/[0-9]*; do\n"
+        "  process=${process#/proc/}\n"
+        '  case "$process" in "$$"|"$out"|"$err") ;; *) kill -KILL "$process" 2>/dev/null;; esac\n'
+        "done\n"
         'wait "$out" "$err"\n'
         'exit "$status"\n'
     )
@@ -1042,7 +1057,6 @@ def run_with_disk_budget(
     finished = threading.Event()
 
     def watch() -> None:
-        previously_hidden: set[str] = set()
         while not finished.wait(GRADER_DISK_POLL_SECONDS):
             allocated, entries, unreadable = disk_usage(watched)
             listed = subprocess.run(
@@ -1052,13 +1066,10 @@ def run_with_disk_budget(
                 timeout=60,
                 check=False,
             ).stdout.split()
-            deleted, hiding = 0, set()
+            deleted, hidden = 0, None
             for container in listed:
-                held, hides = open_deleted_bytes(docker, container, sandbox_user())
-                deleted, hiding = deleted + held, hiding | hides
-            # Build processes exit constantly; only one still hiding a poll later counts.
-            hidden = bool(hiding & previously_hidden)
-            previously_hidden = hiding
+                held, breach = held_open_bytes(docker, container, sandbox_user())
+                deleted, hidden = deleted + held, hidden or breach
             if (
                 allocated + deleted > GRADER_DISK_BYTES
                 or entries > GRADER_DISK_ENTRIES
@@ -1068,7 +1079,7 @@ def run_with_disk_budget(
                 exceeded.append(
                     f"{allocated + deleted} bytes ({deleted} deleted but open) and {entries} "
                     f"entries against {GRADER_DISK_BYTES} bytes and {GRADER_DISK_ENTRIES} "
-                    f"entries; unreadable paths {unreadable[:3]}; hidden descriptors {hidden}"
+                    f"entries; unreadable paths {unreadable[:3]}; open files {hidden or 'measured'}"
                 )
                 # The grader's Docker clients share its session, so none outlives it.
                 with contextlib.suppress(ProcessLookupError):

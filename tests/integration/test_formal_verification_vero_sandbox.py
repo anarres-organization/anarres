@@ -239,7 +239,7 @@ class VeroSandboxProtocolTest(unittest.TestCase):
             with (
                 mock.patch.object(SANDBOX, "WORKSPACE_POLL_SECONDS", 0.01),
                 mock.patch.object(sandbox, "_run", side_effect=fake_run),
-                mock.patch.object(SANDBOX, "open_deleted_bytes", return_value=(0, set())),
+                mock.patch.object(SANDBOX, "held_open_bytes", return_value=(0, None)),
             ):
                 sandbox.watch_workspace()
                 self.assertTrue(sandbox.halted.is_set())
@@ -280,53 +280,40 @@ class VeroSandboxProtocolTest(unittest.TestCase):
             SANDBOX.remove_tree(root)
             self.assertFalse(root.exists())
 
-    def test_deleted_open_files_are_counted_from_inside_the_container(self) -> None:
-        completed = subprocess.CompletedProcess([], 0, "2048\n", "")
-        with mock.patch.object(SANDBOX.subprocess, "run", return_value=completed) as run:
-            held, hidden = SANDBOX.open_deleted_bytes("docker", "attempt", "1000:1000")
-        self.assertEqual((held, hidden), (2048 * 512, set()))
-        self.assertEqual(
-            run.call_args.args[0][:5], ["docker", "exec", "--user", "1000:1000", "attempt"]
-        )
-        hiding = subprocess.CompletedProcess([], 0, "0 7:3014844\n", "")
-        with mock.patch.object(SANDBOX.subprocess, "run", return_value=hiding):
-            self.assertEqual(
-                SANDBOX.open_deleted_bytes("docker", "attempt", "u"), (0, {"attempt:7:3014844"})
-            )
+    def test_in_container_open_file_monitor_fails_closed(self) -> None:
+        cases = [
+            (subprocess.CompletedProcess([], 0, "anarres-held 2048\n", ""), (2048 * 512, None)),
+            (
+                subprocess.CompletedProcess([], 0, "hidden 7\nanarres-held 0\n", ""),
+                (0, "process 7 hides its open files"),
+            ),
+            # The task killed the monitor, which must not read as nothing held.
+            (
+                subprocess.CompletedProcess([], 137, "", ""),
+                (0, "open-file monitor failed with status 137"),
+            ),
+            (
+                subprocess.CompletedProcess([], 1, "", "Error: container attempt is not running"),
+                (0, None),
+            ),
+        ]
+        for completed, expected in cases:
+            with mock.patch.object(SANDBOX.subprocess, "run", return_value=completed):
+                self.assertEqual(SANDBOX.held_open_bytes_inside("docker", "attempt", "u"), expected)
 
-    def test_a_process_must_hide_on_two_polls_to_breach(self) -> None:
+    @unittest.skipUnless(sys.platform == "linux", "reads the host process table")
+    def test_host_reads_deleted_files_held_open_by_container_processes(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            config = VeroSandboxConfigurationTest().config(Path(directory))
-            receipt = SANDBOX.Receipt(
-                attempt_id="attempt-1",
-                task_id="task-1",
-                started_at="2026-11-07T00:00:00+00:00",
-                image_reference=config.image,
-                model_artifact_digest="sha256:" + "b" * 64,
-                inference_config_digest="sha256:" + "c" * 64,
-                container_name="attempt",
-                resource_limits={},
-                workspace_pre_sha256="d" * 64,
-            )
-            sandbox = SANDBOX.DockerSandbox(config, receipt)
-            polls = iter([(0, {"a:1:1"}), (0, {"a:2:2"}), (0, {"a:2:2"})])
-
-            def poll(*_: object) -> tuple[int, set[str]]:
-                try:
-                    return next(polls)
-                except StopIteration:
-                    sandbox.watching.set()
-                    return 0, set()
-
-            with (
-                mock.patch.object(SANDBOX, "WORKSPACE_POLL_SECONDS", 0.01),
-                mock.patch.object(SANDBOX, "open_deleted_bytes", side_effect=poll),
-                mock.patch.object(sandbox, "_run"),
-            ):
-                sandbox.watch_workspace()
-        # A process seen hiding once is a race with its exit; the second process hid twice.
-        self.assertTrue(sandbox.halted.is_set())
-        self.assertIn("hidden descriptors True", receipt.workspace_budget_exceeded)
+            path = Path(directory) / "held"
+            with path.open("wb") as handle:
+                handle.write(b"x" * 1_000_000)
+                handle.flush()
+                path.unlink()
+                top = subprocess.CompletedProcess([], 0, f"PID\n{os.getpid()}\n", "")
+                with mock.patch.object(SANDBOX.subprocess, "run", return_value=top):
+                    held, breach = SANDBOX.held_open_bytes("docker", "attempt", "u")
+        self.assertIsNone(breach)
+        self.assertGreaterEqual(held, 1_000_000)
 
     def test_tree_digest_records_links_without_following_them(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

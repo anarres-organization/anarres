@@ -13,7 +13,9 @@ import os
 import secrets
 import shutil
 import signal
+import stat
 import subprocess
+import sys
 import threading
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
@@ -131,18 +133,18 @@ def disk_usage(root: Path) -> tuple[int, int, list[str]]:
     return allocated, entries, unreadable
 
 
-# Sums the blocks of files that container processes hold open after deleting them, which
-# no directory walk can see, and names each live process whose descriptors cannot be
-# listed by its process id and start time. Processes exit constantly during a build, so
-# only a process that still hides at the next poll counts as hiding.
+# The fallback for hosts that cannot see container processes, such as Docker Desktop. It
+# runs inside the container, where the task could stop it, so any failure is a breach.
 OPEN_DELETED_PROGRAM = r"""
-total=0; hidden=""
+total=0
 for d in /proc/[0-9]*; do
   line=$(cat "$d/stat" 2>/dev/null) || continue
   set -- ${line##*) }
   [ "$1" = Z ] || [ "$1" = X ] || [ -z "$1" ] && continue
   if ! ls "$d/fd" >/dev/null 2>&1; then
-    hidden="$hidden ${d#/proc/}:${20}"
+    line=$(cat "$d/stat" 2>/dev/null) || continue
+    set -- ${line##*) }
+    [ "$1" = Z ] || [ "$1" = X ] || [ -z "$1" ] || echo "hidden ${d#/proc/}"
     continue
   fi
   for f in "$d"/fd/*; do
@@ -151,12 +153,63 @@ for d in /proc/[0-9]*; do
     esac
   done
 done
-echo "$total$hidden"
+echo "anarres-held $total"
 """
 
 
-def open_deleted_bytes(docker: str, container: str, user: str) -> tuple[int, set[str]]:
-    """Return the bytes deleted open files hold in one container, and the hiding processes."""
+def process_state(pid: int) -> str | None:
+    try:
+        return Path(f"/proc/{pid}/stat").read_text().rsplit(")", 1)[1].split()[0]
+    except (OSError, IndexError):
+        return None
+
+
+def held_open_bytes(docker: str, container: str, user: str) -> tuple[int, str | None]:
+    """Return the bytes container processes hold in files they deleted, and any breach.
+
+    No directory walk sees such a file. On a Linux host the container's processes are
+    host processes, so they are read from the host's process table, out of the task's
+    reach. A live process whose open files cannot be listed hides them, which is a
+    breach; one that exits while being read hides nothing.
+    """
+    if sys.platform != "linux":
+        return held_open_bytes_inside(docker, container, user)
+    listed = subprocess.run(
+        [docker, "top", container, "-eo", "pid"],
+        capture_output=True,
+        text=True,
+        timeout=60,
+        check=False,
+    )
+    if listed.returncode != 0:
+        # A container that has stopped holds nothing open.
+        return 0, None
+    seen: set[tuple[int, int]] = set()
+    total = 0
+    for pid in (int(word) for word in listed.stdout.split() if word.isdigit()):
+        try:
+            descriptors = os.listdir(f"/proc/{pid}/fd")
+        except FileNotFoundError:
+            continue
+        except PermissionError:
+            if process_state(pid) not in (None, "Z", "X"):
+                return total, f"process {pid} hides its open files"
+            continue
+        for descriptor in descriptors:
+            path = f"/proc/{pid}/fd/{descriptor}"
+            try:
+                if not os.readlink(path).endswith(" (deleted)"):
+                    continue
+                status = os.stat(path)
+            except OSError:
+                continue
+            if stat.S_ISREG(status.st_mode) and (status.st_dev, status.st_ino) not in seen:
+                seen.add((status.st_dev, status.st_ino))
+                total += status.st_blocks * 512
+    return total, None
+
+
+def held_open_bytes_inside(docker: str, container: str, user: str) -> tuple[int, str | None]:
     try:
         completed = subprocess.run(
             [docker, "exec", "--user", user, container, "/bin/sh", "-c", OPEN_DELETED_PROGRAM],
@@ -165,12 +218,17 @@ def open_deleted_bytes(docker: str, container: str, user: str) -> tuple[int, set
             timeout=60,
             check=False,
         )
-        blocks, *hidden = completed.stdout.split()
-        return int(blocks) * 512, {f"{container}:{process}" for process in hidden}
-    except (ValueError, subprocess.TimeoutExpired):
-        # A container that has just exited holds nothing; one that cannot answer is
-        # measured again at the next poll.
-        return 0, set()
+    except subprocess.TimeoutExpired:
+        return 0, "open-file monitor timed out"
+    if completed.returncode != 0 and "is not running" in completed.stderr:
+        return 0, None
+    lines = completed.stdout.split("\n")
+    if hidden := [line for line in lines if line.startswith("hidden ")]:
+        return 0, f"process {hidden[0].split()[1]} hides its open files"
+    held = [line.split()[1] for line in lines if line.startswith("anarres-held ")]
+    if completed.returncode != 0 or len(held) != 1 or not held[0].isdigit():
+        return 0, f"open-file monitor failed with status {completed.returncode}"
+    return int(held[0]) * 512, None
 
 
 def remove_tree(root: Path) -> None:
@@ -313,12 +371,9 @@ class DockerSandbox:
         The workspace is a host bind mount, so neither the memory limit nor the
         per-file size limit bounds it.
         """
-        previously_hidden: set[str] = set()
         while not self.watching.wait(WORKSPACE_POLL_SECONDS):
             allocated, entries, unreadable = disk_usage(self.config.workspace)
-            deleted, hiding = open_deleted_bytes(self.config.docker, self.name, self.config.user)
-            hidden = bool(hiding & previously_hidden)
-            previously_hidden = hiding
+            deleted, hidden = held_open_bytes(self.config.docker, self.name, self.config.user)
             allocated += deleted
             with self._metrics_lock:
                 self.receipt.workspace_peak_bytes = max(
@@ -337,7 +392,7 @@ class DockerSandbox:
                     f"{allocated} bytes ({deleted} deleted but open) and {entries} entries "
                     f"against {self.config.maximum_workspace_bytes} bytes and "
                     f"{self.config.maximum_workspace_entries} entries; unreadable paths "
-                    f"{unreadable[:3]}; hidden descriptors {hidden}"
+                    f"{unreadable[:3]}; open files {hidden or 'measured'}"
                 )
                 self.halted.set()
                 self._run([self.config.docker, "kill", self.name])

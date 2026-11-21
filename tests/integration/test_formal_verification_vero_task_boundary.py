@@ -417,6 +417,9 @@ class ScoringTest(unittest.TestCase):
                 "run_tac"
             ],
             ('def t := trace[Meta.debug] "{(by run_tac pure (); exact 0 : Nat)}"',): ["run_tac"],
+            ('def e := throwErrorAt s "{(by run_tac pure (); exact (0 : Nat) : Nat)}"',): [
+                "run_tac"
+            ],
             ("def c := '\"'", "#eval 1"): ["#eval"],
             ('def «a"b» := 1', "#eval 1"): ["#eval"],
             ('def r := r#"-- "#', "#eval 1"): ["#eval"],

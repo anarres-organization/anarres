@@ -185,6 +185,16 @@ DISK_SCENARIOS = {
         "    handles.append(handle)\n"
         "time.sleep(600)' > /dev/null 2>&1 < /dev/null & sleep 280"
     ),
+    # A process that makes itself undumpable cannot have its open files listed.
+    "nondumpable": (
+        "setsid python3 -c 'import ctypes, os, time\n"
+        "ctypes.CDLL(None).prctl(4, 0)\n"
+        'handle = open(".anarres-held", "wb")\n'
+        'os.unlink(".anarres-held")\n'
+        "handle.write(bytes(1048576))\n"
+        "handle.flush()\n"
+        "time.sleep(600)' > /dev/null 2>&1 < /dev/null & sleep 120"
+    ),
 }
 
 # Model code that fills the grading build during elaboration; the grader's disk budget
@@ -197,6 +207,11 @@ GRADING_DISK_SHELL = (
     "head -c 1073741824 /dev/zero > .lake/anarres-fill-$i || exit 3; i=$((i+1)); done"
 )
 
+# Code run during the build that leaves a process holding the shim's output pipe, which
+# must not keep the grading container alive after Lake returns.
+GRADING_LEFTOVER_PROGRAM = GRADING_DISK_PROGRAM.format(
+    shell="for f in /tmp/tmp.*/out; do setsid sleep 100000 > $f 2>/dev/null < /dev/null & done"
+)
 GRADING_HIDDEN_PROGRAM = GRADING_DISK_PROGRAM.format(
     shell="mkdir -p .lake/anarres-hidden && head -c 1048576 /dev/zero > .lake/anarres-hidden/x "
     "&& chmod 000 .lake/anarres-hidden && sleep 60"
@@ -1702,6 +1717,11 @@ def main() -> None:
                 "expected": {"integrity_violation"},
                 "enforce_integrity": False,
             },
+            "grading_leftover_process": {
+                "slots": {"global_aux": GRADING_LEFTOVER_PROGRAM},
+                "expected": {"unfilled"},
+                "enforce_integrity": False,
+            },
             "elaboration_command_rejected": {
                 "slots": {
                     "global_aux": FORGED_AXIOM_REPORT.format(definition=accepted_definition),
@@ -1722,16 +1742,21 @@ def main() -> None:
                 prefix = targeted_definition if kind == "proof" else ""
                 text = replace_slot(text, kind, body, definition_prefix=prefix)
             target.write_text(text, encoding="utf-8")
-            grade = probe.grade_attempt(
-                vero_root,
-                args.vero_python,
-                vero_root / "benchmarks" / repository["directory"],
-                copy,
-                args.mode,
-                work / f"grade-{name}",
-                docker_image=args.image,
-                enforce_integrity=fixture.get("enforce_integrity", True),
-            )
+            try:
+                grade = probe.grade_attempt(
+                    vero_root,
+                    args.vero_python,
+                    vero_root / "benchmarks" / repository["directory"],
+                    copy,
+                    args.mode,
+                    work / f"grade-{name}",
+                    docker_image=args.image,
+                    enforce_integrity=fixture.get("enforce_integrity", True),
+                )
+            except probe.GradeInfrastructureError as error:
+                # A fixture must be graded or rejected; an unscored outcome fails it.
+                grader_runs[name] = {"infrastructure_error": str(error)[:500], "as_expected": False}
+                continue
             if grade.get("integrity_violations"):
                 grader_runs[name] = {
                     "integrity_violations": grade["integrity_violations"],
@@ -1814,9 +1839,14 @@ def main() -> None:
                 "as_expected"
             ],
             "unchecked_kernel_proof_rejected": grader_runs["kernel_check_skipped"]["as_expected"],
+            "leftover_process_does_not_outlive_lake": grader_runs["grading_leftover_process"][
+                "as_expected"
+            ],
             "grading_disk_budget_enforced": all(
                 grader_runs[name]["as_expected"]
-                and any("disk budget" in v for v in grader_runs[name]["integrity_violations"])
+                and any(
+                    "disk budget" in v for v in grader_runs[name].get("integrity_violations", [])
+                )
                 for name in (
                     "grading_disk_exhaustion",
                     "grading_disk_hidden",
