@@ -49,6 +49,7 @@ ROUTE_FILES = {
     "sandbox_server_sha256": "serve_vibe_sandbox.py",
     "containment_runner_sha256": "run_containment_tests.py",
     "materializer_sha256": "materialize_probe_task.py",
+    "axiom_checker_sha256": "AnarresAxiomCheck.lean",
 }
 
 

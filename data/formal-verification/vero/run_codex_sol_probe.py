@@ -57,7 +57,8 @@ GRADER_LAKE_SECONDS = VERO_LAKE_SECONDS - 10
 ELABORATION_PATTERN = (
     r"(?<![\w'.])(?:#[A-Za-z_]+!?|run_cmd|run_elab|run_meta|run_tac|initialize|"
     r"builtin_initialize|elab|elab_rules|macro|macro_rules|syntax|declare_syntax_cat|"
-    r"implemented_by|extern|native_decide)(?![\w'!?])"
+    r"implemented_by|extern|native_decide|by_elab)(?![\w'!?])"
+    r"|(?:@\[|attribute\s*\[)[^\]]*\b(?:builtin_)?init\b"
 )
 
 DEV_PANEL = [
@@ -71,6 +72,8 @@ MODES: list[Literal["proof", "codeproof"]] = ["proof", "codeproof"]
 ATTEMPTS_PER_REPO_MODE = 1
 
 SANDBOX_SCRIPT = Path(__file__).resolve().parent / "serve_vibe_sandbox.py"
+AXIOM_CHECKER = Path(__file__).resolve().parent / "AnarresAxiomCheck.lean"
+AXIOM_CHECK_SECONDS = 1800
 
 
 # ── Tool definitions for OpenAI Responses API ───────────────────
@@ -723,6 +726,7 @@ from pathlib import Path
 from vero.generation.benchmark import Benchmark
 from vero.generation.extractor import extract
 from vero.evaluation.runner import run_evaluation
+from vero.generation.sandbox import create_sandbox
 
 source_dir = Path("{source_dir}")
 benchmark_dir = Path("{benchmark_dir}")
@@ -752,48 +756,43 @@ result = run_evaluation(
 )
 report = result.report
 
-# Independent axiom recheck. Vero parses its axiom report from Lake output that can
-# replay messages printed by model code. `lake env lean` compiles only the check
-# file, whose output the model cannot write into; every name must appear once.
-sandbox = eval_dir / "eval_sandbox"
-allowed = {{"Classical.choice", "propext", "Quot.sound"}} | set(bench.trusted_axioms or [])
-anchored = re.compile(
-    r"^'([^'\\n]+)' (?:depends on axioms: \\[([^\\]]*)\\]|does not depend on any axioms)",
-    re.M,
+# Reference build of the untouched task, outside the submission's Lake mount. The
+# trusted checker compares statements against it; no model text reaches it.
+reference = eval_dir / "reference"
+create_sandbox(
+    benchmark_dir=benchmark_dir,
+    sandbox_dir=reference / "source",
+    mode=mode,
+    overwrite=False,
+    strip_manifest=True,
+    source_context="lean",
 )
-requested, seen, clean = [], {{}}, set()
-for check in sorted((sandbox / "eval").glob("AxiomCheck_*.lean")):
-    requested += re.findall(r"^#print axioms (\\S+)$", check.read_text(), re.M)
-    out = subprocess.run(
-        ["lake", "env", "lean", str(check.relative_to(sandbox))],
-        cwd=sandbox, capture_output=True, text=True, timeout={VERO_LAKE_SECONDS},
-    )
-    for match in anchored.finditer(out.stdout + out.stderr):
-        seen[match.group(1)] = seen.get(match.group(1), 0) + 1
-        used = {{a.strip() for a in (match.group(2) or "").split(",") if a.strip()}}
-        if used <= allowed:
-            clean.add(match.group(1))
-def recheck_passes(spec):
-    bare = spec.removeprefix("spec_")
-    names = [n for n in requested if n.split(".")[-1] in ("prove_" + bare, "disprove_" + bare)]
-    return bool(names) and all(seen.get(n) == 1 for n in names) and any(n in clean for n in names)
-specs, downgraded = [], []
-for s in report.specs:
-    status = s.status
-    if status == "passed" and not recheck_passes(s.spec):
-        status = "axiom_recheck_failed"
-        downgraded.append(s.spec)
-    specs.append({{"module": s.module, "spec": s.spec, "status": status}})
-passed = sum(spec["status"] == "passed" for spec in specs)
+reference_result = run_evaluation(
+    benchmark_dir=benchmark_dir,
+    artifact=extract(reference / "source", bench, mode=mode),
+    mode=mode,
+    eval_sandbox_dir=reference / "eval_sandbox",
+    report_dir=reference / "eval_report",
+    lake_timeout={VERO_LAKE_SECONDS},
+)
+groups = []
+for check in sorted((reference / "eval_sandbox" / "eval").glob("AxiomCheck_*.lean")):
+    text = check.read_text()
+    groups.append({{
+        "roots": re.findall(r"^import (\\S+)$", text, re.M),
+        "theorems": re.findall(r"^#print axioms (\\S+)$", text, re.M),
+    }})
 print(json.dumps({{
     "total_specs": report.summary.total_specs,
-    "passed_specs": passed,
     "unfilled_specs": report.summary.unfilled_specs,
-    "failed_specs": report.summary.failed_specs + len(downgraded),
+    "failed_specs": report.summary.failed_specs,
     "build_ok": report.build_ok,
+    "reference_build_ok": reference_result.report.build_ok,
     "vero_passed_specs": report.summary.passed_specs,
-    "axiom_recheck": {{"checked_theorems": len(requested), "downgraded": downgraded}},
-    "specs": specs,
+    "specs": [{{"module": s.module, "spec": s.spec, "status": s.status}} for s in report.specs],
+    "groups": groups,
+    "allowed_axioms": sorted({{"Classical.choice", "propext", "Quot.sound"}}
+                             | set(bench.trusted_axioms or [])),
 }}))
 """,
     ]
@@ -821,7 +820,142 @@ print(json.dumps({{
         return grade
     if not isinstance(grade, dict) or not isinstance(grade.get("total_specs"), int):
         raise GradeInfrastructureError("grader output lacks a specification count")
-    return grade
+    return apply_axiom_check(grade, eval_dir, docker_image, label)
+
+
+def library_directories(sandbox: Path) -> list[str]:
+    """Return the compiled-library directories of one evaluation sandbox."""
+    found = [sandbox / ".lake" / "build" / "lib" / "lean"]
+    found += sorted((sandbox / ".lake" / "packages").glob("*/.lake/build/lib/lean"))
+    return [str(path) for path in found if path.is_dir()]
+
+
+def run_axiom_check(
+    eval_dir: Path, request: dict[str, Any], docker_image: str, label: str
+) -> dict[str, dict[str, Any]]:
+    """Run the trusted checker in a sealed container and return one verdict per theorem.
+
+    The checker reads both builds' compiled libraries as data and never imports a model
+    module, so no model code runs while it decides.
+    """
+    check_dir = eval_dir / "axiom-check"
+    check_dir.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(AXIOM_CHECKER, check_dir / AXIOM_CHECKER.name)
+    (check_dir / "request.json").write_text(json.dumps(request), encoding="utf-8")
+    nonce = secrets.token_hex(16)
+    mounts = [str(check_dir), *request["submission_libraries"], *request["reference_libraries"]]
+    command = [
+        shutil.which("docker") or "docker",
+        "run",
+        "--rm",
+        "--label",
+        f"anarres.grader={label}",
+        "--network",
+        "none",
+        "--ipc",
+        "none",
+        "--read-only",
+        "--cap-drop",
+        "ALL",
+        "--security-opt",
+        "no-new-privileges",
+        "--pids-limit",
+        str(SANDBOX_PIDS),
+        "--memory",
+        SANDBOX_MEMORY,
+        "--cpus",
+        str(SANDBOX_CPUS),
+        "--user",
+        sandbox_user(),
+        "--tmpfs",
+        "/tmp:rw,noexec,nosuid,nodev,mode=1777",
+        "--env",
+        "HOME=/tmp",
+    ]
+    for mount in mounts:
+        command += ["--mount", f"type=bind,src={mount},dst={mount},readonly"]
+    command += [
+        docker_image,
+        "lean",
+        "--run",
+        str(check_dir / AXIOM_CHECKER.name),
+        nonce,
+        str(check_dir / "request.json"),
+    ]
+    try:
+        completed = subprocess.run(
+            command, capture_output=True, text=True, timeout=AXIOM_CHECK_SECONDS
+        )
+    except subprocess.TimeoutExpired as error:
+        raise GradeInfrastructureError("axiom checker timed out") from error
+    lines = completed.stdout.strip().splitlines()
+    requested = [name for group in request["groups"] for name in group["theorems"]]
+    expected = f"ANARRES-AXIOM-CHECK-COMPLETE {nonce} {len(requested)}"
+    if completed.returncode != 0 or not lines or lines[-1] != expected:
+        raise GradeInfrastructureError(
+            f"axiom checker failed ({completed.returncode}): {completed.stderr[-1000:]}"
+        )
+    verdicts = [json.loads(line) for line in lines[:-1]]
+    names = [verdict["theorem"] for verdict in verdicts]
+    if sorted(names) != sorted(requested) or len(set(names)) != len(names):
+        raise GradeInfrastructureError("axiom checker did not report each theorem once")
+    (check_dir / "verdicts.json").write_text(json.dumps(verdicts, indent=1), encoding="utf-8")
+    return {verdict["theorem"]: verdict for verdict in verdicts}
+
+
+def apply_axiom_check(
+    grade: dict[str, Any], eval_dir: Path, docker_image: str, label: str
+) -> dict[str, Any]:
+    """Downgrade every Vero-passed specification the trusted checker does not confirm."""
+    if not grade.get("reference_build_ok"):
+        raise GradeInfrastructureError("the reference build of the untouched task failed")
+    passed = [spec for spec in grade["specs"] if spec["status"] == "passed"]
+    verdicts: dict[str, dict[str, Any]] = {}
+    if passed:
+        request = {
+            "submission_libraries": library_directories(eval_dir / "eval_sandbox"),
+            "reference_libraries": library_directories(eval_dir / "reference" / "eval_sandbox"),
+            "groups": grade["groups"],
+            "allowed_axioms": grade["allowed_axioms"],
+        }
+        verdicts = run_axiom_check(eval_dir, request, docker_image, label)
+
+    def confirmed(spec: str) -> bool:
+        bare = spec.removeprefix("spec_")
+        names = [
+            name
+            for group in grade["groups"]
+            for name in group["theorems"]
+            if name.split(".")[-1] in ("prove_" + bare, "disprove_" + bare)
+        ]
+        return any(verdicts[name]["ok"] for name in names)
+
+    specs, downgraded = [], []
+    for spec in grade["specs"]:
+        status = spec["status"]
+        if status == "passed" and not confirmed(spec["spec"]):
+            status = "axiom_recheck_failed"
+            downgraded.append(spec["spec"])
+        specs.append({**spec, "status": status})
+    return {
+        "total_specs": grade["total_specs"],
+        "passed_specs": sum(spec["status"] == "passed" for spec in specs),
+        "unfilled_specs": grade["unfilled_specs"],
+        "failed_specs": grade["failed_specs"] + len(downgraded),
+        "build_ok": grade["build_ok"],
+        "vero_passed_specs": grade["vero_passed_specs"],
+        "axiom_recheck": {
+            "checker": "kernel replay of compiled libraries against a reference build",
+            "checked_theorems": len(verdicts),
+            "downgraded": downgraded,
+            "reasons": {
+                name: verdict.get("reason")
+                for name, verdict in verdicts.items()
+                if not verdict["ok"]
+            },
+        },
+        "specs": specs,
+    }
 
 
 # ── Task sandbox route ───────────────────────────────────────────

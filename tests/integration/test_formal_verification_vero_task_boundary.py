@@ -160,6 +160,93 @@ class ScoringTest(unittest.TestCase):
                     docker_image=image,
                 )
 
+    def vero_grade(self) -> dict:
+        return {
+            "total_specs": 2,
+            "unfilled_specs": 0,
+            "failed_specs": 0,
+            "build_ok": True,
+            "reference_build_ok": True,
+            "vero_passed_specs": 2,
+            "specs": [
+                {"module": "M", "spec": "spec_a", "status": "passed"},
+                {"module": "M", "spec": "spec_b", "status": "passed"},
+            ],
+            "groups": [{"roots": ["M"], "theorems": ["prove_a", "disprove_a", "prove_b"]}],
+            "allowed_axioms": ["propext"],
+        }
+
+    def test_axiom_check_downgrades_every_unconfirmed_pass(self) -> None:
+        verdicts = {
+            "prove_a": {"theorem": "prove_a", "ok": False, "reason": "uses axiom sorryAx"},
+            "disprove_a": {"theorem": "disprove_a", "ok": True},
+            "prove_b": {"theorem": "prove_b", "ok": False, "reason": "uses axiom forged"},
+        }
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            mock.patch.object(PROBE, "run_axiom_check", return_value=verdicts) as checker,
+        ):
+            grade = PROBE.apply_axiom_check(self.vero_grade(), Path(directory), "img", "label")
+        request = checker.call_args.args[1]
+        self.assertEqual(request["groups"], self.vero_grade()["groups"])
+        self.assertEqual(grade["vero_passed_specs"], 2)
+        self.assertEqual(grade["passed_specs"], 1)
+        self.assertEqual(grade["axiom_recheck"]["downgraded"], ["spec_b"])
+        self.assertEqual(
+            {spec["spec"]: spec["status"] for spec in grade["specs"]},
+            {"spec_a": "passed", "spec_b": "axiom_recheck_failed"},
+        )
+
+    def test_axiom_check_failures_are_infrastructure_errors(self) -> None:
+        broken = {**self.vero_grade(), "reference_build_ok": False}
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaises(PROBE.GradeInfrastructureError):
+                PROBE.apply_axiom_check(broken, Path(directory), "img", "label")
+            request = {
+                "submission_libraries": [],
+                "reference_libraries": [],
+                "groups": [{"roots": ["M"], "theorems": ["prove_a"]}],
+                "allowed_axioms": [],
+            }
+            forged = '{"theorem": "prove_a", "ok": true}\nANARRES-AXIOM-CHECK-COMPLETE wrong 1\n'
+            for completed in (
+                subprocess.CompletedProcess([], 1, "", "uncaught exception"),
+                subprocess.CompletedProcess([], 0, forged, ""),
+            ):
+                with (
+                    mock.patch.object(PROBE.subprocess, "run", return_value=completed),
+                    self.assertRaises(PROBE.GradeInfrastructureError),
+                ):
+                    PROBE.run_axiom_check(Path(directory), request, "img", "label")
+
+    def test_axiom_checker_never_imports_model_modules(self) -> None:
+        source = PROBE.AXIOM_CHECKER.read_text(encoding="utf-8")
+        self.assertIn("readModuleData", source)
+        self.assertIn("replay", source)
+        # Only toolchain modules are ever imported; model modules are read as data.
+        self.assertEqual(source.count("importModules"), 1)
+        self.assertIn("importModules submission.core", source)
+        with tempfile.TemporaryDirectory() as directory:
+            with mock.patch.object(PROBE.subprocess, "run") as run:
+                run.return_value = subprocess.CompletedProcess([], 1, "", "")
+                with self.assertRaises(PROBE.GradeInfrastructureError):
+                    PROBE.run_axiom_check(
+                        Path(directory),
+                        {
+                            "submission_libraries": ["/s"],
+                            "reference_libraries": ["/r"],
+                            "groups": [],
+                            "allowed_axioms": [],
+                        },
+                        "img",
+                        "label",
+                    )
+            command = " ".join(run.call_args.args[0])
+        for flag in ("--network none", "--read-only", "--cap-drop ALL", "lean --run"):
+            self.assertIn(flag, command)
+        self.assertIn("dst=/s,readonly", command)
+        self.assertIn("dst=/r,readonly", command)
+
     def test_grader_compiles_only_through_the_contained_lake(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             shim = PROBE.grader_lake_shim(Path(directory), "sha256:" + "d" * 64, "label")
@@ -193,6 +280,9 @@ class ScoringTest(unittest.TestCase):
             "macro_rules | `(x) => `(y)",
             "run_cmd pure ()",
             "initialize counter : IO.Ref Nat ← IO.mkRef 0",
+            "@[init] def forge : IO Unit := pure ()",
+            "attribute [init forge] target",
+            "  exact by_elab pure (Lean.mkConst ``True)",
         ):
             self.assertIsNotNone(pattern.search(line), line)
         for line in (
@@ -201,6 +291,9 @@ class ScoringTest(unittest.TestCase):
             "def elab_helper := 1",
             "  exact h'.syntax",
             "  exact #[1, 2].size",
+            "  intro init",
+            "  exact List.init",
+            "@[simp] theorem init_eq : True := trivial",
         ):
             self.assertIsNone(pattern.search(line), line)
 
