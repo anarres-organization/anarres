@@ -42,10 +42,12 @@
         "--read-only",
         "--cap-drop ALL",
         "--security-opt no-new-privileges",
-        "--tmpfs /dev/mqueue (read-only)"
+        "--tmpfs /dev/mqueue (read-only)",
+        "--tmpfs /workspace (size and entry limits)",
+        "--log-driver none"
       ],
       "writable_locations": [
-        "/workspace: one freshly materialized Vero task",
+        "/workspace: an in-memory copy of one freshly materialized Vero task, whose size and entry count the kernel enforces",
         "/tmp: attempt-local temporary tmpfs",
         "/cache: attempt-local cache tmpfs"
       ],
@@ -62,7 +64,8 @@
         "global agent configuration",
         "other attempt workspaces",
         "controller agent socket"
-      ]
+      ],
+      "workspace_collection": "the final workspace is archived from the container and extracted on the host with an extraction filter that leaves absolute or escaping links, special files, and members past the workspace limits behind"
     },
     "resource_limits": {
       "processes": 256,
@@ -81,11 +84,11 @@
       "response_tokens": 16384,
       "cumulative_output_tokens": 200000,
       "wall_rule": "hard deadline: model requests and tool commands are bounded by the remaining wall budget, and a request still pending at the deadline ends the attempt with wall_time_limit",
-      "scoring_rule": "infrastructure failures are unscored and excluded from every aggregate. Integrity failures (task links or special files outside the task, or slot bodies that run code during elaboration) are never graded and are reported separately; the repeated-measurement protocol must state how they enter its estimates before any attempt. A Vero-passed specification whose trusted check does not finish after one retry with a larger budget is recorded as check_incomplete, and a codeproof sat claim, which rests on Vero's uncovered joint rerender, as sat_unverified; both are reported separately, never pooled as passes, and the repeated-measurement protocol must state how they enter its estimates. Malformed tool arguments are returned to the policy as tool errors."
+      "scoring_rule": "infrastructure failures are unscored and excluded from every aggregate. Integrity failures (a final workspace that cannot be collected, task links outside the task, or slot bodies that run code during elaboration) are never graded and are reported separately; the repeated-measurement protocol must state how they enter its estimates before any attempt. A Vero-passed specification whose trusted check does not finish after one retry with a larger budget is recorded as check_incomplete, and a codeproof sat claim, which rests on Vero's uncovered joint rerender, as sat_unverified; both are reported separately, never pooled as passes, and the repeated-measurement protocol must state how they enter its estimates. Malformed tool arguments are returned to the policy as tool errors."
     },
     "grading": {
       "location": "fresh Vero evaluation directory on the controller host",
-      "lean_execution": "every Lake invocation runs inside the runtime image with the task-sandbox isolation flags, mounting only the evaluation directory",
+      "lean_execution": "every Lake invocation runs inside the runtime image with the task-sandbox isolation flags, mounting the evaluation directory read-only and its Lake outputs on a size-limited in-memory volume; once Lake returns, the container ends with every process in it",
       "host_extraction": "attempts whose task tree contains links or special files outside the task are recorded as integrity failures and never graded",
       "axiom_recheck": "every specification Vero reports as passed is confirmed by AnarresAxiomCheck.lean in a sealed container. The checker never imports a model module: it reads the compiled libraries of the submission and of an untouched reference build as data, replays every non-core declaration through the kernel, collects axioms from the replayed environment, and requires each target statement and its protected definitions to equal the reference. An unconfirmed specification is downgraded to axiom_recheck_failed, and a checker or reference-build failure is an infrastructure error",
       "reference_build": "the untouched task is built in its own contained Lake invocation, outside the submission's mount"
@@ -99,7 +102,7 @@
     },
     {
       "id": "workspace_allowlist",
-      "criterion": "the container runs unprivileged with network and IPC disabled, a read-only root, all capabilities dropped, exactly one task mount, and no undeclared mount",
+      "criterion": "the container runs unprivileged with network and IPC disabled, a read-only root, all capabilities dropped, no container log, no host directory mounted, a size-limited in-memory workspace, and no undeclared mount",
       "status": "pending"
     },
     {
@@ -139,7 +142,7 @@
     },
     {
       "id": "resource_limits",
-      "criterion": "process, memory, CPU, file-size, command-time, and workspace and grading disk limits are configured, and the process, file-size, command-time, and workspace disk limits are observed to stop work at the route's values",
+      "criterion": "process, memory, CPU, file-size, command-time, and workspace limits are configured, and the process, file-size, command-time, and workspace limits are observed to stop work at the route's values, including for files held open after deletion, held through a socket, or held through a memory mapping",
       "status": "pending"
     },
     {
@@ -164,7 +167,7 @@
     },
     {
       "id": "grader_containment",
-      "criterion": "model-authored Lean executed during fresh grading runs inside the runtime image, cannot write host files or reach the network, and is stopped with an integrity failure when it exceeds the grading disk budget",
+      "criterion": "model-authored Lean executed during fresh grading runs inside the runtime image, cannot write host files or reach the network, writes only into a size-limited in-memory build volume, and leaves no process, container, or volume behind",
       "status": "pending"
     },
     {

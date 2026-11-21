@@ -13,11 +13,9 @@ import os
 import secrets
 import shutil
 import signal
-import stat
 import subprocess
-import sys
+import tarfile
 import threading
-import time
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path, PurePosixPath
@@ -26,15 +24,9 @@ from typing import Any
 PROTOCOL_VERSION = 2
 MAX_REQUEST_BYTES = 64 * 1024 * 1024
 TIMEOUT_ERROR = -32001
-WORKSPACE_BUDGET_ERROR = -32003
-WORKSPACE_POLL_SECONDS = 0.5
 METHOD_NOT_FOUND = -32601
 INVALID_REQUEST = -32602
 INTERNAL_ERROR = -32603
-
-
-class WorkspaceBudgetExceeded(RuntimeError):
-    """Raised for every call after the task workspace outgrew its disk budget."""
 
 
 class SandboxError(RuntimeError):
@@ -84,11 +76,11 @@ class Receipt:
     command_timeouts: int = 0
     output_truncations: int = 0
     peak_memory_bytes: int | None = None
-    workspace_peak_bytes: int = 0
-    workspace_peak_entries: int = 0
-    # Set when the task outgrew its disk budget; the policy caused it, so it is an
-    # integrity failure of the attempt rather than an infrastructure failure.
-    workspace_budget_exceeded: str | None = None
+    workspace_used_bytes: int | None = None
+    # Set when the final workspace could not be collected safely; the policy caused it,
+    # so it is an integrity failure of the attempt rather than an infrastructure failure.
+    workspace_collection_error: str | None = None
+    workspace_skipped: list[str] = field(default_factory=list)
     infrastructure_errors: list[str] = field(default_factory=list)
     ended_at: str | None = None
     workspace_post_sha256: str | None = None
@@ -100,166 +92,6 @@ class Receipt:
 
 def utc_now() -> str:
     return datetime.now(UTC).isoformat()
-
-
-def disk_usage(root: Path) -> tuple[int, int, list[str]]:
-    """Return allocated bytes, entry count, and unreadable paths under one tree.
-
-    Links are not followed and each inode counts once. A directory the walk cannot
-    read hides what it holds, so callers treat any unreadable path as a breach. Paths
-    are relative to the tree, so receipts never carry host paths.
-    """
-    seen: set[tuple[int, int]] = set()
-    unreadable: list[str] = []
-    allocated = entries = 0
-
-    def refuse(error: OSError) -> None:
-        # A path that vanished mid-walk hides nothing; one the walk may not read does.
-        if not isinstance(error, FileNotFoundError):
-            unreadable.append(os.path.relpath(str(error.filename), root))
-
-    for directory, names, filenames in os.walk(root, onerror=refuse, followlinks=False):
-        for name in [*names, *filenames]:
-            entries += 1
-            try:
-                status = os.lstat(os.path.join(directory, name))
-            except FileNotFoundError:
-                continue
-            except OSError:
-                unreadable.append(os.path.relpath(os.path.join(directory, name), root))
-                continue
-            if (status.st_dev, status.st_ino) not in seen:
-                seen.add((status.st_dev, status.st_ino))
-                allocated += status.st_blocks * 512
-    return allocated, entries, unreadable
-
-
-# The fallback for hosts that cannot see container processes, such as Docker Desktop. It
-# runs inside the container, where the task could stop it, so any failure is a breach.
-OPEN_DELETED_PROGRAM = r"""
-total=0
-for d in /proc/[0-9]*; do
-  line=$(cat "$d/stat" 2>/dev/null) || continue
-  set -- ${line##*) }
-  [ "$1" = Z ] || [ "$1" = X ] || [ -z "$1" ] && continue
-  if ! ls "$d/fd" >/dev/null 2>&1; then
-    line=$(cat "$d/stat" 2>/dev/null) || continue
-    set -- ${line##*) }
-    [ "$1" = Z ] || [ "$1" = X ] || [ -z "$1" ] || echo "hidden ${d#/proc/}"
-    continue
-  fi
-  for f in "$d"/fd/*; do
-    case "$(readlink "$f" 2>/dev/null)" in
-      *" (deleted)") total=$((total + $(stat -L -c %b "$f" 2>/dev/null || echo 0)));;
-    esac
-  done
-done
-echo "anarres-held $total"
-"""
-
-
-def process_state(pid: int) -> str | None:
-    try:
-        return Path(f"/proc/{pid}/stat").read_text().rsplit(")", 1)[1].split()[0]
-    except (OSError, IndexError):
-        return None
-
-
-# A process is briefly unreadable while it executes a new program, which a build does
-# constantly. Hiding counts only when some live process is unreadable at every one of
-# these rescans, which a holder that stays undumpable, or hands its files to new
-# undumpable processes, cannot avoid.
-HIDING_RESCANS = 3
-HIDING_RESCAN_SECONDS = 0.2
-
-
-def held_open_bytes(docker: str, container: str, user: str) -> tuple[int, str | None]:
-    """Return the bytes container processes hold in files they deleted, and any breach.
-
-    No directory walk sees such a file. On a Linux host the container's processes are
-    host processes, so they are read from the host's process table, out of the task's
-    reach. A live process whose open files stay unreadable hides them, which is a breach.
-    """
-    if sys.platform != "linux":
-        return held_open_bytes_inside(docker, container, user)
-    total, hidden = scan_open_files(docker, container)
-    for _ in range(HIDING_RESCANS):
-        if not hidden:
-            break
-        time.sleep(HIDING_RESCAN_SECONDS)
-        _, hidden = scan_open_files(docker, container)
-    if hidden:
-        return total, f"process {hidden[0]} hides its open files"
-    return total, None
-
-
-def scan_open_files(docker: str, container: str) -> tuple[int, list[int]]:
-    """Return the deleted-file bytes held in one container and its unreadable processes."""
-    listed = subprocess.run(
-        [docker, "top", container, "-eo", "pid"],
-        capture_output=True,
-        text=True,
-        timeout=60,
-        check=False,
-    )
-    if listed.returncode != 0:
-        # A container that has stopped holds nothing open.
-        return 0, []
-    seen: set[tuple[int, int]] = set()
-    total, hidden = 0, []
-    for pid in (int(word) for word in listed.stdout.split() if word.isdigit()):
-        try:
-            descriptors = os.listdir(f"/proc/{pid}/fd")
-        except FileNotFoundError:
-            continue
-        except PermissionError:
-            if process_state(pid) not in (None, "Z", "X"):
-                hidden.append(pid)
-            continue
-        for descriptor in descriptors:
-            path = f"/proc/{pid}/fd/{descriptor}"
-            try:
-                if not os.readlink(path).endswith(" (deleted)"):
-                    continue
-                status = os.stat(path)
-            except OSError:
-                continue
-            if stat.S_ISREG(status.st_mode) and (status.st_dev, status.st_ino) not in seen:
-                seen.add((status.st_dev, status.st_ino))
-                total += status.st_blocks * 512
-    return total, hidden
-
-
-def held_open_bytes_inside(docker: str, container: str, user: str) -> tuple[int, str | None]:
-    total, breach = scan_open_files_inside(docker, container, user)
-    for _ in range(HIDING_RESCANS):
-        if breach is None or "hides" not in breach:
-            break
-        time.sleep(HIDING_RESCAN_SECONDS)
-        _, breach = scan_open_files_inside(docker, container, user)
-    return total, breach
-
-
-def scan_open_files_inside(docker: str, container: str, user: str) -> tuple[int, str | None]:
-    try:
-        completed = subprocess.run(
-            [docker, "exec", "--user", user, container, "/bin/sh", "-c", OPEN_DELETED_PROGRAM],
-            capture_output=True,
-            text=True,
-            timeout=60,
-            check=False,
-        )
-    except subprocess.TimeoutExpired:
-        return 0, "open-file monitor timed out"
-    if completed.returncode != 0 and "is not running" in completed.stderr:
-        return 0, None
-    lines = completed.stdout.split("\n")
-    if hidden := [line for line in lines if line.startswith("hidden ")]:
-        return 0, f"process {hidden[0].split()[1]} hides its open files"
-    held = [line.split()[1] for line in lines if line.startswith("anarres-held ")]
-    if completed.returncode != 0 or len(held) != 1 or not held[0].isdigit():
-        return 0, f"open-file monitor failed with status {completed.returncode}"
-    return int(held[0]) * 512, None
 
 
 def remove_tree(root: Path) -> None:
@@ -338,8 +170,22 @@ def validate_container_workspace(path: str) -> None:
         raise SandboxError("--container-workspace must be a non-root absolute path")
 
 
+def workspace_tmpfs(config: SandboxConfig) -> str:
+    """Return the in-memory workspace mount, whose size the kernel enforces.
+
+    No host directory is writable, so every byte the task keeps, including files it
+    deletes while holding them, maps, or passes between processes, counts against this
+    size and against the container's memory limit.
+    """
+    uid, gid = config.user.split(":")
+    return (
+        f"{config.container_workspace}:rw,exec,nosuid,nodev,mode=0700,"
+        f"size={config.maximum_workspace_bytes},nr_inodes={config.maximum_workspace_entries},"
+        f"uid={uid},gid={gid}"
+    )
+
+
 def docker_run_command(config: SandboxConfig, name: str) -> list[str]:
-    mount = f"type=bind,src={config.workspace},dst={config.container_workspace}"
     return [
         config.docker,
         "run",
@@ -365,8 +211,8 @@ def docker_run_command(config: SandboxConfig, name: str) -> list[str]:
         str(config.cpus),
         "--user",
         config.user,
-        "--mount",
-        mount,
+        "--tmpfs",
+        workspace_tmpfs(config),
         "--tmpfs",
         "/tmp:rw,noexec,nosuid,nodev,mode=1777",
         "--tmpfs",
@@ -393,41 +239,7 @@ class DockerSandbox:
         self.receipt = receipt
         self.name = receipt.container_name
         self._metrics_lock = threading.Lock()
-        self.halted = threading.Event()
-        self.watching = threading.Event()
-
-    def watch_workspace(self) -> None:
-        """Stop the container as soon as the task workspace outgrows its disk budget.
-
-        The workspace is a host bind mount, so neither the memory limit nor the
-        per-file size limit bounds it.
-        """
-        while not self.watching.wait(WORKSPACE_POLL_SECONDS):
-            allocated, entries, unreadable = disk_usage(self.config.workspace)
-            deleted, hidden = held_open_bytes(self.config.docker, self.name, self.config.user)
-            allocated += deleted
-            with self._metrics_lock:
-                self.receipt.workspace_peak_bytes = max(
-                    self.receipt.workspace_peak_bytes, allocated
-                )
-                self.receipt.workspace_peak_entries = max(
-                    self.receipt.workspace_peak_entries, entries
-                )
-            if (
-                allocated > self.config.maximum_workspace_bytes
-                or entries > self.config.maximum_workspace_entries
-                or unreadable
-                or hidden
-            ):
-                self.receipt.workspace_budget_exceeded = (
-                    f"{allocated} bytes ({deleted} deleted but open) and {entries} entries "
-                    f"against {self.config.maximum_workspace_bytes} bytes and "
-                    f"{self.config.maximum_workspace_entries} entries; unreadable paths "
-                    f"{unreadable[:3]}; open files {hidden or 'measured'}"
-                )
-                self.halted.set()
-                self._run([self.config.docker, "kill", self.name])
-                return
+        self.ended_early = False
 
     def _run(
         self, arguments: list[str], *, timeout: float = 60
@@ -477,17 +289,147 @@ class DockerSandbox:
         )
         if preflight.returncode != 0:
             raise SandboxError("sandbox image must provide python3 and GNU timeout")
+        self.copy_in()
+
+    def copy_in(self) -> None:
+        """Copy the materialized task into the in-memory workspace."""
+        process = subprocess.Popen(
+            [
+                self.config.docker,
+                "exec",
+                "-i",
+                "--user",
+                self.config.user,
+                self.name,
+                "tar",
+                "-C",
+                self.config.container_workspace,
+                "-xf",
+                "-",
+            ],
+            stdin=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        assert process.stdin is not None
+        with tarfile.open(fileobj=process.stdin, mode="w|") as archive:
+            for entry in sorted(self.config.workspace.iterdir()):
+                archive.add(entry, arcname=entry.name)
+        process.stdin.close()
+        if process.wait(timeout=600) != 0:
+            raise SandboxError("task copy into the workspace failed")
+
+    def collect(self) -> None:
+        """Replace the host task with the final workspace, extracting only task files.
+
+        The archive is the policy's, so the extraction filter rejects absolute and
+        escaping links, special files, and anything outside the task, and the declared
+        sizes are held to the workspace budget before any data reaches host disk, since a
+        sparse file can claim far more than it occupies.
+        """
+        state = self._run(
+            [
+                self.config.docker,
+                "inspect",
+                "--format",
+                "{{.State.Running}} {{.State.OOMKilled}}",
+                self.name,
+            ]
+        ).stdout.split()
+        if state[:1] != ["true"]:
+            if state[1:2] == ["true"]:
+                # The task filled its memory, which includes its workspace.
+                self.receipt.workspace_collection_error = "the sandbox ran out of memory"
+                self.ended_early = True
+                return
+            raise SandboxError("the sandbox stopped before its workspace was collected")
+        self._run(
+            [
+                self.config.docker,
+                "exec",
+                "--user",
+                self.config.user,
+                self.name,
+                "/bin/sh",
+                "-c",
+                # Stop the task's processes, then restore its own access to everything it
+                # owns, so neither a running process nor a closed directory stops the archive.
+                "for _ in 1 2 3 4 5; do kill -KILL -1 2>/dev/null; done; "
+                f"chmod -R u+rwX {self.config.container_workspace} 2>/dev/null; true",
+            ]
+        )
+        used = self._run(
+            [
+                self.config.docker,
+                "exec",
+                self.name,
+                "df",
+                "-B1",
+                "--output=used",
+                self.config.container_workspace,
+            ]
+        )
+        with contextlib.suppress(ValueError, IndexError):
+            self.receipt.workspace_used_bytes = int(used.stdout.split()[-1])
+        for entry in list(self.config.workspace.iterdir()):
+            if entry.is_dir() and not entry.is_symlink():
+                remove_tree(entry)
+            else:
+                entry.unlink()
+        process = subprocess.Popen(
+            [
+                self.config.docker,
+                "exec",
+                "--user",
+                self.config.user,
+                self.name,
+                "tar",
+                "-C",
+                self.config.container_workspace,
+                "-cf",
+                "-",
+                ".",
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        assert process.stdout is not None
+        try:
+            with tarfile.open(fileobj=process.stdout, mode="r|") as archive:
+                declared = entries = 0
+                for member in archive:
+                    # A member past the budget or outside the task is left behind, so the
+                    # policy can only lose its own files, never stop the attempt.
+                    if (
+                        declared + member.size > self.config.maximum_workspace_bytes
+                        or entries + 1 > self.config.maximum_workspace_entries
+                    ):
+                        self.receipt.workspace_skipped.append(f"{member.name}: over budget")
+                        continue
+                    try:
+                        archive.extract(member, self.config.workspace, filter="data")
+                    except tarfile.FilterError as error:
+                        self.receipt.workspace_skipped.append(f"{member.name}: {error}")
+                        continue
+                    declared, entries = declared + member.size, entries + 1
+        except (tarfile.TarError, OSError) as error:
+            self.receipt.workspace_collection_error = f"{type(error).__name__}: {error}"
+        finally:
+            process.stdout.close()
+            status = process.wait(timeout=600)
+        if status in (125, 126, 127):
+            raise SandboxError("workspace collection could not run in the container")
+        if status != 0 and self.receipt.workspace_collection_error is None:
+            # The task's own processes are the only ones that could stop the archive.
+            self.receipt.workspace_collection_error = f"workspace archive exited with {status}"
 
     def stop(self) -> None:
-        self.watching.set()
-        if self.halted.is_set():
-            # The container was killed for its disk use and has no memory reading.
+        try:
+            self.collect()
+        except (SandboxError, subprocess.TimeoutExpired) as error:
+            self.receipt.infrastructure_errors.append(f"workspace collection failed: {error}")
+        if self.ended_early:
             result = self._run([self.config.docker, "rm", "--force", self.name])
             self.receipt.container_removed = result.returncode == 0
-            if result.returncode != 0:
-                self.receipt.infrastructure_errors.append(
-                    f"container cleanup failed: {result.stderr.strip()}"
-                )
             return
         peak = self._run(
             [
@@ -512,8 +454,6 @@ class DockerSandbox:
             )
 
     def execute(self, command: str, cwd: str, requested_timeout: float | None) -> dict[str, Any]:
-        if self.halted.is_set():
-            raise WorkspaceBudgetExceeded(self.receipt.workspace_budget_exceeded)
         if len(command.encode("utf-8")) > 1024 * 1024:
             raise SandboxError("sandbox command exceeds the one-megabyte request limit")
         seconds = min(
@@ -546,8 +486,6 @@ class DockerSandbox:
         returncode, stdout, stderr, stdout_cut, stderr_cut = self._run_bounded(
             arguments, timeout=seconds + 30
         )
-        if self.halted.is_set():
-            raise WorkspaceBudgetExceeded(self.receipt.workspace_budget_exceeded)
         if returncode in {124, 137}:
             with self._metrics_lock:
                 self.receipt.command_timeouts += 1
@@ -603,8 +541,6 @@ class DockerSandbox:
         )
 
     def read_file(self, path: str, max_bytes: int) -> dict[str, str | None]:
-        if self.halted.is_set():
-            raise WorkspaceBudgetExceeded(self.receipt.workspace_budget_exceeded)
         limit = min(max(max_bytes, 0), self.config.maximum_output_bytes)
         program = (
             "import base64,os,sys; p=sys.argv[1]; n=int(sys.argv[2]); "
@@ -703,14 +639,6 @@ async def handle(
                 "code": TIMEOUT_ERROR,
                 "message": str(error),
                 "data": {"timeoutSeconds": error.seconds},
-            },
-        )
-    except WorkspaceBudgetExceeded as error:
-        reply = response(
-            request_id,
-            error={
-                "code": WORKSPACE_BUDGET_ERROR,
-                "message": f"workspace disk budget exceeded; the sandbox has stopped: {error}",
             },
         )
     except LookupError as error:
@@ -854,7 +782,6 @@ def main() -> None:
         args.container_name_file.chmod(0o600)
     try:
         sandbox.start()
-        threading.Thread(target=sandbox.watch_workspace, daemon=True).start()
         asyncio.run(serve(args.socket, sandbox))
     except Exception as error:
         receipt.infrastructure_errors.append(f"{type(error).__name__}: {error}")

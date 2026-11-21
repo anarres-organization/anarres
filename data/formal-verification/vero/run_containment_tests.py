@@ -46,6 +46,7 @@ from urllib.parse import urlparse
 
 import run_codex_sol_probe as probe
 from materialize_probe_task import tree_digest, validate_visible_tree
+from serve_vibe_sandbox import remove_tree
 
 RECEIPT_SCHEMA = "anarres.formal-verification-task-boundary-receipt.v1"
 CONTAINER_WORKSPACE = "/workspace"
@@ -162,40 +163,46 @@ KERNEL_SKIP_PROOF = (
     "  exact absurd (h.symm.trans (anarresSpin_zero 10)) (by decide)\n"
 )
 
-# Ways a task could fill its host workspace: plain files, a directory it makes unreadable
-# to the walk, and files it deletes while holding them open.
+# Ways a task could try to hold more than its workspace allows: plain files, files it
+# deletes while holding them open, a descriptor parked in a socket, and a mapping kept
+# after the descriptor is closed. Each ends by trying one more write, which the kernel
+# must refuse because the in-memory workspace is full.
+HOLDER_PROLOGUE = (
+    "import ctypes, mmap, os, socket, time\n"
+    "libc = ctypes.CDLL(None)\n"
+    "libc.mmap.restype = ctypes.c_void_p\n"
+    "libc.mmap.argtypes = [ctypes.c_void_p, ctypes.c_size_t, ctypes.c_int, ctypes.c_int, "
+    "ctypes.c_int, ctypes.c_long]\n"
+    "kept = []\n"
+    "for i in range({fills}):\n"
+    '    path = f".anarres-held-{{i}}"\n'
+    "    descriptor = os.open(path, os.O_RDWR | os.O_CREAT)\n"
+    "    os.unlink(path)\n"
+    "    try:\n"
+    "        for _ in range(1024):\n"
+    "            os.write(descriptor, bytes({file_bytes} // 1024))\n"
+    "    except OSError:\n"
+    "        pass\n"
+)
 DISK_SCENARIOS = {
     "disk": (
         "i=0; while [ $i -lt {fills} ]; do "
-        "head -c {file_bytes} /dev/zero > .anarres-fill-$i || exit 3; i=$((i+1)); done"
+        "head -c {file_bytes} /dev/zero > .anarres-fill-$i 2>/dev/null || break; i=$((i+1)); "
+        "done; true"
     ),
-    "hidden": (
-        "mkdir .anarres-hidden && head -c 1048576 /dev/zero > .anarres-hidden/x "
-        "&& chmod 000 .anarres-hidden && sleep 120"
-    ),
-    "unlinked": (
-        "setsid python3 -c 'import os, time\n"
-        "handles = []\n"
-        "for i in range({fills}):\n"
-        '    handle = open(f".anarres-open-{{i}}", "wb")\n'
-        '    os.unlink(f".anarres-open-{{i}}")\n'
-        "    for _ in range(1024):\n"
-        "        handle.write(bytes({file_bytes} // 1024))\n"
-        "    handle.flush()\n"
-        "    handles.append(handle)\n"
-        "time.sleep(600)' > /dev/null 2>&1 < /dev/null & sleep 280"
-    ),
-    # A process that makes itself undumpable cannot have its open files listed.
-    "nondumpable": (
-        "setsid python3 -c 'import ctypes, os, time\n"
-        "ctypes.CDLL(None).prctl(4, 0)\n"
-        'handle = open(".anarres-held", "wb")\n'
-        'os.unlink(".anarres-held")\n'
-        "handle.write(bytes(1048576))\n"
-        "handle.flush()\n"
-        "time.sleep(600)' > /dev/null 2>&1 < /dev/null & sleep 120"
-    ),
+    "unlinked": HOLDER_PROLOGUE + "    kept.append(descriptor)\n",
+    "parked": HOLDER_PROLOGUE
+    + "    left, right = socket.socketpair(socket.AF_UNIX)\n"
+    + "    socket.send_fds(left, [b'x'], [descriptor])\n"
+    + "    os.close(descriptor)\n"
+    + "    kept.append((left, right))\n",
+    "mapped": HOLDER_PROLOGUE
+    + "    size = os.fstat(descriptor).st_size\n"
+    + "    if size:\n"
+    + "        kept.append(libc.mmap(None, size, mmap.PROT_READ, mmap.MAP_SHARED, descriptor, 0))\n"
+    + "    os.close(descriptor)\n",
 }
+
 
 # Model code that fills the grading build during elaboration; the grader's disk budget
 # must stop it and record an integrity failure.
@@ -212,9 +219,10 @@ GRADING_DISK_SHELL = (
 GRADING_LEFTOVER_PROGRAM = GRADING_DISK_PROGRAM.format(
     shell="for f in /tmp/tmp.*/out; do setsid sleep 100000 > $f 2>/dev/null < /dev/null & done"
 )
-GRADING_HIDDEN_PROGRAM = GRADING_DISK_PROGRAM.format(
-    shell="mkdir -p .lake/anarres-hidden && head -c 1048576 /dev/zero > .lake/anarres-hidden/x "
-    "&& chmod 000 .lake/anarres-hidden && sleep 60"
+# A chain of processes, each living about 10 ms, that keeps the shim's output pipe open.
+GRADING_FORK_CHAIN_PROGRAM = GRADING_DISK_PROGRAM.format(
+    shell="for f in /tmp/tmp.*/out; do setsid sh -c 'n() { sleep 0.01; n & exit 0; }; n' "
+    "> $f 2>/dev/null < /dev/null & done"
 )
 GRADING_UNLINKED_PROGRAM = """#eval show IO Unit from do
   let chunk := ByteArray.mk (Array.replicate 1048576 0)
@@ -1052,16 +1060,17 @@ def main() -> None:
             "unprivileged": not host.get("Privileged")
             and inspected.get("Config", {}).get("User") == route_user
             and layout["uid"] != 0,
-            "single_task_mount": [
-                (mount["Type"], mount["Destination"], mount["RW"]) for mount in mounts
-            ]
-            == [("bind", CONTAINER_WORKSPACE, True)],
+            "no_host_mount": mounts == [],
             "declared_tmpfs": set((host.get("Tmpfs") or {}).keys())
-            == {"/tmp", "/cache", "/dev/mqueue"},
+            == {"/tmp", "/cache", "/dev/mqueue", CONTAINER_WORKSPACE},
+            "workspace_size_limited": f"size={probe.SANDBOX_WORKSPACE_BYTES}"
+            in (host.get("Tmpfs") or {}).get(CONTAINER_WORKSPACE, "")
+            and f"nr_inodes={probe.SANDBOX_WORKSPACE_ENTRIES}"
+            in (host.get("Tmpfs") or {}).get(CONTAINER_WORKSPACE, ""),
             "message_queues_read_only": (host.get("Tmpfs") or {})
             .get("/dev/mqueue", "")
             .startswith("ro,"),
-            # A container log is host disk that no workspace budget watches.
+            # A container log is host disk that no workspace limit bounds.
             "container_log_disabled": (host.get("LogConfig") or {}).get("Type") == "none",
         }
         extra_mounts = undeclared_mounts(layout["mounts"])
@@ -1096,8 +1105,7 @@ def main() -> None:
             )
         )
 
-        link = workspaces["a"] / "host-escape"
-        link.symlink_to(credential)
+        a.run(f"ln -s {shlex.quote(str(credential))} {CONTAINER_WORKSPACE}/host-escape")
         try:
             through_link = a.read_file(f"{CONTAINER_WORKSPACE}/host-escape")
             absolute = a.read_file(str(credential))
@@ -1108,7 +1116,7 @@ def main() -> None:
             )
             parent = a.run("ls -a /workspace/..")["stdout"].split()
         finally:
-            link.unlink(missing_ok=True)
+            a.run(f"rm -f {CONTAINER_WORKSPACE}/host-escape")
         leaked = tokens["host_credentials"] in shell["stdout"] + shell["stderr"]
         parent_blocked = "host-canaries" not in parent and "workspace" in parent
         escape_blocked = (
@@ -1326,7 +1334,7 @@ def main() -> None:
         # The workspace is a host bind mount, so only the server's disk budget bounds it.
         # Each scenario gets a sandbox of its own and tries one way past the budget.
         budget = {}
-        for role, command in DISK_SCENARIOS.items():
+        for role, program in DISK_SCENARIOS.items():
             sandbox = RouteSandbox(
                 role=role,
                 workspace=workspaces[role],
@@ -1338,41 +1346,43 @@ def main() -> None:
                 task_id=task_id,
             )
             sandbox.wait_ready()
-            stopped = sandbox.execute(
-                command.format(
-                    fills=probe.SANDBOX_WORKSPACE_BYTES // probe.SANDBOX_FILE_BYTES + 8,
-                    file_bytes=probe.SANDBOX_FILE_BYTES,
-                ),
-                timeout=290,
+            source = program.format(
+                fills=probe.SANDBOX_WORKSPACE_BYTES // probe.SANDBOX_FILE_BYTES + 4,
+                file_bytes=probe.SANDBOX_FILE_BYTES,
             )
-            refused = sandbox.execute("true").get("error", {}).get("code")
+            if role != "disk":
+                # The holder keeps its bytes after the command that started it returns.
+                source = (
+                    f"setsid python3 -c {shlex.quote(source + 'time.sleep(600)')} "
+                    "> /dev/null 2>&1 < /dev/null & sleep 60"
+                )
+            sandbox.execute(source, timeout=290)
+            after = sandbox.run(
+                "head -c 1048576 /dev/zero > .anarres-after 2>/dev/null; echo $?; "
+                f"df -B1 --output=used,size {CONTAINER_WORKSPACE} | tail -1"
+            )["stdout"].split()
+            responsive = sandbox.execute("true").get("result", {}).get("exitCode") == 0
             outlived = sandbox.terminate()
             receipt = read_json(sandbox.receipt_path)
-            probe.remove_tree(workspaces[role])
+            remove_tree(workspaces[role])
+            used, size = (int(after[1]), int(after[2])) if len(after) == 3 else (0, 0)
             budget[role] = {
-                "stopped": stopped.get("error", {}).get("code") == probe.WORKSPACE_BUDGET_ERROR
-                and bool(receipt.get("workspace_budget_exceeded")),
-                "later_calls_refused": refused == probe.WORKSPACE_BUDGET_ERROR,
-                "cleaned_up": receipt.get("container_removed") is True
+                "further_write_refused": len(after) == 3 and after[0] != "0",
+                "usage_within_limit": size == probe.SANDBOX_WORKSPACE_BYTES
+                and probe.SANDBOX_WORKSPACE_BYTES - 64 * 1024**2 <= used <= size,
+                "sandbox_still_responsive": responsive,
+                "collected_and_cleaned_up": receipt.get("container_removed") is True
                 and not outlived
-                and not receipt.get("infrastructure_errors"),
-                "peak_bytes": receipt.get("workspace_peak_bytes"),
-                "reason": receipt.get("workspace_budget_exceeded"),
-                "workspace_removed": not workspaces[role].exists(),
+                and not receipt.get("infrastructure_errors")
+                and receipt.get("workspace_collection_error") is None,
+                "used_bytes": used,
             }
-        overshoot = 4 * probe.SANDBOX_FILE_BYTES
         limits |= {
-            f"workspace_budget_{role}": record["stopped"]
-            and record["later_calls_refused"]
-            and record["cleaned_up"]
-            and record["workspace_removed"]
+            f"workspace_limit_{role}": all(
+                value for key, value in record.items() if key != "used_bytes"
+            )
             for role, record in budget.items()
         }
-        limits["workspace_peak_bounded"] = (
-            probe.SANDBOX_WORKSPACE_BYTES
-            < (budget["disk"]["peak_bytes"] or 0)
-            <= probe.SANDBOX_WORKSPACE_BYTES + overshoot
-        )
         results.append(
             outcome(
                 "resource_limits",
@@ -1382,7 +1392,7 @@ def main() -> None:
                     "observed": [line.strip() for line in cgroup[:4]],
                     "fork_probe": forks,
                     "file_write_exit_and_size": file_limit,
-                    "workspace_budget": {
+                    "workspace_limit": {
                         "bytes": probe.SANDBOX_WORKSPACE_BYTES,
                         "entries": probe.SANDBOX_WORKSPACE_ENTRIES,
                         "scenarios": budget,
@@ -1700,12 +1710,7 @@ def main() -> None:
                         )
                     )
                 },
-                "expected": {"integrity_violation"},
-                "enforce_integrity": False,
-            },
-            "grading_disk_hidden": {
-                "slots": {"global_aux": GRADING_HIDDEN_PROGRAM},
-                "expected": {"integrity_violation"},
+                "expected": {"unfilled"},
                 "enforce_integrity": False,
             },
             "grading_disk_unlinked": {
@@ -1714,7 +1719,12 @@ def main() -> None:
                         files=probe.GRADER_DISK_BYTES // 1024**3 + 4
                     )
                 },
-                "expected": {"integrity_violation"},
+                "expected": {"unfilled"},
+                "enforce_integrity": False,
+            },
+            "grading_fork_chain": {
+                "slots": {"global_aux": GRADING_FORK_CHAIN_PROGRAM},
+                "expected": {"unfilled"},
                 "enforce_integrity": False,
             },
             "grading_leftover_process": {
@@ -1752,6 +1762,7 @@ def main() -> None:
                     work / f"grade-{name}",
                     docker_image=args.image,
                     enforce_integrity=fixture.get("enforce_integrity", True),
+                    keep_builds=name == "elaboration_escape",
                 )
             except probe.GradeInfrastructureError as error:
                 # A fixture must be graded or rejected; an unscored outcome fails it.
@@ -1774,6 +1785,7 @@ def main() -> None:
                 "passed_specs": grade["passed_specs"],
                 "total_specs": grade["total_specs"],
                 "build_ok": grade.get("build_ok"),
+                "build_label": grade.get("build_label"),
                 "targeted_status": targeted,
                 "vero_passed_specs": grade.get("vero_passed_specs"),
                 "recheck_downgraded": grade.get("axiom_recheck", {}).get("downgraded"),
@@ -1783,17 +1795,44 @@ def main() -> None:
                 },
                 "as_expected": grade["passed_specs"] == expected_passes and as_expected,
             }
-        escape_dir = work / "grade-elaboration_escape"
-        ran = sorted(escape_dir.rglob("anarres-elaboration-ran"))
-        in_container = [
-            path.read_text(encoding="utf-8").strip()
-            for path in escape_dir.rglob("anarres-elaboration-container")
-        ]
-        source_writes = sorted(escape_dir.rglob("anarres-source-write"))
-        network_codes = [
-            path.read_text(encoding="utf-8").strip()
-            for path in escape_dir.rglob("anarres-elaboration-network")
-        ]
+        # The escape fixture's markers live in its in-memory build volume.
+        escape_label = grader_runs["elaboration_escape"].get("build_label", "")
+        escape_build = (work / "grade-elaboration_escape" / "eval_sandbox").resolve()
+        markers = subprocess.run(
+            [
+                docker,
+                "run",
+                "--rm",
+                "--log-driver",
+                "none",
+                "--network",
+                "none",
+                "--mount",
+                f"type=volume,src={probe.lake_volume(escape_label, escape_build)},"
+                "dst=/lake,readonly",
+                args.image,
+                "sh",
+                "-c",
+                'for f in /lake/anarres-*; do [ -f "$f" ] && echo "${f#/lake/} $(cat "$f")"; '
+                "done; true",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=120,
+            check=False,
+        ).stdout.split("\n")
+        probe.remove_grader_volumes(escape_label)
+        found = dict(line.split(" ", 1) for line in markers if " " in line)
+        ran = ["anarres-elaboration-ran"] if "anarres-elaboration-ran" in found else []
+        in_container = (
+            [found["anarres-elaboration-container"]]
+            if "anarres-elaboration-container" in found
+            else []
+        )
+        source_writes = ["anarres-source-write"] if "anarres-source-write" in found else []
+        network_codes = (
+            [found["anarres-elaboration-network"]] if "anarres-elaboration-network" in found else []
+        )
         write_json(output / "grader-fixtures.json", grader_runs)
         files["grader-fixtures.json"] = output / "grader-fixtures.json"
         results.append(
@@ -1807,7 +1846,14 @@ def main() -> None:
         shutil.copytree(workspaces["grader"], identity_task, symlinks=True)
         lake_identity = subprocess.run(
             [
-                str(probe.grader_lake_shim(work / "grader-identity", args.image, "identity")),
+                str(
+                    probe.grader_lake_shim(
+                        work / "grader-identity",
+                        args.image,
+                        "identity",
+                        builds=(identity_task,),
+                    )
+                ),
                 "env",
                 "lean",
                 "--version",
@@ -1817,6 +1863,20 @@ def main() -> None:
             text=True,
             check=False,
         ).stdout.strip()
+        probe.remove_grader_containers("identity")
+        probe.remove_grader_volumes("identity")
+        remaining_volumes = subprocess.run(
+            [docker, "volume", "ls", "-q", "--filter", "name=anarres-lake-"],
+            capture_output=True,
+            text=True,
+            check=False,
+        ).stdout.split()
+        remaining_holders = subprocess.run(
+            [docker, "ps", "-aq", "--filter", "label=anarres.hold"],
+            capture_output=True,
+            text=True,
+            check=False,
+        ).stdout.split()
         remaining_graders = subprocess.run(
             [docker, "ps", "-aq", "--filter", "label=anarres.grader"],
             capture_output=True,
@@ -1842,17 +1902,14 @@ def main() -> None:
             "leftover_process_does_not_outlive_lake": grader_runs["grading_leftover_process"][
                 "as_expected"
             ],
-            "grading_disk_budget_enforced": all(
+            # Filling the in-memory build only fails the policy's own build, and a process
+            # left holding Lake's output, alone or as a chain, does not outlive Lake.
+            "grading_disk_bounded": all(
                 grader_runs[name]["as_expected"]
-                and any(
-                    "disk budget" in v for v in grader_runs[name].get("integrity_violations", [])
-                )
-                for name in (
-                    "grading_disk_exhaustion",
-                    "grading_disk_hidden",
-                    "grading_disk_unlinked",
-                )
+                for name in ("grading_disk_exhaustion", "grading_disk_unlinked")
             ),
+            "fork_chain_does_not_outlive_lake": grader_runs["grading_fork_chain"]["as_expected"],
+            "no_grading_volumes_remain": not remaining_volumes and not remaining_holders,
             "no_grader_containers_remain": not remaining_graders,
         }
         results.append(

@@ -127,6 +127,17 @@ class TaskSandboxRouteTest(unittest.TestCase):
         self.assertEqual(calls[-1][1:], ["rm", "--force", "anarres-vero-test"])
 
 
+def with_volumes(answer):
+    """Answer volume inspections as present and every other command with ``answer``."""
+
+    def run(command: list[str], **kwargs: object) -> subprocess.CompletedProcess:
+        if "volume" in command:
+            return subprocess.CompletedProcess(command, 0, "", "")
+        return answer(command, **kwargs) if callable(answer) else answer
+
+    return run
+
+
 class ScoringTest(unittest.TestCase):
     def test_grader_failure_raises_instead_of_scoring_zero(self) -> None:
         failed = subprocess.CompletedProcess([], 1, "", "Traceback")
@@ -134,7 +145,7 @@ class ScoringTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             evaluation = Path(directory)
             with (
-                mock.patch.object(PROBE, "run_with_disk_budget", return_value=(failed, None)),
+                mock.patch.object(PROBE, "run_grader", return_value=failed),
                 self.assertRaises(PROBE.GradeInfrastructureError),
             ):
                 PROBE.grade_attempt(
@@ -148,7 +159,7 @@ class ScoringTest(unittest.TestCase):
                 )
             unreadable = subprocess.CompletedProcess([], 0, "not json", "")
             with (
-                mock.patch.object(PROBE, "run_with_disk_budget", return_value=(unreadable, None)),
+                mock.patch.object(PROBE, "run_grader", return_value=unreadable),
                 self.assertRaises(PROBE.GradeInfrastructureError),
             ):
                 PROBE.grade_attempt(
@@ -223,8 +234,9 @@ class ScoringTest(unittest.TestCase):
 
     def checker_request(self) -> dict:
         return {
-            "submission_libraries": ["/s"],
-            "reference_libraries": ["/r"],
+            "builds": ["/s", "/r"],
+            "submission_libraries": ["/s/.lake/build/lib/lean"],
+            "reference_libraries": ["/r/.lake/build/lib/lean"],
             "groups": [{"roots": ["M"], "theorems": ["prove_a"]}],
             "allowed_axioms": [],
         }
@@ -237,14 +249,18 @@ class ScoringTest(unittest.TestCase):
                 subprocess.CompletedProcess([], 137, "", "killed"),
                 subprocess.CompletedProcess([], 0, forged, ""),
             ):
-                with mock.patch.object(PROBE.subprocess, "run", return_value=completed) as run:
+                with mock.patch.object(
+                    PROBE.subprocess, "run", side_effect=with_volumes(completed)
+                ) as run:
                     verdicts = PROBE.run_axiom_check(
                         Path(directory), self.checker_request(), "img", "label"
                     )
                 self.assertFalse(verdicts["prove_a"]["ok"])
                 self.assertTrue(verdicts["prove_a"]["incomplete"])
                 budgets = [
-                    call.args[0][call.args[0].index("timeout") + 2] for call in run.call_args_list
+                    call.args[0][call.args[0].index("timeout") + 2]
+                    for call in run.call_args_list
+                    if "timeout" in call.args[0]
                 ]
                 self.assertEqual(
                     budgets,
@@ -252,6 +268,8 @@ class ScoringTest(unittest.TestCase):
                 )
 
         def finishes_on_retry(command: list[str], **_: object) -> subprocess.CompletedProcess:
+            if "volume" in command:
+                return subprocess.CompletedProcess(command, 0, "", "")
             if f"{PROBE.AXIOM_CHECK_SECONDS}s" in command:
                 return subprocess.CompletedProcess(command, 124, "", "")
             nonce = command[-2]
@@ -267,32 +285,14 @@ class ScoringTest(unittest.TestCase):
             verdicts = PROBE.run_axiom_check(Path(directory), self.checker_request(), "img", "x")
         self.assertTrue(verdicts["prove_a"]["ok"])
 
-    def test_only_reference_library_paths_reach_the_checker(self) -> None:
+    def test_checker_reads_builds_only_from_their_volumes(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            reference, submission = root / "reference", root / "submission"
-            for base in (reference, submission):
-                (base / ".lake" / "build" / "lib" / "lean").mkdir(parents=True)
-            dependency = Path(".lake") / "packages" / "dep" / ".lake" / "build" / "lib" / "lean"
-            (reference / dependency).mkdir(parents=True)
-            (submission / ".lake" / "packages").mkdir()
-            (submission / ".lake" / "packages" / "dep").symlink_to(root)
-            separator = Path(".lake") / "packages" / "a,b" / ".lake" / "build" / "lib" / "lean"
-            (submission / separator).mkdir(parents=True)
-            accepted = PROBE.submission_libraries(submission, reference)
-        self.assertEqual(accepted, [str(submission / ".lake" / "build" / "lib" / "lean")])
-
-    def test_slot_attributes_must_be_toolchain_attributes(self) -> None:
-        bodies = [
-            ("A.lean", ["@[simp, reducible] theorem t : True := trivial"]),
-            ("B.lean", ["@[local simp] theorem u : True := trivial", "attribute [-simp] t"]),
-            ("C.lean", ["@[simp, app_delab Nat.succ] def d := 1"]),
-            ("D.lean", ["@[code_action_provider] def c := 1", "-- @[init] in a comment"]),
-        ]
-        self.assertEqual(
-            PROBE.integrity_violations(bodies),
-            ["C.lean: attribute app_delab", "D.lean: attribute code_action_provider"],
-        )
+            missing = subprocess.CompletedProcess([], 1, "", "no such volume")
+            with (
+                mock.patch.object(PROBE.subprocess, "run", return_value=missing),
+                self.assertRaisesRegex(PROBE.GradeInfrastructureError, "volume"),
+            ):
+                PROBE.run_axiom_check(Path(directory), self.checker_request(), "img", "label")
 
     def test_checker_infrastructure_failures_stay_unscored(self) -> None:
         broken = {**self.vero_grade(), "reference_build_ok": False}
@@ -307,8 +307,8 @@ class ScoringTest(unittest.TestCase):
                 )
 
             for side_effect in (
-                [subprocess.CompletedProcess([], 125, "", "daemon unavailable")],
-                reference_error,
+                with_volumes(subprocess.CompletedProcess([], 125, "", "daemon unavailable")),
+                with_volumes(reference_error),
             ):
                 with (
                     mock.patch.object(PROBE.subprocess, "run", side_effect=side_effect),
@@ -325,70 +325,48 @@ class ScoringTest(unittest.TestCase):
         self.assertIn("importModules submission.core", source)
         self.assertIn("trustedAxiom", source)
         with tempfile.TemporaryDirectory() as directory:
-            with mock.patch.object(PROBE.subprocess, "run") as run:
-                run.return_value = subprocess.CompletedProcess([], 1, "", "")
+            with mock.patch.object(
+                PROBE.subprocess,
+                "run",
+                side_effect=with_volumes(subprocess.CompletedProcess([], 1, "", "")),
+            ) as run:
                 PROBE.run_axiom_check(Path(directory), self.checker_request(), "img", "label")
             command = " ".join(run.call_args.args[0])
         for flag in ("--network none", "--read-only", "--cap-drop ALL", "lean --run"):
             self.assertIn(flag, command)
         self.assertIn("timeout --kill-after=10s", command)
-        self.assertIn("dst=/s,readonly", command)
-        self.assertIn("dst=/r,readonly", command)
+        for build in ("/s", "/r"):
+            volume = PROBE.lake_volume("label", Path(build))
+            self.assertIn(f"type=volume,src={volume},dst={build}/.lake,readonly", command)
 
-    def test_grading_disk_budget_is_an_integrity_failure(self) -> None:
+    def test_shim_failures_are_infrastructure_errors(self) -> None:
         image = "sha256:" + "d" * 64
-        completed = subprocess.CompletedProcess([], -9, "", "")
-        with tempfile.TemporaryDirectory() as directory:
-            evaluation = Path(directory)
-            (evaluation / "eval_sandbox").mkdir()
-            with mock.patch.object(
-                PROBE, "run_with_disk_budget", return_value=(completed, "too large")
-            ):
-                grade = PROBE.grade_attempt(
-                    Path("/v"),
-                    "python",
-                    Path("/b"),
-                    Path("/s"),
-                    "proof",
-                    evaluation,
-                    docker_image=image,
-                )
-            self.assertFalse((evaluation / "eval_sandbox").exists())
-        self.assertEqual(
-            grade, {"integrity_violations": ["grading disk budget exceeded: too large"]}
-        )
 
-    def test_grading_watchdog_stops_a_process_that_fills_its_directory(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            watched = Path(directory)
-            program = (
-                "import pathlib, sys, time; "
-                "pathlib.Path(sys.argv[1], 'fill').write_bytes(b'x' * 300000); time.sleep(60)"
+        def failing_shim(
+            command: list[str], environment: dict[str, str]
+        ) -> subprocess.CompletedProcess:
+            shim = Path(environment["PATH"].split(os.pathsep)[0])
+            (shim / "failures").write_text("volume creation failed\n")
+            return subprocess.CompletedProcess(command, 0, '{"total_specs": 1}', "")
+
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            mock.patch.object(PROBE, "run_grader", side_effect=failing_shim),
+            self.assertRaisesRegex(PROBE.GradeInfrastructureError, "volume creation failed"),
+        ):
+            PROBE.grade_attempt(
+                Path("/v"),
+                "python",
+                Path("/b"),
+                Path("/s"),
+                "proof",
+                Path(directory),
+                docker_image=image,
             )
-            no_containers = subprocess.CompletedProcess([], 0, "", "")
-            with (
-                mock.patch.object(PROBE, "GRADER_DISK_BYTES", 100_000),
-                mock.patch.object(PROBE, "GRADER_DISK_POLL_SECONDS", 0.05),
-                mock.patch.object(PROBE.subprocess, "run", return_value=no_containers),
-            ):
-                started = time.monotonic()
-                completed, exceeded = PROBE.run_with_disk_budget(
-                    [sys.executable, "-c", program, str(watched)],
-                    dict(os.environ),
-                    watched,
-                    "label",
-                )
-        self.assertLess(time.monotonic() - started, 30)
-        self.assertIsNotNone(exceeded)
-        self.assertNotEqual(completed.returncode, 0)
 
-    def test_halted_sandbox_ends_the_attempt_as_its_own_stop_reason(self) -> None:
-        sandbox = mock.Mock()
-        sandbox.execute.return_value = {
-            "error": {"code": PROBE.WORKSPACE_BUDGET_ERROR, "message": "workspace disk budget"}
-        }
-        with self.assertRaises(PROBE.SandboxHalted):
-            PROBE._execute_tool("sandbox_execute", {"command": "true"}, sandbox, "/workspace")
+    def test_grader_runs_in_its_own_session(self) -> None:
+        completed = PROBE.run_grader([sys.executable, "-c", "print('ok')"], dict(os.environ))
+        self.assertEqual((completed.returncode, completed.stdout.strip()), (0, "ok"))
         command = PROBE.sandbox_server_command(
             python="python",
             socket_path=Path("/tmp/vero-x/s.sock"),
@@ -437,7 +415,10 @@ class ScoringTest(unittest.TestCase):
 
     def test_grader_compiles_only_through_the_contained_lake(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            shim = PROBE.grader_lake_shim(Path(directory), "sha256:" + "d" * 64, "label")
+            build = Path(directory).resolve() / "eval_sandbox"
+            shim = PROBE.grader_lake_shim(
+                Path(directory), "sha256:" + "d" * 64, "label", builds=(build,)
+            )
             text = shim.read_text(encoding="utf-8")
         self.assertEqual(shim.name, "lake")
         for flag in (
@@ -450,16 +431,22 @@ class ScoringTest(unittest.TestCase):
             "anarres.grader=label",
         ):
             self.assertIn(flag, text)
-        # Sources are read-only; only Lake's build directory is writable.
+        # Sources are read-only; Lake writes only into the build's in-memory volume, whose
+        # size the kernel enforces, and only the builds it was made for are served.
         self.assertIn('--mount "type=bind,src=$here,dst=$here,readonly"', text)
-        self.assertIn('--mount "type=bind,src=$here/.lake,dst=$here/.lake"', text)
-        self.assertEqual(text.count("--mount"), 2)
+        self.assertIn('--mount "type=volume,src=$volume,dst=$here/.lake"', text)
+        self.assertNotIn("type=bind,src=$here/.lake,dst=$here/.lake", text)
+        self.assertIn(PROBE.lake_volume("label", build), text)
+        self.assertIn(f"size={PROBE.GRADER_DISK_BYTES}", text)
+        self.assertIn("type=tmpfs", text)
+        self.assertIn("anarres.hold=label", text)
+        self.assertIn('fail "unexpected build directory', text)
         self.assertIn("--log-driver none", text)
         self.assertIn(f"head -c {PROBE.GRADER_OUTPUT_BYTES}", text)
-        # Bash waits only for the last process substitution, which lost output when the
-        # container exited first; both readers must be waited for by process id.
+        # Bash waits only for the last process substitution, which lost output; the readers
+        # get a bounded drain, then the container's shell exits, ending every process in it.
         self.assertNotIn(">(", text)
-        self.assertIn('wait "$out" "$err"', text)
+        self.assertIn('kill -KILL "$out" "$err"', text)
         self.assertIn(f"{PROBE.GRADER_LAKE_SECONDS}s lake", text)
         self.assertLess(PROBE.GRADER_LAKE_SECONDS, PROBE.VERO_LAKE_SECONDS)
         self.assertNotIn("--user 0:0", text)

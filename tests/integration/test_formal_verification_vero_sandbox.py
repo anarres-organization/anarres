@@ -3,11 +3,12 @@ from __future__ import annotations
 import asyncio
 import dataclasses
 import importlib.util
+import io
 import json
-import os
 import shutil
 import subprocess
 import sys
+import tarfile
 import tempfile
 import unittest
 from pathlib import Path
@@ -151,7 +152,6 @@ class VeroSandboxConfigurationTest(unittest.TestCase):
     def test_runtime_command_enforces_primary_isolation_controls(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             command = SANDBOX.docker_run_command(self.config(Path(directory)), "attempt")
-            expected_mount = f"type=bind,src={directory},dst=/workspace"
         joined = " ".join(command)
         self.assertIn("--network none", joined)
         self.assertIn("--ipc none", joined)
@@ -159,8 +159,15 @@ class VeroSandboxConfigurationTest(unittest.TestCase):
         self.assertIn("--cap-drop ALL", joined)
         self.assertIn("no-new-privileges", command)
         self.assertIn("--pids-limit 512", joined)
-        self.assertIn(expected_mount, command)
-        self.assertNotIn(f"{expected_mount},rw", command)
+        # No host directory is mounted: the workspace is an in-memory filesystem whose
+        # size and entry count the kernel enforces.
+        self.assertNotIn("--mount", command)
+        self.assertNotIn("--volume", command)
+        workspace = command[command.index("--tmpfs") + 1]
+        self.assertTrue(workspace.startswith("/workspace:rw,exec,"))
+        self.assertIn(f"size={8 * 1024**3}", workspace)
+        self.assertIn("nr_inodes=200000", workspace)
+        self.assertIn("uid=1000,gid=1000", workspace)
         self.assertNotIn("/var/run/docker.sock", joined)
 
     def test_mutable_image_reference_is_rejected(self) -> None:
@@ -210,133 +217,116 @@ class VeroSandboxProtocolTest(unittest.TestCase):
         self.assertEqual(result["python"], "/usr/bin/python3")
         self.assertNotIn(directory, str(result))
 
-    def test_workspace_disk_budget_stops_the_sandbox(self) -> None:
+    def receipt(self, config) -> object:
+        return SANDBOX.Receipt(
+            attempt_id="attempt-1",
+            task_id="task-1",
+            started_at="2026-11-07T00:00:00+00:00",
+            image_reference=config.image,
+            model_artifact_digest="sha256:" + "b" * 64,
+            inference_config_digest="sha256:" + "c" * 64,
+            container_name="attempt",
+            resource_limits={},
+            workspace_pre_sha256="d" * 64,
+        )
+
+    def collect_archive(self, archive: bytes, budget: int = 1 << 20) -> tuple[Path, object]:
+        directory = Path(tempfile.mkdtemp())
+        self.addCleanup(SANDBOX.remove_tree, directory)
+        workspace = directory / "task"
+        workspace.mkdir()
+        (workspace / "stale").write_text("pre-attempt\n")
+        config = dataclasses.replace(
+            VeroSandboxConfigurationTest().config(workspace), maximum_workspace_bytes=budget
+        )
+        receipt = self.receipt(config)
+        sandbox = SANDBOX.DockerSandbox(config, receipt)
+
+        def fake_run(arguments: list[str], **_: object) -> subprocess.CompletedProcess:
+            if arguments[1] == "inspect":
+                return subprocess.CompletedProcess(arguments, 0, "true false\n", "")
+            if "df" in arguments:
+                return subprocess.CompletedProcess(arguments, 0, "Used\n4096\n", "")
+            return subprocess.CompletedProcess(arguments, 0, "", "")
+
+        process = mock.Mock()
+        process.stdout = io.BytesIO(archive)
+        process.wait.return_value = 0
+        with (
+            mock.patch.object(sandbox, "_run", side_effect=fake_run),
+            mock.patch.object(SANDBOX.subprocess, "Popen", return_value=process),
+        ):
+            sandbox.collect()
+        return workspace, receipt
+
+    @staticmethod
+    def archive(*members: tuple[tarfile.TarInfo, bytes]) -> bytes:
+        buffer = io.BytesIO()
+        with tarfile.open(fileobj=buffer, mode="w") as archive:
+            for info, data in members:
+                archive.addfile(info, io.BytesIO(data) if data else None)
+        return buffer.getvalue()
+
+    def test_collection_keeps_task_files_and_leaves_unsafe_members_behind(self) -> None:
+        proof = tarfile.TarInfo("./Pkg/B.lean")
+        proof.size = 6
+        directory = tarfile.TarInfo("./Pkg")
+        directory.type = tarfile.DIRTYPE
+        escape = tarfile.TarInfo("./escape")
+        escape.type, escape.linkname = tarfile.SYMTYPE, "/etc/passwd"
+        inside = tarfile.TarInfo("./inside")
+        inside.type, inside.linkname = tarfile.SYMTYPE, "Pkg/B.lean"
+        pipe = tarfile.TarInfo("./pipe")
+        pipe.type = tarfile.FIFOTYPE
+        sparse = tarfile.TarInfo("./aaa-sparse")
+        sparse.size = 4 << 20
+        workspace, receipt = self.collect_archive(
+            self.archive(
+                (directory, b""),
+                (proof, b"proof\n"),
+                (escape, b""),
+                (inside, b""),
+                (pipe, b""),
+                (sparse, b"\0" * (4 << 20)),
+            )
+        )
+        self.assertEqual(
+            sorted(str(p.relative_to(workspace)) for p in workspace.rglob("*")),
+            ["Pkg", "Pkg/B.lean", "inside"],
+        )
+        self.assertEqual((workspace / "inside").read_text(), "proof\n")
+        self.assertIsNone(receipt.workspace_collection_error)
+        self.assertEqual(
+            sorted(entry.split(":")[0] for entry in receipt.workspace_skipped),
+            ["./aaa-sparse", "./escape", "./pipe"],
+        )
+        self.assertEqual(receipt.workspace_used_bytes, 4096)
+
+    def test_a_corrupt_archive_is_an_integrity_failure(self) -> None:
+        _, receipt = self.collect_archive(b"not an archive" * 100)
+        self.assertIsNotNone(receipt.workspace_collection_error)
+
+    def test_a_sandbox_that_ran_out_of_memory_is_an_integrity_failure(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
-            workspace = Path(directory)
-            base = VeroSandboxConfigurationTest().config(workspace)
-            config = dataclasses.replace(
-                base, maximum_workspace_bytes=64 * 1024, maximum_workspace_entries=1000
-            )
-            receipt = SANDBOX.Receipt(
-                attempt_id="attempt-1",
-                task_id="task-1",
-                started_at="2026-11-07T00:00:00+00:00",
-                image_reference=config.image,
-                model_artifact_digest="sha256:" + "b" * 64,
-                inference_config_digest="sha256:" + "c" * 64,
-                container_name="attempt",
-                resource_limits={},
-                workspace_pre_sha256="d" * 64,
-            )
+            config = VeroSandboxConfigurationTest().config(Path(directory))
+            receipt = self.receipt(config)
             sandbox = SANDBOX.DockerSandbox(config, receipt)
-            (workspace / "fill").write_bytes(os.urandom(256 * 1024))
-            calls: list[list[str]] = []
-
-            def fake_run(arguments: list[str], **_: object) -> subprocess.CompletedProcess:
-                calls.append(arguments)
-                return subprocess.CompletedProcess(arguments, 0, "", "")
-
-            with (
-                mock.patch.object(SANDBOX, "WORKSPACE_POLL_SECONDS", 0.01),
-                mock.patch.object(sandbox, "_run", side_effect=fake_run),
-                mock.patch.object(SANDBOX, "held_open_bytes", return_value=(0, None)),
-            ):
-                sandbox.watch_workspace()
-                self.assertTrue(sandbox.halted.is_set())
-                self.assertIn(["/usr/bin/docker", "kill", "attempt"], calls)
-                self.assertIn("against", receipt.workspace_budget_exceeded)
-                self.assertGreater(receipt.workspace_peak_bytes, 64 * 1024)
-                with self.assertRaises(SANDBOX.WorkspaceBudgetExceeded):
-                    sandbox.execute("true", "/workspace", None)
+            stopped = subprocess.CompletedProcess([], 0, "false true\n", "")
+            with mock.patch.object(sandbox, "_run", return_value=stopped) as run:
                 sandbox.stop()
-            # A halted container is removed without reading its memory or adding an error.
-            self.assertEqual(calls[-1], ["/usr/bin/docker", "rm", "--force", "attempt"])
-            self.assertTrue(receipt.container_removed)
-            self.assertEqual(receipt.infrastructure_errors, [])
+        self.assertEqual(receipt.workspace_collection_error, "the sandbox ran out of memory")
+        self.assertEqual(receipt.infrastructure_errors, [])
+        self.assertEqual(run.call_args.args[0][1:3], ["rm", "--force"])
 
-    def test_disk_usage_counts_each_inode_once_without_following_links(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory) / "task"
-            root.mkdir()
-            (root / "data").write_bytes(b"x" * 100_000)
-            os.link(root / "data", root / "hardlink")
-            (root / "outside").symlink_to(directory)
-            allocated, entries, unreadable = SANDBOX.disk_usage(root)
-        self.assertEqual(entries, 3)
-        self.assertEqual(unreadable, [])
-        self.assertLess(allocated, 200_000)
-        self.assertGreaterEqual(allocated, 100_000)
-
-    def test_unreadable_directories_are_reported_and_still_removed(self) -> None:
+    def test_unreadable_directories_are_removed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory) / "task"
             hidden = root / "hidden" / "deeper"
             hidden.mkdir(parents=True)
-            (hidden / "data").write_bytes(b"x" * 100_000)
+            (hidden / "data").write_bytes(b"x" * 1000)
             (root / "hidden").chmod(0)
-            allocated, _, unreadable = SANDBOX.disk_usage(root)
-            self.assertEqual(unreadable, ["hidden"])
-            self.assertLess(allocated, 100_000)
             SANDBOX.remove_tree(root)
             self.assertFalse(root.exists())
-
-    def test_in_container_open_file_monitor_fails_closed(self) -> None:
-        cases = [
-            (subprocess.CompletedProcess([], 0, "anarres-held 2048\n", ""), (2048 * 512, None)),
-            (
-                subprocess.CompletedProcess([], 0, "hidden 7\nanarres-held 0\n", ""),
-                (0, "process 7 hides its open files"),
-            ),
-            # The task killed the monitor, which must not read as nothing held.
-            (
-                subprocess.CompletedProcess([], 137, "", ""),
-                (0, "open-file monitor failed with status 137"),
-            ),
-            (
-                subprocess.CompletedProcess([], 1, "", "Error: container attempt is not running"),
-                (0, None),
-            ),
-        ]
-        for completed, expected in cases:
-            with (
-                mock.patch.object(SANDBOX.subprocess, "run", return_value=completed),
-                mock.patch.object(SANDBOX, "HIDING_RESCAN_SECONDS", 0),
-            ):
-                self.assertEqual(SANDBOX.held_open_bytes_inside("docker", "attempt", "u"), expected)
-
-    def test_a_process_unreadable_only_while_it_executes_is_not_hiding(self) -> None:
-        # A program being executed is briefly unreadable; one rescan later it is not.
-        scans = iter([(0, [41]), (0, [])])
-        with (
-            mock.patch.object(SANDBOX.sys, "platform", "linux"),
-            mock.patch.object(SANDBOX, "scan_open_files", side_effect=lambda *_: next(scans)),
-            mock.patch.object(SANDBOX, "HIDING_RESCAN_SECONDS", 0),
-        ):
-            self.assertEqual(SANDBOX.held_open_bytes("docker", "attempt", "u"), (0, None))
-        # A holder unreadable at every rescan hides its files.
-        with (
-            mock.patch.object(SANDBOX.sys, "platform", "linux"),
-            mock.patch.object(SANDBOX, "scan_open_files", return_value=(4096, [41])),
-            mock.patch.object(SANDBOX, "HIDING_RESCAN_SECONDS", 0),
-        ):
-            self.assertEqual(
-                SANDBOX.held_open_bytes("docker", "attempt", "u"),
-                (4096, "process 41 hides its open files"),
-            )
-
-    @unittest.skipUnless(sys.platform == "linux", "reads the host process table")
-    def test_host_reads_deleted_files_held_open_by_container_processes(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            path = Path(directory) / "held"
-            with path.open("wb") as handle:
-                handle.write(b"x" * 1_000_000)
-                handle.flush()
-                path.unlink()
-                top = subprocess.CompletedProcess([], 0, f"PID\n{os.getpid()}\n", "")
-                with mock.patch.object(SANDBOX.subprocess, "run", return_value=top):
-                    held, breach = SANDBOX.held_open_bytes("docker", "attempt", "u")
-        self.assertIsNone(breach)
-        self.assertGreaterEqual(held, 1_000_000)
 
     def test_tree_digest_records_links_without_following_them(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

@@ -23,7 +23,6 @@ import signal
 import socket
 import subprocess
 import sys
-import threading
 import time
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
@@ -31,7 +30,6 @@ from pathlib import Path
 from typing import Any, Literal
 
 from materialize_probe_task import tree_digest, validate_visible_tree
-from serve_vibe_sandbox import disk_usage, held_open_bytes, remove_tree
 
 # ── Configuration ────────────────────────────────────────────────
 
@@ -51,15 +49,14 @@ SANDBOX_MEMORY = "16g"
 SANDBOX_CPUS = 4
 SANDBOX_PIDS = 256
 SANDBOX_FILE_BYTES = 1024 * 1024 * 1024
-# The task workspace and the grading build are host directories, so only these budgets
-# bound their disk use. Exceeding one is an integrity failure of the attempt.
+# Size limits of the in-memory task workspace and of each grading build's Lake outputs.
+# The kernel enforces them, so a task that fills either only fails its own work.
 SANDBOX_WORKSPACE_BYTES = 8 * 1024**3
 SANDBOX_WORKSPACE_ENTRIES = 200_000
 GRADER_DISK_BYTES = 16 * 1024**3
 GRADER_DISK_ENTRIES = 500_000
-GRADER_DISK_POLL_SECONDS = 0.5
 GRADER_OUTPUT_BYTES = 64 * 1024**2
-WORKSPACE_BUDGET_ERROR = -32003
+
 SANDBOX_METHODS = ("sandbox/execute", "sandbox/readFile")
 VERO_LAKE_SECONDS = 300
 # Above the sum of Vero's own Lake budgets for every development benchmark (two builds,
@@ -324,10 +321,6 @@ class AttemptResult:
         )
 
 
-class SandboxHalted(RuntimeError):
-    """The sandbox stopped because the task outgrew its disk budget."""
-
-
 def _execute_tool(
     name: str,
     args: dict,
@@ -381,8 +374,6 @@ def _execute_tool(
             else:
                 content = "[file not found]"
     elif "error" in rpc_resp:
-        if rpc_resp["error"].get("code") == WORKSPACE_BUDGET_ERROR:
-            raise SandboxHalted(rpc_resp["error"].get("message", "workspace budget exceeded"))
         content = f"Error: {rpc_resp['error'].get('message', str(rpc_resp['error']))}"
     else:
         content = json.dumps(rpc_resp)
@@ -577,10 +568,6 @@ def run_agent_loop(
 
             try:
                 tool_output = _execute_tool(name, args, sandbox, workspace_path, remaining())
-            except SandboxHalted:
-                # The policy filled its workspace; the sandbox receipt records why.
-                result.stop_reason = "workspace_budget_exceeded"
-                break
             except Exception as exc:
                 tool_output = f"Sandbox error: {type(exc).__name__}: {exc}"
                 result.infrastructure_errors.append(f"sandbox_{name}: {exc}")
@@ -595,8 +582,6 @@ def run_agent_loop(
                     "output": tool_output,
                 }
             )
-        if result.stop_reason == "workspace_budget_exceeded":
-            break
         if deadline_reached:
             result.stop_reason = "wall_time_limit"
             break
@@ -769,22 +754,35 @@ class GradeInfrastructureError(RuntimeError):
     """Raised when fresh grading could not run; the attempt then stays unscored."""
 
 
-def grader_lake_shim(directory: Path, image: str, label: str, docker: str = "docker") -> Path:
+def lake_volume(label: str, build: Path) -> str:
+    """Name the in-memory volume that holds one grading build's Lake outputs."""
+    return f"anarres-lake-{label}-{hashlib.sha256(str(build).encode()).hexdigest()[:16]}"
+
+
+def grader_lake_shim(
+    directory: Path,
+    image: str,
+    label: str,
+    docker: str = "docker",
+    builds: tuple[Path, ...] = (),
+) -> Path:
     """Write a ``lake`` executable that runs Lake inside the network-denied runtime image.
 
     Vero's grader invokes every Lean build through ``lake`` on PATH, from inside the
     fresh evaluation directory. Elaboration can execute arbitrary code, so the model's
-    slot bodies are compiled only in a container that mounts that one directory.
+    slot bodies are compiled only in a container that mounts that directory read-only.
+    The only place model code can write is the build's ``.lake``, which is a size-limited
+    in-memory volume, so the kernel bounds every byte it keeps. Docker failures are
+    recorded beside the shim, where no container can write, so they stay infrastructure.
     """
     executable = shutil.which(docker) or docker
     directory.mkdir(parents=True, exist_ok=True)
     shim = directory / "lake"
-    arguments = [
-        executable,
-        "run",
-        "--rm",
-        "--label",
-        f"anarres.grader={label}",
+    failures = directory / "failures"
+    uid, gid = sandbox_user().split(":")
+    common = [
+        "--log-driver",
+        "none",
         "--network",
         "none",
         "--ipc",
@@ -802,6 +800,14 @@ def grader_lake_shim(directory: Path, image: str, label: str, docker: str = "doc
         str(SANDBOX_CPUS),
         "--user",
         sandbox_user(),
+    ]
+    arguments = [
+        executable,
+        "run",
+        "--rm",
+        "--label",
+        f"anarres.grader={label}",
+        *common,
         "--tmpfs",
         "/tmp:rw,noexec,nosuid,nodev,mode=1777",
         "--tmpfs",
@@ -812,16 +818,25 @@ def grader_lake_shim(directory: Path, image: str, label: str, docker: str = "doc
         "HOME=/tmp/home",
         "--env",
         "XDG_CACHE_HOME=/cache",
-        "--log-driver",
-        "none",
         "--entrypoint",
         "/bin/bash",
     ]
+    seed = [executable, "run", "--rm", *common]
+    # A tmpfs volume loses its contents when no container mounts it, so one idle holder
+    # keeps each build's volume mounted from its first Lake invocation to cleanup.
+    holder = [
+        executable,
+        "run",
+        "--detach",
+        "--rm",
+        "--label",
+        f"anarres.hold={label}",
+        *common,
+    ]
     # Lake's output reaches the grader's memory, so each stream is cut at its source; a
-    # build that keeps writing past the cut loses its pipe and fails. Both readers are
-    # waited for by process id, so no output is lost when the container exits. A process
-    # that the build left behind can hold a pipe open, so after a short drain every
-    # process but the readers is killed, and the container always ends with Lake.
+    # build that keeps writing past the cut loses its pipe and fails. After Lake returns
+    # the readers get a short drain, then this shell exits, which ends the container and
+    # every process the build left in it.
     inner = (
         'mkdir -p "$HOME" || exit 125\n'
         "pipes=$(mktemp -d) || exit 125\n"
@@ -837,30 +852,89 @@ def grader_lake_shim(directory: Path, image: str, label: str, docker: str = "doc
         '  kill -0 "$out" 2>/dev/null || kill -0 "$err" 2>/dev/null || break\n'
         "  sleep 0.1\n"
         "done\n"
-        "for process in /proc/[0-9]*; do\n"
-        "  process=${process#/proc/}\n"
-        '  case "$process" in "$$"|"$out"|"$err") ;; *) kill -KILL "$process" 2>/dev/null;; esac\n'
-        "done\n"
-        'wait "$out" "$err"\n'
+        'kill -KILL "$out" "$err" 2>/dev/null\n'
         'exit "$status"\n'
+    )
+    q = shlex.quote
+    cases = "".join(
+        f"  {q(str(build.resolve()))}) volume={q(lake_volume(label, build.resolve()))} ;;\n"
+        for build in builds
+    )
+    options = (
+        f"size={GRADER_DISK_BYTES},nr_inodes={GRADER_DISK_ENTRIES},uid={uid},gid={gid},mode=0700"
     )
     shim.write_text(
         "#!/bin/sh\n"
         "# Generated by run_codex_sol_probe.py: contained Lake for fresh grading.\n"
+        f"failures={q(str(failures))}\n"
+        'fail() { echo "$1" >> "$failures"; exit 125; }\n'
         'here="$(pwd -P)"\n'
-        'mkdir -p "$here/.lake"\n'
-        "exec "
-        + " ".join(shlex.quote(argument) for argument in arguments)
+        'case "$here" in\n'
+        f"{cases}"
+        '  *) fail "unexpected build directory: $here" ;;\n'
+        "esac\n"
+        # The volume is mounted over this directory inside a read-only view of the build.
+        'mkdir -p "$here/.lake" || fail "cannot create the Lake directory"\n'
+        f'if ! {q(executable)} volume inspect "$volume" >/dev/null 2>&1; then\n'
+        '  [ -e "$here/.lake/packages" ] && fail "Lake package dependencies are not supported"\n'
+        f"  {q(executable)} volume create --label {q(f'anarres.grader={label}')} "
+        f"--driver local --opt type=tmpfs --opt device=tmpfs --opt {q('o=' + options)} "
+        '"$volume" >/dev/null || fail "volume creation failed"\n'
+        "  "
+        + " ".join(q(a) for a in holder)
+        + ' --mount "type=volume,src=$volume,dst=/hold" '
+        + q(image)
+        + ' sleep infinity >/dev/null || fail "volume holder failed to start"\n'
+        '  if [ -d "$here/.lake" ]; then\n'
+        "    "
+        + " ".join(q(a) for a in seed)
+        + ' --mount "type=bind,src=$here/.lake,dst=/seed,readonly"'
+        + ' --mount "type=volume,src=$volume,dst=/lake" '
+        + q(image)
+        + ' cp -a /seed/. /lake/ || fail "volume seeding failed"\n'
+        "  fi\n"
+        "fi\n"
+        + " ".join(q(argument) for argument in arguments)
         + ' --mount "type=bind,src=$here,dst=$here,readonly"'
-        + ' --mount "type=bind,src=$here/.lake,dst=$here/.lake" --workdir "$here" '
-        + shlex.quote(image)
+        + ' --mount "type=volume,src=$volume,dst=$here/.lake" --workdir "$here" '
+        + q(image)
         + " -c "
-        + shlex.quote(inner)
-        + ' lake "$@"\n',
+        + q(inner)
+        + ' lake "$@"\n'
+        "status=$?\n"
+        'case "$status" in 125|126|127)\n'
+        '  echo "container failed with $status" >> "$failures" ;;\n'
+        "esac\n"
+        'exit "$status"\n',
         encoding="utf-8",
     )
     shim.chmod(0o755)
     return shim
+
+
+def remove_grader_volumes(label: str, docker: str = "docker") -> None:
+    """Remove the in-memory build volumes of one grading, and the holders that keep them."""
+    executable = shutil.which(docker) or docker
+    holders = subprocess.run(
+        [executable, "ps", "-aq", "--filter", f"label=anarres.hold={label}"],
+        capture_output=True,
+        text=True,
+        timeout=60,
+    ).stdout.split()
+    if holders:
+        subprocess.run([executable, "rm", "--force", *holders], capture_output=True, timeout=120)
+    listed = subprocess.run(
+        [executable, "volume", "ls", "-q", "--filter", f"label=anarres.grader={label}"],
+        capture_output=True,
+        text=True,
+        timeout=60,
+    )
+    if listed.stdout.split():
+        subprocess.run(
+            [executable, "volume", "rm", "--force", *listed.stdout.split()],
+            capture_output=True,
+            timeout=120,
+        )
 
 
 def remove_grader_containers(label: str, docker: str = "docker") -> int:
@@ -906,14 +980,18 @@ def grade_attempt(
     *,
     docker_image: str,
     enforce_integrity: bool = True,
+    keep_builds: bool = False,
 ) -> dict:
     """Freshly grade one task, or report the slot bodies that make it ungradable.
 
     ``enforce_integrity`` is disabled only by containment qualification, to show that
-    the contained Lake still holds when elaboration-time code reaches it.
+    the contained Lake still holds when elaboration-time code reaches it, and
+    ``keep_builds`` leaves the build volumes for it to inspect and remove.
     """
     label = secrets.token_hex(8)
-    shim = grader_lake_shim(eval_dir / "contained-bin", docker_image, label)
+    eval_dir.mkdir(parents=True, exist_ok=True)
+    builds = (eval_dir / "eval_sandbox", eval_dir / "reference" / "eval_sandbox")
+    shim = grader_lake_shim(eval_dir / "contained-bin", docker_image, label, builds=builds)
     environment = {**os.environ, "PATH": f"{shim.parent}{os.pathsep}{os.environ.get('PATH', '')}"}
     cmd = [
         vero_python,
@@ -1003,47 +1081,42 @@ print(json.dumps({{
 """,
     ]
     try:
-        result, exceeded = run_with_disk_budget(cmd, environment, eval_dir / "eval_sandbox", label)
-    except subprocess.TimeoutExpired as error:
-        raise GradeInfrastructureError(f"grader exceeded {GRADER_SECONDS} seconds") from error
+        try:
+            result = run_grader(cmd, environment)
+        except subprocess.TimeoutExpired as error:
+            raise GradeInfrastructureError(f"grader exceeded {GRADER_SECONDS} seconds") from error
+        finally:
+            leftovers = remove_grader_containers(label)
+        failures = shim.parent / "failures"
+        if failures.exists():
+            raise GradeInfrastructureError(
+                f"contained Lake failed: {failures.read_text(encoding='utf-8')[:500]}"
+            )
+        if leftovers:
+            raise GradeInfrastructureError(f"{leftovers} grading containers outlived their stage")
+        if result.returncode != 0:
+            raise GradeInfrastructureError(
+                f"grader exited with status {result.returncode}: {result.stderr[:2000]}"
+            )
+        try:
+            grade = json.loads(result.stdout.strip().split("\n")[-1])
+        except (json.JSONDecodeError, IndexError) as error:
+            raise GradeInfrastructureError(
+                f"grader output is unreadable: {result.stdout[:500]}"
+            ) from error
+        if isinstance(grade, dict) and grade.get("integrity_violations"):
+            return grade
+        if not isinstance(grade, dict) or not isinstance(grade.get("total_specs"), int):
+            raise GradeInfrastructureError("grader output lacks a specification count")
+        return {**apply_axiom_check(grade, eval_dir, docker_image, label), "build_label": label}
     finally:
-        leftovers = remove_grader_containers(label)
-    if exceeded:
-        # Model code filled the build during grading. A container whose client was
-        # killed while it started is swept again, the build is removed, and the attempt
-        # is an integrity failure, reported apart from infrastructure failures.
-        time.sleep(2)
         remove_grader_containers(label)
-        remove_tree(eval_dir / "eval_sandbox")
-        return {"integrity_violations": [f"grading disk budget exceeded: {exceeded}"]}
-    if leftovers:
-        raise GradeInfrastructureError(f"{leftovers} grading containers outlived their stage")
-    if result.returncode != 0:
-        raise GradeInfrastructureError(
-            f"grader exited with status {result.returncode}: {result.stderr[:2000]}"
-        )
-    try:
-        grade = json.loads(result.stdout.strip().split("\n")[-1])
-    except (json.JSONDecodeError, IndexError) as error:
-        raise GradeInfrastructureError(
-            f"grader output is unreadable: {result.stdout[:500]}"
-        ) from error
-    if isinstance(grade, dict) and grade.get("integrity_violations"):
-        return grade
-    if not isinstance(grade, dict) or not isinstance(grade.get("total_specs"), int):
-        raise GradeInfrastructureError("grader output lacks a specification count")
-    return apply_axiom_check(grade, eval_dir, docker_image, label)
+        if not keep_builds:
+            remove_grader_volumes(label)
 
 
-def run_with_disk_budget(
-    command: list[str], environment: dict[str, str], watched: Path, label: str
-) -> tuple[subprocess.CompletedProcess[str], str | None]:
-    """Run the Vero grader while bounding the disk its contained builds may use.
-
-    The build directory is a host bind mount, so model code that runs while Lake builds
-    can write to host disk until this budget stops the grader. Files the build deletes
-    while holding them open count too, and so does any path the walk cannot read.
-    """
+def run_grader(command: list[str], environment: dict[str, str]) -> subprocess.CompletedProcess[str]:
+    """Run the Vero grader in its own session, so a timeout ends every client it started."""
     process = subprocess.Popen(
         command,
         stdout=subprocess.PIPE,
@@ -1052,42 +1125,6 @@ def run_with_disk_budget(
         env=environment,
         start_new_session=True,
     )
-    docker = shutil.which("docker") or "docker"
-    exceeded: list[str] = []
-    finished = threading.Event()
-
-    def watch() -> None:
-        while not finished.wait(GRADER_DISK_POLL_SECONDS):
-            allocated, entries, unreadable = disk_usage(watched)
-            listed = subprocess.run(
-                [docker, "ps", "-q", "--filter", f"label=anarres.grader={label}"],
-                capture_output=True,
-                text=True,
-                timeout=60,
-                check=False,
-            ).stdout.split()
-            deleted, hidden = 0, None
-            for container in listed:
-                held, breach = held_open_bytes(docker, container, sandbox_user())
-                deleted, hidden = deleted + held, hidden or breach
-            if (
-                allocated + deleted > GRADER_DISK_BYTES
-                or entries > GRADER_DISK_ENTRIES
-                or unreadable
-                or hidden
-            ):
-                exceeded.append(
-                    f"{allocated + deleted} bytes ({deleted} deleted but open) and {entries} "
-                    f"entries against {GRADER_DISK_BYTES} bytes and {GRADER_DISK_ENTRIES} "
-                    f"entries; unreadable paths {unreadable[:3]}; open files {hidden or 'measured'}"
-                )
-                # The grader's Docker clients share its session, so none outlives it.
-                with contextlib.suppress(ProcessLookupError):
-                    os.killpg(process.pid, signal.SIGKILL)
-                return
-
-    watcher = threading.Thread(target=watch, daemon=True)
-    watcher.start()
     try:
         stdout, stderr = process.communicate(timeout=GRADER_SECONDS)
     except subprocess.TimeoutExpired:
@@ -1095,40 +1132,12 @@ def run_with_disk_budget(
             os.killpg(process.pid, signal.SIGKILL)
         process.communicate()
         raise
-    finally:
-        finished.set()
-        watcher.join()
-    completed = subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
-    return completed, (exceeded[0] if exceeded else None)
+    return subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
 
 
-def library_directories(sandbox: Path) -> list[str]:
-    """Return the compiled-library directories of one evaluation sandbox."""
-    found = [sandbox / ".lake" / "build" / "lib" / "lean"]
-    found += sorted((sandbox / ".lake" / "packages").glob("*/.lake/build/lib/lean"))
-    return [str(path) for path in found if path.is_dir()]
-
-
-def submission_libraries(submission: Path, reference: Path) -> list[str]:
-    """Return the submission's library directories at the reference's own paths.
-
-    The submission's ``.lake`` is writable by model code during its build, so only
-    directories the untouched build also has, reached without a symbolic link and
-    named without a mount separator, are ever mounted into the checker.
-    """
-    accepted = []
-    for library in library_directories(reference):
-        relative = Path(library).relative_to(reference)
-        candidate = submission / relative
-        prefixes = [submission / Path(*relative.parts[: n + 1]) for n in range(len(relative.parts))]
-        if (
-            "," not in str(candidate)
-            and not any(prefix.is_symlink() for prefix in prefixes)
-            and candidate.is_dir()
-            and candidate.resolve().is_relative_to(submission.resolve())
-        ):
-            accepted.append(str(candidate))
-    return accepted
+def build_library(build: Path) -> str:
+    """Return the compiled-library directory of one build, inside its volume."""
+    return str(build.resolve() / ".lake" / "build" / "lib" / "lean")
 
 
 def run_axiom_check(
@@ -1145,9 +1154,19 @@ def run_axiom_check(
     check_dir = eval_dir / "axiom-check"
     check_dir.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(AXIOM_CHECKER, check_dir / AXIOM_CHECKER.name)
-    mounts = [str(check_dir), *request["submission_libraries"], *request["reference_libraries"]]
+    docker = shutil.which("docker") or "docker"
+    volumes = {build: lake_volume(label, Path(build)) for build in request["builds"]}
+    for build, volume in volumes.items():
+        # Mounting a missing volume would create one on host disk instead.
+        if (
+            subprocess.run(
+                [docker, "volume", "inspect", volume], capture_output=True, timeout=60
+            ).returncode
+            != 0
+        ):
+            raise GradeInfrastructureError(f"the build volume for {build} is missing")
     base = [
-        shutil.which("docker") or "docker",
+        docker,
         "run",
         "--rm",
         "--log-driver",
@@ -1176,8 +1195,9 @@ def run_axiom_check(
         "--env",
         "HOME=/tmp",
     ]
-    for mount in mounts:
-        base += ["--mount", f"type=bind,src={mount},dst={mount},readonly"]
+    base += ["--mount", f"type=bind,src={check_dir},dst={check_dir},readonly"]
+    for build, volume in volumes.items():
+        base += ["--mount", f"type=volume,src={volume},dst={build}/.lake,readonly"]
 
     def attempt(index: int, group: dict[str, Any], seconds: int) -> list[dict[str, Any]] | None:
         group_request = {
@@ -1252,10 +1272,12 @@ def apply_axiom_check(
     passed = [spec for spec in grade["specs"] if spec["status"] == "passed"]
     verdicts: dict[str, dict[str, Any]] = {}
     if passed:
-        reference = eval_dir / "reference" / "eval_sandbox"
+        submission = (eval_dir / "eval_sandbox").resolve()
+        reference = (eval_dir / "reference" / "eval_sandbox").resolve()
         request = {
-            "submission_libraries": submission_libraries(eval_dir / "eval_sandbox", reference),
-            "reference_libraries": library_directories(reference),
+            "builds": [str(submission), str(reference)],
+            "submission_libraries": [build_library(submission)],
+            "reference_libraries": [build_library(reference)],
             "groups": grade["groups"],
             "allowed_axioms": grade["allowed_axioms"],
         }
@@ -1585,13 +1607,12 @@ def run_one_attempt(
     else:
         result.infrastructure_errors.append("sandbox receipt is missing")
 
-    exceeded = (result.sandbox_receipt or {}).get("workspace_budget_exceeded")
-    if exceeded:
-        # The policy filled its workspace. The oversized tree is never graded, and it is
-        # removed so it cannot hold host disk that later attempts need.
-        result.integrity_errors.append(f"workspace disk budget exceeded: {exceeded}")
-        remove_tree(source_dir)
-        print("  Not graded: the workspace exceeded its disk budget.")
+    collection = (result.sandbox_receipt or {}).get("workspace_collection_error")
+    if collection:
+        # Only the policy's own processes or files can stop its workspace from being
+        # collected, so the attempt is an integrity failure and is never graded.
+        result.integrity_errors.append(f"workspace collection failed: {collection}")
+        print("  Not graded: the final workspace could not be collected.")
         return result
 
     # The host-side extractor must never follow a link out of the task.
