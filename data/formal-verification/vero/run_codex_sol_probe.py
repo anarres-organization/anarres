@@ -22,13 +22,14 @@ import shutil
 import socket
 import subprocess
 import sys
+import threading
 import time
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal
 
-from materialize_probe_task import tree_digest, validate_visible_tree
+from materialize_probe_task import disk_usage, tree_digest, validate_visible_tree
 
 # ── Configuration ────────────────────────────────────────────────
 
@@ -48,6 +49,14 @@ SANDBOX_MEMORY = "16g"
 SANDBOX_CPUS = 4
 SANDBOX_PIDS = 256
 SANDBOX_FILE_BYTES = 1024 * 1024 * 1024
+# The task workspace and the grading build are host directories, so only these budgets
+# bound their disk use. Exceeding one is an integrity failure of the attempt.
+SANDBOX_WORKSPACE_BYTES = 8 * 1024**3
+SANDBOX_WORKSPACE_ENTRIES = 200_000
+GRADER_DISK_BYTES = 16 * 1024**3
+GRADER_DISK_ENTRIES = 500_000
+GRADER_DISK_POLL_SECONDS = 2.0
+WORKSPACE_BUDGET_ERROR = -32003
 SANDBOX_METHODS = ("sandbox/execute", "sandbox/readFile")
 VERO_LAKE_SECONDS = 300
 # Above the sum of Vero's own Lake budgets for every development benchmark (two builds,
@@ -312,6 +321,10 @@ class AttemptResult:
         )
 
 
+class SandboxHalted(RuntimeError):
+    """The sandbox stopped because the task outgrew its disk budget."""
+
+
 def _execute_tool(
     name: str,
     args: dict,
@@ -365,6 +378,8 @@ def _execute_tool(
             else:
                 content = "[file not found]"
     elif "error" in rpc_resp:
+        if rpc_resp["error"].get("code") == WORKSPACE_BUDGET_ERROR:
+            raise SandboxHalted(rpc_resp["error"].get("message", "workspace budget exceeded"))
         content = f"Error: {rpc_resp['error'].get('message', str(rpc_resp['error']))}"
     else:
         content = json.dumps(rpc_resp)
@@ -559,6 +574,10 @@ def run_agent_loop(
 
             try:
                 tool_output = _execute_tool(name, args, sandbox, workspace_path, remaining())
+            except SandboxHalted:
+                # The policy filled its workspace; the sandbox receipt records why.
+                result.stop_reason = "workspace_budget_exceeded"
+                break
             except Exception as exc:
                 tool_output = f"Sandbox error: {type(exc).__name__}: {exc}"
                 result.infrastructure_errors.append(f"sandbox_{name}: {exc}")
@@ -573,6 +592,8 @@ def run_agent_loop(
                     "output": tool_output,
                 }
             )
+        if result.stop_reason == "workspace_budget_exceeded":
+            break
         if deadline_reached:
             result.stop_reason = "wall_time_limit"
             break
@@ -629,16 +650,96 @@ print("OK", result.sandbox_dir)
     return sandbox_dir
 
 
+def lean_code(text: str) -> str:
+    """Return Lean source with comments removed and literal text blanked.
+
+    Comment markers inside strings, raw strings, characters, and quoted names must not
+    hide code from the integrity scan, and the code inside an interpolated string's
+    braces stays visible.
+    """
+    out: list[str] = []
+    length = len(text)
+
+    def name_character(index: int) -> bool:
+        return index >= 0 and (text[index].isalnum() or text[index] in "_'.!?")
+
+    def literal(index: int, interpolated: bool) -> int:
+        while index < length:
+            character = text[index]
+            if character == "\\":
+                index += 2
+            elif character == '"':
+                return index + 1
+            elif interpolated and character == "{":
+                out.append(" ")
+                index = code(index + 1, inside_braces=True)
+                out.append(" ")
+            else:
+                index += 1
+        return length
+
+    def code(index: int, inside_braces: bool = False) -> int:
+        depth = 0
+        while index < length:
+            if text.startswith("--", index):
+                newline = text.find("\n", index)
+                index = length if newline < 0 else newline
+            elif text.startswith("/-", index):
+                nesting, index = 1, index + 2
+                while index < length and nesting:
+                    if text.startswith("/-", index):
+                        nesting, index = nesting + 1, index + 2
+                    elif text.startswith("-/", index):
+                        nesting, index = nesting - 1, index + 2
+                    else:
+                        index += 1
+                out.append(" ")
+            elif text[index] == '"':
+                out.append('""')
+                index = literal(index + 1, interpolated=index > 0 and text[index - 1] == "!")
+            elif (raw := re.match(r'r(#*)"', text[index:])) and not name_character(index - 1):
+                closing = text.find('"' + raw.group(1), index + len(raw.group(0)))
+                out.append('""')
+                index = length if closing < 0 else closing + 1 + len(raw.group(1))
+            elif (
+                text[index] == "'"
+                and not name_character(index - 1)
+                and (character := re.match(r"'(?:\\[^']+|[^'\\])'", text[index:]))
+            ):
+                out.append("' '")
+                index += len(character.group(0))
+            elif text[index] == "«":
+                closing = text.find("»", index)
+                out.append("«name»")
+                index = length if closing < 0 else closing + 1
+            elif inside_braces and text[index] == "{":
+                depth += 1
+                out.append("{")
+                index += 1
+            elif inside_braces and text[index] == "}":
+                if depth == 0:
+                    return index + 1
+                depth -= 1
+                out.append("}")
+                index += 1
+            else:
+                out.append(text[index])
+                index += 1
+        return length
+
+    code(0)
+    return "".join(out)
+
+
 def integrity_violations(slots: list[tuple[str, list[str]]]) -> list[str]:
     """Name the slot bodies that could run model code while Lean builds or loads them."""
     pattern = re.compile(ELABORATION_PATTERN)
     attributes = re.compile(r"@\[([^\]]*)\]|attribute\s*\[([^\]]*)\]")
     found = []
     for file, body_lines in slots:
-        body = re.sub(r"/-.*?-/", "", "\n".join(body_lines), flags=re.S)
-        code = "\n".join(line.split("--", 1)[0] for line in body.splitlines())
-        found += [f"{file}: {match.group(0)}" for match in pattern.finditer(code)]
-        for group in attributes.findall(code):
+        source = lean_code("\n".join(body_lines))
+        found += [f"{file}: {match.group(0)}" for match in pattern.finditer(source)]
+        for group in attributes.findall(source):
             for entry in "".join(group).split(","):
                 words = [w for w in entry.replace("-", " ").split() if w not in ("local", "scoped")]
                 if words and words[0] not in ALLOWED_ATTRIBUTES:
@@ -856,13 +957,16 @@ print(json.dumps({{
 """,
     ]
     try:
-        result = subprocess.run(
-            cmd, capture_output=True, text=True, timeout=GRADER_SECONDS, env=environment
-        )
+        result, exceeded = run_with_disk_budget(cmd, environment, eval_dir / "eval_sandbox")
     except subprocess.TimeoutExpired as error:
         raise GradeInfrastructureError(f"grader exceeded {GRADER_SECONDS} seconds") from error
     finally:
         leftovers = remove_grader_containers(label)
+    if exceeded:
+        # Model code filled the build during grading. The build is removed, and the
+        # attempt is an integrity failure, reported apart from infrastructure failures.
+        shutil.rmtree(eval_dir / "eval_sandbox", ignore_errors=True)
+        return {"integrity_violations": [f"grading disk budget exceeded: {exceeded}"]}
     if leftovers:
         raise GradeInfrastructureError(f"{leftovers} grading containers outlived their stage")
     if result.returncode != 0:
@@ -880,6 +984,46 @@ print(json.dumps({{
     if not isinstance(grade, dict) or not isinstance(grade.get("total_specs"), int):
         raise GradeInfrastructureError("grader output lacks a specification count")
     return apply_axiom_check(grade, eval_dir, docker_image, label)
+
+
+def run_with_disk_budget(
+    command: list[str], environment: dict[str, str], watched: Path
+) -> tuple[subprocess.CompletedProcess[str], str | None]:
+    """Run the Vero grader while bounding the disk its contained builds may use.
+
+    The build directory is a host bind mount, so model code that runs while Lake builds
+    can write to host disk until this budget stops the grader.
+    """
+    process = subprocess.Popen(
+        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=environment
+    )
+    exceeded: list[str] = []
+    finished = threading.Event()
+
+    def watch() -> None:
+        while not finished.wait(GRADER_DISK_POLL_SECONDS):
+            allocated, entries = disk_usage(watched)
+            if allocated > GRADER_DISK_BYTES or entries > GRADER_DISK_ENTRIES:
+                exceeded.append(
+                    f"{allocated} bytes and {entries} entries exceed "
+                    f"{GRADER_DISK_BYTES} bytes or {GRADER_DISK_ENTRIES} entries"
+                )
+                process.kill()
+                return
+
+    watcher = threading.Thread(target=watch, daemon=True)
+    watcher.start()
+    try:
+        stdout, stderr = process.communicate(timeout=GRADER_SECONDS)
+    except subprocess.TimeoutExpired:
+        process.kill()
+        process.communicate()
+        raise
+    finally:
+        finished.set()
+        watcher.join()
+    completed = subprocess.CompletedProcess(command, process.returncode, stdout, stderr)
+    return completed, (exceeded[0] if exceeded else None)
 
 
 def library_directories(sandbox: Path) -> list[str]:
@@ -1149,6 +1293,10 @@ def sandbox_server_command(
         str(SANDBOX_PIDS),
         "--maximum-file-bytes",
         str(SANDBOX_FILE_BYTES),
+        "--maximum-workspace-bytes",
+        str(SANDBOX_WORKSPACE_BYTES),
+        "--maximum-workspace-entries",
+        str(SANDBOX_WORKSPACE_ENTRIES),
         "--user",
         sandbox_user(),
     ]
@@ -1359,6 +1507,15 @@ def run_one_attempt(
     else:
         result.infrastructure_errors.append("sandbox receipt is missing")
 
+    exceeded = (result.sandbox_receipt or {}).get("workspace_budget_exceeded")
+    if exceeded:
+        # The policy filled its workspace. The oversized tree is never graded, and it is
+        # removed so it cannot hold host disk that later attempts need.
+        result.integrity_errors.append(f"workspace disk budget exceeded: {exceeded}")
+        shutil.rmtree(source_dir, ignore_errors=True)
+        print("  Not graded: the workspace exceeded its disk budget.")
+        return result
+
     # The host-side extractor must never follow a link out of the task.
     escaped = escaping_entries(source_dir)
     if escaped:
@@ -1384,9 +1541,9 @@ def run_one_attempt(
         )
         if grade.get("integrity_violations"):
             result.integrity_errors.append(
-                f"slot bodies run code during elaboration: {grade['integrity_violations'][:10]}"
+                f"grading integrity: {grade['integrity_violations'][:10]}"
             )
-            print("  Not graded: slot bodies run code during elaboration.")
+            print("  Not graded: the slot bodies or their build broke the grading boundary.")
             return result
         result.grade = grade
         print(

@@ -22,9 +22,15 @@ from typing import Any
 PROTOCOL_VERSION = 2
 MAX_REQUEST_BYTES = 64 * 1024 * 1024
 TIMEOUT_ERROR = -32001
+WORKSPACE_BUDGET_ERROR = -32003
+WORKSPACE_POLL_SECONDS = 2.0
 METHOD_NOT_FOUND = -32601
 INVALID_REQUEST = -32602
 INTERNAL_ERROR = -32603
+
+
+class WorkspaceBudgetExceeded(RuntimeError):
+    """Raised for every call after the task workspace outgrew its disk budget."""
 
 
 class SandboxError(RuntimeError):
@@ -52,6 +58,8 @@ class SandboxConfig:
     maximum_command_seconds: float
     maximum_output_bytes: int
     maximum_file_bytes: int
+    maximum_workspace_bytes: int = 8 * 1024**3
+    maximum_workspace_entries: int = 200_000
 
 
 @dataclass
@@ -72,6 +80,11 @@ class Receipt:
     command_timeouts: int = 0
     output_truncations: int = 0
     peak_memory_bytes: int | None = None
+    workspace_peak_bytes: int = 0
+    workspace_peak_entries: int = 0
+    # Set when the task outgrew its disk budget; the policy caused it, so it is an
+    # integrity failure of the attempt rather than an infrastructure failure.
+    workspace_budget_exceeded: str | None = None
     infrastructure_errors: list[str] = field(default_factory=list)
     ended_at: str | None = None
     workspace_post_sha256: str | None = None
@@ -83,6 +96,23 @@ class Receipt:
 
 def utc_now() -> str:
     return datetime.now(UTC).isoformat()
+
+
+def disk_usage(root: Path) -> tuple[int, int]:
+    """Return the allocated bytes and entry count under one tree, without following links."""
+    seen: set[tuple[int, int]] = set()
+    allocated = entries = 0
+    for directory, names, filenames in os.walk(root, followlinks=False):
+        for name in [*names, *filenames]:
+            entries += 1
+            try:
+                status = os.lstat(os.path.join(directory, name))
+            except OSError:
+                continue
+            if (status.st_dev, status.st_ino) not in seen:
+                seen.add((status.st_dev, status.st_ino))
+                allocated += status.st_blocks * 512
+    return allocated, entries
 
 
 def tree_digest(root: Path) -> str:
@@ -137,6 +167,8 @@ def validate_resource_limits(args: argparse.Namespace) -> None:
         raise SandboxError("CPU, process, and command-time limits must be positive")
     if args.maximum_output_bytes < 1024 or args.maximum_file_bytes < 1024:
         raise SandboxError("output and file-size limits must be at least 1,024 bytes")
+    if args.maximum_workspace_bytes < args.maximum_file_bytes or args.maximum_workspace_entries < 1:
+        raise SandboxError("the workspace budget must hold at least one maximum-size file")
 
 
 def validate_container_workspace(path: str) -> None:
@@ -198,6 +230,36 @@ class DockerSandbox:
         self.receipt = receipt
         self.name = receipt.container_name
         self._metrics_lock = threading.Lock()
+        self.halted = threading.Event()
+        self.watching = threading.Event()
+
+    def watch_workspace(self) -> None:
+        """Stop the container as soon as the task workspace outgrows its disk budget.
+
+        The workspace is a host bind mount, so neither the memory limit nor the
+        per-file size limit bounds it.
+        """
+        while not self.watching.wait(WORKSPACE_POLL_SECONDS):
+            allocated, entries = disk_usage(self.config.workspace)
+            with self._metrics_lock:
+                self.receipt.workspace_peak_bytes = max(
+                    self.receipt.workspace_peak_bytes, allocated
+                )
+                self.receipt.workspace_peak_entries = max(
+                    self.receipt.workspace_peak_entries, entries
+                )
+            if (
+                allocated > self.config.maximum_workspace_bytes
+                or entries > self.config.maximum_workspace_entries
+            ):
+                self.receipt.workspace_budget_exceeded = (
+                    f"{allocated} bytes and {entries} entries exceed "
+                    f"{self.config.maximum_workspace_bytes} bytes or "
+                    f"{self.config.maximum_workspace_entries} entries"
+                )
+                self.halted.set()
+                self._run([self.config.docker, "kill", self.name])
+                return
 
     def _run(
         self, arguments: list[str], *, timeout: float = 60
@@ -249,6 +311,16 @@ class DockerSandbox:
             raise SandboxError("sandbox image must provide python3 and GNU timeout")
 
     def stop(self) -> None:
+        self.watching.set()
+        if self.halted.is_set():
+            # The container was killed for its disk use and has no memory reading.
+            result = self._run([self.config.docker, "rm", "--force", self.name])
+            self.receipt.container_removed = result.returncode == 0
+            if result.returncode != 0:
+                self.receipt.infrastructure_errors.append(
+                    f"container cleanup failed: {result.stderr.strip()}"
+                )
+            return
         peak = self._run(
             [
                 self.config.docker,
@@ -272,6 +344,8 @@ class DockerSandbox:
             )
 
     def execute(self, command: str, cwd: str, requested_timeout: float | None) -> dict[str, Any]:
+        if self.halted.is_set():
+            raise WorkspaceBudgetExceeded(self.receipt.workspace_budget_exceeded)
         if len(command.encode("utf-8")) > 1024 * 1024:
             raise SandboxError("sandbox command exceeds the one-megabyte request limit")
         seconds = min(
@@ -304,6 +378,8 @@ class DockerSandbox:
         returncode, stdout, stderr, stdout_cut, stderr_cut = self._run_bounded(
             arguments, timeout=seconds + 30
         )
+        if self.halted.is_set():
+            raise WorkspaceBudgetExceeded(self.receipt.workspace_budget_exceeded)
         if returncode in {124, 137}:
             with self._metrics_lock:
                 self.receipt.command_timeouts += 1
@@ -359,6 +435,8 @@ class DockerSandbox:
         )
 
     def read_file(self, path: str, max_bytes: int) -> dict[str, str | None]:
+        if self.halted.is_set():
+            raise WorkspaceBudgetExceeded(self.receipt.workspace_budget_exceeded)
         limit = min(max(max_bytes, 0), self.config.maximum_output_bytes)
         program = (
             "import base64,os,sys; p=sys.argv[1]; n=int(sys.argv[2]); "
@@ -459,6 +537,14 @@ async def handle(
                 "data": {"timeoutSeconds": error.seconds},
             },
         )
+    except WorkspaceBudgetExceeded as error:
+        reply = response(
+            request_id,
+            error={
+                "code": WORKSPACE_BUDGET_ERROR,
+                "message": f"workspace disk budget exceeded; the sandbox has stopped: {error}",
+            },
+        )
     except LookupError as error:
         reply = response(
             request_id,
@@ -518,6 +604,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--maximum-command-seconds", type=float, default=1200)
     parser.add_argument("--maximum-output-bytes", type=int, default=16 * 1024 * 1024)
     parser.add_argument("--maximum-file-bytes", type=int, default=1024 * 1024 * 1024)
+    parser.add_argument("--maximum-workspace-bytes", type=int, default=8 * 1024**3)
+    parser.add_argument("--maximum-workspace-entries", type=int, default=200_000)
     return parser.parse_args()
 
 
@@ -563,6 +651,8 @@ def main() -> None:
         maximum_command_seconds=args.maximum_command_seconds,
         maximum_output_bytes=args.maximum_output_bytes,
         maximum_file_bytes=args.maximum_file_bytes,
+        maximum_workspace_bytes=args.maximum_workspace_bytes,
+        maximum_workspace_entries=args.maximum_workspace_entries,
     )
     name = f"anarres-vero-{secrets.token_hex(6)}"
     receipt = Receipt(
@@ -580,6 +670,8 @@ def main() -> None:
             "maximum_command_seconds": args.maximum_command_seconds,
             "maximum_output_bytes": args.maximum_output_bytes,
             "maximum_file_bytes": args.maximum_file_bytes,
+            "maximum_workspace_bytes": args.maximum_workspace_bytes,
+            "maximum_workspace_entries": args.maximum_workspace_entries,
         },
         workspace_pre_sha256=tree_digest(workspace),
     )
@@ -594,6 +686,7 @@ def main() -> None:
         args.container_name_file.chmod(0o600)
     try:
         sandbox.start()
+        threading.Thread(target=sandbox.watch_workspace, daemon=True).start()
         asyncio.run(serve(args.socket, sandbox))
     except Exception as error:
         receipt.infrastructure_errors.append(f"{type(error).__name__}: {error}")

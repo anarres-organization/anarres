@@ -69,7 +69,11 @@
       "memory_bytes": 17179869184,
       "cpus": 4,
       "file_bytes": 1073741824,
-      "command_seconds": 300
+      "command_seconds": 300,
+      "workspace_bytes": 8589934592,
+      "workspace_entries": 200000,
+      "grading_bytes": 17179869184,
+      "grading_entries": 500000
     },
     "controller_limits": {
       "wall_seconds": 5400,
@@ -135,7 +139,7 @@
     },
     {
       "id": "resource_limits",
-      "criterion": "process, memory, CPU, file-size, and command-time limits are configured, and the process, file-size, and command-time limits are observed to stop work at the route's values",
+      "criterion": "process, memory, CPU, file-size, command-time, and workspace and grading disk limits are configured, and the process, file-size, command-time, and workspace disk limits are observed to stop work at the route's values",
       "status": "pending"
     },
     {
@@ -160,7 +164,7 @@
     },
     {
       "id": "grader_containment",
-      "criterion": "model-authored Lean executed during fresh grading runs inside the runtime image and cannot write host files or reach the network",
+      "criterion": "model-authored Lean executed during fresh grading runs inside the runtime image, cannot write host files or reach the network, and is stopped with an integrity failure when it exceeds the grading disk budget",
       "status": "pending"
     },
     {

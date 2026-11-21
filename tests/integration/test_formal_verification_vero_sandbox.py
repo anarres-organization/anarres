@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import asyncio
+import dataclasses
 import importlib.util
 import json
+import os
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 VERO_ROOT = ROOT / "data" / "formal-verification" / "vero"
@@ -205,6 +209,61 @@ class VeroSandboxProtocolTest(unittest.TestCase):
         self.assertEqual(result["workspace"], "/workspace")
         self.assertEqual(result["python"], "/usr/bin/python3")
         self.assertNotIn(directory, str(result))
+
+    def test_workspace_disk_budget_stops_the_sandbox(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            base = VeroSandboxConfigurationTest().config(workspace)
+            config = dataclasses.replace(
+                base, maximum_workspace_bytes=64 * 1024, maximum_workspace_entries=1000
+            )
+            receipt = SANDBOX.Receipt(
+                attempt_id="attempt-1",
+                task_id="task-1",
+                started_at="2026-11-07T00:00:00+00:00",
+                image_reference=config.image,
+                model_artifact_digest="sha256:" + "b" * 64,
+                inference_config_digest="sha256:" + "c" * 64,
+                container_name="attempt",
+                resource_limits={},
+                workspace_pre_sha256="d" * 64,
+            )
+            sandbox = SANDBOX.DockerSandbox(config, receipt)
+            (workspace / "fill").write_bytes(os.urandom(256 * 1024))
+            calls: list[list[str]] = []
+
+            def fake_run(arguments: list[str], **_: object) -> subprocess.CompletedProcess:
+                calls.append(arguments)
+                return subprocess.CompletedProcess(arguments, 0, "", "")
+
+            with (
+                mock.patch.object(SANDBOX, "WORKSPACE_POLL_SECONDS", 0.01),
+                mock.patch.object(sandbox, "_run", side_effect=fake_run),
+            ):
+                sandbox.watch_workspace()
+                self.assertTrue(sandbox.halted.is_set())
+                self.assertIn(["/usr/bin/docker", "kill", "attempt"], calls)
+                self.assertIn("exceed", receipt.workspace_budget_exceeded)
+                self.assertGreater(receipt.workspace_peak_bytes, 64 * 1024)
+                with self.assertRaises(SANDBOX.WorkspaceBudgetExceeded):
+                    sandbox.execute("true", "/workspace", None)
+                sandbox.stop()
+            # A halted container is removed without reading its memory or adding an error.
+            self.assertEqual(calls[-1], ["/usr/bin/docker", "rm", "--force", "attempt"])
+            self.assertTrue(receipt.container_removed)
+            self.assertEqual(receipt.infrastructure_errors, [])
+
+    def test_disk_usage_counts_each_inode_once_without_following_links(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "task"
+            root.mkdir()
+            (root / "data").write_bytes(b"x" * 100_000)
+            os.link(root / "data", root / "hardlink")
+            (root / "outside").symlink_to(directory)
+            allocated, entries = SANDBOX.disk_usage(root)
+        self.assertEqual(entries, 3)
+        self.assertLess(allocated, 200_000)
+        self.assertGreaterEqual(allocated, 100_000)
 
     def test_tree_digest_records_links_without_following_them(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

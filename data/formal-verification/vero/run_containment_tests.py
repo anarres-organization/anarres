@@ -162,6 +162,16 @@ KERNEL_SKIP_PROOF = (
     "  exact absurd (h.symm.trans (anarresSpin_zero 10)) (by decide)\n"
 )
 
+# Model code that fills the grading build during elaboration; the grader's disk budget
+# must stop it and record an integrity failure.
+GRADING_DISK_PROGRAM = """#eval show IO Unit from do
+  let _ ← IO.Process.output {{ cmd := "sh", args := #["-c", "{shell}"] }}
+"""
+GRADING_DISK_SHELL = (
+    "i=0; while [ $i -lt {fills} ]; do "
+    "head -c 1073741824 /dev/zero > .lake/anarres-fill-$i || exit 3; i=$((i+1)); done"
+)
+
 
 NETWORK_PROBE = "import socket; socket.create_connection(('1.1.1.1', 443), 2)"
 
@@ -910,10 +920,10 @@ def main() -> None:
     ).stdout.strip()
     emulated = bool(image_arch) and image_arch != server_arch
 
-    print(f"Materializing four independent {task_id} tasks...")
+    print(f"Materializing five independent {task_id} tasks...")
     materializations: dict[str, dict[str, Any]] = {}
     workspaces: dict[str, Path] = {}
-    for role in ("a", "b", "c", "grader"):
+    for role in ("a", "b", "c", "disk", "grader"):
         directory = work / f"materialize-{role}"
         workspace = probe.materialize_sandbox(
             vero_root,
@@ -1251,6 +1261,44 @@ def main() -> None:
             and forks["started"] < probe.SANDBOX_PIDS,
             "command_timeout_enforced": timed_out == -32001,
         }
+        # The workspace is a host bind mount, so only the server's disk budget bounds it.
+        # A sandbox of its own fills it past the route's budget in maximum-size files.
+        disk = RouteSandbox(
+            role="disk",
+            workspace=workspaces["disk"],
+            directory=work / "sandbox-disk",
+            image=args.image,
+            vero_python=args.vero_python,
+            inference_config_digest=inference_digest,
+            environment=environment,
+            task_id=task_id,
+        )
+        disk.wait_ready()
+        fills = probe.SANDBOX_WORKSPACE_BYTES // probe.SANDBOX_FILE_BYTES + 4
+        fill = disk.execute(
+            f"i=0; while [ $i -lt {fills} ]; do "
+            f"head -c {probe.SANDBOX_FILE_BYTES} /dev/zero > .anarres-fill-$i || exit 3; "
+            "i=$((i+1)); done",
+            timeout=290,
+        )
+        refused = disk.execute("true").get("error", {}).get("code")
+        disk_outlived = disk.terminate()
+        disk_receipt = read_json(disk.receipt_path)
+        shutil.rmtree(workspaces["disk"], ignore_errors=True)
+        overshoot = 4 * probe.SANDBOX_FILE_BYTES
+        limits |= {
+            "workspace_budget_stopped_the_sandbox": bool(
+                disk_receipt.get("workspace_budget_exceeded")
+            )
+            and fill.get("error", {}).get("code") == probe.WORKSPACE_BUDGET_ERROR,
+            "later_calls_refused": refused == probe.WORKSPACE_BUDGET_ERROR,
+            "workspace_peak_bounded": probe.SANDBOX_WORKSPACE_BYTES
+            < disk_receipt.get("workspace_peak_bytes", 0)
+            <= probe.SANDBOX_WORKSPACE_BYTES + overshoot,
+            "disk_sandbox_cleaned_up": disk_receipt.get("container_removed") is True
+            and not disk_outlived
+            and not disk_receipt.get("infrastructure_errors"),
+        }
         results.append(
             outcome(
                 "resource_limits",
@@ -1260,6 +1308,12 @@ def main() -> None:
                     "observed": [line.strip() for line in cgroup[:4]],
                     "fork_probe": forks,
                     "file_write_exit_and_size": file_limit,
+                    "workspace_budget": {
+                        "bytes": probe.SANDBOX_WORKSPACE_BYTES,
+                        "entries": probe.SANDBOX_WORKSPACE_ENTRIES,
+                        "peak_bytes": disk_receipt.get("workspace_peak_bytes"),
+                        "reason": disk_receipt.get("workspace_budget_exceeded"),
+                    },
                 },
             )
         )
@@ -1565,6 +1619,17 @@ def main() -> None:
                 "expected": {"axiom_recheck_failed"},
                 "enforce_integrity": False,
             },
+            "grading_disk_exhaustion": {
+                "slots": {
+                    "global_aux": GRADING_DISK_PROGRAM.format(
+                        shell=GRADING_DISK_SHELL.format(
+                            fills=probe.GRADER_DISK_BYTES // 1024**3 + 4
+                        )
+                    )
+                },
+                "expected": {"integrity_violation"},
+                "enforce_integrity": False,
+            },
             "elaboration_command_rejected": {
                 "slots": {
                     "global_aux": FORGED_AXIOM_REPORT.format(definition=accepted_definition),
@@ -1677,6 +1742,11 @@ def main() -> None:
                 "as_expected"
             ],
             "unchecked_kernel_proof_rejected": grader_runs["kernel_check_skipped"]["as_expected"],
+            "grading_disk_budget_enforced": grader_runs["grading_disk_exhaustion"]["as_expected"]
+            and any(
+                "disk budget" in violation
+                for violation in grader_runs["grading_disk_exhaustion"]["integrity_violations"]
+            ),
             "no_grader_containers_remain": not remaining_graders,
         }
         results.append(
@@ -1803,6 +1873,10 @@ def main() -> None:
                 "cpus": probe.SANDBOX_CPUS,
                 "file_bytes": probe.SANDBOX_FILE_BYTES,
                 "command_seconds": probe.SANDBOX_COMMAND_SECONDS,
+                "workspace_bytes": probe.SANDBOX_WORKSPACE_BYTES,
+                "workspace_entries": probe.SANDBOX_WORKSPACE_ENTRIES,
+                "grading_bytes": probe.GRADER_DISK_BYTES,
+                "grading_entries": probe.GRADER_DISK_ENTRIES,
             },
             "controller_limits": {
                 "wall_seconds": probe.MAX_WALL_SECONDS,

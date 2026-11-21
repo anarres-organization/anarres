@@ -5,6 +5,7 @@ import copy
 import hashlib
 import importlib.util
 import json
+import os
 import re
 import subprocess
 import sys
@@ -133,7 +134,7 @@ class ScoringTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             evaluation = Path(directory)
             with (
-                mock.patch.object(PROBE.subprocess, "run", return_value=failed),
+                mock.patch.object(PROBE, "run_with_disk_budget", return_value=(failed, None)),
                 self.assertRaises(PROBE.GradeInfrastructureError),
             ):
                 PROBE.grade_attempt(
@@ -147,7 +148,7 @@ class ScoringTest(unittest.TestCase):
                 )
             unreadable = subprocess.CompletedProcess([], 0, "not json", "")
             with (
-                mock.patch.object(PROBE.subprocess, "run", return_value=unreadable),
+                mock.patch.object(PROBE, "run_with_disk_budget", return_value=(unreadable, None)),
                 self.assertRaises(PROBE.GradeInfrastructureError),
             ):
                 PROBE.grade_attempt(
@@ -333,6 +334,94 @@ class ScoringTest(unittest.TestCase):
         self.assertIn("timeout --kill-after=10s", command)
         self.assertIn("dst=/s,readonly", command)
         self.assertIn("dst=/r,readonly", command)
+
+    def test_grading_disk_budget_is_an_integrity_failure(self) -> None:
+        image = "sha256:" + "d" * 64
+        completed = subprocess.CompletedProcess([], -9, "", "")
+        with tempfile.TemporaryDirectory() as directory:
+            evaluation = Path(directory)
+            (evaluation / "eval_sandbox").mkdir()
+            with mock.patch.object(
+                PROBE, "run_with_disk_budget", return_value=(completed, "too large")
+            ):
+                grade = PROBE.grade_attempt(
+                    Path("/v"),
+                    "python",
+                    Path("/b"),
+                    Path("/s"),
+                    "proof",
+                    evaluation,
+                    docker_image=image,
+                )
+            self.assertFalse((evaluation / "eval_sandbox").exists())
+        self.assertEqual(
+            grade, {"integrity_violations": ["grading disk budget exceeded: too large"]}
+        )
+
+    def test_grading_watchdog_stops_a_process_that_fills_its_directory(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            watched = Path(directory)
+            program = (
+                "import pathlib, sys, time; "
+                "pathlib.Path(sys.argv[1], 'fill').write_bytes(b'x' * 300000); time.sleep(60)"
+            )
+            with (
+                mock.patch.object(PROBE, "GRADER_DISK_BYTES", 100_000),
+                mock.patch.object(PROBE, "GRADER_DISK_POLL_SECONDS", 0.05),
+            ):
+                started = time.monotonic()
+                completed, exceeded = PROBE.run_with_disk_budget(
+                    [sys.executable, "-c", program, str(watched)], dict(os.environ), watched
+                )
+        self.assertLess(time.monotonic() - started, 30)
+        self.assertIsNotNone(exceeded)
+        self.assertNotEqual(completed.returncode, 0)
+
+    def test_halted_sandbox_ends_the_attempt_as_its_own_stop_reason(self) -> None:
+        sandbox = mock.Mock()
+        sandbox.execute.return_value = {
+            "error": {"code": PROBE.WORKSPACE_BUDGET_ERROR, "message": "workspace disk budget"}
+        }
+        with self.assertRaises(PROBE.SandboxHalted):
+            PROBE._execute_tool("sandbox_execute", {"command": "true"}, sandbox, "/workspace")
+        command = PROBE.sandbox_server_command(
+            python="python",
+            socket_path=Path("/tmp/vero-x/s.sock"),
+            image="sha256:" + "a" * 64,
+            workspace=Path("/w"),
+            receipt_path=Path("/r"),
+            container_name_file=Path("/n"),
+            attempt_id="a",
+            task_id="t",
+            inference_config_digest="sha256:" + "c" * 64,
+        )
+        joined = " ".join(command)
+        self.assertIn(f"--maximum-workspace-bytes {PROBE.SANDBOX_WORKSPACE_BYTES}", joined)
+        self.assertIn(f"--maximum-workspace-entries {PROBE.SANDBOX_WORKSPACE_ENTRIES}", joined)
+
+    def test_lean_lexer_keeps_comment_markers_in_literals_from_hiding_code(self) -> None:
+        cases = {
+            ('def s : String := "--" @[app_delab Nat.succ] def evil := 1',): [
+                "attribute app_delab"
+            ],
+            ('def a := "/-"', "@[app_delab Nat.succ] def evil := 1", 'def b := "-/"'): [
+                "attribute app_delab"
+            ],
+            ('def s := s!"{(by_elab pure (Lean.mkConst ``True) : Nat)}"',): ["by_elab"],
+            ("def c := '\"'", "#eval 1"): ["#eval"],
+            ('def «a"b» := 1', "#eval 1"): ["#eval"],
+            ('def r := r#"-- "#', "#eval 1"): ["#eval"],
+            ('def s := "a\\"--"', "#eval 1"): ["#eval"],
+            ('def s := "@[init] #eval x"',): [],
+            ("theorem h' : True := trivial", "@[simp] theorem x : True := trivial"): [],
+            ("-- @[init]", "/- #eval /- nested -/ still -/ theorem t : True := trivial"): [],
+        }
+        for lines, expected in cases.items():
+            self.assertEqual(
+                PROBE.integrity_violations([("F.lean", list(lines))]),
+                [f"F.lean: {item}" for item in expected],
+                lines,
+            )
 
     def test_grader_compiles_only_through_the_contained_lake(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
