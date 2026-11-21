@@ -56,6 +56,11 @@ SANDBOX_WORKSPACE_ENTRIES = 200_000
 GRADER_DISK_BYTES = 16 * 1024**3
 GRADER_DISK_ENTRIES = 500_000
 GRADER_OUTPUT_BYTES = 64 * 1024**2
+# A volume holder outlives the longest grading, the Vero stage plus up to thirteen
+# axiom-check files at both budgets, and then ends on its own if cleanup never ran.
+HOLDER_SECONDS = 12 * 3600
+# Longer than the sandbox server's own collection deadline.
+COLLECTION_WAIT_SECONDS = 900
 
 SANDBOX_METHODS = ("sandbox/execute", "sandbox/readFile")
 VERO_LAKE_SECONDS = 300
@@ -796,6 +801,8 @@ def grader_lake_shim(
         str(SANDBOX_PIDS),
         "--memory",
         SANDBOX_MEMORY,
+        "--memory-swap",
+        SANDBOX_MEMORY,
         "--cpus",
         str(SANDBOX_CPUS),
         "--user",
@@ -853,6 +860,8 @@ def grader_lake_shim(
         "  sleep 0.1\n"
         "done\n"
         'kill -KILL "$out" "$err" 2>/dev/null\n'
+        # Docker reports its own failures as 125 to 127, so Lake's never reuse them.
+        'case "$status" in 125|126|127) status=1 ;; esac\n'
         'exit "$status"\n'
     )
     q = shlex.quote
@@ -884,7 +893,8 @@ def grader_lake_shim(
         + " ".join(q(a) for a in holder)
         + ' --mount "type=volume,src=$volume,dst=/hold" '
         + q(image)
-        + ' sleep infinity >/dev/null || fail "volume holder failed to start"\n'
+        + f" sleep {HOLDER_SECONDS}"
+        + ' >/dev/null || fail "volume holder failed to start"\n'
         '  if [ -d "$here/.lake" ]; then\n'
         "    "
         + " ".join(q(a) for a in seed)
@@ -1186,6 +1196,8 @@ def run_axiom_check(
         str(SANDBOX_PIDS),
         "--memory",
         SANDBOX_MEMORY,
+        "--memory-swap",
+        SANDBOX_MEMORY,
         "--cpus",
         str(SANDBOX_CPUS),
         "--user",
@@ -1387,6 +1399,8 @@ def sandbox_server_command(
         str(SANDBOX_COMMAND_SECONDS),
         "--memory",
         SANDBOX_MEMORY,
+        "--memory-swap",
+        SANDBOX_MEMORY,
         "--cpus",
         str(SANDBOX_CPUS),
         "--pids",
@@ -1428,7 +1442,8 @@ def stop_sandbox(
     if process.poll() is None:
         process.terminate()
         try:
-            process.wait(timeout=30)
+            # The server collects the final workspace before it exits.
+            process.wait(timeout=COLLECTION_WAIT_SECONDS)
         except subprocess.TimeoutExpired:
             process.kill()
             process.wait()

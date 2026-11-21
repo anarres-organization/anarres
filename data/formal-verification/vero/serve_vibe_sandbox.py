@@ -94,6 +94,71 @@ def utc_now() -> str:
     return datetime.now(UTC).isoformat()
 
 
+# Archives the final workspace from inside the container. Members are chosen from their
+# metadata before any data is read: a file whose apparent size would pass the budget, a
+# path longer than a filesystem allows, too many entries, or anything but a regular file,
+# directory, or link is left behind, so a sparse file or a deep chain cannot make the
+# archive larger than the workspace limit. What it leaves out is reported on stderr.
+COLLECT_PROGRAM = r"""
+import json, os, sys, tarfile
+root, budget, limit, longest = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4])
+skipped, used, count = [], 0, 0
+archive = tarfile.open(fileobj=sys.stdout.buffer, mode="w|", format=tarfile.PAX_FORMAT)
+def admit(path):
+    global used, count
+    relative = os.path.relpath(path, root)
+    try:
+        info = archive.gettarinfo(path, arcname=relative)
+    except OSError:
+        skipped.append(relative)
+        return None
+    if (len(relative.encode()) > longest or not (info.isreg() or info.isdir() or info.issym())
+            or used + info.size > budget or count + 1 > limit):
+        skipped.append(relative)
+        return None
+    used, count = used + info.size, count + 1
+    return info
+for directory, names, files in os.walk(root, followlinks=False):
+    kept = []
+    for name in sorted(names):
+        info = admit(os.path.join(directory, name))
+        if info is not None:
+            archive.addfile(info)
+            if not info.issym():
+                kept.append(name)
+    names[:] = kept
+    for name in sorted(files):
+        info = admit(os.path.join(directory, name))
+        if info is None:
+            continue
+        if info.isreg():
+            with open(os.path.join(directory, name), "rb") as handle:
+                archive.addfile(info, handle)
+        else:
+            archive.addfile(info)
+archive.close()
+sys.stderr.write(json.dumps({"skipped": skipped[:50], "skipped_count": len(skipped)}) + "\n")
+"""
+# The archive cannot exceed its data budget plus headers; collection stops past either cap.
+COLLECT_HEADER_BYTES = 4096
+COLLECT_PATH_BYTES = 1024
+COLLECT_SECONDS = 600
+
+
+class BoundedReader:
+    """A stream that refuses to yield more than a fixed number of bytes."""
+
+    def __init__(self, stream: Any, limit: int) -> None:
+        self.stream, self.remaining = stream, limit
+
+    def read(self, size: int = -1) -> bytes:
+        chunk = self.stream.read(size if size >= 0 else 1 << 20)
+        self.remaining -= len(chunk)
+        if self.remaining < 0:
+            raise tarfile.TarError("the workspace archive exceeds its byte limit")
+        return chunk
+
+
 def remove_tree(root: Path) -> None:
     """Remove a task tree even where the task made directories unreadable."""
     with contextlib.suppress(OSError):
@@ -206,6 +271,8 @@ def docker_run_command(config: SandboxConfig, name: str) -> list[str]:
         "--pids-limit",
         str(config.pids),
         "--memory",
+        config.memory,
+        "--memory-swap",
         config.memory,
         "--cpus",
         str(config.cpus),
@@ -382,19 +449,34 @@ class DockerSandbox:
                 "--user",
                 self.config.user,
                 self.name,
-                "tar",
-                "-C",
+                "python3",
+                "-I",
+                "-c",
+                COLLECT_PROGRAM,
                 self.config.container_workspace,
-                "-cf",
-                "-",
-                ".",
+                str(self.config.maximum_workspace_bytes),
+                str(self.config.maximum_workspace_entries),
+                str(COLLECT_PATH_BYTES),
             ],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
-        assert process.stdout is not None
+        assert process.stdout is not None and process.stderr is not None
+        limit = (
+            self.config.maximum_workspace_bytes
+            + (self.config.maximum_workspace_entries + 1) * COLLECT_HEADER_BYTES
+        )
+        # The archive's size is bounded, so only a slow host can outlast this.
+        expired = threading.Event()
+
+        def expire() -> None:
+            expired.set()
+            process.kill()
+
+        deadline = threading.Timer(COLLECT_SECONDS, expire)
+        deadline.start()
         try:
-            with tarfile.open(fileobj=process.stdout, mode="r|") as archive:
+            with tarfile.open(fileobj=BoundedReader(process.stdout, limit), mode="r|") as archive:
                 declared = entries = 0
                 for member in archive:
                     # A member past the budget or outside the task is left behind, so the
@@ -415,7 +497,18 @@ class DockerSandbox:
             self.receipt.workspace_collection_error = f"{type(error).__name__}: {error}"
         finally:
             process.stdout.close()
-            status = process.wait(timeout=600)
+            status = process.wait(timeout=60)
+            deadline.cancel()
+            report = process.stderr.read(1 << 20).decode("utf-8", "replace").strip()
+        if expired.is_set():
+            raise SandboxError("workspace collection exceeded its time limit")
+        with contextlib.suppress(ValueError, IndexError, AttributeError):
+            left = json.loads(report.splitlines()[-1])
+            self.receipt.workspace_skipped += [f"{name}: not collected" for name in left["skipped"]]
+            if left["skipped_count"] > len(left["skipped"]):
+                self.receipt.workspace_skipped.append(
+                    f"{left['skipped_count'] - len(left['skipped'])} more not collected"
+                )
         if status in (125, 126, 127):
             raise SandboxError("workspace collection could not run in the container")
         if status != 0 and self.receipt.workspace_collection_error is None:

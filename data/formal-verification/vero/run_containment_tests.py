@@ -203,6 +203,20 @@ DISK_SCENARIOS = {
     + "    os.close(descriptor)\n",
 }
 
+# Layouts that would make a naive archive of the workspace endless: sparse files whose
+# holes stream as data, and a chain deep enough to need long-name headers. Collection
+# must leave them behind quickly and still bring back the task's own files.
+COLLECTION_SCENARIOS = {
+    "sparse": (
+        "mkdir sparse && i=0; while [ $i -lt 4000 ]; do "
+        "truncate -s {file_bytes} sparse/f$i || break; i=$((i+1)); done; echo kept > kept.txt"
+    ),
+    "deep": (
+        "p=deep; i=0; while [ $i -lt 2000 ]; do p=$p/d; i=$((i+1)); done; "
+        "mkdir -p $p 2>/dev/null; echo x > $p/leaf 2>/dev/null; echo kept > kept.txt; true"
+    ),
+}
+
 
 # Model code that fills the grading build during elaboration; the grader's disk budget
 # must stop it and record an integrity failure.
@@ -988,10 +1002,13 @@ def main() -> None:
     ).stdout.strip()
     emulated = bool(image_arch) and image_arch != server_arch
 
-    print(f"Materializing {4 + len(DISK_SCENARIOS)} independent {task_id} tasks...")
+    print(
+        f"Materializing {4 + len(DISK_SCENARIOS) + len(COLLECTION_SCENARIOS)} "
+        f"independent {task_id} tasks..."
+    )
     materializations: dict[str, dict[str, Any]] = {}
     workspaces: dict[str, Path] = {}
-    for role in ("a", "b", "c", *DISK_SCENARIOS, "grader"):
+    for role in ("a", "b", "c", *DISK_SCENARIOS, *COLLECTION_SCENARIOS, "grader"):
         directory = work / f"materialize-{role}"
         workspace = probe.materialize_sandbox(
             vero_root,
@@ -1383,6 +1400,38 @@ def main() -> None:
             )
             for role, record in budget.items()
         }
+        for role, program in COLLECTION_SCENARIOS.items():
+            sandbox = RouteSandbox(
+                role=role,
+                workspace=workspaces[role],
+                directory=work / f"sandbox-{role}",
+                image=args.image,
+                vero_python=args.vero_python,
+                inference_config_digest=inference_digest,
+                environment=environment,
+                task_id=task_id,
+            )
+            sandbox.wait_ready()
+            sandbox.execute(program.format(file_bytes=probe.SANDBOX_FILE_BYTES), timeout=290)
+            started = time.monotonic()
+            outlived = sandbox.terminate()
+            seconds = time.monotonic() - started
+            receipt = read_json(sandbox.receipt_path)
+            kept = (workspaces[role] / "kept.txt").is_file()
+            remove_tree(workspaces[role])
+            budget[role] = {
+                "collected_quickly": seconds < 120,
+                "task_files_collected": kept,
+                "layout_left_behind": bool(receipt.get("workspace_skipped")),
+                "collected_and_cleaned_up": receipt.get("container_removed") is True
+                and not outlived
+                and not receipt.get("infrastructure_errors")
+                and receipt.get("workspace_collection_error") is None,
+                "collection_seconds": round(seconds, 1),
+            }
+            limits[f"workspace_collection_{role}"] = all(
+                value for key, value in budget[role].items() if key != "collection_seconds"
+            )
         results.append(
             outcome(
                 "resource_limits",

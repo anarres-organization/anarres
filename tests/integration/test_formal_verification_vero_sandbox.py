@@ -5,6 +5,7 @@ import dataclasses
 import importlib.util
 import io
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -251,6 +252,7 @@ class VeroSandboxProtocolTest(unittest.TestCase):
 
         process = mock.Mock()
         process.stdout = io.BytesIO(archive)
+        process.stderr = io.BytesIO(b'{"skipped": ["far/away"], "skipped_count": 3}\n')
         process.wait.return_value = 0
         with (
             mock.patch.object(sandbox, "_run", side_effect=fake_run),
@@ -298,9 +300,45 @@ class VeroSandboxProtocolTest(unittest.TestCase):
         self.assertIsNone(receipt.workspace_collection_error)
         self.assertEqual(
             sorted(entry.split(":")[0] for entry in receipt.workspace_skipped),
-            ["./aaa-sparse", "./escape", "./pipe"],
+            ["./aaa-sparse", "./escape", "./pipe", "2 more not collected", "far/away"],
         )
         self.assertEqual(receipt.workspace_used_bytes, 4096)
+
+    def test_collector_chooses_members_before_reading_any_data(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "task"
+            (root / "Pkg").mkdir(parents=True)
+            (root / "Pkg" / "A.lean").write_text("theorem t : True := trivial\n")
+            with (root / "sparse").open("wb") as handle:
+                handle.truncate(1 << 30)
+            os.mkfifo(root / "pipe")
+            deep = root / ("n" * 100) / ("m" * 100) / ("o" * 100) / ("p" * 100)
+            deep.mkdir(parents=True)
+            (deep / "leaf").write_text("x")
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    "-I",
+                    "-c",
+                    SANDBOX.COLLECT_PROGRAM,
+                    str(root),
+                    str(1 << 20),
+                    "100",
+                    "300",
+                ],
+                capture_output=True,
+                timeout=60,
+                check=True,
+            )
+        # The gigabyte of holes never entered the archive, which stayed small.
+        self.assertLess(len(completed.stdout), 64 * 1024)
+        with tarfile.open(fileobj=io.BytesIO(completed.stdout)) as archive:
+            names = archive.getnames()
+        self.assertIn("Pkg/A.lean", names)
+        self.assertFalse(any(name.endswith("leaf") for name in names))
+        report = json.loads(completed.stderr.decode().splitlines()[-1])
+        self.assertTrue({"sparse", "pipe"} <= set(report["skipped"]))
+        self.assertTrue(any(name.endswith("o" * 100) for name in report["skipped"]))
 
     def test_a_corrupt_archive_is_an_integrity_failure(self) -> None:
         _, receipt = self.collect_archive(b"not an archive" * 100)
