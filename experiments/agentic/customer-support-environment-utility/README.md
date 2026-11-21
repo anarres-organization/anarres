@@ -220,6 +220,108 @@ Review the printed plan, then add `--execute`. The canary fixes one task, one
 run, one worker, and one attempt. Inspect its trajectory, request ledger, and
 gateway-reported spend before running the eight-task smoke without `--canary`.
 
+## Score development traces with a local judge
+
+STATE-Bench requires its locked GPT-5.4 simulator and judge for an official
+submission. Train-side development can use a qualified local judge without
+changing that contract. Deterministic state and tool checks remain the primary
+evidence. The local model evaluates only non-state task requirements, such as
+whether the agent communicated required information to the user.
+
+[`DEVELOPMENT_JUDGE_PLAN.json`](DEVELOPMENT_JUDGE_PLAN.json) records the first
+candidate model and its qualification boundary. The scorer writes separate,
+content-addressed sidecars. It never edits a benchmark trajectory or labels a
+local score as official.
+
+One reproducible vLLM route is:
+
+```bash
+vllm serve Qwen/Qwen3-32B \
+  --revision 9216db5781bf21249d130ec9da846c4624c16137 \
+  --host 127.0.0.1 \
+  --port 8000 \
+  --dtype bfloat16 \
+  --max-model-len 32768 \
+  --default-chat-template-kwargs '{"enable_thinking":false}'
+```
+
+In the process that runs the scorer, identify the endpoint and exact model
+revision without storing credentials in the repository:
+
+```bash
+export ANARRES_DEVELOPMENT_JUDGE_BASE_URL=http://127.0.0.1:8000/v1
+export ANARRES_DEVELOPMENT_JUDGE_API_KEY=local
+export ANARRES_DEVELOPMENT_JUDGE_MODEL=Qwen/Qwen3-32B
+export ANARRES_DEVELOPMENT_JUDGE_MODEL_REVISION=9216db5781bf21249d130ec9da846c4624c16137
+```
+
+Before making a local-judge call, freeze the exact train-side trajectories that
+already have locked official scores:
+
+```bash
+python scripts/freeze_development_judge_calibration.py \
+  --checkout /path/to/STATE-Bench \
+  --official-results-dir /path/to/officially-scored-train-runs \
+  --output development-judge-calibration-panel.json
+```
+
+Preview the complete train-side scoring plan before making a model call:
+
+```bash
+/path/to/STATE-Bench/.venv/bin/python scripts/score_development_traces.py \
+  --checkout /path/to/STATE-Bench \
+  --results-dir /path/to/customer-support-train-runs \
+  --output-dir /path/to/customer-support-development-scores \
+  --num-runs 5 \
+  --workers 4
+```
+
+Add `--execute` only after the plan reports no missing trajectories. The scorer
+rejects held-out task IDs, records local token usage and latency, and binds each
+score to the source trajectory, task definition, benchmark prompts, model
+revision, seed, and decoding settings. It can safely resume when existing
+sidecars are byte-identical and refuses to replace different results.
+
+The local judge remains unqualified until its frozen calibration panel is also
+scored by the locked GPT-5.4 judge, disagreements are audited, and an acceptance
+or abstention decision is recorded. The prospective held-out evaluation keeps
+the official simulator and judge regardless of the development decision.
+
+After local scoring, audit the two score sets and record the reviewed decision:
+
+```bash
+python scripts/audit_development_judge.py \
+  --panel development-judge-calibration-panel.json \
+  --official-results-dir /path/to/officially-scored-train-runs \
+  --development-scores-dir /path/to/customer-support-development-scores \
+  --output development-judge-calibration-report.json
+
+python scripts/record_development_judge_decision.py \
+  --report development-judge-calibration-report.json \
+  --decision accept \
+  --confirm-reviewed-all-disagreements \
+  --output development-judge-decision.json
+```
+
+The audit reports agreement, false-pass rate, confusion counts, results by task
+type, and the complete disagreement set. Meeting the frozen quantitative gate
+still requires a manual review of every disagreement; the command never
+qualifies its own judge. If the judge misses the gate or a disagreement remains
+unresolved, record `--decision abstain` and retain the locked judge for
+development scoring. Starting-agent measurement refuses unaccepted sidecars.
+
+Use accepted sidecars when constructing the train-side measurement:
+
+```bash
+python scripts/measure_starting_agent.py \
+  /path/to/STATE-Bench \
+  /path/to/customer-support-train-runs \
+  --development-scores-dir /path/to/customer-support-development-scores \
+  --development-judge-decision development-judge-decision.json \
+  --num-runs 5 \
+  --output starting-agent-measurement.json
+```
+
 Build a draft, size-matched candidate panel from a complete development
 measurement:
 

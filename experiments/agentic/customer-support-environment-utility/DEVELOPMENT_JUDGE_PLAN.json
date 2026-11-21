@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "status": "PROPOSED_OPEN_JUDGE__NOT_QUALIFIED",
+  "scope": "customer_support_train_side_development_only",
+  "official_state_bench_compatible": false,
+  "purpose": "Reduce development-scoring cost while preserving the locked official evaluator for the prospective benchmark result.",
+  "candidate": {
+    "model": "Qwen/Qwen3-32B",
+    "revision": "9216db5781bf21249d130ec9da846c4624c16137",
+    "license": "Apache-2.0",
+    "serving_interface": "OpenAI-compatible Chat Completions",
+    "serving_runtime": "vLLM",
+    "temperature": 0,
+    "seed": 1729,
+    "thinking": false
+  },
+  "score_layers": [
+    "deterministic state-requirement verification",
+    "deterministic tool and efficiency measurements",
+    "open-model task-requirement judgment"
+  ],
+  "artifact_contract": [
+    "development scores are written as sidecars and never mutate source trajectories",
+    "every sidecar is bound to the trajectory, task definition, prompt hashes, model revision, and decoding contract",
+    "development sidecars cannot be represented as official STATE-Bench scores",
+    "held-out tasks are rejected"
+  ],
+  "qualification_before_candidate_freeze": [
+    "freeze a train-side calibration panel before inspecting open-judge agreement",
+    "score the same trajectory evidence with the protocol-locked GPT-5.4 judge",
+    "report agreement, confusion counts, and disagreement rates by task family",
+    "manually audit every disagreement without changing either judge output",
+    "freeze an acceptance or abstention decision before candidate construction"
+  ],
+  "quantitative_gate": {
+    "task_requirement_agreement_minimum": 0.9,
+    "false_pass_rate_maximum": 0.1,
+    "automatic_qualification": false,
+    "manual_audit_required_for_every_disagreement": true
+  },
+  "official_evaluation": "The complete prospective test continues to use the protocol-locked GPT-5.4 simulator and judge."
+}
