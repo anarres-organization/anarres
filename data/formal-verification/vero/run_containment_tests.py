@@ -1340,7 +1340,7 @@ def main() -> None:
             sandbox.wait_ready()
             stopped = sandbox.execute(
                 command.format(
-                    fills=probe.SANDBOX_WORKSPACE_BYTES // probe.SANDBOX_FILE_BYTES + 4,
+                    fills=probe.SANDBOX_WORKSPACE_BYTES // probe.SANDBOX_FILE_BYTES + 8,
                     file_bytes=probe.SANDBOX_FILE_BYTES,
                 ),
                 timeout=290,
