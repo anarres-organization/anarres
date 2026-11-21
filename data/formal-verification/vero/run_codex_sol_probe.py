@@ -58,7 +58,9 @@ ELABORATION_PATTERN = (
     r"(?<![\w'.])(?:#[A-Za-z_]+!?|run_cmd|run_elab|run_meta|run_tac|initialize|"
     r"builtin_initialize|elab|elab_rules|macro|macro_rules|syntax|declare_syntax_cat|"
     r"implemented_by|extern|native_decide|by_elab)(?![\w'!?])"
-    r"|(?:@\[|attribute\s*\[)[^\]]*\b(?:builtin_)?init\b"
+    r"|(?:@\[|attribute\s*\[)[^\]]*\b(?:builtin_)?(?:init|tactic|term_elab|command_elab|"
+    r"simproc|dsimproc|delab|app_unexpander|env_linter)\b"
+    r"|\bsimproc\b|\bdsimproc\b|\bset_option\s+debug\."
 )
 
 DEV_PANEL = [
@@ -73,7 +75,8 @@ ATTEMPTS_PER_REPO_MODE = 1
 
 SANDBOX_SCRIPT = Path(__file__).resolve().parent / "serve_vibe_sandbox.py"
 AXIOM_CHECKER = Path(__file__).resolve().parent / "AnarresAxiomCheck.lean"
-AXIOM_CHECK_SECONDS = 1800
+# One axiom-check file's replay gets the budget Vero gives its compilation.
+AXIOM_CHECK_SECONDS = VERO_LAKE_SECONDS
 
 
 # ── Tool definitions for OpenAI Responses API ───────────────────
@@ -789,7 +792,17 @@ print(json.dumps({{
     "build_ok": report.build_ok,
     "reference_build_ok": reference_result.report.build_ok,
     "vero_passed_specs": report.summary.passed_specs,
-    "specs": [{{"module": s.module, "spec": s.spec, "status": s.status}} for s in report.specs],
+    "specs": [
+        {{
+            "module": s.module,
+            "spec": s.spec,
+            "status": s.status,
+            "kinds": [
+                {{"kind": k.kind, "theorem": k.thm_name, "filled": k.filled}} for k in s.kinds
+            ],
+        }}
+        for s in report.specs
+    ],
     "groups": groups,
     "allowed_axioms": sorted({{"Classical.choice", "propext", "Quot.sound"}}
                              | set(bench.trusted_axioms or [])),
@@ -833,18 +846,19 @@ def library_directories(sandbox: Path) -> list[str]:
 def run_axiom_check(
     eval_dir: Path, request: dict[str, Any], docker_image: str, label: str
 ) -> dict[str, dict[str, Any]]:
-    """Run the trusted checker in a sealed container and return one verdict per theorem.
+    """Run the trusted checker once per axiom-check file and return one verdict per theorem.
 
     The checker reads both builds' compiled libraries as data and never imports a model
-    module, so no model code runs while it decides.
+    module, so no model code runs while it decides. A check the submission's own
+    libraries prevent from finishing fails those theorems and stays scored; only a
+    container that cannot start or a reference build that cannot be read is an
+    infrastructure failure, since a submission can cause neither.
     """
     check_dir = eval_dir / "axiom-check"
     check_dir.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(AXIOM_CHECKER, check_dir / AXIOM_CHECKER.name)
-    (check_dir / "request.json").write_text(json.dumps(request), encoding="utf-8")
-    nonce = secrets.token_hex(16)
     mounts = [str(check_dir), *request["submission_libraries"], *request["reference_libraries"]]
-    command = [
+    base = [
         shutil.which("docker") or "docker",
         "run",
         "--rm",
@@ -873,34 +887,65 @@ def run_axiom_check(
         "HOME=/tmp",
     ]
     for mount in mounts:
-        command += ["--mount", f"type=bind,src={mount},dst={mount},readonly"]
-    command += [
-        docker_image,
-        "lean",
-        "--run",
-        str(check_dir / AXIOM_CHECKER.name),
-        nonce,
-        str(check_dir / "request.json"),
-    ]
-    try:
-        completed = subprocess.run(
-            command, capture_output=True, text=True, timeout=AXIOM_CHECK_SECONDS
-        )
-    except subprocess.TimeoutExpired as error:
-        raise GradeInfrastructureError("axiom checker timed out") from error
-    lines = completed.stdout.strip().splitlines()
-    requested = [name for group in request["groups"] for name in group["theorems"]]
-    expected = f"ANARRES-AXIOM-CHECK-COMPLETE {nonce} {len(requested)}"
-    if completed.returncode != 0 or not lines or lines[-1] != expected:
-        raise GradeInfrastructureError(
-            f"axiom checker failed ({completed.returncode}): {completed.stderr[-1000:]}"
-        )
-    verdicts = [json.loads(line) for line in lines[:-1]]
-    names = [verdict["theorem"] for verdict in verdicts]
-    if sorted(names) != sorted(requested) or len(set(names)) != len(names):
-        raise GradeInfrastructureError("axiom checker did not report each theorem once")
+        base += ["--mount", f"type=bind,src={mount},dst={mount},readonly"]
+    verdicts: dict[str, dict[str, Any]] = {}
+    for index, group in enumerate(request["groups"]):
+        group_request = {
+            key: request[key]
+            for key in ("submission_libraries", "reference_libraries", "allowed_axioms")
+        } | group
+        request_path = check_dir / f"request-{index}.json"
+        request_path.write_text(json.dumps(group_request), encoding="utf-8")
+        nonce = secrets.token_hex(16)
+        command = [
+            *base,
+            docker_image,
+            "timeout",
+            "--kill-after=10s",
+            f"{AXIOM_CHECK_SECONDS}s",
+            "lean",
+            "--run",
+            str(check_dir / AXIOM_CHECKER.name),
+            nonce,
+            str(request_path),
+        ]
+        try:
+            completed = subprocess.run(
+                command, capture_output=True, text=True, timeout=AXIOM_CHECK_SECONDS + 120
+            )
+        except subprocess.TimeoutExpired as error:
+            raise GradeInfrastructureError("axiom checker container did not stop") from error
+        lines = completed.stdout.strip().splitlines()
+        if completed.returncode in (125, 126, 127):
+            raise GradeInfrastructureError(
+                f"axiom checker container failed to start: {completed.stderr[-1000:]}"
+            )
+        if f"ANARRES-AXIOM-CHECK-REFERENCE-ERROR {nonce}" in lines:
+            raise GradeInfrastructureError(
+                f"reference build did not load: {completed.stderr[-1000:]}"
+            )
+        expected = f"ANARRES-AXIOM-CHECK-COMPLETE {nonce} {len(group['theorems'])}"
+        if completed.returncode == 0 and lines and lines[-1] == expected:
+            reported = [json.loads(line) for line in lines[:-1]]
+        else:
+            reason = (
+                "checker exceeded its budget"
+                if completed.returncode == 124
+                else f"checker did not complete (status {completed.returncode})"
+            )
+            reported = [
+                {"theorem": name, "ok": False, "reason": reason} for name in group["theorems"]
+            ]
+        names = [verdict["theorem"] for verdict in reported]
+        if sorted(names) != sorted(group["theorems"]):
+            raise GradeInfrastructureError("axiom checker did not report each theorem once")
+        for verdict in reported:
+            # A theorem checked in two files must pass in both.
+            previous = verdicts.get(verdict["theorem"])
+            if previous is None or previous["ok"]:
+                verdicts[verdict["theorem"]] = verdict
     (check_dir / "verdicts.json").write_text(json.dumps(verdicts, indent=1), encoding="utf-8")
-    return {verdict["theorem"]: verdict for verdict in verdicts}
+    return verdicts
 
 
 def apply_axiom_check(
@@ -920,23 +965,26 @@ def apply_axiom_check(
         }
         verdicts = run_axiom_check(eval_dir, request, docker_image, label)
 
-    def confirmed(spec: str) -> bool:
-        bare = spec.removeprefix("spec_")
-        names = [
-            name
-            for group in grade["groups"]
-            for name in group["theorems"]
-            if name.split(".")[-1] in ("prove_" + bare, "disprove_" + bare)
-        ]
-        return any(verdicts[name]["ok"] for name in names)
+    def unconfirmed(spec: dict[str, Any]) -> str | None:
+        filled = [kind for kind in spec["kinds"] if kind["filled"]]
+        # Vero passes a specification only when exactly one kind is filled.
+        if len(filled) != 1:
+            return "Vero passed a specification without exactly one filled kind"
+        if filled[0]["kind"] == "sat":
+            return "a sat claim rests on Vero's joint rerender, which the checker does not cover"
+        verdict = verdicts.get(filled[0]["theorem"])
+        if verdict is None:
+            return "the filled theorem is not in any axiom-check file"
+        return None if verdict["ok"] else verdict.get("reason", "rejected")
 
-    specs, downgraded = [], []
+    specs, downgraded, reasons = [], [], {}
     for spec in grade["specs"]:
         status = spec["status"]
-        if status == "passed" and not confirmed(spec["spec"]):
+        if status == "passed" and (reason := unconfirmed(spec)) is not None:
             status = "axiom_recheck_failed"
             downgraded.append(spec["spec"])
-        specs.append({**spec, "status": status})
+            reasons[spec["spec"]] = reason
+        specs.append({"module": spec["module"], "spec": spec["spec"], "status": status})
     return {
         "total_specs": grade["total_specs"],
         "passed_specs": sum(spec["status"] == "passed" for spec in specs),
@@ -948,11 +996,7 @@ def apply_axiom_check(
             "checker": "kernel replay of compiled libraries against a reference build",
             "checked_theorems": len(verdicts),
             "downgraded": downgraded,
-            "reasons": {
-                name: verdict.get("reason")
-                for name, verdict in verdicts.items()
-                if not verdict["ok"]
-            },
+            "reasons": reasons,
         },
         "specs": specs,
     }

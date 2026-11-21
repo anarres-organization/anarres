@@ -161,22 +161,34 @@ class ScoringTest(unittest.TestCase):
                 )
 
     def vero_grade(self) -> dict:
+        def spec(name: str, filled: str, kinds: tuple[str, ...] = ("prove", "disprove")) -> dict:
+            return {
+                "module": "M",
+                "spec": f"spec_{name}",
+                "status": "passed",
+                "kinds": [
+                    {"kind": kind, "theorem": f"{kind}_{name}", "filled": kind == filled}
+                    for kind in kinds
+                ],
+            }
+
         return {
-            "total_specs": 2,
+            "total_specs": 3,
             "unfilled_specs": 0,
             "failed_specs": 0,
             "build_ok": True,
             "reference_build_ok": True,
-            "vero_passed_specs": 2,
+            "vero_passed_specs": 3,
             "specs": [
-                {"module": "M", "spec": "spec_a", "status": "passed"},
-                {"module": "M", "spec": "spec_b", "status": "passed"},
+                spec("a", "disprove"),
+                spec("b", "prove"),
+                spec("c", "sat", ("prove", "unsat", "sat")),
             ],
             "groups": [{"roots": ["M"], "theorems": ["prove_a", "disprove_a", "prove_b"]}],
             "allowed_axioms": ["propext"],
         }
 
-    def test_axiom_check_downgrades_every_unconfirmed_pass(self) -> None:
+    def test_axiom_check_confirms_only_the_filled_theorem(self) -> None:
         verdicts = {
             "prove_a": {"theorem": "prove_a", "ok": False, "reason": "uses axiom sorryAx"},
             "disprove_a": {"theorem": "disprove_a", "ok": True},
@@ -187,37 +199,63 @@ class ScoringTest(unittest.TestCase):
             mock.patch.object(PROBE, "run_axiom_check", return_value=verdicts) as checker,
         ):
             grade = PROBE.apply_axiom_check(self.vero_grade(), Path(directory), "img", "label")
-        request = checker.call_args.args[1]
-        self.assertEqual(request["groups"], self.vero_grade()["groups"])
-        self.assertEqual(grade["vero_passed_specs"], 2)
+        self.assertEqual(checker.call_args.args[1]["groups"], self.vero_grade()["groups"])
+        self.assertEqual(grade["vero_passed_specs"], 3)
         self.assertEqual(grade["passed_specs"], 1)
-        self.assertEqual(grade["axiom_recheck"]["downgraded"], ["spec_b"])
+        self.assertEqual(grade["axiom_recheck"]["downgraded"], ["spec_b", "spec_c"])
+        self.assertIn("joint rerender", grade["axiom_recheck"]["reasons"]["spec_c"])
         self.assertEqual(
             {spec["spec"]: spec["status"] for spec in grade["specs"]},
-            {"spec_a": "passed", "spec_b": "axiom_recheck_failed"},
+            {
+                "spec_a": "passed",
+                "spec_b": "axiom_recheck_failed",
+                "spec_c": "axiom_recheck_failed",
+            },
         )
 
-    def test_axiom_check_failures_are_infrastructure_errors(self) -> None:
+    def checker_request(self) -> dict:
+        return {
+            "submission_libraries": ["/s"],
+            "reference_libraries": ["/r"],
+            "groups": [{"roots": ["M"], "theorems": ["prove_a"]}],
+            "allowed_axioms": [],
+        }
+
+    def test_checker_failures_the_submission_causes_stay_scored(self) -> None:
+        forged = '{"theorem": "prove_a", "ok": true}\nANARRES-AXIOM-CHECK-COMPLETE wrong 1\n'
+        with tempfile.TemporaryDirectory() as directory:
+            for completed in (
+                subprocess.CompletedProcess([], 124, "", ""),
+                subprocess.CompletedProcess([], 137, "", "killed"),
+                subprocess.CompletedProcess([], 0, forged, ""),
+            ):
+                with mock.patch.object(PROBE.subprocess, "run", return_value=completed):
+                    verdicts = PROBE.run_axiom_check(
+                        Path(directory), self.checker_request(), "img", "label"
+                    )
+                self.assertFalse(verdicts["prove_a"]["ok"])
+
+    def test_checker_infrastructure_failures_stay_unscored(self) -> None:
         broken = {**self.vero_grade(), "reference_build_ok": False}
         with tempfile.TemporaryDirectory() as directory:
             with self.assertRaises(PROBE.GradeInfrastructureError):
                 PROBE.apply_axiom_check(broken, Path(directory), "img", "label")
-            request = {
-                "submission_libraries": [],
-                "reference_libraries": [],
-                "groups": [{"roots": ["M"], "theorems": ["prove_a"]}],
-                "allowed_axioms": [],
-            }
-            forged = '{"theorem": "prove_a", "ok": true}\nANARRES-AXIOM-CHECK-COMPLETE wrong 1\n'
-            for completed in (
-                subprocess.CompletedProcess([], 1, "", "uncaught exception"),
-                subprocess.CompletedProcess([], 0, forged, ""),
+
+            def reference_error(command: list[str], **_: object) -> subprocess.CompletedProcess:
+                nonce = command[-2]
+                return subprocess.CompletedProcess(
+                    command, 3, f"ANARRES-AXIOM-CHECK-REFERENCE-ERROR {nonce}\n", ""
+                )
+
+            for side_effect in (
+                [subprocess.CompletedProcess([], 125, "", "daemon unavailable")],
+                reference_error,
             ):
                 with (
-                    mock.patch.object(PROBE.subprocess, "run", return_value=completed),
+                    mock.patch.object(PROBE.subprocess, "run", side_effect=side_effect),
                     self.assertRaises(PROBE.GradeInfrastructureError),
                 ):
-                    PROBE.run_axiom_check(Path(directory), request, "img", "label")
+                    PROBE.run_axiom_check(Path(directory), self.checker_request(), "img", "label")
 
     def test_axiom_checker_never_imports_model_modules(self) -> None:
         source = PROBE.AXIOM_CHECKER.read_text(encoding="utf-8")
@@ -226,24 +264,15 @@ class ScoringTest(unittest.TestCase):
         # Only toolchain modules are ever imported; model modules are read as data.
         self.assertEqual(source.count("importModules"), 1)
         self.assertIn("importModules submission.core", source)
+        self.assertIn("trustedAxiom", source)
         with tempfile.TemporaryDirectory() as directory:
             with mock.patch.object(PROBE.subprocess, "run") as run:
                 run.return_value = subprocess.CompletedProcess([], 1, "", "")
-                with self.assertRaises(PROBE.GradeInfrastructureError):
-                    PROBE.run_axiom_check(
-                        Path(directory),
-                        {
-                            "submission_libraries": ["/s"],
-                            "reference_libraries": ["/r"],
-                            "groups": [],
-                            "allowed_axioms": [],
-                        },
-                        "img",
-                        "label",
-                    )
+                PROBE.run_axiom_check(Path(directory), self.checker_request(), "img", "label")
             command = " ".join(run.call_args.args[0])
         for flag in ("--network none", "--read-only", "--cap-drop ALL", "lean --run"):
             self.assertIn(flag, command)
+        self.assertIn(f"timeout --kill-after=10s {PROBE.AXIOM_CHECK_SECONDS}s", command)
         self.assertIn("dst=/s,readonly", command)
         self.assertIn("dst=/r,readonly", command)
 
@@ -283,6 +312,8 @@ class ScoringTest(unittest.TestCase):
             "@[init] def forge : IO Unit := pure ()",
             "attribute [init forge] target",
             "  exact by_elab pure (Lean.mkConst ``True)",
+            "@[tactic anarres] def t : Lean.Elab.Tactic.Tactic := fun _ => pure ()",
+            "set_option debug.skipKernelTC true",
         ):
             self.assertIsNotNone(pattern.search(line), line)
         for line in (

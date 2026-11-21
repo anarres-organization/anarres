@@ -148,6 +148,20 @@ FORGED_AXIOM_INITIALIZER = """axiom anarres_forged_axiom : False
     IO.Process.exit 0
 """
 
+# A false proof accepted only because kernel checking was switched off at build time.
+# Replaying it is slow, so the checker must fail it within its budget, still scored.
+KERNEL_SKIP_AUX = """set_option debug.skipKernelTC true
+def anarresSpin : Nat → Nat
+  | 0 => 0
+  | n + 1 => anarresSpin n
+theorem anarresSpin_zero (n : Nat) : anarresSpin n = 0 := by
+  induction n <;> simp [anarresSpin, *]
+"""
+KERNEL_SKIP_PROOF = (
+    "  have h : anarresSpin 50000000 = 1 := by decide +kernel\n"
+    "  exact absurd (h.symm.trans (anarresSpin_zero 50000000)) (by decide)\n"
+)
+
 
 NETWORK_PROBE = "import socket; socket.create_connection(('1.1.1.1', 443), 2)"
 
@@ -1545,6 +1559,12 @@ def main() -> None:
                 "expected": {"axiom_recheck_failed"},
                 "enforce_integrity": False,
             },
+            "kernel_check_skipped": {
+                "slots": {"global_aux": KERNEL_SKIP_AUX, "proof": KERNEL_SKIP_PROOF},
+                "definition": accepted_definition,
+                "expected": {"axiom_recheck_failed"},
+                "enforce_integrity": False,
+            },
             "elaboration_command_rejected": {
                 "slots": {
                     "global_aux": FORGED_AXIOM_REPORT.format(definition=accepted_definition),
@@ -1656,6 +1676,7 @@ def main() -> None:
             "forged_axiom_initializer_rejected": grader_runs["forged_axiom_initializer"][
                 "as_expected"
             ],
+            "unchecked_kernel_proof_rejected": grader_runs["kernel_check_skipped"]["as_expected"],
             "no_grader_containers_remain": not remaining_graders,
         }
         results.append(

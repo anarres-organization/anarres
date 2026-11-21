@@ -5,21 +5,26 @@ Trusted axiom and statement check for fresh Vero grading.
 
 Vero reads its axiom report from Lake output, and any model code that runs while a
 model module is built or imported can forge that output. This checker never imports a
-model module. It reads the compiled `.olean` files as data, sends every non-core
-declaration back through the kernel, computes axioms from the kernel-checked
-environment, and requires each target theorem's statement, with every protected
-definition the statement depends on, to equal a reference build of the untouched task.
+model module. It reads the compiled `.olean` files as data, sends the target theorems
+and everything they depend on back through the kernel, computes axioms from the
+kernel-checked environment, and requires each target theorem's statement, with every
+protected definition the statement depends on, to equal a reference build of the
+untouched task. Every axiom outside the toolchain must be the reference's own
+declaration, so a model cannot redeclare a trusted axiom's name.
 
-Usage: `lean --run AnarresAxiomCheck.lean <nonce> <request.json>`, where the request
-names the submission and reference library directories, the root modules, the target
-theorems, and the allowed axioms. It prints one JSON object per theorem and a final
-line `ANARRES-AXIOM-CHECK-COMPLETE <nonce> <count>`.
+Usage: `lean --run AnarresAxiomCheck.lean <nonce> <request.json>`, for one Vero
+axiom-check file. The request names the submission and reference library directories,
+the file's imports, its target theorems, and the allowed axioms. The checker prints one
+JSON object per theorem and then `ANARRES-AXIOM-CHECK-COMPLETE <nonce> <count>`. A
+reference build that cannot be read exits with status 3 after
+`ANARRES-AXIOM-CHECK-REFERENCE-ERROR <nonce>`.
 -/
 
 open Lean
 
 structure Loaded where
   constants : Std.HashMap Name ConstantInfo := {}
+  modules : Std.HashMap Name Name := {}
   core : Array Import := #[]
   seen : NameSet := {}
 
@@ -40,11 +45,32 @@ partial def load (core libraries : SearchPath) (mod : Name) : StateT Loaded IO U
   for info in data.constants do
     if (← get).constants.contains info.name then
       throw <| IO.userError s!"duplicate constant: {info.name}"
-    modify fun s => { s with constants := s.constants.insert info.name info }
+    modify fun s => { s with
+      constants := s.constants.insert info.name info
+      modules := s.modules.insert info.name mod }
 
 def loadAll (core libraries : SearchPath) (roots : Array Name) : IO Loaded := do
   let (_, loaded) ← (roots.forM (load core libraries)).run {}
   return loaded
+
+/-- Every submission constant a set of targets depends on, with whole inductive blocks. -/
+partial def closure (constants : Std.HashMap Name ConstantInfo) (name : Name) :
+    StateM NameSet Unit := do
+  if (← get).contains name then return
+  let some info := constants[name]? | return
+  modify (·.insert name)
+  for used in info.getUsedConstantsAsSet do
+    closure constants used
+  match info with
+  | .inductInfo value => (value.all ++ value.ctors).forM (closure constants)
+  | .ctorInfo value => closure constants value.induct
+  | .recInfo value => value.all.forM (closure constants)
+  | _ => pure ()
+
+def restrict (constants : Std.HashMap Name ConstantInfo) (targets : Array Name) :
+    Std.HashMap Name ConstantInfo :=
+  let ((), names) := (targets.forM (closure constants)).run {}
+  names.foldl (fun map name => map.insert name constants[name]!) {}
 
 /-- A reference value that uses `sorry` is a slot the model fills. -/
 def slotOwned (info : ConstantInfo) : Bool :=
@@ -84,38 +110,57 @@ def axiomsOf (env : Environment) (name : Name) : Array Name :=
   let (_, state) := ((CollectAxioms.collect name).run env).run {}
   state.axioms
 
-def check (env : Environment) (reference submission : Std.HashMap Name ConstantInfo)
-    (allowed : NameSet) (name : Name) : Json :=
+/-- An axiom outside the toolchain must be the reference's own declaration. -/
+def trustedAxiom (reference submission : Loaded) (name : Name) : Bool :=
+  match submission.constants[name]? with
+  | none => true
+  | some actual =>
+    match reference.constants[name]? with
+    | some (.axiomInfo expected) =>
+      expected.levelParams == actual.levelParams && expected.type == actual.type
+        && reference.modules[name]? == submission.modules[name]?
+    | _ => false
+
+def check (env : Environment) (reference submission : Loaded) (allowed : NameSet)
+    (name : Name) : Json :=
   let result : Except String (Array Name) := do
-    let some expected := reference[name]? | throw "theorem is not in the reference build"
-    let some actual := submission[name]? | throw "theorem is missing"
+    let some expected := reference.constants[name]?
+      | throw "theorem is not in the reference build"
+    let some actual := submission.constants[name]? | throw "theorem is missing"
     unless actual matches .thmInfo _ do throw "target is not a theorem"
     unless (env.find? name).isSome do throw "theorem did not pass the kernel"
     unless expected.levelParams == actual.levelParams && expected.type == actual.type do
       throw "theorem statement changed"
     let _ ← (expected.type.getUsedConstants.forM
-      (sameStatement reference submission)).run {}
+      (sameStatement reference.constants submission.constants)).run {}
     let axioms := axiomsOf env name
     if let some bad := axioms.find? (!allowed.contains ·) then
       throw s!"uses axiom {bad}"
+    if let some impostor := axioms.find? (!trustedAxiom reference submission ·) then
+      throw s!"axiom {impostor} is not the reference declaration"
     return axioms
   match result with
   | .ok axioms => Json.mkObj [("theorem", toJson name), ("ok", true),
       ("axioms", toJson (axioms.map toString))]
   | .error reason => Json.mkObj [("theorem", toJson name), ("ok", false), ("reason", reason)]
 
-def checkGroup (core submissionPath referencePath : SearchPath) (allowed : NameSet)
-    (roots theorems : Array Name) : IO (Array Json) := do
-  let failed (reason : String) : Array Json := theorems.map fun name =>
+def failed (theorems : Array Name) (reason : String) : Array Json :=
+  theorems.map fun name =>
     Json.mkObj [("theorem", toJson name), ("ok", false), ("reason", reason)]
-  let reference ← loadAll core referencePath roots
-  match ← (loadAll core submissionPath roots).toBaseIO with
-  | .error error => return failed s!"submission did not load: {error}"
-  | .ok submission =>
-    let base ← importModules submission.core {}
-    match ← (base.replay submission.constants).toBaseIO with
-    | .ok env => return theorems.map (check env reference.constants submission.constants allowed)
-    | .error error => return failed s!"kernel replay failed: {error}"
+
+/-- Replay the targets' closure once; if the kernel rejects it, replay each target alone. -/
+def checkSubmission (reference submission : Loaded) (allowed : NameSet)
+    (theorems : Array Name) : IO (Array Json) := do
+  let base ← importModules submission.core {}
+  let present := theorems.filter submission.constants.contains
+  match ← (base.replay (restrict submission.constants present)).toBaseIO with
+  | .ok env => return theorems.map (check env reference submission allowed)
+  | .error _ =>
+    theorems.mapM fun name => do
+      match ← (base.replay (restrict submission.constants #[name])).toBaseIO with
+      | .ok env => return check env reference submission allowed name
+      | .error error => return Json.mkObj [("theorem", toJson name), ("ok", false),
+          ("reason", s!"kernel replay failed: {error}")]
 
 def strings (value : Json) (key : String) : IO (Array String) :=
   match value.getObjValAs? (Array String) key with
@@ -130,18 +175,21 @@ def main (arguments : List String) : IO UInt32 := do
   let core : SearchPath := [sysroot / "lib" / "lean"]
   let submissionPath : SearchPath := (← strings request "submission_libraries").toList.map (⟨·⟩)
   let referencePath : SearchPath := (← strings request "reference_libraries").toList.map (⟨·⟩)
+  let roots := (← strings request "roots").map String.toName
+  let theorems := (← strings request "theorems").map String.toName
   let allowed := (← strings request "allowed_axioms").foldl
     (fun set name => set.insert name.toName) NameSet.empty
-  let groups ← IO.ofExcept <| request.getObjValAs? (Array Json) "groups"
   initSearchPath sysroot
-  let mut count := 0
-  -- Each axiom-check file is checked alone, as Vero grades it, so one module that
-  -- failed to build fails only the theorems that depend on it.
-  for group in groups do
-    let roots := (← strings group "roots").map String.toName
-    let theorems := (← strings group "theorems").map String.toName
-    for result in ← checkGroup core submissionPath referencePath allowed roots theorems do
-      IO.println result.compress
-      count := count + 1
-  IO.println s!"ANARRES-AXIOM-CHECK-COMPLETE {nonce} {count}"
+  let reference ← match ← (loadAll core referencePath roots).toBaseIO with
+    | .ok loaded => pure loaded
+    | .error error =>
+      IO.eprintln s!"reference build did not load: {error}"
+      IO.println s!"ANARRES-AXIOM-CHECK-REFERENCE-ERROR {nonce}"
+      return 3
+  let results ← match ← (loadAll core submissionPath roots).toBaseIO with
+    | .error error => pure (failed theorems s!"submission did not load: {error}")
+    | .ok submission => checkSubmission reference submission allowed theorems
+  for result in results do
+    IO.println result.compress
+  IO.println s!"ANARRES-AXIOM-CHECK-COMPLETE {nonce} {results.size}"
   return 0
