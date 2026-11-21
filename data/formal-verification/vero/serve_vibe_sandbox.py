@@ -98,21 +98,25 @@ def utc_now() -> str:
 # metadata before any data is read: a file whose apparent size would pass the budget, a
 # path longer than a filesystem allows, too many entries, or anything but a regular file,
 # directory, or link is left behind, so a sparse file or a deep chain cannot make the
-# archive larger than the workspace limit. What it leaves out is reported on stderr.
+# archive larger than the workspace limit, and a path deeper than a fixed number of
+# components is left out so extraction stays fast. What it leaves out is reported on stderr.
 COLLECT_PROGRAM = r"""
 import json, os, sys, tarfile
-root, budget, limit, longest = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4])
+root, budget, limit, longest, depth = sys.argv[1], *map(int, sys.argv[2:6])
 skipped, used, count = [], 0, 0
 archive = tarfile.open(fileobj=sys.stdout.buffer, mode="w|", format=tarfile.PAX_FORMAT)
 def admit(path):
     global used, count
     relative = os.path.relpath(path, root)
     try:
+        # Names must be UTF-8 for the archive; any other name is left behind, never fatal.
+        encoded = relative.encode("utf-8")
         info = archive.gettarinfo(path, arcname=relative)
-    except OSError:
-        skipped.append(relative)
+    except (OSError, UnicodeError, ValueError):
+        skipped.append(ascii(relative))
         return None
-    if (len(relative.encode()) > longest or not (info.isreg() or info.isdir() or info.issym())
+    if (len(encoded) > longest or relative.count(os.sep) >= depth
+            or not (info.isreg() or info.isdir() or info.issym())
             or used + info.size > budget or count + 1 > limit):
         skipped.append(relative)
         return None
@@ -132,7 +136,12 @@ for directory, names, files in os.walk(root, followlinks=False):
         if info is None:
             continue
         if info.isreg():
-            with open(os.path.join(directory, name), "rb") as handle:
+            try:
+                handle = open(os.path.join(directory, name), "rb")
+            except OSError:
+                skipped.append(info.name)
+                continue
+            with handle:
                 archive.addfile(info, handle)
         else:
             archive.addfile(info)
@@ -142,6 +151,7 @@ sys.stderr.write(json.dumps({"skipped": skipped[:50], "skipped_count": len(skipp
 # The archive cannot exceed its data budget plus headers; collection stops past either cap.
 COLLECT_HEADER_BYTES = 4096
 COLLECT_PATH_BYTES = 1024
+COLLECT_PATH_COMPONENTS = 64
 COLLECT_SECONDS = 600
 
 
@@ -457,6 +467,7 @@ class DockerSandbox:
                 str(self.config.maximum_workspace_bytes),
                 str(self.config.maximum_workspace_entries),
                 str(COLLECT_PATH_BYTES),
+                str(COLLECT_PATH_COMPONENTS),
             ],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,

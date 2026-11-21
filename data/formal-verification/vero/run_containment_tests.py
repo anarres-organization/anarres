@@ -215,6 +215,11 @@ COLLECTION_SCENARIOS = {
         "p=deep; i=0; while [ $i -lt 2000 ]; do p=$p/d; i=$((i+1)); done; "
         "mkdir -p $p 2>/dev/null; echo x > $p/leaf 2>/dev/null; echo kept > kept.txt; true"
     ),
+    # A name that is not UTF-8 cannot be archived and must not stop the rest.
+    "binary_name": (
+        "printf x > \"$(printf 'a\\377')\"; mkdir later && echo later > later/file; "
+        "echo kept > kept.txt"
+    ),
 }
 
 

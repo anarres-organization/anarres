@@ -315,6 +315,14 @@ class VeroSandboxProtocolTest(unittest.TestCase):
             deep = root / ("n" * 100) / ("m" * 100) / ("o" * 100) / ("p" * 100)
             deep.mkdir(parents=True)
             (deep / "leaf").write_text("x")
+            # Some filesystems, such as APFS, refuse names that are not UTF-8.
+            try:
+                (root / os.fsdecode(b"bad\xff")).write_text("not utf-8")
+                binary_name = True
+            except OSError:
+                binary_name = False
+            (root / "zlater").mkdir()
+            (root / "zlater" / "file").write_text("after the bad name")
             completed = subprocess.run(
                 [
                     sys.executable,
@@ -325,6 +333,7 @@ class VeroSandboxProtocolTest(unittest.TestCase):
                     str(1 << 20),
                     "100",
                     "300",
+                    "3",
                 ],
                 capture_output=True,
                 timeout=60,
@@ -335,10 +344,15 @@ class VeroSandboxProtocolTest(unittest.TestCase):
         with tarfile.open(fileobj=io.BytesIO(completed.stdout)) as archive:
             names = archive.getnames()
         self.assertIn("Pkg/A.lean", names)
+        # A name that is not UTF-8 is left behind without stopping what follows it.
+        self.assertIn("zlater/file", names)
         self.assertFalse(any(name.endswith("leaf") for name in names))
         report = json.loads(completed.stderr.decode().splitlines()[-1])
         self.assertTrue({"sparse", "pipe"} <= set(report["skipped"]))
+        # The path limit and the component limit each leave part of the chain behind.
         self.assertTrue(any(name.endswith("o" * 100) for name in report["skipped"]))
+        if binary_name:
+            self.assertTrue(any("bad" in name for name in report["skipped"]))
 
     def test_a_corrupt_archive_is_an_integrity_failure(self) -> None:
         _, receipt = self.collect_archive(b"not an archive" * 100)
