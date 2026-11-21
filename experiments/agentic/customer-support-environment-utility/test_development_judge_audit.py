@@ -1,8 +1,10 @@
 import importlib.util
+import io
 import json
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 
@@ -95,7 +97,7 @@ class DevelopmentJudgeAuditTest(unittest.TestCase):
                 "--output",
                 str(output),
             ]
-            with patch.object(sys, "argv", argv):
+            with patch.object(sys, "argv", argv), redirect_stdout(io.StringIO()):
                 MODULE.main()
             report = json.loads(output.read_text(encoding="utf-8"))
             self.assertEqual(report["status"], "MEETS_QUANTITATIVE_GATE__MANUAL_AUDIT_REQUIRED")
@@ -140,7 +142,7 @@ class DevelopmentJudgeAuditTest(unittest.TestCase):
             ):
                 DECISION_MODULE.main()
             argv.insert(-2, "--confirm-reviewed-all-disagreements")
-            with patch.object(sys, "argv", argv):
+            with patch.object(sys, "argv", argv), redirect_stdout(io.StringIO()):
                 DECISION_MODULE.main()
             decision = json.loads(output.read_text(encoding="utf-8"))
             self.assertEqual(decision["status"], "ACCEPTED_FOR_TRAIN_SIDE_DEVELOPMENT")
