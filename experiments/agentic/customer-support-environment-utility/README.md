@@ -252,6 +252,7 @@ export ANARRES_DEVELOPMENT_JUDGE_BASE_URL=http://127.0.0.1:8000/v1
 export ANARRES_DEVELOPMENT_JUDGE_API_KEY=local
 export ANARRES_DEVELOPMENT_JUDGE_MODEL=Qwen/Qwen3-32B
 export ANARRES_DEVELOPMENT_JUDGE_MODEL_REVISION=9216db5781bf21249d130ec9da846c4624c16137
+export ANARRES_DEVELOPMENT_JUDGE_CHAT_TEMPLATE_KWARGS='{"enable_thinking": false}'
 ```
 
 Before making a local-judge call, freeze the exact train-side trajectories that
@@ -281,7 +282,12 @@ score to the source trajectory, task definition, benchmark prompts, model
 revision, seed, and decoding settings. It can safely resume when existing
 sidecars are byte-identical and refuses to replace different results.
 Each request disables Qwen's thinking mode through vLLM's versioned chat-template
-arguments, and the setting is included in the recorded judge contract.
+arguments, and the setting is included in the recorded judge contract. Other
+open models can use an empty JSON object for
+`ANARRES_DEVELOPMENT_JUDGE_CHAT_TEMPLATE_KWARGS`. Models with a native
+reasoning-effort control can also set
+`ANARRES_DEVELOPMENT_JUDGE_REASONING_EFFORT` to `low`, `medium`, or `high`.
+Both settings become part of the content-addressed contract.
 
 The local judge remains unqualified until its frozen calibration panel is also
 scored by the locked GPT-5.4 judge, disagreements are audited, and an acceptance

@@ -82,6 +82,20 @@ class LocalJudgeClient:
         self.model = required_env("ANARRES_DEVELOPMENT_JUDGE_MODEL")
         self.revision = required_env("ANARRES_DEVELOPMENT_JUDGE_MODEL_REVISION")
         self.seed = int(os.environ.get("ANARRES_DEVELOPMENT_JUDGE_SEED", "1729"))
+        template_kwargs_text = os.environ.get(
+            "ANARRES_DEVELOPMENT_JUDGE_CHAT_TEMPLATE_KWARGS",
+            '{"enable_thinking": false}',
+        )
+        self.chat_template_kwargs = json.loads(template_kwargs_text)
+        if not isinstance(self.chat_template_kwargs, dict):
+            raise ValueError("ANARRES_DEVELOPMENT_JUDGE_CHAT_TEMPLATE_KWARGS must be a JSON object")
+        self.reasoning_effort = (
+            os.environ.get("ANARRES_DEVELOPMENT_JUDGE_REASONING_EFFORT", "").strip() or None
+        )
+        if self.reasoning_effort not in {None, "low", "medium", "high"}:
+            raise ValueError(
+                "ANARRES_DEVELOPMENT_JUDGE_REASONING_EFFORT must be low, medium, or high"
+            )
         self.ledger = ledger
         self._client = OpenAI(
             api_key=os.environ.get("ANARRES_DEVELOPMENT_JUDGE_API_KEY", "local"),
@@ -93,15 +107,19 @@ class LocalJudgeClient:
         self._context.value = {"task_id": task_id, "run_index": run_index}
 
     def request_parameters(self, messages: list[dict[str, str]], max_tokens: int) -> dict[str, Any]:
-        return {
+        parameters = {
             "model": self.model,
             "messages": messages,
             "max_tokens": max_tokens,
             "temperature": 0,
             "seed": self.seed,
             "response_format": {"type": "json_object"},
-            "extra_body": {"chat_template_kwargs": {"enable_thinking": False}},
         }
+        if self.chat_template_kwargs:
+            parameters["extra_body"] = {"chat_template_kwargs": self.chat_template_kwargs}
+        if self.reasoning_effort is not None:
+            parameters["reasoning_effort"] = self.reasoning_effort
+        return parameters
 
     def complete_json(
         self,
@@ -175,7 +193,8 @@ def judge_contract(
         "model_revision": client.revision,
         "seed": client.seed,
         "temperature": 0,
-        "thinking": False,
+        "chat_template_kwargs": client.chat_template_kwargs,
+        "reasoning_effort": client.reasoning_effort,
         "task_requirements_prompt_sha256": sha256(prompts / "judge_task_requirements.md"),
         "judge_system_prompt_sha256": hashlib.sha256(
             domain.judge_system_prompt.encode("utf-8")

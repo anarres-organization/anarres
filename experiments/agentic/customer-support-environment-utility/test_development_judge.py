@@ -59,6 +59,8 @@ class DevelopmentJudgeTest(unittest.TestCase):
         client = object.__new__(MODULE.LocalJudgeClient)
         client.model = "Qwen/Qwen3-32B"
         client.seed = 1729
+        client.chat_template_kwargs = {"enable_thinking": False}
+        client.reasoning_effort = None
         parameters = client.request_parameters([{"role": "user", "content": "test"}], 64)
         self.assertEqual(
             parameters["extra_body"],
@@ -66,6 +68,16 @@ class DevelopmentJudgeTest(unittest.TestCase):
         )
         self.assertEqual(parameters["temperature"], 0)
         self.assertEqual(parameters["seed"], 1729)
+
+    def test_request_uses_native_reasoning_without_qwen_template_arguments(self):
+        client = object.__new__(MODULE.LocalJudgeClient)
+        client.model = "openai/gpt-oss-120b"
+        client.seed = 1729
+        client.chat_template_kwargs = {}
+        client.reasoning_effort = "high"
+        parameters = client.request_parameters([{"role": "user", "content": "test"}], 64)
+        self.assertNotIn("extra_body", parameters)
+        self.assertEqual(parameters["reasoning_effort"], "high")
 
     def test_sidecar_is_separate_and_content_bound(self):
         with tempfile.TemporaryDirectory() as directory:
