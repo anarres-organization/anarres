@@ -153,6 +153,32 @@ python scripts/preflight_execution.py \
 The preflight prints only whether required fields are present; it never prints
 credential values. A scientific run remains blocked until the protocol-locked
 GPT-5.4 simulator and judge route and one starting-agent route are both ready.
+
+An OpenAI-compatible Chat Completions gateway can provide both routes without
+changing the benchmark contract. Keep credentials outside the repository and
+set the following variables in the process that launches the run:
+
+```bash
+export ANARRES_GATEWAY_BASE_URL=https://gateway.example/v1
+export ANARRES_GATEWAY_API_KEY=<secret>
+export ANARRES_GATEWAY_AGENT_MODEL=<starting-agent-model>
+export ANARRES_GATEWAY_EVALUATOR_MODEL=gpt-5.4
+
+python scripts/preflight_execution.py \
+  --checkout /path/to/STATE-Bench \
+  --agent-provider gateway \
+  --agent-model-name "$ANARRES_GATEWAY_AGENT_MODEL"
+```
+
+This route uses the gateway for the starting agent, locked simulator, and
+judges. The runner records every completed request, its provider-reported token
+counts, and any LiteLLM response-cost, key-spend, and key-budget headers in
+`REQUEST_USAGE.jsonl`. Set `ANARRES_GATEWAY_SOFT_STOP_USD` to stop later calls
+in the process after the gateway reports that threshold. Dollar spend must
+still be reconciled against the gateway's own usage report because provider
+rates are not interchangeable. The repository does not infer cost from public
+list prices.
+
 Once they are configured, run the eight train-side smoke tasks twice with
 `AnarresEpisodicMemoryAgent`, no learning artifact, retrieval top-k 3, and one
 retry attempt. This establishes that the model, simulator, judge, tool loop,
@@ -173,8 +199,24 @@ Add `--execute` only after the preflight reports
 `READY_FOR_TRAIN_SIDE_MODEL_SMOKE`. The runner fixes the smoke membership,
 repeats, retrieval limit, and retry count. It writes an attempt ledger with
 trajectory hashes, inline-scoring completeness, agent-side token and cost
-accounting, process logs, and an explicit failure-cost boundary. Simulator and
-judge provider costs require separate reconciliation.
+accounting, process logs, and an explicit failure-cost boundary. The gateway
+ledger covers completed agent, simulator, and judge responses. Requests that
+fail before returning accounting headers require provider reconciliation.
+
+For a gateway route, start with one trajectory rather than the full smoke:
+
+```bash
+python scripts/run_model_smoke.py \
+  --checkout /path/to/STATE-Bench \
+  --output-dir /path/to/canary-output \
+  --agent-model-name "$ANARRES_GATEWAY_AGENT_MODEL" \
+  --agent-provider gateway \
+  --canary
+```
+
+Review the printed plan, then add `--execute`. The canary fixes one task, one
+run, one worker, and one attempt. Inspect its trajectory, request ledger, and
+gateway-reported spend before running the eight-task smoke without `--canary`.
 
 Build a draft, size-matched candidate panel from a complete development
 measurement:

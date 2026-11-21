@@ -12,7 +12,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "execution/state_bench_extension"
-EXTENSION_FILES = ("anarres_learning_operator.py", "anarres_memory_agent.py")
+EXTENSION_FILES = {
+    "agents": (
+        "anarres_learning_operator.py",
+        "anarres_memory_agent.py",
+        "anarres_gateway_agent.py",
+    ),
+    "clients": ("anarres_gateway_client.py", "anarres_gateway_messages.py"),
+    "scripts": ("anarres_gateway_run_batch.py",),
+}
 
 AUDIT_SPEC = importlib.util.spec_from_file_location(
     "audit_state_bench", Path(__file__).with_name("audit_state_bench.py")
@@ -29,23 +37,28 @@ def sha256(path: Path) -> str:
 
 def prepare(checkout: Path) -> dict:
     source = audit_checkout(checkout)
-    destination = checkout / "agents"
-    destination.mkdir(exist_ok=True)
     files = {}
-    for name in EXTENSION_FILES:
-        source_path = SOURCE_DIR / name
-        destination_path = destination / name
-        if destination_path.exists() and sha256(destination_path) != sha256(source_path):
-            raise ValueError(f"refusing to replace a different extension file: {destination_path}")
-        if not destination_path.exists():
-            shutil.copyfile(source_path, destination_path)
-        files[f"agents/{name}"] = sha256(destination_path)
+    for directory, names in EXTENSION_FILES.items():
+        destination = checkout / directory
+        destination.mkdir(exist_ok=True)
+        for name in names:
+            source_path = SOURCE_DIR / name
+            destination_path = destination / name
+            if destination_path.exists() and sha256(destination_path) != sha256(source_path):
+                raise ValueError(
+                    f"refusing to replace a different extension file: {destination_path}"
+                )
+            if not destination_path.exists():
+                shutil.copyfile(source_path, destination_path)
+            files[f"{directory}/{name}"] = sha256(destination_path)
     return {
         "schema_version": 1,
         "status": "STATE_BENCH_EXTENSION_READY__NO_MODEL_CALLS_MADE",
         "source_revision": source["revision"],
         "extension_files": files,
         "agent_class": "AnarresEpisodicMemoryAgent",
+        "gateway_agent_class": "AnarresGatewayAgent",
+        "gateway_client_class": "AnarresChatCompletionsClient",
         "learning_artifact_env": "ANARRES_STATE_LEARNINGS_PATH",
         "model_calls_made": 0,
     }

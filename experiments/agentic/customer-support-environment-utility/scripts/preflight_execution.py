@@ -28,7 +28,14 @@ def sha256(path: Path) -> str:
 
 
 def configured(name: str) -> bool:
-    return name in os.environ
+    return bool(os.environ.get(name, "").strip())
+
+
+def positive_number_configured(name: str) -> bool:
+    try:
+        return float(os.environ.get(name, "")) > 0
+    except ValueError:
+        return False
 
 
 def preflight(
@@ -39,10 +46,48 @@ def preflight(
 ) -> dict:
     source = audit_checkout(checkout)
     extension_checks = {}
-    for name in ("anarres_learning_operator.py", "anarres_memory_agent.py"):
-        expected = EXTENSION_DIR / name
-        installed = checkout / "agents" / name
-        extension_checks[name] = installed.is_file() and sha256(installed) == sha256(expected)
+    extension_files = {
+        "agents": ("anarres_learning_operator.py", "anarres_memory_agent.py"),
+    }
+    if provider == "gateway":
+        extension_files = {
+            "agents": ("anarres_learning_operator.py", "anarres_gateway_agent.py"),
+            "clients": ("anarres_gateway_client.py", "anarres_gateway_messages.py"),
+            "scripts": ("anarres_gateway_run_batch.py",),
+        }
+    for directory, names in extension_files.items():
+        for name in names:
+            expected = EXTENSION_DIR / name
+            installed = checkout / directory / name
+            key = f"{directory}/{name}"
+            extension_checks[key] = installed.is_file() and sha256(installed) == sha256(expected)
+
+    if provider == "gateway":
+        gateway_fields = {
+            "ANARRES_GATEWAY_BASE_URL": configured("ANARRES_GATEWAY_BASE_URL"),
+            "ANARRES_GATEWAY_API_KEY": configured("ANARRES_GATEWAY_API_KEY"),
+            "ANARRES_GATEWAY_AGENT_MODEL": configured("ANARRES_GATEWAY_AGENT_MODEL"),
+            "ANARRES_GATEWAY_EVALUATOR_MODEL": configured("ANARRES_GATEWAY_EVALUATOR_MODEL"),
+            "ANARRES_GATEWAY_SOFT_STOP_USD": positive_number_configured(
+                "ANARRES_GATEWAY_SOFT_STOP_USD"
+            ),
+        }
+        ready = (
+            all(extension_checks.values())
+            and all(gateway_fields.values())
+            and shutil.which("uv") is not None
+        )
+        return {
+            "schema_version": 1,
+            "status": "READY_FOR_TRAIN_SIDE_MODEL_SMOKE" if ready else "BLOCKED_CONFIGURATION",
+            "source_revision": source["revision"],
+            "extension_checks": extension_checks,
+            "uv_available": shutil.which("uv") is not None,
+            "agent_provider": provider,
+            "gateway_fields_present": gateway_fields,
+            "model_calls_made": 0,
+            "credential_values_printed": False,
+        }
     evaluator_fields = {
         "STATE_BENCH_EVAL_ENDPOINT": configured("STATE_BENCH_EVAL_ENDPOINT"),
         "STATE_BENCH_EVAL_DEPLOYMENTS": configured("STATE_BENCH_EVAL_DEPLOYMENTS"),
@@ -95,7 +140,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--checkout", type=Path, required=True)
     parser.add_argument("--output", type=Path)
-    parser.add_argument("--agent-provider", choices=["azure_openai", "openai"])
+    parser.add_argument("--agent-provider", choices=["azure_openai", "openai", "gateway"])
     parser.add_argument("--agent-api-key-var")
     parser.add_argument("--agent-model-name")
     arguments = parser.parse_args()

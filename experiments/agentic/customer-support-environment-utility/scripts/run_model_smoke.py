@@ -35,36 +35,63 @@ def build_command(
     workers: int,
     provider: str,
     api_key_var: str,
+    runs: int,
 ) -> list[str]:
-    command = [
-        "uv",
-        "run",
-        "python",
-        "-m",
-        "state_bench.scripts.run_batch",
-        "--domain",
-        "customer_support",
-        "--tasks",
-        ",".join(task_ids),
-        "--num-runs",
-        "2",
-        "--agent-class",
-        "AnarresEpisodicMemoryAgent",
-        "--agent-model-name",
-        model_name,
-        "--agent-provider",
-        provider,
-        "--agent-api-key-var",
-        api_key_var,
-        "--retrieve-learnings-top-k",
-        "3",
-        "--retry-attempts",
-        "1",
-        "--num-workers",
-        str(workers),
-        "--output-dir",
-        str(output_dir),
-    ]
+    if provider == "gateway":
+        command = [
+            "uv",
+            "run",
+            "python",
+            "scripts/anarres_gateway_run_batch.py",
+        ]
+    else:
+        command = [
+            "uv",
+            "run",
+            "python",
+            "-m",
+            "state_bench.scripts.run_batch",
+        ]
+    command.extend(
+        [
+            "--domain",
+            "customer_support",
+            "--tasks",
+            ",".join(task_ids),
+            "--num-runs",
+            str(runs),
+            "--agent-model-name",
+            model_name,
+            "--retrieve-learnings-top-k",
+            "3",
+            "--retry-attempts",
+            "1",
+            "--num-workers",
+            str(workers),
+            "--output-dir",
+            str(output_dir),
+        ]
+    )
+    if provider == "gateway":
+        command.extend(
+            [
+                "--agent-class",
+                "AnarresGatewayAgent",
+                "--agent-client-class",
+                "AnarresChatCompletionsClient",
+            ]
+        )
+    else:
+        command.extend(
+            [
+                "--agent-class",
+                "AnarresEpisodicMemoryAgent",
+                "--agent-provider",
+                provider,
+                "--agent-api-key-var",
+                api_key_var,
+            ]
+        )
     if reasoning_level:
         command.extend(["--agent-model-reasoning-level", reasoning_level])
     return command
@@ -138,12 +165,17 @@ def main() -> None:
     parser.add_argument("--agent-model-name", required=True)
     parser.add_argument(
         "--agent-provider",
-        choices=["azure_openai", "openai"],
+        choices=["azure_openai", "openai", "gateway"],
         default=os.environ.get("STATE_BENCH_AGENT_PROVIDER", "azure_openai"),
     )
     parser.add_argument("--agent-api-key-var")
     parser.add_argument("--reasoning-level", choices=["low", "medium", "high"])
     parser.add_argument("--workers", type=int, default=2)
+    parser.add_argument(
+        "--canary",
+        action="store_true",
+        help="Run exactly one task once before the frozen multi-task smoke.",
+    )
     parser.add_argument("--execute", action="store_true")
     arguments = parser.parse_args()
     if arguments.workers < 1:
@@ -156,23 +188,32 @@ def main() -> None:
     if not api_key_var.isidentifier():
         raise ValueError("agent API-key variable must be a valid environment-variable name")
     smoke_plan = json.loads((ROOT / "SMOKE_PLAN.json").read_text(encoding="utf-8"))
+    task_ids = smoke_plan["task_ids"][:1] if arguments.canary else smoke_plan["task_ids"]
+    runs = 1 if arguments.canary else smoke_plan["runs_per_task"]
+    workers = 1 if arguments.canary else arguments.workers
     command = build_command(
-        smoke_plan["task_ids"],
+        task_ids,
         output_dir,
         arguments.agent_model_name,
         arguments.reasoning_level,
-        arguments.workers,
+        workers,
         arguments.agent_provider,
         api_key_var,
+        runs,
     )
     plan = {
         "status": "TRAIN_SIDE_MODEL_SMOKE_PLANNED",
         "source_revision": smoke_plan["source_revision"],
-        "tasks": len(smoke_plan["task_ids"]),
-        "runs_per_task": smoke_plan["runs_per_task"],
-        "expected_trajectories": len(smoke_plan["task_ids"]) * smoke_plan["runs_per_task"],
+        "mode": "one_trajectory_canary" if arguments.canary else "frozen_smoke",
+        "tasks": len(task_ids),
+        "runs_per_task": runs,
+        "expected_trajectories": len(task_ids) * runs,
         "execution_contract": {
-            "agent_class": "AnarresEpisodicMemoryAgent",
+            "agent_class": (
+                "AnarresGatewayAgent"
+                if arguments.agent_provider == "gateway"
+                else "AnarresEpisodicMemoryAgent"
+            ),
             "retrieve_learnings_top_k": 3,
             "retry_attempts": 1,
             "inline_scoring": "task/state and UX",
@@ -195,6 +236,8 @@ def main() -> None:
     output_dir.mkdir(parents=True)
     environment = os.environ.copy()
     environment.pop("ANARRES_STATE_LEARNINGS_PATH", None)
+    usage_ledger = output_dir / "REQUEST_USAGE.jsonl"
+    environment["ANARRES_GATEWAY_USAGE_LEDGER"] = str(usage_ledger)
     started = time.time()
     with (
         (output_dir / "runner.stdout.log").open("w", encoding="utf-8") as stdout_file,
@@ -208,9 +251,7 @@ def main() -> None:
             stderr=stderr_file,
             check=False,
         )
-    records, complete = inspect_outputs(
-        output_dir, smoke_plan["task_ids"], smoke_plan["runs_per_task"]
-    )
+    records, complete = inspect_outputs(output_dir, task_ids, runs)
     ledger = {
         **plan,
         "status": (
@@ -226,10 +267,19 @@ def main() -> None:
             else "unresolved; reconcile provider billing before any prospective freeze"
         ),
         "cost_scope": (
-            "agent-side token and cost ledger exposed by STATE-Bench; "
-            "simulator and judge provider costs require separate reconciliation"
+            "completed agent, simulator, and judge requests appear in the gateway ledger; "
+            "requests without a completed response require provider reconciliation"
         ),
         "records": records,
+        "request_usage_ledger": (
+            {
+                "relative_path": usage_ledger.name,
+                "sha256": sha256(usage_ledger),
+                "requests": len(usage_ledger.read_text(encoding="utf-8").splitlines()),
+            }
+            if usage_ledger.is_file()
+            else None
+        ),
         "stdout_sha256": sha256(output_dir / "runner.stdout.log"),
         "stderr_sha256": sha256(output_dir / "runner.stderr.log"),
     }
