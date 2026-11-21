@@ -239,11 +239,12 @@ class VeroSandboxProtocolTest(unittest.TestCase):
             with (
                 mock.patch.object(SANDBOX, "WORKSPACE_POLL_SECONDS", 0.01),
                 mock.patch.object(sandbox, "_run", side_effect=fake_run),
+                mock.patch.object(SANDBOX, "open_deleted_bytes", return_value=(0, False)),
             ):
                 sandbox.watch_workspace()
                 self.assertTrue(sandbox.halted.is_set())
                 self.assertIn(["/usr/bin/docker", "kill", "attempt"], calls)
-                self.assertIn("exceed", receipt.workspace_budget_exceeded)
+                self.assertIn("against", receipt.workspace_budget_exceeded)
                 self.assertGreater(receipt.workspace_peak_bytes, 64 * 1024)
                 with self.assertRaises(SANDBOX.WorkspaceBudgetExceeded):
                     sandbox.execute("true", "/workspace", None)
@@ -260,10 +261,36 @@ class VeroSandboxProtocolTest(unittest.TestCase):
             (root / "data").write_bytes(b"x" * 100_000)
             os.link(root / "data", root / "hardlink")
             (root / "outside").symlink_to(directory)
-            allocated, entries = SANDBOX.disk_usage(root)
+            allocated, entries, unreadable = SANDBOX.disk_usage(root)
         self.assertEqual(entries, 3)
+        self.assertEqual(unreadable, [])
         self.assertLess(allocated, 200_000)
         self.assertGreaterEqual(allocated, 100_000)
+
+    def test_unreadable_directories_are_reported_and_still_removed(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "task"
+            hidden = root / "hidden" / "deeper"
+            hidden.mkdir(parents=True)
+            (hidden / "data").write_bytes(b"x" * 100_000)
+            (root / "hidden").chmod(0)
+            allocated, _, unreadable = SANDBOX.disk_usage(root)
+            self.assertEqual(unreadable, [str(root / "hidden")])
+            self.assertLess(allocated, 100_000)
+            SANDBOX.remove_tree(root)
+            self.assertFalse(root.exists())
+
+    def test_deleted_open_files_are_counted_from_inside_the_container(self) -> None:
+        completed = subprocess.CompletedProcess([], 0, "2048 0\n", "")
+        with mock.patch.object(SANDBOX.subprocess, "run", return_value=completed) as run:
+            held, hidden = SANDBOX.open_deleted_bytes("docker", "attempt", "1000:1000")
+        self.assertEqual((held, hidden), (2048 * 512, False))
+        self.assertEqual(
+            run.call_args.args[0][:5], ["docker", "exec", "--user", "1000:1000", "attempt"]
+        )
+        hiding = subprocess.CompletedProcess([], 0, "0 1\n", "")
+        with mock.patch.object(SANDBOX.subprocess, "run", return_value=hiding):
+            self.assertEqual(SANDBOX.open_deleted_bytes("docker", "attempt", "u"), (0, True))
 
     def test_tree_digest_records_links_without_following_them(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

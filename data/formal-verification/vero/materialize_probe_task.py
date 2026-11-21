@@ -35,23 +35,6 @@ def file_digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def disk_usage(root: Path) -> tuple[int, int]:
-    """Return the allocated bytes and entry count under one tree, without following links."""
-    seen: set[tuple[int, int]] = set()
-    allocated = entries = 0
-    for directory, names, filenames in os.walk(root, followlinks=False):
-        for name in [*names, *filenames]:
-            entries += 1
-            try:
-                status = os.lstat(os.path.join(directory, name))
-            except OSError:
-                continue
-            if (status.st_dev, status.st_ino) not in seen:
-                seen.add((status.st_dev, status.st_ino))
-                allocated += status.st_blocks * 512
-    return allocated, entries
-
-
 def tree_digest(root: Path) -> str:
     result = hashlib.sha256()
     for directory, names, filenames in os.walk(root, followlinks=False):

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import base64
+import contextlib
 import hashlib
 import json
 import os
@@ -98,21 +99,82 @@ def utc_now() -> str:
     return datetime.now(UTC).isoformat()
 
 
-def disk_usage(root: Path) -> tuple[int, int]:
-    """Return the allocated bytes and entry count under one tree, without following links."""
+def disk_usage(root: Path) -> tuple[int, int, list[str]]:
+    """Return allocated bytes, entry count, and unreadable paths under one tree.
+
+    Links are not followed and each inode counts once. A directory the walk cannot
+    read hides what it holds, so callers treat any unreadable path as a breach.
+    """
     seen: set[tuple[int, int]] = set()
+    unreadable: list[str] = []
     allocated = entries = 0
-    for directory, names, filenames in os.walk(root, followlinks=False):
+
+    def refuse(error: OSError) -> None:
+        unreadable.append(str(error.filename))
+
+    for directory, names, filenames in os.walk(root, onerror=refuse, followlinks=False):
         for name in [*names, *filenames]:
             entries += 1
             try:
                 status = os.lstat(os.path.join(directory, name))
             except OSError:
+                unreadable.append(os.path.join(directory, name))
                 continue
             if (status.st_dev, status.st_ino) not in seen:
                 seen.add((status.st_dev, status.st_ino))
                 allocated += status.st_blocks * 512
-    return allocated, entries
+    return allocated, entries, unreadable
+
+
+# Sums the blocks of files that container processes hold open after deleting them, which
+# no directory walk can see. A live process whose descriptors cannot be listed hides
+# them, which counts as a breach.
+OPEN_DELETED_PROGRAM = r"""
+total=0; hidden=0
+for d in /proc/[0-9]*; do
+  state=$(cut -d' ' -f3 "$d/stat" 2>/dev/null) || continue
+  [ -z "$state" ] || [ "$state" = Z ] && continue
+  if ! ls "$d/fd" >/dev/null 2>&1; then [ -d "$d" ] && hidden=1; continue; fi
+  for f in "$d"/fd/*; do
+    case "$(readlink "$f" 2>/dev/null)" in
+      *" (deleted)") total=$((total + $(stat -L -c %b "$f" 2>/dev/null || echo 0)));;
+    esac
+  done
+done
+echo "$total $hidden"
+"""
+
+
+def open_deleted_bytes(docker: str, container: str, user: str) -> tuple[int, bool]:
+    """Return the bytes held by deleted open files in one container, and whether any hide."""
+    try:
+        completed = subprocess.run(
+            [docker, "exec", "--user", user, container, "/bin/sh", "-c", OPEN_DELETED_PROGRAM],
+            capture_output=True,
+            text=True,
+            timeout=60,
+            check=False,
+        )
+        blocks, hidden = completed.stdout.split()
+        return int(blocks) * 512, hidden == "1"
+    except (ValueError, subprocess.TimeoutExpired):
+        # A container that has just exited holds nothing; one that cannot answer is
+        # measured again at the next poll.
+        return 0, False
+
+
+def remove_tree(root: Path) -> None:
+    """Remove a task tree even where the task made directories unreadable."""
+    with contextlib.suppress(OSError):
+        os.chmod(root, 0o700)
+    # A top-down walk lists each directory after its parent restored access to it.
+    for directory, names, _ in os.walk(root, followlinks=False, onerror=lambda _: None):
+        for name in names:
+            path = os.path.join(directory, name)
+            if not os.path.islink(path):
+                with contextlib.suppress(OSError):
+                    os.chmod(path, 0o700)
+    shutil.rmtree(root, ignore_errors=True)
 
 
 def tree_digest(root: Path) -> str:
@@ -183,6 +245,8 @@ def docker_run_command(config: SandboxConfig, name: str) -> list[str]:
         config.docker,
         "run",
         "--detach",
+        "--log-driver",
+        "none",
         "--name",
         name,
         "--network",
@@ -240,7 +304,9 @@ class DockerSandbox:
         per-file size limit bounds it.
         """
         while not self.watching.wait(WORKSPACE_POLL_SECONDS):
-            allocated, entries = disk_usage(self.config.workspace)
+            allocated, entries, unreadable = disk_usage(self.config.workspace)
+            deleted, hidden = open_deleted_bytes(self.config.docker, self.name, self.config.user)
+            allocated += deleted
             with self._metrics_lock:
                 self.receipt.workspace_peak_bytes = max(
                     self.receipt.workspace_peak_bytes, allocated
@@ -251,11 +317,14 @@ class DockerSandbox:
             if (
                 allocated > self.config.maximum_workspace_bytes
                 or entries > self.config.maximum_workspace_entries
+                or unreadable
+                or hidden
             ):
                 self.receipt.workspace_budget_exceeded = (
-                    f"{allocated} bytes and {entries} entries exceed "
-                    f"{self.config.maximum_workspace_bytes} bytes or "
-                    f"{self.config.maximum_workspace_entries} entries"
+                    f"{allocated} bytes ({deleted} deleted but open) and {entries} entries "
+                    f"against {self.config.maximum_workspace_bytes} bytes and "
+                    f"{self.config.maximum_workspace_entries} entries; unreadable paths "
+                    f"{unreadable[:3]}; hidden descriptors {hidden}"
                 )
                 self.halted.set()
                 self._run([self.config.docker, "kill", self.name])

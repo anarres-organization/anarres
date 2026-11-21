@@ -365,13 +365,18 @@ class ScoringTest(unittest.TestCase):
                 "import pathlib, sys, time; "
                 "pathlib.Path(sys.argv[1], 'fill').write_bytes(b'x' * 300000); time.sleep(60)"
             )
+            no_containers = subprocess.CompletedProcess([], 0, "", "")
             with (
                 mock.patch.object(PROBE, "GRADER_DISK_BYTES", 100_000),
                 mock.patch.object(PROBE, "GRADER_DISK_POLL_SECONDS", 0.05),
+                mock.patch.object(PROBE.subprocess, "run", return_value=no_containers),
             ):
                 started = time.monotonic()
                 completed, exceeded = PROBE.run_with_disk_budget(
-                    [sys.executable, "-c", program, str(watched)], dict(os.environ), watched
+                    [sys.executable, "-c", program, str(watched)],
+                    dict(os.environ),
+                    watched,
+                    "label",
                 )
         self.assertLess(time.monotonic() - started, 30)
         self.assertIsNotNone(exceeded)
@@ -408,6 +413,10 @@ class ScoringTest(unittest.TestCase):
                 "attribute app_delab"
             ],
             ('def s := s!"{(by_elab pure (Lean.mkConst ``True) : Nat)}"',): ["by_elab"],
+            ('def e : TermElabM Unit := throwError "{(by run_tac pure (); exact 0 : Nat)}"',): [
+                "run_tac"
+            ],
+            ('def t := trace[Meta.debug] "{(by run_tac pure (); exact 0 : Nat)}"',): ["run_tac"],
             ("def c := '\"'", "#eval 1"): ["#eval"],
             ('def «a"b» := 1', "#eval 1"): ["#eval"],
             ('def r := r#"-- "#', "#eval 1"): ["#eval"],
@@ -442,6 +451,8 @@ class ScoringTest(unittest.TestCase):
         self.assertIn('--mount "type=bind,src=$here,dst=$here,readonly"', text)
         self.assertIn('--mount "type=bind,src=$here/.lake,dst=$here/.lake"', text)
         self.assertEqual(text.count("--mount"), 2)
+        self.assertIn("--log-driver none", text)
+        self.assertIn(f"head -c {PROBE.GRADER_OUTPUT_BYTES}", text)
         self.assertIn(f"{PROBE.GRADER_LAKE_SECONDS}s lake", text)
         self.assertLess(PROBE.GRADER_LAKE_SECONDS, PROBE.VERO_LAKE_SECONDS)
         self.assertNotIn("--user 0:0", text)

@@ -162,6 +162,31 @@ KERNEL_SKIP_PROOF = (
     "  exact absurd (h.symm.trans (anarresSpin_zero 10)) (by decide)\n"
 )
 
+# Ways a task could fill its host workspace: plain files, a directory it makes unreadable
+# to the walk, and files it deletes while holding them open.
+DISK_SCENARIOS = {
+    "disk": (
+        "i=0; while [ $i -lt {fills} ]; do "
+        "head -c {file_bytes} /dev/zero > .anarres-fill-$i || exit 3; i=$((i+1)); done"
+    ),
+    "hidden": (
+        "mkdir .anarres-hidden && head -c 1048576 /dev/zero > .anarres-hidden/x "
+        "&& chmod 000 .anarres-hidden && sleep 120"
+    ),
+    "unlinked": (
+        "setsid python3 -c 'import os, time\n"
+        "handles = []\n"
+        "for i in range({fills}):\n"
+        '    handle = open(f".anarres-open-{{i}}", "wb")\n'
+        '    os.unlink(f".anarres-open-{{i}}")\n'
+        "    for _ in range(1024):\n"
+        "        handle.write(bytes({file_bytes} // 1024))\n"
+        "    handle.flush()\n"
+        "    handles.append(handle)\n"
+        "time.sleep(600)' > /dev/null 2>&1 < /dev/null & sleep 280"
+    ),
+}
+
 # Model code that fills the grading build during elaboration; the grader's disk budget
 # must stop it and record an integrity failure.
 GRADING_DISK_PROGRAM = """#eval show IO Unit from do
@@ -171,6 +196,24 @@ GRADING_DISK_SHELL = (
     "i=0; while [ $i -lt {fills} ]; do "
     "head -c 1073741824 /dev/zero > .lake/anarres-fill-$i || exit 3; i=$((i+1)); done"
 )
+
+GRADING_HIDDEN_PROGRAM = GRADING_DISK_PROGRAM.format(
+    shell="mkdir -p .lake/anarres-hidden && head -c 1048576 /dev/zero > .lake/anarres-hidden/x "
+    "&& chmod 000 .lake/anarres-hidden && sleep 60"
+)
+GRADING_UNLINKED_PROGRAM = """#eval show IO Unit from do
+  let chunk := ByteArray.mk (Array.replicate 1048576 0)
+  let mut handles : Array IO.FS.Handle := #[]
+  for i in [0:{files}] do
+    let path := ".lake/anarres-open-" ++ toString i
+    let handle ← IO.FS.Handle.mk path .write
+    IO.FS.removeFile path
+    for _ in [0:1024] do
+      handle.write chunk
+    handle.flush
+    handles := handles.push handle
+  IO.sleep 120000
+"""
 
 
 NETWORK_PROBE = "import socket; socket.create_connection(('1.1.1.1', 443), 2)"
@@ -679,6 +722,8 @@ def control_container(
         docker,
         "run",
         "--rm",
+        "--log-driver",
+        "none",
         "--network",
         network,
         "--read-only",
@@ -920,10 +965,10 @@ def main() -> None:
     ).stdout.strip()
     emulated = bool(image_arch) and image_arch != server_arch
 
-    print(f"Materializing five independent {task_id} tasks...")
+    print(f"Materializing {4 + len(DISK_SCENARIOS)} independent {task_id} tasks...")
     materializations: dict[str, dict[str, Any]] = {}
     workspaces: dict[str, Path] = {}
-    for role in ("a", "b", "c", "disk", "grader"):
+    for role in ("a", "b", "c", *DISK_SCENARIOS, "grader"):
         directory = work / f"materialize-{role}"
         workspace = probe.materialize_sandbox(
             vero_root,
@@ -1001,6 +1046,8 @@ def main() -> None:
             "message_queues_read_only": (host.get("Tmpfs") or {})
             .get("/dev/mqueue", "")
             .startswith("ro,"),
+            # A container log is host disk that no workspace budget watches.
+            "container_log_disabled": (host.get("LogConfig") or {}).get("Type") == "none",
         }
         extra_mounts = undeclared_mounts(layout["mounts"])
         results.append(
@@ -1262,43 +1309,55 @@ def main() -> None:
             "command_timeout_enforced": timed_out == -32001,
         }
         # The workspace is a host bind mount, so only the server's disk budget bounds it.
-        # A sandbox of its own fills it past the route's budget in maximum-size files.
-        disk = RouteSandbox(
-            role="disk",
-            workspace=workspaces["disk"],
-            directory=work / "sandbox-disk",
-            image=args.image,
-            vero_python=args.vero_python,
-            inference_config_digest=inference_digest,
-            environment=environment,
-            task_id=task_id,
-        )
-        disk.wait_ready()
-        fills = probe.SANDBOX_WORKSPACE_BYTES // probe.SANDBOX_FILE_BYTES + 4
-        fill = disk.execute(
-            f"i=0; while [ $i -lt {fills} ]; do "
-            f"head -c {probe.SANDBOX_FILE_BYTES} /dev/zero > .anarres-fill-$i || exit 3; "
-            "i=$((i+1)); done",
-            timeout=290,
-        )
-        refused = disk.execute("true").get("error", {}).get("code")
-        disk_outlived = disk.terminate()
-        disk_receipt = read_json(disk.receipt_path)
-        shutil.rmtree(workspaces["disk"], ignore_errors=True)
+        # Each scenario gets a sandbox of its own and tries one way past the budget.
+        budget = {}
+        for role, command in DISK_SCENARIOS.items():
+            sandbox = RouteSandbox(
+                role=role,
+                workspace=workspaces[role],
+                directory=work / f"sandbox-{role}",
+                image=args.image,
+                vero_python=args.vero_python,
+                inference_config_digest=inference_digest,
+                environment=environment,
+                task_id=task_id,
+            )
+            sandbox.wait_ready()
+            stopped = sandbox.execute(
+                command.format(
+                    fills=probe.SANDBOX_WORKSPACE_BYTES // probe.SANDBOX_FILE_BYTES + 4,
+                    file_bytes=probe.SANDBOX_FILE_BYTES,
+                ),
+                timeout=290,
+            )
+            refused = sandbox.execute("true").get("error", {}).get("code")
+            outlived = sandbox.terminate()
+            receipt = read_json(sandbox.receipt_path)
+            probe.remove_tree(workspaces[role])
+            budget[role] = {
+                "stopped": stopped.get("error", {}).get("code") == probe.WORKSPACE_BUDGET_ERROR
+                and bool(receipt.get("workspace_budget_exceeded")),
+                "later_calls_refused": refused == probe.WORKSPACE_BUDGET_ERROR,
+                "cleaned_up": receipt.get("container_removed") is True
+                and not outlived
+                and not receipt.get("infrastructure_errors"),
+                "peak_bytes": receipt.get("workspace_peak_bytes"),
+                "reason": receipt.get("workspace_budget_exceeded"),
+                "workspace_removed": not workspaces[role].exists(),
+            }
         overshoot = 4 * probe.SANDBOX_FILE_BYTES
         limits |= {
-            "workspace_budget_stopped_the_sandbox": bool(
-                disk_receipt.get("workspace_budget_exceeded")
-            )
-            and fill.get("error", {}).get("code") == probe.WORKSPACE_BUDGET_ERROR,
-            "later_calls_refused": refused == probe.WORKSPACE_BUDGET_ERROR,
-            "workspace_peak_bounded": probe.SANDBOX_WORKSPACE_BYTES
-            < disk_receipt.get("workspace_peak_bytes", 0)
-            <= probe.SANDBOX_WORKSPACE_BYTES + overshoot,
-            "disk_sandbox_cleaned_up": disk_receipt.get("container_removed") is True
-            and not disk_outlived
-            and not disk_receipt.get("infrastructure_errors"),
+            f"workspace_budget_{role}": record["stopped"]
+            and record["later_calls_refused"]
+            and record["cleaned_up"]
+            and record["workspace_removed"]
+            for role, record in budget.items()
         }
+        limits["workspace_peak_bounded"] = (
+            probe.SANDBOX_WORKSPACE_BYTES
+            < (budget["disk"]["peak_bytes"] or 0)
+            <= probe.SANDBOX_WORKSPACE_BYTES + overshoot
+        )
         results.append(
             outcome(
                 "resource_limits",
@@ -1311,8 +1370,7 @@ def main() -> None:
                     "workspace_budget": {
                         "bytes": probe.SANDBOX_WORKSPACE_BYTES,
                         "entries": probe.SANDBOX_WORKSPACE_ENTRIES,
-                        "peak_bytes": disk_receipt.get("workspace_peak_bytes"),
-                        "reason": disk_receipt.get("workspace_budget_exceeded"),
+                        "scenarios": budget,
                     },
                 },
             )
@@ -1630,6 +1688,20 @@ def main() -> None:
                 "expected": {"integrity_violation"},
                 "enforce_integrity": False,
             },
+            "grading_disk_hidden": {
+                "slots": {"global_aux": GRADING_HIDDEN_PROGRAM},
+                "expected": {"integrity_violation"},
+                "enforce_integrity": False,
+            },
+            "grading_disk_unlinked": {
+                "slots": {
+                    "global_aux": GRADING_UNLINKED_PROGRAM.format(
+                        files=probe.GRADER_DISK_BYTES // 1024**3 + 4
+                    )
+                },
+                "expected": {"integrity_violation"},
+                "enforce_integrity": False,
+            },
             "elaboration_command_rejected": {
                 "slots": {
                     "global_aux": FORGED_AXIOM_REPORT.format(definition=accepted_definition),
@@ -1742,10 +1814,14 @@ def main() -> None:
                 "as_expected"
             ],
             "unchecked_kernel_proof_rejected": grader_runs["kernel_check_skipped"]["as_expected"],
-            "grading_disk_budget_enforced": grader_runs["grading_disk_exhaustion"]["as_expected"]
-            and any(
-                "disk budget" in violation
-                for violation in grader_runs["grading_disk_exhaustion"]["integrity_violations"]
+            "grading_disk_budget_enforced": all(
+                grader_runs[name]["as_expected"]
+                and any("disk budget" in v for v in grader_runs[name]["integrity_violations"])
+                for name in (
+                    "grading_disk_exhaustion",
+                    "grading_disk_hidden",
+                    "grading_disk_unlinked",
+                )
             ),
             "no_grader_containers_remain": not remaining_graders,
         }
