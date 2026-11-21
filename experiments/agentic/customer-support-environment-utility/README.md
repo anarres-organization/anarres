@@ -241,8 +241,7 @@ vllm serve Qwen/Qwen3-32B \
   --host 127.0.0.1 \
   --port 8000 \
   --dtype bfloat16 \
-  --max-model-len 32768 \
-  --default-chat-template-kwargs '{"enable_thinking":false}'
+  --max-model-len 32768
 ```
 
 In the process that runs the scorer, identify the endpoint and exact model
@@ -281,6 +280,8 @@ rejects held-out task IDs, records local token usage and latency, and binds each
 score to the source trajectory, task definition, benchmark prompts, model
 revision, seed, and decoding settings. It can safely resume when existing
 sidecars are byte-identical and refuses to replace different results.
+Each request disables Qwen's thinking mode through vLLM's versioned chat-template
+arguments, and the setting is included in the recorded judge contract.
 
 The local judge remains unqualified until its frozen calibration panel is also
 scored by the locked GPT-5.4 judge, disagreements are audited, and an acceptance
