@@ -149,7 +149,7 @@ FORGED_AXIOM_INITIALIZER = """axiom anarres_forged_axiom : False
 """
 
 # A false proof accepted only because kernel checking was switched off at build time.
-# Replaying it is slow, so the checker must fail it within its budget, still scored.
+# Replay sends it to the kernel, which rejects it.
 KERNEL_SKIP_AUX = """set_option debug.skipKernelTC true
 def anarresSpin : Nat → Nat
   | 0 => 0
@@ -158,8 +158,8 @@ theorem anarresSpin_zero (n : Nat) : anarresSpin n = 0 := by
   induction n <;> simp [anarresSpin, *]
 """
 KERNEL_SKIP_PROOF = (
-    "  have h : anarresSpin 50000000 = 1 := by decide +kernel\n"
-    "  exact absurd (h.symm.trans (anarresSpin_zero 50000000)) (by decide)\n"
+    "  have h : anarresSpin 10 = 1 := by decide +kernel\n"
+    "  exact absurd (h.symm.trans (anarresSpin_zero 10)) (by decide)\n"
 )
 
 

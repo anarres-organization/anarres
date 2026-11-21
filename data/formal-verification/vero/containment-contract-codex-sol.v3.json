@@ -77,7 +77,7 @@
       "response_tokens": 16384,
       "cumulative_output_tokens": 200000,
       "wall_rule": "hard deadline: model requests and tool commands are bounded by the remaining wall budget, and a request still pending at the deadline ends the attempt with wall_time_limit",
-      "scoring_rule": "infrastructure failures are unscored and excluded from every aggregate. Integrity failures (task links or special files outside the task, or slot bodies that run code during elaboration) are never graded and are reported separately; the repeated-measurement protocol must state how they enter its estimates before any attempt. Malformed tool arguments are returned to the policy as tool errors."
+      "scoring_rule": "infrastructure failures are unscored and excluded from every aggregate. Integrity failures (task links or special files outside the task, or slot bodies that run code during elaboration) are never graded and are reported separately; the repeated-measurement protocol must state how they enter its estimates before any attempt. A Vero-passed specification whose trusted check does not finish after one retry with a larger budget is recorded as check_incomplete, and a codeproof sat claim, which rests on Vero's uncovered joint rerender, as sat_unverified; both are reported separately, never pooled as passes, and the repeated-measurement protocol must state how they enter its estimates. Malformed tool arguments are returned to the policy as tool errors."
     },
     "grading": {
       "location": "fresh Vero evaluation directory on the controller host",

@@ -15,6 +15,7 @@ import contextlib
 import hashlib
 import json
 import os
+import re
 import secrets
 import shlex
 import shutil
@@ -48,12 +49,41 @@ SANDBOX_CPUS = 4
 SANDBOX_PIDS = 256
 SANDBOX_FILE_BYTES = 1024 * 1024 * 1024
 SANDBOX_METHODS = ("sandbox/execute", "sandbox/readFile")
-GRADER_SECONDS = 3600
 VERO_LAKE_SECONDS = 300
+# Above the sum of Vero's own Lake budgets for every development benchmark (two builds,
+# up to thirteen axiom-check files twice, and the joint rerender at 300 s each), so a
+# slow or rebuilding submission fails inside Vero rather than timing out the stage.
+GRADER_SECONDS = 3 * 3600
 # Below Vero's own Lake timeout, so a grading container never outlives its stage.
 GRADER_LAKE_SECONDS = VERO_LAKE_SECONDS - 10
 # Slot bodies may not run code while Lean elaborates them: such code could print a
 # forged axiom report or rewrite files that later grading stages compile.
+# Attributes whose handlers are toolchain code. Any other attribute can register model
+# code with the elaborator, delaborator, or compiler, so a slot body may not use it.
+ALLOWED_ATTRIBUTES = (
+    "simp",
+    "reducible",
+    "irreducible",
+    "semireducible",
+    "inline",
+    "noinline",
+    "specialize",
+    "instance",
+    "ext",
+    "grind",
+    "induction_eliminator",
+    "cases_eliminator",
+    "match_pattern",
+    "elab_as_elim",
+    "refl",
+    "symm",
+    "trans",
+    "congr",
+    "norm_cast",
+    "push_cast",
+    "default_instance",
+    "wf_preprocess",
+)
 ELABORATION_PATTERN = (
     r"(?<![\w'.])(?:#[A-Za-z_]+!?|run_cmd|run_elab|run_meta|run_tac|initialize|"
     r"builtin_initialize|elab|elab_rules|macro|macro_rules|syntax|declare_syntax_cat|"
@@ -75,8 +105,10 @@ ATTEMPTS_PER_REPO_MODE = 1
 
 SANDBOX_SCRIPT = Path(__file__).resolve().parent / "serve_vibe_sandbox.py"
 AXIOM_CHECKER = Path(__file__).resolve().parent / "AnarresAxiomCheck.lean"
-# One axiom-check file's replay gets the budget Vero gives its compilation.
+# One axiom-check file's replay gets the budget Vero gives its compilation, and a
+# check that does not finish gets one more run with three times that budget.
 AXIOM_CHECK_SECONDS = VERO_LAKE_SECONDS
+AXIOM_CHECK_RETRY_SECONDS = 3 * VERO_LAKE_SECONDS
 
 
 # ── Tool definitions for OpenAI Responses API ───────────────────
@@ -597,6 +629,23 @@ print("OK", result.sandbox_dir)
     return sandbox_dir
 
 
+def integrity_violations(slots: list[tuple[str, list[str]]]) -> list[str]:
+    """Name the slot bodies that could run model code while Lean builds or loads them."""
+    pattern = re.compile(ELABORATION_PATTERN)
+    attributes = re.compile(r"@\[([^\]]*)\]|attribute\s*\[([^\]]*)\]")
+    found = []
+    for file, body_lines in slots:
+        body = re.sub(r"/-.*?-/", "", "\n".join(body_lines), flags=re.S)
+        code = "\n".join(line.split("--", 1)[0] for line in body.splitlines())
+        found += [f"{file}: {match.group(0)}" for match in pattern.finditer(code)]
+        for group in attributes.findall(code):
+            for entry in "".join(group).split(","):
+                words = [w for w in entry.replace("-", " ").split() if w not in ("local", "scoped")]
+                if words and words[0] not in ALLOWED_ATTRIBUTES:
+                    found.append(f"{file}: attribute {words[0]}")
+    return sorted(set(found))
+
+
 class GradeInfrastructureError(RuntimeError):
     """Raised when fresh grading could not run; the attempt then stays unscored."""
 
@@ -738,14 +787,11 @@ mode = "{mode}"
 
 bench = Benchmark(benchmark_dir)
 artifact = extract(source_dir, bench, mode=mode)
-pattern = re.compile({json.dumps(ELABORATION_PATTERN)})
-violations = []
-for slot in [*artifact.slots, *artifact.extras] if {enforce_integrity} else []:
-    body = re.sub(r"/-.*?-/", "", "\\n".join(slot.body_lines), flags=re.S)
-    for line in body.splitlines():
-        match = pattern.search(line.split("--", 1)[0])
-        if match:
-            violations.append(slot.file + ": " + match.group(0))
+sys.path.insert(0, "{Path(__file__).resolve().parent}")
+from run_codex_sol_probe import integrity_violations
+violations = integrity_violations(
+    [(slot.file, slot.body_lines) for slot in [*artifact.slots, *artifact.extras]]
+) if {enforce_integrity} else []
 if violations:
     print(json.dumps({{"integrity_violations": sorted(set(violations))}}))
     sys.exit(0)
@@ -843,16 +889,38 @@ def library_directories(sandbox: Path) -> list[str]:
     return [str(path) for path in found if path.is_dir()]
 
 
+def submission_libraries(submission: Path, reference: Path) -> list[str]:
+    """Return the submission's library directories at the reference's own paths.
+
+    The submission's ``.lake`` is writable by model code during its build, so only
+    directories the untouched build also has, reached without a symbolic link and
+    named without a mount separator, are ever mounted into the checker.
+    """
+    accepted = []
+    for library in library_directories(reference):
+        relative = Path(library).relative_to(reference)
+        candidate = submission / relative
+        prefixes = [submission / Path(*relative.parts[: n + 1]) for n in range(len(relative.parts))]
+        if (
+            "," not in str(candidate)
+            and not any(prefix.is_symlink() for prefix in prefixes)
+            and candidate.is_dir()
+            and candidate.resolve().is_relative_to(submission.resolve())
+        ):
+            accepted.append(str(candidate))
+    return accepted
+
+
 def run_axiom_check(
     eval_dir: Path, request: dict[str, Any], docker_image: str, label: str
 ) -> dict[str, dict[str, Any]]:
     """Run the trusted checker once per axiom-check file and return one verdict per theorem.
 
     The checker reads both builds' compiled libraries as data and never imports a model
-    module, so no model code runs while it decides. A check the submission's own
-    libraries prevent from finishing fails those theorems and stays scored; only a
-    container that cannot start or a reference build that cannot be read is an
-    infrastructure failure, since a submission can cause neither.
+    module, so no model code runs while it decides. A check that does not finish
+    twice is recorded as incomplete, which grading reports separately from both a
+    failed proof and an infrastructure failure. A container that cannot start or a
+    reference build that cannot be read is an infrastructure failure.
     """
     check_dir = eval_dir / "axiom-check"
     check_dir.mkdir(parents=True, exist_ok=True)
@@ -888,8 +956,8 @@ def run_axiom_check(
     ]
     for mount in mounts:
         base += ["--mount", f"type=bind,src={mount},dst={mount},readonly"]
-    verdicts: dict[str, dict[str, Any]] = {}
-    for index, group in enumerate(request["groups"]):
+
+    def attempt(index: int, group: dict[str, Any], seconds: int) -> list[dict[str, Any]] | None:
         group_request = {
             key: request[key]
             for key in ("submission_libraries", "reference_libraries", "allowed_axioms")
@@ -902,7 +970,7 @@ def run_axiom_check(
             docker_image,
             "timeout",
             "--kill-after=10s",
-            f"{AXIOM_CHECK_SECONDS}s",
+            f"{seconds}s",
             "lean",
             "--run",
             str(check_dir / AXIOM_CHECKER.name),
@@ -911,7 +979,7 @@ def run_axiom_check(
         ]
         try:
             completed = subprocess.run(
-                command, capture_output=True, text=True, timeout=AXIOM_CHECK_SECONDS + 120
+                command, capture_output=True, text=True, timeout=seconds + 120
             )
         except subprocess.TimeoutExpired as error:
             raise GradeInfrastructureError("axiom checker container did not stop") from error
@@ -926,15 +994,20 @@ def run_axiom_check(
             )
         expected = f"ANARRES-AXIOM-CHECK-COMPLETE {nonce} {len(group['theorems'])}"
         if completed.returncode == 0 and lines and lines[-1] == expected:
-            reported = [json.loads(line) for line in lines[:-1]]
-        else:
-            reason = (
-                "checker exceeded its budget"
-                if completed.returncode == 124
-                else f"checker did not complete (status {completed.returncode})"
-            )
+            return [json.loads(line) for line in lines[:-1]]
+        return None
+
+    verdicts: dict[str, dict[str, Any]] = {}
+    for index, group in enumerate(request["groups"]):
+        reported = attempt(index, group, AXIOM_CHECK_SECONDS)
+        if reported is None:
+            # A slow host or a transient fault should not decide a theorem, so the check
+            # gets one more run with a larger budget before it is recorded as incomplete.
+            reported = attempt(index, group, AXIOM_CHECK_RETRY_SECONDS)
+        if reported is None:
             reported = [
-                {"theorem": name, "ok": False, "reason": reason} for name in group["theorems"]
+                {"theorem": name, "ok": False, "incomplete": True, "reason": "check did not finish"}
+                for name in group["theorems"]
             ]
         names = [verdict["theorem"] for verdict in reported]
         if sorted(names) != sorted(group["theorems"]):
@@ -957,39 +1030,53 @@ def apply_axiom_check(
     passed = [spec for spec in grade["specs"] if spec["status"] == "passed"]
     verdicts: dict[str, dict[str, Any]] = {}
     if passed:
+        reference = eval_dir / "reference" / "eval_sandbox"
         request = {
-            "submission_libraries": library_directories(eval_dir / "eval_sandbox"),
-            "reference_libraries": library_directories(eval_dir / "reference" / "eval_sandbox"),
+            "submission_libraries": submission_libraries(eval_dir / "eval_sandbox", reference),
+            "reference_libraries": library_directories(reference),
             "groups": grade["groups"],
             "allowed_axioms": grade["allowed_axioms"],
         }
         verdicts = run_axiom_check(eval_dir, request, docker_image, label)
 
-    def unconfirmed(spec: dict[str, Any]) -> str | None:
+    def unconfirmed(spec: dict[str, Any]) -> tuple[str, str] | None:
         filled = [kind for kind in spec["kinds"] if kind["filled"]]
         # Vero passes a specification only when exactly one kind is filled.
         if len(filled) != 1:
-            return "Vero passed a specification without exactly one filled kind"
+            return "axiom_recheck_failed", "Vero passed without exactly one filled kind"
         if filled[0]["kind"] == "sat":
-            return "a sat claim rests on Vero's joint rerender, which the checker does not cover"
+            # A grader limit, not a model failure, so it is reported apart from both.
+            return "sat_unverified", "a sat claim rests on Vero's uncovered joint rerender"
         verdict = verdicts.get(filled[0]["theorem"])
         if verdict is None:
-            return "the filled theorem is not in any axiom-check file"
-        return None if verdict["ok"] else verdict.get("reason", "rejected")
+            return "axiom_recheck_failed", "the filled theorem is in no axiom-check file"
+        if verdict["ok"]:
+            return None
+        if verdict.get("incomplete"):
+            return "check_incomplete", verdict["reason"]
+        return "axiom_recheck_failed", verdict.get("reason", "rejected")
 
     specs, downgraded, reasons = [], [], {}
     for spec in grade["specs"]:
         status = spec["status"]
-        if status == "passed" and (reason := unconfirmed(spec)) is not None:
-            status = "axiom_recheck_failed"
+        if status == "passed" and (outcome := unconfirmed(spec)) is not None:
+            status = outcome[0]
             downgraded.append(spec["spec"])
-            reasons[spec["spec"]] = reason
+            reasons[spec["spec"]] = outcome[1]
         specs.append({"module": spec["module"], "spec": spec["spec"], "status": status})
+
+    def count(status: str) -> int:
+        return sum(spec["status"] == status for spec in specs)
+
     return {
         "total_specs": grade["total_specs"],
-        "passed_specs": sum(spec["status"] == "passed" for spec in specs),
+        "passed_specs": count("passed"),
         "unfilled_specs": grade["unfilled_specs"],
-        "failed_specs": grade["failed_specs"] + len(downgraded),
+        "failed_specs": grade["failed_specs"] + count("axiom_recheck_failed"),
+        # Neither a pass nor a model failure; the measurement protocol decides how
+        # these enter its estimates.
+        "check_incomplete_specs": count("check_incomplete"),
+        "sat_unverified_specs": count("sat_unverified"),
         "build_ok": grade["build_ok"],
         "vero_passed_specs": grade["vero_passed_specs"],
         "axiom_recheck": {
@@ -1333,6 +1420,10 @@ def summarize(results: list[AttemptResult]) -> dict[str, Any]:
         ),
         "total_passed_specs": total_passed,
         "total_specs": total_specs,
+        # Specifications neither passed nor failed: the checker could not finish, or a
+        # sat claim rests on Vero's uncovered joint rerender. Reported, never pooled.
+        "check_incomplete_specs": sum(r.grade.get("check_incomplete_specs", 0) for r in scored),
+        "sat_unverified_specs": sum(r.grade.get("sat_unverified_specs", 0) for r in scored),
         "repos_with_nonzero_coverage": repos_with_nonzero,
         "pooled_strict_rate": None if pooled_rate is None else round(pooled_rate, 4),
         "screen_pass": (
@@ -1355,6 +1446,10 @@ def summarize(results: list[AttemptResult]) -> dict[str, Any]:
                 "stop_reason": r.stop_reason,
                 "passed_specs": r.grade["passed_specs"] if r.scored else None,
                 "total_specs": r.grade["total_specs"] if r.scored else None,
+                "check_incomplete_specs": r.grade.get("check_incomplete_specs")
+                if r.scored
+                else None,
+                "sat_unverified_specs": r.grade.get("sat_unverified_specs") if r.scored else None,
                 "infrastructure_errors": r.infrastructure_errors,
                 "integrity_errors": r.integrity_errors,
             }

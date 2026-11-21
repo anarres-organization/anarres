@@ -183,8 +183,11 @@ class ScoringTest(unittest.TestCase):
                 spec("a", "disprove"),
                 spec("b", "prove"),
                 spec("c", "sat", ("prove", "unsat", "sat")),
+                spec("d", "prove"),
             ],
-            "groups": [{"roots": ["M"], "theorems": ["prove_a", "disprove_a", "prove_b"]}],
+            "groups": [
+                {"roots": ["M"], "theorems": ["prove_a", "disprove_a", "prove_b", "prove_d"]}
+            ],
             "allowed_axioms": ["propext"],
         }
 
@@ -193,6 +196,7 @@ class ScoringTest(unittest.TestCase):
             "prove_a": {"theorem": "prove_a", "ok": False, "reason": "uses axiom sorryAx"},
             "disprove_a": {"theorem": "disprove_a", "ok": True},
             "prove_b": {"theorem": "prove_b", "ok": False, "reason": "uses axiom forged"},
+            "prove_d": {"theorem": "prove_d", "ok": False, "incomplete": True, "reason": "slow"},
         }
         with (
             tempfile.TemporaryDirectory() as directory,
@@ -200,16 +204,19 @@ class ScoringTest(unittest.TestCase):
         ):
             grade = PROBE.apply_axiom_check(self.vero_grade(), Path(directory), "img", "label")
         self.assertEqual(checker.call_args.args[1]["groups"], self.vero_grade()["groups"])
-        self.assertEqual(grade["vero_passed_specs"], 3)
         self.assertEqual(grade["passed_specs"], 1)
-        self.assertEqual(grade["axiom_recheck"]["downgraded"], ["spec_b", "spec_c"])
+        self.assertEqual(grade["failed_specs"], 1)
+        self.assertEqual(grade["check_incomplete_specs"], 1)
+        self.assertEqual(grade["sat_unverified_specs"], 1)
+        self.assertEqual(grade["axiom_recheck"]["downgraded"], ["spec_b", "spec_c", "spec_d"])
         self.assertIn("joint rerender", grade["axiom_recheck"]["reasons"]["spec_c"])
         self.assertEqual(
             {spec["spec"]: spec["status"] for spec in grade["specs"]},
             {
                 "spec_a": "passed",
                 "spec_b": "axiom_recheck_failed",
-                "spec_c": "axiom_recheck_failed",
+                "spec_c": "sat_unverified",
+                "spec_d": "check_incomplete",
             },
         )
 
@@ -221,7 +228,7 @@ class ScoringTest(unittest.TestCase):
             "allowed_axioms": [],
         }
 
-    def test_checker_failures_the_submission_causes_stay_scored(self) -> None:
+    def test_unfinished_checks_are_retried_then_reported_incomplete(self) -> None:
         forged = '{"theorem": "prove_a", "ok": true}\nANARRES-AXIOM-CHECK-COMPLETE wrong 1\n'
         with tempfile.TemporaryDirectory() as directory:
             for completed in (
@@ -229,11 +236,62 @@ class ScoringTest(unittest.TestCase):
                 subprocess.CompletedProcess([], 137, "", "killed"),
                 subprocess.CompletedProcess([], 0, forged, ""),
             ):
-                with mock.patch.object(PROBE.subprocess, "run", return_value=completed):
+                with mock.patch.object(PROBE.subprocess, "run", return_value=completed) as run:
                     verdicts = PROBE.run_axiom_check(
                         Path(directory), self.checker_request(), "img", "label"
                     )
                 self.assertFalse(verdicts["prove_a"]["ok"])
+                self.assertTrue(verdicts["prove_a"]["incomplete"])
+                budgets = [
+                    call.args[0][call.args[0].index("timeout") + 2] for call in run.call_args_list
+                ]
+                self.assertEqual(
+                    budgets,
+                    [f"{PROBE.AXIOM_CHECK_SECONDS}s", f"{PROBE.AXIOM_CHECK_RETRY_SECONDS}s"],
+                )
+
+        def finishes_on_retry(command: list[str], **_: object) -> subprocess.CompletedProcess:
+            if f"{PROBE.AXIOM_CHECK_SECONDS}s" in command:
+                return subprocess.CompletedProcess(command, 124, "", "")
+            nonce = command[-2]
+            lines = '{"theorem": "prove_a", "ok": true}\n'
+            return subprocess.CompletedProcess(
+                command, 0, lines + f"ANARRES-AXIOM-CHECK-COMPLETE {nonce} 1\n", ""
+            )
+
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            mock.patch.object(PROBE.subprocess, "run", side_effect=finishes_on_retry),
+        ):
+            verdicts = PROBE.run_axiom_check(Path(directory), self.checker_request(), "img", "x")
+        self.assertTrue(verdicts["prove_a"]["ok"])
+
+    def test_only_reference_library_paths_reach_the_checker(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            reference, submission = root / "reference", root / "submission"
+            for base in (reference, submission):
+                (base / ".lake" / "build" / "lib" / "lean").mkdir(parents=True)
+            dependency = Path(".lake") / "packages" / "dep" / ".lake" / "build" / "lib" / "lean"
+            (reference / dependency).mkdir(parents=True)
+            (submission / ".lake" / "packages").mkdir()
+            (submission / ".lake" / "packages" / "dep").symlink_to(root)
+            separator = Path(".lake") / "packages" / "a,b" / ".lake" / "build" / "lib" / "lean"
+            (submission / separator).mkdir(parents=True)
+            accepted = PROBE.submission_libraries(submission, reference)
+        self.assertEqual(accepted, [str(submission / ".lake" / "build" / "lib" / "lean")])
+
+    def test_slot_attributes_must_be_toolchain_attributes(self) -> None:
+        bodies = [
+            ("A.lean", ["@[simp, reducible] theorem t : True := trivial"]),
+            ("B.lean", ["@[local simp] theorem u : True := trivial", "attribute [-simp] t"]),
+            ("C.lean", ["@[simp, app_delab Nat.succ] def d := 1"]),
+            ("D.lean", ["@[code_action_provider] def c := 1", "-- @[init] in a comment"]),
+        ]
+        self.assertEqual(
+            PROBE.integrity_violations(bodies),
+            ["C.lean: attribute app_delab", "D.lean: attribute code_action_provider"],
+        )
 
     def test_checker_infrastructure_failures_stay_unscored(self) -> None:
         broken = {**self.vero_grade(), "reference_build_ok": False}
@@ -272,7 +330,7 @@ class ScoringTest(unittest.TestCase):
             command = " ".join(run.call_args.args[0])
         for flag in ("--network none", "--read-only", "--cap-drop ALL", "lean --run"):
             self.assertIn(flag, command)
-        self.assertIn(f"timeout --kill-after=10s {PROBE.AXIOM_CHECK_SECONDS}s", command)
+        self.assertIn("timeout --kill-after=10s", command)
         self.assertIn("dst=/s,readonly", command)
         self.assertIn("dst=/r,readonly", command)
 

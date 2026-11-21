@@ -7,10 +7,11 @@ Vero reads its axiom report from Lake output, and any model code that runs while
 model module is built or imported can forge that output. This checker never imports a
 model module. It reads the compiled `.olean` files as data, sends the target theorems
 and everything they depend on back through the kernel, computes axioms from the
-kernel-checked environment, and requires each target theorem's statement, with every
-protected definition the statement depends on, to equal a reference build of the
-untouched task. Every axiom outside the toolchain must be the reference's own
-declaration, so a model cannot redeclare a trusted axiom's name.
+kernel-checked environment, and requires each target theorem's statement, and every
+declaration its proof rests on that the reference also declares, to equal a reference
+build of the untouched task. Every axiom outside the toolchain must be the reference's
+own declaration, so a model cannot redeclare a trusted axiom's name or change what a
+trusted axiom's statement means.
 
 Usage: `lean --run AnarresAxiomCheck.lean <nonce> <request.json>`, for one Vero
 axiom-check file. The request names the submission and reference library directories,
@@ -67,10 +68,13 @@ partial def closure (constants : Std.HashMap Name ConstantInfo) (name : Name) :
   | .recInfo value => value.all.forM (closure constants)
   | _ => pure ()
 
+def closureNames (constants : Std.HashMap Name ConstantInfo) (targets : Array Name) : NameSet :=
+  let ((), names) := (targets.forM (closure constants)).run {}
+  names
+
 def restrict (constants : Std.HashMap Name ConstantInfo) (targets : Array Name) :
     Std.HashMap Name ConstantInfo :=
-  let ((), names) := (targets.forM (closure constants)).run {}
-  names.foldl (fun map name => map.insert name constants[name]!) {}
+  (closureNames constants targets).foldl (fun map name => map.insert name constants[name]!) {}
 
 /-- A reference value that uses `sorry` is a slot the model fills. -/
 def slotOwned (info : ConstantInfo) : Bool :=
@@ -106,6 +110,23 @@ partial def sameStatement (reference submission : Std.HashMap Name ConstantInfo)
   | .ctorInfo _, .ctorInfo _ | .recInfo _, .recInfo _ => pure ()
   | _, _ => throw s!"kind of {name} changed"
 
+/-- A constant the reference also declares must be unchanged, unless it is a slot. -/
+def sameConstant (expected actual : ConstantInfo) : Except String Unit := do
+  let name := expected.name
+  unless expected.levelParams == actual.levelParams && expected.type == actual.type do
+    throw s!"type of {name} changed"
+  let sameValue (e a : Expr) : Except String Unit :=
+    unless slotOwned expected || e == a do throw s!"definition of {name} changed"
+  match expected, actual with
+  | .thmInfo _, .thmInfo _ | .axiomInfo _, .axiomInfo _ | .quotInfo _, .quotInfo _
+  | .ctorInfo _, .ctorInfo _ | .recInfo _, .recInfo _ => pure ()
+  | .defnInfo e, .defnInfo a => sameValue e.value a.value
+  | .opaqueInfo e, .opaqueInfo a => sameValue e.value a.value
+  | .inductInfo e, .inductInfo a =>
+    unless e.ctors == a.ctors && e.numParams == a.numParams && e.numIndices == a.numIndices do
+      throw s!"inductive {name} changed"
+  | _, _ => throw s!"kind of {name} changed"
+
 def axiomsOf (env : Environment) (name : Name) : Array Name :=
   let (_, state) := ((CollectAxioms.collect name).run env).run {}
   state.axioms
@@ -133,6 +154,11 @@ def check (env : Environment) (reference submission : Loaded) (allowed : NameSet
       throw "theorem statement changed"
     let _ ← (expected.type.getUsedConstants.forM
       (sameStatement reference.constants submission.constants)).run {}
+    -- Everything the proof rests on that the reference also declares, including the
+    -- definitions a trusted axiom's statement mentions, must be the reference's own.
+    for used in closureNames submission.constants #[name] do
+      if let (some e, some a) := (reference.constants[used]?, submission.constants[used]?) then
+        sameConstant e a
     let axioms := axiomsOf env name
     if let some bad := axioms.find? (!allowed.contains ·) then
       throw s!"uses axiom {bad}"
