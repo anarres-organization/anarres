@@ -1,0 +1,91 @@
+{
+  "schema_version": "anarres.formal-verification-containment-contract.v2",
+  "contract_id": "vero-codex-sol-openai-containment-v2",
+  "status": "frozen_qualified",
+  "qualified": true,
+  "qualification_date": "2026-11-15",
+  "supersedes": "vero-codex-sol-openai-containment-v1",
+  "supersession_reason": "v1 image (sha256:d1c007...) was pruned; rebuilt from runtime/Dockerfile with elan at /opt/elan (world-readable) instead of /root/.elan; socket path shortened to /tmp to avoid AF_UNIX 107-byte limit",
+  "qualification_image": "sha256:c48a1075ff53f6107f8f812b5072f5b6d470e5d722b40ff3bce589b5b6015825",
+  "qualification_image_source": "data/formal-verification/vero/runtime/Dockerfile",
+  "interface": {
+    "model_provider": "openai",
+    "model_id": "gpt-5.6-sol",
+    "api": "OpenAI Responses API (/v1/responses)",
+    "reasoning_effort": "xhigh",
+    "agent_harness": "anarres/vero-codex-sol-harness",
+    "agent_harness_version": "1.1.0",
+    "sandbox_methods": [
+      "sandbox/execute",
+      "sandbox/readFile"
+    ],
+    "agent_socket_protocol_version": 2,
+    "sandbox_transport": "unix_socket_jsonrpc",
+    "socket_directory_mode": "0700",
+    "socket_mode": "0600",
+    "socket_location": "/tmp/vero-<attempt_id_prefix>"
+  },
+  "execution_boundaries": {
+    "controller": {
+      "model_facing_shell_or_file_access": false,
+      "allowed_network": "OpenAI API only (api.openai.com)",
+      "host_credentials_forwarded_to_sandbox": false,
+      "user_global_configuration_loaded": false,
+      "mcp_servers_enabled": false,
+      "hooks_enabled": false,
+      "project_plugins_enabled": false
+    },
+    "task_sandbox": {
+      "lifetime": "one scientific attempt",
+      "external_network_egress": false,
+      "docker_flags": ["--network none", "--read-only", "--cap-drop ALL", "--security-opt no-new-privileges", "--user 0:0"],
+      "writable_mounts": [
+        "one freshly materialized Vero task (world-writable before sandbox start)"
+      ],
+      "read_only_mounts": [
+        "pinned Lean toolchain at /opt/elan (world-readable)"
+      ],
+      "forbidden_inputs": [
+        "reference solutions",
+        "Vero source benchmark tree",
+        "qualification repositories",
+        "prospective repositories",
+        "host home directory",
+        "host credentials",
+        "global agent configuration",
+        "other attempt workspaces"
+      ]
+    }
+  },
+  "required_tests": [
+    {"id": "workspace_allowlist", "criterion": "only declared writable and read-only paths are visible", "status": "pass"},
+    {"id": "path_and_symlink_escape", "criterion": "absolute paths, parent traversal, and symlinks cannot expose forbidden inputs", "status": "pass"},
+    {"id": "credential_and_environment_visibility", "criterion": "host credentials and undeclared host environment variables are absent", "status": "pass"},
+    {"id": "controller_configuration_isolation", "criterion": "only the pinned Lean profile and declared built-in tools influence the controller", "status": "pass"},
+    {"id": "external_network_egress", "criterion": "DNS, public IP, metadata-service, and arbitrary TCP probes fail from the task sandbox", "status": "pass"},
+    {"id": "local_inference_separation", "criterion": "the task sandbox cannot address the OpenAI API or any local inference endpoint directly", "status": "pass"},
+    {"id": "process_tree_cleanup", "criterion": "timeout and termination remove the complete attempt process tree", "status": "pass"},
+    {"id": "resource_limits", "criterion": "wall-time, process, memory, and file-size limits are enforced and recorded", "status": "pass"},
+    {"id": "fresh_task_reset", "criterion": "pre-attempt task hashes agree and no state survives between attempts", "status": "pass"},
+    {"id": "vibe_export_completeness", "criterion": "the export records usage, tool calls, stop reason, outcome, and infrastructure failures", "status": "pass"}
+  ],
+  "development_screen": {
+    "probe_id": "vero-codex-sol-dev-screen-20261115",
+    "total_attempts": 8,
+    "successful_attempts": 8,
+    "infrastructure_errors": 0,
+    "total_passed_specs": 388,
+    "total_specs": 694,
+    "pooled_strict_rate": 0.559,
+    "repos_with_nonzero_coverage": ["arithmetic-v2", "piggybank-v2", "primepy", "verified-bitmasks"],
+    "screen_pass": true,
+    "per_repo": {
+      "piggybank-v2": {"proof": "23/23", "codeproof": "23/23"},
+      "verified-bitmasks": {"proof": "68/124", "codeproof": "92/124"},
+      "primepy": {"proof": "9/9", "codeproof": "9/9"},
+      "arithmetic-v2": {"proof": "53/191", "codeproof": "111/191"}
+    }
+  },
+  "qualification_rule": "qualified may become true only when every required test passes under the exact runtime and image recorded by the receipt",
+  "route_change_note": "v2 uses a rebuilt image from runtime/Dockerfile with world-readable elan at /opt/elan; socket placed in /tmp to stay under AF_UNIX path limit; harness version bumped to 1.1.0 for these fixes"
+}

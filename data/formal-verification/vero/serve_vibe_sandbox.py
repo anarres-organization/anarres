@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import base64
+import contextlib
 import hashlib
 import json
 import os
@@ -13,6 +14,7 @@ import secrets
 import shutil
 import signal
 import subprocess
+import tarfile
 import threading
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
@@ -52,6 +54,8 @@ class SandboxConfig:
     maximum_command_seconds: float
     maximum_output_bytes: int
     maximum_file_bytes: int
+    maximum_workspace_bytes: int = 8 * 1024**3
+    maximum_workspace_entries: int = 200_000
 
 
 @dataclass
@@ -72,6 +76,11 @@ class Receipt:
     command_timeouts: int = 0
     output_truncations: int = 0
     peak_memory_bytes: int | None = None
+    workspace_used_bytes: int | None = None
+    # Set when the final workspace could not be collected safely; the policy caused it,
+    # so it is an integrity failure of the attempt rather than an infrastructure failure.
+    workspace_collection_error: str | None = None
+    workspace_skipped: list[str] = field(default_factory=list)
     infrastructure_errors: list[str] = field(default_factory=list)
     ended_at: str | None = None
     workspace_post_sha256: str | None = None
@@ -83,6 +92,95 @@ class Receipt:
 
 def utc_now() -> str:
     return datetime.now(UTC).isoformat()
+
+
+# Archives the final workspace from inside the container. Members are chosen from their
+# metadata before any data is read: a file whose apparent size would pass the budget, a
+# path longer than a filesystem allows, too many entries, or anything but a regular file,
+# directory, or link is left behind, so a sparse file or a deep chain cannot make the
+# archive larger than the workspace limit, and a path deeper than a fixed number of
+# components is left out so extraction stays fast. What it leaves out is reported on stderr.
+COLLECT_PROGRAM = r"""
+import json, os, sys, tarfile
+root, budget, limit, longest, depth = sys.argv[1], *map(int, sys.argv[2:6])
+skipped, used, count = [], 0, 0
+archive = tarfile.open(fileobj=sys.stdout.buffer, mode="w|", format=tarfile.PAX_FORMAT)
+def admit(path):
+    global used, count
+    relative = os.path.relpath(path, root)
+    try:
+        # Names must be UTF-8 for the archive; any other name is left behind, never fatal.
+        encoded = relative.encode("utf-8")
+        info = archive.gettarinfo(path, arcname=relative)
+    except (OSError, UnicodeError, ValueError):
+        skipped.append(ascii(relative))
+        return None
+    if (len(encoded) > longest or relative.count(os.sep) >= depth
+            or not (info.isreg() or info.isdir() or info.issym())
+            or used + info.size > budget or count + 1 > limit):
+        skipped.append(relative)
+        return None
+    used, count = used + info.size, count + 1
+    return info
+for directory, names, files in os.walk(root, followlinks=False):
+    kept = []
+    for name in sorted(names):
+        info = admit(os.path.join(directory, name))
+        if info is not None:
+            archive.addfile(info)
+            if not info.issym():
+                kept.append(name)
+    names[:] = kept
+    for name in sorted(files):
+        info = admit(os.path.join(directory, name))
+        if info is None:
+            continue
+        if info.isreg():
+            try:
+                handle = open(os.path.join(directory, name), "rb")
+            except OSError:
+                skipped.append(info.name)
+                continue
+            with handle:
+                archive.addfile(info, handle)
+        else:
+            archive.addfile(info)
+archive.close()
+sys.stderr.write(json.dumps({"skipped": skipped[:50], "skipped_count": len(skipped)}) + "\n")
+"""
+# The archive cannot exceed its data budget plus headers; collection stops past either cap.
+COLLECT_HEADER_BYTES = 4096
+COLLECT_PATH_BYTES = 1024
+COLLECT_PATH_COMPONENTS = 64
+COLLECT_SECONDS = 600
+
+
+class BoundedReader:
+    """A stream that refuses to yield more than a fixed number of bytes."""
+
+    def __init__(self, stream: Any, limit: int) -> None:
+        self.stream, self.remaining = stream, limit
+
+    def read(self, size: int = -1) -> bytes:
+        chunk = self.stream.read(size if size >= 0 else 1 << 20)
+        self.remaining -= len(chunk)
+        if self.remaining < 0:
+            raise tarfile.TarError("the workspace archive exceeds its byte limit")
+        return chunk
+
+
+def remove_tree(root: Path) -> None:
+    """Remove a task tree even where the task made directories unreadable."""
+    with contextlib.suppress(OSError):
+        os.chmod(root, 0o700)
+    # A top-down walk lists each directory after its parent restored access to it.
+    for directory, names, _ in os.walk(root, followlinks=False, onerror=lambda _: None):
+        for name in names:
+            path = os.path.join(directory, name)
+            if not os.path.islink(path):
+                with contextlib.suppress(OSError):
+                    os.chmod(path, 0o700)
+    shutil.rmtree(root, ignore_errors=True)
 
 
 def tree_digest(root: Path) -> str:
@@ -137,6 +235,8 @@ def validate_resource_limits(args: argparse.Namespace) -> None:
         raise SandboxError("CPU, process, and command-time limits must be positive")
     if args.maximum_output_bytes < 1024 or args.maximum_file_bytes < 1024:
         raise SandboxError("output and file-size limits must be at least 1,024 bytes")
+    if args.maximum_workspace_bytes < args.maximum_file_bytes or args.maximum_workspace_entries < 1:
+        raise SandboxError("the workspace budget must hold at least one maximum-size file")
 
 
 def validate_container_workspace(path: str) -> None:
@@ -145,15 +245,33 @@ def validate_container_workspace(path: str) -> None:
         raise SandboxError("--container-workspace must be a non-root absolute path")
 
 
+def workspace_tmpfs(config: SandboxConfig) -> str:
+    """Return the in-memory workspace mount, whose size the kernel enforces.
+
+    No host directory is writable, so every byte the task keeps, including files it
+    deletes while holding them, maps, or passes between processes, counts against this
+    size and against the container's memory limit.
+    """
+    uid, gid = config.user.split(":")
+    return (
+        f"{config.container_workspace}:rw,exec,nosuid,nodev,mode=0700,"
+        f"size={config.maximum_workspace_bytes},nr_inodes={config.maximum_workspace_entries},"
+        f"uid={uid},gid={gid}"
+    )
+
+
 def docker_run_command(config: SandboxConfig, name: str) -> list[str]:
-    mount = f"type=bind,src={config.workspace},dst={config.container_workspace}"
     return [
         config.docker,
         "run",
         "--detach",
+        "--log-driver",
+        "none",
         "--name",
         name,
         "--network",
+        "none",
+        "--ipc",
         "none",
         "--read-only",
         "--cap-drop",
@@ -164,16 +282,20 @@ def docker_run_command(config: SandboxConfig, name: str) -> list[str]:
         str(config.pids),
         "--memory",
         config.memory,
+        "--memory-swap",
+        config.memory,
         "--cpus",
         str(config.cpus),
         "--user",
         config.user,
-        "--mount",
-        mount,
+        "--tmpfs",
+        workspace_tmpfs(config),
         "--tmpfs",
         "/tmp:rw,noexec,nosuid,nodev,mode=1777",
         "--tmpfs",
         "/cache:rw,nosuid,nodev,mode=1777",
+        "--tmpfs",
+        "/dev/mqueue:ro,nosuid,nodev,noexec,size=4k",
         "--env",
         "HOME=/tmp/home",
         "--env",
@@ -194,6 +316,7 @@ class DockerSandbox:
         self.receipt = receipt
         self.name = receipt.container_name
         self._metrics_lock = threading.Lock()
+        self.ended_early = False
 
     def _run(
         self, arguments: list[str], *, timeout: float = 60
@@ -243,8 +366,175 @@ class DockerSandbox:
         )
         if preflight.returncode != 0:
             raise SandboxError("sandbox image must provide python3 and GNU timeout")
+        self.copy_in()
+
+    def copy_in(self) -> None:
+        """Copy the materialized task into the in-memory workspace."""
+        process = subprocess.Popen(
+            [
+                self.config.docker,
+                "exec",
+                "-i",
+                "--user",
+                self.config.user,
+                self.name,
+                "tar",
+                "-C",
+                self.config.container_workspace,
+                "-xf",
+                "-",
+            ],
+            stdin=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        assert process.stdin is not None
+        with tarfile.open(fileobj=process.stdin, mode="w|") as archive:
+            for entry in sorted(self.config.workspace.iterdir()):
+                archive.add(entry, arcname=entry.name)
+        process.stdin.close()
+        if process.wait(timeout=600) != 0:
+            raise SandboxError("task copy into the workspace failed")
+
+    def collect(self) -> None:
+        """Replace the host task with the final workspace, extracting only task files.
+
+        The archive is the policy's, so the extraction filter rejects absolute and
+        escaping links, special files, and anything outside the task, and the declared
+        sizes are held to the workspace budget before any data reaches host disk, since a
+        sparse file can claim far more than it occupies.
+        """
+        state = self._run(
+            [
+                self.config.docker,
+                "inspect",
+                "--format",
+                "{{.State.Running}} {{.State.OOMKilled}}",
+                self.name,
+            ]
+        ).stdout.split()
+        if state[:1] != ["true"]:
+            if state[1:2] == ["true"]:
+                # The task filled its memory, which includes its workspace.
+                self.receipt.workspace_collection_error = "the sandbox ran out of memory"
+                self.ended_early = True
+                return
+            raise SandboxError("the sandbox stopped before its workspace was collected")
+        self._run(
+            [
+                self.config.docker,
+                "exec",
+                "--user",
+                self.config.user,
+                self.name,
+                "/bin/sh",
+                "-c",
+                # Stop the task's processes, then restore its own access to everything it
+                # owns, so neither a running process nor a closed directory stops the archive.
+                "for _ in 1 2 3 4 5; do kill -KILL -1 2>/dev/null; done; "
+                f"chmod -R u+rwX {self.config.container_workspace} 2>/dev/null; true",
+            ]
+        )
+        used = self._run(
+            [
+                self.config.docker,
+                "exec",
+                self.name,
+                "df",
+                "-B1",
+                "--output=used",
+                self.config.container_workspace,
+            ]
+        )
+        with contextlib.suppress(ValueError, IndexError):
+            self.receipt.workspace_used_bytes = int(used.stdout.split()[-1])
+        for entry in list(self.config.workspace.iterdir()):
+            if entry.is_dir() and not entry.is_symlink():
+                remove_tree(entry)
+            else:
+                entry.unlink()
+        process = subprocess.Popen(
+            [
+                self.config.docker,
+                "exec",
+                "--user",
+                self.config.user,
+                self.name,
+                "python3",
+                "-I",
+                "-c",
+                COLLECT_PROGRAM,
+                self.config.container_workspace,
+                str(self.config.maximum_workspace_bytes),
+                str(self.config.maximum_workspace_entries),
+                str(COLLECT_PATH_BYTES),
+                str(COLLECT_PATH_COMPONENTS),
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        assert process.stdout is not None and process.stderr is not None
+        limit = (
+            self.config.maximum_workspace_bytes
+            + (self.config.maximum_workspace_entries + 1) * COLLECT_HEADER_BYTES
+        )
+        # The archive's size is bounded, so only a slow host can outlast this.
+        expired = threading.Event()
+
+        def expire() -> None:
+            expired.set()
+            process.kill()
+
+        deadline = threading.Timer(COLLECT_SECONDS, expire)
+        deadline.start()
+        try:
+            with tarfile.open(fileobj=BoundedReader(process.stdout, limit), mode="r|") as archive:
+                declared = entries = 0
+                for member in archive:
+                    # A member past the budget or outside the task is left behind, so the
+                    # policy can only lose its own files, never stop the attempt.
+                    if (
+                        declared + member.size > self.config.maximum_workspace_bytes
+                        or entries + 1 > self.config.maximum_workspace_entries
+                    ):
+                        self.receipt.workspace_skipped.append(f"{member.name}: over budget")
+                        continue
+                    try:
+                        archive.extract(member, self.config.workspace, filter="data")
+                    except tarfile.FilterError as error:
+                        self.receipt.workspace_skipped.append(f"{member.name}: {error}")
+                        continue
+                    declared, entries = declared + member.size, entries + 1
+        except (tarfile.TarError, OSError) as error:
+            self.receipt.workspace_collection_error = f"{type(error).__name__}: {error}"
+        finally:
+            process.stdout.close()
+            status = process.wait(timeout=60)
+            deadline.cancel()
+            report = process.stderr.read(1 << 20).decode("utf-8", "replace").strip()
+        if expired.is_set():
+            raise SandboxError("workspace collection exceeded its time limit")
+        with contextlib.suppress(ValueError, IndexError, AttributeError):
+            left = json.loads(report.splitlines()[-1])
+            self.receipt.workspace_skipped += [f"{name}: not collected" for name in left["skipped"]]
+            if left["skipped_count"] > len(left["skipped"]):
+                self.receipt.workspace_skipped.append(
+                    f"{left['skipped_count'] - len(left['skipped'])} more not collected"
+                )
+        if status in (125, 126, 127):
+            raise SandboxError("workspace collection could not run in the container")
+        if status != 0 and self.receipt.workspace_collection_error is None:
+            # The task's own processes are the only ones that could stop the archive.
+            self.receipt.workspace_collection_error = f"workspace archive exited with {status}"
 
     def stop(self) -> None:
+        try:
+            self.collect()
+        except (SandboxError, subprocess.TimeoutExpired) as error:
+            self.receipt.infrastructure_errors.append(f"workspace collection failed: {error}")
+        if self.ended_early:
+            result = self._run([self.config.docker, "rm", "--force", self.name])
+            self.receipt.container_removed = result.returncode == 0
+            return
         peak = self._run(
             [
                 self.config.docker,
@@ -514,10 +804,27 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--maximum-command-seconds", type=float, default=1200)
     parser.add_argument("--maximum-output-bytes", type=int, default=16 * 1024 * 1024)
     parser.add_argument("--maximum-file-bytes", type=int, default=1024 * 1024 * 1024)
+    parser.add_argument("--maximum-workspace-bytes", type=int, default=8 * 1024**3)
+    parser.add_argument("--maximum-workspace-entries", type=int, default=200_000)
     return parser.parse_args()
 
 
+def terminate_on_signal(signum: int, _frame: Any) -> None:
+    """Turn termination before serving begins into an exception so cleanup still runs."""
+    raise SystemExit(128 + signum)
+
+
+def remove_container(docker: str, name: str) -> bool:
+    """Remove a container that may have been created before its identity was recorded."""
+    subprocess.run([docker, "rm", "--force", name], check=False, capture_output=True, timeout=60)
+    inspected = subprocess.run(
+        [docker, "inspect", name], check=False, capture_output=True, timeout=30
+    )
+    return inspected.returncode != 0
+
+
 def main() -> None:
+    signal.signal(signal.SIGTERM, terminate_on_signal)
     args = parse_args()
     validate_image_reference(args.image)
     validate_digest(args.model_artifact_digest, "--model-artifact-digest")
@@ -544,6 +851,8 @@ def main() -> None:
         maximum_command_seconds=args.maximum_command_seconds,
         maximum_output_bytes=args.maximum_output_bytes,
         maximum_file_bytes=args.maximum_file_bytes,
+        maximum_workspace_bytes=args.maximum_workspace_bytes,
+        maximum_workspace_entries=args.maximum_workspace_entries,
     )
     name = f"anarres-vero-{secrets.token_hex(6)}"
     receipt = Receipt(
@@ -561,18 +870,22 @@ def main() -> None:
             "maximum_command_seconds": args.maximum_command_seconds,
             "maximum_output_bytes": args.maximum_output_bytes,
             "maximum_file_bytes": args.maximum_file_bytes,
+            "maximum_workspace_bytes": args.maximum_workspace_bytes,
+            "maximum_workspace_entries": args.maximum_workspace_entries,
         },
         workspace_pre_sha256=tree_digest(workspace),
     )
     sandbox = DockerSandbox(config, receipt)
+    # Publish the container identity before it exists, so an outside cleanup can
+    # remove it even if this server dies while the container is starting.
+    if args.container_name_file is not None:
+        if args.container_name_file.exists():
+            raise SandboxError("--container-name-file must not exist")
+        args.container_name_file.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
+        args.container_name_file.write_text(name + "\n", encoding="utf-8")
+        args.container_name_file.chmod(0o600)
     try:
         sandbox.start()
-        if args.container_name_file is not None:
-            if args.container_name_file.exists():
-                raise SandboxError("--container-name-file must not exist")
-            args.container_name_file.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
-            args.container_name_file.write_text(name + "\n", encoding="utf-8")
-            args.container_name_file.chmod(0o600)
         asyncio.run(serve(args.socket, sandbox))
     except Exception as error:
         receipt.infrastructure_errors.append(f"{type(error).__name__}: {error}")
@@ -580,6 +893,8 @@ def main() -> None:
     finally:
         if receipt.container_id is not None:
             sandbox.stop()
+        else:
+            receipt.container_removed = remove_container(docker, name)
         receipt.ended_at = utc_now()
         receipt.workspace_post_sha256 = tree_digest(workspace)
         args.receipt.parent.mkdir(parents=True, exist_ok=True)

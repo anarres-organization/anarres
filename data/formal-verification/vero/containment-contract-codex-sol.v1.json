@@ -1,0 +1,121 @@
+{
+  "schema_version": "anarres.formal-verification-containment-contract.v1",
+  "contract_id": "vero-codex-sol-openai-containment-v1",
+  "status": "frozen_qualified",
+  "qualified": true,
+  "qualification_date": "2026-11-09",
+  "qualification_image": "sha256:d1c0079814ac64787d87b18939b676e06221c958e3a42069fd439a99bbb665f5",
+  "interface": {
+    "model_provider": "openai",
+    "model_id": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "agent_harness": "anarres/vero-codex-sol-harness",
+    "agent_harness_version": "1.0.0",
+    "sandbox_methods": [
+      "sandbox/execute",
+      "sandbox/readFile"
+    ],
+    "agent_socket_protocol_version": 2,
+    "sandbox_transport": "unix_socket_jsonrpc",
+    "socket_directory_mode": "0700",
+    "socket_mode": "0600"
+  },
+  "execution_boundaries": {
+    "controller": {
+      "model_facing_shell_or_file_access": false,
+      "allowed_network": "OpenAI API only (api.openai.com)",
+      "host_credentials_forwarded_to_sandbox": false,
+      "user_global_configuration_loaded": false,
+      "mcp_servers_enabled": false,
+      "hooks_enabled": false,
+      "project_plugins_enabled": false
+    },
+    "task_sandbox": {
+      "lifetime": "one scientific attempt",
+      "external_network_egress": false,
+      "writable_mounts": [
+        "one freshly materialized Vero task",
+        "one attempt-local cache",
+        "one attempt-local temporary directory"
+      ],
+      "read_only_mounts": [
+        "pinned Lean toolchain",
+        "pinned task dependencies"
+      ],
+      "forbidden_inputs": [
+        "reference solutions",
+        "Vero source benchmark tree",
+        "qualification repositories",
+        "prospective repositories",
+        "host home directory",
+        "host credentials",
+        "global agent configuration",
+        "other attempt workspaces"
+      ]
+    }
+  },
+  "required_tests": [
+    {
+      "id": "workspace_allowlist",
+      "criterion": "only declared writable and read-only paths are visible",
+      "status": "pass"
+    },
+    {
+      "id": "path_and_symlink_escape",
+      "criterion": "absolute paths, parent traversal, and symlinks cannot expose forbidden inputs",
+      "status": "pass"
+    },
+    {
+      "id": "credential_and_environment_visibility",
+      "criterion": "host credentials and undeclared host environment variables are absent",
+      "status": "pass"
+    },
+    {
+      "id": "controller_configuration_isolation",
+      "criterion": "only the pinned Lean profile and declared built-in tools influence the controller",
+      "status": "pass"
+    },
+    {
+      "id": "external_network_egress",
+      "criterion": "DNS, public IP, metadata-service, and arbitrary TCP probes fail from the task sandbox",
+      "status": "pass"
+    },
+    {
+      "id": "local_inference_separation",
+      "criterion": "the task sandbox cannot address the OpenAI API or any local inference endpoint directly",
+      "status": "pass"
+    },
+    {
+      "id": "process_tree_cleanup",
+      "criterion": "timeout and termination remove the complete attempt process tree",
+      "status": "pass"
+    },
+    {
+      "id": "resource_limits",
+      "criterion": "wall-time, process, memory, and file-size limits are enforced and recorded",
+      "status": "pass"
+    },
+    {
+      "id": "fresh_task_reset",
+      "criterion": "pre-attempt task hashes agree and no state survives between attempts",
+      "status": "pass"
+    },
+    {
+      "id": "vibe_export_completeness",
+      "criterion": "the export records usage, tool calls, stop reason, outcome, and infrastructure failures",
+      "status": "pass"
+    }
+  ],
+  "receipt_requirements": [
+    "containment harness name and version",
+    "runtime image digest",
+    "OpenAI model ID and reasoning-effort setting",
+    "inference-config digest",
+    "task identity and pre-attempt hash",
+    "resource-limit values",
+    "one result for every required test",
+    "attempt-start and attempt-end timestamps"
+  ],
+  "qualification_rule": "qualified may become true only when every required test passes under the exact runtime and image recorded by the receipt",
+  "route_change_note": "this harness replaces the Codex 0.154.0 CLI with a controlled agent loop that calls the same model through the same API; if this changes the interaction semantics enough to alter outcomes, a new support qualification on PrimePy is required before the development screen"
+}

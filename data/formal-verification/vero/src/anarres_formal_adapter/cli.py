@@ -192,6 +192,42 @@ def validate_native(repository: Path) -> tuple[ModuleType, dict[str, Any]]:
     return native, {"result": result, "protocol": protocol, "source": source}
 
 
+def task_boundary_status(repository: Path) -> dict[str, Any]:
+    """Report the task-only execution boundary separately from source and runtime gates."""
+
+    path = study_root(repository) / "containment-contract-codex-sol.v3.json"
+    contract = json.loads(path.read_text(encoding="utf-8"))
+    validator = load_module(
+        study_root(repository) / "validate_task_boundary_receipt.py",
+        "anarres_formal_task_boundary_validator",
+    )
+    required = validator.validate_contract(contract)
+    # The frozen contract never changes. Qualification comes only from a released
+    # receipt that validates against it and against the route files in this checkout.
+    receipt_path = study_root(repository) / contract["released_receipt"]
+    receipt = None
+    if receipt_path.is_file():
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+        validator.validate_receipt(
+            receipt,
+            contract,
+            hashlib.sha256(path.read_bytes()).hexdigest(),
+            bundle=receipt_path.parent,
+        )
+        validator.validate_route_files(receipt, study_root(repository))
+    return {
+        "contract_id": contract["contract_id"],
+        "contract_sha256": digest(path),
+        "contract_status": contract["status"],
+        "required_tests": len(required),
+        "receipt_released": receipt is not None,
+        "receipt_id": receipt["receipt_id"] if receipt else None,
+        "runtime_image": receipt["runtime_image"]["reference"] if receipt else None,
+        "qualified": bool(receipt and receipt["qualified"]),
+        "reported_separately_from": ["source-qualification", "runtime-qualification"],
+    }
+
+
 def validate_qualification(repository: Path) -> tuple[dict[str, Any], dict[str, Path]]:
     paths = qualification_paths(repository)
     records = {name: json.loads(path.read_text(encoding="utf-8")) for name, path in paths.items()}
@@ -303,6 +339,7 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "native_source_qualification_available": True,
         "runtime_qualification_available": True,
         "runtime_qualified": False,
+        "task_only_boundary_qualified": task_boundary_status(repository)["qualified"],
         "policy_probe_available": False,
         "next_required_gate": "task-only containment requalification before repeated measurement",
     }
@@ -340,6 +377,7 @@ def digest(path: Path) -> str:
 def command_qualification(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
     result, paths = validate_qualification(repository)
+    boundary = task_boundary_status(repository)
     execution = result["execution"]
     grade = result["fresh_grade"]
     containment = result["containment_audit"]
@@ -384,9 +422,10 @@ def command_qualification(args: argparse.Namespace) -> dict[str, Any]:
             "fresh_grade_retained_only_editable_slots": containment[
                 "fresh_grade_retained_only_editable_slots"
             ],
-            "task_only_boundary_passed": False,
-            "followup_required": True,
+            "task_only_boundary_passed": boundary["qualified"],
+            "followup_required": not boundary["qualified"],
         },
+        "task_only_boundary": boundary,
         "decision": {
             "repeated_measurement_authorized": False,
             "candidate_ranking_authorized": False,

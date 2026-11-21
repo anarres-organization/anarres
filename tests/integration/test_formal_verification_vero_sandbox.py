@@ -1,13 +1,19 @@
 from __future__ import annotations
 
 import asyncio
+import dataclasses
 import importlib.util
+import io
 import json
+import os
 import shutil
+import subprocess
 import sys
+import tarfile
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 VERO_ROOT = ROOT / "data" / "formal-verification" / "vero"
@@ -147,15 +153,22 @@ class VeroSandboxConfigurationTest(unittest.TestCase):
     def test_runtime_command_enforces_primary_isolation_controls(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             command = SANDBOX.docker_run_command(self.config(Path(directory)), "attempt")
-            expected_mount = f"type=bind,src={directory},dst=/workspace"
         joined = " ".join(command)
         self.assertIn("--network none", joined)
+        self.assertIn("--ipc none", joined)
         self.assertIn("--read-only", command)
         self.assertIn("--cap-drop ALL", joined)
         self.assertIn("no-new-privileges", command)
         self.assertIn("--pids-limit 512", joined)
-        self.assertIn(expected_mount, command)
-        self.assertNotIn(f"{expected_mount},rw", command)
+        # No host directory is mounted: the workspace is an in-memory filesystem whose
+        # size and entry count the kernel enforces.
+        self.assertNotIn("--mount", command)
+        self.assertNotIn("--volume", command)
+        workspace = command[command.index("--tmpfs") + 1]
+        self.assertTrue(workspace.startswith("/workspace:rw,exec,"))
+        self.assertIn(f"size={8 * 1024**3}", workspace)
+        self.assertIn("nr_inodes=200000", workspace)
+        self.assertIn("uid=1000,gid=1000", workspace)
         self.assertNotIn("/var/run/docker.sock", joined)
 
     def test_mutable_image_reference_is_rejected(self) -> None:
@@ -204,6 +217,168 @@ class VeroSandboxProtocolTest(unittest.TestCase):
         self.assertEqual(result["workspace"], "/workspace")
         self.assertEqual(result["python"], "/usr/bin/python3")
         self.assertNotIn(directory, str(result))
+
+    def receipt(self, config) -> object:
+        return SANDBOX.Receipt(
+            attempt_id="attempt-1",
+            task_id="task-1",
+            started_at="2026-11-07T00:00:00+00:00",
+            image_reference=config.image,
+            model_artifact_digest="sha256:" + "b" * 64,
+            inference_config_digest="sha256:" + "c" * 64,
+            container_name="attempt",
+            resource_limits={},
+            workspace_pre_sha256="d" * 64,
+        )
+
+    def collect_archive(self, archive: bytes, budget: int = 1 << 20) -> tuple[Path, object]:
+        directory = Path(tempfile.mkdtemp())
+        self.addCleanup(SANDBOX.remove_tree, directory)
+        workspace = directory / "task"
+        workspace.mkdir()
+        (workspace / "stale").write_text("pre-attempt\n")
+        config = dataclasses.replace(
+            VeroSandboxConfigurationTest().config(workspace), maximum_workspace_bytes=budget
+        )
+        receipt = self.receipt(config)
+        sandbox = SANDBOX.DockerSandbox(config, receipt)
+
+        def fake_run(arguments: list[str], **_: object) -> subprocess.CompletedProcess:
+            if arguments[1] == "inspect":
+                return subprocess.CompletedProcess(arguments, 0, "true false\n", "")
+            if "df" in arguments:
+                return subprocess.CompletedProcess(arguments, 0, "Used\n4096\n", "")
+            return subprocess.CompletedProcess(arguments, 0, "", "")
+
+        process = mock.Mock()
+        process.stdout = io.BytesIO(archive)
+        process.stderr = io.BytesIO(b'{"skipped": ["far/away"], "skipped_count": 3}\n')
+        process.wait.return_value = 0
+        with (
+            mock.patch.object(sandbox, "_run", side_effect=fake_run),
+            mock.patch.object(SANDBOX.subprocess, "Popen", return_value=process),
+        ):
+            sandbox.collect()
+        return workspace, receipt
+
+    @staticmethod
+    def archive(*members: tuple[tarfile.TarInfo, bytes]) -> bytes:
+        buffer = io.BytesIO()
+        with tarfile.open(fileobj=buffer, mode="w") as archive:
+            for info, data in members:
+                archive.addfile(info, io.BytesIO(data) if data else None)
+        return buffer.getvalue()
+
+    def test_collection_keeps_task_files_and_leaves_unsafe_members_behind(self) -> None:
+        proof = tarfile.TarInfo("./Pkg/B.lean")
+        proof.size = 6
+        directory = tarfile.TarInfo("./Pkg")
+        directory.type = tarfile.DIRTYPE
+        escape = tarfile.TarInfo("./escape")
+        escape.type, escape.linkname = tarfile.SYMTYPE, "/etc/passwd"
+        inside = tarfile.TarInfo("./inside")
+        inside.type, inside.linkname = tarfile.SYMTYPE, "Pkg/B.lean"
+        pipe = tarfile.TarInfo("./pipe")
+        pipe.type = tarfile.FIFOTYPE
+        sparse = tarfile.TarInfo("./aaa-sparse")
+        sparse.size = 4 << 20
+        workspace, receipt = self.collect_archive(
+            self.archive(
+                (directory, b""),
+                (proof, b"proof\n"),
+                (escape, b""),
+                (inside, b""),
+                (pipe, b""),
+                (sparse, b"\0" * (4 << 20)),
+            )
+        )
+        self.assertEqual(
+            sorted(str(p.relative_to(workspace)) for p in workspace.rglob("*")),
+            ["Pkg", "Pkg/B.lean", "inside"],
+        )
+        self.assertEqual((workspace / "inside").read_text(), "proof\n")
+        self.assertIsNone(receipt.workspace_collection_error)
+        self.assertEqual(
+            sorted(entry.split(":")[0] for entry in receipt.workspace_skipped),
+            ["./aaa-sparse", "./escape", "./pipe", "2 more not collected", "far/away"],
+        )
+        self.assertEqual(receipt.workspace_used_bytes, 4096)
+
+    def test_collector_chooses_members_before_reading_any_data(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "task"
+            (root / "Pkg").mkdir(parents=True)
+            (root / "Pkg" / "A.lean").write_text("theorem t : True := trivial\n")
+            with (root / "sparse").open("wb") as handle:
+                handle.truncate(1 << 30)
+            os.mkfifo(root / "pipe")
+            deep = root / ("n" * 100) / ("m" * 100) / ("o" * 100) / ("p" * 100)
+            deep.mkdir(parents=True)
+            (deep / "leaf").write_text("x")
+            # Some filesystems, such as APFS, refuse names that are not UTF-8.
+            try:
+                (root / os.fsdecode(b"bad\xff")).write_text("not utf-8")
+                binary_name = True
+            except OSError:
+                binary_name = False
+            (root / "zlater").mkdir()
+            (root / "zlater" / "file").write_text("after the bad name")
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    "-I",
+                    "-c",
+                    SANDBOX.COLLECT_PROGRAM,
+                    str(root),
+                    str(1 << 20),
+                    "100",
+                    "300",
+                    "3",
+                ],
+                capture_output=True,
+                timeout=60,
+                check=True,
+            )
+        # The gigabyte of holes never entered the archive, which stayed small.
+        self.assertLess(len(completed.stdout), 64 * 1024)
+        with tarfile.open(fileobj=io.BytesIO(completed.stdout)) as archive:
+            names = archive.getnames()
+        self.assertIn("Pkg/A.lean", names)
+        # A name that is not UTF-8 is left behind without stopping what follows it.
+        self.assertIn("zlater/file", names)
+        self.assertFalse(any(name.endswith("leaf") for name in names))
+        report = json.loads(completed.stderr.decode().splitlines()[-1])
+        self.assertTrue({"sparse", "pipe"} <= set(report["skipped"]))
+        # The path limit and the component limit each leave part of the chain behind.
+        self.assertTrue(any(name.endswith("o" * 100) for name in report["skipped"]))
+        if binary_name:
+            self.assertTrue(any("bad" in name for name in report["skipped"]))
+
+    def test_a_corrupt_archive_is_an_integrity_failure(self) -> None:
+        _, receipt = self.collect_archive(b"not an archive" * 100)
+        self.assertIsNotNone(receipt.workspace_collection_error)
+
+    def test_a_sandbox_that_ran_out_of_memory_is_an_integrity_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            config = VeroSandboxConfigurationTest().config(Path(directory))
+            receipt = self.receipt(config)
+            sandbox = SANDBOX.DockerSandbox(config, receipt)
+            stopped = subprocess.CompletedProcess([], 0, "false true\n", "")
+            with mock.patch.object(sandbox, "_run", return_value=stopped) as run:
+                sandbox.stop()
+        self.assertEqual(receipt.workspace_collection_error, "the sandbox ran out of memory")
+        self.assertEqual(receipt.infrastructure_errors, [])
+        self.assertEqual(run.call_args.args[0][1:3], ["rm", "--force"])
+
+    def test_unreadable_directories_are_removed(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / "task"
+            hidden = root / "hidden" / "deeper"
+            hidden.mkdir(parents=True)
+            (hidden / "data").write_bytes(b"x" * 1000)
+            (root / "hidden").chmod(0)
+            SANDBOX.remove_tree(root)
+            self.assertFalse(root.exists())
 
     def test_tree_digest_records_links_without_following_them(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

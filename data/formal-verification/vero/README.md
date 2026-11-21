@@ -208,9 +208,10 @@ python data/formal-verification/vero/validate_containment_contract.py \
 
 The bounded agent-socket server is
 [`serve_vibe_sandbox.py`](serve_vibe_sandbox.py). It starts one ephemeral
-Docker container from an immutable image digest, binds only the freshly
-materialized task, disables network access, drops Linux capabilities, applies
-resource limits, and removes the container when the attempt ends.
+Docker container from an immutable image digest, copies the freshly
+materialized task into an in-memory workspace, disables network access, drops
+Linux capabilities, applies resource limits, collects the final workspace, and
+removes the container when the attempt ends.
 The [runtime definition](runtime/README.md) pins the image inputs and exact Lean
 toolchain while leaving the built-image digest pending for deployment-host
 qualification.
@@ -318,6 +319,168 @@ reliability. The post-run audit found broader read and temporary-write scope
 than the intended task-only boundary, although no reference proof or protected
 repository was accessed. Repeated measurement remains blocked until the task
 sandbox is tightened and requalified.
+
+### Task-only execution boundary
+
+[`containment-contract-codex-sol.v3.json`](containment-contract-codex-sol.v3.json)
+freezes the tightened route for GPT-5.6 Sol attempts and the seventeen negative
+controls it must pass. It supersedes the v2 record, which remains unchanged.
+The v2 runner tested a container it started itself rather than the model's
+route, and two of its tests passed unconditionally. The v3 route runs the task
+as the unprivileged host user with network and IPC namespaces disabled, a
+read-only message-queue mount, and an in-memory task workspace. Writes are
+confined to the task, `/tmp`, and `/cache`.
+
+Fresh grading previously compiled the model's Lean on the controller host,
+where elaboration-time code can run with host network and file access. The
+grader now runs every Lake invocation inside the same runtime image with the
+same isolation flags, mounting only the fresh evaluation directory. An attempt
+whose task tree links outside the task is recorded as an integrity failure and
+is not graded. Grader, sandbox, and integrity failures stay unscored and outside
+every aggregate. The wall limit is a hard deadline: requests and commands are
+bounded by the remaining budget, and only a request still pending at the
+deadline ends the attempt with `wall_time_limit`.
+
+[`run_containment_tests.py`](run_containment_tests.py) qualifies that boundary
+without contacting a model. It launches the sandbox server through the probe's
+own command builder, so every control travels the agent socket a model would
+use. It materializes independent development tasks and plants host-side
+canaries for reference solutions, protected repositories, and credentials, with
+a positive control for each. It runs one complete attempt through the probe's
+own entry point with a deterministic fixture policy that writes a correct
+proof. It grades one accepted proof and fixed no-op, invalid-proof,
+forbidden-axiom, admitted-proof, and unsafe-declaration fixtures, and checks
+that elaboration-time code inside the grader cannot write host files or reach
+the network. The runner writes one content-addressed receipt that binds the
+runtime image, the source and runtime qualification reports, the controller
+configuration, every materialization, the route's file hashes, and every
+control outcome.
+
+```bash
+python data/formal-verification/vero/run_containment_tests.py \
+  --image sha256:<deployment-image-digest> \
+  --vero-root /path/to/vero \
+  --vero-python /path/to/vero/.venv/bin/python \
+  --source-report /path/to/source-report.json \
+  --runtime-report /path/to/runtime-report.json \
+  --work-root /path/to/scratch \
+  --output /path/to/new/receipt-directory
+python data/formal-verification/vero/validate_task_boundary_receipt.py \
+  --contract data/formal-verification/vero/containment-contract-codex-sol.v3.json \
+  --receipt /path/to/new/receipt-directory/task-boundary-receipt.json \
+  --route-root data/formal-verification/vero
+```
+
+The runtime report must declare the runner's stand-in controller endpoint
+(`http://127.0.0.1:18765` by default) and the route's limits. A receipt is
+qualified only when every control passes, every bound report field agrees
+with the exercised route, and the image runs natively. It qualifies only the
+image it binds, and a run under emulation is a fixture execution. The frozen
+contract never changes: `anarres formal qualification` reports the boundary as
+qualified only after a validated receipt directory is released at the path the
+contract names, and `policy-probe` remains unavailable until a
+repeated-measurement protocol is frozen. That protocol must cite the released
+receipt and its image, and it must state how integrity failures enter its
+estimates.
+
+Grading also confirms every specification Vero reports as passed. Vero parses
+its axiom report from Lake output, and model code can forge it in several ways:
+by printing during elaboration, through a tactic trace that runs no code, or
+from an initializer that runs whenever a check imports the model's module and
+then exits before the real check. A model can also switch kernel checking off
+while its module builds, so a false proof compiles, or declare its own axiom
+under the name of an axiom the benchmark trusts. Fixtures and grader tests show
+that Vero passes each of these. Grading therefore builds a reference of the
+untouched task in its own contained Lake invocation and runs
+[`AnarresAxiomCheck.lean`](AnarresAxiomCheck.lean) in a sealed container, once
+for each of Vero's axiom-check files. The checker never imports a model module.
+It reads the compiled libraries of both builds as data and sends each target
+theorem, with every safe declaration it depends on, back through the kernel.
+It requires every declaration the proof rests on that the reference also
+declares to equal the reference, unless it is a slot the model fills, so a
+trusted axiom keeps the meaning the reference gives it. Every axiom outside the
+toolchain must be the reference's own declaration. A specification stays passed
+only when the one theorem Vero graded for it is confirmed. Every forgery above
+is downgraded.
+
+A check that does not finish gets one retry with three times the budget Vero
+gives a compilation. If it still does not finish, the specification is recorded
+as `check_incomplete`. A codeproof `sat` claim rests on Vero's separate joint
+rerender, which the checker does not cover, and is recorded as
+`sat_unverified`. Both are reported apart from passes, model failures, and
+infrastructure failures, and the repeated-measurement protocol must state how
+they enter its estimates. A container that cannot start, a reference build that
+fails or cannot be read, or a grading stage that outlives the sum of Vero's own
+Lake budgets leaves the attempt unscored.
+
+No directory the model can write is on host disk. The task workspace is an
+in-memory filesystem inside the sandbox container, limited to 8 GiB and 200,000
+entries, and the task is copied in when the sandbox starts. Each grading build
+compiles in a container that sees the evaluation directory read-only and writes
+its Lake outputs to an in-memory volume limited to 16 GiB and 500,000 entries.
+The kernel enforces these limits on every byte, including files a process
+deletes while holding them, passes through a socket, or keeps only as a memory
+mapping. While a container runs, its in-memory pages also count against its
+memory limit, which swap cannot extend; a grading volume keeps its pages after
+its build container exits, so each concurrent grading can hold up to its volume
+limit of host memory until cleanup. A task that fills its space therefore only
+fails its own commands or build, which is scored as the policy's result.
+Containers keep no log on host disk, each stream of Lake output is cut at 64 MiB
+before it reaches the grader, a Lake exit status that Docker reserves for its
+own failures is reported as an ordinary failure, and once Lake returns the
+grading container exits, ending every process the build left in it.
+
+When the attempt ends, the sandbox stops the task's processes and archives the
+workspace from inside the container. It chooses each member from its metadata
+before reading any data, so a file whose apparent size would pass the workspace
+limit, a path longer than 1,024 bytes or 64 components, a name that is not
+UTF-8, a special file, or anything past the entry limit is left behind, and a
+sparse file or a deep directory chain cannot make the archive larger than the
+workspace. The host reads at most that many bytes and
+extracts them with a filter that also leaves absolute or escaping links behind.
+What is left behind is recorded, and the rest is graded. Only a workspace that
+cannot be collected at all, for example because the task ran its container out
+of memory, is an integrity failure. A collection that outlasts its ten-minute
+limit is an infrastructure failure; the byte, entry, path, and depth limits keep
+a collection far inside it.
+
+Before grading, a scan that lexes each slot body as Lean, so comment markers
+inside strings cannot hide code, also rejects bodies that run code during
+elaboration, switch kernel checking off, or carry an attribute outside a list
+of toolchain attributes. It reads each body twice, once recognizing
+interpolated strings by context and once treating every string as
+interpolated. The scan is syntactic and may still miss constructs; confirming a
+pass never depends on it. Code that evades it runs only inside the contained
+build, where it can at most force `check_incomplete` on a specification Vero
+passed, which never produces a confirmed pass. A policy can also cause an
+integrity failure deliberately, for example by exhausting its container's
+memory. The repeated-measurement protocol should therefore count policy-caused
+integrity failures and `check_incomplete` as failures in its primary estimate
+and audit every occurrence.
+
+The released receipt in
+[`results/task-boundary-qualification.codex-sol-v3/`](results/task-boundary-qualification.codex-sol-v3/)
+qualifies the route on the image it binds,
+`sha256:c48a1075ff53f6107f8f812b5072f5b6d470e5d722b40ff3bce589b5b6015825`, run
+natively on an amd64 Docker host. That digest is a local image identifier, so a
+protocol that cites the receipt must run that exact image. All seventeen
+controls passed. Each network and visibility control has a positive control: a
+networked container reaches the outside and the stand-in controller endpoint,
+and a container with the agent socket mounted finds it. The bound reports agree
+with the exercised route on all twenty compared fields, and the receipt bundles
+the runtime contract the runtime report qualified. The v1 runtime contract
+cannot state this route's filesystem layout or Lake location, and its cleanup
+fields are not compared, so the receipt names those three as uncompared and the
+runner's own controls observe them instead.
+
+The earlier GPT-5.6 Sol development attempts were graded before contained
+grading and the trusted checker existed. Every one of them that has a grading
+report and at least one passed specification was regraded through the current
+grader, thirteen attempts including the screen behind the 388 of 694 result.
+All 447 specifications Vero passed in them are confirmed. Six attempts had no
+grading report and five passed nothing, so neither group was regraded. The
+artifacts of the original released PrimePy qualification attempt were not
+available, so that attempt was not regraded.
 
 Project the completed measurement into the shared Anarres profile contract
 without changing that interpretation:

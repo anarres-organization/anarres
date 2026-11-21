@@ -1,0 +1,18 @@
+{
+  "attempt_id": "primepy_proof_a0_5346e6ab",
+  "benchmark_id": "primepy",
+  "check_incomplete_specs": 0,
+  "infrastructure_errors": [],
+  "integrity_errors": [],
+  "mode": "proof",
+  "output_tokens": 40,
+  "passed_specs": 1,
+  "reasoning_output_tokens": 0,
+  "sat_unverified_specs": 0,
+  "scored": true,
+  "stop_reason": "stop",
+  "tool_calls": 3,
+  "total_specs": 9,
+  "turns": 4,
+  "wall_seconds": 1.41
+}

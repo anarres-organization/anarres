@@ -250,7 +250,8 @@ def main() -> None:
                 and "ALL" in (host_config.get("CapDrop") or [])
                 and "no-new-privileges" in (host_config.get("SecurityOpt") or [])
                 and mount_summary == [{"type": "bind", "destination": "/workspace", "rw": True}]
-                and set((host_config.get("Tmpfs") or {}).keys()) == {"/tmp", "/cache"}
+                and set((host_config.get("Tmpfs") or {}).keys())
+                == {"/tmp", "/cache", "/dev/mqueue"}
             )
             results.append(
                 result(
