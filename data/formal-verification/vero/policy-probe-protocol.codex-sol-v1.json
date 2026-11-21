@@ -1,0 +1,203 @@
+{
+  "schema_version": "anarres.formal-verification-policy-probe.codex-sol.v1",
+  "protocol_id": "vero-codex-sol-repeated-measurement-v1",
+  "status": "frozen_before_model_attempts",
+  "execution_authorized": false,
+  "scientific_role": "development-only repeated measurement of specification-level reliability, usable signal, and cost under one capable, contained starting policy; not an environment ranking or downstream-utility test",
+  "issue": 24,
+  "source": {
+    "vero_id": "sunblaze-ucb/vero@0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+    "repository_split": "repository-split.json",
+    "repository_split_sha256": "d6485d8d65295a1fb600fa6c2cfb99dba3e161686d339939e81eeee1df0efe5e",
+    "development_panel": "development-lifecycle-panel-v2.json",
+    "development_panel_sha256": "836c7bf6a4e792c9fb7b5bc3bd8ff59bba27b8f57495df5851b34600250194c0",
+    "source_pin": "source-pin.json",
+    "source_pin_sha256": "670361cdebb1d9d77d1dcd51b4e754734c8d4357dbb1291700ef97f9dca8850e",
+    "source_check": "before every run the runner requires the Vero checkout, which supplies both the task and the grader, to be at the pinned commit with no modified tracked files"
+  },
+  "task_selection": {
+    "rule": "the four-repository development lifecycle panel, frozen before any GPT-5.6 Sol attempt and used by the earlier starting-policy measurement",
+    "outcome_influence": "the GPT-5.6 Sol development screen informed the decision to measure and the cost plan, not the panel; the measurement remains development-only",
+    "qualification_and_prospective_repositories_opened": false
+  },
+  "starting_policy": {
+    "model_id": "gpt-5.6-sol",
+    "model_provider": "openai",
+    "api": "Responses API, /v1/responses, store false",
+    "reasoning_effort": "xhigh",
+    "temperature": "model default",
+    "maximum_output_tokens_per_call": 16384,
+    "harness": "run_codex_sol_probe.py",
+    "harness_sha256": "708d261bcf5a3092ad585724d9227a96c9f9e2c1b119ed43ce39e9e0cfab8d4d",
+    "harness_version": "1.2.0",
+    "prompt": "the developer prompt embedded in the hash-pinned harness, followed by the materialized task INSTRUCTION.md, whose hash each run records",
+    "inference_config": "inference-config-codex-sol.v1.json",
+    "inference_config_sha256": "81c861a11b29bbb350fbd5db093f5e8133aa7193dacf7f9c0373d5022c07f6bc",
+    "inference_config_note": "the configuration's notes name the Chat Completions API, but the hash-pinned harness calls the Responses API with max_output_tokens; the configuration only labels the attempt"
+  },
+  "execution_interface": {
+    "containment_contract": "containment-contract-codex-sol.v3.json",
+    "containment_contract_sha256": "bfed6fd04c2e45fb3594b9d688389c70db6f6ee715d70ef9942cfb93c4094fec",
+    "task_boundary_receipt": "results/task-boundary-qualification.codex-sol-v3/task-boundary-receipt.json",
+    "task_boundary_receipt_sha256": "06efe053ec70f484bfddf99a9cd81a567c3c710b2047150a39a4ab7cb4c8d543",
+    "task_boundary_receipt_id": "sha256:053b0cad83bb88d58cd58f31571e7ff021000461265f05a46c32a6f44b3e17f9",
+    "runtime_image_id": "sha256:c48a1075ff53f6107f8f812b5072f5b6d470e5d722b40ff3bce589b5b6015825",
+    "runtime_image_note": "a local image ID on the qualified host; attempts must run that exact image",
+    "execution_files": [
+      {
+        "path": "run_codex_sol_queue_item.py",
+        "sha256": "b2ef7057ed25dcdaea47a6ec825489c4895a89674fa994efb196582a34054abd"
+      },
+      {
+        "path": "aggregate_codex_sol_measurements.py",
+        "sha256": "59ac7eb898c3c16360f0753aa8681b24626b09eabfa5b9908494264a91076acc"
+      },
+      {
+        "path": "aggregate_probe_measurements.py",
+        "sha256": "843b2247f2e7b4ad8cd80f6b0ef604032b97c4d048f0c2dfecaaa0b7cada820d"
+      },
+      {
+        "path": "build_probe_queue.py",
+        "sha256": "7a5fe47c4d994ac607e8976a4ee39718c1a3d959906ebf30c9dfb9bb479d2599"
+      },
+      {
+        "path": "validate_codex_sol_probe_protocol.py",
+        "sha256": "207abe2a02f3de03617943d02fd50d965083a702a56ea4494cde28c25e3ffa62"
+      },
+      {
+        "path": "validate_task_boundary_receipt.py",
+        "sha256": "1282cadf8f69d931f58891514df3a5a9aa2e57d18841d32d9823e872a1b99025"
+      }
+    ],
+    "execution_order": "serial, in queue order, one attempt at a time on the qualified host",
+    "output_root": "one output root holds every run; the runner binds it to the authorization on first use and refuses any other authorization",
+    "run_records": "each run is recorded before it starts and again when it ends, so a run that never finishes stays on the ledger as interrupted",
+    "interruption_rule": "an interrupted run counts as an infrastructure failure and uses the entry's one retry; the release lists every interrupted entry, its cause is reported beside the release, and no run starts while sandbox or grader containers remain on the host"
+  },
+  "execution_authorization": {
+    "record": "a separate authorization record, committed to the repository before the first run, binds this protocol, its queue, a spend ceiling, and a per-attempt reserve",
+    "ceiling_rule": "the ceiling is never raised after the first run; a queue stopped at the ceiling is released as an abstention with reason spend_ceiling_reached",
+    "reserve_rule": "an attempt starts only when the planning cost so far plus the reserve stays within the ceiling; a single run can cost more than the reserve, so the ceiling bounds when attempts start, not their exact total cost"
+  },
+  "probe_design": {
+    "repositories": 4,
+    "modes": [
+      "proof",
+      "codeproof"
+    ],
+    "independent_attempts_per_repository_mode": 4,
+    "total_attempts": 32,
+    "repetition_design": "repetition-reliability.v2.json",
+    "repetition_design_sha256": "75c14d2046a36ae214046a347e8e1841bd93b77f60d0c3ff68e72a2e78b05bba",
+    "repetition_rationale": "four attempts per repository and mode match the earlier development measurement, whose frozen design selected four as the smallest count with at least 0.95 probability of eight mixed specification groups at a 0.01 success floor",
+    "maximum_wall_seconds_per_attempt": 5400,
+    "maximum_agent_turns_per_attempt": 100,
+    "output_token_stop_threshold_per_attempt": 200000,
+    "token_stop_semantics": "the harness checks cumulative output tokens between model calls, so the final call may cross the threshold; every reported token is charged",
+    "scientific_retry_count": 0,
+    "maximum_infrastructure_retries": 1,
+    "infrastructure_retry": "after an infrastructure failure during grading the second run regrades the preserved workspace; after any other infrastructure failure or an interruption it reruns the attempt under a fresh run identity, and the queue entry keeps its attempt identity",
+    "attempt_namespace": "sol-v1",
+    "task_digests": {
+      "arithmetic-v2:codeproof": {
+        "instruction_sha256": "80d728cff127820b2da8ca8eebee90075b2ce10be5f3f8e8827e472cf8c1e3e9",
+        "task_tree_sha256": "8252c2ecbe5bfcc9e3898a15ad890df25ca820466f57cd4e42fea9fef48fdcb0"
+      },
+      "arithmetic-v2:proof": {
+        "instruction_sha256": "81d5f21250c16af71b21a5a07c252caf29637c99d566d256bef6b5cc217354b1",
+        "task_tree_sha256": "eaf2d782afcc376e073ea476fedd17a26bbfa7253146f2151a64da902c3fbac0"
+      },
+      "piggybank-v2:codeproof": {
+        "instruction_sha256": "47022b58173063fef864224cff33fa92a975201c91268edcbfddbcc4ab98d5ab",
+        "task_tree_sha256": "2ad1c91467d4dda3298b259a8ce1c281e91dedb4437a63327db5fb5572b6b8bb"
+      },
+      "piggybank-v2:proof": {
+        "instruction_sha256": "a05c35858ab0a45ecf61da9a09498aa436d01f3137a020c59e0819907b042432",
+        "task_tree_sha256": "0aee3ad564fb84f896d5cc9de36ea613905110a91c97d410cfa23db90961ddfa"
+      },
+      "primepy:codeproof": {
+        "instruction_sha256": "0f9705968bc0b9dbb91615f1764c44fb8ba7e2a29fa3ed29087e738291a07ba0",
+        "task_tree_sha256": "b99960401e00fa98109c3530474ea453e7d226275db722c8569fd6ebc3d9d0ae"
+      },
+      "primepy:proof": {
+        "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+        "task_tree_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6"
+      },
+      "verified-bitmasks:codeproof": {
+        "instruction_sha256": "66cea7adfc9428fda1e3614ac6d9ae4f894c2f1e5af9297a8c8c5be99c84f27d",
+        "task_tree_sha256": "03e83d895c9e1b4ff736ca6fd1596a2a0da670c6d5132b4730db1296bc9cc4fa"
+      },
+      "verified-bitmasks:proof": {
+        "instruction_sha256": "7f50e33839802b843433d4288d1d831a3212effae202538f3a62faefcfc69026",
+        "task_tree_sha256": "6bc6e79a2a0dd218df2b6e27a716083659b67d16d2a520c0cd9db98bafb213c7"
+      }
+    },
+    "task_digest_rule": "every receipt must report the frozen task-tree and instruction digests of its task; they were measured by materializing each task twice on the qualified host with no model calls"
+  },
+  "native_outcomes": [
+    "outcome",
+    "specifications_total",
+    "per_specification_status",
+    "strict_reward",
+    "input_tokens",
+    "cached_input_tokens",
+    "output_tokens",
+    "reasoning_output_tokens",
+    "turns",
+    "tool_calls",
+    "wall_seconds",
+    "stop_reason",
+    "integrity_errors",
+    "infrastructure_errors",
+    "task_tree_sha256",
+    "instruction_sha256"
+  ],
+  "measurement": {
+    "analysis_contract": "measurement-analysis.codex-sol-v1.json",
+    "analysis_contract_sha256": "a613f6bac6a4eb0f1daa695fea1722a170742ce974fe5c6cd32bb5c1bb62943e",
+    "grouping_unit": "specification nested within repository",
+    "independent_unit": "repository; repeated attempts within a repository are measurements, not independent tasks",
+    "strict_reward": "one only when a specification passes fresh Vero grading and the trusted axiom check confirms it",
+    "computed_after": "every queue entry has a receipt",
+    "qualification_and_prospective_repositories_opened": false
+  },
+  "cost_plan": {
+    "basis_record": "results/development-screen-usage.codex-sol-v1.json",
+    "basis_record_sha256": "3171fed698d64ba47e5077f134f56f6f4cddb1faefbaa490a2df86287b63b440",
+    "basis": "token use of the eight development-screen attempts behind 388/694 at the analysis contract's planning prices, four times over",
+    "screen_planning_usd": 37.48,
+    "estimated_planning_usd": 150,
+    "basis_limit": "the screen ran harness 1.0.0, so the estimate is approximate",
+    "spend_ceiling": "set by the separate execution authorization record"
+  },
+  "admission_gates": {
+    "satisfied_at_freeze": [
+      "the task-only boundary receipt is qualified on the deployment image and validates against the current route files",
+      "the trusted axiom check confirms every earlier development pass it regraded",
+      "fresh materialization and fresh contained grading run for every attempt",
+      "the output-root binding, run records, source check, and spend guard are implemented in the hash-pinned runner",
+      "each of the eight tasks materialized twice on the qualified host, with no model calls, gave identical task-tree and instruction digests, frozen in probe_design.task_digests",
+      "grading an untouched PrimePy proof task leaves the Vero checkout without modified or untracked files and leaves no grader containers or volumes"
+    ],
+    "required_before_execution": [
+      "a separate execution authorization record binds this protocol, its queue, and a spend ceiling"
+    ],
+    "required_for_readiness": [
+      "every queue entry has a scored or integrity-failure receipt",
+      "the support gate of the analysis contract passes",
+      "the readiness gate of the analysis contract passes"
+    ],
+    "profile_export": "shared Anarres profiles are exported only when the readiness gate passes"
+  },
+  "chronology": {
+    "excluded_development_attempts": "the GPT-5.6 Sol smoke and screen attempts, including the screen behind 388/694, precede this protocol and never enter its aggregate"
+  },
+  "unsupported_claims": [
+    "the development measurement ranks training environments",
+    "four attempts estimate a detailed variance distribution",
+    "specification observations are independent of their repositories",
+    "proof and codeproof rewards are interchangeable",
+    "reliability under the frozen 100-turn budget, which ended every larger-repository screen attempt, describes reliability under a larger budget",
+    "development results authorize reinforcement learning or downstream training"
+  ]
+}

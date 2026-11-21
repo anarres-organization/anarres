@@ -454,9 +454,8 @@ pass never depends on it. Code that evades it runs only inside the contained
 build, where it can at most force `check_incomplete` on a specification Vero
 passed, which never produces a confirmed pass. A policy can also cause an
 integrity failure deliberately, for example by exhausting its container's
-memory. The repeated-measurement protocol should therefore count policy-caused
-integrity failures and `check_incomplete` as failures in its primary estimate
-and audit every occurrence.
+memory. The repeated-measurement protocol therefore counts policy-caused
+integrity failures and `check_incomplete` as failures in its primary estimate.
 
 The released receipt in
 [`results/task-boundary-qualification.codex-sol-v3/`](results/task-boundary-qualification.codex-sol-v3/)
@@ -481,6 +480,70 @@ All 447 specifications Vero passed in them are confirmed. Six attempts had no
 grading report and five passed nothing, so neither group was regraded. The
 artifacts of the original released PrimePy qualification attempt were not
 available, so that attempt was not regraded.
+
+### Repeated measurement
+
+[`policy-probe-protocol.codex-sol-v1.json`](policy-probe-protocol.codex-sol-v1.json)
+freezes the repeated GPT-5.6 Sol measurement before any of its attempts. It
+measures the same four development repositories as the earlier starting-policy
+measurement, with four attempts per repository and mode, 32 in all, under the
+qualified task-only route. The protocol binds the model, reasoning setting,
+harness, prompt, inference configuration, budgets, and retry policy. Its
+validator checks each setting against the hash-pinned harness and requires the
+released boundary receipt to validate against the current route files.
+Repeated attempts within a repository are measurements of that repository,
+which remains the independent unit. The
+[screen usage record](results/development-screen-usage.codex-sol-v1.json)
+shows that the 100-turn budget ended every Verified Bitmasks and Arithmetic
+attempt in the screen behind 388 of 694, so the result describes reliability
+under that budget.
+
+[`measurement-analysis.codex-sol-v1.json`](measurement-analysis.codex-sol-v1.json)
+keeps the advantage-mass, coverage, cluster-sensitivity, and support-gate
+definitions of the earlier analysis contract. A specification earns strict
+reward only when the trusted axiom check confirms Vero's pass, so
+`check_incomplete` and `sat_unverified` count as failures. An upper bound that
+counts them as passes is reported beside the primary estimate and never decides
+anything. A policy-caused integrity failure scores zero on every specification
+of its attempt. An infrastructure failure is never scored. Each queue entry
+gets one retry: a failure during grading regrades the preserved workspace, and
+any other infrastructure failure reruns the attempt under a fresh run identity.
+Every receipt must report the task digests frozen in the protocol, which come
+from materializing each task twice on the execution host without a model. An
+entry without a scored or integrity-failure receipt makes the release an
+abstention. The measurement is
+ready only when the support
+gate passes, each mode has mixed outcomes in at least two repositories, and
+leaving out any one repository still leaves eight mixed specification groups.
+Otherwise the release records an abstention.
+
+[`probe-queue.codex-sol-v1.json`](probe-queue.codex-sol-v1.json) fixes the 32
+attempt identities in an outcome-blind hash order.
+[`run_codex_sol_queue_item.py`](run_codex_sol_queue_item.py) runs one entry at
+a time, in queue order, through the unchanged harness. Before every run it
+checks that the Vero checkout, which supplies both the task and the grader, is
+at the pinned commit with no modified tracked files. It records each run before
+the run starts, so a run that never finishes stays on the ledger as
+interrupted, counts as an infrastructure failure, and is charged the
+authorization's reserve. It refuses to start without a separate authorization
+record that binds the protocol, the queue, a spend ceiling, and a per-attempt
+reserve. An attempt starts only while the planning cost so far plus the reserve
+stays within the ceiling. One run can still cost more than the reserve. The
+ceiling is never raised after the first run, and a queue stopped at the ceiling
+is released as an abstention. No authorization record exists yet. The screen's
+token use suggests about $150 at the contract's planning prices.
+[`aggregate_codex_sol_measurements.py`](aggregate_codex_sol_measurements.py)
+checks the protocol, queue, and authorization, confirms that each receipt
+restates its run records, and records the digest of every input.
+
+```bash
+python data/formal-verification/vero/validate_codex_sol_probe_protocol.py \
+  --protocol data/formal-verification/vero/policy-probe-protocol.codex-sol-v1.json
+python data/formal-verification/vero/build_probe_queue.py \
+  --protocol data/formal-verification/vero/policy-probe-protocol.codex-sol-v1.json \
+  --panel data/formal-verification/vero/development-lifecycle-panel-v2.json \
+  --output data/formal-verification/vero/probe-queue.codex-sol-v1.json --check
+```
 
 Project the completed measurement into the shared Anarres profile contract
 without changing that interpretation:

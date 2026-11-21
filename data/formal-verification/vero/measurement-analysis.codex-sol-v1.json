@@ -1,0 +1,100 @@
+{
+  "schema_version": "anarres.formal-verification-measurement-analysis.codex-sol.v1",
+  "analysis_id": "vero-codex-sol-repeated-measurement-analysis-v1",
+  "status": "frozen_before_model_attempts",
+  "estimand_source": {
+    "analysis_contract": "measurement-analysis.v2.json",
+    "analysis_contract_sha256": "5ad9fd1db86dfaf83b954f4a2c7bf0edf78ef5ba679b320dbb3bc6fe597a5c7d",
+    "inherited": [
+      "advantage_mass",
+      "H",
+      "zero_signal_rule",
+      "cluster_unit",
+      "cluster_sensitivity",
+      "admission_summary"
+    ],
+    "reason": "the repeated measurement uses the estimands, cluster checks, and support gate frozen for the earlier starting policy, so the two development measurements are comparable"
+  },
+  "reward_unit": "strict specification success: the specification passes fresh Vero grading and the trusted axiom check confirms the pass",
+  "grouping_unit": "specification nested within repository",
+  "attempts_per_group": 4,
+  "mode_handling": "proof and codeproof are analyzed separately",
+  "advantage_mass": "for k successes in G attempts, 2*k*(G-k)/(G-1)",
+  "rho": "one million times total leave-one-out absolute advantage mass divided by model tokens",
+  "model_tokens": "every input token the Responses API reports, cached or not, plus every output token, including reasoning tokens, for the attempt that produced the receipt",
+  "H": "squared total advantage mass divided by the product of specification count and summed squared mass",
+  "zero_signal_rule": "H equals zero when total advantage mass is zero",
+  "cluster_unit": "repository",
+  "cluster_sensitivity": {
+    "leave_one_repository_out": true,
+    "whole_repository_bootstrap_replicates": 10000,
+    "whole_repository_bootstrap_seed": 2026110701,
+    "central_interval": 0.9,
+    "interpretation": "descriptive fixed-panel sensitivity, not an independent-specification confidence interval"
+  },
+  "specification_scoring": {
+    "strict_reward_one": [
+      "passed"
+    ],
+    "strict_reward_zero": [
+      "unfilled",
+      "overfilled",
+      "sorry_leaked",
+      "axiom_leaked",
+      "slot_body_tainted",
+      "build_error",
+      "unpaired_sat",
+      "unsafe_keyword",
+      "impl_oracle",
+      "axiom_recheck_failed",
+      "check_incomplete",
+      "sat_unverified"
+    ],
+    "unknown_status": "the aggregate fails closed",
+    "check_incomplete": "counted as a failure: the trusted checker could not confirm the pass after one retry at three times its budget",
+    "sat_unverified": "counted as a failure: no trusted check covers a codeproof sat claim"
+  },
+  "sensitivity_scoring": {
+    "name": "unconfirmed_counted_as_pass",
+    "strict_reward_one": [
+      "passed",
+      "check_incomplete",
+      "sat_unverified"
+    ],
+    "role": "an upper bound reported beside the primary estimate; it never enters a gate or the readiness decision"
+  },
+  "attempt_outcomes": {
+    "scored": "infrastructure-valid, intact, and freshly graded; each specification receives its strict reward",
+    "integrity_failure": "infrastructure-valid, but the final workspace could not be collected, the task holds entries outside its boundary, or the slot bodies broke the grading boundary; the policy caused it, so every specification receives strict reward zero",
+    "infrastructure_failure": "never scored and never counted as zero",
+    "interrupted": "a run that was recorded as started but never finished; it is treated as an infrastructure failure, and an interrupted attempt is charged the authorization's reserve because its tokens are unknown"
+  },
+  "infrastructure_retry": "each queue entry has at most two runs; after an infrastructure failure during grading the second run regrades the preserved workspace, and after any other infrastructure failure or an interruption it reruns the attempt under a fresh run identity; scientific and integrity outcomes are never retried",
+  "maximum_runs_per_entry": 2,
+  "task_identity": "every replicate of a task must report the same materialized task-tree and instruction digests, or the aggregate rejects the receipts",
+  "incomplete_queue": "if any queue entry has no scored or integrity-failure receipt, the release records an abstention and computes no measurement; the reason is spend_ceiling_reached when the runner recorded a spend-ceiling stop and infrastructure_incomplete otherwise",
+  "rejected_receipts": "receipts the frozen rules reject are released as an abstention with reason aggregate_rejected and the rejection message",
+  "admission_summary": {
+    "minimum_repositories_with_nonzero_verified_coverage": 2,
+    "minimum_mixed_specification_groups": 8,
+    "minimum_pooled_strict_success": 0.01,
+    "maximum_pooled_strict_success": 0.8
+  },
+  "readiness_gate": {
+    "requires_admission_summary": true,
+    "minimum_repositories_with_mixed_groups_in_each_mode": 2,
+    "minimum_mixed_specification_groups_after_leaving_out_any_repository": 8,
+    "rule": "the measurement is ready only when the support gate passes, each mode has mixed specification groups in at least two repositories, and leaving out any one repository still leaves at least eight mixed groups across both modes; otherwise the release records an abstention"
+  },
+  "cost_reporting": {
+    "unit": "model tokens",
+    "usd": "descriptive only, computed at the planning prices below; it is not a billing record",
+    "planning_prices_usd_per_million_tokens": {
+      "uncached_input": 5.0,
+      "cached_input": 0.5,
+      "output": 30.0
+    },
+    "wall_time": "agent wall seconds cover the agent loop only, not materialization or grading"
+  },
+  "token_accounting": "charge all reported input and output tokens, including the call after which a stop threshold is crossed"
+}

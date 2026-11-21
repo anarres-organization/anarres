@@ -228,6 +228,40 @@ def task_boundary_status(repository: Path) -> dict[str, Any]:
     }
 
 
+def repeated_measurement_status(repository: Path) -> dict[str, Any]:
+    """Validate the frozen repeated-measurement protocol and its outcome-blind queue."""
+
+    root = study_root(repository)
+    protocol_path = root / "policy-probe-protocol.codex-sol-v1.json"
+    queue_path = root / "probe-queue.codex-sol-v1.json"
+    protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
+    queue = json.loads(queue_path.read_text(encoding="utf-8"))
+    validator = load_module(
+        root / "validate_codex_sol_probe_protocol.py", "anarres_formal_repeated_validator"
+    )
+    validator.validate(protocol, root)
+    builder = load_module(root / "build_probe_queue.py", "anarres_formal_queue_builder")
+    panel_path = root / protocol["source"]["development_panel"]
+    expected = builder.build_queue(
+        protocol,
+        json.loads(panel_path.read_text(encoding="utf-8")),
+        protocol_sha256=hashlib.sha256(protocol_path.read_bytes()).hexdigest(),
+        panel_sha256=hashlib.sha256(panel_path.read_bytes()).hexdigest(),
+    )
+    if queue != expected:
+        raise FormalCliError("the repeated-measurement queue does not match its protocol")
+    return {
+        "protocol_id": protocol["protocol_id"],
+        "protocol_sha256": digest(protocol_path),
+        "queue_id": queue["queue_id"],
+        "queue_sha256": digest(queue_path),
+        "queued_attempts": len(queue["attempts"]),
+        "frozen": True,
+        # Execution needs a separate authorization record that sets a spend ceiling.
+        "execution_authorized": False,
+    }
+
+
 def validate_qualification(repository: Path) -> tuple[dict[str, Any], dict[str, Path]]:
     paths = qualification_paths(repository)
     records = {name: json.loads(path.read_text(encoding="utf-8")) for name, path in paths.items()}
@@ -310,6 +344,8 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     measurement = result["measurement"]
     execution = result["execution"]
     modes = measurement["by_mode"]
+    boundary_qualified = task_boundary_status(repository)["qualified"]
+    repeated = repeated_measurement_status(repository)
     return {
         "study_id": result["result_id"],
         "domain": "formal-verification",
@@ -339,9 +375,14 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "native_source_qualification_available": True,
         "runtime_qualification_available": True,
         "runtime_qualified": False,
-        "task_only_boundary_qualified": task_boundary_status(repository)["qualified"],
+        "task_only_boundary_qualified": boundary_qualified,
+        "repeated_measurement": repeated,
         "policy_probe_available": False,
-        "next_required_gate": "task-only containment requalification before repeated measurement",
+        "next_required_gate": (
+            "execution authorization for the frozen repeated measurement"
+            if boundary_qualified and repeated["frozen"]
+            else "task-only containment requalification before repeated measurement"
+        ),
     }
 
 
@@ -426,6 +467,7 @@ def command_qualification(args: argparse.Namespace) -> dict[str, Any]:
             "followup_required": not boundary["qualified"],
         },
         "task_only_boundary": boundary,
+        "repeated_measurement": repeated_measurement_status(repository),
         "decision": {
             "repeated_measurement_authorized": False,
             "candidate_ranking_authorized": False,
