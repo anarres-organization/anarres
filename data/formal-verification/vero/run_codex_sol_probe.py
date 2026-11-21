@@ -1032,6 +1032,7 @@ def run_with_disk_budget(
     finished = threading.Event()
 
     def watch() -> None:
+        previously_hidden: set[str] = set()
         while not finished.wait(GRADER_DISK_POLL_SECONDS):
             allocated, entries, unreadable = disk_usage(watched)
             listed = subprocess.run(
@@ -1041,10 +1042,13 @@ def run_with_disk_budget(
                 timeout=60,
                 check=False,
             ).stdout.split()
-            deleted, hidden = 0, False
+            deleted, hiding = 0, set()
             for container in listed:
                 held, hides = open_deleted_bytes(docker, container, sandbox_user())
-                deleted, hidden = deleted + held, hidden or hides
+                deleted, hiding = deleted + held, hiding | hides
+            # Build processes exit constantly; only one still hiding a poll later counts.
+            hidden = bool(hiding & previously_hidden)
+            previously_hidden = hiding
             if (
                 allocated + deleted > GRADER_DISK_BYTES
                 or entries > GRADER_DISK_ENTRIES

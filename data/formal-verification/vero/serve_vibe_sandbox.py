@@ -110,13 +110,17 @@ def disk_usage(root: Path) -> tuple[int, int, list[str]]:
     allocated = entries = 0
 
     def refuse(error: OSError) -> None:
-        unreadable.append(str(error.filename))
+        # A path that vanished mid-walk hides nothing; one the walk may not read does.
+        if not isinstance(error, FileNotFoundError):
+            unreadable.append(str(error.filename))
 
     for directory, names, filenames in os.walk(root, onerror=refuse, followlinks=False):
         for name in [*names, *filenames]:
             entries += 1
             try:
                 status = os.lstat(os.path.join(directory, name))
+            except FileNotFoundError:
+                continue
             except OSError:
                 unreadable.append(os.path.join(directory, name))
                 continue
@@ -127,26 +131,31 @@ def disk_usage(root: Path) -> tuple[int, int, list[str]]:
 
 
 # Sums the blocks of files that container processes hold open after deleting them, which
-# no directory walk can see. A live process whose descriptors cannot be listed hides
-# them, which counts as a breach.
+# no directory walk can see, and names each live process whose descriptors cannot be
+# listed by its process id and start time. Processes exit constantly during a build, so
+# only a process that still hides at the next poll counts as hiding.
 OPEN_DELETED_PROGRAM = r"""
-total=0; hidden=0
+total=0; hidden=""
 for d in /proc/[0-9]*; do
-  state=$(cut -d' ' -f3 "$d/stat" 2>/dev/null) || continue
-  [ -z "$state" ] || [ "$state" = Z ] && continue
-  if ! ls "$d/fd" >/dev/null 2>&1; then [ -d "$d" ] && hidden=1; continue; fi
+  line=$(cat "$d/stat" 2>/dev/null) || continue
+  set -- ${line##*) }
+  [ "$1" = Z ] || [ "$1" = X ] || [ -z "$1" ] && continue
+  if ! ls "$d/fd" >/dev/null 2>&1; then
+    hidden="$hidden ${d#/proc/}:${20}"
+    continue
+  fi
   for f in "$d"/fd/*; do
     case "$(readlink "$f" 2>/dev/null)" in
       *" (deleted)") total=$((total + $(stat -L -c %b "$f" 2>/dev/null || echo 0)));;
     esac
   done
 done
-echo "$total $hidden"
+echo "$total$hidden"
 """
 
 
-def open_deleted_bytes(docker: str, container: str, user: str) -> tuple[int, bool]:
-    """Return the bytes held by deleted open files in one container, and whether any hide."""
+def open_deleted_bytes(docker: str, container: str, user: str) -> tuple[int, set[str]]:
+    """Return the bytes deleted open files hold in one container, and the hiding processes."""
     try:
         completed = subprocess.run(
             [docker, "exec", "--user", user, container, "/bin/sh", "-c", OPEN_DELETED_PROGRAM],
@@ -155,12 +164,12 @@ def open_deleted_bytes(docker: str, container: str, user: str) -> tuple[int, boo
             timeout=60,
             check=False,
         )
-        blocks, hidden = completed.stdout.split()
-        return int(blocks) * 512, hidden == "1"
+        blocks, *hidden = completed.stdout.split()
+        return int(blocks) * 512, {f"{container}:{process}" for process in hidden}
     except (ValueError, subprocess.TimeoutExpired):
         # A container that has just exited holds nothing; one that cannot answer is
         # measured again at the next poll.
-        return 0, False
+        return 0, set()
 
 
 def remove_tree(root: Path) -> None:
@@ -303,9 +312,12 @@ class DockerSandbox:
         The workspace is a host bind mount, so neither the memory limit nor the
         per-file size limit bounds it.
         """
+        previously_hidden: set[str] = set()
         while not self.watching.wait(WORKSPACE_POLL_SECONDS):
             allocated, entries, unreadable = disk_usage(self.config.workspace)
-            deleted, hidden = open_deleted_bytes(self.config.docker, self.name, self.config.user)
+            deleted, hiding = open_deleted_bytes(self.config.docker, self.name, self.config.user)
+            hidden = bool(hiding & previously_hidden)
+            previously_hidden = hiding
             allocated += deleted
             with self._metrics_lock:
                 self.receipt.workspace_peak_bytes = max(
