@@ -188,6 +188,53 @@ class LearningOperatorTest(unittest.TestCase):
             _, complete = RUNNER.inspect_outputs(output, ["train-a"], 1)
             self.assertFalse(complete)
 
+    def test_failed_trajectory_retains_kind_and_request_cost(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            run = output / "run2"
+            run.mkdir()
+            (run / "train-a.failure.json").write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "status": "FAILED_TRAJECTORY",
+                        "failure_kind": "policy_execution_limit",
+                        "task_id": "train-a",
+                        "run_index": 2,
+                        "attempts": 1,
+                        "error": "BaseAgent exceeded max tool rounds (8)",
+                    }
+                ),
+                encoding="utf-8",
+            )
+            usage = output / "REQUEST_USAGE.jsonl"
+            usage.write_text(
+                "\n".join(
+                    json.dumps(
+                        {
+                            "run_index": 2,
+                            "task_id": "train-a",
+                            "input_tokens": 100,
+                            "output_tokens": 20,
+                            "total_tokens": 120,
+                            "response_cost_usd": 0.01,
+                        }
+                    )
+                    for _ in range(2)
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            records, complete = RUNNER.inspect_outputs(output, ["train-a"], 2)
+            RUNNER.attribute_request_usage(records, usage)
+            failed = next(record for record in records if record["run"] == 2)
+            self.assertFalse(complete)
+            self.assertEqual(failed["failure_kind"], "policy_execution_limit")
+            self.assertEqual(failed["failure_attempts"], 1)
+            self.assertEqual(failed["request_accounting"]["requests"], 2)
+            self.assertEqual(failed["request_accounting"]["total_tokens"], 240)
+            self.assertAlmostEqual(failed["request_accounting"]["response_cost_usd"], 0.02)
+
     def test_artifact_is_deterministic_and_retrieval_is_relevant(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import threading
+from contextvars import ContextVar, Token
 from pathlib import Path
 from typing import Any
 
@@ -13,6 +14,7 @@ from openai import OpenAI
 from state_bench.client import BaseLLMClient
 
 _LEDGER_LOCK = threading.Lock()
+_JOB_CONTEXT: ContextVar[dict[str, Any] | None] = ContextVar("anarres_gateway_job", default=None)
 
 
 def _required_env(name: str) -> str:
@@ -26,6 +28,16 @@ def _optional_float(value: Any) -> float | None:
     if value is None or str(value).strip() == "":
         return None
     return float(value)
+
+
+def set_job_context(*, task_id: str, run_index: int) -> Token:
+    """Bind gateway requests to one benchmark job in the current worker context."""
+    return _JOB_CONTEXT.set({"task_id": task_id, "run_index": run_index})
+
+
+def reset_job_context(token: Token) -> None:
+    """Restore the worker's previous request-attribution context."""
+    _JOB_CONTEXT.reset(token)
 
 
 class AnarresChatCompletionsClient(BaseLLMClient):
@@ -61,6 +73,7 @@ class AnarresChatCompletionsClient(BaseLLMClient):
         ledger_value = os.environ.get("ANARRES_GATEWAY_USAGE_LEDGER", "").strip()
         usage = getattr(response, "usage", None)
         record = {
+            **(_JOB_CONTEXT.get() or {}),
             "request_id": getattr(response, "id", None),
             "role": self.role,
             "purpose": purpose,

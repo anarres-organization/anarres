@@ -177,7 +177,9 @@ counts, and any LiteLLM response-cost, key-spend, and key-budget headers in
 in the process after the gateway reports that threshold. Dollar spend must
 still be reconciled against the gateway's own usage report because provider
 rates are not interchangeable. The repository does not infer cost from public
-list prices.
+list prices. Every request is attributed to its task and run. A failed job also
+writes a structured `.failure.json` record, keeping policy execution limits
+separate from provider or runtime failures without replacing the failed run.
 
 Once they are configured, run the eight train-side smoke tasks twice with
 `AnarresEpisodicMemoryAgent`, no learning artifact, retrieval top-k 3, and one
