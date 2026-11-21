@@ -4,7 +4,7 @@
   "status": "frozen_unqualified",
   "qualified": false,
   "supersedes": "vero-codex-sol-openai-containment-v2",
-  "supersession_reason": "The v2 runner tested a container it started itself with different flags, user, and limits than the model route; two of its ten tests passed unconditionally, one accepted either of two required conditions, and none exercised the agent socket, grader rejection, or cross-attempt isolation. The v2 route also ran the task as container root, which could write to /dev and /dev/shm, and any task user could create POSIX message queues under /dev/mqueue. Fresh grading also compiled model-authored Lean on the host, where elaboration-time code could reach the host network and files. v3 freezes a non-root, IPC-isolated route, contained grading, and a route-faithful test set. The v2 record is preserved unchanged.",
+  "supersession_reason": "The v2 runner tested a container it started itself with different flags, user, and limits than the model route; two of its ten tests passed unconditionally, one accepted either of two required conditions, and none exercised the agent socket, grader rejection, or cross-attempt isolation. The v2 route also ran the task as container root, which could write to /dev and /dev/shm, and any task user could create POSIX message queues under /dev/mqueue. Fresh grading also compiled model-authored Lean on the host, where elaboration-time code could reach the host network and files, and Vero's axiom report could be forged by any model message, including a tactic trace or an initializer that runs when a check imports the model's module. v3 freezes a non-root, IPC-isolated route, contained grading, and a route-faithful test set. The v2 record is preserved unchanged.",
   "qualification_image": null,
   "qualification_image_note": "A receipt qualifies only the image it binds. The deployment image is the one named by the released receipt; a later protocol must cite that receipt and image.",
   "interface": {
@@ -83,7 +83,8 @@
       "location": "fresh Vero evaluation directory on the controller host",
       "lean_execution": "every Lake invocation runs inside the runtime image with the task-sandbox isolation flags, mounting only the evaluation directory",
       "host_extraction": "attempts whose task tree contains links or special files outside the task are recorded as integrity failures and never graded",
-      "axiom_recheck": "every specification Vero reports as passed is rechecked by compiling Vero's own axiom-check files alone with lake env lean; each theorem must be reported exactly once with only allowed axioms, or the specification is downgraded to axiom_recheck_failed"
+      "axiom_recheck": "every specification Vero reports as passed is confirmed by AnarresAxiomCheck.lean in a sealed container. The checker never imports a model module: it reads the compiled libraries of the submission and of an untouched reference build as data, replays every non-core declaration through the kernel, collects axioms from the replayed environment, and requires each target statement and its protected definitions to equal the reference. An unconfirmed specification is downgraded to axiom_recheck_failed, and a checker or reference-build failure is an infrastructure error",
+      "reference_build": "the untouched task is built in its own contained Lake invocation, outside the submission's mount"
     }
   },
   "required_tests": [
