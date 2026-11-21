@@ -298,8 +298,31 @@ class VeroSandboxProtocolTest(unittest.TestCase):
             ),
         ]
         for completed, expected in cases:
-            with mock.patch.object(SANDBOX.subprocess, "run", return_value=completed):
+            with (
+                mock.patch.object(SANDBOX.subprocess, "run", return_value=completed),
+                mock.patch.object(SANDBOX, "HIDING_RESCAN_SECONDS", 0),
+            ):
                 self.assertEqual(SANDBOX.held_open_bytes_inside("docker", "attempt", "u"), expected)
+
+    def test_a_process_unreadable_only_while_it_executes_is_not_hiding(self) -> None:
+        # A program being executed is briefly unreadable; one rescan later it is not.
+        scans = iter([(0, [41]), (0, [])])
+        with (
+            mock.patch.object(SANDBOX.sys, "platform", "linux"),
+            mock.patch.object(SANDBOX, "scan_open_files", side_effect=lambda *_: next(scans)),
+            mock.patch.object(SANDBOX, "HIDING_RESCAN_SECONDS", 0),
+        ):
+            self.assertEqual(SANDBOX.held_open_bytes("docker", "attempt", "u"), (0, None))
+        # A holder unreadable at every rescan hides its files.
+        with (
+            mock.patch.object(SANDBOX.sys, "platform", "linux"),
+            mock.patch.object(SANDBOX, "scan_open_files", return_value=(4096, [41])),
+            mock.patch.object(SANDBOX, "HIDING_RESCAN_SECONDS", 0),
+        ):
+            self.assertEqual(
+                SANDBOX.held_open_bytes("docker", "attempt", "u"),
+                (4096, "process 41 hides its open files"),
+            )
 
     @unittest.skipUnless(sys.platform == "linux", "reads the host process table")
     def test_host_reads_deleted_files_held_open_by_container_processes(self) -> None:

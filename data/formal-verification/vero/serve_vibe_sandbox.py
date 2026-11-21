@@ -17,6 +17,7 @@ import stat
 import subprocess
 import sys
 import threading
+import time
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path, PurePosixPath
@@ -164,16 +165,36 @@ def process_state(pid: int) -> str | None:
         return None
 
 
+# A process is briefly unreadable while it executes a new program, which a build does
+# constantly. Hiding counts only when some live process is unreadable at every one of
+# these rescans, which a holder that stays undumpable, or hands its files to new
+# undumpable processes, cannot avoid.
+HIDING_RESCANS = 3
+HIDING_RESCAN_SECONDS = 0.2
+
+
 def held_open_bytes(docker: str, container: str, user: str) -> tuple[int, str | None]:
     """Return the bytes container processes hold in files they deleted, and any breach.
 
     No directory walk sees such a file. On a Linux host the container's processes are
     host processes, so they are read from the host's process table, out of the task's
-    reach. A live process whose open files cannot be listed hides them, which is a
-    breach; one that exits while being read hides nothing.
+    reach. A live process whose open files stay unreadable hides them, which is a breach.
     """
     if sys.platform != "linux":
         return held_open_bytes_inside(docker, container, user)
+    total, hidden = scan_open_files(docker, container)
+    for _ in range(HIDING_RESCANS):
+        if not hidden:
+            break
+        time.sleep(HIDING_RESCAN_SECONDS)
+        _, hidden = scan_open_files(docker, container)
+    if hidden:
+        return total, f"process {hidden[0]} hides its open files"
+    return total, None
+
+
+def scan_open_files(docker: str, container: str) -> tuple[int, list[int]]:
+    """Return the deleted-file bytes held in one container and its unreadable processes."""
     listed = subprocess.run(
         [docker, "top", container, "-eo", "pid"],
         capture_output=True,
@@ -183,9 +204,9 @@ def held_open_bytes(docker: str, container: str, user: str) -> tuple[int, str | 
     )
     if listed.returncode != 0:
         # A container that has stopped holds nothing open.
-        return 0, None
+        return 0, []
     seen: set[tuple[int, int]] = set()
-    total = 0
+    total, hidden = 0, []
     for pid in (int(word) for word in listed.stdout.split() if word.isdigit()):
         try:
             descriptors = os.listdir(f"/proc/{pid}/fd")
@@ -193,7 +214,7 @@ def held_open_bytes(docker: str, container: str, user: str) -> tuple[int, str | 
             continue
         except PermissionError:
             if process_state(pid) not in (None, "Z", "X"):
-                return total, f"process {pid} hides its open files"
+                hidden.append(pid)
             continue
         for descriptor in descriptors:
             path = f"/proc/{pid}/fd/{descriptor}"
@@ -206,10 +227,20 @@ def held_open_bytes(docker: str, container: str, user: str) -> tuple[int, str | 
             if stat.S_ISREG(status.st_mode) and (status.st_dev, status.st_ino) not in seen:
                 seen.add((status.st_dev, status.st_ino))
                 total += status.st_blocks * 512
-    return total, None
+    return total, hidden
 
 
 def held_open_bytes_inside(docker: str, container: str, user: str) -> tuple[int, str | None]:
+    total, breach = scan_open_files_inside(docker, container, user)
+    for _ in range(HIDING_RESCANS):
+        if breach is None or "hides" not in breach:
+            break
+        time.sleep(HIDING_RESCAN_SECONDS)
+        _, breach = scan_open_files_inside(docker, container, user)
+    return total, breach
+
+
+def scan_open_files_inside(docker: str, container: str, user: str) -> tuple[int, str | None]:
     try:
         completed = subprocess.run(
             [docker, "exec", "--user", user, container, "/bin/sh", "-c", OPEN_DELETED_PROGRAM],
