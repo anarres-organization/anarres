@@ -35,6 +35,12 @@ def sha256(path: Path) -> str:
 def build(checkout: Path, candidate_plan_path: Path, arm: str) -> dict:
     source = audit_checkout(checkout)
     plan = json.loads(candidate_plan_path.read_text(encoding="utf-8"))
+    protocol_path = ROOT / "PROTOCOL.json"
+    protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
+    if plan.get("study_id") != protocol.get("study_id"):
+        raise ValueError("candidate plan belongs to a different study")
+    if plan.get("inputs", {}).get("protocol_sha256") != sha256(protocol_path):
+        raise ValueError("candidate plan is not bound to the released protocol")
     if not str(plan.get("status", "")).startswith("CANDIDATES_AND_PREDICTION_FROZEN"):
         raise ValueError("candidate plan must be prospectively frozen")
     if plan.get("held_out_outcomes_opened") is not False:
@@ -50,6 +56,10 @@ def build(checkout: Path, candidate_plan_path: Path, arm: str) -> dict:
     task_ids = candidate.get("task_ids")
     if not isinstance(task_ids, list) or len(task_ids) != plan.get("candidate_size"):
         raise ValueError("candidate membership is incomplete")
+    split_path = checkout / "state_bench/domains/customer_support/splits/train_test.json"
+    train_ids = set(json.loads(split_path.read_text(encoding="utf-8"))["splits"]["train"])
+    if any(not isinstance(task_id, str) for task_id in task_ids) or not set(task_ids) <= train_ids:
+        raise ValueError("candidate membership contains a non-training task")
     train_root = checkout / "datasets/train_task_trajectories/customer_support"
     return OPERATOR_MODULE.build_artifact(
         train_root,

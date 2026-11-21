@@ -17,6 +17,12 @@ RUNNER = importlib.util.module_from_spec(RUNNER_SPEC)
 assert RUNNER_SPEC.loader is not None
 RUNNER_SPEC.loader.exec_module(RUNNER)
 
+BUILDER_PATH = ROOT / "scripts/build_learning_artifact.py"
+BUILDER_SPEC = importlib.util.spec_from_file_location("build_learning_artifact", BUILDER_PATH)
+BUILDER = importlib.util.module_from_spec(BUILDER_SPEC)
+assert BUILDER_SPEC.loader is not None
+BUILDER_SPEC.loader.exec_module(BUILDER)
+
 
 def write_trajectory(path: Path, request: str, tool_name: str, response: str) -> None:
     path.write_text(
@@ -38,6 +44,40 @@ def write_trajectory(path: Path, request: str, tool_name: str, response: str) ->
 
 
 class LearningOperatorTest(unittest.TestCase):
+    def test_artifact_builder_rejects_non_training_membership(self):
+        with tempfile.TemporaryDirectory() as directory:
+            checkout = Path(directory) / "state"
+            split_dir = checkout / "state_bench/domains/customer_support/splits"
+            split_dir.mkdir(parents=True)
+            (split_dir / "train_test.json").write_text(
+                json.dumps({"splits": {"train": ["train-task"], "test": ["held-out-task"]}}),
+                encoding="utf-8",
+            )
+            protocol = json.loads((ROOT / "PROTOCOL.json").read_text(encoding="utf-8"))
+            plan = {
+                "study_id": protocol["study_id"],
+                "status": "CANDIDATES_AND_PREDICTION_FROZEN__HELD_OUT_OUTCOMES_UNOPENED",
+                "held_out_outcomes_opened": False,
+                "candidate_size": 1,
+                "inputs": {"protocol_sha256": BUILDER.sha256(ROOT / "PROTOCOL.json")},
+                "run_contract": {"learning_operator": {"id": "state_bench_episodic_bm25_v1"}},
+                "candidates": {
+                    "policy_relative": {
+                        "task_ids": ["held-out-task"],
+                        "membership_sha256": MODULE.membership_hash(["held-out-task"]),
+                    }
+                },
+            }
+            plan_path = Path(directory) / "plan.json"
+            plan_path.write_text(json.dumps(plan), encoding="utf-8")
+            original_audit = BUILDER.audit_checkout
+            BUILDER.audit_checkout = lambda _: {"revision": "a" * 40}
+            try:
+                with self.assertRaisesRegex(ValueError, "non-training task"):
+                    BUILDER.build(checkout, plan_path, "policy_relative")
+            finally:
+                BUILDER.audit_checkout = original_audit
+
     def test_model_smoke_command_is_train_side_and_non_retrying(self):
         command = RUNNER.build_command(
             ["train-a", "train-b"],

@@ -10,6 +10,9 @@ from collections import Counter
 from pathlib import Path
 
 TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
+TASK_ID_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]*")
+SHA256_PATTERN = re.compile(r"[0-9a-f]{64}")
+GIT_REVISION_PATTERN = re.compile(r"[0-9a-f]{40}")
 OPERATOR_ID = "state_bench_episodic_bm25_v1"
 K1 = 1.5
 B = 0.75
@@ -86,6 +89,11 @@ def build_artifact(
     ordered_ids = sorted(task_ids)
     if len(ordered_ids) != len(set(ordered_ids)) or not ordered_ids:
         raise ValueError("learning artifact requires unique task identities")
+    if any(
+        not isinstance(task_id, str) or not TASK_ID_PATTERN.fullmatch(task_id)
+        for task_id in ordered_ids
+    ):
+        raise ValueError("learning artifact contains an invalid task identity")
     actual_membership = membership_hash(ordered_ids)
     if actual_membership != expected_membership_sha256:
         raise ValueError("candidate membership differs from its frozen hash")
@@ -110,6 +118,14 @@ def build_artifact(
 def validate_artifact(payload: dict) -> None:
     if payload.get("schema_version") != 1 or payload.get("operator_id") != OPERATOR_ID:
         raise ValueError("unsupported learning artifact")
+    if not GIT_REVISION_PATTERN.fullmatch(str(payload.get("source_revision", ""))):
+        raise ValueError("learning artifact lacks a valid source revision")
+    if not SHA256_PATTERN.fullmatch(str(payload.get("candidate_plan_sha256", ""))):
+        raise ValueError("learning artifact lacks a valid candidate-plan hash")
+    if not isinstance(payload.get("arm"), str) or not payload["arm"].strip():
+        raise ValueError("learning artifact lacks a candidate arm")
+    if not SHA256_PATTERN.fullmatch(str(payload.get("candidate_membership_sha256", ""))):
+        raise ValueError("learning artifact lacks a valid membership hash")
     records = payload.get("records")
     if not isinstance(records, list) or len(records) != payload.get("record_count"):
         raise ValueError("learning artifact record count is inconsistent")
@@ -119,7 +135,9 @@ def validate_artifact(payload: dict) -> None:
             raise ValueError("learning record must be an object")
         if not all(_text(record.get(name)) for name in ("task_id", "retrieval_text", "learning")):
             raise ValueError("learning record lacks required text")
-        if len(_text(record.get("source_trajectory_sha256"))) != 64:
+        if not TASK_ID_PATTERN.fullmatch(_text(record.get("task_id"))):
+            raise ValueError("learning record contains an invalid task identity")
+        if not SHA256_PATTERN.fullmatch(_text(record.get("source_trajectory_sha256"))):
             raise ValueError("learning record lacks a source trajectory hash")
         task_ids.append(record["task_id"])
     if len(task_ids) != len(set(task_ids)):
