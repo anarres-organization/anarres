@@ -379,6 +379,11 @@ class ScoringTest(unittest.TestCase):
             inference_config_digest="sha256:" + "c" * 64,
         )
         joined = " ".join(command)
+        # The server must accept exactly the arguments the probe builds for it.
+        server = load("vero_serve_vibe_sandbox_cli", "serve_vibe_sandbox.py")
+        with mock.patch.object(sys, "argv", command[1:]):
+            parsed = server.parse_args()
+        self.assertEqual(parsed.memory, PROBE.SANDBOX_MEMORY)
         self.assertIn(f"--maximum-workspace-bytes {PROBE.SANDBOX_WORKSPACE_BYTES}", joined)
         self.assertIn(f"--maximum-workspace-entries {PROBE.SANDBOX_WORKSPACE_ENTRIES}", joined)
 

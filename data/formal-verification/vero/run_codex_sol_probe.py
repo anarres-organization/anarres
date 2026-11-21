@@ -1399,8 +1399,6 @@ def sandbox_server_command(
         str(SANDBOX_COMMAND_SECONDS),
         "--memory",
         SANDBOX_MEMORY,
-        "--memory-swap",
-        SANDBOX_MEMORY,
         "--cpus",
         str(SANDBOX_CPUS),
         "--pids",
