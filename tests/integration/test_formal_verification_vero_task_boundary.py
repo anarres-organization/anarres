@@ -18,8 +18,9 @@ from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 VERO_ROOT = ROOT / "data" / "formal-verification" / "vero"
-if str(VERO_ROOT) not in sys.path:
-    sys.path.insert(0, str(VERO_ROOT))
+for search_path in (VERO_ROOT, VERO_ROOT / "src"):
+    if str(search_path) not in sys.path:
+        sys.path.insert(0, str(search_path))
 CONTRACT_PATH = VERO_ROOT / "containment-contract-codex-sol.v3.json"
 CONTRACT = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
 
