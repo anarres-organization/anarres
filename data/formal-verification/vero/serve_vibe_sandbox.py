@@ -103,7 +103,8 @@ def disk_usage(root: Path) -> tuple[int, int, list[str]]:
     """Return allocated bytes, entry count, and unreadable paths under one tree.
 
     Links are not followed and each inode counts once. A directory the walk cannot
-    read hides what it holds, so callers treat any unreadable path as a breach.
+    read hides what it holds, so callers treat any unreadable path as a breach. Paths
+    are relative to the tree, so receipts never carry host paths.
     """
     seen: set[tuple[int, int]] = set()
     unreadable: list[str] = []
@@ -112,7 +113,7 @@ def disk_usage(root: Path) -> tuple[int, int, list[str]]:
     def refuse(error: OSError) -> None:
         # A path that vanished mid-walk hides nothing; one the walk may not read does.
         if not isinstance(error, FileNotFoundError):
-            unreadable.append(str(error.filename))
+            unreadable.append(os.path.relpath(str(error.filename), root))
 
     for directory, names, filenames in os.walk(root, onerror=refuse, followlinks=False):
         for name in [*names, *filenames]:
@@ -122,7 +123,7 @@ def disk_usage(root: Path) -> tuple[int, int, list[str]]:
             except FileNotFoundError:
                 continue
             except OSError:
-                unreadable.append(os.path.join(directory, name))
+                unreadable.append(os.path.relpath(os.path.join(directory, name), root))
                 continue
             if (status.st_dev, status.st_ino) not in seen:
                 seen.add((status.st_dev, status.st_ino))

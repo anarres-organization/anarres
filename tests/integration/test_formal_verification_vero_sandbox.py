@@ -275,7 +275,7 @@ class VeroSandboxProtocolTest(unittest.TestCase):
             (hidden / "data").write_bytes(b"x" * 100_000)
             (root / "hidden").chmod(0)
             allocated, _, unreadable = SANDBOX.disk_usage(root)
-            self.assertEqual(unreadable, [str(root / "hidden")])
+            self.assertEqual(unreadable, ["hidden"])
             self.assertLess(allocated, 100_000)
             SANDBOX.remove_tree(root)
             self.assertFalse(root.exists())
