@@ -153,9 +153,42 @@ def inspect_outputs(output_dir: Path, task_ids: list[str], runs: int) -> tuple[l
                     )
                 )
             else:
+                failure_path = path.with_suffix(".failure.json")
+                if failure_path.is_file():
+                    failure = json.loads(failure_path.read_text(encoding="utf-8"))
+                    record.update(
+                        {
+                            "failure_record": str(failure_path.relative_to(output_dir)),
+                            "failure_record_sha256": sha256(failure_path),
+                            "failure_kind": failure.get("failure_kind"),
+                            "failure_error": failure.get("error"),
+                            "failure_attempts": failure.get("attempts"),
+                        }
+                    )
                 complete = False
             records.append(record)
     return records, complete
+
+
+def attribute_request_usage(records: list[dict], usage_ledger: Path) -> None:
+    if not usage_ledger.is_file():
+        return
+    grouped: dict[tuple[int, str], list[dict]] = {}
+    for line in usage_ledger.read_text(encoding="utf-8").splitlines():
+        row = json.loads(line)
+        run_index = row.get("run_index")
+        task_id = row.get("task_id")
+        if isinstance(run_index, int) and isinstance(task_id, str):
+            grouped.setdefault((run_index, task_id), []).append(row)
+    for record in records:
+        rows = grouped.get((record["run"], record["task_id"]), [])
+        record["request_accounting"] = {
+            "requests": len(rows),
+            "input_tokens": sum(row.get("input_tokens", 0) for row in rows),
+            "output_tokens": sum(row.get("output_tokens", 0) for row in rows),
+            "total_tokens": sum(row.get("total_tokens", 0) for row in rows),
+            "response_cost_usd": sum(row.get("response_cost_usd") or 0 for row in rows),
+        }
 
 
 def main() -> None:
@@ -252,6 +285,7 @@ def main() -> None:
             check=False,
         )
     records, complete = inspect_outputs(output_dir, task_ids, runs)
+    attribute_request_usage(records, usage_ledger)
     ledger = {
         **plan,
         "status": (
