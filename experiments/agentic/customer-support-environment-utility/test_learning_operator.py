@@ -11,6 +11,14 @@ MODULE = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
 SPEC.loader.exec_module(MODULE)
 
+GATEWAY_MESSAGES_PATH = ROOT / "execution/state_bench_extension/anarres_gateway_messages.py"
+GATEWAY_MESSAGES_SPEC = importlib.util.spec_from_file_location(
+    "anarres_gateway_messages", GATEWAY_MESSAGES_PATH
+)
+GATEWAY_MESSAGES = importlib.util.module_from_spec(GATEWAY_MESSAGES_SPEC)
+assert GATEWAY_MESSAGES_SPEC.loader is not None
+GATEWAY_MESSAGES_SPEC.loader.exec_module(GATEWAY_MESSAGES)
+
 RUNNER_PATH = ROOT / "scripts/run_model_smoke.py"
 RUNNER_SPEC = importlib.util.spec_from_file_location("run_model_smoke", RUNNER_PATH)
 RUNNER = importlib.util.module_from_spec(RUNNER_SPEC)
@@ -87,6 +95,7 @@ class LearningOperatorTest(unittest.TestCase):
             2,
             "openai",
             "OPENAI_API_KEY",
+            2,
         )
         self.assertIn("train-a,train-b", command)
         self.assertEqual(command[command.index("--num-runs") + 1], "2")
@@ -102,8 +111,55 @@ class LearningOperatorTest(unittest.TestCase):
             2,
             "openai",
             "<configured-credential-variable>",
+            2,
         )
         self.assertNotIn("OPENAI_API_KEY", displayed)
+
+    def test_gateway_smoke_uses_custom_client_and_locked_runner(self):
+        command = RUNNER.build_command(
+            ["train-a"],
+            Path("/tmp/canary"),
+            "gpt-model",
+            "low",
+            1,
+            "gateway",
+            "unused",
+            1,
+        )
+        self.assertIn("scripts/anarres_gateway_run_batch.py", command)
+        self.assertEqual(command[command.index("--num-runs") + 1], "1")
+        self.assertEqual(command[command.index("--agent-class") + 1], "AnarresGatewayAgent")
+        self.assertEqual(
+            command[command.index("--agent-client-class") + 1],
+            "AnarresChatCompletionsClient",
+        )
+        self.assertNotIn("--agent-provider", command)
+        self.assertNotIn("--agent-api-key-var", command)
+
+    def test_gateway_messages_place_every_result_after_its_tool_call(self):
+        conversation = [
+            {"role": "user", "content": "find both orders"},
+            {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                    {"name": "lookup", "arguments": {"id": 1}, "result": {"status": "open"}},
+                    {"name": "lookup", "arguments": {"id": 2}, "result": {"status": "closed"}},
+                ],
+            },
+            {"role": "tool", "content": [{"result": {}}, {"result": {}}]},
+            {"role": "user", "content": "continue"},
+        ]
+        messages = GATEWAY_MESSAGES.build_messages("system", conversation)
+        assistant_index = next(i for i, item in enumerate(messages) if item["role"] == "assistant")
+        calls = messages[assistant_index]["tool_calls"]
+        tool_messages = messages[assistant_index + 1 : assistant_index + 3]
+        self.assertEqual([item["role"] for item in tool_messages], ["tool", "tool"])
+        self.assertEqual(
+            [item["tool_call_id"] for item in tool_messages],
+            [call["id"] for call in calls],
+        )
+        self.assertEqual(messages[-1], {"role": "user", "content": "continue"})
 
     def test_model_smoke_requires_scores_and_token_accounting(self):
         with tempfile.TemporaryDirectory() as directory:
