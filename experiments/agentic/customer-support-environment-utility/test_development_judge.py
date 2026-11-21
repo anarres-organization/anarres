@@ -55,6 +55,18 @@ class FakeEfficiency:
 
 
 class DevelopmentJudgeTest(unittest.TestCase):
+    def test_request_disables_thinking(self):
+        client = object.__new__(MODULE.LocalJudgeClient)
+        client.model = "Qwen/Qwen3-32B"
+        client.seed = 1729
+        parameters = client.request_parameters([{"role": "user", "content": "test"}], 64)
+        self.assertEqual(
+            parameters["extra_body"],
+            {"chat_template_kwargs": {"enable_thinking": False}},
+        )
+        self.assertEqual(parameters["temperature"], 0)
+        self.assertEqual(parameters["seed"], 1729)
+
     def test_sidecar_is_separate_and_content_bound(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

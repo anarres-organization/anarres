@@ -92,6 +92,17 @@ class LocalJudgeClient:
     def set_context(self, *, task_id: str, run_index: int) -> None:
         self._context.value = {"task_id": task_id, "run_index": run_index}
 
+    def request_parameters(self, messages: list[dict[str, str]], max_tokens: int) -> dict[str, Any]:
+        return {
+            "model": self.model,
+            "messages": messages,
+            "max_tokens": max_tokens,
+            "temperature": 0,
+            "seed": self.seed,
+            "response_format": {"type": "json_object"},
+            "extra_body": {"chat_template_kwargs": {"enable_thinking": False}},
+        }
+
     def complete_json(
         self,
         prompt: str,
@@ -106,12 +117,7 @@ class LocalJudgeClient:
         messages.append({"role": "user", "content": prompt})
         started = time.monotonic()
         response = self._client.chat.completions.create(
-            model=self.model,
-            messages=messages,
-            max_tokens=max_tokens,
-            temperature=0,
-            seed=self.seed,
-            response_format={"type": "json_object"},
+            **self.request_parameters(messages, max_tokens)
         )
         elapsed = time.monotonic() - started
         usage = response.usage
@@ -169,6 +175,7 @@ def judge_contract(
         "model_revision": client.revision,
         "seed": client.seed,
         "temperature": 0,
+        "thinking": False,
         "task_requirements_prompt_sha256": sha256(prompts / "judge_task_requirements.md"),
         "judge_system_prompt_sha256": hashlib.sha256(
             domain.judge_system_prompt.encode("utf-8")
