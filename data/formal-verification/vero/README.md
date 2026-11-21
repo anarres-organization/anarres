@@ -208,9 +208,10 @@ python data/formal-verification/vero/validate_containment_contract.py \
 
 The bounded agent-socket server is
 [`serve_vibe_sandbox.py`](serve_vibe_sandbox.py). It starts one ephemeral
-Docker container from an immutable image digest, binds only the freshly
-materialized task, disables network access, drops Linux capabilities, applies
-resource limits, and removes the container when the attempt ends.
+Docker container from an immutable image digest, copies the freshly
+materialized task into an in-memory workspace, disables network access, drops
+Linux capabilities, applies resource limits, collects the final workspace, and
+removes the container when the attempt ends.
 The [runtime definition](runtime/README.md) pins the image inputs and exact Lean
 toolchain while leaving the built-image digest pending for deployment-host
 qualification.
@@ -327,8 +328,8 @@ controls it must pass. It supersedes the v2 record, which remains unchanged.
 The v2 runner tested a container it started itself rather than the model's
 route, and two of its tests passed unconditionally. The v3 route runs the task
 as the unprivileged host user with network and IPC namespaces disabled, a
-read-only message-queue mount, and one task workspace. Writes are confined to
-the task, `/tmp`, and `/cache`.
+read-only message-queue mount, and an in-memory task workspace. Writes are
+confined to the task, `/tmp`, and `/cache`.
 
 Fresh grading previously compiled the model's Lean on the controller host,
 where elaboration-time code can run with host network and file access. The
@@ -410,17 +411,52 @@ rerender, which the checker does not cover, and is recorded as
 infrastructure failures, and the repeated-measurement protocol must state how
 they enter its estimates. A container that cannot start, a reference build that
 fails or cannot be read, or a grading stage that outlives the sum of Vero's own
-Lake budgets leaves the attempt unscored. Only library directories that the
-untouched build also has reach the checker. A best-effort syntactic scan also
-rejects slot bodies that visibly run code during elaboration, switch kernel
-checking off, or carry an attribute outside a list of toolchain attributes. It
-can be evaded, for example by hiding code behind comment markers inside string
-literals. Confirming a pass does not depend on the scan, but code that evades it
-can still run during the contained build. Such code can force `check_incomplete`
-on a specification Vero passed, or fill the host disk so that a later stage
-fails and the attempt is unscored. Neither lever produces a confirmed pass. The
-repeated-measurement protocol should count `check_incomplete` as a failure in
-its primary estimate and audit every occurrence.
+Lake budgets leaves the attempt unscored.
+
+No directory the model can write is on host disk. The task workspace is an
+in-memory filesystem inside the sandbox container, limited to 8 GiB and 200,000
+entries, and the task is copied in when the sandbox starts. Each grading build
+compiles in a container that sees the evaluation directory read-only and writes
+its Lake outputs to an in-memory volume limited to 16 GiB and 500,000 entries.
+The kernel enforces these limits on every byte, including files a process
+deletes while holding them, passes through a socket, or keeps only as a memory
+mapping. While a container runs, its in-memory pages also count against its
+memory limit, which swap cannot extend; a grading volume keeps its pages after
+its build container exits, so each concurrent grading can hold up to its volume
+limit of host memory until cleanup. A task that fills its space therefore only
+fails its own commands or build, which is scored as the policy's result.
+Containers keep no log on host disk, each stream of Lake output is cut at 64 MiB
+before it reaches the grader, a Lake exit status that Docker reserves for its
+own failures is reported as an ordinary failure, and once Lake returns the
+grading container exits, ending every process the build left in it.
+
+When the attempt ends, the sandbox stops the task's processes and archives the
+workspace from inside the container. It chooses each member from its metadata
+before reading any data, so a file whose apparent size would pass the workspace
+limit, a path longer than 1,024 bytes or 64 components, a name that is not
+UTF-8, a special file, or anything past the entry limit is left behind, and a
+sparse file or a deep directory chain cannot make the archive larger than the
+workspace. The host reads at most that many bytes and
+extracts them with a filter that also leaves absolute or escaping links behind.
+What is left behind is recorded, and the rest is graded. Only a workspace that
+cannot be collected at all, for example because the task ran its container out
+of memory, is an integrity failure. A collection that outlasts its ten-minute
+limit is an infrastructure failure; the byte, entry, path, and depth limits keep
+a collection far inside it.
+
+Before grading, a scan that lexes each slot body as Lean, so comment markers
+inside strings cannot hide code, also rejects bodies that run code during
+elaboration, switch kernel checking off, or carry an attribute outside a list
+of toolchain attributes. It reads each body twice, once recognizing
+interpolated strings by context and once treating every string as
+interpolated. The scan is syntactic and may still miss constructs; confirming a
+pass never depends on it. Code that evades it runs only inside the contained
+build, where it can at most force `check_incomplete` on a specification Vero
+passed, which never produces a confirmed pass. A policy can also cause an
+integrity failure deliberately, for example by exhausting its container's
+memory. The repeated-measurement protocol should therefore count policy-caused
+integrity failures and `check_incomplete` as failures in its primary estimate
+and audit every occurrence.
 
 The released receipt in
 [`results/task-boundary-qualification.codex-sol-v3/`](results/task-boundary-qualification.codex-sol-v3/)
