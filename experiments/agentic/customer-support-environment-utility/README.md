@@ -71,6 +71,15 @@ would support prediction within this source, agent, learning operator, and cost
 profile. It would not establish transfer to private workflows, other agent
 families, voice interaction, or parameter-updating training.
 
+## External completed-run risk check
+
+The [tau2-bench hidden-run audit](external-checks/tau2-hidden-run-risk/README.md)
+tests a narrower question using released customer-support trajectories. It asks
+whether completed model runs predict task-level failures in a held-out model
+configuration. The frozen telecom target reaches 0.882 failure ROC AUC and a
+0.37-point aggregate pass-rate error. This is cross-model inference evidence,
+not an environment-selection or post-training result.
+
 ## Reproduce source qualification
 
 Validate the public source registry, protocol, and saved qualification record:

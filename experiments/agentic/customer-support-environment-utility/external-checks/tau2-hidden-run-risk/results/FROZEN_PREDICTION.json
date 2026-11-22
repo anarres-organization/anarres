@@ -1,0 +1,643 @@
+{
+  "freeze_sha256": "625d1dd3dcec4d9082a9eb317054ff7177dc22e8d167c39e6621acda2ac22fca",
+  "frozen_at_utc": "2026-11-22T09:21:51.189190+00:00",
+  "method": {
+    "method_selected_on": "separate airline and retail retrospective audit",
+    "predictor": "per-task failure frequency across three prior model configurations",
+    "simple_baselines": [
+      "constant failure rate",
+      "required-action count"
+    ],
+    "top_risk_fraction": 0.2,
+    "trials_per_training_model": 4
+  },
+  "predicted_pass_rate": 0.42470760233918137,
+  "predictions": [
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 12,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_both_permissions|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_off[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 11,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_both_permissions|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_on[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 9,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_both_permissions|unseat_sim_card|user_abroad_roaming_enabled_off[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 10,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_sms_permission|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_on[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 10,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_sms_permission|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_enabled_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.8333333333333334,
+      "required_action_count": 9,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_storage_permission|data_mode_off|data_usage_exceeded|unseat_sim_card[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 11,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_storage_permission|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 10,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_storage_permission|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_on[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.9166666666666666,
+      "required_action_count": 10,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_storage_permission|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 9,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_app_sms_permission|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.9166666666666666,
+      "required_action_count": 8,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_app_storage_permission|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_enabled_off[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.33333333333333337,
+      "required_action_count": 5,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_app_storage_permission|unseat_sim_card[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 6,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_on[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 9,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|break_apn_mms_setting|break_app_both_permissions|data_mode_off|data_usage_exceeded|user_abroad_roaming_enabled_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.08333333333333337,
+      "required_action_count": 5,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|break_apn_mms_setting|break_app_storage_permission[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.9166666666666666,
+      "required_action_count": 8,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|break_apn_mms_setting|data_mode_off|unseat_sim_card|user_abroad_roaming_disabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.41666666666666663,
+      "required_action_count": 5,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|break_apn_mms_setting|data_usage_exceeded[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 7,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|break_app_both_permissions|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_on[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 5,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|break_app_storage_permission|data_mode_off|user_abroad_roaming_enabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.33333333333333337,
+      "required_action_count": 3,
+      "task_id": "[mms_issue]airplane_mode_on|bad_network_preference|data_usage_exceeded[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 8,
+      "task_id": "[mms_issue]airplane_mode_on|bad_wifi_calling|break_app_both_permissions|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_enabled_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 3,
+      "task_id": "[mms_issue]airplane_mode_on|bad_wifi_calling|user_abroad_roaming_enabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.08333333333333337,
+      "required_action_count": 3,
+      "task_id": "[mms_issue]airplane_mode_on|break_app_both_permissions[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.9166666666666666,
+      "required_action_count": 6,
+      "task_id": "[mms_issue]airplane_mode_on|break_app_both_permissions|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.75,
+      "required_action_count": 8,
+      "task_id": "[mms_issue]bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_storage_permission|data_mode_off|data_usage_exceeded|unseat_sim_card[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 8,
+      "task_id": "[mms_issue]bad_network_preference|bad_wifi_calling|break_app_both_permissions|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 7,
+      "task_id": "[mms_issue]bad_network_preference|bad_wifi_calling|break_app_both_permissions|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 7,
+      "task_id": "[mms_issue]bad_network_preference|bad_wifi_calling|break_app_sms_permission|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_enabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 6,
+      "task_id": "[mms_issue]bad_network_preference|bad_wifi_calling|break_app_sms_permission|data_mode_off|unseat_sim_card|user_abroad_roaming_enabled_off[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.08333333333333337,
+      "required_action_count": 3,
+      "task_id": "[mms_issue]bad_network_preference|break_app_both_permissions[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 5,
+      "task_id": "[mms_issue]bad_network_preference|break_app_sms_permission|data_mode_off|data_usage_exceeded|user_abroad_roaming_enabled_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.9166666666666666,
+      "required_action_count": 3,
+      "task_id": "[mms_issue]bad_network_preference|break_app_sms_permission|user_abroad_roaming_disabled_on[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.8333333333333334,
+      "required_action_count": 3,
+      "task_id": "[mms_issue]bad_network_preference|data_mode_off|user_abroad_roaming_disabled_on[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.8333333333333334,
+      "required_action_count": 3,
+      "task_id": "[mms_issue]bad_network_preference|user_abroad_roaming_disabled_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 2,
+      "task_id": "[mms_issue]bad_network_preference|user_abroad_roaming_disabled_on[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 9,
+      "task_id": "[mms_issue]bad_wifi_calling|break_apn_mms_setting|break_app_both_permissions|data_mode_off|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.8333333333333334,
+      "required_action_count": 5,
+      "task_id": "[mms_issue]bad_wifi_calling|break_apn_mms_setting|break_app_sms_permission|data_usage_exceeded[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.75,
+      "required_action_count": 6,
+      "task_id": "[mms_issue]bad_wifi_calling|break_apn_mms_setting|data_mode_off|data_usage_exceeded|unseat_sim_card[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.9166666666666666,
+      "required_action_count": 5,
+      "task_id": "[mms_issue]bad_wifi_calling|break_apn_mms_setting|unseat_sim_card|user_abroad_roaming_enabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.41666666666666663,
+      "required_action_count": 3,
+      "task_id": "[mms_issue]bad_wifi_calling|data_mode_off|data_usage_exceeded[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 5,
+      "task_id": "[mms_issue]break_apn_mms_setting|data_mode_off|data_usage_exceeded|user_abroad_roaming_disabled_on[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 4,
+      "task_id": "[mms_issue]break_apn_mms_setting|data_mode_off|user_abroad_roaming_disabled_on[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.9166666666666666,
+      "required_action_count": 3,
+      "task_id": "[mms_issue]break_apn_mms_setting|user_abroad_roaming_enabled_off[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.5833333333333333,
+      "required_action_count": 3,
+      "task_id": "[mms_issue]break_app_both_permissions|data_usage_exceeded[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.9166666666666666,
+      "required_action_count": 4,
+      "task_id": "[mms_issue]break_app_both_permissions|unseat_sim_card|user_abroad_roaming_disabled_on[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.5833333333333333,
+      "required_action_count": 2,
+      "task_id": "[mms_issue]break_app_sms_permission|data_mode_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 3,
+      "task_id": "[mms_issue]break_app_sms_permission|data_usage_exceeded|user_abroad_roaming_disabled_on[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.5,
+      "required_action_count": 2,
+      "task_id": "[mms_issue]break_app_storage_permission|data_usage_exceeded[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.75,
+      "required_action_count": 3,
+      "task_id": "[mms_issue]break_app_storage_permission|unseat_sim_card|user_abroad_roaming_disabled_on[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.16666666666666663,
+      "required_action_count": 2,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 8,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|bad_vpn|data_mode_off|data_saver_mode_on|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.8333333333333334,
+      "required_action_count": 7,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|bad_vpn|data_mode_off|data_saver_mode_on|data_usage_exceeded|user_abroad_roaming_disabled_on[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.6666666666666667,
+      "required_action_count": 7,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|bad_vpn|data_mode_off|data_saver_mode_on|data_usage_exceeded|user_abroad_roaming_enabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.8333333333333334,
+      "required_action_count": 7,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|bad_vpn|data_mode_off|data_saver_mode_on|user_abroad_roaming_disabled_off[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.25,
+      "required_action_count": 6,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|bad_vpn|data_mode_off|data_usage_exceeded|user_abroad_roaming_enabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.8333333333333334,
+      "required_action_count": 6,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|bad_vpn|data_saver_mode_on|data_usage_exceeded|user_abroad_roaming_enabled_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.0,
+      "required_action_count": 5,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|bad_vpn|data_saver_mode_on|user_abroad_roaming_disabled_on[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.08333333333333337,
+      "required_action_count": 4,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|data_mode_off|data_saver_mode_on[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.5833333333333333,
+      "required_action_count": 6,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|data_mode_off|data_saver_mode_on|data_usage_exceeded|user_abroad_roaming_disabled_on[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.75,
+      "required_action_count": 5,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|data_mode_off|data_usage_exceeded|user_abroad_roaming_disabled_on[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.5833333333333333,
+      "required_action_count": 4,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|data_mode_off|user_abroad_roaming_disabled_on[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.8333333333333334,
+      "required_action_count": 6,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|data_saver_mode_on|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.16666666666666663,
+      "required_action_count": 5,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.25,
+      "required_action_count": 3,
+      "task_id": "[mobile_data_issue]airplane_mode_on|bad_network_preference|user_abroad_roaming_enabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.0,
+      "required_action_count": 2,
+      "task_id": "[mobile_data_issue]airplane_mode_on|data_mode_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 1.0,
+      "required_action_count": 5,
+      "task_id": "[mobile_data_issue]airplane_mode_on|data_mode_off|data_saver_mode_on|data_usage_exceeded|user_abroad_roaming_enabled_off[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.33333333333333337,
+      "required_action_count": 3,
+      "task_id": "[mobile_data_issue]airplane_mode_on|data_saver_mode_on|user_abroad_roaming_disabled_on[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.5833333333333333,
+      "required_action_count": 2,
+      "task_id": "[mobile_data_issue]airplane_mode_on|user_abroad_roaming_enabled_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.08333333333333337,
+      "required_action_count": 4,
+      "task_id": "[mobile_data_issue]bad_network_preference|bad_vpn|data_mode_off|data_saver_mode_on[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.41666666666666663,
+      "required_action_count": 6,
+      "task_id": "[mobile_data_issue]bad_network_preference|bad_vpn|data_mode_off|data_saver_mode_on|data_usage_exceeded|user_abroad_roaming_enabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.5833333333333333,
+      "required_action_count": 6,
+      "task_id": "[mobile_data_issue]bad_network_preference|bad_vpn|data_saver_mode_on|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.5,
+      "required_action_count": 5,
+      "task_id": "[mobile_data_issue]bad_network_preference|bad_vpn|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.6666666666666667,
+      "required_action_count": 4,
+      "task_id": "[mobile_data_issue]bad_network_preference|bad_vpn|user_abroad_roaming_disabled_off[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.6666666666666667,
+      "required_action_count": 3,
+      "task_id": "[mobile_data_issue]bad_network_preference|bad_vpn|user_abroad_roaming_disabled_on[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.25,
+      "required_action_count": 3,
+      "task_id": "[mobile_data_issue]bad_network_preference|bad_vpn|user_abroad_roaming_enabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.6666666666666667,
+      "required_action_count": 6,
+      "task_id": "[mobile_data_issue]bad_network_preference|data_mode_off|data_saver_mode_on|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.5,
+      "required_action_count": 3,
+      "task_id": "[mobile_data_issue]bad_network_preference|data_saver_mode_on|data_usage_exceeded[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.6666666666666667,
+      "required_action_count": 2,
+      "task_id": "[mobile_data_issue]bad_network_preference|user_abroad_roaming_enabled_off[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.75,
+      "required_action_count": 5,
+      "task_id": "[mobile_data_issue]bad_vpn|data_mode_off|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.5,
+      "required_action_count": 3,
+      "task_id": "[mobile_data_issue]bad_vpn|data_saver_mode_on|user_abroad_roaming_disabled_on[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.25,
+      "required_action_count": 2,
+      "task_id": "[mobile_data_issue]data_mode_off|data_usage_exceeded[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.8333333333333334,
+      "required_action_count": 4,
+      "task_id": "[mobile_data_issue]data_mode_off|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.16666666666666663,
+      "required_action_count": 2,
+      "task_id": "[mobile_data_issue]data_saver_mode_on|data_usage_exceeded[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.08333333333333337,
+      "required_action_count": 2,
+      "task_id": "[mobile_data_issue]data_saver_mode_on|user_abroad_roaming_enabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.33333333333333337,
+      "required_action_count": 2,
+      "task_id": "[mobile_data_issue]data_usage_exceeded|user_abroad_roaming_enabled_off[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.25,
+      "required_action_count": 3,
+      "task_id": "[service_issue]airplane_mode_on|break_apn_settings[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.25,
+      "required_action_count": 1,
+      "task_id": "[service_issue]airplane_mode_on|break_apn_settings|contract_end_suspension|lock_sim_card_pin[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.16666666666666663,
+      "required_action_count": 1,
+      "task_id": "[service_issue]airplane_mode_on|break_apn_settings|contract_end_suspension|lock_sim_card_pin|unseat_sim_card[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.41666666666666663,
+      "required_action_count": 1,
+      "task_id": "[service_issue]airplane_mode_on|break_apn_settings|contract_end_suspension|unseat_sim_card[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.5,
+      "required_action_count": 1,
+      "task_id": "[service_issue]airplane_mode_on|break_apn_settings|lock_sim_card_pin[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.16666666666666663,
+      "required_action_count": 1,
+      "task_id": "[service_issue]airplane_mode_on|break_apn_settings|lock_sim_card_pin|overdue_bill_suspension[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.5,
+      "required_action_count": 1,
+      "task_id": "[service_issue]airplane_mode_on|break_apn_settings|lock_sim_card_pin|overdue_bill_suspension|unseat_sim_card[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.5,
+      "required_action_count": 1,
+      "task_id": "[service_issue]airplane_mode_on|break_apn_settings|lock_sim_card_pin|unseat_sim_card[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.33333333333333337,
+      "required_action_count": 7,
+      "task_id": "[service_issue]airplane_mode_on|break_apn_settings|overdue_bill_suspension[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.6666666666666667,
+      "required_action_count": 8,
+      "task_id": "[service_issue]airplane_mode_on|break_apn_settings|overdue_bill_suspension|unseat_sim_card[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.41666666666666663,
+      "required_action_count": 4,
+      "task_id": "[service_issue]airplane_mode_on|break_apn_settings|unseat_sim_card[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.16666666666666663,
+      "required_action_count": 1,
+      "task_id": "[service_issue]airplane_mode_on|contract_end_suspension|lock_sim_card_pin|unseat_sim_card[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.0,
+      "required_action_count": 1,
+      "task_id": "[service_issue]airplane_mode_on|lock_sim_card_pin[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.16666666666666663,
+      "required_action_count": 1,
+      "task_id": "[service_issue]airplane_mode_on|lock_sim_card_pin|overdue_bill_suspension[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.08333333333333337,
+      "required_action_count": 1,
+      "task_id": "[service_issue]airplane_mode_on|lock_sim_card_pin|overdue_bill_suspension|unseat_sim_card[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.25,
+      "required_action_count": 1,
+      "task_id": "[service_issue]airplane_mode_on|lock_sim_card_pin|unseat_sim_card[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.08333333333333337,
+      "required_action_count": 5,
+      "task_id": "[service_issue]airplane_mode_on|overdue_bill_suspension[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.16666666666666663,
+      "required_action_count": 6,
+      "task_id": "[service_issue]airplane_mode_on|overdue_bill_suspension|unseat_sim_card[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.0,
+      "required_action_count": 2,
+      "task_id": "[service_issue]airplane_mode_on|unseat_sim_card[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.0,
+      "required_action_count": 1,
+      "task_id": "[service_issue]break_apn_settings|contract_end_suspension|lock_sim_card_pin[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.25,
+      "required_action_count": 1,
+      "task_id": "[service_issue]break_apn_settings|contract_end_suspension|lock_sim_card_pin|unseat_sim_card[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.33333333333333337,
+      "required_action_count": 1,
+      "task_id": "[service_issue]break_apn_settings|lock_sim_card_pin[PERSONA:None]"
+    },
+    {
+      "predicted_failure_probability": 0.25,
+      "required_action_count": 1,
+      "task_id": "[service_issue]break_apn_settings|lock_sim_card_pin|overdue_bill_suspension[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.33333333333333337,
+      "required_action_count": 1,
+      "task_id": "[service_issue]break_apn_settings|lock_sim_card_pin|overdue_bill_suspension|unseat_sim_card[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.5,
+      "required_action_count": 7,
+      "task_id": "[service_issue]break_apn_settings|overdue_bill_suspension|unseat_sim_card[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.0,
+      "required_action_count": 1,
+      "task_id": "[service_issue]contract_end_suspension|lock_sim_card_pin[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.6666666666666667,
+      "required_action_count": 1,
+      "task_id": "[service_issue]contract_end_suspension|unseat_sim_card[PERSONA:Hard]"
+    },
+    {
+      "predicted_failure_probability": 0.16666666666666663,
+      "required_action_count": 1,
+      "task_id": "[service_issue]lock_sim_card_pin|overdue_bill_suspension[PERSONA:Easy]"
+    },
+    {
+      "predicted_failure_probability": 0.0,
+      "required_action_count": 5,
+      "task_id": "[service_issue]overdue_bill_suspension|unseat_sim_card[PERSONA:Easy]"
+    }
+  ],
+  "schema_version": 1,
+  "source": {
+    "domain": "telecom",
+    "historical_release": "original June 2025 paper results; telecom verifies unchanged",
+    "repository": "sierra-research/tau2-bench",
+    "revision": "c06b07dd7c4d4ec61ba6ff9bcdf0b15dd7ef36d4"
+  },
+  "status": "FROZEN_BEFORE_TARGET_OUTCOMES",
+  "target": {
+    "filename": "o4-mini-2025-04-16_telecom_default_gpt-4.1-2025-04-14_4trials.json",
+    "model": "o4-mini",
+    "outcomes_accessed_before_freeze": false
+  },
+  "task_count": 114,
+  "top_risk_task_ids": [
+    "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_both_permissions|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_off[PERSONA:Hard]",
+    "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_both_permissions|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_on[PERSONA:Hard]",
+    "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_both_permissions|unseat_sim_card|user_abroad_roaming_enabled_off[PERSONA:Hard]",
+    "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_sms_permission|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_on[PERSONA:None]",
+    "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_sms_permission|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_enabled_off[PERSONA:None]",
+    "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_storage_permission|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_off[PERSONA:Easy]",
+    "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_apn_mms_setting|break_app_storage_permission|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_on[PERSONA:Easy]",
+    "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|break_app_sms_permission|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_off[PERSONA:None]",
+    "[mms_issue]airplane_mode_on|bad_network_preference|bad_wifi_calling|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_on[PERSONA:Easy]",
+    "[mms_issue]airplane_mode_on|bad_network_preference|break_apn_mms_setting|break_app_both_permissions|data_mode_off|data_usage_exceeded|user_abroad_roaming_enabled_off[PERSONA:None]",
+    "[mms_issue]airplane_mode_on|bad_network_preference|break_app_both_permissions|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_on[PERSONA:Hard]",
+    "[mms_issue]airplane_mode_on|bad_network_preference|break_app_storage_permission|data_mode_off|user_abroad_roaming_enabled_off[PERSONA:Easy]",
+    "[mms_issue]airplane_mode_on|bad_wifi_calling|break_app_both_permissions|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_enabled_off[PERSONA:None]",
+    "[mms_issue]airplane_mode_on|bad_wifi_calling|user_abroad_roaming_enabled_off[PERSONA:Easy]",
+    "[mms_issue]bad_network_preference|bad_wifi_calling|break_app_both_permissions|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_disabled_off[PERSONA:None]",
+    "[mms_issue]bad_network_preference|bad_wifi_calling|break_app_both_permissions|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:Hard]",
+    "[mms_issue]bad_network_preference|bad_wifi_calling|break_app_sms_permission|data_mode_off|data_usage_exceeded|unseat_sim_card|user_abroad_roaming_enabled_off[PERSONA:Easy]",
+    "[mms_issue]bad_network_preference|bad_wifi_calling|break_app_sms_permission|data_mode_off|unseat_sim_card|user_abroad_roaming_enabled_off[PERSONA:Hard]",
+    "[mms_issue]bad_network_preference|break_app_sms_permission|data_mode_off|data_usage_exceeded|user_abroad_roaming_enabled_off[PERSONA:None]",
+    "[mms_issue]bad_network_preference|user_abroad_roaming_disabled_on[PERSONA:None]",
+    "[mms_issue]bad_wifi_calling|break_apn_mms_setting|break_app_both_permissions|data_mode_off|data_usage_exceeded|user_abroad_roaming_disabled_off[PERSONA:None]",
+    "[mms_issue]break_apn_mms_setting|data_mode_off|data_usage_exceeded|user_abroad_roaming_disabled_on[PERSONA:Hard]",
+    "[mms_issue]break_apn_mms_setting|data_mode_off|user_abroad_roaming_disabled_on[PERSONA:Hard]"
+  ],
+  "training_inputs": [
+    {
+      "filename": "claude-3-7-sonnet-20250219_telecom_default_gpt-4.1-2025-04-14_4trials.json",
+      "model": "claude-3-7-sonnet",
+      "sha256": "f49e540896fe91ab8631647f02eb777ef6fed5a6ebec545f43e71d0504e227b2"
+    },
+    {
+      "filename": "gpt-4.1-2025-04-14_telecom_default_gpt-4.1-2025-04-14_4trials.json",
+      "model": "gpt-4.1",
+      "sha256": "8e1793f57a9e216514dbce1f93b44b0592d5904f1c5b97ab711906782107a1f2"
+    },
+    {
+      "filename": "gpt-4.1-mini-2025-04-14_telecom_base_gpt-4.1-2025-04-14_4trials.json",
+      "model": "gpt-4.1-mini",
+      "sha256": "04fad1a6fb3ff8804be31c54cf5a993b64868e37683c226e014e7adbf60841d9"
+    }
+  ]
+}

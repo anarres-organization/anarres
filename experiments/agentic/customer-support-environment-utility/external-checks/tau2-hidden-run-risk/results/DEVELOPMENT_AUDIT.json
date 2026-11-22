@@ -1,0 +1,781 @@
+{
+  "claim_boundary": "This audit predicts task-level failure in a held-out inference-time agent run from other public agent runs. It does not evaluate RL training, environment selection, or prospective transfer.",
+  "folds": [
+    {
+      "absolute_pass_rate_error": 0.05166666666666664,
+      "action_count_auc": 0.5848,
+      "action_count_top_risk": {
+        "failure_capture": 0.24,
+        "failure_precision": 0.6,
+        "failure_prevalence": 0.5,
+        "precision_lift": 1.2,
+        "selected_task_count": 10,
+        "selected_task_ids": [
+          "44",
+          "39",
+          "42",
+          "41",
+          "4",
+          "43",
+          "12",
+          "18",
+          "32",
+          "33"
+        ]
+      },
+      "constant_brier": 0.25266944444444445,
+      "domain": "airline",
+      "held_out_attempt_count": 200,
+      "held_out_model": "claude-3-7-sonnet",
+      "history_failure_auc": 0.7862,
+      "history_failure_brier": 0.1915277777777778,
+      "history_top_risk": {
+        "failure_capture": 0.38,
+        "failure_precision": 0.95,
+        "failure_prevalence": 0.5,
+        "precision_lift": 1.9,
+        "selected_task_count": 10,
+        "selected_task_ids": [
+          "14",
+          "23",
+          "32",
+          "35",
+          "39",
+          "7",
+          "24",
+          "33",
+          "37",
+          "21"
+        ]
+      },
+      "observed_pass_rate": 0.5,
+      "predicted_pass_rate": 0.5516666666666666,
+      "task_count": 50,
+      "task_failure_rmse": 0.3521757768185907,
+      "training_models": [
+        "gpt-4.1",
+        "gpt-4.1-mini",
+        "o4-mini"
+      ]
+    },
+    {
+      "absolute_pass_rate_error": 0.028333333333333433,
+      "action_count_auc": 0.716112012987013,
+      "action_count_top_risk": {
+        "failure_capture": 0.2840909090909091,
+        "failure_precision": 0.625,
+        "failure_prevalence": 0.44,
+        "precision_lift": 1.4204545454545454,
+        "selected_task_count": 10,
+        "selected_task_ids": [
+          "44",
+          "39",
+          "42",
+          "41",
+          "4",
+          "43",
+          "12",
+          "18",
+          "32",
+          "33"
+        ]
+      },
+      "constant_brier": 0.24720277777777777,
+      "domain": "airline",
+      "held_out_attempt_count": 200,
+      "held_out_model": "gpt-4.1",
+      "history_failure_auc": 0.8277191558441559,
+      "history_failure_brier": 0.16930555555555557,
+      "history_top_risk": {
+        "failure_capture": 0.4090909090909091,
+        "failure_precision": 0.9,
+        "failure_prevalence": 0.44,
+        "precision_lift": 2.0454545454545454,
+        "selected_task_count": 10,
+        "selected_task_ids": [
+          "14",
+          "23",
+          "32",
+          "35",
+          "37",
+          "39",
+          "7",
+          "24",
+          "33",
+          "1"
+        ]
+      },
+      "observed_pass_rate": 0.56,
+      "predicted_pass_rate": 0.5316666666666666,
+      "task_count": 50,
+      "task_failure_rmse": 0.3029943160449641,
+      "training_models": [
+        "claude-3-7-sonnet",
+        "gpt-4.1-mini",
+        "o4-mini"
+      ]
+    },
+    {
+      "absolute_pass_rate_error": 0.04500000000000004,
+      "action_count_auc": 0.6738173817381738,
+      "action_count_top_risk": {
+        "failure_capture": 0.2828282828282828,
+        "failure_precision": 0.7,
+        "failure_prevalence": 0.495,
+        "precision_lift": 1.4141414141414141,
+        "selected_task_count": 10,
+        "selected_task_ids": [
+          "44",
+          "39",
+          "42",
+          "41",
+          "4",
+          "43",
+          "12",
+          "18",
+          "32",
+          "33"
+        ]
+      },
+      "constant_brier": 0.252,
+      "domain": "airline",
+      "held_out_attempt_count": 200,
+      "held_out_model": "gpt-4.1-mini",
+      "history_failure_auc": 0.7970297029702971,
+      "history_failure_brier": 0.19333333333333333,
+      "history_top_risk": {
+        "failure_capture": 0.3434343434343434,
+        "failure_precision": 0.85,
+        "failure_prevalence": 0.495,
+        "precision_lift": 1.7171717171717171,
+        "selected_task_count": 10,
+        "selected_task_ids": [
+          "14",
+          "23",
+          "32",
+          "33",
+          "35",
+          "39",
+          "7",
+          "9",
+          "24",
+          "27"
+        ]
+      },
+      "observed_pass_rate": 0.505,
+      "predicted_pass_rate": 0.55,
+      "task_count": 50,
+      "task_failure_rmse": 0.33103373443402007,
+      "training_models": [
+        "claude-3-7-sonnet",
+        "gpt-4.1",
+        "o4-mini"
+      ]
+    },
+    {
+      "absolute_pass_rate_error": 0.06833333333333336,
+      "action_count_auc": 0.6988424968995453,
+      "action_count_top_risk": {
+        "failure_capture": 0.2682926829268293,
+        "failure_precision": 0.55,
+        "failure_prevalence": 0.41,
+        "precision_lift": 1.3414634146341464,
+        "selected_task_count": 10,
+        "selected_task_ids": [
+          "44",
+          "39",
+          "42",
+          "41",
+          "4",
+          "43",
+          "12",
+          "18",
+          "32",
+          "33"
+        ]
+      },
+      "constant_brier": 0.24656944444444448,
+      "domain": "airline",
+      "held_out_attempt_count": 200,
+      "held_out_model": "o4-mini",
+      "history_failure_auc": 0.7949565936337329,
+      "history_failure_brier": 0.1940277777777778,
+      "history_top_risk": {
+        "failure_capture": 0.36585365853658536,
+        "failure_precision": 0.75,
+        "failure_prevalence": 0.41,
+        "precision_lift": 1.829268292682927,
+        "selected_task_count": 10,
+        "selected_task_ids": [
+          "14",
+          "23",
+          "32",
+          "35",
+          "39",
+          "7",
+          "1",
+          "21",
+          "33",
+          "41"
+        ]
+      },
+      "observed_pass_rate": 0.5900000000000001,
+      "predicted_pass_rate": 0.5216666666666667,
+      "task_count": 50,
+      "task_failure_rmse": 0.3376799931559135,
+      "training_models": [
+        "claude-3-7-sonnet",
+        "gpt-4.1",
+        "gpt-4.1-mini"
+      ]
+    },
+    {
+      "absolute_pass_rate_error": 0.08187134502923976,
+      "action_count_auc": 0.5036182982511559,
+      "action_count_top_risk": {
+        "failure_capture": 0.23711340206185566,
+        "failure_precision": 0.25,
+        "failure_prevalence": 0.21271929824561403,
+        "precision_lift": 1.175257731958763,
+        "selected_task_count": 23,
+        "selected_task_ids": [
+          "30",
+          "32",
+          "4",
+          "55",
+          "21",
+          "23",
+          "3",
+          "31",
+          "54",
+          "2",
+          "28",
+          "20",
+          "41",
+          "42",
+          "49",
+          "16",
+          "26",
+          "64",
+          "15",
+          "19",
+          "22",
+          "35",
+          "46"
+        ]
+      },
+      "constant_brier": 0.17417271553640437,
+      "domain": "retail",
+      "held_out_attempt_count": 456,
+      "held_out_model": "claude-3-7-sonnet",
+      "history_failure_auc": 0.7477098469402407,
+      "history_failure_brier": 0.1650219298245614,
+      "history_top_risk": {
+        "failure_capture": 0.4536082474226804,
+        "failure_precision": 0.4782608695652174,
+        "failure_prevalence": 0.21271929824561403,
+        "precision_lift": 2.2483191393993724,
+        "selected_task_count": 23,
+        "selected_task_ids": [
+          "20",
+          "34",
+          "41",
+          "112",
+          "27",
+          "72",
+          "79",
+          "0",
+          "100",
+          "109",
+          "110",
+          "28",
+          "43",
+          "71",
+          "103",
+          "2",
+          "3",
+          "4",
+          "56",
+          "82",
+          "98",
+          "99",
+          "104"
+        ]
+      },
+      "observed_pass_rate": 0.7872807017543859,
+      "predicted_pass_rate": 0.7054093567251462,
+      "task_count": 114,
+      "task_failure_rmse": 0.30708019410902276,
+      "training_models": [
+        "gpt-4.1",
+        "gpt-4.1-mini",
+        "o4-mini"
+      ]
+    },
+    {
+      "absolute_pass_rate_error": 0.020467836257309857,
+      "action_count_auc": 0.5370574666532946,
+      "action_count_top_risk": {
+        "failure_capture": 0.2457627118644068,
+        "failure_precision": 0.31521739130434784,
+        "failure_prevalence": 0.25877192982456143,
+        "precision_lift": 1.2181282240235813,
+        "selected_task_count": 23,
+        "selected_task_ids": [
+          "30",
+          "32",
+          "4",
+          "55",
+          "21",
+          "23",
+          "3",
+          "31",
+          "54",
+          "2",
+          "28",
+          "20",
+          "41",
+          "42",
+          "49",
+          "16",
+          "26",
+          "64",
+          "15",
+          "19",
+          "22",
+          "35",
+          "46"
+        ]
+      },
+      "constant_brier": 0.19222795048048974,
+      "domain": "retail",
+      "held_out_attempt_count": 456,
+      "held_out_model": "gpt-4.1",
+      "history_failure_auc": 0.8155651389028181,
+      "history_failure_brier": 0.14839181286549707,
+      "history_top_risk": {
+        "failure_capture": 0.5,
+        "failure_precision": 0.6413043478260869,
+        "failure_prevalence": 0.25877192982456143,
+        "precision_lift": 2.478260869565217,
+        "selected_task_count": 23,
+        "selected_task_ids": [
+          "109",
+          "20",
+          "34",
+          "71",
+          "79",
+          "98",
+          "33",
+          "41",
+          "28",
+          "72",
+          "82",
+          "0",
+          "103",
+          "104",
+          "112",
+          "15",
+          "27",
+          "43",
+          "99",
+          "100",
+          "107",
+          "110",
+          "111"
+        ]
+      },
+      "observed_pass_rate": 0.7412280701754386,
+      "predicted_pass_rate": 0.7207602339181287,
+      "task_count": 114,
+      "task_failure_rmse": 0.2717175175742726,
+      "training_models": [
+        "claude-3-7-sonnet",
+        "gpt-4.1-mini",
+        "o4-mini"
+      ]
+    },
+    {
+      "absolute_pass_rate_error": 0.08771929824561397,
+      "action_count_auc": 0.5646447326117243,
+      "action_count_top_risk": {
+        "failure_capture": 0.25806451612903225,
+        "failure_precision": 0.43478260869565216,
+        "failure_prevalence": 0.3399122807017544,
+        "precision_lift": 1.279102384291725,
+        "selected_task_count": 23,
+        "selected_task_ids": [
+          "30",
+          "32",
+          "4",
+          "55",
+          "21",
+          "23",
+          "3",
+          "31",
+          "54",
+          "2",
+          "28",
+          "20",
+          "41",
+          "42",
+          "49",
+          "16",
+          "26",
+          "64",
+          "15",
+          "19",
+          "22",
+          "35",
+          "46"
+        ]
+      },
+      "constant_brier": 0.23206659741458907,
+      "domain": "retail",
+      "held_out_attempt_count": 456,
+      "held_out_model": "gpt-4.1-mini",
+      "history_failure_auc": 0.8057335762512057,
+      "history_failure_brier": 0.17196637426900585,
+      "history_top_risk": {
+        "failure_capture": 0.44516129032258067,
+        "failure_precision": 0.75,
+        "failure_prevalence": 0.3399122807017544,
+        "precision_lift": 2.206451612903226,
+        "selected_task_count": 23,
+        "selected_task_ids": [
+          "20",
+          "34",
+          "72",
+          "82",
+          "109",
+          "28",
+          "41",
+          "79",
+          "98",
+          "0",
+          "33",
+          "59",
+          "71",
+          "76",
+          "99",
+          "100",
+          "15",
+          "27",
+          "107",
+          "110",
+          "112",
+          "3",
+          "43"
+        ]
+      },
+      "observed_pass_rate": 0.6600877192982456,
+      "predicted_pass_rate": 0.7478070175438596,
+      "task_count": 114,
+      "task_failure_rmse": 0.2717175175742726,
+      "training_models": [
+        "claude-3-7-sonnet",
+        "gpt-4.1",
+        "o4-mini"
+      ]
+    },
+    {
+      "absolute_pass_rate_error": 0.014619883040935644,
+      "action_count_auc": 0.46923076923076923,
+      "action_count_top_risk": {
+        "failure_capture": 0.14615384615384616,
+        "failure_precision": 0.20652173913043478,
+        "failure_prevalence": 0.2850877192982456,
+        "precision_lift": 0.7244147157190636,
+        "selected_task_count": 23,
+        "selected_task_ids": [
+          "30",
+          "32",
+          "4",
+          "55",
+          "21",
+          "23",
+          "3",
+          "31",
+          "54",
+          "2",
+          "28",
+          "20",
+          "41",
+          "42",
+          "49",
+          "16",
+          "26",
+          "64",
+          "15",
+          "19",
+          "22",
+          "35",
+          "46"
+        ]
+      },
+      "constant_brier": 0.20402645258370095,
+      "domain": "retail",
+      "held_out_attempt_count": 456,
+      "held_out_model": "o4-mini",
+      "history_failure_auc": 0.7200566304860784,
+      "history_failure_brier": 0.19505360623781676,
+      "history_top_risk": {
+        "failure_capture": 0.3769230769230769,
+        "failure_precision": 0.532608695652174,
+        "failure_prevalence": 0.2850877192982456,
+        "precision_lift": 1.868227424749164,
+        "selected_task_count": 23,
+        "selected_task_ids": [
+          "28",
+          "34",
+          "20",
+          "109",
+          "3",
+          "82",
+          "99",
+          "0",
+          "27",
+          "36",
+          "4",
+          "41",
+          "79",
+          "2",
+          "56",
+          "71",
+          "72",
+          "76",
+          "98",
+          "112",
+          "104",
+          "110",
+          "111"
+        ]
+      },
+      "observed_pass_rate": 0.7149122807017544,
+      "predicted_pass_rate": 0.72953216374269,
+      "task_count": 114,
+      "task_failure_rmse": 0.3225598150855004,
+      "training_models": [
+        "claude-3-7-sonnet",
+        "gpt-4.1",
+        "gpt-4.1-mini"
+      ]
+    }
+  ],
+  "method": {
+    "held_out_unit": "one model configuration within one domain",
+    "outcomes_opened_during_method_development": true,
+    "predictor": "per-task failure frequency across the other three model configurations",
+    "simple_baselines": [
+      "constant failure rate",
+      "required-action count"
+    ],
+    "top_risk_fraction": 0.2
+  },
+  "schema_version": 1,
+  "source": {
+    "files": [
+      {
+        "domain": "airline",
+        "filename": "claude-3-7-sonnet-20250219_airline_default_gpt-4.1-2025-04-14_4trials.json",
+        "model": "claude-3-7-sonnet",
+        "reported_agent": {
+          "implementation": "llm_agent",
+          "llm": "claude-3-7-sonnet-20250219",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "reported_user": {
+          "global_simulation_guidelines": "# User Simulation Guidelines\nYou are playing the role of a customer contacting a customer service representative. \nYour goal is to simulate realistic customer interactions while following specific scenario instructions.\n\n## Core Principles\n- Generate one message at a time, maintaining natural conversation flow.\n- Strictly follow the scenario instructions you have received.\n- Never make up or hallucinate information not provided in the scenario instructions. Information that is not provided in the scenario instructions should be considered unknown or unavailable.\n- Avoid repeating the exact instructions verbatim. Use paraphrasing and natural language to convey the same information\n- Disclose information progressively. Wait for the agent to ask for specific information before providing it.\n\n## Task Completion\n- The goal is to continue the conversation until the task is complete.\n- If the instruction goal is satisified, generate the '###STOP###' token to end the conversation.\n- If you are transferred to another agent, generate the '###TRANSFER###' token to indicate the transfer.\n- If you find yourself in a situation in which the scenario does not provide enough information for you to continue the conversation, generate the '###OUT-OF-SCOPE###' token to end the conversation.\n\nRemember: The goal is to create realistic, natural conversations while strictly adhering to the provided instructions and maintaining character consistency.",
+          "implementation": "user_simulator",
+          "llm": "gpt-4.1-2025-04-14",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "sha256": "40a2c6a246eab27db5cdefda895fbe7f44be78a23d300817248534aa606d66de",
+        "task_count": 50,
+        "trajectory_count": 200
+      },
+      {
+        "domain": "airline",
+        "filename": "gpt-4.1-2025-04-14_airline_default_gpt-4.1-2025-04-14_4trials.json",
+        "model": "gpt-4.1",
+        "reported_agent": {
+          "implementation": "llm_agent",
+          "llm": "gpt-4.1-2025-04-14",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "reported_user": {
+          "global_simulation_guidelines": "# User Simulation Guidelines\nYou are playing the role of a customer contacting a customer service representative. \nYour goal is to simulate realistic customer interactions while following specific scenario instructions.\n\n## Core Principles\n- Generate one message at a time, maintaining natural conversation flow.\n- Strictly follow the scenario instructions you have received.\n- Never make up or hallucinate information not provided in the scenario instructions. Information that is not provided in the scenario instructions should be considered unknown or unavailable.\n- Avoid repeating the exact instructions verbatim. Use paraphrasing and natural language to convey the same information\n- Disclose information progressively. Wait for the agent to ask for specific information before providing it.\n\n## Task Completion\n- The goal is to continue the conversation until the task is complete.\n- If the instruction goal is satisified, generate the '###STOP###' token to end the conversation.\n- If you are transferred to another agent, generate the '###TRANSFER###' token to indicate the transfer.\n- If you find yourself in a situation in which the scenario does not provide enough information for you to continue the conversation, generate the '###OUT-OF-SCOPE###' token to end the conversation.\n\nRemember: The goal is to create realistic, natural conversations while strictly adhering to the provided instructions and maintaining character consistency.",
+          "implementation": "user_simulator",
+          "llm": "gpt-4.1-2025-04-14",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "sha256": "31d19e79b8ddc5934a60701f913ff5fefb41dee5e68f7b813c26254ab2e2d5c8",
+        "task_count": 50,
+        "trajectory_count": 200
+      },
+      {
+        "domain": "airline",
+        "filename": "gpt-4.1-mini-2025-04-14_airline_base_gpt-4.1-2025-04-14_4trials.json",
+        "model": "gpt-4.1-mini",
+        "reported_agent": {
+          "implementation": "llm_agent",
+          "llm": "gpt-4.1-mini-2025-04-14",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "reported_user": {
+          "global_simulation_guidelines": "# User Simulation Guidelines\nYou are playing the role of a customer contacting a customer service representative. \nYour goal is to simulate realistic customer interactions while following specific scenario instructions.\n\n## Core Principles\n- Generate one message at a time, maintaining natural conversation flow.\n- Strictly follow the scenario instructions you have received.\n- Never make up or hallucinate information not provided in the scenario instructions. Information that is not provided in the scenario instructions should be considered unknown or unavailable.\n- Avoid repeating the exact instructions verbatim. Use paraphrasing and natural language to convey the same information\n- Disclose information progressively. Wait for the agent to ask for specific information before providing it.\n\n## Task Completion\n- The goal is to continue the conversation until the task is complete.\n- If the instruction goal is satisified, generate the '###STOP###' token to end the conversation.\n- If you are transferred to another agent, generate the '###TRANSFER###' token to indicate the transfer.\n- If you find yourself in a situation in which the scenario does not provide enough information for you to continue the conversation, generate the '###OUT-OF-SCOPE###' token to end the conversation.\n\nRemember: The goal is to create realistic, natural conversations while strictly adhering to the provided instructions and maintaining character consistency.",
+          "implementation": "user_simulator",
+          "llm": "gpt-4.1-2025-04-14",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "sha256": "41788956547a100fb8e34baf159f36dd1f07f0765798a5fdaf917576c5dba9d0",
+        "task_count": 50,
+        "trajectory_count": 200
+      },
+      {
+        "domain": "airline",
+        "filename": "o4-mini-2025-04-16_airline_default_gpt-4.1-2025-04-14_4trials.json",
+        "model": "o4-mini",
+        "reported_agent": {
+          "implementation": "llm_agent",
+          "llm": "o4-mini-2025-04-16",
+          "llm_args": {
+            "reasoning_effort": "high"
+          }
+        },
+        "reported_user": {
+          "global_simulation_guidelines": "# User Simulation Guidelines\nYou are playing the role of a customer contacting a customer service representative. \nYour goal is to simulate realistic customer interactions while following specific scenario instructions.\n\n## Core Principles\n- Generate one message at a time, maintaining natural conversation flow.\n- Strictly follow the scenario instructions you have received.\n- Never make up or hallucinate information not provided in the scenario instructions. Information that is not provided in the scenario instructions should be considered unknown or unavailable.\n- Avoid repeating the exact instructions verbatim. Use paraphrasing and natural language to convey the same information\n- Disclose information progressively. Wait for the agent to ask for specific information before providing it.\n\n## Task Completion\n- The goal is to continue the conversation until the task is complete.\n- If the instruction goal is satisified, generate the '###STOP###' token to end the conversation.\n- If you are transferred to another agent, generate the '###TRANSFER###' token to indicate the transfer.\n- If you find yourself in a situation in which the scenario does not provide enough information for you to continue the conversation, generate the '###OUT-OF-SCOPE###' token to end the conversation.\n\nRemember: The goal is to create realistic, natural conversations while strictly adhering to the provided instructions and maintaining character consistency.",
+          "implementation": "user_simulator",
+          "llm": "gpt-4.1-2025-04-14",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "sha256": "6a3a354c9bce42b52905af096e9cea6f555548acbb17b567fd403c356df7b4ec",
+        "task_count": 50,
+        "trajectory_count": 200
+      },
+      {
+        "domain": "retail",
+        "filename": "claude-3-7-sonnet-20250219_retail_default_gpt-4.1-2025-04-14_4trials.json",
+        "model": "claude-3-7-sonnet",
+        "reported_agent": {
+          "implementation": "llm_agent",
+          "llm": "claude-3-7-sonnet-20250219",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "reported_user": {
+          "global_simulation_guidelines": "# User Simulation Guidelines\nYou are playing the role of a customer contacting a customer service representative. \nYour goal is to simulate realistic customer interactions while following specific scenario instructions.\n\n## Core Principles\n- Generate one message at a time, maintaining natural conversation flow.\n- Strictly follow the scenario instructions you have received.\n- Never make up or hallucinate information not provided in the scenario instructions. Information that is not provided in the scenario instructions should be considered unknown or unavailable.\n- Avoid repeating the exact instructions verbatim. Use paraphrasing and natural language to convey the same information\n- Disclose information progressively. Wait for the agent to ask for specific information before providing it.\n\n## Task Completion\n- The goal is to continue the conversation until the task is complete.\n- If the instruction goal is satisified, generate the '###STOP###' token to end the conversation.\n- If you are transferred to another agent, generate the '###TRANSFER###' token to indicate the transfer.\n- If you find yourself in a situation in which the scenario does not provide enough information for you to continue the conversation, generate the '###OUT-OF-SCOPE###' token to end the conversation.\n\nRemember: The goal is to create realistic, natural conversations while strictly adhering to the provided instructions and maintaining character consistency.",
+          "implementation": "user_simulator",
+          "llm": "gpt-4.1-2025-04-14",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "sha256": "ed41dbd18c080154156484e3a0122c095e324a11367a640d88e15956daed7b9d",
+        "task_count": 114,
+        "trajectory_count": 456
+      },
+      {
+        "domain": "retail",
+        "filename": "gpt-4.1-2025-04-14_retail_default_gpt-4.1-2025-04-14_4trials.json",
+        "model": "gpt-4.1",
+        "reported_agent": {
+          "implementation": "llm_agent",
+          "llm": "gpt-4.1-2025-04-14",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "reported_user": {
+          "global_simulation_guidelines": "# User Simulation Guidelines\nYou are playing the role of a customer contacting a customer service representative. \nYour goal is to simulate realistic customer interactions while following specific scenario instructions.\n\n## Core Principles\n- Generate one message at a time, maintaining natural conversation flow.\n- Strictly follow the scenario instructions you have received.\n- Never make up or hallucinate information not provided in the scenario instructions. Information that is not provided in the scenario instructions should be considered unknown or unavailable.\n- Avoid repeating the exact instructions verbatim. Use paraphrasing and natural language to convey the same information\n- Disclose information progressively. Wait for the agent to ask for specific information before providing it.\n\n## Task Completion\n- The goal is to continue the conversation until the task is complete.\n- If the instruction goal is satisified, generate the '###STOP###' token to end the conversation.\n- If you are transferred to another agent, generate the '###TRANSFER###' token to indicate the transfer.\n- If you find yourself in a situation in which the scenario does not provide enough information for you to continue the conversation, generate the '###OUT-OF-SCOPE###' token to end the conversation.\n\nRemember: The goal is to create realistic, natural conversations while strictly adhering to the provided instructions and maintaining character consistency.",
+          "implementation": "user_simulator",
+          "llm": "gpt-4.1-2025-04-14",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "sha256": "5fc5b96ada0fe46a463eaed98d1bfed9947fe073bac052290162dae18d71394e",
+        "task_count": 114,
+        "trajectory_count": 456
+      },
+      {
+        "domain": "retail",
+        "filename": "gpt-4.1-mini-2025-04-14_retail_base_gpt-4.1-2025-04-14_4trials.json",
+        "model": "gpt-4.1-mini",
+        "reported_agent": {
+          "implementation": "llm_agent",
+          "llm": "gpt-4.1-mini-2025-04-14",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "reported_user": {
+          "global_simulation_guidelines": "# User Simulation Guidelines\nYou are playing the role of a customer contacting a customer service representative. \nYour goal is to simulate realistic customer interactions while following specific scenario instructions.\n\n## Core Principles\n- Generate one message at a time, maintaining natural conversation flow.\n- Strictly follow the scenario instructions you have received.\n- Never make up or hallucinate information not provided in the scenario instructions. Information that is not provided in the scenario instructions should be considered unknown or unavailable.\n- Avoid repeating the exact instructions verbatim. Use paraphrasing and natural language to convey the same information\n- Disclose information progressively. Wait for the agent to ask for specific information before providing it.\n\n## Task Completion\n- The goal is to continue the conversation until the task is complete.\n- If the instruction goal is satisified, generate the '###STOP###' token to end the conversation.\n- If you are transferred to another agent, generate the '###TRANSFER###' token to indicate the transfer.\n- If you find yourself in a situation in which the scenario does not provide enough information for you to continue the conversation, generate the '###OUT-OF-SCOPE###' token to end the conversation.\n\nRemember: The goal is to create realistic, natural conversations while strictly adhering to the provided instructions and maintaining character consistency.",
+          "implementation": "user_simulator",
+          "llm": "gpt-4.1-2025-04-14",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "sha256": "6d6badb43b716adca31591b0b40e15fd493b49adddaa8e2c47035bb557549257",
+        "task_count": 114,
+        "trajectory_count": 456
+      },
+      {
+        "domain": "retail",
+        "filename": "o4-mini-2025-04-16_retail_default_gpt-4.1-2025-04-14_4trials.json",
+        "model": "o4-mini",
+        "reported_agent": {
+          "implementation": "llm_agent",
+          "llm": "o4-mini-2025-04-16",
+          "llm_args": {
+            "reasoning_effort": "high"
+          }
+        },
+        "reported_user": {
+          "global_simulation_guidelines": "# User Simulation Guidelines\nYou are playing the role of a customer contacting a customer service representative. \nYour goal is to simulate realistic customer interactions while following specific scenario instructions.\n\n## Core Principles\n- Generate one message at a time, maintaining natural conversation flow.\n- Strictly follow the scenario instructions you have received.\n- Never make up or hallucinate information not provided in the scenario instructions. Information that is not provided in the scenario instructions should be considered unknown or unavailable.\n- Avoid repeating the exact instructions verbatim. Use paraphrasing and natural language to convey the same information\n- Disclose information progressively. Wait for the agent to ask for specific information before providing it.\n\n## Task Completion\n- The goal is to continue the conversation until the task is complete.\n- If the instruction goal is satisified, generate the '###STOP###' token to end the conversation.\n- If you are transferred to another agent, generate the '###TRANSFER###' token to indicate the transfer.\n- If you find yourself in a situation in which the scenario does not provide enough information for you to continue the conversation, generate the '###OUT-OF-SCOPE###' token to end the conversation.\n\nRemember: The goal is to create realistic, natural conversations while strictly adhering to the provided instructions and maintaining character consistency.",
+          "implementation": "user_simulator",
+          "llm": "gpt-4.1-2025-04-14",
+          "llm_args": {
+            "temperature": 0.0
+          }
+        },
+        "sha256": "7135f38bbbbd46d6babe830574c8623bb276d8fd6da316580b905cf513853f98",
+        "task_count": 114,
+        "trajectory_count": 456
+      }
+    ],
+    "release_note": "Original June 2025 paper artifacts. Airline and retail tasks predate v1.0.0 task fixes and are used only within this internally consistent historical release.",
+    "repository": "sierra-research/tau2-bench",
+    "revision": "c06b07dd7c4d4ec61ba6ff9bcdf0b15dd7ef36d4"
+  },
+  "status": "RETROSPECTIVE_PUBLIC_HIDDEN_MODEL_AUDIT",
+  "summary": {
+    "fold_count": 8,
+    "mean_absolute_pass_rate_error": 0.04975146198830409,
+    "mean_action_count_auc": 0.5935153947964595,
+    "mean_action_top20_failure_capture": 0.24528829388189527,
+    "mean_constant_brier": 0.22511692283523135,
+    "mean_history_failure_auc": 0.7868713306285661,
+    "mean_history_failure_brier": 0.1785785209551657,
+    "mean_history_top20_failure_capture": 0.409258940716272,
+    "pooled_action_count_auc": 0.5041335129942724,
+    "pooled_history_failure_auc": 0.7851494497064118,
+    "task_model_attempts": 2624
+  }
+}
