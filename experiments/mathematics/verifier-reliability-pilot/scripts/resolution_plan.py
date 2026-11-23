@@ -132,9 +132,7 @@ def main() -> int:
         )
 
     seed_band = max(
-        abs(int(row["correct_treatment"]) - int(row["correct_control"]) )
-        / int(row["items"])
-        * 100
+        abs(int(row["correct_treatment"]) - int(row["correct_control"])) / int(row["items"]) * 100
         for row in counted
         if row["pair"].startswith("seed_pair")
     )
