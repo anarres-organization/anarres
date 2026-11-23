@@ -64,9 +64,7 @@ def main() -> int:
             m = control_only + treatment_only
             delta, reached = minimum_detectable(m, n)
             flips = (m + delta / 100.0 * n) / 2.0 - m / 2.0
-            observed = 100.0 * (
-                int(row["correct_treatment"]) - int(row["correct_control"])
-            ) / n
+            observed = 100.0 * (int(row["correct_treatment"]) - int(row["correct_control"])) / n
             print(
                 f"{row['pair']}: n={n}, discordant={m}, observed={observed:+.2f}pp, "
                 f"smallest detectable={delta:.2f}pp ({flips:.1f} flips), "

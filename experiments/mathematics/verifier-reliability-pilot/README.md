@@ -95,6 +95,8 @@ python scripts/detectable_difference.py
 
 The first command checks that each row's counts decompose into its two cell totals, then recomputes the two-sided exact McNemar p-value from the discordant counts and fails when a stored value disagrees by more than 5e-5. The second command computes the resolution table above from the same counts.
 
+Both commands are registered with `make study-check` as the studies "verifier reliability pilot counts" and "verifier reliability pilot resolution", so the released record is covered by the same gate as the rest of the repository.
+
 ## Scope
 
 One policy family at one scale, one deterministic verifier, one reward contract, one dataset, one 40-step budget, and one seed per cell apart from the two stability pairs. The evidence is exploratory. Treating the 38% rate as harmless under a wider budget or a larger policy requires a prospective run with the budget fixed in advance.

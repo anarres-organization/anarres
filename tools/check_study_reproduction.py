@@ -58,6 +58,16 @@ CHECKS = (
         "scripts/reproduce_tables.py",
     ),
     python_check(
+        "verifier reliability pilot counts",
+        "experiments/mathematics/verifier-reliability-pilot",
+        "scripts/recompute_exact_mcnemar.py",
+    ),
+    python_check(
+        "verifier reliability pilot resolution",
+        "experiments/mathematics/verifier-reliability-pilot",
+        "scripts/detectable_difference.py",
+    ),
+    python_check(
         "formal-verification public evidence",
         "experiments/cyber/formal-verification/public-evidence",
         "test_reproduce.py",
