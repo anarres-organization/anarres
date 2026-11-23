@@ -133,7 +133,7 @@ class FrozenProtocolTest(unittest.TestCase):
         self.assertFalse(PROTOCOL["execution_authorized"])
         self.assertEqual(
             PROTOCOL["execution_interface"]["runtime_image_id"],
-            "sha256:c48a1075ff53f6107f8f812b5072f5b6d470e5d722b40ff3bce589b5b6015825",
+            "sha256:9ca594ce645b2be8903dcdadd7c58c11bb0d8b7448077842ee559e0a4dfb574c",
         )
 
     def test_queue_matches_the_protocol_and_panel(self) -> None:

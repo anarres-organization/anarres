@@ -38,10 +38,10 @@
   "execution_interface": {
     "containment_contract": "containment-contract-codex-sol.v3.json",
     "containment_contract_sha256": "bfed6fd04c2e45fb3594b9d688389c70db6f6ee715d70ef9942cfb93c4094fec",
-    "task_boundary_receipt": "results/task-boundary-qualification.codex-sol-v3/task-boundary-receipt.json",
-    "task_boundary_receipt_sha256": "06efe053ec70f484bfddf99a9cd81a567c3c710b2047150a39a4ab7cb4c8d543",
-    "task_boundary_receipt_id": "sha256:053b0cad83bb88d58cd58f31571e7ff021000461265f05a46c32a6f44b3e17f9",
-    "runtime_image_id": "sha256:c48a1075ff53f6107f8f812b5072f5b6d470e5d722b40ff3bce589b5b6015825",
+    "task_boundary_receipt": "results/task-boundary-qualification.codex-sol-v4/task-boundary-receipt.json",
+    "task_boundary_receipt_sha256": "50cd178f16066b81644397df39599cccf5ff991029129e066ef1acab7ad20777",
+    "task_boundary_receipt_id": "sha256:15ffd6887c6d8411ed9a4f2ca162b4f731ef1d360eff5717a7accdfaeeb8bfa7",
+    "runtime_image_id": "sha256:9ca594ce645b2be8903dcdadd7c58c11bb0d8b7448077842ee559e0a4dfb574c",
     "runtime_image_note": "a local image ID on the qualified host; attempts must run that exact image",
     "execution_files": [
       {
@@ -191,7 +191,8 @@
   },
   "chronology": {
     "excluded_development_attempts": "the GPT-5.6 Sol smoke and screen attempts, including the screen behind 388/694, precede this protocol and never enter its aggregate",
-    "execution_audit": "the queue runner and aggregator were refrozen after an execution-semantics audit and before any repeated-measurement attempt or authorization record"
+    "execution_audit": "the queue runner and aggregator were refrozen after an execution-semantics audit and before any repeated-measurement attempt or authorization record",
+    "runtime_image_rebind": "the qualified image was pruned from the execution host before any repeated-measurement attempt; it was rebuilt from runtime/Dockerfile, the task-only boundary was requalified on the rebuilt image with all seventeen controls passing, and the protocol was rebound to that receipt and image before the first attempt"
   },
   "unsupported_claims": [
     "the development measurement ranks training environments",

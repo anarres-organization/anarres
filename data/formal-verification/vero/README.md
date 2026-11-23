@@ -462,7 +462,14 @@ The released receipt in
 qualifies the route on the image it binds,
 `sha256:c48a1075ff53f6107f8f812b5072f5b6d470e5d722b40ff3bce589b5b6015825`, run
 natively on an amd64 Docker host. That digest is a local image identifier, so a
-protocol that cites the receipt must run that exact image. All seventeen
+protocol that cites the receipt must run that exact image. That image was pruned
+from the execution host before any repeated-measurement attempt. It was rebuilt
+from [`runtime/Dockerfile`](runtime/Dockerfile) as
+`sha256:9ca594ce645b2be8903dcdadd7c58c11bb0d8b7448077842ee559e0a4dfb574c`, and
+the same seventeen controls passed on it under the same contract, route,
+controller, and Lean build. That receipt is in
+[`results/task-boundary-qualification.codex-sol-v4/`](results/task-boundary-qualification.codex-sol-v4/),
+and the repeated-measurement protocol cites it and its image. All seventeen
 controls passed. Each network and visibility control has a positive control: a
 networked container reaches the outside and the stand-in controller endpoint,
 and a container with the agent socket mounted finds it. The bound reports agree

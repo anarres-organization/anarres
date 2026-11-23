@@ -452,7 +452,7 @@
   "ordering": "ascending SHA-256 of queue ID, benchmark ID, mode, and replicate",
   "panel_sha256": "836c7bf6a4e792c9fb7b5bc3bd8ff59bba27b8f57495df5851b34600250194c0",
   "protocol_id": "vero-codex-sol-repeated-measurement-v1",
-  "protocol_sha256": "25134dcef197d03167ea8d4ae10e4c33718d9c49307e79f9c65efea850d6393c",
+  "protocol_sha256": "08bc80f95dfa664563e0f1f8e5cfdba4bb709200c5bfdfaafb41fc562c66c1fb",
   "queue_id": "vero-codex-sol-repeated-measurement-v1-queue",
   "schema_version": "anarres.formal-verification-probe-queue.v1",
   "status": "frozen_before_model_attempts"
