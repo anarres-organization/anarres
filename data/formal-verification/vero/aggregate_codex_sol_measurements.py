@@ -499,10 +499,20 @@ def bound_inputs(
     if queue != expected:
         raise AggregateError("the queue does not match the frozen protocol")
     authorization = read_object(authorization_path)
-    if authorization.get("protocol_sha256") != digest(protocol_path) or authorization.get(
-        "queue_sha256"
-    ) != digest(queue_path):
+    if (
+        authorization.get("schema_version")
+        != "anarres.formal-verification-codex-sol-execution-authorization.v1"
+        or authorization.get("authorized") is not True
+        or authorization.get("protocol_sha256") != digest(protocol_path)
+        or authorization.get("queue_sha256") != digest(queue_path)
+    ):
         raise AggregateError("the authorization record does not bind this protocol and queue")
+    for field in ("spend_ceiling_usd", "per_attempt_reserve_usd"):
+        value = authorization.get(field)
+        if isinstance(value, bool) or not isinstance(value, int | float) or value <= 0:
+            raise AggregateError(f"the authorization record has no positive {field}")
+    if authorization["per_attempt_reserve_usd"] > authorization["spend_ceiling_usd"]:
+        raise AggregateError("the per-attempt reserve exceeds the spend ceiling")
     analysis_path = STUDY_ROOT / protocol["measurement"]["analysis_contract"]
     digests = {
         "protocol_sha256": digest(protocol_path),
@@ -524,6 +534,11 @@ def main() -> None:
     args = parser.parse_args()
     if args.output.exists():
         raise AggregateError("--output must not exist")
+    runner = load("vero_codex_sol_authorization_validator", "run_codex_sol_queue_item.py")
+    try:
+        runner.validate_committed_authorization(args.authorization)
+    except runner.QueueItemError as error:
+        raise AggregateError(str(error)) from error
     queue, analysis, digests = bound_inputs(args.protocol, args.queue, args.authorization)
     task_digests = digests.pop("task_digests")
     receipt_paths = sorted(args.grades.rglob("grade-receipt.json"))
