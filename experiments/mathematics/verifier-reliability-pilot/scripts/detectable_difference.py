@@ -32,7 +32,10 @@ def power(m: int, n: int, delta_points: float) -> float:
     """Exact power for a difference of delta_points percentage points."""
     shift = delta_points / 100.0 * n
     b_mean = (m + shift) / 2.0
-    if b_mean <= 0 or b_mean >= m:
+    # The point masses p=0 and p=1 are valid exact alternatives.
+    # Excluding the endpoints incorrectly reports zero power even when
+    # all discordances point the same way and exact McNemar rejects.
+    if m == 0 or b_mean < 0 or b_mean > m:
         return 0.0
     p = b_mean / m
     total = 0.0
@@ -50,7 +53,8 @@ def minimum_detectable(m: int, n: int) -> tuple[float, float]:
         reached = power(m, n, delta)
         if reached >= TARGET_POWER:
             return delta, reached
-    return float("inf"), 1.0
+    # No alternative in the prescribed grid attains the target power.
+    return float("inf"), 0.0
 
 
 def main() -> int:
