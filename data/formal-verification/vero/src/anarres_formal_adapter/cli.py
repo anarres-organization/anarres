@@ -195,7 +195,7 @@ def validate_native(repository: Path) -> tuple[ModuleType, dict[str, Any]]:
 def task_boundary_status(repository: Path) -> dict[str, Any]:
     """Report the task-only execution boundary separately from source and runtime gates."""
 
-    path = study_root(repository) / "containment-contract-codex-sol.v3.json"
+    path = study_root(repository) / "containment-contract-codex-sol.v4.json"
     contract = json.loads(path.read_text(encoding="utf-8"))
     validator = load_module(
         study_root(repository) / "validate_task_boundary_receipt.py",
@@ -232,8 +232,8 @@ def repeated_measurement_status(repository: Path) -> dict[str, Any]:
     """Validate the frozen repeated-measurement protocol and its outcome-blind queue."""
 
     root = study_root(repository)
-    protocol_path = root / "policy-probe-protocol.codex-sol-v1.json"
-    queue_path = root / "probe-queue.codex-sol-v1.json"
+    protocol_path = root / "policy-probe-protocol.codex-sol-v2.json"
+    queue_path = root / "probe-queue.codex-sol-v2.json"
     protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
     queue = json.loads(queue_path.read_text(encoding="utf-8"))
     validator = load_module(

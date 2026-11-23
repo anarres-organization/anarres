@@ -325,6 +325,8 @@ sandbox is tightened and requalified.
 [`containment-contract-codex-sol.v3.json`](containment-contract-codex-sol.v3.json)
 freezes the tightened route for GPT-5.6 Sol attempts and the seventeen negative
 controls it must pass. It supersedes the v2 record, which remains unchanged.
+[`containment-contract-codex-sol.v4.json`](containment-contract-codex-sol.v4.json)
+keeps that route and adds request validation, described below.
 The v2 runner tested a container it started itself rather than the model's
 route, and two of its tests passed unconditionally. The v3 route runs the task
 as the unprivileged host user with network and IPC namespaces disabled, a
@@ -366,7 +368,7 @@ python data/formal-verification/vero/run_containment_tests.py \
   --work-root /path/to/scratch \
   --output /path/to/new/receipt-directory
 python data/formal-verification/vero/validate_task_boundary_receipt.py \
-  --contract data/formal-verification/vero/containment-contract-codex-sol.v3.json \
+  --contract data/formal-verification/vero/containment-contract-codex-sol.v4.json \
   --receipt /path/to/new/receipt-directory/task-boundary-receipt.json \
   --route-root data/formal-verification/vero
 ```
@@ -462,14 +464,7 @@ The released receipt in
 qualifies the route on the image it binds,
 `sha256:c48a1075ff53f6107f8f812b5072f5b6d470e5d722b40ff3bce589b5b6015825`, run
 natively on an amd64 Docker host. That digest is a local image identifier, so a
-protocol that cites the receipt must run that exact image. That image was pruned
-from the execution host before any repeated-measurement attempt. It was rebuilt
-from [`runtime/Dockerfile`](runtime/Dockerfile) as
-`sha256:9ca594ce645b2be8903dcdadd7c58c11bb0d8b7448077842ee559e0a4dfb574c`, and
-the same seventeen controls passed on it under the same contract, route,
-controller, and Lean build. That receipt is in
-[`results/task-boundary-qualification.codex-sol-v4/`](results/task-boundary-qualification.codex-sol-v4/),
-and the repeated-measurement protocol cites it and its image. All seventeen
+protocol that cites the receipt must run that exact image. All seventeen
 controls passed. Each network and visibility control has a positive control: a
 networked container reaches the outside and the stand-in controller endpoint,
 and a container with the agent socket mounted finds it. The bound reports agree
@@ -478,6 +473,25 @@ the runtime contract the runtime report qualified. The v1 runtime contract
 cannot state this route's filesystem layout or Lake location, and its cleanup
 fields are not compared, so the receipt names those three as uncompared and the
 runner's own controls observe them instead.
+
+That image was pruned from the execution host before any repeated-measurement
+attempt. It was rebuilt from [`runtime/Dockerfile`](runtime/Dockerfile) as
+`sha256:9ca594ce645b2be8903dcdadd7c58c11bb0d8b7448077842ee559e0a4dfb574c`, and
+the same seventeen controls passed on it under the same contract, route,
+controller, and Lean build. That receipt is in
+[`results/task-boundary-qualification.codex-sol-v4/`](results/task-boundary-qualification.codex-sol-v4/),
+and the first repeated-measurement protocol cited it and its image.
+
+The v3 sandbox server recorded any unexpected error while serving a policy
+request as an infrastructure failure. GPT-5.6 Sol sometimes writes a Lean
+focusing dot as a NUL byte, which no process argument can hold, so one of its
+own commands voided an attempt and forced a rerun. An unpaired surrogate or an
+argument longer than the kernel accepts would have done the same.
+[`containment-contract-codex-sol.v4.json`](containment-contract-codex-sol.v4.json)
+answers such requests to the policy as invalid requests instead. The same
+seventeen controls passed on the rebuilt image under that contract, and its
+receipt is in
+[`results/task-boundary-qualification.codex-sol-v5/`](results/task-boundary-qualification.codex-sol-v5/).
 
 The earlier GPT-5.6 Sol development attempts were graded before contained
 grading and the trusted checker existed. Every one of them that has a grading
@@ -490,8 +504,14 @@ available, so that attempt was not regraded.
 
 ### Repeated measurement
 
-[`policy-probe-protocol.codex-sol-v1.json`](policy-probe-protocol.codex-sol-v1.json)
+[`policy-probe-protocol.codex-sol-v2.json`](policy-probe-protocol.codex-sol-v2.json)
 freezes the repeated GPT-5.6 Sol measurement before any of its attempts. It
+replaces protocol v1, whose queue was stopped after six runs over five entries
+because of the NUL-byte classification above. The
+[v1 stop record](results/repeated-measurement-stop.codex-sol-v1.json) lists
+those runs with their tokens and planning cost and no specification outcome.
+None of them enters the v2 aggregate, and no v1 specification outcome was read
+before v2 was frozen. It
 measures the same four development repositories as the earlier starting-policy
 measurement, with four attempts per repository and mode, 32 in all, under the
 qualified task-only route. The protocol binds the model, reasoning setting,
@@ -524,7 +544,7 @@ gate passes, each mode has mixed outcomes in at least two repositories, and
 leaving out any one repository still leaves eight mixed specification groups.
 Otherwise the release records an abstention.
 
-[`probe-queue.codex-sol-v1.json`](probe-queue.codex-sol-v1.json) fixes the 32
+[`probe-queue.codex-sol-v2.json`](probe-queue.codex-sol-v2.json) fixes the 32
 attempt identities in an outcome-blind hash order.
 [`run_codex_sol_queue_item.py`](run_codex_sol_queue_item.py) runs one entry at
 a time, in queue order, through the unchanged harness. Before every run it
@@ -537,19 +557,22 @@ record that binds the protocol, the queue, a spend ceiling, and a per-attempt
 reserve. An attempt starts only while the planning cost so far plus the reserve
 stays within the ceiling. One run can still cost more than the reserve. The
 ceiling is never raised after the first run, and a queue stopped at the ceiling
-is released as an abstention. No authorization record exists yet. The screen's
-token use suggests about $150 at the contract's planning prices.
+is released as an abstention.
+[`execution-authorization.codex-sol-v2.json`](execution-authorization.codex-sol-v2.json)
+sets the ceiling to the approved $250 less the planning cost of the stopped v1
+queue. The screen's token use suggests about $150 at the contract's planning
+prices.
 [`aggregate_codex_sol_measurements.py`](aggregate_codex_sol_measurements.py)
 checks the protocol, queue, and authorization, confirms that each receipt
 restates its run records, and records the digest of every input.
 
 ```bash
 python data/formal-verification/vero/validate_codex_sol_probe_protocol.py \
-  --protocol data/formal-verification/vero/policy-probe-protocol.codex-sol-v1.json
+  --protocol data/formal-verification/vero/policy-probe-protocol.codex-sol-v2.json
 python data/formal-verification/vero/build_probe_queue.py \
-  --protocol data/formal-verification/vero/policy-probe-protocol.codex-sol-v1.json \
+  --protocol data/formal-verification/vero/policy-probe-protocol.codex-sol-v2.json \
   --panel data/formal-verification/vero/development-lifecycle-panel-v2.json \
-  --output data/formal-verification/vero/probe-queue.codex-sol-v1.json --check
+  --output data/formal-verification/vero/probe-queue.codex-sol-v2.json --check
 ```
 
 Project the completed measurement into the shared Anarres profile contract

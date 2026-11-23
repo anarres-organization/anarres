@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import asyncio
 import copy
 import hashlib
 import importlib.util
@@ -21,7 +22,7 @@ VERO_ROOT = ROOT / "data" / "formal-verification" / "vero"
 for search_path in (VERO_ROOT, VERO_ROOT / "src"):
     if str(search_path) not in sys.path:
         sys.path.insert(0, str(search_path))
-CONTRACT_PATH = VERO_ROOT / "containment-contract-codex-sol.v3.json"
+CONTRACT_PATH = VERO_ROOT / "containment-contract-codex-sol.v4.json"
 CONTRACT = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
 
 
@@ -111,6 +112,53 @@ class TaskSandboxRouteTest(unittest.TestCase):
         for path in paths:
             self.assertLess(len(str(path)), 100)
             self.assertFalse(path.parent.exists())
+
+    def test_unrepresentable_request_is_invalid_not_infrastructure(self) -> None:
+        # The policy can emit text no process argument can carry; it must get an error back,
+        # not void its own attempt as an infrastructure failure.
+        server = load("vero_serve_vibe_sandbox_arguments", "serve_vibe_sandbox.py")
+        long = "x" * (server.MAX_ARGUMENT_BYTES + 1)
+        requests = [
+            ("sandbox/execute", {"command": "echo \0b7", "cwd": "/workspace"}, "NUL"),
+            ("sandbox/execute", {"command": "true", "cwd": "/work\0space"}, "NUL"),
+            ("sandbox/readFile", {"path": "/workspace/\0", "maxBytes": 16}, "NUL"),
+            ("sandbox/execute", {"command": "echo \ud800", "cwd": "/workspace"}, "Unicode"),
+            ("sandbox/execute", {"command": "true", "cwd": "/\udcb7"}, "Unicode"),
+            ("sandbox/readFile", {"path": "/workspace/\ud800", "maxBytes": 16}, "Unicode"),
+            ("sandbox/execute", {"command": long, "cwd": "/workspace"}, "argument limit"),
+            ("sandbox/execute", {"command": "true", "cwd": "/" + long}, "argument limit"),
+            ("sandbox/readFile", {"path": "/" + long, "maxBytes": 16}, "argument limit"),
+        ]
+        for method, params, reason in requests:
+            sandbox = mock.Mock()
+            sandbox.receipt.infrastructure_errors = []
+            writer = mock.Mock()
+            writer.drain = mock.AsyncMock()
+            writer.wait_closed = mock.AsyncMock()
+            request = {"id": 7, "method": method, "params": {"timeout": None, **params}}
+            line = json.dumps(request).encode() + b"\n"
+
+            async def serve_one(
+                line: bytes = line, sandbox: mock.Mock = sandbox, writer: mock.Mock = writer
+            ) -> None:
+                reader = asyncio.StreamReader(limit=server.MAX_REQUEST_BYTES)
+                reader.feed_data(line)
+                reader.feed_eof()
+                await server.handle(reader, writer, sandbox)
+
+            asyncio.run(serve_one())
+            reply = json.loads(writer.write.call_args.args[0])
+            self.assertEqual(reply["error"]["code"], server.INVALID_REQUEST, (method, reason))
+            self.assertIn(reason, reply["error"]["message"])
+            self.assertEqual(sandbox.receipt.infrastructure_errors, [])
+            sandbox.execute.assert_not_called()
+            sandbox.read_file.assert_not_called()
+        # The limit counts UTF-8 bytes, and an argument exactly at it still reaches the sandbox.
+        self.assertEqual(len(("\u00b7" * 65536).encode()), server.MAX_ARGUMENT_BYTES + 1)
+        with self.assertRaisesRegex(server.SandboxError, "argument limit"):
+            server.check_argument("\u00b7" * 65536, "command")
+        server.check_argument("x" * server.MAX_ARGUMENT_BYTES, "command")
+        server.check_argument("\u00b7" * 65535 + "x", "command")
 
     def test_leftover_container_is_removed_only_when_present(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -601,6 +649,24 @@ class AgentLoopLimitTest(unittest.TestCase):
         null_arguments.calls = 0
         result = self.run_loop(null_arguments, FakeSandboxClient())
         self.assertEqual(result.infrastructure_errors, [])
+
+    def test_unparseable_arguments_return_to_the_model(self) -> None:
+        # Python rejects integers past its digit limit with a plain ValueError.
+        for arguments in ('{"command": "true", "timeout": ' + "1" * 5000 + "}", "[" * 4):
+
+            def huge(*_: object, arguments: str = arguments, **__: object) -> dict:
+                huge.calls += 1
+                if huge.calls > 1:
+                    return {"output": [], "usage": {}}
+                call = {"type": "function_call", "name": "sandbox_execute", "call_id": "x"}
+                return {"output": [{**call, "arguments": arguments}], "usage": {}}
+
+            huge.calls = 0
+            client = FakeSandboxClient()
+            result = self.run_loop(huge, client)
+            self.assertEqual(result.infrastructure_errors, [])
+            self.assertEqual(result.stop_reason, "stop")
+            self.assertEqual(client.calls, [])
 
     def test_request_cut_off_by_deadline_is_the_wall_limit(self) -> None:
         def slow(*_: object, timeout: float, **__: object) -> dict:

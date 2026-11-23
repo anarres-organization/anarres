@@ -40,7 +40,7 @@ MAX_TOKENS_PER_ATTEMPT = 200_000
 MAX_WALL_SECONDS = 5400
 MAX_AGENT_TURNS = 100
 API_REQUEST_TIMEOUT_SECONDS = 1800
-HARNESS_VERSION = "1.2.0"
+HARNESS_VERSION = "1.2.1"
 
 # Task-sandbox route. The containment runner launches this exact command, so a
 # change here changes the boundary that must be requalified.
@@ -561,7 +561,9 @@ def run_agent_loop(
             call_id = fc.get("call_id", "")
             try:
                 args = json.loads(fc.get("arguments") or "{}")
-            except (json.JSONDecodeError, TypeError):
+            # The policy wrote these arguments, so any parse failure, including an integer
+            # past Python's digit limit or nesting past its recursion limit, goes back to it.
+            except (ValueError, TypeError, RecursionError):
                 input_items.append(
                     {
                         "type": "function_call_output",

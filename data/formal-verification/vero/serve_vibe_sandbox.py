@@ -23,6 +23,8 @@ from typing import Any
 
 PROTOCOL_VERSION = 2
 MAX_REQUEST_BYTES = 64 * 1024 * 1024
+# Linux holds one process argument, including its terminator, to 32 pages.
+MAX_ARGUMENT_BYTES = 128 * 1024 - 1
 TIMEOUT_ERROR = -32001
 METHOD_NOT_FOUND = -32601
 INVALID_REQUEST = -32602
@@ -693,6 +695,18 @@ def response(request_id: Any, *, result: Any = None, error: dict[str, Any] | Non
     return json.dumps(message, separators=(",", ":")).encode("utf-8") + b"\n"
 
 
+def check_argument(value: str, name: str) -> None:
+    """Reject policy text that no process argument can carry, so it never voids an attempt."""
+    if "\0" in value:
+        raise SandboxError(f"{name} must not contain NUL bytes")
+    try:
+        size = len(value.encode("utf-8"))
+    except UnicodeEncodeError as error:
+        raise SandboxError(f"{name} must be valid Unicode text") from error
+    if size > MAX_ARGUMENT_BYTES:
+        raise SandboxError(f"{name} exceeds the {MAX_ARGUMENT_BYTES}-byte argument limit")
+
+
 async def dispatch(request: dict[str, Any], sandbox: DockerSandbox) -> dict[str, Any]:
     method = request.get("method")
     params = request.get("params")
@@ -713,11 +727,14 @@ async def dispatch(request: dict[str, Any], sandbox: DockerSandbox) -> dict[str,
             raise SandboxError("sandbox/execute requires string command and cwd")
         if timeout is not None and not isinstance(timeout, int | float):
             raise SandboxError("sandbox/execute timeout must be numeric or null")
+        check_argument(command, "sandbox/execute command")
+        check_argument(cwd, "sandbox/execute cwd")
         return await asyncio.to_thread(sandbox.execute, command, cwd, timeout)
     if method == "sandbox/readFile":
         path, max_bytes = params.get("path"), params.get("maxBytes")
         if not isinstance(path, str) or not isinstance(max_bytes, int):
             raise SandboxError("sandbox/readFile requires path and maxBytes")
+        check_argument(path, "sandbox/readFile path")
         return await asyncio.to_thread(sandbox.read_file, path, max_bytes)
     raise LookupError(method)
 
@@ -750,7 +767,7 @@ async def handle(
             request_id,
             error={"code": METHOD_NOT_FOUND, "message": f"unknown method: {error}"},
         )
-    except (SandboxError, json.JSONDecodeError) as error:
+    except (SandboxError, json.JSONDecodeError, UnicodeDecodeError) as error:
         reply = response(request_id, error={"code": INVALID_REQUEST, "message": str(error)})
     except Exception as error:  # pragma: no cover - final containment boundary
         sandbox.receipt.infrastructure_errors.append(type(error).__name__)

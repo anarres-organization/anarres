@@ -1,0 +1,37 @@
+{
+  "attempt_id": "containment-c",
+  "task_id": "primepy:proof",
+  "started_at": "2026-11-23T21:50:18.829385+00:00",
+  "image_reference": "sha256:9ca594ce645b2be8903dcdadd7c58c11bb0d8b7448077842ee559e0a4dfb574c",
+  "model_artifact_digest": "sha256:419255f2bb4c6801939e868fe2cdbbdc34d51742400939d1842d262a1fec749c",
+  "inference_config_digest": "sha256:81c861a11b29bbb350fbd5db093f5e8133aa7193dacf7f9c0373d5022c07f6bc",
+  "container_name": "anarres-vero-179e44aab6dc",
+  "resource_limits": {
+    "memory": "16g",
+    "cpus": 4.0,
+    "pids": 256,
+    "maximum_command_seconds": 300.0,
+    "maximum_output_bytes": 16777216,
+    "maximum_file_bytes": 1073741824,
+    "maximum_workspace_bytes": 8589934592,
+    "maximum_workspace_entries": 200000
+  },
+  "workspace_pre_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6",
+  "container_id": "91c3a94cae3600095130470fbe126ee22bca3b2e7ecaa9eda31b2f59b2bec838",
+  "image_id": "sha256:9ca594ce645b2be8903dcdadd7c58c11bb0d8b7448077842ee559e0a4dfb574c",
+  "container_runtime_version": "29.2.1/29.2.1",
+  "methods": {
+    "agent/initialize": 1,
+    "sandbox/execute": 106
+  },
+  "command_timeouts": 1,
+  "output_truncations": 0,
+  "peak_memory_bytes": 15835136,
+  "workspace_used_bytes": 61440,
+  "workspace_collection_error": null,
+  "workspace_skipped": [],
+  "infrastructure_errors": [],
+  "ended_at": "2026-11-23T21:50:32.464838+00:00",
+  "workspace_post_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6",
+  "container_removed": true
+}

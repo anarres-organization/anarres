@@ -1,0 +1,762 @@
+{
+  "all_tests_passed": true,
+  "contract_id": "vero-codex-sol-task-only-containment-v4",
+  "contract_sha256": "sha256:bf606b2f0c64683f267e5279cec44d6bbbf3b8a8a9e463d13bf87016e02fbbe7",
+  "controller": {
+    "inference_config_sha256": "sha256:81c861a11b29bbb350fbd5db093f5e8133aa7193dacf7f9c0373d5022c07f6bc",
+    "model_id": "gpt-5.6-sol",
+    "policy_contacted": false,
+    "reasoning_effort": "xhigh",
+    "tools": [
+      "sandbox_execute",
+      "sandbox_read_file"
+    ]
+  },
+  "ended_at": "2026-11-23T21:52:11.639836+00:00",
+  "files": {
+    "fixture-attempt-record.json": "sha256:554fc081f986f7e92963edef8f124cbafeee8778275d4a0ee680874db1b10d4c",
+    "grader-fixtures.json": "sha256:de5d70835fee3b712a034567fba78cc84e38bdd0d73d97331dfd0f1ad6726dea",
+    "materialization-a.json": "sha256:6d21dd2451e6b2b880c7757de86ede7738e49e60e1050b146b06bab29e71faee",
+    "materialization-b.json": "sha256:6d21dd2451e6b2b880c7757de86ede7738e49e60e1050b146b06bab29e71faee",
+    "materialization-binary_name.json": "sha256:6d21dd2451e6b2b880c7757de86ede7738e49e60e1050b146b06bab29e71faee",
+    "materialization-c.json": "sha256:6d21dd2451e6b2b880c7757de86ede7738e49e60e1050b146b06bab29e71faee",
+    "materialization-deep.json": "sha256:6d21dd2451e6b2b880c7757de86ede7738e49e60e1050b146b06bab29e71faee",
+    "materialization-disk.json": "sha256:6d21dd2451e6b2b880c7757de86ede7738e49e60e1050b146b06bab29e71faee",
+    "materialization-grader.json": "sha256:6d21dd2451e6b2b880c7757de86ede7738e49e60e1050b146b06bab29e71faee",
+    "materialization-mapped.json": "sha256:6d21dd2451e6b2b880c7757de86ede7738e49e60e1050b146b06bab29e71faee",
+    "materialization-parked.json": "sha256:6d21dd2451e6b2b880c7757de86ede7738e49e60e1050b146b06bab29e71faee",
+    "materialization-sparse.json": "sha256:6d21dd2451e6b2b880c7757de86ede7738e49e60e1050b146b06bab29e71faee",
+    "materialization-unlinked.json": "sha256:6d21dd2451e6b2b880c7757de86ede7738e49e60e1050b146b06bab29e71faee",
+    "runtime-contract.json": "sha256:77623f233e5c4c504cb5c1746543d5f61ec66f796a7f19fe05c3f1790f560d30",
+    "runtime-report.json": "sha256:ae56f406383c9bba22754d2b58d787193a5a5fd3ea035c77eb4527bb40f4385f",
+    "sandbox-receipt-a.json": "sha256:c2dc240f646dfc8ca6e873c3969208d1b58573ad3249a4a076eb1351aeb8cecf",
+    "sandbox-receipt-c.json": "sha256:95f0b6ec11a6de010643dec4249b4bafceabd91cb966eea624f147281cb04493",
+    "source-report.json": "sha256:febc67f36cdcb496a47e491b2d0195aa8e3e0efdace5dc1ecb9cd4d38c42e277"
+  },
+  "grader": {
+    "grader_lake": "Lean (version 4.29.1, x86_64-unknown-linux-gnu, commit f72c35b3f637c8c6571d353742168ab66cc22c00, Release)",
+    "lake_boundary": "contained in the runtime image, network and IPC disabled",
+    "route": "run_codex_sol_probe.grade_attempt",
+    "sandbox_lean": "Lean (version 4.29.1, x86_64-unknown-linux-gnu, commit f72c35b3f637c8c6571d353742168ab66cc22c00, Release)"
+  },
+  "qualified": true,
+  "receipt_id": "sha256:8ef0e138b8cc9bb96a7acb1e19c0fd8b500c610170d2e315809b94107107601c",
+  "reports": {
+    "agreement": {
+      "agent_socket_forbidden": true,
+      "controller_endpoint": true,
+      "cumulative_token_limit": true,
+      "file_limit": true,
+      "lean_version": true,
+      "memory_limit": true,
+      "mode": true,
+      "process_limit": true,
+      "response_token_limit": true,
+      "runtime_contract_bound": true,
+      "runtime_report_qualified": true,
+      "source_identity": true,
+      "source_pin": true,
+      "source_report_qualified": true,
+      "source_revision": true,
+      "task_network": true,
+      "task_only_visibility": true,
+      "tool_allowlist": true,
+      "turn_limit": true,
+      "wall_limit": true
+    },
+    "bound": true,
+    "runtime_report_id": "sha256:1558e1868ba10931cd0b2bb3ca894f614f57f26e6ec528e9b4cf1d1781877bf3",
+    "runtime_report_sha256": "sha256:ae56f406383c9bba22754d2b58d787193a5a5fd3ea035c77eb4527bb40f4385f",
+    "source_report_sha256": "sha256:febc67f36cdcb496a47e491b2d0195aa8e3e0efdace5dc1ecb9cd4d38c42e277",
+    "uncompared_runtime_fields": {
+      "cleanup": "process_tree_cleanup observes termination and container removal",
+      "filesystem": "the v1 schema rejects /workspace as a task root, so it declares an abstract /runtime layout; workspace_allowlist and write_scope observe the route's",
+      "verifier": "the report names the host Lake binary; grading runs Lake inside the image, which grader_containment observes"
+    }
+  },
+  "route": {
+    "axiom_checker_sha256": "sha256:c67ec2542d6aa77b7d8f5ae6264331176dd152858628571503a1728c706156f0",
+    "containment_runner_sha256": "sha256:7bf2362a8a61812690d580e8774e4ff7622d7161fdc919db424b1f217811872b",
+    "controller_limits": {
+      "cumulative_output_tokens": 200000,
+      "response_tokens": 16384,
+      "turns": 100,
+      "wall_seconds": 5400
+    },
+    "harness_version": "1.2.1",
+    "materializer_sha256": "sha256:cfc7a50db42ac79935d477319c09c465ea1a2f070e6166fc0823397059fc285d",
+    "probe_sha256": "sha256:0303f110401e952778d716c4bf7a23176872a477904e51c64a798145d25f5841",
+    "resource_limits": {
+      "command_seconds": 300,
+      "cpus": 4,
+      "file_bytes": 1073741824,
+      "grading_bytes": 17179869184,
+      "grading_entries": 500000,
+      "memory_bytes": 17179869184,
+      "processes": 256,
+      "workspace_bytes": 8589934592,
+      "workspace_entries": 200000
+    },
+    "sandbox_methods": [
+      "sandbox/execute",
+      "sandbox/readFile"
+    ],
+    "sandbox_server_sha256": "sha256:ab43fa8453d13b66d3ca8db2886a7c62696ed24e0819283ce700253dae728c22",
+    "user": "host-unprivileged"
+  },
+  "runtime_image": {
+    "container_runtime_version": "29.2.1/29.2.1",
+    "image_id": "sha256:9ca594ce645b2be8903dcdadd7c58c11bb0d8b7448077842ee559e0a4dfb574c",
+    "matches_contract_image": false,
+    "platform": {
+      "emulated": false,
+      "host": "amd64",
+      "image": "amd64"
+    },
+    "reference": "sha256:9ca594ce645b2be8903dcdadd7c58c11bb0d8b7448077842ee559e0a4dfb574c"
+  },
+  "schema_version": "anarres.formal-verification-task-boundary-receipt.v1",
+  "source": {
+    "source_id": "sunblaze-ucb/vero@0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+    "source_pin_sha256": "sha256:a3c462fdb297e59a0755f4d23478d8598dbf1c5d4a0f4970e9fa3e32921a72be",
+    "source_revision": "git:0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09"
+  },
+  "started_at": "2026-11-23T21:46:30.174463+00:00",
+  "task": {
+    "materializations": {
+      "a": {
+        "files": 11,
+        "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+        "symlinks": 0,
+        "task_tree_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6"
+      },
+      "b": {
+        "files": 11,
+        "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+        "symlinks": 0,
+        "task_tree_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6"
+      },
+      "binary_name": {
+        "files": 11,
+        "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+        "symlinks": 0,
+        "task_tree_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6"
+      },
+      "c": {
+        "files": 11,
+        "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+        "symlinks": 0,
+        "task_tree_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6"
+      },
+      "deep": {
+        "files": 11,
+        "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+        "symlinks": 0,
+        "task_tree_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6"
+      },
+      "disk": {
+        "files": 11,
+        "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+        "symlinks": 0,
+        "task_tree_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6"
+      },
+      "grader": {
+        "files": 11,
+        "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+        "symlinks": 0,
+        "task_tree_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6"
+      },
+      "mapped": {
+        "files": 11,
+        "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+        "symlinks": 0,
+        "task_tree_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6"
+      },
+      "parked": {
+        "files": 11,
+        "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+        "symlinks": 0,
+        "task_tree_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6"
+      },
+      "sparse": {
+        "files": 11,
+        "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+        "symlinks": 0,
+        "task_tree_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6"
+      },
+      "unlinked": {
+        "files": 11,
+        "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+        "symlinks": 0,
+        "task_tree_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6"
+      }
+    },
+    "protected_repositories_opened": false,
+    "split": "development",
+    "task_id": "primepy:proof"
+  },
+  "tests": [
+    {
+      "evidence": {
+        "copies": 11,
+        "files": 11,
+        "instruction_sha256": "3172e2a0b1afbe4497731249f9f80192013b65645889e2f986c389e14c4bd945",
+        "symlinks": 0,
+        "task_tree_sha256": "a1fc078e97f193b9e22b9f167967fced21b9e1d9a0ae66bf7fd74905853922a6"
+      },
+      "id": "independent_materialization",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "capabilities_dropped": true,
+        "container_log_disabled": true,
+        "declared_tmpfs": true,
+        "ipc_none": true,
+        "message_queues_read_only": true,
+        "network_none": true,
+        "no_host_mount": true,
+        "no_new_privileges": true,
+        "read_only_root": true,
+        "uid": 24996,
+        "undeclared_mounts": [],
+        "unprivileged": true,
+        "workspace_size_limited": true
+      },
+      "id": "workspace_allowlist",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "host_canaries_unchanged": true,
+        "undeclared_writable_paths": [],
+        "writable_roots_observed": [
+          "/cache",
+          "/tmp",
+          "/workspace"
+        ]
+      },
+      "id": "write_scope",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "absolute_host_path_blocked": true,
+        "canary_observed": false,
+        "parent_traversal_blocked": true,
+        "symlink_read_blocked": true
+      },
+      "id": "path_and_symlink_escape",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "positive_controls": {
+          "host_finds_host_credentials": true,
+          "host_finds_protected_repositories": true,
+          "host_finds_reference_solutions": true,
+          "mounted_agent_socket_found": true,
+          "owning_attempt_finds_its_state": true
+        },
+        "visible_counts": {
+          "agent_socket": 0,
+          "host_credentials": 0,
+          "other_attempt_workspaces": 0,
+          "protected_repositories": 0,
+          "reference_solutions": 0
+        },
+        "visible_unix_sockets": []
+      },
+      "id": "protected_input_visibility",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "docker_socket_visible": false,
+        "host_credential_canaries_visible": 0,
+        "init_environment_readable": true,
+        "ssh_directory_visible": false,
+        "undeclared_environment": []
+      },
+      "id": "credential_and_environment_visibility",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "agent_socket_invisible": true,
+        "emulated_platform": false,
+        "home_entries": [],
+        "inference_config_matches_harness": true,
+        "malformed_request_rejected": true,
+        "route_methods_match_contract": true,
+        "sandbox_home_empty": true,
+        "tool_surface": true,
+        "undeclared_method_codes": {
+          "agent/shutdown": -32601,
+          "sandbox/listDirectory": -32601,
+          "sandbox/writeFile": -32601
+        },
+        "undeclared_methods_rejected": true,
+        "unknown_tool_not_dispatched": true
+      },
+      "id": "controller_configuration_isolation",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "dns": false,
+        "interfaces_up": [],
+        "metadata_service": false,
+        "positive_control_networked_container": {
+          "dns": true,
+          "metadata_service": false,
+          "provider_api": true,
+          "public_dns_server": true,
+          "public_ipv6": false,
+          "public_tcp": true
+        },
+        "provider_api": false,
+        "public_dns_server": false,
+        "public_ipv6": false,
+        "public_tcp": false
+      },
+      "id": "external_network_egress",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "controller_endpoint_reachable_from_host": true,
+        "networked_container_reaches_endpoint": true,
+        "positive_control_networked_container": {
+          "bridge_gateway": true,
+          "desktop_gateway": false,
+          "docker_host_alias": true,
+          "localhost": false,
+          "loopback": false
+        },
+        "sandbox_reaches_bridge_gateway": false,
+        "sandbox_reaches_desktop_gateway": false,
+        "sandbox_reaches_docker_host_alias": false,
+        "sandbox_reaches_localhost": false,
+        "sandbox_reaches_loopback": false
+      },
+      "id": "local_inference_separation",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "command_timeout_enforced": true,
+        "cpu_max": true,
+        "file_blocks": true,
+        "file_size_enforced": true,
+        "file_write_exit_and_size": [
+          "153",
+          "1073741824"
+        ],
+        "fork_probe": {
+          "failures": 69,
+          "started": 251
+        },
+        "memory_max": true,
+        "observed": [
+          "256",
+          "17179869184",
+          "400000 100000",
+          "2097152"
+        ],
+        "pids_max": true,
+        "process_limit_enforced": true,
+        "workspace_collection_binary_name": true,
+        "workspace_collection_deep": true,
+        "workspace_collection_sparse": true,
+        "workspace_limit": {
+          "bytes": 8589934592,
+          "entries": 200000,
+          "scenarios": {
+            "binary_name": {
+              "collected_and_cleaned_up": true,
+              "collected_quickly": true,
+              "collection_seconds": 0.4,
+              "layout_left_behind": true,
+              "task_files_collected": true
+            },
+            "deep": {
+              "collected_and_cleaned_up": true,
+              "collected_quickly": true,
+              "collection_seconds": 0.6,
+              "layout_left_behind": true,
+              "task_files_collected": true
+            },
+            "disk": {
+              "collected_and_cleaned_up": true,
+              "further_write_refused": true,
+              "sandbox_still_responsive": true,
+              "usage_within_limit": true,
+              "used_bytes": 8589934592
+            },
+            "mapped": {
+              "collected_and_cleaned_up": true,
+              "further_write_refused": true,
+              "sandbox_still_responsive": true,
+              "usage_within_limit": true,
+              "used_bytes": 8589934592
+            },
+            "parked": {
+              "collected_and_cleaned_up": true,
+              "further_write_refused": true,
+              "sandbox_still_responsive": true,
+              "usage_within_limit": true,
+              "used_bytes": 8589934592
+            },
+            "sparse": {
+              "collected_and_cleaned_up": true,
+              "collected_quickly": true,
+              "collection_seconds": 8.7,
+              "layout_left_behind": true,
+              "task_files_collected": true
+            },
+            "unlinked": {
+              "collected_and_cleaned_up": true,
+              "further_write_refused": true,
+              "sandbox_still_responsive": true,
+              "usage_within_limit": true,
+              "used_bytes": 8589934592
+            }
+          }
+        },
+        "workspace_limit_disk": true,
+        "workspace_limit_mapped": true,
+        "workspace_limit_parked": true,
+        "workspace_limit_unlinked": true
+      },
+      "id": "resource_limits",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "container_survived_server_kill": true,
+        "escaped_daemon_running_before_termination": true,
+        "forced_termination_backstop_removed_container": true,
+        "no_docker_clients_remain": true,
+        "terminated_server_removed_container": true,
+        "timed_out_group_killed": true,
+        "timed_out_group_started": true
+      },
+      "id": "process_tree_cleanup",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "emulated_platform": false,
+        "no_previous_attempt_state": true,
+        "temporary_areas_empty": true,
+        "temporary_entries": [
+          "/tmp/home"
+        ],
+        "workspace_matches_materialization": true
+      },
+      "id": "fresh_task_reset",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "no_infrastructure_errors": true,
+        "output_tokens_at_stop": 200002,
+        "route_limits": {
+          "cumulative_output_tokens": 200000,
+          "turns": 100,
+          "wall_seconds": 5400
+        },
+        "token_limit": true,
+        "turn_limit": true,
+        "turns_enforced_at": 100,
+        "wall_budget_seconds_in_check": 5,
+        "wall_elapsed_seconds": 5.071,
+        "wall_limit": true
+      },
+      "id": "controller_limits",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "accepted_proof_scored_through_route": true,
+        "attempt_receipt_accounts_for_every_call": true,
+        "attempt_receipt_methods": {
+          "agent/initialize": 1,
+          "sandbox/execute": 2,
+          "sandbox/readFile": 2
+        },
+        "attempt_stop_reason": "stop",
+        "fixture_attempt_scored": true,
+        "materialization_recorded": true,
+        "qualification_receipt_accounts_for_every_call": true,
+        "receipts_have_no_infrastructure_error": true,
+        "record_fields_present": true,
+        "tool_calls_counted": true
+      },
+      "id": "attempt_record_completeness",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "fixtures": {
+          "accepted_proof": {
+            "as_expected": true,
+            "build_label": "2cc7661b9b45da78",
+            "build_ok": true,
+            "passed_specs": 1,
+            "recheck_downgraded": [],
+            "status_counts": {
+              "passed": 1,
+              "unfilled": 8
+            },
+            "targeted_status": "passed",
+            "total_specs": 9,
+            "vero_passed_specs": 1
+          },
+          "admitted_proof": {
+            "as_expected": true,
+            "build_label": "3efdace9a802f6a9",
+            "build_ok": true,
+            "passed_specs": 0,
+            "recheck_downgraded": [],
+            "status_counts": {
+              "slot_body_tainted": 1,
+              "unfilled": 8
+            },
+            "targeted_status": "slot_body_tainted",
+            "total_specs": 9,
+            "vero_passed_specs": 0
+          },
+          "elaboration_command_rejected": {
+            "as_expected": true,
+            "integrity_violations": [
+              "Primepy/Proof/Primes.lean: #eval"
+            ]
+          },
+          "elaboration_escape": {
+            "as_expected": true,
+            "build_label": "80a57835d09ada82",
+            "build_ok": true,
+            "passed_specs": 0,
+            "recheck_downgraded": [],
+            "status_counts": {
+              "unfilled": 9
+            },
+            "targeted_status": "unfilled",
+            "total_specs": 9,
+            "vero_passed_specs": 0
+          },
+          "forbidden_axiom": {
+            "as_expected": true,
+            "build_label": "a7deb54d8fab629d",
+            "build_ok": true,
+            "passed_specs": 0,
+            "recheck_downgraded": [],
+            "status_counts": {
+              "axiom_leaked": 1,
+              "unfilled": 8
+            },
+            "targeted_status": "axiom_leaked",
+            "total_specs": 9,
+            "vero_passed_specs": 0
+          },
+          "forged_axiom_initializer": {
+            "as_expected": true,
+            "build_label": "d788fc91b1ce38df",
+            "build_ok": true,
+            "passed_specs": 0,
+            "recheck_downgraded": [
+              "spec_between_agrees_with_upto"
+            ],
+            "status_counts": {
+              "axiom_recheck_failed": 1,
+              "unfilled": 8
+            },
+            "targeted_status": "axiom_recheck_failed",
+            "total_specs": 9,
+            "vero_passed_specs": 1
+          },
+          "forged_axiom_report": {
+            "as_expected": true,
+            "build_label": "628b06255deec236",
+            "build_ok": true,
+            "passed_specs": 0,
+            "recheck_downgraded": [
+              "spec_between_agrees_with_upto"
+            ],
+            "status_counts": {
+              "axiom_recheck_failed": 1,
+              "unfilled": 8
+            },
+            "targeted_status": "axiom_recheck_failed",
+            "total_specs": 9,
+            "vero_passed_specs": 1
+          },
+          "forged_axiom_trace": {
+            "as_expected": true,
+            "build_label": "863fe1380fac2cb6",
+            "build_ok": true,
+            "passed_specs": 0,
+            "recheck_downgraded": [
+              "spec_between_agrees_with_upto"
+            ],
+            "status_counts": {
+              "axiom_recheck_failed": 1,
+              "unfilled": 8
+            },
+            "targeted_status": "axiom_recheck_failed",
+            "total_specs": 9,
+            "vero_passed_specs": 1
+          },
+          "grading_disk_exhaustion": {
+            "as_expected": true,
+            "build_label": "17f7c9e6ed9a2b56",
+            "build_ok": true,
+            "passed_specs": 0,
+            "recheck_downgraded": [],
+            "status_counts": {
+              "unfilled": 9
+            },
+            "targeted_status": "unfilled",
+            "total_specs": 9,
+            "vero_passed_specs": 0
+          },
+          "grading_disk_unlinked": {
+            "as_expected": true,
+            "build_label": "5a5aadde61b468eb",
+            "build_ok": true,
+            "passed_specs": 0,
+            "recheck_downgraded": [],
+            "status_counts": {
+              "unfilled": 9
+            },
+            "targeted_status": "unfilled",
+            "total_specs": 9,
+            "vero_passed_specs": 0
+          },
+          "grading_fork_chain": {
+            "as_expected": true,
+            "build_label": "7f638412292eae2a",
+            "build_ok": true,
+            "passed_specs": 0,
+            "recheck_downgraded": [],
+            "status_counts": {
+              "unfilled": 9
+            },
+            "targeted_status": "unfilled",
+            "total_specs": 9,
+            "vero_passed_specs": 0
+          },
+          "grading_leftover_process": {
+            "as_expected": true,
+            "build_label": "8009952da58a30c0",
+            "build_ok": true,
+            "passed_specs": 0,
+            "recheck_downgraded": [],
+            "status_counts": {
+              "unfilled": 9
+            },
+            "targeted_status": "unfilled",
+            "total_specs": 9,
+            "vero_passed_specs": 0
+          },
+          "invalid_proof": {
+            "as_expected": true,
+            "build_label": "a784744e5eccd6be",
+            "build_ok": true,
+            "passed_specs": 0,
+            "recheck_downgraded": [],
+            "status_counts": {
+              "build_error": 1,
+              "unfilled": 8
+            },
+            "targeted_status": "build_error",
+            "total_specs": 9,
+            "vero_passed_specs": 0
+          },
+          "kernel_check_skipped": {
+            "as_expected": true,
+            "build_label": "741eafb3d2868e2e",
+            "build_ok": true,
+            "passed_specs": 0,
+            "recheck_downgraded": [
+              "spec_between_agrees_with_upto"
+            ],
+            "status_counts": {
+              "axiom_recheck_failed": 1,
+              "unfilled": 8
+            },
+            "targeted_status": "axiom_recheck_failed",
+            "total_specs": 9,
+            "vero_passed_specs": 1
+          },
+          "no_op": {
+            "as_expected": true,
+            "build_label": "fa7a05001fa77013",
+            "build_ok": true,
+            "passed_specs": 0,
+            "recheck_downgraded": [],
+            "status_counts": {
+              "unfilled": 9
+            },
+            "targeted_status": "unfilled",
+            "total_specs": 9,
+            "vero_passed_specs": 0
+          },
+          "unsafe_declaration": {
+            "as_expected": true,
+            "build_label": "563565b2a23f6074",
+            "build_ok": false,
+            "passed_specs": 0,
+            "recheck_downgraded": [],
+            "status_counts": {
+              "unsafe_keyword": 9
+            },
+            "targeted_status": "unsafe_keyword",
+            "total_specs": 9,
+            "vero_passed_specs": 0
+          }
+        },
+        "target_definition": "prove_factor_smallest_prime_divisor"
+      },
+      "id": "grader_rejection",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "forged_axiom_initializer_rejected": true,
+        "forged_axiom_report_rejected": true,
+        "forged_axiom_trace_rejected": true,
+        "fork_chain_does_not_outlive_lake": true,
+        "grader_lean": "Lean (version 4.29.1, x86_64-unknown-linux-gnu, commit f72c35b3f637c8c6571d353742168ab66cc22c00, Release)",
+        "grader_runs_in_runtime_image": true,
+        "grading_disk_bounded": true,
+        "host_file_write_blocked": true,
+        "leftover_process_does_not_outlive_lake": true,
+        "model_code_executed_during_grading": true,
+        "model_code_ran_in_container": true,
+        "network_blocked_during_grading": true,
+        "network_probe_exit_codes": [
+          "1"
+        ],
+        "no_grader_containers_remain": true,
+        "no_grading_volumes_remain": true,
+        "task_source_write_blocked": true,
+        "unchecked_kernel_proof_rejected": true
+      },
+      "id": "grader_containment",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "failed_attempt_not_graded": true,
+        "grader_failure_raises": true,
+        "sandbox_start_failure_recorded": true,
+        "summary_excludes_unscored": true
+      },
+      "id": "infrastructure_failure_unscored",
+      "passed": true
+    }
+  ]
+}
