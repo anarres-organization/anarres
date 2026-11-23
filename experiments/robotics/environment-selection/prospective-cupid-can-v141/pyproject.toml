@@ -1,13 +1,32 @@
 [project]
-name = "anarres-robotics"
-version = "0.5.1"
-description = "Anarres adapter for the released CUPID Can v1.4.1 study"
+name = "anarres-robotics-cupid-can-v141"
+version = "0.6.0"
+description = "CUPID Can v1.4.1 source driver and study commands for the Anarres robotics adapter"
 requires-python = ">=3.11"
-dependencies = ["anarres-core", "anarres-environments", "h5py>=3.8"]
+dependencies = ["anarres-core", "anarres-environments", "anarres-robotics", "h5py>=3.8"]
 license = { text = "Apache-2.0" }
 
-[project.scripts]
-anarres-robotics = "anarres_robotics_adapter.cli:main"
+[project.entry-points."anarres.robotics.source_drivers"]
+robomimic-can-v141-hdf5 = "anarres_robotics_adapter.driver:RobomimicCanV141Driver"
+
+[project.entry-points."anarres.robotics.measurement_contracts"]
+"robotics.cupid-can-v141-candidate-measurement.v1" = "anarres_robotics_adapter.cli"
+
+[project.entry-points."anarres.robotics.study_commands"]
+bundle = "anarres_robotics_adapter.cli:run_study"
+can-results = "anarres_robotics_adapter.cli:run_study"
+gate = "anarres_robotics_adapter.cli:run_study"
+plan = "anarres_robotics_adapter.cli:run_study"
+prepare = "anarres_robotics_adapter.cli:run_study"
+probe-preflight = "anarres_robotics_adapter.cli:run_study"
+profile = "anarres_robotics_adapter.cli:run_study"
+results = "anarres_robotics_adapter.cli:run_study"
+run-task = "anarres_robotics_adapter.cli:run_study"
+score = "anarres_robotics_adapter.cli:run_study"
+square-results = "anarres_robotics_adapter.cli:run_study"
+status = "anarres_robotics_adapter.cli:run_study"
+submit = "anarres_robotics_adapter.cli:run_study"
+verify = "anarres_robotics_adapter.cli:run_study"
 
 [build-system]
 requires = ["hatchling"]

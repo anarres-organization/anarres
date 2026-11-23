@@ -16,7 +16,11 @@ from referencing import Registry, Resource
 ROOT = Path(__file__).resolve().parents[2]
 STUDY = ROOT / "experiments/robotics/environment-selection/prospective-cupid-can-v141"
 sys.path.insert(0, str(STUDY / "src"))
+from anarres.core import load_source_manifest  # noqa: E402
+from anarres.robotics import cli as ROBOTICS  # noqa: E402
+from anarres.robotics.contract import RoboticsContractError  # noqa: E402
 from anarres_robotics_adapter import cli as CLI  # noqa: E402
+from anarres_robotics_adapter import driver as DRIVER  # noqa: E402
 from anarres_robotics_adapter import probe as PROBE  # noqa: E402
 
 SCRIPT = STUDY / "export_environment_profiles.py"
@@ -40,22 +44,35 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
         correction = json.loads((STUDY / "FREEZE_CORRECTION.json").read_text())
         self.assertEqual(freeze, correction["corrected_freeze"])
 
-    def test_adapter_descriptor_matches_the_shared_contract(self) -> None:
-        descriptor = CLI.adapter_descriptor()
+    def test_portable_descriptor_registers_the_can_study(self) -> None:
+        descriptor = ROBOTICS.adapter_descriptor()
         schema = json.loads(
             (ROOT / "schemas/adapters/adapter-descriptor.v1.schema.json").read_text()
         )
         Draft202012Validator(schema).validate(descriptor)
         self.assertEqual(descriptor["name"], "robotics")
-        self.assertEqual(descriptor["version"], "0.5.1")
         self.assertEqual(descriptor["executable"], "anarres-robotics")
         self.assertEqual(descriptor["capabilities"], sorted(set(descriptor["capabilities"])))
-        self.assertEqual(
+        for command in ("can-results", "plan", "results", "square-results", "status", "verify"):
+            self.assertIn(command, descriptor["capabilities"])
+        self.assertIn(
+            "robotics.cupid-can-v141-candidate-measurement.v1",
             descriptor["measurement_contracts"],
-            ["robotics.cupid-can-v141-candidate-measurement.v1"],
         )
-        self.assertEqual(descriptor["source_formats"], ["robomimic-can-v141-hdf5"])
+        self.assertIn("robomimic-can-v141-hdf5", descriptor["source_formats"])
         self.assertNotIn("policy-probe", descriptor["capabilities"])
+
+    def test_driver_mirrors_the_released_probe_contract(self) -> None:
+        path = STUDY / "PROBE_CONTRACT.json"
+        contract = json.loads(path.read_text())
+        self.assertEqual(
+            DRIVER.PROBE_CONTRACT_SHA256, f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
+        )
+        self.assertEqual(
+            DRIVER.OBSERVATION_FIELDS, tuple(sorted(contract["source"]["observation_keys"]))
+        )
+        self.assertEqual(DRIVER.HORIZON, contract["rollout_contract"]["horizon"])
+        self.assertEqual(contract["source"]["sha256"], CLI.workflow.SOURCE_DATASET_SHA256)
 
     def test_probe_contract_matches_released_subject_and_remains_unreleased(self) -> None:
         contract = json.loads((STUDY / "PROBE_CONTRACT.json").read_text())
@@ -189,7 +206,7 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
                         'environment_id = "can-fixture"',
                         'domain = "robotics"',
                         'adapter = "robotics"',
-                        'adapter_version = "0.5.1"',
+                        'adapter_version = "0.6.0"',
                         'native_format = "robomimic-can-v141-hdf5"',
                         "",
                         "[source]",
@@ -201,24 +218,35 @@ class RoboticsCupidProfileAdapterTest(unittest.TestCase):
                 ),
                 encoding="utf-8",
             )
-            arguments = type("Args", (), {"manifest": manifest})()
-            with mock.patch.object(CLI.workflow, "SOURCE_DATASET_SHA256", digest):
-                report = CLI.command_qualify_source(arguments)
-        self.assertEqual(report["status"], "qualified")
-        self.assertEqual(report["demonstrations"], 1)
-        self.assertFalse(report["policy_probe_available"])
-        self.assertFalse(report["training_started"])
+            source = load_source_manifest(
+                manifest,
+                expected_adapter="robotics",
+                expected_version=ROBOTICS.ADAPTER_VERSION,
+                expected_domain="robotics",
+                accepted_formats=("robomimic-can-v141-hdf5",),
+            )
+            driver = DRIVER.RobomimicCanV141Driver()
+            with self.assertRaisesRegex(RoboticsContractError, "pinned Can v1.4.1"):
+                driver.describe(source)
+            with mock.patch.object(DRIVER.workflow, "SOURCE_DATASET_SHA256", digest):
+                description = driver.describe(source)
+            with self.assertRaisesRegex(RoboticsContractError, "not released"):
+                driver.tasks(source)
+        self.assertEqual(description.episodes, 1)
+        self.assertEqual(description.content_digest, f"sha256:{digest}")
+        self.assertIn("language_instruction", description.missing)
 
     def run_adapter(self, arguments: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
         source_paths = [
             STUDY / "src",
             ROOT / "packages/core/src",
             ROOT / "packages/environments/src",
+            ROOT / "packages/robotics/src",
         ]
         environment = os.environ.copy()
         environment["PYTHONPATH"] = os.pathsep.join(str(path) for path in source_paths)
         return subprocess.run(
-            [sys.executable, "-m", "anarres_robotics_adapter.cli", *arguments],
+            [sys.executable, "-m", "anarres.robotics.cli", *arguments],
             cwd=cwd,
             env=environment,
             capture_output=True,

@@ -13,111 +13,13 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any
 
-from anarres.core import consume_adapter_invocation, load_source_manifest
-
 from . import probe, workflow
+
+STUDY_PACKAGE_VERSION = "0.6.0"
 
 
 class RoboticsCliError(ValueError):
     """Raised when a released robotics workflow cannot be verified."""
-
-
-def adapter_descriptor() -> dict[str, Any]:
-    """Describe the adapter without opening study artifacts."""
-
-    return {
-        "schema_version": "anarres.adapter-descriptor.v1",
-        "name": "robotics",
-        "version": "0.5.1",
-        "protocol_version": 2,
-        "domain": "robotics",
-        "executable": "anarres-robotics",
-        "profile_schema_versions": ["anarres.environment-profile-input.v1"],
-        "capabilities": [
-            "bundle",
-            "can-results",
-            "gate",
-            "plan",
-            "prepare",
-            "profile",
-            "results",
-            "run-task",
-            "score",
-            "source-qualification",
-            "square-results",
-            "status",
-            "submit",
-            "verify",
-        ],
-        "measurement_contracts": [
-            "robotics.cupid-can-v141-candidate-measurement.v1",
-        ],
-        "source_formats": ["robomimic-can-v141-hdf5"],
-    }
-
-
-def source_dataset(source: Path) -> Path:
-    """Resolve one unambiguous RoboMimic HDF5 dataset."""
-
-    if source.is_file():
-        candidates = [source] if source.suffix.lower() in {".h5", ".hdf5"} else []
-    else:
-        candidates = sorted(
-            item
-            for item in source.iterdir()
-            if item.is_file() and item.suffix.lower() in {".h5", ".hdf5"}
-        )
-    if not candidates:
-        raise RoboticsCliError(f"no HDF5 dataset found in native source: {source}")
-    if len(candidates) > 1:
-        raise RoboticsCliError(
-            "native source contains multiple HDF5 datasets; place one candidate dataset "
-            "in each initialized environment directory"
-        )
-    return candidates[0]
-
-
-def command_qualify_source(args: argparse.Namespace) -> dict[str, Any]:
-    """Validate the frozen Can dataset without preparing or training it."""
-
-    descriptor = adapter_descriptor()
-    source = load_source_manifest(
-        args.manifest,
-        expected_adapter="robotics",
-        expected_version=descriptor["version"],
-        expected_domain=descriptor["domain"],
-        accepted_formats=tuple(descriptor["source_formats"]),
-    )
-    dataset = source_dataset(source.source)
-    observed_digest = workflow.file_sha256(dataset)
-    if observed_digest != workflow.SOURCE_DATASET_SHA256:
-        raise RoboticsCliError(
-            "dataset does not match the pinned Can v1.4.1 source artifact: "
-            f"sha256:{observed_digest}"
-        )
-    if source.revision != f"sha256:{observed_digest}":
-        raise RoboticsCliError("manifest source revision does not match the dataset content digest")
-    import h5py
-
-    with h5py.File(dataset, "r") as handle:
-        if "data" not in handle:
-            raise RoboticsCliError("RoboMimic dataset is missing the data group")
-        demonstrations = sorted(handle["data"].keys(), key=workflow.demo_number)
-        if not demonstrations:
-            raise RoboticsCliError("RoboMimic dataset contains no demonstrations")
-    return {
-        "status": "qualified",
-        "environment_id": source.environment_id,
-        "native_format": source.native_format,
-        "dataset": str(dataset),
-        "dataset_sha256": f"sha256:{observed_digest}",
-        "demonstrations": len(demonstrations),
-        "source_revision": source.revision,
-        "source_license": source.license,
-        "policy_probe_available": False,
-        "training_started": False,
-        "candidate_outcomes_opened": False,
-    }
 
 
 def repository_root(explicit: Path | None = None) -> Path:
@@ -327,8 +229,8 @@ def build_workflow_plan(repository: Path) -> dict[str, Any]:
         "phase": "candidate_training_and_evaluation",
         "producer": {
             "kind": "domain-adapter",
-            "id": "anarres-robotics",
-            "revision": adapter_descriptor()["version"],
+            "id": "anarres-robotics-cupid-can-v141",
+            "revision": STUDY_PACKAGE_VERSION,
         },
         "inputs": [
             {
@@ -748,13 +650,6 @@ def parser() -> argparse.ArgumentParser:
     add_common(status)
     status.set_defaults(handler=command_status)
 
-    qualify_source = commands.add_parser(
-        "qualify-source", help="Validate a native RoboMimic environment source."
-    )
-    qualify_source.add_argument("--manifest", type=Path, required=True)
-    qualify_source.add_argument("--json", action="store_true")
-    qualify_source.set_defaults(handler=command_qualify_source)
-
     probe_preflight = commands.add_parser(
         "probe-preflight",
         help="Check the released Can probe inputs without running simulation.",
@@ -874,16 +769,13 @@ def print_result(value: dict[str, Any], as_json: bool) -> None:
         print(f"{label:<32} {rendered}")
 
 
-def main() -> None:
-    raw_arguments = sys.argv[1:]
-    if raw_arguments == ["--anarres-adapter-descriptor"]:
-        print(json.dumps(adapter_descriptor(), indent=2, sort_keys=True))
-        return
+def run_study(arguments: list[str]) -> None:
+    """Run one study command after the robotics adapter has removed its handshake."""
+
     try:
-        raw_arguments = consume_adapter_invocation(raw_arguments, expected_name="robotics")
-        arguments = parser().parse_args(raw_arguments)
-        output = arguments.handler(arguments)
-        print_result(output, arguments.json)
+        parsed = parser().parse_args(arguments)
+        output = parsed.handler(parsed)
+        print_result(output, parsed.json)
     except FileExistsError as error:
         path = error.filename or (error.args[0] if error.args else "output")
         print(f"error: output already exists: {path}", file=sys.stderr)
@@ -891,6 +783,10 @@ def main() -> None:
     except (RoboticsCliError, ValueError, OSError, KeyError) as error:
         print(f"error: {error}", file=sys.stderr)
         raise SystemExit(1) from error
+
+
+def main() -> None:
+    run_study(sys.argv[1:])
 
 
 if __name__ == "__main__":

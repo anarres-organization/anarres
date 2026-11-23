@@ -33,6 +33,7 @@ members = [
   "packages/evaluation",
   "packages/finance",
   "packages/legal",
+  "packages/robotics",
   "packages/vulnerability",
   "experiments/robotics/environment-selection/prospective-cupid-can-v141",
 ]
@@ -48,6 +49,7 @@ anarres-vulnerability = { workspace = true }
 anarres-materials = { workspace = true }
 anarres-molecular = { workspace = true }
 anarres-robotics = { workspace = true }
+anarres-robotics-cupid-can-v141 = { workspace = true }
 
 [tool.ruff]
 line-length = 100

@@ -121,8 +121,8 @@ performs best after training.
 The study-local command can be installed independently from the native CLI:
 
 ```bash
-uv tool install \
-  ./experiments/robotics/environment-selection/prospective-cupid-can-v141
+uv tool install ./packages/robotics \
+  --with ./experiments/robotics/environment-selection/prospective-cupid-can-v141
 anarres adapter doctor robotics
 ```
 
@@ -133,6 +133,7 @@ record its pinned identity:
 ```bash
 anarres init ./can-v141-source \
   --adapter robotics \
+  --native-format robomimic-can-v141-hdf5 \
   --revision sha256:b6ceaed84c0335613a5001c900493b226481c132c792ec2cbdb99cb12c62baf0 \
   --license "DATASET-LICENSE"
 anarres inspect ./can-v141-source
@@ -191,8 +192,9 @@ anarres robotics verify --repository .
 anarres robotics results --repository .
 ```
 
-`anarres-robotics` retains the Python implementation and robotics-specific
-records. The Rust CLI discovers it through the generic adapter protocol without
+The study package `anarres-robotics-cupid-can-v141` retains the Python
+implementation and robotics-specific records. It registers its source driver
+and study commands with the portable `anarres-robotics` adapter. The Rust CLI discovers it through the generic adapter protocol without
 importing robotics dependencies. The workflow uses CuraEval revision
 `bd94bbbd435c1ef55edfe244894e5468f3a5df2b`, verifies the official Can v1.4.1
 dataset hash, and writes all four subset masks while leaving the all-data arm

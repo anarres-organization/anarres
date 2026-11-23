@@ -33,14 +33,17 @@ The install source for each maintained adapter is:
 | Adapter | Tagged source subdirectory |
 | --- | --- |
 | `formal` | `data/formal-verification/vero` |
-| `robotics` | `experiments/robotics/environment-selection/prospective-cupid-can-v141` |
+| `robotics` | `packages/robotics`, plus `experiments/robotics/environment-selection/prospective-cupid-can-v141` for the released studies |
 | `legal` | `packages/legal` |
 | `materials` | `experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter` |
 | `molecular` | `experiments/ai-for-science/molecular-design/reaction-environment-selection` |
 | `finance` | `packages/finance` |
 | `vulnerability` | `packages/vulnerability` |
 
-Replace `packages/legal` in the example with the required subdirectory. Keep
+Replace `packages/legal` in the example with the required subdirectory. The robotics
+adapter loads the released Can, PushT, and Square study commands from a separate
+study package. Add it with a second `--with` source, for example
+`--with 'git+https://github.com/anarres-organization/anarres.git@<tag>#subdirectory=experiments/robotics/environment-selection/prospective-cupid-can-v141'`. Keep
 the release tag in the URL so the adapter source remains reproducible. Run
 `uv tool update-shell` and restart the shell if `uv` reports that its executable
 directory is not on `PATH`.
