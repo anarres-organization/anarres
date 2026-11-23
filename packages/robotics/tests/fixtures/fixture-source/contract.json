@@ -1,0 +1,9 @@
+{
+  "max_steps": 400,
+  "reset_semantics": "reset to the recorded initial state before each attempt",
+  "seeds": [
+    0,
+    1
+  ],
+  "success_definition": "object lifted above the table for one control step"
+}

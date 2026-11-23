@@ -1,0 +1,11 @@
+schema_version = "anarres.environment-source.v1"
+environment_id = "robotics-fixture-candidate-a"
+domain = "robotics"
+adapter = "robotics"
+adapter_version = "0.6.0"
+native_format = "robotics-fixture-v1"
+
+[source]
+uri = "."
+revision = "sha256:439606bc3dc01bf519daa088efc3d621082c05a168174ee4bdc896d88a595f61"
+license = "Apache-2.0"
