@@ -95,9 +95,9 @@ python scripts/detectable_difference.py
 python scripts/resolution_plan.py
 ```
 
-The first command checks that each row's counts decompose into its two cell totals, then recomputes the two-sided exact McNemar p-value from the discordant counts and fails when a stored value disagrees by more than 5e-5. The second command computes the resolution table above from the same counts. The third command solves the inverse problem, the design that resolves a given effect, and prints a verdict per released pair.
+The first command checks that each row's counts decompose into its two cell totals, then recomputes the two-sided exact McNemar p-value from the discordant counts and fails when a stored value disagrees by more than 5e-5. The second command computes the resolution table above from the same counts. Both are registered with `make study-check` as the studies "verifier reliability pilot counts" and "verifier reliability pilot resolution", so the released record is covered by the same gate as the rest of the repository.
 
-All three are registered with `make study-check` as the studies "verifier reliability pilot counts", "verifier reliability pilot resolution" and "verifier reliability pilot resolution plan", so the released record is covered by the same gate as the rest of the repository.
+The third command solves the inverse problem, the design that resolves a given effect, and prints a verdict per released pair. It reads no files outside `data/paired_counts.csv` and is a design aid for the next comparison in this domain.
 
 ## Design budget
 
