@@ -1,0 +1,36 @@
+name: Verifier reliability scientific reproduction
+
+on:
+  push:
+    branches: [contrib/verifier-reliability-pilot]
+    paths:
+      - experiments/mathematics/verifier-reliability-pilot/**
+      - tools/check_study_reproduction.py
+      - .github/workflows/verifier-reliability-fork-check.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Verify pinned study inputs against release manifest
+        working-directory: experiments/mathematics/verifier-reliability-pilot
+        run: sha256sum --check MANIFEST.sha256
+      - name: Recompute exact paired McNemar p-values and record integrity
+        working-directory: experiments/mathematics/verifier-reliability-pilot
+        run: python scripts/recompute_exact_mcnemar.py
+      - name: Recompute exact statistical power and minimum detectable effects
+        working-directory: experiments/mathematics/verifier-reliability-pilot
+        run: python scripts/detectable_difference.py
