@@ -82,6 +82,7 @@ No claim here extends to larger policies, longer budgets, other datasets, or oth
 | Columns | correct counts for each cell, both-correct count, control-only and treatment-only counts, item count, exact p-value, claim exclusion flag |
 | Rows | 6 pairs over the first 300 GSM8K test items |
 | Primary outcome | pass@1 under greedy decoding |
+| Integrity | `MANIFEST.sha256`, content hashes for the complete record |
 
 The released record stores discordant counts rather than generations. The counts decompose into per-cell correct totals, so a reader can rebuild the reported accuracies and tests without hosting model outputs.
 
