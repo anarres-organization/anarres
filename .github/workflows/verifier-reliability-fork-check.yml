@@ -34,3 +34,4 @@ jobs:
       - name: Recompute exact statistical power and minimum detectable effects
         working-directory: experiments/mathematics/verifier-reliability-pilot
         run: python scripts/detectable_difference.py
+# Repeat replay on the November 24 upstream-main merge head.
