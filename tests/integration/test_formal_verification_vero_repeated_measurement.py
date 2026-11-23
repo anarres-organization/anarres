@@ -18,8 +18,8 @@ ROOT = Path(__file__).resolve().parents[2]
 VERO_ROOT = ROOT / "data" / "formal-verification" / "vero"
 if str(VERO_ROOT) not in sys.path:
     sys.path.insert(0, str(VERO_ROOT))
-PROTOCOL_PATH = VERO_ROOT / "policy-probe-protocol.codex-sol-v1.json"
-QUEUE_PATH = VERO_ROOT / "probe-queue.codex-sol-v1.json"
+PROTOCOL_PATH = VERO_ROOT / "policy-probe-protocol.codex-sol-v2.json"
+QUEUE_PATH = VERO_ROOT / "probe-queue.codex-sol-v2.json"
 ANALYSIS_PATH = VERO_ROOT / "measurement-analysis.codex-sol-v1.json"
 PROTOCOL = json.loads(PROTOCOL_PATH.read_text(encoding="utf-8"))
 QUEUE = json.loads(QUEUE_PATH.read_text(encoding="utf-8"))
@@ -136,6 +136,54 @@ class FrozenProtocolTest(unittest.TestCase):
             "sha256:9ca594ce645b2be8903dcdadd7c58c11bb0d8b7448077842ee559e0a4dfb574c",
         )
 
+    def test_stopped_v1_queue_counts_against_the_approved_total(self) -> None:
+        stop = json.loads(
+            (VERO_ROOT / "results/repeated-measurement-stop.codex-sol-v1.json").read_text()
+        )
+        authorization = json.loads(
+            (VERO_ROOT / "execution-authorization.codex-sol-v2.json").read_text()
+        )
+        self.assertEqual(authorization["protocol_sha256"], digest(PROTOCOL_PATH))
+        self.assertEqual(authorization["queue_sha256"], digest(QUEUE_PATH))
+        self.assertAlmostEqual(
+            stop["planning_usd_total"] + authorization["spend_ceiling_usd"], 250, places=2
+        )
+        self.assertAlmostEqual(
+            sum(run["planning_usd"] or 0 for run in stop["runs"]),
+            stop["planning_usd_total"],
+            places=2,
+        )
+        # The stop record must stay outcome-blind: only run identity, cost, and infrastructure.
+        allowed = {
+            "attempt_id",
+            "run",
+            "kind",
+            "outcome",
+            "input_tokens",
+            "cached_input_tokens",
+            "output_tokens",
+            "reasoning_output_tokens",
+            "turns",
+            "stop_reason",
+            "infrastructure_errors",
+            "planning_usd",
+        }
+        for run in stop["runs"]:
+            self.assertLessEqual(set(run), allowed)
+            self.assertIn(run["outcome"], {"scored", "integrity_failure", "infrastructure_failure"})
+        # The executed v1 artifacts stay frozen exactly as the stop record names them.
+        frozen = {
+            "policy-probe-protocol.codex-sol-v1.json": stop["protocol_sha256"],
+            "probe-queue.codex-sol-v1.json": stop["queue_sha256"],
+            "execution-authorization.codex-sol-v1.json": stop["authorization_sha256"],
+        }
+        for name, expected in frozen.items():
+            self.assertEqual(digest(VERO_ROOT / name), expected, name)
+        self.assertEqual(
+            stop["protocol_sha256"],
+            "08bc80f95dfa664563e0f1f8e5cfdba4bb709200c5bfdfaafb41fc562c66c1fb",
+        )
+
     def test_queue_matches_the_protocol_and_panel(self) -> None:
         panel_path = VERO_ROOT / PROTOCOL["source"]["development_panel"]
         expected = BUILDER.build_queue(
@@ -148,7 +196,7 @@ class FrozenProtocolTest(unittest.TestCase):
         self.assertEqual(len(QUEUE["attempts"]), 32)
         self.assertEqual(len({entry["attempt_id"] for entry in QUEUE["attempts"]}), 32)
         for entry in QUEUE["attempts"]:
-            self.assertIn("-sol-v1-r0", entry["attempt_id"])
+            self.assertIn("-sol-v2-r0", entry["attempt_id"])
             self.assertEqual(entry["output_token_stop_threshold"], 200_000)
             self.assertEqual(entry["maximum_agent_turns"], 100)
 

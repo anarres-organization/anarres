@@ -12,7 +12,7 @@ the outcome of every negative control named by the containment contract.
 
 Usage:
     python3 run_containment_tests.py \\
-        --contract containment-contract-codex-sol.v3.json \\
+        --contract containment-contract-codex-sol.v4.json \\
         --image sha256:<digest> \\
         --vero-root /path/to/vero --vero-python /path/to/vero/.venv/bin/python \\
         --benchmark-id primepy --mode proof \\
@@ -900,7 +900,7 @@ def parse_args() -> argparse.Namespace:
     here = Path(__file__).resolve().parent
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument(
-        "--contract", type=Path, default=here / "containment-contract-codex-sol.v3.json"
+        "--contract", type=Path, default=here / "containment-contract-codex-sol.v4.json"
     )
     parser.add_argument("--image", required=True, help="immutable runtime image digest")
     parser.add_argument("--vero-root", type=Path, required=True)
