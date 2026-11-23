@@ -3,7 +3,7 @@
 For each released pair the discordant total m = control_only + treatment_only is
 fixed and observed. Under an alternative that would move outcomes by d points on
 n items, the expected number of control-only flips becomes b = (m + d*n)/2, so
-b is Binomial(m, 0.5 + d*n/(2m)) while c = m - b.
+b follows Binomial(m, 0.5 + d*n/(2m)) while c = m - b.
 
 Rejection follows the same two-sided exact binomial test the study uses. Power is
 the exact sum over that binomial law, with no normal approximation and no
@@ -21,7 +21,7 @@ ALPHA = 0.05
 TARGET_POWER = 0.8
 
 
-def exact_p(control_only: int, treatment_only: int) -> float:
+def exact_two_sided(control_only: int, treatment_only: int) -> float:
     discordant = control_only + treatment_only
     tail = min(control_only, treatment_only)
     cumulative = sum(comb(discordant, k) for k in range(tail + 1)) / (2**discordant)
@@ -31,64 +31,49 @@ def exact_p(control_only: int, treatment_only: int) -> float:
 def power(m: int, n: int, delta_points: float) -> float:
     """Exact power for a difference of delta_points percentage points."""
     shift = delta_points / 100.0 * n
-    b_if_true = (m + shift) / 2.0
-    if b_if_true <= 0 or b_if_true >= m:
+    b_mean = (m + shift) / 2.0
+    if b_mean <= 0 or b_mean >= m:
         return 0.0
-    p = b_if_true / m
+    p = b_mean / m
     total = 0.0
     for b in range(m + 1):
         c = m - b
-        prob = comb(m, b) * (p**b) * ((1 - p) ** c)
-        if exact_p(b, c) <= ALPHA:
-            total += prob
+        probability = comb(m, b) * (p**b) * ((1 - p) ** c)
+        if exact_two_sided(b, c) <= ALPHA:
+            total += probability
     return total
 
 
 def minimum_detectable(m: int, n: int) -> tuple[float, float]:
     for step in range(0, 121):
         delta = 0.25 * step
-        if power(m, n, delta) >= TARGET_POWER:
-            return delta, power(m, n, delta)
+        reached = power(m, n, delta)
+        if reached >= TARGET_POWER:
+            return delta, reached
     return float("inf"), 1.0
 
 
-def main() -> list[dict]:
-    rows = []
+def main() -> int:
     with DATA.open(newline="", encoding="utf-8") as handle:
         for row in csv.DictReader(handle):
             if row["excluded_from_claims"] != "no":
                 continue
+            n = int(row["items"])
             control_only = int(row["control_only"])
             treatment_only = int(row["treatment_only"])
-            n = int(row["items"])
             m = control_only + treatment_only
             delta, reached = minimum_detectable(m, n)
-            shifted = (m + delta / 100.0 * n) / 2.0
-            rows.append(
-                {
-                    "pair": row["pair"],
-                    "items": n,
-                    "discordant": m,
-                    "observed_gap_points": round(
-                        100.0
-                        * (int(row["correct_treatment"]) - int(row["correct_control"]))
-                        / n,
-                        2,
-                    ),
-                    "min_detectable_points_80pct": delta,
-                    "min_detectable_flips": round(shifted - m / 2.0, 2),
-                    "power_at_mdd": round(reached, 3),
-                }
+            flips = (m + delta / 100.0 * n) / 2.0 - m / 2.0
+            observed = 100.0 * (
+                int(row["correct_treatment"]) - int(row["correct_control"])
+            ) / n
+            print(
+                f"{row['pair']}: n={n}, discordant={m}, observed={observed:+.2f}pp, "
+                f"smallest detectable={delta:.2f}pp ({flips:.1f} flips), "
+                f"power={reached:.3f}"
             )
-    for row in rows:
-        print(
-            f"{row['pair']}: n={row['items']}, discordant={row['discordant']}, "
-            f"observed={row['observed_gap_points']:+.2f}pp, "
-            f"MDD@80%={row['min_detectable_points_80pct']:.3f}pp "
-            f"({row['min_detectable_flips']:.1f} flips), power={row['power_at_mdd']:.3f}"
-        )
-    return rows
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
