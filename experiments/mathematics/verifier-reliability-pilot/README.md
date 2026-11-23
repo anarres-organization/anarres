@@ -92,11 +92,29 @@ The released record stores discordant counts rather than generations. The counts
 cd experiments/mathematics/verifier-reliability-pilot
 python scripts/recompute_exact_mcnemar.py
 python scripts/detectable_difference.py
+python scripts/resolution_plan.py
 ```
 
-The first command checks that each row's counts decompose into its two cell totals, then recomputes the two-sided exact McNemar p-value from the discordant counts and fails when a stored value disagrees by more than 5e-5. The second command computes the resolution table above from the same counts.
+The first command checks that each row's counts decompose into its two cell totals, then recomputes the two-sided exact McNemar p-value from the discordant counts and fails when a stored value disagrees by more than 5e-5. The second command computes the resolution table above from the same counts. The third command solves the inverse problem, the design that resolves a given effect, and prints a verdict per released pair.
 
-Both commands are registered with `make study-check` as the studies "verifier reliability pilot counts" and "verifier reliability pilot resolution", so the released record is covered by the same gate as the rest of the repository.
+All three are registered with `make study-check` as the studies "verifier reliability pilot counts", "verifier reliability pilot resolution" and "verifier reliability pilot resolution plan", so the released record is covered by the same gate as the rest of the repository.
+
+## Design budget
+
+`detectable_difference.py` fixes what each released pair could see. `scripts/resolution_plan.py` solves the inverse: for an effect of a given size, the number of held-out items and the number of seed-paired 300-item panels that reach 80% power at the same exact test. The discordant rate comes from the released counts, pooled over the five claim rows at 0.354, so the plan is tied to this panel's verifier and policy rather than to an assumed noise level.
+
+| Effect | Items needed | Seed-paired 300-item panels | Discordant count at that size |
+| --- | --- | --- | --- |
+| 2.00 points | 6,991 | 24 | 2,475 |
+| 3.30 points | 2,601 | 9 | 921 |
+| 5.00 points | 1,138 | 4 | 403 |
+| 9.00 points | 352 | 2 | 125 |
+
+The 9.00 point row checks the solver against the released table: all five claim rows solve to 9.00, 9.00, 10.50, 10.25 and 10.25 points at n = 300, identical to the resolution table above, and the script fails when a solved value drifts by more than one 0.25 point search step.
+
+Two consequences follow for a later comparison in this domain. A 3.3 point verifier effect needs about 2,600 items, which is nine seed-paired panels at this size, and a 2 point effect needs about 7,000. The seed pairs also set a floor: the largest recorded same-configuration shift is 16.33 points, above the resolution of every pair in this record, so a single-seed difference has to clear both bars before it counts as an effect.
+
+The script prints a verdict per intervention row using that rule. A verifier difference counts when it exceeds the pair's resolution and the recorded seed spread. Both false-negative rows stay unresolved at -3.33 and +2.00 points, and the baseline row clears both bars at -26.33 points.
 
 ## Scope
 
