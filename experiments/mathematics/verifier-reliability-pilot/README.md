@@ -46,15 +46,31 @@ Two pairs were trained under identical configurations with a different seed.
 
 The second pair flips 115 of 300 items, which exceeds the discordant counts of every verifier intervention in this record. Prompts are rendered in the open style for that pair, so its levels are comparable within the pair and not across tables.
 
+## Resolution
+
+A non-significant test does not establish a zero effect. This section states what each pair could have detected, so the negative rows stay bounded.
+
+For a pair with discordant total `m` and `n` scored items, an alternative that moves outcomes by `d` points puts the expected count of control-only flips at `(m + d·n)/2`, so the count follows `Binomial(m, 0.5 + d·n/(2m))`. The rejection rule is the same two-sided exact binomial test used above. Power is the exact sum over that law, with no normal approximation and no simulation.
+
+| Pair | Discordant | Observed difference | Smallest detectable difference at 80% power |
+| --- | --- | --- | --- |
+| clean vs iid false negative | 94 | -3.3 points | 9.0 points (13.5 flips) |
+| clean vs group false negative | 94 | +2.0 points | 9.0 points (13.5 flips) |
+| clean vs no group baseline | 119 | -26.4 points | 10.5 points (15.8 flips) |
+| clean, seed 0 vs seed 1 | 109 | -2.3 points | 10.3 points (15.4 flips) |
+| open prompt style, seed 0 vs seed 1 | 115 | -16.3 points | 10.3 points (15.4 flips) |
+
+Read from this table, the two false-negative rows establish that a change below roughly 9 points is invisible at this design, and the no-baseline row exceeds its own resolution by a factor of 2.5. The seed pair in the open style also exceeds its resolution, which is why its gap is not attributable to the reward change alone.
+
 ## What the pilot supports
 
-A 38% false-negative rate applied independently to rollouts moved held-out pass@1 by 3.3 points without statistical support on 300 items (p = 0.353). Erasing the group signal for 38% of prompts moved the outcome by 2.0 points in the opposite direction (p = 0.606). Both interventions sit inside the spread produced by seed choice alone.
+A 38% false-negative rate applied independently to rollouts moved held-out pass@1 by 3.3 points, below the 9.0 point resolution of that pair. Erasing the group signal for 38% of prompts moved the outcome by 2.0 points, also below resolution. Both interventions sit inside the spread produced by seed choice alone.
 
-Removing the group-mean baseline moved the outcome by 26.4 points (p = 9.2e-14) and placed the policy below its untrained score. At this budget the baseline term carries more of the training signal than the verifier's false-negative rate.
+Removing the group-mean baseline moved the outcome by 26.4 points against a 10.5 point resolution, and placed the policy below its untrained score. At this budget the baseline term carries more of the training signal than the verifier's false-negative rate.
 
 ## What the pilot does not support
 
-One pair in the released counts, `open_vs_unfinished_penalty`, returns a p-value of 0.033 for a 6.7 point gap. Its two cells differ in prompt style and in seed, so the pair measures an intervention plus seed noise. The column `excluded_from_claims` marks that row and the README makes no claim from it. A 16.3 point seed gap on the same style shows that the 6.7 point gap is not attributable to the reward change.
+One pair in the released counts, `open_vs_unfinished_penalty`, returns a p-value of 0.033 for a 6.7 point gap, below its own resolution. Its two cells differ in prompt style and in seed, so the pair measures an intervention plus seed noise. The column `excluded_from_claims` marks that row and the README makes no claim from it. A 16.3 point seed gap on the same style shows that the 6.7 point gap is not attributable to the reward change.
 
 No claim here extends to larger policies, longer budgets, other datasets, or other verifier error profiles. False-negative tolerance likely depends on policy breadth, which this pilot holds fixed at one model size.
 
@@ -74,9 +90,10 @@ The released record stores discordant counts rather than generations. The counts
 ```bash
 cd experiments/mathematics/verifier-reliability-pilot
 python scripts/recompute_exact_mcnemar.py
+python scripts/detectable_difference.py
 ```
 
-The command checks that each row's counts decompose into its two cell totals, then recomputes the two-sided exact McNemar p-value from the discordant counts and fails when a stored value disagrees by more than 5e-5.
+The first command checks that each row's counts decompose into its two cell totals, then recomputes the two-sided exact McNemar p-value from the discordant counts and fails when a stored value disagrees by more than 5e-5. The second command computes the resolution table above from the same counts.
 
 ## Scope
 
