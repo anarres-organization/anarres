@@ -1,0 +1,149 @@
+{
+  "checks": [
+    {
+      "check_id": "source-bound",
+      "status": "pass"
+    },
+    {
+      "check_id": "package-lock-bound",
+      "status": "pass"
+    },
+    {
+      "check_id": "lean-identity",
+      "status": "pass"
+    },
+    {
+      "check_id": "lake-identity",
+      "status": "pass"
+    },
+    {
+      "check_id": "mode-supported",
+      "status": "pass"
+    },
+    {
+      "check_id": "task-only-visibility",
+      "status": "pass"
+    },
+    {
+      "check_id": "tool-allowlist",
+      "status": "pass"
+    },
+    {
+      "check_id": "execution-ceilings",
+      "status": "pass"
+    },
+    {
+      "check_id": "strict-verifier",
+      "status": "pass"
+    },
+    {
+      "check_id": "network-policy",
+      "status": "pass"
+    },
+    {
+      "check_id": "cleanup-policy",
+      "status": "pass"
+    },
+    {
+      "check_id": "filesystem-policy",
+      "status": "pass"
+    },
+    {
+      "check_id": "resource-limits",
+      "status": "pass"
+    }
+  ],
+  "cleanup": {
+    "process_tree": "terminate",
+    "verify_after_attempt": true,
+    "workspace": "destroy"
+  },
+  "contract_id": "vero-codex-sol-fixture-runtime-v1",
+  "contract_sha256": "sha256:77623f233e5c4c504cb5c1746543d5f61ec66f796a7f19fe05c3f1790f560d30",
+  "filesystem": {
+    "output_path": "/runtime/output",
+    "read_only_paths": [
+      "/runtime/toolchain",
+      "/runtime/dependencies"
+    ],
+    "task_root": "/runtime/task",
+    "writable_paths": [
+      "/runtime/task",
+      "/runtime/output",
+      "/runtime/tmp"
+    ]
+  },
+  "limits": {
+    "cumulative_tokens": 200000,
+    "response_tokens": 16384,
+    "turns": 100,
+    "wall_seconds": 5400
+  },
+  "mode": "proof",
+  "model_execution_started": false,
+  "network": {
+    "controller_allowlist": [
+      "http://127.0.0.1:18765"
+    ],
+    "task_external_egress": false
+  },
+  "package_lock": {
+    "path": "uv.lock",
+    "sha256": "sha256:69be7758a9831d6e92be6a09c3d0ee1f6628676404174a85ff3e054078db3bec"
+  },
+  "policy_probe_available": false,
+  "report_id": "sha256:1558e1868ba10931cd0b2bb3ca894f614f57f26e6ec528e9b4cf1d1781877bf3",
+  "resources": {
+    "file_bytes": 1073741824,
+    "memory_bytes": 17179869184,
+    "processes": 256
+  },
+  "sandbox": {
+    "forbidden_inputs": [
+      "reference-solutions",
+      "source-benchmark-tree",
+      "qualification-tasks",
+      "prospective-tasks",
+      "host-home",
+      "host-credentials",
+      "global-agent-configuration",
+      "other-attempt-workspaces",
+      "controller-agent-socket"
+    ],
+    "task_visibility": "task-only",
+    "tool_allowlist": [
+      "sandbox/execute",
+      "sandbox/readFile"
+    ]
+  },
+  "schema_version": "anarres.formal-verification-runtime-report.v1",
+  "source_id": "sunblaze-ucb/vero@0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+  "source_pin_sha256": "sha256:a3c462fdb297e59a0755f4d23478d8598dbf1c5d4a0f4970e9fa3e32921a72be",
+  "source_revision": "git:0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+  "status": "qualified",
+  "task_opened": false,
+  "toolchain": {
+    "lake_executable": {
+      "name": "lake",
+      "sha256": "sha256:a608ff084d7e2af228b92a29d7c2fd083ba0580e46889175ec74a81678c98359",
+      "version_output": "Lake version 5.0.0-src+f72c35b (Lean version 4.29.1)"
+    },
+    "lean_executable": {
+      "name": "lean",
+      "sha256": "sha256:3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf",
+      "version_output": "Lean (version 4.29.1, x86_64-unknown-linux-gnu, commit f72c35b3f637c8c6571d353742168ab66cc22c00, Release)"
+    },
+    "lean_toolchain": "leanprover/lean4:v4.29.1",
+    "lean_version": "4.29.1"
+  },
+  "verifier": {
+    "command": [
+      "lake",
+      "env",
+      "lean",
+      "{task}"
+    ],
+    "identity": "vero-strict-lean-v1",
+    "strict_success": "exit-zero-and-all-specifications-verified"
+  }
+}

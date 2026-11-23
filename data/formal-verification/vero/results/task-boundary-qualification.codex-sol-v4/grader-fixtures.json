@@ -1,0 +1,219 @@
+{
+  "accepted_proof": {
+    "as_expected": true,
+    "build_label": "f3d893802c506c0b",
+    "build_ok": true,
+    "passed_specs": 1,
+    "recheck_downgraded": [],
+    "status_counts": {
+      "passed": 1,
+      "unfilled": 8
+    },
+    "targeted_status": "passed",
+    "total_specs": 9,
+    "vero_passed_specs": 1
+  },
+  "admitted_proof": {
+    "as_expected": true,
+    "build_label": "8a197092ea893047",
+    "build_ok": true,
+    "passed_specs": 0,
+    "recheck_downgraded": [],
+    "status_counts": {
+      "slot_body_tainted": 1,
+      "unfilled": 8
+    },
+    "targeted_status": "slot_body_tainted",
+    "total_specs": 9,
+    "vero_passed_specs": 0
+  },
+  "elaboration_command_rejected": {
+    "as_expected": true,
+    "integrity_violations": [
+      "Primepy/Proof/Primes.lean: #eval"
+    ]
+  },
+  "elaboration_escape": {
+    "as_expected": true,
+    "build_label": "b67b00e7b41f4ae5",
+    "build_ok": true,
+    "passed_specs": 0,
+    "recheck_downgraded": [],
+    "status_counts": {
+      "unfilled": 9
+    },
+    "targeted_status": "unfilled",
+    "total_specs": 9,
+    "vero_passed_specs": 0
+  },
+  "forbidden_axiom": {
+    "as_expected": true,
+    "build_label": "d161e8ee4039a696",
+    "build_ok": true,
+    "passed_specs": 0,
+    "recheck_downgraded": [],
+    "status_counts": {
+      "axiom_leaked": 1,
+      "unfilled": 8
+    },
+    "targeted_status": "axiom_leaked",
+    "total_specs": 9,
+    "vero_passed_specs": 0
+  },
+  "forged_axiom_initializer": {
+    "as_expected": true,
+    "build_label": "17094fba99b36888",
+    "build_ok": true,
+    "passed_specs": 0,
+    "recheck_downgraded": [
+      "spec_between_agrees_with_upto"
+    ],
+    "status_counts": {
+      "axiom_recheck_failed": 1,
+      "unfilled": 8
+    },
+    "targeted_status": "axiom_recheck_failed",
+    "total_specs": 9,
+    "vero_passed_specs": 1
+  },
+  "forged_axiom_report": {
+    "as_expected": true,
+    "build_label": "678fbece9c255cf3",
+    "build_ok": true,
+    "passed_specs": 0,
+    "recheck_downgraded": [
+      "spec_between_agrees_with_upto"
+    ],
+    "status_counts": {
+      "axiom_recheck_failed": 1,
+      "unfilled": 8
+    },
+    "targeted_status": "axiom_recheck_failed",
+    "total_specs": 9,
+    "vero_passed_specs": 1
+  },
+  "forged_axiom_trace": {
+    "as_expected": true,
+    "build_label": "ebae836e674b4ae4",
+    "build_ok": true,
+    "passed_specs": 0,
+    "recheck_downgraded": [
+      "spec_between_agrees_with_upto"
+    ],
+    "status_counts": {
+      "axiom_recheck_failed": 1,
+      "unfilled": 8
+    },
+    "targeted_status": "axiom_recheck_failed",
+    "total_specs": 9,
+    "vero_passed_specs": 1
+  },
+  "grading_disk_exhaustion": {
+    "as_expected": true,
+    "build_label": "6cd35d5cf23f3bf2",
+    "build_ok": true,
+    "passed_specs": 0,
+    "recheck_downgraded": [],
+    "status_counts": {
+      "unfilled": 9
+    },
+    "targeted_status": "unfilled",
+    "total_specs": 9,
+    "vero_passed_specs": 0
+  },
+  "grading_disk_unlinked": {
+    "as_expected": true,
+    "build_label": "a495bb2869e8c03a",
+    "build_ok": true,
+    "passed_specs": 0,
+    "recheck_downgraded": [],
+    "status_counts": {
+      "unfilled": 9
+    },
+    "targeted_status": "unfilled",
+    "total_specs": 9,
+    "vero_passed_specs": 0
+  },
+  "grading_fork_chain": {
+    "as_expected": true,
+    "build_label": "03262600073cdce1",
+    "build_ok": true,
+    "passed_specs": 0,
+    "recheck_downgraded": [],
+    "status_counts": {
+      "unfilled": 9
+    },
+    "targeted_status": "unfilled",
+    "total_specs": 9,
+    "vero_passed_specs": 0
+  },
+  "grading_leftover_process": {
+    "as_expected": true,
+    "build_label": "f323e862076ea393",
+    "build_ok": true,
+    "passed_specs": 0,
+    "recheck_downgraded": [],
+    "status_counts": {
+      "unfilled": 9
+    },
+    "targeted_status": "unfilled",
+    "total_specs": 9,
+    "vero_passed_specs": 0
+  },
+  "invalid_proof": {
+    "as_expected": true,
+    "build_label": "e82e2836d6ca28fa",
+    "build_ok": true,
+    "passed_specs": 0,
+    "recheck_downgraded": [],
+    "status_counts": {
+      "build_error": 1,
+      "unfilled": 8
+    },
+    "targeted_status": "build_error",
+    "total_specs": 9,
+    "vero_passed_specs": 0
+  },
+  "kernel_check_skipped": {
+    "as_expected": true,
+    "build_label": "74d0ca77b9d93e5b",
+    "build_ok": true,
+    "passed_specs": 0,
+    "recheck_downgraded": [
+      "spec_between_agrees_with_upto"
+    ],
+    "status_counts": {
+      "axiom_recheck_failed": 1,
+      "unfilled": 8
+    },
+    "targeted_status": "axiom_recheck_failed",
+    "total_specs": 9,
+    "vero_passed_specs": 1
+  },
+  "no_op": {
+    "as_expected": true,
+    "build_label": "9202e33cc63ca461",
+    "build_ok": true,
+    "passed_specs": 0,
+    "recheck_downgraded": [],
+    "status_counts": {
+      "unfilled": 9
+    },
+    "targeted_status": "unfilled",
+    "total_specs": 9,
+    "vero_passed_specs": 0
+  },
+  "unsafe_declaration": {
+    "as_expected": true,
+    "build_label": "9a7dafa8bf57595f",
+    "build_ok": false,
+    "passed_specs": 0,
+    "recheck_downgraded": [],
+    "status_counts": {
+      "unsafe_keyword": 9
+    },
+    "targeted_status": "unsafe_keyword",
+    "total_specs": 9,
+    "vero_passed_specs": 0
+  }
+}
