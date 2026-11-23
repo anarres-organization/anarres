@@ -1,0 +1,14 @@
+{
+  "schema_version": "anarres.formal-verification-codex-sol-execution-authorization.v1",
+  "protocol_id": "vero-codex-sol-repeated-measurement-v1",
+  "protocol": "policy-probe-protocol.codex-sol-v1.json",
+  "protocol_sha256": "25134dcef197d03167ea8d4ae10e4c33718d9c49307e79f9c65efea850d6393c",
+  "queue": "probe-queue.codex-sol-v1.json",
+  "queue_sha256": "1c7346a7a726636abd27de8fa8b1fba5746d0ab66e77199cb02a659fa8c8f7ad",
+  "authorized": true,
+  "authorized_on": "2026-11-23",
+  "spend_ceiling_usd": 250,
+  "per_attempt_reserve_usd": 20,
+  "spend_basis": "planning prices in the analysis contract; the ceiling bounds when attempts start and is never raised after the first run",
+  "planned_attempts": 32
+}
