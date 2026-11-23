@@ -36,6 +36,7 @@ ROOT_MARKER = "measurement-root.json"
 STOP_RECORD = "spend-ceiling-stop.json"
 USAGE_FIELDS = ("input_tokens", "cached_input_tokens", "output_tokens", "reasoning_output_tokens")
 ERROR_CHARACTERS = 2000
+COLLECTION_TIMEOUT = "workspace collection exceeded its time limit"
 
 
 class QueueItemError(RuntimeError):
@@ -99,10 +100,38 @@ def validate_frozen_inputs(
         raise QueueItemError("no authorization record binds this protocol and queue")
     for field in ("spend_ceiling_usd", "per_attempt_reserve_usd"):
         value = authorization.get(field)
-        if not isinstance(value, int | float) or value <= 0:
+        if isinstance(value, bool) or not isinstance(value, int | float) or value <= 0:
             raise QueueItemError(f"the authorization record has no positive {field}")
+    if authorization["per_attempt_reserve_usd"] > authorization["spend_ceiling_usd"]:
+        raise QueueItemError("the per-attempt reserve exceeds the spend ceiling")
     analysis_path = STUDY_ROOT / protocol["measurement"]["analysis_contract"]
     return protocol, queue, read_object(analysis_path)
+
+
+def validate_committed_authorization(path: Path) -> None:
+    """Require the execution authorization to be a clean, tracked study artifact."""
+    resolved = path.resolve()
+    if resolved.parent != STUDY_ROOT:
+        raise QueueItemError("the authorization must be committed in this study directory")
+    repository = Path(
+        subprocess.run(
+            ["git", "-C", str(STUDY_ROOT), "rev-parse", "--show-toplevel"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+    )
+    relative = resolved.relative_to(repository)
+    tracked = subprocess.run(
+        ["git", "-C", str(repository), "ls-files", "--error-unmatch", str(relative)],
+        capture_output=True,
+        text=True,
+    )
+    clean = subprocess.run(
+        ["git", "-C", str(repository), "diff", "--quiet", "HEAD", "--", str(relative)]
+    )
+    if tracked.returncode != 0 or clean.returncode != 0:
+        raise QueueItemError("the authorization must be committed and unchanged before execution")
 
 
 def bind_root(output_root: Path, authorization_sha256: str) -> None:
@@ -228,11 +257,19 @@ def spent_usd(output_root: Path, analysis: dict[str, Any], reserve: float) -> fl
     return total
 
 
+def normalized_integrity_errors(result: Any) -> list[str]:
+    """Return integrity reasons, including a task tree that defeats bounded collection."""
+    errors = list(result.integrity_errors)
+    if any(COLLECTION_TIMEOUT in error for error in result.infrastructure_errors):
+        errors.append(f"workspace collection failed: {COLLECTION_TIMEOUT}")
+    return errors
+
+
 def outcome(result: Any) -> str:
-    if result.infrastructure_errors or (result.grade is None and not result.integrity_errors):
-        return "infrastructure_failure"
-    if result.integrity_errors:
+    if normalized_integrity_errors(result):
         return "integrity_failure"
+    if result.infrastructure_errors or result.grade is None:
+        return "infrastructure_failure"
     return "scored"
 
 
@@ -246,6 +283,7 @@ def workspace(probe_root: Path, run_id: str) -> str | None:
 
 def run_record(entry: dict[str, Any], run: int, kind: str, result: Any) -> dict[str, Any]:
     errors = result.infrastructure_errors
+    integrity_errors = normalized_integrity_errors(result)
     return {
         "schema_version": RUN_SCHEMA,
         "attempt_id": entry["attempt_id"],
@@ -261,9 +299,9 @@ def run_record(entry: dict[str, Any], run: int, kind: str, result: Any) -> dict[
         # Grading failed after the agent finished, so the workspace can be regraded.
         "grading_stage": bool(errors)
         and all(error.startswith("grade: ") for error in errors)
-        and not result.integrity_errors,
+        and not integrity_errors,
         "infrastructure_errors": [error[:ERROR_CHARACTERS] for error in errors],
-        "integrity_errors": [error[:ERROR_CHARACTERS] for error in result.integrity_errors],
+        "integrity_errors": [error[:ERROR_CHARACTERS] for error in integrity_errors],
         "materialization": result.materialization,
         "sandbox_receipt_sha256": None
         if result.sandbox_receipt is None
@@ -506,6 +544,7 @@ def main() -> None:
     parser.add_argument("--vero-root", type=Path, required=True)
     parser.add_argument("--vero-python", required=True)
     args = parser.parse_args()
+    validate_committed_authorization(args.authorization)
     authorization = read_object(args.authorization)
     protocol, queue, analysis = validate_frozen_inputs(
         args.protocol.resolve(), args.queue.resolve(), authorization

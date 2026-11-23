@@ -46,11 +46,11 @@
     "execution_files": [
       {
         "path": "run_codex_sol_queue_item.py",
-        "sha256": "b2ef7057ed25dcdaea47a6ec825489c4895a89674fa994efb196582a34054abd"
+        "sha256": "ac0c2da95ca62a3a728a22cdf688fae35390a249d74da74f307665ee02e88dc5"
       },
       {
         "path": "aggregate_codex_sol_measurements.py",
-        "sha256": "59ac7eb898c3c16360f0753aa8681b24626b09eabfa5b9908494264a91076acc"
+        "sha256": "0e991bb0eaf7d7a60d685a4bf2a3d2226af0bfe70db337ecce6e2a3c5b5f556d"
       },
       {
         "path": "aggregate_probe_measurements.py",
@@ -190,7 +190,8 @@
     "profile_export": "shared Anarres profiles are exported only when the readiness gate passes"
   },
   "chronology": {
-    "excluded_development_attempts": "the GPT-5.6 Sol smoke and screen attempts, including the screen behind 388/694, precede this protocol and never enter its aggregate"
+    "excluded_development_attempts": "the GPT-5.6 Sol smoke and screen attempts, including the screen behind 388/694, precede this protocol and never enter its aggregate",
+    "execution_audit": "the queue runner and aggregator were refrozen after an execution-semantics audit and before any repeated-measurement attempt or authorization record"
   },
   "unsupported_claims": [
     "the development measurement ranks training environments",

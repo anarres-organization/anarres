@@ -6,6 +6,7 @@ import hashlib
 import importlib.util
 import json
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -45,6 +46,18 @@ PROBE = load("vero_codex_sol_probe_for_measurement", "run_codex_sol_probe.py")
 
 def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def authorization_record(**overrides: object) -> dict[str, object]:
+    return {
+        "schema_version": RUNNER.AUTHORIZATION_SCHEMA,
+        "authorized": True,
+        "protocol_sha256": digest(PROTOCOL_PATH),
+        "queue_sha256": digest(QUEUE_PATH),
+        "spend_ceiling_usd": 250,
+        "per_attempt_reserve_usd": 15,
+        **overrides,
+    }
 
 
 def fake_result(
@@ -368,11 +381,7 @@ class AggregateTest(unittest.TestCase):
     def test_aggregate_binds_the_frozen_inputs(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             authorization = Path(directory) / "authorization.json"
-            authorization.write_text(
-                json.dumps(
-                    {"protocol_sha256": digest(PROTOCOL_PATH), "queue_sha256": digest(QUEUE_PATH)}
-                )
-            )
+            authorization.write_text(json.dumps(authorization_record()))
             queue, analysis, digests = AGGREGATOR.bound_inputs(
                 PROTOCOL_PATH, QUEUE_PATH, authorization
             )
@@ -393,11 +402,7 @@ class AggregateTest(unittest.TestCase):
 class AggregateReleaseTest(unittest.TestCase):
     def release(self, grades: Path, directory: Path) -> dict:
         authorization = directory / "authorization.json"
-        authorization.write_text(
-            json.dumps(
-                {"protocol_sha256": digest(PROTOCOL_PATH), "queue_sha256": digest(QUEUE_PATH)}
-            )
-        )
+        authorization.write_text(json.dumps(authorization_record()))
         output = directory / "result.json"
         argv = [
             "aggregate",
@@ -412,7 +417,22 @@ class AggregateReleaseTest(unittest.TestCase):
             "--output",
             str(output),
         ]
-        with mock.patch.object(sys, "argv", argv), mock.patch("builtins.print"):
+        loader = AGGREGATOR.load
+
+        def load_without_git_check(name: str, filename: str) -> object:
+            if filename == "run_codex_sol_queue_item.py":
+                return SimpleNamespace(
+                    QueueItemError=RUNNER.QueueItemError,
+                    validate_committed_authorization=lambda _: None,
+                    ledger=RUNNER.ledger,
+                )
+            return loader(name, filename)
+
+        with (
+            mock.patch.object(sys, "argv", argv),
+            mock.patch("builtins.print"),
+            mock.patch.object(AGGREGATOR, "load", side_effect=load_without_git_check),
+        ):
             AGGREGATOR.main()
         return json.loads(output.read_text())
 
@@ -468,15 +488,7 @@ class AggregateReleaseTest(unittest.TestCase):
 
 class QueueItemTest(unittest.TestCase):
     def authorization(self, **overrides: object) -> dict:
-        return {
-            "schema_version": RUNNER.AUTHORIZATION_SCHEMA,
-            "authorized": True,
-            "protocol_sha256": digest(PROTOCOL_PATH),
-            "queue_sha256": digest(QUEUE_PATH),
-            "spend_ceiling_usd": 250,
-            "per_attempt_reserve_usd": 15,
-            **overrides,
-        }
+        return authorization_record(**overrides)
 
     def test_execution_requires_a_binding_authorization(self) -> None:
         RUNNER.validate_frozen_inputs(PROTOCOL_PATH, QUEUE_PATH, self.authorization())
@@ -484,6 +496,8 @@ class QueueItemTest(unittest.TestCase):
             {"authorized": False},
             {"queue_sha256": "0" * 64},
             {"spend_ceiling_usd": 0},
+            {"spend_ceiling_usd": True},
+            {"spend_ceiling_usd": 10, "per_attempt_reserve_usd": 15},
             {"schema_version": "other"},
         ):
             with self.assertRaises(RUNNER.QueueItemError):
@@ -495,6 +509,33 @@ class QueueItemTest(unittest.TestCase):
             shutil.copy(PROTOCOL_PATH, copied)
             with self.assertRaisesRegex(RUNNER.QueueItemError, "directory that runs it"):
                 RUNNER.validate_frozen_inputs(copied, QUEUE_PATH, self.authorization())
+
+    def test_execution_requires_a_committed_authorization_file(self) -> None:
+        authorization = VERO_ROOT / "execution-authorization.test.json"
+
+        def completed(returncode: int = 0, stdout: str = "") -> subprocess.CompletedProcess:
+            return subprocess.CompletedProcess([], returncode, stdout, "")
+
+        with mock.patch.object(
+            RUNNER.subprocess,
+            "run",
+            side_effect=[completed(stdout=str(ROOT) + "\n"), completed(), completed()],
+        ):
+            RUNNER.validate_committed_authorization(authorization)
+        with (
+            mock.patch.object(
+                RUNNER.subprocess,
+                "run",
+                side_effect=[completed(stdout=str(ROOT) + "\n"), completed(1), completed()],
+            ),
+            self.assertRaisesRegex(RUNNER.QueueItemError, "committed and unchanged"),
+        ):
+            RUNNER.validate_committed_authorization(authorization)
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            self.assertRaisesRegex(RUNNER.QueueItemError, "this study directory"),
+        ):
+            RUNNER.validate_committed_authorization(Path(directory) / "authorization.json")
 
     def test_entries_run_once_and_in_queue_order(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -513,12 +554,22 @@ class QueueItemTest(unittest.TestCase):
             with self.assertRaisesRegex(RUNNER.QueueItemError, "already has a receipt"):
                 RUNNER.select_entry(QUEUE, first["attempt_id"], output)
 
-    def test_outcome_prefers_infrastructure_over_integrity(self) -> None:
+    def test_outcome_prefers_integrity_when_both_are_reported(self) -> None:
         entry = QUEUE["attempts"][0]
         result = fake_result(entry, integrity=True)
         result.infrastructure_errors.append("sandbox: collection outlasted its limit")
-        self.assertEqual(RUNNER.outcome(result), "infrastructure_failure")
+        self.assertEqual(RUNNER.outcome(result), "integrity_failure")
         self.assertFalse(RUNNER.run_record(entry, 1, "attempt", result)["grading_stage"])
+
+    def test_collection_timeout_is_an_integrity_failure(self) -> None:
+        entry = QUEUE["attempts"][0]
+        result = fake_result(
+            entry,
+            infrastructure="sandbox: workspace collection failed: " + RUNNER.COLLECTION_TIMEOUT,
+        )
+        record = RUNNER.run_record(entry, 1, "attempt", result)
+        self.assertEqual(record["outcome"], "integrity_failure")
+        self.assertIn(RUNNER.COLLECTION_TIMEOUT, record["integrity_errors"][0])
 
     def run_with(
         self,
