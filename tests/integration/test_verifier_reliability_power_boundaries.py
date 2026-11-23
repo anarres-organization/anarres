@@ -8,8 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = (
-    ROOT / "experiments/mathematics/verifier-reliability-pilot"
-    / "scripts/detectable_difference.py"
+    ROOT / "experiments/mathematics/verifier-reliability-pilot" / "scripts/detectable_difference.py"
 )
 SPEC = importlib.util.spec_from_file_location("anarres_verifier_power", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
