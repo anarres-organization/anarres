@@ -1,6 +1,6 @@
 # Verifier reliability pilot
 
-**Status:** Exploratory pilot. Every comparison below is retrospective on one released panel, with one starting policy, one training budget, and one seed per cell.
+**Status:** Exploratory pilot. Every comparison below is retrospective on one released panel, with one starting policy, one training budget, and one seed per cell. The next panel is frozen in `protocol.json` and `design/next-panel.json`.
 
 ## Overview
 
@@ -97,7 +97,7 @@ python scripts/resolution_plan.py
 
 The first command checks that each row's counts decompose into its two cell totals, then recomputes the two-sided exact McNemar p-value from the discordant counts and fails when a stored value disagrees by more than 5e-5. The second command computes the resolution table above from the same counts. Both are registered with `make study-check` as the studies "verifier reliability pilot counts" and "verifier reliability pilot resolution", so the released record is covered by the same gate as the rest of the repository.
 
-The third command solves the inverse problem, the design that resolves a given effect, verifies the frozen design in `design/next-panel.json` against the released rate, and prints a verdict per released pair. It is registered as the study "verifier reliability pilot resolution plan".
+The third command solves the inverse problem, verifies the frozen design in `design/next-panel.json`, re-hashes every artifact named in `protocol.json`, and prints a verdict per released pair. It is registered as the study "verifier reliability pilot resolution plan".
 
 ## Design budget
 
@@ -144,6 +144,8 @@ The script prints a verdict per intervention row using that rule. A verifier dif
 Pairing is the reason the frozen design clears the 3.3 point target that the single-pair budget just misses. Each intervention panel is trained and scored beside a clean panel at the same seed, so the contrast is within-pair and seed spread enters both arms instead of being charged to one of them. The 16.33 point band in this record comes from unpaired cross-seed comparisons and is not the floor that a paired contrast has to clear.
 
 Nine panels is the first budget that reaches the target: eight resolve 3.50 points, nine resolve 3.25.
+
+`protocol.json` is the record's contract. It follows `anarres.experiment-protocol.v1`, carries status `frozen`, names the estimand and the experimental units, splits the development partition from the prospective one, and lists every artifact with its `sha256:` digest and byte size. The solver re-hashes those artifacts on every run, so a protocol whose files moved on fails the check instead of standing as a stale citation.
 
 ## Scope
 
