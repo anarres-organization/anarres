@@ -12,12 +12,13 @@ released pair is first re-solved at its own item count and discordant total, and
 the run fails when a solved resolution disagrees with the released table by more
 than one search step.
 
-Input: data/paired_counts.csv, and optionally design/next-panel.json.
+Input: data/paired_counts.csv, design/next-panel.json, protocol.json.
 """
 
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 from math import exp, lgamma, log, log1p
 from pathlib import Path
@@ -119,6 +120,17 @@ def items_for(delta_points: float, rate: float) -> int:
 
 
 PROTOCOL = Path(__file__).resolve().parents[1] / "design" / "next-panel.json"
+PROTOCOL_RECORD = Path(__file__).resolve().parents[1] / "protocol.json"
+REQUIRED_PROTOCOL_KEYS = (
+    "experiment_id",
+    "version",
+    "status",
+    "primary_estimand",
+    "experimental_units",
+    "development_partition",
+    "prospective_partition",
+    "artifacts",
+)
 
 
 def check_protocol(rate: float) -> int:
@@ -150,6 +162,43 @@ def check_protocol(rate: float) -> int:
         f"protocol: {panels} panels, {items} items per arm, required {required}, "
         f"resolution {solved:.2f}pp against target {target:.2f}pp"
     )
+    return failures
+
+
+def check_protocol_record() -> int:
+    """Hold the record to the experiment-protocol contract and its own digests."""
+    if not PROTOCOL_RECORD.exists():
+        return 0
+    protocol = json.loads(PROTOCOL_RECORD.read_text(encoding="utf-8"))
+    failures = 0
+    for key in REQUIRED_PROTOCOL_KEYS:
+        if key not in protocol:
+            print(f"protocol record: missing {key}")
+            failures += 1
+    if protocol.get("status") != "frozen":
+        print(f"protocol record: status is {protocol.get('status')}, expected frozen")
+        failures += 1
+    for key in ("primary_estimand", "experimental_units"):
+        if not str(protocol.get(key, "")).strip():
+            print(f"protocol record: empty {key}")
+            failures += 1
+    base = PROTOCOL_RECORD.parent
+    for artifact in protocol.get("artifacts", []):
+        uri = str(artifact.get("uri", ""))
+        target = base / uri
+        if not target.exists():
+            print(f"protocol record: artifact {uri} is missing")
+            failures += 1
+            continue
+        payload = target.read_bytes()
+        digest = "sha256:" + hashlib.sha256(payload).hexdigest()
+        if artifact.get("sha256") != digest:
+            print(f"protocol record: digest mismatch for {uri}")
+            failures += 1
+        if int(artifact.get("size_bytes", -1)) != len(payload):
+            print(f"protocol record: size mismatch for {uri}")
+            failures += 1
+    print(f"protocol record: {len(protocol.get('artifacts', []))} artifacts match their digests")
     return failures
 
 
@@ -189,6 +238,7 @@ def main() -> int:
         )
 
     failures += check_protocol(rate)
+    failures += check_protocol_record()
 
     print("REJECTION REGION CHECK")
     for m in (20, 60, 94, 120):
