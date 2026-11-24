@@ -99,9 +99,7 @@ def power_definitional(m: int, n: int, delta_points: float) -> float:
     total = 0.0
     for b in range(m + 1):
         c = m - b
-        two_sided = 2 * sum(
-            exp(_log_choose(m, k) - m * log(2.0)) for k in range(min(b, c) + 1)
-        )
+        two_sided = 2 * sum(exp(_log_choose(m, k) - m * log(2.0)) for k in range(min(b, c) + 1))
         if min(1.0, two_sided) <= ALPHA:
             total += exp(_log_choose(m, b) + b * log(p) + c * log1p(-p))
     return total
@@ -192,7 +190,7 @@ def main() -> int:
         if pair.startswith("seed_pair"):
             continue
         n = int(row["items"])
-        observed = (int(row["correct_treatment"]) - int(row["correct_control"]) ) / n
+        observed = (int(row["correct_treatment"]) - int(row["correct_control"])) / n
         observed *= 100
         resolved = minimum_detectable(int(row["control_only"]) + int(row["treatment_only"]), n)
         if abs(observed) < resolved:
