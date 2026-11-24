@@ -6,14 +6,14 @@
 Measure and compare training environments before committing the full training
 budget.
 
-Anarres is an open-source toolkit and research program for determining which
-training environments are most likely to improve a model at fixed compute. It
-connects domain-native measurements to portable evidence without flattening the
-science that produced them.
+Anarres is an open-source toolkit and research program for predicting how a
+training environment will affect a model. It measures candidate environments
+under the starting policy, then tests whether those measurements can forecast
+how much performance will improve and where it may regress at fixed compute.
 
 [Install Anarres](#installation), then follow the
 [first steps](getting-started.md) or browse the released
-[research programs](https://github.com/anarres-organization/anarres/tree/main/experiments).
+[research programs](https://github.com/anarres-organization/anarres#research-program).
 
 ## Highlights
 
@@ -132,4 +132,4 @@ runnable interfaces, and validation currently released for each domain.
 - Read the complete [CLI guide](cli.md).
 - Check the current [domain support](domain-support.md).
 - See how Anarres [preserves domain-native science](architecture/scientific-preservation.md).
-- Browse the released [research programs](https://github.com/anarres-organization/anarres/tree/main/experiments).
+- Browse the released [research programs](https://github.com/anarres-organization/anarres#research-program).
