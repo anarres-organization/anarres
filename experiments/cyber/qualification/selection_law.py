@@ -91,7 +91,9 @@ def winner_p_value(counts: np.ndarray, trials: int = TRIALS) -> float:
     return float(1.0 - tail_mass ** len(counts))
 
 
-def report(counts: np.ndarray, trials: int = TRIALS, alpha: float = ALPHA) -> dict[str, float | str]:
+def report(
+    counts: np.ndarray, trials: int = TRIALS, alpha: float = ALPHA
+) -> dict[str, float | str]:
     """Two-regime answer: certify a champion, or report the panel as homogeneous."""
 
     winner = int(np.argmax((counts / trials) * (1.0 - counts / trials)))
