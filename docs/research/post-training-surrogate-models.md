@@ -1,4 +1,4 @@
-# Surrogate models for post-training experiment selection
+# Anarres as a surrogate model for automated post-training experiments
 
 Status: discussion proposal, 2026-11-24.
 
@@ -40,6 +40,12 @@ evidence preservation. Domain studies provide particular forecasts and
 decision rules. A validated, general surrogate and sequential optimizer remain
 research questions. The distinction between profiles and forecasts is already
 explicit in [predictive decision records](../rfcs/0004-predictive-decision-records.md).
+
+The mathematics study records 32 Qwen3 training trajectories under a fixed
+NeMo GRPO contract. Its configurations reference an external training runtime
+and checkpoint artifacts. Those records are one possible starting point for a
+surrogate comparison. Reusing the training launch and result-collection path
+would need a separate assessment of available dependencies and artifacts.
 
 The repository also contains acquisition studies. The
 [antibody panel](https://github.com/anarres-organization/anarres/tree/main/experiments/ai-for-science/molecular-design/prospective-antibody-acquisition)

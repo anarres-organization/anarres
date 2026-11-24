@@ -92,4 +92,4 @@ nav:
       - Artifacts: standards/artifacts.md
       - Reproducibility: standards/reproducibility.md
   - Research proposals:
-      - Post-training surrogate models: research/post-training-surrogate-models.md
+      - Automated post-training surrogates: research/post-training-surrogate-models.md
