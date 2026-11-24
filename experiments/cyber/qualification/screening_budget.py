@@ -38,13 +38,15 @@ def pcs_exact(leader: float, trials: int, candidates: int, baseline: float = BAS
     return float((binom.pmf(counts, trials, leader) * survivor ** (candidates - 1)).sum())
 
 
-def trials_for_pcs(target: float, leader: float, candidates: int, high: int = 8000) -> int:
+def trials_for_pcs(
+    target: float, leader: float, candidates: int, high: int = 8000, baseline: float = BASELINE
+) -> int:
     """Smallest per-arm count that reaches the target identification probability."""
 
     low = 1
     while low < high:
         middle = (low + high) // 2
-        if pcs_exact(leader, middle, candidates) >= target:
+        if pcs_exact(leader, middle, candidates, baseline) >= target:
             high = middle
         else:
             low = middle + 1
@@ -126,7 +128,8 @@ def main() -> None:
     print("ratio  K   trials  PCS")
     for row in budget_table():
         print(
-            "%.1f   %2d  %5d   %.3f" % (row["ratio"], row["candidates"], row["trials"], row["pcs"])
+            "%.1f   %2d  %5d   %.3f"
+            % (row["ratio"], row["candidates"], row["trials"], row["pcs"])
         )
     print()
     print("ratio  K   even   racing  gain   even trials at the same PCS")
