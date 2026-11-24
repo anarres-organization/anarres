@@ -78,6 +78,14 @@ The practical rule is to run both environments on the same panel. When that is
 impossible, report the panel overlap, because disjoint panels at 400 rollouts per
 arm cannot separate densities closer than 2.3 times.
 
+## Early stopping
+
+`sequential_design.py` evaluates a three-look design exactly by dynamic
+programming over the joint success lattice, with a closed-form profile
+likelihood ratio. At the fixed protocol's minimum detectable ratio the design
+keeps its power, 0.861 against 0.864, and spends 310 rollouts per arm instead of
+400; under the null it spends 363. See [SEQUENTIAL_DESIGN.md](SEQUENTIAL_DESIGN.md).
+
 ## Development record
 
 The [v1 bakeoff](HISTORICAL_V1_BAKEOFF.md), the original
