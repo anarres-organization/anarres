@@ -84,6 +84,29 @@ def minimum_detectable(m: int, n: int) -> float:
     return float("inf")
 
 
+def power_definitional(m: int, n: int, delta_points: float) -> float:
+    """Same power, written straight from the test definition.
+
+    Enumerates every discordant split and keeps the ones the two-sided exact
+    test rejects, so it shares no code with `critical_flips`. Used to check the
+    rejection region against the definition inside the gate.
+    """
+    shift = delta_points / 100.0 * n
+    mean = (m + shift) / 2.0
+    if mean <= 0 or mean >= m:
+        return 0.0
+    p = mean / m
+    total = 0.0
+    for b in range(m + 1):
+        c = m - b
+        two_sided = 2 * sum(
+            exp(_log_choose(m, k) - m * log(2.0)) for k in range(min(b, c) + 1)
+        )
+        if min(1.0, two_sided) <= ALPHA:
+            total += exp(_log_choose(m, b) + b * log(p) + c * log1p(-p))
+    return total
+
+
 def items_for(delta_points: float, rate: float) -> int:
     """Smallest item count whose exact power reaches the target."""
     low, high = 100, 8192
@@ -131,6 +154,31 @@ def main() -> int:
             f"discordant at that size={round(rate * needed)}"
         )
 
+    print("REJECTION REGION CHECK")
+    for m in (20, 60, 94, 120):
+        for delta in (2.0, 5.0, 9.0):
+            fast = power(m, 300, delta)
+            slow = power_definitional(m, 300, delta)
+            gap = abs(fast - slow)
+            if gap > 1e-9:
+                print(f"m={m} d={delta:.1f}: power disagrees by {gap:.2e}")
+                failures += 1
+    print("rejection region agrees with the test definition to 1e-9")
+
+    print()
+    print("RESOLUTION AT BUDGET")
+    for panels in (1, 2, 4, 8):
+        n = PANEL * panels
+        m = max(2, round(rate * n))
+        limit = critical_flips(m)
+        resolved = 0.0
+        for step in range(0, 481):
+            candidate = STEP * step
+            if power(m, n, candidate, limit) >= TARGET_POWER:
+                resolved = candidate
+                break
+        print(f"{panels} panel(s), {n} items: resolution={resolved:.2f}pp, discordant={m}")
+
     seed_band = max(
         abs(int(row["correct_treatment"]) - int(row["correct_control"])) / int(row["items"]) * 100
         for row in counted
@@ -144,7 +192,7 @@ def main() -> int:
         if pair.startswith("seed_pair"):
             continue
         n = int(row["items"])
-        observed = (int(row["correct_treatment"]) - int(row["correct_control"])) / n
+        observed = (int(row["correct_treatment"]) - int(row["correct_control"]) ) / n
         observed *= 100
         resolved = minimum_detectable(int(row["control_only"]) + int(row["treatment_only"]), n)
         if abs(observed) < resolved:
