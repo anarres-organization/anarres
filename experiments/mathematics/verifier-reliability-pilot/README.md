@@ -97,7 +97,7 @@ python scripts/resolution_plan.py
 
 The first command checks that each row's counts decompose into its two cell totals, then recomputes the two-sided exact McNemar p-value from the discordant counts and fails when a stored value disagrees by more than 5e-5. The second command computes the resolution table above from the same counts. Both are registered with `make study-check` as the studies "verifier reliability pilot counts" and "verifier reliability pilot resolution", so the released record is covered by the same gate as the rest of the repository.
 
-The third command solves the inverse problem, the design that resolves a given effect, and prints a verdict per released pair. It reads no files outside `data/paired_counts.csv` and is registered as the study "verifier reliability pilot resolution plan", so the released table and the plan behind the next comparison are gated together.
+The third command solves the inverse problem, the design that resolves a given effect, verifies the frozen design in `design/next-panel.json` against the released rate, and prints a verdict per released pair. It is registered as the study "verifier reliability pilot resolution plan".
 
 ## Design budget
 
@@ -126,6 +126,24 @@ Eight panels of this size still resolve only 3.5 points, which is why a 3.3 poin
 Two consequences follow for a later comparison in this domain. A 3.3 point verifier effect needs about 2,600 items, which is nine seed-paired panels at this size, and a 2 point effect needs about 7,000. The seed pairs also set a floor: the largest recorded same-configuration shift is 16.33 points, above the resolution of every pair in this record, so a single-seed difference has to clear both bars before it counts as an effect.
 
 The script prints a verdict per intervention row using that rule. A verifier difference counts when it exceeds the pair's resolution and the recorded seed spread. Both false-negative rows stay unresolved at -3.33 and +2.00 points, and the baseline row clears both bars at -26.33 points.
+
+## Frozen next-panel design
+
+`design/next-panel.json` fixes the design that would resolve the iid false-negative effect, and the solver verifies it on every run rather than the reader trusting the table. The run fails when the frozen numbers stop matching the released discordant rate.
+
+| Field | Frozen value |
+| --- | --- |
+| Target effect | 3.30 points |
+| Panels | 9 of 300 items |
+| Items per arm | 2,700 |
+| Required by the solver | 2,601 |
+| Resolution at that size | 3.25 points |
+| Training runs | 18 (9 intervention, 9 same-seed control) |
+| Primary test | two-sided exact McNemar, pooled over the nine panels |
+
+Pairing is the reason the frozen design clears the 3.3 point target that the single-pair budget just misses. Each intervention panel is trained and scored beside a clean panel at the same seed, so the contrast is within-pair and seed spread enters both arms instead of being charged to one of them. The 16.33 point band in this record comes from unpaired cross-seed comparisons and is not the floor that a paired contrast has to clear.
+
+Nine panels is the first budget that reaches the target: eight resolve 3.50 points, nine resolve 3.25.
 
 ## Scope
 
