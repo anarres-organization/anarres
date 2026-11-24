@@ -43,6 +43,19 @@ scaffold comparison, repeated-policy measurements, uncertainty, and compute.
 These results establish policy-relative signal under one model and scaffold.
 They do not compare training environments or measure downstream RL utility.
 
+## Grouping and selection
+
+`selection_law.py` states two exact results. Grouping has no hidden upside:
+expected advantage mass is 2Gp(1 - p), so per-rollout mass is 2p(1 - p) for every
+group size, and discarding groups whose rollouts all agree costs exactly 1 over
+coverage, which is 4.03 times at 0.035 and G = 8. Screening has a hidden
+downside: choosing the best of ten identical environments at 400 rollouts per
+arm reports 1.40 times the true density. The script gives a two-regime rule that
+certifies a champion under one percent bias, or reports the panel as
+homogeneous; the null panel lands at 1.06 times truth with a 5.0 percent claim
+rate, and a real 2.3 times leader at 1.00 times with a 94.2 percent claim rate.
+See [SELECTION_LAW.md](SELECTION_LAW.md).
+
 ## Development record
 
 The [v1 bakeoff](HISTORICAL_V1_BAKEOFF.md), the original
