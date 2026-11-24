@@ -150,8 +150,8 @@ def check_cli():
         env=bare,
     )
 
-    demo = WORK / "中文 空格目录"
-    a, b = demo / "环境甲.json", demo / "环境乙.json"
+    demo = WORK / "\u4e2d\u6587 \u7a7a\u683c\u76ee\u5f55"
+    a, b = demo / "\u73af\u5883\u7532.json", demo / "\u73af\u5883\u4e59.json"
     case(
         "demo-unicode-and-spaces",
         ["demo", "--output", a, "--comparison-output", b],
@@ -350,7 +350,7 @@ def check_cli():
         check=lambda r: isinstance(payload(r), dict),
     )
 
-    legal = WORK / "原始 法律来源"
+    legal = WORK / "\u539f\u59cb \u6cd5\u5f8b\u6765\u6e90"
     shutil.copytree(ROOT / "examples/environment-source/native-environment", legal)
     case(
         "init-native-legal-source",
@@ -564,7 +564,7 @@ def check_docker():
             ],
             check=lambda r: "Linux aarch64" in r.stdout and "isolation-controls-ok" in r.stdout,
         )
-        shared = WORK / "中文 共享目录"
+        shared = WORK / "\u4e2d\u6587 \u5171\u4eab\u76ee\u5f55"
         shared.mkdir()
         (shared / "host.txt").write_text("synthetic-mac-host-fixture\n")
         run(
@@ -585,11 +585,13 @@ def check_docker():
                 digest,
                 "sh",
                 "-ec",
-                'cat /work/host.txt; printf "container-roundtrip-ok\\n" > "/work/容器输出.txt"',
+                'cat /work/host.txt; printf "container-roundtrip-ok\\n" > '
+                '"/work/\u5bb9\u5668\u8f93\u51fa.txt"',
             ],
             check=lambda r: (
                 "synthetic-mac-host-fixture" in r.stdout
-                and (shared / "容器输出.txt").read_text() == "container-roundtrip-ok\n"
+                and (shared / "\u5bb9\u5668\u8f93\u51fa.txt").read_text()
+                == "container-roundtrip-ok\n"
             ),
         )
         build = WORK / "build-context"
