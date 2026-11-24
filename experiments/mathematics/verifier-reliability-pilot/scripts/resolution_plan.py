@@ -12,12 +12,13 @@ released pair is first re-solved at its own item count and discordant total, and
 the run fails when a solved resolution disagrees with the released table by more
 than one search step.
 
-Input: data/paired_counts.csv.
+Input: data/paired_counts.csv, and optionally design/next-panel.json.
 """
 
 from __future__ import annotations
 
 import csv
+import json
 from math import exp, lgamma, log, log1p
 from pathlib import Path
 
@@ -117,6 +118,41 @@ def items_for(delta_points: float, rate: float) -> int:
     return low
 
 
+PROTOCOL = Path(__file__).resolve().parents[1] / "design" / "next-panel.json"
+
+
+def check_protocol(rate: float) -> int:
+    """Verify a frozen next-panel design against the released discordant rate."""
+    if not PROTOCOL.exists():
+        return 0
+    protocol = json.loads(PROTOCOL.read_text(encoding="utf-8"))
+    failures = 0
+    target = float(protocol["target_effect_points"])
+    items = int(protocol["items_per_arm"])
+    panels = int(protocol["panels"])
+    claimed = float(protocol["claimed_resolution_points"])
+    required = items_for(target, rate)
+    if items < required:
+        print(f"protocol: {items} items is below the {required} needed for {target:.2f}pp")
+        failures += 1
+    if panels * int(protocol["panel_items"]) != items:
+        print(f"protocol: {panels} panels of {protocol['panel_items']} do not make {items} items")
+        failures += 1
+    m = max(2, round(rate * items))
+    solved = minimum_detectable(m, items)
+    if abs(solved - claimed) > STEP:
+        print(f"protocol: claims {claimed:.2f}pp, counts {solved:.2f}pp")
+        failures += 1
+    if solved > target:
+        print(f"protocol: resolution {solved:.2f}pp does not reach {target:.2f}pp")
+        failures += 1
+    print(
+        f"protocol: {panels} panels, {items} items per arm, required {required}, "
+        f"resolution {solved:.2f}pp against target {target:.2f}pp"
+    )
+    return failures
+
+
 def main() -> int:
     rows = [row for row in csv.DictReader(DATA.open(newline="", encoding="utf-8"))]
     counted = [row for row in rows if row["excluded_from_claims"] == "no"]
@@ -151,6 +187,8 @@ def main() -> int:
             f"seed-paired {PANEL}-item panels={panels}, "
             f"discordant at that size={round(rate * needed)}"
         )
+
+    failures += check_protocol(rate)
 
     print("REJECTION REGION CHECK")
     for m in (20, 60, 94, 120):
