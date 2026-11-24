@@ -112,6 +112,17 @@ The third command solves the inverse problem, the design that resolves a given e
 
 The 9.00 point row checks the solver against the released table: all five claim rows solve to 9.00, 9.00, 10.50, 10.25 and 10.25 points at n = 300, identical to the resolution table above, and the script fails when a solved value drifts by more than one 0.25 point search step.
 
+Read the other way, the same arithmetic prices the negative rows. Resolution against the number of panels at this size:
+
+| Panels | Items | Resolution at 80% power | Discordant at that size |
+| --- | --- | --- | --- |
+| 1 | 300 | 10.00 points | 106 |
+| 2 | 600 | 7.00 points | 212 |
+| 4 | 1,200 | 5.00 points | 425 |
+| 8 | 2,400 | 3.50 points | 850 |
+
+Eight panels of this size still resolve only 3.5 points, which is why a 3.3 point claim needs the ninth. The script also re-derives its rejection region straight from the test definition and fails when the two disagree past 1e-9, so the power numbers stay tied to the test the record actually uses.
+
 Two consequences follow for a later comparison in this domain. A 3.3 point verifier effect needs about 2,600 items, which is nine seed-paired panels at this size, and a 2 point effect needs about 7,000. The seed pairs also set a floor: the largest recorded same-configuration shift is 16.33 points, above the resolution of every pair in this record, so a single-seed difference has to clear both bars before it counts as an effect.
 
 The script prints a verdict per intervention row using that rule. A verifier difference counts when it exceeds the pair's resolution and the recorded seed spread. Both false-negative rows stay unresolved at -3.33 and +2.00 points, and the baseline row clears both bars at -26.33 points.
