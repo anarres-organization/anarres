@@ -68,6 +68,11 @@ CHECKS = (
         "scripts/detectable_difference.py",
     ),
     python_check(
+        "verifier reliability pilot resolution plan",
+        "experiments/mathematics/verifier-reliability-pilot",
+        "scripts/resolution_plan.py",
+    ),
+    python_check(
         "formal-verification public evidence",
         "experiments/cyber/formal-verification/public-evidence",
         "test_reproduce.py",
