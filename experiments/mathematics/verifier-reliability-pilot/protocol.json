@@ -16,7 +16,7 @@
   "artifacts": [
     {
       "uri": "README.md",
-      "sha256": "sha256:fe1317828474294697c80ac6b66fdca6dfbf1f8125c08da28d2a08029a52faf1",
+      "sha256": "sha256:d82e05b42784a93e602b6766d62b817850042e7b33a2ced9d90f85935c544d15",
       "media_type": "text/markdown",
       "size_bytes": 12071,
       "license": "Apache-2.0",
