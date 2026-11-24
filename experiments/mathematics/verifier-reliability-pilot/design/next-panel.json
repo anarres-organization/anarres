@@ -1,0 +1,18 @@
+{
+  "study": "verifier-reliability-pilot",
+  "frozen_on": "2026-11-24",
+  "question": "does a 38% iid false-negative verifier rate move held-out pass@1 by at least 3.3 points",
+  "target_effect_points": 3.3,
+  "alpha": 0.05,
+  "target_power": 0.8,
+  "panel_items": 300,
+  "panels": 9,
+  "items_per_arm": 2700,
+  "expected_discordant_rate": 0.354,
+  "claimed_resolution_points": 3.25,
+  "primary_test": "two-sided exact McNemar on item-level pairs, pooled over the nine panels",
+  "pairing": "each intervention panel is trained and scored beside a clean panel at the same seed, so the contrast is within-pair and seed spread enters both arms",
+  "unpaired_seed_band_points": 16.33,
+  "seed_band_note": "the band describes unpaired cross-seed comparisons and is not the floor of a paired contrast",
+  "runs": 18
+}
