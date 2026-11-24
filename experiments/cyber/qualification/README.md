@@ -67,6 +67,10 @@ to a pilot and the rest to the top four, lifts the 1.5 times case to 0.742,
 equivalent to an even split with 536 rollouts per arm.
 See [SCREENING_BUDGET.md](SCREENING_BUDGET.md).
 
+`screening_budget.py` and `selection_law.py` meet in `screen.py`, which takes
+per-arm counts and returns the regime and the density to publish, or takes a
+candidate count and a target separation and returns the per-arm budget.
+
 ## Development record
 
 The [v1 bakeoff](HISTORICAL_V1_BAKEOFF.md), the original

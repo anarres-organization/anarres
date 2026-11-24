@@ -51,3 +51,18 @@ information.
   selection note warns about.
 - The racing configuration is fixed at half the budget and the top four, chosen
   from a small grid. It is a defensible default, not a proven optimum.
+
+## Entry point
+
+`screen.py` runs both decisions without reading the notes:
+
+```bash
+python3 screen.py report --counts 34,14,12,16,11,15,13,9,17,10 --trials 400
+python3 screen.py plan --candidates 10 --ratio 1.5 --target 0.9
+```
+
+`report` returns the regime, the density to publish, and the exact tail
+probability. `plan` returns the per-arm count needed for the target
+identification probability and says whether the published budget suffices. The
+planner's answer for ten candidates at 1.5 times is 1010 rollouts per arm, which
+matches the exact table above.
