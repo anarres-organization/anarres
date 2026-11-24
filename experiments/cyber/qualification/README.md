@@ -56,6 +56,17 @@ homogeneous; the null panel lands at 1.06 times truth with a 5.0 percent claim
 rate, and a real 2.3 times leader at 1.00 times with a 94.2 percent claim rate.
 See [SELECTION_LAW.md](SELECTION_LAW.md).
 
+## Screening budget
+
+`screening_budget.py` computes the exact probability that a screening round
+names the right environment, then asks whether the same budget works better
+spread evenly or split into a pilot and a deeper pass. At 400 rollouts per arm
+and ten candidates a 2.3 times leader is identified 0.994 of the time, a 1.5
+times leader 0.664, and a 1.2 times leader 0.334. Reallocating that budget, half
+to a pilot and the rest to the top four, lifts the 1.5 times case to 0.742,
+equivalent to an even split with 536 rollouts per arm.
+See [SCREENING_BUDGET.md](SCREENING_BUDGET.md).
+
 ## Development record
 
 The [v1 bakeoff](HISTORICAL_V1_BAKEOFF.md), the original
