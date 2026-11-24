@@ -82,6 +82,7 @@ nav:
   - Guides:
       - Domain support: domain-support.md
       - Performance: performance.md
+      - macOS validation: validation/macos-2026-11-24.md
       - Measurement conventions: conventions/README.md
   - Architecture:
       - Repository: architecture/repository.md
