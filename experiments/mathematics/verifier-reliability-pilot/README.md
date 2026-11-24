@@ -31,7 +31,7 @@ The independent unit is the held-out item. Each cell is scored on the same 300 i
 | --- | --- | --- | --- | --- | --- |
 | clean vs iid false negative | 50.7% | 47.3% | -3.3 points | 52 / 42 | 0.353 |
 | clean vs group false negative | 50.7% | 52.7% | +2.0 points | 44 / 50 | 0.606 |
-| clean vs no group baseline | 50.7% | 24.3% | -26.4 points | 99 / 20 | 9.2e-14 |
+| clean vs no group baseline | 50.7% | 24.3% | -26.3 points | 99 / 20 | 9.2e-14 |
 
 The untrained policy scores 41.3% on the same panel and decoding settings. The no-baseline cell lands 17.0 points below that score.
 
@@ -56,7 +56,7 @@ For a pair with discordant total `m` and `n` scored items, an alternative that m
 | --- | --- | --- | --- |
 | clean vs iid false negative | 94 | -3.3 points | 9.0 points (13.5 flips) |
 | clean vs group false negative | 94 | +2.0 points | 9.0 points (13.5 flips) |
-| clean vs no group baseline | 119 | -26.4 points | 10.5 points (15.8 flips) |
+| clean vs no group baseline | 119 | -26.3 points | 10.5 points (15.8 flips) |
 | clean, seed 0 vs seed 1 | 109 | -2.3 points | 10.3 points (15.4 flips) |
 | open prompt style, seed 0 vs seed 1 | 115 | -16.3 points | 10.3 points (15.4 flips) |
 
@@ -66,7 +66,7 @@ Read from this table, the two false-negative rows establish that a change below 
 
 A 38% false-negative rate applied independently to rollouts moved held-out pass@1 by 3.3 points, below the 9.0 point resolution of that pair. Erasing the group signal for 38% of prompts moved the outcome by 2.0 points, also below resolution. Both interventions sit inside the spread produced by seed choice alone.
 
-Removing the group-mean baseline moved the outcome by 26.4 points against a 10.5 point resolution, and placed the policy below its untrained score. At this budget the baseline term carries more of the training signal than the verifier's false-negative rate.
+Removing the group-mean baseline moved the outcome by 26.3 points against a 10.5 point resolution, and placed the policy below its untrained score. At this budget the baseline term carries more of the training signal than the verifier's false-negative rate.
 
 ## What the pilot does not support
 
