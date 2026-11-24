@@ -43,6 +43,29 @@ scaffold comparison, repeated-policy measurements, uncertainty, and compute.
 These results establish policy-relative signal under one model and scaffold.
 They do not compare training environments or measure downstream RL utility.
 
+## Rollout budget law
+
+The [budget law](SIGNAL_BUDGET_LAW.md) derives what a fixed rollout budget buys,
+exactly and without simulation. Expected advantage mass carries no finite-G
+bias, coverage is 1 - p^G - (1 - p)^G, and the budget-normalized variance is
+nearly flat in G at sparse success rates while falling as 1/G at dense ones.
+`signal_budget_theory.py` rebuilds the released H and coverage from the
+published k vector and checks every identity against a seeded simulation. The
+same algebra shows verifier false negatives act as a contraction toward one
+half, so a bad verifier hides 37 percent of the signal at p = 0.035 and reports
+33 percent more at p = 0.75.
+
+## Signal-density comparison
+
+The [comparison note](SIGNAL_DENSITY_COMPARISON.md) turns environment selection
+into a testable claim. Density is symmetric in p, so a comparison must test
+equality of p (1 - p) rather than equality of success rate; `environment_ranking.py`
+profiles the binomial likelihood over the common density and over which side of
+one half each environment sits. At 400 rollouts per arm its minimum detectable
+ratio is 0.15 to 2.30 times the baseline, and a verifier with 38 percent false
+negatives reports a 4.2 times density difference between a 0.10 and a 0.90
+environment that carries none.
+
 ## Development record
 
 The [v1 bakeoff](HISTORICAL_V1_BAKEOFF.md), the original
@@ -55,3 +78,24 @@ scaffold, candidate environments, target, and budget.
 Formal-verification environments have a separate
 [plan and source qualification path](../formal-verification/README.md). Their
 proof-checker results are not pooled with exploit-verifier outcomes.
+
+## Released evidence record
+
+`cybergym_released_evidence.json` states what this workstream has released and
+where it stops. It pins the policy, scaffold, 50-task panel, verifier contract,
+and cost unit, hashes both floor-probe statistics files, and sets
+`task_level.released` to `false` because the 400 per-rollout JSONs stayed on the
+cluster. The published rho, H, and k values appear with
+`recomputed_from_rows: false` so no reader can mistake them for a recomputation.
+
+```bash
+anarres-vulnerability status --evidence experiments/cyber/qualification/cybergym_released_evidence.json
+anarres-vulnerability verify --evidence experiments/cyber/qualification/cybergym_released_evidence.json
+anarres-vulnerability profile --evidence experiments/cyber/qualification/cybergym_released_evidence.json
+```
+
+`verify` recomputes the floor-probe counts from their per-task rows and fails on
+digest drift, count mismatch, pooled scaffolds, or a claim that aggregates came
+from rows. `profile` refuses to export an environment-profile input while task
+rows stay unreleased. The floor probes keep their OpenHands scaffold as a
+separate contract from the custom harness that produced the 50-task sweep.
