@@ -128,8 +128,7 @@ def main() -> None:
     print("ratio  K   trials  PCS")
     for row in budget_table():
         print(
-            "%.1f   %2d  %5d   %.3f"
-            % (row["ratio"], row["candidates"], row["trials"], row["pcs"])
+            "%.1f   %2d  %5d   %.3f" % (row["ratio"], row["candidates"], row["trials"], row["pcs"])
         )
     print()
     print("ratio  K   even   racing  gain   even trials at the same PCS")
