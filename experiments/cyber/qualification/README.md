@@ -43,6 +43,16 @@ scaffold comparison, repeated-policy measurements, uncertainty, and compute.
 These results establish policy-relative signal under one model and scaffold.
 They do not compare training environments or measure downstream RL utility.
 
+## Information floor
+
+The [floor](INFORMATION_FLOOR.md) is the bound under all of the above: any screen
+choosing among K arms needs at least (log K + log(1/e)) / D rollouts per arm, D
+being the Bernoulli divergence between the arms as the verifier reports them.
+`information_floor.py` checks that bound against the exact tables in this
+directory. It lands at 1527 where the exact screen needs 1600 for 1.5 times, and
+at 304 where the sequential design expects 310 for 2.3 times, so the exact
+arithmetic and the bound agree within five percent from both directions.
+
 ## Development record
 
 The [v1 bakeoff](HISTORICAL_V1_BAKEOFF.md), the original
