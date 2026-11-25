@@ -51,6 +51,8 @@ class VeroProfileAdapterTest(unittest.TestCase):
         self.assertEqual(
             descriptor["measurement_contracts"],
             [
+                "vero-codex-sol-repeated-measurement-v2:codeproof",
+                "vero-codex-sol-repeated-measurement-v2:proof",
                 "vero-leanstral-development-probe-v5:codeproof",
                 "vero-leanstral-development-probe-v5:proof",
             ],
@@ -323,7 +325,7 @@ class VeroProfileAdapterTest(unittest.TestCase):
             check=False,
         )
 
-    def test_adapter_runs_outside_checkout_and_preserves_negative_result(self) -> None:
+    def test_adapter_runs_outside_checkout_and_exports_latest_measurement(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             outside = Path(directory)
             descriptor = self.run_adapter(["--anarres-adapter-descriptor"], outside)
@@ -333,9 +335,10 @@ class VeroProfileAdapterTest(unittest.TestCase):
             status = self.run_adapter(["status", "--repository", str(ROOT), "--json"], outside)
             self.assertEqual(status.returncode, 0, status.stderr)
             report = json.loads(status.stdout)
-            self.assertEqual(report["strict_successes"], 0)
-            self.assertFalse(report["support_gate_passed"])
-            self.assertFalse(report["profile_ready"])
+            self.assertEqual(report["status"], "ready_repeated_development_measurement")
+            self.assertEqual(report["strict_successes"], 1653)
+            self.assertTrue(report["support_gate_passed"])
+            self.assertTrue(report["profile_ready"])
             self.assertFalse(report["downstream_training_authorized"])
             self.assertTrue(report["qualification_report_available"])
             self.assertEqual(report["native_source_format"], "vero-checkout-v1")
@@ -346,9 +349,11 @@ class VeroProfileAdapterTest(unittest.TestCase):
             self.assertEqual(report["infrastructure_valid_attempts"], 32)
             self.assertEqual(report["infrastructure_errors"], 0)
             for measured in report["mode_measurements"].values():
-                self.assertEqual(measured["usable_signal_density"], 0.0)
-                self.assertEqual(measured["effective_verification_coverage"], 0.0)
+                self.assertGreater(measured["usable_signal_density"], 0.0)
+                self.assertGreater(measured["effective_verification_coverage"], 0.0)
                 self.assertGreater(measured["model_tokens"], 0)
+            self.assertEqual(report["legacy_measurement"]["strict_successes"], 0)
+            self.assertFalse(report["legacy_measurement"]["support_gate_passed"])
 
             profiles = outside / "profiles"
             exported = self.run_adapter(
@@ -365,12 +370,13 @@ class VeroProfileAdapterTest(unittest.TestCase):
             self.assertEqual(exported.returncode, 0, exported.stderr)
             export_report = json.loads(exported.stdout)
             self.assertEqual(export_report["profile_count"], 2)
-            self.assertFalse(export_report["profiles_ready"])
+            self.assertTrue(export_report["profiles_ready"])
+            self.assertEqual(export_report["measurement"], "codex-sol-v2")
             self.assertEqual(
                 sorted(path.name for path in profiles.glob("*.profile-input.json")),
                 [
-                    "vero-development-codeproof-v5.profile-input.json",
-                    "vero-development-proof-v5.profile-input.json",
+                    "vero-codex-sol-development-codeproof-v2.profile-input.json",
+                    "vero-codex-sol-development-proof-v2.profile-input.json",
                 ],
             )
 
@@ -378,7 +384,7 @@ class VeroProfileAdapterTest(unittest.TestCase):
             self.assertEqual(verified.returncode, 0, verified.stderr)
             verification = json.loads(verified.stdout)
             self.assertEqual(verification["status"], "pass")
-            self.assertFalse(verification["profiles_ready"])
+            self.assertTrue(verification["profiles_ready"])
             self.assertTrue(verification["qualification_support_passed"])
             self.assertTrue(verification["repeated_measurement_authorized"])
             self.assertTrue(verification["repeated_measurement_digest"].startswith("sha256:"))
@@ -403,6 +409,32 @@ class VeroProfileAdapterTest(unittest.TestCase):
                 {"execution", "infrastructure_retry", "protocol", "result"},
             )
 
+            legacy = outside / "legacy-profiles"
+            legacy_exported = self.run_adapter(
+                [
+                    "profile",
+                    "--repository",
+                    str(ROOT),
+                    "--measurement",
+                    "leanstral-v5",
+                    "--output-dir",
+                    str(legacy),
+                    "--json",
+                ],
+                outside,
+            )
+            self.assertEqual(legacy_exported.returncode, 0, legacy_exported.stderr)
+            legacy_report = json.loads(legacy_exported.stdout)
+            self.assertFalse(legacy_report["profiles_ready"])
+            self.assertEqual(legacy_report["measurement"], "leanstral-v5")
+            self.assertEqual(
+                sorted(path.name for path in legacy.glob("*.profile-input.json")),
+                [
+                    "vero-development-codeproof-v5.profile-input.json",
+                    "vero-development-proof-v5.profile-input.json",
+                ],
+            )
+
     def export(self, output: Path) -> list[Path]:
         return MODULE.export_profiles(
             result_path=MODULE.DEFAULT_RESULT,
@@ -410,6 +442,74 @@ class VeroProfileAdapterTest(unittest.TestCase):
             source_pin_path=MODULE.DEFAULT_SOURCE_PIN,
             output_dir=output,
         )
+
+    def export_repeated(self, output: Path) -> list[Path]:
+        return MODULE.export_repeated_profiles(
+            result_path=MODULE.DEFAULT_REPEATED_RESULT,
+            protocol_path=MODULE.DEFAULT_REPEATED_PROTOCOL,
+            source_pin_path=MODULE.DEFAULT_SOURCE_PIN,
+            output_dir=output,
+        )
+
+    def test_released_repeated_measurement_exports_two_ready_profiles(self) -> None:
+        schema_paths = sorted((ROOT / "schemas").rglob("*.schema.json"))
+        schemas = [json.loads(path.read_text()) for path in schema_paths]
+        registry = Registry()
+        for item in schemas:
+            if isinstance(item.get("$id"), str):
+                registry = registry.with_resource(item["$id"], Resource.from_contents(item))
+        schema = next(
+            item
+            for item in schemas
+            if item.get("$id", "").endswith("environment-profile-input.v1.schema.json")
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            outputs = self.export_repeated(Path(directory))
+            profiles = [json.loads(path.read_text()) for path in outputs]
+            self.assertEqual(len(profiles), 2)
+            self.assertEqual(
+                {profile["attributes"]["mode"] for profile in profiles},
+                {"proof", "codeproof"},
+            )
+            for profile in profiles:
+                Draft202012Validator(schema, registry=registry).validate(profile)
+                checks = {check["check_id"]: check for check in profile["qualification_checks"]}
+                self.assertEqual(checks["infrastructure-valid"]["status"], "pass")
+                self.assertEqual(checks["frozen-readiness"]["status"], "pass")
+                self.assertEqual(checks["trainable-starting-policy"]["status"], "fail")
+                self.assertEqual(checks["trainable-starting-policy"]["severity"], "warning")
+                values = {item["name"]: item["value"] for item in profile["coordinates"]}
+                self.assertGreater(values["usable_signal_density"], 0.0)
+                self.assertGreater(values["effective_verification_coverage"], 0.0)
+                self.assertLessEqual(values["effective_verification_coverage"], 1.0)
+                self.assertGreater(values["mean_model_tokens_per_attempt"], 0.0)
+                self.assertEqual(
+                    {artifact["role"] for artifact in profile["artifacts"]},
+                    {"measurement-contract", "native-measurements", "source-pin"},
+                )
+                self.assertTrue(profile["attributes"]["support_gate_passed"])
+                self.assertTrue(profile["attributes"]["readiness_gate_passed"])
+                self.assertFalse(profile["attributes"]["candidate_ranking_authorized"])
+                self.assertFalse(profile["attributes"]["downstream_training_authorized"])
+
+        with tempfile.TemporaryDirectory() as first, tempfile.TemporaryDirectory() as second:
+            first_bytes = [path.read_bytes() for path in self.export_repeated(Path(first))]
+            second_bytes = [path.read_bytes() for path in self.export_repeated(Path(second))]
+            self.assertEqual(first_bytes, second_bytes)
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = json.loads(MODULE.DEFAULT_SOURCE_PIN.read_text(encoding="utf-8"))
+            source["repository"] = "https://example.invalid/changed"
+            changed = root / "source-pin.json"
+            changed.write_text(json.dumps(source), encoding="utf-8")
+            with self.assertRaisesRegex(MODULE.AdapterError, "source pin"):
+                MODULE.export_repeated_profiles(
+                    result_path=MODULE.DEFAULT_REPEATED_RESULT,
+                    protocol_path=MODULE.DEFAULT_REPEATED_PROTOCOL,
+                    source_pin_path=changed,
+                    output_dir=root / "profiles",
+                )
 
     def test_released_negative_measurement_exports_two_unready_profiles(self) -> None:
         schema_paths = sorted((ROOT / "schemas").rglob("*.schema.json"))
@@ -610,7 +710,7 @@ class FormalCliCommandTest(unittest.TestCase):
             )
             self.assertEqual(status.returncode, 0, status.stderr)
             report = json.loads(status.stdout)
-            self.assertFalse(report["support_gate_passed"])
+            self.assertTrue(report["support_gate_passed"])
             self.assertFalse(report["candidate_ranking_authorized"])
 
             qualification = subprocess.run(

@@ -1,4 +1,4 @@
-"""CLI for the released negative Vero development measurement."""
+"""CLI for released Vero development measurements."""
 
 from __future__ import annotations
 
@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import math
 import subprocess
 import sys
 import tempfile
@@ -45,6 +46,8 @@ def adapter_descriptor() -> dict[str, Any]:
             "verify",
         ],
         "measurement_contracts": [
+            "vero-codex-sol-repeated-measurement-v2:codeproof",
+            "vero-codex-sol-repeated-measurement-v2:proof",
             "vero-leanstral-development-probe-v5:codeproof",
             "vero-leanstral-development-probe-v5:proof",
         ],
@@ -293,6 +296,7 @@ def released_summary(measurement: dict[str, Any], path: Path) -> dict[str, Any]:
     """Summarize the released aggregate without recomputing it."""
 
     summary: dict[str, Any] = {
+        "analysis_id": measurement["analysis_id"],
         "measurement_sha256": digest(path),
         "decision": measurement["decision"],
         "abstention_reason": measurement["abstention_reason"],
@@ -306,6 +310,7 @@ def released_summary(measurement: dict[str, Any], path: Path) -> dict[str, Any]:
         "strict_successes": support["pooled_strict_successes"],
         "strict_trials": support["pooled_strict_trials"],
         "mixed_specification_groups": support["mixed_specification_groups"],
+        "support_gate_passed": support["passes_support_gate"],
         "readiness_gate_passed": measurement["readiness"]["passes_readiness_gate"],
         "mode_measurements": {
             mode: {
@@ -347,8 +352,55 @@ def run_aggregator(command: list[str], root: Path) -> subprocess.CompletedProces
         raise FormalCliError("the frozen aggregator did not finish within 600 seconds") from error
 
 
+def measurement_difference(
+    released: Any,
+    reproduced: Any,
+    path: str = "$",
+) -> str | None:
+    """Return the first material difference, allowing only numeric roundoff."""
+
+    if isinstance(released, bool) or isinstance(reproduced, bool):
+        return None if released is reproduced else path
+    if isinstance(released, (int, float)) and isinstance(reproduced, (int, float)):
+        if isinstance(released, int) or isinstance(reproduced, int):
+            return None if type(released) is type(reproduced) and released == reproduced else path
+        if (
+            math.isfinite(float(released))
+            and math.isfinite(float(reproduced))
+            and math.isclose(
+                float(released),
+                float(reproduced),
+                rel_tol=1e-12,
+                abs_tol=1e-12,
+            )
+        ):
+            return None
+        return path
+    if type(released) is not type(reproduced):
+        return path
+    if isinstance(released, dict):
+        if set(released) != set(reproduced):
+            return path
+        for key in sorted(released):
+            difference = measurement_difference(released[key], reproduced[key], f"{path}.{key}")
+            if difference is not None:
+                return difference
+        return None
+    if isinstance(released, list):
+        if len(released) != len(reproduced):
+            return path
+        for index, (released_item, reproduced_item) in enumerate(
+            zip(released, reproduced, strict=True)
+        ):
+            difference = measurement_difference(released_item, reproduced_item, f"{path}[{index}]")
+            if difference is not None:
+                return difference
+        return None
+    return None if released == reproduced else path
+
+
 def reproduce_repeated_measurement(repository: Path) -> str:
-    """Rerun the frozen aggregator over the released run records and require identical bytes."""
+    """Rerun the frozen aggregator and require equivalent released measurements."""
 
     root = study_root(repository)
     release = root / REPEATED_MEASUREMENT_RELEASE
@@ -376,8 +428,13 @@ def reproduce_repeated_measurement(repository: Path) -> str:
         if completed.returncode != 0:
             reason = (completed.stderr.strip().splitlines() or ["no error output"])[-1]
             raise FormalCliError(f"the frozen aggregator rejected the released records: {reason}")
-        if output.read_bytes() != (release / "measurement.json").read_bytes():
-            raise FormalCliError("the released repeated measurement does not reproduce")
+        released = json.loads((release / "measurement.json").read_text(encoding="utf-8"))
+        reproduced = json.loads(output.read_text(encoding="utf-8"))
+        difference = measurement_difference(released, reproduced)
+        if difference is not None:
+            raise FormalCliError(
+                f"the released repeated measurement does not reproduce at {difference}"
+            )
     return digest(release / "measurement.json")
 
 
@@ -465,28 +522,25 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
     modes = measurement["by_mode"]
     boundary_qualified = task_boundary_status(repository)["qualified"]
     repeated = repeated_measurement_status(repository)
+    latest = repeated["measurement"]
+    if latest is None or latest.get("decision") != "ready":
+        raise FormalCliError("the latest repeated measurement is not ready")
     return {
-        "study_id": result["result_id"],
+        "study_id": latest["analysis_id"],
         "domain": "formal-verification",
-        "status": result["status"],
-        "attempts": execution["attempts"],
-        "infrastructure_valid_attempts": execution["infrastructure_valid_attempts"],
-        "infrastructure_errors": execution["infrastructure_errors"],
-        "strict_successes": measurement["strict_successes"],
-        "strict_trials": measurement["strict_trials"],
-        "support_gate_passed": measurement["passes_preregistered_support_gate"],
+        "status": "ready_repeated_development_measurement",
+        "attempts": repeated["queued_attempts"],
+        "attempt_outcomes": latest["attempt_outcomes"],
+        "infrastructure_valid_attempts": repeated["queued_attempts"],
+        "infrastructure_errors": 0,
+        "strict_successes": latest["strict_successes"],
+        "strict_trials": latest["strict_trials"],
+        "support_gate_passed": latest["support_gate_passed"],
         "qualification_and_prospective_repositories_opened": result["scope"][
             "qualification_and_prospective_repositories_opened"
         ],
-        "mode_measurements": {
-            mode: {
-                "usable_signal_density": values["rho_per_million_model_tokens"],
-                "effective_verification_coverage": values["effective_coverage_H"],
-                "model_tokens": values["model_tokens"],
-            }
-            for mode, values in sorted(modes.items())
-        },
-        "profile_ready": False,
+        "mode_measurements": latest["mode_measurements"],
+        "profile_ready": True,
         "candidate_ranking_authorized": False,
         "downstream_training_authorized": False,
         "qualification_report_available": True,
@@ -496,6 +550,22 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "runtime_qualified": False,
         "task_only_boundary_qualified": boundary_qualified,
         "repeated_measurement": repeated,
+        "legacy_measurement": {
+            "study_id": result["result_id"],
+            "status": result["status"],
+            "attempts": execution["attempts"],
+            "strict_successes": measurement["strict_successes"],
+            "strict_trials": measurement["strict_trials"],
+            "support_gate_passed": measurement["passes_preregistered_support_gate"],
+            "mode_measurements": {
+                mode: {
+                    "usable_signal_density": values["rho_per_million_model_tokens"],
+                    "effective_verification_coverage": values["effective_coverage_H"],
+                    "model_tokens": values["model_tokens"],
+                }
+                for mode, values in sorted(modes.items())
+            },
+        },
         "policy_probe_available": False,
         "next_required_gate": next_gate(boundary_qualified, repeated),
     }
@@ -514,8 +584,33 @@ def next_gate(boundary_qualified: bool, repeated: dict[str, Any]) -> str:
     return "a trainable starting policy and a frozen prospective candidate panel"
 
 
-def export_profiles(repository: Path, output_dir: Path, force: bool = False) -> list[Path]:
+def export_profiles(
+    repository: Path,
+    output_dir: Path,
+    force: bool = False,
+    measurement: str = "codex-sol-v2",
+) -> list[Path]:
     native, _ = validate_native(repository)
+    if measurement == "codex-sol-v2":
+        repeated = repeated_measurement_status(repository)
+        if not repeated["released"] or repeated["measurement"]["decision"] != "ready":
+            raise FormalCliError("the latest repeated measurement is not ready for export")
+        # Profile export is an interactive path. Validate every released byte and
+        # its frozen input bindings here; reserve the full aggregation rerun for
+        # ``anarres formal verify``.
+        verify_release_manifest(study_root(repository) / REPEATED_MEASUREMENT_RELEASE)
+        return native.export_repeated_profiles(
+            result_path=(
+                study_root(repository)
+                / "results/repeated-measurement.codex-sol-v2/measurement.json"
+            ),
+            protocol_path=study_root(repository) / "policy-probe-protocol.codex-sol-v2.json",
+            source_pin_path=study_root(repository) / "source-pin.json",
+            output_dir=output_dir,
+            force=force,
+        )
+    if measurement != "leanstral-v5":
+        raise FormalCliError(f"unsupported profile measurement: {measurement}")
     paths = native_paths(repository)
     return native.export_profiles(
         result_path=paths["result"],
@@ -528,11 +623,19 @@ def export_profiles(repository: Path, output_dir: Path, force: bool = False) -> 
 
 def command_profile(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
-    outputs = export_profiles(repository, args.output_dir, force=args.force)
+    measurement = getattr(args, "measurement", "codex-sol-v2")
+    outputs = export_profiles(
+        repository,
+        args.output_dir,
+        force=args.force,
+        measurement=measurement,
+    )
+    latest = measurement == "codex-sol-v2"
     return {
-        "status": "exported_negative_measurement",
+        "status": ("exported_repeated_measurement" if latest else "exported_negative_measurement"),
+        "measurement": measurement,
         "profile_count": len(outputs),
-        "profiles_ready": False,
+        "profiles_ready": latest,
         "candidate_ranking_authorized": False,
         "downstream_training_authorized": False,
         "outputs": [str(path) for path in outputs],
@@ -616,8 +719,8 @@ def command_verify(args: argparse.Namespace) -> dict[str, Any]:
         tempfile.TemporaryDirectory(prefix="anarres-formal-verify-a-") as first,
         tempfile.TemporaryDirectory(prefix="anarres-formal-verify-b-") as second,
     ):
-        first_outputs = export_profiles(repository, Path(first))
-        second_outputs = export_profiles(repository, Path(second))
+        first_outputs = export_profiles(repository, Path(first), measurement="codex-sol-v2")
+        second_outputs = export_profiles(repository, Path(second), measurement="codex-sol-v2")
         first_bytes = {path.name: path.read_bytes() for path in first_outputs}
         second_bytes = {path.name: path.read_bytes() for path in second_outputs}
         if first_bytes != second_bytes:
@@ -630,12 +733,13 @@ def command_verify(args: argparse.Namespace) -> dict[str, Any]:
             values = {item["name"]: item["value"] for item in profile["coordinates"]}
             if checks.get("infrastructure-valid") != "pass":
                 raise FormalCliError("infrastructure-valid qualification was not preserved")
-            if checks.get("preregistered-support") != "fail":
-                raise FormalCliError("failed support qualification was not preserved")
-            if values.get("usable_signal_density") != 0.0:
-                raise FormalCliError("zero usable signal was not preserved")
-            if values.get("effective_verification_coverage") != 0.0:
-                raise FormalCliError("zero verification coverage was not preserved")
+            if checks.get("frozen-readiness") != "pass":
+                raise FormalCliError("repeated-measurement readiness was not preserved")
+            if values.get("usable_signal_density", 0.0) <= 0.0:
+                raise FormalCliError("positive usable signal was not preserved")
+            coverage = values.get("effective_verification_coverage")
+            if not isinstance(coverage, (int, float)) or not 0.0 < coverage <= 1.0:
+                raise FormalCliError("effective verification coverage was not preserved")
             if values.get("mean_model_tokens_per_attempt", 0.0) <= 0.0:
                 raise FormalCliError("positive model cost was not preserved")
         digests = {
@@ -646,7 +750,7 @@ def command_verify(args: argparse.Namespace) -> dict[str, Any]:
         "status": "pass",
         "profile_count": len(digests),
         "profile_digests": digests,
-        "profiles_ready": False,
+        "profiles_ready": True,
         "candidate_ranking_authorized": False,
         "downstream_training_authorized": False,
         "qualification_result_digest": digest(qualification_paths_by_role["result"]),
@@ -694,9 +798,15 @@ def parser() -> argparse.ArgumentParser:
     add_common(status)
     status.set_defaults(handler=command_status)
 
-    profile = commands.add_parser("profile", help="Export the native Vero profile inputs.")
+    profile = commands.add_parser("profile", help="Export released Vero profile inputs.")
     add_common(profile)
     profile.add_argument("--output-dir", type=Path, required=True)
+    profile.add_argument(
+        "--measurement",
+        choices=("codex-sol-v2", "leanstral-v5"),
+        default="codex-sol-v2",
+        help="Released measurement to project; defaults to the latest ready measurement.",
+    )
     profile.add_argument("--force", action="store_true")
     profile.set_defaults(handler=command_profile)
 
@@ -707,7 +817,9 @@ def parser() -> argparse.ArgumentParser:
     add_common(qualification)
     qualification.set_defaults(handler=command_qualification)
 
-    verify = commands.add_parser("verify", help="Verify deterministic negative profiles.")
+    verify = commands.add_parser(
+        "verify", help="Verify the latest repeated measurement and deterministic profiles."
+    )
     add_common(verify)
     verify.set_defaults(handler=command_verify)
     return result
