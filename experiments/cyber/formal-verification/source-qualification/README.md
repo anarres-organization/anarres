@@ -154,10 +154,10 @@ specification-faithfulness endpoint.
   records the finding and leaves the fix to a separate change.
 - Vero's paper reports every frontier configuration failing the same 6 of 23
   piggybank specifications, while GPT-5.6 Sol passed all 23 in all 8 repeated
-  attempts. Sol's proofs appear to rest on a helper invariant over the
-  curator-declared trusted ConCert axiom `contract_induction`. Whether that
-  axiom faithfully models ConCert is an open check before piggybank enters a
-  candidate.
+  attempts. The public task source declares the trusted ConCert axiom
+  `contract_induction`, but the released grade receipts do not establish
+  whether submitted proofs used it. Whether the axiom faithfully models
+  ConCert is an open check before piggybank enters a candidate.
 - Leanstral-1.5 ran with a 50,000-token cumulative cap per attempt and with MCP
   tools disabled, so it had no Lean language-server tools. Its frozen protocol
   names an inference contract with a 200,000-token context and the Mistral

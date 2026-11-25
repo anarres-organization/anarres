@@ -216,6 +216,16 @@ class SourceQualificationTest(unittest.TestCase):
         }
         self.assertEqual(len(MODULE.scan_texts(planted)), 4)
 
+    def test_qualification_uses_only_released_piggybank_evidence(self) -> None:
+        item = next(
+            entry
+            for entry in source(self.qualification, "vero")["unresolved_checks"]
+            if entry["id"] == "vero-piggybank-axiom"
+        )
+        self.assertEqual(item["basis"], "confirmed")
+        self.assertNotIn("unreleased proof workspace", item["text"])
+        self.assertIn("do not establish whether submitted proofs used", item["text"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -3,7 +3,7 @@
   "audit_date": "2026-11-24",
   "inputs_sha256": {
     "CANDIDATE_MATRIX.json": "7ba19485f8904238df509d3cda7381e133cf6043f0829edc1c13bf05847dd535",
-    "QUALIFICATION.json": "45c86e3d55be6f8a53024fa7edf64d90dcbf34b9a77ba19388c781e354f13ce9",
+    "QUALIFICATION.json": "9f6e9b3bf98f9dbf5567351caa78f7091d3875320471c1d1810c24dd67d1d231",
     "SOURCES.json": "a2fc2691c3c04bea3364f85f2e5328306396f9d1916627d8dff10b0db893e501"
   },
   "recommendation": {

@@ -565,8 +565,8 @@
           "id": "vero-piggybank-axiom",
           "check": "failures_visible",
           "blocks": "source_selection",
-          "basis": "inferred",
-          "text": "The paper reports every frontier configuration failing the same 6 of 23 piggybank chain-state specifications. GPT-5.6 Sol passed 23 of 23 in all 8 repeated attempts (repeated-measurement.codex-sol-v2). Inspection of the unreleased proof workspaces indicates a helper invariant over the curator-declared trusted ConCert axiom contract_induction in benchmarks/piggybank/PiggybankV2/Impl/ConcertShim.lean. Released grade receipts do not record per-specification axiom sets. Check whether the axiom faithfully models ConCert before piggybank enters a candidate."
+          "basis": "confirmed",
+          "text": "The paper reports every frontier configuration failing the same 6 of 23 piggybank chain-state specifications. GPT-5.6 Sol passed 23 of 23 in all 8 repeated attempts (repeated-measurement.codex-sol-v2). The public task source declares the trusted ConCert axiom contract_induction in benchmarks/piggybank/PiggybankV2/Impl/ConcertShim.lean. Released grade receipts do not record per-specification axiom sets, so they do not establish whether submitted proofs used that axiom. Check whether the axiom faithfully models ConCert before piggybank enters a candidate."
         },
         {
           "id": "vero-shared-upstream",
