@@ -1,9 +1,10 @@
 # Hidden-run risk prediction on tau2-bench
 
 This external check asks whether completed customer-support runs identify tasks
-that will fail under a held-out model configuration. It uses the original
+at high risk under a held-out model configuration. It uses the original
 tau2-bench airline, retail, and telecom result files, with four attempts per
-task and model configuration.
+task and model configuration. The predictor assigns one score to each task and
+evaluates that score against the four held-out attempt outcomes.
 
 ## Result at a glance
 
@@ -23,7 +24,7 @@ rather than a temporally prospective test.
 | --- | ---: |
 | Tasks | 114 |
 | Held-out attempts | 456 |
-| Task-level failure ROC AUC | 0.882 |
+| Failure ROC AUC (task score, attempt outcome) | 0.882 |
 | Required-action-count ROC AUC | 0.828 |
 | Failure-probability Brier score | 0.137 |
 | Constant-rate Brier score | 0.244 |
@@ -79,7 +80,8 @@ parent directory addresses the separate environment-selection question.
 
 ## Reproduce
 
-The compact released record is sufficient to reproduce every reported metric:
+The compact released record is sufficient to reproduce every reported metric.
+The reproducer also verifies every released file against the manifest:
 
 ```bash
 cd experiments/agentic/customer-support-environment-utility/external-checks/tau2-hidden-run-risk
@@ -103,7 +105,7 @@ cmp /tmp/compact-outcomes.json data/compact-outcomes.json
 - [`data/compact-outcomes.json`](data/compact-outcomes.json): task-level rewards
   and required-action counts derived from the pinned source files
 - [`results/DEVELOPMENT_AUDIT.json`](results/DEVELOPMENT_AUDIT.json): eight
-  leave-one-model-out folds
+  leave-one-model-out folds and compact source receipts
 - [`results/FROZEN_PREDICTION.json`](results/FROZEN_PREDICTION.json): serialized
   pre-outcome telecom prediction
 - [`results/SCORED_TARGET.json`](results/SCORED_TARGET.json): held-out telecom

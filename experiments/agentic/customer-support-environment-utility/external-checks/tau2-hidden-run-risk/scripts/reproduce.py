@@ -42,6 +42,52 @@ def close(actual: float, expected: float, tolerance: float = 1e-12) -> None:
         raise AssertionError(f"{actual} != {expected}")
 
 
+def equivalent(actual: object, expected: object, path: str = "$") -> None:
+    if isinstance(actual, bool) or isinstance(expected, bool):
+        if actual is not expected:
+            raise AssertionError(f"{path}: {actual!r} != {expected!r}")
+        return
+    if isinstance(actual, (int, float)) and isinstance(expected, (int, float)):
+        if isinstance(actual, float) or isinstance(expected, float):
+            close(float(actual), float(expected))
+        elif actual != expected:
+            raise AssertionError(f"{path}: {actual!r} != {expected!r}")
+        return
+    if type(actual) is not type(expected):
+        raise AssertionError(f"{path}: type mismatch")
+    if isinstance(actual, dict):
+        if set(actual) != set(expected):
+            raise AssertionError(f"{path}: key mismatch")
+        for key in sorted(actual):
+            equivalent(actual[key], expected[key], f"{path}.{key}")
+        return
+    if isinstance(actual, list):
+        if len(actual) != len(expected):
+            raise AssertionError(f"{path}: length mismatch")
+        for index, (actual_item, expected_item) in enumerate(zip(actual, expected, strict=True)):
+            equivalent(actual_item, expected_item, f"{path}[{index}]")
+        return
+    if actual != expected:
+        raise AssertionError(f"{path}: {actual!r} != {expected!r}")
+
+
+def verify_manifest(study: Path) -> None:
+    manifest = study / "MANIFEST.sha256"
+    listed = {}
+    for number, line in enumerate(manifest.read_text(encoding="utf-8").splitlines(), 1):
+        value, separator, name = line.partition("  ./")
+        if not separator or len(value) != 64:
+            raise AssertionError(f"manifest line {number} is malformed")
+        listed[name] = value
+    present = {
+        path.relative_to(study).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in study.rglob("*")
+        if path.is_file() and path != manifest and "__pycache__" not in path.parts
+    }
+    if present != listed:
+        raise AssertionError("release files do not match MANIFEST.sha256")
+
+
 def indexed(compact: dict) -> dict:
     result = {}
     for record in compact["records"]:
@@ -51,18 +97,30 @@ def indexed(compact: dict) -> dict:
     return result
 
 
-def top_capture(scores: dict[str, float], tasks: dict[str, dict]) -> float:
+def top_risk(scores: dict[str, float], tasks: dict[str, dict]) -> dict:
     count = max(1, math.ceil(0.20 * len(scores)))
     selected = sorted(scores, key=lambda task_id: (-scores[task_id], task_id))[:count]
     total_failures = sum(1 - reward for row in tasks.values() for reward in row["rewards"])
     selected_failures = sum(
         1 - reward for task_id in selected for reward in tasks[task_id]["rewards"]
     )
-    return selected_failures / total_failures
+    total_attempts = sum(len(row["rewards"]) for row in tasks.values())
+    selected_attempts = sum(len(tasks[task_id]["rewards"]) for task_id in selected)
+    prevalence = total_failures / total_attempts
+    precision = selected_failures / selected_attempts
+    return {
+        "failure_capture": selected_failures / total_failures,
+        "failure_precision": precision,
+        "failure_prevalence": prevalence,
+        "precision_lift": precision / prevalence,
+        "selected_task_count": count,
+        "selected_task_ids": selected,
+    }
 
 
 def reproduce_development(data: dict, released: dict) -> None:
     folds = []
+    pooled_history_scores, pooled_action_scores, pooled_labels = [], [], []
     for domain in ("airline", "retail"):
         task_sets = {tuple(sorted(data[(domain, model)])) for model in MODELS}
         if len(task_sets) != 1:
@@ -85,52 +143,72 @@ def reproduce_development(data: dict, released: dict) -> None:
                     action_scores.append(held_out[task_id]["required_action_count"] / max_actions)
                     labels.append(1 - reward)
             constant = sum(scores) / len(scores)
+            observed_pass = 1.0 - sum(labels) / len(labels)
             folds.append(
                 {
-                    "pass_error": abs((1.0 - constant) - (1.0 - sum(labels) / len(labels))),
-                    "history_auc": auc(scores, labels),
-                    "action_auc": auc(action_scores, labels),
-                    "history_brier": sum(
-                        (score - label) ** 2 for score, label in zip(scores, labels, strict=True)
-                    )
-                    / len(labels),
-                    "constant_brier": sum((constant - label) ** 2 for label in labels)
-                    / len(labels),
-                    "history_capture": top_capture(history_risk, held_out),
-                    "action_capture": top_capture(
+                    "absolute_pass_rate_error": abs((1.0 - constant) - observed_pass),
+                    "action_count_auc": auc(action_scores, labels),
+                    "action_count_top_risk": top_risk(
                         {
                             task_id: float(held_out[task_id]["required_action_count"])
                             for task_id in task_ids
                         },
                         held_out,
                     ),
-                    "attempts": len(labels),
+                    "constant_brier": sum((constant - label) ** 2 for label in labels)
+                    / len(labels),
+                    "domain": domain,
+                    "held_out_attempt_count": len(labels),
+                    "held_out_model": held_out_model,
+                    "history_failure_auc": auc(scores, labels),
+                    "history_failure_brier": sum(
+                        (score - label) ** 2 for score, label in zip(scores, labels, strict=True)
+                    )
+                    / len(labels),
+                    "history_top_risk": top_risk(history_risk, held_out),
+                    "observed_pass_rate": observed_pass,
+                    "predicted_pass_rate": 1.0 - constant,
+                    "task_count": len(task_ids),
+                    "task_failure_rmse": math.sqrt(
+                        sum(
+                            (
+                                history_risk[task_id]
+                                - (1.0 - sum(held_out[task_id]["rewards"]) / 4.0)
+                            )
+                            ** 2
+                            for task_id in task_ids
+                        )
+                        / len(task_ids)
+                    ),
+                    "training_models": training_models,
                 }
             )
-    summary = released["summary"]
-    close(
-        sum(row["pass_error"] for row in folds) / len(folds),
-        summary["mean_absolute_pass_rate_error"],
-    )
-    close(
-        sum(row["history_auc"] for row in folds) / len(folds), summary["mean_history_failure_auc"]
-    )
-    close(sum(row["action_auc"] for row in folds) / len(folds), summary["mean_action_count_auc"])
-    close(
-        sum(row["history_brier"] for row in folds) / len(folds),
-        summary["mean_history_failure_brier"],
-    )
-    close(sum(row["constant_brier"] for row in folds) / len(folds), summary["mean_constant_brier"])
-    close(
-        sum(row["history_capture"] for row in folds) / len(folds),
-        summary["mean_history_top20_failure_capture"],
-    )
-    close(
-        sum(row["action_capture"] for row in folds) / len(folds),
-        summary["mean_action_top20_failure_capture"],
-    )
-    if sum(row["attempts"] for row in folds) != summary["task_model_attempts"]:
-        raise AssertionError("development attempt count mismatch")
+            pooled_history_scores.extend(scores)
+            pooled_action_scores.extend(action_scores)
+            pooled_labels.extend(labels)
+    equivalent(folds, released["folds"], "$.folds")
+    summary = {
+        "fold_count": len(folds),
+        "mean_absolute_pass_rate_error": sum(row["absolute_pass_rate_error"] for row in folds)
+        / len(folds),
+        "mean_action_count_auc": sum(row["action_count_auc"] for row in folds) / len(folds),
+        "mean_action_top20_failure_capture": sum(
+            row["action_count_top_risk"]["failure_capture"] for row in folds
+        )
+        / len(folds),
+        "mean_constant_brier": sum(row["constant_brier"] for row in folds) / len(folds),
+        "mean_history_failure_auc": sum(row["history_failure_auc"] for row in folds) / len(folds),
+        "mean_history_failure_brier": sum(row["history_failure_brier"] for row in folds)
+        / len(folds),
+        "mean_history_top20_failure_capture": sum(
+            row["history_top_risk"]["failure_capture"] for row in folds
+        )
+        / len(folds),
+        "pooled_action_count_auc": auc(pooled_action_scores, pooled_labels),
+        "pooled_history_failure_auc": auc(pooled_history_scores, pooled_labels),
+        "task_model_attempts": len(pooled_labels),
+    }
+    equivalent(summary, released["summary"], "$.summary")
 
 
 def validate_freeze(data: dict, frozen: dict) -> None:
@@ -152,6 +230,13 @@ def validate_freeze(data: dict, frozen: dict) -> None:
         close(row["predicted_failure_probability"], 1.0 - sum(attempts) / len(attempts))
         if row["required_action_count"] != telecom_tasks[task_id]["required_action_count"]:
             raise AssertionError("action count mismatch")
+    risk = {task_id: row["predicted_failure_probability"] for task_id, row in predictions.items()}
+    close(frozen["predicted_pass_rate"], 1.0 - sum(risk.values()) / len(risk))
+    expected_top = sorted(risk, key=lambda task_id: (-risk[task_id], task_id))[
+        : max(1, math.ceil(0.20 * len(risk)))
+    ]
+    if frozen["top_risk_task_ids"] != expected_top:
+        raise AssertionError("frozen top-risk membership mismatch")
 
 
 def score_target(data: dict, frozen: dict, released: dict) -> tuple[list[str], dict[str, float]]:
@@ -165,6 +250,14 @@ def score_target(data: dict, frozen: dict, released: dict) -> tuple[list[str], d
             labels.append(1 - reward)
     observed_pass = 1.0 - sum(labels) / len(labels)
     constant = 1.0 - frozen["predicted_pass_rate"]
+    task_scores = {
+        task_id: predictions[task_id]["predicted_failure_probability"] for task_id in target
+    }
+    history_top = top_risk(task_scores, target)
+    action_top = top_risk(
+        {task_id: float(target[task_id]["required_action_count"]) for task_id in target},
+        target,
+    )
     computed = {
         "observed_pass_rate": observed_pass,
         "absolute_pass_rate_error": abs(frozen["predicted_pass_rate"] - observed_pass),
@@ -175,9 +268,15 @@ def score_target(data: dict, frozen: dict, released: dict) -> tuple[list[str], d
         )
         / len(labels),
         "constant_brier": sum((constant - label) ** 2 for label in labels) / len(labels),
+        "failure_prevalence": sum(labels) / len(labels),
+        "top20_failure_capture": history_top["failure_capture"],
+        "top20_failure_precision": history_top["failure_precision"],
+        "top20_precision_lift": history_top["precision_lift"],
+        "required_action_top20_failure_capture": action_top["failure_capture"],
+        "target_attempt_count": len(labels),
+        "task_count": len(target),
     }
-    for name, value in computed.items():
-        close(value, released[name])
+    equivalent(computed, {name: released[name] for name in computed}, "$.scored_metrics")
     return sorted(target), computed
 
 
@@ -197,8 +296,17 @@ def validate_bootstrap(data: dict, frozen: dict, released: dict) -> None:
     constant = 1.0 - frozen["predicted_pass_rate"]
     rng = random.Random(released["seed"])
     distributions = {
-        name: [] for name in ("history_auc", "action_auc", "auc_delta", "brier_improvement")
+        name: []
+        for name in (
+            "absolute_pass_rate_error",
+            "history_auc",
+            "action_auc",
+            "auc_delta",
+            "brier_improvement",
+            "top20_failure_capture",
+        )
     }
+    selected = set(frozen["top_risk_task_ids"])
     while len(distributions["history_auc"]) < released["samples"]:
         sampled = [rng.choice(task_ids) for _ in task_ids]
         labels, history_scores, action_scores = [], [], []
@@ -217,6 +325,16 @@ def validate_bootstrap(data: dict, frozen: dict, released: dict) -> None:
         distributions["action_auc"].append(action_auc)
         distributions["auc_delta"].append(history_auc - action_auc)
         distributions["brier_improvement"].append(constant_brier - history_brier)
+        distributions["absolute_pass_rate_error"].append(abs(constant - sum(labels) / len(labels)))
+        distributions["top20_failure_capture"].append(
+            sum(
+                1 - reward
+                for task_id in sampled
+                if task_id in selected
+                for reward in target[task_id]["rewards"]
+            )
+            / sum(labels)
+        )
     for name, values in distributions.items():
         expected = released["intervals"][name]
         close(percentile(values, 0.025), expected["lower_95"])
@@ -229,6 +347,7 @@ def main() -> None:
     parser.add_argument("--study-dir", type=Path, default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
     study = args.study_dir.resolve()
+    verify_manifest(study)
     compact = json.loads((study / "data/compact-outcomes.json").read_text())
     data = indexed(compact)
     development = json.loads((study / "results/DEVELOPMENT_AUDIT.json").read_text())

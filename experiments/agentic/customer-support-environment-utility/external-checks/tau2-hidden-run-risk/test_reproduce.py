@@ -1,10 +1,20 @@
+import importlib.util
 import json
+import shutil
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
 STUDY = Path(__file__).resolve().parent
+SPEC = importlib.util.spec_from_file_location(
+    "tau2_hidden_run_reproduce", STUDY / "scripts/reproduce.py"
+)
+if SPEC is None or SPEC.loader is None:
+    raise RuntimeError("could not load reproducer")
+MODULE = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(MODULE)
 
 
 class HiddenRunRiskTest(unittest.TestCase):
@@ -34,6 +44,21 @@ class HiddenRunRiskTest(unittest.TestCase):
         self.assertFalse(frozen["target"]["outcomes_accessed_before_freeze"])
         self.assertEqual(scored["freeze_sha256"], frozen["freeze_sha256"])
         self.assertEqual(scored["target_attempt_count"], 456)
+
+    def test_manifest_detects_changed_release_file(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            release = Path(directory) / "release"
+            shutil.copytree(STUDY, release, ignore=shutil.ignore_patterns("__pycache__"))
+            MODULE.verify_manifest(release)
+            scored = release / "results/SCORED_TARGET.json"
+            scored.write_text(scored.read_text() + "\n")
+            with self.assertRaisesRegex(AssertionError, "MANIFEST"):
+                MODULE.verify_manifest(release)
+
+    def test_development_receipts_do_not_repeat_simulator_prompt(self) -> None:
+        development = json.loads((STUDY / "results/DEVELOPMENT_AUDIT.json").read_text())
+        for source in development["source"]["files"]:
+            self.assertNotIn("global_simulation_guidelines", source["reported_user"])
 
 
 if __name__ == "__main__":
