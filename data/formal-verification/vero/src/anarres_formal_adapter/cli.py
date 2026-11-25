@@ -16,7 +16,7 @@ from typing import Any
 
 from anarres.core import consume_adapter_invocation, load_source_manifest
 
-from anarres_formal_adapter import runtime_qualification, source_qualification
+from anarres_formal_adapter import evidence_report, runtime_qualification, source_qualification
 
 REPEATED_MEASUREMENT_AUTHORIZATION = "execution-authorization.codex-sol-v2.json"
 REPEATED_MEASUREMENT_RELEASE = "results/repeated-measurement.codex-sol-v2"
@@ -38,6 +38,7 @@ def adapter_descriptor() -> dict[str, Any]:
         "executable": "anarres-formal",
         "profile_schema_versions": ["anarres.environment-profile-input.v1"],
         "capabilities": [
+            "evidence-report",
             "profile",
             "qualification-report",
             "runtime-qualification",
@@ -642,6 +643,12 @@ def command_profile(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def command_evidence(args: argparse.Namespace) -> dict[str, Any]:
+    """Verify the released cross-source public evidence without writing a profile."""
+    repository = repository_root(args.repository)
+    return evidence_report.build_report(repository)
+
+
 def digest(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -810,6 +817,13 @@ def parser() -> argparse.ArgumentParser:
     profile.add_argument("--force", action="store_true")
     profile.set_defaults(handler=command_profile)
 
+    evidence = commands.add_parser(
+        "evidence",
+        help="Verify and read the released cross-source public evidence.",
+    )
+    add_common(evidence)
+    evidence.set_defaults(handler=command_evidence)
+
     qualification = commands.add_parser(
         "qualification",
         help="Report the separate GPT-5.6 development support qualification.",
@@ -850,6 +864,22 @@ def print_result(value: dict[str, Any], as_json: bool) -> None:
         print(f"    Verified artifacts {value['verified_core_artifacts']}")
         print()
         print("Next  anarres formal qualify-runtime --help")
+        return
+    if value.get("artifact") == "anarres.formal-verification-public-evidence-report.v1":
+        print("Formal verification public evidence")
+        print(f"  Records            {len(value['records'])}")
+        print(f"  Timing             {', '.join(sorted({r['timing'] for r in value['records']}))}")
+        print(f"  Classes            {', '.join(sorted({r['kind'] for r in value['records']}))}")
+        print(f"  Summary            {value['summary_digest']}")
+        print(f"  Verified release   {value['summary_verified_by_manifest']}")
+        print(f"  Manifest           {value['manifest']['files_verified']} files verified")
+        print(f"  Sources            {value['sources_file']['sources']} pinned")
+        print()
+        print("Records")
+        for record in value["records"]:
+            print(f"    {record['record_id']:<28} {record['kind']} ({record['timing']})")
+        print()
+        print("Next  anarres formal qualification --repository .")
         return
     for key, item in value.items():
         label = key.replace("_", " ").title()

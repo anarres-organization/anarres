@@ -14,3 +14,10 @@ related statements are not treated as independent tasks.
 See [oss-verify/README.md](oss-verify/README.md) for the assembly-level release
 adapter and [vero/README.md](vero/README.md) for the repository-level Lean
 adapter.
+
+The released cross-source evidence under
+`experiments/cyber/formal-verification/public-evidence/` is readable through the
+same adapter. `anarres formal evidence --repository .` verifies the release
+against an adapter-owned manifest digest and returns the released summary with
+each record's pinned source revisions and upstream artifact digests. The native
+reproducer remains the authoritative path for recomputing the study.

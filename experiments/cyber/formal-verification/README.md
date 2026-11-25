@@ -29,6 +29,7 @@ inspect the released evidence and runtime qualification:
 ```bash
 uv tool install ./data/formal-verification/vero
 anarres formal status --repository .
+anarres formal evidence --repository .
 anarres formal qualify-source --help
 anarres formal qualify-runtime --help
 anarres formal qualification --repository .
@@ -39,6 +40,14 @@ Lean toolchain, package lock, reference build, allowed tools, filesystem rules,
 and resource limits without contacting a model. The `qualification` report
 keeps the one-policy development result separate from the negative Leanstral
 measurement.
+
+`evidence` verifies the released
+[public-evidence summary](public-evidence/results/summary.json) against an
+adapter-owned manifest digest and returns each record with its pinned source
+revisions, upstream artifact digests, and native outcome. It reads evidence
+only. Run the public evidence's native reproducer to recompute the study. A
+development qualification remains reported by `qualification` because that
+record is not part of the public-evidence release.
 
 ## What the public evidence shows
 
