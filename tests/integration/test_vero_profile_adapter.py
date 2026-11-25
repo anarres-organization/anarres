@@ -380,7 +380,8 @@ class VeroProfileAdapterTest(unittest.TestCase):
             self.assertEqual(verification["status"], "pass")
             self.assertFalse(verification["profiles_ready"])
             self.assertTrue(verification["qualification_support_passed"])
-            self.assertFalse(verification["repeated_measurement_authorized"])
+            self.assertTrue(verification["repeated_measurement_authorized"])
+            self.assertTrue(verification["repeated_measurement_digest"].startswith("sha256:"))
 
             qualification = self.run_adapter(
                 ["qualification", "--repository", str(ROOT), "--json"], outside
@@ -391,10 +392,10 @@ class VeroProfileAdapterTest(unittest.TestCase):
             self.assertFalse(qualification_report["profile_input"])
             self.assertEqual(qualification_report["strict_support"]["passed_specifications"], 9)
             self.assertTrue(qualification_report["strict_support"]["support_threshold_passed"])
-            # The released task-boundary receipt qualifies the route, which still
-            # authorizes nothing until the repeated-measurement protocol is frozen.
+            # The repeated measurement ran under its own authorization record, which
+            # authorizes neither a candidate ranking nor training.
             self.assertTrue(qualification_report["containment"]["task_only_boundary_passed"])
-            self.assertFalse(qualification_report["decision"]["repeated_measurement_authorized"])
+            self.assertTrue(qualification_report["decision"]["repeated_measurement_authorized"])
             self.assertFalse(qualification_report["decision"]["candidate_ranking_authorized"])
             self.assertFalse(qualification_report["decision"]["downstream_training_authorized"])
             self.assertEqual(

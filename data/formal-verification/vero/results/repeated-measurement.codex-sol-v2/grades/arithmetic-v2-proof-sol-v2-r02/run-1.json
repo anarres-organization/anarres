@@ -1,0 +1,30 @@
+{
+  "agent_wall_seconds": 474.4552304960089,
+  "attempt_id": "arithmetic-v2-proof-sol-v2-r02",
+  "cached_input_tokens": 6991801,
+  "grade": null,
+  "grading_stage": false,
+  "infrastructure_errors": [],
+  "input_tokens": 7094717,
+  "integrity_errors": [
+    "grading integrity: ['ArithmeticV2/Proof/Power2.lean: native_decide']"
+  ],
+  "kind": "attempt",
+  "materialization": {
+    "files": 40,
+    "instruction_sha256": "81d5f21250c16af71b21a5a07c252caf29637c99d566d256bef6b5cc217354b1",
+    "symlinks": 0,
+    "task_tree_sha256": "eaf2d782afcc376e073ea476fedd17a26bbfa7253146f2151a64da902c3fbac0"
+  },
+  "outcome": "integrity_failure",
+  "output_tokens": 32784,
+  "reasoning_output_tokens": 9594,
+  "run": 1,
+  "run_id": "arithmetic-v2_proof_a2_bed7dbc0",
+  "sandbox_receipt_sha256": "540dce67e52da583a8ced007988b71345517aa96ee6ffa3add9430875b22162d",
+  "schema_version": "anarres.formal-verification-codex-sol-run.v1",
+  "stop_reason": "max_turns",
+  "tool_calls": 123,
+  "turns": 100,
+  "workspace": "run-1/arithmetic-v2_proof_a2_bed7dbc0/run/source"
+}

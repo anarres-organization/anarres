@@ -317,8 +317,8 @@ records zero failed, unfilled, overfilled, tainted, or unapproved-axiom
 outcomes. One attempt establishes strict task support without estimating
 reliability. The post-run audit found broader read and temporary-write scope
 than the intended task-only boundary, although no reference proof or protected
-repository was accessed. Repeated measurement remains blocked until the task
-sandbox is tightened and requalified.
+repository was accessed. The task-only boundary below closed that gap before
+the repeated measurement ran.
 
 ### Task-only execution boundary
 
@@ -574,6 +574,80 @@ python data/formal-verification/vero/build_probe_queue.py \
   --panel data/formal-verification/vero/development-lifecycle-panel-v2.json \
   --output data/formal-verification/vero/probe-queue.codex-sol-v2.json --check
 ```
+
+### Repeated-measurement result
+
+The v2 queue completed on 24 November 2026 with one run per entry. Thirty-one
+attempts were scored and one was a policy-caused integrity failure. No run
+failed for infrastructure reasons, so no entry used its retry. The
+[released measurement](results/repeated-measurement.codex-sol-v2/measurement.json)
+is ready. Of 2,776 specification trials, 1,653 passed strictly, and 289
+specification groups were mixed. Both modes have mixed groups in Arithmetic and
+Verified Bitmasks. Leaving out Arithmetic, the repository with the most mixed
+groups, still leaves 81. PiggyBank and PrimePy passed every specification in
+every attempt, so they contribute no signal.
+
+| Repository | Proof: strict passes | Proof: mixed groups | Code and proof: strict passes | Code and proof: mixed groups |
+| --- | --- | --- | --- | --- |
+| Arithmetic | 224 / 764 | 112 of 191 | 553 / 764 | 96 of 191 |
+| Verified Bitmasks | 235 / 496 | 39 of 124 | 385 / 496 | 42 of 124 |
+| PiggyBank | 92 / 92 | 0 of 23 | 92 / 92 | 0 of 23 |
+| PrimePy | 36 / 36 | 0 of 9 | 36 / 36 | 0 of 9 |
+
+| Mode | Signal density $\rho$ per million model tokens | Coverage $H$ | 90% repository bootstrap for $\rho$ and $H$ |
+| --- | --- | --- | --- |
+| Proof | 4.17 | 0.43 | $\rho$ 0 to 6.55, $H$ 0 to 0.55 |
+| Code and proof | 3.24 | 0.39 | $\rho$ 0 to 5.25, $H$ 0 to 0.47 |
+
+The bootstrap intervals reach zero because only two of the four repositories
+carry signal. The queue used 177.8 million model tokens and 3.7 agent hours. Its
+planning cost is $134.54, and the stopped v1 queue adds $26.53. These are
+estimates at the contract's planning prices, not a billing record.
+
+Four details shape how the result can be read.
+
+- In the Arithmetic proof attempt `r02` the policy wrote `native_decide` in two
+  proof slots of `Proof/Power2.lean`. The frozen contract scores every one of
+  that attempt's 191 specifications as zero. The prompt and task instruction
+  forbid `axiom`, `sorry`, and `admit` and require `#print axioms` to report
+  only the three standard axioms, which `native_decide` breaks. They do not
+  name `native_decide` itself. Because that attempt is zero, no Arithmetic
+  proof specification reaches four successes, and 28 specifications that passed in the other three attempts
+  count as mixed. Treating the attempt as missing, a sensitivity check outside
+  the frozen analysis, gives 123 mixed proof groups, $\rho$ of 3.32, and $H$ of
+  0.35.
+  The gates still pass.
+- In the Verified Bitmasks proof attempt `r02` five passes were downgraded to
+  `axiom_recheck_failed`. The policy imported `Impl/BitFieldsAxioms.lean`, which
+  is unchanged from the task, and used its curator-declared axiom
+  `axiom_as_uint64_as_bv64`. The trusted checker builds its reference from the
+  untouched task's import closure, which never loads that module, so it refuses
+  the axiom. The strict rule counts these five as failures. Counting them as
+  passes, another check outside the frozen analysis, gives 1,658 passes and 294
+  mixed groups, with no change to any gate. The frozen upper bound, which counts
+  `check_incomplete` and `sat_unverified` as passes, equals the primary result
+  because no run reported either status.
+- All 16 attempts that stopped at the 100-turn limit are Arithmetic or Verified
+  Bitmasks attempts, so every mixed group comes from an attempt the turn budget
+  ended. The 92 build errors come from four runs whose last edit left one module
+  failing to compile. The measurement describes the policy under this budget.
+- The run records bind the authorization, which binds the protocol that names
+  the model and pins the harness. The transcripts do not show which model the
+  API served.
+
+The next frozen protocol should name every banned tactic in the prompt and
+should build the checker's reference from the task's trusted-axiom modules.
+Both changes touch hash-pinned files, so they wait for a new protocol and
+boundary receipt instead of changing this one. GPT-5.6 Sol is a hosted model
+that this project cannot train, so a prospective environment comparison also
+needs a trainable starting policy measured under the same contract.
+
+The [release directory](results/repeated-measurement.codex-sol-v2/) holds the
+grade receipt and run records of every entry. The started records omit the host
+interpreter path and are otherwise unchanged. The directory's
+`MANIFEST.sha256` lists the digest of every released file. `anarres formal verify` checks every file
+against that manifest, then reruns the frozen aggregator over the records and
+requires output identical to the released measurement.
 
 Project the completed measurement into the shared Anarres profile contract
 without changing that interpretation:

@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import importlib.util
 import json
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -15,6 +16,9 @@ from typing import Any
 from anarres.core import consume_adapter_invocation, load_source_manifest
 
 from anarres_formal_adapter import runtime_qualification, source_qualification
+
+REPEATED_MEASUREMENT_AUTHORIZATION = "execution-authorization.codex-sol-v2.json"
+REPEATED_MEASUREMENT_RELEASE = "results/repeated-measurement.codex-sol-v2"
 
 
 class FormalCliError(ValueError):
@@ -250,6 +254,27 @@ def repeated_measurement_status(repository: Path) -> dict[str, Any]:
     )
     if queue != expected:
         raise FormalCliError("the repeated-measurement queue does not match its protocol")
+    authorization_path = root / REPEATED_MEASUREMENT_AUTHORIZATION
+    authorization = json.loads(authorization_path.read_text(encoding="utf-8"))
+    # Execution needs a separate authorization record that binds this protocol and queue.
+    authorized = (
+        authorization.get("authorized") is True
+        and authorization.get("protocol_sha256") == digest(protocol_path).removeprefix("sha256:")
+        and authorization.get("queue_sha256") == digest(queue_path).removeprefix("sha256:")
+    )
+    release_path = root / REPEATED_MEASUREMENT_RELEASE / "measurement.json"
+    measurement = None
+    if release_path.is_file():
+        measurement = json.loads(release_path.read_text(encoding="utf-8"))
+        bound = {
+            "protocol_sha256": protocol_path,
+            "queue_sha256": queue_path,
+            "authorization_sha256": authorization_path,
+            "analysis_sha256": root / protocol["measurement"]["analysis_contract"],
+        }
+        for field, path in bound.items():
+            if measurement["inputs"][field] != digest(path).removeprefix("sha256:"):
+                raise FormalCliError(f"the released repeated measurement names another {field}")
     return {
         "protocol_id": protocol["protocol_id"],
         "protocol_sha256": digest(protocol_path),
@@ -257,9 +282,103 @@ def repeated_measurement_status(repository: Path) -> dict[str, Any]:
         "queue_sha256": digest(queue_path),
         "queued_attempts": len(queue["attempts"]),
         "frozen": True,
-        # Execution needs a separate authorization record that sets a spend ceiling.
-        "execution_authorized": False,
+        "execution_authorized": authorized,
+        "authorization_sha256": digest(authorization_path),
+        "released": measurement is not None,
+        "measurement": None if measurement is None else released_summary(measurement, release_path),
     }
+
+
+def released_summary(measurement: dict[str, Any], path: Path) -> dict[str, Any]:
+    """Summarize the released aggregate without recomputing it."""
+
+    summary: dict[str, Any] = {
+        "measurement_sha256": digest(path),
+        "decision": measurement["decision"],
+        "abstention_reason": measurement["abstention_reason"],
+    }
+    if measurement["decision"] != "ready":
+        return summary
+    support = measurement["support"]
+    return {
+        **summary,
+        "attempt_outcomes": measurement["attempt_outcomes"],
+        "strict_successes": support["pooled_strict_successes"],
+        "strict_trials": support["pooled_strict_trials"],
+        "mixed_specification_groups": support["mixed_specification_groups"],
+        "readiness_gate_passed": measurement["readiness"]["passes_readiness_gate"],
+        "mode_measurements": {
+            mode: {
+                "usable_signal_density": values["coordinates"]["rho_per_million_model_tokens"],
+                "effective_verification_coverage": values["coordinates"]["effective_coverage_H"],
+                "mixed_specification_groups": values["coordinates"]["mixed_specification_groups"],
+                "model_tokens": values["coordinates"]["model_tokens"],
+            }
+            for mode, values in sorted(measurement["measurements_by_mode"].items())
+        },
+        "planning_usd": measurement["cost"]["planning_usd"],
+    }
+
+
+def verify_release_manifest(release: Path) -> None:
+    """Require every released file, and only those files, to match its listed digest."""
+
+    manifest = release / "MANIFEST.sha256"
+    listed = {}
+    for number, line in enumerate(manifest.read_text(encoding="utf-8").splitlines(), 1):
+        value, separator, name = line.partition("  ")
+        if not separator or len(value) != 64:
+            raise FormalCliError(f"the release manifest line {number} is malformed")
+        listed[name.removeprefix("./")] = value
+    present = {
+        path.relative_to(release).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in release.rglob("*")
+        if path.is_file() and path != manifest
+    }
+    if present != listed:
+        changed = sorted(set(present.items()) ^ set(listed.items()))
+        raise FormalCliError(f"the released records disagree with their manifest: {changed[0][0]}")
+
+
+def run_aggregator(command: list[str], root: Path) -> subprocess.CompletedProcess[str]:
+    try:
+        return subprocess.run(command, capture_output=True, text=True, cwd=root, timeout=600)
+    except subprocess.TimeoutExpired as error:
+        raise FormalCliError("the frozen aggregator did not finish within 600 seconds") from error
+
+
+def reproduce_repeated_measurement(repository: Path) -> str:
+    """Rerun the frozen aggregator over the released run records and require identical bytes."""
+
+    root = study_root(repository)
+    release = root / REPEATED_MEASUREMENT_RELEASE
+    # The aggregator reads only some run-record fields, so the manifest covers every byte.
+    verify_release_manifest(release)
+    with tempfile.TemporaryDirectory(prefix="anarres-formal-measurement-") as directory:
+        output = Path(directory) / "measurement.json"
+        completed = run_aggregator(
+            [
+                sys.executable,
+                str(root / "aggregate_codex_sol_measurements.py"),
+                "--protocol",
+                str(root / "policy-probe-protocol.codex-sol-v2.json"),
+                "--queue",
+                str(root / "probe-queue.codex-sol-v2.json"),
+                "--authorization",
+                str(root / REPEATED_MEASUREMENT_AUTHORIZATION),
+                "--grades",
+                str(release / "grades"),
+                "--output",
+                str(output),
+            ],
+            root,
+        )
+        if completed.returncode != 0:
+            reason = (completed.stderr.strip().splitlines() or ["no error output"])[-1]
+            raise FormalCliError(f"the frozen aggregator rejected the released records: {reason}")
+        if output.read_bytes() != (release / "measurement.json").read_bytes():
+            raise FormalCliError("the released repeated measurement does not reproduce")
+    return digest(release / "measurement.json")
 
 
 def validate_qualification(repository: Path) -> tuple[dict[str, Any], dict[str, Path]]:
@@ -378,12 +497,21 @@ def command_status(args: argparse.Namespace) -> dict[str, Any]:
         "task_only_boundary_qualified": boundary_qualified,
         "repeated_measurement": repeated,
         "policy_probe_available": False,
-        "next_required_gate": (
-            "execution authorization for the frozen repeated measurement"
-            if boundary_qualified and repeated["frozen"]
-            else "task-only containment requalification before repeated measurement"
-        ),
+        "next_required_gate": next_gate(boundary_qualified, repeated),
     }
+
+
+def next_gate(boundary_qualified: bool, repeated: dict[str, Any]) -> str:
+    if not boundary_qualified:
+        return "task-only containment requalification before repeated measurement"
+    if not repeated["execution_authorized"]:
+        return "execution authorization for the frozen repeated measurement"
+    if not repeated["released"]:
+        return "release of the authorized repeated measurement"
+    if repeated["measurement"]["decision"] != "ready":
+        return "a policy or task change after the repeated-measurement abstention"
+    # GPT-5.6 Sol runs through a hosted API, and the comparison needs a policy we can train.
+    return "a trainable starting policy and a frozen prospective candidate panel"
 
 
 def export_profiles(repository: Path, output_dir: Path, force: bool = False) -> list[Path]:
@@ -419,6 +547,7 @@ def command_qualification(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
     result, paths = validate_qualification(repository)
     boundary = task_boundary_status(repository)
+    repeated = repeated_measurement_status(repository)
     execution = result["execution"]
     grade = result["fresh_grade"]
     containment = result["containment_audit"]
@@ -467,9 +596,9 @@ def command_qualification(args: argparse.Namespace) -> dict[str, Any]:
             "followup_required": not boundary["qualified"],
         },
         "task_only_boundary": boundary,
-        "repeated_measurement": repeated_measurement_status(repository),
+        "repeated_measurement": repeated,
         "decision": {
-            "repeated_measurement_authorized": False,
+            "repeated_measurement_authorized": repeated["execution_authorized"],
             "candidate_ranking_authorized": False,
             "downstream_training_authorized": False,
             "next_step": result["decision"]["next_step"],
@@ -482,6 +611,7 @@ def command_qualification(args: argparse.Namespace) -> dict[str, Any]:
 def command_verify(args: argparse.Namespace) -> dict[str, Any]:
     repository = repository_root(args.repository)
     qualification, qualification_paths_by_role = validate_qualification(repository)
+    repeated = repeated_measurement_status(repository)
     with (
         tempfile.TemporaryDirectory(prefix="anarres-formal-verify-a-") as first,
         tempfile.TemporaryDirectory(prefix="anarres-formal-verify-b-") as second,
@@ -521,7 +651,10 @@ def command_verify(args: argparse.Namespace) -> dict[str, Any]:
         "downstream_training_authorized": False,
         "qualification_result_digest": digest(qualification_paths_by_role["result"]),
         "qualification_support_passed": qualification["decision"]["passes_support_threshold"],
-        "repeated_measurement_authorized": False,
+        "repeated_measurement_authorized": repeated["execution_authorized"],
+        "repeated_measurement_digest": (
+            reproduce_repeated_measurement(repository) if repeated["released"] else None
+        ),
     }
 
 

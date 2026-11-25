@@ -5,6 +5,7 @@ import copy
 import hashlib
 import importlib.util
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -816,8 +817,94 @@ class QueueItemTest(unittest.TestCase):
                 RUNNER.bind_root(output, "b" * 64)
 
 
+RELEASE_ROOT = VERO_ROOT / "results" / "repeated-measurement.codex-sol-v2"
+
+
+class ReleasedRepeatedMeasurementTest(unittest.TestCase):
+    def test_release_holds_one_finished_run_per_queue_entry(self) -> None:
+        grades = RELEASE_ROOT / "grades"
+        self.assertEqual(
+            sorted(path.name for path in grades.iterdir() if path.is_dir()),
+            sorted(entry["attempt_id"] for entry in QUEUE["attempts"]),
+        )
+        for entry in QUEUE["attempts"]:
+            self.assertEqual(
+                sorted(path.name for path in (grades / entry["attempt_id"]).iterdir()),
+                ["grade-receipt.json", "run-1.json", "run-1.started.json"],
+            )
+
+    def test_release_carries_no_host_paths(self) -> None:
+        # The host interpreter path is the one field removed from the started records.
+        for path in RELEASE_ROOT.glob("grades/*/run-1.started.json"):
+            self.assertEqual(
+                sorted(json.loads(path.read_text(encoding="utf-8"))),
+                [
+                    "attempt_id",
+                    "authorization_sha256",
+                    "kind",
+                    "run",
+                    "schema_version",
+                    "started_at",
+                    "vero_commit",
+                ],
+            )
+
+        def strings(value: object) -> list[str]:
+            if isinstance(value, dict):
+                return [text for item in value.values() for text in strings(item)]
+            if isinstance(value, list):
+                return [text for item in value for text in strings(item)]
+            return [value] if isinstance(value, str) else []
+
+        # An absolute path starts a string or follows a space, quote, or separator.
+        absolute = re.compile(r"(?:^|[\s\"'=:(])[/~][A-Za-z]")
+        for path in RELEASE_ROOT.rglob("*.json"):
+            for text in strings(json.loads(path.read_text(encoding="utf-8"))):
+                self.assertIsNone(absolute.search(text), f"{path}: {text}")
+
+    def test_release_reproduces_from_its_run_records(self) -> None:
+        sys.path.insert(0, str(VERO_ROOT / "src"))
+        from anarres_formal_adapter import cli
+
+        self.assertEqual(
+            cli.reproduce_repeated_measurement(ROOT),
+            f"sha256:{digest(RELEASE_ROOT / 'measurement.json')}",
+        )
+
+    def test_manifest_covers_fields_the_aggregator_ignores(self) -> None:
+        sys.path.insert(0, str(VERO_ROOT / "src"))
+        from anarres_formal_adapter import cli
+
+        with tempfile.TemporaryDirectory() as directory:
+            release = Path(directory) / "release"
+            shutil.copytree(RELEASE_ROOT, release)
+            cli.verify_release_manifest(release)
+            record = release / "grades" / QUEUE["attempts"][0]["attempt_id"] / "run-1.json"
+            value = json.loads(record.read_text(encoding="utf-8"))
+            value["tool_calls"] += 1
+            record.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+            with self.assertRaisesRegex(cli.FormalCliError, "manifest"):
+                cli.verify_release_manifest(release)
+            record.unlink()
+            with self.assertRaisesRegex(cli.FormalCliError, "manifest"):
+                cli.verify_release_manifest(release)
+
+    def test_release_records_the_ready_decision(self) -> None:
+        measurement = json.loads((RELEASE_ROOT / "measurement.json").read_text(encoding="utf-8"))
+        self.assertEqual(measurement["decision"], "ready")
+        self.assertEqual(measurement["attempt_outcomes"], {"integrity_failure": 1, "scored": 31})
+        self.assertEqual(measurement["runs"]["infrastructure_failure_runs"], 0)
+        self.assertEqual(measurement["support"]["pooled_strict_successes"], 1653)
+        self.assertEqual(measurement["support"]["pooled_strict_trials"], 2776)
+        self.assertTrue(measurement["readiness"]["passes_readiness_gate"])
+        self.assertEqual(
+            measurement["inputs"]["authorization_sha256"],
+            digest(VERO_ROOT / "execution-authorization.codex-sol-v2.json"),
+        )
+
+
 class FormalCliRepeatedMeasurementTest(unittest.TestCase):
-    def test_status_reports_the_frozen_unauthorized_protocol(self) -> None:
+    def test_status_reports_the_released_measurement(self) -> None:
         sys.path.insert(0, str(VERO_ROOT / "src"))
         from anarres_formal_adapter import cli
 
@@ -828,15 +915,33 @@ class FormalCliRepeatedMeasurementTest(unittest.TestCase):
         self.assertEqual(repeated["queue_sha256"], f"sha256:{digest(QUEUE_PATH)}")
         self.assertEqual(repeated["queued_attempts"], 32)
         self.assertTrue(repeated["frozen"])
-        self.assertFalse(repeated["execution_authorized"])
+        self.assertTrue(repeated["execution_authorized"])
+        self.assertTrue(repeated["released"])
+        self.assertEqual(repeated["measurement"]["decision"], "ready")
+        self.assertEqual(repeated["measurement"]["strict_successes"], 1653)
         self.assertFalse(status["policy_probe_available"])
+        self.assertFalse(status["candidate_ranking_authorized"])
+        self.assertFalse(status["downstream_training_authorized"])
         self.assertEqual(
             status["next_required_gate"],
-            "execution authorization for the frozen repeated measurement",
+            "a trainable starting policy and a frozen prospective candidate panel",
         )
         report = cli.command_qualification(arguments)
         self.assertEqual(report["repeated_measurement"], repeated)
-        self.assertFalse(report["decision"]["repeated_measurement_authorized"])
+        self.assertTrue(report["decision"]["repeated_measurement_authorized"])
+        self.assertFalse(report["decision"]["candidate_ranking_authorized"])
+
+    def test_next_gate_follows_the_measurement_lifecycle(self) -> None:
+        sys.path.insert(0, str(VERO_ROOT / "src"))
+        from anarres_formal_adapter import cli
+
+        frozen = {"frozen": True, "execution_authorized": False, "released": False}
+        self.assertIn("containment", cli.next_gate(False, frozen))
+        self.assertIn("authorization", cli.next_gate(True, frozen))
+        authorized = {**frozen, "execution_authorized": True}
+        self.assertIn("release", cli.next_gate(True, authorized))
+        abstained = {**authorized, "released": True, "measurement": {"decision": "abstain"}}
+        self.assertIn("abstention", cli.next_gate(True, abstained))
 
 
 if __name__ == "__main__":
