@@ -394,7 +394,7 @@ released, what remains sealed, and which operations are supported.
 
 | Domain | First useful commands | What they reveal |
 | --- | --- | --- |
-| Formal verification | `anarres formal status --repository .`<br>`anarres formal qualification --repository .` | Local Vero support and the separate development qualification |
+| Formal verification | `anarres formal status --repository .`<br>`anarres formal evidence --repository .`<br>`anarres formal qualification --repository .` | Local Vero support, the released cross-source public evidence, and the separate development qualification |
 | Robotics | `anarres robotics status --repository .`<br>`anarres robotics can-results --repository .`<br>`anarres robotics square-results --repository .` | Workflow stage and the released prospective Can and Square results |
 | Legal reasoning | `anarres legal status --repository .`<br>`anarres legal regressions --repository .` | SylloGym selection evidence and the separate LAB regression audit |
 | Materials science | `anarres materials status --repository .`<br>`anarres materials qualify-source --manifest <anarres.toml>`<br>`anarres materials results --repository .` | Native atomistic-bank qualification, the frozen protocol boundary, and the scored prospective MLIP test |
