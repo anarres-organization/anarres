@@ -129,6 +129,30 @@ def mixed_receipts() -> dict[str, dict]:
 
 
 class FrozenProtocolTest(unittest.TestCase):
+    def test_v1_freeze_history_preserves_each_pre_execution_revision(self) -> None:
+        history = json.loads(
+            (VERO_ROOT / "repeated-measurement-freeze-history.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            [revision["event"] for revision in history["revisions"]],
+            [
+                "initial_freeze",
+                "execution_semantics_refreeze",
+                "first_authorization",
+                "runtime_image_refreeze",
+            ],
+        )
+        self.assertEqual(
+            [revision["executed"] for revision in history["revisions"]],
+            [False, False, False, True],
+        )
+        final = {
+            Path(artifact["path"]).name: artifact["sha256"].removeprefix("sha256:")
+            for artifact in history["revisions"][-1]["artifacts"]
+        }
+        for name, expected in final.items():
+            self.assertEqual(digest(VERO_ROOT / name), expected)
+
     def test_protocol_validates_against_the_qualified_route(self) -> None:
         VALIDATOR.validate(PROTOCOL)
         self.assertFalse(PROTOCOL["execution_authorized"])
@@ -904,6 +928,30 @@ class ReleasedRepeatedMeasurementTest(unittest.TestCase):
 
 
 class FormalCliRepeatedMeasurementTest(unittest.TestCase):
+    def test_profile_export_validates_release_without_rerunning_aggregator(self) -> None:
+        sys.path.insert(0, str(VERO_ROOT / "src"))
+        from anarres_formal_adapter import cli
+
+        with (
+            tempfile.TemporaryDirectory() as directory,
+            mock.patch.object(cli, "run_aggregator") as aggregator,
+        ):
+            outputs = cli.export_profiles(ROOT, Path(directory))
+        self.assertEqual(len(outputs), 2)
+        aggregator.assert_not_called()
+
+    def test_reproduction_comparison_allows_only_float_roundoff(self) -> None:
+        sys.path.insert(0, str(VERO_ROOT / "src"))
+        from anarres_formal_adapter import cli
+
+        released = {"count": 3, "coordinate": 1.25, "nested": [True, "ready"]}
+        reproduced = {"count": 3, "coordinate": 1.25 + 1e-14, "nested": [True, "ready"]}
+        self.assertIsNone(cli.measurement_difference(released, reproduced))
+        reproduced["count"] = 4
+        self.assertEqual(cli.measurement_difference(released, reproduced), "$.count")
+        reproduced = {"count": 3, "coordinate": 1.2501, "nested": [True, "ready"]}
+        self.assertEqual(cli.measurement_difference(released, reproduced), "$.coordinate")
+
     def test_status_reports_the_released_measurement(self) -> None:
         sys.path.insert(0, str(VERO_ROOT / "src"))
         from anarres_formal_adapter import cli
@@ -919,6 +967,10 @@ class FormalCliRepeatedMeasurementTest(unittest.TestCase):
         self.assertTrue(repeated["released"])
         self.assertEqual(repeated["measurement"]["decision"], "ready")
         self.assertEqual(repeated["measurement"]["strict_successes"], 1653)
+        self.assertEqual(status["strict_successes"], 1653)
+        self.assertTrue(status["support_gate_passed"])
+        self.assertEqual(status["legacy_measurement"]["strict_successes"], 0)
+        self.assertTrue(status["profile_ready"])
         self.assertFalse(status["policy_probe_available"])
         self.assertFalse(status["candidate_ranking_authorized"])
         self.assertFalse(status["downstream_training_authorized"])

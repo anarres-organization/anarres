@@ -646,8 +646,17 @@ The [release directory](results/repeated-measurement.codex-sol-v2/) holds the
 grade receipt and run records of every entry. The started records omit the host
 interpreter path and are otherwise unchanged. The directory's
 `MANIFEST.sha256` lists the digest of every released file. `anarres formal verify` checks every file
-against that manifest, then reruns the frozen aggregator over the records and
-requires output identical to the released measurement.
+against that manifest, then reruns the frozen aggregator over the records. It
+requires exact structural and discrete agreement and permits only floating-point
+roundoff within $10^{-12}$ across supported Python versions.
+
+The earlier v1 protocol was corrected twice at its original paths before the
+first attempt: once to harden execution semantics and once to bind a newly
+qualified runtime image after the prior local image was pruned. The
+[freeze-history record](repeated-measurement-freeze-history.json) preserves the
+commit, digest, and size of every revision. Only the final v1 revision was
+executed, then stopped and superseded by v2. The v2 protocol, queue, and
+authorization remained byte-stable through execution and release.
 
 Project the completed measurement into the shared Anarres profile contract
 without changing that interpretation:
@@ -664,23 +673,31 @@ anarres formal profile --repository /path/to/anarres \
 # The native exporter remains available for repository development.
 uv run python data/formal-verification/vero/export_environment_profiles.py \
   --output-dir /tmp/vero-profiles
-anarres qualify /tmp/vero-profiles/vero-development-proof-v5.profile-input.json
-anarres measure /tmp/vero-profiles/vero-development-proof-v5.profile-input.json \
-  --output /tmp/vero-profiles/vero-development-proof-v5.profile.json
+anarres qualify \
+  /tmp/vero-profiles/vero-codex-sol-development-proof-v2.profile-input.json
+anarres measure \
+  /tmp/vero-profiles/vero-codex-sol-development-proof-v2.profile-input.json \
+  --output /tmp/vero-profiles/vero-codex-sol-development-proof-v2.profile.json
 anarres validate \
-  /tmp/vero-profiles/vero-development-proof-v5.profile-input.json \
-  /tmp/vero-profiles/vero-development-proof-v5.profile.json
+  /tmp/vero-profiles/vero-codex-sol-development-proof-v2.profile-input.json \
+  /tmp/vero-profiles/vero-codex-sol-development-proof-v2.profile.json
+
+# The superseded Leanstral negative measurement remains reproducible.
+anarres formal profile --repository /path/to/anarres \
+  --measurement leanstral-v5 \
+  --output-dir /tmp/vero-leanstral-profiles
 ```
 
 The adapter emits separate `proof` and `codeproof` profiles because their
-native rewards are not interchangeable. Both preserve exact zero signal and
-coverage, positive measured token cost, released evidence digests, and the
-failed support gate. They are valid negative measurements but remain unready
-for candidate ranking or downstream training. `anarres qualify` therefore
-reports `ready: false`, while `anarres measure` and `anarres validate` retain
-the negative record as valid evidence. `anarres design` rejects the pair
-because the modes have different native measurement contracts and unresolved
-support checks.
+native rewards are not interchangeable. By default, `anarres formal profile`
+projects the completed GPT-5.6 Sol measurement, preserving its positive signal
+density, effective coverage, measured token cost, readiness decision, and
+released evidence digests. The profiles remain development evidence: the
+hosted starting policy cannot support the planned matched training comparison,
+and neither candidate ranking nor downstream training is authorized. The
+superseded Leanstral profiles preserve exact zero signal and coverage, positive
+measured cost, and the failed support gate. They remain available through the
+explicit `leanstral-v5` selector.
 
 `anarres formal qualification` reports the separate GPT-5.6 development
 support test. It reproduces the strict 9/9 PrimePy result, realized cost,

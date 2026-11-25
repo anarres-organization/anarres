@@ -1,0 +1,97 @@
+{
+  "record_id": "vero-codex-sol-repeated-measurement-freeze-history-v1",
+  "schema_version": "anarres.formal-verification-freeze-history.v1",
+  "status": "historical_record",
+  "purpose": "Preserve the byte identities of each v1 freeze after two pre-execution corrections changed the original paths in place.",
+  "execution_boundary": "No v1 attempt began before the execution-semantics and runtime-image corrections. The final v1 freeze was later stopped and superseded by v2.",
+  "revisions": [
+    {
+      "commit": "a5df118daf952b94eab39e8ac822ec7d0568ce05",
+      "event": "initial_freeze",
+      "executed": false,
+      "artifacts": [
+        {
+          "license": "Apache-2.0",
+          "media_type": "application/json",
+          "path": "data/formal-verification/vero/policy-probe-protocol.codex-sol-v1.json",
+          "sha256": "sha256:61eccb062a61b07db86ac212361367784cd13e927689923017087784d7292c74",
+          "size_bytes": 12428
+        },
+        {
+          "license": "Apache-2.0",
+          "media_type": "application/json",
+          "path": "data/formal-verification/vero/probe-queue.codex-sol-v1.json",
+          "sha256": "sha256:7516aa70a8f1c083f70626daba0a0040d5f15ceea5f60b54b9189a830abd1446",
+          "size_bytes": 16430
+        }
+      ],
+      "reason": "Initial outcome-blind repeated-measurement freeze."
+    },
+    {
+      "commit": "7d745028f5e03e568b238b8c5cb3c13cc8a1bc52",
+      "event": "execution_semantics_refreeze",
+      "executed": false,
+      "artifacts": [
+        {
+          "license": "Apache-2.0",
+          "media_type": "application/json",
+          "path": "data/formal-verification/vero/policy-probe-protocol.codex-sol-v1.json",
+          "sha256": "sha256:25134dcef197d03167ea8d4ae10e4c33718d9c49307e79f9c65efea850d6393c",
+          "size_bytes": 12603
+        },
+        {
+          "license": "Apache-2.0",
+          "media_type": "application/json",
+          "path": "data/formal-verification/vero/probe-queue.codex-sol-v1.json",
+          "sha256": "sha256:1c7346a7a726636abd27de8fa8b1fba5746d0ab66e77199cb02a659fa8c8f7ad",
+          "size_bytes": 16430
+        }
+      ],
+      "reason": "Runner and aggregator semantics were audited before authorization or execution."
+    },
+    {
+      "commit": "0469f9c19faef900bd113f0921c80896de739902",
+      "event": "first_authorization",
+      "executed": false,
+      "artifacts": [
+        {
+          "license": "Apache-2.0",
+          "media_type": "application/json",
+          "path": "data/formal-verification/vero/execution-authorization.codex-sol-v1.json",
+          "sha256": "sha256:c71982050de6ce4bbc799e38b1a0301392732f9a0b953494b83d61e48fc475ec",
+          "size_bytes": 709
+        }
+      ],
+      "reason": "The audited v1 protocol and queue received a separate execution authorization."
+    },
+    {
+      "commit": "d50b37e855b198084d869a485db0252db9282b51",
+      "event": "runtime_image_refreeze",
+      "executed": true,
+      "artifacts": [
+        {
+          "license": "Apache-2.0",
+          "media_type": "application/json",
+          "path": "data/formal-verification/vero/policy-probe-protocol.codex-sol-v1.json",
+          "sha256": "sha256:08bc80f95dfa664563e0f1f8e5cfdba4bb709200c5bfdfaafb41fc562c66c1fb",
+          "size_bytes": 12947
+        },
+        {
+          "license": "Apache-2.0",
+          "media_type": "application/json",
+          "path": "data/formal-verification/vero/probe-queue.codex-sol-v1.json",
+          "sha256": "sha256:eb4b78fa30320d4c0dd2f3d2f6a693475741c65c5bee87aa3b5878af1ba6de20",
+          "size_bytes": 16430
+        },
+        {
+          "license": "Apache-2.0",
+          "media_type": "application/json",
+          "path": "data/formal-verification/vero/execution-authorization.codex-sol-v1.json",
+          "sha256": "sha256:2974654e7f6bd6715b73297231066917de6595c01202c4dbc053eed2087c148f",
+          "size_bytes": 859
+        }
+      ],
+      "reason": "The qualified local image had been pruned, so the task boundary was requalified and the unused authorization was rebound before the first attempt. This is the v1 revision that was executed and later stopped."
+    }
+  ]
+}
