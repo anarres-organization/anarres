@@ -1,0 +1,257 @@
+{
+  "artifact": "formal_verification_source_qualification_summary_v1",
+  "audit_date": "2026-11-24",
+  "inputs_sha256": {
+    "CANDIDATE_MATRIX.json": "7ba19485f8904238df509d3cda7381e133cf6043f0829edc1c13bf05847dd535",
+    "QUALIFICATION.json": "45c86e3d55be6f8a53024fa7edf64d90dcbf34b9a77ba19388c781e354f13ce9",
+    "SOURCES.json": "a2fc2691c3c04bea3364f85f2e5328306396f9d1916627d8dff10b0db893e501"
+  },
+  "recommendation": {
+    "leading_candidate": "vero",
+    "outcome": "abstain",
+    "reserve_ranking": [
+      "vero",
+      "oss-verify",
+      "verusage-verusyn",
+      "vericoding",
+      "verisoftbench"
+    ],
+    "selected_source": null,
+    "smoke_test_sources": [
+      "oss-verify",
+      "verusage-verusyn"
+    ]
+  },
+  "smoke_tests": [
+    "oss-verify-pinned-checker-replay",
+    "verusage-reference-and-negative-controls"
+  ],
+  "sources": {
+    "oss-verify": {
+      "candidates": 4,
+      "check_status_counts": {
+        "fail": 0,
+        "pass": 16,
+        "unresolved": 9
+      },
+      "criteria": {
+        "C1": "pass",
+        "C2": "unresolved",
+        "C3": "unresolved",
+        "C4": "pass",
+        "C5": "pass",
+        "C6": "unresolved",
+        "C7": "pass",
+        "C8": "pass"
+      },
+      "decision": "reserve",
+      "evidence_basis_counts": {
+        "confirmed": 25,
+        "inferred": 5,
+        "unknown": 0
+      },
+      "failed_criteria": 0,
+      "name": "OSS Verify proofs",
+      "open_panel_freeze_checks": [
+        "cost_chargeable",
+        "leakage_audit_done",
+        "panel_protocol_drafted",
+        "training_cost"
+      ],
+      "open_source_selection_checks": [
+        "checker_and_probe_cost",
+        "policy_headroom",
+        "repeatable_starting_policy",
+        "verifier_reproduced"
+      ],
+      "supported_endpoints": [
+        "proof_only"
+      ],
+      "unresolved_check_count": 9,
+      "unresolved_criteria": 3
+    },
+    "vericoding": {
+      "candidates": 4,
+      "check_status_counts": {
+        "fail": 1,
+        "pass": 14,
+        "unresolved": 10
+      },
+      "criteria": {
+        "C1": "pass",
+        "C2": "unresolved",
+        "C3": "unresolved",
+        "C4": "pass",
+        "C5": "pass",
+        "C6": "pass",
+        "C7": "pass",
+        "C8": "fail"
+      },
+      "decision": "reserve",
+      "evidence_basis_counts": {
+        "confirmed": 25,
+        "inferred": 6,
+        "unknown": 0
+      },
+      "failed_criteria": 1,
+      "name": "VeriCoding benchmark",
+      "open_panel_freeze_checks": [
+        "cost_chargeable",
+        "leakage_audit_done",
+        "panel_protocol_drafted",
+        "training_cost"
+      ],
+      "open_source_selection_checks": [
+        "artifacts_identifiable",
+        "failures_visible",
+        "license_clear",
+        "policy_headroom",
+        "verifier_reproduced"
+      ],
+      "supported_endpoints": [
+        "code_and_proof"
+      ],
+      "unresolved_check_count": 10,
+      "unresolved_criteria": 2
+    },
+    "verisoftbench": {
+      "candidates": 4,
+      "check_status_counts": {
+        "fail": 1,
+        "pass": 13,
+        "unresolved": 11
+      },
+      "criteria": {
+        "C1": "pass",
+        "C2": "unresolved",
+        "C3": "unresolved",
+        "C4": "pass",
+        "C5": "pass",
+        "C6": "unresolved",
+        "C7": "pass",
+        "C8": "fail"
+      },
+      "decision": "reserve",
+      "evidence_basis_counts": {
+        "confirmed": 25,
+        "inferred": 2,
+        "unknown": 0
+      },
+      "failed_criteria": 1,
+      "name": "VeriSoftBench",
+      "open_panel_freeze_checks": [
+        "cost_chargeable",
+        "leakage_audit_done",
+        "panel_protocol_drafted",
+        "training_cost"
+      ],
+      "open_source_selection_checks": [
+        "artifacts_identifiable",
+        "checker_and_probe_cost",
+        "failures_visible",
+        "license_clear",
+        "policy_headroom",
+        "repeatable_starting_policy",
+        "verifier_reproduced"
+      ],
+      "supported_endpoints": [
+        "proof_only"
+      ],
+      "unresolved_check_count": 11,
+      "unresolved_criteria": 3
+    },
+    "vero": {
+      "candidates": 5,
+      "check_status_counts": {
+        "fail": 0,
+        "pass": 18,
+        "unresolved": 7
+      },
+      "criteria": {
+        "C1": "pass",
+        "C2": "pass",
+        "C3": "unresolved",
+        "C4": "unresolved",
+        "C5": "pass",
+        "C6": "pass",
+        "C7": "pass",
+        "C8": "unresolved"
+      },
+      "decision": "reserve",
+      "evidence_basis_counts": {
+        "confirmed": 29,
+        "inferred": 4,
+        "unknown": 0
+      },
+      "failed_criteria": 0,
+      "name": "Vero",
+      "open_panel_freeze_checks": [
+        "leakage_audit_done",
+        "panel_protocol_drafted",
+        "training_cost"
+      ],
+      "open_source_selection_checks": [
+        "failures_visible",
+        "grouped_before_split",
+        "policy_headroom"
+      ],
+      "supported_endpoints": [
+        "code_and_proof",
+        "proof_only"
+      ],
+      "unresolved_check_count": 10,
+      "unresolved_criteria": 3
+    },
+    "verusage-verusyn": {
+      "candidates": 4,
+      "check_status_counts": {
+        "fail": 0,
+        "pass": 14,
+        "unresolved": 11
+      },
+      "criteria": {
+        "C1": "unresolved",
+        "C2": "unresolved",
+        "C3": "pass",
+        "C4": "pass",
+        "C5": "pass",
+        "C6": "unresolved",
+        "C7": "pass",
+        "C8": "unresolved"
+      },
+      "decision": "reserve",
+      "evidence_basis_counts": {
+        "confirmed": 24,
+        "inferred": 4,
+        "unknown": 0
+      },
+      "failed_criteria": 0,
+      "name": "VeruSAGE-Bench with VeruSyn training data",
+      "open_panel_freeze_checks": [
+        "cost_chargeable",
+        "leakage_audit_done",
+        "panel_protocol_drafted",
+        "training_cost"
+      ],
+      "open_source_selection_checks": [
+        "artifacts_identifiable",
+        "checker_and_probe_cost",
+        "failures_visible",
+        "freezable_without_outcomes",
+        "license_clear",
+        "verifier_reproduced"
+      ],
+      "supported_endpoints": [
+        "proof_only"
+      ],
+      "unresolved_check_count": 12,
+      "unresolved_criteria": 4
+    }
+  },
+  "survey_calls": {
+    "merged": 1,
+    "reject": 9,
+    "reserve": 3,
+    "selected": 1
+  }
+}

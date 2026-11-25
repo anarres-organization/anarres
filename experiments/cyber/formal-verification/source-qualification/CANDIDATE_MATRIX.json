@@ -1,0 +1,192 @@
+{
+  "schema_version": "anarres.formal-verification-candidate-matrix.v1",
+  "audit_date": "2026-11-24",
+  "status": "proposed candidates only. No panel is frozen and no held-out outcome is opened.",
+  "cost_basis_values": {
+    "measured": "measured by Anarres and recorded in this repository",
+    "published": "stated by the source paper, documentation, or release",
+    "estimate": "projected by this audit and not measured"
+  },
+  "sources": [
+    {
+      "source_id": "vero",
+      "native_unit": "repository instance, scored per specification",
+      "independent_unit": "repository (23 development, 10 qualification, 10 prospective)",
+      "grouping_keys": ["benchmark_id", "source_language", "source_repository and source_revision", "trusted-axiom presence", "curation date"],
+      "candidates": [
+        {"id": "vero-formal-track", "definition": "the 7 development repositories translated from Dafny, Verus, or Coq (693 specifications)", "endpoint_panels": ["proof_only", "code_and_proof"], "basis": "confirmed"},
+        {"id": "vero-python-track", "definition": "the 16 development repositories specified from Python libraries (801 specifications)", "endpoint_panels": ["proof_only", "code_and_proof"], "basis": "confirmed"},
+        {"id": "vero-trusted-axiom-regime", "definition": "the 3 development repositories that declare trusted axioms (flocq, piggybank-v2, verified-bitmasks, 350 specifications) against the 20 axiom-free repositories", "endpoint_panels": ["proof_only", "code_and_proof"], "basis": "confirmed"},
+        {"id": "vero-policy-support-stratum", "definition": "repositories with mixed outcomes for the trainable starting policy in the development measurement, matched on specification count", "endpoint_panels": ["proof_only", "code_and_proof"], "basis": "inferred"},
+        {"id": "vero-size-regime", "definition": "a few large repositories against many small ones at a matched specification budget", "endpoint_panels": ["proof_only", "code_and_proof"], "basis": "inferred"}
+      ],
+      "simple_baseline": {"id": "vero-uniform-mixture", "definition": "all 23 development repositories sampled in proportion to specification count"},
+      "published_selection_rule": null,
+      "held_out_boundary": {
+        "official_split": false,
+        "boundary": "repository-disjoint split frozen before any policy measurement (data/formal-verification/vero/repository-split.json). The target is the 10 prospective repositories (595 specifications), one panel per endpoint.",
+        "caveats": ["shared upstreams cross split lines", "public frontier-agent outcomes exist for prospective repositories in paper Table 4", "the target holds only 10 independent repositories", "policy support has been measured on only 4 of 23 development repositories"]
+      },
+      "evidence_diversity_beyond_vero": ["anchor source: Lean 4, repository-level tasks, two endpoints, and frozen curator specifications"],
+      "cost_estimates": [
+        {"item": "fresh grading", "value": "about 1 to 6 seconds per replay with a warm dependency cache", "basis": "measured"},
+        {"item": "hosted-policy repeated measurement", "value": "32 attempts, 177,798,149 model tokens, 134.54 USD planning cost, 13,471 agent-seconds", "basis": "measured"},
+        {"item": "benchmark storage", "value": "6.2 MB of instances plus Mathlib caches for 7 instances", "basis": "measured"},
+        {"item": "trainable-policy pilot", "value": "one 32-attempt development measurement per policy, comparable in attempt count to the existing measurements", "basis": "estimate"},
+        {"item": "candidate training", "value": "unknown until a trainable starting policy is named", "basis": "estimate"}
+      ],
+      "visible_published_outcomes": [
+        {"claim": "GPT-5.5 xhigh fully solves 27 of 43 instances in code-and-proof and 25 of 43 in proof-only, with 87.3 and 85.8 percent of specifications", "reference": "arXiv 2608.13522v1 Section 4.2", "basis": "confirmed"},
+        {"claim": "every frontier configuration passes exactly 17 of 23 piggybank specifications", "reference": "arXiv 2608.13522v1 Table 4 and Appendix E", "basis": "confirmed"},
+        {"claim": "GPT-5.6 Sol passes 1,653 of 2,776 strict development trials. Leanstral-1.5 passes 0 of 2,776.", "reference": "data/formal-verification/vero/results", "basis": "confirmed"}
+      ],
+      "proposed_held_out_decision": {
+        "question": "Which development-repository composition, trained from one trainable starting policy, gives the largest strict-pass improvement on the 10 prospective repositories, separately for proof-only and code-and-proof?",
+        "target": "10 prospective repositories, 595 specifications per endpoint",
+        "status": "proposed",
+        "outcome_opened": false
+      }
+    },
+    {
+      "source_id": "vericoding",
+      "native_unit": "single task file with one specification",
+      "independent_unit": "source family within one language, with cross-language source-id groups kept together",
+      "grouping_keys": ["language", "source family", "source-id across languages", "qa-near-duplicate-group"],
+      "candidates": [
+        {"id": "vericoding-dafny-apps", "definition": "Dafny APPS translations (677 compiling tasks)", "endpoint_panels": ["code_and_proof"], "basis": "confirmed"},
+        {"id": "vericoding-dafny-dafnybench", "definition": "Dafny DafnyBench-derived tasks (443 compiling)", "endpoint_panels": ["code_and_proof"], "basis": "confirmed"},
+        {"id": "vericoding-dafny-numpy-triple", "definition": "Dafny NumPy-triple tasks (603 compiling)", "endpoint_panels": ["code_and_proof"], "basis": "confirmed"},
+        {"id": "vericoding-verus-families", "definition": "the analogous Verus panel: APPS 536, NumPy-triple 581, DafnyBench 440", "endpoint_panels": ["code_and_proof"], "basis": "confirmed"}
+      ],
+      "simple_baseline": {"id": "vericoding-uniform-mixture", "definition": "size-matched uniform mixture of all non-target families in the same language"},
+      "published_selection_rule": null,
+      "held_out_boundary": {
+        "official_split": false,
+        "boundary": "hold out whole families per language (for example Verina and HumanEval), removing any task that shares a source-id or near-duplicate group with the target",
+        "caveats": ["HumanEval and CLEVER derive from the same problems", "no chronology key exists", "reference solutions are public for most families"]
+      },
+      "evidence_diversity_beyond_vero": ["native Dafny and Verus verification", "large single-file task pools per language"],
+      "cost_estimates": [
+        {"item": "verifier", "value": "at most 60 seconds compile and 120 seconds verify per attempt", "basis": "published"},
+        {"item": "published baselines", "value": "about 25,000 USD in hosted API cost", "basis": "published"},
+        {"item": "hardened grader", "value": "new grader and control suite for three languages", "basis": "estimate"}
+      ],
+      "visible_published_outcomes": [
+        {"claim": "model-union success of 82.2 percent on Dafny, 44.3 percent on Verus, and 26.8 percent on Lean", "reference": "arXiv 2509.22908v1 Table 3", "basis": "confirmed"},
+        {"claim": "gpt-5 solves 142 of 536 Verus APPS tasks", "reference": "vericoding_results_v1.csv at the pin", "basis": "confirmed"}
+      ],
+      "proposed_held_out_decision": {
+        "question": "Within one language, which source family gives the largest code-and-proof improvement on held-out families for a trainable starting policy?",
+        "target": "held-out families per language",
+        "status": "proposed",
+        "outcome_opened": false
+      }
+    },
+    {
+      "source_id": "verisoftbench",
+      "native_unit": "theorem-level proof obligation in its original file",
+      "independent_unit": "repository, with ArkLib and VCV-io as one cluster",
+      "grouping_keys": ["lean_root", "rel_path", "category", "nesting_depth", "subset_aristotle"],
+      "candidates": [
+        {"id": "verisoftbench-compiler", "definition": "Compiler-category repositories", "endpoint_panels": ["proof_only"], "basis": "confirmed"},
+        {"id": "verisoftbench-type-systems", "definition": "Type-systems-category repositories", "endpoint_panels": ["proof_only"], "basis": "confirmed"},
+        {"id": "verisoftbench-applied", "definition": "Applied-verification-category repositories", "endpoint_panels": ["proof_only"], "basis": "confirmed"},
+        {"id": "verisoftbench-depth", "definition": "shallow (nesting depth 1 to 3) against deep (7 or more) tasks from the same non-held-out repositories", "endpoint_panels": ["proof_only"], "basis": "confirmed"}
+      ],
+      "simple_baseline": {"id": "verisoftbench-uniform-mixture", "definition": "uniform mixture of all non-held-out repository tasks at a matched interaction budget"},
+      "published_selection_rule": null,
+      "held_out_boundary": {
+        "official_split": false,
+        "boundary": "hold out whole repositories, keeping ArkLib and VCV-io together and excluding the Forall boundary tasks",
+        "caveats": ["all target proofs are public on GitHub", "the released pool is about 10 percent of eligible obligations"]
+      },
+      "evidence_diversity_beyond_vero": ["native Lean software developments such as compilers, type systems, and cryptographic protocols", "22 distinct Lean toolchains"],
+      "cost_estimates": [
+        {"item": "toolchain image", "value": "about 110 GB and about 1 hour to build", "basis": "published"},
+        {"item": "checker", "value": "600-second timeout per candidate in code, memory undocumented", "basis": "published"},
+        {"item": "strict checker", "value": "new kernel axiom audit and controls", "basis": "estimate"}
+      ],
+      "visible_published_outcomes": [
+        {"claim": "Gemini-3-Pro solves 41.0 percent with curated context and 34.8 percent with full-repository context at Pass@8 with 3 repair rounds", "reference": "arXiv 2602.18307v2 Table 3", "basis": "confirmed"},
+        {"claim": "GPT-5.6 Sol has 97 rule-accepted and 86 strict passes on the 100-task Aristotle subset", "reference": "astrio-labs/forall-verisoftbench at bac4c6482fca597d965f9c18e78abacf0ad6204e", "basis": "confirmed"}
+      ],
+      "proposed_held_out_decision": {
+        "question": "Which repository category or depth composition gives the largest proof-only improvement on held-out repositories?",
+        "target": "held-out repositories",
+        "status": "proposed",
+        "outcome_opened": false
+      }
+    },
+    {
+      "source_id": "oss-verify",
+      "native_unit": "statement about exact binary bytes",
+      "independent_unit": "library (32 to 34 libraries with proofs)",
+      "grouping_keys": ["project", "harness", "build", "statement kind", "proof origin", "release tag"],
+      "candidates": [
+        {"id": "oss-verify-reuse-in-group", "definition": "open statements in entry points that already have a proof, with that proof library in context (524 statements in 60 entry points by the index, or 522 in 62 counting unindexed in-tree proofs)", "endpoint_panels": ["proof_only"], "basis": "confirmed"},
+        {"id": "oss-verify-cold-entry-point", "definition": "open agreement or halts statements in entry points without any proof", "endpoint_panels": ["proof_only"], "basis": "confirmed"},
+        {"id": "oss-verify-kind-stratified", "definition": "train on one statement kind and evaluate another kind in held-out libraries", "endpoint_panels": ["proof_only"], "basis": "inferred"},
+        {"id": "oss-verify-reduced-tier", "definition": "rebuilt reduced tasks in the style of the 36 unreleased small tasks", "endpoint_panels": ["proof_only"], "basis": "inferred"}
+      ],
+      "simple_baseline": {"id": "oss-verify-retrieve-and-transplant", "definition": "copy the nearest published proof library, retarget names, and run oft check"},
+      "published_selection_rule": null,
+      "held_out_boundary": {
+        "official_split": false,
+        "boundary": "hold out libraries, co-assigning libraries whose proofs share submissions, or hold out statements proved after a frozen release",
+        "caveats": ["most proof content covers the shared C runtime, allocator, and sanitizer", "later proofs are themselves public"]
+      },
+      "evidence_diversity_beyond_vero": ["Rocq", "compiled RISC-V machine code of real OSS-Fuzz targets", "equivalence, termination, bound, and decidability statements", "counterexample endpoint with real bugs"],
+      "cost_estimates": [
+        {"item": "proof check", "value": "up to 20 GiB on 16 cores and 30 minutes to several CPU-hours per proof", "basis": "published"},
+        {"item": "storage", "value": "repository about 4.4 GB, all binaries 54.5 GB, checker image 1.33 GB", "basis": "published"},
+        {"item": "reduced-task tier", "value": "rebuilding small tasks from the appendix description", "basis": "estimate"}
+      ],
+      "visible_published_outcomes": [
+        {"claim": "Claude proved 239 entry points in 123 libraries in production", "reference": "Anthropic report and appendix", "basis": "confirmed"},
+        {"claim": "90 entry points in 32 libraries have released proofs", "reference": "index/proofs.tsv at the pin", "basis": "confirmed"}
+      ],
+      "proposed_held_out_decision": {
+        "question": "Which statement pool gives the largest proof-only improvement on statements proved after a frozen release in held-out libraries?",
+        "target": "statements proved after a frozen release",
+        "status": "proposed",
+        "outcome_opened": false
+      }
+    },
+    {
+      "source_id": "verusage-verusyn",
+      "native_unit": "one proof function in a standalone Verus file",
+      "independent_unit": "trained data-composition arm for training effects, and project for task grouping (8 upstream repositories)",
+      "grouping_keys": ["project prefix", "module path", "with-lemma or no-lemma variant", "chronology"],
+      "candidates": [
+        {"id": "verusyn-safe", "definition": "SAFE SFT data (sft_safe_25k)", "endpoint_panels": ["proof_only"], "basis": "confirmed"},
+        {"id": "verusyn-part1", "definition": "VeruSyn Part-1 data (sft_part1_6.9M)", "endpoint_panels": ["proof_only"], "basis": "confirmed"},
+        {"id": "verusyn-part2-algorithmic", "definition": "Part-2 algorithmic agent trajectories (9,040 rows)", "endpoint_panels": ["proof_only"], "basis": "confirmed"},
+        {"id": "verusyn-part2-system", "definition": "Part-2 system agent trajectories (843 rows from NR, ST, and VE)", "endpoint_panels": ["proof_only"], "basis": "confirmed"}
+      ],
+      "simple_baseline": {"id": "verusyn-matched-random", "definition": "matched-exposure random mixture of the released candidate datasets"},
+      "published_selection_rule": {"id": "verusyn-sequential", "definition": "Part-1 followed by Part-2, the paper's full VeruSyn composition", "basis": "confirmed"},
+      "held_out_boundary": {
+        "official_split": false,
+        "boundary": "the paper trains on NR, ST, and VE and evaluates the other six families (560 tasks). That target is already scored, so a prospective target must be Gale, a fresh post-pin slice, or a different starting policy.",
+        "caveats": ["Gale has only 45 tasks from one project", "the no-lemma variant repeats functions from the scored families"]
+      },
+      "evidence_diversity_beyond_vero": ["native Verus with SMT", "Rust systems code: OS kernels, allocator, distributed systems, storage", "published data-composition training study on an open base model"],
+      "cost_estimates": [
+        {"item": "published SFT", "value": "about 48 hours on 32 H200 GPUs for Part-1 and about 2 hours for Part-2 at 32B", "basis": "published"},
+        {"item": "published evaluation", "value": "about 50 hours on 32 H200 GPUs including generation", "basis": "published"},
+        {"item": "training data storage", "value": "about 16.1 GB across the five files", "basis": "published"},
+        {"item": "smaller-policy panel", "value": "LoRA SFT of a 7B-class model on Part-2-sized subsets", "basis": "estimate"}
+      ],
+      "visible_published_outcomes": [
+        {"claim": "on the 560-task target at 100 samples: raw Qwen2.5-Coder-32B 10 percent, Part-1 only 15, Part-2 only 35, full VeruSyn 39", "reference": "arXiv 2602.04910v3 Table 1", "basis": "confirmed"},
+        {"claim": "Claude Opus 4.5 in the hands-off agent solves 797 of 849 tasks", "reference": "leaderboard/data/verusage-bench-results.json at the pin", "basis": "confirmed"}
+      ],
+      "proposed_held_out_decision": {
+        "question": "Which released data composition, at matched exposure, gives the largest proof-only improvement for a trainable starting policy on a target that Table 1 has not scored?",
+        "target": "not yet chosen among Gale, a fresh post-pin slice, or a different starting policy",
+        "status": "proposed",
+        "outcome_opened": false
+      }
+    }
+  ]
+}

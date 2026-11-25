@@ -1,0 +1,451 @@
+{
+  "schema_version": "anarres.formal-verification-source-qualification-sources.v1",
+  "audit_date": "2026-11-24",
+  "basis_values": {
+    "confirmed": "checked against the named primary source at the stated revision or version",
+    "inferred": "reasoned from primary material but not directly checked",
+    "unknown": "not established by this audit"
+  },
+  "redistribution": "No dataset, proof corpus, binary, checkpoint, trajectory, or paper asset is redistributed. These records contain identities, hashes, counts, and short factual descriptions only.",
+  "sources": [
+    {
+      "source_id": "vero",
+      "name": "Vero",
+      "setting": "repository-level Lean 4 proof and joint code-and-proof tasks",
+      "papers": [
+        {
+          "title": "Vero: Can AI Agents Build Formally Verified Software Repositories?",
+          "arxiv": "2608.13522",
+          "version": "v1",
+          "date": "2026-08-13",
+          "uri": "https://arxiv.org/abs/2608.13522v1",
+          "license": "CC BY-SA 4.0",
+          "basis": "confirmed"
+        }
+      ],
+      "repositories": [
+        {
+          "uri": "https://github.com/sunblaze-ucb/vero",
+          "revision": "0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+          "revision_date": "2026-08-17",
+          "upstream_head_on_audit_date": "0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09",
+          "license": "Apache-2.0 (LICENSE, sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30). Benchmark exceptions: flocq LGPL-3.0-or-later, huffman LGPL-2.1-or-later, portion LGPL-3.0-or-later",
+          "notes": "Unmerged upstream fix branches after the pin touch Flocq, DedekindReals, verdict, Unicode, sortedcontainers, galoistools, the grader, and instruction templates.",
+          "basis": "confirmed"
+        }
+      ],
+      "datasets": [
+        {
+          "name": "Vero benchmark instances",
+          "location": "benchmarks/ in the pinned repository (git tree 21f18407dc780b2500f4a81be93261c8b4426bfb)",
+          "license": "Apache-2.0 with the three LGPL exceptions above",
+          "size": "43 repository instances, 237 modules, 743 scored APIs, 2,705 scored specifications. The benchmarks/ tree holds 4,377,739 bytes of git blobs.",
+          "basis": "confirmed"
+        }
+      ],
+      "checkpoints": [
+        {
+          "name": "no released Vero-trained checkpoint",
+          "open_weights": false,
+          "notes": "All published Vero baselines are hosted proprietary agents.",
+          "basis": "confirmed"
+        },
+        {
+          "name": "mistralai/Leanstral-1.5-119B-A6B",
+          "revision": "81592da95d94ab0439bfce16df1d55b402e598b6",
+          "open_weights": true,
+          "license": "Apache-2.0",
+          "notes": "Open-weight starting policy measured by Anarres at 0 of 2,776 strict specification trials.",
+          "basis": "confirmed"
+        },
+        {
+          "name": "GPT-5.6 Sol through Codex 0.154.0",
+          "open_weights": false,
+          "notes": "Hosted policy measured by Anarres. Its weights are unavailable, so Anarres cannot train it. A report that OpenAI is winding down fine-tuning was not checked against a primary source here.",
+          "basis": "confirmed"
+        }
+      ],
+      "toolchains": [
+        {
+          "component": "Lean 4",
+          "version": "v4.29.1 in 64 of 65 lean-toolchain files. The 65th, reference/BankLedger-solution-old outside the suite, names v4.29.0-rc4.",
+          "basis": "confirmed"
+        },
+        {
+          "component": "Mathlib",
+          "version": "v4.29.1 for 7 instances",
+          "basis": "confirmed"
+        },
+        {
+          "component": "Anarres runtime image",
+          "version": "elan 4.2.3 on ubuntu:24.04 (data/formal-verification/vero/runtime/Dockerfile)",
+          "basis": "confirmed"
+        }
+      ],
+      "verifier": {
+        "identity": "vero grader (src/vero/evaluation) at the pinned revision, plus the Anarres trusted kernel re-check AnarresAxiomCheck.lean",
+        "entrypoint": "vero run benchmark=<id> agent=<agent> mode=<proof|codeproof>",
+        "success_semantics": "Fresh re-render from the source instance, marker-slot overlay, Lake build, and an axiom check per scored theorem against the allowlist plus per-instance trusted axioms",
+        "basis": "confirmed"
+      },
+      "training_code": {
+        "status": "none released",
+        "basis": "confirmed"
+      },
+      "anarres_records": [
+        "experiments/cyber/formal-verification/VERO_SOURCE_QUALIFICATION.md",
+        "data/formal-verification/vero/source-pin.json",
+        "data/formal-verification/vero/repository-split.json",
+        "data/formal-verification/vero/results/development-policy-measurement.v1.json",
+        "data/formal-verification/vero/results/repeated-measurement.codex-sol-v2/measurement.json"
+      ]
+    },
+    {
+      "source_id": "vericoding",
+      "name": "VeriCoding benchmark",
+      "setting": "single-file verified program synthesis in Dafny, Verus, and Lean 4",
+      "papers": [
+        {
+          "title": "A benchmark for vericoding: formally verified program synthesis",
+          "arxiv": "2509.22908",
+          "version": "v1",
+          "date": "2025-09-26",
+          "uri": "https://arxiv.org/abs/2509.22908v1",
+          "basis": "confirmed"
+        }
+      ],
+      "repositories": [
+        {
+          "uri": "https://github.com/Beneficial-AI-Foundation/vericoding-benchmark",
+          "revision": "387cd69996792d452ead7b0460f36ee4c5cdd148",
+          "revision_date": "2026-06-05",
+          "upstream_head_on_audit_date": "387cd69996792d452ead7b0460f36ee4c5cdd148",
+          "license": "MIT (LICENSE text, Copyright 2025 Beneficial AI Foundation). Per-family upstream licenses are listed in paper Table 4. The verified-cogen family is marked 'Permission requested'.",
+          "basis": "confirmed"
+        },
+        {
+          "uri": "https://github.com/Beneficial-AI-Foundation/vericoding",
+          "revision": "b265a3b2bce31e09d264306f419e810d02f98f44",
+          "revision_date": "2026-06-05",
+          "role": "verifier harness (separate repository, upstream head on the audit date)",
+          "license": "MIT (LICENSE, Copyright 2025 Beneficial AI Foundation) at b265a3b2bce31e09d264306f419e810d02f98f44",
+          "notes": "The revision used for the paper runs is unknown. The last commit on or before the paper date is fcbab98359c36c66da7c26a3bd5b5300b2390b71. The README says some scripts are stripped-down versions. The revision record is inferred because the paper revision is unknown. The license at the recorded revision is confirmed.",
+          "basis": "inferred"
+        }
+      ],
+      "datasets": [
+        {
+          "name": "VeriCoding task files and results",
+          "location": "specs/, jsonl/, vericoding_benchmark_v1.csv, vericoding_results_v1.csv, and vericoded/ in the pinned repository",
+          "license": "MIT plus upstream family licenses",
+          "size": "Dafny 3,029 tasks (2,334 compiling), Verus 2,334 (2,166 compiling), Lean 7,141 (6,368 compiling). 55,397 result rows over 9 models. Repository checkout 113 MB.",
+          "basis": "confirmed"
+        }
+      ],
+      "checkpoints": [
+        {
+          "name": "no released VeriCoding-trained checkpoint",
+          "open_weights": false,
+          "notes": "The paper reports prompting results only, without reinforcement learning or fine-tuning.",
+          "basis": "confirmed"
+        }
+      ],
+      "toolchains": [
+        {
+          "component": "Dafny",
+          "version": "4.11.0",
+          "basis": "confirmed"
+        },
+        {
+          "component": "Verus with vstd",
+          "version": "0.2025.08.25",
+          "basis": "confirmed"
+        },
+        {
+          "component": "Lean 4 with Mathlib",
+          "version": "v4.23.0-rc2",
+          "basis": "confirmed"
+        },
+        {
+          "component": "Z3",
+          "version": "bundled with the Dafny and Verus releases, version not stated",
+          "basis": "unknown"
+        }
+      ],
+      "verifier": {
+        "identity": "language-specific verifier calls in the unpinned harness repository (src/vericoding/core/language_tools.py) with a regex cheat check",
+        "entrypoint": "dafny verify, verus --no-verify then verus, or lake build on the filled task file",
+        "success_semantics": "Verifier exit code 0 and no banned pattern inside the model-editable sections",
+        "basis": "inferred"
+      },
+      "training_code": {
+        "status": "none released",
+        "basis": "confirmed"
+      }
+    },
+    {
+      "source_id": "verisoftbench",
+      "name": "VeriSoftBench",
+      "setting": "theorem-level Lean 4 proofs inside 23 real verification repositories",
+      "papers": [
+        {
+          "title": "VeriSoftBench: Repository-Scale Formal Verification Benchmarks for Lean",
+          "arxiv": "2602.18307",
+          "version": "v2",
+          "date": "2026-09-22",
+          "uri": "https://arxiv.org/abs/2602.18307v2",
+          "notes": "v1 dated 2026-02-20. v2 is marked as a COLM 2026 conference paper.",
+          "basis": "confirmed"
+        }
+      ],
+      "repositories": [
+        {
+          "uri": "https://github.com/utopia-group/VeriSoftBench",
+          "revision": "8f5e8b36ab5fbdec6fd8d8f4ee0580d29647097a",
+          "revision_date": "2026-10-13",
+          "upstream_head_on_audit_date": "8f5e8b36ab5fbdec6fd8d8f4ee0580d29647097a",
+          "license": "MIT for the evaluation code. Benchmark repositories keep their own licenses: Apache-2.0 (10), MIT (9), LGPL-2.1 (1), GPL-3.0 (1), zlib (1), and written consent only (IntroEffects).",
+          "basis": "confirmed"
+        }
+      ],
+      "datasets": [
+        {
+          "name": "data/verisoftbench.jsonl",
+          "location": "pinned repository and Hugging Face maxRyeery/VeriSoftBench at 741c2a14e68a5293b70ef874ce8b7876ce053173",
+          "sha256": "ea584250021fbfaddc060834be2e05b9b2fae4f720c770a9932c71d039a50961",
+          "license": "MIT (dataset card)",
+          "size": "500 tasks, 9,215,308 bytes. Lean sources are cloned from 23 upstream repositories at commits pinned in repos.json.",
+          "basis": "confirmed"
+        }
+      ],
+      "checkpoints": [
+        {
+          "name": "Goedel-Prover-V2-32B",
+          "open_weights": true,
+          "notes": "Only open-weight published result, about 5 percent of tasks. Its open-weight evaluation scripts exist only on the unmerged branch jocelyn/goedel-eval.",
+          "basis": "confirmed"
+        }
+      ],
+      "toolchains": [
+        {
+          "component": "Lean 4",
+          "version": "one toolchain per repository, 22 distinct versions from v4.8.0-rc1 to v4.26.0 plus a lean-mlir nightly",
+          "basis": "confirmed"
+        },
+        {
+          "component": "Mathlib",
+          "version": "per-repository revisions for 18 of 23 repositories",
+          "basis": "confirmed"
+        },
+        {
+          "component": "Docker image",
+          "version": "ubuntu:22.04 with elan, about 110 GB per the README",
+          "basis": "confirmed"
+        }
+      ],
+      "verifier": {
+        "identity": "evaluate.py and core/lean_interface.py LeanREPL.verify_proof at the pinned revision",
+        "entrypoint": "lake env lean on a temporary file that holds the original context, the fixed statement, and the model proof",
+        "success_semantics": "No sorry or admit by regex and no Lean error. Warnings are ignored. There is no axiom audit.",
+        "basis": "confirmed"
+      },
+      "training_code": {
+        "status": "none released",
+        "basis": "confirmed"
+      }
+    },
+    {
+      "source_id": "oss-verify",
+      "name": "OSS Verify proofs",
+      "setting": "Rocq statements and proofs about compiled RISC-V OSS-Fuzz entry points",
+      "papers": [
+        {
+          "title": "LLMs are making formal software verification feasible at a much larger scale",
+          "arxiv": null,
+          "version": "web report published 2026-10-22, modified 2026-11-20",
+          "date": "2026-10-22",
+          "uri": "https://www.anthropic.com/research/formal-verification",
+          "notes": "No arXiv paper exists. The appendix is at https://assets.claude.com/044c0e76168185e89a7d069ac71a55db70e2dc10.pdf (updated 2026-11-17).",
+          "basis": "confirmed"
+        }
+      ],
+      "repositories": [
+        {
+          "uri": "https://github.com/theorem-labs/oss-verify-proofs",
+          "revision": "89eb8357aef1a7c20efddbf4f39c2c0fb9c764a5",
+          "revision_date": "2026-11-17",
+          "upstream_head_on_audit_date": "ad0a85d4c37bc1c985ef72826a02ee33b01cbbd6",
+          "license": "MIT for Theorem materials. Proofs derived from Anthropic proofs are Apache-2.0 OR MIT. Sources and binaries keep upstream licenses.",
+          "notes": "Untagged commit between v2026.11.2 and v2026.11.3. Its index is byte-identical to v2026.11.2. 24 proof directories in the tree are still indexed as open.",
+          "basis": "confirmed"
+        },
+        {
+          "uri": "https://github.com/theorem-labs/rocq-linux-process-semantics",
+          "revision": "f1006fe8178338a499b5e5c41be83006c4edd058",
+          "revision_date": "2026-10-19",
+          "role": "Linux process semantics named by release.yaml at the pinned OSS Verify revision",
+          "license": "MIT",
+          "basis": "confirmed"
+        }
+      ],
+      "datasets": [
+        {
+          "name": "index/*.tsv and projects/ statements and proofs",
+          "location": "pinned repository, with binaries attached to GitHub releases",
+          "license": "as for the repository",
+          "size": "434 libraries with statements, 2,183 entry points, 8,718 binaries (54,483,782,064 bytes), 20,421 statements, 526 indexed proofs. Repository about 4.4 GB.",
+          "basis": "confirmed"
+        }
+      ],
+      "checkpoints": [
+        {
+          "name": "no open-weight result",
+          "open_weights": false,
+          "notes": "All published results use Claude models on tasks that are not released.",
+          "basis": "confirmed"
+        }
+      ],
+      "toolchains": [
+        {
+          "component": "Rocq",
+          "version": "9.2.0 with stdpp 1.13.0 and Flocq 4.2.2",
+          "basis": "confirmed"
+        },
+        {
+          "component": "checker image",
+          "version": "ghcr.io/theorem-labs/oss-fuzz-theorems-checker@sha256:063f93261f11ba449f1c3825884fadc65cf1fc836d4a3ee534633211abbdc3eb",
+          "basis": "confirmed"
+        },
+        {
+          "component": "runner image",
+          "version": "ghcr.io/theorem-labs/oss-fuzz-theorems-runner@sha256:2eb5afc7b37095cbab0e290966b991cda8bdedbefe8fdb4ce44f56d0c30834c0",
+          "basis": "confirmed"
+        }
+      ],
+      "verifier": {
+        "identity": "oft check (tools/oft/check.py) in the pinned checker image",
+        "entrypoint": "./oft check <project>/<harness> --parts statements,proofs",
+        "success_semantics": "A generated wrapper type-checks at the published statement type and every Print Assumptions entry is in toolchain/allowed-axioms.txt",
+        "basis": "confirmed"
+      },
+      "training_code": {
+        "status": "none released",
+        "basis": "confirmed"
+      },
+      "anarres_records": [
+        "experiments/cyber/formal-verification/SOURCE_QUALIFICATION.md",
+        "data/formal-verification/oss-verify/source-pin.json"
+      ]
+    },
+    {
+      "source_id": "verusage-verusyn",
+      "name": "VeruSAGE-Bench with VeruSyn training data",
+      "setting": "Verus proof synthesis for functions extracted from real Rust systems projects",
+      "papers": [
+        {
+          "title": "VeruSAGE-Bench: A Benchmark Suite for Rust System Verification",
+          "arxiv": "2512.18436",
+          "version": "v3",
+          "date": "2026-11-14",
+          "uri": "https://arxiv.org/abs/2512.18436v3",
+          "basis": "confirmed"
+        },
+        {
+          "title": "Reducing the Costs of Proof Synthesis on Rust Systems by Scaling Up a Seed Training Set",
+          "arxiv": "2602.04910",
+          "version": "v3",
+          "date": "2026-05-09",
+          "uri": "https://arxiv.org/abs/2602.04910v3",
+          "basis": "confirmed"
+        }
+      ],
+      "repositories": [
+        {
+          "uri": "https://github.com/microsoft/verus-proof-synthesis",
+          "revision": "cbf9c0c6337b224fd8e5b7cb4e01ae65c0f98bc1",
+          "revision_date": "2026-08-24",
+          "upstream_head_on_audit_date": "cbf9c0c6337b224fd8e5b7cb4e01ae65c0f98bc1",
+          "license": "MIT (LICENSE, Copyright 2024 Microsoft). Upstream projects: six report MIT or Apache-2.0. Anvil, verified-memory-allocator, and verified-nrkernel report NOASSERTION.",
+          "basis": "confirmed"
+        }
+      ],
+      "datasets": [
+        {
+          "name": "VeruSAGE-Bench tasks.jsonl",
+          "location": "benchmarks/VeruSAGE-Bench/tasks.jsonl in the pinned repository",
+          "sha256": "d9b23ed7066ea6a7d782b98d3660f1fee514633b6a3e12b2801c3691f1cf689a",
+          "license": "MIT repository license with upstream project licenses",
+          "size": "849 tasks with reference proofs across 9 project prefixes from 8 upstream repositories",
+          "basis": "confirmed"
+        },
+        {
+          "name": "VeruSAGE-Bench tasks-no-lemma.jsonl",
+          "location": "benchmarks/VeruSAGE-Bench/tasks-no-lemma.jsonl in the pinned repository",
+          "sha256": "dd3b18cb90a20e6b80bcf47cd88d439ed0309a952ff1fd4090148cf98cdae878",
+          "license": "MIT repository license with upstream project licenses",
+          "size": "460 tasks without reference proofs",
+          "basis": "confirmed"
+        },
+        {
+          "name": "microsoft/Verus_Training_Data",
+          "location": "https://huggingface.co/datasets/microsoft/Verus_Training_Data",
+          "revision": "d3a283fabb152ceee6e3e350a30d37499ece4f90",
+          "license": "none stated in the dataset card or metadata",
+          "size": "sft_safe_25k 59.1 MB, sft_part1_6.9M 15.68 GB, sft_part2_4557 95.1 MB, algorithmic_trajectory_9040 134.5 MB, system_trajectory_843 94.3 MB",
+          "basis": "confirmed"
+        }
+      ],
+      "checkpoints": [
+        {
+          "name": "Qwen2.5-Coder-32B-Instruct",
+          "open_weights": true,
+          "notes": "Base model of the published VeruSyn data-composition study.",
+          "basis": "confirmed"
+        },
+        {
+          "name": "VeruSyn fine-tuned weights",
+          "open_weights": false,
+          "notes": "No released checkpoint was found.",
+          "basis": "inferred"
+        }
+      ],
+      "toolchains": [
+        {
+          "component": "Verus",
+          "version": "unpinned for VeruSAGE-Bench. The README recommends a Verus version from September 2025 or later. The repository Dockerfile pins verus-lang/verus 33269ac6a0ea33a08109eefe5016c1fdd0ce9fbd for the AutoVerus artifact.",
+          "basis": "confirmed"
+        },
+        {
+          "component": "Z3",
+          "version": "fetched by the Verus build",
+          "basis": "unknown"
+        }
+      ],
+      "verifier": {
+        "identity": "Verus with the verusage/utils.py code-change guard and the Lynette diff check",
+        "entrypoint": "verus --crate-type=lib <task>.rs",
+        "success_semantics": "Verus verifies the file and the guard finds no added assume, admit, external_body, axiom, or specification change",
+        "basis": "confirmed"
+      },
+      "training_code": {
+        "status": "VeruSyn training and evaluation code not found in the repository",
+        "basis": "inferred"
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "public-evidence-lps-pin",
+      "summary": "experiments/cyber/formal-verification/public-evidence/SOURCES.json pins Rocq Linux process semantics at c7fbb82e7392ffcf88aca1e3c975dbf0aec155a5. Every audited OSS Verify revision checks proofs against f1006fe8178338a499b5e5c41be83006c4edd058, which is 407 commits earlier. data/formal-verification/oss-verify/source-pin.json already names f1006fe8.",
+      "action": "Recorded here only. The public-evidence record is pinned by its own MANIFEST.sha256, so a correction belongs in a separate change that updates that manifest.",
+      "basis": "confirmed"
+    },
+    {
+      "id": "public-evidence-oss-verify-pin",
+      "summary": "The same public-evidence record pins OSS Verify at 8304a2c02e48c229572d97530ffb46138d1fa5fd, an untagged commit whose index equals v2026.11.1. Issue #65 pins 89eb8357aef1a7c20efddbf4f39c2c0fb9c764a5, and source-pin.json pins tag v2026.11.1.",
+      "action": "Recorded as an unresolved re-pin decision for OSS Verify.",
+      "basis": "confirmed"
+    }
+  ],
+  "revision_date_note": "revision_date values are UTC commit dates"
+}
