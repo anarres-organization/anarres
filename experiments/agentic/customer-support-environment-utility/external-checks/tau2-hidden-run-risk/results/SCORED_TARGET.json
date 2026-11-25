@@ -1,0 +1,23 @@
+{
+  "absolute_pass_rate_error": 0.003654970760234022,
+  "claim_boundary": "This frozen audit predicts task-level failures for one held-out inference-time model run from three prior public model runs. It is not evidence about RL training gains or environment selection.",
+  "constant_brier": 0.24378067183064875,
+  "failure_prevalence": 0.5789473684210527,
+  "freeze_sha256": "625d1dd3dcec4d9082a9eb317054ff7177dc22e8d167c39e6621acda2ac22fca",
+  "observed_pass_rate": 0.42105263157894735,
+  "predicted_pass_rate": 0.42470760233918137,
+  "required_action_count_auc": 0.8284011994949495,
+  "required_action_top20_failure_capture": 0.3371212121212121,
+  "schema_version": 1,
+  "status": "FROZEN_TARGET_SCORED",
+  "target_attempt_count": 456,
+  "target_file": "o4-mini-2025-04-16_telecom_default_gpt-4.1-2025-04-14_4trials.json",
+  "target_file_sha256": "1f46a6f296694bdb3ae203e6b379cdada0b8f17b648a4cf90d6343de1f1fb070",
+  "target_model": "o4-mini",
+  "task_count": 114,
+  "task_failure_auc": 0.8820233585858586,
+  "task_failure_brier": 0.1366349902534113,
+  "top20_failure_capture": 0.3371212121212121,
+  "top20_failure_precision": 0.967391304347826,
+  "top20_precision_lift": 1.6709486166007903
+}

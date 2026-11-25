@@ -1,0 +1,40 @@
+{
+  "claim_boundary": "Intervals resample the 114 observed telecom tasks and describe uncertainty for this frozen public target. They do not establish transfer to a new training stack.",
+  "freeze_sha256": "625d1dd3dcec4d9082a9eb317054ff7177dc22e8d167c39e6621acda2ac22fca",
+  "intervals": {
+    "absolute_pass_rate_error": {
+      "lower_95": 0.0014619883040936088,
+      "median": 0.027046783625730875,
+      "upper_95": 0.08698830409356728
+    },
+    "action_auc": {
+      "lower_95": 0.7601601082992959,
+      "median": 0.8288238146550699,
+      "upper_95": 0.8855506138160633
+    },
+    "auc_delta": {
+      "lower_95": 0.0014140180099919395,
+      "median": 0.05263417712212187,
+      "upper_95": 0.11258102996374146
+    },
+    "brier_improvement": {
+      "lower_95": 0.0805604983157211,
+      "median": 0.1070943837420061,
+      "upper_95": 0.1335021887076365
+    },
+    "history_auc": {
+      "lower_95": 0.8375141230582734,
+      "median": 0.8820851937423639,
+      "upper_95": 0.9205309588926651
+    },
+    "top20_failure_capture": {
+      "lower_95": 0.2289967284623773,
+      "median": 0.3359683794466403,
+      "upper_95": 0.4452310154010267
+    }
+  },
+  "samples": 5000,
+  "schema_version": 1,
+  "seed": 20261122,
+  "status": "DESCRIPTIVE_TASK_CLUSTER_BOOTSTRAP"
+}

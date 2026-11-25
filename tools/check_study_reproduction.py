@@ -43,6 +43,11 @@ CHECKS = (
         "test_*.py",
     ),
     python_check(
+        "customer-support hidden-run risk audit",
+        "experiments/agentic/customer-support-environment-utility/external-checks/tau2-hidden-run-risk",
+        "test_reproduce.py",
+    ),
+    python_check(
         "mathematics study integrity",
         "experiments/mathematics/environment-utility",
         "scripts/audit_study.py",
