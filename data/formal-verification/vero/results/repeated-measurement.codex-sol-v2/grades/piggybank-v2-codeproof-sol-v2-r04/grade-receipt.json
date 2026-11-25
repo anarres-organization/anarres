@@ -1,0 +1,179 @@
+{
+  "agent_wall_seconds": 344.76475908397697,
+  "attempt_id": "piggybank-v2-codeproof-sol-v2-r04",
+  "authorization_sha256": "60c83557a83318ae4a082e7db2a13adc3cb6a86583c27d73da4ca7e667b0f73a",
+  "benchmark_id": "piggybank-v2",
+  "cached_input_tokens": 3239162,
+  "infrastructure_errors": [],
+  "input_tokens": 3328662,
+  "integrity_errors": [],
+  "materialization": {
+    "instruction_sha256": "47022b58173063fef864224cff33fa92a975201c91268edcbfddbcc4ab98d5ab",
+    "task_tree_sha256": "2ad1c91467d4dda3298b259a8ce1c281e91dedb4437a63327db5fb5572b6b8bb"
+  },
+  "mode": "codeproof",
+  "model_tokens": 3358929,
+  "outcome": "scored",
+  "output_tokens": 30267,
+  "per_specification": [
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_insert_inserts_correct",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_insert_negative_amount_fails",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_insert_smashed_fails",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_insert_intact_nonnegative_succeeds",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_smash_transfers_correctly",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_smash_non_owner_fails",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_smash_smashed_fails",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_smash_owner_intact_succeeds",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_receive_is_correct",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_receive_dispatch_insert",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_receive_dispatch_smash",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_receive_missing_msg_fails",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_no_self_calls",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_owner_remains",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_owner_correct",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_stay_smashed",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_if_intact_then_balance_can_only_increase",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_initializes_correctly",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_initializes_owner_and_balance",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_balance_on_chain",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_no_outgoing_actions_when_intact",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_balance_is_zero_when_smashed",
+      "status": "passed",
+      "strict_reward": 1
+    },
+    {
+      "module": "PiggyBankCorrect",
+      "specification": "spec_balance_on_pos",
+      "status": "passed",
+      "strict_reward": 1
+    }
+  ],
+  "reasoning_output_tokens": 13182,
+  "replicate": 4,
+  "run_id": "piggybank-v2_codeproof_a4_ee66b818",
+  "runs": [
+    {
+      "cached_input_tokens": 3239162,
+      "input_tokens": 3328662,
+      "kind": "attempt",
+      "outcome": "scored",
+      "output_tokens": 30267,
+      "reasoning_output_tokens": 13182,
+      "run": 1,
+      "run_id": "piggybank-v2_codeproof_a4_ee66b818"
+    }
+  ],
+  "schema_version": "anarres.formal-verification-codex-sol-grade-receipt.v1",
+  "specifications_total": 23,
+  "stop_reason": "stop",
+  "task_id": "piggybank-v2:codeproof",
+  "tool_calls": 74,
+  "turns": 69
+}

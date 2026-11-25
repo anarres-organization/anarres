@@ -1,0 +1,415 @@
+{
+  "abstention_reason": null,
+  "analysis_id": "vero-codex-sol-repeated-measurement-analysis-v1",
+  "attempt_outcomes": {
+    "integrity_failure": 1,
+    "scored": 31
+  },
+  "attempts": 32,
+  "authorization_sha256": "60c83557a83318ae4a082e7db2a13adc3cb6a86583c27d73da4ca7e667b0f73a",
+  "cost": {
+    "agent_wall_seconds": 13471.094626478967,
+    "mean_model_tokens_per_attempt": 5556192.15625,
+    "model_tokens": 177798149,
+    "model_tokens_per_strict_success": 107560.88868723533,
+    "planning_usd": 134.53724,
+    "planning_usd_including_retried_runs": 134.53724,
+    "stop_reasons": {
+      "max_turns": 16,
+      "stop": 16
+    }
+  },
+  "decision": "ready",
+  "inputs": {
+    "analysis_sha256": "a613f6bac6a4eb0f1daa695fea1722a170742ce974fe5c6cd32bb5c1bb62943e",
+    "authorization_sha256": "60c83557a83318ae4a082e7db2a13adc3cb6a86583c27d73da4ca7e667b0f73a",
+    "protocol_sha256": "650733b03ece8cfd3d041e3d72c9ff35a0b1359ee0b143b3366867919e5020cd",
+    "queue_sha256": "7b52cb251052abd1a05085cb4c8ef56bd12cd2ab0fa218d30a7942bd9ff4a31c",
+    "receipt_sha256": {
+      "arithmetic-v2-codeproof-sol-v2-r01": "607d6ee4e775b1e08b5b6680a6c05474df3293c90153df03da12737c7f7ba5fa",
+      "arithmetic-v2-codeproof-sol-v2-r02": "750c4c6ae22c389c1afc47d153eae7e928e2d1d6ef7002f9eb8f289161a8458a",
+      "arithmetic-v2-codeproof-sol-v2-r03": "40784e94afcf54d8a32bac2f387133158023c9c22d5a084ed7820dd82d9fd976",
+      "arithmetic-v2-codeproof-sol-v2-r04": "2cb1cdcf0ec3b289cc14b3cafcdf839e91cebb5edde09dd0bf9f2a28345162fd",
+      "arithmetic-v2-proof-sol-v2-r01": "192e59a2fdda981caf102b76fed38c2a809d845212c59169277b896936e7e00c",
+      "arithmetic-v2-proof-sol-v2-r02": "fa2675580134f38fe219a18f80cbd49da9c0ad3692f004c6475642fb11b25926",
+      "arithmetic-v2-proof-sol-v2-r03": "90d2f15f2fa93b498e95e7d00601c9f26d94fcb14c819d4d5d95cbe5b56564a5",
+      "arithmetic-v2-proof-sol-v2-r04": "69ae770f0ea208a6f1e992f2b787cd3dea78258eb13bfe401351e3db2b939196",
+      "piggybank-v2-codeproof-sol-v2-r01": "d8e34b36c51f8c0b1ca4371f1e3bed1b6743512fc185ea4ec9a4eca3ae76f9cd",
+      "piggybank-v2-codeproof-sol-v2-r02": "f6eb7147206b23e813228f9699c3169223ac275d3dc763be35d9bed2a480b8a7",
+      "piggybank-v2-codeproof-sol-v2-r03": "19939686fd2a04e1dc0ec8254fa80be19fc796dfe0d6cc0d628940c87ef1ba5d",
+      "piggybank-v2-codeproof-sol-v2-r04": "b16dd27c5f8517863798bf0aff13c2bfb4be1920dee543ef4cd3b103554e14f3",
+      "piggybank-v2-proof-sol-v2-r01": "2b207c4e8601be181357a13d5b3b07bde725ff99736331163173d6fd9844eee2",
+      "piggybank-v2-proof-sol-v2-r02": "4b3edb39673659f85805ea0fc9e9671395ee80e0bed23397c0658585387a35b8",
+      "piggybank-v2-proof-sol-v2-r03": "bc8e64ead8f10a13c6d47ce66174d661219d855cd357ccf9be7900cf7034a060",
+      "piggybank-v2-proof-sol-v2-r04": "c011b165b31bd7fec0ac689582dfde8ed5dbf806837e7dced1f6ede141fe261a",
+      "primepy-codeproof-sol-v2-r01": "68351b333f85b61fcd5528bf4bb66512f3c61f398ff219cc9f127d152a7eb0e4",
+      "primepy-codeproof-sol-v2-r02": "a8cf86bb612c44b733306204bc2ee215022a0f9ec464dac696775fbf75e0dde1",
+      "primepy-codeproof-sol-v2-r03": "c062f840ba7196e2036cabe95e09b1630d19d52adceeebb5182a88759f5608cc",
+      "primepy-codeproof-sol-v2-r04": "01c241d969a62b021d2215f7476c987ba95a1f43b4efa9a599be020d00731edd",
+      "primepy-proof-sol-v2-r01": "7d571e5aef6ad890f0006f6f6ee34e96f5aed2ed9c14429a5692884cf9d33710",
+      "primepy-proof-sol-v2-r02": "519c5cb3a7247804ae735dc2e196b298b64a5deab1b24d18bb58ed89ad8092dd",
+      "primepy-proof-sol-v2-r03": "a813b9c5552cf49db0c96c3d09791a1ca3c240dce9a931aa2bc82d30a7908702",
+      "primepy-proof-sol-v2-r04": "9d43bf882e4eece2ff4e999bfdc76fc5c704812c4157e8eade555c9414bf427a",
+      "verified-bitmasks-codeproof-sol-v2-r01": "828887385d68808960e489f887725394d3d8c9fecaf03fc96f20d7a6f5835035",
+      "verified-bitmasks-codeproof-sol-v2-r02": "cee2c015a61a674c58a7b057c2062c39cb5b01347db99a6d6a4d6155a72e88db",
+      "verified-bitmasks-codeproof-sol-v2-r03": "05b67adf351dd309e07452ebb5758274bdea2ba0350649c62daf5d50fe9d4222",
+      "verified-bitmasks-codeproof-sol-v2-r04": "4387deefc1deee526e7823227f49979fe2c8de719e78936d0044e365c6c828fd",
+      "verified-bitmasks-proof-sol-v2-r01": "bfc456a18d94657610e991102a95f93dc866d1afcc03bb68c9fae12844dd83b6",
+      "verified-bitmasks-proof-sol-v2-r02": "716f9624e076f09d79fd5936d64cb51af60b92aada4a7817ba0c70ebc958204e",
+      "verified-bitmasks-proof-sol-v2-r03": "6e503bf73c25857522a918804b96c9c0c12a28bf0cab9902e7d6eafcc7b22d9a",
+      "verified-bitmasks-proof-sol-v2-r04": "af4a759b63adc0b399cf60a6a1e7a269e97d1bd76eb606d6b11822939ba7a9cb"
+    }
+  },
+  "measurements_by_mode": {
+    "codeproof": {
+      "cluster_sensitivity": {
+        "leave_one_repository_out": {
+          "arithmetic-v2": {
+            "effective_coverage_H": 0.2644265990419836,
+            "mixed_specification_groups": 42,
+            "model_tokens": 65084888.0,
+            "rho_per_million_model_tokens": 1.4032955443256403,
+            "specification_groups": 156,
+            "total_advantage_mass": 91.33333333333333
+          },
+          "piggybank-v2": {
+            "effective_coverage_H": 0.417395620075687,
+            "mixed_specification_groups": 138,
+            "model_tokens": 84198151.0,
+            "rho_per_million_model_tokens": 3.6738732342629867,
+            "specification_groups": 324,
+            "total_advantage_mass": 309.3333333333333
+          },
+          "primepy": {
+            "effective_coverage_H": 0.40010704409622067,
+            "mixed_specification_groups": 138,
+            "model_tokens": 73204353.0,
+            "rho_per_million_model_tokens": 4.225613923988008,
+            "specification_groups": 338,
+            "total_advantage_mass": 309.3333333333333
+          },
+          "verified-bitmasks": {
+            "effective_coverage_H": 0.42172580664245063,
+            "mixed_specification_groups": 96,
+            "model_tokens": 63772827.0,
+            "rho_per_million_model_tokens": 3.418383820431859,
+            "specification_groups": 223,
+            "total_advantage_mass": 218.0
+          }
+        },
+        "whole_repository_bootstrap": {
+          "H_interval": [
+            0.0,
+            0.4702242744063325
+          ],
+          "central_interval": 0.9,
+          "interpretation": "descriptive fixed-panel sensitivity, not an independent-specification confidence interval",
+          "replicates": 10000,
+          "rho_interval": [
+            0.0,
+            5.245793457181704
+          ],
+          "seed": 2026110701
+        }
+      },
+      "coordinates": {
+        "effective_coverage_H": 0.3897296279669239,
+        "mixed_specification_groups": 138,
+        "model_tokens": 95420073.0,
+        "rho_per_million_model_tokens": 3.24180566633326,
+        "specification_groups": 347,
+        "total_advantage_mass": 309.3333333333333
+      },
+      "repositories": {
+        "arithmetic-v2": {
+          "effective_coverage_H": 0.49238143916893456,
+          "mixed_specification_groups": 96,
+          "model_tokens": 30335185.0,
+          "rho_per_million_model_tokens": 7.186374502083966,
+          "specification_groups": 191,
+          "specifications_by_successes": {
+            "0": 0,
+            "1": 38,
+            "2": 39,
+            "3": 19,
+            "4": 95
+          },
+          "strict_success_rate": 0.7238219895287958,
+          "strict_successes": 553,
+          "strict_trials": 764,
+          "total_advantage_mass": 218.0,
+          "union_coverage": 1.0
+        },
+        "piggybank-v2": {
+          "effective_coverage_H": 0.0,
+          "mixed_specification_groups": 0,
+          "model_tokens": 11221922.0,
+          "rho_per_million_model_tokens": 0.0,
+          "specification_groups": 23,
+          "specifications_by_successes": {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 23
+          },
+          "strict_success_rate": 1.0,
+          "strict_successes": 92,
+          "strict_trials": 92,
+          "total_advantage_mass": 0.0,
+          "union_coverage": 1.0
+        },
+        "primepy": {
+          "effective_coverage_H": 0.0,
+          "mixed_specification_groups": 0,
+          "model_tokens": 22215720.0,
+          "rho_per_million_model_tokens": 0.0,
+          "specification_groups": 9,
+          "specifications_by_successes": {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 9
+          },
+          "strict_success_rate": 1.0,
+          "strict_successes": 36,
+          "strict_trials": 36,
+          "total_advantage_mass": 0.0,
+          "union_coverage": 1.0
+        },
+        "verified-bitmasks": {
+          "effective_coverage_H": 0.3326657213753988,
+          "mixed_specification_groups": 42,
+          "model_tokens": 31647246.0,
+          "rho_per_million_model_tokens": 2.8859804525592314,
+          "specification_groups": 124,
+          "specifications_by_successes": {
+            "0": 14,
+            "1": 1,
+            "2": 11,
+            "3": 30,
+            "4": 68
+          },
+          "strict_success_rate": 0.7762096774193549,
+          "strict_successes": 385,
+          "strict_trials": 496,
+          "total_advantage_mass": 91.33333333333333,
+          "union_coverage": 0.8870967741935484
+        }
+      }
+    },
+    "proof": {
+      "cluster_sensitivity": {
+        "leave_one_repository_out": {
+          "arithmetic-v2": {
+            "effective_coverage_H": 0.24677040516735174,
+            "mixed_specification_groups": 39,
+            "model_tokens": 53361104.0,
+            "rho_per_million_model_tokens": 1.5366998403931074,
+            "specification_groups": 156,
+            "total_advantage_mass": 82.0
+          },
+          "piggybank-v2": {
+            "effective_coverage_H": 0.45655085276762164,
+            "mixed_specification_groups": 151,
+            "model_tokens": 71480872.0,
+            "rho_per_million_model_tokens": 4.803149761985742,
+            "specification_groups": 324,
+            "total_advantage_mass": 343.3333333333333
+          },
+          "primepy": {
+            "effective_coverage_H": 0.43764046241630006,
+            "mixed_specification_groups": 151,
+            "model_tokens": 67779179.0,
+            "rho_per_million_model_tokens": 5.065469048147269,
+            "specification_groups": 338,
+            "total_advantage_mass": 343.3333333333333
+          },
+          "verified-bitmasks": {
+            "effective_coverage_H": 0.4921973094170403,
+            "mixed_specification_groups": 112,
+            "model_tokens": 54513073.0,
+            "rho_per_million_model_tokens": 4.793957099672831,
+            "specification_groups": 223,
+            "total_advantage_mass": 261.3333333333333
+          }
+        },
+        "whole_repository_bootstrap": {
+          "H_interval": [
+            0.0,
+            0.5487999999999998
+          ],
+          "central_interval": 0.9,
+          "interpretation": "descriptive fixed-panel sensitivity, not an independent-specification confidence interval",
+          "replicates": 10000,
+          "rho_interval": [
+            0.0,
+            6.547381394854132
+          ],
+          "seed": 2026110701
+        }
+      },
+      "coordinates": {
+        "effective_coverage_H": 0.4262895570510358,
+        "mixed_specification_groups": 151,
+        "model_tokens": 82378076.0,
+        "rho_per_million_model_tokens": 4.1677755782173564,
+        "specification_groups": 347,
+        "total_advantage_mass": 343.3333333333333
+      },
+      "repositories": {
+        "arithmetic-v2": {
+          "effective_coverage_H": 0.5746596858638743,
+          "mixed_specification_groups": 112,
+          "model_tokens": 29016972.000000004,
+          "rho_per_million_model_tokens": 9.006223438246185,
+          "specification_groups": 191,
+          "specifications_by_successes": {
+            "0": 79,
+            "1": 28,
+            "2": 56,
+            "3": 28,
+            "4": 0
+          },
+          "strict_success_rate": 0.2931937172774869,
+          "strict_successes": 224,
+          "strict_trials": 764,
+          "total_advantage_mass": 261.3333333333333,
+          "union_coverage": 0.5863874345549738
+        },
+        "piggybank-v2": {
+          "effective_coverage_H": 0.0,
+          "mixed_specification_groups": 0,
+          "model_tokens": 10897204.0,
+          "rho_per_million_model_tokens": 0.0,
+          "specification_groups": 23,
+          "specifications_by_successes": {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 23
+          },
+          "strict_success_rate": 1.0,
+          "strict_successes": 92,
+          "strict_trials": 92,
+          "total_advantage_mass": 0.0,
+          "union_coverage": 1.0
+        },
+        "primepy": {
+          "effective_coverage_H": 0.0,
+          "mixed_specification_groups": 0,
+          "model_tokens": 14598897.0,
+          "rho_per_million_model_tokens": 0.0,
+          "specification_groups": 9,
+          "specifications_by_successes": {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 9
+          },
+          "strict_success_rate": 1.0,
+          "strict_successes": 36,
+          "strict_trials": 36,
+          "total_advantage_mass": 0.0,
+          "union_coverage": 1.0
+        },
+        "verified-bitmasks": {
+          "effective_coverage_H": 0.3104530903718296,
+          "mixed_specification_groups": 39,
+          "model_tokens": 27865003.0,
+          "rho_per_million_model_tokens": 2.9427594176106853,
+          "specification_groups": 124,
+          "specifications_by_successes": {
+            "0": 52,
+            "1": 4,
+            "2": 6,
+            "3": 29,
+            "4": 33
+          },
+          "strict_success_rate": 0.4737903225806452,
+          "strict_successes": 235,
+          "strict_trials": 496,
+          "total_advantage_mass": 82.0,
+          "union_coverage": 0.5806451612903226
+        }
+      }
+    }
+  },
+  "queue_id": "vero-codex-sol-repeated-measurement-v2-queue",
+  "readiness": {
+    "mixed_groups_after_leaving_out_repository": {
+      "arithmetic-v2": 81,
+      "piggybank-v2": 289,
+      "primepy": 289,
+      "verified-bitmasks": 208
+    },
+    "passes_readiness_gate": true,
+    "repositories_with_mixed_groups_by_mode": {
+      "codeproof": [
+        "arithmetic-v2",
+        "verified-bitmasks"
+      ],
+      "proof": [
+        "arithmetic-v2",
+        "verified-bitmasks"
+      ]
+    }
+  },
+  "runs": {
+    "infrastructure_failure_runs": 0,
+    "integrity_failure_runs": 1,
+    "interrupted_attempts": [],
+    "interrupted_runs": 0,
+    "recorded_planning_usd": 134.53724,
+    "regrade_runs": 0,
+    "scored_runs": 31
+  },
+  "schema_version": "anarres.formal-verification-codex-sol-measurement.v1",
+  "sensitivity": {
+    "name": "unconfirmed_counted_as_pass",
+    "readiness": {
+      "mixed_groups_after_leaving_out_repository": {
+        "arithmetic-v2": 81,
+        "piggybank-v2": 289,
+        "primepy": 289,
+        "verified-bitmasks": 208
+      },
+      "passes_readiness_gate": true,
+      "repositories_with_mixed_groups_by_mode": {
+        "codeproof": [
+          "arithmetic-v2",
+          "verified-bitmasks"
+        ],
+        "proof": [
+          "arithmetic-v2",
+          "verified-bitmasks"
+        ]
+      }
+    },
+    "support": {
+      "mixed_specification_groups": 289,
+      "passes_support_gate": true,
+      "pooled_strict_success_rate": 0.5954610951008645,
+      "pooled_strict_successes": 1653,
+      "pooled_strict_trials": 2776,
+      "repositories_with_nonzero_verified_coverage": 4
+    }
+  },
+  "specification_statuses": {
+    "axiom_recheck_failed": 5,
+    "build_error": 92,
+    "passed": 1653,
+    "unfilled": 835
+  },
+  "support": {
+    "mixed_specification_groups": 289,
+    "passes_support_gate": true,
+    "pooled_strict_success_rate": 0.5954610951008645,
+    "pooled_strict_successes": 1653,
+    "pooled_strict_trials": 2776,
+    "repositories_with_nonzero_verified_coverage": 4
+  }
+}

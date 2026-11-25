@@ -1,0 +1,42 @@
+{
+  "agent_wall_seconds": 474.4552304960089,
+  "attempt_id": "arithmetic-v2-proof-sol-v2-r02",
+  "authorization_sha256": "60c83557a83318ae4a082e7db2a13adc3cb6a86583c27d73da4ca7e667b0f73a",
+  "benchmark_id": "arithmetic-v2",
+  "cached_input_tokens": 6991801,
+  "infrastructure_errors": [],
+  "input_tokens": 7094717,
+  "integrity_errors": [
+    "grading integrity: ['ArithmeticV2/Proof/Power2.lean: native_decide']"
+  ],
+  "materialization": {
+    "instruction_sha256": "81d5f21250c16af71b21a5a07c252caf29637c99d566d256bef6b5cc217354b1",
+    "task_tree_sha256": "eaf2d782afcc376e073ea476fedd17a26bbfa7253146f2151a64da902c3fbac0"
+  },
+  "mode": "proof",
+  "model_tokens": 7127501,
+  "outcome": "integrity_failure",
+  "output_tokens": 32784,
+  "per_specification": [],
+  "reasoning_output_tokens": 9594,
+  "replicate": 2,
+  "run_id": "arithmetic-v2_proof_a2_bed7dbc0",
+  "runs": [
+    {
+      "cached_input_tokens": 6991801,
+      "input_tokens": 7094717,
+      "kind": "attempt",
+      "outcome": "integrity_failure",
+      "output_tokens": 32784,
+      "reasoning_output_tokens": 9594,
+      "run": 1,
+      "run_id": "arithmetic-v2_proof_a2_bed7dbc0"
+    }
+  ],
+  "schema_version": "anarres.formal-verification-codex-sol-grade-receipt.v1",
+  "specifications_total": 191,
+  "stop_reason": "max_turns",
+  "task_id": "arithmetic-v2:proof",
+  "tool_calls": 123,
+  "turns": 100
+}

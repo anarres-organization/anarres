@@ -1,0 +1,9 @@
+{
+  "attempt_id": "piggybank-v2-codeproof-sol-v2-r02",
+  "authorization_sha256": "60c83557a83318ae4a082e7db2a13adc3cb6a86583c27d73da4ca7e667b0f73a",
+  "kind": "attempt",
+  "run": 1,
+  "schema_version": "anarres.formal-verification-codex-sol-run-started.v1",
+  "started_at": "2026-11-23T23:34:59.639172+00:00",
+  "vero_commit": "0a7325df9e9e6dbc275c0ad483b3d1cbe38d9b09"
+}

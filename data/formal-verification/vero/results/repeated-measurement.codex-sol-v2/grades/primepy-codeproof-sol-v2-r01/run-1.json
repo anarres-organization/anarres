@@ -1,0 +1,91 @@
+{
+  "agent_wall_seconds": 570.5831425080542,
+  "attempt_id": "primepy-codeproof-sol-v2-r01",
+  "cached_input_tokens": 5779234,
+  "grade": {
+    "axiom_recheck": {
+      "checked_theorems": 27,
+      "checker": "kernel replay of compiled libraries against a reference build",
+      "downgraded": [],
+      "reasons": {}
+    },
+    "build_label": "a15a20eea212d323",
+    "build_ok": true,
+    "check_incomplete_specs": 0,
+    "failed_specs": 0,
+    "passed_specs": 9,
+    "sat_unverified_specs": 0,
+    "specs": [
+      {
+        "module": "Primes",
+        "spec": "spec_factor_smallest_prime_divisor",
+        "status": "passed"
+      },
+      {
+        "module": "Primes",
+        "spec": "spec_check_iff_prime_like",
+        "status": "passed"
+      },
+      {
+        "module": "Primes",
+        "spec": "spec_factors_product_prime_sorted",
+        "status": "passed"
+      },
+      {
+        "module": "Primes",
+        "spec": "spec_factors_head_agrees_with_factor",
+        "status": "passed"
+      },
+      {
+        "module": "Primes",
+        "spec": "spec_phi_prime_case",
+        "status": "passed"
+      },
+      {
+        "module": "Primes",
+        "spec": "spec_phi_counts_coprime_range",
+        "status": "passed"
+      },
+      {
+        "module": "Primes",
+        "spec": "spec_first_prime_prefix",
+        "status": "passed"
+      },
+      {
+        "module": "Primes",
+        "spec": "spec_upto_exact_prime_range",
+        "status": "passed"
+      },
+      {
+        "module": "Primes",
+        "spec": "spec_between_agrees_with_upto",
+        "status": "passed"
+      }
+    ],
+    "total_specs": 9,
+    "unfilled_specs": 0,
+    "vero_passed_specs": 9
+  },
+  "grading_stage": false,
+  "infrastructure_errors": [],
+  "input_tokens": 5910722,
+  "integrity_errors": [],
+  "kind": "attempt",
+  "materialization": {
+    "files": 12,
+    "instruction_sha256": "0f9705968bc0b9dbb91615f1764c44fb8ba7e2a29fa3ed29087e738291a07ba0",
+    "symlinks": 0,
+    "task_tree_sha256": "b99960401e00fa98109c3530474ea453e7d226275db722c8569fd6ebc3d9d0ae"
+  },
+  "outcome": "scored",
+  "output_tokens": 47207,
+  "reasoning_output_tokens": 20851,
+  "run": 1,
+  "run_id": "primepy_codeproof_a1_dfd59cbf",
+  "sandbox_receipt_sha256": "2f0be2dce1070f7cbcff2cf683b9bd44535bd07348396303b2f1da94476779aa",
+  "schema_version": "anarres.formal-verification-codex-sol-run.v1",
+  "stop_reason": "stop",
+  "tool_calls": 93,
+  "turns": 86,
+  "workspace": "run-1/primepy_codeproof_a1_dfd59cbf/run/source"
+}

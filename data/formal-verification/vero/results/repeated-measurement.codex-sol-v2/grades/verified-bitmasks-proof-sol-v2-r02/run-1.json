@@ -1,0 +1,678 @@
+{
+  "agent_wall_seconds": 325.53868943999987,
+  "attempt_id": "verified-bitmasks-proof-sol-v2-r02",
+  "cached_input_tokens": 6771782,
+  "grade": {
+    "axiom_recheck": {
+      "checked_theorems": 248,
+      "checker": "kernel replay of compiled libraries against a reference build",
+      "downgraded": [
+        "spec_bitwise_and_ones",
+        "spec_bitwise_and_ones_eq",
+        "spec_bitwise_and_dist",
+        "spec_bitwise_and_comp_self",
+        "spec_bitwise_and_not_self"
+      ],
+      "reasons": {
+        "spec_bitwise_and_comp_self": "axiom axiom_as_uint64_as_bv64 is not the reference declaration",
+        "spec_bitwise_and_dist": "axiom axiom_as_uint64_as_bv64 is not the reference declaration",
+        "spec_bitwise_and_not_self": "axiom axiom_as_uint64_as_bv64 is not the reference declaration",
+        "spec_bitwise_and_ones": "axiom axiom_as_uint64_as_bv64 is not the reference declaration",
+        "spec_bitwise_and_ones_eq": "axiom axiom_as_uint64_as_bv64 is not the reference declaration"
+      }
+    },
+    "build_label": "4f11916605fba420",
+    "build_ok": true,
+    "check_incomplete_specs": 0,
+    "failed_specs": 5,
+    "passed_specs": 72,
+    "sat_unverified_specs": 0,
+    "specs": [
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_and_self",
+        "status": "passed"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_and_zero",
+        "status": "passed"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_and_ones",
+        "status": "axiom_recheck_failed"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_and_ones_eq",
+        "status": "axiom_recheck_failed"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_and_comm",
+        "status": "passed"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_and_assoc",
+        "status": "passed"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_and_dist",
+        "status": "axiom_recheck_failed"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_and_comp_self",
+        "status": "axiom_recheck_failed"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_and_not_self",
+        "status": "axiom_recheck_failed"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_and_bit_dist",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_and_is_intersection",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_or_self",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_or_zero",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_or_ones",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_or_comm",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_or_assoc",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_or_dist",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_or_zero_implies_args",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_or_is_union",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_xor_self",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_xor_zero",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_xor_ones",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_xor_comm",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_xor_assoc",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_xor_zero_implies_args",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_xor_is_not_eq",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_not_comp_eq",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_not_not",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_comp_comp",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_not_is_not",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_not_ones",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_bit_not_zero",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_bit_is_set",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_bit_not_set",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_not_equal_and_zero",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_ones_bit_is_set",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_zeros_not_bit_is_set",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_mask_is_ones",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_mask_is_zeros",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_mask_extend_bit_or",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_mask_extend_bit_or_less",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_mask_extend_bit_set",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_mask_extend_bit_set_less",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_set_self",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_set_other",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_clear_self",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_clear_other",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_set_not_change_others",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_clear_not_change_others",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_toggle_not_change_others",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_and_or_dist",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_or_and_dist",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_or_and_self",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_demorgan_not_or",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_demorgan_not_and",
+        "status": "unfilled"
+      },
+      {
+        "module": "MachineWords",
+        "spec": "spec_bitwise_comp_not_equal",
+        "status": "unfilled"
+      },
+      {
+        "module": "BitmaskIF",
+        "spec": "spec_bIF_split_concat",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_newZeros_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_newZeros_nbits",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_newZeros_is_zeros",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_newOnes_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_newOnes_nbits",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_newOnes_is_ones",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_nbits_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_popcnt_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_popcnt_bounded",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_getBit_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_setBit_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_clearBit_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_toggleBit_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_and_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_and_nbits_preserved",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_or_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_or_nbits_preserved",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_xor_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_xor_nbits_preserved",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_not_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskImplIF",
+        "spec": "spec_bIIF_not_nbits_preserved",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_cNewZeros_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_cNewZeros_nbits",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_cNewZeros_is_zeros",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_cNewOnes_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_cNewOnes_nbits",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_cNewOnes_is_ones",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_nbits_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_popcnt_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_popcnt_bounded",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_getBit_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_setBit_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_setBit_get",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_clearBit_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_clearBit_get",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_toggleBit_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_eq_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_eq_refl",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_isZeros_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_isOnes_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_and_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_and_nbits_preserved",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_or_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_or_nbits_preserved",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_xor_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_xor_nbits_preserved",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_not_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_not_nbits_preserved",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskSeq",
+        "spec": "spec_bSeq_not_involutive",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_cNewZeros_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_cNewZeros_nbits",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_cNewOnes_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_cNewOnes_nbits",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_nbits_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_popcnt_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_popcnt_bounded",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_getBit_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_setBit_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_clearBit_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_toggleBit_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_eq_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_isZeros_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_isOnes_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_and_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_or_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_xor_correct",
+        "status": "passed"
+      },
+      {
+        "module": "BitmaskArray",
+        "spec": "spec_bArr_not_correct",
+        "status": "passed"
+      }
+    ],
+    "total_specs": 124,
+    "unfilled_specs": 47,
+    "vero_passed_specs": 77
+  },
+  "grading_stage": false,
+  "infrastructure_errors": [],
+  "input_tokens": 6874591,
+  "integrity_errors": [],
+  "kind": "attempt",
+  "materialization": {
+    "files": 41,
+    "instruction_sha256": "7f50e33839802b843433d4288d1d831a3212effae202538f3a62faefcfc69026",
+    "symlinks": 0,
+    "task_tree_sha256": "6bc6e79a2a0dd218df2b6e27a716083659b67d16d2a520c0cd9db98bafb213c7"
+  },
+  "outcome": "scored",
+  "output_tokens": 22011,
+  "reasoning_output_tokens": 5912,
+  "run": 1,
+  "run_id": "verified-bitmasks_proof_a2_f0413ad7",
+  "sandbox_receipt_sha256": "f8ef4c9e6461bc6d35e38f6e63d77c40399c19da159810b92d56f7cd32e283dc",
+  "schema_version": "anarres.formal-verification-codex-sol-run.v1",
+  "stop_reason": "max_turns",
+  "tool_calls": 113,
+  "turns": 100,
+  "workspace": "run-1/verified-bitmasks_proof_a2_f0413ad7/run/source"
+}

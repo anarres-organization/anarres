@@ -1,0 +1,1001 @@
+{
+  "agent_wall_seconds": 297.23305497097317,
+  "attempt_id": "arithmetic-v2-proof-sol-v2-r01",
+  "cached_input_tokens": 7205369,
+  "grade": {
+    "axiom_recheck": {
+      "checked_theorems": 382,
+      "checker": "kernel replay of compiled libraries against a reference build",
+      "downgraded": [],
+      "reasons": {}
+    },
+    "build_label": "8d8406927b21bc02",
+    "build_ok": true,
+    "check_incomplete_specs": 0,
+    "failed_specs": 0,
+    "passed_specs": 37,
+    "sat_unverified_specs": 0,
+    "specs": [
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_is_div_recursive",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_by_self",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_of0",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_basics_4",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_small_div_converse",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_is_strictly_smaller",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_pos_is_pos",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_plus_one",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_minus_one",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_basic_div_specific_divisor",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_is_ordered",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_decreases",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_nonincreasing",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_small_mod",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_remainder_upper",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_remainder_lower",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_remainder",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_fundamental_div_mod",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_indistinguishable_quotients",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_round_down",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_is_mod_recursive",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_self_0",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_twice",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_division_less_than_divisor",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_decreases",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_multiples_basic",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_add_multiples_vanish",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_sub_multiples_vanish",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_multiples_vanish",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_subtraction",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_add_mod_noop",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_add_mod_noop_right",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_sub_mod_noop",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_sub_mod_noop_right",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_adds",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_neg_neg",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_pos_bound",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_bound",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mul_mod_noop_left",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mul_mod_noop_right",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_equivalence",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_basics",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_non_zero",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_is_ordered_by_denominator",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_dividing_sums",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_basic_div",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_by_multiple_is_strongly_ordered",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_part_bound1",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_is_zero",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_fundamental_div_mod_converse_mod",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_fundamental_div_mod_converse_div",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mul_mod_noop_general",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_mul_equivalent",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_ordering",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_part_bound2",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_basics_1",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_basics_2",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_basics_3",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_basics_5",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_multiples_vanish_fancy",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_fundamental_div_mod_converse",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mul_mod_noop",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_multiples_vanish",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_hoist_over_denominator",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_mod",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_denominator",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mul_hoist_inequality",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_by_multiple",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_multiply_divide_le",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_multiply_divide_lt",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_truncate_middle",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_div_multiples_vanish_quotient",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_breakdown",
+        "status": "unfilled"
+      },
+      {
+        "module": "DivMod",
+        "spec": "spec_lemma_mod_breakdown",
+        "status": "unfilled"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_is_mul_pos",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_basics",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_basics_1",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_basics_2",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_basics_3",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_basics_4",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_nonzero",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_is_associative",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_is_commutative",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_ordering",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_inequality",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_strict_inequality",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_left_inequality",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_equality_converse",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_inequality_converse",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_strict_inequality_converse",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_is_distributive_add",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_is_distributive_add_other_way",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_is_distributive_sub",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_strictly_positive",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_strictly_increases",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_increases",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_nonnegative",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_unary_negation",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_cancels_negatives",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_is_mul_recursive",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_by_zero_is_zero",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_upper_bound",
+        "status": "passed"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_strict_upper_bound",
+        "status": "unfilled"
+      },
+      {
+        "module": "Mul",
+        "spec": "spec_lemma_mul_is_distributive_sub_other_way",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow0",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma0_pow",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma1_pow",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_square_is_pow2",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow_distributes",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow_mod_noop",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow1",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow_positive",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow_adds",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow_sub_add_cancel",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow_multiplies",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow_strictly_increases",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow_division_inequality",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow_mod",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow_subtracts",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow_increases",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow_increases_converse",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pull_out_pows",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power",
+        "spec": "spec_lemma_pow_strictly_increases_converse",
+        "status": "unfilled"
+      },
+      {
+        "module": "Power2",
+        "spec": "spec_lemma_pow2_pos",
+        "status": "passed"
+      },
+      {
+        "module": "Power2",
+        "spec": "spec_lemma_pow2",
+        "status": "passed"
+      },
+      {
+        "module": "Power2",
+        "spec": "spec_lemma2_to64",
+        "status": "passed"
+      },
+      {
+        "module": "Power2",
+        "spec": "spec_lemma2_to64_rest",
+        "status": "passed"
+      },
+      {
+        "module": "Power2",
+        "spec": "spec_is_pow2_equiv",
+        "status": "passed"
+      },
+      {
+        "module": "Power2",
+        "spec": "spec_lemma_pow2_unfold",
+        "status": "passed"
+      },
+      {
+        "module": "Power2",
+        "spec": "spec_lemma_pow2_adds",
+        "status": "passed"
+      },
+      {
+        "module": "Power2",
+        "spec": "spec_lemma_pow2_subtracts",
+        "status": "passed"
+      },
+      {
+        "module": "Power2",
+        "spec": "spec_lemma_pow2_strictly_increases",
+        "status": "passed"
+      },
+      {
+        "module": "Logarithm",
+        "spec": "spec_lemma_log0",
+        "status": "unfilled"
+      },
+      {
+        "module": "Logarithm",
+        "spec": "spec_lemma_log_s",
+        "status": "unfilled"
+      },
+      {
+        "module": "Logarithm",
+        "spec": "spec_lemma_log_nonnegative",
+        "status": "unfilled"
+      },
+      {
+        "module": "Logarithm",
+        "spec": "spec_lemma_log_is_ordered",
+        "status": "unfilled"
+      },
+      {
+        "module": "Logarithm",
+        "spec": "spec_lemma_log_pow",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU128_new",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU128_new_overflowed",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU128_is_overflowed",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU128_unwrap",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU128_to_option",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU128_add_value",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU128_add_checked",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU128_mul_value",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU128_mul_checked",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU16_new",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU16_new_overflowed",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU16_is_overflowed",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU16_unwrap",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU16_to_option",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU16_add_value",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU16_add_checked",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU16_mul_value",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU16_mul_checked",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU32_new",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU32_new_overflowed",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU32_is_overflowed",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU32_unwrap",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU32_to_option",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU32_add_value",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU32_add_checked",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU32_mul_value",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU32_mul_checked",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU64_new",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU64_new_overflowed",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU64_is_overflowed",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU64_unwrap",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU64_to_option",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU64_add_value",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU64_add_checked",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU64_mul_value",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU64_mul_checked",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU8_new",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU8_new_overflowed",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU8_is_overflowed",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU8_unwrap",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU8_to_option",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU8_add_value",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU8_add_checked",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU8_mul_value",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedU8_mul_checked",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedUsize_new",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedUsize_new_overflowed",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedUsize_is_overflowed",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedUsize_unwrap",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedUsize_to_option",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedUsize_add_value",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedUsize_add_checked",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedUsize_mul_value",
+        "status": "unfilled"
+      },
+      {
+        "module": "Overflow",
+        "spec": "spec_CheckedUsize_mul_checked",
+        "status": "unfilled"
+      }
+    ],
+    "total_specs": 191,
+    "unfilled_specs": 154,
+    "vero_passed_specs": 37
+  },
+  "grading_stage": false,
+  "infrastructure_errors": [],
+  "input_tokens": 7304272,
+  "integrity_errors": [],
+  "kind": "attempt",
+  "materialization": {
+    "files": 40,
+    "instruction_sha256": "81d5f21250c16af71b21a5a07c252caf29637c99d566d256bef6b5cc217354b1",
+    "symlinks": 0,
+    "task_tree_sha256": "eaf2d782afcc376e073ea476fedd17a26bbfa7253146f2151a64da902c3fbac0"
+  },
+  "outcome": "scored",
+  "output_tokens": 19937,
+  "reasoning_output_tokens": 5988,
+  "run": 1,
+  "run_id": "arithmetic-v2_proof_a1_35c56d2f",
+  "sandbox_receipt_sha256": "623ddbacf6b1633c6ac94def471d8d8066c47c48aff6668fb120ad60dd028c0f",
+  "schema_version": "anarres.formal-verification-codex-sol-run.v1",
+  "stop_reason": "max_turns",
+  "tool_calls": 120,
+  "turns": 100,
+  "workspace": "run-1/arithmetic-v2_proof_a1_35c56d2f/run/source"
+}

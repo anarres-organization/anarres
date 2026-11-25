@@ -965,8 +965,10 @@ class FormalCliBoundaryTest(unittest.TestCase):
         self.assertTrue(boundary["qualified"])
         self.assertEqual(boundary["required_tests"], len(CONTRACT["required_tests"]))
         self.assertTrue(report["containment"]["task_only_boundary_passed"])
-        # A qualified boundary authorizes nothing until issue 24 freezes a protocol.
-        self.assertFalse(report["decision"]["repeated_measurement_authorized"])
+        # The boundary alone authorizes nothing. The repeated measurement ran under a
+        # separate authorization record, and no ranking or training follows from either.
+        self.assertTrue(report["decision"]["repeated_measurement_authorized"])
+        self.assertFalse(report["decision"]["candidate_ranking_authorized"])
         status = cli.command_status(arguments)
         self.assertTrue(status["task_only_boundary_qualified"])
         self.assertFalse(status["policy_probe_available"])

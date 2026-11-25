@@ -37,8 +37,8 @@ The workstream has seven completed foundations:
    result. The attempt establishes policy support but not reliability.
 6. The post-run containment audit found that generic upstream Lean guidance
    was readable and a temporary write outside the rendered task was possible.
-   No reference proof or protected repository was accessed. Repeated
-   measurement remains blocked until the sandbox matches the intended boundary.
+   No reference proof or protected repository was accessed. The task-only
+   execution boundary closed that gap before the repeated measurement ran.
 7. The public Forall VeriSoftBench release identifies a nondegenerate policy
    boundary under GPT-5.6 Sol at xhigh reasoning through Codex. Fifteen of its
    100 tasks are first solved on samples 2--6 under a Pass@8 contract, so each

@@ -13,7 +13,8 @@ tool access, verifier behavior, and interaction cost. This workstream asks:
 | [Dafny and Verus training comparisons](public-evidence/README.md) | Verifier-filtered DafnySynth augmentation improves seven of eight matched comparisons and ties the eighth. Other studies show gains from target-matched data and verified feature coverage. | The studies use different models, verifiers, and outcomes, so their scores are not pooled. |
 | [Vero source qualification](VERO_SOURCE_QUALIFICATION.md) | The pinned source, Lean runtime, reference build, grader controls, and repository-disjoint split pass qualification. | Qualification establishes a usable source and runtime, not a successful policy probe. |
 | [Leanstral support screen](STARTING_POLICY_PROBE.md) | Leanstral produced no verified support under the frozen probe and budget ladder. | No training run is justified for that policy and environment. |
-| [GPT-5.6 development screen](STARTING_POLICY_SELECTION.md) | One excluded development attempt solved all nine PrimePy specifications under fresh grading. | The current sandbox exposes more of the repository than intended and must be tightened before repeated measurement. |
+| [GPT-5.6 development screen](STARTING_POLICY_SELECTION.md) | One excluded development attempt solved all nine PrimePy specifications under fresh grading. | The sandbox exposed more of the repository than intended, so the task-only boundary below replaced it before repeated measurement. |
+| [GPT-5.6 repeated measurement](../../../data/formal-verification/vero/README.md#repeated-measurement-result) | Over 32 contained attempts on four development repositories, 1,653 of 2,776 specification trials passed strictly and 289 specification groups, each one specification in one mode, had mixed outcomes. The frozen readiness gate passes. | All signal comes from two repositories and from attempts the turn budget ended. The policy is hosted and cannot be trained here. |
 
 A **support screen** asks whether the starting policy can produce any verified
 success. **Containment** limits the model to the task workspace and approved
@@ -88,11 +89,13 @@ and evaluation rules before downstream outcomes are opened.
 
 ## Current boundary and next step
 
-Vero is a qualified source with a model-free runtime preflight and one positive
-development support result. Its reinforcement-learning utility remains
-unvalidated. The next step is to enforce task-only containment, rerun the
-negative controls, and repeat the support measurement under the corrected
-workspace boundary. Training remains gated on that result.
+Vero is a qualified source with a model-free runtime preflight, a task-only
+execution boundary that passes 17 of 17 controls, and a ready repeated
+measurement of GPT-5.6 Sol on four development repositories. Its
+reinforcement-learning utility remains unvalidated. GPT-5.6 Sol is a hosted
+model that this project cannot train, so the next step is a trainable starting
+policy measured under the same contract. A frozen panel of candidate
+environments and its prediction follow, and training remains gated on both.
 
 Detailed records:
 
