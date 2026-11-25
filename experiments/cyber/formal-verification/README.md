@@ -101,6 +101,7 @@ Detailed records:
 
 - [experiment plan](EXPERIMENT_PLAN.md)
 - [source landscape](SOURCE_LANDSCAPE.md)
+- [source qualification for the next prospective test](source-qualification/README.md)
 - [starting-policy probe](STARTING_POLICY_PROBE.md)
 - [policy requalification](POLICY_REQUALIFICATION.md)
 - [containment requalification](CODEX_CONTAINMENT.md)

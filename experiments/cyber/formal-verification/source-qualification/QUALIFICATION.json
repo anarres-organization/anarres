@@ -1,0 +1,2186 @@
+{
+  "schema_version": "anarres.formal-verification-source-qualification.v1",
+  "audit_date": "2026-11-24",
+  "status": "preliminary",
+  "scope": "Source and license verification, partial traces of one published result per source, and preliminary decisions. No source was executed for this record and no training was launched. Vero development measurements made before this record are cited as evidence.",
+  "status_values": [
+    "pass",
+    "unresolved",
+    "fail"
+  ],
+  "basis_values": [
+    "confirmed",
+    "inferred",
+    "unknown"
+  ],
+  "decision_values": [
+    "proceed",
+    "reserve",
+    "reject"
+  ],
+  "endpoint_pooling_allowed": false,
+  "gate": [
+    {
+      "id": "native_unit",
+      "section": "scientific decision",
+      "tier": "record",
+      "question": "What is the native unit: theorem, specification, function, repository, binary entry point, or another grouped object?"
+    },
+    {
+      "id": "pre_outcome_decision",
+      "section": "scientific decision",
+      "tier": "source_selection",
+      "question": "What training-environment decision can be made before downstream outcomes are opened?"
+    },
+    {
+      "id": "candidates_and_baseline",
+      "section": "scientific decision",
+      "tier": "source_selection",
+      "question": "Are there at least three independently defined candidates and a competent simple baseline?"
+    },
+    {
+      "id": "freezable_without_outcomes",
+      "section": "scientific decision",
+      "tier": "source_selection",
+      "question": "Can candidate membership, a target, and a choose-or-abstain rule be frozen without reading the scored outcome?"
+    },
+    {
+      "id": "adds_evidence",
+      "section": "scientific decision",
+      "tier": "source_selection",
+      "question": "Does the setting add a new proof assistant, programming language, repository regime, specification type, or real-software target?"
+    },
+    {
+      "id": "artifacts_identifiable",
+      "section": "source, verifier, and specification integrity",
+      "tier": "source_selection",
+      "question": "Are the official paper, repository, revision, task data, verifier, checkpoints, and training code identifiable and accessible?"
+    },
+    {
+      "id": "license_clear",
+      "section": "source, verifier, and specification integrity",
+      "tier": "source_selection",
+      "question": "Do the repository, task data, and any training data carry licenses that permit research use and derived training data?"
+    },
+    {
+      "id": "published_result_traced",
+      "section": "source, verifier, and specification integrity",
+      "tier": "record",
+      "question": "Can one published result be traced from native source through verifier and training to its evaluation endpoint?"
+    },
+    {
+      "id": "grouped_before_split",
+      "section": "source, verifier, and specification integrity",
+      "tier": "source_selection",
+      "question": "Are tasks grouped before splitting by repository, source family, or shared generation lineage?"
+    },
+    {
+      "id": "leakage_auditable",
+      "section": "source, verifier, and specification integrity",
+      "tier": "source_selection",
+      "question": "Can exact duplicates, near duplicates, reference-proof leakage, future-lemma leakage, and generated-family leakage be audited?"
+    },
+    {
+      "id": "failures_visible",
+      "section": "source, verifier, and specification integrity",
+      "tier": "source_selection",
+      "question": "Are trusted axioms, admitted proofs, unsafe declarations, verifier shortcuts, and infrastructure failures visible rather than collapsed into success or reward zero?"
+    },
+    {
+      "id": "endpoints_separated",
+      "section": "source, verifier, and specification integrity",
+      "tier": "record",
+      "question": "Does the task test proof construction, code-and-proof synthesis, specification construction, or specification faithfulness, with these endpoints kept separate?"
+    },
+    {
+      "id": "verifier_reproduced",
+      "section": "source, verifier, and specification integrity",
+      "tier": "source_selection",
+      "question": "Has Anarres run the official verifier at the pinned revision with positive and negative controls?"
+    },
+    {
+      "id": "repeatable_starting_policy",
+      "section": "measurements and baselines",
+      "tier": "source_selection",
+      "question": "Can a pinned starting policy be run repeatedly before candidate training?"
+    },
+    {
+      "id": "policy_headroom",
+      "section": "measurements and baselines",
+      "tier": "source_selection",
+      "question": "Does a starting policy that can be trained here show nonzero, non-saturated strict support?"
+    },
+    {
+      "id": "native_measurements",
+      "section": "measurements and baselines",
+      "tier": "record",
+      "question": "Which source-native measurements represent support, mixed outcomes, effective coverage, verifier feedback, context size, proof cost, and missing execution?"
+    },
+    {
+      "id": "pre_training_quantities_separated",
+      "section": "measurements and baselines",
+      "tier": "panel_freeze",
+      "question": "Which quantities are available before training, and which use downstream outcomes?"
+    },
+    {
+      "id": "matched_exposure_candidates",
+      "section": "measurements and baselines",
+      "tier": "source_selection",
+      "question": "Can matched-exposure random, difficulty, length or cost, source-native, policy-relative, and compact combined candidates be constructed?"
+    },
+    {
+      "id": "cost_chargeable",
+      "section": "measurements and baselines",
+      "tier": "panel_freeze",
+      "question": "Can measurement and calibration cost be charged explicitly?"
+    },
+    {
+      "id": "checker_and_probe_cost",
+      "section": "feasibility",
+      "tier": "source_selection",
+      "question": "Do verifier cost and starting-policy probe cost fit the available budget?"
+    },
+    {
+      "id": "training_cost",
+      "section": "feasibility",
+      "tier": "panel_freeze",
+      "question": "Is the training, evaluation, storage, and accelerator cost of the candidate panel estimated for a named trainable starting policy?"
+    },
+    {
+      "id": "smoke_test_identified",
+      "section": "feasibility",
+      "tier": "record",
+      "question": "What is the smallest official smoke test that validates the complete source and verifier path?"
+    },
+    {
+      "id": "access_and_dependencies",
+      "section": "feasibility",
+      "tier": "record",
+      "question": "What access restrictions, dependency size, checker memory, wall time, and proprietary model or artifact dependencies apply?"
+    },
+    {
+      "id": "leakage_audit_done",
+      "section": "source, verifier, and specification integrity",
+      "tier": "panel_freeze",
+      "question": "Have the duplicate, near-duplicate, reference-proof, and starting-policy contamination audits been run on the proposed candidates and target?"
+    },
+    {
+      "id": "panel_protocol_drafted",
+      "section": "measurements and baselines",
+      "tier": "panel_freeze",
+      "question": "Is the matched-exposure panel drafted with fixed random selection, a source-native baseline, the strongest published rule, a policy-relative rule, and one combined rule, together with candidate construction, starting policy, target, verifier, trusted assumptions, budget, seeds, evaluation, uncertainty, measurement cost, and choose-or-abstain conditions?"
+    }
+  ],
+  "gate_tiers": {
+    "source_selection": "required for a proceed decision",
+    "panel_freeze": "required before a prospective panel is frozen. Every source lists an unresolved entry for each open one.",
+    "record": "recorded for comparison and does not change the decision"
+  },
+  "selection_rule": {
+    "fixed_before": "any source smoke test for this comparison. It was written after the Vero Leanstral-1.5 and GPT-5.6 Sol development measurements, which it cites as evidence.",
+    "criteria": [
+      {
+        "id": "C1",
+        "text": "an honest held-out environment decision exists",
+        "checks": [
+          "pre_outcome_decision",
+          "freezable_without_outcomes"
+        ]
+      },
+      {
+        "id": "C2",
+        "text": "the official verifier and outcome path are reproducible",
+        "checks": [
+          "verifier_reproduced"
+        ]
+      },
+      {
+        "id": "C3",
+        "text": "a capable starting-policy probe is feasible",
+        "checks": [
+          "repeatable_starting_policy",
+          "policy_headroom"
+        ]
+      },
+      {
+        "id": "C4",
+        "text": "candidate construction preserves repository and generation lineage",
+        "checks": [
+          "grouped_before_split",
+          "leakage_auditable"
+        ]
+      },
+      {
+        "id": "C5",
+        "text": "random and strong simple baselines can be matched fairly",
+        "checks": [
+          "candidates_and_baseline",
+          "matched_exposure_candidates"
+        ]
+      },
+      {
+        "id": "C6",
+        "text": "compute and checker cost fit the available budget",
+        "checks": [
+          "checker_and_probe_cost"
+        ]
+      },
+      {
+        "id": "C7",
+        "text": "the source expands the current evidence boundary",
+        "checks": [
+          "adds_evidence"
+        ]
+      },
+      {
+        "id": "C8",
+        "text": "failures, trusted assumptions, and specification adequacy remain visible",
+        "checks": [
+          "failures_visible"
+        ]
+      }
+    ],
+    "criterion_status": "the most severe status among the mapped checks, ordered pass < unresolved < fail",
+    "decision": [
+      "reject when a source_selection check fails and records no remediation",
+      "reserve when any other source_selection check is unresolved or fails",
+      "proceed when every source_selection check passes"
+    ],
+    "decision_meaning": {
+      "proceed": "selected as the prospective source. A proceed decision does not freeze a panel or authorize training while any panel_freeze check is open.",
+      "reserve": "kept for later use. The listed unresolved checks name what must change.",
+      "reject": "not used for this program without new evidence"
+    },
+    "selection": "Among proceed sources, select the one with the fewest open panel_freeze checks, then by source_id. With no proceed source, abstain and name the first reserve source as the leading candidate.",
+    "reserve_ranking": "Order reserve sources by failed criteria, then by unresolved source_selection checks, then by unresolved criteria, then by source_id.",
+    "smoke_test_rule": "Recommend official source smoke tests for the first two reserve sources, in ranking order, whose verifier_reproduced check is open and whose smoke_test_identified check passes.",
+    "policy_pilot_rule": "When the leading candidate's policy_headroom check is open, recommend a development-only starting-policy pilot for it. A policy pilot is separate from source smoke tests.",
+    "evidence_rule": "A pass needs at least one confirmed evidence claim. A check with an open unresolved entry cannot pass. An unresolved entry blocks the tier of the check it names."
+  },
+  "sources": [
+    {
+      "source_id": "vero",
+      "decision": "reserve",
+      "decision_reasons": [
+        "The source, Lean runtime, grader controls, repository-disjoint split, and task-only execution boundary are qualified at the exact pin, which is still the upstream head.",
+        "No starting policy that can be trained here has strict support. Leanstral-1.5 passed 0 of 2,776 strict trials. GPT-5.6 Sol passed 1,653 of 2,776 but is hosted.",
+        "Support has been measured on only 4 of 23 development repositories, and the target holds only 10 prospective repositories.",
+        "Two specification and lineage checks are open: the faithfulness of the piggybank trusted axiom and near duplicates across shared upstreams.",
+        "Vero ranks first among reserve sources under the ranking rule and is the leading candidate pending a trainable-policy pilot."
+      ],
+      "endpoints": {
+        "proof_only": {
+          "supported": true,
+          "note": "mode=proof. The reference implementation is supplied and the policy proves or disproves each specification."
+        },
+        "code_and_proof": {
+          "supported": true,
+          "note": "mode=codeproof. Implementation bodies are withheld. Satisfiability claims are recorded as sat_unverified by the Anarres checker."
+        },
+        "specification_construction": {
+          "supported": false,
+          "note": "Specifications are frozen curator artifacts."
+        },
+        "specification_faithfulness": {
+          "supported": false,
+          "note": "Disprove and joint-unsat slots expose specification defects as scored obligations. Faithfulness of trusted axioms is an open check."
+        }
+      },
+      "checks": {
+        "native_unit": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "One Lean 4 repository instance per task, scored per specification nested in API, module, and repository. The repository is the minimum independent unit.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "pre_outcome_decision": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Choose a training composition among the 23 development repositories, then score it on the 10 prospective repositories (595 specifications) of data/formal-verification/vero/repository-split.json.",
+              "basis": "confirmed"
+            },
+            {
+              "claim": "The prospective target holds only 10 repositories, so a panel decision rests on 10 independent target units.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "candidates_and_baseline": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Mode, source-language track, trusted-axiom regime, support stratum, and size regime each define a candidate from source fields. A specification-proportional mixture of all 23 development repositories is the simple baseline.",
+              "basis": "inferred"
+            },
+            {
+              "claim": "repository-split.json records source language, trusted axioms, and specification count for each development repository: 7 formal-track repositories with 693 specifications, 16 Python repositories with 801, and 3 trusted-axiom repositories with 350.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "freezable_without_outcomes": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "The repository split is marked frozen_before_policy_measurement and no Anarres policy has opened a qualification or prospective repository.",
+              "basis": "confirmed"
+            },
+            {
+              "claim": "Paper Table 4 publishes single-run outcomes of hosted frontier agents on every repository, including prospective ones. The protocol must forbid their use in candidate construction.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "adds_evidence": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "The public-evidence studies are retrospective Dafny and Verus comparisons. A Vero test would be the first prospective repository-level Lean test in this program.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "artifacts_identifiable": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Paper arXiv 2608.13522v1, repository, revision, benchmark tree, grader, and toolchain are pinned in data/formal-verification/vero/source-pin.json. No training code or trained checkpoint exists upstream.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "license_clear": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Apache-2.0 with three LGPL benchmark exceptions (flocq, huffman, portion).",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "published_result_traced": {
+          "status": "unresolved",
+          "trace": "partial",
+          "evidence": [
+            {
+              "claim": "Paper Table 4 reports GPT-5.5 xhigh passing 9 of 9 primepy specifications in both modes. The grader path is released, but the producing runs and the number of runs per cell are not.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "grouped_before_split": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "The split assigns whole repositories, stratified by source language and balanced on specification count.",
+              "basis": "confirmed"
+            },
+            {
+              "claim": "Shared upstreams such as dafny-lang/libraries and python/cpython are not a grouping key in the split.",
+              "basis": "inferred"
+            }
+          ]
+        },
+        "leakage_auditable": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Reference proofs are absent from released instances. Specification and implementation text can be hashed across repositories and shared upstreams. The Anarres materializer rejects leaked manifests and reference sidecars.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "failures_visible": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Per-specification statuses include sorry_leaked, axiom_leaked, build_error, unsafe_keyword, and impl_oracle. Five instances declare 81 trusted axioms. The Anarres kernel re-check downgrades forged axiom reports, and infrastructure failures are recorded separately.",
+              "basis": "confirmed"
+            },
+            {
+              "claim": "Sol passed all 23 piggybank specifications that every paper configuration fails 6 of. Whether the trusted axiom contract_induction faithfully models ConCert is unchecked.",
+              "basis": "inferred"
+            }
+          ]
+        },
+        "endpoints_separated": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Proof and code-and-proof profiles are emitted and measured separately.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "verifier_reproduced": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Anarres qualified the Lean runtime and reference build, passed all 93 selected upstream grader controls, and passed 17 of 17 task-only containment controls.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "repeatable_starting_policy": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Leanstral-1.5 ran 32 infrastructure-valid attempts and GPT-5.6 Sol ran 32 attempts (31 scored, 1 policy-caused integrity failure, 0 infrastructure failures) under frozen protocols.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "policy_headroom": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "GPT-5.6 Sol passed 1,653 of 2,776 strict specification trials with 289 mixed specification groups, but it is hosted and cannot be trained here.",
+              "basis": "confirmed"
+            },
+            {
+              "claim": "Leanstral-1.5 passed 0 of 2,776 strict specification trials and 0 of 9 at every budget-ladder step up to 1 million tokens.",
+              "basis": "confirmed"
+            },
+            {
+              "claim": "Support was measured on 4 of the 23 development repositories, and only arithmetic-v2 and verified-bitmasks gave mixed outcomes for Sol.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "native_measurements": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Per repository and mode: strict passes, success histograms over 4 attempts, mixed groups, union coverage, advantage mass per million model tokens, effective coverage, tokens, turns, wall time, stop reasons, and axiom re-check failures.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "pre_training_quantities_separated": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "All measurements use development repositories only. Qualification and prospective repositories remain unopened.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "matched_exposure_candidates": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Specification counts per repository allow candidates to be matched on scored-specification exposure.",
+              "basis": "inferred"
+            },
+            {
+              "claim": "Development repositories hold from 9 (primepy) to 203 (flocq) specifications, as recorded in repository-split.json.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "cost_chargeable": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "The Sol measurement records 177,798,149 model tokens, 134.54 USD planning cost, and 13,471 agent-seconds.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "checker_and_probe_cost": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Fresh grading takes about 1 to 6 seconds per replay with a warm dependency cache on the development panel.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "training_cost": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No trainable starting policy is chosen, so training cost is unknown.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "smoke_test_identified": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "vero run benchmark=tiny_unsat mode=codeproof, plus the Anarres model-free runtime preflight.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "access_and_dependencies": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Public source. Mathlib instances may fetch caches at build time. All published baselines depend on hosted proprietary agents.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "leakage_audit_done": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No candidate or target audit has been run.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "panel_protocol_drafted": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No candidate panel or choose-or-abstain rule is drafted for this source.",
+              "basis": "confirmed"
+            }
+          ]
+        }
+      },
+      "unresolved_checks": [
+        {
+          "id": "vero-trainable-policy",
+          "check": "policy_headroom",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Find a trainable starting policy with nonzero, non-saturated strict support under the development contract. Leanstral-1.5 ran with a 50,000-token cumulative cap per attempt and with MCP tools disabled, so no Lean language-server tools were available. Its inference contract's deployment receipt was never recorded, so the served context and reasoning parser are not established. A rerun under Leanstral's native agent configuration is pending and is not yet frozen."
+        },
+        {
+          "id": "vero-training-cost",
+          "check": "training_cost",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Estimate training and evaluation cost once the trainable starting policy is named."
+        },
+        {
+          "id": "vero-piggybank-axiom",
+          "check": "failures_visible",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "The paper reports every frontier configuration failing the same 6 of 23 piggybank chain-state specifications. GPT-5.6 Sol passed 23 of 23 in all 8 repeated attempts (repeated-measurement.codex-sol-v2). The public task source declares the trusted ConCert axiom contract_induction in benchmarks/piggybank/PiggybankV2/Impl/ConcertShim.lean. Released grade receipts do not record per-specification axiom sets, so they do not establish whether submitted proofs used that axiom. Check whether the axiom faithfully models ConCert before piggybank enters a candidate."
+        },
+        {
+          "id": "vero-shared-upstream",
+          "check": "grouped_before_split",
+          "blocks": "source_selection",
+          "basis": "inferred",
+          "text": "Audit near-duplicate specifications across shared upstreams (dafny-lang/libraries, python/cpython, AU-COBRA/ConCert) that cross split lines."
+        },
+        {
+          "id": "vero-public-target-outcomes",
+          "check": "panel_protocol_drafted",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Record in the protocol that published frontier outcomes on prospective repositories are excluded from candidate construction and prediction."
+        },
+        {
+          "id": "vero-native-decide-prompt",
+          "check": "panel_protocol_drafted",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Name native_decide and other banned tactics in the next prompt, and build the trusted checker's reference from each task's trusted-axiom modules."
+        },
+        {
+          "id": "vero-post-pin-fixes",
+          "check": "panel_protocol_drafted",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Record in the protocol the known defects per split from upstream fix branches after the pin, while staying on the pin."
+        },
+        {
+          "id": "vero-published-trace",
+          "check": "published_result_traced",
+          "blocks": "record",
+          "basis": "confirmed",
+          "text": "Per-instance paper results cannot be traced to released runs."
+        },
+        {
+          "id": "vero-panel-protocol",
+          "check": "panel_protocol_drafted",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Draft the matched-exposure panel (fixed random, source-native baseline, strongest published rule, policy-relative rule, combined rule) with its full freeze contract. Owed for every source."
+        },
+        {
+          "id": "vero-leakage-audit",
+          "check": "leakage_audit_done",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Run duplicate and near-duplicate audits of candidate and target specifications, and a contamination check of the chosen starting policy against the public reference implementations."
+        }
+      ]
+    },
+    {
+      "source_id": "vericoding",
+      "decision": "reserve",
+      "decision_reasons": [
+        "Thousands of tasks per language and at least four source families per language support family-level candidates and a family-held-out target.",
+        "The native grader is a regex check over editable regions with no axiom audit, the same confirmed defect recorded for VeriSoftBench. Whether unfilled stubs and unguarded shortcuts pass is inferred and untested.",
+        "Several paper Table 3 cells do not reproduce from the released results file, and the verifier harness revision is unpinned.",
+        "No real-software repository target, and many reference solutions are public."
+      ],
+      "endpoints": {
+        "proof_only": {
+          "supported": false,
+          "note": "Proof-only DafnyBench results use the original DafnyBench, which is outside this repository."
+        },
+        "code_and_proof": {
+          "supported": true,
+          "note": "The released endpoint, in Dafny, Verus, and Lean separately."
+        },
+        "specification_construction": {
+          "supported": false,
+          "note": "Suggested for flagged tasks but not evaluated."
+        },
+        "specification_faithfulness": {
+          "supported": false,
+          "note": "Manual inspection of 120 successes only."
+        }
+      },
+      "checks": {
+        "native_unit": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "One task file holds one specification with holes, mostly one function to implement and prove.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "pre_outcome_decision": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Within one language, choose which source families to train on and hold out whole families as the target.",
+              "basis": "inferred"
+            },
+            {
+              "claim": "Source family is a released field with 8 or 9 families per language.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "candidates_and_baseline": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "At least four families per language plus a size-matched uniform mixture of the non-target families.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "freezable_without_outcomes": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "No trained-policy outcome exists. Published results are cross-model prompting outcomes that a protocol can exclude.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "adds_evidence": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Native Dafny and Verus verification and a Lean code-verification regime. No real software.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "artifacts_identifiable": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "The verifier harness is in a separate repository whose paper revision is unknown and whose README calls some scripts stripped down.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "license_clear": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "The verified-cogen family (516 tasks) is marked 'Permission requested' in paper Table 4.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "published_result_traced": {
+          "status": "unresolved",
+          "trace": "partial",
+          "evidence": [
+            {
+              "claim": "Verus APPS gpt-5 at 26.5 percent reproduces as 142 of 536 rows in vericoding_results_v1.csv. Several Dafny cells, all Verus verified-cogen rows, and all FVAPPS rows do not reproduce.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "grouped_before_split": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Family, cross-language source-id (2,169 problems appear in all three languages), and near-duplicate groups are released fields.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "leakage_auditable": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Near-duplicate groups and source-id links are released. Reference-solution exposure is high and auditable by family.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "failures_visible": {
+          "status": "fail",
+          "evidence": [
+            {
+              "claim": "The cheat check is a regex over editable sections, and src/vericoding contains no axiom-printing check or other axiom audit.",
+              "basis": "confirmed"
+            },
+            {
+              "claim": "Separate note: unfilled stubs (assume false in Dafny and Verus, sorry in Lean) would pass the verifier without that regex, and native_decide, implemented_by, {:extern}, and {:verify false} are not guarded. Untested here.",
+              "basis": "inferred"
+            },
+            {
+              "claim": "The paper estimates about 9 percent too-weak and 15 percent poorly translated specifications among successes.",
+              "basis": "confirmed"
+            }
+          ],
+          "remediation": "Test the native grader with negative controls, then build a hardened grader with a Lean axiom audit and bans on native_decide, implemented_by, Dafny {:extern} and {:verify false}, and Verus external_body, plus a specification-text hash check and specification filtering."
+        },
+        "endpoints_separated": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Code-and-proof only, with languages never pooled.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "verifier_reproduced": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Anarres has not run the pinned verifiers on stubs or on released solutions.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "repeatable_starting_policy": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "All three verifiers run locally, so an open-weight policy can be sampled repeatedly.",
+              "basis": "inferred"
+            },
+            {
+              "claim": "The paper pins all three verifiers to released versions (Dafny 4.11.0, Verus 0.2025.08.25, Lean v4.23.0-rc2).",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "policy_headroom": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Open-weight glm-4.5 reaches 42.0 percent on Dafny and 1.6 percent on Lean. No small trainable policy is reported.",
+              "basis": "confirmed"
+            },
+            {
+              "claim": "The open-weight status of glm-4.5 and deepseek-chat-v3.1 was not checked against model cards.",
+              "basis": "inferred"
+            }
+          ]
+        },
+        "native_measurements": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Per task and model binary success, specification and solution length, quality flags, and near-duplicate group. Per-attempt outcomes and costs are not released.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "pre_training_quantities_separated": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "All released quantities are pre-training cross-model measurements.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "matched_exposure_candidates": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Task counts per family allow size-matched candidates.",
+              "basis": "inferred"
+            },
+            {
+              "claim": "Compiling-task counts per family are released in the benchmark CSV and jsonl files.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "cost_chargeable": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Anarres can charge its own tokens and verifier time.",
+              "basis": "inferred"
+            }
+          ]
+        },
+        "checker_and_probe_cost": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "The harness bounds each attempt at 60 seconds for compilation and 120 seconds for verification.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "training_cost": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No trainable starting policy is chosen.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "smoke_test_identified": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "The pinned repository documents no smoke test. The unpinned harness documents a paid-API run.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "access_and_dependencies": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Public repository. Experiment traces are on Weights and Biases with unknown access.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "leakage_audit_done": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No candidate or target audit has been run.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "panel_protocol_drafted": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No candidate panel or choose-or-abstain rule is drafted for this source.",
+              "basis": "confirmed"
+            }
+          ]
+        }
+      },
+      "unresolved_checks": [
+        {
+          "id": "vericoding-hardened-grader",
+          "check": "failures_visible",
+          "blocks": "source_selection",
+          "basis": "inferred",
+          "text": "Test the native grader with negative controls, then build a hardened grader with a Lean axiom audit and bans on native_decide, implemented_by, Dafny {:extern} and {:verify false}, and Verus external_body, before any use as reward."
+        },
+        {
+          "id": "vericoding-harness-pin",
+          "check": "artifacts_identifiable",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Pin the harness repository to the commit used for the paper runs and confirm with the authors."
+        },
+        {
+          "id": "vericoding-license",
+          "check": "license_clear",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Resolve the verified-cogen license, or exclude its 516 tasks."
+        },
+        {
+          "id": "vericoding-verifier-run",
+          "check": "verifier_reproduced",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Run each pinned verifier on stubs and on a sample of vericoded/ solutions and record time and memory per language."
+        },
+        {
+          "id": "vericoding-results-discrepancy",
+          "check": "published_result_traced",
+          "blocks": "record",
+          "basis": "confirmed",
+          "text": "Explain the results-file discrepancies, including 334 result task IDs absent from the benchmark file."
+        },
+        {
+          "id": "vericoding-policy-support",
+          "check": "policy_headroom",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Measure pass@k and mixed outcomes for a small trainable policy per language and family."
+        },
+        {
+          "id": "vericoding-contamination",
+          "check": "leakage_audit_done",
+          "blocks": "panel_freeze",
+          "basis": "inferred",
+          "text": "Audit the starting policy against DafnyBench, Verina, CLEVER, HumanEval, APPS, and vericoded/ outputs."
+        },
+        {
+          "id": "vericoding-panel-protocol",
+          "check": "panel_protocol_drafted",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Draft the matched-exposure panel (fixed random, source-native baseline, strongest published rule, policy-relative rule, combined rule) with its full freeze contract. Owed for every source."
+        },
+        {
+          "id": "vericoding-cost-accounting",
+          "check": "cost_chargeable",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Freeze how tokens, verifier time, and memory are charged for this source before any measurement."
+        },
+        {
+          "id": "vericoding-training-cost",
+          "check": "training_cost",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Estimate training and evaluation cost once a trainable starting policy is named."
+        }
+      ]
+    },
+    {
+      "source_id": "verisoftbench",
+      "decision": "reserve",
+      "decision_reasons": [
+        "23 real Lean verification repositories give a natural repository-level split and several composition candidates.",
+        "The checker has no axiom audit, discards warnings, and checks files whose context may contain sorry-backed declarations.",
+        "Reference proofs are present in the pinned sources and their build products, so materialization must strip more than the ground_truth_proof field.",
+        "The pinned harness supports only hosted APIs, and no trainable-policy support beyond about 5 percent is published."
+      ],
+      "endpoints": {
+        "proof_only": {
+          "supported": true,
+          "note": "Fill the proof of a fixed theorem in its original file context."
+        },
+        "code_and_proof": {
+          "supported": false,
+          "note": "Not offered."
+        },
+        "specification_construction": {
+          "supported": false,
+          "note": "Not offered."
+        },
+        "specification_faithfulness": {
+          "supported": false,
+          "note": "Not offered."
+        }
+      },
+      "checks": {
+        "native_unit": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "One theorem-level proof obligation, grouped by 188 source files within 23 repositories.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "pre_outcome_decision": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Choose among category, context-regime, dependency-depth, and scale compositions of non-held-out repositories.",
+              "basis": "inferred"
+            },
+            {
+              "claim": "category, nesting_depth, and lean_root are released per-task fields.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "candidates_and_baseline": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Category, nesting_depth, and repository fields define at least four candidates plus a uniform mixture baseline.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "freezable_without_outcomes": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Repository-level targets can be frozen. The Forall boundary tasks were chosen from released outcomes and must be excluded from any target.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "adds_evidence": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Native Lean software developments across 22 toolchains. Same proof assistant as Vero.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "artifacts_identifiable": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Paper v2, repository, dataset hash, Hugging Face mirror, and per-repository upstream commits are identified.",
+              "basis": "confirmed"
+            },
+            {
+              "claim": "lean-mlir names nightly-2025-11-30 in repos.json and nightly-2025-12-01 in its build toolchain file.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "license_clear": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "IntroEffects is redistributed under written consent only. One repository is GPL-3.0 and one LGPL-2.1, which affects derived training data.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "published_result_traced": {
+          "status": "unresolved",
+          "trace": "partial",
+          "evidence": [
+            {
+              "claim": "Gemini-3-Pro 41.0 and 34.8 percent appear in Table 3, but Tables 5 and 7 and Appendix B.1 imply values 0.2 to 1.4 points different. Per-task outcomes are not released.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "grouped_before_split": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Repository and file fields exist. ArkLib depends on VCV-io and shares a byte-identical proof with it, so the two travel together.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "leakage_auditable": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Exact duplicate statements and proofs are detectable from the dataset. Same-file future lemmas are renamed by the harness.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "failures_visible": {
+          "status": "fail",
+          "remediation": "Add a kernel axiom audit, stop discarding warnings, and run negative controls (sorryAx, native_decide, implemented_by, opaque-for-axiom, statement mutation).",
+          "evidence": [
+            {
+              "claim": "No axiom audit and warnings ignored. The Forall release reports 97 rule-accepted versus 86 strict passes for GPT-5.6 Sol.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "endpoints_separated": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Proof-only.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "verifier_reproduced": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Anarres has not built the image or compiled the 500 reference proofs. Five repository builds are allowed to fail with a warning.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "repeatable_starting_policy": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "The pinned harness calls only OpenAI, Anthropic, and Google APIs. Open-weight inference exists only on an unmerged branch.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "policy_headroom": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Goedel-Prover-V2-32B solves 5.6 percent with curated context. Its full-repository value differs between paper versions.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "native_measurements": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Nesting depth, transitive dependency count, proof length, category, and context size per task.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "pre_training_quantities_separated": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Dataset features are pre-training. Published solve rates are cross-model outcomes.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "matched_exposure_candidates": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Task counts per repository and category allow matching, though several repositories hold fewer than 10 tasks.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "cost_chargeable": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Anarres can charge its own tokens and compile time.",
+              "basis": "inferred"
+            }
+          ]
+        },
+        "checker_and_probe_cost": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Docker image about 110 GB and about 1 hour to build. Timeout 600 seconds per candidate in code. Memory not documented.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "training_cost": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No trainable starting policy is chosen.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "smoke_test_identified": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "verify_ground_truth.py compiles reference proofs in the container without a model. SKIP_REPOS restricts it.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "access_and_dependencies": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Public code and data. The build clones 23 repositories and Mathlib caches over the network.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "leakage_audit_done": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No candidate or target audit has been run.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "panel_protocol_drafted": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No candidate panel or choose-or-abstain rule is drafted for this source.",
+              "basis": "confirmed"
+            }
+          ]
+        }
+      },
+      "unresolved_checks": [
+        {
+          "id": "verisoftbench-strict-checker",
+          "check": "failures_visible",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Add a strict kernel axiom audit and negative controls before any use as reward."
+        },
+        {
+          "id": "verisoftbench-ground-truth",
+          "check": "verifier_reproduced",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Build the image and record how many of the 500 reference proofs compile at the pin."
+        },
+        {
+          "id": "verisoftbench-policy-interface",
+          "check": "repeatable_starting_policy",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Provide an open-weight policy interface, for example by auditing the unmerged jocelyn/goedel-eval branch."
+        },
+        {
+          "id": "verisoftbench-cost",
+          "check": "checker_and_probe_cost",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Measure checker memory and wall time per task."
+        },
+        {
+          "id": "verisoftbench-license",
+          "check": "license_clear",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Review IntroEffects, GPL-3.0, and LGPL-2.1 terms before deriving training data."
+        },
+        {
+          "id": "verisoftbench-sanitize",
+          "check": "leakage_audit_done",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Strip target proofs from sources and build products, rebuild dependents, and grep the workspace for proof text."
+        },
+        {
+          "id": "verisoftbench-toolchain-mismatch",
+          "check": "artifacts_identifiable",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Resolve the lean-mlir toolchain mismatch and the 300-second versus 600-second timeout."
+        },
+        {
+          "id": "verisoftbench-panel-protocol",
+          "check": "panel_protocol_drafted",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Draft the matched-exposure panel (fixed random, source-native baseline, strongest published rule, policy-relative rule, combined rule) with its full freeze contract. Owed for every source."
+        },
+        {
+          "id": "verisoftbench-policy-support",
+          "check": "policy_headroom",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Measure strict support per repository for a trainable open-weight policy with repeated samples."
+        },
+        {
+          "id": "verisoftbench-cost-accounting",
+          "check": "cost_chargeable",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Freeze how tokens, verifier time, and memory are charged for this source before any measurement."
+        },
+        {
+          "id": "verisoftbench-training-cost",
+          "check": "training_cost",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Estimate training and evaluation cost once a trainable starting policy is named."
+        }
+      ]
+    },
+    {
+      "source_id": "oss-verify",
+      "decision": "reserve",
+      "decision_reasons": [
+        "The verifier is the strongest audited: a kernel-checked wrapper at the published statement type, an assumption audit, and adversarial and mutation controls that Anarres replayed.",
+        "No open-weight support is published, and full proofs reach hundreds of thousands of Rocq lines. A trainable policy very likely has no support without a reduced-task tier.",
+        "Each proof check can need up to 20 GiB of memory and from 30 minutes to several CPU-hours, which makes reward evaluation at reinforcement-learning scale expensive.",
+        "Independent units are libraries, of which only 32 to 34 have proofs."
+      ],
+      "endpoints": {
+        "proof_only": {
+          "supported": true,
+          "note": "Statements and binaries are fixed and the policy writes Rocq proofs. Counterexample finding is a separately verified endpoint."
+        },
+        "code_and_proof": {
+          "supported": false,
+          "note": "Binaries are fixed."
+        },
+        "specification_construction": {
+          "supported": false,
+          "note": "Statements are generated by oft generate. Classifier statements come close to construction."
+        },
+        "specification_faithfulness": {
+          "supported": false,
+          "note": "The trust base includes an incomplete OS model and a flagged memory-budget vacuity risk."
+        }
+      },
+      "checks": {
+        "native_unit": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "A statement about exact binary bytes, grouped by entry point and partitioned by library.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "pre_outcome_decision": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Choose among proof-reuse, cold-entry-point, statement-kind, and counterexample candidates, with library or release-chronology holdout.",
+              "basis": "inferred"
+            },
+            {
+              "claim": "Statement kind, status, and proof directories per entry point are released in index/*.tsv.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "candidates_and_baseline": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Four candidates from released statements plus a retrieval-and-transplant baseline that reuses the nearest published proof library.",
+              "basis": "inferred"
+            },
+            {
+              "claim": "The index at 89eb8357 lists 524 open statements in 60 entry points that already have an indexed proof.",
+              "basis": "confirmed"
+            },
+            {
+              "claim": "Counting the 24 in-tree proof folders that the index still lists as open gives 522 open statements in 62 entry points, a tree-based figure.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "freezable_without_outcomes": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Statements proved after a frozen release form a chronological target. v2026.11.3 has 695 proved statements against 526 at the pin.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "adds_evidence": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "New proof assistant (Rocq 9.2.0), compiled RISC-V machine code of real OSS-Fuzz targets, and sanitizer-equivalence, termination, bound, and decidability statements.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "artifacts_identifiable": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Repository revision, semantics commit, checker and runner image digests, Rocq version, and binary hashes are pinned.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "license_clear": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "MIT, with Apache-2.0 OR MIT for Anthropic-derived proofs and upstream licenses for binaries.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "published_result_traced": {
+          "status": "unresolved",
+          "trace": "partial",
+          "evidence": [
+            {
+              "claim": "90 entry points in 32 libraries trace from index/proofs.tsv. The cJSON proof folder holds 795,968 lines against the appendix's 630,000, and the 36-task curves are not released.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "grouped_before_split": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Library, entry point, build, and statement kind are released. Anthropic submissions merge across libraries, so related libraries must be co-assigned.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "leakage_auditable": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Blob hashes show 0.4 percent of proof files byte-identical across libraries. Near-duplicate runtime proofs need normalized hashing.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "failures_visible": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "FAIL, VOID, refused assumptions, lint refusals, and stack exhaustion are distinct. Budget-premise vacuity and trivial bounds at b=1 are flagged by the release.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "endpoints_separated": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Proof and counterexample endpoints are checked by different images.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "verifier_reproduced": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Anarres replayed 32 positive, 7 adversarial, and 13 mutation controls at v2026.11.1. The checker changed before the issue pin, while its assumption-audit function is byte-identical.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "repeatable_starting_policy": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No released reduced-task tier and no open-weight policy interface exist.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "policy_headroom": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No open-weight result exists.",
+              "basis": "confirmed"
+            },
+            {
+              "claim": "Support for a trainable policy is likely near zero without a reduced-task tier.",
+              "basis": "inferred"
+            }
+          ]
+        },
+        "native_measurements": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Statement kind, build, status, proof-library size per entry point, and proof origin. No per-proof check time or memory is recorded.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "pre_training_quantities_separated": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Index features are pre-training. Release chronology separates later proofs.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "matched_exposure_candidates": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Statement counts by kind and library allow matching.",
+              "basis": "inferred"
+            },
+            {
+              "claim": "Statement counts by kind are released: 9,480 halts, 6,535 agreement, 2,203 bound, and 2,203 decidability.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "cost_chargeable": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Anarres can charge checker CPU time and memory per statement.",
+              "basis": "inferred"
+            }
+          ]
+        },
+        "checker_and_probe_cost": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Up to 20 GiB on 16 cores per proof check and 30 minutes to several CPU-hours per check.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "training_cost": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No trainable starting policy and no reduced-task tier exist.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "smoke_test_identified": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "tests/check.sh for toy controls, then ./oft check coturn/FuzzStunClient --parts statements,proofs in the pinned checker image.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "access_and_dependencies": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Public repository, images, and assets. The checker image is 1,329,799,572 bytes and the repository about 4.4 GB.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "leakage_audit_done": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No candidate or target audit has been run.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "panel_protocol_drafted": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No candidate panel or choose-or-abstain rule is drafted for this source.",
+              "basis": "confirmed"
+            }
+          ]
+        }
+      },
+      "unresolved_checks": [
+        {
+          "id": "oss-verify-repin",
+          "check": "verifier_reproduced",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Adopt an immutable release tag or record 89eb8357 with a tree-over-index rule, then replay the controls and one real entry point at that pin."
+        },
+        {
+          "id": "oss-verify-reduced-tier",
+          "check": "repeatable_starting_policy",
+          "blocks": "source_selection",
+          "basis": "inferred",
+          "text": "Rebuild a reduced-task tier like the 36 unreleased tasks and probe a trainable policy on it."
+        },
+        {
+          "id": "oss-verify-check-cost",
+          "check": "checker_and_probe_cost",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Measure per-proof checker wall time and peak memory on the development panel."
+        },
+        {
+          "id": "oss-verify-near-duplicates",
+          "check": "leakage_audit_done",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Run a normalized near-duplicate audit of proof libraries across libraries."
+        },
+        {
+          "id": "oss-verify-vacuity",
+          "check": "panel_protocol_drafted",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Require a satisfiability witness for the memory-budget premise or restrict to may-fail halts statements, and require bounds below 1."
+        },
+        {
+          "id": "oss-verify-panel-protocol",
+          "check": "panel_protocol_drafted",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Draft the matched-exposure panel (fixed random, source-native baseline, strongest published rule, policy-relative rule, combined rule) with its full freeze contract. Owed for every source."
+        },
+        {
+          "id": "oss-verify-policy-support",
+          "check": "policy_headroom",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Measure strict support for a trainable open-weight policy, on a reduced-task tier if needed."
+        },
+        {
+          "id": "oss-verify-cost-accounting",
+          "check": "cost_chargeable",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Freeze how tokens, verifier time, and memory are charged for this source before any measurement."
+        },
+        {
+          "id": "oss-verify-training-cost",
+          "check": "training_cost",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Estimate training and evaluation cost once a trainable starting policy is named."
+        }
+      ]
+    },
+    {
+      "source_id": "verusage-verusyn",
+      "decision": "reserve",
+      "decision_reasons": [
+        "It is the only audited source with a published training study that varies data composition on an open base model and scores a family-disjoint target.",
+        "Raw Qwen2.5-Coder-32B already has mixed outcomes (10 percent at 100 samples, 0 to 24 percent per family), so a trainable policy has measurable headroom.",
+        "The training data has no stated license, the Verus commit is unpinned, and Anarres has not run the verifier.",
+        "The published composition ranking already uses the 560-task target, so a prospective target must be defined elsewhere."
+      ],
+      "endpoints": {
+        "proof_only": {
+          "supported": true,
+          "note": "Write the proof for a target function whose specification and code are fixed."
+        },
+        "code_and_proof": {
+          "supported": false,
+          "note": "Not offered."
+        },
+        "specification_construction": {
+          "supported": false,
+          "note": "Not offered."
+        },
+        "specification_faithfulness": {
+          "supported": false,
+          "note": "Context lemmas are trusted external_body stubs."
+        }
+      },
+      "checks": {
+        "native_unit": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "One proof function in a standalone Verus file extracted from a real systems project, grouped by project prefix and module.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "pre_outcome_decision": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Choose among released training-data compositions (SAFE, VeruSyn Part-1, Part-2 algorithmic and system trajectories) for a trainable policy.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "candidates_and_baseline": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "At least four released candidate datasets, the published sequential rule, and a matched-exposure random mixture.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "freezable_without_outcomes": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Paper Table 1 already ranks compositions on the 560-task family-disjoint target, so that target is a visible outcome.",
+              "basis": "confirmed"
+            },
+            {
+              "claim": "Gale (45 tasks), a fresh post-pin slice, or a smaller starting policy could serve as a held-out target. None is frozen.",
+              "basis": "inferred"
+            }
+          ]
+        },
+        "adds_evidence": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Native Verus (Rust and SMT) verification of OS, allocator, distributed-system, and storage code.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "artifacts_identifiable": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "The Verus commit for VeruSAGE-Bench is unpinned. VeruSyn weights and training code are not released.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "license_clear": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "microsoft/Verus_Training_Data states no license. Three upstream projects report NOASSERTION.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "published_result_traced": {
+          "status": "unresolved",
+          "trace": "partial",
+          "evidence": [
+            {
+              "claim": "Table 1 VeruSyn full at 39 percent: training inputs and task set are released, while weights, generations, and the Verus build are not.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "grouped_before_split": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Project prefix and module path are released. 569 of 843 system trajectories match NR, ST, or VE tasks exactly and Gale has 0 of 45 exact matches.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "leakage_auditable": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Tasks and trajectories carry code text, so exact and near-duplicate scans are feasible. The 15.68 GB Part-1 file is not yet scanned.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "failures_visible": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "The guard counts assume, admit, and external_body occurrences and then runs a diff check. It is untested here.",
+              "basis": "inferred"
+            },
+            {
+              "claim": "The paper scores context-overflow tasks as zero, so Anarres must record them as infrastructure failures.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "endpoints_separated": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Proof-only. With-lemma and no-lemma variants are separate task sets.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "verifier_reproduced": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Anarres has not verified the 849 reference proofs under a pinned Verus commit.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "repeatable_starting_policy": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "The published study samples an open-weight base model 100 times per task with a local verifier.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "policy_headroom": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Raw Qwen2.5-Coder-32B-Instruct solves 10 percent at 100 samples and 19 percent at 600 with debugging on the 560-task target.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "native_measurements": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Pass at k, Verus error categories, context length, proof size, and trusted-stub counts per task.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "pre_training_quantities_separated": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Starting-policy pass rates and dataset features precede training. Table 1 outcomes are published downstream outcomes.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "matched_exposure_candidates": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Datasets can be subsampled to matched example or token counts.",
+              "basis": "inferred"
+            },
+            {
+              "claim": "Released files carry row counts, for example 9,040 algorithmic and 843 system trajectories and 25,000 SAFE rows.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "cost_chargeable": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Anarres can charge its own sampling, verifier, and training time.",
+              "basis": "inferred"
+            }
+          ]
+        },
+        "checker_and_probe_cost": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "Verifier time and memory per task are not documented. The paper's evaluation took about 50 hours on 32 H200 GPUs including generation.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "training_cost": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "The paper reports about 48 hours on 32 H200 GPUs for Part-1 SFT and about 2 hours for Part-2 SFT of a 32B model.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "smoke_test_identified": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "verus --crate-type=lib on reference files, then on tasks-sampled-100 (benchmark README).",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "access_and_dependencies": {
+          "status": "pass",
+          "evidence": [
+            {
+              "claim": "Public GitHub and Hugging Face. Part-2 trajectories were generated by a hosted model, but the data is fixed.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "leakage_audit_done": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "569 of 843 system trajectories were matched to training-family tasks and Gale had 0 of 45 exact matches. Part-1 and the algorithmic trajectories are unscanned.",
+              "basis": "confirmed"
+            }
+          ]
+        },
+        "panel_protocol_drafted": {
+          "status": "unresolved",
+          "evidence": [
+            {
+              "claim": "No candidate panel or choose-or-abstain rule is drafted for this source.",
+              "basis": "confirmed"
+            }
+          ]
+        }
+      },
+      "unresolved_checks": [
+        {
+          "id": "verusage-data-license",
+          "check": "license_clear",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Obtain the license of microsoft/Verus_Training_Data and of the three NOASSERTION upstream projects."
+        },
+        {
+          "id": "verusage-verus-pin",
+          "check": "artifacts_identifiable",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Pin the Verus commit and record it with the benchmark revision."
+        },
+        {
+          "id": "verusage-reference-proofs",
+          "check": "verifier_reproduced",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Verify the reference proofs under the pinned Verus commit and run negative controls."
+        },
+        {
+          "id": "verusage-guard-controls",
+          "check": "failures_visible",
+          "blocks": "source_selection",
+          "basis": "inferred",
+          "text": "Test the code-change guard against inserted assume, admit, external_body, and specification weakening, and record context overflow as infrastructure failure."
+        },
+        {
+          "id": "verusage-cost",
+          "check": "checker_and_probe_cost",
+          "blocks": "source_selection",
+          "basis": "confirmed",
+          "text": "Measure verifier wall time and memory per task, including the ST dependency build."
+        },
+        {
+          "id": "verusage-held-out-target",
+          "check": "freezable_without_outcomes",
+          "blocks": "source_selection",
+          "basis": "inferred",
+          "text": "Define a held-out target that the published Table 1 ranking has not already scored."
+        },
+        {
+          "id": "verusage-part1-separable",
+          "check": "panel_protocol_drafted",
+          "blocks": "panel_freeze",
+          "basis": "unknown",
+          "text": "Check whether the self-synthesis and tutorial subsets are separable inside sft_part1_6.9M.json."
+        },
+        {
+          "id": "verusage-near-duplicates",
+          "check": "leakage_audit_done",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Scan Part-1 and the algorithmic trajectories for near duplicates of held-out families and Gale."
+        },
+        {
+          "id": "verusage-stats-mismatch",
+          "check": "published_result_traced",
+          "blocks": "record",
+          "basis": "confirmed",
+          "text": "benchmark-stats.csv lists AL 106 and OS 160 against 104 and 157 in tasks.jsonl."
+        },
+        {
+          "id": "verusage-verusyn-panel-protocol",
+          "check": "panel_protocol_drafted",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Draft the matched-exposure panel (fixed random, source-native baseline, strongest published rule, policy-relative rule, combined rule) with its full freeze contract. Owed for every source."
+        },
+        {
+          "id": "verusage-verusyn-cost-accounting",
+          "check": "cost_chargeable",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Freeze how tokens, verifier time, and memory are charged for this source before any measurement."
+        },
+        {
+          "id": "verusage-verusyn-training-cost",
+          "check": "training_cost",
+          "blocks": "panel_freeze",
+          "basis": "confirmed",
+          "text": "Estimate training and evaluation cost once a trainable starting policy is named."
+        }
+      ]
+    }
+  ],
+  "recommendation": {
+    "outcome": "abstain",
+    "abstain_reason": "No source passes every source_selection check. In particular, no starting policy that can be trained here has shown strict support on Vero, and every other source has an unreproduced verifier path. The issue asks for abstention rather than choosing the least incomplete option.",
+    "selected_source": null,
+    "leading_candidate": "vero",
+    "leading_candidate_note": "Vero ranks first among reserve sources and remains the leading candidate pending a trainable-policy pilot.",
+    "reserve_ranking": [
+      "vero",
+      "oss-verify",
+      "verusage-verusyn",
+      "vericoding",
+      "verisoftbench"
+    ],
+    "issue_66_acceptance_source": "#66 uses the selected source as its acceptance path, so its source follows the eventual selection. The leading reserve candidate is named only as a candidate.",
+    "smoke_test_sources": [
+      "oss-verify",
+      "verusage-verusyn"
+    ],
+    "smoke_tests": [
+      {
+        "id": "oss-verify-pinned-checker-replay",
+        "source_id": "oss-verify",
+        "resolves": [
+          "verifier_reproduced",
+          "checker_and_probe_cost"
+        ],
+        "steps": [
+          "choose the OSS Verify pin (an immutable release tag, or 89eb8357 with a tree-over-index rule)",
+          "run dune build and tests/check.sh in the pinned checker image with networking off",
+          "run ./oft check coturn/FuzzStunClient --parts statements,proofs and record wall time and peak memory"
+        ],
+        "opens_outcomes": false
+      },
+      {
+        "id": "verusage-reference-and-negative-controls",
+        "source_id": "verusage-verusyn",
+        "resolves": [
+          "verifier_reproduced",
+          "failures_visible",
+          "checker_and_probe_cost"
+        ],
+        "steps": [
+          "pin one Verus commit and record it with the benchmark revision",
+          "verify the reference proofs of all 849 with-lemma tasks, or a subset fixed by task ID before the run",
+          "record wall time and peak memory per task and keep infrastructure failures separate",
+          "insert assume, admit, and external_body into the target, or weaken its specification, and confirm the guard rejects each one"
+        ],
+        "opens_outcomes": false
+      }
+    ],
+    "policy_pilots": [
+      {
+        "id": "vero-trainable-policy-pilot",
+        "source_id": "vero",
+        "resolves": [
+          "policy_headroom"
+        ],
+        "steps": [
+          "freeze a development-only protocol for Leanstral-1.5 under its native agent configuration and for one other open-weight model named before the run",
+          "run it on development repositories only under the existing grader and containment contract",
+          "report strict support and mixed specification groups per endpoint without opening qualification or prospective repositories"
+        ],
+        "opens_outcomes": false
+      }
+    ]
+  },
+  "fifth_source_survey": {
+    "gate": "official code, an executable verifier, and a meaningful downstream training or environment decision",
+    "entries": [
+      {
+        "name": "VeruSAGE-Bench with VeruSyn data",
+        "repository": "microsoft/verus-proof-synthesis",
+        "proof_assistant": "Verus",
+        "call": "selected",
+        "reason": "Published family-disjoint data-composition study on an open base model with released candidate datasets."
+      },
+      {
+        "name": "PSV (Propose-Solve-Verify)",
+        "repository": "abwilf/psv",
+        "proof_assistant": "Verus",
+        "call": "reserve",
+        "reason": "Strong experimental design, but no license file and toy-scale tasks."
+      },
+      {
+        "name": "Re:Form and DafnyComp",
+        "repository": "Veri-Code/ReForm",
+        "proof_assistant": "Dafny",
+        "call": "reserve",
+        "reason": "Full open training stack, but the endpoint is specification generation and environment choice is not the studied variable."
+      },
+      {
+        "name": "Goedel-Code-Prover",
+        "repository": "goedelcodeprover/Goedel-Code-Prover",
+        "proof_assistant": "Lean 4",
+        "call": "reject",
+        "reason": "Consumes other benchmarks. Its 8B model is a candidate trainable Lean starting policy."
+      },
+      {
+        "name": "AlgoVeri",
+        "repository": "haoyuzhao123/algoveri",
+        "proof_assistant": "Dafny, Verus, Lean 4",
+        "call": "reject",
+        "reason": "77 algorithms are too few for several candidate environments."
+      },
+      {
+        "name": "Verina",
+        "repository": "sunblaze-ucb/verina",
+        "proof_assistant": "Lean 4",
+        "call": "reject",
+        "reason": "Evaluation target only, close to saturation for open-weight provers."
+      },
+      {
+        "name": "CLEVER",
+        "repository": "trishullab/clever",
+        "proof_assistant": "Lean 4",
+        "call": "reject",
+        "reason": "Evaluation target only."
+      },
+      {
+        "name": "FVAPPS",
+        "repository": "quinn-dougherty/fvapps",
+        "proof_assistant": "Lean 4",
+        "call": "reject",
+        "reason": "Stale toolchain and no reference proofs."
+      },
+      {
+        "name": "DafnyBench",
+        "repository": "sun-wendy/DafnyBench",
+        "proof_assistant": "Dafny",
+        "call": "reject",
+        "reason": "Hint-only tasks that overlap VeriCoding."
+      },
+      {
+        "name": "AlphaVerus",
+        "repository": "cmu-l3/alphaverus",
+        "proof_assistant": "Verus",
+        "call": "reject",
+        "reason": "No license file and superseded."
+      },
+      {
+        "name": "SAFE",
+        "repository": null,
+        "proof_assistant": "Verus",
+        "call": "merged",
+        "merged_into": "verusage-verusyn",
+        "reason": "Its data is one VeruSyn comparison arm in microsoft/Verus_Training_Data."
+      },
+      {
+        "name": "miniCTX",
+        "repository": "cmu-l3/minictx-eval",
+        "proof_assistant": "Lean 4",
+        "call": "reject",
+        "reason": "Mostly mathematics and no license."
+      },
+      {
+        "name": "SpecRL and ANCORA",
+        "repository": null,
+        "proof_assistant": "Dafny and Verus",
+        "call": "reject",
+        "reason": "No released code found."
+      },
+      {
+        "name": "VeriBench",
+        "repository": null,
+        "proof_assistant": "Lean 4",
+        "call": "reserve",
+        "conflict_of_interest": "VeriBench comes from the research group of this repository's owner. Any qualification needs an independent auditor.",
+        "reason": "Not audited here because of the conflict of interest."
+      }
+    ]
+  }
+}

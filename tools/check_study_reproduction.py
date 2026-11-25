@@ -63,6 +63,11 @@ CHECKS = (
         "test_reproduce.py",
     ),
     python_check(
+        "formal-verification source qualification",
+        "experiments/cyber/formal-verification/source-qualification",
+        "test_verify.py",
+    ),
+    python_check(
         "robotics prospective PushT",
         "experiments/robotics/environment-selection/prospective-pusht",
         "test_reproduce.py",
