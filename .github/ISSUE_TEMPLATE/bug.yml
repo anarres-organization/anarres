@@ -3,6 +3,19 @@ description: Report reproducible incorrect behavior
 title: "[Bug]: "
 labels: [bug]
 body:
+  - type: dropdown
+    attributes:
+      label: Area
+      description: Where did the problem occur?
+      options:
+        - CLI or adapter framework
+        - Environment processing
+        - Documentation or website
+        - Domain workflow
+        - Release or installation
+        - Unsure
+    validations:
+      required: true
   - type: textarea
     attributes:
       label: Behavior

@@ -3,6 +3,24 @@ description: Propose a durable Anarres research direction
 title: "[Experiment]: "
 labels: [proposal]
 body:
+  - type: dropdown
+    attributes:
+      label: Workstream
+      description: Select the closest existing program. Choose cross-domain when the proposal spans programs or defines a new one.
+      options:
+        - Mathematics
+        - Agentic systems
+        - Formal verification
+        - Vulnerability exploitation
+        - Molecular design
+        - Materials science
+        - Robotics
+        - Legal reasoning
+        - Agentic finance
+        - Shared software
+        - Cross-domain or new program
+    validations:
+      required: true
   - type: textarea
     attributes:
       label: Research objective
@@ -19,6 +37,16 @@ body:
     attributes:
       label: Existing components
       description: Which packages, data systems, schemas, or experiments would it use?
+  - type: input
+    attributes:
+      label: Repository path
+      description: Give the closest existing path, or write "new path proposed".
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Related tracker
+      description: Link a parent issue or related proposal when one exists.
   - type: textarea
     attributes:
       label: Non-goals and maintenance

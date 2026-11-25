@@ -5,6 +5,22 @@ labels: [feedback]
 body:
   - type: dropdown
     attributes:
+      label: Workflow
+      options:
+        - Bundled demo
+        - Core CLI with portable records
+        - Formal verification
+        - Vulnerability exploitation
+        - Molecular design
+        - Materials science
+        - Robotics
+        - Legal reasoning
+        - Agentic finance
+        - Other or unsure
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
       label: Installation method
       options:
         - Shell installer
