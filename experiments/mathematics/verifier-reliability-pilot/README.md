@@ -1,152 +1,103 @@
 # Verifier reliability pilot
 
-**Status:** Exploratory pilot. Every comparison below is retrospective on one released panel, with one starting policy, one training budget, and one seed per cell. The next panel is frozen in `protocol.json` and `design/next-panel.json`.
+**Status:** Historical descriptive summary and prospective feasibility design.
+The earlier training-effect and pooled-item power claims are withdrawn.
+The released aggregate counts have not been reconstructed from raw run records.
 
-## Overview
+## Historical observations
 
-Verifier noise is a candidate environment factor: a reward function that mis-scores correct answers changes the learning signal without changing the prompts. This pilot asks how much a large false-negative rate moves a held-out outcome when the trainer is otherwise identical, and whether the answer depends on how the false negatives are distributed across a prompt's rollouts.
+The recorded settings are Qwen3-0.6B with a low-rank adapter, 40 GRPO steps,
+three prompts per step, six rollouts per prompt, 384 new tokens, learning rate
+5e-5, KL coefficient .02, clip .2, temperature 1, top-p .95, and greedy
+evaluation on the first 300 GSM8K test items. These are reported settings,
+not verified immutable run provenance.
 
-The question:
+Each condition records one trained policy. Evaluation items are repeated
+measurements of that policy, not independent training runs. The following
+differences describe the particular reported policy pairs only; they cannot
+isolate the training intervention from seed and other run-level variation.
 
-> At a fixed small budget, does a 38% false-negative rate change held-out pass@1, and does grouped erasure of a prompt's signal differ from independent per-rollout flips?
-
-A second question follows from the first. If per-item outcomes are unstable across seeds at this budget, small measured differences cannot be attributed to any single intervention. The record therefore includes two seed pairs measured under identical configurations.
-
-## Design
-
-Starting policy: Qwen3-0.6B with a low-rank adapter. Trainer: group relative policy optimization with a group-mean baseline, 40 steps, 3 prompts per step, 6 rollouts per prompt, 384 new tokens per rollout, learning rate 5e-5, KL coefficient 0.02, clip 0.2, temperature 1.0, top-p 0.95. Training prompts come from the GSM8K training split. Evaluate with greedy decoding on the first 300 items of the GSM8K test split, one evaluation per trained checkpoint.
-
-| Cell | Verifier | Baseline | Reading |
-| --- | --- | --- | --- |
-| clean | exact match, 0% false negative | group mean | Control |
-| iid false negative | 38% of correct rollouts re-scored as incorrect, drawn independently per rollout | group mean | Noise without group structure |
-| group false negative | 38% of prompts have every rollout re-scored as incorrect | group mean | Noise that erases a prompt's group signal |
-| no group baseline | exact match | raw reward | Removes the group-mean baseline |
-
-The independent unit is the held-out item. Each cell is scored on the same 300 items, so item-level pairing is exact and the discordant-pair counts are the released input.
-
-## Result
-
-| Comparison | Control | Treatment | Difference | Discordant pairs | Exact p |
+| Comparison | Control | Treatment | Difference (pp) | Discordant counts | Conditional item p |
 | --- | --- | --- | --- | --- | --- |
-| clean vs iid false negative | 50.7% | 47.3% | -3.3 points | 52 / 42 | 0.353 |
-| clean vs group false negative | 50.7% | 52.7% | +2.0 points | 44 / 50 | 0.606 |
-| clean vs no group baseline | 50.7% | 24.3% | -26.3 points | 99 / 20 | 9.2e-14 |
+| Clean vs iid false negative | 50.7% | 47.3% | -3.33 | 52 / 42 | .3533 |
+| Clean vs group false negative | 50.7% | 52.7% | +2.00 | 44 / 50 | .6063 |
+| Clean vs no group baseline | 50.7% | 24.3% | -26.33 | 99 / 20 | 9.2025e-14 |
+| Clean seed pair | 50.7% | 48.3% | -2.33 | 58 / 51 | .5657 |
+| Open-style seed pair | 63.0% | 46.7% | -16.33 | 82 / 33 | 5.5714e-6 |
 
-The untrained policy scores 41.3% on the same panel and decoding settings. The no-baseline cell lands 17.0 points below that score.
+The final two rows record different seed pairs under their respective reported
+configurations. They show why run-level variation must be measured, but two
+pairs are insufficient for estimating the relevant variance. Neither their
+maximum nor the item-level McNemar result is a threshold for attributing a
+difference to the verifier. The sixth CSV row changes both style and seed and
+is excluded from interpretation.
 
-## Stability
+The McNemar calculations and the conditional item-resolution calculation
+remain arithmetic diagnostics on the archived counts. Their assumptions
+concern item outcomes within a realized pair. They do not estimate power
+for a training intervention.
 
-Two pairs were trained under identical configurations with a different seed.
+## Prospective design: nine matched independent seed pairs
 
-| Pair | Control | Treatment | Difference | Discordant pairs | Exact p |
-| --- | --- | --- | --- | --- | --- |
-| clean, seed 0 vs seed 1 | 50.7% | 48.3% | -2.3 points | 58 / 51 | 0.566 |
-| open prompt style, seed 0 vs seed 1 | 63.0% | 46.7% | -16.3 points | 82 / 33 | 5.6e-06 |
+The feasibility plan is frozen in [design/next-panel.json](design/next-panel.json).
+For each of nine distinct training seeds, train a clean and a 38% iid
+false-negative verifier policy from the same pinned initial configuration,
+holding all other factors fixed. Evaluate both on one identical pinned
+300-item panel. The experimental unit is the matched training seed pair, not
+an evaluation item. Training requires 18 completed distinct runs.
 
-The second pair flips 115 of 300 items, which exceeds the discordant counts of every verifier intervention in this record. Prompts are rendered in the open style for that pair, so its levels are comparable within the pair and not across tables.
+For seed s, define d_s = 100 * (treatment_correct - control_correct) / 300.
+The primary summary is the mean of the nine d_s values, their between-pair
+standard deviation, and an approximate paired t interval (8 degrees of
+freedom) assuming independent, approximately normal seed-level differences.
+The sign test is secondary and addresses directional balance, not a mean
+effect. A zero estimated variance is flagged by omitting the interval.
+The design is feasibility-only, with no 80% power claim. A larger
+confirmatory design requires independent seed-level variance calibration
+and a new frozen protocol before observing its results.
 
-## Resolution
+The analysis takes one row per pair, rejects duplicate seeds and reused
+training-run identities, requires the same evaluation panel digest, rejects
+pooled-item rows, and will not accept a partial nine-pair design. It reports
+a descriptive result and does not declare causal attribution. The seed and
+run-ID checks are structural safeguards, not proof of independent execution.
 
-A non-significant test does not establish a zero effect. This section states what each pair could have detected, so the negative rows stay bounded.
+## Provenance and release gates
 
-For a pair with discordant total `m` and `n` scored items, an alternative that moves outcomes by `d` points puts the expected count of control-only flips at `(m + d·n)/2`, so the count follows `Binomial(m, 0.5 + d·n/(2m))`. The rejection rule is the same two-sided exact binomial test used above. Power is the exact sum over that law, with no normal approximation and no simulation.
+[Historical provenance status](data/provenance.json) records the missing
+immutable model/dataset revisions, code and configuration digests, training
+and evaluation seed identifiers, checkpoint identifiers, perturbation seeds,
+and item-level extraction artifacts. The original aggregate CSV is retained
+without alteration. Its content hash establishes integrity of this file only,
+not authenticity of the reported runs. It is not a verified training record
+until those underlying artifacts are recovered and independently reconciled.
 
-| Pair | Discordant | Observed difference | Smallest detectable difference at 80% power |
-| --- | --- | --- | --- |
-| clean vs iid false negative | 94 | -3.3 points | 9.0 points (13.5 flips) |
-| clean vs group false negative | 94 | +2.0 points | 9.0 points (13.5 flips) |
-| clean vs no group baseline | 119 | -26.3 points | 10.5 points (15.8 flips) |
-| clean, seed 0 vs seed 1 | 109 | -2.3 points | 10.3 points (15.4 flips) |
-| open prompt style, seed 0 vs seed 1 | 115 | -16.3 points | 10.3 points (15.4 flips) |
+Before prospective execution, pin model/dataset revisions, panel membership
+and SHA-256, code/configuration hashes, nine seed values, RNG and verifier
+contracts, checkpoint paths, and item-level output extraction. Release the
+18 run receipts and paired item-level counts. No prospective run has been
+claimed or created here.
 
-Read from this table, the two false-negative rows establish that a change below roughly 9 points is invisible at this design, and the no-baseline row exceeds its own resolution by a factor of 2.5. The seed pair in the open style also exceeds its resolution, which is why its gap is not attributable to the reward change alone.
+## Reproduction
 
-## What the pilot supports
+From this directory:
 
-A 38% false-negative rate applied independently to rollouts moved held-out pass@1 by 3.3 points, below the 9.0 point resolution of that pair. Erasing the group signal for 38% of prompts moved the outcome by 2.0 points, also below resolution. Both interventions sit inside the spread produced by seed choice alone.
+    python scripts/recompute_exact_mcnemar.py
+    python scripts/detectable_difference.py
+    python scripts/resolution_plan.py
+    python -m unittest discover -s scripts -p test_run_level_analysis.py
 
-Removing the group-mean baseline moved the outcome by 26.3 points against a 10.5 point resolution, and placed the policy below its untrained score. At this budget the baseline term carries more of the training signal than the verifier's false-negative rate.
+For completed prospective data only:
 
-## What the pilot does not support
+    python scripts/resolution_plan.py --runs <paired-run-csv>
 
-One pair in the released counts, `open_vs_unfinished_penalty`, returns a p-value of 0.033 for a 6.7 point gap, below its own resolution. Its two cells differ in prompt style and in seed, so the pair measures an intervention plus seed noise. The column `excluded_from_claims` marks that row and the README makes no claim from it. A 16.3 point seed gap on the same style shows that the 6.7 point gap is not attributable to the reward change.
-
-No claim here extends to larger policies, longer budgets, other datasets, or other verifier error profiles. False-negative tolerance likely depends on policy breadth, which this pilot holds fixed at one model size.
-
-## Experimental record
-
-| Component | Released setting |
-| --- | --- |
-| Input | `data/paired_counts.csv`, one row per compared pair |
-| Columns | correct counts for each cell, both-correct count, control-only and treatment-only counts, item count, exact p-value, claim exclusion flag |
-| Rows | 6 pairs over the first 300 GSM8K test items |
-| Primary outcome | pass@1 under greedy decoding |
-| Integrity | `MANIFEST.sha256`, content hashes for the complete record |
-
-The released record stores discordant counts rather than generations. The counts decompose into per-cell correct totals, so a reader can rebuild the reported accuracies and tests without hosting model outputs.
-
-## Inspect the pilot
-
-```bash
-cd experiments/mathematics/verifier-reliability-pilot
-python scripts/recompute_exact_mcnemar.py
-python scripts/detectable_difference.py
-python scripts/resolution_plan.py
-```
-
-The first command checks that each row's counts decompose into its two cell totals, then recomputes the two-sided exact McNemar p-value from the discordant counts and fails when a stored value disagrees by more than 5e-5. The second command computes the resolution table above from the same counts. Both are registered with `make study-check` as the studies "verifier reliability pilot counts" and "verifier reliability pilot resolution", so the released record is covered by the same gate as the rest of the repository.
-
-The third command solves the inverse problem, verifies the frozen design in `design/next-panel.json`, re-hashes every artifact named in `protocol.json`, and prints a verdict per released pair. It is registered as the study "verifier reliability pilot resolution plan".
-
-## Design budget
-
-`detectable_difference.py` fixes what each released pair could see. `scripts/resolution_plan.py` solves the inverse: for an effect of a given size, the number of held-out items and the number of seed-paired 300-item panels that reach 80% power at the same exact test. The discordant rate comes from the released counts, pooled over the five claim rows at 0.354, so the plan is tied to this panel's verifier and policy rather than to an assumed noise level.
-
-| Effect | Items needed | Seed-paired 300-item panels | Discordant count at that size |
-| --- | --- | --- | --- |
-| 2.00 points | 6,991 | 24 | 2,475 |
-| 3.30 points | 2,601 | 9 | 921 |
-| 5.00 points | 1,138 | 4 | 403 |
-| 9.00 points | 352 | 2 | 125 |
-
-The 9.00 point row checks the solver against the released table: all five claim rows solve to 9.00, 9.00, 10.50, 10.25 and 10.25 points at n = 300, identical to the resolution table above, and the script fails when a solved value drifts by more than one 0.25 point search step.
-
-Read the other way, the same arithmetic prices the negative rows. Resolution against the number of panels at this size:
-
-| Panels | Items | Resolution at 80% power | Discordant at that size |
-| --- | --- | --- | --- |
-| 1 | 300 | 10.00 points | 106 |
-| 2 | 600 | 7.00 points | 212 |
-| 4 | 1,200 | 5.00 points | 425 |
-| 8 | 2,400 | 3.50 points | 850 |
-
-Eight panels of this size still resolve only 3.5 points, which is why a 3.3 point claim needs the ninth. The script also re-derives its rejection region straight from the test definition and fails when the two disagree past 1e-9, so the power numbers stay tied to the test the record actually uses.
-
-Two consequences follow for a later comparison in this domain. A 3.3 point verifier effect needs about 2,600 items, which is nine seed-paired panels at this size, and a 2 point effect needs about 7,000. The seed pairs also set a floor: the largest recorded same-configuration shift is 16.33 points, above the resolution of every pair in this record, so a single-seed difference has to clear both bars before it counts as an effect.
-
-The script prints a verdict per intervention row using that rule. A verifier difference counts when it exceeds the pair's resolution and the recorded seed spread. Both false-negative rows stay unresolved at -3.33 and +2.00 points, and the baseline row clears both bars at -26.33 points.
-
-## Frozen next-panel design
-
-`design/next-panel.json` fixes the design that would resolve the iid false-negative effect, and the solver verifies it on every run rather than the reader trusting the table. The run fails when the frozen numbers stop matching the released discordant rate.
-
-| Field | Frozen value |
-| --- | --- |
-| Target effect | 3.30 points |
-| Panels | 9 of 300 items |
-| Items per arm | 2,700 |
-| Required by the solver | 2,601 |
-| Resolution at that size | 3.25 points |
-| Training runs | 18 (9 intervention, 9 same-seed control) |
-| Primary test | two-sided exact McNemar, pooled over the nine panels |
-
-Pairing is the reason the frozen design clears the 3.3 point target that the single-pair budget just misses. Each intervention panel is trained and scored beside a clean panel at the same seed, so the contrast is within-pair and seed spread enters both arms instead of being charged to one of them. The 16.33 point band in this record comes from unpaired cross-seed comparisons and is not the floor that a paired contrast has to clear.
-
-Nine panels is the first budget that reaches the target: eight resolve 3.50 points, nine resolve 3.25.
-
-`protocol.json` is the record's contract. It follows `anarres.experiment-protocol.v1`, carries status `frozen`, names the estimand and the experimental units, splits the development partition from the prospective one, and lists every artifact with its `sha256:` digest and byte size. The solver re-hashes those artifacts on every run, so a protocol whose files moved on fails the check instead of standing as a stale citation.
+The run CSV must contain seed, control_run_id, treatment_run_id, panel_sha256,
+n_items, correct_control and correct_treatment. The analysis checks a
+content-addressed protocol and manifest before accepting results.
 
 ## Scope
 
-One policy family at one scale, one deterministic verifier, one reward contract, one dataset, one 40-step budget, and one seed per cell apart from the two stability pairs. The evidence is exploratory. Treating the 38% rate as harmless under a wider budget or a larger policy requires a prospective run with the budget fixed in advance.
+This record can establish arithmetic consistency of released aggregates and
+a better prospective analysis design. It cannot establish a verified
+training-effect estimate or a powered confirmatory trial without the
+missing provenance and independent training repetitions.
