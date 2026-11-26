@@ -59,13 +59,13 @@ independent training interventions.
 
 ## Recommended first release
 
-The first release is the bounded
-[mathematics scale-transfer comparison](FIRST_COMPARISON.md). It validates the
-replay implementation without implying cross-domain transfer.
+The first scientific release is a cross-domain corpus and replay benchmark
+containing only panels that pass the readiness audit, with an exclusion table
+for the rest. Robotics, materials science, mathematics, molecular design,
+legal reasoning, and finance contribute different transfer tests without
+being collapsed into one outcome scale.
 
-The later cross-panel release should include only panels that pass the readiness
-audit and should publish an exclusion table for the rest. Robotics and the
-prospective materials panel provide more varied candidate panels for decision
-replay. Other programs can be added after their native records pass the same
-audit.
+The bounded [mathematics reference](MATHEMATICS_REFERENCE.md) should ship as a
+conformance fixture. It validates the replay implementation and chronology
+without becoming the headline result or implying cross-domain transfer.
 

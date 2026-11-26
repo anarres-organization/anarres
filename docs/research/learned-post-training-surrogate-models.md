@@ -1,21 +1,23 @@
 # Learning a multimodal surrogate model from post-training experiments
 
-Status: discussion proposal, 2026-11-24.
+Status: accepted research proposal, 2026-11-25. The active model and evaluation
+specification is in the
+[multimodal surrogate program](https://github.com/anarres-organization/anarres/blob/main/experiments/surrogate-models/MULTIMODAL_SURROGATE.md).
 
 [Issue #92](https://github.com/anarres-organization/anarres/issues/92) discusses
 Anarres's role in surrogate-based experiment selection. This proposal examines
-how to learn a more expressive predictor from experimental records, with
-structured and textual inputs as a possible first scope and multimodal inputs
-as an extension. The companion framing is in
+how to learn a more expressive predictor from experimental records. Structured,
+textual, and domain-native inputs belong to one ablated model program rather
+than separate scientific stages. The companion framing is in
 [PR #91](https://github.com/anarres-organization/anarres/pull/91).
 
 The research question is: **does learning from richer experimental records
 improve prediction and experiment selection beyond existing predictors and
 strong history-conditioned baselines under a fixed total research budget?**
 
-The immediate contribution is a research design for maintainer review.
-Dataset construction, model training, and prospective experiments would each
-be scoped separately with explicit ownership and resources.
+The accepted contribution is a research design. Dataset construction, model
+training, and prospective experiments remain separately scoped with explicit
+ownership and resources.
 
 ## Motivation
 
@@ -187,14 +189,13 @@ same decision budget. A prospective test would freeze the data boundary,
 predictor specification and update rule, allowed feedback, acquisition policy,
 and scoring before claim-bearing outcomes become available.
 
-## Questions for maintainer review
+## Decisions adopted by the research program
 
-1. Which prediction target and existing records provide a credible first scope?
-2. Should the first comparison use a pretrained model conditioned on retrieved
-   records, a dedicated trained predictor, or both?
-3. What evidence would justify extra model complexity, modalities, and cost
-   beyond existing predictors and history-conditioned LLMs?
-
-The next decision is whether to adopt this research question and document a
-bounded first comparison, or record the reason to defer it. Execution can then
-be proposed with specific owners, data, compute, and acceptance criteria.
+1. The primary benchmark uses complete candidate panels across released
+   domains; one mathematics replay remains a conformance fixture.
+2. The model ladder includes both record-conditioned pretrained models and a
+   dedicated learned surrogate.
+3. Structured, textual, code, curve, trajectory, and perceptual inputs use the
+   same information cutoff and enter through explicit held-out ablations.
+4. A frozen prospective test follows only after replay establishes decision
+   value beyond the strongest simple baseline after costs are charged.

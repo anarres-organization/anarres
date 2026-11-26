@@ -89,9 +89,17 @@ and support shifts.
 comparison. A language model receives experimental records in context and
 predicts the outcomes of candidate interventions. Its evaluation contains more
 than 2,600 records across nine environments and measures both ranking and
-selection regret. An Anarres record-conditioned language-model baseline should
-receive the same permitted history as every other method and should be scored
-against simpler predictors.
+selection regret. Its reported cross-environment gains make accumulated
+experimental history, rather than one mathematics replay, the relevant scale
+for the Anarres program. An Anarres record-conditioned language-model baseline
+should receive the same permitted history as every other method and should be
+scored against simpler predictors.
+
+[WhatWorkedBench](https://arxiv.org/abs/2609.27490) evaluates whether agents can
+inspect workflow code, purchase a limited number of measurements, reconstruct
+response surfaces, and choose configurations. It shows why code and
+measurements are candidate surrogate inputs and why acquisition, inference,
+and artifact delivery should be scored together.
 
 [LM2LM](https://arxiv.org/abs/2610.23344) uses a frozen research world model as
 a reward model for proposal generation, then executes selected proposals to
@@ -116,6 +124,31 @@ decontaminated data, managed execution, and a persistent research record for an
 autonomous post-training campaign. These controls are relevant to prospective
 evaluation even when the experiment selector is not autonomous.
 
+[Recursive self-improvement of AI research
+agents](https://arxiv.org/abs/2609.26457) tests successive agent modifications
+against hidden evaluations and reports transfer to held-out task families.
+This supports a bounded improvement loop in which accepted changes face
+protected evaluation. The broader [recursive self-improvement
+survey](https://arxiv.org/abs/2607.07663) identifies self-confirming feedback,
+collapse, and weak evaluators as central failure modes. A surrogate may help
+choose what to execute, but it cannot become the only judge of its own choices.
+
+## Multimodal evidence and experimental records
+
+[OmniScientist](https://arxiv.org/abs/2608.13558) processes images, signals,
+audio, video, three-dimensional structures, trajectories, tables, formulae,
+and graphs inside a deterministic research pipeline. Its comparison with a
+scalar-only variant supports testing whether raw domain-native evidence adds
+value beyond precomputed summaries. It does not establish that every modality
+helps environment selection, so Anarres should use held-out modality ablations.
+
+[From Trajectories to
+Evidence](https://arxiv.org/abs/2608.05235) argues that completed trajectories
+are not automatically valid evidence. It verifies consequential artifacts,
+qualifies intervention-level claims, and preserves provenance and applicability
+boundaries. Anarres should therefore retain native traces while admitting only
+records that pass the originating study's validity and attribution checks.
+
 ## Reliability and uncertainty
 
 [Accounting for Variance in Machine Learning
@@ -137,9 +170,9 @@ on unsafe trials. The result does not directly establish safe post-training,
 but it motivates treating target regressions as constraints or calibrated
 events rather than folding them into an undocumented scalar score.
 
-## Consequences for the first Anarres study
+## Consequences for the Anarres program
 
-The literature supports six design choices:
+The literature supports eight design choices:
 
 1. Evaluate selection under cost, not prediction error alone.
 2. Compare against random selection, fixed native rules, direct low-fidelity
@@ -147,6 +180,10 @@ The literature supports six design choices:
 3. Keep every nested record with its parent intervention during splitting.
 4. Use complete-study or complete-domain holdouts for transfer claims.
 5. Separate archive replay from a frozen prospective result.
-6. Require incremental value before adding text, code, images, trajectories, or
-   a dedicated trained model.
+6. Make the cross-domain experimental archive the primary benchmark and keep a
+   single-domain replay as a conformance fixture.
+7. Treat text, code, curves, trajectories, and perceptual evidence as primary
+   candidate inputs, with complete-study ablations for their incremental value.
+8. Keep real execution and protected held-out evaluation inside any repeated
+   improvement loop so surrogate error cannot become self-confirming evidence.
 

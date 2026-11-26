@@ -3,10 +3,10 @@
 **Evidence tier:** preregistered retrospective replay design. Running this
 protocol on released outcomes does not create prospective evidence.
 
-This protocol governs the second, cross-panel comparison. The bounded
-[mathematics scale-transfer comparison](FIRST_COMPARISON.md) comes first and
-validates the evaluator and information-boundary checks under one controlled
-study.
+This protocol governs the primary cross-domain replay benchmark. The bounded
+[mathematics scale-transfer reference](MATHEMATICS_REFERENCE.md) validates the
+evaluator and information-boundary checks under one controlled study, but it is
+not the first scientific claim or a substitute for cross-study transfer.
 
 ## Question
 
@@ -82,11 +82,11 @@ Every method receives the same permitted history and action set.
    identities recur across panels
 10. a frozen language model conditioned on the same retrieved records
 
-A learned multimodal model is added only after these baselines run and the
-number of independent interventions is sufficient for a prespecified training
+A learned multimodal model is a primary method family after these baselines run
+and the number of independent interventions supports a prespecified training
 and validation split.
 
-This preserves the richer model family proposed in
+This implements the richer model family proposed in
 [issue #94](https://github.com/anarres-organization/anarres/issues/94). It makes
 model complexity conditional on evidence rather than removing it from the
 program.

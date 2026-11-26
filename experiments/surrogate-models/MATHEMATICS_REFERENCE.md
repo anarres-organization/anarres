@@ -1,10 +1,10 @@
-# First comparison: mathematics scale transfer
+# Mathematics reference fixture
 
 **Status:** fixed retrospective comparison over released records. This analysis
 replays a forecast that was prospectively frozen in the originating study; it
 does not create a new prospective result.
 
-This comparison operationalizes the bounded study proposed in
+This fixture operationalizes the bounded study proposed in
 [issue #92](https://github.com/anarres-organization/anarres/issues/92) and its
 [companion proposal](https://github.com/anarres-organization/anarres/pull/91).
 It uses the [mathematics environment-utility
@@ -129,13 +129,13 @@ learned ordering.
 
 ## Interpretation
 
-This comparison answers whether Anarres measurements add decision value in one
-controlled scale-transfer setting. It can validate the replay implementation,
-information boundaries, and baseline suite. It cannot establish a universal
-surrogate, cross-domain transfer, or multimodal-model advantage.
+This fixture answers whether Anarres measurements add decision value in one
+controlled scale-transfer setting. Its program role is to validate the replay
+implementation, information boundaries, and baseline suite. It cannot
+establish a universal surrogate, cross-domain transfer, or multimodal-model
+advantage.
 
-The second stage applies the same evaluator to complete robotics, materials,
-molecular-design, legal, or finance panels that pass the
-[source audit](SOURCE_AUDIT.md). A frozen prospective experiment follows only
-if improvement survives complete-study holdouts and total-cost accounting.
+The primary benchmark applies the same evaluator to complete panels that pass
+the [source audit](SOURCE_AUDIT.md). A frozen prospective experiment follows
+only if improvement survives complete-study holdouts and total-cost accounting.
 

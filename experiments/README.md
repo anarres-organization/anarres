@@ -9,7 +9,8 @@ released scientific work. The [workstream registry](../WORKSTREAMS.md) connects
 each program to its GitHub issue queue and discussion channel.
 
 Cross-domain research designs remain separate from released domain evidence.
-The [surrogate-model program](surrogate-models/) studies whether pre-training
-measurements improve environment selection under a fixed research budget. Its
-current artifacts define a replay protocol and literature-grounded baselines;
-they do not release a validated general predictor.
+The [surrogate-model program](surrogate-models/) studies whether cross-domain
+experimental records and pre-training evidence can forecast environment
+utility, regressions, and cost under a fixed research budget. Its current
+artifacts specify a replay benchmark and learned multimodal model program; they
+do not release a validated general predictor.
