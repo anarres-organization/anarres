@@ -155,6 +155,15 @@ CHECKS = (
         "experiments/ai-for-science/molecular-design/prospective-protein-acquisition",
         "test_released_results.py",
     ),
+    python_check(
+        "surrogate intervention corpus",
+        "experiments/surrogate-models",
+        "-m",
+        "unittest",
+        "test_build_corpus_inventory.py",
+        "test_build_replay_splits.py",
+        "test_build_baseline_audit.py",
+    ),
     StudyCheck(
         "formal-verification adapter",
         ROOT,

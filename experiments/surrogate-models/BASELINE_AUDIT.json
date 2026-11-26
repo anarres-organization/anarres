@@ -1,0 +1,95 @@
+{
+  "artifact": "anarres_released_baseline_audit_v1",
+  "evidence_tier": "released retrospective and prospective-result audit",
+  "purpose": "Fix the strongest released simple baselines that a central surrogate must beat; this artifact does not fit or score a new cross-domain model.",
+  "sources": {
+    "materials": {
+      "path": "experiments/ai-for-science/materials-science/retrospective-bridge/pooled_semantic_analysis.json",
+      "sha256": "9c7f008874fdf0b36cb44e8d41f981568b3ac509235c0cc997c27c0614d17a5e"
+    },
+    "finance": {
+      "path": "experiments/finance/retrospective-post-training/results/expanded_summary_corrected.json",
+      "sha256": "dfe56970cbbbbead4d5fb42d6e37b79770710c0f5cb9ba74e1c3ac67248f6ea0"
+    },
+    "mathematics": {
+      "path": "experiments/mathematics/environment-utility/results/prospective/summary_scores.json",
+      "sha256": "00da014a3df3a7206da6ac948ccbde7e203bbfe8040875130e41c3c4446c7090"
+    }
+  },
+  "studies": {
+    "materials": {
+      "split": "leave one publication source out",
+      "support": {
+        "sources": 16,
+        "panels": 804,
+        "arms": 3002
+      },
+      "methods": {
+        "uninformed_tie": {
+          "mean_normalized_regret": 0.4405905298682701,
+          "pairwise_ordering": 0.5,
+          "top_choice_credit": 0.32697091744306417
+        },
+        "released_native_rule": {
+          "mean_normalized_regret": 0.20396873926942807,
+          "pairwise_ordering": 0.7275284154998595,
+          "top_choice_credit": 0.5686630428043047
+        },
+        "measurement_ridge": {
+          "mean_normalized_regret": 0.27910309189728183,
+          "pairwise_ordering": 0.6614420033688915,
+          "top_choice_credit": 0.5012523285185904
+        }
+      },
+      "strongest_released_method_by_regret": "released_native_rule",
+      "ridge_minus_native_rule_regret": 0.07513435262785376
+    },
+    "finance": {
+      "split": "leave one study source out",
+      "support": {
+        "arms": 538,
+        "panels": 149,
+        "sources": 16
+      },
+      "methods": {
+        "uninformed_tie": {
+          "mean_normalized_regret": 0.492279,
+          "pairwise_ordering": 0.5,
+          "top_choice_credit": 0.306742
+        },
+        "released_native_rule": {
+          "mean_normalized_regret": 0.169512,
+          "pairwise_ordering": 0.748605,
+          "top_choice_credit": 0.725248
+        },
+        "metadata_ridge": {
+          "mean_normalized_regret": 0.247482,
+          "pairwise_ordering": 0.724438,
+          "top_choice_credit": 0.623686
+        }
+      },
+      "strongest_released_method_by_regret": "released_native_rule",
+      "ridge_minus_native_rule_regret": 0.07797000000000001
+    },
+    "mathematics": {
+      "split": "leave one model scale out",
+      "support": {
+        "scales": 4,
+        "candidate_environments_per_scale": 4,
+        "matched_budgets_per_environment": 4
+      },
+      "released_measurement_model": {
+        "curve_rmse_percentage_points": 2.09,
+        "pairwise_ordering": 0.74,
+        "mean_allocation_regret_percentage_points": 0.48
+      },
+      "comparability_note": "Native percentage-point regret is retained because the released artifact does not report the normalized study-macro regret used in the central audit."
+    }
+  },
+  "findings": [
+    "The released native rule has lower study/source-macro regret than ridge in both materials and finance.",
+    "The mathematics measurement model transfers across held-out scales, but its released regret remains in native percentage points.",
+    "A central learned surrogate must be compared with domain-native rules and must not treat heterogeneous native feature names as interchangeable."
+  ],
+  "next_gate": "Implement the frozen structured replay on compatible measurements and advance only if it improves complete-study holdouts over these released simple baselines."
+}
