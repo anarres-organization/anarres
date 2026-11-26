@@ -43,6 +43,11 @@ CHECKS = (
         "test_*.py",
     ),
     python_check(
+        "customer-support hidden-run risk audit",
+        "experiments/agentic/customer-support-environment-utility/external-checks/tau2-hidden-run-risk",
+        "test_reproduce.py",
+    ),
+    python_check(
         "mathematics study integrity",
         "experiments/mathematics/environment-utility",
         "scripts/audit_study.py",
@@ -63,19 +68,35 @@ CHECKS = (
         "scripts/recompute_exact_mcnemar.py",
     ),
     python_check(
-        "verifier reliability pilot resolution",
+        "verifier reliability conditional item resolution",
         "experiments/mathematics/verifier-reliability-pilot",
         "scripts/detectable_difference.py",
     ),
     python_check(
-        "verifier reliability pilot resolution plan",
+        "verifier reliability run-level design",
         "experiments/mathematics/verifier-reliability-pilot",
         "scripts/resolution_plan.py",
+    ),
+    python_check(
+        "verifier reliability run-level regression",
+        "experiments/mathematics/verifier-reliability-pilot",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_run_level_analysis.py",
     ),
     python_check(
         "formal-verification public evidence",
         "experiments/cyber/formal-verification/public-evidence",
         "test_reproduce.py",
+    ),
+    python_check(
+        "formal-verification source qualification",
+        "experiments/cyber/formal-verification/source-qualification",
+        "test_verify.py",
     ),
     python_check(
         "robotics prospective PushT",
@@ -159,6 +180,16 @@ CHECKS = (
         "molecular protein acquisition panel",
         "experiments/ai-for-science/molecular-design/prospective-protein-acquisition",
         "test_released_results.py",
+    ),
+    python_check(
+        "surrogate intervention corpus",
+        "experiments/surrogate-models",
+        "-m",
+        "unittest",
+        "test_build_corpus_inventory.py",
+        "test_build_replay_splits.py",
+        "test_build_baseline_audit.py",
+        "test_build_model_views.py",
     ),
     StudyCheck(
         "formal-verification adapter",
