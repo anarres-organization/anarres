@@ -1,49 +1,29 @@
-# Comparing on shared tasks
+# Comparing raw reward variation on shared tasks
 
-An unpaired comparison measures each environment on its own task set, and the
-task set enters the measurement. Two panels drawn from the same task pool inherit
-different mixes, so the difference between reported densities carries the mix
-variance of both panels on top of each panel's binomial variance.
+The experimental unit for this comparison is a matched task pair.
+For each task, both environments must be evaluated with the same fixed
+number m >= 2 of attempts under a pinned verifier contract.
+Conditional independence within a task is required to interpret
+k(m-k)/[m(m-1)] as an unbiased estimate of its Bernoulli reward variance.
+It follows from E[k(m-k)]=m(m-1)p(1-p). The difference is calculated
+once per task, not once per attempt.
 
-This note decomposes that variance at the published panel, reports the factor a
-paired design recovers, and states the limits of the estimate.
+The primary descriptive summary is the average task-level difference
+and its standard error across task pairs, assuming independent sampled
+task pairs. For a sharp label-exchangeability null within independent
+pairs, an exact sign-flip test enumerates the distribution of the
+absolute sum of task differences by integer dynamic programming.
+That p-value does not test arbitrary equality of population means under
+asymmetric nonexchangeable distributions.
 
-## Decomposition
+No task-probability heterogeneity estimate is inferred by treating k/m
+from a single noisy group as a true rate. No claimed gain or minimum
+detectable ratio is derived from the prior aggregate 37/12/1 count
+vector. Paired covariance and a power design need independent paired
+task measurements. Pairing acts on the variance of a difference;
+it does not justify dividing a ratio by a standard-error gain.
 
-The panel proxy is the published k vector: 37 tasks at 0 of 8, 12 at 1 of 8, and
-1 at 2 of 8, with p taken as k / G. The proxy reproduces 24.0 total advantage
-mass against the released 27.43, close enough for an order statement and far
-enough to mark that this is not a forecast.
-
-At G = 8 the binomial component of the panel's total mass has standard deviation
-5.17. The task-mix component, which is the standard deviation of a resampled
-50-task panel's expected mass, has 5.91. The mix term is the larger of the two,
-at 1.14 times the binomial term.
-
-## What pairing recovers
-
-| design | standard deviation of the difference |
-| --- | --- |
-| paired, shared tasks | 7.32 |
-| unpaired, separate panels | 11.11 |
-
-The gain is 1.52. A paired comparison removes the panel-mix term because each task
-contributes its own difference, so the comparison becomes a statement about that
-task set rather than about two mixtures.
-
-Carrying the factor into the previous note's minimum detectable density ratio,
-an unpaired ratio of 2.30 becomes 1.52 at the same total budget. Anything the
-unpaired design can only resolve above 1.52 moves into reach.
-
-## Consequences
-
-- Run both environments on the same tasks. The public protocols in this
-  directory already pin a panel, so the marginal cost is scheduling, not task
-  curation.
-- When shared tasks are impossible, report the panel overlap. A comparison across
-  disjoint panels at 400 rollouts per arm cannot separate densities closer than
-  2.3 times, and neither can it separate a 1.5 times gap that pairing would
-  resolve.
-- The estimate above uses mean group mass per task from k / G. A task at 0 of 8
-  is treated as p = 0, which understates the mix term for tasks whose true
-  probability is small but nonzero, so read the gain as a lower bound.
+The implementation accepts rows (task_id, successes_A, successes_B)
+and rejects duplicated task identities and invalid counts. The
+sign-flip distribution is verified against exhaustive enumeration on
+synthetic task pairs. No matched level-2 panel is claimed here.
