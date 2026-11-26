@@ -1,84 +1,54 @@
-# Two laws: grouping cannot buy signal, selection inflates it
+# Binary-reward grouping and conditional screening
 
-Screening programmes optimise in two places: how to build a group of rollouts,
-and how to pick the best environment from a set. Both have exact answers, and
-both answers are uncomfortable.
+These calculations are a planning sensitivity under independent homogeneous
+Bernoulli draws, not a law of training utility or usable signal per token.
+The illustrative baseline .035 is hypothetical until a level-2 rerun confirms
+it; the earlier G=8 pilot requested level 3. Task-level heterogeneity, shared
+tasks, verifier correlations, response lengths, admission and token weights
+are not identified by this model.
 
-## Grouping
+## Denominators and grouping
 
-For a group of G rollouts drawn uniformly at success rate p, expected advantage
-mass is 2Gp(1 - p), and that identity is exact for every G. Mass per rollout is
-therefore 2p(1 - p) for every G, which is also the largest per-token value any
-group can carry: the per-rollout share of a group with k successes is
-2k(G - k)/(G(G - 1)), which is at most the density of the observed rate and
-cannot exceed one half.
+For group size G >= 2, k successes give absolute leave-one-out advantage mass
+2 k (G-k)/(G-1). Under iid binary rewards with rate p, its expectation is
+2 G p(1-p). This is raw mass, not useful learning signal.
 
-A common implementation habit is to discard groups whose rollouts all agree,
-because their advantage is zero. That removes zero mass and removes exactly the
-coverage it filters: at p = 0.035 and G = 8, coverage is 0.2480, so each retained
-group costs 4.03 times what it should. Mass per token falls from 0.0675 to
-0.0168, a 75 percent loss. The zero-mass groups were never the problem; the
-rollouts spent on them are the price of the coverage that makes the other groups
-possible.
+The mixed-group probability is C = 1 - p^G - (1-p)^G. All-identical groups
+already have zero mass. Discarding them does not change expected raw mass
+per generated rollout. Conditional on retention the mass per retained rollout
+is 2p(1-p)/C, whereas the expected generated cost per retained group is G/C.
+If every mixed group is admitted, admitted and retained rollout counts agree;
+additional admission policies and token costs are outside this calculation.
 
-There is no grouping trick that raises 2p(1 - p) at fixed p. The only levers are
-p itself, which is the environment, and the verifier, which decides what counts
-as p.
+For hypothetical p=.035 and G=8, C=.247999, generated mass per rollout=.06755,
+retained mass per rollout=.272380, and generated rollouts per retained group
+=32.2582. This is a ratio of expectations, not a claim about finite-sample
+training yield.
 
-## Selection
+## Selection and global testing
 
-At a fixed budget, choosing the best of K environments reports a density above
-the truth even when all K are identical. The expectation is exact: at p = 0.035
-and 400 rollouts per arm the panel maximum is 0.0438 for K = 5, 0.0472 for K = 10,
-and 0.0503 for K = 20, which is 1.30, 1.40, and 1.49 times the true density.
+The plug-in reward-variance estimate has score k(n-k)/n^2. Mirrored counts
+are equal scores, so probabilities are aggregated before taking the maximum.
+Maximizing the estimate over candidates induces selection bias.
 
-A blind correction makes this worse, not better. Inverting the maximum assumes a
-homogeneous panel, and on a genuine leader it shrinks the answer to 0.79 times
-the truth. The bias and the champion are the same observation seen from two
-directions, so the report needs a regime test rather than a correction.
+Under the global null that all K independent binomial arms have the same
+unknown rate, conditioning on the total successes T eliminates that nuisance
+parameter. A count vector has weight product_i choose(n,k_i)/choose(Kn,T).
+The exact inclusive tail of the maximum score is computed by subtracting
+the probability that every score is strictly below the observed maximum.
+Integer dynamic programming counts that complement. Every conditional test
+has size at most alpha; hence the unconditional test does too.
 
-### A two-regime rule
+Rejecting this global null does not certify a unique champion, nor does it
+make a selected estimate unbiased. Failure to reject does not prove
+homogeneity. The report keeps all tied indices, the raw selected estimate,
+and the global p-value separate. Independent confirmation is required for
+effect estimation; no ad hoc shrinkage or inversion correction is claimed.
 
-Take the pooled rate of all K arms as the homogeneous baseline and compute the
-exact tail probability of a winner this large:
+Run:
 
-    p_value = 1 - S(pooled, observed winner)^K
+    python selection_law.py
+    python -m unittest test_selection_law
 
-If the value is at or below 0.05 the champion is certified and the raw estimate
-stands, because selection bias at that separation is under one percent. Otherwise
-report the panel as homogeneous, at the density whose expected maximum equals the
-observation.
-
-### Validation
-
-Five hundred seeded panels per scenario, 400 rollouts per arm.
-
-| scenario | mean reported | ratio to truth | claim rate |
-| --- | --- | --- | --- |
-| all ten equal | 0.0357 | 1.06 | 5.0% |
-| one leader, 2.3 times | 0.0776 | 1.00 | 94.2% |
-| one leader, 1.5 times | 0.0439 | 0.87 | 22.4% |
-
-The null panel's inflation disappears and its claim rate sits at the size. A
-certified leader is reported without inflation. A leader below what the budget
-can resolve is mostly reported as a homogeneous panel, which is the honest
-answer at that budget rather than a failure of the rule.
-
-### What this bounds
-
-Among ten candidates at 400 rollouts per arm, a 2.3 times difference can be
-certified. A 1.5 times difference is certified 22 percent of the time and a 1.2
-times difference 6 percent of the time. Reaching the 1.5 times case needs roughly
-four times the budget, the same factor the comparison note derives for density
-resolution, so the two routes agree.
-
-## Consequences
-
-- Report the panel, not the champion, unless the tail test clears. A ranked list
-  from ten candidates at 400 rollouts per arm is a ranking of noise with a
-  built-in 40 percent inflation at the top.
-- Do not filter zero-advantage groups. The tax is 1 over coverage, which is four
-  times at the published density.
-- Spend budget on reachable separations. A screening round that aims at 1.5 times
-  differences needs the budget of a 1.5 times test, not the budget of a 2.3
-  times one.
+The tests enumerate every small count vector and verify conditional size
+at every total, including mirrored and tied scores.
