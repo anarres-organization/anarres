@@ -163,6 +163,7 @@ CHECKS = (
         "test_build_corpus_inventory.py",
         "test_build_replay_splits.py",
         "test_build_baseline_audit.py",
+        "test_build_model_views.py",
     ),
     StudyCheck(
         "formal-verification adapter",

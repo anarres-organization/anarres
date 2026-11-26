@@ -60,5 +60,6 @@ Study-local records should first exercise the lifecycle described in [RFC 0004](
 5. [Frozen replay suites](REPLAY_SPLITS.json)
 6. [Frozen baseline contract](BASELINE_CONTRACT.json)
 7. [Released baseline audit](BASELINE_AUDIT.json)
-8. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
-9. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)
+8. [Separated model-input contract](MODEL_INPUT_CONTRACT.md)
+9. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
+10. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)
