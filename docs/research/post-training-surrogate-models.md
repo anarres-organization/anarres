@@ -1,6 +1,8 @@
 # Anarres as a surrogate model for automated post-training experiments
 
-Status: discussion proposal, 2026-11-24.
+Status: accepted research proposal, 2026-11-25. The active implementation and
+evaluation plan is in the
+[surrogate-model program](https://github.com/anarres-organization/anarres/tree/main/experiments/surrogate-models).
 
 Anarres measures candidate environments before committing a full training
 budget. From an AutoML perspective, those measurements could supply features
@@ -13,10 +15,10 @@ The proposed research question is: **do Anarres measurements improve experiment
 selection under a fixed total research budget, beyond strong surrogates and
 search methods using the same available history?**
 
-This document proposes a framing and evaluation criteria for discussion. The
-immediate deliverable is agreement on scope, prediction targets, and evidence
-needed for a later study. Implementation and training campaigns would each
-need a separately scoped contribution.
+This document defines the framing and evaluation criteria. The proposal is
+implemented as a cross-domain record audit, replay benchmark, multimodal
+surrogate comparison, and later frozen prospective test. Training campaigns
+remain separately scoped contributions.
 
 ## Mapping Anarres to surrogate-based optimization
 

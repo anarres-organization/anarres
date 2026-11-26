@@ -1,93 +1,56 @@
 # Surrogate models for environment selection
 
-**Status:** research design. No general surrogate model has been validated or
-released.
+**Status:** research design. No general surrogate model has been validated or released.
 
-This program asks whether measurements collected before training improve the
-selection of candidate environments under a fixed research budget. It builds
-on [issue #92](https://github.com/anarres-organization/anarres/issues/92) and
-[issue #94](https://github.com/anarres-organization/anarres/issues/94).
+This program asks whether Anarres can learn from experimental history across domains to forecast how a candidate training environment will affect a model before the full training run. The intended surrogate uses information available before training, including starting-policy measurements and, when scientifically relevant, text, code, curves, trajectories, images, structures, or other domain-native records, to predict improvement, regression risk, cost, and uncertainty.
 
-[The surrogate-selection proposal](https://github.com/anarres-organization/anarres/pull/91)
-defines the surrogate, acquisition, and total-cost questions. The
-[learned-surrogate proposal](https://github.com/anarres-organization/anarres/pull/93)
-defines the richer record-conditioned extension. This program makes the first
-proposal executable and retains the second as a gated later stage.
+The program implements the [surrogate-selection proposal](../../docs/research/post-training-surrogate-models.md) and the [multimodal learned-surrogate proposal](../../docs/research/learned-post-training-surrogate-models.md). Its primary question is:
 
-The first study is intentionally narrower than a general model of post-training
-research. It fixes the starting policy, trainer, target, and training budget
-within each candidate panel. A surrogate receives only information available
-before a candidate outcome and predicts downstream utility or ranks the
-candidates. A selection rule then decides which candidate to train, measure
-again, or reject in favor of the starting policy.
+> Can a learned surrogate improve the selection of candidate environments on unseen studies or domains after measurement, model, and execution costs are included?
 
-The primary question is:
-
-> Do starting-policy measurements reduce allocation regret after their cost is
-> included, relative to strong rules using the same experimental history?
+The long-term role is a pre-execution evidence layer for bounded improvement loops: qualify a proposal, forecast its likely outcomes, select or abstain, execute the chosen experiment, evaluate it on held-out targets, and add the verified record to the archive. The surrogate does not replace real training or held-out evaluation.
 
 ## Program stages
 
-### 1. Structured replay benchmark
+### 1. Cross-domain experimental record
 
-The [first comparison](FIRST_COMPARISON.md) replays the mathematics 14B
-scale-transfer decision using only the earlier-scale history and 14B
-starting-policy measurements permitted by the original freeze. This gives the
-program one fixed target, candidate panel, information boundary, and baseline
-suite before any cross-study aggregation.
+The first scientific release is a cross-domain replay benchmark built from complete, released candidate panels. Each record preserves its starting policy, candidate environment, training contract, target, prediction-time measurements, outcomes, costs, provenance, and missingness. Native outcomes are not collapsed into a universal score. Transfer is evaluated through within-panel ordering, normalized regret, regression events, calibration, and cost.
 
-The second comparison evaluates the same decision interface on complete
-candidate panels already released by Anarres. Each study keeps its native
-target and utility units. Results are aggregated through within-panel ordering,
-normalized regret, and cost. Raw outcome values are not pooled across domains.
+The [replay protocol](REPLAY_PROTOCOL.md) defines the cutoff, independent units, splits, baselines, endpoints, and acceptance criteria. The [source audit](SOURCE_AUDIT.md) determines which studies can supply labels. The [mathematics reference](MATHEMATICS_REFERENCE.md) is a conformance fixture for chronology, evaluator behavior, and cost accounting; it is not the headline cross-domain result.
 
-The [replay protocol](REPLAY_PROTOCOL.md) defines the information cutoff,
-independent units, splits, baselines, endpoints, and acceptance criteria. The
-[source audit](SOURCE_AUDIT.md) records which released studies can support each
-comparison.
+### 2. Learned multimodal surrogate
 
-### 2. Frozen prospective test
+The [model program](MULTIMODAL_SURROGATE.md) compares a fixed ladder of structured, record-conditioned, and multimodal predictors under identical information cutoffs. Multimodality is central to the research question, but each modality must earn its place through held-out ablation. The independent unit remains a training intervention, not a task, checkpoint, trace, or evaluation row.
 
-Retrospective replay can compare methods cheaply, but it cannot establish that
-a selected rule works on a new panel. A later prospective study must freeze the
-candidate construction, predictor, allowed updates, acquisition rule, costs,
-and scoring before candidate outcomes are available.
+Primary transfer tests hold out complete studies, model families, time periods, or domains. Methods must expose support and uncertainty and may abstain when a candidate lies outside the evidence represented in the archive.
 
-### 3. Learned record-conditioned surrogate
+### 3. Frozen prospective test
 
-A richer model may later use structured recipes, text, code, logs, curves, or
-trajectories. Extra inputs are admitted only when their prediction-time
-availability is defined and an ablation shows incremental decision value. Raw
-numerical curves remain the primary representation when they are available;
-rendered plots are not a substitute for the underlying values.
+Replay identifies a candidate method; it does not establish prospective validity. Before new outcomes are opened, freeze the candidate panel, prediction inputs, model artifact, acquisition rule, costs, abstention rule, and scoring contract. Score every candidate needed by the declared comparison, including the option to retain the starting policy.
 
-Training a dedicated multimodal model is not part of the first study. Existing
-records contain correlated checkpoints, tasks, and repeated evaluations nested
-under a much smaller number of interventions. Model complexity should follow a
-count of independent interventions and a successful structured baseline.
+### 4. Bounded improvement loop
+
+Only after prospective calibration should the surrogate guide repeated proposal selection. Every cycle returns to real execution and protected held-out evaluation. This prevents the archive from becoming a self-confirming record of surrogate-selected outcomes and measures whether the system continues to improve decisions under distribution shift.
 
 ## Scientific boundaries
 
 - Format compatibility does not establish predictive transfer.
-- A task, checkpoint, or evaluation sample is not an independent training
-  intervention.
-- Outcomes, later checkpoints, post-outcome summaries, and outcome-derived text
-  remain outside the surrogate input at prediction time.
+- A task, checkpoint, trace, or evaluation sample is not an independent training intervention.
+- Outcomes, later checkpoints, post-outcome summaries, and outcome-derived text remain outside the surrogate input at prediction time.
+- Public text or code may already be encoded by a pretrained model; exposure risk is reported separately from prospective prediction.
 - Infrastructure failures remain separate from valid low-utility outcomes.
 - Each candidate panel retains its native target and intervention contract.
 - Cross-domain conclusions require complete-domain or complete-study holdouts.
-- Measurement, surrogate fitting, candidate training, failed execution, and
-  evaluation costs are reported separately.
+- Measurement, surrogate fitting, candidate training, failed execution, and evaluation costs are reported separately.
 - The option to retain the starting policy is part of the decision problem.
+- A surrogate forecast is evidence for experiment selection, not verification of the resulting model or a replacement for held-out evaluation.
 
-No shared forecast schema or maintained model package is proposed at this
-stage. Study-local records should first exercise the lifecycle described in
-[RFC 0004](../../docs/rfcs/0004-predictive-decision-records.md).
+Study-local records should first exercise the lifecycle described in [RFC 0004](../../docs/rfcs/0004-predictive-decision-records.md). A shared public schema should follow demonstrated compatibility across released studies rather than precede it.
 
 ## Reading order
 
 1. [Literature review](LITERATURE.md)
 2. [Released-source audit](SOURCE_AUDIT.md)
-3. [First mathematics comparison](FIRST_COMPARISON.md)
-4. [Cross-panel replay protocol](REPLAY_PROTOCOL.md)
-
+3. [Cross-domain replay protocol](REPLAY_PROTOCOL.md)
+4. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
+5. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)
