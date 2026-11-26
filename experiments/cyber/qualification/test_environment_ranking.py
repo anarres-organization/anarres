@@ -1,79 +1,58 @@
-"""Tests for the signal-density comparison instrument.
+"""Exact conditional and task-pair regression tests."""
 
-Run from this directory:  python3 -m unittest test_environment_ranking
-"""
-
-from __future__ import annotations
-
+import itertools
+import math
 import unittest
+from fractions import Fraction
 
-import environment_ranking as ranking
-import paired_design as ranking_pairing
-
-
-class SymmetryTest(unittest.TestCase):
-    def test_density_is_symmetric_about_one_half(self) -> None:
-        for p in (0.035, 0.10, 0.25, 0.50, 0.75, 0.90):
-            self.assertAlmostEqual(ranking.phi(p), ranking.phi(1 - p), places=12)
-
-    def test_inverse_maps_back_to_the_chosen_side(self) -> None:
-        for p in (0.05, 0.2, 0.4):
-            value = ranking.phi(p)
-            self.assertAlmostEqual(ranking.phi_roots(value, higher=False), p, places=12)
-            self.assertAlmostEqual(ranking.phi_roots(value, higher=True), 1 - p, places=12)
+from environment_ranking import compare, equality_p, fixed_power, invert_channel, observed_rate, variance_p
+from paired_design import paired_summary
 
 
 class ComparisonTest(unittest.TestCase):
-    def test_symmetric_pair_is_not_rejected(self) -> None:
-        result = ranking.compare(40, 400, 360, 400)
-        self.assertLess(result.likelihood_ratio, ranking.CHI_SQUARE_1DF_95)
-        self.assertFalse(result.rejected_at_95)
-        self.assertAlmostEqual(result.phi_a, result.phi_b, places=12)
+    def test_exact_conditional_tail(self):
+        for na, nb in itertools.product(range(1, 6), repeat=2):
+            for a, b in itertools.product(range(na + 1), range(nb + 1)):
+                t = a + b
+                w = math.comb(na, a) * math.comb(nb, b)
+                weights = [
+                    math.comb(na, k) * math.comb(nb, t - k)
+                    for k in range(max(0, t - nb), min(na, t) + 1)
+                ]
+                self.assertEqual(
+                    equality_p(a, na, b, nb),
+                    Fraction(sum(v for v in weights if v <= w), sum(weights)),
+                )
 
-    def test_distinct_densities_are_rejected(self) -> None:
-        result = ranking.compare(12, 400, 46, 400)
-        self.assertGreater(result.likelihood_ratio, ranking.CHI_SQUARE_1DF_95)
-        self.assertTrue(result.rejected_at_95)
-        self.assertGreater(result.phi_b, result.phi_a)
+    def test_full_null_grid(self):
+        for p in (0, 0.035, 0.1, 0.25, 0.5, 0.75, 0.95, 1):
+            for q in (p, 1 - p):
+                self.assertLessEqual(fixed_power(p, q, 30), 0.05 + 1e-12)
 
-    def test_same_success_rate_at_different_trial_counts_is_not_rejected(self) -> None:
-        result = ranking.compare(20, 400, 10, 200)
-        self.assertAlmostEqual(result.p_a, result.p_b, places=12)
-        self.assertLess(result.likelihood_ratio, ranking.CHI_SQUARE_1DF_95)
+    def test_mirror(self):
+        self.assertEqual(variance_p(40, 400, 360, 400), 1)
+        self.assertTrue(compare(12, 400, 46, 400)["reject"])
 
+    def test_known_channel(self):
+        for p in (0, 0.035, 0.5, 0.9, 1):
+            self.assertAlmostEqual(invert_channel(observed_rate(p, 0.38, 0.05), 0.38, 0.05), p)
 
-class DetectabilityTest(unittest.TestCase):
-    def test_competing_density_needs_more_than_twice_the_signal(self) -> None:
-        detectable = ranking.minimum_detectable(0.035, draws=150)
-        self.assertGreater(detectable["higher"]["ratio"], 2.0)
-        self.assertLess(detectable["higher"]["ratio"], 3.0)
-        self.assertTrue(detectable["higher"]["power"] >= 0.8)
+    def test_invalid(self):
+        for a, n, b, m in ((2, 1, 0, 1), (-1, 2, 0, 2), (0, 0, 1, 2)):
+            with self.assertRaises(ValueError):
+                variance_p(a, n, b, m)
 
+    def test_paired_task_signflip(self):
+        rows = [("a", 0, 2), ("b", 1, 2), ("c", 2, 2), ("d", 3, 0)]
+        got = paired_summary(rows, 8)
+        d = [b * (8 - b) - a * (8 - a) for _, a, b in rows]
+        expected = sum(
+            abs(sum(v * s for v, s in zip(d, signs, strict=True))) >= abs(sum(d))
+            for signs in itertools.product((-1, 1), repeat=4)
+        ) / 16
+        self.assertEqual(got["exchangeability_p"], expected)
+        self.assertEqual(got["task_pairs"], 4)
 
-class PairingTest(unittest.TestCase):
-    def test_mix_component_is_of_the_same_order_as_the_binomial_one(self) -> None:
-        values = ranking_pairing.decomposition()
-        self.assertGreater(values["mix_over_binomial"], 0.8)
-        self.assertLess(values["mix_over_binomial"], 1.6)
-
-    def test_pairing_shrinks_the_difference_and_the_detectable_ratio(self) -> None:
-        values = ranking_pairing.decomposition()
-        self.assertLess(values["paired_difference_sd"], values["unpaired_difference_sd"])
-        self.assertGreater(values["paired_gain"], 1.4)
-        self.assertLess(ranking_pairing.detectable_ratio(2.30), 1.7)
-
-    def test_panel_proxy_stays_close_to_the_released_mass(self) -> None:
-        self.assertTrue(ranking_pairing.decomposition()["proxy_close"])
-
-
-class FragilityTest(unittest.TestCase):
-    def test_bad_verifier_reverses_the_symmetric_pair(self) -> None:
-        rows = ranking.verifier_symmetry_break(0.38)
-        pair = {row["p"]: row for row in rows}
-        self.assertGreater(pair[0.90]["ratio"], 4.0)
-        self.assertLess(pair[0.10]["ratio"], 0.3)
-        self.assertAlmostEqual(pair[0.50]["ratio"], 1.0, places=6)
-
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_duplicate_task(self):
+        with self.assertRaises(ValueError):
+            paired_summary([("a", 0, 1), ("a", 0, 1)], 8)
