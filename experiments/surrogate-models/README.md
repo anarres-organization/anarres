@@ -14,9 +14,13 @@ The long-term role is a pre-execution evidence layer for bounded improvement loo
 
 ### 1. Cross-domain experimental record
 
-The first scientific release is a cross-domain replay benchmark built from complete, released candidate panels. Each record preserves its starting policy, candidate environment, training contract, target, prediction-time measurements, outcomes, costs, provenance, and missingness. Native outcomes are not collapsed into a universal score. Transfer is evaluated through within-panel ordering, normalized regret, regression events, calibration, and cost.
+The first scientific release begins with a [content-addressed intervention corpus](CORPUS_CONTRACT.md) built from complete, released candidate panels. Its [generated manifest](CORPUS_INVENTORY.json) and [streamable records](CORPUS_RECORDS.jsonl) currently index 101 seed-level interventions and 3,540 explicitly marked published candidate-arm aggregates. Each record preserves its candidate environment, target, prediction-time measurements, outcome, cost status, provenance, and grouping. Native outcomes are not collapsed into a universal score. Transfer is evaluated through within-panel ordering, normalized regret, regression events, calibration, and cost.
 
 The [replay protocol](REPLAY_PROTOCOL.md) defines the cutoff, independent units, splits, baselines, endpoints, and acceptance criteria. The [source audit](SOURCE_AUDIT.md) determines which studies can supply labels. The [mathematics reference](MATHEMATICS_REFERENCE.md) is a conformance fixture for chronology, evaluator behavior, and cost accounting; it is not the headline cross-domain result.
+
+The current inventory supports structured baselines. Raw multimodal assets are
+not silently inferred from study summaries; they enter through a later,
+licensed artifact manifest with reconstruction and leakage checks.
 
 ### 2. Learned multimodal surrogate
 
@@ -51,6 +55,7 @@ Study-local records should first exercise the lifecycle described in [RFC 0004](
 
 1. [Literature review](LITERATURE.md)
 2. [Released-source audit](SOURCE_AUDIT.md)
-3. [Cross-domain replay protocol](REPLAY_PROTOCOL.md)
-4. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
-5. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)
+3. [Cross-domain corpus contract](CORPUS_CONTRACT.md)
+4. [Cross-domain replay protocol](REPLAY_PROTOCOL.md)
+5. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
+6. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)

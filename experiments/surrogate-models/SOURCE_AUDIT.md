@@ -34,9 +34,9 @@ reconstructed without inference from prose:
 - candidate-training and evaluation cost, or an explicit missing-cost marker
 - chronology sufficient to exclude post-outcome fields from predictor inputs
 
-The first implementation task is a read-only inventory that checks these fields
-and reports missingness. It must not manufacture a common utility value or fill
-missing costs with zero.
+The first implementation task is complete as a [read-only, content-addressed
+inventory](CORPUS_CONTRACT.md). It checks these fields, reports evidence level
+and missing cost explicitly, and does not manufacture a common utility value.
 
 ## Independent units
 
