@@ -18,6 +18,7 @@ Released methods and evidence remain in the repository.
 | Robotics | [`experiments/robotics/`](experiments/robotics/) | [`area:robotics`](https://github.com/anarres-organization/anarres/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22area%3Arobotics%22) | `#robotics` |
 | Legal reasoning | [`experiments/legal/`](experiments/legal/) | [`area:legal`](https://github.com/anarres-organization/anarres/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22area%3Alegal%22) | `#legal` |
 | Agentic finance | [`experiments/finance/`](experiments/finance/) | [`area:finance`](https://github.com/anarres-organization/anarres/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22area%3Afinance%22) | `#finance` |
+| Surrogate models | [`experiments/surrogate-models/`](experiments/surrogate-models/) | [open surrogate-model issues](https://github.com/anarres-organization/anarres/issues?q=is%3Aissue%20state%3Aopen%20surrogate) | `#surrogate-models` |
 
 Cross-domain research proposals begin in the
 [`proposal`](https://github.com/anarres-organization/anarres/issues?q=is%3Aissue%20state%3Aopen%20label%3Aproposal)
