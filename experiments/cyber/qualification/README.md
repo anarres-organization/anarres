@@ -43,16 +43,6 @@ scaffold comparison, repeated-policy measurements, uncertainty, and compute.
 These results establish policy-relative signal under one model and scaffold.
 They do not compare training environments or measure downstream RL utility.
 
-## Information floor
-
-The [floor](INFORMATION_FLOOR.md) is the bound under all of the above: any screen
-choosing among K arms needs at least (log K + log(1/e)) / D rollouts per arm, D
-being the Bernoulli divergence between the arms as the verifier reports them.
-`information_floor.py` checks that bound against the exact tables in this
-directory. It lands at 1527 where the exact screen needs 1600 for 1.5 times, and
-at 304 where the sequential design expects 310 for 2.3 times, so the exact
-arithmetic and the bound agree within five percent from both directions.
-
 ## Development record
 
 The [v1 bakeoff](HISTORICAL_V1_BAKEOFF.md), the original
@@ -65,3 +55,10 @@ scaffold, candidate environments, target, and budget.
 Formal-verification environments have a separate
 [plan and source qualification path](../formal-verification/README.md). Their
 proof-checker results are not pooled with exploit-verifier outcomes.
+
+## Conditional fixed-budget planning
+
+The [Bernoulli screen planning model](INFORMATION_FLOOR.md) separates a
+necessary leader-swap bound from a sufficient max-count budget. It assumes
+independent homogeneous draws and uses 0.035 only as a hypothetical baseline,
+not a confirmed level2 rate. It does not measure training utility.
