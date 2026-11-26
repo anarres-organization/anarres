@@ -1,299 +1,115 @@
-#!/usr/bin/env python3
-"""Turn the released resolution table into a design budget.
-
-`detectable_difference.py` answers what each released pair could have seen.
-This script answers the reverse question: for an effect of a given size, how
-many held-out items and how many seed-paired panels does a comparison need
-before it reaches 80% power at the same exact two-sided test.
-
-The discordant rate is read from the released counts, so the plan stays tied to
-this panel's verifier and policy rather than to an assumed noise level. Each
-released pair is first re-solved at its own item count and discordant total, and
-the run fails when a solved resolution disagrees with the released table by more
-than one search step.
-
-Input: data/paired_counts.csv, design/next-panel.json, protocol.json.
-"""
+"""Audit the frozen feasibility design; analyse one outcome per matched seed."""
 
 from __future__ import annotations
 
+import argparse
 import csv
 import hashlib
 import json
-from math import exp, lgamma, log, log1p
+import math
+import statistics
 from pathlib import Path
 
-DATA = Path(__file__).resolve().parents[1] / "data" / "paired_counts.csv"
-ALPHA = 0.05
-TARGET_POWER = 0.8
-STEP = 0.25
-PANEL = 300
-TARGET_EFFECTS = (2.0, 3.3, 5.0, 9.0)
-
-# Resolution reported by the study README for each pair, in points.
-RELEASED = {
-    "clean_vs_iid_false_negative": 9.00,
-    "clean_vs_group_false_negative": 9.00,
-    "clean_vs_no_group_baseline": 10.50,
-    "seed_pair_clean": 10.25,
-    "seed_pair_open": 10.25,
+ROOT = Path(__file__).resolve().parents[1]
+FIELDS = {
+    "seed", "control_run_id", "treatment_run_id", "panel_sha256",
+    "n_items", "correct_control", "correct_treatment",
 }
 
 
-def _log_choose(n: int, k: int) -> float:
-    return lgamma(n + 1) - lgamma(k + 1) - lgamma(n - k + 1)
-
-
-def critical_flips(m: int) -> int:
-    """Largest tail count the two-sided exact test rejects at ALPHA."""
-    cumulative = 0.0
-    limit = -1
-    half = m // 2
-    for k in range(half + 1):
-        cumulative += exp(_log_choose(m, k) - m * log(2.0))
-        if 2 * cumulative <= ALPHA:
-            limit = k
-        else:
-            break
-    return limit
-
-
-def power(m: int, n: int, delta_points: float, limit: int | None = None) -> float:
-    """Exact power for a difference of delta_points, one discordant total."""
-    shift = delta_points / 100.0 * n
-    mean = (m + shift) / 2.0
-    if mean <= 0 or mean >= m:
-        return 0.0
-    p = mean / m
-    limit = critical_flips(m) if limit is None else limit
-    if limit < 0:
-        return 0.0
-    lp, lq = log(p), log1p(-p)
-    total = 0.0
-    for b in range(limit + 1):
-        total += exp(_log_choose(m, b) + b * lp + (m - b) * lq)
-    for b in range(m - limit, m + 1):
-        total += exp(_log_choose(m, b) + b * lp + (m - b) * lq)
-    return total
-
-
-def minimum_detectable(m: int, n: int) -> float:
-    limit = critical_flips(m)
-    for step in range(0, 121):
-        delta = STEP * step
-        if power(m, n, delta, limit) >= TARGET_POWER:
-            return delta
-    return float("inf")
-
-
-def power_definitional(m: int, n: int, delta_points: float) -> float:
-    """Same power, written straight from the test definition.
-
-    Enumerates every discordant split and keeps the ones the two-sided exact
-    test rejects, so it shares no code with `critical_flips`. Used to check the
-    rejection region against the definition inside the gate.
-    """
-    shift = delta_points / 100.0 * n
-    mean = (m + shift) / 2.0
-    if mean <= 0 or mean >= m:
-        return 0.0
-    p = mean / m
-    total = 0.0
-    for b in range(m + 1):
-        c = m - b
-        two_sided = 2 * sum(exp(_log_choose(m, k) - m * log(2.0)) for k in range(min(b, c) + 1))
-        if min(1.0, two_sided) <= ALPHA:
-            total += exp(_log_choose(m, b) + b * log(p) + c * log1p(-p))
-    return total
-
-
-def items_for(delta_points: float, rate: float) -> int:
-    """Smallest item count whose exact power reaches the target."""
-    low, high = 100, 8192
-    while low < high:
-        mid = (low + high) // 2
-        if power(max(2, round(rate * mid)), mid, delta_points) >= TARGET_POWER:
-            high = mid
-        else:
-            low = mid + 1
-    return low
-
-
-PROTOCOL = Path(__file__).resolve().parents[1] / "design" / "next-panel.json"
-PROTOCOL_RECORD = Path(__file__).resolve().parents[1] / "protocol.json"
-REQUIRED_PROTOCOL_KEYS = (
-    "experiment_id",
-    "version",
-    "status",
-    "primary_estimand",
-    "experimental_units",
-    "development_partition",
-    "prospective_partition",
-    "artifacts",
-)
-
-
-def check_protocol(rate: float) -> int:
-    """Verify a frozen next-panel design against the released discordant rate."""
-    if not PROTOCOL.exists():
-        return 0
-    protocol = json.loads(PROTOCOL.read_text(encoding="utf-8"))
-    failures = 0
-    target = float(protocol["target_effect_points"])
-    items = int(protocol["items_per_arm"])
-    panels = int(protocol["panels"])
-    claimed = float(protocol["claimed_resolution_points"])
-    required = items_for(target, rate)
-    if items < required:
-        print(f"protocol: {items} items is below the {required} needed for {target:.2f}pp")
-        failures += 1
-    if panels * int(protocol["panel_items"]) != items:
-        print(f"protocol: {panels} panels of {protocol['panel_items']} do not make {items} items")
-        failures += 1
-    m = max(2, round(rate * items))
-    solved = minimum_detectable(m, items)
-    if abs(solved - claimed) > STEP:
-        print(f"protocol: claims {claimed:.2f}pp, counts {solved:.2f}pp")
-        failures += 1
-    if solved > target:
-        print(f"protocol: resolution {solved:.2f}pp does not reach {target:.2f}pp")
-        failures += 1
-    print(
-        f"protocol: {panels} panels, {items} items per arm, required {required}, "
-        f"resolution {solved:.2f}pp against target {target:.2f}pp"
+def analyse(rows: list[dict[str, str]]) -> dict:
+    """One difference per seed; never treat test items as training replicates."""
+    if len(rows) != 9:
+        raise ValueError("exactly nine matched training pairs required")
+    seeds, runs, panels = set(), set(), set()
+    differences = []
+    for row in rows:
+        if set(row) != FIELDS:
+            raise ValueError("expected run-level columns only")
+        seed = int(row["seed"])
+        control = row["control_run_id"].strip()
+        treatment = row["treatment_run_id"].strip()
+        panel = row["panel_sha256"]
+        if seed < 0 or seed in seeds:
+            raise ValueError("training seed must be unique")
+        if not control or not treatment or control == treatment or {control, treatment} & runs:
+            raise ValueError("training run identities must be unique across pairs")
+        if len(panel) != 64 or any(c not in "0123456789abcdef" for c in panel):
+            raise ValueError("expected a SHA-256 panel digest")
+        n, a, b = (int(row[k]) for k in ("n_items", "correct_control", "correct_treatment"))
+        if n != 300 or not (0 <= a <= n and 0 <= b <= n):
+            raise ValueError("invalid fixed-panel counts")
+        seeds.add(seed)
+        runs.update((control, treatment))
+        panels.add(panel)
+        differences.append(100 * (b - a) / n)
+    if len(panels) != 1:
+        raise ValueError("all runs must use the same evaluation panel")
+    mean = statistics.mean(differences)
+    sd = statistics.stdev(differences)
+    se = sd / math.sqrt(len(differences))
+    # t(8, .975); approximate interval, not a confirmatory power statement.
+    margin = 2.306004135 * se
+    positive = sum(d > 0 for d in differences)
+    negative = sum(d < 0 for d in differences)
+    nonzero = positive + negative
+    sign_p = min(
+        1.0,
+        2 * sum(math.comb(nonzero, k) for k in range(min(positive, negative) + 1))
+        / 2**nonzero,
     )
-    return failures
+    return {
+        "analysis_unit": "matched_training_seed_pair",
+        "n_pairs": len(differences),
+        "differences_pp": differences,
+        "mean_pp": mean,
+        "between_pair_sd_pp": sd,
+        "approximate_t95_pp": [mean - margin, mean + margin] if sd else None,
+        "secondary_sign_p": sign_p,
+        "power_claim": None,
+    }
 
 
-def check_protocol_record() -> int:
-    """Hold the record to the experiment-protocol contract and its own digests."""
-    if not PROTOCOL_RECORD.exists():
-        return 0
-    protocol = json.loads(PROTOCOL_RECORD.read_text(encoding="utf-8"))
-    failures = 0
-    for key in REQUIRED_PROTOCOL_KEYS:
-        if key not in protocol:
-            print(f"protocol record: missing {key}")
-            failures += 1
-    if protocol.get("status") != "frozen":
-        print(f"protocol record: status is {protocol.get('status')}, expected frozen")
-        failures += 1
-    for key in ("primary_estimand", "experimental_units"):
-        if not str(protocol.get(key, "")).strip():
-            print(f"protocol record: empty {key}")
-            failures += 1
-    base = PROTOCOL_RECORD.parent
-    for artifact in protocol.get("artifacts", []):
-        uri = str(artifact.get("uri", ""))
-        target = base / uri
-        if not target.exists():
-            print(f"protocol record: artifact {uri} is missing")
-            failures += 1
-            continue
-        payload = target.read_bytes()
-        digest = "sha256:" + hashlib.sha256(payload).hexdigest()
-        if artifact.get("sha256") != digest:
-            print(f"protocol record: digest mismatch for {uri}")
-            failures += 1
-        if int(artifact.get("size_bytes", -1)) != len(payload):
-            print(f"protocol record: size mismatch for {uri}")
-            failures += 1
-    print(f"protocol record: {len(protocol.get('artifacts', []))} artifacts match their digests")
-    return failures
+def validate_design(plan: dict) -> None:
+    expected = {
+        "analysis_unit": "matched_training_seed_pair", "pairs": 9,
+        "items_per_run": 300, "runs": 18,
+        "primary_analysis": "mean paired run difference; approximate t interval",
+        "target_power": None, "status": "feasibility_only",
+    }
+    if any(plan.get(k) != v for k, v in expected.items()):
+        raise ValueError("design must retain nine seed pairs without pooled-item power")
 
 
-def main() -> int:
-    rows = [row for row in csv.DictReader(DATA.open(newline="", encoding="utf-8"))]
-    counted = [row for row in rows if row["excluded_from_claims"] == "no"]
-    failures = 0
-    for row in counted:
-        pair = row["pair"]
-        n = int(row["items"])
-        m = int(row["control_only"]) + int(row["treatment_only"])
-        solved = minimum_detectable(m, n)
-        expected = RELEASED.get(pair)
-        status = "ok"
-        if expected is not None and abs(expected - solved) > STEP:
-            status = f"MISMATCH (released {expected:.2f})"
-            failures += 1
-        print(
-            f"{pair}: n={n}, discordant={m}, rate={m / n:.3f}, "
-            f"solved resolution={solved:.2f}pp, {status}"
-        )
+def audit(root: Path = ROOT) -> None:
+    validate_design(json.loads((root / "design/next-panel.json").read_text()))
+    protocol = json.loads((root / "protocol.json").read_text())
+    if "matched training seed pair" not in protocol["experimental_units"]:
+        raise ValueError("invalid experimental unit in protocol")
+    for a in protocol["artifacts"]:
+        data = (root / a["uri"]).read_bytes()
+        if (
+            a["sha256"] != "sha256:" + hashlib.sha256(data).hexdigest()
+            or a["size_bytes"] != len(data)
+        ):
+            raise ValueError(f"artifact mismatch: {a['uri']}")
+    for line in (root / "MANIFEST.sha256").read_text().splitlines():
+        digest, name = line.split("  ", 1)
+        if hashlib.sha256((root / name).read_bytes()).hexdigest() != digest:
+            raise ValueError(f"manifest mismatch: {name}")
 
-    items = sum(int(row["items"]) for row in counted)
-    flips = sum(int(row["control_only"]) + int(row["treatment_only"]) for row in counted)
-    rate = flips / items
 
-    print()
-    print(f"pooled discordant rate over {len(counted)} pairs: {rate:.3f}")
-    print("DESIGN BUDGET")
-    for delta in TARGET_EFFECTS:
-        needed = items_for(delta, rate)
-        panels = -(-needed // PANEL)
-        print(
-            f"effect {delta:.2f}pp: items={needed}, "
-            f"seed-paired {PANEL}-item panels={panels}, "
-            f"discordant at that size={round(rate * needed)}"
-        )
-
-    failures += check_protocol(rate)
-    failures += check_protocol_record()
-
-    print("REJECTION REGION CHECK")
-    for m in (20, 60, 94, 120):
-        for delta in (2.0, 5.0, 9.0):
-            fast = power(m, 300, delta)
-            slow = power_definitional(m, 300, delta)
-            gap = abs(fast - slow)
-            if gap > 1e-9:
-                print(f"m={m} d={delta:.1f}: power disagrees by {gap:.2e}")
-                failures += 1
-    print("rejection region agrees with the test definition to 1e-9")
-
-    print()
-    print("RESOLUTION AT BUDGET")
-    for panels in (1, 2, 4, 8):
-        n = PANEL * panels
-        m = max(2, round(rate * n))
-        limit = critical_flips(m)
-        resolved = 0.0
-        for step in range(0, 481):
-            candidate = STEP * step
-            if power(m, n, candidate, limit) >= TARGET_POWER:
-                resolved = candidate
-                break
-        print(f"{panels} panel(s), {n} items: resolution={resolved:.2f}pp, discordant={m}")
-
-    seed_band = max(
-        abs(int(row["correct_treatment"]) - int(row["correct_control"])) / int(row["items"]) * 100
-        for row in counted
-        if row["pair"].startswith("seed_pair")
-    )
-    print()
-    print(f"largest recorded same-configuration seed shift: {seed_band:.2f}pp")
-    print("VERDICT GATE")
-    for row in counted:
-        pair = row["pair"]
-        if pair.startswith("seed_pair"):
-            continue
-        n = int(row["items"])
-        observed = (int(row["correct_treatment"]) - int(row["correct_control"])) / n
-        observed *= 100
-        resolved = minimum_detectable(int(row["control_only"]) + int(row["treatment_only"]), n)
-        if abs(observed) < resolved:
-            verdict = "unresolved below this design's resolution"
-        elif abs(observed) <= seed_band:
-            verdict = "inside the recorded seed spread"
-        else:
-            verdict = "attributable: exceeds resolution and seed spread"
-        print(
-            f"{pair}: observed={observed:+.2f}pp, resolution={resolved:.2f}pp, "
-            f"seed band={seed_band:.2f}pp, verdict={verdict}"
-        )
-    print("seed pairs measure that band rather than an intervention and are scored above")
-    return 1 if failures else 0
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--runs", type=Path, help="completed run-pair CSV")
+    args = parser.parse_args()
+    audit()
+    if args.runs is None:
+        print("Feasibility design and hashes verified; no training results claimed.")
+        return
+    with args.runs.open(newline="", encoding="utf-8") as handle:
+        print(json.dumps(analyse(list(csv.DictReader(handle))), indent=2))
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()
