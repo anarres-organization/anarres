@@ -1,0 +1,23 @@
+{
+  "status": "aggregate_only_unverified",
+  "record": "data/paired_counts.csv",
+  "reported_settings": {
+    "model": "Qwen3-0.6B",
+    "dataset": "GSM8K",
+    "evaluation_items": 300,
+    "training_steps": 40
+  },
+  "missing": {
+    "model_revision": null,
+    "dataset_revision": null,
+    "trainer_commit": null,
+    "configuration_sha256": null,
+    "training_seeds": null,
+    "evaluation_seeds": null,
+    "checkpoint_identifiers": null,
+    "perturbation_seeds": null,
+    "item_level_output_artifact": null,
+    "extraction_code_sha256": null
+  },
+  "limitation": "Aggregate count consistency cannot establish the origin or execution of these runs. No missing identifier is inferred or reconstructed."
+}
