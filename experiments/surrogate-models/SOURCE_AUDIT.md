@@ -59,9 +59,13 @@ independent training interventions.
 
 ## Recommended first release
 
-The first release should include only panels that pass the readiness audit and
-should publish an exclusion table for the rest. Mathematics is the clearest
-single-study curve test. Robotics and the prospective materials panel provide
-more varied candidate panels for decision replay. Other programs can be added
-after their native records pass the same audit.
+The first release is the bounded
+[mathematics scale-transfer comparison](FIRST_COMPARISON.md). It validates the
+replay implementation without implying cross-domain transfer.
+
+The later cross-panel release should include only panels that pass the readiness
+audit and should publish an exclusion table for the rest. Robotics and the
+prospective materials panel provide more varied candidate panels for decision
+replay. Other programs can be added after their native records pass the same
+audit.
 

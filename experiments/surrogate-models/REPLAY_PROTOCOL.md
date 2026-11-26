@@ -3,6 +3,11 @@
 **Evidence tier:** preregistered retrospective replay design. Running this
 protocol on released outcomes does not create prospective evidence.
 
+This protocol governs the second, cross-panel comparison. The bounded
+[mathematics scale-transfer comparison](FIRST_COMPARISON.md) comes first and
+validates the evaluator and information-boundary checks under one controlled
+study.
+
 ## Question
 
 Given a candidate panel, a starting policy, and a fixed candidate-training
@@ -80,6 +85,11 @@ Every method receives the same permitted history and action set.
 A learned multimodal model is added only after these baselines run and the
 number of independent interventions is sufficient for a prespecified training
 and validation split.
+
+This preserves the richer model family proposed in
+[issue #94](https://github.com/anarres-organization/anarres/issues/94). It makes
+model complexity conditional on evidence rather than removing it from the
+program.
 
 ## Ablations
 

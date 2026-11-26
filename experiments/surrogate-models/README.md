@@ -8,6 +8,12 @@ selection of candidate environments under a fixed research budget. It builds
 on [issue #92](https://github.com/anarres-organization/anarres/issues/92) and
 [issue #94](https://github.com/anarres-organization/anarres/issues/94).
 
+[The surrogate-selection proposal](https://github.com/anarres-organization/anarres/pull/91)
+defines the surrogate, acquisition, and total-cost questions. The
+[learned-surrogate proposal](https://github.com/anarres-organization/anarres/pull/93)
+defines the richer record-conditioned extension. This program makes the first
+proposal executable and retains the second as a gated later stage.
+
 The first study is intentionally narrower than a general model of post-training
 research. It fixes the starting policy, trainer, target, and training budget
 within each candidate panel. A surrogate receives only information available
@@ -24,10 +30,16 @@ The primary question is:
 
 ### 1. Structured replay benchmark
 
-The first stage evaluates simple predictors and acquisition rules on complete
+The [first comparison](FIRST_COMPARISON.md) replays the mathematics 14B
+scale-transfer decision using only the earlier-scale history and 14B
+starting-policy measurements permitted by the original freeze. This gives the
+program one fixed target, candidate panel, information boundary, and baseline
+suite before any cross-study aggregation.
+
+The second comparison evaluates the same decision interface on complete
 candidate panels already released by Anarres. Each study keeps its native
 target and utility units. Results are aggregated through within-panel ordering,
-normalized regret, and cost, not by pooling raw outcome values across domains.
+normalized regret, and cost. Raw outcome values are not pooled across domains.
 
 The [replay protocol](REPLAY_PROTOCOL.md) defines the information cutoff,
 independent units, splits, baselines, endpoints, and acceptance criteria. The
@@ -76,5 +88,6 @@ stage. Study-local records should first exercise the lifecycle described in
 
 1. [Literature review](LITERATURE.md)
 2. [Released-source audit](SOURCE_AUDIT.md)
-3. [First-study replay protocol](REPLAY_PROTOCOL.md)
+3. [First mathematics comparison](FIRST_COMPARISON.md)
+4. [Cross-panel replay protocol](REPLAY_PROTOCOL.md)
 
