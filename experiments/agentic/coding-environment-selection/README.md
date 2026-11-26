@@ -20,9 +20,9 @@ These results extend the policy-relative principle to two independently publishe
 
 Each candidate records four source-native coordinates:
 
-- **readiness:** mean native reward under the declared policy probe, used to exclude environments at either extreme of the measured frontier;
-- **reward information:** variation in verifiable outcomes under repeated attempts;
-- **cost:** generated output required by the probe;
+- **readiness:** mean native reward under the declared policy probe, used to exclude environments at either extreme of the measured frontier.
+- **reward information:** variation in verifiable outcomes under repeated attempts.
+- **cost:** generated output required by the probe.
 - **target affinity:** similarity to the intended held-out task family.
 
 These names align the decision logic across sources without pretending that their native estimators or outcome scales are interchangeable. [`data/panels.json`](data/panels.json) preserves the source-specific definitions.
