@@ -20,6 +20,7 @@
   <a href="#quick-start">Quick start</a> ·
   <a href="docs/cli.md">Documentation</a> ·
   <a href="#research-program">Research</a> ·
+  <a href="WORKSTREAMS.md">Workstreams</a> ·
   <a href="https://github.com/anarres-organization/anarres/releases">Releases</a> ·
   <a href="https://github.com/anarres-organization/anarres/issues">Issues</a>
 </p>
@@ -254,7 +255,7 @@ Anarres takes its name from the moon in Ursula K. Le Guin's [*The Dispossessed*]
 
 ## Contributing
 
-Contributions to source adapters, qualification checks, shared measurements, evaluation, documentation, and scientific experiments are welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md). Consequential changes to shared schemas or maintained interfaces begin with an RFC. Ordinary fixes and experiment-local improvements can proceed through a pull request.
+Contributions to source adapters, qualification checks, shared measurements, evaluation, documentation, and scientific experiments are welcome. Use the [workstream registry](WORKSTREAMS.md) to find the relevant repository path, issue queue, and discussion channel, then read [CONTRIBUTING.md](CONTRIBUTING.md). Consequential changes to shared schemas or maintained interfaces begin with an RFC. Ordinary fixes and experiment-local improvements can proceed through a pull request.
 
 ## Citation
 
