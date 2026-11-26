@@ -45,6 +45,12 @@ The public evidence separates three decisions that are often conflated. TMax and
 
 The immediate boundary is composition transfer. The two exact panels do not qualify a universal predictor, and reward information remains a competent simple baseline. The next decisive test is a source-separated candidate set whose environments were assembled independently of these coordinates, with multiple training seeds and the selection rule frozen before outcomes.
 
+## Marin interoperability boundary
+
+Marin's public Qwen3-Coder sweep provides a frontier-relevant integration target: four agentic data sources, fixed-validation records, preserved training diagnostics, and explicit contamination and supersession states. The released BugsInPy and SWE-Gym records use separate held-out task families. They can support recipe comparisons within each dataset when split and runtime contracts match, but they do not form one cross-dataset allocation decision.
+
+The coding adapter validates the released fixed-validation CSV, recomputes pass-rate accounting, preserves discarded and superseded checkpoints, and reports the comparison boundary. The archive does not expose a complete starting-policy probe for every candidate under one target contract, so the adapter does not declare native source qualification or policy probing. A future Marin candidate set can enter the shared Anarres path by recording outcome-free policy measurements under a common target and exporting them as environment profiles before training outcomes are opened.
+
 ## Reproduce
 
 Recompute the released decisions and baseline regrets:
@@ -76,3 +82,23 @@ anarres qualify /tmp/agentic-coding-external-profiles/autoenv_qwen3_5_9b_gpt_5_6
 ```
 
 [`SOURCE_QUALIFICATION.md`](SOURCE_QUALIFICATION.md) defines the evidence tiers and limitations. [`SOURCES.json`](SOURCES.json) records the audited public sources and licenses.
+
+Install the study-local CLI and inspect the released evidence:
+
+```bash
+uv tool install ./experiments/agentic/coding-environment-selection
+anarres adapter doctor coding
+anarres coding status --repository .
+anarres coding regressions --repository .
+anarres coding profile --repository . --output /tmp/agentic-coding-profiles
+```
+
+Audit a pinned Marin fixed-validation record without merging unlike targets:
+
+```bash
+anarres coding audit-marin-evidence \
+  --csv software-transfer-fixed-validation.csv \
+  --sha256 <sha256> \
+  --source-revision <revision> \
+  --source-license <license-or-usage-terms>
+```

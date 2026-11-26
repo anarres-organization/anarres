@@ -47,3 +47,9 @@ Broader studies remain in the source registry as landscape context. SETA, LegoEn
 ## Qualification boundary
 
 A general terminal selector is not qualified. Qualification would require additional prospectively frozen, source-separated decisions, multiple training seeds, independently assembled candidate sets, and a demonstrated gain over reward information alone. The current result qualifies a reproducible measurement and evaluation path and shows that policy-aligned progression transfers as an ordering principle in two additional public studies.
+
+## Marin evidence contract
+
+The Marin Qwen3-Coder sweep is retained as an interoperability target rather than added to the pooled bridge. Its public fixed-validation CSV records dataset, recipe, job, attempt, checkpoint, pass@1 accounting, split identity, contamination, and lifecycle status. The coding CLI verifies those fields and keeps authoritative, policy-stopped, discarded, and superseded records distinct.
+
+BugsInPy and SWE-Gym use different validation task families. The CLI therefore permits matched recipe comparisons within a dataset only when authoritative rows share one uncontaminated split contract. It never turns the two datasets into one allocation panel. The public archive also lacks a complete outcome-free starting-policy probe across every candidate, so this release audits evidence provenance without claiming native policy-probe support.

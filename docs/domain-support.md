@@ -86,6 +86,14 @@ the authoritative adapter-level check.
 - **Validation:** Retrospective source tests. No prospective environment outcome
   has been released.
 
+### Agentic coding
+
+- **Interface:** Installable study-local coding adapter
+- **Native sources:** Outcome-free profile export and Marin fixed-validation evidence audit
+- **Validation:** One prospective source panel, six source-separated external decisions,
+  a seven-source retrospective bridge, and a repository-held-out regression audit.
+  Native policy probing remains unreleased.
+
 ### Customer-support agents
 
 - **Interface:** Versioned public protocol and pinned source qualifier

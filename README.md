@@ -107,9 +107,10 @@ domain-defined form of training experience.
 
 Keep each source in its native format. Homebrew and the standalone installer
 provide the core CLI; `uv` installs only the domain adapter you need from a
-tagged Anarres release. The maintained adapter names are `formal`, `robotics`,
-`legal`, `materials`, `molecular`, `finance`, and `vulnerability`. Follow the
-[adapter installation guide](docs/adapters.md) before connecting a source:
+tagged Anarres release. The available adapter names are `formal`, `robotics`,
+`legal`, `materials`, `molecular`, `finance`, `coding`, and `vulnerability`.
+Follow the [adapter installation guide](docs/adapters.md) before connecting a
+source:
 
 ```bash
 anarres init ./candidate-a \
@@ -118,9 +119,11 @@ anarres init ./candidate-a \
   --license <SPDX-identifier>
 ```
 
-`inspect` reports what the installed adapter can do with that format. Every
-maintained adapter can qualify its native source. Adapters that can execute a
-starting policy also expose `probe`:
+`inspect` reports what the installed adapter can do with that format. Adapters
+that accept raw environments can qualify their declared native source. The
+coding evidence adapter instead exports released profiles and audits public
+Marin validation records without claiming a native runtime. Adapters that can
+execute a starting policy also expose `probe`:
 
 ```bash
 anarres inspect ./candidate-a

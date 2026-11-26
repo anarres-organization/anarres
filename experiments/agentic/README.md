@@ -45,3 +45,7 @@ source-contained audit evaluates 4,140 task-environment outcomes across 22
 held-out repositories. It reaches 0.736 ROC AUC and captures 41.8% of severe
 regressions in the highest-risk 20%. The bridge is mostly retrospective, and
 the regression model has not yet transferred to a new intervention.
+
+The installable `coding` adapter exposes these records through `status`,
+`regressions`, and `profile` subcommands. It also audits Marin fixed-validation
+evidence while preserving each dataset's held-out target and split contract.

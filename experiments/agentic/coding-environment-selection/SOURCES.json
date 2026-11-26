@@ -39,6 +39,15 @@
     },
     {
       "id": "swe_gym_verified", "name": "What Makes Good Data for Training Coding Agents? A Systematic Study on SWE-Gym", "url": "https://arxiv.org/abs/2611.30207", "repository": "https://github.com/Arist12/SWE-Gym-Verified", "revision": "arXiv:2611.30207v1; repository ecb39c8a31eb1d043cc3f1c7bfff7bb86aa89778", "license": "Apache-2.0 repository additions; upstream task terms remain source-specific; paper access only", "role": "reward_integrity_and_regression_panel", "status": "retrospective_bridge", "outcome_use": "retrospective matched public evidence; heldout_attempts.jsonl sha256 0d90262dc5b00f7d72d65492baa7c93ae8383b6dc1a05f11796577bc6a96872f"
+    },
+    {
+      "id": "marin_agentic_data_sweep", "name": "Qwen3-Coder agentic data-source sweep", "url": "https://github.com/marin-community/marin/issues/8942", "revision": "GitHub issue 8942, closed 2026-09-06; audited 2026-11-26", "license": "public issue; linked artifact terms remain source-specific", "role": "native_interoperability_target", "status": "audited_not_pooled", "outcome_use": "evidence-contract audit only"
+    },
+    {
+      "id": "marin_fixed_validation", "name": "Qwen3-Coder RL fixed-holdout validation", "url": "https://gist.github.com/penfever/789c93f39b00177871445738251b19c1", "revision": "gist commit 2a803ca91def9ee5472468e07d2f5a96e45a9c6c; software-transfer-fixed-validation.csv sha256 d1e7e13ba3b965f16c3405b362af9e5470fe8a71cdb384e0f934bc0395987fb5", "license": "public gist; artifact license not asserted", "role": "native_interoperability_target", "status": "audited_not_pooled", "outcome_use": "within-dataset validation accounting only"
+    },
+    {
+      "id": "marin_agentic_sweep_archive", "name": "Qwen3-Coder Iris RL data sweep artifacts", "url": "https://huggingface.co/datasets/penfever/qwen3coder-iris-rl-data-sweep-artifacts", "revision": "dataset repository d2d7bf79c7bc2b077e75730c21a8b72f3e53b006", "license": "public artifact archive; archive license not asserted", "role": "native_interoperability_target", "status": "audited_not_pooled", "outcome_use": "schema and provenance audit only"
     }
   ]
 }
