@@ -17,7 +17,10 @@
       "id": "terminal_bench_2", "name": "Terminal-Bench 2.0: A Benchmark for Agentic Terminal Coding", "url": "https://arxiv.org/abs/2601.11868", "repository": "https://github.com/laude-institute/terminal-bench", "revision": "public benchmark family audited 2026-11-26", "license": "repository terms apply", "role": "held_out_evaluation_family", "status": "audited", "outcome_use": "evaluation only"
     },
     {
-      "id": "auto_env_scaling", "name": "AutoEnvScaling", "url": "https://arxiv.org/abs/2610.14163", "role": "landscape_context", "status": "not_pooled", "outcome_use": "heterogeneous adaptive construction evidence"
+      "id": "auto_env_scaling", "name": "AutoEnvScaling: Automating the Data Flywheel with Terminal Agents", "url": "https://arxiv.org/abs/2610.14163", "repository": "https://github.com/MSR-Orchard/AutoEnvScaling", "revision": "arXiv:2610.14163v1; repository audited 2026-11-26", "license": "Apache-2.0 repository; CC BY-NC-ND 4.0 paper", "role": "source_separated_external_forecast_panel", "status": "external_check", "outcome_use": "retrospective publication-order check"
+    },
+    {
+      "id": "river", "name": "Learning Generalizable Behaviors for Terminal Agents", "url": "https://arxiv.org/abs/2608.22631", "revision": "arXiv:2608.22631v2", "license": "arXiv.org perpetual non-exclusive license; artifact license not asserted", "role": "verifier_integrity_mechanism", "status": "mechanism_only", "outcome_use": "retrospective bundled-recipe evidence"
     },
     {
       "id": "endless_terminals", "name": "Endless Terminals", "url": "https://arxiv.org/abs/2601.16443", "role": "landscape_context", "status": "not_pooled", "outcome_use": "environment generation context"
@@ -29,7 +32,7 @@
       "id": "codemidas", "name": "CodeMidas: Scaling Agentic Coding RL Environments from Code Itself", "url": "https://arxiv.org/abs/2609.22068", "role": "landscape_context", "status": "not_pooled", "outcome_use": "source-grounded construction and verification context"
     },
     {
-      "id": "environment_evolution", "name": "Environment Evolution for Terminal Agents", "url": "https://arxiv.org/abs/2609.04128", "role": "landscape_context", "status": "not_pooled", "outcome_use": "off-policy difficulty evolution and scheduling context"
+      "id": "environment_evolution", "name": "Environment Evolution for Terminal Agents", "url": "https://arxiv.org/abs/2609.04128", "revision": "arXiv:2609.04128v1", "license": "CC BY 4.0 paper; artifact license not asserted", "role": "source_separated_external_forecast_panel", "status": "external_check", "outcome_use": "retrospective publication-order check"
     },
     {
       "id": "seta", "name": "SETA: Scaling Environments for Terminal Agents", "url": "https://arxiv.org/abs/2607.10891", "role": "landscape_context", "status": "not_pooled", "outcome_use": "scalable synthesis, evolution, and verification context"

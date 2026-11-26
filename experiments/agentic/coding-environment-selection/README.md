@@ -10,6 +10,12 @@ Across two independent training decisions and four nested endpoints, the rule ma
 
 The chronology matters. TMax is an outcome-blind shadow decision reconstructed after publication. RLVE is a prospective decision frozen before the six claim-bearing outcomes were opened. One RLVE training seed and two nested updates leave its winning margin unresolved.
 
+## Source-separated external check
+
+AutoEnvScaling supplies four further matched decisions across two solver scales and two proposer models. Environment Evolution supplies two more under fixed synthesis models and environment counts. A source-native rule prefers calibrated solver feedback or verified progressive lineages scheduled from policy responses. It selects the best candidate in all six decisions and orders all ten forecasted pairs correctly. Static TMax has 5.45 points of mean regret inside AutoEnvScaling, while static environment ensembles have 11.8 points inside Environment Evolution.
+
+These results extend the policy-relative principle to two independently published environment processes, but their chronology is retrospective. The rule was reconstructed after both studies were public, and no cross-study outcome scale is fitted. River separately supports verifier integrity as a mechanism, but its random-pool comparison bundles filtering with behavior shaping and is not counted as an isolated environment-selection decision.
+
 ## Representation
 
 Each candidate records four source-native coordinates:
@@ -33,6 +39,7 @@ Recompute the released decisions and baseline regrets:
 
 ```bash
 python experiments/agentic/coding-environment-selection/scripts/reproduce.py
+python experiments/agentic/coding-environment-selection/scripts/reproduce_external_forecasts.py
 ```
 
 Export the source-native candidate measurements into the shared Anarres environment-profile contract:
@@ -45,5 +52,12 @@ anarres measure /tmp/agentic-coding-profiles/tmax-tmax-15k.profile-input.json \
 ```
 
 The profile export contains only policy-response measurements. Training outcomes remain in the study artifact and never enter qualification or measurement.
+
+Export the outcome-free external design profiles through the same generic CLI contract:
+
+```bash
+python experiments/agentic/coding-environment-selection/scripts/export_external_profiles.py /tmp/agentic-coding-external-profiles
+anarres qualify /tmp/agentic-coding-external-profiles/autoenv_qwen3_5_9b_gpt_5_6_sol-autoenvscaling.profile-input.json
+```
 
 [`SOURCE_QUALIFICATION.md`](SOURCE_QUALIFICATION.md) defines the evidence tiers and limitations. [`SOURCES.json`](SOURCES.json) records the audited public sources and licenses.

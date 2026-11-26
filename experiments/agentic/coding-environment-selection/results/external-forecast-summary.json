@@ -1,0 +1,100 @@
+{
+  "aggregate": {
+    "policy_aligned_progression_rule": {
+      "best_candidate_decisions": 6,
+      "pairwise_correct": 10,
+      "pairwise_total": 10
+    },
+    "source_blocks": {
+      "auto_env_scaling": {
+        "matched_training_decisions": 4,
+        "policy_rule_best_decisions": 4,
+        "policy_rule_mean_regret_pp": 0.0,
+        "source_baseline_mean_regret_pp": 5.45
+      },
+      "environment_evolution": {
+        "matched_training_decisions": 2,
+        "policy_rule_best_decisions": 2,
+        "policy_rule_mean_regret_pp": 0.0,
+        "source_baseline_mean_regret_pp": 11.8
+      }
+    }
+  },
+  "artifact": "agentic_coding_external_forecast_summary_v1",
+  "chronology": "retrospective_source_separated_external_check",
+  "decisions": [
+    {
+      "baseline": "tmax",
+      "baseline_regret_pp": 6.3,
+      "best_score": 33.5,
+      "observed_best": "autoenvscaling",
+      "panel": "autoenv_qwen3_5_9b_gpt_5_6_sol",
+      "policy_feedback_regret_pp": 0.0,
+      "selected": "autoenvscaling",
+      "selected_score": 33.5,
+      "source": "auto_env_scaling"
+    },
+    {
+      "baseline": "tmax",
+      "baseline_regret_pp": 7.4,
+      "best_score": 36.6,
+      "observed_best": "autoenvscaling",
+      "panel": "autoenv_qwen3_5_9b_claude_opus_5",
+      "policy_feedback_regret_pp": 0.0,
+      "selected": "autoenvscaling",
+      "selected_score": 36.6,
+      "source": "auto_env_scaling"
+    },
+    {
+      "baseline": "tmax",
+      "baseline_regret_pp": 4.3,
+      "best_score": 38.9,
+      "observed_best": "autoenvscaling",
+      "panel": "autoenv_qwen3_5_35b_a3b_gpt_5_6_sol",
+      "policy_feedback_regret_pp": 0.0,
+      "selected": "autoenvscaling",
+      "selected_score": 38.9,
+      "source": "auto_env_scaling"
+    },
+    {
+      "baseline": "tmax",
+      "baseline_regret_pp": 3.8,
+      "best_score": 39.3,
+      "observed_best": "autoenvscaling",
+      "panel": "autoenv_qwen3_5_35b_a3b_claude_opus_5",
+      "policy_feedback_regret_pp": 0.0,
+      "selected": "autoenvscaling",
+      "selected_score": 39.3,
+      "source": "auto_env_scaling"
+    },
+    {
+      "baseline": "environment_ensemble",
+      "baseline_regret_pp": 11.5,
+      "best_score": 71.5,
+      "observed_best": "environment_evolution",
+      "panel": "environment_evolution_qwen3_6_27b",
+      "policy_feedback_regret_pp": 0.0,
+      "selected": "environment_evolution",
+      "selected_score": 71.5,
+      "source": "environment_evolution"
+    },
+    {
+      "baseline": "environment_ensemble",
+      "baseline_regret_pp": 12.1,
+      "best_score": 64.9,
+      "observed_best": "environment_evolution",
+      "panel": "environment_evolution_qwen3_6_35b_a3b",
+      "policy_feedback_regret_pp": 0.0,
+      "selected": "environment_evolution",
+      "selected_score": 64.9,
+      "source": "environment_evolution"
+    }
+  ],
+  "forecasted_pairwise_comparisons": 10,
+  "interpretation": {
+    "baseline": "Static TMax has 5.45-point mean regret inside AutoEnvScaling, while environment ensemble has 11.8-point mean regret inside Environment Evolution.",
+    "boundary": "This is a retrospective source-separated external check reconstructed after publication, not a prospectively frozen forecast or a fitted cross-study score model.",
+    "result": "The policy-aligned progression rule selects the reported best candidate in all six matched decisions and is correct on all ten forecasted pairwise comparisons."
+  },
+  "matched_training_decisions": 6
+}

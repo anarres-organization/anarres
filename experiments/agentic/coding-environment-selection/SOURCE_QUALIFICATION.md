@@ -10,14 +10,24 @@ The released comparison admits a source only when candidate environments share a
 
 Together these sources provide two independent training decisions and four nested endpoints. They do not provide four independent replications.
 
+## Source-separated external check
+
+**AutoEnvScaling** provides four matched model-by-proposer decisions under held-out Terminal-Bench 2.1 evaluation. Within each decision, static TMax and AutoEnvScaling use the same proposer and matched training steps. A source-native rule prefers environments that are validated and calibrated against the current policy and use its trajectories and failures. It selects the reported best candidate in all four decisions and orders all six forecasted pairs correctly. Static TMax has 5.45 points of mean regret.
+
+**Environment Evolution** provides two matched three-way comparisons under a fixed synthesis model and equal environment count. The source-native rule prefers its verified progressive lineages and reward-threshold scheduler. It selects the reported best process for both Qwen3.6 solvers and orders all four candidate pairs correctly. Static environment ensembles have 11.8 points of mean regret.
+
+Both checks were reconstructed after publication. They test whether the earlier signal, verifier-integrity, and coverage principles transfer to new sources, but they are neither prospectively frozen forecasts nor a cross-study fit. Scores remain inside each study and are reported separately from the TMax and RLVE panels.
+
 ## Mechanism evidence
 
 **EnvSched** reallocates training online using reward differentiation and coverage. It informs the adaptive stage of environment design but is not pooled with pre-RL selection.
 
 **RepoFactory** tests validity repair, implementation scope, and structural coupling when constructing repository environments. It is a post-freeze external mechanism check, not a prospective test of the released selector.
 
-Broader studies remain in the source registry as landscape context. CodeMidas, SETA, AutoEnvScaling, Environment Evolution, LegoEnv, and Endless Terminals provide evidence about construction, validation, difficulty evolution, and scaling. Their policies, budgets, outcome definitions, or intervention units are too heterogeneous for the exact panel comparison.
+**River** compares its filtered 3.5K pool with a random 3.5K TMax subset across four benchmarks and three seeds. The full River recipe leads on three benchmarks and on the reported mean. Because the comparison also includes River's behavior-shaping recipe, it supports verifier integrity as a mechanism but does not isolate environment selection.
+
+Broader studies remain in the source registry as landscape context. CodeMidas, SETA, Environment Evolution, LegoEnv, and Endless Terminals provide evidence about construction, validation, difficulty evolution, and scaling. Their policies, budgets, outcome definitions, or intervention units are too heterogeneous for the exact panel comparison.
 
 ## Qualification boundary
 
-A general terminal selector is not qualified. Qualification would require additional source-separated decisions, multiple training seeds, independently assembled candidate sets, and a demonstrated gain over reward information alone. The current result qualifies a reproducible measurement and evaluation path for the two admitted public panels.
+A general terminal selector is not qualified. Qualification would require additional prospectively frozen, source-separated decisions, multiple training seeds, independently assembled candidate sets, and a demonstrated gain over reward information alone. The current result qualifies a reproducible measurement and evaluation path and shows that policy-aligned progression transfers as an ordering principle in two additional public studies.

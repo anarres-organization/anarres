@@ -18,6 +18,15 @@
       "result": "Validity repair, implementation scope, and structural coupling improved downstream repository-level coding outcomes in the reported ablations.",
       "pool_with_selector_panels": false,
       "reason": "The publication reveals the outcome direction and its construction coordinates differ from the frozen selector representation."
+    },
+    {
+      "id": "river_reward_integrity",
+      "source_id": "river",
+      "evidence_role": "verifier_integrity_mechanism",
+      "design": "River-TMax-3.5K compared with a random 3.5K TMax subset on four terminal benchmarks, with scores reported over three seeds",
+      "result": "The full River recipe leads on three of four benchmarks and by 1.7 points on the unweighted mean.",
+      "pool_with_selector_panels": false,
+      "reason": "The reported comparison combines environment filtering with the River training recipe, including behavior shaping, so it does not isolate an environment-selection effect."
     }
   ]
 }

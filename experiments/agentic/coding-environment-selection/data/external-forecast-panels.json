@@ -1,0 +1,102 @@
+{
+  "artifact": "agentic_coding_external_forecast_panels_v1",
+  "chronology": "retrospective_source_separated_external_check",
+  "forecast_rule": {
+    "name": "policy_aligned_progression_rule",
+    "definition": "Prefer a verifier-qualified process that either uses current-solver trajectories to design calibrated tasks or builds validated progressive lineages and schedules them from current-policy responses. Abstain when a source does not expose a unique candidate with one of these contracts.",
+    "rationale": "The rule applies the earlier policy-relative signal, verifier-integrity, and coverage principles using source-native design metadata. It was reconstructed after these studies were public and is not a prospective result."
+  },
+  "sources": [
+    {
+      "id": "auto_env_scaling",
+      "paper": "https://arxiv.org/abs/2610.14163",
+      "repository": "https://github.com/MSR-Orchard/AutoEnvScaling",
+      "paper_revision": "arXiv:2610.14163v1",
+      "license": "Apache-2.0 repository; CC BY-NC-ND 4.0 paper"
+    },
+    {
+      "id": "environment_evolution",
+      "paper": "https://arxiv.org/abs/2609.04128",
+      "paper_revision": "arXiv:2609.04128v1",
+      "license": "CC BY 4.0 paper; artifact license not asserted"
+    }
+  ],
+  "panels": [
+    {
+      "panel_id": "autoenv_qwen3_5_9b_gpt_5_6_sol",
+      "source_id": "auto_env_scaling",
+      "solver": "Qwen3.5-9B",
+      "proposer": "GPT-5.6-sol",
+      "evaluation": "Terminal-Bench 2.1 avg@5",
+      "matched_contract": "same proposer and matched training steps",
+      "candidates": [
+        {"id": "tmax", "policy_aligned_progression": false, "validated_and_current_policy_calibrated": false, "solver_trajectory_feedback": false, "score": 27.2},
+        {"id": "autoenvscaling", "policy_aligned_progression": true, "validated_and_current_policy_calibrated": true, "solver_trajectory_feedback": true, "score": 33.5}
+      ]
+    },
+    {
+      "panel_id": "autoenv_qwen3_5_9b_claude_opus_5",
+      "source_id": "auto_env_scaling",
+      "solver": "Qwen3.5-9B",
+      "proposer": "Claude Opus 5",
+      "evaluation": "Terminal-Bench 2.1 avg@5",
+      "matched_contract": "same proposer and matched training steps",
+      "candidates": [
+        {"id": "tmax", "policy_aligned_progression": false, "validated_and_current_policy_calibrated": false, "solver_trajectory_feedback": false, "score": 29.2},
+        {"id": "autoenvscaling", "policy_aligned_progression": true, "validated_and_current_policy_calibrated": true, "solver_trajectory_feedback": true, "score": 36.6}
+      ]
+    },
+    {
+      "panel_id": "autoenv_qwen3_5_35b_a3b_gpt_5_6_sol",
+      "source_id": "auto_env_scaling",
+      "solver": "Qwen3.5-35B-A3B",
+      "proposer": "GPT-5.6-sol",
+      "evaluation": "Terminal-Bench 2.1 avg@5",
+      "matched_contract": "same proposer and matched training steps",
+      "candidates": [
+        {"id": "tmax", "policy_aligned_progression": false, "validated_and_current_policy_calibrated": false, "solver_trajectory_feedback": false, "score": 34.6},
+        {"id": "autoenv_without_solver_feedback", "policy_aligned_progression": false, "validated_and_current_policy_calibrated": true, "solver_trajectory_feedback": false, "score": 35.3},
+        {"id": "autoenvscaling", "policy_aligned_progression": true, "validated_and_current_policy_calibrated": true, "solver_trajectory_feedback": true, "score": 38.9}
+      ]
+    },
+    {
+      "panel_id": "autoenv_qwen3_5_35b_a3b_claude_opus_5",
+      "source_id": "auto_env_scaling",
+      "solver": "Qwen3.5-35B-A3B",
+      "proposer": "Claude Opus 5",
+      "evaluation": "Terminal-Bench 2.1 avg@5",
+      "matched_contract": "same proposer and matched training steps",
+      "candidates": [
+        {"id": "tmax", "policy_aligned_progression": false, "validated_and_current_policy_calibrated": false, "solver_trajectory_feedback": false, "score": 35.5},
+        {"id": "autoenv_without_solver_feedback", "policy_aligned_progression": false, "validated_and_current_policy_calibrated": true, "solver_trajectory_feedback": false, "score": 32.6},
+        {"id": "autoenvscaling", "policy_aligned_progression": true, "validated_and_current_policy_calibrated": true, "solver_trajectory_feedback": true, "score": 39.3}
+      ]
+    },
+    {
+      "panel_id": "environment_evolution_qwen3_6_27b",
+      "source_id": "environment_evolution",
+      "solver": "Qwen3.6-27B",
+      "proposer": "Claude Opus 5",
+      "evaluation": "Terminal-Bench 2.1 Verified peak accuracy",
+      "matched_contract": "same synthesis model, shared RFT checkpoint, 200-step RL comparison, and equal number of training environments",
+      "candidates": [
+        {"id": "environment_ensemble", "policy_aligned_progression": false, "verified_progressive_lineage": false, "policy_response_scheduler": false, "score": 60.0},
+        {"id": "agent_environment_coevolution", "policy_aligned_progression": false, "verified_progressive_lineage": false, "policy_response_scheduler": false, "score": 62.9},
+        {"id": "environment_evolution", "policy_aligned_progression": true, "verified_progressive_lineage": true, "policy_response_scheduler": true, "score": 71.5}
+      ]
+    },
+    {
+      "panel_id": "environment_evolution_qwen3_6_35b_a3b",
+      "source_id": "environment_evolution",
+      "solver": "Qwen3.6-35B-A3B",
+      "proposer": "Claude Opus 5",
+      "evaluation": "Terminal-Bench 2.1 Verified peak accuracy",
+      "matched_contract": "same synthesis model, shared RFT checkpoint, 200-step RL comparison, and equal number of training environments",
+      "candidates": [
+        {"id": "environment_ensemble", "policy_aligned_progression": false, "verified_progressive_lineage": false, "policy_response_scheduler": false, "score": 52.8},
+        {"id": "agent_environment_coevolution", "policy_aligned_progression": false, "verified_progressive_lineage": false, "policy_response_scheduler": false, "score": 55.1},
+        {"id": "environment_evolution", "policy_aligned_progression": true, "verified_progressive_lineage": true, "policy_response_scheduler": true, "score": 64.9}
+      ]
+    }
+  ]
+}
