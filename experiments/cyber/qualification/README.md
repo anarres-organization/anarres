@@ -43,34 +43,6 @@ scaffold comparison, repeated-policy measurements, uncertainty, and compute.
 These results establish policy-relative signal under one model and scaffold.
 They do not compare training environments or measure downstream RL utility.
 
-## Grouping and selection
-
-`selection_law.py` states two exact results. Grouping has no hidden upside:
-expected advantage mass is 2Gp(1 - p), so per-rollout mass is 2p(1 - p) for every
-group size, and discarding groups whose rollouts all agree costs exactly 1 over
-coverage, which is 4.03 times at 0.035 and G = 8. Screening has a hidden
-downside: choosing the best of ten identical environments at 400 rollouts per
-arm reports 1.40 times the true density. The script gives a two-regime rule that
-certifies a champion under one percent bias, or reports the panel as
-homogeneous; the null panel lands at 1.06 times truth with a 5.0 percent claim
-rate, and a real 2.3 times leader at 1.00 times with a 94.2 percent claim rate.
-See [SELECTION_LAW.md](SELECTION_LAW.md).
-
-## Screening budget
-
-`screening_budget.py` computes the exact probability that a screening round
-names the right environment, then asks whether the same budget works better
-spread evenly or split into a pilot and a deeper pass. At 400 rollouts per arm
-and ten candidates a 2.3 times leader is identified 0.994 of the time, a 1.5
-times leader 0.664, and a 1.2 times leader 0.334. Reallocating that budget, half
-to a pilot and the rest to the top four, lifts the 1.5 times case to 0.742,
-equivalent to an even split with 536 rollouts per arm.
-See [SCREENING_BUDGET.md](SCREENING_BUDGET.md).
-
-`screening_budget.py` and `selection_law.py` meet in `screen.py`, which takes
-per-arm counts and returns the regime and the density to publish, or takes a
-candidate count and a target separation and returns the per-arm budget.
-
 ## Development record
 
 The [v1 bakeoff](HISTORICAL_V1_BAKEOFF.md), the original
@@ -83,3 +55,12 @@ scaffold, candidate environments, target, and budget.
 Formal-verification environments have a separate
 [plan and source qualification path](../formal-verification/README.md). Their
 proof-checker results are not pooled with exploit-verifier outcomes.
+
+## Conditional binary-reward planning
+
+The [grouping and selection analysis](SELECTION_LAW.md) separates generated
+from retained rollouts and uses a conditional global homogeneity test.
+The [screening budget](SCREENING_BUDGET.md) gives finite-count selection
+probabilities with explicit random ties and a simulated racing design.
+These are homogeneous independent-Bernoulli sensitivities using a
+hypothetical baseline, not estimates of released level-2 training utility.
