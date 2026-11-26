@@ -1,68 +1,52 @@
-# What a screening budget buys
+# Conditional fixed-budget screening
 
-A screening round puts several candidate environments on the same panel and
-keeps the one with the largest measured density. Two decisions are buried in
-that sentence: how much per arm, and how to split the budget between a first
-pass and a deeper pass.
+This is a one-leader, identical-follower, independent homogeneous Bernoulli
+planning model, not a measured law of the released Cyber task panel.
+The baseline .035 is an illustrative parameter until a level-2 rerun verifies
+it. The earlier G=8 pilot requested level 3. Shared-task and verifier
+dependence are excluded. The criterion is raw binary reward variance p(1-p),
+not usable signal per token or downstream RL utility.
 
-One leader against identical followers makes the answer exact, because the arms
-are independent and the leader only has to exceed the largest of the followers:
+## Exact finite-count probability with random ties
 
-    PCS = sum over k of f_leader(k) * S(k)^(K - 1)
+For n draws per arm, aggregate the binomial probability at every integer
+score k(n-k), including mirrored counts. Conditional on the leader score,
+let f be the follower probability of that score and B its strictly lower
+score probability. With m=K-1 followers, the leader's probability of being
+selected is sum_j choose(m,j) f^j B^(m-j)/(j+1), since tied winners share
+credit uniformly. Averaging over the leader score gives the selection
+probability by finite enumeration (floating-point masses).
 
-## How much per arm
+At p=.035 and K=10, the leader rates are derived from the specified
+variance ratio, not rounded lookup constants:
 
-Identification probability at 400 rollouts per arm, exact:
+| Variance ratio | Leader rate | PCS at 400 | PCS at 1600 |
+| --- | --- | --- | --- |
+| 1.2 | .042321 | .275356 | .522636 |
+| 1.5 | .053528 | .625978 | .966322 |
+| 2.3 | .084889 | .991544 | 1.000000 (rounded) |
 
-| ratio | K = 6 | K = 10 |
-| --- | --- | --- |
-| 2.3 | 0.996 | 0.994 |
-| 1.5 | 0.748 | 0.664 |
-| 1.2 | 0.440 | 0.334 |
+The CLI reports the first tested grid point meeting its target, not a
+globally minimal sample size. The grid is 25, 50, 100, 200, 400, 700, 1000,
+1600, 2400, 3200, 4800, 6400, and 10000 draws per arm. It returns no budget
+when no tested point reaches the target.
 
-A 2.3 times leader is certified at the published budget. A 1.5 times leader is
-certified two times in three, and reaching 0.970 needs 1600 rollouts per arm,
-four times the budget. A 1.2 times leader reaches only 0.590 even at four times
-the budget, so a screening round aimed at that separation is not a matter of
-spending more; it needs a different measurement.
+## Two-stage simulation
 
-## How to split it
+A fixed total budget funds a pilot on every arm, followed by equal
+additional draws for retained arms. Uniform tie-breaking applies at both
+stages. The specified baseline is used in both stages. Results include
+the actual spend, the replicate count and a Wilson interval for Monte Carlo
+uncertainty. This is a simulation of the declared model, not a claim that
+racing must beat uniform allocation or that a simulated gain transfers to
+clustered task data.
 
-Half the budget as a pilot on every arm, then the rest on the top four:
+Run:
 
-| ratio | K = 6, even | K = 6, racing | K = 10, even | K = 10, racing |
-| --- | --- | --- | --- | --- |
-| 2.3 | 1.000 | 1.000 | 0.994 | 0.995 |
-| 1.5 | 0.858 | 0.897 | 0.664 | 0.742 |
+    python screen.py plan --ratio 1.2 --candidates 10 --baseline .035 --target .9
+    python screen.py report --counts 34,14,12,16,11,15,13,9,17,10
+    python -m unittest test_selection_law test_screening_budget test_screen
 
-At the screening margin the reallocation is worth 7.8 points on ten candidates,
-which is what an even split with 536 rollouts per arm would buy, a third more
-budget. Below and above that margin it is worth nothing, because the outcome is
-already decided either way. Reallocation moves budget, it does not create
-information.
-
-## Limits
-
-- Seeded panels, 4000 replicates per cell, so each reported probability carries
-  a Monte Carlo error near 0.01. The even-split column is exact and the
-  single-round check reproduces the exact answer to 0.04.
-- One leader against identical followers. A panel with several near-equal
-  leaders behaves differently, and the ranking there is the noise ranking the
-  selection note warns about.
-- The racing configuration is fixed at half the budget and the top four, chosen
-  from a small grid. It is a defensible default, not a proven optimum.
-
-## Entry point
-
-`screen.py` runs both decisions without reading the notes:
-
-```bash
-python3 screen.py report --counts 34,14,12,16,11,15,13,9,17,10 --trials 400
-python3 screen.py plan --candidates 10 --ratio 1.5 --target 0.9
-```
-
-`report` returns the regime, the density to publish, and the exact tail
-probability. `plan` returns the per-arm count needed for the target
-identification probability and says whether the published budget suffices. The
-planner's answer for ten candidates at 1.5 times is 1010 rollouts per arm, which
-matches the exact table above.
+All scripts use the Python standard library. They validate input counts,
+ratio feasibility, targets, and tied or mirrored rates. Tests compare
+the selection probability to exhaustive small-case enumeration.
