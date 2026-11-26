@@ -46,17 +46,19 @@ def compute(data: dict[str, object]) -> dict[str, object]:
                 continue
             pairwise_total += 1
             pairwise_correct += int(scores[selected] > score)
-        decisions.append({
-            "panel": panel["panel_id"],
-            "source": panel["source_id"],
-            "selected": selected,
-            "observed_best": best,
-            "selected_score": scores[selected],
-            "best_score": best_score,
-            "policy_feedback_regret_pp": round(policy_regret, 6),
-            "baseline": baseline,
-            "baseline_regret_pp": round(baseline_regret, 6),
-        })
+        decisions.append(
+            {
+                "panel": panel["panel_id"],
+                "source": panel["source_id"],
+                "selected": selected,
+                "observed_best": best,
+                "selected_score": scores[selected],
+                "best_score": best_score,
+                "policy_feedback_regret_pp": round(policy_regret, 6),
+                "baseline": baseline,
+                "baseline_regret_pp": round(baseline_regret, 6),
+            }
+        )
     source_blocks = {}
     for source_id, values in source_regrets.items():
         source_decisions = [row for row in decisions if row["source"] == source_id]

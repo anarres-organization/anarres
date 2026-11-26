@@ -18,7 +18,11 @@ def canonical(value: object) -> str:
 def select(candidates: list[dict[str, float | str]], rule: str) -> str:
     if rule == "policy_response_rule":
         eligible = [row for row in candidates if 0.10 <= float(row["readiness"]) <= 0.85]
-        return str(max(eligible, key=lambda row: float(row["reward_information"]) / float(row["cost"]))["id"])
+        return str(
+            max(eligible, key=lambda row: float(row["reward_information"]) / float(row["cost"]))[
+                "id"
+            ]
+        )
     coordinate, direction = {
         "readiness": ("readiness", 1),
         "reward_information": ("reward_information", 1),
@@ -29,7 +33,13 @@ def select(candidates: list[dict[str, float | str]], rule: str) -> str:
 
 
 def compute(data: dict[str, object]) -> dict[str, object]:
-    rules = ["policy_response_rule", "readiness", "reward_information", "target_affinity", "lowest_cost"]
+    rules = [
+        "policy_response_rule",
+        "readiness",
+        "reward_information",
+        "target_affinity",
+        "lowest_cost",
+    ]
     decisions: list[dict[str, object]] = []
     regrets = {rule: [] for rule in rules}
     wins = {rule: 0 for rule in rules}
@@ -66,9 +76,15 @@ def compute(data: dict[str, object]) -> dict[str, object]:
         "decisions": decisions,
         "aggregate": aggregates,
         "interpretation": {
-            "primary_result": "The frozen policy-response rule selects the best candidate on three of four nested endpoints with 0.10 percentage-point mean regret.",
+            "primary_result": (
+                "The frozen policy-response rule selects the best candidate on three of four "
+                "nested endpoints with 0.10 percentage-point mean regret."
+            ),
             "baseline_result": "Readiness alone has 2.355 percentage-point mean regret.",
-            "boundary": "Reward information alone makes the same choices, so these panels do not establish incremental decision value for the readiness gate or cost normalization.",
+            "boundary": (
+                "Reward information alone makes the same choices, so these panels do not establish "
+                "incremental decision value for the readiness gate or cost normalization."
+            ),
         },
     }
 

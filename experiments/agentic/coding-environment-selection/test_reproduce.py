@@ -25,4 +25,6 @@ def test_independent_decisions_are_not_endpoint_count():
     assert summary["independent_training_decisions"] == 2
     assert summary["nested_reported_endpoints"] == 4
     assert summary["aggregate"]["policy_response_rule"]["mean_regret_pp"] == 0.1
-    assert summary["aggregate"]["reward_information"] == summary["aggregate"]["policy_response_rule"]
+    assert (
+        summary["aggregate"]["reward_information"] == summary["aggregate"]["policy_response_rule"]
+    )

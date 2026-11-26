@@ -20,4 +20,9 @@ def test_profiles_exclude_training_outcomes(tmp_path):
         profile = json.loads(path.read_text())
         assert profile["schema_version"] == "anarres.environment-profile-input.v1"
         assert "outcomes" not in profile
-        assert {row["name"] for row in profile["coordinates"]} >= {"readiness", "reward_information", "mean_log_output_tokens", "target_affinity"}
+        assert {row["name"] for row in profile["coordinates"]} >= {
+            "readiness",
+            "reward_information",
+            "mean_log_output_tokens",
+            "target_affinity",
+        }
