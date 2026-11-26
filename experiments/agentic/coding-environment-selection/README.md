@@ -16,6 +16,18 @@ AutoEnvScaling supplies four further matched decisions across two solver scales 
 
 These results extend the policy-relative principle to two independently published environment processes, but their chronology is retrospective. The rule was reconstructed after both studies were public, and no cross-study outcome scale is fitted. River separately supports verifier integrity as a mechanism, but its random-pool comparison bundles filtering with behavior shaping and is not counted as an isolated environment-selection decision.
 
+## Retrospective cross-source bridge
+
+A broader bridge now preserves 27 matched endpoint panels, 104 candidate-endpoint rows, and 14 independent training decisions across seven public sources. Source-native measurements are mapped by meaning, while scores are compared only through within-panel ordering and normalized regret. The practical measurement rule reaches 76.9% pair ordering and 0.017 mean normalized regret, compared with 50.0% and 0.529 for an uninformed tie. It receives 94.4% top-choice credit.
+
+The added panels test three distinct decisions. CodeMidas separates environment quality from raw task count under one training recipe. SWE-Gym-Verified compares execution-audited reward labels with original and pass-rate-filtered tasks at fixed size. EnvSched tests the combination of reward differentiation and environment coverage under matched rollout budgets across four model scales. These panels strengthen the shared measurement pattern without making their native coordinates interchangeable. Most outcomes were already public when the bridge was assembled, so the result remains retrospective.
+
+## Regression-risk audit
+
+SWE-Gym-Verified also provides a task-level coding analogue of the legal regression analysis. We average each task's outcome across three training seeds and define a severe regression as a pass-rate decrease of at least 25 points from the common starting policy. The resulting record contains 476 regressions among 4,140 task-environment outcomes. A leave-one-repository-out model using starting behavior, target shift, and training-reward audit status reaches 0.736 ROC AUC, compared with 0.638 from starting behavior alone. Its highest-risk 20% contains 41.8% of the regressions with 24.0% precision. The AUC gain has a repository-clustered 95% interval of [0.045, 0.127].
+
+A smaller benchmark-level view asks whether each trained seed regresses on either held-out target. All five regressions among 24 seed-target outcomes occur on SWE-bench Pro after training on unaudited reward labels. The task-level and benchmark-level results are contained within one public intervention, and both models were reconstructed after publication. They show that reward-label integrity and target shift can help prioritize coding regressions for testing within this study. Transfer to a new training intervention remains untested.
+
 ## Representation
 
 Each candidate records four source-native coordinates:
@@ -40,6 +52,9 @@ Recompute the released decisions and baseline regrets:
 ```bash
 python experiments/agentic/coding-environment-selection/scripts/reproduce.py
 python experiments/agentic/coding-environment-selection/scripts/reproduce_external_forecasts.py
+python experiments/agentic/coding-environment-selection/scripts/reproduce_retrospective_bridge.py
+python experiments/agentic/coding-environment-selection/scripts/reproduce_regression_risk.py
+python experiments/agentic/coding-environment-selection/scripts/reproduce_task_regression.py
 ```
 
 Export the source-native candidate measurements into the shared Anarres environment-profile contract:

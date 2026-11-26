@@ -11,6 +11,7 @@ qualification gates.
 2. Which additional measurements are needed to distinguish task validity, learnability, cost, and target relevance?
 3. Can measurements made before RL predict held-out terminal utility curves and finite-budget environment rankings?
 4. Do improvements on a controlled, disjoint panel transfer to external benchmarks such as Terminal-Bench?
+5. Can environment integrity and target shift identify capability regressions hidden by aggregate gains?
 
 ## Shared experimental contract
 
@@ -36,3 +37,11 @@ failure states, and disjoint evaluation records. The concrete entry points are:
 
 The shared contract makes results comparable without forcing every domain into
 one measurement model.
+
+The coding pathway currently spans seven public sources, 14 independent
+training decisions, and 27 matched endpoint panels. Its retrospective bridge
+reaches 76.9% pair ordering with 0.017 normalized regret. A separate
+source-contained audit evaluates 4,140 task-environment outcomes across 22
+held-out repositories. It reaches 0.736 ROC AUC and captures 41.8% of severe
+regressions in the highest-risk 20%. The bridge is mostly retrospective, and
+the regression model has not yet transferred to a new intervention.

@@ -8,7 +8,7 @@
       "id": "rlve", "name": "RLVE: Scaling Up Reinforcement Learning for Language Models with Adaptive Verifiable Environments", "url": "https://arxiv.org/abs/2511.07317", "repository": "https://github.com/Zhiyuan-Zeng/RLVE", "revision": "b2dd0b6f726ee2ebc8e2c0fb2af0796414f18cb2", "license": "MIT", "role": "prospective_mixture_selection_panel", "status": "admitted", "outcome_use": "frozen before claim-bearing outcomes"
     },
     {
-      "id": "envsched", "name": "EnvSched: Environment-Aware Scheduling for Rollout-Efficient Agent Reinforcement Learning", "url": "https://arxiv.org/abs/2610.37609", "repository": "https://github.com/Hhankyangg/envsched", "revision": "8824bc", "license": "MIT", "role": "adaptive_scheduler_mechanism", "status": "mechanism_only", "outcome_use": "retrospective public evidence"
+      "id": "envsched", "name": "EnvSched: Environment-Aware Scheduling for Rollout-Efficient Agent Reinforcement Learning", "url": "https://arxiv.org/abs/2610.37609", "repository": "https://github.com/Hhankyangg/envsched", "revision": "arXiv:2610.37609v1; repository 8824bc", "license": "MIT", "role": "adaptive_scheduler_bridge_panel", "status": "retrospective_bridge", "outcome_use": "retrospective matched public evidence"
     },
     {
       "id": "repofactory", "name": "From Repositories to Training Environments: Scaling Long-Horizon Coding Agents with Environment Evolution Loop", "url": "https://arxiv.org/abs/2611.21152", "revision": "arXiv:2611.21152v1", "license": "paper access only; artifact license not asserted", "role": "environment_construction_mechanism", "status": "external_check", "outcome_use": "publication-order evidence after selector freeze"
@@ -29,13 +29,16 @@
       "id": "legoenv", "name": "LegoEnv: Self-Evolving Agentic Environments via Modular Recombination", "url": "https://arxiv.org/abs/2611.01834", "role": "landscape_context", "status": "not_pooled", "outcome_use": "environment validity and modular evolution context"
     },
     {
-      "id": "codemidas", "name": "CodeMidas: Scaling Agentic Coding RL Environments from Code Itself", "url": "https://arxiv.org/abs/2609.22068", "role": "landscape_context", "status": "not_pooled", "outcome_use": "source-grounded construction and verification context"
+      "id": "codemidas", "name": "CodeMidas: Scaling Agentic Coding RL Environments from Code Itself", "url": "https://arxiv.org/abs/2609.22068", "revision": "arXiv:2609.22068v1", "license": "arXiv.org perpetual non-exclusive license; artifact license not asserted", "role": "quality_scale_bridge_panel", "status": "retrospective_bridge", "outcome_use": "retrospective matched public evidence"
     },
     {
       "id": "environment_evolution", "name": "Environment Evolution for Terminal Agents", "url": "https://arxiv.org/abs/2609.04128", "revision": "arXiv:2609.04128v1", "license": "CC BY 4.0 paper; artifact license not asserted", "role": "source_separated_external_forecast_panel", "status": "external_check", "outcome_use": "retrospective publication-order check"
     },
     {
       "id": "seta", "name": "SETA: Scaling Environments for Terminal Agents", "url": "https://arxiv.org/abs/2607.10891", "role": "landscape_context", "status": "not_pooled", "outcome_use": "scalable synthesis, evolution, and verification context"
+    },
+    {
+      "id": "swe_gym_verified", "name": "What Makes Good Data for Training Coding Agents? A Systematic Study on SWE-Gym", "url": "https://arxiv.org/abs/2611.30207", "repository": "https://github.com/Arist12/SWE-Gym-Verified", "revision": "arXiv:2611.30207v1; repository ecb39c8a31eb1d043cc3f1c7bfff7bb86aa89778", "license": "Apache-2.0 repository additions; upstream task terms remain source-specific; paper access only", "role": "reward_integrity_and_regression_panel", "status": "retrospective_bridge", "outcome_use": "retrospective matched public evidence; heldout_attempts.jsonl sha256 0d90262dc5b00f7d72d65492baa7c93ae8383b6dc1a05f11796577bc6a96872f"
     }
   ]
 }

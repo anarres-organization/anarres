@@ -1,0 +1,74 @@
+{
+  "artifact": "agentic_coding_task_regression_risk_v1",
+  "source": "What Makes Good Data for Training Coding Agents? A Systematic Study on SWE-Gym",
+  "source_revision": {
+    "paper": "arXiv:2611.30207v1",
+    "repository_commit": "ecb39c8a31eb1d043cc3f1c7bfff7bb86aa89778",
+    "artifact_uri": "https://github.com/Arist12/SWE-Gym-Verified/blob/ecb39c8a31eb1d043cc3f1c7bfff7bb86aa89778/experiments/results/heldout_attempts.jsonl",
+    "artifact_sha256": "0d90262dc5b00f7d72d65492baa7c93ae8383b6dc1a05f11796577bc6a96872f",
+    "artifact_size_bytes": 12098043,
+    "media_type": "application/x-ndjson",
+    "license": "Apache-2.0 repository additions; upstream benchmark terms remain source-specific"
+  },
+  "chronology": "retrospective task-level analysis reconstructed after publication",
+  "support": {
+    "held_out_tasks": 1035,
+    "candidate_environments": 4,
+    "task_environment_outcomes": 4140,
+    "training_seeds_per_environment": 3,
+    "held_out_repositories": 22,
+    "severe_regressions": 476,
+    "regression_prevalence": 0.114976
+  },
+  "endpoint": {
+    "definition": "Mean task pass rate across three trained seeds decreases by at least 25 percentage points from the common starting policy.",
+    "verified397_attempts": {"starting_policy": 4, "per_trained_seed": 4},
+    "swe_bench_pro_attempts": {"starting_policy": 2, "per_trained_seed": 2}
+  },
+  "evaluation": {
+    "split": "leave one held-out repository out",
+    "model": "L2-regularized logistic regression",
+    "regularization": 0.0001,
+    "features": {
+      "starting_behavior": ["starting-policy task pass rate"],
+      "starting_behavior_and_shift": ["starting-policy task pass rate", "held-out target shift"],
+      "combined": ["starting-policy task pass rate", "held-out target shift", "training-reward audit status"]
+    },
+    "target_shift": "SWE-bench Pro changes repository family, language coverage, scaffold budget, and evaluation contract relative to the Python SWE-Gym training source."
+  },
+  "metrics": {
+    "starting_behavior": {
+      "roc_auc": 0.638214,
+      "average_precision": 0.139731,
+      "brier": 0.098537,
+      "top_20pct_recall": 0.151261,
+      "top_20pct_precision": 0.086957
+    },
+    "starting_behavior_and_shift": {
+      "roc_auc": 0.718385,
+      "average_precision": 0.201156,
+      "brier": 0.094505,
+      "top_20pct_recall": 0.392857,
+      "top_20pct_precision": 0.225845
+    },
+    "combined": {
+      "roc_auc": 0.73558,
+      "average_precision": 0.22347,
+      "brier": 0.094187,
+      "top_20pct_recall": 0.418067,
+      "top_20pct_precision": 0.240338
+    }
+  },
+  "repository_clustered_bootstrap": {
+    "resamples": 2000,
+    "seed": 20261126,
+    "combined_minus_starting_behavior_auc": 0.097366,
+    "ci95": [0.0445, 0.126995]
+  },
+  "claim_boundary": [
+    "the four environments and both targets are nested under one released training study",
+    "task pass rates use finite repeated attempts and the 25-point endpoint remains a descriptive threshold",
+    "the analysis transfers across repositories within the released study, not across trainers or model families",
+    "the model was reconstructed after publication and is not a prospective coding regression forecast"
+  ]
+}

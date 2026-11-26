@@ -1,0 +1,16 @@
+{
+  "artifact": "agentic_coding_regression_risk_summary_v1",
+  "audited_seed_target_regressions": 0,
+  "boundary": [
+    "source-contained association across 24 seed-by-target outcomes, not a cross-study coding regression model",
+    "the two targets are nested under one released training experiment and are not independent interventions",
+    "the risk rule requires testing on a new coding intervention before prospective use"
+  ],
+  "high_risk_group": {"precision": 0.833333, "recall": 1.0, "regressions_captured": 5, "rows": 6},
+  "regressions": 5,
+  "risk_rule": {"average_precision": 0.833333, "brier": 0.104167, "roc_auc": 0.973684},
+  "seed_target_outcomes": 24,
+  "starting_pass_rate": {"average_precision": 0.383333, "brier": 0.248814, "roc_auc": 0.594737},
+  "target_shift_only": {"average_precision": 0.416667, "brier": 0.291667, "roc_auc": 0.815789},
+  "unaudited_pro_regressions": 5
+}

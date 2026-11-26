@@ -1,0 +1,24 @@
+{
+  "artifact": "agentic_coding_retrospective_bridge_summary_v1",
+  "boundary": [
+    "source-native measurements are mapped by meaning and outcomes are normalized only within panel",
+    "nested endpoints do not become independent training decisions",
+    "the bridge is primarily retrospective and does not qualify a universal coding selector"
+  ],
+  "by_source": {
+    "auto_env_scaling": {"endpoint_panels": 4, "mean_normalized_regret": 0.0, "pairwise_ordering": 0.916667, "top_choice_credit": 1.0},
+    "codemidas": {"endpoint_panels": 3, "mean_normalized_regret": 0.0, "pairwise_ordering": 0.944444, "top_choice_credit": 1.0},
+    "environment_evolution": {"endpoint_panels": 2, "mean_normalized_regret": 0.0, "pairwise_ordering": 0.833333, "top_choice_credit": 1.0},
+    "envsched": {"endpoint_panels": 12, "mean_normalized_regret": 0.0, "pairwise_ordering": 0.895833, "top_choice_credit": 1.0},
+    "rlve": {"endpoint_panels": 2, "mean_normalized_regret": 0.185185, "pairwise_ordering": 0.5, "top_choice_credit": 0.5},
+    "swe_gym_verified": {"endpoint_panels": 2, "mean_normalized_regret": 0.04661, "pairwise_ordering": 0.833333, "top_choice_credit": 0.75},
+    "tmax": {"endpoint_panels": 2, "mean_normalized_regret": 0.0, "pairwise_ordering": 0.702381, "top_choice_credit": 1.0}
+  },
+  "candidate_endpoint_rows": 104,
+  "chronology": "retrospective bridge with one previously frozen RLVE block",
+  "endpoint_panels": 27,
+  "independent_training_decisions": 14,
+  "practical_measurement_rule": {"mean_normalized_regret": 0.01717, "pairwise_ordering": 0.768786, "top_choice_credit": 0.944444},
+  "sources": 7,
+  "uninformed_tie": {"mean_normalized_regret": 0.528795, "pairwise_ordering": 0.5, "top_choice_credit": 0.303792}
+}
