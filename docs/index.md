@@ -133,3 +133,4 @@ runnable interfaces, and validation currently released for each domain.
 - Check the current [domain support](domain-support.md).
 - See how Anarres [preserves domain-native science](architecture/scientific-preservation.md).
 - Browse the released [research programs](https://github.com/anarres-organization/anarres#research-program).
+- Read the [learned surrogate research proposal](research/learned-post-training-surrogate-models.md).
