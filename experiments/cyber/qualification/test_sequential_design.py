@@ -1,53 +1,33 @@
-"""Tests for the early-stopping comparison design.
-
-Run from this directory:  python3 -m unittest test_sequential_design
-"""
-
-from __future__ import annotations
+"""Full composite-null and stopping-contract regression tests."""
 
 import unittest
 
-import environment_ranking as ranking
-import sequential_design as design
+from environment_ranking import fixed_power
+from sequential_design import decision, evaluate, thresholds
 
 
-class ClosedFormTest(unittest.TestCase):
-    def test_closed_form_matches_the_profiled_optimiser(self) -> None:
-        import numpy as np
+class SequentialTest(unittest.TestCase):
+    def test_single_look(self):
+        got = evaluate(0.1, 0.4, (30,))
+        self.assertAlmostEqual(got["rejection_probability"], fixed_power(0.1, 0.4, 30))
+        self.assertAlmostEqual(got["expected_trials_per_arm"], 30)
 
-        cases = [(12, 46, 400), (40, 360, 400), (5, 9, 160), (0, 6, 160), (3, 3, 60)]
-        for a, b, n in cases:
-            closed = float(design.profile_lr(np.array([[a]]), np.array([[b]]), float(n))[0, 0])
-            fitted = ranking.compare(a, n, b, n).likelihood_ratio
-            self.assertAlmostEqual(closed, fitted, places=6)
+    def test_composite_null_grid(self):
+        for p in (0, 0.035, 0.1, 0.25, 0.5, 0.75, 0.95, 1):
+            for q in (p, 1 - p):
+                got = evaluate(p, q, (10, 20, 30))
+                self.assertLessEqual(got["rejection_probability"], 0.05 + 1e-12)
+                self.assertAlmostEqual(got["mass_check"], 1)
 
-    def test_density_inverse_recovers_the_lower_rate(self) -> None:
-        for p in (0.02, 0.035, 0.2, 0.45):
-            self.assertAlmostEqual(design.phi(p), design.phi(1 - p), places=12)
-            self.assertAlmostEqual(design.p_from_phi(design.phi(p)), p, places=10)
+    def test_prespecified_looks(self):
+        for looks in ((), (10, 10), (20, 10), (0, 10)):
+            with self.assertRaises(ValueError):
+                thresholds(looks)
 
+    def test_invalid_increments(self):
+        with self.assertRaises(ValueError):
+            decision([(1, 1), (0, 2)], (10, 20))
 
-class ExactnessTest(unittest.TestCase):
-    def test_single_look_matches_the_fixed_sample_power(self) -> None:
-        result = design.evaluate(0.035, 0.085, design.CRITICAL, None, trials=80, looks=(80,))
-        self.assertAlmostEqual(
-            result["rejection_probability"], design.fixed_power(0.035, 0.085, 80), places=9
-        )
-        self.assertAlmostEqual(result["expected_trials"], 80.0, places=9)
-
-    def test_futility_shortens_the_null_without_touching_the_size(self) -> None:
-        plain = design.evaluate(
-            0.035, 0.035, design.CRITICAL, None, trials=120, looks=(40, 80, 120)
-        )
-        stopping = design.evaluate(
-            0.035, 0.035, design.CRITICAL, 1.0, trials=120, looks=(40, 80, 120)
-        )
-        self.assertLess(stopping["expected_trials"], plain["expected_trials"])
-        # Stopping for futility can only remove later rejections, so the size falls a
-        # little; it must never rise.
-        self.assertLessEqual(stopping["rejection_probability"], plain["rejection_probability"])
-        self.assertGreater(stopping["rejection_probability"], plain["rejection_probability"] - 0.01)
-
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_no_rejection_not_equality(self):
+        self.assertEqual(decision([(0, 0)], (10, 20))["status"], "continue")
+        self.assertEqual(decision([(0, 0), (0, 0)], (10, 20))["status"], "not_reject")
