@@ -1,0 +1,728 @@
+{
+  "artifact": "anarres_surrogate_replay_splits_v1",
+  "corpus": {
+    "manifest": "CORPUS_INVENTORY.json",
+    "manifest_sha256": "c674445d276611cd3057b34c86866f082b216041a950a2ebab645096537d0718",
+    "records": "CORPUS_RECORDS.jsonl",
+    "records_sha256": "14d3928f18ea9c7438f3fbb7174538b6de96f21e24357cdec22fbc40421da7c4"
+  },
+  "rules": {
+    "chronological_suite": "deferred until record-level availability times are released",
+    "model_selection": "nested inside each training fold",
+    "nested_records": "seeds, checkpoints, tasks, targets, traces, and evaluations stay with their candidate lineage",
+    "outcome_scale": "native outcomes remain panel-local",
+    "primary_split": "complete study or publication holdout",
+    "random_row_split": "prohibited for primary results"
+  },
+  "status": "frozen retrospective replay suites; no model scores",
+  "suites": [
+    {
+      "claim": "transfer to an unseen controlled intervention study",
+      "filters": {
+        "evidence_level": "seed_level_intervention"
+      },
+      "folds": [
+        {
+          "fold_id": "holdout:four_scale_environment_utility",
+          "test_panels": 4,
+          "test_record_ids_sha256": "9e2f4a67608d6dcfc4d0e113b4fd221e1a9993a3d9bf820661b12dcfe5e31439",
+          "test_records": 32,
+          "test_selector": {
+            "field": "study_id",
+            "value": "four_scale_environment_utility"
+          },
+          "train_panels": 5,
+          "train_record_ids_sha256": "6f42a156bca3be1980de6489006ec09597b3f54dc3d84dac762776f3d1a57496",
+          "train_records": 69
+        },
+        {
+          "fold_id": "holdout:mlip_phonon_environment_selection",
+          "test_panels": 1,
+          "test_record_ids_sha256": "27fd8d27325b48a08c79789752c080ac3970914632b744004e2f3ea66e55dda5",
+          "test_records": 8,
+          "test_selector": {
+            "field": "study_id",
+            "value": "mlip_phonon_environment_selection"
+          },
+          "train_panels": 8,
+          "train_record_ids_sha256": "1e7dc7cfefd9ec705dbacc6d37fd7ca1209c82623f99628ec5fdd69d37e7ff3d",
+          "train_records": 93
+        },
+        {
+          "fold_id": "holdout:prospective_cupid_can_v141",
+          "test_panels": 1,
+          "test_record_ids_sha256": "77dbe9ef7add1327337d301b074a59ae987cf9afc1da23c3c80906955e645849",
+          "test_records": 25,
+          "test_selector": {
+            "field": "study_id",
+            "value": "prospective_cupid_can_v141"
+          },
+          "train_panels": 8,
+          "train_record_ids_sha256": "bf30011a9b85592b540c87468dd20352534ae278dba192203c90a583ce65d6db",
+          "train_records": 76
+        },
+        {
+          "fold_id": "holdout:prospective_pusht",
+          "test_panels": 1,
+          "test_record_ids_sha256": "5ef9ae170feaf9df7f88ff21735661e047fe45641efad76601d29c713147d564",
+          "test_records": 9,
+          "test_selector": {
+            "field": "study_id",
+            "value": "prospective_pusht"
+          },
+          "train_panels": 8,
+          "train_record_ids_sha256": "08cc36f9fbce84c88375888c4a3d8d9b7267995f5507cff8793575403b86aac4",
+          "train_records": 92
+        },
+        {
+          "fold_id": "holdout:prospective_square_regression_v1",
+          "test_panels": 1,
+          "test_record_ids_sha256": "471f708dbf59362770138eceb28cf2576fcc169741bd9236b1775eed059f7a92",
+          "test_records": 18,
+          "test_selector": {
+            "field": "study_id",
+            "value": "prospective_square_regression_v1"
+          },
+          "train_panels": 8,
+          "train_record_ids_sha256": "0b237e47bae18d0345f887cba4b6c8da2f1435994fdd5cf4fce67beffde11b3f",
+          "train_records": 83
+        },
+        {
+          "fold_id": "holdout:prospective_syllogym_environment_selection",
+          "test_panels": 1,
+          "test_record_ids_sha256": "c917cf76ac492a3dc09cb70e2dbde9f52a7dd3d513a7b783992809b915251d8b",
+          "test_records": 9,
+          "test_selector": {
+            "field": "study_id",
+            "value": "prospective_syllogym_environment_selection"
+          },
+          "train_panels": 8,
+          "train_record_ids_sha256": "a71da91d7335fa167b85546b810c21e7a7e35424fdbf91f650fc988d67314318",
+          "train_records": 92
+        }
+      ],
+      "group_field": "study_id",
+      "groups": 6,
+      "panels": 9,
+      "record_ids_sha256": "3a5e430a57479b98726e6aee0eb73ec0560d1fe76a4b974164c6681474564791",
+      "records": 101,
+      "records_by_domain": {
+        "legal": 9,
+        "materials_science": 8,
+        "mathematics": 32,
+        "robotics": 52
+      },
+      "status": "primary",
+      "suite_id": "seed_level_leave_one_study_out"
+    },
+    {
+      "claim": "transfer to an unseen materials-science publication",
+      "filters": {
+        "domain": "materials_science",
+        "evidence_level": "published_candidate_arm_aggregate"
+      },
+      "folds": [
+        {
+          "fold_id": "holdout:baghishov_2026_application_specific_mlip",
+          "test_panels": 18,
+          "test_record_ids_sha256": "95dfeb36cbee8125bc1a1e35ff869edbcbd7b154f2e6c369a12a8c443ac594dc",
+          "test_records": 54,
+          "test_selector": {
+            "field": "study_id",
+            "value": "baghishov_2026_application_specific_mlip"
+          },
+          "train_panels": 786,
+          "train_record_ids_sha256": "d103f963ce62649f68e5c63f8e11d78194f85a23531deeb1080a33f79cc3647d",
+          "train_records": 2948
+        },
+        {
+          "fold_id": "holdout:bi_elena_2026_budget_crossover",
+          "test_panels": 24,
+          "test_record_ids_sha256": "f067406f2aad653fb9fb53309e32a9fc41583713cdc0652d2f91842035350879",
+          "test_records": 120,
+          "test_selector": {
+            "field": "study_id",
+            "value": "bi_elena_2026_budget_crossover"
+          },
+          "train_panels": 780,
+          "train_record_ids_sha256": "280c7f73a4ca5675b0f4a00a57413448bfcd36df0d326fd5d1e93193b6825dc2",
+          "train_records": 2882
+        },
+        {
+          "fold_id": "holdout:dale_2026_active_learning_failure",
+          "test_panels": 23,
+          "test_record_ids_sha256": "f3f1412e7824475e091c4eafeb3c8dae7ad996cf49af200f6ed507f76f03272a",
+          "test_records": 161,
+          "test_selector": {
+            "field": "study_id",
+            "value": "dale_2026_active_learning_failure"
+          },
+          "train_panels": 781,
+          "train_record_ids_sha256": "f3abc4271a4b9beab844013ac67e4ad16e09986700c3f28961fd8269d558f978",
+          "train_records": 2841
+        },
+        {
+          "fold_id": "holdout:espinosa_castaneda_2026_diversity",
+          "test_panels": 256,
+          "test_record_ids_sha256": "07263782e7fb472e037f2f34af23d74f399928fb902506bd1a91f912d99d0534",
+          "test_records": 1504,
+          "test_selector": {
+            "field": "study_id",
+            "value": "espinosa_castaneda_2026_diversity"
+          },
+          "train_panels": 548,
+          "train_record_ids_sha256": "b4abe1065912c57b9e97ac1ee8ee8f2d5246daec560e31673195c19b1d89b5e8",
+          "train_records": 1498
+        },
+        {
+          "fold_id": "holdout:haenseroth_2026_generators",
+          "test_panels": 7,
+          "test_record_ids_sha256": "399c6e8428a1cda9ebbafb631413db8e99e01d2991bff972ea37a62ed1c9a7ca",
+          "test_records": 21,
+          "test_selector": {
+            "field": "study_id",
+            "value": "haenseroth_2026_generators"
+          },
+          "train_panels": 797,
+          "train_record_ids_sha256": "219ab557a3c35e904f562bbec0e12b065cbfa5181c9f7e4e285eee4335fe210d",
+          "train_records": 2981
+        },
+        {
+          "fold_id": "holdout:haenseroth_dressler_2026_data_efficiency",
+          "test_panels": 336,
+          "test_record_ids_sha256": "265efc900a29a320a706965692a110bf2563362895755e7f8968001574337abe",
+          "test_records": 672,
+          "test_selector": {
+            "field": "study_id",
+            "value": "haenseroth_dressler_2026_data_efficiency"
+          },
+          "train_panels": 468,
+          "train_record_ids_sha256": "6e4dbd33fa875205704ad23c2c5f4b3e8cf4c3034f58cc5605d9ed4d6ca8dbee",
+          "train_records": 2330
+        },
+        {
+          "fold_id": "holdout:kim_2026_density_diversity",
+          "test_panels": 12,
+          "test_record_ids_sha256": "e82175f06848c321090ef4d04e4076fad62d66c0a0ba55fd2b020dbbe5702586",
+          "test_records": 36,
+          "test_selector": {
+            "field": "study_id",
+            "value": "kim_2026_density_diversity"
+          },
+          "train_panels": 792,
+          "train_record_ids_sha256": "a7d592c786e033fe903a2d514ddac504b1c011bc4fe1fea54ab9014817f9322d",
+          "train_records": 2966
+        },
+        {
+          "fold_id": "holdout:kulichenko_2023_udd",
+          "test_panels": 4,
+          "test_record_ids_sha256": "194038eef8524bb73f7829268beb74bb42dcbab929c6dff662d46ea9f2472ae9",
+          "test_records": 16,
+          "test_selector": {
+            "field": "study_id",
+            "value": "kulichenko_2023_udd"
+          },
+          "train_panels": 800,
+          "train_record_ids_sha256": "2f94337df3ecfd20e791cf6ffa23d9d681704ade78ee01e3f4285e4766ed3fef",
+          "train_records": 2986
+        },
+        {
+          "fold_id": "holdout:li_2023_redundancy",
+          "test_panels": 42,
+          "test_record_ids_sha256": "755b3d931fb925947dd6a55d0c9f2ab5831c7e956a16e11ebc542edf7f77ac15",
+          "test_records": 156,
+          "test_selector": {
+            "field": "study_id",
+            "value": "li_2023_redundancy"
+          },
+          "train_panels": 762,
+          "train_record_ids_sha256": "efa530d5be5eb98a03a145508c1951485f06e3347a7827f5989e1e7fc137e7d8",
+          "train_records": 2846
+        },
+        {
+          "fold_id": "holdout:liu_2026_heterogeneous_uq",
+          "test_panels": 2,
+          "test_record_ids_sha256": "8dbabfb10f2a07468caf6e58804c385ee4213c07a062d49cf2c0c72b282afc9c",
+          "test_records": 12,
+          "test_selector": {
+            "field": "study_id",
+            "value": "liu_2026_heterogeneous_uq"
+          },
+          "train_panels": 802,
+          "train_record_ids_sha256": "a8fcb736da335897024091c4febbfcd7926170c664a8cd23c8fd17434800c042",
+          "train_records": 2990
+        },
+        {
+          "fold_id": "holdout:qi_2024_direct_sampling",
+          "test_panels": 6,
+          "test_record_ids_sha256": "fe9f944989f9bcc2c247501e164b895ab13e93ccc4415f1a7bef6b59ee60e38a",
+          "test_records": 12,
+          "test_selector": {
+            "field": "study_id",
+            "value": "qi_2024_direct_sampling"
+          },
+          "train_panels": 798,
+          "train_record_ids_sha256": "5de1c9ef72899f00046d454d228be6783283bef197bba6c0b1769b4a188a7308",
+          "train_records": 2990
+        },
+        {
+          "fold_id": "holdout:varga_umbrich_2026_force_aware_ntk",
+          "test_panels": 12,
+          "test_record_ids_sha256": "b1363bbd8a0dca703ae55444f53127a57b726cb6dff7c9f7948c2d42b0eb775f",
+          "test_records": 84,
+          "test_selector": {
+            "field": "study_id",
+            "value": "varga_umbrich_2026_force_aware_ntk"
+          },
+          "train_panels": 792,
+          "train_record_ids_sha256": "1cf4f044abe7d9e452128a10d75369621f09e798a7cc830ad51e71386cf07324",
+          "train_records": 2918
+        },
+        {
+          "fold_id": "holdout:wang_2026_dataset_aware_entropy",
+          "test_panels": 45,
+          "test_record_ids_sha256": "356ee1f457d0a65cfbe1361c22a0673aba7a0fbdf730f2741317734f3cb15421",
+          "test_records": 90,
+          "test_selector": {
+            "field": "study_id",
+            "value": "wang_2026_dataset_aware_entropy"
+          },
+          "train_panels": 759,
+          "train_record_ids_sha256": "f54b0e8e0fd136ffaf6b13ce0dd5c2cf099b4b615eee67a3c8ddf92cf93ade20",
+          "train_records": 2912
+        },
+        {
+          "fold_id": "holdout:wong_yang_2026_umlip_bias",
+          "test_panels": 5,
+          "test_record_ids_sha256": "7e57314280511554e537c727550175d73c9007e5795777b65e42c7e5cede34f9",
+          "test_records": 10,
+          "test_selector": {
+            "field": "study_id",
+            "value": "wong_yang_2026_umlip_bias"
+          },
+          "train_panels": 799,
+          "train_record_ids_sha256": "3e87537b35c85157ec60e4c7b587d5572e6b64334fd0dbcec5283f0a19d1b83b",
+          "train_records": 2992
+        },
+        {
+          "fold_id": "holdout:zaverkin_2024_uncertainty_biased_md",
+          "test_panels": 8,
+          "test_record_ids_sha256": "0a125986db63a7efe7060340fa0586da93797886b2e40351c2092d030e9e2a25",
+          "test_records": 46,
+          "test_selector": {
+            "field": "study_id",
+            "value": "zaverkin_2024_uncertainty_biased_md"
+          },
+          "train_panels": 796,
+          "train_record_ids_sha256": "84966d92be2e0eb8c3799edb7b28977c029a81c61e1b1d3dfb75caa88afd8c7a",
+          "train_records": 2956
+        },
+        {
+          "fold_id": "holdout:zhang_2023_etal",
+          "test_panels": 4,
+          "test_record_ids_sha256": "587f6e41b9f2f508539056d6a97828124a556400ec5963072f3c59a4974e667f",
+          "test_records": 8,
+          "test_selector": {
+            "field": "study_id",
+            "value": "zhang_2023_etal"
+          },
+          "train_panels": 800,
+          "train_record_ids_sha256": "e26e85a687112fcb85653d6291e275f89a6638fbeb417cd5df2fe69a850236c9",
+          "train_records": 2994
+        }
+      ],
+      "group_field": "study_id",
+      "groups": 16,
+      "panels": 804,
+      "record_ids_sha256": "9a56dacef1e0abc35d5f27ab5f148c087702bc44b0846d6853e7eb5e7e10cc7f",
+      "records": 3002,
+      "records_by_domain": {
+        "materials_science": 3002
+      },
+      "status": "primary_retrospective_bridge",
+      "suite_id": "materials_leave_one_publication_out"
+    },
+    {
+      "claim": "transfer to an unseen finance post-training study",
+      "filters": {
+        "domain": "finance",
+        "evidence_level": "published_candidate_arm_aggregate"
+      },
+      "folds": [
+        {
+          "fold_id": "holdout:data_centric_finance",
+          "test_panels": 5,
+          "test_record_ids_sha256": "d4ea64ed3d3e5d5368e4ff9b974b72be824d1058d812bd664476ad23bf2edd38",
+          "test_records": 14,
+          "test_selector": {
+            "field": "study_id",
+            "value": "data_centric_finance"
+          },
+          "train_panels": 144,
+          "train_record_ids_sha256": "fa8f514cae21f1960a929b54e942fd562a1bd6c15a547acab939c4cc0ca626d7",
+          "train_records": 524
+        },
+        {
+          "fold_id": "holdout:dianjin_r1_2025",
+          "test_panels": 5,
+          "test_record_ids_sha256": "fc0f2d058cb54f52e3bd08b8a621a2d7c92563bddd477c84463f4aa61f8fbd9c",
+          "test_records": 30,
+          "test_selector": {
+            "field": "study_id",
+            "value": "dianjin_r1_2025"
+          },
+          "train_panels": 144,
+          "train_record_ids_sha256": "ec834b6a9f67b18e1ebc20576cc3d695596c5c58bb9f27c32bd0c0407ff0e6e2",
+          "train_records": 508
+        },
+        {
+          "fold_id": "holdout:fin_prm_2026",
+          "test_panels": 1,
+          "test_record_ids_sha256": "0cb72f4247e06c6188400b1e79ca0813eb5e8e7a46080dc6a4d6fa952509f855",
+          "test_records": 5,
+          "test_selector": {
+            "field": "study_id",
+            "value": "fin_prm_2026"
+          },
+          "train_panels": 148,
+          "train_record_ids_sha256": "eb5130faa8fdbea24658e3e2ce8c998c1a0c0617e455402ffd70e1bf6163f15b",
+          "train_records": 533
+        },
+        {
+          "fold_id": "holdout:fin_sd_2026",
+          "test_panels": 2,
+          "test_record_ids_sha256": "303f77fe1a42de86dd6e75eab5dceabaf9ed76a88b4796b14b02a4a2ace8175f",
+          "test_records": 9,
+          "test_selector": {
+            "field": "study_id",
+            "value": "fin_sd_2026"
+          },
+          "train_panels": 147,
+          "train_record_ids_sha256": "3b018a344ad64af90cf8487a4e96e224451df5c0fa0892c1237c6720a815b3c6",
+          "train_records": 529
+        },
+        {
+          "fold_id": "holdout:financial_advice_grpo_2026",
+          "test_panels": 1,
+          "test_record_ids_sha256": "79c7fb134e5da106d0244096fc4500aa2e55556c16f5d40f5e1168c206a543b4",
+          "test_records": 2,
+          "test_selector": {
+            "field": "study_id",
+            "value": "financial_advice_grpo_2026"
+          },
+          "train_panels": 148,
+          "train_record_ids_sha256": "c7f40239cbae5b60333f9677b4071a888a5f95699594ccb18947faea2fa46869",
+          "train_records": 536
+        },
+        {
+          "fold_id": "holdout:findap_2025",
+          "test_panels": 35,
+          "test_record_ids_sha256": "ac59d89c670bfd3a19b152dbfa0a8c36b536d9b6608278a32bd4a2d4052d40d2",
+          "test_records": 70,
+          "test_selector": {
+            "field": "study_id",
+            "value": "findap_2025"
+          },
+          "train_panels": 114,
+          "train_record_ids_sha256": "18bcf0f1f0cf23229fbfe6017749b5f1cc496dd06e7a9d557526a4fab742c1bb",
+          "train_records": 468
+        },
+        {
+          "fold_id": "holdout:finlcr_2026",
+          "test_panels": 8,
+          "test_record_ids_sha256": "ff81a3eefca5cf45246cdfb97eb03fbf6a0f4e1119f9b96ac9ad7e4fbaad4ad9",
+          "test_records": 46,
+          "test_selector": {
+            "field": "study_id",
+            "value": "finlcr_2026"
+          },
+          "train_panels": 141,
+          "train_record_ids_sha256": "1fa495123780d99509ea0d132ef6ba5b848ea656516e2031c601d68b21b47aad",
+          "train_records": 492
+        },
+        {
+          "fold_id": "holdout:finlmm_r1_2025",
+          "test_panels": 7,
+          "test_record_ids_sha256": "19bb6dc1783bc2a7ea80d0e4e34bb95f745021657a8636fe4feaf240ff1de482",
+          "test_records": 30,
+          "test_selector": {
+            "field": "study_id",
+            "value": "finlmm_r1_2025"
+          },
+          "train_panels": 142,
+          "train_record_ids_sha256": "39cab39399cde8c623213ed3bc9d2dfe1a1f874815715337e983124862f4c62c",
+          "train_records": 508
+        },
+        {
+          "fold_id": "holdout:fino1",
+          "test_panels": 2,
+          "test_record_ids_sha256": "64d26ee201a3bc0b9412ae1ec6b5475fb69791168fe0398f4c910940160dfa1f",
+          "test_records": 8,
+          "test_selector": {
+            "field": "study_id",
+            "value": "fino1"
+          },
+          "train_panels": 147,
+          "train_record_ids_sha256": "9a3cfdaa3dea0eeebbd5ee6fddebde813bce1e634b7972dc5c9a9072df2dd051",
+          "train_records": 530
+        },
+        {
+          "fold_id": "holdout:harsha2025_synthetic_financial_qa",
+          "test_panels": 20,
+          "test_record_ids_sha256": "7d1649045216959f3e619a583b101b877ecf3633c799ac2528404a8199695dd6",
+          "test_records": 55,
+          "test_selector": {
+            "field": "study_id",
+            "value": "harsha2025_synthetic_financial_qa"
+          },
+          "train_panels": 129,
+          "train_record_ids_sha256": "a12ee28709c99cf9b659ff7e68f2db8ac48db424fe1df34e0efffc644fbe4399",
+          "train_records": 483
+        },
+        {
+          "fold_id": "holdout:oda_fin",
+          "test_panels": 3,
+          "test_record_ids_sha256": "109f130d6ded1eb3a6d3b03727e48a4ce4e383fe65197dd04c34e37546973ec3",
+          "test_records": 15,
+          "test_selector": {
+            "field": "study_id",
+            "value": "oda_fin"
+          },
+          "train_panels": 146,
+          "train_record_ids_sha256": "d99e68dec35d13068b98844cbc4b877bae6ed869d9403a29a5f7bb6c90ba12d4",
+          "train_records": 523
+        },
+        {
+          "fold_id": "holdout:okochi_japanese_finance_2026",
+          "test_panels": 4,
+          "test_record_ids_sha256": "815fcdb287b844c4b7cca1a8d2b6b18e7fb8641763d9a610b1497a617788f6ca",
+          "test_records": 8,
+          "test_selector": {
+            "field": "study_id",
+            "value": "okochi_japanese_finance_2026"
+          },
+          "train_panels": 145,
+          "train_record_ids_sha256": "b19c69198b7feaab3d123220e1db33a03493fcaf293f6c9adb885e05c753f657",
+          "train_records": 530
+        },
+        {
+          "fold_id": "holdout:phogat2024_financial_qa",
+          "test_panels": 20,
+          "test_record_ids_sha256": "6cbac904393b54fd2ba56baa1e6aa2461df8ec368554405b327ff5da8bf1d4d9",
+          "test_records": 80,
+          "test_selector": {
+            "field": "study_id",
+            "value": "phogat2024_financial_qa"
+          },
+          "train_panels": 129,
+          "train_record_ids_sha256": "a51e12b95c9f9dbf800627563a5954071311f4bb101097444e7d24198aefc102",
+          "train_records": 458
+        },
+        {
+          "fold_id": "holdout:quanteval",
+          "test_panels": 2,
+          "test_record_ids_sha256": "3bb69cd2e9894c368480c553e99ea661d0189f649c38081f068c6d9536889e7e",
+          "test_records": 10,
+          "test_selector": {
+            "field": "study_id",
+            "value": "quanteval"
+          },
+          "train_panels": 147,
+          "train_record_ids_sha256": "2e89c6a436e8a439313ffa332b22ff41d75bb28a00b7feb92eed24bf8858595c",
+          "train_records": 528
+        },
+        {
+          "fold_id": "holdout:select2know_2025",
+          "test_panels": 7,
+          "test_record_ids_sha256": "d2a5119f5a55aae654a81bb831592f9225ab6e34f9bf53f7c21d8eaf47de116f",
+          "test_records": 21,
+          "test_selector": {
+            "field": "study_id",
+            "value": "select2know_2025"
+          },
+          "train_panels": 142,
+          "train_record_ids_sha256": "571bd75c52f697599fd09bb39be3b434acdac3484f75fe0ee2ef05a10d5eb7ed",
+          "train_records": 517
+        },
+        {
+          "fold_id": "holdout:shin_kim_2026_speech_sft",
+          "test_panels": 27,
+          "test_record_ids_sha256": "4bbd2d99e209973c8b47f769afaba5ca3586b8873f153b12aefa53c371d4f31d",
+          "test_records": 135,
+          "test_selector": {
+            "field": "study_id",
+            "value": "shin_kim_2026_speech_sft"
+          },
+          "train_panels": 122,
+          "train_record_ids_sha256": "473d3777b689931faf9d3e78da750d00ca1ad272bed9686d089fb0a35e31b11c",
+          "train_records": 403
+        }
+      ],
+      "group_field": "study_id",
+      "groups": 16,
+      "panels": 149,
+      "record_ids_sha256": "cdb09e637082ceb9dd5849e1c810aa6dd5644d2f1a2fc609a93f7f17cd9f64b4",
+      "records": 538,
+      "records_by_domain": {
+        "finance": 538
+      },
+      "status": "primary_retrospective_bridge",
+      "suite_id": "finance_leave_one_study_out"
+    },
+    {
+      "claim": "transfer to an unseen domain",
+      "filters": {},
+      "folds": [
+        {
+          "fold_id": "holdout:finance",
+          "test_panels": 149,
+          "test_record_ids_sha256": "cdb09e637082ceb9dd5849e1c810aa6dd5644d2f1a2fc609a93f7f17cd9f64b4",
+          "test_records": 538,
+          "test_selector": {
+            "field": "domain",
+            "value": "finance"
+          },
+          "train_panels": 813,
+          "train_record_ids_sha256": "387cd7e9784c8e56febb3cd24b6c939e46e8cf1d8240b1832e8851312d38758e",
+          "train_records": 3103
+        },
+        {
+          "fold_id": "holdout:legal",
+          "test_panels": 1,
+          "test_record_ids_sha256": "c917cf76ac492a3dc09cb70e2dbde9f52a7dd3d513a7b783992809b915251d8b",
+          "test_records": 9,
+          "test_selector": {
+            "field": "domain",
+            "value": "legal"
+          },
+          "train_panels": 961,
+          "train_record_ids_sha256": "6ca5e4ebc043f76b3f4134fbd521f4f56fcf2c311113a1865d58036f3f3cbe39",
+          "train_records": 3632
+        },
+        {
+          "fold_id": "holdout:materials_science",
+          "test_panels": 805,
+          "test_record_ids_sha256": "7e5331494f2d3da62221e1b9be981dbf42fbb3f331229f8f2e16f7b3edb27b48",
+          "test_records": 3010,
+          "test_selector": {
+            "field": "domain",
+            "value": "materials_science"
+          },
+          "train_panels": 157,
+          "train_record_ids_sha256": "ac48d3a3f8a935a5a0c02cf7db503fcbfaa403308c6ba2eb9a885a5df2be02c8",
+          "train_records": 631
+        },
+        {
+          "fold_id": "holdout:mathematics",
+          "test_panels": 4,
+          "test_record_ids_sha256": "9e2f4a67608d6dcfc4d0e113b4fd221e1a9993a3d9bf820661b12dcfe5e31439",
+          "test_records": 32,
+          "test_selector": {
+            "field": "domain",
+            "value": "mathematics"
+          },
+          "train_panels": 958,
+          "train_record_ids_sha256": "8662ab1e2305c12433958bb604b913df4d5acbd0aaa6aa272b62fad85432e6e3",
+          "train_records": 3609
+        },
+        {
+          "fold_id": "holdout:robotics",
+          "test_panels": 3,
+          "test_record_ids_sha256": "db0b232f53faf8d29db305885e5d3b38bedbd66fe2689fccdb655cc272975cdf",
+          "test_records": 52,
+          "test_selector": {
+            "field": "domain",
+            "value": "robotics"
+          },
+          "train_panels": 959,
+          "train_record_ids_sha256": "de6799f3a8f6eb0f1f8e66d1440376a26759b0232a4938eb982e07bdb77f8c39",
+          "train_records": 3589
+        }
+      ],
+      "group_field": "domain",
+      "groups": 5,
+      "panels": 962,
+      "record_ids_sha256": "5474f76d0578d3042081b9105a8c2ea11eeab307a47db9b8a7967b4966f7e510",
+      "records": 3641,
+      "records_by_domain": {
+        "finance": 538,
+        "legal": 9,
+        "materials_science": 3010,
+        "mathematics": 32,
+        "robotics": 52
+      },
+      "status": "exploratory_due_to_domain_imbalance",
+      "suite_id": "leave_one_domain_out"
+    },
+    {
+      "claim": "scale transfer under one fixed trainer",
+      "filters": {
+        "source_id": "mathematics_environment_utility"
+      },
+      "folds": [
+        {
+          "fold_id": "holdout:14b",
+          "test_panels": 1,
+          "test_record_ids_sha256": "e6976cc804d8e6022aa235e45c0d81e1586ca820ff97617e708cd75620afae66",
+          "test_records": 8,
+          "test_selector": {
+            "field": "grouping.scale",
+            "value": "14b"
+          },
+          "train_panels": 3,
+          "train_record_ids_sha256": "9360f03b215bf5fa07423677dff2eb0f5cf182e13301212e680a8d2f3dcdb230",
+          "train_records": 24
+        },
+        {
+          "fold_id": "holdout:1p7",
+          "test_panels": 1,
+          "test_record_ids_sha256": "968ac763bba6ad32e55d54c316c7d185d1478c061ea76277b953d314c20c6470",
+          "test_records": 8,
+          "test_selector": {
+            "field": "grouping.scale",
+            "value": "1p7"
+          },
+          "train_panels": 3,
+          "train_record_ids_sha256": "8cf719b40cc88c40f6786d1970803b2ba8b56e086b84046eb1851cd729a26cc2",
+          "train_records": 24
+        },
+        {
+          "fold_id": "holdout:4b",
+          "test_panels": 1,
+          "test_record_ids_sha256": "138586d88afdc80729edb72f2cf3badc89b61bb7b78536792cdc6e9392adec66",
+          "test_records": 8,
+          "test_selector": {
+            "field": "grouping.scale",
+            "value": "4b"
+          },
+          "train_panels": 3,
+          "train_record_ids_sha256": "4c6e1b774c2da488a394efa1a28ee8e4674a3d7215bd562c946516b90431ffa6",
+          "train_records": 24
+        },
+        {
+          "fold_id": "holdout:8b",
+          "test_panels": 1,
+          "test_record_ids_sha256": "46f9773f4fe93caac099e2fec5bfd90382f6748eaa2d6f5c694dcd9912ce3d28",
+          "test_records": 8,
+          "test_selector": {
+            "field": "grouping.scale",
+            "value": "8b"
+          },
+          "train_panels": 3,
+          "train_record_ids_sha256": "fe07597e2f01cae96daccdb4472f177291016101a33b0e795d75ccfd2d0def13",
+          "train_records": 24
+        }
+      ],
+      "group_field": "grouping.scale",
+      "groups": 4,
+      "panels": 4,
+      "record_ids_sha256": "9e2f4a67608d6dcfc4d0e113b4fd221e1a9993a3d9bf820661b12dcfe5e31439",
+      "records": 32,
+      "records_by_domain": {
+        "mathematics": 32
+      },
+      "status": "conformance_fixture",
+      "suite_id": "mathematics_leave_one_scale_out"
+    }
+  ]
+}

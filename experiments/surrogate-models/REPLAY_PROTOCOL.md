@@ -3,6 +3,20 @@
 **Evidence tier:** preregistered retrospective replay design. Running this
 protocol on released outcomes does not create prospective evidence.
 
+The exact grouped suites and fold digests are frozen in
+[`REPLAY_SPLITS.json`](REPLAY_SPLITS.json). They resolve against the
+content-addressed corpus and prevent a model implementation from silently
+changing the evaluation population.
+
+The [baseline contract](BASELINE_CONTRACT.json) fixes the information boundary,
+candidate and seed handling, baseline ladder, nested model selection, metrics,
+and advancement gates before the central replay is scored.
+
+The [released baseline audit](BASELINE_AUDIT.json) content-addresses the current
+materials, finance, and mathematics results. It fixes the simple rules that a
+central learned surrogate must beat without treating unlike native measurements
+as interchangeable features.
+
 This protocol governs the primary cross-domain replay benchmark. The bounded
 [mathematics scale-transfer reference](MATHEMATICS_REFERENCE.md) validates the
 evaluator and information-boundary checks under one controlled study, but it is
