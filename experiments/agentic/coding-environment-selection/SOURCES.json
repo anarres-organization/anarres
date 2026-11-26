@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "tmax", "name": "Tmax: A simple recipe for terminal agents", "url": "https://arxiv.org/abs/2606.23321", "repository": "https://github.com/hamishivi/tmax", "revision": "arXiv:2606.23321v1; repository audited 2026-11-26", "license": "Apache-2.0 repository", "role": "matched_pool_selection_panel", "status": "admitted", "outcome_use": "outcome-blind shadow evaluation"
+    },
+    {
+      "id": "rlve", "name": "RLVE: Scaling Up Reinforcement Learning for Language Models with Adaptive Verifiable Environments", "url": "https://arxiv.org/abs/2511.07317", "repository": "https://github.com/Zhiyuan-Zeng/RLVE", "revision": "b2dd0b6f726ee2ebc8e2c0fb2af0796414f18cb2", "license": "MIT", "role": "prospective_mixture_selection_panel", "status": "admitted", "outcome_use": "frozen before claim-bearing outcomes"
+    },
+    {
+      "id": "envsched", "name": "EnvSched: Environment-Aware Scheduling for Rollout-Efficient Agent Reinforcement Learning", "url": "https://arxiv.org/abs/2610.37609", "repository": "https://github.com/Hhankyangg/envsched", "revision": "8824bc", "license": "MIT", "role": "adaptive_scheduler_mechanism", "status": "mechanism_only", "outcome_use": "retrospective public evidence"
+    },
+    {
+      "id": "repofactory", "name": "From Repositories to Training Environments: Scaling Long-Horizon Coding Agents with Environment Evolution Loop", "url": "https://arxiv.org/abs/2611.21152", "revision": "arXiv:2611.21152v1", "license": "paper access only; artifact license not asserted", "role": "environment_construction_mechanism", "status": "external_check", "outcome_use": "publication-order evidence after selector freeze"
+    },
+    {
+      "id": "terminal_bench_2", "name": "Terminal-Bench 2.0: A Benchmark for Agentic Terminal Coding", "url": "https://arxiv.org/abs/2601.11868", "repository": "https://github.com/laude-institute/terminal-bench", "revision": "public benchmark family audited 2026-11-26", "license": "repository terms apply", "role": "held_out_evaluation_family", "status": "audited", "outcome_use": "evaluation only"
+    },
+    {
+      "id": "auto_env_scaling", "name": "AutoEnvScaling", "url": "https://arxiv.org/abs/2610.14163", "role": "landscape_context", "status": "not_pooled", "outcome_use": "heterogeneous adaptive construction evidence"
+    },
+    {
+      "id": "endless_terminals", "name": "Endless Terminals", "url": "https://arxiv.org/abs/2601.16443", "role": "landscape_context", "status": "not_pooled", "outcome_use": "environment generation context"
+    },
+    {
+      "id": "legoenv", "name": "LegoEnv: Self-Evolving Agentic Environments via Modular Recombination", "url": "https://arxiv.org/abs/2611.01834", "role": "landscape_context", "status": "not_pooled", "outcome_use": "environment validity and modular evolution context"
+    },
+    {
+      "id": "codemidas", "name": "CodeMidas: Scaling Agentic Coding RL Environments from Code Itself", "url": "https://arxiv.org/abs/2609.22068", "role": "landscape_context", "status": "not_pooled", "outcome_use": "source-grounded construction and verification context"
+    },
+    {
+      "id": "environment_evolution", "name": "Environment Evolution for Terminal Agents", "url": "https://arxiv.org/abs/2609.04128", "role": "landscape_context", "status": "not_pooled", "outcome_use": "off-policy difficulty evolution and scheduling context"
+    },
+    {
+      "id": "seta", "name": "SETA: Scaling Environments for Terminal Agents", "url": "https://arxiv.org/abs/2607.10891", "role": "landscape_context", "status": "not_pooled", "outcome_use": "scalable synthesis, evolution, and verification context"
+    }
+  ]
+}

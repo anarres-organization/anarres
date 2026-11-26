@@ -1,0 +1,54 @@
+{
+  "artifact": "agentic_coding_environment_selection_panels_v1",
+  "panels": [
+    {
+      "panel_id": "tmax_public_pool_comparison",
+      "decision_unit": "one matched seven-pool training comparison",
+      "chronology": "outcome_blind_shadow",
+      "feature_contract": {
+        "cost": "mean_log_output_tokens",
+        "readiness": "common_reference_mean_native_reward",
+        "reward_information": "mean_binary_reward_entropy",
+        "target_affinity": "normalized_target_similarity"
+      },
+      "candidates": [
+        {"id": "cli_gym", "readiness": 0.328125, "reward_information": 0.11361359186234762, "cost": 8.852424186234272, "target_affinity": 0.5546173294703178, "truncation_rate": 0.3046875},
+        {"id": "endless", "readiness": 0.7734375, "reward_information": 0.11770146798550815, "cost": 7.84506918575578, "target_affinity": 0.604266732302642, "truncation_rate": 0.0078125},
+        {"id": "open_thinker", "readiness": 0.734375, "reward_information": 0.11361359186234762, "cost": 7.498812470403909, "target_affinity": 0.48952873795805263, "truncation_rate": 0.0},
+        {"id": "swe_smith", "readiness": 0.4765625, "reward_information": 0.17981760881653813, "cost": 8.832694927419219, "target_affinity": 0.5416469890028593, "truncation_rate": 0.4453125},
+        {"id": "tmax_15k", "readiness": 0.53125, "reward_information": 0.27054888250969183, "cost": 8.807065626325764, "target_affinity": 0.618513302984756, "truncation_rate": 0.0078125},
+        {"id": "termigen", "readiness": 0.6015625, "reward_information": 0.1879933610628592, "cost": 8.63225205820693, "target_affinity": 0.7830787779966393, "truncation_rate": 0.0390625},
+        {"id": "terminal_traj", "readiness": 0.078125, "reward_information": 0.02166084939249829, "cost": 8.736483593168447, "target_affinity": 0.5604059293384074, "truncation_rate": 0.3046875}
+      ],
+      "outcomes": {
+        "terminal_bench_2_1": {"cli_gym": 0.09, "endless": 0.094, "open_thinker": 0.09, "swe_smith": 0.049, "tmax_15k": 0.127, "termigen": 0.09, "terminal_traj": 0.019},
+        "terminal_bench_lite": {"cli_gym": 0.088, "endless": 0.107, "open_thinker": 0.111, "swe_smith": 0.053, "tmax_15k": 0.153, "termigen": 0.075, "terminal_traj": 0.039}
+      },
+      "probe": {"attempts_per_task": 4, "tasks_per_candidate": 32, "valid_attempts_total": 896}
+    },
+    {
+      "panel_id": "rlve_six_arm_prospective",
+      "decision_unit": "one prospective six-mixture training comparison",
+      "chronology": "prospective_frozen_before_training_outcomes",
+      "feature_contract": {
+        "cost": "mean_log_output_tokens",
+        "readiness": "warm_start_mean_native_reward",
+        "reward_information": "mean_reward_entropy",
+        "target_affinity": "normalized_target_similarity"
+      },
+      "candidates": [
+        {"id": "slot_0", "readiness": 0.5215683097668021, "reward_information": 0.22722718372469522, "cost": 8.291226022086661, "target_affinity": 0.31350455450700965},
+        {"id": "slot_1", "readiness": 0.28581247355793843, "reward_information": 0.5684914291048118, "cost": 8.418164198254885, "target_affinity": 0.32979014203671014},
+        {"id": "slot_2", "readiness": 0.9375, "reward_information": 0.0, "cost": 8.207827125219016, "target_affinity": 0.3099624993340268},
+        {"id": "slot_3", "readiness": 0.4613204468089672, "reward_information": 0.38702888171850436, "cost": 8.506224196643126, "target_affinity": 0.3384329348335186},
+        {"id": "slot_4", "readiness": -0.015560699588477361, "reward_information": 0.23826934331748117, "cost": 8.379411440430633, "target_affinity": 0.33585218465783356},
+        {"id": "slot_5", "readiness": 0.5546875, "reward_information": 0.20025698943234077, "cost": 8.161774623575358, "target_affinity": 0.3096992457162382}
+      ],
+      "outcomes": {
+        "update_20": {"slot_0": 0.0336, "slot_1": 0.0412, "slot_2": 0.0368, "slot_3": 0.0348, "slot_4": 0.0376, "slot_5": 0.036},
+        "update_60": {"slot_0": 0.0556, "slot_1": 0.058, "slot_2": 0.0512, "slot_3": 0.0524, "slot_4": 0.062, "slot_5": 0.0528}
+      },
+      "probe": {"constituent_environments_per_candidate": 16, "held_out_tasks": 2500, "training_seeds": 1}
+    }
+  ]
+}
