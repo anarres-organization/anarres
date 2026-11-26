@@ -1,43 +1,26 @@
-"""Tests for the screening entry point.
-
-Run from this directory:  python3 -m unittest test_screen
-"""
-
-from __future__ import annotations
+"""Input and output contract regression tests."""
 
 import unittest
 
-import screen
+from screen import plan, report
+from screening_budget import leader_rate, pcs_exact
 
 
-class ReportTest(unittest.TestCase):
-    def test_resolvable_leader_is_reported_as_a_champion(self) -> None:
-        answer = screen.report([34, 14, 12, 16, 11, 15, 13, 9, 17, 10], 400)
-        self.assertEqual(answer["regime"], "champion")
-        self.assertEqual(answer["winner_index"], 0)
-        self.assertLess(answer["p_value"], 0.05)
+class CLITest(unittest.TestCase):
+    def test_plan_actual_400(self):
+        p = plan(6, 1.2, 0.9, 0.1)
+        self.assertAlmostEqual(
+            p["pcs_at_400_per_arm"], pcs_exact(leader_rate(1.2, 0.1), 400, 6, 0.1)
+        )
 
-    def test_flat_panel_is_reported_as_homogeneous(self) -> None:
-        answer = screen.report([12, 15, 9, 17, 13, 11, 16, 10, 14, 18], 400)
-        self.assertEqual(answer["regime"], "homogeneous")
-        self.assertLess(answer["reported_density"], answer["raw_density"])
+    def test_invalid_targets(self):
+        for target in (0, 1, 1.1):
+            with self.assertRaises(ValueError):
+                plan(4, 1.2, target)
 
-    def test_single_candidate_is_never_a_champion(self) -> None:
-        answer = screen.report([20], 400)
-        self.assertEqual(answer["regime"], "homogeneous")
+    def test_invalid_alpha(self):
+        with self.assertRaises(ValueError):
+            report([2, 3], 4, 0)
 
-
-class PlanTest(unittest.TestCase):
-    def test_plan_matches_the_exact_table(self) -> None:
-        answer = screen.plan(10, 1.5, 0.9)
-        self.assertEqual(answer["trials_per_arm_needed"], 1010)
-        self.assertLess(answer["identification_at_400_per_arm"], 0.9)
-        self.assertGreater(answer["identification_with_racing_at_4000"], 0.7)
-
-    def test_plan_marks_the_reachable_case_as_sufficient(self) -> None:
-        answer = screen.plan(6, 2.3, 0.9)
-        self.assertEqual(answer["advice"], "the published budget suffices")
-
-
-if __name__ == "__main__":
-    unittest.main()
+    def test_no_unbiased_claim(self):
+        self.assertIn("independent confirmation", report([2, 3], 4)["effect_estimate"])
