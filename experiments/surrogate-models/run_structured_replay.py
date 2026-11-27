@@ -616,11 +616,11 @@ def score(prediction_receipt: dict[str, Any] | None = None) -> dict[str, Any]:
             "cost_criterion_scored": cost_criterion_scored,
             "abstention_criterion_scored": abstention_criterion_scored,
             "passed": gate_passed,
-            "record_conditioned_gpu_authorized": gate_passed,
+            "prospective_followup_authorized": gate_passed,
             "decision": (
-                "advance to the frozen record-conditioned comparison"
+                "advance to a prospectively frozen follow-up"
                 if gate_passed
-                else "do not launch the record-conditioned GPU comparison"
+                else "do not advance this structured predictor to a prospective test"
             ),
         },
         "prediction_receipt": prediction_receipt,

@@ -41,6 +41,13 @@ surrogates it compares against. These are useful later baselines when Anarres
 has enough compatible curves. They do not justify fitting a Transformer to the
 current archive by default.
 
+[TabPFN-3.5](https://arxiv.org/abs/2609.17895) extends tabular foundation models
+to grouped and temporal splits as well as tables containing text and images.
+Those capabilities make it a relevant later baseline for mixed experimental
+records. The present seed-level archive contains too few independent candidate
+interventions to treat model capacity as evidence; complete-study splitting
+and support diagnostics remain necessary.
+
 ## Transfer across tasks and studies
 
 The [transfer-learning survey for Bayesian
@@ -94,6 +101,27 @@ experimental history, rather than one mathematics replay, the relevant scale
 for the Anarres program. An Anarres record-conditioned language-model baseline
 should receive the same permitted history as every other method and should be
 scored against simpler predictors.
+
+[LLAMBO](https://arxiv.org/abs/2402.03921) conditions language-model surrogate
+predictions and candidate generation on prior evaluations, with its strongest
+motivation in data-sparse optimization. [AI Research Preference
+Models](https://arxiv.org/abs/2608.13940) instead ranks candidate plans using
+code, prior executed solutions, and optionally small pilot experiments. These
+results support panel-level ranking, matched history ablations, and explicit
+pilot cost rather than relying only on absolute-score prediction.
+
+A [reproduction of language-model Bayesian
+optimization](https://arxiv.org/abs/2511.18891) finds that the language-model
+surrogate can be weaker than Gaussian-process and SMAC baselines as a
+single-task regressor even when cross-task semantic priors help. This makes a
+matched semantic nearest-neighbor or regression baseline necessary; an LLM is
+not a strong baseline merely because it can read richer records.
+
+[Can We Predict Before Executing Machine Learning
+Agents?](https://arxiv.org/abs/2601.05930) uses verified reports to predict
+candidate preferences and then returns to execution in a predict-then-verify
+loop. Its design supports a bounded selector, but not replacing protected
+execution with surrogate judgment.
 
 [WhatWorkedBench](https://arxiv.org/abs/2609.27490) evaluates whether agents can
 inspect workflow code, purchase a limited number of measurements, reconstruct
@@ -163,6 +191,16 @@ inside probabilistic surrogates and cautions that language-model uncertainty is
 not automatically suitable for exploration. Any language-model surrogate used
 by Anarres needs empirical interval or event calibration. Verbal confidence is
 not an uncertainty estimate.
+
+[On the Role of Model Uncertainties in Bayesian
+Optimization](https://proceedings.mlr.press/v216/foldager23a.html) compares
+surrogates on calibration and regret and finds that the apparent relationship
+between them depends on the surrogate family. [Online Calibrated and Conformal
+Prediction Improves Bayesian
+Optimization](https://proceedings.mlr.press/v238/deshpande24a.html) shows how
+online calibration can improve sequential decisions. Together they support
+reporting confidence only as a diagnostic in the current replay and requiring
+held-out calibration before confidence controls acquisition or abstention.
 
 [Bayesian Optimization with Formal Safety Guarantees via Online Conformal
 Prediction](https://arxiv.org/abs/2306.17815) studies optimization with a bound

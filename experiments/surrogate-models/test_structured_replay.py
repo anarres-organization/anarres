@@ -48,10 +48,10 @@ class StructuredReplayTest(unittest.TestCase):
         self.assertFalse(result["advancement_gate"]["cost_criterion_scored"])
         self.assertFalse(result["advancement_gate"]["abstention_criterion_scored"])
         self.assertFalse(result["advancement_gate"]["passed"])
-        self.assertFalse(result["advancement_gate"]["record_conditioned_gpu_authorized"])
+        self.assertFalse(result["advancement_gate"]["prospective_followup_authorized"])
         self.assertEqual(
             result["advancement_gate"]["decision"],
-            "do not launch the record-conditioned GPU comparison",
+            "do not advance this structured predictor to a prospective test",
         )
 
 

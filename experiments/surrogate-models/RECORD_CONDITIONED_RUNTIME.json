@@ -1,0 +1,35 @@
+{
+  "artifact": "anarres_record_conditioned_runtime_v1",
+  "status": "completed inference runtime record",
+  "model": {
+    "id": "openai/gpt-oss-120b",
+    "revision": "b5c939de8f754692c1647ca79fbf85e8c1e70f8a",
+    "reasoning_effort": "high",
+    "native_quantization": "mxfp4"
+  },
+  "serving": {
+    "engine": "vLLM",
+    "version": "0.19.0",
+    "hardware": "one NVIDIA B200",
+    "served_context_tokens": 65536,
+    "max_output_tokens": 32768
+  },
+  "execution": {
+    "requests": 36,
+    "attempts": 36,
+    "retries": 0,
+    "normal_completions": 36,
+    "prompt_tokens": 115982,
+    "completion_tokens": 117701,
+    "total_tokens": 233683,
+    "summed_request_seconds": 517.5045868392335
+  },
+  "inputs": {
+    "contract_sha256": "f26e04eb6859194673203d42c3f638f728151d817e55e7ba8edce25da8025775",
+    "prompts_sha256": "24661524a4126c44e265f014515ca14e2748a07bca53b540c28ecf181b5e78d1"
+  },
+  "outputs": {
+    "predictions_sha256": "4a12d3d10a87f0412ec677f28badf3e6dfa1766e376941b37fc322cf57c0ca7e",
+    "prediction_receipt_sha256": "e6002e49bb65fbc27f5d0238802b39dc0dbdfeab6a442e3c69a202e2bad51496"
+  }
+}
