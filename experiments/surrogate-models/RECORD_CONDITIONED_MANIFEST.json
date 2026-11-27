@@ -1,0 +1,33 @@
+{
+  "artifact": "anarres_record_conditioned_replay_inputs_v1",
+  "conditions": [
+    "zero_history_without_measurements",
+    "cross_history_without_measurements",
+    "zero_history_with_measurements",
+    "cross_history_with_measurements"
+  ],
+  "contract_sha256": "f26e04eb6859194673203d42c3f638f728151d817e55e7ba8edce25da8025775",
+  "heldout_studies": [
+    "four_scale_environment_utility",
+    "mlip_phonon_environment_selection",
+    "prospective_cupid_can_v141",
+    "prospective_pusht",
+    "prospective_square_regression_v1",
+    "prospective_syllogym_environment_selection"
+  ],
+  "label_access": "predictions must be written and hashed before scoring opens this artifact",
+  "model_inputs_sha256": "17242e69e0dfe82b0571babb4753bbcaf2e594ebfa4451fd1db3615c42104145",
+  "prompts": {
+    "path": "RECORD_CONDITIONED_INPUTS.jsonl",
+    "rows": 36,
+    "sha256": "24661524a4126c44e265f014515ca14e2748a07bca53b540c28ecf181b5e78d1"
+  },
+  "protected_labels_sha256": "c6eb5e75e6df2b91d52bcc3105ce39d0b21816a125c360d620457eb18cebdd2f",
+  "status": "frozen before model inference",
+  "target_panels": 9,
+  "targets": {
+    "path": "RECORD_CONDITIONED_LABELS.jsonl",
+    "rows": 36,
+    "sha256": "3e49539da825f76268ea685adc9d5abc66af2a807a0c30f73e41131e2af0ff59"
+  }
+}

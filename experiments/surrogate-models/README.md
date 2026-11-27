@@ -34,9 +34,10 @@ Measurements improve substantially over the metadata baseline in the materials
 and finance bridges. They do not improve the six-study seed-level suite, where
 the methods remain tied. The replay also does not yet charge measurement and
 surrogate costs or define an abstention rule. The frozen advancement gate
-therefore does not authorize the record-conditioned GPU comparison. This is a
-retrospective result, not evidence against a later surrogate with richer,
-properly qualified inputs.
+therefore does not advance this structured predictor to a prospective test. It
+does not gate the matched record-conditioned comparison in the accepted
+research plan. This is a retrospective result, not evidence against a later
+surrogate with richer, properly qualified inputs.
 
 Reproduce the complete fit and score with:
 
@@ -47,6 +48,67 @@ uv run --group surrogate-test python \
 
 The prediction file and fit receipt are written before the scorer opens the
 held-out outcome fields.
+
+### Record-conditioned replay
+
+The [record-conditioned protocol](RECORD_CONDITIONED_PROTOCOL.md) implements
+the next comparison in the accepted research plan. It holds out complete
+studies and separately varies access to cross-study experimental history and
+Anarres measurements. A single query ranks every candidate in a matched panel.
+Target-study outcomes remain in a protected artifact until predictions are
+written and content-addressed.
+
+Matched TF-IDF ridge and nearest-neighbor baselines use the same semantic
+records and measurement ablation. Their hyperparameters are selected only
+inside each outer training fold. The frozen model, prompt conditions, scoring
+rules, and contamination boundary are recorded in
+[`RECORD_CONDITIONED_CONTRACT.json`](RECORD_CONDITIONED_CONTRACT.json).
+
+The completed retrospective comparison is released in
+[`RECORD_CONDITIONED_RESULTS.json`](RECORD_CONDITIONED_RESULTS.json). All 36
+requests completed on their first attempt. The runtime used 233,683 total
+tokens and is recorded in
+[`RECORD_CONDITIONED_RUNTIME.json`](RECORD_CONDITIONED_RUNTIME.json).
+
+| Condition | Regret | Pairwise ordering | Top-choice credit |
+| --- | ---: | ---: | ---: |
+| No history, no measurements | 0.187 | 72.6% | 71.4% |
+| Cross-study history, no measurements | 0.460 | 65.3% | 20.1% |
+| No history, with measurements | **0.182** | **79.9%** | 66.7% |
+| Cross-study history, with measurements | 0.325 | 68.3% | 36.1% |
+| Best matched text baseline | 0.377 | 69.3% | 33.3% |
+
+Measurements lower the point estimate of regret in both matched comparisons,
+but neither six-study cluster-bootstrap interval excludes no improvement. The
+best record-conditioned condition also has lower regret than the best matched
+text baseline, but its interval includes no improvement. These are promising
+point estimates, not a stable cross-study advantage.
+
+Cross-study outcome history makes selection worse. Without measurements, the
+regret change is -0.273 in the improvement direction, with a 95% interval of
+[-0.532, -0.027]. With measurements, the change is -0.143, with an interval of
+[-0.393, 0.030]. The current archive therefore does not support the proposed
+benefit from accumulated outcomes. Released native rules are reported
+separately because none covers the same nine target panels under the common
+scoring contract.
+
+This result does not pass the prospective advancement gate. The archive has
+only six independent studies, lacks a common measurement-cost field, and does
+not establish calibrated uncertainty or a cost-aware abstention rule. The next
+useful step is to add more independent experimental records and qualify a
+history representation on development studies before another frozen replay.
+
+Verify the frozen inputs, refit the matched text baselines, and rescore the
+content-addressed predictions with:
+
+```bash
+uv run --group surrogate-test python \
+  experiments/surrogate-models/build_record_conditioned_replay.py --check
+uv run --group surrogate-test python \
+  experiments/surrogate-models/run_matched_text_baselines.py --run
+uv run --group surrogate-test python \
+  experiments/surrogate-models/score_record_conditioned_model.py
+```
 
 ### 2. Learned multimodal surrogate
 
@@ -87,5 +149,7 @@ Study-local records should first exercise the lifecycle described in [RFC 0004](
 6. [Frozen baseline contract](BASELINE_CONTRACT.json)
 7. [Released baseline audit](BASELINE_AUDIT.json)
 8. [Separated model-input contract](MODEL_INPUT_CONTRACT.md)
-9. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
-10. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)
+9. [Record-conditioned replay](RECORD_CONDITIONED_PROTOCOL.md)
+10. [Record-conditioned results](RECORD_CONDITIONED_RESULTS.json)
+11. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
+12. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)

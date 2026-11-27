@@ -35,9 +35,9 @@
     },
     "cost_criterion_scored": false,
     "criterion": "Measurement ridge must improve study-macro normalized regret over the strongest simple baseline on every complete-study suite, retain the gain after costs, avoid increased regression selection, and declare abstention.",
-    "decision": "do not launch the record-conditioned GPU comparison",
+    "decision": "do not advance this structured predictor to a prospective test",
     "passed": false,
-    "record_conditioned_gpu_authorized": false,
+    "prospective_followup_authorized": false,
     "regret_and_regression_pass": false
   },
   "artifact": "anarres_structured_surrogate_replay_v1",
