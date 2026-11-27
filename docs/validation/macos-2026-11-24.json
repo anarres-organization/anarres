@@ -1,0 +1,1829 @@
+{
+  "record_type": "macos_software_validation_summary",
+  "date": "2026-11-24",
+  "timezone": "UTC+08:00",
+  "initial_tested_commit": "e27d473f224bc95e64e1f391dd49546b742dd1ea",
+  "supplementary_base_commit": "5b4b8f29ccb990012531140be9aca106210fae8b",
+  "environment": {
+    "os": "macOS 27.2.1",
+    "os_build": "26B131",
+    "machine": "arm64",
+    "hardware_model": "Mac17,7",
+    "host_memory_bytes": 137438953472,
+    "logical_cpus": 18,
+    "python_workspace": "3.12.16",
+    "python_isolated_wheels": "3.11.18",
+    "rust": "1.85.1",
+    "uv": "0.13.9",
+    "docker_desktop": "4.100.1 (247138)",
+    "docker_engine": "29.9.3",
+    "docker_compose": "5.7.1",
+    "docker_kernel": "7.0.14-linuxkit",
+    "docker_memory_bytes": 8317202432
+  },
+  "input_lock_sha256": {
+    "uv.lock": "4b46c2237fc0a517fbecdf3a71dd55dd8308dc1945c96203b10871f42930af95",
+    "Cargo.lock": "0c3e3510be2f0d9d97d92d023197df42eb32adc4e9836df52ab7d101a6227a5c"
+  },
+  "initial_standard_checks": {
+    "python_tests": 345,
+    "rust_tests": 44,
+    "materials_tests": 174,
+    "extended_study_checks": 31,
+    "isolated_adapters": 7,
+    "wheels": 9,
+    "profile_inputs": 33,
+    "normalized_records": 33
+  },
+  "initial_stage_results": [
+    {
+      "id": "make-check",
+      "exit_code": 0,
+      "elapsed_seconds": 32.488
+    },
+    {
+      "id": "study-check-extended",
+      "exit_code": 0,
+      "elapsed_seconds": 104.231
+    },
+    {
+      "id": "materials-check",
+      "exit_code": 0,
+      "elapsed_seconds": 12.339
+    },
+    {
+      "id": "docs-build",
+      "exit_code": 0,
+      "elapsed_seconds": 0.896
+    },
+    {
+      "id": "release-smoke",
+      "exit_code": 0,
+      "elapsed_seconds": 14.092
+    },
+    {
+      "id": "adapter-smoke",
+      "exit_code": 0,
+      "elapsed_seconds": 47.947
+    },
+    {
+      "id": "benchmark",
+      "exit_code": 0,
+      "elapsed_seconds": 23.997
+    },
+    {
+      "id": "cli-acceptance-recorded",
+      "exit_code": 0,
+      "elapsed_seconds": 1.103
+    },
+    {
+      "id": "platform-acceptance-corrected",
+      "exit_code": 0,
+      "elapsed_seconds": 4.767
+    },
+    {
+      "id": "standalone-no-runtime",
+      "exit_code": 0,
+      "elapsed_seconds": 0.516
+    }
+  ],
+  "initial_cli_acceptance": {
+    "case_count": 93,
+    "passed": 93,
+    "failed": 0,
+    "cases": [
+      {
+        "id": "version",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "top-level-help",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "no-command-help",
+        "expected_exit": 2,
+        "observed_exit": 2,
+        "passed": true
+      },
+      {
+        "id": "help-demo",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-init",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-inspect",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-qualify",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-probe",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-design",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-adapter",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-generate-shell-completion",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-bash",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-bash-syntax",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-zsh",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-zsh-syntax",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-fish",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-powershell",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-elvish",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "standalone-without-python-or-adapters",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "empty-adapter-discovery",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "missing-adapter-doctor",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "missing-external-subcommand",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "demo-unicode-and-spaces",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "demo-records-valid",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "demo-compatible-design-json",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "demo-design-human-table",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "qualify-policy-probe-json",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "qualify-raw-attempt-stream",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "measure-json-correct-coordinates",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "measurement-byte-determinism",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "overwrite-refused-without-force",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "explicit-force-overwrite",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "measure-raw-attempt-stream",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "validate-raw-and-normalized-record",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "raw-order-independent-digest",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "demo-preflight-is-atomic",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "duplicate-environment-rejected",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "tampered-record-rejected",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "malformed-json",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "empty-json",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "unknown-schema",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "missing-input-file",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "missing-required-argument",
+        "expected_exit": 2,
+        "observed_exit": 2,
+        "passed": true
+      },
+      {
+        "id": "design-requires-two-candidates",
+        "expected_exit": 2,
+        "observed_exit": 2,
+        "passed": true
+      },
+      {
+        "id": "duplicate-task-id",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "negative-token-cost",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "group-size-mismatch",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "prepare-incompatible-policy-record",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "different-policy-comparison-rejected",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "duplicate-raw-attempt-rejected",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "all-seven-adapters-discovered",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-finance-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-finance-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-formal-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-formal-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-legal-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-legal-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-materials-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-materials-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-molecular-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-molecular-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-robotics-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-robotics-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-vulnerability-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-vulnerability-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "explicit-adapter-run",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "init-native-legal-source",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "inspect-native-legal-source",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "qualify-native-legal-source",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "source-init-overwrite-protection",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "unsupported-policy-probe-clear-error",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "raw-source-cannot-be-measured-as-results",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "robotics-a-profile-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "robotics-a-profile-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "robotics-b-profile-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "robotics-b-profile-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "robotics-compatible-profile-panel",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "materials-a-profile-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "materials-a-profile-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "materials-b-profile-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "materials-b-profile-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "materials-compatible-profile-panel",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "legal-a-profile-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "legal-a-profile-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "legal-b-profile-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "legal-b-profile-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "legal-compatible-profile-panel",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "cross-domain-comparison-rejected",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "mixed-manifest-profile-rejected",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "color-disabled-for-pipe",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "json-remains-clean-with-color-always",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      }
+    ]
+  },
+  "initial_platform_acceptance_corrected": {
+    "case_count": 13,
+    "passed": 13,
+    "failed": 0,
+    "cases": [
+      {
+        "id": "native-mach-o-arm64",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "full-core-demo-without-python-or-adapters",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "core-record-validation-without-python",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "fresh-zsh-project-activation-outside-checkout",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "docker-engine-and-compose",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "official-hello-world-container",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "pull-official-alpine-fixture",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "resolve-container-image-digest",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "real-read-only-networkless-restricted-container",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "mac-unicode-bind-mount-roundtrip",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "local-docker-build",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "run-locally-built-container",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "cleanup-test-built-image",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      }
+    ]
+  },
+  "initial_empty_path_acceptance": {
+    "case_count": 4,
+    "passed": 4,
+    "failed": 0,
+    "cases": [
+      {
+        "id": "version-with-empty-path",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "demo-with-empty-path",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "validate-with-empty-path",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "design-with-empty-path",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      }
+    ]
+  },
+  "initial_platform_correction": {
+    "passed": 12,
+    "failed": 1,
+    "reason": "test-only assumption that network=none exposes exactly the loopback interface"
+  },
+  "initial_source_integrity": {
+    "tracked_files_checked": 1481,
+    "tracked_files_changed": 0
+  },
+  "performance": {
+    "observed_binary_bytes": 1900416,
+    "observed_binary_sha256": "aa6624716c91a822e71997b42d37c17a68e3dbf6522b8d345cc24c197be8fd43",
+    "warmups": 3,
+    "samples_per_scenario": 20,
+    "scenario_count": 32,
+    "metrics": {
+      "adapter.descriptor.finance": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 52.294,
+        "minimum_ms": 50.501,
+        "p95_ms": 62.309,
+        "samples": 20
+      },
+      "adapter.descriptor.formal": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 28.923,
+        "minimum_ms": 27.939,
+        "p95_ms": 30.502,
+        "samples": 20
+      },
+      "adapter.descriptor.legal": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 26.361,
+        "minimum_ms": 25.934,
+        "p95_ms": 26.772,
+        "samples": 20
+      },
+      "adapter.descriptor.materials": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 26.257,
+        "minimum_ms": 25.633,
+        "p95_ms": 28.166,
+        "samples": 20
+      },
+      "adapter.descriptor.molecular": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 27.774,
+        "minimum_ms": 27.366,
+        "p95_ms": 28.909,
+        "samples": 20
+      },
+      "adapter.descriptor.robotics": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 28.462,
+        "minimum_ms": 27.861,
+        "p95_ms": 29.538,
+        "samples": 20
+      },
+      "adapter.descriptor.vulnerability": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 24.825,
+        "minimum_ms": 24.225,
+        "p95_ms": 25.45,
+        "samples": 20
+      },
+      "adapter.direct_status.finance": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 52.729,
+        "minimum_ms": 52.103,
+        "p95_ms": 53.881,
+        "samples": 20
+      },
+      "adapter.direct_status.formal": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 36.03,
+        "minimum_ms": 35.361,
+        "p95_ms": 37.084,
+        "samples": 20
+      },
+      "adapter.direct_status.legal": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 27.427,
+        "minimum_ms": 27.081,
+        "p95_ms": 28.158,
+        "samples": 20
+      },
+      "adapter.direct_status.materials": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 39.411,
+        "minimum_ms": 38.86,
+        "p95_ms": 41.899,
+        "samples": 20
+      },
+      "adapter.direct_status.molecular": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 41.215,
+        "minimum_ms": 40.652,
+        "p95_ms": 41.82,
+        "samples": 20
+      },
+      "adapter.direct_status.robotics": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 30.961,
+        "minimum_ms": 30.393,
+        "p95_ms": 31.414,
+        "samples": 20
+      },
+      "adapter.direct_status.vulnerability": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 26.32,
+        "minimum_ms": 25.369,
+        "p95_ms": 27.107,
+        "samples": 20
+      },
+      "adapter.doctor.materials": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 34.888,
+        "minimum_ms": 28.209,
+        "p95_ms": 48.938,
+        "samples": 20
+      },
+      "adapter.list": {
+        "guard": {
+          "maximum_ms": 50.0,
+          "metric": "p95_ms"
+        },
+        "median_ms": 13.56,
+        "minimum_ms": 13.07,
+        "p95_ms": 14.978,
+        "samples": 20
+      },
+      "adapter.profile.finance": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 59.194,
+        "minimum_ms": 56.28,
+        "p95_ms": 66.11,
+        "samples": 20
+      },
+      "adapter.profile.formal": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 33.461,
+        "minimum_ms": 33.159,
+        "p95_ms": 35.343,
+        "samples": 20
+      },
+      "adapter.profile.legal": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 32.653,
+        "minimum_ms": 31.916,
+        "p95_ms": 33.404,
+        "samples": 20
+      },
+      "adapter.profile.materials": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 41.54,
+        "minimum_ms": 40.653,
+        "p95_ms": 43.042,
+        "samples": 20
+      },
+      "adapter.profile.molecular": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 41.004,
+        "minimum_ms": 40.738,
+        "p95_ms": 41.855,
+        "samples": 20
+      },
+      "adapter.profile.robotics": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 34.849,
+        "minimum_ms": 34.355,
+        "p95_ms": 36.011,
+        "samples": 20
+      },
+      "adapter.status.finance": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 54.565,
+        "minimum_ms": 53.881,
+        "p95_ms": 55.89,
+        "samples": 20
+      },
+      "adapter.status.formal": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 37.926,
+        "minimum_ms": 37.274,
+        "p95_ms": 38.782,
+        "samples": 20
+      },
+      "adapter.status.legal": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 29.249,
+        "minimum_ms": 28.254,
+        "p95_ms": 29.61,
+        "samples": 20
+      },
+      "adapter.status.materials": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 41.029,
+        "minimum_ms": 40.746,
+        "p95_ms": 43.456,
+        "samples": 20
+      },
+      "adapter.status.molecular": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 43.058,
+        "minimum_ms": 42.299,
+        "p95_ms": 44.914,
+        "samples": 20
+      },
+      "adapter.status.robotics": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 33.098,
+        "minimum_ms": 32.709,
+        "p95_ms": 34.372,
+        "samples": 20
+      },
+      "adapter.status.vulnerability": {
+        "guard": {
+          "maximum_ms": 200.0,
+          "metric": "median_ms"
+        },
+        "median_ms": 28.172,
+        "minimum_ms": 27.54,
+        "p95_ms": 29.413,
+        "samples": 20
+      },
+      "native.qualify": {
+        "guard": {
+          "maximum_ms": 50.0,
+          "metric": "p95_ms"
+        },
+        "median_ms": 2.487,
+        "minimum_ms": 2.285,
+        "p95_ms": 3.175,
+        "samples": 20
+      },
+      "native.validate": {
+        "guard": {
+          "maximum_ms": 50.0,
+          "metric": "p95_ms"
+        },
+        "median_ms": 2.447,
+        "minimum_ms": 2.117,
+        "p95_ms": 2.772,
+        "samples": 20
+      },
+      "native.version": {
+        "guard": {
+          "maximum_ms": 50.0,
+          "metric": "p95_ms"
+        },
+        "median_ms": 2.418,
+        "minimum_ms": 1.986,
+        "p95_ms": 2.788,
+        "samples": 20
+      }
+    },
+    "violations": [],
+    "release_startup_40_samples": {
+      "maximum_p95_ms": 50.0,
+      "samples": 40,
+      "startup_median_ms": 2.385,
+      "startup_p95_ms": 3.096,
+      "version": "anarres 0.4.1"
+    }
+  },
+  "supplementary_acceptance": {
+    "case_count": 106,
+    "passed": 106,
+    "failed": 0,
+    "docker_requested": true,
+    "cases": [
+      {
+        "id": "version",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "top-level-help",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "no-command-help",
+        "expected_exit": 2,
+        "observed_exit": 2,
+        "passed": true
+      },
+      {
+        "id": "help-demo",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-init",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-inspect",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-qualify",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-probe",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-design",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-adapter",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "help-generate-shell-completion",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-bash",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-bash-syntax",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-zsh",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-zsh-syntax",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-fish",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-powershell",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "completion-elvish",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "standalone-with-system-path",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "empty-adapter-discovery",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "missing-adapter-doctor",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "missing-external-subcommand",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "demo-unicode-and-spaces",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "demo-records-valid",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "demo-compatible-design-json",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "demo-design-human-table",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "qualify-policy-probe-json",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "qualify-raw-attempt-stream",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "measure-json-correct-coordinates",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "measurement-byte-determinism",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "overwrite-refused-without-force",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "explicit-force-overwrite",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "measure-raw-attempt-stream",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "validate-raw-and-normalized-record",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "raw-order-independent-digest",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "demo-preflight-is-atomic",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "duplicate-environment-rejected",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "tampered-record-rejected",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "malformed-json",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "empty-json",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "unknown-schema",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "missing-input-file",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "missing-required-argument",
+        "expected_exit": 2,
+        "observed_exit": 2,
+        "passed": true
+      },
+      {
+        "id": "design-requires-two-candidates",
+        "expected_exit": 2,
+        "observed_exit": 2,
+        "passed": true
+      },
+      {
+        "id": "duplicate-task-id",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "negative-token-cost",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "group-size-mismatch",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "prepare-incompatible-policy-record",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "different-policy-comparison-rejected",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "duplicate-raw-attempt-rejected",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "all-seven-adapters-discovered",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-finance-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-finance-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-formal-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-formal-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-legal-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-legal-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-materials-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-materials-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-molecular-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-molecular-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-robotics-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-robotics-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-vulnerability-doctor",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "adapter-vulnerability-status",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "explicit-adapter-run",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "init-native-legal-source",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "inspect-native-legal-source",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "qualify-native-legal-source",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "source-init-overwrite-protection",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "unsupported-policy-probe-clear-error",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "raw-source-cannot-be-measured-as-results",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "robotics-a-profile-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "robotics-a-profile-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "robotics-b-profile-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "robotics-b-profile-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "robotics-compatible-profile-panel",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "materials-a-profile-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "materials-a-profile-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "materials-b-profile-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "materials-b-profile-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "materials-compatible-profile-panel",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "legal-a-profile-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "legal-a-profile-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "legal-b-profile-measure",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "legal-b-profile-validate",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "legal-compatible-profile-panel",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "cross-domain-comparison-rejected",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "mixed-manifest-profile-rejected",
+        "expected_exit": 1,
+        "observed_exit": 1,
+        "passed": true
+      },
+      {
+        "id": "color-disabled-for-pipe",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "json-remains-clean-with-color-always",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "copied-version-empty-path",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "copied-demo-empty-path",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "copied-validate-empty-path",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "copied-design-empty-path",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "docker-engine-and-compose",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "official-hello-world-container",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "pull-official-alpine-fixture",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "resolve-container-image-digest",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "real-read-only-networkless-restricted-container",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "mac-unicode-bind-mount-roundtrip",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "local-docker-build",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "run-locally-built-container",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      },
+      {
+        "id": "cleanup-test-built-image",
+        "expected_exit": 0,
+        "observed_exit": 0,
+        "passed": true
+      }
+    ]
+  },
+  "supplementary_source_install": {
+    "passed": true,
+    "commands": [
+      {
+        "arguments": [
+          "--version"
+        ],
+        "exit_code": 0
+      },
+      {
+        "arguments": [
+          "demo"
+        ],
+        "exit_code": 0
+      },
+      {
+        "arguments": [
+          "validate",
+          ".anarres/demo/environment.json",
+          "--json"
+        ],
+        "exit_code": 0
+      },
+      {
+        "arguments": [
+          "design",
+          ".anarres/demo/environment.json",
+          ".anarres/demo/environment-alternative.json",
+          "--json"
+        ],
+        "exit_code": 0
+      }
+    ]
+  },
+  "evidence_scope": "Compact observed results. Raw logs and generated records are retained locally and are not published in this repository.",
+  "docker_alpine_fixture_observations": {
+    "initial": {
+      "repository_digests": [
+        "alpine@sha256:49340b346798875b5592e5d420241f2f9cfba5f47e62ebb1446a1b34734e898f"
+      ],
+      "image_id": "sha256:49340b346798875b5592e5d420241f2f9cfba5f47e62ebb1446a1b34734e898f",
+      "os": "linux",
+      "architecture": "arm64"
+    },
+    "supplementary": {
+      "repository_digests": [
+        "alpine@sha256:49340b346798875b5592e5d420241f2f9cfba5f47e62ebb1446a1b34734e898f"
+      ],
+      "image_id": "sha256:49340b346798875b5592e5d420241f2f9cfba5f47e62ebb1446a1b34734e898f",
+      "os": "linux",
+      "architecture": "arm64"
+    }
+  },
+  "supplementary_runner_guards": {
+    "without_docker_on_path": {
+      "case_count": 97,
+      "passed": 97,
+      "failed": 0
+    },
+    "existing_evidence_refused": {
+      "exit_code": 2,
+      "evidence_unchanged": true
+    },
+    "missing_binary_refused": {
+      "exit_code": 2,
+      "output_directory_created": false
+    }
+  }
+}
