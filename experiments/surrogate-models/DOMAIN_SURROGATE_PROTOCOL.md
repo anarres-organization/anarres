@@ -88,6 +88,26 @@ the present representation has no demonstrated value. A stronger model must
 improve the held-out decisions in that sparse suite without giving up the
 domain-specific results. Model scale alone is not an accepted explanation.
 
+## Record-conditioned comparison
+
+The next comparison uses an outcome-blind balanced panel sample rather than
+giving a language model every available panel. At most two target panels are
+selected per independent study or coding decision. Each retrieved history unit
+is a complete candidate comparison from outside the held-out group. Retrieval
+uses only domain, metric, intervention, and measurement-field tokens, then
+balances up to four same-domain and four cross-domain panels.
+
+Four conditions isolate measurements and retrieved experimental history. The
+same qualified open model is reused from the closed six-study replay so the
+first comparison tests the new archive and retrieval rule rather than changing
+the model simultaneously. A different backbone may enter only as a later
+development comparison under the same frozen prompts.
+
+Fixed TF-IDF ridge and nearest-neighbor baselines use settings selected before
+this benchmark. Their best study-macro result is 67.9% pairwise ordering and
+0.274 normalized regret. The record-conditioned model must improve a decision
+metric over that semantic baseline; beating chance is insufficient.
+
 ## Model comparison
 
 The comparison uses the same information cutoff and candidate panels for every

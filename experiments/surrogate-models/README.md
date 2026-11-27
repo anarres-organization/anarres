@@ -153,12 +153,27 @@ development, not a universal cross-domain surrogate claim. The advancement
 gate remains closed because costs and abstention are not yet scored and
 localized regression calibration is a separate endpoint.
 
+The next record-conditioned comparison is frozen in
+[`DOMAIN_RECORD_CONDITIONED_CONTRACT.json`](DOMAIN_RECORD_CONDITIONED_CONTRACT.json).
+An outcome-blind hash selects at most two panels per independent study or
+coding decision, producing 89 panels across 51 groups. Retrieval selects whole
+comparison panels from outside the held-out group and balances same-domain
+with cross-domain history. This prevents the 805 materials panels from
+dominating the test and prevents retrieval from selecting isolated winners.
+
+The matched text baselines are released in
+[`DOMAIN_MATCHED_TEXT_BASELINE_RESULTS.json`](DOMAIN_MATCHED_TEXT_BASELINE_RESULTS.json).
+The best reaches 67.9% study-macro pairwise ordering and 0.274 normalized
+regret. These are the minimum semantic baselines for the frozen language-model
+comparison. The model outputs have not been run or scored in this release.
+
 Rebuild and verify this view with:
 
 ```bash
 python experiments/surrogate-models/build_domain_surrogate_inventory.py --check
 python experiments/surrogate-models/build_domain_surrogate_splits.py --check
 python experiments/surrogate-models/build_domain_model_views.py --check
+python experiments/surrogate-models/build_domain_record_conditioned_replay.py --check
 uv run --group surrogate-test python \
   experiments/surrogate-models/run_domain_structured_replay.py --run
 ```
@@ -208,5 +223,7 @@ Study-local records should first exercise the lifecycle described in [RFC 0004](
 12. [Domain-centered inventory](DOMAIN_SURROGATE_INVENTORY.json)
 13. [Domain-centered grouped splits](DOMAIN_SURROGATE_SPLITS.json)
 14. [Domain-centered structured replay](DOMAIN_STRUCTURED_RESULTS.json)
-15. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
-16. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)
+15. [Domain record-conditioned contract](DOMAIN_RECORD_CONDITIONED_CONTRACT.json)
+16. [Domain matched text baselines](DOMAIN_MATCHED_TEXT_BASELINE_RESULTS.json)
+17. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
+18. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)

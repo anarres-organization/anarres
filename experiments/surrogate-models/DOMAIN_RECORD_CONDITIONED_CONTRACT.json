@@ -1,0 +1,55 @@
+{
+  "artifact": "anarres_domain_record_conditioned_contract_v1",
+  "status": "frozen before model inference",
+  "scientific_question": "Does outcome-blind retrieval of complete experimental panels improve environment selection on held-out studies or decisions beyond the same model using target measurements alone?",
+  "source": "DOMAIN_SURROGATE_RECORDS.jsonl",
+  "independent_unit": "complete study or agentic-coding training decision",
+  "target_panel_selection": {
+    "maximum_panels_per_group": 2,
+    "rule": "Select panels with the smallest SHA-256 digest of study_id and panel_id; the rule never reads outcomes."
+  },
+  "conditions": [
+    "zero_history_without_measurements",
+    "retrieved_history_without_measurements",
+    "zero_history_with_measurements",
+    "retrieved_history_with_measurements"
+  ],
+  "retrieval": {
+    "unit": "complete candidate panel",
+    "eligible_history": "panels from groups other than the held-out study or decision",
+    "similarity": "Jaccard similarity over outcome-free domain, metric, intervention, and measurement-field tokens",
+    "same_domain_panels": 4,
+    "cross_domain_panels": 4,
+    "tie_break": "SHA-256 of the history study and panel identities",
+    "outcome_rule": "Outcomes are exposed only after an entire history panel has been selected."
+  },
+  "model": {
+    "model_id": "openai/gpt-oss-120b",
+    "revision": "b5c939de8f754692c1647ca79fbf85e8c1e70f8a",
+    "reasoning_effort": "high",
+    "temperature": 0,
+    "seed": 0,
+    "max_output_tokens": 32768,
+    "max_attempts": 2,
+    "retry_rule": "Repeat the identical request once only when serving returns no valid final JSON. Record and charge every attempt.",
+    "context_tokens": 131072,
+    "served_context_tokens": 65536,
+    "selection_reason": "Reuse the already qualified open baseline to isolate the value of the larger domain-centered archive and retrieved research history before comparing another backbone."
+  },
+  "matched_text_baselines": {
+    "tfidf_ridge_alpha": 0.01,
+    "tfidf_knn_neighbors": 5,
+    "selection_rule": "Use the modal settings from the closed six-study replay; do not retune them on this domain benchmark."
+  },
+  "primary_metrics": [
+    "study-macro normalized allocation regret",
+    "study-macro pairwise ordering accuracy",
+    "study-macro top-choice credit"
+  ],
+  "primary_contrast": "retrieved_history_with_measurements versus zero_history_with_measurements",
+  "secondary_contrasts": [
+    "zero_history_with_measurements versus zero_history_without_measurements",
+    "retrieved_history_with_measurements versus retrieved_history_without_measurements"
+  ],
+  "claim_boundary": "Retrospective development replay. Public-record exposure remains possible, the panel sample is outcome-blind but incomplete, and confidence is not a calibrated uncertainty estimate."
+}
