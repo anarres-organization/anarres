@@ -6,7 +6,7 @@
     "zero_history_with_measurements",
     "retrieved_history_with_measurements"
   ],
-  "contract_sha256": "c5fb30eba5d541210072bf341077b7463d2d7f1d9854650025bfac7d65839671",
+  "contract_sha256": "4650a7b33eeea3f762ca0b8ebe108b9b22d42de07d8896e2766418ea4d74b5f8",
   "heldout_groups": 51,
   "label_access": "predictions must be written and hashed before scoring opens targets",
   "model_inputs_sha256": "300dcc521feee7de87ad5603f8b1b85c7c0274b60675a72af825339824bbb5cf",

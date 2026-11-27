@@ -165,7 +165,13 @@ The matched text baselines are released in
 [`DOMAIN_MATCHED_TEXT_BASELINE_RESULTS.json`](DOMAIN_MATCHED_TEXT_BASELINE_RESULTS.json).
 The best reaches 67.9% study-macro pairwise ordering and 0.274 normalized
 regret. These are the minimum semantic baselines for the frozen language-model
-comparison. The model outputs have not been run or scored in this release.
+comparison.
+
+Inference began under the frozen contract. After 83 valid predictions, one
+request exhausted both allowed attempts without final JSON. Before opening any
+protected labels, the execution contract was amended to record this case as a
+zero-confidence neutral abstention and charge both failed attempts. Successful
+request payloads, target panels, retrieval, and scoring remain unchanged.
 
 Rebuild and verify this view with:
 

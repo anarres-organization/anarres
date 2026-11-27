@@ -56,6 +56,14 @@ class RecordConditionedModelTest(unittest.TestCase):
         schema = payload["response_format"]["json_schema"]["schema"]
         self.assertEqual(schema["properties"]["candidate_scores"]["required"], ["C01", "C02"])
 
+    def test_neutral_abstention_penalizes_exhausted_serving_failure(self) -> None:
+        prediction = RUNNER.neutral_abstention({"C02", "C01"}, "no final JSON")
+        self.assertEqual(prediction["candidate_scores"], {"C01": 0.5, "C02": 0.5})
+        self.assertEqual(prediction["predicted_order"], ["C01", "C02"])
+        self.assertTrue(prediction["abstain"])
+        self.assertEqual(prediction["confidence"], 0.0)
+        self.assertIn("no final JSON", prediction["evidence_summary"])
+
     def test_panel_metrics_score_selection_and_order(self) -> None:
         prediction = {
             "candidate_scores": {"C01": 0.1, "C02": 0.9},

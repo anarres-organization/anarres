@@ -68,6 +68,18 @@ def validate_prediction(value: dict[str, Any], expected: set[str]) -> dict[str, 
     }
 
 
+def neutral_abstention(expected: set[str], error: str) -> dict[str, Any]:
+    """Return the frozen conservative score for an exhausted serving failure."""
+    keys = sorted(expected)
+    return {
+        "candidate_scores": {key: 0.5 for key in keys},
+        "predicted_order": keys,
+        "abstain": True,
+        "confidence": 0.0,
+        "evidence_summary": f"No valid final JSON after the retry limit: {error}"[:2000],
+    }
+
+
 def request_payload(
     model: str,
     row: dict[str, Any],
@@ -134,11 +146,13 @@ def request_prediction(
     reasoning_effort: str,
     seed: int,
     max_attempts: int,
+    failure_policy: str = "raise",
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     expected = {item["candidate_key"] for item in json.loads(row["user"])["target_candidates"]}
     payload = request_payload(model, row, max_tokens, reasoning_effort, expected, seed)
     attempts = []
     parsed = None
+    terminal_failure = None
     for attempt in range(1, max_attempts + 1):
         request = urllib.request.Request(
             base_url.rstrip("/") + "/v1/chat/completions",
@@ -166,7 +180,11 @@ def request_prediction(
             record["validation_error"] = str(error)
             attempts.append(record)
             if attempt == max_attempts:
-                raise ValueError("model failed to return valid final JSON") from error
+                if failure_policy != "neutral_abstention":
+                    raise ValueError("model failed to return valid final JSON") from error
+                terminal_failure = str(error)
+                parsed = neutral_abstention(expected, terminal_failure)
+                break
             continue
         attempts.append(record)
         break
@@ -178,6 +196,7 @@ def request_prediction(
         "completion_tokens": sum(item["completion_tokens"] or 0 for item in attempts),
         "total_tokens": sum(item["total_tokens"] or 0 for item in attempts),
         "finish_reason": attempts[-1]["finish_reason"],
+        "terminal_failure": terminal_failure,
     }
     return parsed, metadata
 
@@ -215,6 +234,7 @@ def main() -> None:
             contract["model"]["reasoning_effort"],
             int(contract["model"]["seed"]),
             int(contract["model"]["max_attempts"]),
+            contract["model"].get("failure_policy", "raise"),
         )
         output_rows.append(
             {
