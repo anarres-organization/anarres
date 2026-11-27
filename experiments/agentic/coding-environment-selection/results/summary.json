@@ -1,0 +1,39 @@
+{
+  "aggregate": {
+    "lowest_cost": {"best_endpoint_decisions": 0, "mean_regret_pp": 2.335},
+    "policy_response_rule": {"best_endpoint_decisions": 3, "mean_regret_pp": 0.1},
+    "readiness": {"best_endpoint_decisions": 0, "mean_regret_pp": 2.355},
+    "reward_information": {"best_endpoint_decisions": 3, "mean_regret_pp": 0.1},
+    "target_affinity": {"best_endpoint_decisions": 0, "mean_regret_pp": 3.275}
+  },
+  "artifact": "agentic_coding_environment_selection_summary_v1",
+  "decisions": [
+    {
+      "choices": {"lowest_cost": "open_thinker", "policy_response_rule": "tmax_15k", "readiness": "endless", "reward_information": "tmax_15k", "target_affinity": "termigen"},
+      "endpoint": "terminal_bench_2_1", "observed_best": "tmax_15k", "panel": "tmax_public_pool_comparison",
+      "regret_pp": {"lowest_cost": 3.7, "policy_response_rule": 0.0, "readiness": 3.3, "reward_information": 0.0, "target_affinity": 3.7}
+    },
+    {
+      "choices": {"lowest_cost": "open_thinker", "policy_response_rule": "tmax_15k", "readiness": "endless", "reward_information": "tmax_15k", "target_affinity": "termigen"},
+      "endpoint": "terminal_bench_lite", "observed_best": "tmax_15k", "panel": "tmax_public_pool_comparison",
+      "regret_pp": {"lowest_cost": 4.2, "policy_response_rule": 0.0, "readiness": 4.6, "reward_information": 0.0, "target_affinity": 7.8}
+    },
+    {
+      "choices": {"lowest_cost": "slot_5", "policy_response_rule": "slot_1", "readiness": "slot_2", "reward_information": "slot_1", "target_affinity": "slot_3"},
+      "endpoint": "update_20", "observed_best": "slot_1", "panel": "rlve_six_arm_prospective",
+      "regret_pp": {"lowest_cost": 0.52, "policy_response_rule": 0.0, "readiness": 0.44, "reward_information": 0.0, "target_affinity": 0.64}
+    },
+    {
+      "choices": {"lowest_cost": "slot_5", "policy_response_rule": "slot_1", "readiness": "slot_2", "reward_information": "slot_1", "target_affinity": "slot_3"},
+      "endpoint": "update_60", "observed_best": "slot_4", "panel": "rlve_six_arm_prospective",
+      "regret_pp": {"lowest_cost": 0.92, "policy_response_rule": 0.4, "readiness": 1.08, "reward_information": 0.4, "target_affinity": 0.96}
+    }
+  ],
+  "independent_training_decisions": 2,
+  "interpretation": {
+    "baseline_result": "Readiness alone has 2.355 percentage-point mean regret.",
+    "boundary": "Reward information alone makes the same choices, so these panels do not establish incremental decision value for the readiness gate or cost normalization.",
+    "primary_result": "The frozen policy-response rule selects the best candidate on three of four nested endpoints with 0.10 percentage-point mean regret."
+  },
+  "nested_reported_endpoints": 4
+}

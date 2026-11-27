@@ -9,6 +9,7 @@ resolution-markers = [
 
 [manifest]
 members = [
+    "anarres-coding",
     "anarres-core",
     "anarres-environments",
     "anarres-evaluation",
@@ -21,6 +22,17 @@ members = [
     "anarres-vulnerability",
     "anarres-workspace",
 ]
+
+[[package]]
+name = "anarres-coding"
+version = "0.1.0"
+source = { editable = "experiments/agentic/coding-environment-selection" }
+dependencies = [
+    { name = "anarres-core" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "anarres-core", editable = "packages/core" }]
 
 [[package]]
 name = "anarres-core"

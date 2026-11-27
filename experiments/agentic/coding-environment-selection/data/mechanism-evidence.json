@@ -1,0 +1,32 @@
+{
+  "artifact": "agentic_coding_mechanism_evidence_v1",
+  "records": [
+    {
+      "id": "envsched_adaptive_scheduler",
+      "source_id": "envsched",
+      "evidence_role": "adaptive_post_rollout_mechanism",
+      "design": "51 environments, 2,550 tasks, and fixed-budget comparisons across Qwen3 scales",
+      "result": "The scheduler combining reward differentiation with coverage outperformed fixed-mixture controls on the four reported scale panels.",
+      "pool_with_selector_panels": false,
+      "reason": "The scheduler reallocates after observing training rollouts and answers a different decision question from pre-RL pool selection."
+    },
+    {
+      "id": "repofactory_environment_evolution",
+      "source_id": "repofactory",
+      "evidence_role": "external_environment_construction_mechanism",
+      "design": "10,159 repository environments across 17 software domains, with matched environment-evolution and source comparisons",
+      "result": "Validity repair, implementation scope, and structural coupling improved downstream repository-level coding outcomes in the reported ablations.",
+      "pool_with_selector_panels": false,
+      "reason": "The publication reveals the outcome direction and its construction coordinates differ from the frozen selector representation."
+    },
+    {
+      "id": "river_reward_integrity",
+      "source_id": "river",
+      "evidence_role": "verifier_integrity_mechanism",
+      "design": "River-TMax-3.5K compared with a random 3.5K TMax subset on four terminal benchmarks, with scores reported over three seeds",
+      "result": "The full River recipe leads on three of four benchmarks and by 1.7 points on the unweighted mean.",
+      "pool_with_selector_panels": false,
+      "reason": "The reported comparison combines environment filtering with the River training recipe, including behavior shaping, so it does not isolate an environment-selection effect."
+    }
+  ]
+}

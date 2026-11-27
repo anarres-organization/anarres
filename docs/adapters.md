@@ -38,6 +38,7 @@ The install source for each maintained adapter is:
 | `materials` | `experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter` |
 | `molecular` | `experiments/ai-for-science/molecular-design/reaction-environment-selection` |
 | `finance` | `packages/finance` |
+| `coding` | `experiments/agentic/coding-environment-selection` |
 | `vulnerability` | `packages/vulnerability` |
 
 Replace `packages/legal` in the example with the required subdirectory. Keep
@@ -80,12 +81,15 @@ the domain's measurements have predicted a new training outcome.
 | Materials science | `anarres materials status --repository .` | `anarres materials results --repository .` | Native OMat24 bank qualification, MLIP candidate measurements, and the scored prospective result |
 | Molecular design | `anarres molecular status --repository .` | `anarres molecular acquisition-results --repository .` | Qualified Q07820 reaction-bank measurements and separate released acquisition-panel results |
 | Agentic finance | `anarres finance status --repository .` | `anarres finance decide <panel.json>` | Starting-policy qualification and released retrospective checks |
+| Agentic coding | `anarres coding status --repository .` | `anarres coding regressions --repository .`<br>`anarres coding profile --repository . --output <directory>` | Released selection evidence, task-level regression risk, outcome-free profile export, and a Marin fixed-validation evidence audit |
 | Vulnerability exploitation | `anarres vulnerability status` | [`anarres qualify <source>`](https://github.com/anarres-organization/anarres/tree/main/packages/vulnerability) | Sanitized CyberGym source qualification. Task execution and policy probing remain gated. |
 
-All maintained adapters declare a native source format. After installing one,
-use `anarres adapter doctor <name>` to inspect its exact contract, then run
-`anarres init`, `anarres inspect`, and `anarres qualify`. These commands route
-the native files without flattening their domain-specific structure.
+Adapters that accept raw environments declare a native source format. After
+installing one, use `anarres adapter doctor <name>` to inspect its exact
+contract, then run `anarres init`, `anarres inspect`, and `anarres qualify`.
+Evidence adapters such as `coding` expose profile and audit commands without
+claiming a native runtime. These commands preserve the domain's source
+structure and scientific boundary.
 
 For example, qualify an unchanged Harvey LAB checkout with the legal adapter:
 

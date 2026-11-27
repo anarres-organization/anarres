@@ -400,6 +400,7 @@ released, what remains sealed, and which operations are supported.
 | Materials science | `anarres materials status --repository .`<br>`anarres materials qualify-source --manifest <anarres.toml>`<br>`anarres materials results --repository .` | Native atomistic-bank qualification, the frozen protocol boundary, and the scored prospective MLIP test |
 | Molecular design | `anarres molecular status --repository .`<br>`anarres molecular acquisition-results --repository .` | Qualified reaction-bank measurements and separate released antibody and protein acquisition panels |
 | Agentic finance | `anarres finance status --repository .`<br>`anarres finance decide <panel.json>` | Released evidence and a calibrated selection or abstention decision |
+| Agentic coding | `anarres coding status --repository .`<br>`anarres coding regressions --repository .`<br>`anarres coding profile --repository . --output <directory>` | Released selection evidence, task-level regression risk, and outcome-free candidate profiles |
 | Vulnerability exploitation | `anarres vulnerability status`<br>`anarres vulnerability qualify-source --help` | Sanitized CyberGym source qualification and the current execution boundary |
 
 Use `anarres <domain> --help` to see every operation for that adapter. Commands

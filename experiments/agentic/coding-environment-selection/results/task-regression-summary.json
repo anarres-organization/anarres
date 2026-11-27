@@ -1,0 +1,17 @@
+{
+  "artifact": "agentic_coding_task_regression_summary_v1",
+  "combined_average_precision": 0.22347,
+  "combined_auc": 0.73558,
+  "combined_auc_gain_over_starting_behavior": 0.097366,
+  "combined_auc_gain_repository_clustered_ci95": [
+    0.0445,
+    0.126995
+  ],
+  "held_out_repositories": 22,
+  "held_out_tasks": 1035,
+  "severe_regressions": 476,
+  "starting_behavior_auc": 0.638214,
+  "task_environment_outcomes": 4140,
+  "top_20pct_precision": 0.240338,
+  "top_20pct_recall": 0.418067
+}

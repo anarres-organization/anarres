@@ -22,11 +22,13 @@ PACKAGES = (
     "packages/legal",
     "packages/vulnerability",
     "data/formal-verification/vero",
+    "experiments/agentic/coding-environment-selection",
     "experiments/robotics/environment-selection/prospective-cupid-can-v141",
     "experiments/ai-for-science/molecular-design/reaction-environment-selection",
     "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter",
 )
 ADAPTERS = (
+    "coding",
     "finance",
     "formal",
     "legal",
@@ -35,8 +37,17 @@ ADAPTERS = (
     "robotics",
     "vulnerability",
 )
-PROFILE_ADAPTERS = ("finance", "formal", "legal", "materials", "molecular", "robotics")
+PROFILE_ADAPTERS = (
+    "coding",
+    "finance",
+    "formal",
+    "legal",
+    "materials",
+    "molecular",
+    "robotics",
+)
 ADAPTER_PACKAGES = {
+    "coding": "experiments/agentic/coding-environment-selection",
     "finance": "packages/finance",
     "formal": "data/formal-verification/vero",
     "legal": "packages/legal",

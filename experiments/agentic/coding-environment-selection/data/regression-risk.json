@@ -1,0 +1,45 @@
+{
+  "artifact": "agentic_coding_regression_risk_v1",
+  "source": "What Makes Good Data for Training Coding Agents? A Systematic Study on SWE-Gym",
+  "source_revision": "arXiv:2611.30207v1",
+  "endpoint": "held-out pass@1 change from the common base model below zero percentage points",
+  "chronology": "retrospective risk rule reconstructed after publication from features available before training",
+  "feature_timing": "training-environment audit status and target-distribution relationship do not use trained-policy outcomes",
+  "risk_rule": {
+    "definition": "Risk is highest when reward labels lack execution-backed auditing and the held-out benchmark changes language, scaffold, and budget relative to training; unaudited labels without that additional shift receive intermediate risk.",
+    "scores": {
+      "execution_audited": 0.0,
+      "unaudited_same_family": 0.5,
+      "unaudited_shifted_target": 1.0
+    }
+  },
+  "training_sets": {
+    "clean": {"execution_audited": true, "base_pass_rate": 0.498},
+    "clean_fp": {"execution_audited": true, "base_pass_rate": 0.498},
+    "orig": {"execution_audited": false, "base_pass_rate": 0.483},
+    "orig_filter": {"execution_audited": false, "base_pass_rate": 0.568}
+  },
+  "targets": {
+    "verified397": {"shifted_target": false, "base_pass1": 57.2},
+    "swe_bench_pro": {"shifted_target": true, "base_pass1": 53.8}
+  },
+  "runs": [
+    {"training_set": "clean", "seed": 1, "verified397_delta": 6.6, "swe_bench_pro_delta": 3.6},
+    {"training_set": "clean", "seed": 2, "verified397_delta": 4.5, "swe_bench_pro_delta": 1.0},
+    {"training_set": "clean", "seed": 3, "verified397_delta": 5.2, "swe_bench_pro_delta": 2.7},
+    {"training_set": "orig", "seed": 1, "verified397_delta": 3.0, "swe_bench_pro_delta": -2.1},
+    {"training_set": "orig", "seed": 2, "verified397_delta": 5.1, "swe_bench_pro_delta": -0.5},
+    {"training_set": "orig", "seed": 3, "verified397_delta": 0.9, "swe_bench_pro_delta": 2.0},
+    {"training_set": "orig_filter", "seed": 1, "verified397_delta": 1.8, "swe_bench_pro_delta": -5.7},
+    {"training_set": "orig_filter", "seed": 2, "verified397_delta": 5.5, "swe_bench_pro_delta": -0.2},
+    {"training_set": "orig_filter", "seed": 3, "verified397_delta": 5.1, "swe_bench_pro_delta": -1.2},
+    {"training_set": "clean_fp", "seed": 1, "verified397_delta": 5.8, "swe_bench_pro_delta": 1.8},
+    {"training_set": "clean_fp", "seed": 2, "verified397_delta": 4.2, "swe_bench_pro_delta": 1.1},
+    {"training_set": "clean_fp", "seed": 3, "verified397_delta": 6.1, "swe_bench_pro_delta": 7.8}
+  ],
+  "claim_boundary": [
+    "source-contained association across 24 seed-by-target outcomes, not a cross-study coding regression model",
+    "the two targets are nested under one released training experiment and are not independent interventions",
+    "the risk rule requires testing on a new coding intervention before prospective use"
+  ]
+}

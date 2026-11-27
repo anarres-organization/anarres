@@ -48,6 +48,20 @@ CHECKS = (
         "test_reproduce.py",
     ),
     python_check(
+        "agentic-coding released evidence",
+        "experiments/agentic/coding-environment-selection",
+        "-m",
+        "unittest",
+        "test_sources.py",
+        "test_reproduce.py",
+        "test_external_forecasts.py",
+        "test_retrospective_bridge.py",
+        "test_regression_risk.py",
+        "test_task_regression.py",
+        "test_profiles.py",
+        "test_external_profiles.py",
+    ),
+    python_check(
         "mathematics study integrity",
         "experiments/mathematics/environment-utility",
         "scripts/audit_study.py",
@@ -231,6 +245,11 @@ CHECKS = (
         "finance compact verification",
         ROOT,
         ("anarres-finance", "verify", "--repository", str(ROOT), "--json"),
+    ),
+    StudyCheck(
+        "agentic-coding adapter",
+        ROOT,
+        ("anarres-coding", "verify", "--repository", str(ROOT), "--json"),
     ),
     StudyCheck(
         "finance exhaustive isolated reproduction",

@@ -31,6 +31,7 @@ members = [
   "data/formal-verification/vero",
   "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter",
   "experiments/ai-for-science/molecular-design/reaction-environment-selection",
+  "experiments/agentic/coding-environment-selection",
   "packages/core",
   "packages/environments",
   "packages/evaluation",
@@ -51,6 +52,7 @@ anarres-vulnerability = { workspace = true }
 anarres-materials = { workspace = true }
 anarres-molecular = { workspace = true }
 anarres-robotics = { workspace = true }
+anarres-coding = { workspace = true }
 
 [tool.ruff]
 line-length = 100
