@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -21,6 +22,14 @@ def walk_keys(value: object) -> list[str]:
     if isinstance(value, list):
         return [key for child in value for key in walk_keys(child)]
     return []
+
+
+def walk_strings(value: object) -> list[str]:
+    if isinstance(value, dict):
+        return [item for child in value.values() for item in walk_strings(child)]
+    if isinstance(value, list):
+        return [item for child in value for item in walk_strings(child)]
+    return [value] if isinstance(value, str) else []
 
 
 class ModelViewsTest(unittest.TestCase):
@@ -47,6 +56,25 @@ class ModelViewsTest(unittest.TestCase):
             keys = walk_keys(row["features"])
             self.assertNotIn("outcome", keys)
             self.assertFalse(any(BUILDER.forbidden_key(key) for key in keys))
+            self.assertFalse(
+                any(
+                    re.fullmatch(r"(?:[0-9a-fA-F]{32,128}|sha256:[0-9a-fA-F]{64})", value)
+                    for value in walk_strings(row["features"])
+                )
+            )
+
+    def test_native_frozen_decisions_are_not_features(self) -> None:
+        for row in self.input_rows:
+            keys = walk_keys(row["features"])
+            self.assertNotIn("point_prediction", keys)
+            self.assertNotIn("selected_candidate", keys)
+
+    def test_realized_training_costs_are_not_features(self) -> None:
+        for row in self.input_rows:
+            cost = row["features"]["cost"]
+            self.assertLessEqual(set(cost), {"sample_count"})
+            self.assertNotIn("generated_action_tokens", cost)
+            self.assertNotIn("admitted_tokens", cost)
 
     def test_native_measurements_remain_namespaced(self) -> None:
         def with_key(domain: str, key: str) -> dict[str, object]:

@@ -15,8 +15,8 @@
   },
   "inputs": {
     "path": "MODEL_INPUTS.jsonl",
-    "sha256": "1e388f2f1a0605c508ab98a9d8b68df108e9b4e290b05ba544b027a552921dcc",
-    "bytes": 1481043,
+    "sha256": "17242e69e0dfe82b0571babb4753bbcaf2e594ebfa4451fd1db3615c42104145",
+    "bytes": 1347398,
     "model_views": [
       "metadata",
       "structured",

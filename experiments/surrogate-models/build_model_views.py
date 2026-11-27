@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -32,7 +33,15 @@ FORBIDDEN_FEATURE_KEYS = {
     "training_run_id",
 }
 FORBIDDEN_KEY_FRAGMENTS = ("digest", "hash", "sha256")
-NATIVE_DECISION_KEYS = {"frozen_prediction", "predicted_winner", "selected_candidate"}
+NATIVE_DECISION_KEYS = {
+    "frozen_prediction",
+    "point_prediction",
+    "predicted_winner",
+    "selected_candidate",
+}
+OPAQUE_IDENTITY = re.compile(r"(?:[0-9a-fA-F]{32,128}|sha256:[0-9a-fA-F]{64})")
+DROP = object()
+PREDICTION_TIME_COST_KEYS = {"sample_count"}
 
 
 def sha256_bytes(value: bytes) -> str:
@@ -62,21 +71,32 @@ def forbidden_key(key: str) -> bool:
 
 def sanitize(value: Any) -> Any:
     if isinstance(value, dict):
-        return {
-            key: sanitize(child) for key, child in sorted(value.items()) if not forbidden_key(key)
-        }
+        clean = {}
+        for key, child in sorted(value.items()):
+            if forbidden_key(key):
+                continue
+            sanitized = sanitize(child)
+            if sanitized is not DROP:
+                clean[key] = sanitized
+        return clean
     if isinstance(value, list):
-        return [sanitize(child) for child in value]
+        clean = [sanitize(child) for child in value]
+        return [child for child in clean if child is not DROP]
+    if isinstance(value, str) and OPAQUE_IDENTITY.fullmatch(value):
+        return DROP
     return value
 
 
 def model_input(record: dict[str, Any]) -> dict[str, Any]:
+    prediction_time_cost = {
+        key: value for key, value in record["cost"].items() if key in PREDICTION_TIME_COST_KEYS
+    }
     return {
         "join_key": join_key(record["record_id"]),
         "features": {
             "domain": record["domain"],
             "evidence_level": record["evidence_level"],
-            "cost": sanitize(record["cost"]),
+            "cost": sanitize(prediction_time_cost),
             "prediction_time": sanitize(record["prediction_time"]),
         },
     }
