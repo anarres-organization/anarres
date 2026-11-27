@@ -110,6 +110,59 @@ uv run --group surrogate-test python \
   experiments/surrogate-models/score_record_conditioned_model.py
 ```
 
+### Domain-centered development corpus
+
+The next corpus view is frozen in
+[`DOMAIN_SURROGATE_INVENTORY.json`](DOMAIN_SURROGATE_INVENTORY.json). It
+prioritizes legal, robotics, materials science, finance, and agentic coding and
+keeps mathematics only as a conformance fixture in the first replay. The view
+contains 3,713 utility records across 985 native candidate panels. Agentic
+coding adds 104 candidate-endpoint records from 14 independent training
+decisions; endpoints remain nested under their decision.
+
+The accompanying [protocol](DOMAIN_SURROGATE_PROTOCOL.md) separates candidate
+utility from localized regression risk. Legal, robotics, materials science,
+and agentic coding expose regression evidence with different independent
+units and transfer boundaries. Finance currently lacks released localized
+regression labels. The materials predictor's prospectively frozen target-risk
+scores achieve 0.494 ROC AUC on 200 candidate-material outcomes, so that miss
+is retained rather than folded into a positive cross-domain summary.
+
+The grouped development suites are content-addressed in
+[`DOMAIN_SURROGATE_SPLITS.json`](DOMAIN_SURROGATE_SPLITS.json). They are the
+place to qualify retrieval, model, uncertainty, and abstention choices before a
+new prospective panel is opened. They do not reopen the scored six-study replay
+for model selection.
+
+The first structured development replay is released in
+[`DOMAIN_STRUCTURED_RESULTS.json`](DOMAIN_STRUCTURED_RESULTS.json). It fits
+every method without the held-out study or coding decision and selects its
+regularization or tree parameters inside the training fold.
+
+| Development suite | Best method | Pairwise ordering | Normalized regret |
+| --- | --- | ---: | ---: |
+| Agentic coding | Measurement ridge | 81.5% | 0.053 |
+| Finance | Small tree ensemble | 70.8% | 0.235 |
+| Materials science | Measurement ridge | 62.3% | 0.323 |
+| Controlled legal, robotics, and materials studies | Tie | 50.0% | 0.527 |
+
+The coding, finance, and materials suites contain useful environment-selection
+signal. The five-study controlled suite does not yet transfer: every fitted
+method remains at the uninformed baseline. These results support domain-aware
+development, not a universal cross-domain surrogate claim. The advancement
+gate remains closed because costs and abstention are not yet scored and
+localized regression calibration is a separate endpoint.
+
+Rebuild and verify this view with:
+
+```bash
+python experiments/surrogate-models/build_domain_surrogate_inventory.py --check
+python experiments/surrogate-models/build_domain_surrogate_splits.py --check
+python experiments/surrogate-models/build_domain_model_views.py --check
+uv run --group surrogate-test python \
+  experiments/surrogate-models/run_domain_structured_replay.py --run
+```
+
 ### 2. Learned multimodal surrogate
 
 The [model program](MULTIMODAL_SURROGATE.md) compares a fixed ladder of structured, record-conditioned, and multimodal predictors under identical information cutoffs. Multimodality is central to the research question, but each modality must earn its place through held-out ablation. The independent unit remains a training intervention, not a task, checkpoint, trace, or evaluation row.
@@ -151,5 +204,9 @@ Study-local records should first exercise the lifecycle described in [RFC 0004](
 8. [Separated model-input contract](MODEL_INPUT_CONTRACT.md)
 9. [Record-conditioned replay](RECORD_CONDITIONED_PROTOCOL.md)
 10. [Record-conditioned results](RECORD_CONDITIONED_RESULTS.json)
-11. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
-12. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)
+11. [Domain-centered protocol](DOMAIN_SURROGATE_PROTOCOL.md)
+12. [Domain-centered inventory](DOMAIN_SURROGATE_INVENTORY.json)
+13. [Domain-centered grouped splits](DOMAIN_SURROGATE_SPLITS.json)
+14. [Domain-centered structured replay](DOMAIN_STRUCTURED_RESULTS.json)
+15. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
+16. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)

@@ -1,0 +1,263 @@
+{
+  "artifact": "anarres_domain_surrogate_inventory_v2",
+  "coding_sources": [
+    {
+      "artifacts": [
+        {
+          "bytes": 6113,
+          "path": "experiments/agentic/coding-environment-selection/data/external-forecast-panels.json",
+          "sha256": "d042d6a48fa96cf5356ef0f82244fcf6182e932b8a3b390671e7d31bb1ad8e0d"
+        }
+      ],
+      "domain": "agentic_coding",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "source_id": "agentic_coding_auto_env_scaling"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 8426,
+          "path": "experiments/agentic/coding-environment-selection/data/bridge-additions.json",
+          "sha256": "f327bca1e1284374abd83c473dc2d5fbcc055ac21424701de0889bca2d3835cc"
+        }
+      ],
+      "domain": "agentic_coding",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "source_id": "agentic_coding_codemidas"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 6113,
+          "path": "experiments/agentic/coding-environment-selection/data/external-forecast-panels.json",
+          "sha256": "d042d6a48fa96cf5356ef0f82244fcf6182e932b8a3b390671e7d31bb1ad8e0d"
+        }
+      ],
+      "domain": "agentic_coding",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "source_id": "agentic_coding_environment_evolution"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 8426,
+          "path": "experiments/agentic/coding-environment-selection/data/bridge-additions.json",
+          "sha256": "f327bca1e1284374abd83c473dc2d5fbcc055ac21424701de0889bca2d3835cc"
+        }
+      ],
+      "domain": "agentic_coding",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "source_id": "agentic_coding_envsched"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 4190,
+          "path": "experiments/agentic/coding-environment-selection/data/panels.json",
+          "sha256": "7b808a869189268df3201ad9a608a638e241ed7695e32dbfd9d04d434a404273"
+        }
+      ],
+      "domain": "agentic_coding",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "source_id": "agentic_coding_rlve"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 8426,
+          "path": "experiments/agentic/coding-environment-selection/data/bridge-additions.json",
+          "sha256": "f327bca1e1284374abd83c473dc2d5fbcc055ac21424701de0889bca2d3835cc"
+        }
+      ],
+      "domain": "agentic_coding",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "source_id": "agentic_coding_swe_gym_verified"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 4190,
+          "path": "experiments/agentic/coding-environment-selection/data/panels.json",
+          "sha256": "7b808a869189268df3201ad9a608a638e241ed7695e32dbfd9d04d434a404273"
+        }
+      ],
+      "domain": "agentic_coding",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "source_id": "agentic_coding_tmax"
+    }
+  ],
+  "domain_status": {
+    "agentic_coding": "utility decisions and task-regression evidence",
+    "finance": "retrospective utility panels; localized regression labels absent",
+    "legal": "utility panel and task-regression evidence",
+    "materials_science": "utility panels and prospective target-regression evidence",
+    "mathematics": "retained only in the first replay as a conformance fixture",
+    "robotics": "three utility panels and prospective stratum-risk evidence"
+  },
+  "objective": "forecast target-conditional utility, localized regression risk, cost, and uncertainty before candidate training",
+  "records_artifact": {
+    "path": "DOMAIN_SURROGATE_RECORDS.jsonl",
+    "records": 3713,
+    "sha256": "c3ec6c4e568335823da0923a63e42ca772112ede37f871dccef66fa06f2e2959"
+  },
+  "regression_sources": [
+    {
+      "artifacts": [
+        {
+          "bytes": 1744,
+          "path": "experiments/legal/lab-learning-dynamics/data/regression-risk.json",
+          "sha256": "ce668cd2dc4765f8fda0485d2013288fec3a10e722a90de6abf55f3b3dd88b3d"
+        }
+      ],
+      "boundary": [
+        "association within one public intervention, not causal task effects",
+        "not calibrated for a new trainer, model family, or distribution",
+        "checkpoints and tasks are nested observations, not independent interventions"
+      ],
+      "domain": "legal",
+      "examples": 180,
+      "independent_holdout_unit": "practice_area",
+      "interventions": 1,
+      "metrics": {
+        "average_precision": 0.260649850706,
+        "brier": 0.123262289832,
+        "roc_auc": 0.653836843379,
+        "top_20pct_recall": 0.296296296296
+      },
+      "prediction_unit": "LAB task",
+      "source_id": "legal_lab_task_regressions",
+      "status": "retrospective within one intervention"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 3223,
+          "path": "experiments/agentic/coding-environment-selection/data/task-regression-risk.json",
+          "sha256": "cc31ac27d737388f8f895ea1a0286adb41ac67cbf2570519be1622e803595d6e"
+        }
+      ],
+      "boundary": [
+        "the four environments and both targets are nested under one released training study",
+        "task pass rates use finite repeated attempts and the 25-point endpoint remains a descriptive threshold",
+        "the analysis transfers across repositories within the released study, not across trainers or model families",
+        "the model was reconstructed after publication and is not a prospective coding regression forecast"
+      ],
+      "domain": "agentic_coding",
+      "examples": 4140,
+      "independent_holdout_unit": "repository",
+      "interventions": 4,
+      "metrics": {
+        "average_precision": 0.22347,
+        "brier": 0.094187,
+        "roc_auc": 0.73558,
+        "top_20pct_precision": 0.240338,
+        "top_20pct_recall": 0.418067
+      },
+      "prediction_unit": "held-out coding task by candidate environment",
+      "source_id": "coding_task_regressions",
+      "status": "retrospective within one training study"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 103734,
+          "path": "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/TARGET_REGRESSION_FIT.json",
+          "sha256": "63127e3dd582facf49f94a14c9c4c3293a38308a3de45c7ba0d85021bac1ad1c"
+        },
+        {
+          "bytes": 92979,
+          "path": "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/PROSPECTIVE_OUTCOMES.json",
+          "sha256": "0f6aa71b3e7c48ecdf4df5c5450710fb6814272e4196b2df35f1ea90a8908b1f"
+        }
+      ],
+      "boundary": {
+        "prospective_candidate_training_outcomes_used": false,
+        "prospective_target_outcomes_used": false
+      },
+      "domain": "materials_science",
+      "examples": 200,
+      "independent_holdout_unit": "target material; candidate environments remain grouped",
+      "interventions": 4,
+      "metrics": {
+        "brier": 0.189605106138,
+        "examples": 200,
+        "positive_rate": 0.895,
+        "roc_auc": 0.493748337324,
+        "top_20pct_recall": 0.201117318436
+      },
+      "prediction_unit": "target material by candidate environment",
+      "source_id": "materials_target_regressions",
+      "status": "development fit with prospectively frozen target predictions"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 17285,
+          "path": "experiments/robotics/environment-selection/prospective-square-regression-v1/RESULTS.json",
+          "sha256": "5c7d4541ba879b3ecf5f35571bb820017eca15982f3471c06b3f8e15f2d6d3f0"
+        }
+      ],
+      "boundary": [
+        "strata are nested evaluation summaries, not independent interventions",
+        "the released result evaluates risk ordering rather than event calibration"
+      ],
+      "domain": "robotics",
+      "examples": 40,
+      "independent_holdout_unit": "candidate training seed; strata remain nested",
+      "interventions": 6,
+      "metrics": {
+        "high_minus_low_risk_success_change": 0.07053068391303682,
+        "spearman_95_interval": [
+          0.12864317018675578,
+          0.4693762659750983
+        ],
+        "spearman_risk_vs_success_change": 0.32150735316525114,
+        "tail_contrast_95_interval": [
+          0.0214150555327026,
+          0.11991944330179621
+        ]
+      },
+      "prediction_unit": "evaluation stratum by candidate environment",
+      "source_id": "robotics_square_stratum_regressions",
+      "status": "prospective risk ordering; not a calibrated event model"
+    }
+  ],
+  "release_gate": {
+    "next": "qualify retrieval and model choices on development groups, then freeze a new complete-study replay before opening its outcomes",
+    "prohibited": [
+      "selecting a new model on the already scored six-study replay",
+      "pooling native outcomes into one cross-domain scalar label",
+      "treating tasks, targets, strata, endpoints, or seeds as new studies"
+    ]
+  },
+  "status": "development corpus; no general or prospective surrogate claim",
+  "tracks": {
+    "regression": {
+      "domains": [
+        "agentic_coding",
+        "legal",
+        "materials_science",
+        "robotics"
+      ],
+      "rule": "tasks, materials, and strata remain nested under their intervention; they never increase the intervention sample size",
+      "sources": 4
+    },
+    "utility": {
+      "independent_unit": "training intervention or marked published aggregate",
+      "panels": 985,
+      "records": 3713,
+      "records_by_domain": {
+        "agentic_coding": 104,
+        "finance": 538,
+        "legal": 9,
+        "materials_science": 3010,
+        "robotics": 52
+      },
+      "records_by_evidence_level": {
+        "published_candidate_arm_aggregate": 3644,
+        "seed_level_intervention": 69
+      },
+      "study_or_decision_groups": 51
+    }
+  }
+}
