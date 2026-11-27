@@ -12,6 +12,7 @@ The program asks one question across different mathematical and formal-reasoning
 | --- | --- | --- | --- |
 | [Environment utility across model scale](environment-utility/README.md) | Four controlled OpenR1-Math distributions constructed separately for each starting policy | A fixed, disjoint OpenR1-Math panel, with an independent mathematical sensitivity panel | Establish whether pre-RL measurements predict utility across model scale and generated-token budget |
 | [Environment utility for VeriBench](veribench/README.md) | Training environments assembled for Lean 4 formal code verification | Held-out VeriBench tasks | Test whether the same measurement approach can identify environments that improve a distinct formal-verification target |
+| [Verifier reliability pilot](verifier-reliability-pilot/README.md) | Historical aggregate reward-noise comparisons | 300 GSM8K test items | Descriptive arithmetic audit and matched-seed feasibility design; run provenance incomplete |
 
 The first study establishes the predictive relationship in a controlled setting. The VeriBench study changes the candidate environments and the held-out target while preserving the central environment-utility question. Its measurements must be collected under the new policy, verifier, and task distribution before downstream training outcomes are inspected.
 

@@ -1,0 +1,16 @@
+{
+  "study": "verifier-reliability-pilot",
+  "revised_on": "2026-11-26",
+  "status": "feasibility_only",
+  "question": "What is the mean seed-level paired held-out pass@1 difference under a 38% iid false-negative verifier?",
+  "analysis_unit": "matched_training_seed_pair",
+  "pairs": 9,
+  "items_per_run": 300,
+  "runs": 18,
+  "primary_analysis": "mean paired run difference; approximate t interval",
+  "target_power": null,
+  "secondary_analysis": "two-sided sign test of nonzero seed differences",
+  "power_plan": "defer confirmatory sample size until independent between-run variance calibration",
+  "execution_gate": "pin immutable run provenance and nine distinct seed values before training",
+  "executed": false
+}

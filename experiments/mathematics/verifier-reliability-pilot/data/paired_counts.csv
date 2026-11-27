@@ -1,0 +1,7 @@
+pair,correct_control,correct_treatment,both_correct,control_only,treatment_only,items,p_value,excluded_from_claims
+clean_vs_iid_false_negative,152,142,100,52,42,300,0.3533,no
+clean_vs_group_false_negative,152,158,108,44,50,300,0.6063,no
+clean_vs_no_group_baseline,152,73,53,99,20,300,9.2025e-14,no
+seed_pair_clean,152,145,94,58,51,300,0.5657,no
+seed_pair_open,189,140,107,82,33,300,5.5714e-06,no
+open_vs_unfinished_penalty,189,169,139,50,30,300,0.0330,yes
