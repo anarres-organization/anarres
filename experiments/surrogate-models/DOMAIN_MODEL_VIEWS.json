@@ -1,0 +1,34 @@
+{
+  "artifact": "anarres_domain_surrogate_model_views_v1",
+  "status": "development model views; no prospective result",
+  "source": {
+    "path": "DOMAIN_SURROGATE_RECORDS.jsonl",
+    "sha256": "c3ec6c4e568335823da0923a63e42ca772112ede37f871dccef66fa06f2e2959"
+  },
+  "records": 3713,
+  "records_by_domain": {
+    "agentic_coding": 104,
+    "finance": 538,
+    "legal": 9,
+    "materials_science": 3010,
+    "robotics": 52
+  },
+  "inputs": {
+    "path": "DOMAIN_MODEL_INPUTS.jsonl",
+    "sha256": "300dcc521feee7de87ad5603f8b1b85c7c0274b60675a72af825339824bbb5cf",
+    "bytes": 1363192,
+    "model_views": [
+      "metadata",
+      "structured",
+      "record_conditioned"
+    ]
+  },
+  "labels": {
+    "path": "DOMAIN_MODEL_LABELS.jsonl",
+    "sha256": "92f5db8f5c10dc7cfaee5b85e26089820d85d78b1fd60c448af44b667844c0bd",
+    "bytes": 3039413,
+    "access_rule": "open training-fold labels for fitting; write held-out predictions before opening held-out labels for scoring"
+  },
+  "identity_rule": "the opaque join_key is transport metadata only; resolvable identities and content hashes are absent from features",
+  "outcome_rule": "native outcomes remain in the protected label view"
+}

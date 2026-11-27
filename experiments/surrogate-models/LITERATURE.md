@@ -129,6 +129,16 @@ response surfaces, and choose configurations. It shows why code and
 measurements are candidate surrogate inputs and why acquisition, inference,
 and artifact delivery should be scored together.
 
+[Evaluating More with Less](https://arxiv.org/abs/2611.34617) treats benchmark
+tasks as black-box regression tests for AI agents. No method dominates both
+performance estimation and early failure detection, which supports keeping
+utility forecasting and regression discovery as separate endpoints rather than
+collapsing them into one score. [Trajectory-Aware Benchmark Subset
+Selection](https://arxiv.org/abs/2609.24928) finds that trajectory embeddings
+can reduce regression-test cost, but its outcome-stratified selection uses a
+previous full evaluation. Such traces are valid historical evidence only when
+their availability precedes the Anarres prediction being scored.
+
 [LM2LM](https://arxiv.org/abs/2610.23344) uses a frozen research world model as
 a reward model for proposal generation, then executes selected proposals to
 correct distribution shift and surrogate overestimation. It supports a later
