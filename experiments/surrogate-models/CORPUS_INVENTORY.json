@@ -1,0 +1,671 @@
+{
+  "artifact": "anarres_cross_domain_intervention_inventory_v1",
+  "independent_unit": "one independently trained intervention when seed-level runs are released; otherwise one explicitly marked published candidate-arm aggregate",
+  "outcome_rule": "retain native outcomes and direction; compare candidates only within their declared panel; do not fit a pooled universal utility value",
+  "programs_without_released_labels": [
+    {
+      "artifact": {
+        "bytes": 19255,
+        "media_type": "text/markdown",
+        "path": "experiments/agentic/customer-support-environment-utility/README.md",
+        "sha256": "497f158738192705b836b763d67e448004589e55e9711c8b61b38ce5ecddfa06"
+      },
+      "domain": "agentic_systems",
+      "program_id": "agentic_customer_support",
+      "reason": "prospective workflow exists; candidate-training outcomes are not released",
+      "status": "not_eligible_for_intervention_supervision"
+    },
+    {
+      "artifact": {
+        "bytes": 6412,
+        "media_type": "text/markdown",
+        "path": "experiments/cyber/formal-verification/README.md",
+        "sha256": "97e5cb36fb61669a996478f42852d4be447e1b41ff0bfbbd8f097ebcf26500a0"
+      },
+      "domain": "cyber",
+      "program_id": "cyber_formal_verification",
+      "reason": "qualification evidence exists; no released multi-candidate training comparison",
+      "status": "not_eligible_for_intervention_supervision"
+    },
+    {
+      "artifact": {
+        "bytes": 3614,
+        "media_type": "text/markdown",
+        "path": "experiments/cyber/README.md",
+        "sha256": "5119832894c9289e081d450968a7b01a31e65a427a9de7b0588a1107a2dac3c0"
+      },
+      "domain": "cyber",
+      "program_id": "cyber_vulnerability_exploitation",
+      "reason": "starting-policy measurement evidence exists; no released intervention panel",
+      "status": "not_eligible_for_intervention_supervision"
+    },
+    {
+      "artifact": {
+        "bytes": 5248,
+        "media_type": "text/markdown",
+        "path": "experiments/legal/lab-learning-dynamics/README.md",
+        "sha256": "1b68abe50973750b0f0e213dbdcdc844c7405b77ce0e9a880912dfea26337298"
+      },
+      "domain": "legal",
+      "program_id": "legal_lab_learning_dynamics",
+      "reason": "one intervention with checkpoint regressions; not a candidate-environment panel",
+      "status": "not_eligible_for_intervention_supervision"
+    },
+    {
+      "artifact": {
+        "bytes": 7367,
+        "media_type": "text/markdown",
+        "path": "experiments/ai-for-science/molecular-design/README.md",
+        "sha256": "0520c92989fc35d6a88627609729906feb83a273dd8b1796126194e90c2e99fe"
+      },
+      "domain": "molecular_design",
+      "program_id": "molecular_design_acquisition",
+      "reason": "released acquisition outcomes operate at a different decision level",
+      "status": "not_eligible_for_intervention_supervision"
+    }
+  ],
+  "records_artifact": {
+    "bytes": 4330500,
+    "filename": "CORPUS_RECORDS.jsonl",
+    "media_type": "application/x-ndjson",
+    "records": 3641,
+    "sha256": "14d3928f18ea9c7438f3fbb7174538b6de96f21e24357cdec22fbc40421da7c4"
+  },
+  "sources": [
+    {
+      "artifacts": [
+        {
+          "bytes": 5755,
+          "media_type": "application/json",
+          "path": "experiments/finance/retrospective-post-training/data/panels.json",
+          "sha256": "5c76b577bb708d25fc7c7e4de18631c0faff372c85de933b60c244e840a73f78"
+        }
+      ],
+      "chronology": "retrospective public studies",
+      "cost_status": "training cost incomplete; treatment descriptors retained",
+      "domain": "finance",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "Controls and trained candidates retain their explicit panel roles."
+      ],
+      "source_id": "finance_curated_retrospective_panels",
+      "study_id": "retrospective_post_training_curated"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 170157,
+          "media_type": "application/json",
+          "path": "experiments/finance/retrospective-post-training/data/recovered_panels.json",
+          "sha256": "e2b9469f82712933034230dddd1e80d0cb38eee3b8fea52d6811579efff4197c"
+        }
+      ],
+      "chronology": "retrospective public studies",
+      "cost_status": "sample counts retained where released; compute cost incomplete",
+      "domain": "finance",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "Every record retains source identity for complete-source holdout."
+      ],
+      "source_id": "finance_recovered_retrospective_panels",
+      "study_id": "retrospective_post_training_recovered"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 2575,
+          "media_type": "application/json",
+          "path": "experiments/legal/environment-selection/data/outcomes.json",
+          "sha256": "ccdc867a87a241d977cdad54dc553989e1d70280a9de37b83c65e5e5523e83d2"
+        },
+        {
+          "bytes": 1582,
+          "media_type": "application/json",
+          "path": "experiments/legal/environment-selection/data/measurement-release.json",
+          "sha256": "66cb6bf247776a4126927a6e46f463166a08d6de80282875462fc4b735ebb832"
+        },
+        {
+          "bytes": 10966,
+          "media_type": "application/json",
+          "path": "experiments/legal/environment-selection/data/pretraining-task-measurements.json",
+          "sha256": "d32c12c46ba68f18ca44a0b3150f6de91f28edac86dfdb62ec214cbe903f2b55"
+        },
+        {
+          "bytes": 3119,
+          "media_type": "application/json",
+          "path": "experiments/legal/environment-selection/data/selector-freeze.json",
+          "sha256": "14c187e006bfb3fedb2a00614bb06a249b7d2f640dc3385046a0bc712f3794bc"
+        },
+        {
+          "bytes": 2781,
+          "media_type": "application/json",
+          "path": "experiments/legal/environment-selection/data/frozen-decision.json",
+          "sha256": "c602dc7714b99781a16bf9afe18569d9bac75e4cfd64d36b4b5fde1203c5ac8b"
+        }
+      ],
+      "chronology": "frozen candidate decision scored prospectively",
+      "cost_status": "study-level contract released; per-run compute not always itemized",
+      "domain": "legal",
+      "evidence_level": "seed_level_intervention",
+      "notes": [
+        "Nine independent training runs; task-family guardrails remain nested outcomes.",
+        "The separate LAB study has one intervention and is not a candidate panel."
+      ],
+      "source_id": "legal_syllogym_prospective",
+      "study_id": "prospective_syllogym_environment_selection"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 49189,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/baghishov_2026_leverage_panels.json",
+          "sha256": "d4f49fc7f5d64c3141b52d07abf8f6b65e9cbc2b63b8db0d07c7de6b0684d46a"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_baghishov_2026_application_specific_mlip",
+      "study_id": "baghishov_2026_application_specific_mlip"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 108356,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/bi_elena_2026_budget_crossover_panels.json",
+          "sha256": "779f5f4932f7e469c3353847568cbc31b52876cb1b6c2023e6a2ede64d8c76d0"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_bi_elena_2026_budget_crossover",
+      "study_id": "bi_elena_2026_budget_crossover"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 183561,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/dale_2026_active_learning_panels.json",
+          "sha256": "16812b9bbebe9eb472bfba689e2a0712362beb9e35b560c696a1da2206053894"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_dale_2026_active_learning_failure",
+      "study_id": "dale_2026_active_learning_failure"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 2370176,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/espinosa_castaneda_2026_diversity_panels.json",
+          "sha256": "d629d1cd798b349201dca22f5d9378e864caf1ab40e7c00ad300910de5acba86"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_espinosa_castaneda_2026_diversity",
+      "study_id": "espinosa_castaneda_2026_diversity"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 24661,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/haenseroth_2026_generator_panels.json",
+          "sha256": "4a127bc1929d62116b7a6fe942679a32af86b4c348a89065afcd766495123b39"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_haenseroth_2026_generators",
+      "study_id": "haenseroth_2026_generators"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 596561,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/haenseroth_dressler_2026_trajectory_stride_panels.json",
+          "sha256": "03278a3ab00257010347967363e524848b09c92b1979e7a7c3c4026c70cfffdc"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_haenseroth_dressler_2026_data_efficiency",
+      "study_id": "haenseroth_dressler_2026_data_efficiency"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 46328,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/kim_2026_density_diversity_panels.json",
+          "sha256": "833f880778b0ecd4cd61944bea244dd7e5546d9bc9ca0178a3458dd5f672fc68"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_kim_2026_density_diversity",
+      "study_id": "kim_2026_density_diversity"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 17432,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/kulichenko_2023_udd_cross_test_panels.json",
+          "sha256": "ff09c2f086fa4b034c2bf1785e536032942c67d1b989bfa6c4607684fc8ced72"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_kulichenko_2023_udd",
+      "study_id": "kulichenko_2023_udd"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 182925,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/li_2023_active_learning_panels.json",
+          "sha256": "54bfc101cc7e3d6eb485dc6bf4ce351c298d82622c729a93b55db3e26037f39d"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_li_2023_redundancy",
+      "study_id": "li_2023_redundancy"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 15033,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/liu_2026_tungsten_label_panels.json",
+          "sha256": "cba53d5a76b91b9d17b790977572224602b4c35ab3f718b9d72ce409566223a2"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_liu_2026_heterogeneous_uq",
+      "study_id": "liu_2026_heterogeneous_uq"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 6068,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/qi_2024_direct_panels.json",
+          "sha256": "e12bd3b38dce12ce5ed5d81c3d5816d26fdac47b40cd0e44079787a47f44d8e1"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_qi_2024_direct_sampling",
+      "study_id": "qi_2024_direct_sampling"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 96993,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/varga_umbrich_2026_force_ntk_panels.json",
+          "sha256": "2edd4c5508d4d57ace03dd0bd9f3965f7723d9e2864a35c169a9aadd0e0a6d3a"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_varga_umbrich_2026_force_aware_ntk",
+      "study_id": "varga_umbrich_2026_force_aware_ntk"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 88152,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/wang_2026_entropy_panels.json",
+          "sha256": "4782fb0d704cc85656bb6ca55c65b266b2cb78bfecbde688d313daba69f050fa"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_wang_2026_dataset_aware_entropy",
+      "study_id": "wang_2026_dataset_aware_entropy"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 26900,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/wong_yang_2026_umlip_bias_panels.json",
+          "sha256": "09c88abbf5bd6dee644ed28ebcad1cdb5d801fee7d580dec2690ae3682a7c897"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_wong_yang_2026_umlip_bias",
+      "study_id": "wong_yang_2026_umlip_bias"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 46650,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/zaverkin_2024_uncertainty_biased_md_panels.json",
+          "sha256": "1c8a2e55d33e5d5e605159db13d0ee62241519a7d094809c3f1a45228fe8b91c"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_zaverkin_2024_uncertainty_biased_md",
+      "study_id": "zaverkin_2024_uncertainty_biased_md"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 7539,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/data/zhang_2023_etal_panels.json",
+          "sha256": "dfd733331dd4d814b6d5944188b30b6560f56f8d1eed0ee12bf1f7be3eea6588"
+        }
+      ],
+      "chronology": "retrospective public study",
+      "cost_status": "native budget fields retained when released; missing otherwise",
+      "domain": "materials_science",
+      "evidence_level": "published_candidate_arm_aggregate",
+      "notes": [
+        "This is a publication-derived candidate arm, not automatically a seed-level run.",
+        "Comparisons are valid only within the released matched panel."
+      ],
+      "source_id": "materials_bridge_zhang_2023_etal",
+      "study_id": "zhang_2023_etal"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 92979,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/PROSPECTIVE_OUTCOMES.json",
+          "sha256": "0f6aa71b3e7c48ecdf4df5c5450710fb6814272e4196b2df35f1ea90a8908b1f"
+        },
+        {
+          "bytes": 887178,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/FINAL_COST_MATCHED_PANEL.json",
+          "sha256": "b5d26ea2dbecac0e530e80d470b6079a7ebee46600633f119eb6d94b9048dd52"
+        },
+        {
+          "bytes": 5013,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/FULL_MEASUREMENT_VALIDATION.json",
+          "sha256": "a119444de6a8dbe57866d5a7c052f75221c07d97183feff78ce6a15f648d755c"
+        },
+        {
+          "bytes": 14506,
+          "media_type": "application/json",
+          "path": "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/DECISION_AND_REGRESSION_PROTOCOL.json",
+          "sha256": "4a9ea7080028c0a3ec45dbd2e4aca9edd0f522c6e8414368d0e3eb1767ca62a9"
+        }
+      ],
+      "chronology": "four-candidate prospective panel frozen before outcomes",
+      "cost_status": "matched training contract released; per-run wall time not itemized here",
+      "domain": "materials_science",
+      "evidence_level": "seed_level_intervention",
+      "notes": [
+        "Pass-four outcome is the endpoint; earlier passes remain nested learning-curve data."
+      ],
+      "source_id": "materials_mlip_phonon_prospective",
+      "study_id": "mlip_phonon_environment_selection"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 5790,
+          "media_type": "text/csv",
+          "path": "experiments/mathematics/environment-utility/results/g1/1p7b_4b_curves.csv",
+          "sha256": "6dd2e105e8241a317050fda209e0e0a405ce130dbc45975d0087a6ef7830daef"
+        },
+        {
+          "bytes": 2985,
+          "media_type": "text/csv",
+          "path": "experiments/mathematics/environment-utility/results/g1/8b_curves.csv",
+          "sha256": "3588d0e4d9681d5b817f29f4d3f37e6879bfa7b1e8b5e68a87d0b5bdba732e16"
+        },
+        {
+          "bytes": 2943,
+          "media_type": "text/csv",
+          "path": "experiments/mathematics/environment-utility/results/g1/14b_curves.csv",
+          "sha256": "d39d149727f6548abf6702f124da97e2c7b00c4b314a4ee99957a98c6058dda8"
+        },
+        {
+          "bytes": 7638,
+          "media_type": "text/csv",
+          "path": "experiments/mathematics/environment-utility/results/mechanism/1p7b_4b_training_summary.csv",
+          "sha256": "ed3044bf57f696e7294c6bbebd095ca713b2b595282ae063eec632dcc84297ad"
+        },
+        {
+          "bytes": 5165,
+          "media_type": "text/csv",
+          "path": "experiments/mathematics/environment-utility/results/mechanism/8b_training_summary.csv",
+          "sha256": "9a191dbd1c9ae0bd5e619a7c92bd5fa524dfe76fdb929135e1744ad1c756b134"
+        },
+        {
+          "bytes": 5201,
+          "media_type": "text/csv",
+          "path": "experiments/mathematics/environment-utility/results/mechanism/14b_training_summary.csv",
+          "sha256": "8918acc1f14e3be05c42e69130e3cce21922bfce2ebff4f3afab2a0924ba77c9"
+        },
+        {
+          "bytes": 2234,
+          "media_type": "text/csv",
+          "path": "experiments/mathematics/environment-utility/results/mechanism/prerl_rho_h.csv",
+          "sha256": "31571791ea0b03cb4c18bb271d688909c8c7c706434d425c4d5ffe8e8b65c30a"
+        }
+      ],
+      "chronology": "prospective at 8B and 14B; retrospective at earlier scales",
+      "cost_status": "generated-token cost released for every intervention",
+      "domain": "mathematics",
+      "evidence_level": "seed_level_intervention",
+      "notes": [
+        "The endpoint is step 128; intermediate checkpoints remain nested curve data.",
+        "Warm-start performance is reconstructed from released mean outcome and delta."
+      ],
+      "source_id": "mathematics_environment_utility",
+      "study_id": "four_scale_environment_utility"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 5848,
+          "media_type": "application/json",
+          "path": "experiments/robotics/environment-selection/prospective-cupid-can-v141/RESULTS.json",
+          "sha256": "ce3af5c079cef6006419e4de924bacb911fed39e138f7c9afa7ff149a3751c9d"
+        },
+        {
+          "bytes": 5116,
+          "media_type": "application/json",
+          "path": "experiments/robotics/environment-selection/prospective-cupid-can-v141/PROFILE_MEASUREMENTS.json",
+          "sha256": "0b5fd2b8a39584d369b544733373be93243888187c6501754c6c21b86e1b4a0c"
+        },
+        {
+          "bytes": 19430,
+          "media_type": "application/json",
+          "path": "experiments/robotics/environment-selection/prospective-cupid-can-v141/CANDIDATES.json",
+          "sha256": "3b3b34e544dd5a1ce0740fb534a7fb0f5213f89173e657e6889b9e9e16ff5c8f"
+        }
+      ],
+      "chronology": "prospective candidate panel scored after frozen prediction",
+      "cost_status": "study-level contract released; per-run compute not always itemized",
+      "domain": "robotics",
+      "evidence_level": "seed_level_intervention",
+      "notes": [
+        "Twenty-five independent policy-training runs across five candidates and five seeds."
+      ],
+      "source_id": "robotics_can_v141_prospective",
+      "study_id": "prospective_cupid_can_v141"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 1829,
+          "media_type": "application/json",
+          "path": "experiments/robotics/environment-selection/prospective-pusht/data/outcomes.json",
+          "sha256": "0fbda0c01814d284ca2961833c84f70fc45c1eaffe9ae44301105aa972eb481d"
+        }
+      ],
+      "chronology": "candidate set and decision frozen before outcomes",
+      "cost_status": "study-level contract released; per-run compute not always itemized",
+      "domain": "robotics",
+      "evidence_level": "seed_level_intervention",
+      "notes": [
+        "Nine independent policy-training runs; evaluation episodes remain nested."
+      ],
+      "source_id": "robotics_pusht_prospective",
+      "study_id": "prospective_pusht"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 17285,
+          "media_type": "application/json",
+          "path": "experiments/robotics/environment-selection/prospective-square-regression-v1/RESULTS.json",
+          "sha256": "5c7d4541ba879b3ecf5f35571bb820017eca15982f3471c06b3f8e15f2d6d3f0"
+        },
+        {
+          "bytes": 13060,
+          "media_type": "application/json",
+          "path": "experiments/robotics/environment-selection/prospective-square-regression-v1/PROBE_MEASUREMENTS.json",
+          "sha256": "74d885e4d64fd49eacd6e4a3f84ca2aaf51b7f7ec80d4595d77f4e8567c7e49d"
+        },
+        {
+          "bytes": 180500,
+          "media_type": "application/json",
+          "path": "experiments/robotics/environment-selection/prospective-square-regression-v1/CANDIDATES.json",
+          "sha256": "38e62f40f56bc202ed29c66c29058b6fc29c6566e8b8ece121914138919e564c"
+        }
+      ],
+      "chronology": "candidate outcomes opened only after the prospective freeze",
+      "cost_status": "study-level contract released; per-run compute not always itemized",
+      "domain": "robotics",
+      "evidence_level": "seed_level_intervention",
+      "notes": [
+        "Eighteen independent policy-training runs; regression diagnostics remain nested."
+      ],
+      "source_id": "robotics_square_regression_prospective",
+      "study_id": "prospective_square_regression_v1"
+    }
+  ],
+  "split_rule": "keep every seed, checkpoint, target, and evaluation derived from one candidate lineage in the same split; primary transfer tests hold out complete studies or domains",
+  "status": "released-record inventory; no trained cross-domain surrogate",
+  "summary": {
+    "panels": 962,
+    "programs_without_released_labels": 5,
+    "records": 3641,
+    "records_by_domain": {
+      "finance": 538,
+      "legal": 9,
+      "materials_science": 3010,
+      "mathematics": 32,
+      "robotics": 52
+    },
+    "records_by_evidence_level": {
+      "published_candidate_arm_aggregate": 3540,
+      "seed_level_intervention": 101
+    },
+    "sources": 24
+  }
+}

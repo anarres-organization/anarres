@@ -22,6 +22,9 @@ materials-test = [
   "pyyaml>=6.0",
   "scipy>=1.14",
 ]
+surrogate-test = [
+    "scikit-learn>=1.6,<2",
+]
 
 [tool.uv.workspace]
 members = [

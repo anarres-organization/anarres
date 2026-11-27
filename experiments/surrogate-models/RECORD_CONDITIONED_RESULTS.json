@@ -1,0 +1,498 @@
+{
+  "artifact": "anarres_record_conditioned_results_v1",
+  "claim_boundary": "Retrospective replay on six held-out studies. This does not establish prospective validity or authorize an adaptive loop.",
+  "conditions": {
+    "cross_history_with_measurements": {
+      "inference": {
+        "attempts": 9,
+        "completion_tokens": 41670,
+        "elapsed_seconds": 185.04343729210086,
+        "prompt_tokens": 66739,
+        "requests": 9,
+        "total_tokens": 108409
+      },
+      "panels": 9,
+      "studies": 6,
+      "study_macro_abstention": 0.16666666666666666,
+      "study_macro_confidence": 0.6720833333333335,
+      "study_macro_normalized_regret": 0.3246164750421389,
+      "study_macro_pairwise_ordering": 0.6833333333333332,
+      "study_macro_top_choice_credit": 0.36111111111111116,
+      "study_results": {
+        "four_scale_environment_utility": {
+          "abstention": 0.0,
+          "confidence": 0.7625,
+          "normalized_regret": 0.557945155673,
+          "pairwise_ordering": 0.5833333333333334,
+          "panels": 4,
+          "top_choice_credit": 0.0
+        },
+        "mlip_phonon_environment_selection": {
+          "abstention": 0.0,
+          "confidence": 0.78,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.8333333333333334,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "prospective_cupid_can_v141": {
+          "abstention": 0.0,
+          "confidence": 0.73,
+          "normalized_regret": 0.24,
+          "pairwise_ordering": 0.85,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "prospective_pusht": {
+          "abstention": 0.0,
+          "confidence": 0.78,
+          "normalized_regret": 0.706896551724,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "prospective_square_regression_v1": {
+          "abstention": 1.0,
+          "confidence": 0.2,
+          "normalized_regret": 0.44285714285583333,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.16666666666666666
+        },
+        "prospective_syllogym_environment_selection": {
+          "abstention": 0.0,
+          "confidence": 0.78,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        }
+      }
+    },
+    "cross_history_without_measurements": {
+      "inference": {
+        "attempts": 9,
+        "completion_tokens": 23524,
+        "elapsed_seconds": 103.84767662116792,
+        "prompt_tokens": 37863,
+        "requests": 9,
+        "total_tokens": 61387
+      },
+      "panels": 9,
+      "studies": 6,
+      "study_macro_abstention": 0.5,
+      "study_macro_confidence": 0.45250000000000007,
+      "study_macro_normalized_regret": 0.4599445992149584,
+      "study_macro_pairwise_ordering": 0.6527777777777777,
+      "study_macro_top_choice_credit": 0.20138888888888887,
+      "study_results": {
+        "four_scale_environment_utility": {
+          "abstention": 0.0,
+          "confidence": 0.655,
+          "normalized_regret": 0.226661871593,
+          "pairwise_ordering": 0.75,
+          "panels": 4,
+          "top_choice_credit": 0.625
+        },
+        "mlip_phonon_environment_selection": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.6607123465757501,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.25
+        },
+        "prospective_cupid_can_v141": {
+          "abstention": 1.0,
+          "confidence": 0.45,
+          "normalized_regret": 0.24,
+          "pairwise_ordering": 0.8,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "prospective_pusht": {
+          "abstention": 0.0,
+          "confidence": 0.73,
+          "normalized_regret": 0.706896551724,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "prospective_square_regression_v1": {
+          "abstention": 0.0,
+          "confidence": 0.78,
+          "normalized_regret": 0.31428571428600005,
+          "pairwise_ordering": 0.7,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "prospective_syllogym_environment_selection": {
+          "abstention": 1.0,
+          "confidence": 0.1,
+          "normalized_regret": 0.6111111111109999,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.3333333333333333
+        }
+      }
+    },
+    "zero_history_with_measurements": {
+      "inference": {
+        "attempts": 9,
+        "completion_tokens": 39325,
+        "elapsed_seconds": 171.36541159288026,
+        "prompt_tokens": 7527,
+        "requests": 9,
+        "total_tokens": 46852
+      },
+      "panels": 9,
+      "studies": 6,
+      "study_macro_abstention": 0.0,
+      "study_macro_confidence": 0.6458333333333334,
+      "study_macro_normalized_regret": 0.1818797481668333,
+      "study_macro_pairwise_ordering": 0.7986111111111112,
+      "study_macro_top_choice_credit": 0.6666666666666666,
+      "study_results": {
+        "four_scale_environment_utility": {
+          "abstention": 0.0,
+          "confidence": 0.8350000000000001,
+          "normalized_regret": 0.557945155673,
+          "pairwise_ordering": 0.5416666666666666,
+          "panels": 4,
+          "top_choice_credit": 0.0
+        },
+        "mlip_phonon_environment_selection": {
+          "abstention": 0.0,
+          "confidence": 0.68,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "prospective_cupid_can_v141": {
+          "abstention": 0.0,
+          "confidence": 0.65,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.85,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "prospective_pusht": {
+          "abstention": 0.0,
+          "confidence": 0.65,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "prospective_square_regression_v1": {
+          "abstention": 0.0,
+          "confidence": 0.35,
+          "normalized_regret": 0.5333333333279999,
+          "pairwise_ordering": 0.7333333333333333,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "prospective_syllogym_environment_selection": {
+          "abstention": 0.0,
+          "confidence": 0.71,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        }
+      }
+    },
+    "zero_history_without_measurements": {
+      "inference": {
+        "attempts": 9,
+        "completion_tokens": 13182,
+        "elapsed_seconds": 57.24806133308448,
+        "prompt_tokens": 3853,
+        "requests": 9,
+        "total_tokens": 17035
+      },
+      "panels": 9,
+      "studies": 6,
+      "study_macro_abstention": 0.3333333333333333,
+      "study_macro_confidence": 0.42083333333333334,
+      "study_macro_normalized_regret": 0.18666230936816666,
+      "study_macro_pairwise_ordering": 0.7263888888888889,
+      "study_macro_top_choice_credit": 0.7138888888888889,
+      "study_results": {
+        "four_scale_environment_utility": {
+          "abstention": 0.0,
+          "confidence": 0.5750000000000001,
+          "normalized_regret": 0.156862745098,
+          "pairwise_ordering": 0.7916666666666667,
+          "panels": 4,
+          "top_choice_credit": 0.75
+        },
+        "mlip_phonon_environment_selection": {
+          "abstention": 0.0,
+          "confidence": 0.62,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.8333333333333334,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "prospective_cupid_can_v141": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.352,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.2
+        },
+        "prospective_pusht": {
+          "abstention": 0.0,
+          "confidence": 0.71,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "prospective_square_regression_v1": {
+          "abstention": 0.0,
+          "confidence": 0.62,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.7333333333333333,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "prospective_syllogym_environment_selection": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.6111111111109999,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.3333333333333333
+        }
+      }
+    }
+  },
+  "cost_accounting": {
+    "advancement_consequence": "The total-research-cost advancement rule cannot be evaluated from this archive alone.",
+    "inference": "All attempts, tokens, and request time are charged above.",
+    "measurement": "The released seed-level records do not contain a common measurement-cost field, so measurement cost cannot be pooled for this replay.",
+    "training": "No new candidate training was run for this retrospective replay."
+  },
+  "evidence_tier": "retrospective complete-study replay",
+  "inference_total": {
+    "attempts": 36,
+    "completion_tokens": 117701,
+    "elapsed_seconds": 517.5045868392335,
+    "prompt_tokens": 115982,
+    "requests": 36,
+    "total_tokens": 233683
+  },
+  "inputs": {
+    "prediction_receipt_sha256": "e6002e49bb65fbc27f5d0238802b39dc0dbdfeab6a442e3c69a202e2bad51496",
+    "predictions_sha256": "4a12d3d10a87f0412ec677f28badf3e6dfa1766e376941b37fc322cf57c0ca7e",
+    "protected_labels_sha256": "3e49539da825f76268ea685adc9d5abc66af2a807a0c30f73e41131e2af0ff59"
+  },
+  "matched_text_baselines": {
+    "artifact_sha256": "e91e8609a4bd0f9f8667974411e0522b3c9ec12643e767d4d8588b99879abe08",
+    "best_method": {
+      "normalized_regret": 0.37686371100166666,
+      "pairwise_ordering": 0.6930555555555555,
+      "top_choice_credit": 0.3333333333333333
+    },
+    "best_method_by_study_macro_regret": "tfidf_knn_without_measurements",
+    "best_record_conditioned_condition_by_regret": "zero_history_with_measurements",
+    "eligible_methods": [
+      "tfidf_knn_with_measurements",
+      "tfidf_knn_without_measurements",
+      "tfidf_ridge_with_measurements",
+      "tfidf_ridge_without_measurements"
+    ],
+    "native_rule_note": "Released native rules remain separate because none covers the same nine target panels under this replay's common scoring contract.",
+    "paired_record_conditioned_comparison": {
+      "baseline": "tfidf_knn_without_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "zero_history_with_measurements",
+      "independent_studies": 6,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.0358480021331666,
+          0.4566596060715
+        ],
+        "mean": 0.19498396283483335,
+        "studies_improved": 3,
+        "studies_tied": 2,
+        "studies_worsened": 1
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.11111111111111117,
+          0.3166666666666667
+        ],
+        "mean": 0.10555555555555551,
+        "studies_improved": 3,
+        "studies_tied": 1,
+        "studies_worsened": 2
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.0,
+          0.6666666666666666
+        ],
+        "mean": 0.3333333333333333,
+        "studies_improved": 2,
+        "studies_tied": 4,
+        "studies_worsened": 0
+      }
+    }
+  },
+  "paired_comparisons": {
+    "history_contrast_with_measurements": {
+      "baseline": "zero_history_with_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "cross_history_with_measurements",
+      "independent_studies": 6,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.393448275862,
+          0.030158730157388864
+        ],
+        "mean": -0.14273672687530556,
+        "studies_improved": 1,
+        "studies_tied": 3,
+        "studies_worsened": 2
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.22777777777777777,
+          -0.013888888888888859
+        ],
+        "mean": -0.11527777777777776,
+        "studies_improved": 1,
+        "studies_tied": 2,
+        "studies_worsened": 3
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.6666666666666666,
+          0.05555555555555555
+        ],
+        "mean": -0.3055555555555555,
+        "studies_improved": 1,
+        "studies_tied": 3,
+        "studies_worsened": 2
+      }
+    },
+    "history_contrast_without_measurements": {
+      "baseline": "zero_history_without_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "cross_history_without_measurements",
+      "independent_studies": 6,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.532010744291451,
+          -0.026680806796833347
+        ],
+        "mean": -0.2732822898467917,
+        "studies_improved": 1,
+        "studies_tied": 1,
+        "studies_worsened": 4
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.23472222222222228,
+          0.0888888888888889
+        ],
+        "mean": -0.07361111111111113,
+        "studies_improved": 1,
+        "studies_tied": 1,
+        "studies_worsened": 4
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.8333333333333334,
+          -0.19999999999999998
+        ],
+        "mean": -0.5125000000000001,
+        "studies_improved": 0,
+        "studies_tied": 1,
+        "studies_worsened": 5
+      }
+    },
+    "primary_measurement_contrast": {
+      "baseline": "cross_history_without_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "cross_history_with_measurements",
+      "independent_studies": 6,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.14092816639322217,
+          0.42394115256225
+        ],
+        "mean": 0.13532812417281945,
+        "studies_improved": 2,
+        "studies_tied": 2,
+        "studies_worsened": 2
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.11388888888888887,
+          0.18333333333333326
+        ],
+        "mean": 0.030555555555555558,
+        "studies_improved": 3,
+        "studies_tied": 1,
+        "studies_worsened": 2
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.20138888888888887,
+          0.5138888888888888
+        ],
+        "mean": 0.15972222222222224,
+        "studies_improved": 3,
+        "studies_tied": 2,
+        "studies_worsened": 1
+      }
+    },
+    "zero_history_measurement_contrast": {
+      "baseline": "zero_history_without_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "zero_history_with_measurements",
+      "independent_studies": 6,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.31147191463433327,
+          0.32103703703699993
+        ],
+        "mean": 0.004782561201333339,
+        "studies_improved": 2,
+        "studies_tied": 2,
+        "studies_worsened": 2
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.08333333333333337,
+          0.20277777777777775
+        ],
+        "mean": 0.07222222222222219,
+        "studies_improved": 3,
+        "studies_tied": 2,
+        "studies_worsened": 1
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.5833333333333334,
+          0.48888888888888893
+        ],
+        "mean": -0.0472222222222222,
+        "studies_improved": 2,
+        "studies_tied": 2,
+        "studies_worsened": 2
+      }
+    }
+  }
+}

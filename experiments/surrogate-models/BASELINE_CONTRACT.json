@@ -1,0 +1,135 @@
+{
+  "artifact": "anarres_surrogate_baseline_contract_v1",
+  "status": "frozen before central replay scoring",
+  "inputs": {
+    "corpus_manifest": {
+      "path": "CORPUS_INVENTORY.json",
+      "sha256": "c674445d276611cd3057b34c86866f082b216041a950a2ebab645096537d0718"
+    },
+    "corpus_records": {
+      "path": "CORPUS_RECORDS.jsonl",
+      "sha256": "14d3928f18ea9c7438f3fbb7174538b6de96f21e24357cdec22fbc40421da7c4"
+    },
+    "replay_splits": {
+      "path": "REPLAY_SPLITS.json",
+      "sha256": "4561e54164fcc57265e017c13e56d517563f8f5c666c2df99dea9167b9dd5127"
+    }
+  },
+  "decision": {
+    "unit": "candidate environment within a matched panel",
+    "actions": [
+      "select one candidate",
+      "retain the starting policy when its outcome is released"
+    ],
+    "seed_handling": "aggregate independent training seeds by candidate for selection; retain seed variation as uncertainty",
+    "published_aggregate_handling": "weight candidate panels equally within each study and report study-macro results",
+    "native_outcomes": "orient higher-is-better and normalize only within the panel for fitting and scoring",
+    "ties": "split selection credit equally across exact predicted or observed ties"
+  },
+  "information_boundary": {
+    "allowed": [
+      "candidate metadata available before training",
+      "starting-policy and domain-native measurements available before training",
+      "training context and costs known at the prediction cutoff",
+      "prior outcomes permitted by the training fold"
+    ],
+    "excluded": [
+      "held-out candidate outcomes",
+      "later checkpoints or trained-policy evaluations",
+      "post-outcome summaries and conclusions",
+      "source, candidate, path, hash, or filename identity used as a predictive feature",
+      "records outside the frozen training fold"
+    ],
+    "normalization": "feature normalization is fit inside the training fold; outcome-blind normalization across target candidates is allowed only when the native study defines it",
+    "missing_values": "preserve missingness with an observed-value indicator; never replace missing cost or failure with zero"
+  },
+  "methods": [
+    {
+      "method_id": "uninformed_tie",
+      "role": "lower-bound decision baseline",
+      "inputs": []
+    },
+    {
+      "method_id": "released_native_rule",
+      "role": "strong domain baseline",
+      "inputs": [
+        "outcome-blind rule released by the originating study"
+      ]
+    },
+    {
+      "method_id": "metadata_ridge",
+      "role": "simple learned baseline",
+      "inputs": [
+        "permitted context and candidate metadata",
+        "missingness indicators"
+      ],
+      "penalty_grid": [
+        0.01,
+        0.1,
+        1.0,
+        10.0,
+        100.0
+      ]
+    },
+    {
+      "method_id": "measurement_ridge",
+      "role": "central Anarres ablation",
+      "inputs": [
+        "metadata_ridge inputs",
+        "compatible pre-training measurements",
+        "missingness indicators"
+      ],
+      "penalty_grid": [
+        0.01,
+        0.1,
+        1.0,
+        10.0,
+        100.0
+      ]
+    },
+    {
+      "method_id": "small_tree_ensemble",
+      "role": "nonlinear structured baseline",
+      "eligibility": "run only when the training fold has at least eight independent groups and every hyperparameter is selected inside grouped inner validation"
+    },
+    {
+      "method_id": "record_conditioned_language_model",
+      "role": "Research World Model comparison",
+      "eligibility": "score after deterministic serialization, retrieval, contamination audit, and inference-cost accounting are frozen"
+    }
+  ],
+  "selection": {
+    "hyperparameters": "nested grouped validation inside the training fold",
+    "primary_metric": "study-macro mean normalized allocation regret",
+    "complexity_rule": "advance a more complex method only when it improves complete-study holdouts over the strongest simpler baseline",
+    "random_row_split": false
+  },
+  "reporting": {
+    "primary": [
+      "study-macro mean normalized allocation regret",
+      "study-macro pairwise ordering accuracy",
+      "regression-selection rate when a starting-policy reference exists"
+    ],
+    "secondary": [
+      "panel-weighted regret and ordering",
+      "top-choice credit",
+      "native-unit prediction error where units remain comparable",
+      "interval coverage and width",
+      "abstention coverage and conditional regret"
+    ],
+    "costs": [
+      "measurement",
+      "surrogate fitting",
+      "surrogate inference",
+      "candidate training",
+      "failed execution",
+      "evaluation"
+    ]
+  },
+  "gates": {
+    "structured_replay": "measurement_ridge must improve study-macro regret over the strongest simple baseline without increasing regression selection",
+    "multimodal_replay": "each added modality must improve a complete-study holdout after acquisition and inference cost",
+    "prospective_test": "freeze only after the selected replay method passes support, chronology, and abstention audits",
+    "bounded_loop": "begin only after a scored prospective test"
+  }
+}

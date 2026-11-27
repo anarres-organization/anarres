@@ -1,0 +1,34 @@
+{
+  "artifact": "anarres_surrogate_model_views_v1",
+  "status": "released deterministic views; no trained cross-domain surrogate",
+  "source": {
+    "path": "CORPUS_RECORDS.jsonl",
+    "sha256": "14d3928f18ea9c7438f3fbb7174538b6de96f21e24357cdec22fbc40421da7c4"
+  },
+  "records": 3641,
+  "records_by_domain": {
+    "finance": 538,
+    "legal": 9,
+    "materials_science": 3010,
+    "mathematics": 32,
+    "robotics": 52
+  },
+  "inputs": {
+    "path": "MODEL_INPUTS.jsonl",
+    "sha256": "17242e69e0dfe82b0571babb4753bbcaf2e594ebfa4451fd1db3615c42104145",
+    "bytes": 1347398,
+    "model_views": [
+      "metadata",
+      "structured",
+      "record_conditioned"
+    ]
+  },
+  "labels": {
+    "path": "MODEL_LABELS.jsonl",
+    "sha256": "c6eb5e75e6df2b91d52bcc3105ce39d0b21816a125c360d620457eb18cebdd2f",
+    "bytes": 2994392,
+    "access_rule": "open training-fold labels for fitting; write held-out predictions before opening held-out labels for scoring"
+  },
+  "identity_rule": "the opaque join_key is transport metadata only; resolvable identities and content hashes are absent from features",
+  "outcome_rule": "native outcomes remain in the protected label view"
+}

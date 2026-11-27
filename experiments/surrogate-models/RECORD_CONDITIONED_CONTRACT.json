@@ -1,0 +1,48 @@
+{
+  "artifact": "anarres_record_conditioned_contract_v1",
+  "status": "frozen before record-conditioned inference",
+  "scientific_question": "Do permitted experimental records and Anarres measurements improve candidate-environment selection on complete held-out studies?",
+  "suite": "seed_level_leave_one_study_out",
+  "independent_unit": "candidate training intervention; seeds are aggregated before prediction and scoring",
+  "conditions": [
+    "zero_history_without_measurements",
+    "cross_history_without_measurements",
+    "zero_history_with_measurements",
+    "cross_history_with_measurements"
+  ],
+  "history_rule": "Cross-history conditions contain only candidate outcomes from studies other than the held-out study. Target outcomes and all target-study outcomes remain absent.",
+  "panel_rule": "One query ranks every candidate in one matched target panel. Candidate order is deterministic and outcome-blind.",
+  "target": "panel-normalized utility in [0,1], used for ordering rather than cross-domain absolute calibration",
+  "model": {
+    "model_id": "openai/gpt-oss-120b",
+    "revision": "b5c939de8f754692c1647ca79fbf85e8c1e70f8a",
+    "reasoning_effort": "high",
+    "temperature": 0,
+    "seed": 0,
+    "max_output_tokens": 32768,
+    "max_attempts": 2,
+    "retry_rule": "Repeat the identical request once only when the server returns no valid final JSON. Record both attempts and charge all tokens.",
+    "context_tokens": 131072,
+    "served_context_tokens": 65536,
+    "output_constraint": "strict JSON schema with exact candidate keys",
+    "knowledge_cutoff": "2024-06",
+    "selection_reason": "The checkpoint is Apache-2.0, fits on one available B200, predates the released Anarres outcomes, and is the strongest already-cached open reasoning model qualified for this comparison."
+  },
+  "structured_baselines": [
+    "tfidf_ridge",
+    "tfidf_knn",
+    "released_native_rule"
+  ],
+  "primary_metrics": [
+    "study-macro normalized allocation regret",
+    "study-macro pairwise ordering accuracy",
+    "study-macro top-choice credit"
+  ],
+  "primary_contrast": "cross_history_with_measurements versus cross_history_without_measurements",
+  "secondary_contrasts": [
+    "cross_history_without_measurements versus zero_history_without_measurements",
+    "cross_history_with_measurements versus zero_history_with_measurements"
+  ],
+  "advancement_rule": "A later prospective test requires improvement over the strongest eligible native or matched-history baseline after inference and measurement cost, plus an explicit abstention rule. This retrospective comparison runs regardless of the earlier structured baseline result.",
+  "claim_boundary": "Retrospective record-conditioned replay. Public-record contamination, small independent-study count, and heterogeneous targets limit generalization."
+}
