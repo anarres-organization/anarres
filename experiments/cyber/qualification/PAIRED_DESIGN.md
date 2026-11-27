@@ -27,3 +27,8 @@ The implementation accepts rows (task_id, successes_A, successes_B)
 and rejects duplicated task identities and invalid counts. The
 sign-flip distribution is verified against exhaustive enumeration on
 synthetic task pairs. No matched level-2 panel is claimed here.
+
+For a separate common-verifier measurement contract, see
+[Common-verifier sensitivity](VERIFIER_SENSITIVITY.md) for the unbiased
+latent variance contrast and fixed-panel directional tests. These methods
+require independent task pairs and a known or bounded common channel.
