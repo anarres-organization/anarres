@@ -55,3 +55,12 @@ scaffold, candidate environments, target, and budget.
 Formal-verification environments have a separate
 [plan and source qualification path](../formal-verification/README.md). Their
 proof-checker results are not pooled with exploit-verifier outcomes.
+
+## Conditional binary-reward planning
+
+The [grouping and selection analysis](SELECTION_LAW.md) separates generated
+from retained rollouts and uses a conditional global homogeneity test.
+The [screening budget](SCREENING_BUDGET.md) gives finite-count selection
+probabilities with explicit random ties and a simulated racing design.
+These are homogeneous independent-Bernoulli sensitivities using a
+hypothetical baseline, not estimates of released level-2 training utility.
