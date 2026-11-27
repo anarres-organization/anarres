@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anarres.science/schemas/robotics/probe-attempt.v1.schema.json",
+  "title": "Anarres robotics probe attempt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "initial_state_id",
+    "sample_index",
+    "seed",
+    "success",
+    "termination",
+    "control_steps",
+    "simulated_seconds",
+    "wall_clock_seconds",
+    "infrastructure_status"
+  ],
+  "properties": {
+    "schema_version": {"const": "anarres.robotics-probe-attempt.v1"},
+    "task_id": {"type": "string", "minLength": 1},
+    "initial_state_id": {"type": ["string", "null"], "minLength": 1},
+    "sample_index": {"type": "integer", "minimum": 0},
+    "seed": {"type": "integer"},
+    "success": {"type": ["boolean", "null"]},
+    "termination": {"enum": ["success", "failure", "truncated", null]},
+    "control_steps": {"type": "integer", "minimum": 0},
+    "simulated_seconds": {"type": "number", "minimum": 0},
+    "wall_clock_seconds": {"type": "number", "minimum": 0},
+    "infrastructure_status": {
+      "enum": [
+        "valid",
+        "reset_failed",
+        "simulator_error",
+        "checkpoint_error",
+        "timeout",
+        "runtime_error"
+      ]
+    }
+  },
+  "if": {"properties": {"infrastructure_status": {"const": "valid"}}},
+  "then": {
+    "properties": {
+      "success": {"type": "boolean"},
+      "termination": {"enum": ["success", "failure", "truncated"]}
+    }
+  },
+  "else": {"properties": {"success": {"const": null}, "termination": {"const": null}}}
+}

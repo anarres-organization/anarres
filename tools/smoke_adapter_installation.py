@@ -20,6 +20,7 @@ PACKAGES = (
     "packages/environments",
     "packages/finance",
     "packages/legal",
+    "packages/robotics",
     "packages/vulnerability",
     "data/formal-verification/vero",
     "experiments/robotics/environment-selection/prospective-cupid-can-v141",
@@ -45,7 +46,10 @@ ADAPTER_PACKAGES = {
         "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/adapter"
     ),
     "molecular": "experiments/ai-for-science/molecular-design/reaction-environment-selection",
-    "robotics": "experiments/robotics/environment-selection/prospective-cupid-can-v141",
+    "robotics": "packages/robotics",
+}
+ADAPTER_PLUGINS = {
+    "robotics": ("experiments/robotics/environment-selection/prospective-cupid-can-v141",),
 }
 
 
@@ -180,6 +184,8 @@ def main() -> int:
             str(native_source),
             "--adapter",
             "robotics",
+            "--native-format",
+            "robomimic-can-v141-hdf5",
             "--revision",
             f"sha256:{native_digest}",
             "--license",
@@ -467,6 +473,11 @@ def main() -> int:
                 "tool",
                 "install",
                 str(ROOT / package),
+                *(
+                    argument
+                    for plugin in ADAPTER_PLUGINS.get(adapter, ())
+                    for argument in ("--with", str(ROOT / plugin))
+                ),
                 cwd=ROOT,
                 env=source_environment,
             )

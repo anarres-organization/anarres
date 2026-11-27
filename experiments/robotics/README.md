@@ -12,8 +12,8 @@ This program asks a concrete question:
 ## Start here
 
 ```bash
-uv tool install \
-  ./experiments/robotics/environment-selection/prospective-cupid-can-v141
+uv tool install ./packages/robotics \
+  --with ./experiments/robotics/environment-selection/prospective-cupid-can-v141
 anarres robotics status --repository .
 anarres robotics can-results --repository .
 anarres robotics square-results --repository .

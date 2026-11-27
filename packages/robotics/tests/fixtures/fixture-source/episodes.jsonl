@@ -1,0 +1,4 @@
+{"action_dimension": 7, "control_steps": 212, "demonstration_id": "demo-0", "initial_state_id": "state-01", "observation_keys": ["robot0_eef_pos", "object"], "success": true}
+{"action_dimension": 7, "control_steps": 400, "demonstration_id": "demo-1", "initial_state_id": "state-01", "observation_keys": ["robot0_eef_pos", "object"], "success": false}
+{"action_dimension": 7, "control_steps": 188, "demonstration_id": "demo-2", "initial_state_id": "state-02", "observation_keys": ["robot0_eef_pos", "object"], "success": true}
+{"action_dimension": 7, "control_steps": 0, "demonstration_id": "demo-3", "initial_state_id": "broken-03", "observation_keys": ["robot0_eef_pos", "object"], "success": false}

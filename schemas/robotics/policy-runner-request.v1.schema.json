@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://anarres.science/schemas/robotics/policy-runner-request.v1.schema.json",
+  "title": "Anarres robotics policy-runner request v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "protocol_version",
+    "policy",
+    "source",
+    "driver",
+    "evaluation_contract_digest",
+    "tasks",
+    "limits"
+  ],
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "text": {"type": "string", "minLength": 1}
+  },
+  "properties": {
+    "schema_version": {"const": "anarres.robotics-policy-runner-request.v1"},
+    "protocol_version": {"const": 1},
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "revision"],
+      "properties": {"id": {"$ref": "#/$defs/text"}, "revision": {"$ref": "#/$defs/text"}}
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["environment_id", "revision", "content_digest"],
+      "properties": {
+        "environment_id": {"$ref": "#/$defs/text"},
+        "revision": {"$ref": "#/$defs/text"},
+        "content_digest": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "driver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["native_format", "version"],
+      "properties": {
+        "native_format": {"$ref": "#/$defs/text"},
+        "version": {"$ref": "#/$defs/text"}
+      }
+    },
+    "evaluation_contract_digest": {"$ref": "#/$defs/digest"},
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["task_id", "initial_state_id", "seeds"],
+        "properties": {
+          "task_id": {"$ref": "#/$defs/text"},
+          "initial_state_id": {"type": ["string", "null"], "minLength": 1},
+          "seeds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer"}}
+        }
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_steps", "wall_clock_seconds"],
+      "properties": {
+        "max_steps": {"type": "integer", "minimum": 1},
+        "wall_clock_seconds": {"type": "integer", "minimum": 1}
+      }
+    }
+  }
+}

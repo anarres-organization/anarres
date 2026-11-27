@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.12'",
@@ -18,6 +18,7 @@ members = [
     "anarres-materials",
     "anarres-molecular",
     "anarres-robotics",
+    "anarres-robotics-cupid-can-v141",
     "anarres-vulnerability",
     "anarres-workspace",
 ]
@@ -130,11 +131,27 @@ requires-dist = [
 
 [[package]]
 name = "anarres-robotics"
-version = "0.5.1"
+version = "0.6.0"
+source = { editable = "packages/robotics" }
+dependencies = [
+    { name = "anarres-core" },
+    { name = "anarres-environments" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "anarres-core", editable = "packages/core" },
+    { name = "anarres-environments", editable = "packages/environments" },
+]
+
+[[package]]
+name = "anarres-robotics-cupid-can-v141"
+version = "0.6.0"
 source = { editable = "experiments/robotics/environment-selection/prospective-cupid-can-v141" }
 dependencies = [
     { name = "anarres-core" },
     { name = "anarres-environments" },
+    { name = "anarres-robotics" },
     { name = "h5py" },
 ]
 
@@ -142,6 +159,7 @@ dependencies = [
 requires-dist = [
     { name = "anarres-core", editable = "packages/core" },
     { name = "anarres-environments", editable = "packages/environments" },
+    { name = "anarres-robotics", editable = "packages/robotics" },
     { name = "h5py", specifier = ">=3.8" },
 ]
 
