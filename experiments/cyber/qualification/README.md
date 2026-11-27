@@ -55,3 +55,21 @@ scaffold, candidate environments, target, and budget.
 Formal-verification environments have a separate
 [plan and source qualification path](../formal-verification/README.md). Their
 proof-checker results are not pooled with exploit-verifier outcomes.
+
+## Conditional reward-variance comparison
+
+The [composite-null test](SIGNAL_DENSITY_COMPARISON.md) and
+[sequential planning example](SEQUENTIAL_DESIGN.md) assume independent
+homogeneous Bernoulli draws. The [matched-task design](PAIRED_DESIGN.md)
+keeps the task as the experimental unit and states its exchangeability
+assumptions. None ranks overall environment utility or claims a validated
+level-2 baseline.
+
+The [folded-count sequential diagnostic](FOLDED_VARIANCE.md) tests the
+stronger conditional taskwise symmetry null rather than equality of mean
+variance. Its exact rational stopping rule permits predictable variation
+in group size and baseline rate under conditional exchangeability. The
+[raw-yield analysis](TASK_RACING.md) and [common-verifier sensitivity](VERIFIER_SENSITIVITY.md)
+address separate estimands. The original PR description's baseline-specific
+likelihood-ratio calibration and derived budget claims are superseded by
+these scoped analyses. No frozen protocol was modified.
