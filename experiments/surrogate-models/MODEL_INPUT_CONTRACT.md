@@ -17,12 +17,16 @@ no scientific meaning.
 The feature payload contains:
 
 - domain and evidence level
-- cost fields known before training
+- explicitly pre-run cost fields (currently declared sample count)
 - the native `prediction_time` object released by the contributing study.
 
 Native measurements remain nested and namespaced. The builder does not rename
 unlike quantities into shared coordinates, fill missing values with zero, or
 derive features from outcomes.
+
+Realized generated tokens, admitted tokens, execution validity, and cost-release
+status are protected post-execution evidence. They remain in the label view and
+never enter model inputs merely because the source study reported them.
 
 The builder recursively removes hashes, digests, paths, filenames, record
 pointers, and frozen candidate predictions. Record, source, study, panel,

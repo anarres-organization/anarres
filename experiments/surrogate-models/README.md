@@ -22,6 +22,32 @@ The current inventory supports structured baselines. Raw multimodal assets are
 not silently inferred from study summaries; they enter through a later,
 licensed artifact manifest with reconstruction and leakage checks.
 
+### Structured replay result
+
+The grouped structured replay is released in
+[`STRUCTURED_REPLAY_RESULTS.json`](STRUCTURED_REPLAY_RESULTS.json). It fits each
+model without the held-out study or publication and selects hyperparameters by
+grouped validation inside the training fold. Candidate seeds are aggregated
+before selection.
+
+Measurements improve substantially over the metadata baseline in the materials
+and finance bridges. They do not improve the six-study seed-level suite, where
+the methods remain tied. The replay also does not yet charge measurement and
+surrogate costs or define an abstention rule. The frozen advancement gate
+therefore does not authorize the record-conditioned GPU comparison. This is a
+retrospective result, not evidence against a later surrogate with richer,
+properly qualified inputs.
+
+Reproduce the complete fit and score with:
+
+```bash
+uv run --group surrogate-test python \
+  experiments/surrogate-models/run_structured_replay.py --run
+```
+
+The prediction file and fit receipt are written before the scorer opens the
+held-out outcome fields.
+
 ### 2. Learned multimodal surrogate
 
 The [model program](MULTIMODAL_SURROGATE.md) compares a fixed ladder of structured, record-conditioned, and multimodal predictors under identical information cutoffs. Multimodality is central to the research question, but each modality must earn its place through held-out ablation. The independent unit remains a training intervention, not a task, checkpoint, trace, or evaluation row.
