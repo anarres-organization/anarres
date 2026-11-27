@@ -1,0 +1,31 @@
+{
+  "artifact": "anarres_domain_record_conditioned_inputs_v1",
+  "conditions": [
+    "zero_history_without_measurements",
+    "retrieved_history_without_measurements",
+    "zero_history_with_measurements",
+    "retrieved_history_with_measurements"
+  ],
+  "contract_sha256": "c5fb30eba5d541210072bf341077b7463d2d7f1d9854650025bfac7d65839671",
+  "heldout_groups": 51,
+  "label_access": "predictions must be written and hashed before scoring opens targets",
+  "model_inputs_sha256": "300dcc521feee7de87ad5603f8b1b85c7c0274b60675a72af825339824bbb5cf",
+  "prompts": {
+    "path": "DOMAIN_RECORD_CONDITIONED_INPUTS.jsonl",
+    "rows": 356,
+    "sha256": "fc36631c347a5d08055237882dba9f4db14cfeb843c55276e1978357a7b81071"
+  },
+  "protected_labels_sha256": "92f5db8f5c10dc7cfaee5b85e26089820d85d78b1fd60c448af44b667844c0bd",
+  "retrieved_panels_per_history_prompt": [
+    4,
+    6,
+    8
+  ],
+  "status": "frozen before model inference",
+  "target_panels": 89,
+  "targets": {
+    "path": "DOMAIN_RECORD_CONDITIONED_LABELS.jsonl",
+    "rows": 356,
+    "sha256": "9d40570ec5653a098f689cf24e426090162db605ccf179d7620e6cd08f1605f3"
+  }
+}

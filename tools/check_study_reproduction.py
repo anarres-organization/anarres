@@ -189,6 +189,7 @@ CHECKS = (
             "test_build_domain_surrogate_inventory.py",
             "test_build_domain_surrogate_splits.py",
             "test_domain_structured_replay.py",
+            "test_build_domain_record_conditioned_replay.py",
             "test_matched_text_baselines.py",
             "test_record_conditioned_model.py",
         ),
