@@ -1,6 +1,12 @@
 {
   "artifact": "anarres_domain_record_conditioned_contract_v1",
-  "status": "frozen before model inference",
+  "status": "outcome-blind execution amendment after an unscored serving failure",
+  "amendment": {
+    "date": "2026-11-27",
+    "trigger": "One request exhausted both frozen attempts without returning final JSON after 83 valid predictions had been written.",
+    "outcome_access": "Protected labels had not been opened or scored.",
+    "change": "After the frozen retry limit, record neutral candidate scores, zero confidence, and an explicit abstention; retain and charge both failed attempts. Successful request payloads and all scientific comparisons remain unchanged."
+  },
   "scientific_question": "Does outcome-blind retrieval of complete experimental panels improve environment selection on held-out studies or decisions beyond the same model using target measurements alone?",
   "source": "DOMAIN_SURROGATE_RECORDS.jsonl",
   "independent_unit": "complete study or agentic-coding training decision",
@@ -32,6 +38,7 @@
     "max_output_tokens": 32768,
     "max_attempts": 2,
     "retry_rule": "Repeat the identical request once only when serving returns no valid final JSON. Record and charge every attempt.",
+    "failure_policy": "neutral_abstention",
     "context_tokens": 131072,
     "served_context_tokens": 65536,
     "selection_reason": "Reuse the already qualified open baseline to isolate the value of the larger domain-centered archive and retrieved research history before comparing another backbone."
