@@ -55,3 +55,10 @@ scaffold, candidate environments, target, and budget.
 Formal-verification environments have a separate
 [plan and source qualification path](../formal-verification/README.md). Their
 proof-checker results are not pooled with exploit-verifier outcomes.
+
+## Conditional fixed-budget planning
+
+The [Bernoulli screen planning model](INFORMATION_FLOOR.md) separates a
+necessary leader-swap bound from a sufficient max-count budget. It assumes
+independent homogeneous draws and uses 0.035 only as a hypothetical baseline,
+not a confirmed level2 rate. It does not measure training utility.
