@@ -110,6 +110,12 @@ class CodingCliTest(unittest.TestCase):
             result = cli.command_profile(args)
             self.assertGreater(result["panels"]["released"]["profiles"], 0)
             self.assertGreater(result["panels"]["external"]["profiles"], 0)
+            self.assertTrue(list(Path(directory).glob("*.profile-input.json")))
+            self.assertFalse((Path(directory) / "released").exists())
+
+    def test_profile_accepts_shared_output_directory_option(self) -> None:
+        arguments = cli.parser().parse_args(["profile", "--output-dir", "/tmp/profiles"])
+        self.assertEqual(arguments.output, Path("/tmp/profiles"))
 
     def test_marin_audit_qualifies_within_dataset_only(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

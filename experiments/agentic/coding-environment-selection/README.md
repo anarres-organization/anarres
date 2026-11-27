@@ -90,7 +90,7 @@ uv tool install ./experiments/agentic/coding-environment-selection
 anarres adapter doctor coding
 anarres coding status --repository .
 anarres coding regressions --repository .
-anarres coding profile --repository . --output /tmp/agentic-coding-profiles
+anarres coding profile --repository . --output-dir /tmp/agentic-coding-profiles
 ```
 
 Audit a pinned Marin fixed-validation record without merging unlike targets:

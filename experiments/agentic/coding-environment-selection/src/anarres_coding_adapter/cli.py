@@ -128,7 +128,7 @@ def command_profile(args: argparse.Namespace) -> dict[str, Any]:
             (
                 "released",
                 study / "scripts/export_environment_profiles.py",
-                args.output / "released",
+                args.output,
             )
         )
     if args.panel in {"external", "all"}:
@@ -136,7 +136,7 @@ def command_profile(args: argparse.Namespace) -> dict[str, Any]:
             (
                 "external",
                 study / "scripts/export_external_profiles.py",
-                args.output / "external",
+                args.output,
             )
         )
     reports = {}
@@ -221,7 +221,14 @@ def parser() -> argparse.ArgumentParser:
         "profile", help="Export released outcome-free candidate measurements."
     )
     add_repository(profile)
-    profile.add_argument("--output", type=Path, required=True)
+    profile.add_argument(
+        "--output-dir",
+        "--output",
+        dest="output",
+        type=Path,
+        required=True,
+        help="Directory for exported environment-profile inputs.",
+    )
     profile.add_argument("--panel", choices=("released", "external", "all"), default="all")
     profile.set_defaults(handler=command_profile)
 
