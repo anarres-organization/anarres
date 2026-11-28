@@ -1,0 +1,72 @@
+{
+  "artifact": "anarres_domain_aware_surrogate_contract_v1",
+  "claim_boundary": "This policy was selected after the retrospective domain replay. It is frozen only for future unseen studies and cannot be scored back on the development replay as prospective evidence.",
+  "development_evidence": {
+    "domain_record_conditioned_prediction_receipt_sha256": "4931030d30abbeb815a9e6dce894d949dc4fc158e3b94ca47ada9ec2bd395520",
+    "domain_record_conditioned_results_sha256": "3b9ce1f2844f040a8cb5386e2678f7d522147872792ef79a0ca6332745e1a2be",
+    "domain_surrogate_inventory_sha256": "ffb358dcf7803ef31a81f9ee91f18c99ad6686f0181095a71d49f45689318ced",
+    "domain_surrogate_splits_sha256": "0c38d08023e65bedd7f84c745e855861f2618956fab2b342d055c1f471ea9a02"
+  },
+  "frozen_comparator": {
+    "agentic_coding": {
+      "action": "predict",
+      "condition": "retrieved_history_with_measurements"
+    },
+    "finance": {
+      "action": "predict",
+      "condition": "retrieved_history_with_measurements"
+    },
+    "legal": {
+      "action": "abstain",
+      "condition": null,
+      "reason": "Only one independent utility study is released."
+    },
+    "materials_science": {
+      "action": "predict",
+      "condition": "zero_history_with_measurements"
+    },
+    "robotics": {
+      "action": "predict_provisionally",
+      "condition": "retrieved_history_with_measurements",
+      "reason": "The development comparison contains three independent studies."
+    },
+    "unseen_domain": {
+      "action": "abstain",
+      "condition": null,
+      "reason": "No domain-specific retrieval decision has been qualified."
+    }
+  },
+  "learned_candidate": {
+    "information_cutoff": "Only evidence available before the held-out intervention outcome may enter the model.",
+    "regression_track": "Fit and calibrate localized regression models separately under each domain's native grouped endpoint.",
+    "retrieval_gate": "Choose whether to use retrieved experiment history without access to the held-out study or any descendant record.",
+    "utility_track": "Predict within-panel ordering, normalized allocation regret, supported native-unit outcomes, cost, and abstention."
+  },
+  "prospective_requirements": {
+    "comparators": [
+      "frozen_domain_route",
+      "learned_domain_aware_candidate",
+      "strongest_eligible_domain_native_rule",
+      "retain_starting_policy"
+    ],
+    "costs": [
+      "archive_construction",
+      "measurement",
+      "surrogate_fitting",
+      "surrogate_inference",
+      "candidate_training",
+      "failed_execution",
+      "evaluation"
+    ],
+    "independent_unit": "complete training study or explicitly declared independent training decision",
+    "primary_endpoint": "study-macro normalized allocation regret",
+    "required_secondary_endpoints": [
+      "pairwise_ordering",
+      "top_choice_credit",
+      "regression calibration for supported targets",
+      "abstention behavior",
+      "best observed utility by total research cost"
+    ]
+  },
+  "status": "frozen before any future unseen-study outcomes"
+}
