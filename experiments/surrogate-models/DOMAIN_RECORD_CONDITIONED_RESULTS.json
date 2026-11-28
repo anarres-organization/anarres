@@ -1,0 +1,2312 @@
+{
+  "artifact": "anarres_domain_record_conditioned_results_v1",
+  "claim_boundary": "Retrospective development replay on an outcome-blind balanced panel sample. Confidence is not calibrated uncertainty, and the result cannot authorize prospective allocation by itself.",
+  "conditions": {
+    "retrieved_history_with_measurements": {
+      "domain_results": {
+        "agentic_coding": {
+          "panels": 22,
+          "studies": 14,
+          "study_macro_abstention": 0.03571428571428571,
+          "study_macro_confidence": 0.7553571428571428,
+          "study_macro_normalized_regret": 0.032146380209326524,
+          "study_macro_pairwise_ordering": 0.8194727891156462,
+          "study_macro_top_choice_credit": 0.9158163265306122
+        },
+        "finance": {
+          "panels": 30,
+          "studies": 16,
+          "study_macro_abstention": 0.21875,
+          "study_macro_confidence": 0.5871875,
+          "study_macro_normalized_regret": 0.24047114819887186,
+          "study_macro_pairwise_ordering": 0.6869791666666667,
+          "study_macro_top_choice_credit": 0.6109375
+        },
+        "legal": {
+          "panels": 1,
+          "studies": 1,
+          "study_macro_abstention": 0.0,
+          "study_macro_confidence": 0.62,
+          "study_macro_normalized_regret": 1.0,
+          "study_macro_pairwise_ordering": 0.0,
+          "study_macro_top_choice_credit": 0.0
+        },
+        "materials_science": {
+          "panels": 33,
+          "studies": 17,
+          "study_macro_abstention": 0.058823529411764705,
+          "study_macro_confidence": 0.6676470588235294,
+          "study_macro_normalized_regret": 0.15749266465972256,
+          "study_macro_pairwise_ordering": 0.7547619047619047,
+          "study_macro_top_choice_credit": 0.6284313725490196
+        },
+        "robotics": {
+          "panels": 3,
+          "studies": 3,
+          "study_macro_abstention": 0.3333333333333333,
+          "study_macro_confidence": 0.5499999999999999,
+          "study_macro_normalized_regret": 0.18476190476200002,
+          "study_macro_pairwise_ordering": 0.8722222222222222,
+          "study_macro_top_choice_credit": 0.3333333333333333
+        }
+      },
+      "inference": {
+        "attempts": 90,
+        "completion_tokens": 394560,
+        "elapsed_seconds": 1812.576775320922,
+        "prompt_tokens": 303018,
+        "requests": 89,
+        "total_tokens": 697578
+      },
+      "panels": 89,
+      "studies": 51,
+      "study_macro_abstention": 0.11764705882352941,
+      "study_macro_confidence": 0.6586274509803921,
+      "study_macro_normalized_regret": 0.1672401707375256,
+      "study_macro_pairwise_ordering": 0.7433706816059757,
+      "study_macro_top_choice_credit": 0.6721521942110178,
+      "study_results": {
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_claude_opus_5": {
+          "abstention": 0.0,
+          "confidence": 0.85,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_gpt_5_6_sol": {
+          "abstention": 0.0,
+          "confidence": 0.8,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_claude_opus_5": {
+          "abstention": 0.0,
+          "confidence": 0.9,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_gpt_5_6_sol": {
+          "abstention": 0.0,
+          "confidence": 0.86,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:codemidas:codemidas_quality_scale": {
+          "abstention": 0.0,
+          "confidence": 0.73,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.9166666666666667,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:environment_evolution:environment_evolution_qwen3_6_27b": {
+          "abstention": 0.0,
+          "confidence": 0.88,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:environment_evolution:environment_evolution_qwen3_6_35b_a3b": {
+          "abstention": 0.0,
+          "confidence": 0.65,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:envsched:envsched_1p7b": {
+          "abstention": 0.0,
+          "confidence": 0.73,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:envsched:envsched_30b": {
+          "abstention": 0.0,
+          "confidence": 0.865,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:envsched:envsched_4b": {
+          "abstention": 0.0,
+          "confidence": 0.85,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.7916666666666666,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:envsched:envsched_8b": {
+          "abstention": 0.0,
+          "confidence": 0.78,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:rlve:rlve_six_arm_prospective": {
+          "abstention": 0.0,
+          "confidence": 0.625,
+          "normalized_regret": 0.185185185185,
+          "pairwise_ordering": 0.4666666666666667,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "agentic_coding:swe_gym_verified:swe_gym_reward_label_quality": {
+          "abstention": 0.0,
+          "confidence": 0.69,
+          "normalized_regret": 0.046610169491499986,
+          "pairwise_ordering": 0.8333333333333334,
+          "panels": 2,
+          "top_choice_credit": 0.75
+        },
+        "agentic_coding:tmax:tmax_public_pool_comparison": {
+          "abstention": 0.5,
+          "confidence": 0.365,
+          "normalized_regret": 0.2182539682540714,
+          "pairwise_ordering": 0.6309523809523809,
+          "panels": 2,
+          "top_choice_credit": 0.5714285714285714
+        },
+        "baghishov_2026_application_specific_mlip": {
+          "abstention": 0.0,
+          "confidence": 0.71,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "bi_elena_2026_budget_crossover": {
+          "abstention": 0.0,
+          "confidence": 0.665,
+          "normalized_regret": 0.233782031294,
+          "pairwise_ordering": 0.575,
+          "panels": 2,
+          "top_choice_credit": 0.0
+        },
+        "dale_2026_active_learning_failure": {
+          "abstention": 0.0,
+          "confidence": 0.6,
+          "normalized_regret": 0.3140459662745,
+          "pairwise_ordering": 0.40476190476190477,
+          "panels": 2,
+          "top_choice_credit": 0.25
+        },
+        "data_centric_finance": {
+          "abstention": 0.0,
+          "confidence": 0.86,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "dianjin_r1_2025": {
+          "abstention": 0.0,
+          "confidence": 0.765,
+          "normalized_regret": 0.11060070671400002,
+          "pairwise_ordering": 0.7333333333333333,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "espinosa_castaneda_2026_diversity": {
+          "abstention": 0.0,
+          "confidence": 0.67,
+          "normalized_regret": 0.08953930473270005,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 0.6
+        },
+        "fin_prm_2026": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.4180555555555999,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.2
+        },
+        "fin_sd_2026": {
+          "abstention": 1.0,
+          "confidence": 0.2,
+          "normalized_regret": 0.44777606486235005,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.325
+        },
+        "financial_advice_grpo_2026": {
+          "abstention": 0.0,
+          "confidence": 0.93,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "findap_2025": {
+          "abstention": 0.5,
+          "confidence": 0.34,
+          "normalized_regret": 0.75,
+          "pairwise_ordering": 0.25,
+          "panels": 2,
+          "top_choice_credit": 0.25
+        },
+        "finlcr_2026": {
+          "abstention": 0.0,
+          "confidence": 0.625,
+          "normalized_regret": 0.3125,
+          "pairwise_ordering": 0.525,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "finlmm_r1_2025": {
+          "abstention": 0.0,
+          "confidence": 0.7150000000000001,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.875,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "fino1": {
+          "abstention": 0.0,
+          "confidence": 0.745,
+          "normalized_regret": 0.17267267267250003,
+          "pairwise_ordering": 0.6666666666666667,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "haenseroth_2026_generators": {
+          "abstention": 0.0,
+          "confidence": 0.815,
+          "normalized_regret": 0.4275031256445,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "haenseroth_dressler_2026_data_efficiency": {
+          "abstention": 0.5,
+          "confidence": 0.44999999999999996,
+          "normalized_regret": 0.25,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 0.75
+        },
+        "harsha2025_synthetic_financial_qa": {
+          "abstention": 0.0,
+          "confidence": 0.62,
+          "normalized_regret": 0.22780325135450002,
+          "pairwise_ordering": 0.8,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "kim_2026_density_diversity": {
+          "abstention": 0.0,
+          "confidence": 0.665,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.8333333333333333,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "kulichenko_2023_udd": {
+          "abstention": 0.0,
+          "confidence": 0.68,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.5833333333333333,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "li_2023_redundancy": {
+          "abstention": 0.0,
+          "confidence": 0.7050000000000001,
+          "normalized_regret": 0.3177421254025,
+          "pairwise_ordering": 0.8333333333333333,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "liu_2026_heterogeneous_uq": {
+          "abstention": 0.5,
+          "confidence": 0.325,
+          "normalized_regret": 0.08523205779908333,
+          "pairwise_ordering": 0.6166666666666667,
+          "panels": 2,
+          "top_choice_credit": 0.08333333333333333
+        },
+        "mlip_phonon_environment_selection": {
+          "abstention": 0.0,
+          "confidence": 0.62,
+          "normalized_regret": 0.78694265174,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "oda_fin": {
+          "abstention": 0.0,
+          "confidence": 0.765,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.6333333333333333,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "okochi_japanese_finance_2026": {
+          "abstention": 1.0,
+          "confidence": 0.1,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "phogat2024_financial_qa": {
+          "abstention": 0.0,
+          "confidence": 0.685,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "prospective_cupid_can_v141": {
+          "abstention": 0.0,
+          "confidence": 0.85,
+          "normalized_regret": 0.24,
+          "pairwise_ordering": 0.85,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "prospective_pusht": {
+          "abstention": 0.0,
+          "confidence": 0.6,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "prospective_square_regression_v1": {
+          "abstention": 1.0,
+          "confidence": 0.2,
+          "normalized_regret": 0.31428571428600005,
+          "pairwise_ordering": 0.7666666666666667,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "prospective_syllogym_environment_selection": {
+          "abstention": 0.0,
+          "confidence": 0.62,
+          "normalized_regret": 1.0,
+          "pairwise_ordering": 0.0,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "qi_2024_direct_sampling": {
+          "abstention": 0.0,
+          "confidence": 0.64,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "quanteval": {
+          "abstention": 0.0,
+          "confidence": 0.6799999999999999,
+          "normalized_regret": 0.17241379310350002,
+          "pairwise_ordering": 0.6000000000000001,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "select2know_2025": {
+          "abstention": 0.0,
+          "confidence": 0.73,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.9583333333333333,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "shin_kim_2026_speech_sft": {
+          "abstention": 0.0,
+          "confidence": 0.635,
+          "normalized_regret": 0.7357163269195,
+          "pairwise_ordering": 0.45,
+          "panels": 2,
+          "top_choice_credit": 0.0
+        },
+        "varga_umbrich_2026_force_aware_ntk": {
+          "abstention": 0.0,
+          "confidence": 0.655,
+          "normalized_regret": 0.033834586466000016,
+          "pairwise_ordering": 0.6071428571428572,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "wang_2026_dataset_aware_entropy": {
+          "abstention": 0.0,
+          "confidence": 0.815,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "wong_yang_2026_umlip_bias": {
+          "abstention": 0.0,
+          "confidence": 0.72,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "zaverkin_2024_uncertainty_biased_md": {
+          "abstention": 0.0,
+          "confidence": 0.7050000000000001,
+          "normalized_regret": 0.138753449862,
+          "pairwise_ordering": 0.7107142857142856,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "zhang_2023_etal": {
+          "abstention": 0.0,
+          "confidence": 0.91,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        }
+      }
+    },
+    "retrieved_history_without_measurements": {
+      "domain_results": {
+        "agentic_coding": {
+          "panels": 22,
+          "studies": 14,
+          "study_macro_abstention": 0.2857142857142857,
+          "study_macro_confidence": 0.5671428571428571,
+          "study_macro_normalized_regret": 0.14226765080488774,
+          "study_macro_pairwise_ordering": 0.7529761904761905,
+          "study_macro_top_choice_credit": 0.7810374149659863
+        },
+        "finance": {
+          "panels": 30,
+          "studies": 16,
+          "study_macro_abstention": 0.65625,
+          "study_macro_confidence": 0.29000000000000004,
+          "study_macro_normalized_regret": 0.3511872931200078,
+          "study_macro_pairwise_ordering": 0.5958333333333333,
+          "study_macro_top_choice_credit": 0.49635416666666665
+        },
+        "legal": {
+          "panels": 1,
+          "studies": 1,
+          "study_macro_abstention": 0.0,
+          "study_macro_confidence": 0.45,
+          "study_macro_normalized_regret": 0.833333333333,
+          "study_macro_pairwise_ordering": 0.6666666666666666,
+          "study_macro_top_choice_credit": 0.0
+        },
+        "materials_science": {
+          "panels": 33,
+          "studies": 17,
+          "study_macro_abstention": 0.7352941176470589,
+          "study_macro_confidence": 0.22588235294117642,
+          "study_macro_normalized_regret": 0.4060246969330393,
+          "study_macro_pairwise_ordering": 0.5550420168067227,
+          "study_macro_top_choice_credit": 0.3931022408963585
+        },
+        "robotics": {
+          "panels": 3,
+          "studies": 3,
+          "study_macro_abstention": 0.3333333333333333,
+          "study_macro_confidence": 0.5366666666666666,
+          "study_macro_normalized_regret": 0.42039408867,
+          "study_macro_pairwise_ordering": 0.7444444444444445,
+          "study_macro_top_choice_credit": 0.0
+        }
+      },
+      "inference": {
+        "attempts": 89,
+        "completion_tokens": 206873,
+        "elapsed_seconds": 944.548218758544,
+        "prompt_tokens": 167040,
+        "requests": 89,
+        "total_tokens": 373913
+      },
+      "panels": 89,
+      "studies": 51,
+      "study_macro_abstention": 0.5490196078431373,
+      "study_macro_confidence": 0.3623529411764706,
+      "study_macro_normalized_regret": 0.3256407695763377,
+      "study_macro_pairwise_ordering": 0.6355042016806722,
+      "study_macro_top_choice_credit": 0.501155462184874,
+      "study_results": {
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_claude_opus_5": {
+          "abstention": 0.0,
+          "confidence": 0.75,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_gpt_5_6_sol": {
+          "abstention": 0.0,
+          "confidence": 0.62,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_claude_opus_5": {
+          "abstention": 0.0,
+          "confidence": 0.86,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_gpt_5_6_sol": {
+          "abstention": 0.0,
+          "confidence": 0.84,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:codemidas:codemidas_quality_scale": {
+          "abstention": 1.0,
+          "confidence": 0.1,
+          "normalized_regret": 0.46626160587737503,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.25
+        },
+        "agentic_coding:environment_evolution:environment_evolution_qwen3_6_27b": {
+          "abstention": 0.0,
+          "confidence": 0.88,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:environment_evolution:environment_evolution_qwen3_6_35b_a3b": {
+          "abstention": 0.0,
+          "confidence": 0.78,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:envsched:envsched_1p7b": {
+          "abstention": 0.0,
+          "confidence": 0.745,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:envsched:envsched_30b": {
+          "abstention": 0.0,
+          "confidence": 0.855,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:envsched:envsched_4b": {
+          "abstention": 0.0,
+          "confidence": 0.755,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.7916666666666666,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:envsched:envsched_8b": {
+          "abstention": 0.0,
+          "confidence": 0.7050000000000001,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:rlve:rlve_six_arm_prospective": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.60688758934375,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.16666666666666666
+        },
+        "agentic_coding:swe_gym_verified:swe_gym_reward_label_quality": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.421521892655375,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.375
+        },
+        "agentic_coding:tmax:tmax_public_pool_comparison": {
+          "abstention": 1.0,
+          "confidence": 0.05,
+          "normalized_regret": 0.4970760233919285,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.14285714285714285
+        },
+        "baghishov_2026_application_specific_mlip": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.4515208034003333,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "bi_elena_2026_budget_crossover": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.35312327712680003,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.2
+        },
+        "dale_2026_active_learning_failure": {
+          "abstention": 0.5,
+          "confidence": 0.525,
+          "normalized_regret": 0.3505440138192143,
+          "pairwise_ordering": 0.4523809523809524,
+          "panels": 2,
+          "top_choice_credit": 0.07142857142857142
+        },
+        "data_centric_finance": {
+          "abstention": 0.5,
+          "confidence": 0.51,
+          "normalized_regret": 0.25,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 0.75
+        },
+        "dianjin_r1_2025": {
+          "abstention": 0.0,
+          "confidence": 0.65,
+          "normalized_regret": 0.1471153846155,
+          "pairwise_ordering": 0.6,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "espinosa_castaneda_2026_diversity": {
+          "abstention": 0.0,
+          "confidence": 0.6,
+          "normalized_regret": 0.14053146473280004,
+          "pairwise_ordering": 0.7333333333333334,
+          "panels": 2,
+          "top_choice_credit": 0.6
+        },
+        "fin_prm_2026": {
+          "abstention": 1.0,
+          "confidence": 0.15,
+          "normalized_regret": 0.4180555555555999,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.2
+        },
+        "fin_sd_2026": {
+          "abstention": 1.0,
+          "confidence": 0.05,
+          "normalized_regret": 0.44777606486235005,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.325
+        },
+        "financial_advice_grpo_2026": {
+          "abstention": 0.0,
+          "confidence": 0.75,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "findap_2025": {
+          "abstention": 1.0,
+          "confidence": 0.1,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "finlcr_2026": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5013157894736999,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.30000000000000004
+        },
+        "finlmm_r1_2025": {
+          "abstention": 1.0,
+          "confidence": 0.05,
+          "normalized_regret": 0.5209363217428333,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.20833333333333331
+        },
+        "fino1": {
+          "abstention": 1.0,
+          "confidence": 0.15000000000000002,
+          "normalized_regret": 0.485129360129375,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.25
+        },
+        "haenseroth_2026_generators": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.592780615979,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "haenseroth_dressler_2026_data_efficiency": {
+          "abstention": 0.5,
+          "confidence": 0.315,
+          "normalized_regret": 0.25,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 0.75
+        },
+        "harsha2025_synthetic_financial_qa": {
+          "abstention": 1.0,
+          "confidence": 0.05,
+          "normalized_regret": 0.5242809503959001,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.35
+        },
+        "kim_2026_density_diversity": {
+          "abstention": 1.0,
+          "confidence": 0.075,
+          "normalized_regret": 0.5821794370185,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "kulichenko_2023_udd": {
+          "abstention": 0.0,
+          "confidence": 0.6799999999999999,
+          "normalized_regret": 0.875,
+          "pairwise_ordering": 0.25,
+          "panels": 2,
+          "top_choice_credit": 0.0
+        },
+        "li_2023_redundancy": {
+          "abstention": 0.5,
+          "confidence": 0.45499999999999996,
+          "normalized_regret": 0.30923146169787497,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 0.625
+        },
+        "liu_2026_heterogeneous_uq": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.16917803324891661,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.16666666666666666
+        },
+        "mlip_phonon_environment_selection": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.6607123465757501,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.25
+        },
+        "oda_fin": {
+          "abstention": 0.0,
+          "confidence": 0.7,
+          "normalized_regret": 0.28961748633883333,
+          "pairwise_ordering": 0.5833333333333333,
+          "panels": 2,
+          "top_choice_credit": 0.6666666666666666
+        },
+        "okochi_japanese_finance_2026": {
+          "abstention": 1.0,
+          "confidence": 0.1,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "phogat2024_financial_qa": {
+          "abstention": 0.0,
+          "confidence": 0.5650000000000001,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "prospective_cupid_can_v141": {
+          "abstention": 1.0,
+          "confidence": 0.35,
+          "normalized_regret": 0.24,
+          "pairwise_ordering": 0.8,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "prospective_pusht": {
+          "abstention": 0.0,
+          "confidence": 0.68,
+          "normalized_regret": 0.706896551724,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "prospective_square_regression_v1": {
+          "abstention": 0.0,
+          "confidence": 0.58,
+          "normalized_regret": 0.31428571428600005,
+          "pairwise_ordering": 0.7666666666666667,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "prospective_syllogym_environment_selection": {
+          "abstention": 0.0,
+          "confidence": 0.45,
+          "normalized_regret": 0.833333333333,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "qi_2024_direct_sampling": {
+          "abstention": 1.0,
+          "confidence": 0.05,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "quanteval": {
+          "abstention": 0.0,
+          "confidence": 0.665,
+          "normalized_regret": 0.17241379310350002,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "select2know_2025": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5112510113268334,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.29166666666666663
+        },
+        "shin_kim_2026_speech_sft": {
+          "abstention": 1.0,
+          "confidence": 0.15,
+          "normalized_regret": 0.3511049723757,
+          "pairwise_ordering": 0.6,
+          "panels": 2,
+          "top_choice_credit": 0.6
+        },
+        "varga_umbrich_2026_force_aware_ntk": {
+          "abstention": 1.0,
+          "confidence": 0.05,
+          "normalized_regret": 0.26512710347292856,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.3571428571428571
+        },
+        "wang_2026_dataset_aware_entropy": {
+          "abstention": 0.0,
+          "confidence": 0.815,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "wong_yang_2026_umlip_bias": {
+          "abstention": 1.0,
+          "confidence": 0.05,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "zaverkin_2024_uncertainty_biased_md": {
+          "abstention": 1.0,
+          "confidence": 0.175,
+          "normalized_regret": 0.40249129078955004,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.1625
+        },
+        "zhang_2023_etal": {
+          "abstention": 1.0,
+          "confidence": 0.05,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        }
+      }
+    },
+    "zero_history_with_measurements": {
+      "domain_results": {
+        "agentic_coding": {
+          "panels": 22,
+          "studies": 14,
+          "study_macro_abstention": 0.25,
+          "study_macro_confidence": 0.6103571428571427,
+          "study_macro_normalized_regret": 0.20100746204566072,
+          "study_macro_pairwise_ordering": 0.7488945578231292,
+          "study_macro_top_choice_credit": 0.7142857142857143
+        },
+        "finance": {
+          "panels": 30,
+          "studies": 16,
+          "study_macro_abstention": 0.375,
+          "study_macro_confidence": 0.3603124999999999,
+          "study_macro_normalized_regret": 0.3094021207518286,
+          "study_macro_pairwise_ordering": 0.6734375,
+          "study_macro_top_choice_credit": 0.5786458333333333
+        },
+        "legal": {
+          "panels": 1,
+          "studies": 1,
+          "study_macro_abstention": 1.0,
+          "study_macro_confidence": 0.15,
+          "study_macro_normalized_regret": 1.0,
+          "study_macro_pairwise_ordering": 0.16666666666666666,
+          "study_macro_top_choice_credit": 0.0
+        },
+        "materials_science": {
+          "panels": 33,
+          "studies": 17,
+          "study_macro_abstention": 0.14705882352941177,
+          "study_macro_confidence": 0.5652941176470588,
+          "study_macro_normalized_regret": 0.12208164449433762,
+          "study_macro_pairwise_ordering": 0.791841736694678,
+          "study_macro_top_choice_credit": 0.7380252100840335
+        },
+        "robotics": {
+          "panels": 3,
+          "studies": 3,
+          "study_macro_abstention": 0.6666666666666666,
+          "study_macro_confidence": 0.26,
+          "study_macro_normalized_regret": 0.3372742200323889,
+          "study_macro_pairwise_ordering": 0.6166666666666667,
+          "study_macro_top_choice_credit": 0.5
+        }
+      },
+      "inference": {
+        "attempts": 89,
+        "completion_tokens": 203523,
+        "elapsed_seconds": 918.9614237864735,
+        "prompt_tokens": 52494,
+        "requests": 89,
+        "total_tokens": 256017
+      },
+      "panels": 89,
+      "studies": 51,
+      "study_macro_abstention": 0.29411764705882354,
+      "study_macro_confidence": 0.48725490196078436,
+      "study_macro_normalized_regret": 0.23238723563077288,
+      "study_macro_pairwise_ordering": 0.720343137254902,
+      "study_macro_top_choice_credit": 0.6530345471521942,
+      "study_results": {
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_claude_opus_5": {
+          "abstention": 0.0,
+          "confidence": 0.71,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_gpt_5_6_sol": {
+          "abstention": 0.0,
+          "confidence": 0.84,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_claude_opus_5": {
+          "abstention": 0.0,
+          "confidence": 0.85,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_gpt_5_6_sol": {
+          "abstention": 0.0,
+          "confidence": 0.9,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:codemidas:codemidas_quality_scale": {
+          "abstention": 0.0,
+          "confidence": 0.85,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.9166666666666667,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:environment_evolution:environment_evolution_qwen3_6_27b": {
+          "abstention": 0.0,
+          "confidence": 0.85,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.8333333333333334,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:environment_evolution:environment_evolution_qwen3_6_35b_a3b": {
+          "abstention": 0.0,
+          "confidence": 0.7,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.8333333333333334,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:envsched:envsched_1p7b": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.49437128712874995,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.25
+        },
+        "agentic_coding:envsched:envsched_30b": {
+          "abstention": 0.5,
+          "confidence": 0.44999999999999996,
+          "normalized_regret": 0.25,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 0.75
+        },
+        "agentic_coding:envsched:envsched_4b": {
+          "abstention": 1.0,
+          "confidence": 0.1,
+          "normalized_regret": 0.57692216981125,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.25
+        },
+        "agentic_coding:envsched:envsched_8b": {
+          "abstention": 0.5,
+          "confidence": 0.425,
+          "normalized_regret": 0.32466996699675,
+          "pairwise_ordering": 0.625,
+          "panels": 2,
+          "top_choice_credit": 0.625
+        },
+        "agentic_coding:rlve:rlve_six_arm_prospective": {
+          "abstention": 0.0,
+          "confidence": 0.575,
+          "normalized_regret": 0.425925925926,
+          "pairwise_ordering": 0.4666666666666667,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "agentic_coding:swe_gym_verified:swe_gym_reward_label_quality": {
+          "abstention": 0.5,
+          "confidence": 0.55,
+          "normalized_regret": 0.22881355932199998,
+          "pairwise_ordering": 0.6666666666666667,
+          "panels": 2,
+          "top_choice_credit": 0.625
+        },
+        "agentic_coding:tmax:tmax_public_pool_comparison": {
+          "abstention": 0.0,
+          "confidence": 0.745,
+          "normalized_regret": 0.5134015594545001,
+          "pairwise_ordering": 0.7261904761904763,
+          "panels": 2,
+          "top_choice_credit": 0.0
+        },
+        "baghishov_2026_application_specific_mlip": {
+          "abstention": 0.0,
+          "confidence": 0.41500000000000004,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "bi_elena_2026_budget_crossover": {
+          "abstention": 0.5,
+          "confidence": 0.15,
+          "normalized_regret": 0.34323141938940005,
+          "pairwise_ordering": 0.525,
+          "panels": 2,
+          "top_choice_credit": 0.1
+        },
+        "dale_2026_active_learning_failure": {
+          "abstention": 0.5,
+          "confidence": 0.39999999999999997,
+          "normalized_regret": 0.2864980475447143,
+          "pairwise_ordering": 0.6666666666666667,
+          "panels": 2,
+          "top_choice_credit": 0.5714285714285714
+        },
+        "data_centric_finance": {
+          "abstention": 0.5,
+          "confidence": 0.175,
+          "normalized_regret": 0.25,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 0.75
+        },
+        "dianjin_r1_2025": {
+          "abstention": 0.0,
+          "confidence": 0.515,
+          "normalized_regret": 0.11060070671400002,
+          "pairwise_ordering": 0.7666666666666666,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "espinosa_castaneda_2026_diversity": {
+          "abstention": 0.0,
+          "confidence": 0.5,
+          "normalized_regret": 0.11481986428475,
+          "pairwise_ordering": 0.7666666666666666,
+          "panels": 2,
+          "top_choice_credit": 0.75
+        },
+        "fin_prm_2026": {
+          "abstention": 0.0,
+          "confidence": 0.35,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.9,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "fin_sd_2026": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.44777606486235005,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.325
+        },
+        "financial_advice_grpo_2026": {
+          "abstention": 0.0,
+          "confidence": 0.84,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "findap_2025": {
+          "abstention": 0.0,
+          "confidence": 0.74,
+          "normalized_regret": 1.0,
+          "pairwise_ordering": 0.0,
+          "panels": 2,
+          "top_choice_credit": 0.0
+        },
+        "finlcr_2026": {
+          "abstention": 1.0,
+          "confidence": 0.05,
+          "normalized_regret": 0.5013157894736999,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.30000000000000004
+        },
+        "finlmm_r1_2025": {
+          "abstention": 0.5,
+          "confidence": 0.42500000000000004,
+          "normalized_regret": 0.27727272727275,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 0.625
+        },
+        "fino1": {
+          "abstention": 0.0,
+          "confidence": 0.42500000000000004,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "haenseroth_2026_generators": {
+          "abstention": 0.0,
+          "confidence": 0.7,
+          "normalized_regret": 0.4275031256445,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "haenseroth_dressler_2026_data_efficiency": {
+          "abstention": 1.0,
+          "confidence": 0.15000000000000002,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "harsha2025_synthetic_financial_qa": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5242809503959001,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.35
+        },
+        "kim_2026_density_diversity": {
+          "abstention": 0.0,
+          "confidence": 0.75,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.8333333333333333,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "kulichenko_2023_udd": {
+          "abstention": 0.0,
+          "confidence": 0.78,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "li_2023_redundancy": {
+          "abstention": 0.5,
+          "confidence": 0.29,
+          "normalized_regret": 0.30923146169787497,
+          "pairwise_ordering": 0.75,
+          "panels": 2,
+          "top_choice_credit": 0.625
+        },
+        "liu_2026_heterogeneous_uq": {
+          "abstention": 0.0,
+          "confidence": 0.7,
+          "normalized_regret": 0.0014459219644999965,
+          "pairwise_ordering": 0.8,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "mlip_phonon_environment_selection": {
+          "abstention": 0.0,
+          "confidence": 0.66,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.6666666666666666,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "oda_fin": {
+          "abstention": 1.0,
+          "confidence": 0.05,
+          "normalized_regret": 0.4842896174864584,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.20833333333333331
+        },
+        "okochi_japanese_finance_2026": {
+          "abstention": 0.0,
+          "confidence": 0.64,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "phogat2024_financial_qa": {
+          "abstention": 0.0,
+          "confidence": 0.41500000000000004,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "prospective_cupid_can_v141": {
+          "abstention": 0.0,
+          "confidence": 0.78,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.85,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "prospective_pusht": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5689655172413333,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "prospective_square_regression_v1": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.44285714285583333,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.16666666666666666
+        },
+        "prospective_syllogym_environment_selection": {
+          "abstention": 1.0,
+          "confidence": 0.15,
+          "normalized_regret": 1.0,
+          "pairwise_ordering": 0.16666666666666666,
+          "panels": 1,
+          "top_choice_credit": 0.0
+        },
+        "qi_2024_direct_sampling": {
+          "abstention": 0.0,
+          "confidence": 0.73,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "quanteval": {
+          "abstention": 0.0,
+          "confidence": 0.32499999999999996,
+          "normalized_regret": 0.17241379310350002,
+          "pairwise_ordering": 0.9,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "select2know_2025": {
+          "abstention": 0.0,
+          "confidence": 0.815,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.9583333333333333,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "shin_kim_2026_speech_sft": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.6824842827205999,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.2
+        },
+        "varga_umbrich_2026_force_aware_ntk": {
+          "abstention": 0.0,
+          "confidence": 0.7,
+          "normalized_regret": 0.033834586466000016,
+          "pairwise_ordering": 0.6309523809523809,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "wang_2026_dataset_aware_entropy": {
+          "abstention": 0.0,
+          "confidence": 0.715,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "wong_yang_2026_umlip_bias": {
+          "abstention": 0.0,
+          "confidence": 0.7050000000000001,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        },
+        "zaverkin_2024_uncertainty_biased_md": {
+          "abstention": 0.0,
+          "confidence": 0.625,
+          "normalized_regret": 0.058823529411999975,
+          "pairwise_ordering": 0.9053571428571429,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "zhang_2023_etal": {
+          "abstention": 0.0,
+          "confidence": 0.64,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 1.0,
+          "panels": 2,
+          "top_choice_credit": 1.0
+        }
+      }
+    },
+    "zero_history_without_measurements": {
+      "domain_results": {
+        "agentic_coding": {
+          "panels": 22,
+          "studies": 14,
+          "study_macro_abstention": 1.0,
+          "study_macro_confidence": 0.0,
+          "study_macro_normalized_regret": 0.4896730636667271,
+          "study_macro_pairwise_ordering": 0.5238095238095238,
+          "study_macro_top_choice_credit": 0.37032312925170074
+        },
+        "finance": {
+          "panels": 30,
+          "studies": 16,
+          "study_macro_abstention": 1.0,
+          "study_macro_confidence": 0.0075,
+          "study_macro_normalized_regret": 0.49273554088102345,
+          "study_macro_pairwise_ordering": 0.5,
+          "study_macro_top_choice_credit": 0.309375
+        },
+        "legal": {
+          "panels": 1,
+          "studies": 1,
+          "study_macro_abstention": 1.0,
+          "study_macro_confidence": 0.0,
+          "study_macro_normalized_regret": 0.6111111111109999,
+          "study_macro_pairwise_ordering": 0.5,
+          "study_macro_top_choice_credit": 0.3333333333333333
+        },
+        "materials_science": {
+          "panels": 33,
+          "studies": 17,
+          "study_macro_abstention": 1.0,
+          "study_macro_confidence": 0.0029411764705882353,
+          "study_macro_normalized_regret": 0.4582116718022888,
+          "study_macro_pairwise_ordering": 0.5,
+          "study_macro_top_choice_credit": 0.3318977591036414
+        },
+        "robotics": {
+          "panels": 3,
+          "studies": 3,
+          "study_macro_abstention": 1.0,
+          "study_macro_confidence": 0.0,
+          "study_macro_normalized_regret": 0.4546075533657222,
+          "study_macro_pairwise_ordering": 0.5,
+          "study_macro_top_choice_credit": 0.2333333333333333
+        }
+      },
+      "inference": {
+        "attempts": 89,
+        "completion_tokens": 86992,
+        "elapsed_seconds": 395.29874028800987,
+        "prompt_tokens": 34031,
+        "requests": 89,
+        "total_tokens": 121023
+      },
+      "panels": 89,
+      "studies": 51,
+      "study_macro_abstention": 1.0,
+      "study_macro_confidence": 0.003333333333333333,
+      "study_macro_normalized_regret": 0.4804651713191691,
+      "study_macro_pairwise_ordering": 0.5065359477124184,
+      "study_macro_top_choice_credit": 0.32961017740429505,
+      "study_results": {
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_claude_opus_5": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5223880597013333,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_gpt_5_6_sol": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.6124031007753332,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_claude_opus_5": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.5
+        },
+        "agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_gpt_5_6_sol": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.5
+        },
+        "agentic_coding:codemidas:codemidas_quality_scale": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.46626160587737503,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.25
+        },
+        "agentic_coding:environment_evolution:environment_evolution_qwen3_6_27b": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5826086956523333,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "agentic_coding:environment_evolution:environment_evolution_qwen3_6_35b_a3b": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.0,
+          "pairwise_ordering": 0.8333333333333334,
+          "panels": 1,
+          "top_choice_credit": 1.0
+        },
+        "agentic_coding:envsched:envsched_1p7b": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.49437128712874995,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.25
+        },
+        "agentic_coding:envsched:envsched_30b": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "agentic_coding:envsched:envsched_4b": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.57692216981125,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.25
+        },
+        "agentic_coding:envsched:envsched_8b": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.57498246699675,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.25
+        },
+        "agentic_coding:rlve:rlve_six_arm_prospective": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.60688758934375,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.16666666666666666
+        },
+        "agentic_coding:swe_gym_verified:swe_gym_reward_label_quality": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.421521892655375,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.375
+        },
+        "agentic_coding:tmax:tmax_public_pool_comparison": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.4970760233919285,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.14285714285714285
+        },
+        "baghishov_2026_application_specific_mlip": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.4515208034003333,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "bi_elena_2026_budget_crossover": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.35312327712680003,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.2
+        },
+        "dale_2026_active_learning_failure": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.44961822798871426,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.21428571428571427
+        },
+        "data_centric_finance": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "dianjin_r1_2025": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.37393879677450004,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.16666666666666666
+        },
+        "espinosa_castaneda_2026_diversity": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.3583923078879167,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.16666666666666666
+        },
+        "fin_prm_2026": {
+          "abstention": 1.0,
+          "confidence": 0.12,
+          "normalized_regret": 0.4180555555555999,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.2
+        },
+        "fin_sd_2026": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.44777606486235005,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.325
+        },
+        "financial_advice_grpo_2026": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.5
+        },
+        "findap_2025": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "finlcr_2026": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5013157894736999,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.30000000000000004
+        },
+        "finlmm_r1_2025": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5209363217428333,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.20833333333333331
+        },
+        "fino1": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.485129360129375,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.25
+        },
+        "haenseroth_2026_generators": {
+          "abstention": 1.0,
+          "confidence": 0.05,
+          "normalized_regret": 0.592780615979,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "haenseroth_dressler_2026_data_efficiency": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "harsha2025_synthetic_financial_qa": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5242809503959001,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.35
+        },
+        "kim_2026_density_diversity": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5821794370185,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "kulichenko_2023_udd": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.445243515452625,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.25
+        },
+        "li_2023_redundancy": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.559231461697875,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.375
+        },
+        "liu_2026_heterogeneous_uq": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.16917803324891661,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.16666666666666666
+        },
+        "mlip_phonon_environment_selection": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.6607123465757501,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.25
+        },
+        "oda_fin": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.4842896174864584,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.20833333333333331
+        },
+        "okochi_japanese_finance_2026": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "phogat2024_financial_qa": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.483633563726625,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.25
+        },
+        "prospective_cupid_can_v141": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.352,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.2
+        },
+        "prospective_pusht": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5689655172413333,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "prospective_square_regression_v1": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.44285714285583333,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.16666666666666666
+        },
+        "prospective_syllogym_environment_selection": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.6111111111109999,
+          "pairwise_ordering": 0.5,
+          "panels": 1,
+          "top_choice_credit": 0.3333333333333333
+        },
+        "qi_2024_direct_sampling": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "quanteval": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.45067733990159997,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.2
+        },
+        "select2know_2025": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5112510113268334,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.29166666666666663
+        },
+        "shin_kim_2026_speech_sft": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.6824842827205999,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.2
+        },
+        "varga_umbrich_2026_force_aware_ntk": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.26512710347292856,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.3571428571428571
+        },
+        "wang_2026_dataset_aware_entropy": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "wong_yang_2026_umlip_bias": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        },
+        "zaverkin_2024_uncertainty_biased_md": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.40249129078955004,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.1625
+        },
+        "zhang_2023_etal": {
+          "abstention": 1.0,
+          "confidence": 0.0,
+          "normalized_regret": 0.5,
+          "pairwise_ordering": 0.5,
+          "panels": 2,
+          "top_choice_credit": 0.5
+        }
+      }
+    }
+  },
+  "cost_accounting": {
+    "candidate_training": "No new candidate training occurs in this replay.",
+    "inference": "All attempts, tokens, and request time are charged.",
+    "measurement": "Missing common measurement costs remain unknown."
+  },
+  "evidence_tier": "retrospective balanced complete-group development replay",
+  "inference_total": {
+    "attempts": 357,
+    "completion_tokens": 891948,
+    "elapsed_seconds": 4071.3851581539493,
+    "prompt_tokens": 556583,
+    "requests": 356,
+    "total_tokens": 1448531
+  },
+  "inputs": {
+    "prediction_receipt_sha256": "4931030d30abbeb815a9e6dce894d949dc4fc158e3b94ca47ada9ec2bd395520",
+    "predictions_sha256": "d9ab0f455bde930a2ab53cd4e5281a6c1ec0ec6324684e5e56da614352f615b1",
+    "protected_labels_sha256": "9d40570ec5653a098f689cf24e426090162db605ccf179d7620e6cd08f1605f3"
+  },
+  "matched_text_baselines": {
+    "artifact_sha256": "42aa307f585bd8bcf123645e5a5c0d18412ea3952416680bf418d70911e1b93a",
+    "best_method": {
+      "normalized_regret": 0.27431869129003433,
+      "pairwise_ordering": 0.6791783380018674,
+      "top_choice_credit": 0.5357843137254902
+    },
+    "best_method_by_study_macro_regret": "tfidf_ridge_with_measurements",
+    "best_record_conditioned_condition_by_regret": "retrieved_history_with_measurements",
+    "eligible_methods": [
+      "tfidf_knn_with_measurements",
+      "tfidf_knn_without_measurements",
+      "tfidf_ridge_with_measurements",
+      "tfidf_ridge_without_measurements"
+    ],
+    "native_rule_note": "Released native rules remain separate because none covers the same nine target panels under this replay's common scoring contract.",
+    "paired_record_conditioned_comparison": {
+      "baseline": "tfidf_ridge_with_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "retrieved_history_with_measurements",
+      "independent_studies": 51,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.05221263357872232,
+          0.16738395349670357
+        ],
+        "mean": 0.10707852055250872,
+        "studies_improved": 19,
+        "studies_tied": 29,
+        "studies_worsened": 3
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.020514705882352942,
+          0.11258578431372546
+        ],
+        "mean": 0.06419234360410833,
+        "studies_improved": 21,
+        "studies_tied": 20,
+        "studies_worsened": 10
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.053524743230625574,
+          0.22581757703081232
+        ],
+        "mean": 0.13636788048552756,
+        "studies_improved": 17,
+        "studies_tied": 30,
+        "studies_worsened": 4
+      }
+    }
+  },
+  "paired_comparisons": {
+    "primary_retrieval_contrast": {
+      "baseline": "zero_history_with_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "retrieved_history_with_measurements",
+      "independent_studies": 51,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.002903853995767482,
+          0.12762426382600667
+        ],
+        "mean": 0.06514706489324724,
+        "studies_improved": 18,
+        "studies_tied": 24,
+        "studies_worsened": 9
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.022899451447245568,
+          0.07054184173669467
+        ],
+        "mean": 0.023027544351073764,
+        "studies_improved": 18,
+        "studies_tied": 18,
+        "studies_worsened": 15
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.08123366013071895,
+          0.11582866479925301
+        ],
+        "mean": 0.01911764705882353,
+        "studies_improved": 14,
+        "studies_tied": 26,
+        "studies_worsened": 11
+      }
+    },
+    "retrieval_contrast_without_measurements": {
+      "baseline": "zero_history_without_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "retrieved_history_without_measurements",
+      "independent_studies": 51,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.09024053442630028,
+          0.22399063527557142
+        ],
+        "mean": 0.15482440174283155,
+        "studies_improved": 23,
+        "studies_tied": 25,
+        "studies_worsened": 3
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.08120915032679739,
+          0.18076855742296913
+        ],
+        "mean": 0.12896825396825398,
+        "studies_improved": 24,
+        "studies_tied": 25,
+        "studies_worsened": 2
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.09082574696545286,
+          0.2573564425770307
+        ],
+        "mean": 0.1715452847805789,
+        "studies_improved": 20,
+        "studies_tied": 25,
+        "studies_worsened": 6
+      }
+    },
+    "retrieved_history_measurement_contrast": {
+      "baseline": "retrieved_history_without_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "retrieved_history_with_measurements",
+      "independent_studies": 51,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.09139381817699382,
+          0.22850144083016616
+        ],
+        "mean": 0.1584005988388121,
+        "studies_improved": 26,
+        "studies_tied": 20,
+        "studies_worsened": 5
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.04990662931839402,
+          0.16496323529411763
+        ],
+        "mean": 0.10786647992530346,
+        "studies_improved": 28,
+        "studies_tied": 18,
+        "studies_worsened": 5
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.08343691643323997,
+          0.2619575746965452
+        ],
+        "mean": 0.17099673202614382,
+        "studies_improved": 22,
+        "studies_tied": 23,
+        "studies_worsened": 6
+      }
+    },
+    "zero_history_measurement_contrast": {
+      "baseline": "zero_history_without_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "zero_history_with_measurements",
+      "independent_studies": 51,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.1773685324349132,
+          0.31476740578038415
+        ],
+        "mean": 0.2480779356883964,
+        "studies_improved": 36,
+        "studies_tied": 12,
+        "studies_worsened": 3
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.1515394491129785,
+          0.2744631185807656
+        ],
+        "mean": 0.21380718954248365,
+        "studies_improved": 36,
+        "studies_tied": 12,
+        "studies_worsened": 3
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.2346974206349207,
+          0.4136452497665733
+        ],
+        "mean": 0.3234243697478992,
+        "studies_improved": 35,
+        "studies_tied": 12,
+        "studies_worsened": 4
+      }
+    }
+  },
+  "primary_retrieval_contrast_by_domain": {
+    "agentic_coding": {
+      "baseline": "zero_history_with_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "retrieved_history_with_measurements",
+      "independent_studies": 14,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.07425134845208418,
+          0.2735843661876604
+        ],
+        "mean": 0.16886108183633416,
+        "studies_improved": 7,
+        "studies_tied": 7,
+        "studies_worsened": 0
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.014902210884353749,
+          0.1509353741496598
+        ],
+        "mean": 0.07057823129251697,
+        "studies_improved": 7,
+        "studies_tied": 5,
+        "studies_worsened": 2
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.0625,
+          0.35714285714285715
+        ],
+        "mean": 0.20153061224489793,
+        "studies_improved": 6,
+        "studies_tied": 8,
+        "studies_worsened": 0
+      }
+    },
+    "finance": {
+      "baseline": "zero_history_with_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "retrieved_history_with_measurements",
+      "independent_studies": 16,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.03313716258371013,
+          0.17063698583022227
+        ],
+        "mean": 0.06893097255295677,
+        "studies_improved": 6,
+        "studies_tied": 7,
+        "studies_worsened": 3
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.07292968749999998,
+          0.09791666666666668
+        ],
+        "mean": 0.013541666666666678,
+        "studies_improved": 6,
+        "studies_tied": 5,
+        "studies_worsened": 5
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.1375,
+          0.19635416666666666
+        ],
+        "mean": 0.03229166666666667,
+        "studies_improved": 6,
+        "studies_tied": 7,
+        "studies_worsened": 3
+      }
+    },
+    "legal": {
+      "baseline": "zero_history_with_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "retrieved_history_with_measurements",
+      "independent_studies": 1,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "studies_improved": 0,
+        "studies_tied": 1,
+        "studies_worsened": 0
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.16666666666666666,
+          -0.16666666666666666
+        ],
+        "mean": -0.16666666666666666,
+        "studies_improved": 0,
+        "studies_tied": 0,
+        "studies_worsened": 1
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.0,
+          0.0
+        ],
+        "mean": 0.0,
+        "studies_improved": 0,
+        "studies_tied": 1,
+        "studies_worsened": 0
+      }
+    },
+    "materials_science": {
+      "baseline": "zero_history_with_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "retrieved_history_with_measurements",
+      "independent_studies": 17,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.14605352174942196,
+          0.03859848953978193
+        ],
+        "mean": -0.03541102016538495,
+        "studies_improved": 3,
+        "studies_tied": 9,
+        "studies_worsened": 5
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.09488883053221289,
+          0.021149334733893535
+        ],
+        "mean": -0.03707983193277312,
+        "studies_improved": 3,
+        "studies_tied": 7,
+        "studies_worsened": 7
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.2500070028011204,
+          -0.0029359243697479765
+        ],
+        "mean": -0.109593837535014,
+        "studies_improved": 1,
+        "studies_tied": 10,
+        "studies_worsened": 6
+      }
+    },
+    "robotics": {
+      "baseline": "zero_history_with_measurements",
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 20261127,
+      "candidate": "retrieved_history_with_measurements",
+      "independent_studies": 3,
+      "normalized_regret_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -0.24,
+          0.5689655172413333
+        ],
+        "mean": 0.15251231527038886,
+        "studies_improved": 2,
+        "studies_tied": 0,
+        "studies_worsened": 1
+      },
+      "pairwise_ordering_improvement": {
+        "cluster_bootstrap_95_interval": [
+          0.0,
+          0.5
+        ],
+        "mean": 0.2555555555555556,
+        "studies_improved": 2,
+        "studies_tied": 1,
+        "studies_worsened": 0
+      },
+      "top_choice_credit_improvement": {
+        "cluster_bootstrap_95_interval": [
+          -1.0,
+          0.6666666666666666
+        ],
+        "mean": -0.16666666666666663,
+        "studies_improved": 1,
+        "studies_tied": 0,
+        "studies_worsened": 2
+      }
+    }
+  }
+}
