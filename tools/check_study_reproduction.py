@@ -199,6 +199,8 @@ CHECKS = (
             "prospective-marin-rl-mixture-v1/test_protocol.py",
             "prospective-marin-rl-mixture-v1/test_snowball_closure_replay.py",
             "prospective-marin-rl-mixture-v1/test_snowball_micro210_pair_audit.py",
+            "prospective-marin-rl-mixture-v1/test_snowball_exp5_intervention.py",
+            "prospective-marin-rl-mixture-v1/test_score_snowball_panel.py",
             "prospective-marin-rl-mixture-v1/test_grug_swarm_corpus.py",
             "prospective-marin-rl-mixture-v1/test_grug_swarm_baselines.py",
             "prospective-marin-rl-mixture-v1/test_grug_relative_harm.py",

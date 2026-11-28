@@ -284,6 +284,19 @@ evaluation policy. The panel remains a coordination proposal. It does not
 authorize training until its sources, runtime, budget, seeds, probes, and
 target weights are frozen.
 
+The prospective [release scorer](score_snowball_panel.py) is implemented before
+candidate outcomes exist. Once a scoring contract binds the final prediction
+receipt and this script, it will reject incomplete candidate or seed matrices
+and report target-change RMSE, interval coverage, pairwise ordering, allocation
+regret against the option not to train, and regression ROC AUC, average
+precision, Brier score, and recall in the highest-risk 20 percent. Its
+uncertainty interval resamples whole training seeds jointly across candidates.
+Targets and seeds remain nested observations rather than additional training
+interventions. Every seed must match the frozen generated-token budget within
+its declared tolerance. Measurement, training, and evaluation accelerator
+hours are reported separately; the scorer does not invent a utility-to-cost
+exchange rate.
+
 ### 2. Qualify the Grug ladder and common contract
 
 Check every published narrow Grug rung for a durable final checkpoint,
