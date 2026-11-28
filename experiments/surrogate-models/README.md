@@ -217,6 +217,22 @@ risk through domain-native calibrated models. It advances only if it improves
 over the frozen route, the strongest eligible native rule, and retaining the
 starting policy after total research cost.
 
+The deterministic learned-model view is released in
+[`DOMAIN_AWARE_TRAINING_VIEW.json`](DOMAIN_AWARE_TRAINING_VIEW.json). It
+aggregates 3,713 record rows into 3,665 candidate lineages across 985 panels
+and 51 independent study groups. Structured inputs, optional text, protected
+labels, and opaque partition keys remain separate. The corresponding
+[`nested splits`](DOMAIN_AWARE_NESTED_SPLITS.json) exclude the outer test group
+from fitting, retrieval, inner model selection, and calibration.
+
+Rebuild and check the training view with:
+
+```bash
+python experiments/surrogate-models/build_domain_aware_training_view.py --check
+python -m unittest \
+  experiments/surrogate-models/test_build_domain_aware_training_view.py
+```
+
 Rebuild and verify this view with:
 
 ```bash
