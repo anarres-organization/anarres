@@ -1,0 +1,92 @@
+{
+  "artifact": "anarres_marin_model_ladder_audit_v0",
+  "audited_on": "2026-11-28",
+  "question": "Which public Marin models can support retrospective development, matched cross-scale transfer, or a post-training scaling law?",
+  "grug_pretraining_ladder": {
+    "source_issue": "https://github.com/marin-community/marin/issues/8435",
+    "source_revision": "12d8b6f09f96ad4f0277445765c1a00dbc81d5be",
+    "source_path": "experiments/grug/moe_hero_ep/launch_scaling_ladder.py",
+    "common_contract": "same 384-expert top-8 Grug recipe, common mixture and simulated epoch structure, and 791 pretraining tokens per active parameter",
+    "rungs": [
+      {
+        "model_id": "grug_d768",
+        "active_parameters": 61000000,
+        "total_parameters": 1600000000,
+        "pretraining_tokens": 48000000000,
+        "training_completion": "completed",
+        "durable_checkpoint_access": "not yet verified from a public artifact",
+        "post_training_status": "not established in the audited public record"
+      },
+      {
+        "model_id": "grug_d1024",
+        "active_parameters": 162000000,
+        "total_parameters": 4000000000,
+        "pretraining_tokens": 128000000000,
+        "training_completion": "completed",
+        "durable_checkpoint_access": "not yet verified from a public artifact",
+        "post_training_status": "not established in the audited public record"
+      },
+      {
+        "model_id": "grug_d1536",
+        "active_parameters": 481000000,
+        "total_parameters": 11500000000,
+        "pretraining_tokens": 381000000000,
+        "training_completion": "completed",
+        "durable_checkpoint_access": "not yet verified from a public artifact",
+        "post_training_status": "not established in the audited public record"
+      },
+      {
+        "model_id": "grug_d2048",
+        "active_parameters": 1200000000,
+        "total_parameters": 27700000000,
+        "pretraining_tokens": 926000000000,
+        "training_completion": "stopped at approximately 81 percent after a hardware failure and was not resumed",
+        "durable_checkpoint_access": "ineligible until a retained checkpoint and exact completion fraction are verified",
+        "post_training_status": "not established in the audited public record"
+      },
+      {
+        "model_id": "hero_d6144",
+        "active_parameters": 22760000000,
+        "total_parameters": 535300000000,
+        "pretraining_tokens": 18000000000000,
+        "training_completion": "completed",
+        "durable_checkpoint_access": "completed Hero and Mochi lineage is documented",
+        "post_training_status": "Mochi SFT and RL records exist"
+      }
+    ]
+  },
+  "post_training_bridge": [
+    {
+      "model_id": "snowball_67b_a2b",
+      "total_parameters": 67000000000,
+      "active_parameters_approximate": 2000000000,
+      "family_evidence": "Marin describes Snowball as a smaller Grug MoE using the same post-training stack as Mochi",
+      "source": "https://github.com/marin-community/marin/issues/11535",
+      "available_evidence": "multiple SFT and RL campaigns, released checkpoints, public recipes, evaluation records, and cost records",
+      "role": "retrospective development and matched prospective panel"
+    },
+    {
+      "model_id": "mochi_535b_a23b",
+      "total_parameters": 535300000000,
+      "active_parameters": 22760000000,
+      "family_evidence": "Mochi SFT starts from the completed Hero checkpoint lineage",
+      "source": "https://github.com/marin-community/marin/issues/12201",
+      "available_evidence": "one broad RL campaign with sealed evaluation, holdout curves, recipe, and runtime records",
+      "role": "protected cross-scale transfer target"
+    }
+  ],
+  "separate_method_check": {
+    "model_family": "Delphi",
+    "source": "https://github.com/marin-community/marin/issues/6279",
+    "evidence": "27 midtraining mixture-by-scale cells and completed SFT and RL evaluations across the public Delphi ladder",
+    "allowed_use": "test archive parsing, scale features, uncertainty, and scoring without choosing the Grug-family transfer rule",
+    "disallowed_use": "claim matched Snowball-to-Mochi scale transfer"
+  },
+  "conclusion": {
+    "matched_post_training_scales_available_now": 2,
+    "rl_scaling_law_supported_now": false,
+    "cross_scale_transfer_test_supported_now": true,
+    "minimum_new_evidence": "verify durable checkpoints and post-training compatibility for the three completed narrow rungs, then run one fixed SFT and RL candidate contract on at least one additional rung before calling the result a three-scale post-training trend; the incomplete d2048 rung is not eligible as a matched final checkpoint",
+    "protected_target": "Mochi outcomes cannot select the measurement transform, candidate construction rule, surrogate route, or abstention rule"
+  }
+}

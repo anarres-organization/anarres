@@ -18,12 +18,76 @@
   ],
   "records": [
     {
+      "id": "marin_6279",
+      "role": "separate_scaling_method_check",
+      "status": "development_only_different_family",
+      "title": "Delphi RL scaling laws",
+      "url": "https://github.com/marin-community/marin/issues/6279",
+      "use": "tests scale-aware archive extraction and scoring without supplying Grug-family transfer evidence"
+    },
+    {
+      "id": "marin_7786",
+      "role": "historical_rl_campaign",
+      "status": "development_only",
+      "title": "Non-agentic RLVR on Snowball 67B-A2B",
+      "url": "https://github.com/marin-community/marin/issues/7786",
+      "use": "completed public mathematical RL campaign with a report and artifact archive"
+    },
+    {
+      "id": "marin_8435",
+      "role": "model_family_ladder",
+      "status": "public_pretraining_ladder",
+      "title": "Hero Run: 535B-A23B on 18T tokens",
+      "url": "https://github.com/marin-community/marin/issues/8435",
+      "use": "pins the five-rung same-recipe Grug pretraining ladder and the completed Hero lineage"
+    },
+    {
+      "id": "marin_8901",
+      "role": "starting_policy_measurement",
+      "status": "development_only",
+      "title": "Pre-RL Snowball probe on R2E-Gym",
+      "url": "https://github.com/marin-community/marin/issues/8901",
+      "use": "supplies task-level repeated-attempt and trace evidence without a matched downstream intervention in the issue"
+    },
+    {
+      "id": "marin_9735",
+      "role": "historical_rl_campaign",
+      "status": "development_with_comparison_flags",
+      "title": "Snowball broad-domain RLVR across cooldown variants",
+      "url": "https://github.com/marin-community/marin/issues/9735",
+      "use": "supplies matched within-sweep comparisons and documents why cross-run rankings are invalid"
+    },
+    {
+      "id": "marin_10079",
+      "role": "historical_rl_candidate_panel",
+      "status": "development_only",
+      "title": "Resolving complex closure failures with multi-domain RLVR",
+      "url": "https://github.com/marin-community/marin/issues/10079",
+      "use": "provides same-initializer candidate interventions with capability gains and regressions"
+    },
+    {
       "id": "marin_10197",
       "role": "evaluation_contract",
       "status": "active_public_policy",
       "title": "Marin Eval Policy (2026-10-16)",
       "url": "https://github.com/marin-community/marin/issues/10197",
       "use": "defines native benchmarks, repetitions, contexts, infrastructure exclusions, and reporting expectations"
+    },
+    {
+      "id": "marin_10305",
+      "role": "historical_rl_regression_record",
+      "status": "development_only",
+      "title": "Smartie multi-domain RLVR revisited on Snowball",
+      "url": "https://github.com/marin-community/marin/issues/10305",
+      "use": "provides an overall improvement with a recorded structural regression and explicit exposure limitations"
+    },
+    {
+      "id": "marin_10388",
+      "role": "large_model_rl_check",
+      "status": "development_only_single_environment",
+      "title": "Prepare Hero for RL",
+      "url": "https://github.com/marin-community/marin/issues/10388",
+      "use": "documents verified large-model 4K GSM8K learning and runtime evidence without an environment-selection panel"
     },
     {
       "id": "marin_10314",
@@ -56,6 +120,14 @@
       "title": "Compare RL group size on Snowball",
       "url": "https://github.com/marin-community/marin/issues/11594",
       "use": "shows why prompt identity, training resources, and repeated evaluation must be matched before attributing an effect"
+    },
+    {
+      "id": "marin_11722",
+      "role": "cross_model_measurement_precedent",
+      "status": "development_only",
+      "title": "What is Mochi similar to? NLL and behaviour against open-weight models",
+      "url": "https://github.com/marin-community/marin/issues/11722",
+      "use": "shows matched likelihood and behavior measurements across Snowball and Mochi while explicitly separating similarity from training utility"
     },
     {
       "id": "marin_11723",
@@ -157,7 +229,7 @@
   ],
   "conclusion": {
     "eligible_now": false,
-    "next_action": "coordinate the common contract and fill the unresolved freeze fields before measuring candidates",
+    "next_action": "finish public artifact extraction and narrow-rung qualification, then freeze only the future choices and runtime gates that public history cannot supply",
     "prospective_claim_allowed": false
   }
 }

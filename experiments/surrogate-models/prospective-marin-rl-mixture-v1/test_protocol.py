@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Checks for the prospective Marin RL-mixture coordination draft."""
+"""Checks for the Marin public-reconstruction and prospective-design draft."""
 
 from __future__ import annotations
 
@@ -22,13 +22,15 @@ class MarinProtocolTest(unittest.TestCase):
         self.protocol = json.loads((HERE / "PROTOCOL.json").read_text())
         self.sources = json.loads((HERE / "SOURCE_AUDIT.json").read_text())
         self.panel = json.loads((HERE / "CANDIDATE_PANEL_PROPOSAL.json").read_text())
+        self.inventory = json.loads((HERE / "HISTORICAL_RL_INVENTORY.json").read_text())
+        self.ladder = json.loads((HERE / "MODEL_LADDER_AUDIT.json").read_text())
 
     def test_coordination_draft_cannot_authorize_execution(self) -> None:
         result = VALIDATOR.validate()
         self.assertFalse(result["execution_ready"])
         self.assertFalse(self.protocol["execution_authorized"])
         self.assertFalse(self.protocol["prediction_contract"]["protected_outcomes_opened"])
-        self.assertTrue(result["missing_freeze_fields"])
+        self.assertTrue(result["unfrozen_future_fields"])
         self.assertTrue(result["unsatisfied_required_gates"])
 
     def test_candidate_environment_is_the_only_intervention(self) -> None:
@@ -43,6 +45,37 @@ class MarinProtocolTest(unittest.TestCase):
         self.assertEqual(records["marin_12201"]["status"], "retrospective_confounded")
         self.assertEqual(records["marin_11337"]["status"], "development_only")
         self.assertFalse(self.sources["conclusion"]["prospective_claim_allowed"])
+
+    def test_model_ladder_does_not_overclaim_rl_scaling(self) -> None:
+        rungs = self.ladder["grug_pretraining_ladder"]["rungs"]
+        self.assertEqual(
+            [row["model_id"] for row in rungs],
+            [
+                "grug_d768",
+                "grug_d1024",
+                "grug_d1536",
+                "grug_d2048",
+                "hero_d6144",
+            ],
+        )
+        conclusion = self.ladder["conclusion"]
+        self.assertEqual(conclusion["matched_post_training_scales_available_now"], 2)
+        self.assertFalse(conclusion["rl_scaling_law_supported_now"])
+        self.assertTrue(conclusion["cross_scale_transfer_test_supported_now"])
+        by_id = {row["model_id"]: row for row in rungs}
+        self.assertEqual(by_id["grug_d2048"]["training_completion"].split()[0], "stopped")
+
+    def test_historical_inventory_preserves_independent_unit(self) -> None:
+        self.assertEqual(self.inventory["independent_unit"], "trained intervention")
+        records = {row["record_id"]: row for row in self.inventory["records"]}
+        self.assertEqual(
+            records["mochi_123_12119"]["surrogate_use"],
+            "protected_transfer_outcome",
+        )
+        self.assertEqual(
+            records["snowball_group_size_11594"]["surrogate_use"],
+            "negative_methodological_control",
+        )
 
     def test_attempt_contract_separates_infrastructure(self) -> None:
         fields = set(self.protocol["measurement_contract"]["required_attempt_fields"])
