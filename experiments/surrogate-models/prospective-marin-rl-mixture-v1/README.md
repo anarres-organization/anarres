@@ -284,6 +284,12 @@ trained under the same contract. The record is therefore excluded from
 surrogate fitting while defining the exact input and output fields the
 prospective study must produce.
 
+The public SFT seal pins the Exp5 starting-policy recipe revision, completed
+update, certified model-manifest digest, and evidence-seal digest. It does not
+publish a portable checkpoint revision in the cited record. The initializer's
+identity is therefore reconstructable, but a future execution contract must
+still bind and qualify the exact checkpoint artifact it will load.
+
 The [candidate-panel proposal](CANDIDATE_PANEL_PROPOSAL.json) now uses that
 released Exp5 contract as its anchor. It fixes nine source shares and exchanges
 only software-repair and instruction-following experience across four

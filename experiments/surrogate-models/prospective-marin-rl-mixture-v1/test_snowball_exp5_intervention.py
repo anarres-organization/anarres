@@ -37,6 +37,18 @@ class SnowballExp5InterventionTest(unittest.TestCase):
 
     def test_outcomes_do_not_become_prediction_inputs(self) -> None:
         readiness = self.record["prediction_readiness"]
+        starting_policy = self.record["starting_policy"]
+        self.assertEqual(
+            starting_policy["recipe_revision"],
+            "cf9db0ac38e2f64eaa917979bbcc4efa98158b65",
+        )
+        self.assertEqual(
+            starting_policy["certified_model_manifest_sha256"],
+            "4614aac5c1c42bafada15df52a44e01ac778b5e68966ce1a9bcda526f2cffe6e",
+        )
+        self.assertIsNone(starting_policy["portable_checkpoint_revision"])
+        self.assertTrue(readiness["starting_policy_identity_pinned"])
+        self.assertFalse(readiness["starting_policy_executable_artifact_pinned"])
         self.assertFalse(readiness["starting_policy_environment_measurements"])
         self.assertFalse(readiness["matched_candidate_panel"])
         self.assertFalse(readiness["eligible_for_surrogate_fitting"])

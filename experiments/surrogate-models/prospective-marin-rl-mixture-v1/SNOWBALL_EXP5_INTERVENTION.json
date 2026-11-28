@@ -5,6 +5,7 @@
   "sources": {
     "environment_code": "https://github.com/marin-community/marin/tree/71d264379641093f02789a05cc3294038a8ec990/experiments/post_training",
     "outcome_record": "https://github.com/marin-community/marin/issues/11337#issuecomment-7122320049",
+    "starting_policy_record": "https://github.com/marin-community/marin/issues/11994#issuecomment-7098895756",
     "evaluation_policy": "https://huggingface.co/datasets/open-athena/micro210-policy/tree/fa38e3eacc25137c9febe898119f08d65cc5ce88"
   },
   "chronology": {
@@ -14,7 +15,13 @@
   },
   "starting_policy": {
     "identity": "Snowball LongLoop Round5 SFT step 527",
-    "completed_updates": 528
+    "completed_updates": 528,
+    "recipe_path": "experiments/post_training/long_loop/rounds/exp5-setup.yaml",
+    "recipe_revision": "cf9db0ac38e2f64eaa917979bbcc4efa98158b65",
+    "certified_model_manifest_sha256": "4614aac5c1c42bafada15df52a44e01ac778b5e68966ce1a9bcda526f2cffe6e",
+    "evidence_seal_sha256": "e7fc413271f668848e86d2d3ed63822c152b317fb298ffda8993416695697341",
+    "portable_checkpoint_revision": null,
+    "qualification": "identity is pinned by the public seal; the cited record does not publish a portable checkpoint revision"
   },
   "environment": {
     "identity": "long-loop/exp5-rl@2026.11.20:995e3844",
@@ -138,6 +145,8 @@
     "exact_environment_identity": true,
     "fixed_training_contract": true,
     "native_target_vector": true,
+    "starting_policy_identity_pinned": true,
+    "starting_policy_executable_artifact_pinned": false,
     "starting_policy_environment_measurements": false,
     "matched_candidate_panel": false,
     "eligible_for_surrogate_fitting": false,
