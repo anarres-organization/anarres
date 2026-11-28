@@ -294,6 +294,13 @@ model is therefore not qualified. The next valid test is a frozen independent
 intervention with one native endpoint, the existing domain model, a
 measurement-only baseline, and the option to retain the starting policy.
 
+The first candidate for that independent test is the
+[prospective Marin RL-mixture study](prospective-marin-rl-mixture-v1/README.md).
+It proposes matched Snowball mixture interventions followed by an eligible
+Mochi scale-transfer test. The current artifact is a coordination draft. It
+does not authorize execution or treat Marin's published Snowball and Mochi
+outcomes as prospective Anarres evidence.
+
 Reproduce the gate with:
 
 ```bash
@@ -363,5 +370,6 @@ Study-local records should first exercise the lifecycle described in [RFC 0004](
 17. [Domain pairwise ranker result](DOMAIN_PAIRWISE_RANKER_RESULTS.json)
 18. [History-support gate result](HISTORY_SUPPORT_GATE_RESULTS.json)
 19. [Localized-regression evidence audit](REGRESSION_EVIDENCE_AUDIT.json)
-20. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
-21. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)
+20. [Prospective Marin RL-mixture study](prospective-marin-rl-mixture-v1/README.md)
+21. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
+22. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)

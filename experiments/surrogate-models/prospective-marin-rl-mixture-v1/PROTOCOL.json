@@ -1,0 +1,146 @@
+{
+  "artifact": "anarres_marin_rl_mixture_protocol_v0",
+  "created_on": "2026-11-27",
+  "evidence_tier": "coordination_draft",
+  "independent_test_unit": "trained intervention",
+  "question": "Can starting-policy measurements select an RL task mixture that improves held-out capability outcomes at fixed compute while identifying consequential regressions?",
+  "scope": {
+    "development_model": "Snowball",
+    "eligible_transfer_model": "Mochi",
+    "intervention": "candidate environment mixture only",
+    "candidate_count": {
+      "maximum": 4,
+      "minimum": 3
+    },
+    "candidate_source_vocabulary": [
+      "agentic_software_repair",
+      "nemotron_instruction_following",
+      "tasktrove",
+      "reasoning_gym",
+      "openscience",
+      "nemotron_ultra",
+      "snowball_smartie",
+      "eurus"
+    ],
+    "excluded_joint_search": [
+      "optimizer",
+      "learning_rate",
+      "rollout_group_size",
+      "sampler_algorithm",
+      "checkpoint_selection_rule",
+      "evaluation_policy"
+    ]
+  },
+  "fixed_contract": {
+    "candidate_construction_rule": null,
+    "candidate_mixtures": [],
+    "evaluation_policy_revision": null,
+    "generated_token_budget_per_intervention": null,
+    "infrastructure_failure_policy": "invalid executions remain separate from scientific reward",
+    "optimizer": null,
+    "replicate_seeds": [],
+    "rollout_contract_revision": null,
+    "sampler": null,
+    "source_artifacts": [],
+    "starting_checkpoint": null,
+    "trainer_revision": null
+  },
+  "measurement_contract": {
+    "availability": "before candidate training",
+    "required_attempt_fields": [
+      "candidate_id",
+      "source_id",
+      "task_id",
+      "attempt_id",
+      "generated_tokens",
+      "reward",
+      "verifier_status",
+      "admission_status",
+      "infrastructure_status",
+      "trace_digest"
+    ],
+    "required_summaries": [
+      "source_level_signal",
+      "source_level_coverage",
+      "candidate_level_signal",
+      "candidate_level_coverage",
+      "generated_token_cost",
+      "trace_failure_rates"
+    ],
+    "unavailable_reward_policy": "exclude from scientific reward and report separately"
+  },
+  "prediction_contract": {
+    "candidate_methods": [
+      "frozen_domain_route",
+      "learned_history_support_gate",
+      "measurement_only",
+      "transparent_mixture_baseline",
+      "marin_planned_default",
+      "retain_starting_policy"
+    ],
+    "capability_targets": [],
+    "localized_regression_endpoints": [],
+    "required_outputs": [
+      "candidate_ordering",
+      "native_unit_outcomes",
+      "localized_regression_risk",
+      "uncertainty",
+      "support",
+      "abstention",
+      "total_research_cost"
+    ],
+    "prediction_receipt": null,
+    "protected_outcomes_opened": false
+  },
+  "scoring_contract": {
+    "metrics": [
+      "pairwise_ordering",
+      "normalized_allocation_regret",
+      "native_outcome_error",
+      "regression_discrimination",
+      "regression_calibration",
+      "selective_regret",
+      "utility_after_total_research_cost"
+    ],
+    "starting_policy_utility": "zero change at zero intervention cost",
+    "target_weights": null
+  },
+  "stage_gates": [
+    {
+      "gate": "evaluation_repaired_and_pinned",
+      "required": true,
+      "satisfied": false
+    },
+    {
+      "gate": "rollout_and_training_runtime_qualified",
+      "required": true,
+      "satisfied": false
+    },
+    {
+      "gate": "candidate_panel_and_cost_frozen",
+      "required": true,
+      "satisfied": false
+    },
+    {
+      "gate": "starting_policy_measurements_complete",
+      "required": true,
+      "satisfied": false
+    },
+    {
+      "gate": "predictions_written_before_outcomes",
+      "required": true,
+      "satisfied": false
+    },
+    {
+      "gate": "snowball_panel_scored",
+      "required": true,
+      "satisfied": false
+    },
+    {
+      "gate": "mochi_transfer_authorized",
+      "required": false,
+      "satisfied": false
+    }
+  ],
+  "execution_authorized": false
+}

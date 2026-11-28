@@ -1,0 +1,47 @@
+{
+  "artifact": "anarres_marin_candidate_panel_proposal_v0",
+  "status": "coordination_proposal_not_frozen",
+  "batch_groups": 64,
+  "construction_rule": "hold the six-source nonagentic block fixed at 32 groups and exchange agentic software-repair groups for instruction-following groups",
+  "why": [
+    "the panel changes one mixture axis while keeping source revisions, task eligibility, sampler, rollout, verifier, and training contracts fixed",
+    "the first two allocations reproduce public operational precedents without reusing their outcomes as prospective evidence",
+    "the third allocation extends the same axis by one equal quota step",
+    "one source-stratified starting-policy probe bank can be reweighted for all three candidates"
+  ],
+  "fixed_nonagentic_groups": {
+    "eurus": 3,
+    "nemotron_ultra": 4,
+    "openscience": 7,
+    "reasoning_gym": 7,
+    "snowball_smartie": 3,
+    "tasktrove": 8
+  },
+  "candidates": [
+    {
+      "candidate_id": "agentic_32_if_00",
+      "groups": {
+        "agentic_software_repair": 32,
+        "nemotron_instruction_following": 0
+      },
+      "relationship_to_public_history": "matches the round-one route split, but requires the common frozen source and runtime contract"
+    },
+    {
+      "candidate_id": "agentic_22_if_10",
+      "groups": {
+        "agentic_software_repair": 22,
+        "nemotron_instruction_following": 10
+      },
+      "relationship_to_public_history": "matches the realized Exp4 quota at batch size 64"
+    },
+    {
+      "candidate_id": "agentic_12_if_20",
+      "groups": {
+        "agentic_software_repair": 12,
+        "nemotron_instruction_following": 20
+      },
+      "relationship_to_public_history": "unexecuted symmetric continuation of the same quota exchange"
+    }
+  ],
+  "advancement": "adopt only after Marin review confirms source availability, scientific relevance, compute, and a common eligible runtime"
+}
