@@ -1,0 +1,66 @@
+{
+  "artifact": "marin_snowball_closure_public_extraction_v1",
+  "source_revision": "d62ce3939fa900b2dad9344428bb7ac16917127a",
+  "source_repository": "open-athena/Complex-Closure-RLVR-Snowball-67B-A2B-Artifacts",
+  "sources": [
+    {
+      "candidate_id": "closure_repair",
+      "checkpoint": "candidate13/global_step_2",
+      "path": "artifacts/trials/candidate13-four-capability-pi-comparison.json",
+      "sha256": "d00d58d9654d2a3d285069f0eee5007c943f7898b946fd683c746669acd93834",
+      "treatment": {
+        "boundary_repair": true,
+        "known_reference_continuation": false,
+        "tool_retention_fallback": false
+      },
+      "benchmarks": {
+        "bfcl_parity": {"baseline_mean": 0.3075880758807588, "candidate_mean": 0.3157181571815718, "denominator": 123},
+        "humanevalplus": {"baseline_mean": 0.6686991869918699, "candidate_mean": 0.7388211382113822, "denominator": 164},
+        "ifbench_loose_prompt_accuracy": {"baseline_mean": 0.27, "candidate_mean": 0.255, "denominator": 300},
+        "math500": {"baseline_mean": 0.9233333333333333, "candidate_mean": 0.914, "denominator": 500}
+      }
+    },
+    {
+      "candidate_id": "closure_and_continuation",
+      "checkpoint": "candidate16/global_step_2",
+      "path": "artifacts/trials/candidate16-four-capability-pi-comparison.json",
+      "sha256": "eecbe7031b3c81d4b4b6917541ca413c192aa0e89b9fb53938a0d7b3c8464695",
+      "treatment": {
+        "boundary_repair": true,
+        "known_reference_continuation": true,
+        "tool_retention_fallback": false
+      },
+      "benchmarks": {
+        "bfcl_parity": {"baseline_mean": 0.3075880758807588, "candidate_mean": 0.3441734417344174, "denominator": 123},
+        "humanevalplus": {"baseline_mean": 0.6686991869918699, "candidate_mean": 0.7642276422764227, "denominator": 164},
+        "ifbench_loose_prompt_accuracy": {"baseline_mean": 0.27, "candidate_mean": 0.27444444444444444, "denominator": 300},
+        "math500": {"baseline_mean": 0.9233333333333333, "candidate_mean": 0.9163333333333333, "denominator": 500}
+      }
+    },
+    {
+      "candidate_id": "continuation_and_tool_retention",
+      "checkpoint": "2026.10.13.18/global_step_2",
+      "path": "artifacts/trials/candidate18-four-capability-pi-comparison.json",
+      "sha256": "5a80f96e5d30c70c66984cb909844caf78239c2f3c6652758b31ef226ba785fa",
+      "treatment": {
+        "boundary_repair": true,
+        "known_reference_continuation": true,
+        "tool_retention_fallback": true
+      },
+      "benchmarks": {
+        "bfcl_parity": {"baseline_mean": 0.3075880758807588, "candidate_mean": 0.3604336043360434, "denominator": 123},
+        "humanevalplus": {"baseline_mean": 0.6686991869918699, "candidate_mean": 0.725609756097561, "denominator": 164},
+        "ifbench_loose_prompt_accuracy": {"baseline_mean": 0.27, "candidate_mean": 0.27166666666666667, "denominator": 300},
+        "math500": {"baseline_mean": 0.9233333333333333, "candidate_mean": 0.9116666666666666, "denominator": 500}
+      }
+    }
+  ],
+  "shared_contract": {
+    "capability_repeats": 6,
+    "evaluation_protocol": "artifacts/configs/capability-comparison-v3-pi.json",
+    "independent_unit": "trained intervention",
+    "model_family": "Grug",
+    "optimizer_updates": 2,
+    "starting_checkpoint": "Grug-67B-A2B-BFCL-Protocol-FTPO@d761ea0a94500c2aa24aa4cd71b5a149d962e5c8"
+  }
+}

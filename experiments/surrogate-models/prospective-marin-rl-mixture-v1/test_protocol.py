@@ -76,6 +76,10 @@ class MarinProtocolTest(unittest.TestCase):
             records["snowball_group_size_11594"]["surrogate_use"],
             "negative_methodological_control",
         )
+        self.assertEqual(
+            records["snowball_closure_rl_10079"]["surrogate_use"],
+            "multi_target_development_replay",
+        )
 
     def test_attempt_contract_separates_infrastructure(self) -> None:
         fields = set(self.protocol["measurement_contract"]["required_attempt_fields"])

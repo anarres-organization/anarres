@@ -1,0 +1,41 @@
+{
+  "artifact": "anarres_snowball_closure_multi_target_replay_v1",
+  "artifacts": {
+    "inputs": {
+      "path": "SNOWBALL_CLOSURE_INPUTS.jsonl",
+      "rows": 3,
+      "sha256": "55233d52ad6c6eaece9e9f67dff00c375bb424cd23806b851ce1b662db43832e"
+    },
+    "protected_labels": {
+      "path": "SNOWBALL_CLOSURE_PROTECTED_LABELS.jsonl",
+      "rows": 3,
+      "sha256": "775af43c0c869e2303866c44c35cbd250158722b0294c0c4e8130caa4fcd4c28"
+    }
+  },
+  "boundaries": {
+    "global_corpus": "not appended to the scalar utility corpus because the outcome is a capability vector",
+    "independence": "one row is one trained recipe; benchmarks and serving repeats remain nested",
+    "leakage": "protected outcomes are stored separately and never copied into model inputs",
+    "mochi": "no Mochi record or outcome is present",
+    "modalities": "raw trajectories and curves remain unavailable rather than inferred from summaries",
+    "scope": "one retrospective Snowball study can test the record contract but cannot establish transfer"
+  },
+  "source": {
+    "immutable_artifact_hashes": [
+      "d00d58d9654d2a3d285069f0eee5007c943f7898b946fd683c746669acd93834",
+      "eecbe7031b3c81d4b4b6917541ca413c192aa0e89b9fb53938a0d7b3c8464695",
+      "5a80f96e5d30c70c66984cb909844caf78239c2f3c6652758b31ef226ba785fa"
+    ],
+    "path": "SNOWBALL_CLOSURE_SOURCE.json",
+    "repository": "open-athena/Complex-Closure-RLVR-Snowball-67B-A2B-Artifacts",
+    "revision": "d62ce3939fa900b2dad9344428bb7ac16917127a",
+    "sha256": "b03fed147284aa38d600aa873d044edc7785b563aeb7bf195c6f0a02714a3cde"
+  },
+  "status": "retrospective development replay; not a prospective result",
+  "summary": {
+    "nested_capability_targets": 4,
+    "observed_target_regressions": 4,
+    "serving_repeats_per_target": 6,
+    "trained_interventions": 3
+  }
+}

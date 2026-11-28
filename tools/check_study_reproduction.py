@@ -197,6 +197,7 @@ CHECKS = (
             "test_domain_pairwise_ranker.py",
             "test_history_support_gate.py",
             "prospective-marin-rl-mixture-v1/test_protocol.py",
+            "prospective-marin-rl-mixture-v1/test_snowball_closure_replay.py",
         ),
     ),
     StudyCheck(

@@ -63,6 +63,33 @@ Marin's completed Delphi RL scaling study is useful for testing the analysis
 and uncertainty machinery, but it is a different model family and cannot stand
 in for Grug-family transfer.
 
+## First executable replay
+
+The [Snowball closure replay](SNOWBALL_CLOSURE_REPLAY.json) converts one public
+campaign into the record structure required by the surrogate proposal. It
+contains three separately trained two-update recipes from one initializer.
+Each recipe has four matched capability outcomes, while the six serving
+repetitions per capability remain nested observations rather than additional
+training records.
+
+The builder writes prediction-time inputs and protected outcomes to separate,
+content-addressed JSON Lines files. Starting-policy measurements and candidate
+configuration are available to a predictor; candidate results are not. The
+replay also keeps regressions target-specific: it does not average BFCL,
+HumanEval+, IFBench, and MATH500 into a new utility score.
+
+This replay tests the multi-target record contract. It does not establish
+cross-study transfer, and it is not added to the existing scalar utility corpus.
+Mochi outcomes remain absent.
+
+Rebuild and check it with:
+
+```bash
+python experiments/surrogate-models/prospective-marin-rl-mixture-v1/build_snowball_closure_replay.py
+python experiments/surrogate-models/prospective-marin-rl-mixture-v1/build_snowball_closure_replay.py --check
+python -m unittest experiments/surrogate-models/prospective-marin-rl-mixture-v1/test_snowball_closure_replay.py
+```
+
 ## Candidate environment
 
 One candidate environment is one probability distribution over the same

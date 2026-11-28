@@ -40,8 +40,8 @@
       "model": "Snowball 67B-A2B",
       "source": "https://github.com/marin-community/marin/issues/10079",
       "intervention": "three two-update closure and continuation RLVR recipes from one initializer",
-      "surrogate_use": "development_candidate",
-      "reason": "public candidate outcomes include broad capability gains and regressions, but the full policy sweep and independent training seeds are absent"
+      "surrogate_use": "multi_target_development_replay",
+      "reason": "three recipe records and four nested capability outcomes are extracted from immutable public audits; the replay tests representation and target-specific regressions but not cross-study transfer"
     },
     {
       "record_id": "snowball_smartie_rl_10305",
