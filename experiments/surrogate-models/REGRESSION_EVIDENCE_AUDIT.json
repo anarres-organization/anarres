@@ -1,0 +1,326 @@
+{
+  "artifact": "anarres_regression_evidence_audit_v1",
+  "decision": {
+    "fit_shared_localized_model": false,
+    "next": "freeze a new independent intervention using one native localized endpoint, score the existing domain model and a measurement-only baseline, and retain the starting-policy option before testing shared representations",
+    "why": [
+      "the positive localized results are retrospective and nested within one intervention",
+      "both prospective localized tests failed",
+      "relative candidate harm is useful but is not a localized regression label",
+      "pooling rows would turn nested tasks, materials, or strata into false sample size"
+    ]
+  },
+  "endpoint_classes": {
+    "candidate_relative_underperformance": "a whole candidate performs worse than a study-matched alternative",
+    "localized_absolute_regression": "a task or target becomes worse than the common starting policy",
+    "localized_change_ordering": "a pretraining risk score orders task or state changes after training"
+  },
+  "question": "Which released sources can support prediction of where a candidate training environment will cause regressions?",
+  "rules": [
+    "preserve each native regression definition and independent unit",
+    "report discrimination and calibration when the endpoint is probabilistic",
+    "hold out complete interventions before claiming transfer",
+    "keep candidate-level relative harm separate from localized regression",
+    "retain failed prospective tests as negative controls"
+  ],
+  "sources": [
+    {
+      "artifacts": [
+        {
+          "bytes": 3223,
+          "path": "experiments/agentic/coding-environment-selection/data/task-regression-risk.json",
+          "sha256": "cc31ac27d737388f8f895ea1a0286adb41ac67cbf2570519be1622e803595d6e"
+        }
+      ],
+      "chronology": "retrospective reconstruction",
+      "domain": "agentic_coding",
+      "endpoint_class": "localized_absolute_regression",
+      "independent_test_unit": "repository within one training study",
+      "prediction_unit": "task by candidate environment",
+      "primary_metrics": {
+        "average_precision": 0.22347,
+        "brier": 0.094187,
+        "roc_auc": 0.73558,
+        "top_20pct_precision": 0.240338,
+        "top_20pct_recall": 0.418067
+      },
+      "reason": "The model separates tasks within the released study, but transfer to a new trainer, model family, or training intervention is untested.",
+      "result": "signal within one intervention",
+      "shared_model_eligibility": "development_only",
+      "source_id": "coding_task_regressions",
+      "support": {
+        "candidate_environments": 4,
+        "held_out_repositories": 22,
+        "held_out_tasks": 1035,
+        "regression_prevalence": 0.114976,
+        "severe_regressions": 476,
+        "task_environment_outcomes": 4140,
+        "training_seeds_per_environment": 3
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 1744,
+          "path": "experiments/legal/lab-learning-dynamics/data/regression-risk.json",
+          "sha256": "ce668cd2dc4765f8fda0485d2013288fec3a10e722a90de6abf55f3b3dd88b3d"
+        }
+      ],
+      "chronology": "retrospective reconstruction",
+      "domain": "legal",
+      "endpoint_class": "localized_absolute_regression",
+      "independent_test_unit": "practice area within one training intervention",
+      "prediction_unit": "LAB task",
+      "primary_metrics": {
+        "average_precision": 0.260649850706,
+        "brier": 0.123262289832,
+        "roc_auc": 0.653836843379,
+        "top_20pct_recall": 0.296296296296
+      },
+      "reason": "The model separates held-out practice areas within one intervention, but no independent intervention tests calibration.",
+      "result": "signal within one intervention",
+      "shared_model_eligibility": "development_only",
+      "source_id": "legal_lab_task_regressions",
+      "support": {
+        "checkpoints_including_base": 15,
+        "independent_generalization_unit": "practice_area",
+        "practice_areas": 34,
+        "severe_regressions": 27,
+        "tasks": 180,
+        "trained_interventions": 1
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 113952,
+          "path": "experiments/ai-for-science/materials-science/retrospective-bridge/relative_harm_analysis.json",
+          "sha256": "2d9058ef17e81bfc71b680136ded24ad289ae13bcbcb0020c7a84c20c9c2e7b4"
+        }
+      ],
+      "chronology": "retrospective leave-source-out audit",
+      "domain": "materials_science",
+      "endpoint_class": "candidate_relative_underperformance",
+      "independent_test_unit": "complete published source",
+      "prediction_unit": "candidate environment against a matched reference",
+      "primary_metrics": {
+        "average_precision": 0.5353893563032804,
+        "average_precision_sources": 10,
+        "brier_score": 0.16178056769234184,
+        "brier_score_sources": 13,
+        "prevalence": 0.24827093245505497,
+        "prevalence_sources": 13,
+        "recall_in_top_risk_20pct": 0.4182349219960148,
+        "recall_in_top_risk_20pct_sources": 10,
+        "roc_auc": 0.708184882530188,
+        "roc_auc_sources": 10
+      },
+      "reason": "This predicts candidate underperformance, not which individual material regresses from a common starting checkpoint.",
+      "result": "source-held-out relative-harm signal",
+      "shared_model_eligibility": "utility_safety_comparator",
+      "source_id": "materials_relative_harm",
+      "support": {
+        "candidate_reference_pairs": 2136,
+        "panels": 787,
+        "sources": 13
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 103734,
+          "path": "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/TARGET_REGRESSION_FIT.json",
+          "sha256": "63127e3dd582facf49f94a14c9c4c3293a38308a3de45c7ba0d85021bac1ad1c"
+        },
+        {
+          "bytes": 2794,
+          "path": "experiments/ai-for-science/materials-science/mlip-phonon-environment-selection/PROSPECTIVE_PREDICTION_SCORE.json",
+          "sha256": "23f422ba5b38f512deb14a0b00b00e0d992f9066f09384cd2b475b015eea0ae0"
+        }
+      ],
+      "chronology": "prospectively frozen predictions",
+      "domain": "materials_science",
+      "endpoint_class": "localized_absolute_regression",
+      "independent_test_unit": "target material with candidate environments grouped",
+      "prediction_unit": "target material by candidate environment",
+      "primary_metrics": {
+        "average_precision": 0.8812064704477569,
+        "roc_auc": 0.49374833732375634
+      },
+      "reason": "The frozen risk score did not discriminate material-level regressions; the high event prevalence also makes average precision uninformative by itself.",
+      "result": "prospective prediction failed",
+      "shared_model_eligibility": "negative_control_only",
+      "source_id": "materials_target_regressions",
+      "support": {
+        "candidate_material_pairs": 200,
+        "regression_prevalence": 0.895
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 17285,
+          "path": "experiments/robotics/environment-selection/prospective-square-regression-v1/RESULTS.json",
+          "sha256": "5c7d4541ba879b3ecf5f35571bb820017eca15982f3471c06b3f8e15f2d6d3f0"
+        }
+      ],
+      "chronology": "prospectively frozen risk ordering",
+      "domain": "robotics",
+      "endpoint_class": "localized_change_ordering",
+      "independent_test_unit": "candidate training seed with strata nested",
+      "prediction_unit": "evaluation stratum by candidate environment",
+      "primary_metrics": {
+        "high_minus_low_risk_success_change": 0.07053068391303682,
+        "high_risk_rows": [
+          {
+            "candidate_id": "failure_coverage_short_50",
+            "stratum": 2
+          },
+          {
+            "candidate_id": "length_50",
+            "stratum": 1
+          },
+          {
+            "candidate_id": "length_50",
+            "stratum": 2
+          },
+          {
+            "candidate_id": "random_50",
+            "stratum": 3
+          },
+          {
+            "candidate_id": "length_50",
+            "stratum": 3
+          },
+          {
+            "candidate_id": "coverage_50",
+            "stratum": 6
+          },
+          {
+            "candidate_id": "failure_coverage_50",
+            "stratum": 6
+          },
+          {
+            "candidate_id": "failure_coverage_short_50",
+            "stratum": 6
+          },
+          {
+            "candidate_id": "length_50",
+            "stratum": 6
+          },
+          {
+            "candidate_id": "random_50",
+            "stratum": 6
+          }
+        ],
+        "low_risk_rows": [
+          {
+            "candidate_id": "coverage_50",
+            "stratum": 0
+          },
+          {
+            "candidate_id": "failure_coverage_50",
+            "stratum": 0
+          },
+          {
+            "candidate_id": "failure_coverage_short_50",
+            "stratum": 0
+          },
+          {
+            "candidate_id": "coverage_50",
+            "stratum": 4
+          },
+          {
+            "candidate_id": "failure_coverage_50",
+            "stratum": 4
+          },
+          {
+            "candidate_id": "length_50",
+            "stratum": 0
+          },
+          {
+            "candidate_id": "failure_coverage_short_50",
+            "stratum": 4
+          },
+          {
+            "candidate_id": "coverage_50",
+            "stratum": 5
+          },
+          {
+            "candidate_id": "failure_coverage_50",
+            "stratum": 5
+          },
+          {
+            "candidate_id": "coverage_50",
+            "stratum": 1
+          }
+        ],
+        "spearman_95_interval": [
+          0.12864317018675578,
+          0.4693762659750983
+        ],
+        "spearman_risk_vs_success_change": 0.32150735316525114,
+        "tail_contrast_95_interval": [
+          0.0214150555327026,
+          0.11991944330179621
+        ]
+      },
+      "reason": "Higher frozen risk predicted larger improvements rather than regressions, so the current risk construction does not transfer.",
+      "result": "prospective prediction reversed direction",
+      "shared_model_eligibility": "negative_control_only",
+      "source_id": "robotics_square_stratum_regressions",
+      "support": {
+        "candidate_environments": 6,
+        "candidate_stratum_rows": 40
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 1567,
+          "path": "experiments/finance/retrospective-post-training/results/regression_risk_summary.json",
+          "sha256": "c95d0323f0922647f093979a9c8349c1e06a90f07a6e8bbbf4d11f1693772333"
+        }
+      ],
+      "chronology": "retrospective secondary audit",
+      "domain": "finance",
+      "endpoint_class": "candidate_relative_underperformance",
+      "independent_test_unit": "published source",
+      "prediction_unit": "candidate environment against a study-matched baseline",
+      "primary_metrics": {
+        "eligible_sources": 5,
+        "per_source_roc_auc": {
+          "data_centric_finance": 1.0,
+          "dianjin_r1_2025": null,
+          "fin_sd_2026": 0.75,
+          "financial_advice_grpo_2026": null,
+          "fino1": 1.0,
+          "oda_fin": 0.75,
+          "quanteval": null,
+          "shin_kim_2026_speech_sft": 0.575914
+        },
+        "pooled_roc_auc": 0.669206,
+        "source_macro_roc_auc": 0.815183
+      },
+      "reason": "The endpoint detects whether a whole candidate underperforms its baseline; it does not localize regressions to tasks, workflows, or states.",
+      "result": "source-macro relative-harm signal",
+      "shared_model_eligibility": "utility_safety_comparator",
+      "source_id": "finance_candidate_regressions",
+      "support": {
+        "admitted_panels": 44,
+        "contrasts": 165,
+        "regressions": 105,
+        "sources": 8
+      }
+    }
+  ],
+  "status": "development audit; no shared localized-regression model is qualified",
+  "summary": {
+    "localized_prospective_successes": 0,
+    "localized_prospective_tests": 2,
+    "localized_sources": 4,
+    "localized_sources_within_intervention_signal": 2,
+    "relative_harm_sources": 2,
+    "released_sources": 6
+  }
+}
