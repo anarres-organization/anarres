@@ -1,0 +1,211 @@
+{
+  "artifact": "anarres_grug_swarm_relative_harm_audit_v1",
+  "contract": {
+    "candidate_lineages": 914,
+    "fit_exclusion": "the reference and each candidate's complete held-out lineage or design family are excluded from model fitting",
+    "label": "a candidate's lineage-mean native metric is greater than the released Harrier reference mean; every native metric is lower-is-better",
+    "reference_lineage": "mixture-b5f5f18766de58f382ac9774",
+    "reference_runs": 3,
+    "targets": 162
+  },
+  "inputs": {
+    "content_basis_sha256": "9fc0dbe828fbba5eeaf9bdaf616afdf973f9bcd8499ec8c115ee1fa32a630ce7",
+    "corpus_manifest_sha256": "2e26ce5de8167ed185dbcf0d01c1941df1f26d6b0011fee4d4ae267cbb79e00b",
+    "inputs_sha256": "dadee5330638d54360ed8a123810c575e83063dd42369420bcbf0935a486a5ae",
+    "protected_labels_sha256": "03da4cc7c3197c4edb80d0c060d5670e922db24015d326333711eb25ddb0db53"
+  },
+  "interpretation_boundary": "The zero-margin label provides target-level relative-harm triage against an already-run reference. Only three reference runs are available, targets are correlated, and no probability calibration is claimed. A prospective panel must freeze a material regression margin before candidate outcomes open.",
+  "results": {
+    "leave_one_design_family_out": {
+      "content_hellinger_rbf_kernel": {
+        "all_targets": {
+          "average_precision": 0.80071062,
+          "direction_accuracy": 0.77616365,
+          "prevalence": 0.58972904,
+          "recall_in_top_risk_20pct": 0.29538015,
+          "roc_auc": 0.80347128,
+          "targets": 162,
+          "top_risk_recall_lift": 1.47690074
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "average_precision": 0.62055142,
+            "direction_accuracy": 0.65485453,
+            "prevalence": 0.54967988,
+            "recall_in_top_risk_20pct": 0.22724334,
+            "roc_auc": 0.6102535,
+            "targets": 54,
+            "top_risk_recall_lift": 1.13621668
+          },
+          "held_out_loss_or_bpb": {
+            "average_precision": 0.89079022,
+            "direction_accuracy": 0.83681822,
+            "prevalence": 0.60975363,
+            "recall_in_top_risk_20pct": 0.32944855,
+            "roc_auc": 0.90008018,
+            "targets": 108,
+            "top_risk_recall_lift": 1.64724277
+          }
+        }
+      },
+      "hellinger_rbf_kernel": {
+        "all_targets": {
+          "average_precision": 0.79178276,
+          "direction_accuracy": 0.76427722,
+          "prevalence": 0.58972904,
+          "recall_in_top_risk_20pct": 0.29891103,
+          "roc_auc": 0.79178741,
+          "targets": 162,
+          "top_risk_recall_lift": 1.49455514
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "average_precision": 0.62147404,
+            "direction_accuracy": 0.65874463,
+            "prevalence": 0.54967988,
+            "recall_in_top_risk_20pct": 0.23034704,
+            "roc_auc": 0.61099813,
+            "targets": 54,
+            "top_risk_recall_lift": 1.15173518
+          },
+          "held_out_loss_or_bpb": {
+            "average_precision": 0.87693711,
+            "direction_accuracy": 0.81704352,
+            "prevalence": 0.60975363,
+            "recall_in_top_risk_20pct": 0.33319302,
+            "roc_auc": 0.88218205,
+            "targets": 108,
+            "top_risk_recall_lift": 1.66596512
+          }
+        }
+      },
+      "training_mean": {
+        "all_targets": {
+          "average_precision": 0.55712651,
+          "direction_accuracy": 0.66705838,
+          "prevalence": 0.58972904,
+          "recall_in_top_risk_20pct": 0.14908036,
+          "roc_auc": 0.38458577,
+          "targets": 162,
+          "top_risk_recall_lift": 0.74540178
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "average_precision": 0.51967232,
+            "direction_accuracy": 0.62598266,
+            "prevalence": 0.54967988,
+            "recall_in_top_risk_20pct": 0.15854027,
+            "roc_auc": 0.43861061,
+            "targets": 54,
+            "top_risk_recall_lift": 0.79270135
+          },
+          "held_out_loss_or_bpb": {
+            "average_precision": 0.5758536,
+            "direction_accuracy": 0.68759624,
+            "prevalence": 0.60975363,
+            "recall_in_top_risk_20pct": 0.1443504,
+            "roc_auc": 0.35757335,
+            "targets": 108,
+            "top_risk_recall_lift": 0.72175199
+          }
+        }
+      }
+    },
+    "lineage_five_fold": {
+      "content_hellinger_rbf_kernel": {
+        "all_targets": {
+          "average_precision": 0.84417335,
+          "direction_accuracy": 0.80379285,
+          "prevalence": 0.58972904,
+          "recall_in_top_risk_20pct": 0.32635857,
+          "roc_auc": 0.83379761,
+          "targets": 162,
+          "top_risk_recall_lift": 1.63179286
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "average_precision": 0.67472172,
+            "direction_accuracy": 0.67742524,
+            "prevalence": 0.54967988,
+            "recall_in_top_risk_20pct": 0.26447211,
+            "roc_auc": 0.65335486,
+            "targets": 54,
+            "top_risk_recall_lift": 1.32236056
+          },
+          "held_out_loss_or_bpb": {
+            "average_precision": 0.92889916,
+            "direction_accuracy": 0.86697666,
+            "prevalence": 0.60975363,
+            "recall_in_top_risk_20pct": 0.3573018,
+            "roc_auc": 0.92401898,
+            "targets": 108,
+            "top_risk_recall_lift": 1.78650901
+          }
+        }
+      },
+      "hellinger_rbf_kernel": {
+        "all_targets": {
+          "average_precision": 0.82215278,
+          "direction_accuracy": 0.79078531,
+          "prevalence": 0.58972904,
+          "recall_in_top_risk_20pct": 0.31759825,
+          "roc_auc": 0.81373158,
+          "targets": 162,
+          "top_risk_recall_lift": 1.58799125
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "average_precision": 0.67672185,
+            "direction_accuracy": 0.67898533,
+            "prevalence": 0.54967988,
+            "recall_in_top_risk_20pct": 0.26921175,
+            "roc_auc": 0.65172148,
+            "targets": 54,
+            "top_risk_recall_lift": 1.34605876
+          },
+          "held_out_loss_or_bpb": {
+            "average_precision": 0.89486824,
+            "direction_accuracy": 0.84668531,
+            "prevalence": 0.60975363,
+            "recall_in_top_risk_20pct": 0.3417915,
+            "roc_auc": 0.89473664,
+            "targets": 108,
+            "top_risk_recall_lift": 1.70895749
+          }
+        }
+      },
+      "training_mean": {
+        "all_targets": {
+          "average_precision": 0.58088495,
+          "direction_accuracy": 0.65617149,
+          "prevalence": 0.58972904,
+          "recall_in_top_risk_20pct": 0.19186269,
+          "roc_auc": 0.47716871,
+          "targets": 162,
+          "top_risk_recall_lift": 0.95931345
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "average_precision": 0.54355372,
+            "direction_accuracy": 0.63390469,
+            "prevalence": 0.54967988,
+            "recall_in_top_risk_20pct": 0.1922135,
+            "roc_auc": 0.48594124,
+            "targets": 54,
+            "top_risk_recall_lift": 0.96106749
+          },
+          "held_out_loss_or_bpb": {
+            "average_precision": 0.59955057,
+            "direction_accuracy": 0.66730489,
+            "prevalence": 0.60975363,
+            "recall_in_top_risk_20pct": 0.19168729,
+            "roc_auc": 0.47278245,
+            "targets": 108,
+            "top_risk_recall_lift": 0.95843643
+          }
+        }
+      }
+    }
+  },
+  "status": "retrospective development result; not calibrated prospective risk"
+}

@@ -137,6 +137,18 @@ predicts the direction of 70.4% of the 54 capability metrics and 98.1% of the
 not 162 independent experiments. The swarm was also used to select the
 published mixture, so this is not independent validation.
 
+The [relative-harm audit](GRUG_SWARM_RELATIVE_HARM_RESULTS.json) extends this
+comparison to all 914 non-reference mixture lineages and 162 native targets.
+The released Harrier mixture is excluded from fitting and used as an
+already-run reference. Under complete design-family holdout, the content
+kernel reaches 0.803 target-macro ROC AUC and 0.801 average precision for
+identifying target metrics that are worse than the reference. The highest-risk
+20% contains 29.5% of observed regressions, a 1.48-fold recall lift. This is a
+retrospective triage result, not calibrated risk: targets are correlated, only
+three reference runs are available, and the zero-margin regression label does
+not distinguish small changes from material harm. A prospective panel must
+freeze that margin before candidate outcomes are opened.
+
 The [scale-transfer stress test](GRUG_SCALE_TRANSFER_RESULTS.json) compares the
 d512 predictions with the released d768, d1024, and d1536 mixture-swap ladder.
 Direction accuracy is 56.2%, 62.5%, and 81.2%, respectively, matching the

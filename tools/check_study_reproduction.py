@@ -200,6 +200,7 @@ CHECKS = (
             "prospective-marin-rl-mixture-v1/test_snowball_closure_replay.py",
             "prospective-marin-rl-mixture-v1/test_grug_swarm_corpus.py",
             "prospective-marin-rl-mixture-v1/test_grug_swarm_baselines.py",
+            "prospective-marin-rl-mixture-v1/test_grug_relative_harm.py",
             "prospective-marin-rl-mixture-v1/test_grug_scale_transfer.py",
         ),
     ),
