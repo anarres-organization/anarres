@@ -104,6 +104,19 @@ materials. Neither ranker advances. The result is a development ablation: it
 does not yet learn when to use history, expose a qualified abstention action,
 or make native-study costs comparable.
 
+The subsequent history-support gate uses the completed measurement-only
+forecast and outcome-free retrieval-support features to decide whether to run
+the history-conditioned forecast. Under leave-one-study-out replay, it reaches
+77.5% ordering and 0.147 normalized regret, compared with 75.9% and 0.155 for
+the frozen domain route. The history-benefit ROC AUC is 0.80, and routed
+inference uses 466,089 tokens rather than the 697,578 tokens charged by always
+retrieving.
+
+This remains development-selected evidence. Coverage falls to 68.5%, selective
+regret is worse than the frozen route, and the feature set followed an
+outcome-aware feasibility analysis on the same archive. The gate may be frozen
+for an unseen study, but it cannot validate itself on this replay.
+
 ## Advancement sequence
 
 1. Freeze the transparent domain route before any new study outcome opens.

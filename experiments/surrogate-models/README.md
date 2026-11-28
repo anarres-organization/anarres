@@ -261,6 +261,34 @@ uv run --group surrogate-test python \
   experiments/surrogate-models/run_domain_pairwise_ranker.py --run
 ```
 
+The next development comparison learns whether the frozen retrieved history is
+supported for each panel. It first runs the measurement-only forecast, then
+uses outcome-free retrieval support, measurement coverage, and that forecast's
+confidence to decide whether a history-conditioned forecast is warranted.
+
+| Route | Pairwise ordering | Normalized regret | Coverage |
+| --- | ---: | ---: | ---: |
+| Measurement only | 72.0% | 0.232 | 69.7% |
+| Always retrieve | 74.3% | 0.167 | 88.8% |
+| Frozen domain route | 75.9% | 0.155 | 84.3% |
+| Learned history gate | **77.5%** | **0.147** | 68.5% |
+
+The learned gate's history-benefit ROC AUC is 0.80. It improves the full-panel
+proxy metrics and reduces inference from 697,578 tokens for always retrieving
+to 466,089 tokens. It does not advance: its lower coverage makes selective
+regret worse than the frozen domain route, the starting-policy option is not
+scored consistently across studies, and the feature set was informed by an
+outcome-aware feasibility analysis on this development replay. The gate is a
+candidate for an unseen prospective comparison, not an independently held-out
+result.
+
+Reproduce the gate with:
+
+```bash
+uv run --group surrogate-test python \
+  experiments/surrogate-models/run_history_support_gate.py --run
+```
+
 Rebuild and verify this view with:
 
 ```bash
@@ -319,5 +347,7 @@ Study-local records should first exercise the lifecycle described in [RFC 0004](
 14. [Domain-centered structured replay](DOMAIN_STRUCTURED_RESULTS.json)
 15. [Domain record-conditioned contract](DOMAIN_RECORD_CONDITIONED_CONTRACT.json)
 16. [Domain matched text baselines](DOMAIN_MATCHED_TEXT_BASELINE_RESULTS.json)
-17. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
-18. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)
+17. [Domain pairwise ranker result](DOMAIN_PAIRWISE_RANKER_RESULTS.json)
+18. [History-support gate result](HISTORY_SUPPORT_GATE_RESULTS.json)
+19. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
+20. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)

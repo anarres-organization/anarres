@@ -1,0 +1,1287 @@
+{
+  "artifact": "anarres_history_support_gate_fit_receipt_v1",
+  "base_predictions_sha256": "d9ab0f455bde930a2ab53cd4e5281a6c1ec0ec6324684e5e56da614352f615b1",
+  "contract_sha256": "b3175db45adaf5cae50ff7faeca941e76ab936e2430a5f2032ef74b858d4b150",
+  "fits": [
+    {
+      "heldout_study": "agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_claude_opus_5",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.2388765202938986,
+          "study_macro_routed_regret": 0.14989969393160202
+        },
+        "0.1": {
+          "brier_score": 0.18659243615281165,
+          "study_macro_routed_regret": 0.14989969393160202
+        },
+        "1.0": {
+          "brier_score": 0.1447066743790204,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.1545432669712355,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 1,
+      "train_panels": 88,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_gpt_5_6_sol",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23897484284039516,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18703834680445103,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14525674311907888,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15518652605040523,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 1,
+      "train_panels": 88,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_claude_opus_5",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23904785935782966,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18730844315796225,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.1455197072644143,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15519024333618966,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 1,
+      "train_panels": 88,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_gpt_5_6_sol",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23896981020993752,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18706065777694442,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14527103360476654,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15522741043455093,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 1,
+      "train_panels": 88,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "agentic_coding:codemidas:codemidas_quality_scale",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23876951272064115,
+          "study_macro_routed_regret": 0.14989969393160202
+        },
+        "0.1": {
+          "brier_score": 0.18687853390580797,
+          "study_macro_routed_regret": 0.14989969393160202
+        },
+        "1.0": {
+          "brier_score": 0.14439603721893976,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15394913386970663,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "agentic_coding:environment_evolution:environment_evolution_qwen3_6_27b",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.2389115960035596,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18695217849679555,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14540071605898566,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15546684797573596,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 1,
+      "train_panels": 88,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "agentic_coding:environment_evolution:environment_evolution_qwen3_6_35b_a3b",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23887721063825954,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18657348420142378,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14513421291909304,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15547586024563834,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 1,
+      "train_panels": 88,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "agentic_coding:envsched:envsched_1p7b",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23997334630660347,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.19243441301202252,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.15065434079869613,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.1599001889293591,
+          "study_macro_routed_regret": 0.15102403255593344
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "agentic_coding:envsched:envsched_30b",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23938453710970442,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18908868566154266,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14769818017136047,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15743623036216473,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "agentic_coding:envsched:envsched_4b",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23956210673040165,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.1899420534338281,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14811320556918645,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.1581419903906266,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "agentic_coding:envsched:envsched_8b",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23959058000878544,
+          "study_macro_routed_regret": 0.14989969393160202
+        },
+        "0.1": {
+          "brier_score": 0.1898040060165152,
+          "study_macro_routed_regret": 0.14989969393160202
+        },
+        "1.0": {
+          "brier_score": 0.1484149668725352,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15802047350109857,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "agentic_coding:rlve:rlve_six_arm_prospective",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.2385905427269118,
+          "study_macro_routed_regret": 0.14138117541308198
+        },
+        "0.1": {
+          "brier_score": 0.18411247673307077,
+          "study_macro_routed_regret": 0.14138117541308198
+        },
+        "1.0": {
+          "brier_score": 0.14177878788615486,
+          "study_macro_routed_regret": 0.146381175413082
+        },
+        "10.0": {
+          "brier_score": 0.15297639211257247,
+          "study_macro_routed_regret": 0.146381175413082
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "agentic_coding:swe_gym_verified:swe_gym_reward_label_quality",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23964849469273766,
+          "study_macro_routed_regret": 0.14896749054177202
+        },
+        "0.1": {
+          "brier_score": 0.18954205756193246,
+          "study_macro_routed_regret": 0.14896749054177202
+        },
+        "1.0": {
+          "brier_score": 0.14748931819466232,
+          "study_macro_routed_regret": 0.153967490541772
+        },
+        "10.0": {
+          "brier_score": 0.15756590604929585,
+          "study_macro_routed_regret": 0.1432497239029434
+        }
+      },
+      "selected_C": 10.0,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "agentic_coding:tmax:tmax_public_pool_comparison",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23842014985943127,
+          "study_macro_routed_regret": 0.139631662742512
+        },
+        "0.1": {
+          "brier_score": 0.18324234859878033,
+          "study_macro_routed_regret": 0.139631662742512
+        },
+        "1.0": {
+          "brier_score": 0.14083770196662676,
+          "study_macro_routed_regret": 0.144631662742512
+        },
+        "10.0": {
+          "brier_score": 0.15183000545257122,
+          "study_macro_routed_regret": 0.144631662742512
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "baghishov_2026_application_specific_mlip",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.2394389889809723,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18858625418729175,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14611501046412637,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15629177702471092,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "bi_elena_2026_budget_crossover",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.2391035334046732,
+          "study_macro_routed_regret": 0.14522405330572202
+        },
+        "0.1": {
+          "brier_score": 0.18811595616756008,
+          "study_macro_routed_regret": 0.14522405330572202
+        },
+        "1.0": {
+          "brier_score": 0.1475735830125348,
+          "study_macro_routed_regret": 0.150224053305722
+        },
+        "10.0": {
+          "brier_score": 0.1567966273103633,
+          "study_macro_routed_regret": 0.145409238490902
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "dale_2026_active_learning_failure",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23906865626129126,
+          "study_macro_routed_regret": 0.14489969393160199
+        },
+        "0.1": {
+          "brier_score": 0.18805331558766342,
+          "study_macro_routed_regret": 0.14489969393160199
+        },
+        "1.0": {
+          "brier_score": 0.1480526533853197,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "10.0": {
+          "brier_score": 0.1583468738418367,
+          "study_macro_routed_regret": 0.145084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "data_centric_finance",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23957254714928097,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18894271301925386,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14662861140205924,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15508955219310316,
+          "study_macro_routed_regret": 0.15102403255593344
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "dianjin_r1_2025",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23866639645258508,
+          "study_macro_routed_regret": 0.152687679797322
+        },
+        "0.1": {
+          "brier_score": 0.186743759823777,
+          "study_macro_routed_regret": 0.152687679797322
+        },
+        "1.0": {
+          "brier_score": 0.1506683727915181,
+          "study_macro_routed_regret": 0.152687679797322
+        },
+        "10.0": {
+          "brier_score": 0.15372258413952905,
+          "study_macro_routed_regret": 0.147872864982502
+        }
+      },
+      "selected_C": 10.0,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "espinosa_castaneda_2026_diversity",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23816096428383152,
+          "study_macro_routed_regret": 0.147603296645907
+        },
+        "0.1": {
+          "brier_score": 0.18252768686519844,
+          "study_macro_routed_regret": 0.147603296645907
+        },
+        "1.0": {
+          "brier_score": 0.1412411756811909,
+          "study_macro_routed_regret": 0.152603296645907
+        },
+        "10.0": {
+          "brier_score": 0.15379362677523456,
+          "study_macro_routed_regret": 0.147788481831087
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "fin_prm_2026",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23896341650837408,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.186930623396581,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14549127127194267,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15504620394030647,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 1,
+      "train_panels": 88,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "fin_sd_2026",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.237935922703899,
+          "study_macro_routed_regret": 0.140944172634355
+        },
+        "0.1": {
+          "brier_score": 0.18122804690532915,
+          "study_macro_routed_regret": 0.140944172634355
+        },
+        "1.0": {
+          "brier_score": 0.13388330015505365,
+          "study_macro_routed_regret": 0.145944172634355
+        },
+        "10.0": {
+          "brier_score": 0.13912494544798185,
+          "study_macro_routed_regret": 0.141129357819535
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "financial_advice_grpo_2026",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.2389527181296743,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.1871799210679147,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.1454881549912773,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.1552860935361734,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 1,
+      "train_panels": 88,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "findap_2025",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23821430891037507,
+          "study_macro_routed_regret": 0.12989969393160203
+        },
+        "0.1": {
+          "brier_score": 0.18097557418731428,
+          "study_macro_routed_regret": 0.12989969393160203
+        },
+        "1.0": {
+          "brier_score": 0.13173707381449862,
+          "study_macro_routed_regret": 0.134899693931602
+        },
+        "10.0": {
+          "brier_score": 0.14172094820703682,
+          "study_macro_routed_regret": 0.13008487911678202
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "finlcr_2026",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23878211877551117,
+          "study_macro_routed_regret": 0.14364969393160198
+        },
+        "0.1": {
+          "brier_score": 0.1856352150438001,
+          "study_macro_routed_regret": 0.14364969393160198
+        },
+        "1.0": {
+          "brier_score": 0.14061349753124167,
+          "study_macro_routed_regret": 0.148649693931602
+        },
+        "10.0": {
+          "brier_score": 0.1496576359629308,
+          "study_macro_routed_regret": 0.13793192729277343
+        }
+      },
+      "selected_C": 10.0,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "finlmm_r1_2025",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23923045961313616,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18817117489147736,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14682881195304054,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.1575923591098908,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "fino1",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23866789939007169,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18636140559352682,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14645278872048223,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.157875777934235,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "haenseroth_2026_generators",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23936412391897086,
+          "study_macro_routed_regret": 0.14134963141871199
+        },
+        "0.1": {
+          "brier_score": 0.18878447229278414,
+          "study_macro_routed_regret": 0.14134963141871199
+        },
+        "1.0": {
+          "brier_score": 0.1467981211064405,
+          "study_macro_routed_regret": 0.146349631418712
+        },
+        "10.0": {
+          "brier_score": 0.156674717868246,
+          "study_macro_routed_regret": 0.141534816603892
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "haenseroth_dressler_2026_data_efficiency",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23880804480827897,
+          "study_macro_routed_regret": 0.14489969393160199
+        },
+        "0.1": {
+          "brier_score": 0.18630872493374376,
+          "study_macro_routed_regret": 0.14489969393160199
+        },
+        "1.0": {
+          "brier_score": 0.14286975751874306,
+          "study_macro_routed_regret": 0.14489969393160199
+        },
+        "10.0": {
+          "brier_score": 0.14677433470607973,
+          "study_macro_routed_regret": 0.14102403255593343
+        }
+      },
+      "selected_C": 10.0,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "harsha2025_synthetic_financial_qa",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23948243220809243,
+          "study_macro_routed_regret": 0.145343628904512
+        },
+        "0.1": {
+          "brier_score": 0.18978025767286086,
+          "study_macro_routed_regret": 0.145343628904512
+        },
+        "1.0": {
+          "brier_score": 0.14873634760659218,
+          "study_macro_routed_regret": 0.150343628904512
+        },
+        "10.0": {
+          "brier_score": 0.15897690309268214,
+          "study_macro_routed_regret": 0.13962586226568344
+        }
+      },
+      "selected_C": 10.0,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "kim_2026_density_diversity",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23936974328125482,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18796204408669737,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.1461499030884312,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15636556919266265,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "kulichenko_2023_udd",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.2394160759509832,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18805563264619204,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.1462740765584647,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15663424982038002,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "li_2023_redundancy",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23870133500452814,
+          "study_macro_routed_regret": 0.143544851423552
+        },
+        "0.1": {
+          "brier_score": 0.1845346453007646,
+          "study_macro_routed_regret": 0.143544851423552
+        },
+        "1.0": {
+          "brier_score": 0.1389359344334929,
+          "study_macro_routed_regret": 0.148544851423552
+        },
+        "10.0": {
+          "brier_score": 0.14814306536530525,
+          "study_macro_routed_regret": 0.14373003660873201
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "liu_2026_heterogeneous_uq",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.2397487235078441,
+          "study_macro_routed_regret": 0.14987077549231198
+        },
+        "0.1": {
+          "brier_score": 0.18937951693468877,
+          "study_macro_routed_regret": 0.14987077549231198
+        },
+        "1.0": {
+          "brier_score": 0.14700555229915382,
+          "study_macro_routed_regret": 0.15487077549231199
+        },
+        "10.0": {
+          "brier_score": 0.15720571903690486,
+          "study_macro_routed_regret": 0.150055960677492
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "mlip_phonon_environment_selection",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23916928108070562,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18760586638656934,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.145173505148164,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.1549855438672182,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 1,
+      "train_panels": 88,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "oda_fin",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23981807032499636,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.1899863486183385,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14869805936874342,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.16140833590185164,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "okochi_japanese_finance_2026",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23824208918651446,
+          "study_macro_routed_regret": 0.139899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18146204900727222,
+          "study_macro_routed_regret": 0.139899693931602
+        },
+        "1.0": {
+          "brier_score": 0.132376587399257,
+          "study_macro_routed_regret": 0.14489969393160199
+        },
+        "10.0": {
+          "brier_score": 0.13959372972334547,
+          "study_macro_routed_regret": 0.14102403255593343
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "phogat2024_financial_qa",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.2391399154581082,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.1878747624319909,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14700223100598067,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15750725814622174,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "prospective_cupid_can_v141",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23882111645520096,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18662285533541614,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14468591793051344,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15403054254706164,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 1,
+      "train_panels": 88,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "prospective_pusht",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.24003610984533494,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18962305039418503,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.1470291130606087,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15514644316616372,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 1,
+      "train_panels": 88,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "prospective_square_regression_v1",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23985642713456806,
+          "study_macro_routed_regret": 0.143613979645882
+        },
+        "0.1": {
+          "brier_score": 0.1893538150576239,
+          "study_macro_routed_regret": 0.143613979645882
+        },
+        "1.0": {
+          "brier_score": 0.14685971357172184,
+          "study_macro_routed_regret": 0.148613979645882
+        },
+        "10.0": {
+          "brier_score": 0.15450065552376724,
+          "study_macro_routed_regret": 0.143799164831062
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 1,
+      "train_panels": 88,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "prospective_syllogym_environment_selection",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23813923324740333,
+          "study_macro_routed_regret": 0.129899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18305322618712194,
+          "study_macro_routed_regret": 0.129899693931602
+        },
+        "1.0": {
+          "brier_score": 0.1375878462658515,
+          "study_macro_routed_regret": 0.134899693931602
+        },
+        "10.0": {
+          "brier_score": 0.14640137016521562,
+          "study_macro_routed_regret": 0.13008487911678202
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 1,
+      "train_panels": 88,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "qi_2024_direct_sampling",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23959769755661317,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18928435097661025,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14722425933348823,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15698992647076984,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "quanteval",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23882659292730746,
+          "study_macro_routed_regret": 0.146451418069532
+        },
+        "0.1": {
+          "brier_score": 0.18698875489696629,
+          "study_macro_routed_regret": 0.146451418069532
+        },
+        "1.0": {
+          "brier_score": 0.14556385175437303,
+          "study_macro_routed_regret": 0.151451418069532
+        },
+        "10.0": {
+          "brier_score": 0.15683109246640142,
+          "study_macro_routed_regret": 0.14757575669386344
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "select2know_2025",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23939586593148474,
+          "study_macro_routed_regret": 0.14989969393160202
+        },
+        "0.1": {
+          "brier_score": 0.18891176880514943,
+          "study_macro_routed_regret": 0.14989969393160202
+        },
+        "1.0": {
+          "brier_score": 0.14743018468898766,
+          "study_macro_routed_regret": 0.15489969393160202
+        },
+        "10.0": {
+          "brier_score": 0.15761232018478763,
+          "study_macro_routed_regret": 0.15008487911678203
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "shin_kim_2026_speech_sft",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.2381023577079566,
+          "study_macro_routed_regret": 0.13518536739321202
+        },
+        "0.1": {
+          "brier_score": 0.1815675453616934,
+          "study_macro_routed_regret": 0.13518536739321202
+        },
+        "1.0": {
+          "brier_score": 0.13442810731507715,
+          "study_macro_routed_regret": 0.140185367393212
+        },
+        "10.0": {
+          "brier_score": 0.14034376212781471,
+          "study_macro_routed_regret": 0.135370552578392
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "varga_umbrich_2026_force_aware_ntk",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23939993391396636,
+          "study_macro_routed_regret": 0.149223002202282
+        },
+        "0.1": {
+          "brier_score": 0.18720281682551845,
+          "study_macro_routed_regret": 0.149223002202282
+        },
+        "1.0": {
+          "brier_score": 0.14091061339932787,
+          "study_macro_routed_regret": 0.154223002202282
+        },
+        "10.0": {
+          "brier_score": 0.1353127433007884,
+          "study_macro_routed_regret": 0.14490019354661007
+        }
+      },
+      "selected_C": 10.0,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "wang_2026_dataset_aware_entropy",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.2396865653945261,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.1893445564903112,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14658361388233734,
+          "study_macro_routed_regret": 0.15489969393160197
+        },
+        "10.0": {
+          "brier_score": 0.1570014377819494,
+          "study_macro_routed_regret": 0.15008487911678198
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "wong_yang_2026_umlip_bias",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.2393640159028139,
+          "study_macro_routed_regret": 0.14989969393160202
+        },
+        "0.1": {
+          "brier_score": 0.18805573160132355,
+          "study_macro_routed_regret": 0.14989969393160202
+        },
+        "1.0": {
+          "brier_score": 0.14645746508518453,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.1564856798100112,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "zaverkin_2024_uncertainty_biased_md",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23779931423150386,
+          "study_macro_routed_regret": 0.148723223343362
+        },
+        "0.1": {
+          "brier_score": 0.17978748338417982,
+          "study_macro_routed_regret": 0.148723223343362
+        },
+        "1.0": {
+          "brier_score": 0.13450482385978327,
+          "study_macro_routed_regret": 0.153723223343362
+        },
+        "10.0": {
+          "brier_score": 0.14200456291728897,
+          "study_macro_routed_regret": 0.148908408528542
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    },
+    {
+      "heldout_study": "zhang_2023_etal",
+      "inner_scores": {
+        "0.01": {
+          "brier_score": 0.23970855092092597,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "0.1": {
+          "brier_score": 0.18961559492639032,
+          "study_macro_routed_regret": 0.149899693931602
+        },
+        "1.0": {
+          "brier_score": 0.14663897299490145,
+          "study_macro_routed_regret": 0.154899693931602
+        },
+        "10.0": {
+          "brier_score": 0.15648752652893996,
+          "study_macro_routed_regret": 0.150084879116782
+        }
+      },
+      "selected_C": 0.1,
+      "test_panels": 2,
+      "train_panels": 87,
+      "train_studies": 50
+    }
+  ],
+  "predictions": {
+    "rows": 89,
+    "sha256": "5af16e47bccaa21d355289f0c0d20be193138b69221907564cb8186c264c1efd"
+  },
+  "status": "outer predictions written before protected outcome scoring"
+}
