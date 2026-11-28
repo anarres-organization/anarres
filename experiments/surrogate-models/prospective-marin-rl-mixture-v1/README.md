@@ -106,6 +106,15 @@ python -m unittest \
 
 ## First mixture-surrogate result
 
+Marin had already developed and preregistered a content-aware Hellinger
+surrogate in [issue 7067](https://github.com/marin-community/marin/issues/7067)
+and its linked implementation. The analysis here reproduces that model family
+for Anarres and extends the readout to all 162 native targets, repeated-run
+lineage grouping, complete design-family holdouts, allocation regret,
+support-based abstention, and target-level relative harm. The modeling method
+originates in Marin; the grouped decision and harm audit is the Anarres
+extension.
+
 The [transparent baseline audit](GRUG_SWARM_BASELINE_RESULTS.json) compares a
 training-fold mean, linear ridge, and two Hellinger-RBF kernels. The first
 kernel uses the 400 raw mixture weights. The second maps each phase through
