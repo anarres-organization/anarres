@@ -1,0 +1,243 @@
+{
+  "artifact": "anarres_marin_public_source_audit_v0",
+  "audited_on": "2026-11-27",
+  "information_cutoff": "2026-11-27T23:59:59Z",
+  "code_sources": [
+    {
+      "path": "experiments/post_training/long_loop/specs/rl.yaml",
+      "repository": "https://github.com/marin-community/marin",
+      "revision": "0c1e81ca93635ac157db90ff786a8f8fba65b13c",
+      "use": "historical Snowball round-one rollout, trainer, optimizer, sampler, placement, and trace-retention contract"
+    },
+    {
+      "path": "experiments/post_training/task_curation/exp4_curriculum.py",
+      "repository": "https://github.com/marin-community/marin",
+      "revision": "d2788fa9c24819f16eaf4ddbc64f3ab844e56d55",
+      "use": "current public Exp4 source shares, deterministic 200-prompt holdout, and curriculum semantics at the audit cutoff"
+    }
+  ],
+  "records": [
+    {
+      "id": "marin_6279",
+      "role": "separate_scaling_method_check",
+      "status": "development_only_different_family",
+      "title": "Delphi RL scaling laws",
+      "url": "https://github.com/marin-community/marin/issues/6279",
+      "use": "tests scale-aware archive extraction and scoring without supplying Grug-family transfer evidence"
+    },
+    {
+      "id": "marin_7786",
+      "role": "historical_rl_campaign",
+      "status": "development_only",
+      "title": "Non-agentic RLVR on Snowball 67B-A2B",
+      "url": "https://github.com/marin-community/marin/issues/7786",
+      "use": "completed public mathematical RL campaign with a report and artifact archive"
+    },
+    {
+      "id": "marin_8435",
+      "role": "model_family_ladder",
+      "status": "public_pretraining_ladder",
+      "title": "Hero Run: 535B-A23B on 18T tokens",
+      "url": "https://github.com/marin-community/marin/issues/8435",
+      "use": "pins the five-rung same-recipe Grug pretraining ladder and the completed Hero lineage"
+    },
+    {
+      "id": "marin_8901",
+      "role": "starting_policy_measurement",
+      "status": "development_only",
+      "title": "Pre-RL Snowball probe on R2E-Gym",
+      "url": "https://github.com/marin-community/marin/issues/8901",
+      "use": "supplies task-level repeated-attempt and trace evidence without a matched downstream intervention in the issue"
+    },
+    {
+      "id": "marin_9126",
+      "role": "pretraining_environment_transfer_check",
+      "status": "development_only",
+      "title": "Compare the mixture-swap scaling ladder",
+      "url": "https://github.com/marin-community/marin/issues/9126",
+      "use": "provides matched old-versus-new Grug data-mixture outcomes at d768, d1024, and d1536 plus a three-seed d512 development comparison; it tests cross-scale environment representation but not post-training transfer"
+    },
+    {
+      "id": "marin_9735",
+      "role": "historical_rl_campaign",
+      "status": "development_with_comparison_flags",
+      "title": "Snowball broad-domain RLVR across cooldown variants",
+      "url": "https://github.com/marin-community/marin/issues/9735",
+      "use": "supplies matched within-sweep comparisons and documents why cross-run rankings are invalid"
+    },
+    {
+      "id": "marin_10079",
+      "role": "historical_rl_candidate_panel",
+      "status": "development_only",
+      "title": "Resolving complex closure failures with multi-domain RLVR",
+      "url": "https://github.com/marin-community/marin/issues/10079",
+      "use": "provides same-initializer candidate interventions with capability gains and regressions"
+    },
+    {
+      "id": "marin_10197",
+      "role": "evaluation_contract",
+      "status": "active_public_policy",
+      "title": "Marin Eval Policy (2026-10-16)",
+      "url": "https://github.com/marin-community/marin/issues/10197",
+      "use": "defines native benchmarks, repetitions, contexts, infrastructure exclusions, and reporting expectations"
+    },
+    {
+      "id": "marin_10305",
+      "role": "historical_rl_regression_record",
+      "status": "development_only",
+      "title": "Smartie multi-domain RLVR revisited on Snowball",
+      "url": "https://github.com/marin-community/marin/issues/10305",
+      "use": "provides an overall improvement with a recorded structural regression and explicit exposure limitations"
+    },
+    {
+      "id": "marin_10388",
+      "role": "large_model_rl_check",
+      "status": "development_only_single_environment",
+      "title": "Prepare Hero for RL",
+      "url": "https://github.com/marin-community/marin/issues/10388",
+      "use": "documents verified large-model 4K GSM8K learning and runtime evidence without an environment-selection panel"
+    },
+    {
+      "id": "marin_10314",
+      "role": "candidate_source",
+      "status": "development_input",
+      "title": "Build a source-stratified Snowball curriculum v0",
+      "url": "https://github.com/marin-community/marin/issues/10314",
+      "use": "documents the public source families, task counts, holdout exclusions, and immutable 100,000-task pool"
+    },
+    {
+      "id": "marin_11337",
+      "role": "historical_recipe_and_result_index",
+      "status": "development_only",
+      "title": "Track run-ready Snowball recipes and Micro eval policy scores",
+      "url": "https://github.com/marin-community/marin/issues/11337",
+      "use": "supplies recipe identities, data pins, costs, evaluation coverage, and known limitations; published outcomes cannot validate the proposed prospective study"
+    },
+    {
+      "id": "marin_11535",
+      "role": "recipe_history",
+      "status": "development_only",
+      "title": "Snowball ablations to choose the Mochi SFT/RL recipe",
+      "url": "https://github.com/marin-community/marin/issues/11535",
+      "use": "identifies prior recipe changes and comparisons that are not isolated environment interventions"
+    },
+    {
+      "id": "marin_11594",
+      "role": "negative_methodological_control",
+      "status": "development_only",
+      "title": "Compare RL group size on Snowball",
+      "url": "https://github.com/marin-community/marin/issues/11594",
+      "use": "shows why prompt identity, training resources, and repeated evaluation must be matched before attributing an effect"
+    },
+    {
+      "id": "marin_11722",
+      "role": "cross_model_measurement_precedent",
+      "status": "development_only",
+      "title": "What is Mochi similar to? NLL and behaviour against open-weight models",
+      "url": "https://github.com/marin-community/marin/issues/11722",
+      "use": "shows matched likelihood and behavior measurements across Snowball and Mochi while explicitly separating similarity from training utility"
+    },
+    {
+      "id": "marin_11723",
+      "role": "target_motivation",
+      "status": "development_only",
+      "title": "Mochi SFT weakness analysis and candidate target skills",
+      "url": "https://github.com/marin-community/marin/issues/11723",
+      "use": "motivates broad capability targets; it cannot select the final scoring weights"
+    },
+    {
+      "id": "marin_11862",
+      "role": "pipeline_prerequisite",
+      "status": "open",
+      "title": "Score an RL run's selected export with Micro210 after RL",
+      "url": "https://github.com/marin-community/marin/issues/11862",
+      "use": "tracks automatic evaluation of the selected exported checkpoint"
+    },
+    {
+      "id": "marin_11863",
+      "role": "pipeline_prerequisite",
+      "status": "open",
+      "title": "Run the Snowball long loop from unified presets",
+      "url": "https://github.com/marin-community/marin/issues/11863",
+      "use": "tracks one-command SFT, RL, and Micro210 execution"
+    },
+    {
+      "id": "marin_12069",
+      "role": "evaluation_prerequisite",
+      "status": "open",
+      "title": "Repair the Micro210 policy",
+      "url": "https://github.com/marin-community/marin/pull/12069",
+      "revision": "11a16bae308be0e676ba652e8da09c8764e5ad70",
+      "use": "stages a new Micro210 policy and specifically shuffles TruthfulQA choices; the final study must pin the complete repaired policy and all referenced evaluator fixes"
+    },
+    {
+      "id": "marin_12103",
+      "role": "recipe_prerequisite",
+      "status": "planned_not_run",
+      "title": "Ablate the RL optimizer and learning rate for Mochi and Snowball",
+      "url": "https://github.com/marin-community/marin/issues/12103",
+      "use": "must be resolved or replaced by an explicit fixed choice; optimizer and learning rate cannot vary with mixture"
+    },
+    {
+      "id": "marin_12119",
+      "role": "measurement_precedent",
+      "status": "development_only",
+      "title": "Mochi .123 train and holdout reward curves",
+      "url": "https://github.com/marin-community/marin/issues/12119",
+      "use": "shows source-stratified held-out measurements and coverage failure; the curriculum holdout is not the sole downstream target"
+    },
+    {
+      "id": "marin_12189",
+      "role": "runtime_prerequisite",
+      "status": "open",
+      "title": "Name the Mochi RL feature gaps between main presets and the long loop",
+      "url": "https://github.com/marin-community/marin/issues/12189",
+      "use": "defines portability gaps that must close before a Mochi transfer run"
+    },
+    {
+      "id": "marin_12199",
+      "role": "mixture_history",
+      "status": "development_only",
+      "title": "Index of every SFT mix used in the long loop",
+      "url": "https://github.com/marin-community/marin/issues/12199",
+      "use": "records source composition and mixture changes; SFT mixtures remain outside the first fixed-recipe RL-mixture intervention"
+    },
+    {
+      "id": "marin_12201",
+      "role": "problem_statement",
+      "status": "retrospective_confounded",
+      "title": "Opposite SFT to RL Micro210 deltas: Mochi .123 versus Snowball round 1",
+      "url": "https://github.com/marin-community/marin/issues/12201",
+      "use": "establishes the public motivation and enumerates confounds; it is not prospective Anarres evidence"
+    },
+    {
+      "id": "marin_12267",
+      "role": "runtime_prerequisite",
+      "status": "open",
+      "title": "Plain-decoding log-probability mismatch blocks the DSpark Exp4 round",
+      "url": "https://github.com/marin-community/marin/issues/12267",
+      "use": "requires a passed unchanged log-probability gate before the affected runtime is eligible"
+    },
+    {
+      "id": "marin_12360",
+      "role": "trace_and_reward_prerequisite",
+      "status": "open",
+      "title": "Turn-deadline expiry discards partial generations as zero-token rollouts",
+      "url": "https://github.com/marin-community/marin/issues/12360",
+      "use": "requires exact partial generations and separate queue, generation, verifier, and infrastructure states"
+    },
+    {
+      "id": "marin_12386",
+      "role": "verifier_prerequisite",
+      "status": "open",
+      "title": "Polaris grader rejects correct Mochi and plain-text answers",
+      "url": "https://github.com/marin-community/marin/issues/12386",
+      "use": "affected source versions are ineligible until the advertised answer contract and verifier agree"
+    }
+  ],
+  "conclusion": {
+    "eligible_now": false,
+    "next_action": "finish public artifact extraction and narrow-rung qualification, then freeze only the future choices and runtime gates that public history cannot supply",
+    "prospective_claim_allowed": false
+  }
+}

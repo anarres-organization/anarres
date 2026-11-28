@@ -1,0 +1,114 @@
+{
+  "artifact": "anarres_marin_historical_rl_inventory_v0",
+  "audited_on": "2026-11-28",
+  "independent_unit": "trained intervention",
+  "records": [
+    {
+      "record_id": "delphi_rl_scaling_6279",
+      "model": "Delphi ladder",
+      "source": "https://github.com/marin-community/marin/issues/6279",
+      "intervention": "math midtraining mixture, SFT recipe, and subsequent math RL across compute scales",
+      "surrogate_use": "method_check_only",
+      "reason": "strong multi-scale archive but a different model family and primarily mathematical targets"
+    },
+    {
+      "record_id": "snowball_math_rl_7786",
+      "model": "Snowball 67B-A2B",
+      "source": "https://github.com/marin-community/marin/issues/7786",
+      "intervention": "non-agentic mathematical RLVR",
+      "surrogate_use": "development_candidate",
+      "reason": "completed public campaign with report and artifact archive; exact extraction remains to be completed"
+    },
+    {
+      "record_id": "snowball_r2egym_probe_8901",
+      "model": "Snowball 67B-A2B",
+      "source": "https://github.com/marin-community/marin/issues/8901",
+      "intervention": "eight-attempt starting-policy probe on 4,245 R2E-Gym training tasks",
+      "surrogate_use": "measurement_only",
+      "reason": "contains task-level mixed-outcome and trace evidence but no matched downstream training outcome in the issue"
+    },
+    {
+      "record_id": "snowball_broad_rl_9735",
+      "model": "Snowball 67B-A2B",
+      "source": "https://github.com/marin-community/marin/issues/9735",
+      "intervention": "broad-domain RL recipe, reward-shaping, context-budget, and stability campaigns",
+      "surrogate_use": "development_with_comparison_flags",
+      "reason": "matched within-sweep comparisons are usable; cross-run rankings are excluded because starts, graders, contexts, resources, and holdouts changed"
+    },
+    {
+      "record_id": "snowball_closure_rl_10079",
+      "model": "Snowball 67B-A2B",
+      "source": "https://github.com/marin-community/marin/issues/10079",
+      "intervention": "three two-update closure and continuation RLVR recipes from one initializer",
+      "surrogate_use": "multi_target_development_replay",
+      "reason": "three recipe records and four nested capability outcomes are extracted from immutable public audits; the replay tests representation and target-specific regressions but not cross-study transfer"
+    },
+    {
+      "record_id": "snowball_smartie_rl_10305",
+      "model": "Snowball 67B-A2B",
+      "source": "https://github.com/marin-community/marin/issues/10305",
+      "intervention": "multi-domain NVIDIA and structural RLVR mixture",
+      "surrogate_use": "regression_development",
+      "reason": "fixed validation improved overall while structural reward declined; unshuffled source order and unreconstructed optimizer exposure prevent a clean mixture-effect estimate"
+    },
+    {
+      "record_id": "snowball_curriculum_10314",
+      "model": "Snowball 67B-A2B",
+      "source": "https://github.com/marin-community/marin/issues/10314",
+      "intervention": "100,000-task five-family source-stratified curriculum",
+      "surrogate_use": "development_candidate",
+      "reason": "immutable pool, source probabilities, holdouts, repeated attempts, checkpoints, and family outcomes are documented; runtime publication gates remain"
+    },
+    {
+      "record_id": "hero_gsm8k_rl_10388",
+      "model": "Hero 535B-A23B",
+      "source": "https://github.com/marin-community/marin/issues/10388",
+      "intervention": "64-update 4K GSM8K RL on H100 and GB200",
+      "surrogate_use": "large_scale_single_environment_check",
+      "reason": "verified learning and restore evidence on one task family and one training seed per accelerator; not an environment-selection panel"
+    },
+    {
+      "record_id": "snowball_group_size_11594",
+      "model": "Snowball 67B-A2B",
+      "source": "https://github.com/marin-community/marin/issues/11594",
+      "intervention": "four versus eight responses per prompt through 20 updates",
+      "surrogate_use": "negative_methodological_control",
+      "reason": "GPU counts, inference engines, and prompt draws differ, so the arms cannot identify a group-size effect"
+    },
+    {
+      "record_id": "snowball_round1_11337",
+      "model": "Snowball 67B-A2B",
+      "source": "https://github.com/marin-community/marin/issues/11337",
+      "intervention": "long-loop round-one SFT and broad RL mixture",
+      "surrogate_use": "development_candidate",
+      "reason": "recipe, source manifests, costs, checkpoints, and evaluation are documented; harness generations differ between baseline and trained model"
+    },
+    {
+      "record_id": "mochi_123_12119",
+      "model": "Mochi 535B-A23B",
+      "source": "https://github.com/marin-community/marin/issues/12119",
+      "intervention": "Exp4-family broad RL curriculum with a fixed 200-prompt holdout",
+      "surrogate_use": "protected_transfer_outcome",
+      "reason": "used only after Snowball development choices are frozen; no holdout evaluation met the declared 180-of-200 coverage gate"
+    },
+    {
+      "record_id": "snowball_mochi_comparison_12201",
+      "model": "Snowball and Mochi",
+      "source": "https://github.com/marin-community/marin/issues/12201",
+      "intervention": "retrospective comparison of opposite SFT-to-RL deltas",
+      "surrogate_use": "confound_map_only",
+      "reason": "mixture, sampler, optimizer, learning rate, base, SFT recipe, steps, checkpoint rule, evaluation policy, and serving stack all differ"
+    }
+  ],
+  "extraction_rules": {
+    "nested_observations": [
+      "training checkpoints",
+      "evaluation checkpoints",
+      "benchmark rows",
+      "repeated serving evaluations"
+    ],
+    "never_count_as_independent": "nested observations from one trained intervention",
+    "comparison_requirement": "only comparisons explicitly matched on start, task identities, runtime, resources, sampling, verifier, and evaluation policy can train pairwise ordering labels",
+    "missing_outcomes": "unavailable or infrastructure-invalid outcomes remain separate from scientific failures"
+  }
+}

@@ -1,0 +1,2960 @@
+{
+  "artifact": "anarres_grug_swarm_transparent_baselines_v1",
+  "inputs": {
+    "candidate_lineages": 915,
+    "content_basis_sha256": "9fc0dbe828fbba5eeaf9bdaf616afdf973f9bcd8499ec8c115ee1fa32a630ce7",
+    "corpus_manifest_sha256": "2e26ce5de8167ed185dbcf0d01c1941df1f26d6b0011fee4d4ae267cbb79e00b",
+    "inputs_sha256": "dadee5330638d54360ed8a123810c575e83063dd42369420bcbf0935a486a5ae",
+    "protected_labels_sha256": "03da4cc7c3197c4edb80d0c060d5670e922db24015d326333711eb25ddb0db53",
+    "targets": 162,
+    "trained_runs": 934
+  },
+  "interpretation_boundary": "The selected mixture was chosen using this swarm. Its held-out replay is a development diagnostic, not independent evidence. The scale ladder and future post-training panel remain separate tests.",
+  "models": {
+    "content_hellinger_rbf_kernel": {
+      "alpha": 1.0,
+      "features": "two 1,000-bin lexical distributions obtained by multiplying each phase's 200 cell weights by Marin's released cell-content basis",
+      "gamma": "0.25 divided by the median positive training distance"
+    },
+    "hellinger_rbf_kernel": {
+      "alpha": 1.0,
+      "features": "square roots of all 400 two-phase cell weights",
+      "gamma": "0.25 divided by the median positive training distance"
+    },
+    "linear_ridge": {
+      "alpha": 100.0,
+      "features": "all 400 two-phase cell weights"
+    },
+    "training_mean": "per-target mean of the outer training fold"
+  },
+  "published_selected_pair": {
+    "content_hellinger_rbf_kernel": {
+      "capability_log_probability": {
+        "directions": {
+          "grouped_bpb/arc_challenge_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_arabic": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_bengali": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_chinese_simplified": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_french": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_german": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_hebrew": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_hindi": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_indonesian": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_japanese": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_korean": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_mean": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_portuguese": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_russian": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_spanish": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_swahili": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_thai": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_turkish": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_vietnamese": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_yoruba": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/boolq_0shot": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/copa_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/csqa_0shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/gpqa_0shot": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/hellaswag_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_arabic": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_bengali": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_chinese": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_french": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_german": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_hebrew": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_hindi": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_indonesian": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_japanese": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_korean": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_mean": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_portuguese": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_russian": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_spanish": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_turkish": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_vietnamese": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/lambada_0shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/lb_bbh_3shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/logprob_gsm8k_5shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/logprob_humaneval_10shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/medmcqa_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/medqa_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/mmlu_pro_5shot": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/musr_0shot": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/openbookqa_0shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/piqa_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/sciq_0shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/truthfulqa_mc1_0shot": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/winogrande_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          }
+        },
+        "observed_selected_wins": 20,
+        "ordering_accuracy": 0.7037037,
+        "predicted_selected_wins": 14,
+        "targets": 54
+      },
+      "held_out_loss_or_bpb": {
+        "directions": {
+          "eval/paloma/4chan-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/4chan-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/c4_100_domains-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/c4_100_domains-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/c4_en-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/c4_en-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/dolma-v1_5-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/dolma-v1_5-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/dolma_100_programing_languages-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/dolma_100_programing_languages-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/dolma_100_subreddits-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/dolma_100_subreddits-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/falcon-refinedweb-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/falcon-refinedweb-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/gab-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/gab-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/m2d2_s2orc_unsplit-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/m2d2_s2orc_unsplit-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/m2d2_wikipedia_unsplit-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/m2d2_wikipedia_unsplit-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/macro_bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/macro_loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/manosphere_meta_sep-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/manosphere_meta_sep-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/mc4-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/mc4-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/micro_loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/ptb-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/ptb-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/redpajama-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/redpajama-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/twitterAAE_HELM_fixed-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/twitterAAE_HELM_fixed-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/wikitext_103-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/wikitext_103-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/ao3_english-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/ao3_english-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/arxiv_computer_science-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/arxiv_computer_science-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/arxiv_physics-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/arxiv_physics-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/bbc_news-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/bbc_news-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/github_cpp-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/github_cpp-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/github_python-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/github_python-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/macro_bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/macro_loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/micro_loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/wikipedia_english-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/wikipedia_english-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/4chan-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/4chan-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/c4_100_domains-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/c4_100_domains-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/c4_en-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/c4_en-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma-v1_5-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma-v1_5-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma_100_programing_languages-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma_100_programing_languages-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma_100_subreddits-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma_100_subreddits-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/falcon-refinedweb-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/falcon-refinedweb-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/gab-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/gab-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/m2d2_s2orc_unsplit-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/m2d2_s2orc_unsplit-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/m2d2_wikipedia_unsplit-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/m2d2_wikipedia_unsplit-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/macro_bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/macro_loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/manosphere_meta_sep-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/manosphere_meta_sep-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/mc4-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/mc4-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/micro_loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/ptb-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/ptb-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/redpajama-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/redpajama-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/twitterAAE_HELM_fixed-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/twitterAAE_HELM_fixed-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/wikitext_103-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/wikitext_103-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/ao3_english-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/ao3_english-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_computer_science-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_computer_science-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_physics-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_physics-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/bbc_news-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/uncheatable_eval/bbc_news-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/uncheatable_eval/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/github_cpp-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/github_cpp-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/github_python-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/github_python-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/macro_bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/macro_loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/micro_loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/wikipedia_english-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/wikipedia_english-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          }
+        },
+        "observed_selected_wins": 58,
+        "ordering_accuracy": 0.98148148,
+        "predicted_selected_wins": 60,
+        "targets": 108
+      }
+    },
+    "hellinger_rbf_kernel": {
+      "capability_log_probability": {
+        "directions": {
+          "grouped_bpb/arc_challenge_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_arabic": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_bengali": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_chinese_simplified": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_french": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_german": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_hebrew": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_hindi": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_indonesian": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_japanese": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_korean": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_mean": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_portuguese": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_russian": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_spanish": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_swahili": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_thai": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_turkish": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_vietnamese": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_yoruba": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/boolq_0shot": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/copa_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/csqa_0shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/gpqa_0shot": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/hellaswag_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_arabic": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_bengali": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_chinese": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_french": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_german": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_hebrew": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_hindi": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_indonesian": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_japanese": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_korean": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_mean": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_portuguese": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_russian": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_spanish": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_turkish": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_vietnamese": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/lambada_0shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/lb_bbh_3shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/logprob_gsm8k_5shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/logprob_humaneval_10shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/medmcqa_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/medqa_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/mmlu_pro_5shot": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/musr_0shot": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/openbookqa_0shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/piqa_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/sciq_0shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/truthfulqa_mc1_0shot": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/winogrande_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          }
+        },
+        "observed_selected_wins": 20,
+        "ordering_accuracy": 0.72222222,
+        "predicted_selected_wins": 13,
+        "targets": 54
+      },
+      "held_out_loss_or_bpb": {
+        "directions": {
+          "eval/paloma/4chan-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/4chan-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/c4_100_domains-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/c4_100_domains-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/c4_en-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/c4_en-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/dolma-v1_5-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/dolma-v1_5-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/dolma_100_programing_languages-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/dolma_100_programing_languages-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/dolma_100_subreddits-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/dolma_100_subreddits-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/falcon-refinedweb-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/falcon-refinedweb-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/gab-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/gab-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/m2d2_s2orc_unsplit-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/m2d2_s2orc_unsplit-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/m2d2_wikipedia_unsplit-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/m2d2_wikipedia_unsplit-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/macro_bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/macro_loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/manosphere_meta_sep-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/manosphere_meta_sep-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/mc4-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/mc4-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/micro_loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/ptb-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/ptb-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/redpajama-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/redpajama-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/twitterAAE_HELM_fixed-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/twitterAAE_HELM_fixed-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/wikitext_103-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/wikitext_103-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/ao3_english-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/ao3_english-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/arxiv_computer_science-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/arxiv_computer_science-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/arxiv_physics-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/arxiv_physics-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/bbc_news-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/bbc_news-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/github_cpp-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/github_cpp-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/github_python-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/github_python-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/macro_bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/macro_loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/micro_loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/wikipedia_english-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/wikipedia_english-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/4chan-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/4chan-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/c4_100_domains-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/c4_100_domains-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/c4_en-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/c4_en-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma-v1_5-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma-v1_5-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma_100_programing_languages-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma_100_programing_languages-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma_100_subreddits-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/dolma_100_subreddits-llama3/loss": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/falcon-refinedweb-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/falcon-refinedweb-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/gab-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/gab-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/m2d2_s2orc_unsplit-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/m2d2_s2orc_unsplit-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/m2d2_wikipedia_unsplit-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/m2d2_wikipedia_unsplit-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/macro_bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/macro_loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/manosphere_meta_sep-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/manosphere_meta_sep-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/mc4-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/mc4-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/micro_loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/ptb-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/ptb-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/redpajama-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/redpajama-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/twitterAAE_HELM_fixed-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/twitterAAE_HELM_fixed-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/wikitext_103-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/wikitext_103-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/ao3_english-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/ao3_english-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_computer_science-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_computer_science-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_physics-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_physics-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/bbc_news-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/uncheatable_eval/bbc_news-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/uncheatable_eval/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/github_cpp-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/github_cpp-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/github_python-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/github_python-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/macro_bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/macro_loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/micro_loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/wikipedia_english-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "eval_dropless/uncheatable_eval/wikipedia_english-llama3/loss": {
+            "observed": "improved",
+            "predicted": "regressed"
+          }
+        },
+        "observed_selected_wins": 58,
+        "ordering_accuracy": 0.94444444,
+        "predicted_selected_wins": 56,
+        "targets": 108
+      }
+    },
+    "linear_ridge": {
+      "capability_log_probability": {
+        "directions": {
+          "grouped_bpb/arc_challenge_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_arabic": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_bengali": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_chinese_simplified": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_french": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/belebele_german": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/belebele_hebrew": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_hindi": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_indonesian": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_japanese": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_korean": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_mean": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_portuguese": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_russian": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_spanish": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_swahili": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/belebele_thai": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_turkish": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_vietnamese": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/belebele_yoruba": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/boolq_0shot": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/copa_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/csqa_0shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/gpqa_0shot": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/hellaswag_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_arabic": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_bengali": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_chinese": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_french": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_german": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_hebrew": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_hindi": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_indonesian": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_japanese": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_korean": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_mean": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_portuguese": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_russian": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_spanish": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/include_turkish": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/include_vietnamese": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/lambada_0shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/lb_bbh_3shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/logprob_gsm8k_5shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/logprob_humaneval_10shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/medmcqa_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/medqa_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/mmlu_pro_5shot": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/musr_0shot": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/openbookqa_0shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/piqa_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/sciq_0shot": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "grouped_bpb/truthfulqa_mc1_0shot": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "grouped_bpb/winogrande_0shot": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          }
+        },
+        "observed_selected_wins": 20,
+        "ordering_accuracy": 0.7037037,
+        "predicted_selected_wins": 14,
+        "targets": 54
+      },
+      "held_out_loss_or_bpb": {
+        "directions": {
+          "eval/paloma/4chan-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/4chan-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/c4_100_domains-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/c4_100_domains-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/c4_en-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/c4_en-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/dolma-v1_5-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/dolma-v1_5-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/dolma_100_programing_languages-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/dolma_100_programing_languages-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/dolma_100_subreddits-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/dolma_100_subreddits-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/falcon-refinedweb-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/falcon-refinedweb-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/gab-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/gab-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/m2d2_s2orc_unsplit-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/m2d2_s2orc_unsplit-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/m2d2_wikipedia_unsplit-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/m2d2_wikipedia_unsplit-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/macro_bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/macro_loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/manosphere_meta_sep-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/manosphere_meta_sep-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/mc4-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/mc4-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/micro_loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/ptb-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/ptb-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/redpajama-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/redpajama-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/twitterAAE_HELM_fixed-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/twitterAAE_HELM_fixed-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/paloma/wikitext_103-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/paloma/wikitext_103-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/ao3_english-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/ao3_english-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/arxiv_computer_science-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/arxiv_computer_science-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/arxiv_physics-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/arxiv_physics-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/bbc_news-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/bbc_news-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/github_cpp-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/github_cpp-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/github_python-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/github_python-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval/uncheatable_eval/macro_bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/macro_loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/micro_loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/wikipedia_english-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval/uncheatable_eval/wikipedia_english-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/4chan-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/4chan-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/c4_100_domains-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/c4_100_domains-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/c4_en-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/c4_en-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma-v1_5-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma-v1_5-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma_100_programing_languages-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma_100_programing_languages-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma_100_subreddits-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/dolma_100_subreddits-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/falcon-refinedweb-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/falcon-refinedweb-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/gab-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/gab-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/m2d2_s2orc_unsplit-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/m2d2_s2orc_unsplit-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/m2d2_wikipedia_unsplit-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/m2d2_wikipedia_unsplit-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/macro_bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/macro_loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/manosphere_meta_sep-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/manosphere_meta_sep-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/paloma/mc4-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/mc4-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/micro_loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/ptb-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/ptb-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/redpajama-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/redpajama-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/twitterAAE_HELM_fixed-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/twitterAAE_HELM_fixed-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/wikitext_103-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/paloma/wikitext_103-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/ao3_english-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/ao3_english-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_computer_science-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_computer_science-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_physics-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_physics-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/bbc_news-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/uncheatable_eval/bbc_news-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "regressed"
+          },
+          "eval_dropless/uncheatable_eval/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/github_cpp-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/github_cpp-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/github_python-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/github_python-llama3/loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/macro_bpb": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/macro_loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/micro_loss": {
+            "observed": "improved",
+            "predicted": "improved"
+          },
+          "eval_dropless/uncheatable_eval/wikipedia_english-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "regressed"
+          },
+          "eval_dropless/uncheatable_eval/wikipedia_english-llama3/loss": {
+            "observed": "improved",
+            "predicted": "regressed"
+          }
+        },
+        "observed_selected_wins": 58,
+        "ordering_accuracy": 0.96296296,
+        "predicted_selected_wins": 58,
+        "targets": 108
+      }
+    },
+    "training_mean": {
+      "capability_log_probability": {
+        "directions": {
+          "grouped_bpb/arc_challenge_0shot": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_arabic": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_bengali": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_chinese_simplified": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_french": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_german": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_hebrew": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_hindi": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_indonesian": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_japanese": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_korean": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_mean": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_portuguese": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_russian": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_spanish": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_swahili": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_thai": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_turkish": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_vietnamese": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/belebele_yoruba": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/boolq_0shot": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/copa_0shot": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/csqa_0shot": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/gpqa_0shot": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/hellaswag_0shot": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_arabic": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_bengali": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_chinese": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_french": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_german": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_hebrew": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_hindi": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_indonesian": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_japanese": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_korean": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_mean": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_portuguese": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_russian": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_spanish": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_turkish": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/include_vietnamese": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/lambada_0shot": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/lb_bbh_3shot": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/logprob_gsm8k_5shot": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/logprob_humaneval_10shot": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/medmcqa_0shot": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/medqa_0shot": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/mmlu_pro_5shot": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/musr_0shot": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/openbookqa_0shot": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/piqa_0shot": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "grouped_bpb/sciq_0shot": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/truthfulqa_mc1_0shot": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "grouped_bpb/winogrande_0shot": {
+            "observed": "regressed",
+            "predicted": "tied"
+          }
+        },
+        "observed_selected_wins": 20,
+        "ordering_accuracy": 0.5,
+        "predicted_selected_wins": 0,
+        "targets": 54
+      },
+      "held_out_loss_or_bpb": {
+        "directions": {
+          "eval/paloma/4chan-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/4chan-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/c4_100_domains-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/c4_100_domains-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/c4_en-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/c4_en-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/dolma-v1_5-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/dolma-v1_5-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/dolma_100_programing_languages-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval/paloma/dolma_100_programing_languages-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval/paloma/dolma_100_subreddits-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/dolma_100_subreddits-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/falcon-refinedweb-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/falcon-refinedweb-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/gab-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval/paloma/gab-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval/paloma/m2d2_s2orc_unsplit-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/m2d2_s2orc_unsplit-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/m2d2_wikipedia_unsplit-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/m2d2_wikipedia_unsplit-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/macro_bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/macro_loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/manosphere_meta_sep-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/manosphere_meta_sep-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/mc4-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/mc4-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/micro_loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/ptb-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/ptb-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/redpajama-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/redpajama-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/twitterAAE_HELM_fixed-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval/paloma/twitterAAE_HELM_fixed-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval/paloma/wikitext_103-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/paloma/wikitext_103-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/ao3_english-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/ao3_english-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/arxiv_computer_science-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/arxiv_computer_science-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/arxiv_physics-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/arxiv_physics-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/bbc_news-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/bbc_news-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/github_cpp-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/github_cpp-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/github_python-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/github_python-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/macro_bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/macro_loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/micro_loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/wikipedia_english-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval/uncheatable_eval/wikipedia_english-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/4chan-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/4chan-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/c4_100_domains-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/c4_100_domains-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/c4_en-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/c4_en-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/dolma-v1_5-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/dolma-v1_5-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/dolma_100_programing_languages-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/dolma_100_programing_languages-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/dolma_100_subreddits-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/dolma_100_subreddits-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/falcon-refinedweb-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/falcon-refinedweb-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/gab-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/gab-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/m2d2_s2orc_unsplit-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/m2d2_s2orc_unsplit-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/m2d2_wikipedia_unsplit-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/m2d2_wikipedia_unsplit-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/macro_bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/macro_loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/manosphere_meta_sep-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/manosphere_meta_sep-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/mc4-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/mc4-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/micro_loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/ptb-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/ptb-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/redpajama-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/redpajama-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/twitterAAE_HELM_fixed-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/twitterAAE_HELM_fixed-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/wikitext_103-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/paloma/wikitext_103-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/ao3_english-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/ao3_english-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_computer_science-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_computer_science-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_physics-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/arxiv_physics-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/bbc_news-llama3/bpb": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/bbc_news-llama3/loss": {
+            "observed": "regressed",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/github_cpp-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/github_cpp-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/github_python-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/github_python-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/macro_bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/macro_loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/micro_loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/wikipedia_english-llama3/bpb": {
+            "observed": "improved",
+            "predicted": "tied"
+          },
+          "eval_dropless/uncheatable_eval/wikipedia_english-llama3/loss": {
+            "observed": "improved",
+            "predicted": "tied"
+          }
+        },
+        "observed_selected_wins": 58,
+        "ordering_accuracy": 0.5,
+        "predicted_selected_wins": 0,
+        "targets": 108
+      }
+    }
+  },
+  "reproduction_contract": {
+    "exact_fields": "all non-floating-point fields",
+    "floating_point_absolute_tolerance": 0.001,
+    "reason": "dense linear algebra may differ slightly across BLAS implementations"
+  },
+  "results": {
+    "leave_one_design_family_out": {
+      "content_hellinger_rbf_kernel": {
+        "all_targets": {
+          "fold_macro_normalized_allocation_regret": 0.15385042,
+          "fold_macro_pairwise_ordering_accuracy": 0.66736855,
+          "mean_target_normalized_rmse": 2.39947457,
+          "mean_target_pearson": 0.29711064,
+          "median_target_normalized_rmse": 1.89819199,
+          "pair_weighted_pairwise_ordering_accuracy": 0.67979497
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "fold_macro_normalized_allocation_regret": 0.27841398,
+            "fold_macro_pairwise_ordering_accuracy": 0.547122,
+            "mean_target_normalized_rmse": 1.7753364,
+            "mean_target_pearson": 0.11678528,
+            "median_target_normalized_rmse": 1.54302615,
+            "pair_weighted_pairwise_ordering_accuracy": 0.54912347
+          },
+          "held_out_loss_or_bpb": {
+            "fold_macro_normalized_allocation_regret": 0.09156864,
+            "fold_macro_pairwise_ordering_accuracy": 0.72749182,
+            "mean_target_normalized_rmse": 2.71154365,
+            "mean_target_pearson": 0.38727332,
+            "median_target_normalized_rmse": 2.3845552,
+            "pair_weighted_pairwise_ordering_accuracy": 0.74513072
+          }
+        }
+      },
+      "hellinger_rbf_kernel": {
+        "all_targets": {
+          "fold_macro_normalized_allocation_regret": 0.19119885,
+          "fold_macro_pairwise_ordering_accuracy": 0.63077792,
+          "mean_target_normalized_rmse": 2.41012737,
+          "mean_target_pearson": 0.28646067,
+          "median_target_normalized_rmse": 1.90964355,
+          "pair_weighted_pairwise_ordering_accuracy": 0.66499436
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "fold_macro_normalized_allocation_regret": 0.29386513,
+            "fold_macro_pairwise_ordering_accuracy": 0.54687672,
+            "mean_target_normalized_rmse": 1.77372515,
+            "mean_target_pearson": 0.12678538,
+            "median_target_normalized_rmse": 1.54206493,
+            "pair_weighted_pairwise_ordering_accuracy": 0.54894727
+          },
+          "held_out_loss_or_bpb": {
+            "fold_macro_normalized_allocation_regret": 0.13986571,
+            "fold_macro_pairwise_ordering_accuracy": 0.67272852,
+            "mean_target_normalized_rmse": 2.72832848,
+            "mean_target_pearson": 0.36629831,
+            "median_target_normalized_rmse": 2.42042328,
+            "pair_weighted_pairwise_ordering_accuracy": 0.7230179
+          }
+        }
+      },
+      "linear_ridge": {
+        "all_targets": {
+          "fold_macro_normalized_allocation_regret": 0.19997169,
+          "fold_macro_pairwise_ordering_accuracy": 0.63256544,
+          "mean_target_normalized_rmse": 2.57534461,
+          "mean_target_pearson": 0.31086972,
+          "median_target_normalized_rmse": 2.2542078,
+          "pair_weighted_pairwise_ordering_accuracy": 0.64311368
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "fold_macro_normalized_allocation_regret": 0.31180394,
+            "fold_macro_pairwise_ordering_accuracy": 0.52853715,
+            "mean_target_normalized_rmse": 2.28750573,
+            "mean_target_pearson": 0.09317677,
+            "median_target_normalized_rmse": 2.20601552,
+            "pair_weighted_pairwise_ordering_accuracy": 0.54804459
+          },
+          "held_out_loss_or_bpb": {
+            "fold_macro_normalized_allocation_regret": 0.14405556,
+            "fold_macro_pairwise_ordering_accuracy": 0.68457958,
+            "mean_target_normalized_rmse": 2.71926405,
+            "mean_target_pearson": 0.4197162,
+            "median_target_normalized_rmse": 2.37106503,
+            "pair_weighted_pairwise_ordering_accuracy": 0.69064822
+          }
+        }
+      },
+      "training_mean": {
+        "all_targets": {
+          "fold_macro_normalized_allocation_regret": 0.29650155,
+          "fold_macro_pairwise_ordering_accuracy": 0.50001388,
+          "mean_target_normalized_rmse": 2.53786526,
+          "mean_target_pearson": -0.1762633,
+          "median_target_normalized_rmse": 2.07484308,
+          "pair_weighted_pairwise_ordering_accuracy": 0.50001587
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "fold_macro_normalized_allocation_regret": 0.31319036,
+            "fold_macro_pairwise_ordering_accuracy": 0.50010002,
+            "mean_target_normalized_rmse": 1.80142406,
+            "mean_target_pearson": -0.11909037,
+            "median_target_normalized_rmse": 1.55307321,
+            "pair_weighted_pairwise_ordering_accuracy": 0.50003289
+          },
+          "held_out_loss_or_bpb": {
+            "fold_macro_normalized_allocation_regret": 0.28815715,
+            "fold_macro_pairwise_ordering_accuracy": 0.49997081,
+            "mean_target_normalized_rmse": 2.90608586,
+            "mean_target_pearson": -0.20484976,
+            "median_target_normalized_rmse": 2.55614493,
+            "pair_weighted_pairwise_ordering_accuracy": 0.50000736
+          }
+        }
+      }
+    },
+    "lineage_five_fold": {
+      "content_hellinger_rbf_kernel": {
+        "all_targets": {
+          "fold_macro_normalized_allocation_regret": 0.05907178,
+          "fold_macro_pairwise_ordering_accuracy": 0.78856408,
+          "mean_target_normalized_rmse": 1.07649176,
+          "mean_target_pearson": 0.54244457,
+          "median_target_normalized_rmse": 1.05249839,
+          "pair_weighted_pairwise_ordering_accuracy": 0.78903398
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "fold_macro_normalized_allocation_regret": 0.12736432,
+            "fold_macro_pairwise_ordering_accuracy": 0.61772182,
+            "mean_target_normalized_rmse": 1.120637,
+            "mean_target_pearson": 0.33800374,
+            "median_target_normalized_rmse": 1.04894751,
+            "pair_weighted_pairwise_ordering_accuracy": 0.61800038
+          },
+          "held_out_loss_or_bpb": {
+            "fold_macro_normalized_allocation_regret": 0.02492551,
+            "fold_macro_pairwise_ordering_accuracy": 0.8739852,
+            "mean_target_normalized_rmse": 1.05441914,
+            "mean_target_pearson": 0.64466499,
+            "median_target_normalized_rmse": 1.05642942,
+            "pair_weighted_pairwise_ordering_accuracy": 0.87455078
+          }
+        }
+      },
+      "hellinger_rbf_kernel": {
+        "all_targets": {
+          "fold_macro_normalized_allocation_regret": 0.06746397,
+          "fold_macro_pairwise_ordering_accuracy": 0.76413247,
+          "mean_target_normalized_rmse": 1.05628731,
+          "mean_target_pearson": 0.54469441,
+          "median_target_normalized_rmse": 1.04947686,
+          "pair_weighted_pairwise_ordering_accuracy": 0.76476834
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "fold_macro_normalized_allocation_regret": 0.13287384,
+            "fold_macro_pairwise_ordering_accuracy": 0.61580056,
+            "mean_target_normalized_rmse": 1.10545285,
+            "mean_target_pearson": 0.35166358,
+            "median_target_normalized_rmse": 1.03770199,
+            "pair_weighted_pairwise_ordering_accuracy": 0.61616133
+          },
+          "held_out_loss_or_bpb": {
+            "fold_macro_normalized_allocation_regret": 0.03475904,
+            "fold_macro_pairwise_ordering_accuracy": 0.83829843,
+            "mean_target_normalized_rmse": 1.03170454,
+            "mean_target_pearson": 0.64120983,
+            "median_target_normalized_rmse": 1.06250842,
+            "pair_weighted_pairwise_ordering_accuracy": 0.83907184
+          }
+        }
+      },
+      "linear_ridge": {
+        "all_targets": {
+          "fold_macro_normalized_allocation_regret": 0.30894254,
+          "fold_macro_pairwise_ordering_accuracy": 0.7112076,
+          "mean_target_normalized_rmse": 1.28032176,
+          "mean_target_pearson": 0.24338421,
+          "median_target_normalized_rmse": 1.3180674,
+          "pair_weighted_pairwise_ordering_accuracy": 0.71185577
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "fold_macro_normalized_allocation_regret": 0.32215972,
+            "fold_macro_pairwise_ordering_accuracy": 0.56697895,
+            "mean_target_normalized_rmse": 1.35801541,
+            "mean_target_pearson": 0.0455453,
+            "median_target_normalized_rmse": 1.33542033,
+            "pair_weighted_pairwise_ordering_accuracy": 0.56692738
+          },
+          "held_out_loss_or_bpb": {
+            "fold_macro_normalized_allocation_regret": 0.30233396,
+            "fold_macro_pairwise_ordering_accuracy": 0.78332192,
+            "mean_target_normalized_rmse": 1.24147494,
+            "mean_target_pearson": 0.34230366,
+            "median_target_normalized_rmse": 1.2735747,
+            "pair_weighted_pairwise_ordering_accuracy": 0.78431997
+          }
+        }
+      },
+      "training_mean": {
+        "all_targets": {
+          "fold_macro_normalized_allocation_regret": 0.17069176,
+          "fold_macro_pairwise_ordering_accuracy": 0.49991072,
+          "mean_target_normalized_rmse": 1.25086184,
+          "mean_target_pearson": -0.06858333,
+          "median_target_normalized_rmse": 1.18383928,
+          "pair_weighted_pairwise_ordering_accuracy": 0.49991756
+        },
+        "by_target_family": {
+          "capability_log_probability": {
+            "fold_macro_normalized_allocation_regret": 0.19220754,
+            "fold_macro_pairwise_ordering_accuracy": 0.49996386,
+            "mean_target_normalized_rmse": 1.18390525,
+            "mean_target_pearson": -0.05294367,
+            "median_target_normalized_rmse": 1.13392488,
+            "pair_weighted_pairwise_ordering_accuracy": 0.49996682
+          },
+          "held_out_loss_or_bpb": {
+            "fold_macro_normalized_allocation_regret": 0.15993386,
+            "fold_macro_pairwise_ordering_accuracy": 0.49988415,
+            "mean_target_normalized_rmse": 1.28434013,
+            "mean_target_pearson": -0.07640317,
+            "median_target_normalized_rmse": 1.25957105,
+            "pair_weighted_pairwise_ordering_accuracy": 0.49989292
+          }
+        }
+      }
+    }
+  },
+  "split_contract": {
+    "leave_one_design_family_out": "extrapolation check; one construction family is absent from training",
+    "lineage_five_fold": "interpolation check; identical mixtures stay together",
+    "selected_pair": "the published selected and baseline mixture lineages are both absent from training"
+  },
+  "status": "retrospective development result; not a prospective claim",
+  "support_gate": {
+    "model": "content_hellinger_rbf_kernel",
+    "results": {
+      "leave_one_design_family_out": {
+        "accepted_lineage_fraction": 0.64590164,
+        "accepted_mean_absolute_standardized_error": 0.31501689,
+        "calibration_rule": "accept when the test mixture's Hellinger distance to training support does not exceed the training fold's 95th-percentile leave-one-lineage-out distance",
+        "folds": 10,
+        "folds_with_any_abstention": 2,
+        "rejected_lineages": 324,
+        "rejected_mean_absolute_standardized_error": 1.53811522
+      },
+      "lineage_five_fold": {
+        "accepted_lineage_fraction": 0.94972678,
+        "accepted_mean_absolute_standardized_error": 0.21799993,
+        "calibration_rule": "accept when the test mixture's Hellinger distance to training support does not exceed the training fold's 95th-percentile leave-one-lineage-out distance",
+        "folds": 5,
+        "folds_with_any_abstention": 5,
+        "rejected_lineages": 46,
+        "rejected_mean_absolute_standardized_error": 1.84623487
+      }
+    }
+  }
+}

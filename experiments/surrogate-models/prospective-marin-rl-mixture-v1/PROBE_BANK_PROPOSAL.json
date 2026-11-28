@@ -1,0 +1,40 @@
+{
+  "artifact": "anarres_snowball_probe_bank_proposal_v1",
+  "status": "coordination_proposal_not_frozen",
+  "candidate_prompt_groups": 200,
+  "attempts_per_prompt_group": 8,
+  "selection_seed": 20261128,
+  "source_mapping": {
+    "agentic_software_repair": "long-loop-smartie-swesmith",
+    "nemotron_instruction_following": "nemotron_if"
+  },
+  "minimum_unique_prompt_groups_by_source": {
+    "AllenAI:IF_multi_constraints_upto5": 10,
+    "OpenResearcher:OpenResearcher-Dataset": 10,
+    "PRIME-RL/Eurus-2-RL-Data": 10,
+    "long-loop-smartie-swesmith": 70,
+    "nemotron_if": 45,
+    "nvidia/Nemotron-RL-Ultra-Training-Blends": 12,
+    "nvidia/OpenScience": 21,
+    "open-athena/Snowball-Smartie-RL-2026.10.15.32-Data": 12,
+    "open-thoughts/TaskTrove": 24,
+    "pafitis:hardmath": 10,
+    "reasoning_gym": 21
+  },
+  "total_unique_prompt_groups": 245,
+  "total_starting_policy_attempts": 1960,
+  "candidate_membership_rule": "allocate 200 prompt groups by largest remainder over candidate source shares, break quota ties by source id, rank each source by sha256(selection_seed, source_id, prompt_group_id), and take the required prefix",
+  "why": [
+    "all candidates use the same source-stratified starting-policy evidence",
+    "every candidate contains the same number of prompt groups and attempts",
+    "fixed-source memberships remain identical across candidates",
+    "nested hash prefixes preserve common support when the two exchanged source shares change"
+  ],
+  "required_before_freeze": [
+    "starting checkpoint, tokenizer, sampler, and rollout runtime are pinned",
+    "all eleven source revisions, licenses, qualification rules, and task identities are pinned",
+    "the 245 prompt groups are selected without candidate-training outcomes",
+    "the complete attempt budget and infrastructure-failure policy are accepted"
+  ],
+  "advancement": "freeze a new immutable contract before launching any starting-policy attempts"
+}

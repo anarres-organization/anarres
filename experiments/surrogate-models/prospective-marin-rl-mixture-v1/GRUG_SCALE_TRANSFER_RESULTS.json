@@ -1,0 +1,337 @@
+{
+  "artifact": "anarres_grug_mixture_scale_transfer_stress_test_v1",
+  "boundary": "The d512 swarm switches from the common checkpoint after 10 percent baseline training. The larger ladder starts the selected schedule after 25 percent. This is a transfer stress test, not an identical-contract scale validation.",
+  "inputs": {
+    "d512_baselines_sha256": "25792d30d1f9f6ceae909c285891a6cd7a9634c7a1fe8853a226133a64f6fafa",
+    "scale_source_sha256": "2219ef173aeeaeb0210c31750a8bfdef9ec2a89af1ce20530aa58f1a5b93a0fc"
+  },
+  "interpretation": "Direction transfer improves with model width, but the d512 and larger-scale schedules differ. The result motivates an identical-contract scale panel; it does not establish a pretraining scaling law or post-training transfer.",
+  "model": "d512 content Hellinger-RBF surrogate with both published lineages excluded from fitting",
+  "results": {
+    "d1024": {
+      "d512_observed_direction_transfer_accuracy": 0.625,
+      "d512_surrogate_direction_transfer_accuracy": 0.625,
+      "directions": [
+        {
+          "d512_observed": "regressed",
+          "d512_surrogate": "regressed",
+          "larger_scale_observed": "improved",
+          "subset": "4chan"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "c4_100_domains"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "c4_en"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "dolma-v1_5"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "regressed",
+          "subset": "dolma_100_programing_languages"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "dolma_100_subreddits"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "falcon-refinedweb"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "gab"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "m2d2_s2orc_unsplit"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "regressed",
+          "subset": "m2d2_wikipedia_unsplit"
+        },
+        {
+          "d512_observed": "regressed",
+          "d512_surrogate": "regressed",
+          "larger_scale_observed": "improved",
+          "subset": "manosphere_meta_sep"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "mc4"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "ptb"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "regressed",
+          "subset": "redpajama"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "twitterAAE_HELM_fixed"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "regressed",
+          "subset": "wikitext_103"
+        }
+      ],
+      "larger_scale_improvements": 12,
+      "macro_bpb": {
+        "original": 1.002217,
+        "selected": 0.995244
+      },
+      "subsets": 16
+    },
+    "d1536": {
+      "d512_observed_direction_transfer_accuracy": 0.8125,
+      "d512_surrogate_direction_transfer_accuracy": 0.8125,
+      "directions": [
+        {
+          "d512_observed": "regressed",
+          "d512_surrogate": "regressed",
+          "larger_scale_observed": "improved",
+          "subset": "4chan"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "c4_100_domains"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "c4_en"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "dolma-v1_5"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "dolma_100_programing_languages"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "dolma_100_subreddits"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "falcon-refinedweb"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "gab"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "m2d2_s2orc_unsplit"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "regressed",
+          "subset": "m2d2_wikipedia_unsplit"
+        },
+        {
+          "d512_observed": "regressed",
+          "d512_surrogate": "regressed",
+          "larger_scale_observed": "improved",
+          "subset": "manosphere_meta_sep"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "mc4"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "ptb"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "redpajama"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "twitterAAE_HELM_fixed"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "wikitext_103"
+        }
+      ],
+      "larger_scale_improvements": 15,
+      "macro_bpb": {
+        "original": 0.925068,
+        "selected": 0.918442
+      },
+      "subsets": 16
+    },
+    "d768": {
+      "d512_observed_direction_transfer_accuracy": 0.5625,
+      "d512_surrogate_direction_transfer_accuracy": 0.5625,
+      "directions": [
+        {
+          "d512_observed": "regressed",
+          "d512_surrogate": "regressed",
+          "larger_scale_observed": "improved",
+          "subset": "4chan"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "c4_100_domains"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "c4_en"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "dolma-v1_5"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "regressed",
+          "subset": "dolma_100_programing_languages"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "dolma_100_subreddits"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "falcon-refinedweb"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "gab"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "m2d2_s2orc_unsplit"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "regressed",
+          "subset": "m2d2_wikipedia_unsplit"
+        },
+        {
+          "d512_observed": "regressed",
+          "d512_surrogate": "regressed",
+          "larger_scale_observed": "improved",
+          "subset": "manosphere_meta_sep"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "mc4"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "regressed",
+          "subset": "ptb"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "regressed",
+          "subset": "redpajama"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "improved",
+          "subset": "twitterAAE_HELM_fixed"
+        },
+        {
+          "d512_observed": "improved",
+          "d512_surrogate": "improved",
+          "larger_scale_observed": "regressed",
+          "subset": "wikitext_103"
+        }
+      ],
+      "larger_scale_improvements": 11,
+      "macro_bpb": {
+        "original": 1.08372,
+        "selected": 1.07933
+      },
+      "subsets": 16
+    }
+  },
+  "status": "retrospective development stress test; not a prospective result"
+}
