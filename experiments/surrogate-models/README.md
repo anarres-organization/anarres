@@ -173,6 +173,36 @@ protected labels, the execution contract was amended to record this case as a
 zero-confidence neutral abstention and charge both failed attempts. Successful
 request payloads, target panels, retrieval, and scoring remain unchanged.
 
+All 356 requests then completed. The scored study-macro results are:
+
+| Condition | Pairwise ordering | Normalized regret | Top-choice credit | Abstention |
+| --- | ---: | ---: | ---: | ---: |
+| No history, no measurements | 50.6% | 0.481 | 33.0% | 100.0% |
+| Retrieved history, no measurements | 63.6% | 0.326 | 50.1% | 54.9% |
+| No history, with measurements | 72.0% | 0.232 | 65.3% | 29.4% |
+| Retrieved history, with measurements | **74.3%** | **0.167** | **67.2%** | **11.8%** |
+
+Measurements provide the largest improvement. Adding retrieved history to the
+measured target reduces regret by 0.065, with a study-clustered 95% interval of
+[0.003, 0.128]. Its 2.3-point ordering improvement has an interval that crosses
+zero. The full condition also improves over the fixed TF-IDF baseline: regret
+falls from 0.274 to 0.167 and ordering rises from 67.9% to 74.3%. Both paired
+intervals exclude zero.
+
+| Domain | Studies | Panels | Pairwise ordering | Normalized regret |
+| --- | ---: | ---: | ---: | ---: |
+| Agentic coding | 14 | 22 | 81.9% | 0.032 |
+| Finance | 16 | 30 | 68.7% | 0.240 |
+| Legal | 1 | 1 | 0.0% | 1.000 |
+| Materials science | 17 | 33 | 75.5% | 0.157 |
+| Robotics | 3 | 3 | 87.2% | 0.185 |
+
+The effect is not uniform. Retrieval lowers regret for coding, finance, and
+robotics, but raises regret by 0.035 for materials science. The single legal
+study is predicted incorrectly. This result advances record-conditioned models
+as a development baseline; it does not establish a general surrogate or justify
+prospective allocation.
+
 Rebuild and verify this view with:
 
 ```bash

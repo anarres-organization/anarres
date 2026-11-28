@@ -1,0 +1,11 @@
+{
+  "artifact": "anarres_record_conditioned_prediction_receipt_v1",
+  "contract_sha256": "4650a7b33eeea3f762ca0b8ebe108b9b22d42de07d8896e2766418ea4d74b5f8",
+  "inputs_sha256": "fc36631c347a5d08055237882dba9f4db14cfeb843c55276e1978357a7b81071",
+  "model": "gpt-oss-120b",
+  "predictions_sha256": "d9ab0f455bde930a2ab53cd4e5281a6c1ec0ec6324684e5e56da614352f615b1",
+  "reasoning_effort": "high",
+  "revision": "b5c939de8f754692c1647ca79fbf85e8c1e70f8a",
+  "rows": 356,
+  "status": "predictions written before protected-label scoring"
+}

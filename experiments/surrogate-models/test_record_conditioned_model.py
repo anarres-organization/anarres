@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -22,6 +23,7 @@ def load(name: str, filename: str):
 
 RUNNER = load("record_runner", "run_record_conditioned_model.py")
 SCORER = load("record_scorer", "score_record_conditioned_model.py")
+DOMAIN_SCORER = load("domain_record_scorer", "score_domain_record_conditioned_model.py")
 
 
 class RecordConditionedModelTest(unittest.TestCase):
@@ -118,6 +120,96 @@ class RecordConditionedModelTest(unittest.TestCase):
         self.assertAlmostEqual(regret["mean"], 0.25)
         self.assertEqual(regret["studies_improved"], 1)
         self.assertEqual(regret["studies_tied"], 1)
+
+    def test_domain_summary_keeps_studies_as_the_unit(self) -> None:
+        results = {
+            "legal-a": {
+                "panels": 2,
+                "normalized_regret": 0.2,
+                "pairwise_ordering": 0.8,
+                "top_choice_credit": 0.5,
+                "confidence": 0.6,
+                "abstention": 0.0,
+            },
+            "legal-b": {
+                "panels": 1,
+                "normalized_regret": 0.4,
+                "pairwise_ordering": 0.6,
+                "top_choice_credit": 1.0,
+                "confidence": 0.8,
+                "abstention": 1.0,
+            },
+        }
+        summary = DOMAIN_SCORER.summarize_domains(
+            results, {"legal-a": "legal", "legal-b": "legal"}
+        )["legal"]
+        self.assertEqual(summary["studies"], 2)
+        self.assertEqual(summary["panels"], 3)
+        self.assertAlmostEqual(summary["study_macro_normalized_regret"], 0.3)
+        self.assertAlmostEqual(summary["study_macro_pairwise_ordering"], 0.7)
+        self.assertAlmostEqual(summary["study_macro_abstention"], 0.5)
+
+    def test_domain_comparison_filters_complete_studies(self) -> None:
+        def row(regret: float, order: float) -> dict:
+            return {
+                "normalized_regret": regret,
+                "pairwise_ordering": order,
+                "top_choice_credit": order,
+            }
+
+        summaries = {
+            "baseline": {"study_results": {"legal": row(0.8, 0.4), "robotics": row(0.6, 0.5)}},
+            "candidate": {"study_results": {"legal": row(0.3, 0.7), "robotics": row(0.2, 0.9)}},
+        }
+        comparisons = DOMAIN_SCORER.paired_comparison_by_domain(
+            summaries,
+            "baseline",
+            "candidate",
+            {"legal": "legal", "robotics": "robotics"},
+        )
+        self.assertEqual(comparisons["legal"]["independent_studies"], 1)
+        self.assertAlmostEqual(comparisons["legal"]["normalized_regret_improvement"]["mean"], 0.5)
+        self.assertAlmostEqual(
+            comparisons["robotics"]["pairwise_ordering_improvement"]["mean"], 0.4
+        )
+
+    def test_released_domain_predictions_match_the_receipt(self) -> None:
+        predictions = HERE / "DOMAIN_RECORD_CONDITIONED_PREDICTIONS.jsonl"
+        receipt_path = HERE / "DOMAIN_RECORD_CONDITIONED_PREDICTION_RECEIPT.json"
+        receipt = json.loads(receipt_path.read_text())
+        self.assertEqual(receipt["rows"], 356)
+        self.assertEqual(receipt["predictions_sha256"], RUNNER.sha256(predictions))
+        self.assertEqual(
+            receipt["contract_sha256"],
+            RUNNER.sha256(HERE / "DOMAIN_RECORD_CONDITIONED_CONTRACT.json"),
+        )
+        self.assertEqual(
+            receipt["inputs_sha256"],
+            RUNNER.sha256(HERE / "DOMAIN_RECORD_CONDITIONED_INPUTS.jsonl"),
+        )
+
+    def test_released_domain_results_cover_every_condition_and_domain(self) -> None:
+        results = json.loads((HERE / "DOMAIN_RECORD_CONDITIONED_RESULTS.json").read_text())
+        self.assertEqual(
+            set(results["conditions"]),
+            {
+                "zero_history_without_measurements",
+                "retrieved_history_without_measurements",
+                "zero_history_with_measurements",
+                "retrieved_history_with_measurements",
+            },
+        )
+        expected_domains = {
+            "agentic_coding",
+            "finance",
+            "legal",
+            "materials_science",
+            "robotics",
+        }
+        for summary in results["conditions"].values():
+            self.assertEqual(summary["panels"], 89)
+            self.assertEqual(summary["studies"], 51)
+            self.assertEqual(set(summary["domain_results"]), expected_domains)
 
 
 if __name__ == "__main__":
