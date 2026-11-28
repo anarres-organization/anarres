@@ -262,6 +262,28 @@ five interventions cannot support model fitting. Exact environment records,
 starting-policy measurements, native benchmark rows, and runtime differences
 must be joined before these pairs can enter the development corpus.
 
+Exp5 is the first pair with enough public detail to close most of that join.
+The [normalized intervention record](SNOWBALL_EXP5_INTERVENTION.json) preserves
+its exact eleven-source sampling policy, route quotas, input hashes, training
+contract, evaluation policy, and all 17 comparable native targets. It
+reproduces an average 4.24-point improvement alongside four target
+regressions. This is an outcome reconstruction, not a retrospective
+prediction: no released starting-policy probe measures the experience that
+the Exp5 environment provided before RL, and no matched alternative was
+trained under the same contract. The record is therefore excluded from
+surrogate fitting while defining the exact input and output fields the
+prospective study must produce.
+
+The [candidate-panel proposal](CANDIDATE_PANEL_PROPOSAL.json) now uses that
+released Exp5 contract as its anchor. It fixes nine source shares and exchanges
+only software-repair and instruction-following experience across four
+allocations, including the exact Exp5 allocation. This makes the prospective
+decision identifiable: candidate ordering, target-level change, regression
+warnings, and allocation regret can all be scored under one trainer and
+evaluation policy. The panel remains a coordination proposal. It does not
+authorize training until its sources, runtime, budget, seeds, probes, and
+target weights are frozen.
+
 ### 2. Qualify the Grug ladder and common contract
 
 Check every published narrow Grug rung for a durable final checkpoint,

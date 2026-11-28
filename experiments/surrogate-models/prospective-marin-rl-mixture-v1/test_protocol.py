@@ -112,16 +112,21 @@ class MarinProtocolTest(unittest.TestCase):
         )
 
     def test_candidate_proposal_changes_one_quota_axis(self) -> None:
-        fixed = self.panel["fixed_nonagentic_groups"]
-        self.assertEqual(sum(fixed.values()), 32)
+        fixed = self.panel["fixed_source_shares"]
+        self.assertAlmostEqual(sum(fixed.values()), 0.65)
         allocations = []
         for candidate in self.panel["candidates"]:
-            groups = candidate["groups"]
-            self.assertEqual(sum(fixed.values()) + sum(groups.values()), 64)
+            shares = candidate["shares"]
+            quotas = candidate["derived_route_quotas"]
+            self.assertAlmostEqual(sum(fixed.values()) + sum(shares.values()), 1.0)
+            self.assertEqual(sum(quotas.values()), 64)
             allocations.append(
-                (groups["agentic_software_repair"], groups["nemotron_instruction_following"])
+                (shares["agentic_software_repair"], shares["nemotron_instruction_following"])
             )
-        self.assertEqual(allocations, [(32, 0), (22, 10), (12, 20)])
+        self.assertEqual(allocations, [(0.35, 0.0), (0.275, 0.075), (0.2, 0.15), (0.125, 0.225)])
+        reference = self.panel["candidates"][2]
+        self.assertEqual(reference["derived_route_quotas"], {"agentic": 13, "nonagentic": 51})
+        self.assertIn("released Exp5 allocation", reference["relationship_to_public_history"])
         self.assertEqual(self.panel["status"], "coordination_proposal_not_frozen")
 
 

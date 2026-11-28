@@ -1,47 +1,58 @@
 {
-  "artifact": "anarres_marin_candidate_panel_proposal_v0",
+  "artifact": "anarres_marin_candidate_panel_proposal_v1",
   "status": "coordination_proposal_not_frozen",
+  "reference_contract": "Snowball Exp5",
   "batch_groups": 64,
-  "construction_rule": "hold the six-source nonagentic block fixed at 32 groups and exchange agentic software-repair groups for instruction-following groups",
+  "construction_rule": "hold nine Exp5 source shares fixed at a combined 0.65 and exchange software-repair share for instruction-following share within the remaining 0.35",
   "why": [
     "the panel changes one mixture axis while keeping source revisions, task eligibility, sampler, rollout, verifier, and training contracts fixed",
-    "the first two allocations reproduce public operational precedents without reusing their outcomes as prospective evidence",
-    "the third allocation extends the same axis by one equal quota step",
-    "one source-stratified starting-policy probe bank can be reweighted for all three candidates"
+    "the Exp5 allocation anchors the panel in a released executable contract",
+    "one source-stratified starting-policy probe bank can be reweighted for all four candidates",
+    "four allocations permit ordering and allocation-regret scoring without treating targets or checkpoints as independent interventions"
   ],
-  "fixed_nonagentic_groups": {
-    "eurus": 3,
-    "nemotron_ultra": 4,
-    "openscience": 7,
-    "reasoning_gym": 7,
-    "snowball_smartie": 3,
-    "tasktrove": 8
+  "fixed_source_shares": {
+    "PRIME-RL/Eurus-2-RL-Data": 0.051585,
+    "nvidia/Nemotron-RL-Ultra-Training-Blends": 0.06213,
+    "nvidia/OpenScience": 0.10395,
+    "reasoning_gym": 0.104,
+    "open-athena/Snowball-Smartie-RL-2026.10.15.32-Data": 0.05817,
+    "open-thoughts/TaskTrove": 0.120165,
+    "AllenAI:IF_multi_constraints_upto5": 0.05,
+    "OpenResearcher:OpenResearcher-Dataset": 0.05,
+    "pafitis:hardmath": 0.05
   },
   "candidates": [
     {
-      "candidate_id": "agentic_32_if_00",
-      "groups": {
-        "agentic_software_repair": 32,
-        "nemotron_instruction_following": 0
-      },
-      "relationship_to_public_history": "matches the round-one route split, but requires the common frozen source and runtime contract"
+      "candidate_id": "agentic_350_if_000",
+      "shares": {"agentic_software_repair": 0.35, "nemotron_instruction_following": 0.0},
+      "derived_route_quotas": {"agentic": 22, "nonagentic": 42},
+      "relationship_to_public_history": "controlled extension of the released Exp5 source set"
     },
     {
-      "candidate_id": "agentic_22_if_10",
-      "groups": {
-        "agentic_software_repair": 22,
-        "nemotron_instruction_following": 10
-      },
-      "relationship_to_public_history": "matches the realized Exp4 quota at batch size 64"
+      "candidate_id": "agentic_275_if_075",
+      "shares": {"agentic_software_repair": 0.275, "nemotron_instruction_following": 0.075},
+      "derived_route_quotas": {"agentic": 18, "nonagentic": 46},
+      "relationship_to_public_history": "intermediate allocation on the same exchange axis"
     },
     {
-      "candidate_id": "agentic_12_if_20",
-      "groups": {
-        "agentic_software_repair": 12,
-        "nemotron_instruction_following": 20
-      },
-      "relationship_to_public_history": "unexecuted symmetric continuation of the same quota exchange"
+      "candidate_id": "agentic_200_if_150",
+      "shares": {"agentic_software_repair": 0.2, "nemotron_instruction_following": 0.15},
+      "derived_route_quotas": {"agentic": 13, "nonagentic": 51},
+      "relationship_to_public_history": "reproduces the released Exp5 allocation"
+    },
+    {
+      "candidate_id": "agentic_125_if_225",
+      "shares": {"agentic_software_repair": 0.125, "nemotron_instruction_following": 0.225},
+      "derived_route_quotas": {"agentic": 8, "nonagentic": 56},
+      "relationship_to_public_history": "unexecuted continuation of the same exchange axis"
     }
   ],
-  "advancement": "adopt only after Marin review confirms source availability, scientific relevance, compute, and a common eligible runtime"
+  "required_before_freeze": [
+    "Marin review confirms source availability and scientific relevance",
+    "one common eligible runtime passes a no-update smoke test",
+    "generated-token and accelerator-hour budgets are fixed",
+    "candidate-independent source-stratified probes are complete",
+    "replicate seeds and native target weights are fixed"
+  ],
+  "advancement": "adopt only after the required checks pass; this proposal does not authorize training"
 }

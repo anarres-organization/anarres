@@ -1,0 +1,147 @@
+{
+  "artifact": "anarres_snowball_exp5_intervention_v1",
+  "status": "released_outcome_record_not_prediction_eligible",
+  "independent_unit": "one completed SFT-to-RL intervention",
+  "sources": {
+    "environment_code": "https://github.com/marin-community/marin/tree/71d264379641093f02789a05cc3294038a8ec990/experiments/post_training",
+    "outcome_record": "https://github.com/marin-community/marin/issues/11337#issuecomment-7122320049",
+    "evaluation_policy": "https://huggingface.co/datasets/open-athena/micro210-policy/tree/fa38e3eacc25137c9febe898119f08d65cc5ce88"
+  },
+  "chronology": {
+    "environment_defined_before_outcome": true,
+    "starting_policy_probe_released_before_outcome": false,
+    "outcome_released": true
+  },
+  "starting_policy": {
+    "identity": "Snowball LongLoop Round5 SFT step 527",
+    "completed_updates": 528
+  },
+  "environment": {
+    "identity": "long-loop/exp5-rl@2026.11.20:995e3844",
+    "sampling_mode": "weighted",
+    "batch_groups": 64,
+    "route_quotas": {
+      "agentic": 13,
+      "nonagentic": 51
+    },
+    "holdout_prompts": 200,
+    "sources": [
+      {
+        "name": "long-loop-smartie-swesmith",
+        "weight": 0.2,
+        "route": "agentic"
+      },
+      {
+        "name": "nemotron_if",
+        "weight": 0.15,
+        "route": "nonagentic"
+      },
+      {
+        "name": "PRIME-RL/Eurus-2-RL-Data",
+        "weight": 0.051585,
+        "route": "nonagentic"
+      },
+      {
+        "name": "nvidia/Nemotron-RL-Ultra-Training-Blends",
+        "weight": 0.06213,
+        "route": "nonagentic"
+      },
+      {
+        "name": "nvidia/OpenScience",
+        "weight": 0.10395,
+        "route": "nonagentic"
+      },
+      {
+        "name": "reasoning_gym",
+        "weight": 0.104,
+        "route": "nonagentic"
+      },
+      {
+        "name": "open-athena/Snowball-Smartie-RL-2026.10.15.32-Data",
+        "weight": 0.05817,
+        "route": "nonagentic"
+      },
+      {
+        "name": "open-thoughts/TaskTrove",
+        "weight": 0.120165,
+        "route": "nonagentic"
+      },
+      {
+        "name": "AllenAI:IF_multi_constraints_upto5",
+        "weight": 0.05,
+        "route": "nonagentic"
+      },
+      {
+        "name": "OpenResearcher:OpenResearcher-Dataset",
+        "weight": 0.05,
+        "route": "nonagentic"
+      },
+      {
+        "name": "pafitis:hardmath",
+        "weight": 0.05,
+        "route": "nonagentic"
+      }
+    ],
+    "content_hashes": {
+      "agentic_training_rows": "453552f9d4e1fa27710f9434a303f7ab5ff390c22deb54572f9be885a2a80f5d",
+      "nonagentic_training_rows": "c8948b3c13957ee054b4b8b5553127f75c44a50577b5b2b798261e9f8a5abc45"
+    }
+  },
+  "training_contract": {
+    "learner_h100": 80,
+    "rollout_h100": 176,
+    "optimizer": "AdamW",
+    "learning_rate": 1e-06,
+    "groups_per_update": 64,
+    "samples_per_group": 8,
+    "maximum_staleness_updates": 2,
+    "budget_hours": 12,
+    "completed_updates": 22
+  },
+  "evaluation_contract": {
+    "name": "Micro210",
+    "policy_sha256": "8f7ef8170fbef2880214cbf03f70d80cffa3114276e024389617777bf07f53e5",
+    "judge": "zai-org/GLM-5.3-Flash",
+    "common_informative_targets": 17,
+    "excluded_targets": {
+      "BixBench": "infrastructure-invalid",
+      "CRUXEval": "verifier-invalid",
+      "TruthfulQA": "uninformative answer ordering"
+    }
+  },
+  "native_target_changes": [
+    {"target": "NUPA", "sft": 0.4, "rl": 0.5},
+    {"target": "MATH-500", "sft": 0.7, "rl": 0.9},
+    {"target": "GPQA", "sft": 0.5333, "rl": 0.6},
+    {"target": "MMLU-Pro", "sft": 0.8, "rl": 0.7},
+    {"target": "IFBench", "sft": 0.2, "rl": 0.3},
+    {"target": "BFCL-Parity", "sft": 0.5, "rl": 0.5},
+    {"target": "DS-1000", "sft": 0.2, "rl": 0.1},
+    {"target": "HumanEval+", "sft": 0.7, "rl": 0.8},
+    {"target": "MBPP+", "sft": 0.8, "rl": 0.7},
+    {"target": "OlympiadBench", "sft": 0.28, "rl": 0.29},
+    {"target": "TriviaQA", "sft": 0.7, "rl": 0.9},
+    {"target": "GSM8K", "sft": 1.0, "rl": 1.0},
+    {"target": "MRCR", "sft": 0.5186, "rl": 0.3253},
+    {"target": "OT-TBLite", "sft": 0.069, "rl": 0.2333},
+    {"target": "SWE-bench Verified", "sft": 0.1111, "rl": 0.2},
+    {"target": "Terminal-Bench 2", "sft": 0.1034, "rl": 0.1071},
+    {"target": "AIME24", "sft": 0.32, "rl": 0.5}
+  ],
+  "summary": {
+    "mean_target_change": 0.0424,
+    "improved_targets": 11,
+    "regressed_targets": 4,
+    "tied_targets": 2
+  },
+  "prediction_readiness": {
+    "exact_environment_identity": true,
+    "fixed_training_contract": true,
+    "native_target_vector": true,
+    "starting_policy_environment_measurements": false,
+    "matched_candidate_panel": false,
+    "eligible_for_surrogate_fitting": false,
+    "next_required_evidence": "repeated starting-policy attempts on each frozen candidate environment before matched training outcomes are opened"
+  },
+  "boundary": "This artifact reproduces one released intervention and its target-level regressions. It does not predict the intervention, estimate a mixture effect, or provide an independent candidate comparison."
+}
