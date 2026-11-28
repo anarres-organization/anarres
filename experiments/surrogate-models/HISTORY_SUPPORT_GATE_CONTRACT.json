@@ -1,0 +1,55 @@
+{
+  "artifact": "anarres_history_support_gate_contract_v1",
+  "claim_boundary": "The feature set follows an outcome-aware feasibility analysis on this development replay. Nested folds prevent direct study leakage, but the result remains development-selected and can only nominate a gate for a new prospective test.",
+  "conditions": {
+    "history": "retrieved_history_with_measurements",
+    "measurement_only": "zero_history_with_measurements"
+  },
+  "decision_sequence": [
+    "Run the measurement-only forecast.",
+    "Compute outcome-free support features for the frozen retrieved history.",
+    "Use the learned gate to decide whether the history-conditioned forecast is supported.",
+    "Abstain when the gate is within 0.10 of equal support or the selected forecast abstains."
+  ],
+  "features": [
+    "target domain",
+    "target candidate count",
+    "same-domain retrieved-panel count",
+    "same-metric retrieved-panel count",
+    "maximum and mean lexical similarity between the target and retrieved environments",
+    "count and dispersion of numeric starting-policy measurements",
+    "measurement-only forecast confidence",
+    "measurement-only forecast abstention"
+  ],
+  "frozen_comparators": [
+    "measurement only",
+    "always use retrieved history",
+    "frozen domain route",
+    "retain the starting policy when a native study exposes that option"
+  ],
+  "model": {
+    "class_weight": "balanced",
+    "estimator": "logistic regression",
+    "hyperparameter_grid": {
+      "C": [
+        0.01,
+        0.1,
+        1.0,
+        10.0
+      ]
+    },
+    "model_selection": "Minimize study-macro routed normalized regret across five deterministic study-grouped inner folds; break ties by lower Brier score and then stronger regularization.",
+    "probability_target": "whether retrieved history produces lower panel regret than measurement only",
+    "random_state": 1729
+  },
+  "outer_unit": "complete held-out study or agentic-coding training decision",
+  "scoring": [
+    "study-macro normalized regret",
+    "study-macro pairwise ordering",
+    "study-macro top-choice credit",
+    "coverage and selective regret",
+    "history-benefit Brier score and ROC AUC when both classes are present",
+    "prompt, completion, and total inference tokens"
+  ],
+  "status": "development contract frozen before the definitive nested gate replay"
+}

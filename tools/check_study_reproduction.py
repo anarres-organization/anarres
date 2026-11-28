@@ -195,6 +195,7 @@ CHECKS = (
             "test_domain_aware_surrogate_contract.py",
             "test_build_domain_aware_training_view.py",
             "test_domain_pairwise_ranker.py",
+            "test_history_support_gate.py",
         ),
     ),
     StudyCheck(

@@ -1,0 +1,100 @@
+{
+  "advancement_gate": {
+    "decision": "freeze only as a candidate for a new prospective comparison",
+    "independent_prospective_test": false,
+    "passed": false,
+    "retain_starting_policy_scored": false,
+    "total_research_cost_scored": false
+  },
+  "artifact": "anarres_history_support_gate_results_v1",
+  "claim_boundary": "The feature set was informed by an outcome-aware feasibility analysis on this development replay. Nested complete-study scoring measures the frozen fitting procedure, not an independent prospective test.",
+  "comparison_with_frozen_domain_route": {
+    "coverage_change": -0.1573033707865168,
+    "ordering_improvement": 0.015662931839402483,
+    "regret_improvement": 0.008476013102395319,
+    "selective_regret_change": 0.050757951373346044
+  },
+  "evidence_tier": "retrospective development-selected complete-study replay",
+  "history_support_calibration": {
+    "brier_score": 0.19411975140998466,
+    "history_helped_panels": 25,
+    "panels": 89,
+    "roc_auc": 0.8
+  },
+  "inputs": {
+    "base_prediction_receipt_sha256": "4931030d30abbeb815a9e6dce894d949dc4fc158e3b94ca47ada9ec2bd395520",
+    "base_predictions_sha256": "d9ab0f455bde930a2ab53cd4e5281a6c1ec0ec6324684e5e56da614352f615b1",
+    "contract_sha256": "b3175db45adaf5cae50ff7faeca941e76ab936e2430a5f2032ef74b858d4b150",
+    "fit_receipt_sha256": "d0a48a766d3365f1566d07d692cac7dddbdd1cd6dc62efefbe4aec1ed4741173",
+    "predictions_sha256": "5af16e47bccaa21d355289f0c0d20be193138b69221907564cb8186c264c1efd",
+    "protected_labels_sha256": "9d40570ec5653a098f689cf24e426090162db605ccf179d7620e6cd08f1605f3"
+  },
+  "route_inference": {
+    "always_retrieve": {
+      "completion_tokens": 394560,
+      "prompt_tokens": 303018,
+      "requests": 89,
+      "total_tokens": 697578
+    },
+    "frozen_domain_route": {
+      "completion_tokens": 337835,
+      "prompt_tokens": 222056,
+      "requests": 89,
+      "total_tokens": 559891
+    },
+    "learned_history_gate": {
+      "completion_tokens": 314958,
+      "prompt_tokens": 151131,
+      "requests": 118,
+      "total_tokens": 466089
+    },
+    "measurement_only": {
+      "completion_tokens": 203523,
+      "prompt_tokens": 52494,
+      "requests": 89,
+      "total_tokens": 256017
+    }
+  },
+  "routes": {
+    "always_retrieve": {
+      "coverage": 0.8876404494382022,
+      "panels": 89,
+      "selective_studies": 47,
+      "selective_study_macro_regret": 0.13927531958703615,
+      "studies": 51,
+      "study_macro_normalized_regret": 0.1672401707375256,
+      "study_macro_pairwise_ordering": 0.7433706816059757,
+      "study_macro_top_choice_credit": 0.6721521942110178
+    },
+    "frozen_domain_route": {
+      "coverage": 0.8426966292134831,
+      "panels": 89,
+      "selective_studies": 45,
+      "selective_study_macro_regret": 0.0955615240251611,
+      "studies": 51,
+      "study_macro_normalized_regret": 0.15543649734906395,
+      "study_macro_pairwise_ordering": 0.7589985994397759,
+      "study_macro_top_choice_credit": 0.7086834733893557
+    },
+    "learned_history_gate": {
+      "coverage": 0.6853932584269663,
+      "panels": 89,
+      "selective_studies": 35,
+      "selective_study_macro_regret": 0.14631947539850715,
+      "studies": 51,
+      "study_macro_normalized_regret": 0.14696048424666863,
+      "study_macro_pairwise_ordering": 0.7746615312791784,
+      "study_macro_top_choice_credit": 0.7416666666666667
+    },
+    "measurement_only": {
+      "coverage": 0.6966292134831461,
+      "panels": 89,
+      "selective_studies": 40,
+      "selective_study_macro_regret": 0.09547771152224374,
+      "studies": 51,
+      "study_macro_normalized_regret": 0.23238723563077288,
+      "study_macro_pairwise_ordering": 0.720343137254902,
+      "study_macro_top_choice_credit": 0.6530345471521942
+    }
+  }
+}
