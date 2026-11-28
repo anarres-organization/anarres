@@ -23,7 +23,11 @@ class GrugSwarmBaselineTest(unittest.TestCase):
         cls.results = json.loads((HERE / "GRUG_SWARM_BASELINE_RESULTS.json").read_text())
 
     def test_results_reproduce(self) -> None:
-        self.assertEqual(self.results, BASELINES.build_results())
+        self.assertTrue(BASELINES.numerically_equal(self.results, BASELINES.build_results()))
+
+    def test_reproduction_tolerance_does_not_hide_material_changes(self) -> None:
+        self.assertTrue(BASELINES.numerically_equal(0.5, 0.5005))
+        self.assertFalse(BASELINES.numerically_equal(0.5, 0.502))
 
     def test_honest_splits_are_reported(self) -> None:
         splits = self.results["split_contract"]

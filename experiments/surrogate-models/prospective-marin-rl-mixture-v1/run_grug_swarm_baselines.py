@@ -7,6 +7,7 @@ import argparse
 import gzip
 import hashlib
 import json
+import math
 from collections.abc import Callable
 from pathlib import Path
 
@@ -22,6 +23,7 @@ RESULTS = HERE / "GRUG_SWARM_BASELINE_RESULTS.json"
 RIDGE_ALPHA = 100.0
 KERNEL_ALPHA = 1.0
 KERNEL_GAMMA_MULTIPLIER = 0.25
+NUMERICAL_REPRODUCTION_ATOL = 0.001
 
 
 def read_rows(path: Path) -> list[dict]:
@@ -261,6 +263,27 @@ def rounded(value):
     return value
 
 
+def numerically_equal(observed, expected) -> bool:
+    if type(observed) is not type(expected):
+        return False
+    if isinstance(observed, dict):
+        return set(observed) == set(expected) and all(
+            numerically_equal(observed[key], expected[key]) for key in observed
+        )
+    if isinstance(observed, list):
+        return len(observed) == len(expected) and all(
+            numerically_equal(left, right) for left, right in zip(observed, expected, strict=True)
+        )
+    if isinstance(observed, float):
+        return math.isclose(
+            observed,
+            expected,
+            rel_tol=0.0,
+            abs_tol=NUMERICAL_REPRODUCTION_ATOL,
+        )
+    return observed == expected
+
+
 def build_results() -> dict:
     inputs = read_rows(INPUTS)
     labels_by_key = {row["record_key"]: row for row in read_rows(LABELS)}
@@ -383,6 +406,11 @@ def build_results() -> dict:
                 "candidate_lineages": len(set(lineages)),
                 "targets": len(target_names),
             },
+            "reproduction_contract": {
+                "floating_point_absolute_tolerance": NUMERICAL_REPRODUCTION_ATOL,
+                "exact_fields": "all non-floating-point fields",
+                "reason": "dense linear algebra may differ slightly across BLAS implementations",
+            },
             "models": {
                 "training_mean": "per-target mean of the outer training fold",
                 "linear_ridge": {
@@ -432,7 +460,7 @@ def main() -> None:
     expected = build_results()
     if args.check:
         observed = json.loads(RESULTS.read_text())
-        if observed != expected:
+        if not numerically_equal(observed, expected):
             raise SystemExit("stale Grug swarm baseline results")
         return
     RESULTS.write_text(json.dumps(expected, indent=2, sort_keys=True) + "\n")

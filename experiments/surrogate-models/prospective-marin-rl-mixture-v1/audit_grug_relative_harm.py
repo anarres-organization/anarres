@@ -149,6 +149,11 @@ def build() -> dict:
                 "protected_labels_sha256": baselines.digest(baselines.LABELS),
                 "content_basis_sha256": baselines.digest(baselines.CONTENT),
             },
+            "reproduction_contract": {
+                "floating_point_absolute_tolerance": baselines.NUMERICAL_REPRODUCTION_ATOL,
+                "exact_fields": "all non-floating-point fields",
+                "reason": "dense linear algebra may differ slightly across BLAS implementations",
+            },
             "contract": {
                 "reference_lineage": REFERENCE_LINEAGE,
                 "reference_runs": int(np.sum(lineages == REFERENCE_LINEAGE)),
@@ -180,7 +185,7 @@ def main() -> None:
     args = parser.parse_args()
     expected = build()
     if args.check:
-        if json.loads(RESULTS.read_text()) != expected:
+        if not baselines.numerically_equal(json.loads(RESULTS.read_text()), expected):
             raise SystemExit("stale Grug relative-harm result")
         return
     RESULTS.write_text(json.dumps(expected, indent=2, sort_keys=True) + "\n")

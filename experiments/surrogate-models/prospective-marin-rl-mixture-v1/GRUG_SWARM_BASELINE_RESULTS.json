@@ -2693,6 +2693,11 @@
       }
     }
   },
+  "reproduction_contract": {
+    "exact_fields": "all non-floating-point fields",
+    "floating_point_absolute_tolerance": 0.001,
+    "reason": "dense linear algebra may differ slightly across BLAS implementations"
+  },
   "results": {
     "leave_one_design_family_out": {
       "content_hellinger_rbf_kernel": {

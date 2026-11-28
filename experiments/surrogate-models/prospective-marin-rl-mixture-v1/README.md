@@ -158,6 +158,12 @@ three reference runs are available, and the zero-margin regression label does
 not distinguish small changes from material harm. A prospective panel must
 freeze that margin before candidate outcomes are opened.
 
+The Grug kernel audits require every non-floating-point field to reproduce
+exactly. Floating-point summaries use an absolute tolerance of 0.001 because
+dense linear algebra can differ slightly across BLAS implementations. This is
+below the precision used for the reported scientific conclusions and prevents
+platform-specific numerical noise from masquerading as a stale artifact.
+
 The [scale-transfer stress test](GRUG_SCALE_TRANSFER_RESULTS.json) compares the
 d512 predictions with the released d768, d1024, and d1536 mixture-swap ladder.
 Direction accuracy is 56.2%, 62.5%, and 81.2%, respectively, matching the

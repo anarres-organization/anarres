@@ -2,7 +2,7 @@
   "artifact": "anarres_grug_mixture_scale_transfer_stress_test_v1",
   "boundary": "The d512 swarm switches from the common checkpoint after 10 percent baseline training. The larger ladder starts the selected schedule after 25 percent. This is a transfer stress test, not an identical-contract scale validation.",
   "inputs": {
-    "d512_baselines_sha256": "3650875e8a19bfaedf0ef2bf89eaf4cd7ba4377254e70128dcffa9ae4a555016",
+    "d512_baselines_sha256": "25792d30d1f9f6ceae909c285891a6cd7a9634c7a1fe8853a226133a64f6fafa",
     "scale_source_sha256": "2219ef173aeeaeb0210c31750a8bfdef9ec2a89af1ce20530aa58f1a5b93a0fc"
   },
   "interpretation": "Direction transfer improves with model width, but the d512 and larger-scale schedules differ. The result motivates an identical-contract scale panel; it does not establish a pretraining scaling law or post-training transfer.",

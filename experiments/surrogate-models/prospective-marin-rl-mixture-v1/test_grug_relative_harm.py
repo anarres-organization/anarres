@@ -25,7 +25,7 @@ class GrugRelativeHarmTest(unittest.TestCase):
         cls.result = json.loads((HERE / "GRUG_SWARM_RELATIVE_HARM_RESULTS.json").read_text())
 
     def test_result_reproduces(self) -> None:
-        self.assertEqual(self.result, AUDIT.build())
+        self.assertTrue(AUDIT.baselines.numerically_equal(self.result, AUDIT.build()))
 
     def test_reference_and_candidates_are_grouped(self) -> None:
         contract = self.result["contract"]

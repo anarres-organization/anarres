@@ -15,6 +15,11 @@
     "protected_labels_sha256": "03da4cc7c3197c4edb80d0c060d5670e922db24015d326333711eb25ddb0db53"
   },
   "interpretation_boundary": "The zero-margin label provides target-level relative-harm triage against an already-run reference. Only three reference runs are available, targets are correlated, and no probability calibration is claimed. A prospective panel must freeze a material regression margin before candidate outcomes open.",
+  "reproduction_contract": {
+    "exact_fields": "all non-floating-point fields",
+    "floating_point_absolute_tolerance": 0.001,
+    "reason": "dense linear algebra may differ slightly across BLAS implementations"
+  },
   "results": {
     "leave_one_design_family_out": {
       "content_hellinger_rbf_kernel": {
