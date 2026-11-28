@@ -297,6 +297,17 @@ its declared tolerance. Measurement, training, and evaluation accelerator
 hours are reported separately; the scorer does not invent a utility-to-cost
 exchange rate.
 
+The [probe-bank aggregator](aggregate_snowball_probe_bank.py) provides the
+prediction-time input path. It validates the exact policy and source
+revisions, requires every scheduled sample identity, separates infrastructure
+and verifier failures from scientific rewards, computes admitted
+leave-one-out advantage mass, and reports source-level signal density,
+effective prompt coverage, reward distributions, validity, trace failure, and
+token cost. The four candidates must be derived from this same source-stratified
+bank using a rule frozen after the bank is collected and before any candidate
+training. The aggregator deliberately stops at source evidence; it cannot
+quietly choose candidate weights or prompt memberships.
+
 ### 2. Qualify the Grug ladder and common contract
 
 Check every published narrow Grug rung for a durable final checkpoint,

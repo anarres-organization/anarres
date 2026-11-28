@@ -97,6 +97,7 @@ class MarinProtocolTest(unittest.TestCase):
         self.assertTrue(
             {
                 "prompt_group_id",
+                "probe_bank_id",
                 "policy_version",
                 "sampling_probability",
                 "loss_eligible_tokens",
@@ -105,6 +106,11 @@ class MarinProtocolTest(unittest.TestCase):
                 "infrastructure_status",
             }
             <= fields
+        )
+        self.assertNotIn("candidate_id", fields)
+        self.assertIn(
+            "same source-stratified probe bank",
+            self.protocol["measurement_contract"]["candidate_derivation"],
         )
         self.assertEqual(
             self.protocol["measurement_contract"]["unavailable_reward_policy"],

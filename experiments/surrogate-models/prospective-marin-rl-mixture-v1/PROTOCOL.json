@@ -56,7 +56,7 @@
   "measurement_contract": {
     "availability": "before candidate training",
     "required_attempt_fields": [
-      "candidate_id",
+      "probe_bank_id",
       "source_id",
       "task_id",
       "prompt_group_id",
@@ -74,6 +74,7 @@
       "tool_call_status",
       "trace_digest"
     ],
+    "candidate_derivation": "derive each candidate from the same source-stratified probe bank using a separately frozen prompt-selection and reweighting rule",
     "required_summaries": [
       "source_reward_distribution",
       "source_usable_signal_density",
