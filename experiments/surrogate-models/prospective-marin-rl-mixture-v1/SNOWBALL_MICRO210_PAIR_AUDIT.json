@@ -59,17 +59,20 @@
     "interventions": 5,
     "mean_pass_at_1_change": 0.0398,
     "negative_changes": 1,
+    "normalized_native_interventions": 1,
+    "prediction_eligible_interventions": 0,
     "positive_changes": 4
   },
   "use": {
-    "allowed": "qualify paired post-training outcomes and reconstruct native target changes once the public per-benchmark artifacts are available",
-    "current_status": "outcome pairs only",
+    "allowed": "qualify paired post-training outcomes and reconstruct native target changes when their environment and per-target records are available",
+    "current_status": "four aggregate outcome pairs and one normalized native intervention",
+    "normalized_record": "SNOWBALL_EXP5_INTERVENTION.json",
     "required_before_surrogate_fitting": [
-      "exact prediction-time environment composition for every pair",
+      "exact prediction-time environment composition for the remaining aggregate pairs",
       "starting-policy measurements collected before each RL intervention",
-      "per-benchmark records under the common policy with infrastructure absences preserved",
+      "per-benchmark records under the common policy with infrastructure absences preserved for the remaining aggregate pairs",
       "trainer, sampler, optimizer, rollout, verifier, and compute differences encoded"
     ]
   },
-  "boundary": "The five experiments change more than the RL environment. Their aggregate SFT-to-RL changes are paired outcomes, not causal mixture effects, and five records are insufficient to fit a surrogate. Mochi results are excluded."
+  "boundary": "The five experiments change more than the RL environment. Exp5 now has a normalized native outcome record, but none has a released starting-policy environment probe or matched alternative. Their SFT-to-RL changes are paired outcomes, not causal mixture effects, and five records are insufficient to fit a surrogate. Mochi results are excluded."
 }

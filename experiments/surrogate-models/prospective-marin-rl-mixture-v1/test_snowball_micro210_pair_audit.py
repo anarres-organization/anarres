@@ -29,8 +29,13 @@ class SnowballMicro210PairAuditTest(unittest.TestCase):
         self.assertTrue(all(row["rl_scored_attempts"] >= 422 for row in self.audit["pairs"]))
 
     def test_pairs_are_not_misrepresented_as_mixture_effects(self) -> None:
-        self.assertEqual(self.audit["use"]["current_status"], "outcome pairs only")
+        self.assertEqual(self.audit["summary"]["normalized_native_interventions"], 1)
+        self.assertEqual(self.audit["summary"]["prediction_eligible_interventions"], 0)
+        self.assertEqual(self.audit["use"]["normalized_record"], "SNOWBALL_EXP5_INTERVENTION.json")
         self.assertIn("not causal mixture effects", self.audit["boundary"])
+        self.assertIn(
+            "none has a released starting-policy environment probe", self.audit["boundary"]
+        )
         self.assertIn("Mochi results are excluded", self.audit["boundary"])
 
 
