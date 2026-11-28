@@ -1,0 +1,1675 @@
+{
+  "artifact": "anarres_domain_pairwise_ranker_fit_receipt_v1",
+  "contract_sha256": "a85fc7014aa73a57c2f128668276a220c15618907c471e6f1c52bb4e0900d411",
+  "fits": [
+    {
+      "feature_columns": 105,
+      "fold_id": "holdout:mlip_phonon_environment_selection",
+      "inner_study_macro_regret": {
+        "0.01": 0.4937334428020416,
+        "0.1": 0.4937334428020416,
+        "1.0": 0.4937334428020416,
+        "10.0": 0.4937334428020416
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 60,
+      "selected_C": 0.01,
+      "suite_id": "controlled_leave_one_study_out",
+      "test_candidates": 4,
+      "train_candidates": 17
+    },
+    {
+      "feature_columns": 215,
+      "fold_id": "holdout:mlip_phonon_environment_selection",
+      "inner_study_macro_regret": {
+        "0.01": 0.37971127531475,
+        "0.1": 0.37971127531475,
+        "1.0": 0.37971127531475,
+        "10.0": 0.37971127531475
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 60,
+      "selected_C": 0.01,
+      "suite_id": "controlled_leave_one_study_out",
+      "test_candidates": 4,
+      "train_candidates": 17
+    },
+    {
+      "feature_columns": 117,
+      "fold_id": "holdout:prospective_cupid_can_v141",
+      "inner_study_macro_regret": {
+        "0.01": 0.5709115294459792,
+        "0.1": 0.5709115294459792,
+        "1.0": 0.5709115294459792,
+        "10.0": 0.5709115294459792
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 54,
+      "selected_C": 0.01,
+      "suite_id": "controlled_leave_one_study_out",
+      "test_candidates": 5,
+      "train_candidates": 16
+    },
+    {
+      "feature_columns": 253,
+      "fold_id": "holdout:prospective_cupid_can_v141",
+      "inner_study_macro_regret": {
+        "0.01": 0.47804460864733334,
+        "0.1": 0.47804460864733334,
+        "1.0": 0.47804460864733334,
+        "10.0": 0.47804460864733334
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 54,
+      "selected_C": 0.01,
+      "suite_id": "controlled_leave_one_study_out",
+      "test_candidates": 5,
+      "train_candidates": 16
+    },
+    {
+      "feature_columns": 114,
+      "fold_id": "holdout:prospective_pusht",
+      "inner_study_macro_regret": {
+        "0.01": 0.5166701501356459,
+        "0.1": 0.5166701501356459,
+        "1.0": 0.5166701501356459,
+        "10.0": 0.5166701501356459
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 66,
+      "selected_C": 0.01,
+      "suite_id": "controlled_leave_one_study_out",
+      "test_candidates": 3,
+      "train_candidates": 18
+    },
+    {
+      "feature_columns": 243,
+      "fold_id": "holdout:prospective_pusht",
+      "inner_study_macro_regret": {
+        "0.01": 0.41634920634925,
+        "0.1": 0.41634920634925,
+        "1.0": 0.41634920634925,
+        "10.0": 0.41634920634925
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 66,
+      "selected_C": 0.01,
+      "suite_id": "controlled_leave_one_study_out",
+      "test_candidates": 3,
+      "train_candidates": 18
+    },
+    {
+      "feature_columns": 133,
+      "fold_id": "holdout:prospective_square_regression_v1",
+      "inner_study_macro_regret": {
+        "0.01": 0.5481972437320208,
+        "0.1": 0.5481972437320208,
+        "1.0": 0.5481972437320208,
+        "10.0": 0.5481972437320208
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 42,
+      "selected_C": 0.01,
+      "suite_id": "controlled_leave_one_study_out",
+      "test_candidates": 6,
+      "train_candidates": 15
+    },
+    {
+      "feature_columns": 266,
+      "fold_id": "holdout:prospective_square_regression_v1",
+      "inner_study_macro_regret": {
+        "0.01": 0.4538179333871875,
+        "0.1": 0.4538179333871875,
+        "1.0": 0.4538179333871875,
+        "10.0": 0.4538179333871875
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 42,
+      "selected_C": 0.01,
+      "suite_id": "controlled_leave_one_study_out",
+      "test_candidates": 6,
+      "train_candidates": 15
+    },
+    {
+      "feature_columns": 73,
+      "fold_id": "holdout:prospective_syllogym_environment_selection",
+      "inner_study_macro_regret": {
+        "0.01": 0.5061337516682292,
+        "0.1": 0.5061337516682292,
+        "1.0": 0.5061337516682292,
+        "10.0": 0.5061337516682292
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 66,
+      "selected_C": 0.01,
+      "suite_id": "controlled_leave_one_study_out",
+      "test_candidates": 3,
+      "train_candidates": 18
+    },
+    {
+      "feature_columns": 194,
+      "fold_id": "holdout:prospective_syllogym_environment_selection",
+      "inner_study_macro_regret": {
+        "0.01": 0.351933497537,
+        "0.1": 0.351933497537,
+        "1.0": 0.351933497537,
+        "10.0": 0.351933497537
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 66,
+      "selected_C": 0.01,
+      "suite_id": "controlled_leave_one_study_out",
+      "test_candidates": 3,
+      "train_candidates": 18
+    },
+    {
+      "feature_columns": 41,
+      "fold_id": "holdout:agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_claude_opus_5",
+      "inner_study_macro_regret": {
+        "0.01": 0.017830411898192306,
+        "0.1": 0.017830411898192306,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 330,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 3,
+      "train_candidates": 101
+    },
+    {
+      "feature_columns": 241,
+      "fold_id": "holdout:agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_claude_opus_5",
+      "inner_study_macro_regret": {
+        "0.01": 0.052936874636230764,
+        "0.1": 0.052936874636230764,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 330,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 3,
+      "train_candidates": 101
+    },
+    {
+      "feature_columns": 41,
+      "fold_id": "holdout:agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_gpt_5_6_sol",
+      "inner_study_macro_regret": {
+        "0.01": 0.017830411898192306,
+        "0.1": 0.017830411898192306,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 330,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 3,
+      "train_candidates": 101
+    },
+    {
+      "feature_columns": 241,
+      "fold_id": "holdout:agentic_coding:auto_env_scaling:autoenv_qwen3_5_35b_a3b_gpt_5_6_sol",
+      "inner_study_macro_regret": {
+        "0.01": 0.052936874636230764,
+        "0.1": 0.052936874636230764,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 330,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 3,
+      "train_candidates": 101
+    },
+    {
+      "feature_columns": 41,
+      "fold_id": "holdout:agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_claude_opus_5",
+      "inner_study_macro_regret": {
+        "0.01": 0.017830411898192306,
+        "0.1": 0.017830411898192306,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 334,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 2,
+      "train_candidates": 102
+    },
+    {
+      "feature_columns": 241,
+      "fold_id": "holdout:agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_claude_opus_5",
+      "inner_study_macro_regret": {
+        "0.01": 0.052936874636230764,
+        "0.1": 0.052936874636230764,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 334,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 2,
+      "train_candidates": 102
+    },
+    {
+      "feature_columns": 41,
+      "fold_id": "holdout:agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_gpt_5_6_sol",
+      "inner_study_macro_regret": {
+        "0.01": 0.017830411898192306,
+        "0.1": 0.017830411898192306,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 334,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 2,
+      "train_candidates": 102
+    },
+    {
+      "feature_columns": 241,
+      "fold_id": "holdout:agentic_coding:auto_env_scaling:autoenv_qwen3_5_9b_gpt_5_6_sol",
+      "inner_study_macro_regret": {
+        "0.01": 0.052936874636230764,
+        "0.1": 0.052936874636230764,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 334,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 2,
+      "train_candidates": 102
+    },
+    {
+      "feature_columns": 38,
+      "fold_id": "holdout:agentic_coding:codemidas:codemidas_quality_scale",
+      "inner_study_macro_regret": {
+        "0.01": 0.017830411898192306,
+        "0.1": 0.017830411898192306,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 300,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 12,
+      "train_candidates": 92
+    },
+    {
+      "feature_columns": 214,
+      "fold_id": "holdout:agentic_coding:codemidas:codemidas_quality_scale",
+      "inner_study_macro_regret": {
+        "0.01": 0.052936874636230764,
+        "0.1": 0.052936874636230764,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 300,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 12,
+      "train_candidates": 92
+    },
+    {
+      "feature_columns": 41,
+      "fold_id": "holdout:agentic_coding:environment_evolution:environment_evolution_qwen3_6_27b",
+      "inner_study_macro_regret": {
+        "0.01": 0.017830411898192306,
+        "0.1": 0.017830411898192306,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 330,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 3,
+      "train_candidates": 101
+    },
+    {
+      "feature_columns": 240,
+      "fold_id": "holdout:agentic_coding:environment_evolution:environment_evolution_qwen3_6_27b",
+      "inner_study_macro_regret": {
+        "0.01": 0.052936874636230764,
+        "0.1": 0.052936874636230764,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 330,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 3,
+      "train_candidates": 101
+    },
+    {
+      "feature_columns": 41,
+      "fold_id": "holdout:agentic_coding:environment_evolution:environment_evolution_qwen3_6_35b_a3b",
+      "inner_study_macro_regret": {
+        "0.01": 0.017830411898192306,
+        "0.1": 0.017830411898192306,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 330,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 3,
+      "train_candidates": 101
+    },
+    {
+      "feature_columns": 242,
+      "fold_id": "holdout:agentic_coding:environment_evolution:environment_evolution_qwen3_6_35b_a3b",
+      "inner_study_macro_regret": {
+        "0.01": 0.052936874636230764,
+        "0.1": 0.052936874636230764,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 330,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 3,
+      "train_candidates": 101
+    },
+    {
+      "feature_columns": 41,
+      "fold_id": "holdout:agentic_coding:envsched:envsched_1p7b",
+      "inner_study_macro_regret": {
+        "0.01": 0.017830411898192306,
+        "0.1": 0.017830411898192306,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 300,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 12,
+      "train_candidates": 92
+    },
+    {
+      "feature_columns": 237,
+      "fold_id": "holdout:agentic_coding:envsched:envsched_1p7b",
+      "inner_study_macro_regret": {
+        "0.01": 0.052936874636230764,
+        "0.1": 0.052936874636230764,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 300,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 12,
+      "train_candidates": 92
+    },
+    {
+      "feature_columns": 41,
+      "fold_id": "holdout:agentic_coding:envsched:envsched_30b",
+      "inner_study_macro_regret": {
+        "0.01": 0.017830411898192306,
+        "0.1": 0.017830411898192306,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 330,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 6,
+      "train_candidates": 98
+    },
+    {
+      "feature_columns": 237,
+      "fold_id": "holdout:agentic_coding:envsched:envsched_30b",
+      "inner_study_macro_regret": {
+        "0.01": 0.052936874636230764,
+        "0.1": 0.052936874636230764,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 330,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 6,
+      "train_candidates": 98
+    },
+    {
+      "feature_columns": 41,
+      "fold_id": "holdout:agentic_coding:envsched:envsched_4b",
+      "inner_study_macro_regret": {
+        "0.01": 0.017830411898192306,
+        "0.1": 0.017830411898192306,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 302,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 12,
+      "train_candidates": 92
+    },
+    {
+      "feature_columns": 237,
+      "fold_id": "holdout:agentic_coding:envsched:envsched_4b",
+      "inner_study_macro_regret": {
+        "0.01": 0.052936874636230764,
+        "0.1": 0.052936874636230764,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 302,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 12,
+      "train_candidates": 92
+    },
+    {
+      "feature_columns": 41,
+      "fold_id": "holdout:agentic_coding:envsched:envsched_8b",
+      "inner_study_macro_regret": {
+        "0.01": 0.017830411898192306,
+        "0.1": 0.017830411898192306,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 300,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 12,
+      "train_candidates": 92
+    },
+    {
+      "feature_columns": 237,
+      "fold_id": "holdout:agentic_coding:envsched:envsched_8b",
+      "inner_study_macro_regret": {
+        "0.01": 0.052936874636230764,
+        "0.1": 0.052936874636230764,
+        "1.0": 0.052936874636230764,
+        "10.0": 0.052936874636230764
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 300,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 12,
+      "train_candidates": 92
+    },
+    {
+      "feature_columns": 39,
+      "fold_id": "holdout:agentic_coding:rlve:rlve_six_arm_prospective",
+      "inner_study_macro_regret": {
+        "0.01": 0.003585397653192307,
+        "0.1": 0.003585397653192307,
+        "1.0": 0.003585397653192307,
+        "10.0": 0.003585397653192307
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 276,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 12,
+      "train_candidates": 92
+    },
+    {
+      "feature_columns": 223,
+      "fold_id": "holdout:agentic_coding:rlve:rlve_six_arm_prospective",
+      "inner_study_macro_regret": {
+        "0.01": 0.06510136706388461,
+        "0.1": 0.06510136706388461,
+        "1.0": 0.06510136706388461,
+        "10.0": 0.043077825303538465
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 276,
+      "selected_C": 10.0,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 12,
+      "train_candidates": 92
+    },
+    {
+      "feature_columns": 39,
+      "fold_id": "holdout:agentic_coding:swe_gym_verified:swe_gym_reward_label_quality",
+      "inner_study_macro_regret": {
+        "0.01": 0.014245014245,
+        "0.1": 0.014245014245,
+        "1.0": 0.04935147698303846,
+        "10.0": 0.04935147698303846
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 314,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 8,
+      "train_candidates": 96
+    },
+    {
+      "feature_columns": 215,
+      "fold_id": "holdout:agentic_coding:swe_gym_verified:swe_gym_reward_label_quality",
+      "inner_study_macro_regret": {
+        "0.01": 0.0757609836556923,
+        "0.1": 0.04935147698303846,
+        "1.0": 0.04935147698303846,
+        "10.0": 0.04935147698303846
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 314,
+      "selected_C": 0.1,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 8,
+      "train_candidates": 96
+    },
+    {
+      "feature_columns": 37,
+      "fold_id": "holdout:agentic_coding:tmax:tmax_public_pool_comparison",
+      "inner_study_macro_regret": {
+        "0.01": 0.017830411898192306,
+        "0.1": 0.017830411898192306,
+        "1.0": 0.017830411898192306,
+        "10.0": 0.017830411898192306
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 258,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 14,
+      "train_candidates": 90
+    },
+    {
+      "feature_columns": 200,
+      "fold_id": "holdout:agentic_coding:tmax:tmax_public_pool_comparison",
+      "inner_study_macro_regret": {
+        "0.01": 0.017830411898192306,
+        "0.1": 0.017830411898192306,
+        "1.0": 0.017830411898192306,
+        "10.0": 0.017830411898192306
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 258,
+      "selected_C": 0.01,
+      "suite_id": "coding_leave_one_decision_out",
+      "test_candidates": 14,
+      "train_candidates": 90
+    },
+    {
+      "feature_columns": 207,
+      "fold_id": "holdout:baghishov_2026_application_specific_mlip",
+      "inner_study_macro_regret": {
+        "0.01": 0.3116190653984876,
+        "0.1": 0.31578573206515426,
+        "1.0": 0.31578573206515426,
+        "10.0": 0.31578573206515426
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10804,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 54,
+      "train_candidates": 2952
+    },
+    {
+      "feature_columns": 1433,
+      "fold_id": "holdout:baghishov_2026_application_specific_mlip",
+      "inner_study_macro_regret": {
+        "0.01": 0.33248515708432014,
+        "0.1": 0.3358668535033478,
+        "1.0": 0.33505649597882337,
+        "10.0": 0.3029062360602264
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10804,
+      "selected_C": 10.0,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 54,
+      "train_candidates": 2952
+    },
+    {
+      "feature_columns": 203,
+      "fold_id": "holdout:bi_elena_2026_budget_crossover",
+      "inner_study_macro_regret": {
+        "0.01": 0.3170816485240582,
+        "0.1": 0.32124831519072483,
+        "1.0": 0.32124831519072483,
+        "10.0": 0.32124831519072483
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10456,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 120,
+      "train_candidates": 2886
+    },
+    {
+      "feature_columns": 1408,
+      "fold_id": "holdout:bi_elena_2026_budget_crossover",
+      "inner_study_macro_regret": {
+        "0.01": 0.3834187431205571,
+        "0.1": 0.3173890343808332,
+        "1.0": 0.36378652317769933,
+        "10.0": 0.3005871979180399
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10456,
+      "selected_C": 10.0,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 120,
+      "train_candidates": 2886
+    },
+    {
+      "feature_columns": 205,
+      "fold_id": "holdout:dale_2026_active_learning_failure",
+      "inner_study_macro_regret": {
+        "0.01": 0.30874638714359737,
+        "0.1": 0.312913053810264,
+        "1.0": 0.312913053810264,
+        "10.0": 0.312913053810264
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10070,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 161,
+      "train_candidates": 2845
+    },
+    {
+      "feature_columns": 1015,
+      "fold_id": "holdout:dale_2026_active_learning_failure",
+      "inner_study_macro_regret": {
+        "0.01": 0.2974160338561386,
+        "0.1": 0.29268284345554485,
+        "1.0": 0.35114369300432613,
+        "10.0": 0.33404984210081534
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10070,
+      "selected_C": 0.1,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 161,
+      "train_candidates": 2845
+    },
+    {
+      "feature_columns": 203,
+      "fold_id": "holdout:espinosa_castaneda_2026_diversity",
+      "inner_study_macro_regret": {
+        "0.01": 0.32008103816766165,
+        "0.1": 0.32008103816766165,
+        "1.0": 0.3242477048343283,
+        "10.0": 0.3242477048343283
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 3552,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 1504,
+      "train_candidates": 1502
+    },
+    {
+      "feature_columns": 1344,
+      "fold_id": "holdout:espinosa_castaneda_2026_diversity",
+      "inner_study_macro_regret": {
+        "0.01": 0.34784895943445426,
+        "0.1": 0.2875445045873858,
+        "1.0": 0.3551267213773882,
+        "10.0": 0.3565664327759262
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 3552,
+      "selected_C": 0.1,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 1504,
+      "train_candidates": 1502
+    },
+    {
+      "feature_columns": 210,
+      "fold_id": "holdout:haenseroth_2026_generators",
+      "inner_study_macro_regret": {
+        "0.01": 0.3083228675429628,
+        "0.1": 0.31248953420962944,
+        "1.0": 0.31248953420962944,
+        "10.0": 0.31248953420962944
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10870,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 21,
+      "train_candidates": 2985
+    },
+    {
+      "feature_columns": 1449,
+      "fold_id": "holdout:haenseroth_2026_generators",
+      "inner_study_macro_regret": {
+        "0.01": 0.29736303409062037,
+        "0.1": 0.29262984369002665,
+        "1.0": 0.3528845023809501,
+        "10.0": 0.3287660439740563
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10870,
+      "selected_C": 0.1,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 21,
+      "train_candidates": 2985
+    },
+    {
+      "feature_columns": 207,
+      "fold_id": "holdout:haenseroth_dressler_2026_data_efficiency",
+      "inner_study_macro_regret": {
+        "0.01": 0.30746857239175146,
+        "0.1": 0.3116352390584181,
+        "1.0": 0.3116352390584181,
+        "10.0": 0.3116352390584181
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10240,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 672,
+      "train_candidates": 2334
+    },
+    {
+      "feature_columns": 1382,
+      "fold_id": "holdout:haenseroth_dressler_2026_data_efficiency",
+      "inner_study_macro_regret": {
+        "0.01": 0.2855383343912664,
+        "0.1": 0.28348755252887053,
+        "1.0": 0.33490987895889557,
+        "10.0": 0.31229492744806986
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10240,
+      "selected_C": 0.1,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 672,
+      "train_candidates": 2334
+    },
+    {
+      "feature_columns": 203,
+      "fold_id": "holdout:kim_2026_density_diversity",
+      "inner_study_macro_regret": {
+        "0.01": 0.30567350765671497,
+        "0.1": 0.3098401743233816,
+        "1.0": 0.3098401743233816,
+        "10.0": 0.3098401743233816
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10840,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 36,
+      "train_candidates": 2970
+    },
+    {
+      "feature_columns": 1422,
+      "fold_id": "holdout:kim_2026_density_diversity",
+      "inner_study_macro_regret": {
+        "0.01": 0.2961062696159321,
+        "0.1": 0.2913730792153384,
+        "1.0": 0.35162773790626184,
+        "10.0": 0.32750927949936803
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10840,
+      "selected_C": 0.1,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 36,
+      "train_candidates": 2970
+    },
+    {
+      "feature_columns": 205,
+      "fold_id": "holdout:kulichenko_2023_udd",
+      "inner_study_macro_regret": {
+        "0.01": 0.34390395058742773,
+        "0.1": 0.34807061725409444,
+        "1.0": 0.34807061725409444,
+        "10.0": 0.34807061725409444
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10864,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 16,
+      "train_candidates": 2990
+    },
+    {
+      "feature_columns": 1457,
+      "fold_id": "holdout:kulichenko_2023_udd",
+      "inner_study_macro_regret": {
+        "0.01": 0.32612716046836265,
+        "0.1": 0.32102814401847435,
+        "1.0": 0.3791169697577318,
+        "10.0": 0.36717916755661484
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10864,
+      "selected_C": 0.1,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 16,
+      "train_candidates": 2990
+    },
+    {
+      "feature_columns": 207,
+      "fold_id": "holdout:li_2023_redundancy",
+      "inner_study_macro_regret": {
+        "0.01": 0.3182137655529089,
+        "0.1": 0.3223804322195756,
+        "1.0": 0.3223804322195756,
+        "10.0": 0.3223804322195756
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10468,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 156,
+      "train_candidates": 2850
+    },
+    {
+      "feature_columns": 1437,
+      "fold_id": "holdout:li_2023_redundancy",
+      "inner_study_macro_regret": {
+        "0.01": 0.24245590295807484,
+        "0.1": 0.30378638812475933,
+        "1.0": 0.3304752118241554,
+        "10.0": 0.3617083898209972
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10468,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 156,
+      "train_candidates": 2850
+    },
+    {
+      "feature_columns": 205,
+      "fold_id": "holdout:liu_2026_heterogeneous_uq",
+      "inner_study_macro_regret": {
+        "0.01": 0.32814494531369415,
+        "0.1": 0.3323116119803608,
+        "1.0": 0.3323116119803608,
+        "10.0": 0.3323116119803608
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10852,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 12,
+      "train_candidates": 2994
+    },
+    {
+      "feature_columns": 1446,
+      "fold_id": "holdout:liu_2026_heterogeneous_uq",
+      "inner_study_macro_regret": {
+        "0.01": 0.3288159082456561,
+        "0.1": 0.3240827178450624,
+        "1.0": 0.38433737653598576,
+        "10.0": 0.36021891812909196
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10852,
+      "selected_C": 0.1,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 12,
+      "train_candidates": 2994
+    },
+    {
+      "feature_columns": 187,
+      "fold_id": "holdout:mlip_phonon_environment_selection",
+      "inner_study_macro_regret": {
+        "0.01": 0.29742405073076705,
+        "0.1": 0.3015907173974337,
+        "1.0": 0.3015907173974337,
+        "10.0": 0.3015907173974337
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10900,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 4,
+      "train_candidates": 3002
+    },
+    {
+      "feature_columns": 1414,
+      "fold_id": "holdout:mlip_phonon_environment_selection",
+      "inner_study_macro_regret": {
+        "0.01": 0.3024042488958748,
+        "0.1": 0.2976710584952811,
+        "1.0": 0.35792571718620453,
+        "10.0": 0.3338072587793107
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10900,
+      "selected_C": 0.1,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 4,
+      "train_candidates": 3002
+    },
+    {
+      "feature_columns": 215,
+      "fold_id": "holdout:qi_2024_direct_sampling",
+      "inner_study_macro_regret": {
+        "0.01": 0.33871857239175146,
+        "0.1": 0.33871857239175146,
+        "1.0": 0.33871857239175146,
+        "10.0": 0.33871857239175146
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10900,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 12,
+      "train_candidates": 2994
+    },
+    {
+      "feature_columns": 1462,
+      "fold_id": "holdout:qi_2024_direct_sampling",
+      "inner_study_macro_regret": {
+        "0.01": 0.32846176718155845,
+        "0.1": 0.319561910114298,
+        "1.0": 0.3798165688052215,
+        "10.0": 0.35917033262054904
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10900,
+      "selected_C": 0.1,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 12,
+      "train_candidates": 2994
+    },
+    {
+      "feature_columns": 189,
+      "fold_id": "holdout:varga_umbrich_2026_force_aware_ntk",
+      "inner_study_macro_regret": {
+        "0.01": 0.3253116085862493,
+        "0.1": 0.32947827525291595,
+        "1.0": 0.32947827525291595,
+        "10.0": 0.32947827525291595
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10464,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 84,
+      "train_candidates": 2922
+    },
+    {
+      "feature_columns": 1417,
+      "fold_id": "holdout:varga_umbrich_2026_force_aware_ntk",
+      "inner_study_macro_regret": {
+        "0.01": 0.3156184319526829,
+        "0.1": 0.3227807819434091,
+        "1.0": 0.3824925675924479,
+        "10.0": 0.3817070517412341
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10464,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 84,
+      "train_candidates": 2922
+    },
+    {
+      "feature_columns": 211,
+      "fold_id": "holdout:wang_2026_dataset_aware_entropy",
+      "inner_study_macro_regret": {
+        "0.01": 0.36441301683619587,
+        "0.1": 0.42691301683619587,
+        "1.0": 0.42691301683619587,
+        "10.0": 0.36441301683619587
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10822,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 90,
+      "train_candidates": 2916
+    },
+    {
+      "feature_columns": 1430,
+      "fold_id": "holdout:wang_2026_dataset_aware_entropy",
+      "inner_study_macro_regret": {
+        "0.01": 0.3574499454620771,
+        "0.1": 0.4259263192543427,
+        "1.0": 0.4802046041530006,
+        "10.0": 0.44576445110867186
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10822,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 90,
+      "train_candidates": 2916
+    },
+    {
+      "feature_columns": 191,
+      "fold_id": "holdout:wong_yang_2026_umlip_bias",
+      "inner_study_macro_regret": {
+        "0.01": 0.3074685723917514,
+        "0.1": 0.31163523905841806,
+        "1.0": 0.31163523905841806,
+        "10.0": 0.31163523905841806
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10902,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 10,
+      "train_candidates": 2996
+    },
+    {
+      "feature_columns": 1439,
+      "fold_id": "holdout:wong_yang_2026_umlip_bias",
+      "inner_study_macro_regret": {
+        "0.01": 0.2972285027101351,
+        "0.1": 0.29249531230954134,
+        "1.0": 0.35274997100046485,
+        "10.0": 0.32863151259357104
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10902,
+      "selected_C": 0.1,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 10,
+      "train_candidates": 2996
+    },
+    {
+      "feature_columns": 203,
+      "fold_id": "holdout:zaverkin_2024_uncertainty_biased_md",
+      "inner_study_macro_regret": {
+        "0.01": 0.3495636696552202,
+        "0.1": 0.35373033632188683,
+        "1.0": 0.35373033632188683,
+        "10.0": 0.35373033632188683
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10684,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 46,
+      "train_candidates": 2960
+    },
+    {
+      "feature_columns": 1419,
+      "fold_id": "holdout:zaverkin_2024_uncertainty_biased_md",
+      "inner_study_macro_regret": {
+        "0.01": 0.35725559206936314,
+        "0.1": 0.3499182350021053,
+        "1.0": 0.41098325121755325,
+        "10.0": 0.38952665750835636
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10684,
+      "selected_C": 0.1,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 46,
+      "train_candidates": 2960
+    },
+    {
+      "feature_columns": 209,
+      "fold_id": "holdout:zhang_2023_etal",
+      "inner_study_macro_regret": {
+        "0.01": 0.3387185723917514,
+        "0.1": 0.34288523905841806,
+        "1.0": 0.34288523905841806,
+        "10.0": 0.34288523905841806
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 10904,
+      "selected_C": 0.01,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 8,
+      "train_candidates": 2998
+    },
+    {
+      "feature_columns": 1460,
+      "fold_id": "holdout:zhang_2023_etal",
+      "inner_study_macro_regret": {
+        "0.01": 0.3291513343509686,
+        "0.1": 0.3244181439503748,
+        "1.0": 0.38467280264129833,
+        "10.0": 0.36402656645662584
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 10904,
+      "selected_C": 0.1,
+      "suite_id": "materials_leave_one_study_out",
+      "test_candidates": 8,
+      "train_candidates": 2998
+    },
+    {
+      "feature_columns": 114,
+      "fold_id": "holdout:data_centric_finance",
+      "inner_study_macro_regret": {
+        "0.01": 0.2623617070400664,
+        "0.1": 0.2623617070400664,
+        "1.0": 0.2623617070400664,
+        "10.0": 0.2623617070400664
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1670,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 14,
+      "train_candidates": 524
+    },
+    {
+      "feature_columns": 824,
+      "fold_id": "holdout:data_centric_finance",
+      "inner_study_macro_regret": {
+        "0.01": 0.25425418653119825,
+        "0.1": 0.2509208531978649,
+        "1.0": 0.25425418653119825,
+        "10.0": 0.28758751986453157
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1670,
+      "selected_C": 0.1,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 14,
+      "train_candidates": 524
+    },
+    {
+      "feature_columns": 115,
+      "fold_id": "holdout:dianjin_r1_2025",
+      "inner_study_macro_regret": {
+        "0.01": 0.2592456881943597,
+        "0.1": 0.2592456881943597,
+        "1.0": 0.2592456881943597,
+        "10.0": 0.2592456881943597
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1552,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 30,
+      "train_candidates": 508
+    },
+    {
+      "feature_columns": 841,
+      "fold_id": "holdout:dianjin_r1_2025",
+      "inner_study_macro_regret": {
+        "0.01": 0.25332070736803325,
+        "0.1": 0.25332070736803325,
+        "1.0": 0.25332070736803325,
+        "10.0": 0.2833207073680332
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1552,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 30,
+      "train_candidates": 508
+    },
+    {
+      "feature_columns": 105,
+      "fold_id": "holdout:fin_prm_2026",
+      "inner_study_macro_regret": {
+        "0.01": 0.25841855808800746,
+        "0.1": 0.25841855808800746,
+        "1.0": 0.25841855808800746,
+        "10.0": 0.25841855808800746
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1680,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 5,
+      "train_candidates": 533
+    },
+    {
+      "feature_columns": 834,
+      "fold_id": "holdout:fin_prm_2026",
+      "inner_study_macro_regret": {
+        "0.01": 0.2564367262137399,
+        "0.1": 0.25310339288040656,
+        "1.0": 0.2564367262137399,
+        "10.0": 0.28977005954707324
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1680,
+      "selected_C": 0.1,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 5,
+      "train_candidates": 533
+    },
+    {
+      "feature_columns": 97,
+      "fold_id": "holdout:fin_sd_2026",
+      "inner_study_macro_regret": {
+        "0.01": 0.20219484545270575,
+        "0.1": 0.20219484545270575,
+        "1.0": 0.20219484545270575,
+        "10.0": 0.20219484545270575
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1670,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 9,
+      "train_candidates": 529
+    },
+    {
+      "feature_columns": 817,
+      "fold_id": "holdout:fin_sd_2026",
+      "inner_study_macro_regret": {
+        "0.01": 0.20643672621373993,
+        "0.1": 0.20310339288040657,
+        "1.0": 0.20643672621373993,
+        "10.0": 0.23977005954707326
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1670,
+      "selected_C": 0.1,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 9,
+      "train_candidates": 529
+    },
+    {
+      "feature_columns": 114,
+      "fold_id": "holdout:financial_advice_grpo_2026",
+      "inner_study_macro_regret": {
+        "0.01": 0.2623617070400664,
+        "0.1": 0.2623617070400664,
+        "1.0": 0.2623617070400664,
+        "10.0": 0.2623617070400664
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1698,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 2,
+      "train_candidates": 536
+    },
+    {
+      "feature_columns": 849,
+      "fold_id": "holdout:financial_advice_grpo_2026",
+      "inner_study_macro_regret": {
+        "0.01": 0.2564367262137399,
+        "0.1": 0.25310339288040656,
+        "1.0": 0.2564367262137399,
+        "10.0": 0.28977005954707324
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1698,
+      "selected_C": 0.1,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 2,
+      "train_candidates": 536
+    },
+    {
+      "feature_columns": 113,
+      "fold_id": "holdout:findap_2025",
+      "inner_study_macro_regret": {
+        "0.01": 0.24521884989720924,
+        "0.1": 0.24521884989720924,
+        "1.0": 0.24521884989720924,
+        "10.0": 0.24521884989720924
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1630,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 70,
+      "train_candidates": 468
+    },
+    {
+      "feature_columns": 755,
+      "fold_id": "holdout:findap_2025",
+      "inner_study_macro_regret": {
+        "0.01": 0.2392938690708828,
+        "0.1": 0.23596053573754946,
+        "1.0": 0.2392938690708828,
+        "10.0": 0.2726272024042161
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1630,
+      "selected_C": 0.1,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 70,
+      "train_candidates": 468
+    },
+    {
+      "feature_columns": 109,
+      "fold_id": "holdout:finlcr_2026",
+      "inner_study_macro_regret": {
+        "0.01": 0.21615739785160076,
+        "0.1": 0.21615739785160076,
+        "1.0": 0.21615739785160076,
+        "10.0": 0.24949073118493412
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1474,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 46,
+      "train_candidates": 492
+    },
+    {
+      "feature_columns": 787,
+      "fold_id": "holdout:finlcr_2026",
+      "inner_study_macro_regret": {
+        "0.01": 0.21442900278986077,
+        "0.1": 0.2110956694565274,
+        "1.0": 0.21442900278986077,
+        "10.0": 0.2477623361231941
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1474,
+      "selected_C": 0.1,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 46,
+      "train_candidates": 492
+    },
+    {
+      "feature_columns": 115,
+      "fold_id": "holdout:finlmm_r1_2025",
+      "inner_study_macro_regret": {
+        "0.01": 0.2623617070400664,
+        "0.1": 0.2623617070400664,
+        "1.0": 0.2623617070400664,
+        "10.0": 0.2623617070400664
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1598,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 30,
+      "train_candidates": 508
+    },
+    {
+      "feature_columns": 806,
+      "fold_id": "holdout:finlmm_r1_2025",
+      "inner_study_macro_regret": {
+        "0.01": 0.2564367262137399,
+        "0.1": 0.25310339288040656,
+        "1.0": 0.2564367262137399,
+        "10.0": 0.28977005954707324
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1598,
+      "selected_C": 0.1,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 30,
+      "train_candidates": 508
+    },
+    {
+      "feature_columns": 114,
+      "fold_id": "holdout:fino1",
+      "inner_study_macro_regret": {
+        "0.01": 0.2623617070400664,
+        "0.1": 0.2623617070400664,
+        "1.0": 0.2623617070400664,
+        "10.0": 0.2623617070400664
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1676,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 8,
+      "train_candidates": 530
+    },
+    {
+      "feature_columns": 839,
+      "fold_id": "holdout:fino1",
+      "inner_study_macro_regret": {
+        "0.01": 0.2564367262137399,
+        "0.1": 0.25310339288040656,
+        "1.0": 0.2564367262137399,
+        "10.0": 0.28977005954707324
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1676,
+      "selected_C": 0.1,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 8,
+      "train_candidates": 530
+    },
+    {
+      "feature_columns": 97,
+      "fold_id": "holdout:harsha2025_synthetic_financial_qa",
+      "inner_study_macro_regret": {
+        "0.01": 0.24563905801087055,
+        "0.1": 0.24563905801087055,
+        "1.0": 0.24563905801087055,
+        "10.0": 0.24563905801087055
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1582,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 55,
+      "train_candidates": 483
+    },
+    {
+      "feature_columns": 779,
+      "fold_id": "holdout:harsha2025_synthetic_financial_qa",
+      "inner_study_macro_regret": {
+        "0.01": 0.22079432409812744,
+        "0.1": 0.22079432409812744,
+        "1.0": 0.22079432409812744,
+        "10.0": 0.22029055323805075
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1582,
+      "selected_C": 10.0,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 55,
+      "train_candidates": 483
+    },
+    {
+      "feature_columns": 114,
+      "fold_id": "holdout:oda_fin",
+      "inner_study_macro_regret": {
+        "0.01": 0.2596950403733997,
+        "0.1": 0.2596950403733997,
+        "1.0": 0.2596950403733997,
+        "10.0": 0.2596950403733997
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1638,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 15,
+      "train_candidates": 523
+    },
+    {
+      "feature_columns": 801,
+      "fold_id": "holdout:oda_fin",
+      "inner_study_macro_regret": {
+        "0.01": 0.25377005954707327,
+        "0.1": 0.2504367262137399,
+        "1.0": 0.25377005954707327,
+        "10.0": 0.2871033928804066
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1638,
+      "selected_C": 0.1,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 15,
+      "train_candidates": 523
+    },
+    {
+      "feature_columns": 115,
+      "fold_id": "holdout:okochi_japanese_finance_2026",
+      "inner_study_macro_regret": {
+        "0.01": 0.2456950403733997,
+        "0.1": 0.2456950403733997,
+        "1.0": 0.2456950403733997,
+        "10.0": 0.2456950403733997
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1692,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 8,
+      "train_candidates": 530
+    },
+    {
+      "feature_columns": 827,
+      "fold_id": "holdout:okochi_japanese_finance_2026",
+      "inner_study_macro_regret": {
+        "0.01": 0.24001931549945033,
+        "0.1": 0.23643672621373993,
+        "1.0": 0.23643672621373993,
+        "10.0": 0.23499439721504325
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1692,
+      "selected_C": 10.0,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 8,
+      "train_candidates": 530
+    },
+    {
+      "feature_columns": 109,
+      "fold_id": "holdout:phogat2024_financial_qa",
+      "inner_study_macro_regret": {
+        "0.01": 0.23712315845454304,
+        "0.1": 0.23712315845454304,
+        "1.0": 0.23712315845454304,
+        "10.0": 0.23712315845454304
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1460,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 80,
+      "train_candidates": 458
+    },
+    {
+      "feature_columns": 810,
+      "fold_id": "holdout:phogat2024_financial_qa",
+      "inner_study_macro_regret": {
+        "0.01": 0.2311981776282166,
+        "0.1": 0.2311981776282166,
+        "1.0": 0.2311981776282166,
+        "10.0": 0.2645315109615499
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1460,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 80,
+      "train_candidates": 458
+    },
+    {
+      "feature_columns": 113,
+      "fold_id": "holdout:quanteval",
+      "inner_study_macro_regret": {
+        "0.01": 0.2508674541664997,
+        "0.1": 0.2508674541664997,
+        "1.0": 0.2508674541664997,
+        "10.0": 0.2508674541664997
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1660,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 10,
+      "train_candidates": 528
+    },
+    {
+      "feature_columns": 845,
+      "fold_id": "holdout:quanteval",
+      "inner_study_macro_regret": {
+        "0.01": 0.24494247334017327,
+        "0.1": 0.24160914000683992,
+        "1.0": 0.24494247334017327,
+        "10.0": 0.2782758066735066
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1660,
+      "selected_C": 0.1,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 10,
+      "train_candidates": 528
+    },
+    {
+      "feature_columns": 115,
+      "fold_id": "holdout:select2know_2025",
+      "inner_study_macro_regret": {
+        "0.01": 0.2623617070400664,
+        "0.1": 0.2623617070400664,
+        "1.0": 0.2623617070400664,
+        "10.0": 0.2623617070400664
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1656,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 21,
+      "train_candidates": 517
+    },
+    {
+      "feature_columns": 799,
+      "fold_id": "holdout:select2know_2025",
+      "inner_study_macro_regret": {
+        "0.01": 0.2601975725417072,
+        "0.1": 0.25686423920837387,
+        "1.0": 0.2601975725417072,
+        "10.0": 0.29086423920837384
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1656,
+      "selected_C": 0.1,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 21,
+      "train_candidates": 517
+    },
+    {
+      "feature_columns": 105,
+      "fold_id": "holdout:shin_kim_2026_speech_sft",
+      "inner_study_macro_regret": {
+        "0.01": 0.18901111406355525,
+        "0.1": 0.18901111406355525,
+        "1.0": 0.18901111406355525,
+        "10.0": 0.18901111406355525
+      },
+      "method": "structured_pairwise_ranker",
+      "pairwise_training_rows": 1164,
+      "selected_C": 0.01,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 135,
+      "train_candidates": 403
+    },
+    {
+      "feature_columns": 794,
+      "fold_id": "holdout:shin_kim_2026_speech_sft",
+      "inner_study_macro_regret": {
+        "0.01": 0.2039751363204788,
+        "0.1": 0.17064180298714549,
+        "1.0": 0.17064180298714549,
+        "10.0": 0.2039751363204788
+      },
+      "method": "structured_text_pairwise_ranker",
+      "pairwise_training_rows": 1164,
+      "selected_C": 0.1,
+      "suite_id": "finance_leave_one_study_out",
+      "test_candidates": 135,
+      "train_candidates": 403
+    }
+  ],
+  "predictions": {
+    "rows": 7338,
+    "sha256": "1e5c77fa3c36e15879e2e5e50d47b0845063118ea664dfd22fe13ce62ff456a5"
+  },
+  "status": "predictions written and hashed before outer-fold scoring"
+}

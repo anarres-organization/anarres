@@ -1,0 +1,256 @@
+{
+  "advancement_gate": {
+    "abstention_criterion_scored": false,
+    "cost_criterion_scored": false,
+    "decision": "do not advance either learned ranker to a prospective claim",
+    "methods": [
+      {
+        "improves_regret_on_every_primary_suite": false,
+        "mean_ordering_change_vs_measurement_ridge": 0.013682504251700672,
+        "method": "structured_pairwise_ranker",
+        "passes": false
+      },
+      {
+        "improves_regret_on_every_primary_suite": false,
+        "mean_ordering_change_vs_measurement_ridge": 0.045659584485968296,
+        "method": "structured_text_pairwise_ranker",
+        "passes": false
+      }
+    ],
+    "model_performance_passed": false,
+    "passed": false,
+    "prospective_freeze_permitted": false
+  },
+  "artifact": "anarres_domain_pairwise_ranker_results_v1",
+  "claim_boundary": "Retrospective development replay only. The same studies informed the archive and this model comparison; real training and protected evaluation remain the verifier.",
+  "comparisons": {
+    "coding_leave_one_decision_out": {
+      "structured_pairwise_ranker": {
+        "improves_regret": true,
+        "ordering_change_vs_measurement_ridge": 0.028911564625850317,
+        "regret_change_vs_measurement_ridge": -0.036671539961028655
+      },
+      "structured_text_pairwise_ranker": {
+        "improves_regret": true,
+        "ordering_change_vs_measurement_ridge": 0.04331065759637187,
+        "regret_change_vs_measurement_ridge": -0.004072681704278658
+      }
+    },
+    "controlled_leave_one_study_out": {
+      "structured_pairwise_ranker": {
+        "improves_regret": false,
+        "ordering_change_vs_measurement_ridge": 0.0,
+        "regret_change_vs_measurement_ridge": -3.7703173916270316e-13
+      },
+      "structured_text_pairwise_ranker": {
+        "improves_regret": true,
+        "ordering_change_vs_measurement_ridge": 0.18000000000000005,
+        "regret_change_vs_measurement_ridge": -0.1233602033053604
+      }
+    },
+    "finance_leave_one_study_out": {
+      "structured_pairwise_ranker": {
+        "improves_regret": true,
+        "ordering_change_vs_measurement_ridge": 0.019270833333333348,
+        "regret_change_vs_measurement_ridge": -0.014966492301876966
+      },
+      "structured_text_pairwise_ranker": {
+        "improves_regret": false,
+        "ordering_change_vs_measurement_ridge": -0.0064484126984126755,
+        "regret_change_vs_measurement_ridge": 0.010728838173442001
+      }
+    },
+    "materials_leave_one_study_out": {
+      "structured_pairwise_ranker": {
+        "improves_regret": true,
+        "ordering_change_vs_measurement_ridge": 0.006547619047619024,
+        "regret_change_vs_measurement_ridge": -0.004570573016036361
+      },
+      "structured_text_pairwise_ranker": {
+        "improves_regret": false,
+        "ordering_change_vs_measurement_ridge": -0.03422390695408606,
+        "regret_change_vs_measurement_ridge": 0.036402134249207296
+      }
+    }
+  },
+  "cost_boundary": "The fit receipt records feature and pairwise-training sizes, but portable elapsed runtime and complete measurement, training, failure, and evaluation costs are not yet comparable across the native studies. The cost criterion remains unscored.",
+  "evidence_tier": "retrospective nested development replay",
+  "inputs": {
+    "contract_sha256": "a85fc7014aa73a57c2f128668276a220c15618907c471e6f1c52bb4e0900d411",
+    "fit_receipt_sha256": "c1476752130244ff4d05e5b6ce3a5dd45ef03665b9d72c1297a9527a6bcbb1b7",
+    "nested_splits_sha256": "363dd5a69a72aa22319445b8ef130dea27f8114180668e73f79e0f587c017eff",
+    "predictions_sha256": "1e5c77fa3c36e15879e2e5e50d47b0845063118ea664dfd22fe13ce62ff456a5",
+    "structured_baseline_results_sha256": "7eee6095d34a7147ee22851cac62fec6dbf776b077b44831f396d453bb4d2343",
+    "training_view_sha256": "c81d9a690f8c1f21769c11a63b72d9107c5ea904736b7cc9b5093cc087b53032"
+  },
+  "methods": [
+    "structured_pairwise_ranker",
+    "structured_text_pairwise_ranker"
+  ],
+  "suites": {
+    "coding_leave_one_decision_out": {
+      "structured_pairwise_ranker": {
+        "domains": {
+          "agentic_coding": {
+            "panels": 27,
+            "studies": 14,
+            "study_macro_normalized_regret": 0.016556811048321428,
+            "study_macro_pairwise_ordering": 0.8439909297052154,
+            "study_macro_top_choice_credit": 0.9464285714285714
+          }
+        },
+        "panels": 27,
+        "studies": 14,
+        "study_macro_normalized_regret": 0.016556811048321428,
+        "study_macro_pairwise_ordering": 0.8439909297052154,
+        "study_macro_top_choice_credit": 0.9464285714285714
+      },
+      "structured_text_pairwise_ranker": {
+        "domains": {
+          "agentic_coding": {
+            "panels": 27,
+            "studies": 14,
+            "study_macro_normalized_regret": 0.049155669305071426,
+            "study_macro_pairwise_ordering": 0.8583900226757369,
+            "study_macro_top_choice_credit": 0.875
+          }
+        },
+        "panels": 27,
+        "studies": 14,
+        "study_macro_normalized_regret": 0.049155669305071426,
+        "study_macro_pairwise_ordering": 0.8583900226757369,
+        "study_macro_top_choice_credit": 0.875
+      }
+    },
+    "controlled_leave_one_study_out": {
+      "structured_pairwise_ranker": {
+        "domains": {
+          "legal": {
+            "panels": 1,
+            "studies": 1,
+            "study_macro_normalized_regret": 0.6111111111109999,
+            "study_macro_pairwise_ordering": 0.5,
+            "study_macro_top_choice_credit": 0.3333333333333333
+          },
+          "materials_science": {
+            "panels": 1,
+            "studies": 1,
+            "study_macro_normalized_regret": 0.6607123465757501,
+            "study_macro_pairwise_ordering": 0.5,
+            "study_macro_top_choice_credit": 0.25
+          },
+          "robotics": {
+            "panels": 3,
+            "studies": 3,
+            "study_macro_normalized_regret": 0.4546075533657222,
+            "study_macro_pairwise_ordering": 0.5,
+            "study_macro_top_choice_credit": 0.2333333333333333
+          }
+        },
+        "panels": 5,
+        "studies": 5,
+        "study_macro_normalized_regret": 0.5271292235567834,
+        "study_macro_pairwise_ordering": 0.5,
+        "study_macro_top_choice_credit": 0.25666666666666665
+      },
+      "structured_text_pairwise_ranker": {
+        "domains": {
+          "legal": {
+            "panels": 1,
+            "studies": 1,
+            "study_macro_normalized_regret": 0.6111111111109999,
+            "study_macro_pairwise_ordering": 0.5,
+            "study_macro_top_choice_credit": 0.3333333333333333
+          },
+          "materials_science": {
+            "panels": 1,
+            "studies": 1,
+            "study_macro_normalized_regret": 0.5,
+            "study_macro_pairwise_ordering": 0.5,
+            "study_macro_top_choice_credit": 0.5
+          },
+          "robotics": {
+            "panels": 3,
+            "studies": 3,
+            "study_macro_normalized_regret": 0.302577996716,
+            "study_macro_pairwise_ordering": 0.8000000000000002,
+            "study_macro_top_choice_credit": 0.16666666666666666
+          }
+        },
+        "panels": 5,
+        "studies": 5,
+        "study_macro_normalized_regret": 0.4037690202518,
+        "study_macro_pairwise_ordering": 0.68,
+        "study_macro_top_choice_credit": 0.26666666666666666
+      }
+    },
+    "finance_leave_one_study_out": {
+      "structured_pairwise_ranker": {
+        "domains": {
+          "finance": {
+            "panels": 149,
+            "studies": 16,
+            "study_macro_normalized_regret": 0.24596410035006222,
+            "study_macro_pairwise_ordering": 0.7291397982804233,
+            "study_macro_top_choice_credit": 0.5874152612433863
+          }
+        },
+        "panels": 149,
+        "studies": 16,
+        "study_macro_normalized_regret": 0.24596410035006222,
+        "study_macro_pairwise_ordering": 0.7291397982804233,
+        "study_macro_top_choice_credit": 0.5874152612433863
+      },
+      "structured_text_pairwise_ranker": {
+        "domains": {
+          "finance": {
+            "panels": 149,
+            "studies": 16,
+            "study_macro_normalized_regret": 0.2716594308253812,
+            "study_macro_pairwise_ordering": 0.7034205522486773,
+            "study_macro_top_choice_credit": 0.5997850529100528
+          }
+        },
+        "panels": 149,
+        "studies": 16,
+        "study_macro_normalized_regret": 0.2716594308253812,
+        "study_macro_pairwise_ordering": 0.7034205522486773,
+        "study_macro_top_choice_credit": 0.5997850529100528
+      }
+    },
+    "materials_leave_one_study_out": {
+      "structured_pairwise_ranker": {
+        "domains": {
+          "materials_science": {
+            "panels": 805,
+            "studies": 17,
+            "study_macro_normalized_regret": 0.3187939504863543,
+            "study_macro_pairwise_ordering": 0.6291735965219422,
+            "study_macro_top_choice_credit": 0.45360695795528355
+          }
+        },
+        "panels": 805,
+        "studies": 17,
+        "study_macro_normalized_regret": 0.3187939504863543,
+        "study_macro_pairwise_ordering": 0.6291735965219422,
+        "study_macro_top_choice_credit": 0.45360695795528355
+      },
+      "structured_text_pairwise_ranker": {
+        "domains": {
+          "materials_science": {
+            "panels": 805,
+            "studies": 17,
+            "study_macro_normalized_regret": 0.35976665775159794,
+            "study_macro_pairwise_ordering": 0.5884020705202371,
+            "study_macro_top_choice_credit": 0.4077005439857102
+          }
+        },
+        "panels": 805,
+        "studies": 17,
+        "study_macro_normalized_regret": 0.35976665775159794,
+        "study_macro_pairwise_ordering": 0.5884020705202371,
+        "study_macro_top_choice_credit": 0.4077005439857102
+      }
+    }
+  }
+}

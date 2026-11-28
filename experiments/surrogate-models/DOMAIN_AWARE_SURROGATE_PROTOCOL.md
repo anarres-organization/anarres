@@ -90,6 +90,20 @@ The first learned comparison must report:
 5. a modality ablation before text, code, curves, trajectories, structures, or
    perceptual inputs are retained
 
+## First learned comparison
+
+[`DOMAIN_PAIRWISE_RANKER_CONTRACT.json`](DOMAIN_PAIRWISE_RANKER_CONTRACT.json)
+freezes structured and structured-plus-text pairwise rankers before fitting.
+Each panel contributes equal total training weight, and every regularization
+choice is made inside the frozen inner grouped folds.
+
+The structured ranker improves coding, finance, and materials regret relative
+to measurement ridge but is tied on the controlled five-study suite. Text
+improves the controlled suite while reducing decision quality in finance and
+materials. Neither ranker advances. The result is a development ablation: it
+does not yet learn when to use history, expose a qualified abstention action,
+or make native-study costs comparable.
+
 ## Advancement sequence
 
 1. Freeze the transparent domain route before any new study outcome opens.

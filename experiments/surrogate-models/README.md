@@ -233,6 +233,34 @@ python -m unittest \
   experiments/surrogate-models/test_build_domain_aware_training_view.py
 ```
 
+The first dedicated learned comparison is released in
+[`DOMAIN_PAIRWISE_RANKER_RESULTS.json`](DOMAIN_PAIRWISE_RANKER_RESULTS.json).
+It uses panel-balanced pairwise training, selects regularization only inside
+the frozen inner folds, and writes outer-fold predictions before scoring.
+
+| Development suite | Structured ordering | Structured regret | Structured + text ordering | Structured + text regret |
+| --- | ---: | ---: | ---: | ---: |
+| Agentic coding | 84.4% | 0.017 | 85.8% | 0.049 |
+| Finance | 72.9% | 0.246 | 70.3% | 0.272 |
+| Materials science | 62.9% | 0.319 | 58.8% | 0.360 |
+| Controlled legal, robotics, and materials studies | 50.0% | 0.527 | 68.0% | 0.404 |
+
+The structured ranker lowers regret relative to measurement ridge in coding,
+finance, and materials science, but ties it on the five-study controlled suite.
+Adding intervention text helps that small controlled suite but hurts finance
+and materials science. Neither model passes the frozen gate. Cost remains
+incomparable across native studies, and neither ranker exposes a qualified
+abstention rule. These results support learning the history-use and abstention
+gate next; they do not justify a prospective allocation claim or establish
+that a larger language model is the missing ingredient.
+
+Reproduce the nested fit and score with:
+
+```bash
+uv run --group surrogate-test python \
+  experiments/surrogate-models/run_domain_pairwise_ranker.py --run
+```
+
 Rebuild and verify this view with:
 
 ```bash
