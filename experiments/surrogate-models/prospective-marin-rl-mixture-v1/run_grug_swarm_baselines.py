@@ -16,6 +16,7 @@ HERE = Path(__file__).resolve().parent
 INPUTS = HERE / "GRUG_SWARM_INPUTS.jsonl.gz"
 LABELS = HERE / "GRUG_SWARM_PROTECTED_LABELS.jsonl.gz"
 CORPUS = HERE / "GRUG_SWARM_CORPUS.json"
+CONTENT = HERE / "GRUG_SWARM_CONTENT_BASIS.json.gz"
 RESULTS = HERE / "GRUG_SWARM_BASELINE_RESULTS.json"
 
 RIDGE_ALPHA = 100.0
@@ -26,6 +27,11 @@ KERNEL_GAMMA_MULTIPLIER = 0.25
 def read_rows(path: Path) -> list[dict]:
     with gzip.open(path, "rt") as stream:
         return [json.loads(line) for line in stream]
+
+
+def read_gzip_json(path: Path) -> dict:
+    with gzip.open(path, "rt") as stream:
+        return json.load(stream)
 
 
 def digest(path: Path) -> str:
@@ -269,6 +275,8 @@ def build_results() -> dict:
         ],
         dtype=float,
     )
+    content_basis = np.asarray(read_gzip_json(CONTENT)["matrix"], dtype=float)
+    content_x = np.concatenate([x[:, :200] @ content_basis, x[:, 200:] @ content_basis], axis=1)
     y = np.asarray(
         [
             [outcome["value"] for outcome in labels_by_key[row["record_key"]]["outcomes"]]
@@ -281,30 +289,35 @@ def build_results() -> dict:
         "lineage_five_fold": np.asarray([lineage_fold(lineage) for lineage in lineages]),
         "leave_one_design_family_out": np.asarray([row["design_family"] for row in inputs]),
     }
-    predictors = {
-        "training_mean": mean_predictor,
-        "linear_ridge": ridge_predictor,
-        "hellinger_rbf_kernel": kernel_predictor,
+    models = {
+        "training_mean": (x, mean_predictor),
+        "linear_ridge": (x, ridge_predictor),
+        "hellinger_rbf_kernel": (x, kernel_predictor),
+        "content_hellinger_rbf_kernel": (content_x, kernel_predictor),
     }
     results = {}
     predictions_by_scheme = {}
     for scheme, folds in split_schemes.items():
         results[scheme] = {}
         predictions_by_scheme[scheme] = {}
-        for name, predictor in predictors.items():
-            predictions, metrics = evaluate(x, y, folds, lineages, predictor)
+        for name, (features, predictor) in models.items():
+            predictions, metrics = evaluate(features, y, folds, lineages, predictor)
             predictions_by_scheme[scheme][name] = predictions
             by_family = {}
             for family in sorted(set(target_families)):
                 indices = np.asarray(
                     [index for index, value in enumerate(target_families) if value == family]
                 )
-                _, family_metrics = evaluate(x, y[:, indices], folds, lineages, predictor)
+                _, family_metrics = evaluate(features, y[:, indices], folds, lineages, predictor)
                 by_family[family] = family_metrics
             results[scheme][name] = {"all_targets": metrics, "by_target_family": by_family}
 
     support_gate = {
-        scheme: support_gate_audit(x, y, folds, lineages) for scheme, folds in split_schemes.items()
+        "model": "content_hellinger_rbf_kernel",
+        "results": {
+            scheme: support_gate_audit(content_x, y, folds, lineages)
+            for scheme, folds in split_schemes.items()
+        },
     }
 
     baseline_lineage = "mixture-b5f5f18766de58f382ac9774"
@@ -312,8 +325,8 @@ def build_results() -> dict:
     held_out = (lineages == baseline_lineage) | (lineages == selected_lineage)
     trained = ~held_out
     selected_comparison = {}
-    for name, predictor in predictors.items():
-        predictions = predictor(x[trained], y[trained], x[held_out])
+    for name, (features, predictor) in models.items():
+        predictions = predictor(features[trained], y[trained], features[held_out])
         comparison = {}
         for family in sorted(set(target_families)):
             target_indices = np.asarray(
@@ -365,6 +378,7 @@ def build_results() -> dict:
                 "corpus_manifest_sha256": digest(CORPUS),
                 "inputs_sha256": digest(INPUTS),
                 "protected_labels_sha256": digest(LABELS),
+                "content_basis_sha256": digest(CONTENT),
                 "trained_runs": len(inputs),
                 "candidate_lineages": len(set(lineages)),
                 "targets": len(target_names),
@@ -377,6 +391,14 @@ def build_results() -> dict:
                 },
                 "hellinger_rbf_kernel": {
                     "features": "square roots of all 400 two-phase cell weights",
+                    "alpha": KERNEL_ALPHA,
+                    "gamma": "0.25 divided by the median positive training distance",
+                },
+                "content_hellinger_rbf_kernel": {
+                    "features": (
+                        "two 1,000-bin lexical distributions obtained by multiplying each "
+                        "phase's 200 cell weights by Marin's released cell-content basis"
+                    ),
                     "alpha": KERNEL_ALPHA,
                     "gamma": "0.25 divided by the median positive training distance",
                 },

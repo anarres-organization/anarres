@@ -107,40 +107,43 @@ python -m unittest \
 ## First mixture-surrogate result
 
 The [transparent baseline audit](GRUG_SWARM_BASELINE_RESULTS.json) compares a
-training-fold mean, linear ridge, and Hellinger-RBF kernel. Identical mixtures
-stay in the same fold, and repeated runs are averaged by mixture before
-ordering or allocation is scored.
+training-fold mean, linear ridge, and two Hellinger-RBF kernels. The first
+kernel uses the 400 raw mixture weights. The second maps each phase through
+Marin's released 200-by-1,000 lexical content basis before fitting. Identical
+mixtures stay in the same fold, and repeated runs are averaged by mixture
+before ordering or allocation is scored.
 
 When the held-out mixtures come from represented construction families, the
-kernel reaches 76.4% pairwise ordering and 0.067 normalized allocation regret.
-When one complete construction family is absent from training, it reaches
-63.1% family-macro ordering and 0.191 regret, compared with 50.0% and 0.297 for
-the training-fold mean. The gap is the main result: the mixture surface is
-learnable within support, but extrapolation to a new construction process is
-substantially harder.
+content kernel reaches 78.9% pairwise ordering and 0.059 normalized allocation
+regret. When one complete construction family is absent from training, it
+reaches 66.7% family-macro ordering and 0.154 regret, compared with 50.0% and
+0.297 for the training-fold mean. The raw kernel reaches 76.4% and 63.1%
+ordering on the same splits. The content representation therefore helps under
+both tests without introducing protected outcomes, but extrapolation to a new
+construction process remains substantially harder.
 
-The support gate uses only the candidate mixture's distance from the training
-mixtures. It accepts 95.2% of ordinary lineage holdouts; accepted predictions
-have 0.25 mean standardized absolute error, compared with 1.84 for rejected
-predictions. When a complete construction family is held out, acceptance falls
-to 47.8%. Accepted error is 0.28 and rejected error is 1.25. The gate therefore
-detects the main extrapolation failure and gives the surrogate a concrete
-abstention path.
+The support gate uses only the candidate content representation's distance
+from the training mixtures. It accepts 95.0% of ordinary lineage holdouts;
+accepted predictions have 0.22 mean standardized absolute error, compared
+with 1.85 for rejected predictions. When a complete construction family is
+held out, acceptance falls to 64.6%. Accepted error is 0.32 and rejected error
+is 1.54. The gate therefore detects higher-error extrapolations and gives the
+surrogate a concrete abstention path.
 
 The published selected mixture and Harrier baseline provide a separate
 development diagnostic. With both lineages excluded from fitting, the kernel
-predicts the direction of 72.2% of the 54 capability metrics and 94.4% of the
+predicts the direction of 70.4% of the 54 capability metrics and 98.1% of the
 108 held-out loss or bits-per-byte metrics. These metrics are related outcomes,
 not 162 independent experiments. The swarm was also used to select the
 published mixture, so this is not independent validation.
 
 The [scale-transfer stress test](GRUG_SCALE_TRANSFER_RESULTS.json) compares the
 d512 predictions with the released d768, d1024, and d1536 mixture-swap ladder.
-Direction accuracy is 50.0%, 56.2%, and 75.0%, respectively. The corresponding
-observed d512 directions transfer at 56.2%, 62.5%, and 81.2%. The larger runs
-start the selected schedule after 25% of training, while the d512 swarm starts
-from a checkpoint after 10%. These are useful transfer diagnostics, but not an
-identical-contract scale test.
+Direction accuracy is 56.2%, 62.5%, and 81.2%, respectively, matching the
+transfer of the observed d512 directions on this 16-subset comparison. The
+larger runs start the selected schedule after 25% of training, while the d512
+swarm starts from a checkpoint after 10%. These are useful transfer
+diagnostics, but not an identical-contract scale test.
 
 ## First executable replay
 

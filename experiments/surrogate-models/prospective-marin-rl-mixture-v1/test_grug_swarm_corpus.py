@@ -29,9 +29,16 @@ class GrugSwarmCorpusTest(unittest.TestCase):
         cls.labels = read_rows(HERE / "GRUG_SWARM_PROTECTED_LABELS.jsonl.gz")
 
     def test_artifacts_match_manifest(self) -> None:
-        for key in ("inputs", "protected_labels"):
+        for key in ("content_basis", "inputs", "protected_labels"):
             artifact = self.manifest["artifacts"][key]
             self.assertEqual(digest(HERE / artifact["path"]), artifact["sha256"])
+
+    def test_content_basis_preserves_source_geometry(self) -> None:
+        with gzip.open(HERE / "GRUG_SWARM_CONTENT_BASIS.json.gz", "rt") as stream:
+            basis = json.load(stream)
+        self.assertEqual(len(basis["cells"]), 200)
+        self.assertEqual(len(basis["matrix"]), 200)
+        self.assertTrue(all(len(row) == 1000 for row in basis["matrix"]))
 
     def test_released_units_are_not_multiplied_by_targets(self) -> None:
         summary = self.manifest["summary"]

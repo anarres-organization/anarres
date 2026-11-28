@@ -16,6 +16,7 @@ from typing import Any
 HERE = Path(__file__).resolve().parent
 SOURCE = HERE / "GRUG_SWARM_SOURCE.json"
 CELLS = HERE / "GRUG_SWARM_CELLS.json"
+CONTENT = HERE / "GRUG_SWARM_CONTENT_BASIS.json.gz"
 INPUTS = HERE / "GRUG_SWARM_INPUTS.jsonl.gz"
 LABELS = HERE / "GRUG_SWARM_PROTECTED_LABELS.jsonl.gz"
 MANIFEST = HERE / "GRUG_SWARM_CORPUS.json"
@@ -76,11 +77,13 @@ def build(source_dir: Path) -> dict[Path, bytes]:
     paths = check_source_files(source_dir, source)
 
     buckets_rows = parquet.read_table(paths["buckets.parquet"]).to_pylist()
+    content_rows = parquet.read_table(paths["content.parquet"]).to_pylist()
     swarm_rows = parquet.read_table(paths["swarm.parquet"]).to_pylist()
     observations = parquet.read_table(paths["observations.parquet"]).to_pylist()
-    if len(buckets_rows) != 1 or len(swarm_rows) != 1:
-        raise ValueError("expected one bucket contract and one swarm contract")
+    if len(buckets_rows) != 1 or len(content_rows) != 1 or len(swarm_rows) != 1:
+        raise ValueError("expected one bucket, content, and swarm contract")
     bucket = buckets_rows[0]
+    content = content_rows[0]
     swarm = swarm_rows[0]
     shared = source["shared_contract"]
     for field in (
@@ -102,6 +105,12 @@ def build(source_dir: Path) -> dict[Path, bytes]:
     cell_ids = [row["cell"] for row in cells]
     if len(cell_ids) != 200 or len(set(cell_ids)) != 200:
         raise ValueError("expected 200 unique domain-by-quality cells")
+    if content["cells"] != cell_ids:
+        raise ValueError("content basis cell order differs from the mixture vocabulary")
+    if len(content["matrix"]) != 200 or any(len(row) != 1000 for row in content["matrix"]):
+        raise ValueError("expected a 200 by 1000 content basis")
+    if not all(math.isfinite(value) for row in content["matrix"] for value in row):
+        raise ValueError("non-finite content-basis value")
 
     capability_targets = sorted(observations[0]["grouped_bpb"])
     training_evaluation_targets = sorted(observations[0]["training_eval_metrics"])
@@ -190,6 +199,15 @@ def build(source_dir: Path) -> dict[Path, bytes]:
         "cells": cells,
     }
     cells_bytes = (json.dumps(cells_document, indent=2, sort_keys=True) + "\n").encode()
+    content_document = {
+        "artifact": "anarres_grug_swarm_content_basis_v1",
+        "basis_id": content["basis_id"],
+        "cells": content["cells"],
+        "matrix": content["matrix"],
+        "provenance": content["provenance"],
+    }
+    content_raw = (canonical(content_document) + "\n").encode()
+    content_bytes = gzip_bytes(content_raw)
     inputs_raw = ("\n".join(canonical(row) for row in input_rows) + "\n").encode()
     labels_raw = ("\n".join(canonical(row) for row in label_rows) + "\n").encode()
     inputs_bytes = gzip_bytes(inputs_raw)
@@ -220,6 +238,14 @@ def build(source_dir: Path) -> dict[Path, bytes]:
             "cell_vocabulary": {
                 "path": CELLS.name,
                 "sha256": digest_bytes(cells_bytes),
+            },
+            "content_basis": {
+                "path": CONTENT.name,
+                "rows": 200,
+                "columns": 1000,
+                "compression": "gzip with mtime zero",
+                "sha256": digest_bytes(content_bytes),
+                "uncompressed_sha256": digest_bytes(content_raw),
             },
             "inputs": {
                 "path": INPUTS.name,
@@ -261,6 +287,7 @@ def build(source_dir: Path) -> dict[Path, bytes]:
     manifest_bytes = (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode()
     return {
         CELLS: cells_bytes,
+        CONTENT: content_bytes,
         INPUTS: inputs_bytes,
         LABELS: labels_bytes,
         MANIFEST: manifest_bytes,

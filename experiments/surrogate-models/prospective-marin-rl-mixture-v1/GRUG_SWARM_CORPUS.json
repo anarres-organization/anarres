@@ -5,6 +5,14 @@
       "path": "GRUG_SWARM_CELLS.json",
       "sha256": "7ab99bbebb0d7ab655d11d0d05e08d44fe65c325718cd3916c05fc5634e28f26"
     },
+    "content_basis": {
+      "columns": 1000,
+      "compression": "gzip with mtime zero",
+      "path": "GRUG_SWARM_CONTENT_BASIS.json.gz",
+      "rows": 200,
+      "sha256": "9fc0dbe828fbba5eeaf9bdaf616afdf973f9bcd8499ec8c115ee1fa32a630ce7",
+      "uncompressed_sha256": "dd7ac6852dffd016352520976b7d7792684d63631a0a5538f0a58f8f433d4c79"
+    },
     "inputs": {
       "compression": "gzip with mtime zero",
       "path": "GRUG_SWARM_INPUTS.jsonl.gz",

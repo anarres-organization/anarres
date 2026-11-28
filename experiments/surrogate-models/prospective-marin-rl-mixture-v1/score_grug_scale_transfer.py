@@ -21,7 +21,7 @@ def digest(path: Path) -> str:
 def build() -> dict:
     baselines = json.loads(BASELINES.read_text())
     source = json.loads(SOURCE.read_text())
-    directions = baselines["published_selected_pair"]["hellinger_rbf_kernel"][
+    directions = baselines["published_selected_pair"]["content_hellinger_rbf_kernel"][
         "held_out_loss_or_bpb"
     ]["directions"]
     scale_results = {}
@@ -66,7 +66,10 @@ def build() -> dict:
             "d512_baselines_sha256": digest(BASELINES),
             "scale_source_sha256": digest(SOURCE),
         },
-        "model": "d512 Hellinger-RBF surrogate with both published lineages excluded from fitting",
+        "model": (
+            "d512 content Hellinger-RBF surrogate with both published lineages excluded "
+            "from fitting"
+        ),
         "results": scale_results,
         "boundary": source["contract_difference"],
         "interpretation": (

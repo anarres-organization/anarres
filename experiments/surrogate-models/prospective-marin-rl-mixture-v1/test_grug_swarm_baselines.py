@@ -35,26 +35,27 @@ class GrugSwarmBaselineTest(unittest.TestCase):
         models = self.results["models"]
         self.assertEqual(models["linear_ridge"]["features"], "all 400 two-phase cell weights")
         self.assertIn("hellinger_rbf_kernel", models)
+        self.assertIn("content_hellinger_rbf_kernel", models)
 
     def test_selected_pair_is_not_presented_as_independent(self) -> None:
         self.assertIn("not independent", self.results["interpretation_boundary"])
         comparison = self.results["published_selected_pair"]
         self.assertEqual(
-            set(comparison["hellinger_rbf_kernel"]),
+            set(comparison["content_hellinger_rbf_kernel"]),
             {"capability_log_probability", "held_out_loss_or_bpb"},
         )
 
     def test_support_gate_identifies_higher_error_extrapolations(self) -> None:
-        for audit in self.results["support_gate"].values():
+        gate = self.results["support_gate"]
+        self.assertEqual(gate["model"], "content_hellinger_rbf_kernel")
+        for audit in gate["results"].values():
             self.assertLess(
                 audit["accepted_mean_absolute_standardized_error"],
                 audit["rejected_mean_absolute_standardized_error"],
             )
         self.assertLess(
-            self.results["support_gate"]["leave_one_design_family_out"][
-                "accepted_lineage_fraction"
-            ],
-            self.results["support_gate"]["lineage_five_fold"]["accepted_lineage_fraction"],
+            gate["results"]["leave_one_design_family_out"]["accepted_lineage_fraction"],
+            gate["results"]["lineage_five_fold"]["accepted_lineage_fraction"],
         )
 
 
