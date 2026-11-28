@@ -252,6 +252,16 @@ would have ordered observed interventions or warned about their localized
 regressions. Use the Delphi ladder only as a separate method check. Do not use
 Mochi outcomes to select the final transfer rule.
 
+The [Micro210 pair audit](SNOWBALL_MICRO210_PAIR_AUDIT.json) identifies five
+Snowball SFT-to-RL interventions from Exp2 through Exp6 evaluated under the
+same frozen policy. Four improve aggregate pass@1 and one declines; the mean
+change is 3.98 percentage points. These are currently outcome pairs rather
+than surrogate-training records. Each experiment changes several recipe
+properties, only aggregate public values have been reconstructed here, and
+five interventions cannot support model fitting. Exact environment records,
+starting-policy measurements, native benchmark rows, and runtime differences
+must be joined before these pairs can enter the development corpus.
+
 ### 2. Qualify the Grug ladder and common contract
 
 Check every published narrow Grug rung for a durable final checkpoint,

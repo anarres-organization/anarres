@@ -1,0 +1,75 @@
+{
+  "artifact": "anarres_snowball_micro210_sft_rl_pair_audit_v1",
+  "audited_on": "2026-11-28",
+  "evaluation_contract": {
+    "attempts": 434,
+    "benchmarks": 20,
+    "policy": "Micro210 2026.11.23",
+    "source_issue": "https://github.com/marin-community/marin/issues/11337"
+  },
+  "independent_unit": "one completed SFT-to-RL intervention",
+  "pairs": [
+    {
+      "experiment": "exp2",
+      "rl_pass_at_1": 0.4408,
+      "rl_scored_attempts": 422,
+      "rl_source": "https://github.com/marin-community/marin/issues/11337#issuecomment-7153555348",
+      "sft_pass_at_1": 0.4161,
+      "sft_scored_attempts": 423,
+      "sft_source": "https://github.com/marin-community/marin/issues/11337#issuecomment-7173696553"
+    },
+    {
+      "experiment": "exp3",
+      "rl_pass_at_1": 0.3839,
+      "rl_scored_attempts": 422,
+      "rl_source": "https://github.com/marin-community/marin/issues/11337#issuecomment-7164453055",
+      "sft_pass_at_1": 0.3844,
+      "sft_scored_attempts": 424,
+      "sft_source": "https://github.com/marin-community/marin/issues/11337#issuecomment-7173697188"
+    },
+    {
+      "experiment": "exp4",
+      "rl_pass_at_1": 0.4384,
+      "rl_scored_attempts": 422,
+      "rl_source": "https://github.com/marin-community/marin/issues/11337#issuecomment-7170303366",
+      "sft_pass_at_1": 0.3357,
+      "sft_scored_attempts": 423,
+      "sft_source": "https://github.com/marin-community/marin/issues/11337#issuecomment-7170300748"
+    },
+    {
+      "experiment": "exp5",
+      "rl_pass_at_1": 0.4646,
+      "rl_scored_attempts": 424,
+      "rl_source": "https://github.com/marin-community/marin/issues/11337#issuecomment-7150078090",
+      "sft_pass_at_1": 0.4208,
+      "sft_scored_attempts": 423,
+      "sft_source": "https://github.com/marin-community/marin/issues/11337#issuecomment-7173697946"
+    },
+    {
+      "experiment": "exp6",
+      "rl_pass_at_1": 0.4444,
+      "rl_scored_attempts": 423,
+      "rl_source": "https://github.com/marin-community/marin/issues/11337#issuecomment-7176968230",
+      "sft_pass_at_1": 0.4161,
+      "sft_scored_attempts": 423,
+      "sft_source": "https://github.com/marin-community/marin/issues/11337#issuecomment-7170817234"
+    }
+  ],
+  "summary": {
+    "interventions": 5,
+    "mean_pass_at_1_change": 0.0398,
+    "negative_changes": 1,
+    "positive_changes": 4
+  },
+  "use": {
+    "allowed": "qualify paired post-training outcomes and reconstruct native target changes once the public per-benchmark artifacts are available",
+    "current_status": "outcome pairs only",
+    "required_before_surrogate_fitting": [
+      "exact prediction-time environment composition for every pair",
+      "starting-policy measurements collected before each RL intervention",
+      "per-benchmark records under the common policy with infrastructure absences preserved",
+      "trainer, sampler, optimizer, rollout, verifier, and compute differences encoded"
+    ]
+  },
+  "boundary": "The five experiments change more than the RL environment. Their aggregate SFT-to-RL changes are paired outcomes, not causal mixture effects, and five records are insufficient to fit a surrogate. Mochi results are excluded."
+}
