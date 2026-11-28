@@ -1,0 +1,82 @@
+{
+  "artifact": "anarres_domain_pairwise_ranker_contract_v1",
+  "advancement_gate": {
+    "claim_boundary": "A passing retrospective result permits a prospective freeze; it does not establish prospective validity.",
+    "minimum_regret_improvement": 0.000001,
+    "primary": "Improve study-macro normalized allocation regret over measurement ridge on the primary development suites.",
+    "secondary": [
+      "Do not reduce study-macro pairwise ordering overall.",
+      "Report every domain and suite rather than selecting favorable subsets.",
+      "Retain real candidate training and held-out evaluation as the verifier."
+    ]
+  },
+  "comparators": [
+    "uninformed tie",
+    "measurement ridge",
+    "small tree ensemble when the training fold has at least eight groups",
+    "frozen record-conditioned language-model result on its previously sampled panels"
+  ],
+  "cost_accounting": [
+    "archive construction",
+    "measurement",
+    "fitting",
+    "inference",
+    "candidate training",
+    "failed execution",
+    "evaluation"
+  ],
+  "feature_conditions": {
+    "structured_pairwise_ranker": [
+      "structured metadata",
+      "prediction-time cost",
+      "native starting-policy measurements"
+    ],
+    "structured_text_pairwise_ranker": [
+      "all structured_pairwise_ranker inputs",
+      "candidate intervention text",
+      "decision-context text"
+    ]
+  },
+  "methods": {
+    "estimator": "linear pairwise logistic ranker without an intercept",
+    "hyperparameter_grid": {
+      "C": [
+        0.01,
+        0.1,
+        1.0,
+        10.0
+      ]
+    },
+    "model_selection": "Minimize study-macro normalized allocation regret across the frozen inner grouped folds; break ties toward stronger regularization.",
+    "pair_weighting": "Each training panel contributes equal total weight, split equally across its non-tied candidate pairs and both pair directions.",
+    "random_state": 1729,
+    "text_representation": {
+      "lowercase": true,
+      "max_features": 4096,
+      "ngram_range": [
+        1,
+        2
+      ],
+      "sublinear_tf": true
+    }
+  },
+  "modalities_not_available": [
+    "code",
+    "curves",
+    "trajectories",
+    "perceptual or structural assets"
+  ],
+  "primary_suites": [
+    "controlled_leave_one_study_out",
+    "coding_leave_one_decision_out",
+    "materials_leave_one_study_out",
+    "finance_leave_one_study_out"
+  ],
+  "protocol": {
+    "labels": "Open labels only for the active fitting partition.",
+    "prediction_receipt": "Write and hash every outer-fold prediction before scoring it.",
+    "retrieval": "Any retrieved history is exactly the active fitting partition.",
+    "splits": "Use DOMAIN_AWARE_NESTED_SPLITS.json without modifying its outer or inner groups."
+  },
+  "status": "frozen before fitting or scoring the pairwise rankers"
+}
