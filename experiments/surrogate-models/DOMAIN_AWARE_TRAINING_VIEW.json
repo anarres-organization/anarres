@@ -1,0 +1,56 @@
+{
+  "artifact": "anarres_domain_aware_training_view_v1",
+  "artifacts": {
+    "inputs": {
+      "path": "DOMAIN_AWARE_UTILITY_INPUTS.jsonl",
+      "rows": 3665,
+      "sha256": "b228a9e35885bbb957ee86f83b814270d070e5d259f637dee9fcad5b23c3421c"
+    },
+    "nested_splits": {
+      "path": "DOMAIN_AWARE_NESTED_SPLITS.json",
+      "sha256": "363dd5a69a72aa22319445b8ef130dea27f8114180668e73f79e0f587c017eff"
+    },
+    "protected_labels": {
+      "path": "DOMAIN_AWARE_UTILITY_LABELS.jsonl",
+      "rows": 3665,
+      "sha256": "fd8fb714eed62fa53475c094f59cd54c52739ca07b2f446351b0a4d240bc9037"
+    }
+  },
+  "feature_views": {
+    "structured": "metadata, metric, prediction-time cost, and native measurements",
+    "text": "intervention and decision-context text composed with the structured view only by methods that declare the text modality"
+  },
+  "identity_boundary": "Opaque candidate, panel, and study keys are transport metadata and are not model features.",
+  "label_boundary": "Open labels only inside the active training fold; write and hash outer predictions before scoring.",
+  "modality_boundary": "Unavailable code, curve, trajectory, and perceptual assets remain false rather than being inferred from summaries.",
+  "pretraining_boundary": "Public intervention text may have appeared in pretrained-model data and must be reported as a contamination risk.",
+  "sources": {
+    "domain_aware_contract_sha256": "c95ad697716176a17bc034a6ee779077732ac0538a38da1d5dfea517ea0be152",
+    "domain_model_inputs_sha256": "300dcc521feee7de87ad5603f8b1b85c7c0274b60675a72af825339824bbb5cf",
+    "domain_model_labels_sha256": "92f5db8f5c10dc7cfaee5b85e26089820d85d78b1fd60c448af44b667844c0bd",
+    "domain_model_views_sha256": "a95c389060a12934bc3ddced32af832d2854bea9df9e131d0c67f24609e63322",
+    "domain_surrogate_splits_sha256": "0c38d08023e65bedd7f84c745e855861f2618956fab2b342d055c1f471ea9a02"
+  },
+  "status": "deterministic retrospective development view; no learned-model result",
+  "utility": {
+    "candidate_lineages": 3665,
+    "domains": {
+      "agentic_coding": 104,
+      "finance": 538,
+      "legal": 3,
+      "materials_science": 3006,
+      "robotics": 14
+    },
+    "modality_availability": {
+      "code": 0,
+      "curves": 0,
+      "perceptual_or_structural_assets": 0,
+      "structured_measurements": 3665,
+      "text": 3665,
+      "trajectories": 0
+    },
+    "panels": 985,
+    "record_rows": 3713,
+    "studies": 51
+  }
+}

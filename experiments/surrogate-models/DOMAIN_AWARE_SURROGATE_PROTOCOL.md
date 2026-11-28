@@ -39,6 +39,32 @@ Robotics remains provisional because the development result contains only
 three independent studies. The route may produce a forecast, but no
 robotics-wide transfer claim follows from that forecast.
 
+## Deterministic training view
+
+[`DOMAIN_AWARE_TRAINING_VIEW.json`](DOMAIN_AWARE_TRAINING_VIEW.json) aggregates
+the 3,713 released utility rows into 3,665 candidate lineages across 985 native
+panels and 51 independent study groups. Inputs and protected labels are stored
+separately. Candidate, panel, and study keys in the input artifact are opaque
+partition metadata rather than model features.
+
+The first release exposes two declared feature views:
+
+- structured metadata, target metric, prediction-time cost, and native
+  measurements
+- intervention and decision-context text that a method may compose with the
+  structured view
+
+Code, curves, trajectories, and perceptual or structural assets remain marked
+unavailable. Later manifests may add them only when the native artifact,
+license, transformation, availability time, and reconstruction check are
+known.
+
+[`DOMAIN_AWARE_NESTED_SPLITS.json`](DOMAIN_AWARE_NESTED_SPLITS.json) freezes
+outer complete-study or complete-domain tests and inner grouped folds for model
+selection. The retrieval-history pool is identical to the fitting partition
+at every level. A held-out study cannot enter fitting, retrieval, calibration,
+or model selection through another record.
+
 ## Learned candidate
 
 The learned candidate receives the same prediction-time evidence and must
