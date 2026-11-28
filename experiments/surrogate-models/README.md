@@ -282,11 +282,24 @@ outcome-aware feasibility analysis on this development replay. The gate is a
 candidate for an unseen prospective comparison, not an independently held-out
 result.
 
+The localized-regression evidence is audited separately in
+[`REGRESSION_EVIDENCE_AUDIT.json`](REGRESSION_EVIDENCE_AUDIT.json). Coding and
+legal contain task-level signal within one released intervention. Materials
+science and robotics provide the two prospective localized tests, and both
+failed: the materials score reaches 0.494 ROC AUC, while the robotics risk
+ordering reverses direction. Finance and the retrospective materials bridge
+predict whether a whole candidate underperforms a matched alternative; they do
+not identify which task, material, or state will regress. A shared localized
+model is therefore not qualified. The next valid test is a frozen independent
+intervention with one native endpoint, the existing domain model, a
+measurement-only baseline, and the option to retain the starting policy.
+
 Reproduce the gate with:
 
 ```bash
 uv run --group surrogate-test python \
   experiments/surrogate-models/run_history_support_gate.py --run
+python experiments/surrogate-models/build_regression_evidence_audit.py --check
 ```
 
 Rebuild and verify this view with:
@@ -349,5 +362,6 @@ Study-local records should first exercise the lifecycle described in [RFC 0004](
 16. [Domain matched text baselines](DOMAIN_MATCHED_TEXT_BASELINE_RESULTS.json)
 17. [Domain pairwise ranker result](DOMAIN_PAIRWISE_RANKER_RESULTS.json)
 18. [History-support gate result](HISTORY_SUPPORT_GATE_RESULTS.json)
-19. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
-20. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)
+19. [Localized-regression evidence audit](REGRESSION_EVIDENCE_AUDIT.json)
+20. [Multimodal surrogate program](MULTIMODAL_SURROGATE.md)
+21. [Mathematics reference fixture](MATHEMATICS_REFERENCE.md)
