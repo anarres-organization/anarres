@@ -93,9 +93,11 @@ study at `coordination_draft` while any required item remains unresolved.
 
 Run repeated attempts from the frozen starting policy on every candidate. At a
 minimum, preserve source, task, response tokens, valid reward, verifier status,
-admission status, generated-token cost, and infrastructure validity. Compute
-source-level and candidate-level signal, coverage, cost, and trace diagnostics.
-Do not treat an unavailable verifier result as reward zero.
+admission status, group identity, sample index, policy version, sampling
+probability, loss-eligible tokens, generated-token cost, and infrastructure
+validity. Compute source-level and candidate-level usable signal density,
+effective prompt coverage, reward distributions, validity rates, cost, and
+trace diagnostics. Do not treat an unavailable verifier result as reward zero.
 
 Measurements and traces are inputs only if their transformation, availability
 time, acquisition cost, and content digest are recorded before training.

@@ -46,7 +46,18 @@ class MarinProtocolTest(unittest.TestCase):
 
     def test_attempt_contract_separates_infrastructure(self) -> None:
         fields = set(self.protocol["measurement_contract"]["required_attempt_fields"])
-        self.assertTrue({"reward", "verifier_status", "infrastructure_status"} <= fields)
+        self.assertTrue(
+            {
+                "prompt_group_id",
+                "policy_version",
+                "sampling_probability",
+                "loss_eligible_tokens",
+                "reward",
+                "verifier_status",
+                "infrastructure_status",
+            }
+            <= fields
+        )
         self.assertEqual(
             self.protocol["measurement_contract"]["unavailable_reward_policy"],
             "exclude from scientific reward and report separately",
