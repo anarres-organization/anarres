@@ -107,8 +107,8 @@ def aggregate_candidates() -> list[dict[str, Any]]:
                 "features": features,
                 "metric": metrics.pop(),
                 "higher_is_better": higher_is_better,
-                "native_mean": sum(native_values) / len(native_values),
-                "oriented_mean": sum(oriented_values) / len(oriented_values),
+                "native_mean": round(sum(native_values) / len(native_values), 12),
+                "oriented_mean": round(sum(oriented_values) / len(oriented_values), 12),
                 "training_runs": len(join_keys),
                 "cost": labels[join_keys[0]]["cost"],
             }
@@ -123,8 +123,9 @@ def aggregate_candidates() -> list[dict[str, Any]]:
         values = [row["oriented_mean"] for row in rows]
         low, high = min(values), max(values)
         for row in rows:
-            row["normalized_utility"] = (
-                0.5 if high == low else (row["oriented_mean"] - low) / (high - low)
+            row["normalized_utility"] = round(
+                0.5 if high == low else (row["oriented_mean"] - low) / (high - low),
+                12,
             )
     return candidates
 

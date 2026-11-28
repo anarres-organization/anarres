@@ -13,7 +13,7 @@
     "protected_labels": {
       "path": "DOMAIN_AWARE_UTILITY_LABELS.jsonl",
       "rows": 3665,
-      "sha256": "ad94e7493a411a911de25350aeaf0f46d3183ec9e2d9713d83cf155ffa540df6"
+      "sha256": "fd8fb714eed62fa53475c094f59cd54c52739ca07b2f446351b0a4d240bc9037"
     }
   },
   "feature_views": {
