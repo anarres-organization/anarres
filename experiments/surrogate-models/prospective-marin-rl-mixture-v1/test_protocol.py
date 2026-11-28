@@ -22,6 +22,7 @@ class MarinProtocolTest(unittest.TestCase):
         self.protocol = json.loads((HERE / "PROTOCOL.json").read_text())
         self.sources = json.loads((HERE / "SOURCE_AUDIT.json").read_text())
         self.panel = json.loads((HERE / "CANDIDATE_PANEL_PROPOSAL.json").read_text())
+        self.probe_proposal = json.loads((HERE / "PROBE_BANK_PROPOSAL.json").read_text())
         self.inventory = json.loads((HERE / "HISTORICAL_RL_INVENTORY.json").read_text())
         self.ladder = json.loads((HERE / "MODEL_LADDER_AUDIT.json").read_text())
 
@@ -134,6 +135,17 @@ class MarinProtocolTest(unittest.TestCase):
         self.assertEqual(reference["derived_route_quotas"], {"agentic": 13, "nonagentic": 51})
         self.assertIn("released Exp5 allocation", reference["relationship_to_public_history"])
         self.assertEqual(self.panel["status"], "coordination_proposal_not_frozen")
+
+    def test_probe_bank_proposal_covers_every_candidate_prefix(self) -> None:
+        proposal = self.probe_proposal
+        self.assertEqual(proposal["status"], "coordination_proposal_not_frozen")
+        self.assertEqual(sum(proposal["minimum_unique_prompt_groups_by_source"].values()), 245)
+        self.assertEqual(proposal["total_unique_prompt_groups"], 245)
+        self.assertEqual(proposal["attempts_per_prompt_group"], 8)
+        self.assertEqual(proposal["total_starting_policy_attempts"], 1960)
+        self.assertEqual(proposal["candidate_prompt_groups"], 200)
+        self.assertIn("largest remainder", proposal["candidate_membership_rule"])
+        self.assertIn("sha256", proposal["candidate_membership_rule"])
 
 
 if __name__ == "__main__":

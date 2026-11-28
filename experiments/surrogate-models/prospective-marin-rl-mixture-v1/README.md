@@ -217,18 +217,28 @@ Every candidate must use the same source revisions and task eligibility rules.
 Only the mixture weights may differ.
 
 [`CANDIDATE_PANEL_PROPOSAL.json`](CANDIDATE_PANEL_PROPOSAL.json) gives a
-minimal three-candidate design for review. It holds the six-source nonagentic
-block at 32 of 64 groups and exchanges only agentic software-repair groups for
-instruction-following groups: 32/0, 22/10, and 12/20. The first two reproduce
-publicly documented operational precedents; the third continues the same quota
-exchange. This is a proposal, not a frozen panel.
+four-candidate design for review. It fixes nine Exp5 source shares at a
+combined 65% and exchanges only agentic software-repair experience for
+instruction-following experience within the remaining 35%. One candidate is
+the released Exp5 allocation; the other three lie on the same mixture axis.
+This is a proposal, not a frozen panel.
 
-The common 32-group block uses the published Exp4 proportions: eight
-TaskTrove, seven Reasoning Gym, seven OpenScience, four Nemotron Ultra, three
-Snowball Smartie, and three Eurus groups. Measuring each source once under the
-starting policy allows every candidate profile to be computed by reweighting
-the same probe bank. That reduces measurement cost and removes a source-sample
-confound from the comparison.
+[`PROBE_BANK_PROPOSAL.json`](PROBE_BANK_PROPOSAL.json) specifies the smallest
+shared starting-policy bank that can measure those candidates without changing
+sample size. Each candidate contains 200 prompt groups and eight attempts per
+group. Largest-remainder allocation fixes source quotas, while a seeded hash
+orders prompt groups within each source. Fixed-source memberships are identical
+across candidates, and the two exchanged sources use nested prefixes. The
+shared bank therefore needs 245 unique prompt groups and 1,960 attempts rather
+than four separately sampled candidate banks.
+
+After the starting-policy bank is complete, a new immutable contract must bind
+the panel, bank, selection seed, source mapping, and derivation implementation.
+[`derive_snowball_candidate_measurements.py`](derive_snowball_candidate_measurements.py)
+then computes equal-size candidate profiles. It refuses an unfrozen contract,
+changed input, missing source support, malformed group, or duplicate identity.
+The derivation creates prediction-time measurements only and cannot authorize
+candidate training or open outcomes.
 
 ## Staged execution
 
@@ -307,6 +317,12 @@ token cost. The four candidates must be derived from this same source-stratified
 bank using a rule frozen after the bank is collected and before any candidate
 training. The aggregator deliberately stops at source evidence; it cannot
 quietly choose candidate weights or prompt memberships.
+
+The current probe-bank and candidate-panel files are coordination proposals.
+They fix enough structure for review and cost estimation, but they do not
+authorize probe collection. Starting-policy and runtime identities, source
+revisions, licenses, qualification rules, and the complete attempt budget must
+be accepted in a separate immutable freeze first.
 
 ### 2. Qualify the Grug ladder and common contract
 
