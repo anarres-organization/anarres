@@ -240,6 +240,17 @@ changed input, missing source support, malformed group, or duplicate identity.
 The derivation creates prediction-time measurements only and cannot authorize
 candidate training or open outcomes.
 
+[`freeze_snowball_measurement_contract.py`](freeze_snowball_measurement_contract.py)
+implements the earlier measurement freeze. It requires a portable starting
+checkpoint and content digest, tokenizer digest, passed rollout-runtime checks,
+and a qualified manifest for all eleven sources. Every source must pin its
+revision, license, task-pool digest, verifier revision, and enough eligible
+prompt groups for its largest candidate prefix. The resulting contract embeds
+the exact metadata consumed by the probe-bank aggregator and binds all input
+artifacts by digest. The currently released files intentionally fail this gate:
+the cited starting-policy record has no portable checkpoint revision, and no
+complete source or runtime qualification has been frozen for this study.
+
 ## Staged execution
 
 ### 1. Reconstruct the public development archive

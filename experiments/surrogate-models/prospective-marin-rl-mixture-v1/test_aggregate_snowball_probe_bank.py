@@ -64,6 +64,20 @@ def attempts() -> list[dict]:
 
 
 class SnowballProbeBankTest(unittest.TestCase):
+    def test_frozen_contract_supplies_aggregation_metadata(self) -> None:
+        contract = {
+            "status": "MEASUREMENT_PROTOCOL_FROZEN__CANDIDATE_OUTCOMES_UNOPENED",
+            "outcome_boundary": {
+                "candidate_training_started": False,
+                "candidate_outcomes_opened": False,
+            },
+            "aggregation_metadata": metadata(),
+        }
+        self.assertEqual(AGGREGATE.metadata_from_freeze(contract), metadata())
+        contract["outcome_boundary"]["candidate_training_started"] = True
+        with self.assertRaisesRegex(ValueError, "outcome boundary"):
+            AGGREGATE.metadata_from_freeze(contract)
+
     def test_aggregates_signal_and_zero_variance_separately(self) -> None:
         result = AGGREGATE.aggregate(metadata(), attempts())
         sources = {row["source_id"]: row for row in result["sources"]}

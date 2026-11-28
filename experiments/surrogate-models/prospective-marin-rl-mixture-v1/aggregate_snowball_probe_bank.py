@@ -297,18 +297,37 @@ def aggregate(metadata: dict, attempts: list[dict]) -> dict:
     return result
 
 
+def metadata_from_freeze(contract: dict) -> dict:
+    if contract.get("status") != "MEASUREMENT_PROTOCOL_FROZEN__CANDIDATE_OUTCOMES_UNOPENED":
+        raise ValueError("measurement contract is not frozen")
+    if any(contract.get("outcome_boundary", {}).values()):
+        raise ValueError("measurement contract crosses the outcome boundary")
+    metadata = contract.get("aggregation_metadata")
+    if not isinstance(metadata, dict):
+        raise ValueError("measurement contract lacks aggregation metadata")
+    validate_metadata(metadata)
+    return metadata
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--metadata", type=Path, required=True)
+    metadata_group = parser.add_mutually_exclusive_group(required=True)
+    metadata_group.add_argument("--metadata", type=Path)
+    metadata_group.add_argument("--freeze", type=Path)
     parser.add_argument("--attempts", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     arguments = parser.parse_args()
     if arguments.output.exists():
         raise FileExistsError(arguments.output)
-    metadata = json.loads(arguments.metadata.read_text(encoding="utf-8"))
+    metadata_path = arguments.metadata or arguments.freeze
+    assert metadata_path is not None
+    metadata_blob = json.loads(metadata_path.read_text(encoding="utf-8"))
+    metadata = metadata_blob if arguments.metadata else metadata_from_freeze(metadata_blob)
     result = aggregate(metadata, read_jsonl(arguments.attempts))
     result["inputs"] = {
-        "metadata_sha256": sha256(arguments.metadata),
+        "measurement_contract_sha256" if arguments.freeze else "metadata_sha256": sha256(
+            metadata_path
+        ),
         "attempts_sha256": sha256(arguments.attempts),
     }
     arguments.output.write_text(
