@@ -203,6 +203,20 @@ study is predicted incorrectly. This result advances record-conditioned models
 as a development baseline; it does not establish a general surrogate or justify
 prospective allocation.
 
+The [domain-aware protocol](DOMAIN_AWARE_SURROGATE_PROTOCOL.md) records the
+next decision before any new study outcome opens. Its transparent comparator
+always uses starting-policy measurements, enables retrieval for coding,
+finance, and robotics, disables retrieval for materials science, and abstains
+for legal and unseen domains. Because this route was selected from the result
+above, applying it back to the same 51 groups would be selection-biased. Its
+first valid score must come from unseen studies.
+
+The learned candidate is a separate track. It must learn when history is
+useful under nested complete-study validation and predict localized regression
+risk through domain-native calibrated models. It advances only if it improves
+over the frozen route, the strongest eligible native rule, and retaining the
+starting policy after total research cost.
+
 Rebuild and verify this view with:
 
 ```bash

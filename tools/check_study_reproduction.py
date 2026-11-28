@@ -192,6 +192,7 @@ CHECKS = (
             "test_build_domain_record_conditioned_replay.py",
             "test_matched_text_baselines.py",
             "test_record_conditioned_model.py",
+            "test_domain_aware_surrogate_contract.py",
         ),
     ),
     StudyCheck(
