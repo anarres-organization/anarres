@@ -1,0 +1,29 @@
+{
+  "artifact": "marin_grug_mixture_swarm_public_source_v1",
+  "dataset": "marin-community/grug-moe-mix-swarm",
+  "revision": "75c25718e2a7cf7a3b1b498b00479351f80345e0",
+  "path": "registry/v1/swarms/h100-d512-from10pct-store-4d2e363d",
+  "files": {
+    "buckets.parquet": "d9b8a4580dc6acd55a19d83ab21bbecdb97f561b6335618d0e86bb337f7fd584",
+    "content.parquet": "d008dbb28ca07297044513ee07a8ea4a87f0c2bebeab96b24b709fccd52c23f5",
+    "observations.parquet": "c0f293ba2fdadec851196332f7c9d5c363f5a7ed5561014146dd34ce978eec9a",
+    "swarm.parquet": "b0fe0e22d695323fdde7b52e5d48d721db99adce3edbb5253b27ad4ee8544bf5"
+  },
+  "shared_contract": {
+    "swarm_id": "h100-d512-from10pct-store-4d2e363d",
+    "training_recipe": "h100-d512-mix-from10pct-20260826",
+    "starting_point": "the released swarm and run names identify one from-10-percent training recipe; the public issue explicitly verifies the exact shared step-393 checkpoint for the three selected and three baseline runs",
+    "phase_budgets": [13125000000000, 3750000000000],
+    "model_active_parameters": 20840448,
+    "model_total_parameters": 597608192,
+    "physical_training_tokens": 14835253248,
+    "simulated_training_tokens": 16875000000000,
+    "tokenizer": "marin-community/marin-tokenizer",
+    "evaluation_suite": "grug-hero-fsdp-krr"
+  },
+  "public_evidence": {
+    "issue": "https://github.com/marin-community/marin/issues/9126",
+    "selected_comparison": "The issue verifies that the three selected-mixture runs and three baseline runs restore the same step-393 checkpoint and use the same d512 budget.",
+    "all_observations": "Every released observation belongs to the same from-10-percent swarm and names the same training recipe. The exact checkpoint identity is explicitly confirmed only for the six selected-comparison runs, so broader use remains a development corpus rather than a matched prospective claim."
+  }
+}

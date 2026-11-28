@@ -63,6 +63,85 @@ Marin's completed Delphi RL scaling study is useful for testing the analysis
 and uncertainty machinery, but it is a different model family and cannot stand
 in for Grug-family transfer.
 
+Marin also has a closer intermediate check. Its public
+[mixture-swap ladder](https://github.com/marin-community/marin/issues/9126)
+compares two pretraining environments at d768, d1024, and d1536, with a
+three-seed d512 development comparison from one common checkpoint. This is
+useful for backtesting cross-scale environment representation on the same model
+family. It remains separate from the RL claim: pretraining mixture transfer
+does not establish Snowball-to-Mochi post-training transfer.
+
+The pinned d512 mixture-search swarm is a substantially larger development
+set. It contains 934 trained continuations representing 915 distinct two-phase
+mixtures. Every run belongs to the same from-10%-checkpoint swarm and training
+recipe and reports the same 54 capability metrics plus 108 held-out loss and
+bits-per-byte metrics. The public comparison explicitly verifies the exact
+shared step-393 checkpoint for its three selected-mixture and three baseline
+runs; the broader swarm metadata does not restate that checkpoint for every
+row. The
+[Grug swarm corpus](GRUG_SWARM_CORPUS.json) preserves the full 200-cell mixture
+for each of two phases and stores outcomes separately from model inputs.
+Repeated runs of the same mixture share one lineage identifier and must remain
+in the same fold.
+
+This is the first Marin archive large enough to train an environment surrogate
+rather than only replay its record format. It is still development evidence:
+the swarm helped select the published mixture, contains one model and one
+budget, and tests pretraining mixtures rather than RL environments. Evaluation
+must hold out complete mixture lineages and complete design families. The
+larger mixture-swap ladder then tests whether the learned d512 ordering transfers
+to d768, d1024, and d1536 before any Snowball-to-Mochi claim is considered.
+
+The checked-in corpus can be inspected without optional dependencies. To
+rebuild it, download the four files named in
+[`GRUG_SWARM_SOURCE.json`](GRUG_SWARM_SOURCE.json) from the pinned Hugging Face
+revision and run:
+
+```bash
+python experiments/surrogate-models/prospective-marin-rl-mixture-v1/build_grug_swarm_corpus.py \
+  --source-dir /path/to/h100-d512-from10pct-store-4d2e363d
+python -m unittest \
+  experiments/surrogate-models/prospective-marin-rl-mixture-v1/test_grug_swarm_corpus.py
+```
+
+## First mixture-surrogate result
+
+The [transparent baseline audit](GRUG_SWARM_BASELINE_RESULTS.json) compares a
+training-fold mean, linear ridge, and Hellinger-RBF kernel. Identical mixtures
+stay in the same fold, and repeated runs are averaged by mixture before
+ordering or allocation is scored.
+
+When the held-out mixtures come from represented construction families, the
+kernel reaches 76.4% pairwise ordering and 0.067 normalized allocation regret.
+When one complete construction family is absent from training, it reaches
+63.1% family-macro ordering and 0.191 regret, compared with 50.0% and 0.297 for
+the training-fold mean. The gap is the main result: the mixture surface is
+learnable within support, but extrapolation to a new construction process is
+substantially harder.
+
+The support gate uses only the candidate mixture's distance from the training
+mixtures. It accepts 95.2% of ordinary lineage holdouts; accepted predictions
+have 0.25 mean standardized absolute error, compared with 1.84 for rejected
+predictions. When a complete construction family is held out, acceptance falls
+to 47.8%. Accepted error is 0.28 and rejected error is 1.25. The gate therefore
+detects the main extrapolation failure and gives the surrogate a concrete
+abstention path.
+
+The published selected mixture and Harrier baseline provide a separate
+development diagnostic. With both lineages excluded from fitting, the kernel
+predicts the direction of 72.2% of the 54 capability metrics and 94.4% of the
+108 held-out loss or bits-per-byte metrics. These metrics are related outcomes,
+not 162 independent experiments. The swarm was also used to select the
+published mixture, so this is not independent validation.
+
+The [scale-transfer stress test](GRUG_SCALE_TRANSFER_RESULTS.json) compares the
+d512 predictions with the released d768, d1024, and d1536 mixture-swap ladder.
+Direction accuracy is 50.0%, 56.2%, and 75.0%, respectively. The corresponding
+observed d512 directions transfer at 56.2%, 62.5%, and 81.2%. The larger runs
+start the selected schedule after 25% of training, while the d512 swarm starts
+from a checkpoint after 10%. These are useful transfer diagnostics, but not an
+identical-contract scale test.
+
 ## First executable replay
 
 The [Snowball closure replay](SNOWBALL_CLOSURE_REPLAY.json) converts one public
@@ -135,6 +214,14 @@ Extract immutable model, data, recipe, evaluation, outcome, and cost records
 from the public Snowball and Mochi campaigns. Preserve one row per trained
 intervention. Checkpoint evaluations and repeated serving runs remain nested
 under that intervention and never become additional training examples.
+
+Use the d512 Grug swarm as a separate pretraining development corpus. Fit the
+complexity ladder on mixture inputs only, keep all runs from one mixture in the
+same fold, and hold out complete design families. Score all 162 released
+metrics within their two declared families before any aggregate. Report
+family-macro ordering and allocation regret alongside
+pair-weighted results. Use the d768/d1024/d1536 mixture-swap results only as the
+cross-scale stress test; do not use them to select the d512 model.
 
 Use completed Snowball campaigns to test whether pre-training measurements
 would have ordered observed interventions or warned about their localized

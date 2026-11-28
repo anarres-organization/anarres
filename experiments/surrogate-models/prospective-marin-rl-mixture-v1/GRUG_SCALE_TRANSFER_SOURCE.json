@@ -1,0 +1,100 @@
+{
+  "artifact": "marin_grug_mixture_scale_transfer_source_v1",
+  "source": {
+    "issue": "https://github.com/marin-community/marin/issues/9126",
+    "point_results": "https://storage.googleapis.com/marin-public/held/h100-mix25-paloma/final-2026.09.15.1/point_speedups.csv",
+    "point_results_sha256": "f3511561c956fd93990d9f67fed98cb7a53620660634a0ffaad3c1375762eb91"
+  },
+  "metric": "final bits per byte; lower is better",
+  "subsets": [
+    "4chan",
+    "c4_100_domains",
+    "c4_en",
+    "dolma-v1_5",
+    "dolma_100_programing_languages",
+    "dolma_100_subreddits",
+    "falcon-refinedweb",
+    "gab",
+    "m2d2_s2orc_unsplit",
+    "m2d2_wikipedia_unsplit",
+    "manosphere_meta_sep",
+    "mc4",
+    "ptb",
+    "redpajama",
+    "twitterAAE_HELM_fixed",
+    "wikitext_103"
+  ],
+  "scales": {
+    "d768": {
+      "improved": [
+        "4chan",
+        "c4_100_domains",
+        "c4_en",
+        "dolma-v1_5",
+        "dolma_100_subreddits",
+        "falcon-refinedweb",
+        "gab",
+        "m2d2_s2orc_unsplit",
+        "manosphere_meta_sep",
+        "mc4",
+        "twitterAAE_HELM_fixed"
+      ],
+      "regressed": [
+        "dolma_100_programing_languages",
+        "m2d2_wikipedia_unsplit",
+        "ptb",
+        "redpajama",
+        "wikitext_103"
+      ],
+      "macro_original_bpb": 1.083720,
+      "macro_selected_bpb": 1.079330
+    },
+    "d1024": {
+      "improved": [
+        "4chan",
+        "c4_100_domains",
+        "c4_en",
+        "dolma-v1_5",
+        "dolma_100_subreddits",
+        "falcon-refinedweb",
+        "gab",
+        "m2d2_s2orc_unsplit",
+        "manosphere_meta_sep",
+        "mc4",
+        "ptb",
+        "twitterAAE_HELM_fixed"
+      ],
+      "regressed": [
+        "dolma_100_programing_languages",
+        "m2d2_wikipedia_unsplit",
+        "redpajama",
+        "wikitext_103"
+      ],
+      "macro_original_bpb": 1.002217,
+      "macro_selected_bpb": 0.995244
+    },
+    "d1536": {
+      "improved": [
+        "4chan",
+        "c4_100_domains",
+        "c4_en",
+        "dolma-v1_5",
+        "dolma_100_programing_languages",
+        "dolma_100_subreddits",
+        "falcon-refinedweb",
+        "gab",
+        "m2d2_s2orc_unsplit",
+        "manosphere_meta_sep",
+        "mc4",
+        "ptb",
+        "redpajama",
+        "twitterAAE_HELM_fixed",
+        "wikitext_103"
+      ],
+      "regressed": ["m2d2_wikipedia_unsplit"],
+      "macro_original_bpb": 0.925068,
+      "macro_selected_bpb": 0.918442
+    }
+  },
+  "contract_difference": "The d512 swarm switches from the common checkpoint after 10 percent baseline training. The larger ladder starts the selected schedule after 25 percent. This is a transfer stress test, not an identical-contract scale validation."
+}

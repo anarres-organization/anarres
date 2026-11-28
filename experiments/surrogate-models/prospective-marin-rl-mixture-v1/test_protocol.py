@@ -65,6 +65,17 @@ class MarinProtocolTest(unittest.TestCase):
         by_id = {row["model_id"]: row for row in rungs}
         self.assertEqual(by_id["grug_d2048"]["training_completion"].split()[0], "stopped")
 
+        environment_evidence = self.ladder["matched_pretraining_environment_evidence"]
+        self.assertEqual(
+            environment_evidence["development_comparison"]["replicates_per_mixture"], 3
+        )
+        self.assertEqual(
+            [row["model"] for row in environment_evidence["scale_ladder"]],
+            ["grug_d768", "grug_d1024", "grug_d1536"],
+        )
+        self.assertIn("RL environment transfer", environment_evidence["disallowed_use"])
+        self.assertIn("after 25 percent", environment_evidence["contract_difference"])
+
     def test_historical_inventory_preserves_independent_unit(self) -> None:
         self.assertEqual(self.inventory["independent_unit"], "trained intervention")
         records = {row["record_id"]: row for row in self.inventory["records"]}

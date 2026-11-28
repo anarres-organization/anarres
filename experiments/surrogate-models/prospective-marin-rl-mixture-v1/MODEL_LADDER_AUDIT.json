@@ -55,6 +55,42 @@
       }
     ]
   },
+  "matched_pretraining_environment_evidence": {
+    "source": "https://github.com/marin-community/marin/issues/9126",
+    "intervention": "old Harrier mixture versus the selected mixture-swap schedule",
+    "development_comparison": {
+      "model": "grug_d512",
+      "replicates_per_mixture": 3,
+      "common_start": "all six runs restore the same step-393 checkpoint after 10 percent baseline training",
+      "boundary": "the selected mixture was chosen using the swarm, so this is development evidence rather than independent validation"
+    },
+    "contract_difference": "the d512 swarm continues from 10 percent baseline training, while the larger mixture-swap ladder starts the selected schedule after 25 percent; cross-scale results are therefore a stress test rather than an identical-contract validation",
+    "scale_ladder": [
+      {
+        "model": "grug_d768",
+        "original_macro_bpb": 1.08372,
+        "selected_macro_bpb": 1.07933,
+        "subsets_improved": 11,
+        "subsets_total": 16
+      },
+      {
+        "model": "grug_d1024",
+        "original_macro_bpb": 1.002217,
+        "selected_macro_bpb": 0.995244,
+        "subsets_improved": 12,
+        "subsets_total": 16
+      },
+      {
+        "model": "grug_d1536",
+        "original_macro_bpb": 0.925068,
+        "selected_macro_bpb": 0.918442,
+        "subsets_improved": 15,
+        "subsets_total": 16
+      }
+    ],
+    "allowed_use": "stress-test cross-scale environment representation, native-target changes, and transfer scoring before the post-training study",
+    "disallowed_use": "claim that pretraining mixture transfer establishes RL environment transfer or a prospective Mochi result"
+  },
   "post_training_bridge": [
     {
       "model_id": "snowball_67b_a2b",

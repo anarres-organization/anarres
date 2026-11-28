@@ -50,6 +50,14 @@
       "use": "supplies task-level repeated-attempt and trace evidence without a matched downstream intervention in the issue"
     },
     {
+      "id": "marin_9126",
+      "role": "pretraining_environment_transfer_check",
+      "status": "development_only",
+      "title": "Compare the mixture-swap scaling ladder",
+      "url": "https://github.com/marin-community/marin/issues/9126",
+      "use": "provides matched old-versus-new Grug data-mixture outcomes at d768, d1024, and d1536 plus a three-seed d512 development comparison; it tests cross-scale environment representation but not post-training transfer"
+    },
+    {
       "id": "marin_9735",
       "role": "historical_rl_campaign",
       "status": "development_with_comparison_flags",
